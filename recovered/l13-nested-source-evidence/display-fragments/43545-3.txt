@@ -1,0 +1,128 @@
+1: //! Accessible destination links and their collision priority, alongside Bevy pins.
+2: use crate::{
+3:     routes::travel::CaseSiteKnowledgePresentation,
+4:     spacetimedb::{BackendCaseSitePin, SettlementCategory, SettlementView},
+5:     templates::prosperity_tier_label,
+6: };
+7: use adventuresim_core::strategic_place::StrategicPlaceId;
+8: use adventuresim_tactical_core::regional_map::{MapMarker, MapMarkerEmphasis, MapMarkerRank};
+9: 
+10: pub(super) struct MapLink {
+11:     pub marker: MapMarker,
+12:     pub name: String,
+13:     pub label: String,
+14: }
+15: 
+16: #[derive(Clone, Copy, Eq, Ord, PartialEq, PartialOrd)]
+17: pub(super) enum MapLinkPriority {
+18:     Hamlet,
+19:     Village,
+20:     Town,
+21:     City,
+22:     Capital,
+23:     CaseSite,
+24:     Connected,
+25:     Selected,
+26:     Current,
+27: }
+28: 
+29: impl MapLink {
+30:     pub fn settlement(marker: MapMarker, settlement: &SettlementView) -> Self {
+31:         let prosperity = prosperity_tier_label(settlement.economy.prosperity_tier);
+32:         let state = match marker.emphasis {
+33:             MapMarkerEmphasis::Current | MapMarkerEmphasis::CurrentSelected => "current settlement",
+34:             MapMarkerEmphasis::Connected => "direct route available",
+35:             MapMarkerEmphasis::Selected => "selected destination",
+36:             MapMarkerEmphasis::Ordinary => "no direct route",
+37:         };
+38:         Self {
+39:             marker,
+40:             name: settlement.name.clone(),
+41:             label: format!("{}, {prosperity} prosperity, {state}", settlement.name),
+42:         }
+43:     }
+44: 
+45:     pub fn case_site(
+46:         marker: MapMarker,
+47:         site: &BackendCaseSitePin,
+48:         knowledge: CaseSiteKnowledgePresentation,
+49:     ) -> Self {
+50:         Self {
+51:             marker,
+52:             name: site.display_title.clone(),
+53:             label: format!(
+54:                 "Known case site: {}, {}",
+55:                 site.display_title,
+56:                 knowledge.label()
+57:             ),
+58:         }
+59:     }
+60: 
+61:     pub fn settlement_rank(category: &SettlementCategory) -> MapMarkerRank {
+62:         match category {
+63:             SettlementCategory::Unknown | SettlementCategory::Village => MapMarkerRank::Village,
+64:             SettlementCategory::Hamlet => MapMarkerRank::Hamlet,
+65:             SettlementCategory::Town => MapMarkerRank::Town,
+66:             SettlementCategory::City => MapMarkerRank::City,
+67:             SettlementCategory::Capital => MapMarkerRank::Capital,
+68:         }
+69:     }
+70: 
+71:     pub fn priority(&self) -> MapLinkPriority {
+72:         match self.marker.emphasis {
+73:             MapMarkerEmphasis::Current | MapMarkerEmphasis::CurrentSelected => {
+74:                 MapLinkPriority::Current
+75:             }
+76:             MapMarkerEmphasis::Selected => MapLinkPriority::Selected,
+77:             MapMarkerEmphasis::Connected => MapLinkPriority::Connected,
+78:             MapMarkerEmphasis::Ordinary => match self.marker.rank {
+79:                 MapMarkerRank::Hamlet => MapLinkPriority::Hamlet,
+80:                 MapMarkerRank::Village => MapLinkPriority::Village,
+81:                 MapMarkerRank::Town => MapLinkPriority::Town,
+82:                 MapMarkerRank::City => MapLinkPriority::City,
+83:                 MapMarkerRank::Capital => MapLinkPriority::Capital,
+84:                 MapMarkerRank::CaseSite => MapLinkPriority::CaseSite,
+85:             },
+86:         }
+87:     }
+88: 
+89:     /// Canonical place IDs become HTTP query components only at this adapter.
+90:     pub fn href(&self, path: &str) -> Option<String> {
+91:         let destination = match &self.marker.place {
+92:             StrategicPlaceId::Settlement { settlement_id } => settlement_id.as_str(),
+93:             StrategicPlaceId::CaseSite { site_id } => site_id.as_str(),
+94:             _ => return None,
+95:         };
+96:         Some(crate::location_urls::with_query(
+97:             path,
+98:             "destination",
+99:             destination,
+100:         ))
+101:     }
+102: 
+103:     pub fn selected(&self) -> bool {
+104:         matches!(
+105:             self.marker.emphasis,
+106:             MapMarkerEmphasis::Selected | MapMarkerEmphasis::CurrentSelected
+107:         )
+108:     }
+109: 
+110:     pub fn state_label(&self) -> Option<&'static str> {
+111:         match self.marker.emphasis {
+112:             MapMarkerEmphasis::Current => Some("Origin"),
+113:             MapMarkerEmphasis::CurrentSelected => Some("Origin · selected"),
+114:             MapMarkerEmphasis::Selected => Some("Selected"),
+115:             MapMarkerEmphasis::Connected | MapMarkerEmphasis::Ordinary => None,
+116:         }
+117:     }
+118: 
+119:     pub fn state_class(&self) -> &'static str {
+120:         match self.marker.emphasis {
+121:             MapMarkerEmphasis::Ordinary => "ordinary",
+122:             MapMarkerEmphasis::Connected => "connected",
+123:             MapMarkerEmphasis::Current => "current",
+124:             MapMarkerEmphasis::Selected => "selected",
+125:             MapMarkerEmphasis::CurrentSelected => "current selected",
+126:         }
+127:     }
+128: }

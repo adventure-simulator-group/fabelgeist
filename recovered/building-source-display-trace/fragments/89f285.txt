@@ -1,0 +1,396 @@
+SOURCE 2 crates/adventuresim-building-generator/src/viewer/setup.rs 94ef06021dff7c2ebedf573ef64d8e23dd275f9520baebd4e419ff110a6bb13e
+640:             if let Some(wall) = plan.curtain_walls.get(defense.curtain_wall_index).copied() {
+641:                 spawn_gate_guard_chamber(world, &palette, defense, wall, origin, view);
+642:             }
+643:         }
+644:     }
+645:     if section_proof(view) || artillery_section_proof(view) {
+646:         spawn_architectural_section_markers(world, &palette, plan, view, origin);
+647:     }
+648:     if artillery_proof_slug(view).is_some() {
+649:         spawn_artillery_proof_markers(world, plan, view, origin);
+650:         let annotation = plan.artillery_castle.as_ref().map_or_else(String::new, |castle| {
+651:             format!(
+652:                 "target={} | artillery={} | phase={:?} | trace=orthogonal | curtains={} | rondels={} | stations={} | routes={} | fire={} | cut={:?}",
+653:                 artillery_proof_slug(view).unwrap_or_default(),
+654:                 castle.id.0,
+655:                 castle.phase,
+656:                 castle.curtains.len(),
+657:                 castle.rondels.len(),
+658:                 castle.stations.len(),
+659:                 castle.route_edges.len(),
+660:                 castle.stations.iter().map(|station| station.rays.len()).sum::<usize>(),
+661:                 artillery_cut_plane(view),
+662:             )
+663:         });
+664:         world.spawn((
+665:             Name::new("artillery proof authority annotation"),
+666:             Text::new(annotation),
+667:             TextFont {
+668:                 font_size: FontSize::Px(17.0),
+669:                 ..default()
+670:             },
+671:             TextColor(Color::srgb(0.06, 0.06, 0.05)),
+672:             Node {
+673:                 position_type: PositionType::Absolute,
+674:                 left: Val::Percent(3.0),
+675:                 bottom: Val::Percent(3.0),
+676:                 ..default()
+677:             },
+678:             NonCollidingVisualization,
+679:         ));
+680:     }
+681:     if timber_proof_suffix(view).is_some() {
+682:         let annotation = plan.timber_frame.as_ref().map_or_else(String::new, |frame| {
+683:             format!(
+684:                 "target={} | frame={} | program={:?} | roles={:?} | cut={:?} | members={} | joints={} | exact resolved IDs",
+685:                 timber_proof_slug(plan, view).unwrap_or_default(),
+686:                 frame.id.0,
+687:                 frame.program,
+688:                 timber_required_roles(plan, view),
+689:                 timber_cut_plane(plan, view),
+690:                 frame.members.len(),
+691:                 frame.joints.len(),
+692:             )
+693:         });
+694:         world.spawn((
+695:             Name::new("timber proof authority annotation"),
+696:             Text::new(annotation),
+697:             TextFont {
+698:                 font_size: FontSize::Px(17.0),
+699:                 ..default()
+700:             },
+701:             TextColor(Color::srgb(0.06, 0.06, 0.05)),
+702:             Node {
+703:                 position_type: PositionType::Absolute,
+704:                 left: Val::Percent(3.0),
+705:                 bottom: Val::Percent(3.0),
+706:                 ..default()
+707:             },
+708:             NonCollidingVisualization,
+709:         ));
+710:     }
+711:     if church_proof_slug(view).is_some() {
+712:         let annotation = plan.church.as_ref().map_or_else(String::new, |church| {
+713:             let opening_count = plan
+714:                 .opening_assemblies
+715:                 .iter()
+716:                 .filter(|opening| {
+717:                     matches!(
+718:                         opening.host_source,
+719:                         adventuresim_building_generator::WallSourceId::ChurchExterior { .. }
+720:                             | adventuresim_building_generator::WallSourceId::ChurchArcade { .. }
+721:                             | adventuresim_building_generator::WallSourceId::ChurchApse { .. }
+722:                             | adventuresim_building_generator::WallSourceId::ChurchTowerFace { .. }
+723:                             | adventuresim_building_generator::WallSourceId::SquareTowerFace { .. }
+724:                     )
+725:                 })
+726:                 .count();
+727:             format!(
+728:                 "target={:?} | church={} | 3-aisled cruciform basilica | bays N1-N4 / X / Q1-Q2 / A5 | roles={:?} | cut={:?} | openings={} | supports={}",
+729:                 church_target_component_ids(plan, view),
+730:                 church.id.0,
+731:                 church_required_roles(view),
+732:                 church_cut_plane(plan, view),
+733:                 opening_count,
+734:                 plan.resolved_geometry.structural_nodes.len(),
+735:             )
+736:         });
+737:         world.spawn((
+738:             Name::new("church proof authority annotation"),
+739:             Text::new(annotation),
+740:             TextFont {
+741:                 font_size: FontSize::Px(17.0),
+742:                 ..default()
+743:             },
+744:             TextColor(Color::srgb(0.06, 0.06, 0.05)),
+745:             Node {
+746:                 position_type: PositionType::Absolute,
+747:                 left: Val::Percent(3.0),
+748:                 bottom: Val::Percent(3.0),
+749:                 ..default()
+750:             },
+751:             NonCollidingVisualization,
+752:         ));
+753:     }
+754:     if let Some(proof) = roof_proof {
+755:         let indices = roof_proof_assembly_indices(plan, proof);
+756:         let annotation = format!(
+757:             "{}  roof_ids={:?}  faces={}  edges={}  cuts={}",
+758:             roof_proof_slug(proof),
+759:             indices
+760:                 .iter()
+761:                 .map(|index| plan.roof_assemblies[*index].id.0)
+762:                 .collect::<Vec<_>>(),
+763:             indices
+764:                 .iter()
+765:                 .map(|index| plan.roof_assemblies[*index].faces.len())
+766:                 .sum::<usize>(),
+767:             indices
+768:                 .iter()
+769:                 .map(|index| plan.roof_assemblies[*index].edges.len())
+770:                 .sum::<usize>(),
+771:             indices
+772:                 .iter()
+773:                 .map(|index| plan.roof_assemblies[*index]
+774:                     .faces
+775:                     .iter()
+776:                     .map(|face| face.cutouts.len())
+777:                     .sum::<usize>())
+778:                 .sum::<usize>(),
+779:         );
+780:         world.spawn((
+781:             Name::new("roof proof authority annotation"),
+782:             Text::new(annotation),
+783:             TextFont {
+784:                 font_size: FontSize::Px(22.0),
+785:                 ..default()
+786:             },
+787:             TextColor(Color::srgb(0.06, 0.06, 0.05)),
+788:             Node {
+789:                 position_type: PositionType::Absolute,
+790:                 left: Val::Percent(3.0),
+791:                 bottom: Val::Percent(3.0),
+792:                 ..default()
+793:             },
+794:             NonCollidingVisualization,
+795:         ));
+796:     }
+797: 
+798:     let roof_height = plan
+799:         .roofs
+800:         .iter()
+801:         .map(|roof| {
+802:             let span = match roof.ridge_axis {
+803:                 RidgeAxis::Z => roof.size.x * 0.5 + roof.eave_metres,
+804:                 RidgeAxis::X => roof.size.y * 0.5 + roof.eave_metres,
+805:             };
+806:             roof.base_height_metres + span * roof.pitch_degrees.to_radians().tan()
+807:         })
+808:         .chain(plan.roof_dormers.iter().map(|dormer| {
+809:             dormer.base_height_metres + dormer.height_metres + dormer.width_metres * 0.65
+810:         }))
+811:         .fold(0.0, f32::max);
+812:     let max_height = plan
+813:         .towers
+814:         .iter()
+815:         .map(|tower| tower.wall_height_metres + tower.radius_metres() * 1.8)
+816:         .fold(
+817:             (plan.storeys.len() as f32 * storey_height + 7.0).max(roof_height),
+818:             f32::max,
+819:         );
+820:     let radius = scene_span.max(max_height) * 1.05;
+SOURCE 4 crates/adventuresim-building-generator/src/viewer/architectural_rendering.rs 2c1b73c981d93a537ccc39ac377be7dbe2a0ae15462b4703898bb574f1306f3a
+190:         if removed_reveal == Some(surface.id)
+191:             || (!visible_owners.contains(&surface.owner.0)
+192:                 && !(surface.role
+193:                     == adventuresim_building_generator::SurfaceRole::TimberCirculation
+194:                     && timber_focus.contains(&surface.id.0)))
+195:             || !matches!(
+196:                 surface.role,
+197:                 adventuresim_building_generator::SurfaceRole::LeftJambReveal
+198:                     | adventuresim_building_generator::SurfaceRole::RightJambReveal
+199:                     | adventuresim_building_generator::SurfaceRole::WeatherSill
+200:                     | adventuresim_building_generator::SurfaceRole::Intrados
+201:                     | adventuresim_building_generator::SurfaceRole::ExteriorThroat
+202:                     | adventuresim_building_generator::SurfaceRole::InteriorMouth
+203:                     | adventuresim_building_generator::SurfaceRole::Stance
+204:                     | adventuresim_building_generator::SurfaceRole::TimberCirculation
+205:             )
+206:         {
+207:             continue;
+208:         }
+209:         let centre = (surface.bounds.min().metres() + surface.bounds.max().metres()) * 0.5;
+210:         let size =
+211:             (surface.bounds.max().metres() - surface.bounds.min().metres()).max(Vec3::splat(0.008));
+212:         let opening = plan
+213:             .opening_assemblies
+214:             .iter()
+215:             .find(|opening| opening.owner == surface.owner);
+216:         let wall = opening.and_then(|opening| {
+217:             plan.wall_assemblies
+218:                 .iter()
+219:                 .find(|wall| wall.id == opening.host_wall)
+220:         });
+221:         let mesh = world
+222:             .resource_mut::<Assets<Mesh>>()
+223:             .add(match (opening, wall) {
+224:                 (Some(opening), Some(wall)) => {
+225:                     opening_surface_mesh(surface, opening, wall, centre, size)
+226:                 }
+227:                 _ => resolved_surface_plane_mesh(size),
+228:             });
+229:         let boundary = match surface.role {
+230:             adventuresim_building_generator::SurfaceRole::ExteriorThroat => {
+231:                 Some(OpeningBoundaryKind::ExteriorThroat)
+232:             }
+233:             adventuresim_building_generator::SurfaceRole::InteriorMouth => {
+234:                 Some(OpeningBoundaryKind::InteriorMouth)
+235:             }
+236:             _ => None,
+237:         };
+238:         let mut entity = world.spawn((
+239:             Name::new(format!(
+240:                 "resolved surface owner {} {:?}",
+241:                 surface.owner.0, surface.role
+242:             )),
+243:             NonCollidingVisualization,
+244:             GeometryOwner(surface.owner.0),
+245:             ResolvedRenderItem {
+246:                 id: surface.id.0,
+247:                 fingerprint: stable_u64(
+248:                     &serde_json::to_vec(surface).expect("serialize rendered architectural surface"),
+249:                 ),
+250:                 local_half_size: size * 0.5,
+251:             },
+252:             Mesh3d(mesh),
+253:             MeshMaterial3d(
+254:                 if matches!(
+255:                     surface.role,
+256:                     adventuresim_building_generator::SurfaceRole::Stance
+257:                         | adventuresim_building_generator::SurfaceRole::TimberCirculation
+258:                 ) {
+259:                     if view == ViewerView::TimberRegistrationCut
+260:                         && surface.role
+261:                             == adventuresim_building_generator::SurfaceRole::TimberCirculation
+262:                     {
+263:                         palette.cutaway.clone()
+264:                     } else {
+265:                         palette.floor.clone()
+266:                     }
+267:                 } else {
+268:                     palette.roof_secondary.clone()
+269:                 },
+270:             ),
+271:             Transform::from_translation(centre + Vec3::new(origin.x, 0.0, origin.y)),
+272:         ));
+273:         if let Some(kind) = boundary {
+274:             entity.insert(OpeningBoundary(kind));
+275:         }
+276:     }
+277: }
+278: 
+279: fn opening_surface_mesh(
+280:     surface: &adventuresim_building_generator::ResolvedSurface,
+281:     opening: &adventuresim_building_generator::OpeningAssembly,
+282:     wall: &adventuresim_building_generator::WallAssembly,
+283:     centre: Vec3,
+284:     size: Vec3,
+285: ) -> Mesh {
+286:     use adventuresim_building_generator::SurfaceRole;
+287:     let tangent = opening.frame.tangent;
+288:     let outward = opening.frame.outward;
+289:     let local = |plan: Vec2, y: f32| Vec3::new(plan.x, y, plan.y) - centre;
+290:     let two_sided = |face: Vec<Vec3>| {
+SOURCE 5 crates/adventuresim-building-generator/src/viewer/run.rs 12133c8b9ec176a6aaba627152c252cec7c616682e8c54ed342aed0107787a63
+245:     let timber_removed_target_item_ids = if timber_section_proof(view) {
+246:         architectural_section_removed_item_ids(&plan, view)
+247:             .into_iter()
+248:             .filter(|id| timber_focus_set.contains(id))
+249:             .collect()
+250:     } else {
+251:         Vec::new()
+252:     };
+253:     let focused_roof_indices = roof_proof
+254:         .map(|proof| roof_proof_assembly_indices(&plan, proof))
+255:         .or_else(|| {
+256:             (view == ViewerView::TimberGableRoofBearing).then(|| {
+257:                 plan.roof_assemblies
+258:                     .iter()
+259:                     .enumerate()
+260:                     .filter(|(_, roof)| roof.parent.is_none())
+261:                     .map(|(index, _)| index)
+262:                     .collect()
+263:             })
+264:         })
+265:         .unwrap_or_default();
+266:     let mut section_removed_roof_item_ids = roof_proof
+267:         .filter(|proof| roof_proof_sectioned(*proof))
+268:         .map(|_| {
+269:             focused_roof_indices
+270:                 .iter()
+271:                 .filter_map(|index| {
+272:                     plan.roof_assemblies[*index]
+273:                         .faces
+274:                         .last()
+275:                         .map(|face| face.id.0)
+276:                 })
+277:                 .collect::<Vec<_>>()
+278:         })
+279:         .unwrap_or_default();
+280:     section_removed_roof_item_ids.extend(church_section_removed_roof_item_ids(&plan, view));
+281:     let expected_roof_render_items = plan
+282:         .roof_assemblies
+283:         .iter()
+284:         .flat_map(|roof| {
+285:             roof.faces
+286:                 .iter()
+287:                 .filter(|face| !section_removed_roof_item_ids.contains(&face.id.0))
+288:                 .map(|face| {
+289:                     (
+290:                         face.id.0,
+291:                         stable_u64(&serde_json::to_vec(face).expect("serialize roof face")),
+292:                     )
+293:                 })
+294:                 .chain(roof.enclosure_faces.iter().map(|enclosure| {
+295:                     (
+296:                         enclosure.id.0,
+297:                         stable_u64(
+298:                             &serde_json::to_vec(enclosure).expect("serialize roof enclosure"),
+299:                         ),
+300:                     )
+301:                 }))
+302:         })
+303:         .collect::<Vec<_>>();
+304:     let mut expected_roof_render_items = expected_roof_render_items;
+305:     if (timber_isolated_view(view) && view != ViewerView::TimberGableRoofBearing)
+1255:                     .map(|node| node.id.0)
+1256:                     .collect()
+1257:             },
+1258:         ),
+1259:         artillery_ditch_void_id: plan
+1260:             .artillery_castle
+1261:             .as_ref()
+1262:             .map(|castle| castle.ditch.void_id.0),
+1263:         artillery_bridge_state: plan
+1264:             .artillery_castle
+1265:             .as_ref()
+1266:             .map(|castle| format!("{:?}", castle.bridge.state)),
+1267:         artillery_focused_roles: {
+1268:             let focus = artillery_focus_item_ids(&plan, view)
+1269:                 .into_iter()
+1270:                 .collect::<std::collections::HashSet<_>>();
+1271:             plan.resolved_geometry
+1272:                 .solids
+1273:                 .iter()
+1274:                 .filter(|solid| focus.contains(&solid.id.0))
+1275:                 .map(|solid| format!("{:?}", solid.role))
+1276:                 .collect::<std::collections::BTreeSet<_>>()
+1277:                 .into_iter()
+1278:                 .collect()
+1279:         },
+1280:         artillery_role_item_ids: {
+1281:             let focus = artillery_focus_item_ids(&plan, view)
+1282:                 .into_iter()
+1283:                 .collect::<std::collections::HashSet<_>>();
+1284:             let mut roles = std::collections::BTreeMap::<String, Vec<u64>>::new();
+1285:             for solid in plan
+1286:                 .resolved_geometry
+1287:                 .solids
+1288:                 .iter()
+1289:                 .filter(|solid| focus.contains(&solid.id.0))
+1290:             {
+1291:                 roles
+1292:                     .entry(format!("{:?}", solid.role))
+1293:                     .or_default()
+1294:                     .push(solid.id.0);
+1295:             }
+1296:             roles
+1297:         },
+1298:         artillery_role_bounds_fraction: std::collections::BTreeMap::new(),
+1299:         artillery_target_component_ids: artillery_proof_slug(view)
+1300:             .map(|slug| vec![format!("artillery:1/{slug}")])
+1301:             .unwrap_or_default(),
+1302:         artillery_cut_plane: artillery_cut_plane(view),
+1303:         artillery_removed_target_item_ids: artillery_section_removed_item_ids(&plan, view),
+1304:         artillery_legend_visible: false,

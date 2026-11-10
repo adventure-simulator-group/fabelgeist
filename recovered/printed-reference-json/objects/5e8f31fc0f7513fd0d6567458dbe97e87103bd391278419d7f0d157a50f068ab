@@ -1,0 +1,41 @@
+{
+  "schema": "726-named-source-dependency-disposition-v1",
+  "lens": 3,
+  "contract_id": "ROOT-L3-CHUNK-FADE-BAND-ADMISSION",
+  "at": "2026-11-02T20:45:02.512860+00:00",
+  "source_registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L3-CURRENT-GRAPHICS-CONFIG-001.json",
+    "sha256": "3ca319f0294456f65ebbbd2c0675e05cfc4e167391d8a2a0106a5334a5037ebf"
+  },
+  "caller_registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-CURRENT-GRAPHICS-CONFIG-CALLERS-001.json",
+    "sha256": "33b966673d28b3079bd699140d17e4bb7189440556ba6eb00f769f462bb8e7d9"
+  },
+  "status": "configured-positive-width-admission-gap-source-qualified",
+  "source_trace": [
+    "TacticalGraphicsConfig::parse208..213 runs validate242..329. validate_tier332..372 requires finite nonnegative ordered edges but allows fade_out[0]==fade_out[1].",
+    "Native main154 and browser wasm_run174/wasm_boot187 parse/load configuration, then run368 -> add_gameplay_plugins447 -> presentation plugin236..238 installs its cloned TacticalGraphicsSettings. Headless301..303 disables grass and is a separate legitimate mode.",
+    "Current grass configured_tier_band455..469 passes arrays unchanged to FadeBand::new. The band constructor only changes fade-in end; shader_range preserves fade-out endpoints; shader62..68 divides by the selected pair width. Prior506 exact source packet establishes these downstream bodies."
+  ],
+  "conditional_source_witness": {
+    "base": "Current shipped near tier has fade_in[0,0.001],fade_out[6,8].",
+    "change": "Set only near.fade_out_m to[6,6], retaining all other current fields.",
+    "admission": "All inspected config guards still accept these finite ordered values and there is no cross-tier equality guard. This is a source-branch witness, not an executed Rust/YAML validation.",
+    "consumer": "For camera distance>=6, shader selects fade-out bounds[6,6] and the written denominator is zero. No GPU conversion, rendered pixel or runtime incident is claimed."
+  },
+  "shipped_content": "All four current shipped fade-out pairs have strictly positive widths; no current shipped zero-width tier.",
+  "repair_requirements": [
+    "Use a shared admitted fade-band/margin contract retaining finite nonnegative distances and positive fade-out width before GPU packing. Preserve the intentional zero-start/always-visible fade-in mode.",
+    "Reconcile whether zero-width fade-out should be rejected or explicitly modeled as a hard cutoff with a nondividing shader path. Do not retain silent division by zero as a compatibility behavior.",
+    "Reuse existing suitable distance/range owners where they fit; keep shader native vectors at the final packing leaf. Align config loading, direct construction and native serialization admission."
+  ],
+  "remaining_evidence": [
+    "Exact canonical aliases/owner fit and any deliberate hard-cutoff policy remain open; no accepted-unique promotion.",
+    "Actual parser execution, native shader/device behavior and isolated acceptance stay pending until audit gate.",
+    "Vista/pebble/config direct-construction and every other renderer question remain independent."
+  ],
+  "whole_contract_closed": false,
+  "new_accepted_unique_count": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

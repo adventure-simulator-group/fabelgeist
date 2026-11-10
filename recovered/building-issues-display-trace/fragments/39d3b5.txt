@@ -1,0 +1,355 @@
+SOURCE crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs
+1: //! Authored review inputs and read-only capture checks. Rendering belongs to presentation.
+2: use super::capture_state::BuildingReviewCamera;
+3: use adventuresim_building_generator::{
+4:     compile_operable_doors, compile_operable_windows,
+5:     signs::{ShopSign, SignSite},
+6: };
+7: use adventuresim_tactical_core::prelude::GeneratedBuilding;
+8: use bevy::prelude::*;
+9: use serde::{Deserialize, Serialize};
+10: use std::{collections::BTreeMap, path::Path};
+11: 
+12: mod cameras;
+13: mod heating;
+14: mod lod;
+15: pub(super) use lod::ReviewLod;
+16: mod gardens;
+17: mod openings;
+18: mod readiness;
+19: pub(super) use openings::{ReviewLeafPose, spawn_openings};
+20: pub(super) use readiness::{BuildingReviewPlugin, ready};
+21: pub(super) const SHOP_PROFILE: &str = "shop-sign-review";
+22: pub(super) const WORKPLACE_PROFILE: &str = "workplace-review";
+23: pub(super) const PARISH_PROFILE: &str = "parish-review";
+24: pub(super) const HEATING_PROFILE: &str = "heating-review";
+25: pub(super) const GARDEN_PROFILE: &str = "garden-review";
+26: pub(super) const FACADE_PROFILE: &str = "facade-review";
+27: pub(super) const GABLE_PROFILE: &str = "gable-review";
+28: pub(super) const COMPOUND_PROFILE: &str = "compound-review";
+29: 
+30: pub(super) fn is_profile(profile: &str) -> bool {
+31:     matches!(
+32:         profile,
+33:         SHOP_PROFILE
+34:             | WORKPLACE_PROFILE
+35:             | PARISH_PROFILE
+36:             | COMPOUND_PROFILE
+37:             | GABLE_PROFILE
+38:             | HEATING_PROFILE
+39:             | FACADE_PROFILE
+40:             | GARDEN_PROFILE
+41:     )
+42: }
+43: 
+44: #[derive(Resource, Deserialize, Serialize)]
+45: #[serde(deny_unknown_fields)]
+46: struct ReviewFixture {
+47:     signs: BTreeMap<adventuresim_tactical_core::scene_input::SceneBuildingId, ShopSign>,
+48:     views: Vec<cameras::ReviewView>,
+49: }
+50: 
+51: #[derive(Resource)]
+52: pub(super) struct ReviewRequirements {
+53:     buildings: usize,
+54:     boundaries: usize,
+55:     doors: usize,
+56:     windows: usize,
+57:     signs: BTreeMap<adventuresim_tactical_core::scene_input::SceneBuildingId, ExpectedSign>,
+58:     output: std::path::PathBuf,
+59: }
+60: 
+61: struct ExpectedSign {
+62:     sign: ShopSign,
+63:     site: SignSite,
+64: }
+65: 
+66: impl ReviewRequirements {
+67:     fn for_buildings(buildings: &[GeneratedBuilding], output: &Path) -> Result<Self> {
+68:         for building in buildings {
+69:             if !adventuresim_building_generator::audit_plan(&building.plan)?.is_empty() {
+70:                 return Err(format!(
+71:                     "review building {} fails the structural audit",
+72:                     building.placement.id
+73:                 )
+74:                 .into());
+75:             }
+76:         }
+77:         Ok(Self {
+78:             buildings: buildings.len(),
+79:             boundaries: 0,
+80:             doors: buildings
+81:                 .iter()
+82:                 .map(|b| compile_operable_doors(&b.plan).map(|doors| doors.len()))
+83:                 .collect::<std::result::Result<Vec<_>, _>>()?
+84:                 .into_iter()
+85:                 .sum(),
+86:             windows: buildings
+87:                 .iter()
+88:                 .map(|b| compile_operable_windows(&b.plan).map(|windows| windows.len()))
+89:                 .collect::<std::result::Result<Vec<_>, _>>()?
+90:                 .into_iter()
+91:                 .sum(),
+92:             signs: BTreeMap::new(),
+93:             output: output.to_owned(),
+94:         })
+95:     }
+96: }
+97: 
+98: /// Furnished rooms require the identical production building and opening checks as facade reviews.
+99: pub(super) fn setup_geometry_requirements(
+100:     commands: &mut Commands,
+101:     buildings: &[GeneratedBuilding],
+102:     output: &Path,
+103: ) -> Result {
+104:     commands.insert_resource(ReviewRequirements::for_buildings(buildings, output)?);
+105:     Ok(())
+106: }
+107: 
+108: pub(super) fn setup(
+109:     commands: &mut Commands,
+110:     buildings: &[GeneratedBuilding],
+111:     boundaries: usize,
+112:     input: &Path,
+113:     output: &Path,
+114:     profile: &str,
+115: ) -> Result<Option<Vec<BuildingReviewCamera>>> {
+116:     if !is_profile(profile) {
+117:         return Ok(None);
+118:     }
+119:     let path = input.with_extension("review.json");
+120:     let bytes = std::fs::read(&path)?;
+121:     let fixture: ReviewFixture = serde_json::from_slice(&bytes)?;
+122:     let specs =
+123:         super::selected_capture_views(profile, &[]).map_err(bevy::ecs::error::BevyError::from)?;
+124:     assert_eq!(
+125:         fixture.views.len(),
+126:         specs.len() - 1,
+127:         "fixture must cover every review view"
+128:     );
+129:     for (view, spec) in fixture.views.iter().zip(&specs[1..]) {
+130:         assert_eq!(view.slug, spec.slug);
+131:     }
+132:     let mut requirements = ReviewRequirements::for_buildings(buildings, output)?;
+133:     requirements.boundaries = boundaries;
+134:     requirements.doors += boundaries;
+135:     for (&id, sign) in &fixture.signs {
+136:         let building = buildings
+137:             .iter()
+138:             .find(|b| b.placement.id == id)
+139:             .ok_or_else(|| format!("review sign building {id} is absent"))?;
+140:         assert!(
+141:             building
+142:                 .placement
+143:                 .program
+144:                 .usage
+145:                 .and_then(adventuresim_building_generator::signs::shop_trade)
+146:                 .is_some(),
+147:             "sign requires a public shopfront"
+148:         );
+149:         let site = SignSite::for_plan(&building.plan)
+150:             .ok_or_else(|| format!("review sign building {id} lacks structural support"))?;
+151:         assert!(
+152:             site.supports(&building.plan, sign.mount),
+153:             "review sign must fit its specified mount"
+154:         );
+155:         requirements.signs.insert(
+156:             id,
+157:             ExpectedSign {
+158:                 sign: sign.clone(),
+159:                 site,
+160:             },
+161:         );
+162:     }
+163:     let cameras = fixture
+164:         .views
+165:         .iter()
+166:         .map(|view| view.camera(buildings, &fixture.signs))
+167:         .collect::<Result<Vec<_>>>()?;
+168:     std::fs::write(output.join("input.review.json"), bytes)?;
+169:     commands.insert_resource(requirements);
+170:     commands.insert_resource(fixture);
+171:     Ok(Some(cameras))
+172: }
+173: 
+174: pub(super) fn insert_authored_sign(
+175:     world: &mut World,
+176:     entity: Entity,
+177:     id: adventuresim_tactical_core::scene_input::SceneBuildingId,
+178: ) {
+179:     let sign = world
+180:         .get_resource::<ReviewFixture>()
+181:         .and_then(|fixture| fixture.signs.get(&id))
+182:         .cloned();
+183:     if let Some(sign) = sign {
+184:         world.entity_mut(entity).insert(sign);
+185:     }
+186: }
+SOURCE crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs
+920:         PhysicsGizmos::default(),
+921:         GizmoConfig {
+922:             enabled: false,
+923:             ..default()
+924:         },
+925:     );
+926:     if scene_performance_benchmarking {
+927:         app.add_systems(
+928:             PostStartup,
+929:             (
+930:                 setup_scene,
+931:                 fixed_city_cameras::apply,
+932:                 redirect_performance_camera_offscreen,
+933:                 freeze_capture_clock,
+934:             )
+935:                 .chain(),
+936:         );
+937:     } else {
+938:         app.add_systems(
+939:             PostStartup,
+940:             (setup_scene, fixed_city_cameras::apply, freeze_capture_clock).chain(),
+941:         );
+942:     }
+943:     if scene_performance_benchmarking && scene_performance_render_diagnostics {
+944:         app.add_plugins(bevy::render::diagnostic::RenderDiagnosticsPlugin);
+945:     }
+946:     if terrain_wireframe {
+947:         app.add_systems(Last, capture_terrain_wireframe);
+948:     } else if triangle_census {
+949:         app.add_systems(Last, capture_triangle_census);
+950:     } else if leaf_benchmarking {
+951:         app.add_systems(Last, benchmark_leaf_representations);
+952:     } else if tree_lighting_benchmarking {
+953:         app.add_systems(Last, benchmark_tree_lighting);
+954:     } else if scene_performance_benchmarking {
+955:         app.add_systems(
+956:             Last,
+957:             (benchmark_scene_performance, benchmark_progress::report),
+958:         );
+959:     } else {
+960:         app.add_systems(
+961:             Last,
+962:             capture_views
+963:                 .run_if(building_review::ready)
+964:                 .run_if(furniture_readiness::ready),
+965:         );
+966:     }
+967:     let exit = app.run();
+968:     if exit != AppExit::Success {
+969:         std::process::exit(1);
+970:     }
+971: }
+972: 
+973: /// Render performance captures into a texture so Windows compositor pacing
+974: /// cannot masquerade as renderer work on sub-refresh-rate frame budgets.
+975: fn redirect_performance_camera_offscreen(
+1230: 
+1231: #[expect(
+1232:     clippy::too_many_arguments,
+1233:     reason = "Bevy injects scene setup state and each independently borrowed presentation asset store"
+1234: )]
+1235: fn setup_scene(
+1236:     mut commands: Commands,
+1237:     mut setup: ResMut<SceneSetup>,
+1238:     mut meshes: ResMut<Assets<Mesh>>,
+1239:     mut materials: ResMut<Assets<StandardMaterial>>,
+1240:     mut bark_materials: ResMut<Assets<TacticalTreeBarkMaterial>>,
+1241:     mut leaf_card_materials: ResMut<Assets<TacticalTreeLeafCardMaterial>>,
+1242:     mut images: ResMut<Assets<Image>>,
+1243:     procedural_assets: Res<ProceduralTextureAssets>,
+1244:     mut understory_cache: ResMut<WoodyUnderstoryPresentationCache>,
+1245: ) -> Result {
+1246:     let setup = setup.0.take().expect("scene setup runs exactly once");
+1247:     let SceneSetupData {
+1248:         input,
+1249:         input_path,
+1250:         fixture,
+1251:         output,
+1252:         generated,
+1253:         environment,
+1254:         settle_frames,
+1255:         leaf_benchmark_frames,
+1256:         tree_lighting_benchmark_frames,
+1257:         scene_performance_benchmark_frames,
+1258:         tree_review_azimuth_degrees,
+1259:         profile,
+1260:         requested_views,
+1261:         views,
+1262:     } = setup;
+1263:     let GeneratedTacticalScene {
+1264:         digest,
+1265:         terrain,
+1266:         ground,
+1267:         obstacles,
+1268:         buildings,
+1269:         mut furniture,
+1270:         boundaries,
+1271:         gardens,
+1272:         repairs,
+1273:         terrain_patch,
+1274:         building_recipes: _,
+1275:     } = generated;
+1276:     let distant_buildings = buildings::distant_placements(&input, &buildings);
+1277:     let terrain_summary = TerrainSummary::new(&input, &terrain)?;
+1278:     let vista_geometry = vista_geometry::VistaCaptureGeometry::from_source(&input)?;
+1279:     let city_half_extent_metres = fabelgeist_geometry::SignedLength::from_metres(
+1280:         input
+1281:             .buildings
+1282:             .iter()
+1283:             .map(|building| building.centre_metres.metres().abs().max_element())
+1284:             .chain(
+1285:                 input
+1286:                     .distant_buildings
+1287:                     .iter()
+1288:                     .map(|building| building.centre_metres.metres().abs().max_element()),
+1289:             )
+1290:             .fold(0.0, f32::max),
+1291:     )?;
+1292:     let catalog_cameras = interior_furniture_capture::setup_catalog(
+1293:         &mut commands,
+1294:         &mut furniture,
+1295:         &terrain,
+1296:         &profile,
+1297:         &output,
+1298:     )?;
+1299:     let building_interior_cameras = match interior_furniture_capture::setup_rooms(
+1300:         &mut commands,
+1301:         &buildings,
+1302:         &furniture,
+1303:         &profile,
+1304:         &output,
+1305:     )? {
+1306:         Some(cameras) => cameras,
+1307:         None => interior_capture::capture_cameras(&buildings, &profile)?,
+1308:     };
+1309:     let city_exterior_cameras = match building_review::setup(
+1310:         &mut commands,
+1311:         &buildings,
+1312:         boundaries.len(),
+1313:         &input_path,
+1314:         &output,
+1315:         &profile,
+1316:     )? {
+1317:         Some(cameras) => cameras,
+1318:         None => city_capture::capture_cameras(
+1319:             &buildings,
+1320:             &distant_buildings,
+1321:             &input.streets,
+1322:             &terrain,
+1323:             &profile,
+1324:         )?,
+1325:     };
+1326:     let city_exterior_cameras = furniture_capture::setup(
+1327:         &mut commands,
+1328:         &furniture,
+1329:         &terrain,
+1330:         &profile,
+1331:         &output,
+1332:         &mut meshes,
+1333:         &mut materials,
+1334:     )?
+1335:     .unwrap_or(city_exterior_cameras);
+1336:     let city_exterior_cameras = catalog_cameras.unwrap_or(city_exterior_cameras);
+1337:     furniture_capture::spawn(&mut commands, &furniture)?;
+1338:     spawn_tactical_buildings(&mut commands, buildings)?;
+1339:     buildings::spawn_boundaries(&mut commands, boundaries)?;
+1340:     for garden in gardens {

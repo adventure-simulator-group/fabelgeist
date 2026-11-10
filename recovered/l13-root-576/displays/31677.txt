@@ -1,0 +1,100 @@
+101: #[derive(Debug, Error)]
+102: pub enum IconError {
+103:     #[error("icon dimensions or supersampling are invalid")]
+104:     InvalidSpec,
+105:     #[error("weapon generation failed: {0}")]
+106:     Generate(#[from] GenerateError),
+107:     #[error("weapon has no usable icon focus geometry")]
+108:     MissingFocus,
+109:     #[error("weapon icon rasterization failed")]
+110:     Rasterization,
+111:     #[error("weapon icon PNG encoding failed: {0}")]
+112:     Png(String),
+113: }
+114: 
+115: /// Presentation classification is derived from component semantics, not catalog IDs.
+116: /// This keeps arbitrary modular polearm heads in the head-focused family.
+117: pub fn icon_layout(design: &WeaponDesign) -> WeaponIconLayout {
+118:     let has_guard = design
+119:         .recipe
+120:         .components
+121:         .iter()
+122:         .any(|component| component.role == Some(ComponentRole::Guard));
+123:     let has_sword_blade = design
+124:         .recipe
+125:         .components
+126:         .iter()
+127:         .any(|component| matches!(component.shape, crate::recipe::Shape::LoftedBlade(_)));
+128:     if has_guard && has_sword_blade {
+129:         WeaponIconLayout::HiltFocus
+130:     } else {
+131:         WeaponIconLayout::HeadFocus
+132:     }
+133: }
+134: 
+135: pub fn generate_icon(design: &WeaponDesign, spec: WeaponIconSpec) -> Result<WeaponIcon, IconError> {
+136:     let generated = generate(design)?;
+137:     let layout = icon_layout(design);
+138:     let projection = Projection::new(design, &generated, layout)?;
+139:     rasterize_icon(&generated.parts, spec, projection)
+140: }
+141: 
+142: /// Render a fitted scabbard or haft loop from its independently persisted recipe.
+143: ///
+144: /// Blade sheaths use the same diagonal as their weapon, with the throat centered
+145: /// and the long body intentionally cropped toward the lower-left. Compact haft
+146: /// loops fit the complete loop-and-hanger assembly in the opposite diagonal.
+147: pub fn generate_holder_icon(
+148:     design: &WeaponHolderDesign,
+149:     spec: WeaponIconSpec,
+150: ) -> Result<WeaponIcon, IconError> {
+151:     let generated = generate_holder(design)?;
+152:     let projection = Projection::holder(&generated)?;
+153:     rasterize_icon(&generated.parts, spec, projection)
+154: }
+155: 
+156: fn rasterize_icon(
+157:     parts: &[MeshPart],
+158:     spec: WeaponIconSpec,
+159:     projection: Projection,
+160: ) -> Result<WeaponIcon, IconError> {
+161:     let (rgba, alpha) = render::render(parts, spec, &projection)?;
+162:     let output_size = usize::from(spec.size);
+163:     let occupied_bounds = occupied_bounds(&alpha, output_size).ok_or(IconError::Rasterization)?;
+164:     Ok(WeaponIcon {
+165:         size: spec.size,
+166:         rgba,
+167:         layout: projection.layout,
+168:         mirrored: projection.mirror_x,
+169:         framing_anchor: projection.framing_anchor,
+170:         head_zoom: projection.head_zoom,
+171:         focus_bounds: projection.focus_bounds,
+172:         occupied_bounds,
+173:     })
+174: }
+175: 
+176: struct Projection {
+177:     layout: WeaponIconLayout,
+178:     lateral_center: f32,
+179:     axial_center: f32,
+180:     target: [f32; 2],
+181:     scale: f32,
+182:     mirror_x: bool,
+183:     flip_lateral: bool,
+184:     framing_anchor: [f32; 2],
+185:     head_zoom: f32,
+186:     focus_bounds: IconBounds,
+187: }
+188: 
+189: impl Projection {
+190:     fn new(
+191:         design: &WeaponDesign,
+192:         generated: &GeneratedWeapon,
+193:         layout: WeaponIconLayout,
+194:     ) -> Result<Self, IconError> {
+195:         let roles: HashMap<&str, ComponentRole> = design
+196:             .recipe
+197:             .components
+198:             .iter()
+199:             .filter_map(|component| component.id.as_deref().zip(component.role))
+200:             .collect();

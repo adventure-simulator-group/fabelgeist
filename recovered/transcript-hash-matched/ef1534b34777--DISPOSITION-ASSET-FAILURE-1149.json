@@ -1,0 +1,57 @@
+{
+  "schema": "726-owned-source-disposition-v1",
+  "at": "2026-11-03T19:34:38.670553+00:00",
+  "lens": 11,
+  "contract_id": "Q-L11-5dccbe466b6bbd2692f6",
+  "original_journal_pointer": "/segovb_continuation/additional_pending_connected_contracts/1",
+  "original_receipt": {
+    "path": "segovb/READ-L11-399.json",
+    "sha256": "55edecfdeb9e27b5e24e025d263235d08c90129d6c8f782237781279916b1cac"
+  },
+  "evidence": [
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-ASSET-FAILURE-1147.json",
+      "sha256": "462e88fe55bb971a5498d20296e628070801cde472f97809c6de70d9c04967a0"
+    },
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-ASSET-CONSUMERS-1148.json",
+      "sha256": "680b9f5149d40819bb40b3dfe3d0534be5b5de84ab4636c9dedcfe46109ed596"
+    },
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-ASSET-SERVER-1149.json",
+      "sha256": "2ca3a09f4d364319ca13894fa83ea46d9f4b7486358a41317b274ce06d02fc91"
+    }
+  ],
+  "owned_repair": {
+    "path": "adler-continuation-20261030/REPAIR-PLAN-ASSET-FAILURE-1149.json",
+    "sha256": "c590dacff6787e1bc6ed577863a39f5808f111446560ba9fb4904ed65f57970b"
+  },
+  "source_discovery_scope": "The original Lens 11 strategic required asset load-event cause question at selected revision; runtime, failure lifetime policy, separate tactical/texture owners and all other lenses remain open.",
+  "first_failed_contract": "Native untyped load events provide asset ID and error, but strategic state records only formatted path before status serialization.",
+  "owner": "Strategic scene asset failure state and final status serialization, with the native asset server as event producer.",
+  "explicit_alias_comparison": [
+    {
+      "entry_index": 91,
+      "contract_id": "ADLER-L11-STRATEGIC-ASSET-FAILURE-CAUSE-OWNERSHIP",
+      "relationship": "Same strategic native load-event cause and identity predicate; retained canonical repair owner, independently open for its remaining reconciliation."
+    },
+    {
+      "entry_index": 49,
+      "contract_id": "ADLER-L11-TEXTURE-RESIDENCY-FAILURE-STATE",
+      "relationship": "Related texture residency readiness contract; separate per-recipe owner and lifecycle, not merged."
+    },
+    {
+      "entry_index": 550,
+      "contract_id": "Q-L11-743fa7ef5b5476a4c7d7",
+      "relationship": "Worker error serialization is a different boundary, as the original receipt explicitly states."
+    }
+  ],
+  "qualifications": [
+    "No live failure has been injected; retry and reset semantics are open policy.",
+    "The retained canonical finding and separate lenses remain open; source disposition does not complete a repair."
+  ],
+  "global_alias_inventory_complete": false,
+  "other_lenses_or_families_closed": false,
+  "repair_complete": false,
+  "implementation_gate_complete": false
+}

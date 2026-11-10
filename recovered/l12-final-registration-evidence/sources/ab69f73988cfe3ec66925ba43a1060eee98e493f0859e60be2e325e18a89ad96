@@ -1,0 +1,878 @@
+//! Party route handlers
+
+use axum::{
+    Form, Router,
+    extract::{Path, State},
+    response::{Html, Json, Redirect},
+    routing::{get, post},
+};
+use futures_util::future::join_all;
+use serde::{Deserialize, Serialize};
+use serde_json::json;
+use std::collections::{BTreeMap, BTreeSet};
+
+use super::{AppState, PartyAction, approve_party_action, execute_or_request_party_action};
+use crate::session::Session;
+use crate::spacetimedb::sql_string_literal;
+use crate::spacetimedb::{
+    CharacterAttributes, CharacterCapability, CharacterLimbs, CharacterSkills, CharacterView,
+    PartyActionRequestView, PartyJoinRequest, PartyLeaderVote, PartyMember, PartyView,
+    RecruitmentRoleView, RoleRequirements, SavedRecruitmentRole,
+};
+use crate::templates::recruitment::{
+    PartyCheckSummary, RecruitmentApplicant, RecruitmentRolePanel, recruitment_panel,
+};
+
+const RECRUITMENT_PROFILE_QUERY_CONCURRENCY: usize = 8;
+
+pub fn routes() -> Router<AppState> {
+    Router::new()
+        .route("/party-roles/{id}/join", post(join_party))
+        .route("/parties/{id}/join-general", post(join_general_party))
+        .route("/party-recruitment/panel", get(recruitment_panel_fragment))
+        .route("/party-recruitment/roles", post(create_recruitment_role))
+        .route(
+            "/party-recruitment/roles/{id}",
+            post(update_recruitment_role),
+        )
+        .route(
+            "/party-recruitment/roles/{id}/delete",
+            post(delete_recruitment_role),
+        )
+        .route("/party-recruitment/saved", post(save_recruitment_role))
+        .route(
+            "/party-recruitment/check-targets",
+            post(update_party_check_targets),
+        )
+        .route(
+            "/party-recruitment/saved/{id}/delete",
+            post(delete_saved_role),
+        )
+        .route(
+            "/party-recruitment/saved/{id}/rename",
+            post(rename_saved_role),
+        )
+        .route(
+            "/parties/{id}/requests/{request_id}/accept",
+            post(accept_join_request),
+        )
+        .route(
+            "/parties/{id}/requests/{request_id}/reject",
+            post(reject_join_request),
+        )
+        .route("/party-notifications", get(party_notifications))
+        .route(
+            "/party-action-requests/{id}/approve",
+            post(approve_action_request),
+        )
+        .route(
+            "/party-action-requests/{id}/deny",
+            post(deny_action_request),
+        )
+        .route("/party-leader-votes/{candidate_id}", post(vote_for_leader))
+        .route("/parties/{id}/leave", post(leave_party))
+        .route("/parties/{id}/disband", post(disband_party))
+}
+
+#[derive(Default, Deserialize)]
+struct RecruitmentRoleForm {
+    #[serde(default)]
+    name: String,
+    quantity: u32,
+    #[serde(default)]
+    save_role: bool,
+    #[serde(default)]
+    melee: bool,
+    #[serde(default)]
+    ranged: bool,
+    #[serde(default)]
+    weapon_precision: f32,
+    #[serde(default)]
+    heavy: bool,
+    #[serde(default)]
+    armor_tier: u8,
+    #[serde(default)]
+    athletics: u8,
+    #[serde(default)]
+    endurance: u8,
+}
+
+impl RecruitmentRoleForm {
+    fn requirements(&self) -> RoleRequirements {
+        RoleRequirements {
+            melee: self.melee,
+            ranged: self.ranged,
+            weapon_precision: ((self.weapon_precision * 2.0).round() / 2.0)
+                .clamp(0.0, adventuresim_core::capability::WEAPON_PRECISION_RAPIER),
+            heavy: self.heavy,
+            quarter_armor: self.armor_tier == 1,
+            half_armor: self.armor_tier == 2,
+            three_quarter_armor: self.armor_tier == 3,
+            full_armor: self.armor_tier == 4,
+            athletics: self.athletics,
+            endurance: self.endurance,
+            physiology: 0,
+            surgery: 0,
+            command: 0,
+            religion: 0,
+        }
+    }
+}
+
+#[derive(Deserialize)]
+struct PartyCheckTargetsForm {
+    physiology: f32,
+    command: f32,
+    religion: f32,
+}
+
+async fn update_party_check_targets(
+    State(state): State<AppState>,
+    session: Session,
+    Form(form): Form<PartyCheckTargetsForm>,
+) -> Redirect {
+    if let Some(actor_id) = session.character_id_u64() {
+        let _ = execute_or_request_party_action(
+            &state,
+            actor_id,
+            PartyAction::UpdatePartyCheckTargets {
+                physiology: form.physiology,
+                command: form.command,
+                religion: form.religion,
+            },
+        )
+        .await;
+    }
+    Redirect::to("/")
+}
+
+async fn create_recruitment_role(
+    State(state): State<AppState>,
+    session: Session,
+    Form(form): Form<RecruitmentRoleForm>,
+) -> Redirect {
+    let Some(actor_id) = session.character_id_u64() else {
+        return Redirect::to("/characters");
+    };
+    let requirements = form.requirements();
+    let outcome = execute_or_request_party_action(
+        &state,
+        actor_id,
+        PartyAction::CreateRecruitmentRole {
+            name: form.name.clone(),
+            quantity: form.quantity,
+            requirements,
+            save_role: form.save_role,
+        },
+    )
+    .await;
+    if let Err(error) = outcome {
+        tracing::warn!("Failed to create recruitment role: {error:?}");
+        return Redirect::to("/");
+    }
+    Redirect::to("/")
+}
+
+async fn update_recruitment_role(
+    State(state): State<AppState>,
+    Path(id): Path<u64>,
+    session: Session,
+    Form(form): Form<RecruitmentRoleForm>,
+) -> Redirect {
+    let Some(actor_id) = session.character_id_u64() else {
+        return Redirect::to("/characters");
+    };
+    let _ = execute_or_request_party_action(
+        &state,
+        actor_id,
+        PartyAction::UpdateRecruitmentRole {
+            role_id: id,
+            name: form.name.clone(),
+            quantity: form.quantity,
+            requirements: form.requirements(),
+        },
+    )
+    .await;
+    Redirect::to("/")
+}
+
+async fn delete_recruitment_role(
+    State(state): State<AppState>,
+    Path(id): Path<u64>,
+    session: Session,
+) -> Redirect {
+    let Some(actor_id) = session.character_id_u64() else {
+        return Redirect::to("/characters");
+    };
+    let _ = execute_or_request_party_action(
+        &state,
+        actor_id,
+        PartyAction::DeleteRecruitmentRole { role_id: id },
+    )
+    .await;
+    Redirect::to("/")
+}
+
+async fn delete_saved_role(
+    State(state): State<AppState>,
+    Path(id): Path<u64>,
+    session: Session,
+) -> Redirect {
+    if let Some(owner_id) = session.character_id_u64() {
+        let _ = state
+            .db
+            .call(
+                "delete_saved_recruitment_role",
+                &[json!(owner_id), json!(id)],
+            )
+            .await;
+    }
+    Redirect::to("/")
+}
+
+async fn save_recruitment_role(
+    State(state): State<AppState>,
+    session: Session,
+    Form(form): Form<RecruitmentRoleForm>,
+) -> Redirect {
+    if let Some(owner_id) = session.character_id_u64() {
+        let _ = state
+            .db
+            .call(
+                "save_recruitment_role",
+                &[
+                    json!(owner_id),
+                    json!(form.name),
+                    json!(form.requirements()),
+                ],
+            )
+            .await;
+    }
+    Redirect::to("/")
+}
+
+#[derive(Deserialize)]
+struct RenameSavedRoleForm {
+    name: String,
+}
+
+async fn rename_saved_role(
+    State(state): State<AppState>,
+    Path(id): Path<u64>,
+    session: Session,
+    Form(form): Form<RenameSavedRoleForm>,
+) -> Redirect {
+    if let Some(owner_id) = session.character_id_u64() {
+        let _ = state
+            .db
+            .call(
+                "rename_saved_recruitment_role",
+                &[json!(owner_id), json!(id), json!(form.name)],
+            )
+            .await;
+    }
+    Redirect::to("/")
+}
+
+async fn join_party(
+    State(state): State<AppState>,
+    Path(id): Path<u64>,
+    session: Session,
+) -> Redirect {
+    let Some(character_id) = session.character_id_u64() else {
+        return Redirect::to("/characters");
+    };
+
+    let _ = state
+        .db
+        .call("request_to_join_party", &[json!(character_id), json!(id)])
+        .await;
+
+    let role = state
+        .db
+        .query_sats_into::<adventuresim_stdb_client::PartyRecruitmentRole, RecruitmentRoleView>(
+            &crate::spacetimedb::party_recruitment_role_by_id(id),
+        )
+        .await
+        .unwrap_or_default()
+        .into_iter()
+        .next();
+    if let Some(role) = role {
+        let party = state
+            .db
+            .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(
+                &crate::spacetimedb::party_by_id(&role.party_id),
+            )
+            .await
+            .unwrap_or_default()
+            .into_iter()
+            .next();
+        if let Some(party) = party {
+            let leader = get_character(&state, party.leader_id).await;
+            if leader.is_some_and(|leader| leader.temporary) {
+                let request = state
+                    .db
+                    .query_sats::<PartyJoinRequest>(&format!(
+                        "SELECT * FROM party_join_request WHERE character_id = {character_id}"
+                    ))
+                    .await
+                    .unwrap_or_default()
+                    .into_iter()
+                    .find(|request| request.recruitment_role_id == id);
+                if let Some(request) = request {
+                    let _ = state
+                        .db
+                        .call(
+                            "accept_party_join_request",
+                            &[json!(party.leader_id), json!(request.id)],
+                        )
+                        .await;
+                }
+            }
+        }
+    }
+
+    Redirect::to("/")
+}
+
+async fn join_general_party(
+    State(state): State<AppState>,
+    Path(id): Path<String>,
+    session: Session,
+) -> Redirect {
+    if let Some(character_id) = session.character_id_u64() {
+        let _ = state
+            .db
+            .call(
+                "request_general_party_join",
+                &[json!(character_id), json!(id)],
+            )
+            .await;
+    }
+    Redirect::to("/")
+}
+
+async fn recruitment_panel_fragment(
+    State(state): State<AppState>,
+    session: Session,
+) -> Html<String> {
+    let Some(character_id) = session.character_id_u64() else {
+        return Html(String::new());
+    };
+    let Some(character) = get_character(&state, character_id).await else {
+        return Html(String::new());
+    };
+    let Some(party_id) = character.party_id else {
+        return Html(String::new());
+    };
+    let Some(party) = state
+        .db
+        .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(
+            &crate::spacetimedb::party_by_id(&party_id),
+        )
+        .await
+        .unwrap_or_default()
+        .into_iter()
+        .next()
+    else {
+        return Html(String::new());
+    };
+    let roles: Vec<RecruitmentRoleView> = state
+        .db
+        .query_sats_into::<adventuresim_stdb_client::PartyRecruitmentRole, RecruitmentRoleView>(
+            &format!(
+                "SELECT * FROM party_recruitment_role WHERE party_id = {}",
+                sql_string_literal(&party_id)
+            ),
+        )
+        .await
+        .unwrap_or_default();
+    let memberships: Vec<PartyMember> = state
+        .db
+        .query_sats(&format!(
+            "SELECT * FROM party_member WHERE party_id = {}",
+            sql_string_literal(&party_id)
+        ))
+        .await
+        .unwrap_or_default();
+    let requests: Vec<PartyJoinRequest> = state
+        .db
+        .query_sats(&format!(
+            "SELECT * FROM party_join_request WHERE party_id = {}",
+            sql_string_literal(&party_id)
+        ))
+        .await
+        .unwrap_or_default();
+    let saved: Vec<SavedRecruitmentRole> = state
+        .db
+        .query_sats(&format!(
+            "SELECT * FROM saved_recruitment_role WHERE owner_character_id = {}",
+            character_id
+        ))
+        .await
+        .unwrap_or_default();
+    let mut member_capabilities = Vec::new();
+    for membership in &memberships {
+        let _ = state
+            .db
+            .call("refresh_capabilities", &[json!(membership.character_id)])
+            .await;
+        if let Some(capability) = state
+            .db
+            .query_sats::<CharacterCapability>(
+                &crate::spacetimedb::character_capability_by_character_id(membership.character_id),
+            )
+            .await
+            .unwrap_or_default()
+            .into_iter()
+            .next()
+        {
+            member_capabilities.push(capability);
+        }
+    }
+    let physiology: Vec<f32> = member_capabilities
+        .iter()
+        .map(|value| value.physiology)
+        .collect();
+    let command: Vec<f32> = member_capabilities
+        .iter()
+        .map(|value| value.command)
+        .collect();
+    let religion: Vec<f32> = member_capabilities
+        .iter()
+        .map(|value| value.religion)
+        .collect();
+    let checks = PartyCheckSummary {
+        physiology: adventuresim_core::capability::aggregate_bounded_party_check(
+            physiology.iter().copied(),
+        ),
+        command: adventuresim_core::capability::aggregate_party_command(command.iter().copied()),
+        religion: adventuresim_core::capability::aggregate_party_check(religion.iter().copied()),
+    };
+    let applicant_ids = requests
+        .iter()
+        .map(|request| request.character_id)
+        .collect::<BTreeSet<_>>()
+        .into_iter()
+        .collect::<Vec<_>>();
+    let mut combat_profiles = BTreeMap::new();
+    for chunk in applicant_ids.chunks(RECRUITMENT_PROFILE_QUERY_CONCURRENCY) {
+        let lookups = chunk.iter().copied().map(|applicant_id| {
+            let state = &state;
+            async move {
+                (
+                    applicant_id,
+                    crate::routes::settlements::get_combat_training_profile(state, applicant_id)
+                        .await,
+                )
+            }
+        });
+        combat_profiles.extend(join_all(lookups).await);
+    }
+    let mut panels = Vec::new();
+    for role in roles {
+        let mut filled = Vec::new();
+        for membership in memberships
+            .iter()
+            .filter(|member| member.recruitment_role_id == Some(role.id))
+        {
+            if let Some(character) = get_character(&state, membership.character_id).await {
+                filled.push(character);
+            }
+        }
+        let mut applicants = Vec::new();
+        for request in requests
+            .iter()
+            .filter(|request| request.recruitment_role_id == role.id)
+        {
+            if let Some(character) = get_character(&state, request.character_id).await {
+                let _ = state
+                    .db
+                    .call("refresh_capabilities", &[json!(request.character_id)])
+                    .await;
+                let capability = state
+                    .db
+                    .query_sats::<CharacterCapability>(
+                        &crate::spacetimedb::character_capability_by_character_id(
+                            request.character_id,
+                        ),
+                    )
+                    .await
+                    .unwrap_or_default()
+                    .into_iter()
+                    .next();
+                let attributes = state
+                    .db
+                    .query_sats::<CharacterAttributes>(
+                        &crate::spacetimedb::character_attributes_by_character_id(
+                            request.character_id,
+                        ),
+                    )
+                    .await
+                    .unwrap_or_default()
+                    .into_iter()
+                    .next();
+                let skills = state
+                    .db
+                    .query_sats::<CharacterSkills>(
+                        &crate::spacetimedb::character_skills_by_character_id(request.character_id),
+                    )
+                    .await
+                    .unwrap_or_default()
+                    .into_iter()
+                    .next();
+                let limbs = state
+                    .db
+                    .query_sats::<CharacterLimbs>(
+                        &crate::spacetimedb::character_limbs_by_character_id(request.character_id),
+                    )
+                    .await
+                    .unwrap_or_default()
+                    .into_iter()
+                    .next();
+                let combat_profile = combat_profiles
+                    .get(&request.character_id)
+                    .copied()
+                    .unwrap_or_default();
+                let contribution =
+                    capability
+                        .as_ref()
+                        .map_or_default(|candidate| PartyCheckSummary {
+                            physiology:
+                                adventuresim_core::capability::aggregate_bounded_party_contribution(
+                                    &physiology,
+                                    candidate.physiology,
+                                ),
+                            command:
+                                adventuresim_core::capability::aggregate_party_command_contribution(
+                                    &command,
+                                    candidate.command,
+                                ),
+                            religion: adventuresim_core::capability::aggregate_party_contribution(
+                                &religion,
+                                candidate.religion,
+                            ),
+                        });
+                applicants.push(RecruitmentApplicant {
+                    request: request.clone(),
+                    character,
+                    capability,
+                    attributes,
+                    skills,
+                    limbs,
+                    combat_profile,
+                    contribution,
+                    medical: crate::routes::settlements::medical_presentation(
+                        &state,
+                        character_id,
+                        request.character_id,
+                    )
+                    .await,
+                });
+            }
+        }
+        panels.push(RecruitmentRolePanel {
+            role,
+            filled,
+            requests: applicants,
+        });
+    }
+    Html(recruitment_panel(&party, character_id, &panels, &saved, checks).into_string())
+}
+
+async fn accept_join_request(
+    State(state): State<AppState>,
+    Path((id, request_id)): Path<(String, u64)>,
+    session: Session,
+) -> Redirect {
+    let Some(actor_id) = session.character_id_u64() else {
+        return Redirect::to("/characters");
+    };
+    let _ = execute_or_request_party_action(
+        &state,
+        actor_id,
+        PartyAction::AcceptJoinRequest { request_id },
+    )
+    .await;
+    Redirect::to(&party_location_url(&state, &id).await)
+}
+
+async fn reject_join_request(
+    State(state): State<AppState>,
+    Path((id, request_id)): Path<(String, u64)>,
+    session: Session,
+) -> Redirect {
+    let Some(actor_id) = session.character_id_u64() else {
+        return Redirect::to("/characters");
+    };
+    let _ = execute_or_request_party_action(
+        &state,
+        actor_id,
+        PartyAction::RejectJoinRequest { request_id },
+    )
+    .await;
+    Redirect::to(&party_location_url(&state, &id).await)
+}
+
+async fn party_location_url(state: &AppState, party_id: &str) -> String {
+    let parties: Vec<PartyView> = state
+        .db
+        .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(
+            &crate::spacetimedb::party_by_id(party_id),
+        )
+        .await
+        .unwrap_or_default();
+    let Some(party) = parties.first() else {
+        return "/".to_string();
+    };
+    match &party.current_settlement_id {
+        Some(settlement) => crate::location_urls::patterns::SETTLEMENT.url([&settlement]),
+        None => "/".to_string(),
+    }
+}
+
+#[derive(Serialize)]
+struct PartyNotifications {
+    pending_join_requests: usize,
+    role_join_requests: Vec<RoleNotification>,
+    action_requests: Vec<PartyActionRequestView>,
+    succession_required: bool,
+    leader_id: Option<String>,
+    leader_votes: Vec<LeaderVoteNotification>,
+}
+
+#[derive(Serialize)]
+struct RoleNotification {
+    role_id: u64,
+    count: usize,
+}
+
+#[derive(Serialize)]
+struct LeaderVoteNotification {
+    voter_id: String,
+    candidate_id: String,
+}
+
+async fn party_notifications(
+    State(state): State<AppState>,
+    session: Session,
+) -> Json<PartyNotifications> {
+    let Some(character_id) = session.character_id_u64() else {
+        return Json(PartyNotifications {
+            pending_join_requests: 0,
+            role_join_requests: Vec::new(),
+            action_requests: Vec::new(),
+            succession_required: false,
+            leader_id: None,
+            leader_votes: Vec::new(),
+        });
+    };
+    let Some(character) = get_character(&state, character_id).await else {
+        return Json(PartyNotifications {
+            pending_join_requests: 0,
+            role_join_requests: Vec::new(),
+            action_requests: Vec::new(),
+            succession_required: false,
+            leader_id: None,
+            leader_votes: Vec::new(),
+        });
+    };
+    let Some(party_id) = character.party_id else {
+        return Json(PartyNotifications {
+            pending_join_requests: 0,
+            role_join_requests: Vec::new(),
+            action_requests: Vec::new(),
+            succession_required: false,
+            leader_id: None,
+            leader_votes: Vec::new(),
+        });
+    };
+    let parties: Vec<PartyView> = state
+        .db
+        .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(
+            &crate::spacetimedb::party_by_id(&party_id),
+        )
+        .await
+        .unwrap_or_default();
+    let is_leader = parties
+        .first()
+        .is_some_and(|party| party.leader_id == character_id);
+    let requests: Vec<PartyJoinRequest> = state
+        .db
+        .query_sats(&format!(
+            "SELECT * FROM party_join_request WHERE party_id = {}",
+            sql_string_literal(&party_id)
+        ))
+        .await
+        .unwrap_or_default();
+    let mut counts = std::collections::BTreeMap::new();
+    for request in &requests {
+        *counts.entry(request.recruitment_role_id).or_insert(0) += 1;
+    }
+    let action_requests = if is_leader {
+        state
+            .db
+            .query_sats_into::<adventuresim_stdb_client::PartyActionRequest, PartyActionRequestView>(&format!(
+                "SELECT * FROM party_action_request WHERE party_id = {}",
+                sql_string_literal(&party_id)
+            ))
+            .await
+            .unwrap_or_default()
+    } else {
+        Vec::new()
+    };
+    let actual_leader_alive = match parties.first() {
+        Some(party) => super::data::character_as_observed(&state, party.leader_id, character_id)
+            .await
+            .ok()
+            .flatten()
+            .is_none_or(|leader| leader.alive),
+        None => true,
+    };
+    let leader_votes = state
+        .db
+        .query_sats::<PartyLeaderVote>(&format!(
+            "SELECT * FROM party_leader_vote WHERE party_id = {}",
+            sql_string_literal(&party_id)
+        ))
+        .await
+        .unwrap_or_default();
+    Json(PartyNotifications {
+        pending_join_requests: if is_leader { requests.len() } else { 0 },
+        role_join_requests: counts
+            .into_iter()
+            .map(|(role_id, count)| RoleNotification { role_id, count })
+            .collect(),
+        action_requests,
+        succession_required: !actual_leader_alive,
+        leader_id: parties.first().map(|party| party.leader_id.to_string()),
+        leader_votes: leader_votes
+            .into_iter()
+            .map(|vote| LeaderVoteNotification {
+                voter_id: vote.voter_id.to_string(),
+                candidate_id: vote.candidate_id.to_string(),
+            })
+            .collect(),
+    })
+}
+
+async fn approve_action_request(
+    State(state): State<AppState>,
+    Path(id): Path<u64>,
+    session: Session,
+) -> Redirect {
+    let Some(leader_id) = session.character_id_u64() else {
+        return Redirect::to("/characters");
+    };
+    let requests = match state
+        .db
+        .query_sats_into::<adventuresim_stdb_client::PartyActionRequest, PartyActionRequestView>(
+            &crate::spacetimedb::party_action_request_by_id(id),
+        )
+        .await
+    {
+        Ok(requests) => requests,
+        Err(error) => {
+            tracing::error!(%error, request_id = id, "failed to load party action request");
+            return Redirect::to("/?party-action-error=unavailable");
+        }
+    };
+    if let Some(request) = requests.into_iter().next()
+        && let Err(error) = approve_party_action(&state, leader_id, &request).await
+    {
+        tracing::warn!(%error, request_id = id, "party action approval failed");
+        return Redirect::to("/?party-action-error=approval");
+    }
+    Redirect::to("/")
+}
+
+async fn deny_action_request(
+    State(state): State<AppState>,
+    Path(id): Path<u64>,
+    session: Session,
+) -> Redirect {
+    if let Some(leader_id) = session.character_id_u64() {
+        let _ = state
+            .db
+            .call(
+                "dismiss_party_action_request",
+                &[json!(leader_id), json!(id)],
+            )
+            .await;
+    }
+    Redirect::to("/")
+}
+
+async fn vote_for_leader(
+    State(state): State<AppState>,
+    Path(candidate_id): Path<u64>,
+    session: Session,
+) -> Redirect {
+    if let Some(voter_id) = session.character_id_u64() {
+        let _ = state
+            .db
+            .call(
+                "vote_for_party_leader",
+                &[json!(voter_id), json!(candidate_id)],
+            )
+            .await;
+    }
+    Redirect::to("/")
+}
+
+async fn leave_party(
+    State(state): State<AppState>,
+    Path(_id): Path<String>,
+    session: Session,
+) -> Redirect {
+    let Some(character_id) = session.character_id_u64() else {
+        return Redirect::to("/characters");
+    };
+
+    let _ = state.db.call("leave_party", &[json!(character_id)]).await;
+
+    Redirect::to("/")
+}
+
+async fn disband_party(
+    State(state): State<AppState>,
+    Path(id): Path<String>,
+    session: Session,
+) -> Redirect {
+    if let Some(actor_id) = session.character_id_u64() {
+        let _ = execute_or_request_party_action(
+            &state,
+            actor_id,
+            PartyAction::DisbandParty { party_id: id },
+        )
+        .await;
+    }
+
+    Redirect::to("/")
+}
+
+async fn get_character(state: &AppState, character_id: u64) -> Option<CharacterView> {
+    match super::data::character(state, character_id).await {
+        Ok(character) => character,
+        Err(error) => {
+            tracing::error!(%error, "failed to load character");
+            None
+        }
+    }
+}
+
+#[cfg(test)]
+mod party_notification_tests {
+    use super::LeaderVoteNotification;
+
+    #[test]
+    fn leadership_vote_ids_serialize_without_javascript_precision_loss() {
+        let notification = LeaderVoteNotification {
+            voter_id: 9_000_001_u64.to_string(),
+            candidate_id: 11_108_535_685_347_685_334_u64.to_string(),
+        };
+        let json = serde_json::to_value(notification).unwrap();
+        assert_eq!(json["voter_id"], "9000001");
+        assert_eq!(json["candidate_id"], "11108535685347685334");
+    }
+}

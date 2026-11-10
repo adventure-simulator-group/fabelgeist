@@ -1,0 +1,210 @@
+1: use super::*;
+2: use crate::equipment::readiness::EquipmentReadiness;
+3: use bevy::ecs::system::RunSystemOnce;
+4: 
+5: #[test]
+6: fn readiness_waits_for_requested_equipment_and_surfaces_fit_failures() {
+7:     let mut world = World::new();
+8:     let readiness = |world: &mut World, items: Vec<Entity>| {
+9:         world
+10:             .run_system_once(move |readiness: EquipmentReadiness| {
+11:                 readiness.check(items.iter().copied())
+12:             })
+13:             .unwrap()
+14:     };
+15:     assert_eq!(readiness(&mut world, vec![]), Ok(true));
+16:     let item = world.spawn_empty().id();
+17:     assert_eq!(readiness(&mut world, vec![item]), Ok(false));
+18:     let root = world
+19:         .spawn((
+20:             ItemPlaceholder(item),
+21:             Visibility::Hidden,
+22:             RuntimeEquipmentPresentation {
+23:                 item,
+24:                 item_id: "cuirass".into(),
+25:                 placement_id: "worn".into(),
+26:             },
+27:         ))
+28:         .id();
+29:     assert_eq!(readiness(&mut world, vec![item]), Ok(false));
+30:     world
+31:         .entity_mut(root)
+32:         .insert((ProceduralEquipmentResolved, Visibility::Inherited));
+33:     assert_eq!(readiness(&mut world, vec![item]), Ok(true));
+34:     world.entity_mut(root).insert(ProceduralEquipmentFailed);
+35:     assert_eq!(
+36:         readiness(&mut world, vec![item]),
+37:         Err("Could not generate character equipment")
+38:     );
+39: }
+40: 
+41: fn empty_body() -> RuntimeBody {
+42:     RuntimeBody {
+43:         domain: "test".into(),
+44:         positions: vec![],
+45:         normals: vec![],
+46:         faces: vec![],
+47:         texcoords: vec![],
+48:         texcoord_faces: vec![],
+49:         joint_indices: Default::default(),
+50:         joint_weights: vec![],
+51:         joint_names: vec!["l_lowarm".into()].into(),
+52:         global_joint_states: Default::default(),
+53:         device: Default::default(),
+54:     }
+55: }
+56: 
+57: fn ready_cache() -> RuntimeEquipmentBodyCache {
+58:     RuntimeEquipmentBodyCache {
+59:         body: Some(body::CanonicalBody {
+60:             body: empty_body(),
+61:             names: vec![],
+62:             targets: vec![],
+63:             rig: rig::FittingRig::default(),
+64:         }),
+65:         bracer_design: Some(Default::default()),
+66:         breastplate_design: Some(Default::default()),
+67:         ..default()
+68:     }
+69: }
+70: 
+71: fn character_key(id: u64) -> FitKey {
+72:     FitKey {
+73:         shape: BodyShapeKey::new(
+74:             &[],
+75:             Some(id),
+76:             CharacterProportions::from_seed(fabelgeist_determinism::Seed::from_u64(id)),
+77:             Default::default(),
+78:         ),
+79:         selection: layers::LayerSelection::admit("vambrace", "left").unwrap(),
+80:         layers: Vec::new(),
+81:     }
+82: }
+83: 
+84: #[test]
+85: fn physical_fit_survives_hold_drop_and_placeholder_rebuild_then_refits_new_wearer() {
+86:     let mut app = App::new();
+87:     app.init_resource::<Assets<Mesh>>()
+88:         .init_resource::<Assets<StandardMaterial>>()
+89:         .init_resource::<Assets<SkinnedMeshInverseBindposes>>()
+90:         .init_resource::<WeaponMeshCache>()
+91:         .add_systems(
+92:             Update,
+93:             (
+94:                 crate::animation::cache_humanoid_rigs,
+95:                 spawn_item_placeholders,
+96:                 generate_runtime_equipment_models,
+97:                 sync_procedural_equipment_skins,
+98:                 render_binding::sync_render_bindings,
+99:                 update_item_placeholders,
+100:             )
+101:                 .chain(),
+102:         );
+103:     let first = actor(app.world_mut(), 1);
+104:     let second = actor(app.world_mut(), 2);
+105:     let mut cache = ready_cache();
+106:     for id in [1, 2] {
+107:         let key = character_key(id);
+108:         cache.bodies.insert(
+109:             key.shape.clone(),
+110:             FittedBody {
+111:                 body: Arc::new(empty_body()),
+112:                 inverse_bindposes: default(),
+113:             },
+114:         );
+115:         cache.models.insert(
+116:             key,
+117:             Ok(CachedEquipment {
+118:                 generated: Arc::new(empty_armor()),
+119:                 parts: vec![CachedPart {
+120:                     mesh: app
+121:                         .world_mut()
+122:                         .resource_mut::<Assets<Mesh>>()
+123:                         .add(fixture_mesh()),
+124:                     material: default(),
+125:                 }],
+126:                 rigid_center: Vec3::new(2.0, 3.0, 0.0),
+127:                 sockets: default(),
+128:             }),
+129:         );
+130:     }
+131:     app.insert_resource(cache);
+132:     let item = app
+133:         .world_mut()
+134:         .spawn((
+135:             ItemOf(first),
+136:             Transform::IDENTITY,
+137:             ItemProperties {
+138:                 id: "vambrace".into(),
+139:                 weight: 1.0,
+140:             },
+141:             worn_topology(),
+142:             TacticalEquipmentPhysical {
+143:                 dimensions_m: Vec3::splat(0.2),
+144:                 grip_to_tip_m: 0.0,
+145:                 striking_head_length_m: 0.0,
+146:                 anchor_offset_m: Vec3::ZERO,
+147:             },
+148:         ))
+149:         .id();
+150:     app.update();
+151:     assert_presentation(app.world_mut(), true, false);
+152:     assert_invalid_outfit_recovers(&mut app);
+153:     assert_eq!(
+154:         app.world().get::<LastFit>(item).unwrap().0,
+155:         character_key(1)
+156:     );
+157:     app.world_mut().entity_mut(item).insert((
+158:         EquipSlot::HoldingLeft,
+159:         EquipmentTopology {
+160:             placement_id: Some("left_hand".into()),
+161:             ..default()
+162:         },
+163:     ));
+164:     app.update();
+165:     assert_presentation(app.world_mut(), false, true);
+166:     assert_eq!(
+167:         app.world().get::<LastFit>(item).unwrap().0,
+168:         character_key(1)
+169:     );
+170:     app.world_mut()
+171:         .entity_mut(item)
+172:         .insert((TacticalSceneItem, EquipmentTopology::default()))
+173:         .remove::<(ItemOf, EquipSlot)>();
+174:     app.update();
+175:     assert_presentation(app.world_mut(), false, false);
+176:     assert_eq!(
+177:         app.world().get::<LastFit>(item).unwrap().0,
+178:         character_key(1)
+179:     );
+180:     app.world_mut()
+181:         .entity_mut(item)
+182:         .remove::<TacticalSceneItem>()
+183:         .insert((
+184:             ItemOf(second),
+185:             EquipSlot::HoldingRight,
+186:             EquipmentTopology {
+187:                 placement_id: Some("right_hand".into()),
+188:                 ..default()
+189:             },
+190:         ));
+191:     app.update();
+192:     assert_presentation(app.world_mut(), false, true);
+193:     assert_eq!(
+194:         app.world().get::<LastFit>(item).unwrap().0,
+195:         character_key(1)
+196:     );
+197:     app.world_mut()
+198:         .entity_mut(item)
+199:         .remove::<EquipSlot>()
+200:         .insert(worn_topology());
+201:     app.update();
+202:     assert_presentation(app.world_mut(), true, false);
+203:     assert_eq!(
+204:         app.world().get::<LastFit>(item).unwrap().0,
+205:         character_key(2)
+206:     );
+207:     assert_eq!(
+208:         app.world_mut()
+209:             .query::<&ProceduralEquipmentPart>()
+210:             .iter(app.world())

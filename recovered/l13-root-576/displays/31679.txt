@@ -1,0 +1,100 @@
+201:         let mut focus = Vec::new();
+202:         let mut principal_head = Vec::new();
+203:         for part in &generated.parts {
+204:             let role = roles.get(part.component_id.as_str()).copied();
+205:             let selected = match layout {
+206:                 WeaponIconLayout::HiltFocus => matches!(
+207:                     role,
+208:                     Some(ComponentRole::Grip | ComponentRole::Guard | ComponentRole::Structure)
+209:                 ),
+210:                 WeaponIconLayout::HeadFocus => {
+211:                     matches!(role, Some(ComponentRole::Head | ComponentRole::Socket))
+212:                 }
+213:             };
+214:             if selected {
+215:                 focus.extend(part.positions.iter().copied());
+216:             }
+217:             if layout == WeaponIconLayout::HeadFocus && role == Some(ComponentRole::Head) {
+218:                 principal_head.extend(part.positions.iter().copied());
+219:             }
+220:         }
+221:         if principal_head.is_empty() && layout == WeaponIconLayout::HeadFocus {
+222:             synthetic_head_focus(generated, &mut focus, &mut principal_head);
+223:         }
+224:         if focus.is_empty() {
+225:             return Err(IconError::MissingFocus);
+226:         }
+227: 
+228:         let anchor = framing_anchor(design, generated, &roles, layout)?;
+229:         let [lateral_center, axial_center] = raw_coordinates(anchor, layout);
+230:         let target = [0.5, 0.5];
+231:         let safe = IconBounds {
+232:             min: [0.02, 0.02],
+233:             max: [0.98, 0.98],
+234:         };
+235:         let base_scale = fit_scale(
+236:             &focus,
+237:             [lateral_center, axial_center],
+238:             layout,
+239:             false,
+240:             false,
+241:             target,
+242:             safe,
+243:         )? * 0.96;
+244:         let (scale, head_zoom, framed_focus) = match layout {
+245:             WeaponIconLayout::HiltFocus => (base_scale, 1.0, focus),
+246:             WeaponIconLayout::HeadFocus => {
+247:                 let head_scale = fit_scale(
+248:                     &principal_head,
+249:                     [lateral_center, axial_center],
+250:                     layout,
+251:                     false,
+252:                     false,
+253:                     target,
+254:                     safe,
+255:                 )? * 0.96;
+256:                 let zoom = (head_scale / base_scale).clamp(1.0, MAX_HEAD_ZOOM);
+257:                 (base_scale * zoom, zoom, principal_head)
+258:             }
+259:         };
+260:         let mut projection = Self {
+261:             layout,
+262:             lateral_center,
+263:             axial_center,
+264:             target,
+265:             scale,
+266:             mirror_x: false,
+267:             flip_lateral: false,
+268:             framing_anchor: target,
+269:             head_zoom,
+270:             focus_bounds: IconBounds::empty(),
+271:         };
+272:         for point in framed_focus {
+273:             projection.focus_bounds.include(projection.point(point));
+274:         }
+275:         Ok(projection)
+276:     }
+277: 
+278:     fn holder(generated: &GeneratedWeaponHolder) -> Result<Self, IconError> {
+279:         let (layout, mirror_x, flip_lateral, target, focus, anchor) = match generated.kind {
+280:             WeaponHolderKind::BladeSheath => {
+281:                 let focus = generated
+282:                     .parts
+283:                     .iter()
+284:                     .filter(|part| {
+285:                         matches!(
+286:                             part.component_id.as_str(),
+287:                             "scabbard-throat" | "scabbard-suspension"
+288:                         )
+289:                     })
+290:                     .flat_map(|part| part.positions.iter().copied())
+291:                     .collect::<Vec<_>>();
+292:                 let throat = generated
+293:                     .parts
+294:                     .iter()
+295:                     .find(|part| part.component_id == "scabbard-throat")
+296:                     .ok_or(IconError::MissingFocus)?;
+297:                 (
+298:                     WeaponIconLayout::HiltFocus,
+299:                     true,
+300:                     false,

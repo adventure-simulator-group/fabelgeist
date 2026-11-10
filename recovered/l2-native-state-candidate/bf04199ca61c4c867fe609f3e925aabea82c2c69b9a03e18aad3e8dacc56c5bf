@@ -1,0 +1,56 @@
+{
+  "schema": "726-l2-native-identity-admission-policy-v1",
+  "at": "2026-11-02T19:00:12.422442+00:00",
+  "lens": 2,
+  "parent_contract": "L2-EXT-ERRANTRY-FRAME-ID-OWNER-FIT",
+  "parent_first_contract": "Frame/trial/challenge/site String fields carry distinct identity roles; actual namespace/admission/producers/native consumers must establish an existing owner match. Similar names or the same representation are insufficient.",
+  "evidence": [
+    {
+      "path": "adler-continuation-20261030/READ-ROOT-L2-NATIVE-ADMISSION-001.json",
+      "sha256": "78797ac962c6a865ec6b8ad1b50aa04846ac0a3815a2c612b403c981ad0c1857"
+    },
+    {
+      "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L2-ERRANTRY-REUSE-001.json",
+      "sha256": "c8ac419fd0fe6b38f12eeb8f2338f54331c2589ef46b7f13aa09e31c04904299"
+    }
+  ],
+  "serde_calls_checked_constructor": true,
+  "sats_derived_product_calls_checked_constructor": false,
+  "native_feature_active_in_selected_module": true,
+  "manual_adapter_example_is_checked": false,
+  "first_failed_native_contract": "CaseSiteId claims checked component admission, but the active SpacetimeType derive emits direct String-field construction through SATS before the reducer receives the value; checked Serde decoding does not govern this independent native decoder.",
+  "source_supported_witness": "The exact derived named-product expression is Ok(CaseSiteId { value: decoded_string }). It contains no invocation of CaseSiteId::try_new or its Serde Wire decoder. This is a source-level admission gap; malformed bytes have not been executed and later reducer/table behavior is not inferred.",
+  "selected_native_repair": "Manual native wire adapter invokes the actual checked constructor; native validate uses checked deserialize",
+  "repair_requirements": [
+    "Replace the direct SpacetimeType-derived CaseSiteId admission in connected scope with explicit native type/serialization/deserialization implementations using one native wire record and the actual checked constructor. Do not retain a second unchecked path.",
+    "Map constructor rejection to the native decoding error using the SDK Error::custom contract. Keep native validate and deserialize_from_bsatn on the checked path; do not keep a structural fast validation override that skips the constructor.",
+    "Apply the same checked boundary rule to the selected new frame/trial/challenge keys and narrow JourneyCamp owner. A Serde validator or private field alone does not prove native invariant enforcement.",
+    "Do not add validation errors to all-u64 zero-valid minute leaves merely to mimic identity admission. Validate relationships at owning aggregate boundaries instead.",
+    "Keep actual gateway, party/case/contract/destination/revision and retry authorization checks; checked identity syntax does not authorize an action.",
+    "Generate final native schema/client bindings through the prescribed generator. Use the clean final shape without old wire aliases, shims, dual decoders or compatibility fields.",
+    "Remove in-scope panic-based From<String> identity admission; checked authored factory production must use explicit fallible construction even though this factory\u2019s bounded component validity was already source-proved."
+  ],
+  "later_acceptance_requirements": [
+    "Under the active native feature, exercise actual SATS/BSATN deserialize and validate paths with admitted canonical input and invalid empty, disallowed-character and oversized component inputs; require matching constructor admission.",
+    "Verify narrow JourneyCamp native decoding rejects other StrategicPlaceId variants and distinguishes unbound from valid zero coordinates.",
+    "Verify Serde/native/generated-client round trips and actual guarded reducer/store boundaries after schema generation, in the isolated development workflow. No public/player database resets.",
+    "Verify no derived unchecked native path, panic conversion or structural-only validation fast path remains in the connected types. Preserve authorization behavior and exact retained identities."
+  ],
+  "separate_existing_erasure_contract": {
+    "queue_pointer": "/entries/244",
+    "contract_id": "SEGOVB-L12-TRAVEL-CASE-SITE-PRIVATE-RETENTION",
+    "first_contract": "Typed CaseSiteId native reducer parameter5/15 lowered into_string8/19 before private travel_to_case_site_impl case_site_id:String133; samevalue reconstructedCaseSiteId323/356 forretainednativejourneylocation.",
+    "relation": "That contract starts after native decode, where typed reducer input is erased into a private String. The native constructor-admission gap precedes it; common CaseSiteId scope is not an alias proof.",
+    "canonical_alias_applied": false,
+    "other_lens_verdict_transferred": false
+  },
+  "remaining_evidence": [
+    "Exact canonical aliases and all20/current reconciliation remain required; no new accepted unique record or other-lens closure is claimed.",
+    "Canonical contract-key ownership, native view/URL/client admission and all other producers retain separate source/acceptance requirements.",
+    "No live malformed-input incident, full SDK/macro coverage, reducer dispatch/table validation closure, generated schema verification or runtime acceptance is claimed."
+  ],
+  "malformed_payload_executed": false,
+  "global_alias_complete": false,
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

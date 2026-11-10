@@ -1,0 +1,37 @@
+{
+  "schema": "726-scoped-condition-wrapper-correction-v1",
+  "at": "2026-11-03T20:20:17.829820+00:00",
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-CONDITION-WRAPPER-1181.json",
+    "sha256": "c7e130cdf303aa20f53bf3fb9c91397a1fe3a0166afb74123989aa5ec0da4767"
+  },
+  "prior_observations": [
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-STRATEGIC-CONDITION-1150.json",
+      "sha256": "f93becfa5c2f9da01f311d99a8b65961a4452984008692570a5fed0cc751b3d0"
+    },
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-CONDITION-REFRESH-1156.json",
+      "sha256": "adb4e06c980d0a0ec6091a9d2527fe26de9c5241f3b5fc15c8eb87f868f5c868"
+    },
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-CONDITION-BATCH-1157.json",
+      "sha256": "6407d54704e8f1407cde9107112beeed4d839b48e689bab31de41bb04a7bff19"
+    }
+  ],
+  "probe": {
+    "path": "target/726-intake-20261030/condition-http-wrapper-1181.cjs",
+    "sha256": "ea8f36e4a49df35f1d46b4272b3d65d9ca2beb7bc3279cfbb4ef39546bb0921e"
+  },
+  "whole_contract_closed": false,
+  "source_trace": [
+    "Correction: the earlier non-success response tests stubbed strategicBackgroundFetch directly and bypassed its real wrapper. They do not establish production handling of an HTTP error. The registered wrapper throws for non-success HTTP responses before the wheel can inspect response.ok.",
+    "A controlled Node VM using the exact registered wrapper and wheel scripts, with stub DOM and fetch, observed a 503 rejection, error events, and the previous wheel title retained. This is not a live browser or service incident. A fulfilled JSON null response is a separate path.",
+    "SocialDuration admits 15 through 480 minutes in 15-minute steps; SocialActionId admits 1 through 96 ASCII alphanumerics, hyphens or underscores. The native receipt view exposes receipts only to the strategic gateway."
+  ],
+  "remaining_evidence": [
+    "Browser retry and navigation, independent lenses and complete repair validation remain open."
+  ],
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

@@ -1,0 +1,126 @@
+[
+  {
+    "source": {
+      "original": 1767,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+      "actual_eof": 267,
+      "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+      "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "prospective_ranges": [
+        [
+          1,
+          267
+        ]
+      ],
+      "purpose": "Full Lens13 height/IK/landing/locomotion measurement owners, animation exports and motion modes. Source inspection only."
+    },
+    "registration": {
+      "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1764-1770-001.json",
+      "sha256": "cd62a9ef59e49c7e22218543efb8bd56b6d2b54828a94cb7e4942c3600ad0b9b"
+    },
+    "registration_pointer": "/sources/3",
+    "assessed_ranges": [
+      [
+        1,
+        267
+      ]
+    ],
+    "author": "/root",
+    "untruncated_body_outputs": true,
+    "observations": [
+      {
+        "ranges": [
+          [
+            1,
+            56
+          ]
+        ],
+        "assessment": "Bilateral two contacts/half-cycle are stated topology. Fixed stationary0.05 and downed minimum0.8 are checked speed constants, explicitly distinct from configurable playback hysteresis; they remain policy/config ownership obligations under crate guide, not automatically mathematical identities. LocomotionProfile public Serde fields include NonnegativeSpeed reference and NonnegativeLength step; LandingProfile recovery AnimationElapsed permits zero. Typed leaves do not enforce profile aggregate positivity/order."
+      },
+      {
+        "ranges": [
+          [
+            58,
+            127
+          ]
+        ],
+        "assessment": "animation_local_velocity uses raised local velocity when guard raised/moving else authoritative local velocity. animation_speed checks completed horizontal norm before typed admission and applies downed minimum0.8 only when turning. Profile accessors each read runtime_animation_config and project gait config; actual same server snapshot/coherence remains needed, names alone no guarantee."
+      },
+      {
+        "ranges": [
+          [
+            129,
+            193
+          ]
+        ],
+        "assessment": "Body prone/supine selects own profile, raised nonsprint overrides step length, ordinary profile interpolates walk/run using run-minus-walk reference divisor. Typed checked lerp/scaled heights precede return. ordinary_step_distance uses fixed0.9m stationary intercept then authored walk/run references; equal/zero profile config needs canonical validation before witness. Existing profile admission contract covers zero-permitting retained references and separate pair order; tuning intercept retains separate ownership question."
+      },
+      {
+        "ranges": [
+          [
+            195,
+            239
+          ]
+        ],
+        "assessment": "gait_cycle_phase_delta computes speed*elapsed divided by max(step,0.01)*2 then checked CycleDelta;0.01m floor is fixed physical policy, two steps structural. Huge denominator multiplication alone is not proof of intended-result failure; actual valid profile/current bounds needed. gait_support_weights returns both1 for RaisedGuard, otherwise assumes phase periodic neighborhood with min(abs(phase-contact),1-delta) and support radius*0.45 smoothstep. CyclePhase itself unwrapped, so actual caller wrapping prerequisite essential before supported negative-distance/all-support witness. Degenerate smoothstep edges have explicit step policy."
+      },
+      {
+        "ranges": [
+          [
+            241,
+            267
+          ]
+        ],
+        "assessment": "Exact weakening handoff: landing_profile sets recovery_seconds=config.recovery_seconds.elapsed(); gait_profile sets reference_speed=config.reference_speed_metres_per_second.nonnegative() and positive step into nonnegative. Retained public serde profile loses configured positive role at conversion. Direct support for ADLER-L11-LOCOMOTION-PROFILE-ADMISSION; actual source config types/validator, all consumers/current and exact aliases still required."
+      }
+    ]
+  },
+  {
+    "source": {
+      "original": 2580,
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/terrain_feature.rs",
+      "sha256": "6a6dfd572ca9979a848a5ce84711bace83217c58b2725218a77475f13e3b81ae",
+      "actual_eof": 51,
+      "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/6a6dfd572ca9979a848a5ce84711bace83217c58b2725218a77475f13e3b81ae",
+      "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/6a6dfd572ca9979a848a5ce84711bace83217c58b2725218a77475f13e3b81ae",
+      "prospective_ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "revision_qualification": "Archivef82adc transports exact P16 bytes, not semantic P16 project import/native/current activation. Existing earlier full body proofs preserve original readers; distinct role scope counted once.",
+      "purpose": "P16 placement131/facing56/terrainvalidator51/fit46/surface47/numeric49 admission roles380; onlyterrain51 fresh,329 reused without reread or other-lens/current/unique/review credit."
+    },
+    "registration": {
+      "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2578-2583-001.json",
+      "sha256": "6c11149563aaca69944935ec287980375696bc172380d06150462c6fdd816c0a"
+    },
+    "registration_pointer": "/sources/2",
+    "assessed_ranges": [
+      [
+        1,
+        51
+      ]
+    ],
+    "untruncated_body_outputs": true,
+    "author": "/root",
+    "observations": [
+      {
+        "ranges": [
+          [
+            1,
+            51
+          ]
+        ],
+        "assessment": "Fresh exact P16 terrain_feature full51 personally read untruncated. TerrainPack getters borrow retained manifest feature slice and cultivated count. validate sums every feature.geometry length into usize before shared MAX_FAULT_GEOMETRY_POINTS comparison; actual input/file/cardinality bounds and target integer/native decode needed before overflow question. MappedGeology delegates is_valid and returns from per-feature closure, bypassing fault-specific id length/2..MAX_FAULT_LINE_POINTS/consecutivepoint/geographicbounds branch; all features still participate in totalpoint budget, strict increasing id ordering and geologic-window count cap. Actual window admission/canonical policy vs fault geometry must be traced before treating this intentional variant branch as missing bounds. Fault coordinates compare longitude/latitude getters against raw [west,south,east,north]; actual geographic point/getter and prevalidated manifest bound producer/native consumers required. All failed predicates collapse to Error::Validation string at46..48, supporting existing3717 reason-ownership question without new finding. No parser/runtime/source bounds or native getter behavior inferred by import/name."
+      }
+    ],
+    "read_kind": "qualified_root2578_2583_material_scope",
+    "root_personal_source_lines": 51,
+    "whole_file_coverage": true,
+    "unread_ranges": []
+  }
+]

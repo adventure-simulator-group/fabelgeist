@@ -1,0 +1,226 @@
+1: use crate::allocator::core::BatchMetadata;
+2: use crate::components::InstanceUniforms;
+3: 
+4: use bevy_render::{
+5:     render_resource::{Buffer, DrawIndexedIndirectArgs},
+6:     renderer::RenderQueue,
+7: };
+8: use bevy_utils::default;
+9: use bytemuck::{Pod, cast_slice};
+10: use std::ops::RangeInclusive;
+11: 
+12: #[cfg(feature = "trace")]
+13: use tracing::trace;
+14: 
+15: /// Represents a range of instances to be drawn in a single indirect call.
+16: ///
+17: /// A "Batch" is a collection of instances that share a Mesh and Material.
+18: #[derive(Clone, Copy, Default)]
+19: pub struct BatchData {
+20:     pub indirect: DrawIndexedIndirectArgs,
+21:     pub uniform: InstanceUniforms,
+22:     pub metadata: BatchMetadata,
+23: }
+24: 
+25: /// Manages CPU-side mirrors of per-page GPU buffers during the prepare stage.
+26: /// Tracks dirty ranges to perform sparse uploads, i.e. O(changes) instead of O(total).
+27: #[derive(Default)]
+28: pub struct BatchBuffer {
+29:     pub indirect: Vec<DrawIndexedIndirectArgs>,
+30:     pub uniforms: Vec<InstanceUniforms>,
+31:     pub metadata: Vec<BatchMetadata>,
+32: 
+33:     /// Indices that have changed since the last flush.
+34:     pub dirty_indices: Vec<usize>,
+35: 
+36:     /// Capacity of the underlying [`Vec`]'s and [`Buffer`]'s.
+37:     pub capacity: usize,
+38: }
+39: 
+40: impl BatchBuffer {
+41:     #[inline]
+42:     pub fn ensure_capacity(&mut self, capacity: usize) {
+43:         if self.check_bounds(capacity) {
+44:             return;
+45:         }
+46: 
+47:         #[cfg(feature = "trace")]
+48:         trace!(
+49:             "BatchBuffer: Growing capacity {} -> {}",
+50:             self.capacity, capacity
+51:         );
+52: 
+53:         self.indirect.resize(capacity, default());
+54:         self.uniforms.resize(capacity, default());
+55:         self.metadata.resize(capacity, default());
+56:         self.capacity = capacity;
+57:     }
+58: 
+59:     pub fn update(&mut self, batch: usize, data: BatchData) {
+60:         if !self.check_bounds(batch) {
+61:             self.ensure_capacity(batch + 1);
+62:         }
+63: 
+64:         self.indirect[batch] = data.indirect;
+65:         self.uniforms[batch] = data.uniform;
+66:         self.metadata[batch] = data.metadata;
+67: 
+68:         self.dirty_indices.push(batch);
+69:     }
+70: 
+71:     /// Marks all currently used indices as dirty.
+72:     ///
+73:     /// Used when the underlying GPU buffer is resized/recreated and needs a full refresh.
+74:     pub fn mark_dirty(&mut self) {
+75:         self.dirty_indices.clear();
+76:         self.dirty_indices.extend(0..self.capacity);
+77:     }
+78: 
+79:     pub fn clear(&mut self, batch: usize) {
+80:         if !self.check_bounds(batch) || self.zeroed(batch) {
+81:             return;
+82:         }
+83: 
+84:         self.indirect[batch] = default();
+85:         self.uniforms[batch] = default();
+86:         self.metadata[batch] = default();
+87:         self.dirty_indices.push(batch);
+88:     }
+89: 
+90:     /// Used to avoid unnecessary writes if it's already zeroed.
+91:     fn zeroed(&self, batch: usize) -> bool {
+92:         cast_slice::<_, u8>(std::slice::from_ref(&self.metadata[batch]))
+93:             .iter()
+94:             .all(|&b| b == 0)
+95:     }
+96: 
+97:     fn check_bounds(&self, capacity: usize) -> bool {
+98:         capacity < self.capacity
+99:     }
+100: 
+101:     #[inline]
+102:     pub fn capacity(&self) -> usize {
+103:         self.capacity
+104:     }
+105: 
+106:     /// Uploads the dirty ranges to the GPU.
+107:     pub fn flush(
+108:         &mut self,
+109:         render_queue: &RenderQueue,
+110:         indirect_buffer: &Buffer,
+111:         uniform_buffer: &Buffer,
+112:         metadata_buffer: &Buffer,
+113:     ) {
+114:         if self.dirty_indices.is_empty() {
+115:             return;
+116:         }
+117: 
+118:         self.dirty_indices.sort_unstable();
+119:         self.dirty_indices.dedup();
+120: 
+121:         #[cfg(feature = "trace")]
+122:         trace!(
+123:             "BatchBuffer: Flushing {} dirty batches to GPU",
+124:             self.dirty_indices.len()
+125:         );
+126: 
+127:         let mut i = 0;
+128:         while i < self.dirty_indices.len() {
+129:             let start = self.dirty_indices[i];
+130:             let mut end = start;
+131: 
+132:             // find contiguous dirty indices
+133:             while let Some(&next) = self.dirty_indices.get(i + 1) {
+134:                 if next != end + 1 {
+135:                     break;
+136:                 }
+137:                 end = next;
+138:                 i += 1;
+139:             }
+140: 
+141:             self.write_buffers(WriteBuffersContext {
+142:                 start,
+143:                 end,
+144:                 render_queue,
+145:                 indirect_buffer,
+146:                 uniform_buffer,
+147:                 metadata_buffer,
+148:             });
+149: 
+150:             i += 1;
+151:         }
+152: 
+153:         self.dirty_indices.clear();
+154:     }
+155: 
+156:     pub fn reset(&mut self) {
+157:         self.indirect.clear();
+158:         self.uniforms.clear();
+159:         self.metadata.clear();
+160:         self.dirty_indices.clear();
+161:     }
+162: 
+163:     #[inline(always)]
+164:     fn write_buffers(&mut self, ctx: WriteBuffersContext) {
+165:         self.write_buffer::<DrawIndexedIndirectArgs>(ctx);
+166:         self.write_buffer::<InstanceUniforms>(ctx);
+167:         self.write_buffer::<BatchMetadata>(ctx);
+168:     }
+169: 
+170:     #[inline(always)]
+171:     fn write_buffer<T: BatchBufferWritable>(&self, ctx: WriteBuffersContext) {
+172:         let WriteBufferContext {
+173:             range,
+174:             render_queue,
+175:             buffer,
+176:         } = T::ctx(ctx);
+177: 
+178:         let offset = (range.start() * size_of::<T>()) as u64;
+179:         let data = T::get(self, range);
+180: 
+181:         render_queue.write_buffer(buffer, offset, cast_slice(data));
+182:     }
+183: }
+184: 
+185: #[derive(Clone, Copy)]
+186: struct WriteBuffersContext<'a> {
+187:     start: usize,
+188:     end: usize,
+189:     render_queue: &'a RenderQueue,
+190:     indirect_buffer: &'a Buffer,
+191:     uniform_buffer: &'a Buffer,
+192:     metadata_buffer: &'a Buffer,
+193: }
+194: 
+195: #[derive(Clone)]
+196: struct WriteBufferContext<'a> {
+197:     range: RangeInclusive<usize>,
+198:     render_queue: &'a RenderQueue,
+199:     buffer: &'a Buffer,
+200: }
+201: 
+202: trait BatchBufferWritable: Pod {
+203:     fn get(buffer: &BatchBuffer, range: RangeInclusive<usize>) -> &[Self];
+204: 
+205:     fn ctx(ctx: WriteBuffersContext) -> WriteBufferContext;
+206: }
+207: 
+208: macro_rules! batch_buffer_writable {
+209:     ($type:ty, $buffer_field:ident, $ctx_field:ident) => {
+210:         impl BatchBufferWritable for $type {
+211:             #[inline(always)]
+212:             fn get(buffer: &BatchBuffer, range: RangeInclusive<usize>) -> &[Self] {
+213:                 &buffer.$buffer_field[range]
+214:             }
+215: 
+216:             #[inline(always)]
+217:             fn ctx(ctx: WriteBuffersContext) -> WriteBufferContext {
+218:                 WriteBufferContext {
+219:                     range: ctx.start..=ctx.end,
+220:                     render_queue: ctx.render_queue,
+221:                     buffer: ctx.$ctx_field,
+222:                 }
+223:             }
+224:         }
+225:     };
+226: }

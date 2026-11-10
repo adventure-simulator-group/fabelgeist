@@ -1,0 +1,297 @@
+SOURCE crates/adventuresim-building-generator/src/viewer/projected_suite.rs 9390c69488b865e3c61bfd4c92da02c0dbfb29fc61b0d2beb66d59a56d7fc500
+1: 
+2: #[derive(Clone, Debug, Deserialize)]
+3: struct ProjectedSuiteManifest {
+4:     fixture: String,
+5:     view: String,
+6:     seed: Seed,
+7:     resolver_schema_version: u16,
+8:     resolved_geometry_hash: String,
+9:     source_revision: String,
+10:     source_dirty_fingerprint: String,
+11:     plan_hash: String,
+12:     focus_kind: Option<String>,
+13:     focused_resolved_item_ids: Vec<u64>,
+14:     focused_resolved_void_ids: Vec<u64>,
+15:     focused_projected_ray_count: usize,
+16:     projected_defense_kind: Option<String>,
+17:     projected_defense_deployment: Option<String>,
+18:     projected_tactical_target: Option<String>,
+19:     validation_passed: bool,
+20: }
+21: 
+22: #[derive(Clone, Copy)]
+23: struct ProjectedProofExpectation {
+24:     basename: &'static str,
+25:     fixture: &'static str,
+26:     view: &'static str,
+27:     seed: Seed,
+28:     kind: Option<&'static str>,
+29:     deployment: Option<&'static str>,
+30: }
+31: 
+32: const PROJECTED_PROOF_SUITE: [ProjectedProofExpectation; 23] = [
+33:     ProjectedProofExpectation {
+34:         basename: "machicolation-exterior",
+35:         fixture: "castle-gatehouse",
+36:         view: "projected-exterior",
+37:         seed: fabelgeist_determinism::Seed::from_u64(42),
+38:         kind: Some("machicolation"),
+39:         deployment: Some("permanent"),
+40:     },
+41:     ProjectedProofExpectation {
+42:         basename: "machicolation-interior",
+43:         fixture: "castle-gatehouse",
+44:         view: "projected-interior",
+45:         seed: fabelgeist_determinism::Seed::from_u64(42),
+46:         kind: Some("machicolation"),
+47:         deployment: Some("permanent"),
+48:     },
+49:     ProjectedProofExpectation {
+50:         basename: "machicolation-underside",
+51:         fixture: "castle-gatehouse",
+52:         view: "projected-underside",
+53:         seed: fabelgeist_determinism::Seed::from_u64(42),
+54:         kind: Some("machicolation"),
+55:         deployment: Some("permanent"),
+56:     },
+57:     ProjectedProofExpectation {
+58:         basename: "machicolation-top",
+59:         fixture: "castle-gatehouse",
+60:         view: "projected-top",
+61:         seed: fabelgeist_determinism::Seed::from_u64(42),
+62:         kind: Some("machicolation"),
+63:         deployment: Some("permanent"),
+64:     },
+65:     ProjectedProofExpectation {
+66:         basename: "machicolation-longitudinal",
+67:         fixture: "castle-gatehouse",
+68:         view: "projected-longitudinal",
+69:         seed: fabelgeist_determinism::Seed::from_u64(42),
+70:         kind: Some("machicolation"),
+71:         deployment: Some("permanent"),
+72:     },
+73:     ProjectedProofExpectation {
+74:         basename: "breteche-exterior",
+75:         fixture: "castle-gatehouse",
+76:         view: "projected-exterior",
+77:         seed: fabelgeist_determinism::Seed::from_u64(201),
+78:         kind: Some("breteche"),
+79:         deployment: Some("permanent"),
+80:     },
+81:     ProjectedProofExpectation {
+82:         basename: "breteche-interior",
+83:         fixture: "castle-gatehouse",
+84:         view: "projected-interior",
+85:         seed: fabelgeist_determinism::Seed::from_u64(201),
+86:         kind: Some("breteche"),
+87:         deployment: Some("permanent"),
+88:     },
+89:     ProjectedProofExpectation {
+90:         basename: "breteche-underside",
+91:         fixture: "castle-gatehouse",
+92:         view: "projected-underside",
+93:         seed: fabelgeist_determinism::Seed::from_u64(201),
+94:         kind: Some("breteche"),
+95:         deployment: Some("permanent"),
+96:     },
+97:     ProjectedProofExpectation {
+98:         basename: "breteche-top",
+99:         fixture: "castle-gatehouse",
+100:         view: "projected-top",
+101:         seed: fabelgeist_determinism::Seed::from_u64(201),
+102:         kind: Some("breteche"),
+103:         deployment: Some("permanent"),
+104:     },
+105:     ProjectedProofExpectation {
+106:         basename: "hoarding-sockets",
+107:         fixture: "castle-gatehouse",
+108:         view: "projected-sockets",
+109:         seed: fabelgeist_determinism::Seed::from_u64(42),
+110:         kind: Some("hoarding"),
+111:         deployment: Some("sockets_only"),
+112:     },
+113:     ProjectedProofExpectation {
+114:         basename: "hoarding-exterior",
+115:         fixture: "castle-gatehouse",
+116:         view: "projected-exterior",
+117:         seed: fabelgeist_determinism::Seed::from_u64(202),
+118:         kind: Some("hoarding"),
+119:         deployment: Some("deployed"),
+120:     },
+121:     ProjectedProofExpectation {
+122:         basename: "hoarding-interior",
+123:         fixture: "castle-gatehouse",
+124:         view: "projected-interior",
+125:         seed: fabelgeist_determinism::Seed::from_u64(202),
+126:         kind: Some("hoarding"),
+127:         deployment: Some("deployed"),
+128:     },
+129:     ProjectedProofExpectation {
+130:         basename: "hoarding-underside",
+131:         fixture: "castle-gatehouse",
+132:         view: "projected-underside",
+133:         seed: fabelgeist_determinism::Seed::from_u64(202),
+134:         kind: Some("hoarding"),
+135:         deployment: Some("deployed"),
+136:     },
+137:     ProjectedProofExpectation {
+138:         basename: "hoarding-top",
+139:         fixture: "castle-gatehouse",
+140:         view: "projected-top",
+141:         seed: fabelgeist_determinism::Seed::from_u64(202),
+142:         kind: Some("hoarding"),
+143:         deployment: Some("deployed"),
+144:     },
+145:     ProjectedProofExpectation {
+146:         basename: "hoarding-longitudinal",
+147:         fixture: "castle-gatehouse",
+148:         view: "projected-longitudinal",
+149:         seed: fabelgeist_determinism::Seed::from_u64(202),
+150:         kind: Some("hoarding"),
+151:         deployment: Some("deployed"),
+152:     },
+153:     ProjectedProofExpectation {
+154:         basename: "bartizan-exterior",
+155:         fixture: "castle-gatehouse",
+156:         view: "projected-exterior",
+157:         seed: fabelgeist_determinism::Seed::from_u64(203),
+158:         kind: Some("bartizan"),
+159:         deployment: Some("permanent"),
+160:     },
+161:     ProjectedProofExpectation {
+162:         basename: "bartizan-interior",
+163:         fixture: "castle-gatehouse",
+164:         view: "projected-interior",
+165:         seed: fabelgeist_determinism::Seed::from_u64(203),
+166:         kind: Some("bartizan"),
+167:         deployment: Some("permanent"),
+168:     },
+169:     ProjectedProofExpectation {
+170:         basename: "bartizan-underside",
+171:         fixture: "castle-gatehouse",
+172:         view: "projected-underside",
+173:         seed: fabelgeist_determinism::Seed::from_u64(203),
+174:         kind: Some("bartizan"),
+175:         deployment: Some("permanent"),
+176:     },
+177:     ProjectedProofExpectation {
+178:         basename: "bartizan-top",
+179:         fixture: "castle-gatehouse",
+180:         view: "projected-top",
+181:         seed: fabelgeist_determinism::Seed::from_u64(203),
+182:         kind: Some("bartizan"),
+183:         deployment: Some("permanent"),
+184:     },
+185:     ProjectedProofExpectation {
+186:         basename: "bartizan-flank",
+187:         fixture: "castle-gatehouse",
+188:         view: "projected-flank",
+189:         seed: fabelgeist_determinism::Seed::from_u64(203),
+190:         kind: Some("bartizan"),
+191:         deployment: Some("permanent"),
+192:     },
+193:     ProjectedProofExpectation {
+194:         basename: "projected-castle-gatehouse-regression",
+195:         fixture: "castle-gatehouse",
+196:         view: "exterior",
+197:         seed: fabelgeist_determinism::Seed::from_u64(42),
+198:         kind: None,
+199:         deployment: None,
+200:     },
+201:     ProjectedProofExpectation {
+202:         basename: "projected-courtyard-regression",
+203:         fixture: "courtyard-castle",
+204:         view: "exterior",
+205:         seed: fabelgeist_determinism::Seed::from_u64(42),
+206:         kind: None,
+207:         deployment: None,
+208:     },
+209:     ProjectedProofExpectation {
+210:         basename: "projected-walled-keep-regression",
+211:         fixture: "walled-keep",
+212:         view: "exterior",
+213:         seed: fabelgeist_determinism::Seed::from_u64(42),
+214:         kind: None,
+215:         deployment: None,
+216:     },
+217: ];
+218: 
+219: fn validate_projected_suite_records(
+220:     records: &[(&str, ProjectedSuiteManifest)],
+221: ) -> Result<(), String> {
+222:     if records.len() != PROJECTED_PROOF_SUITE.len() {
+223:         return Err(format!(
+224:             "expected {} projected-defense manifests, found {}",
+225:             PROJECTED_PROOF_SUITE.len(),
+226:             records.len()
+227:         ));
+228:     }
+229:     let first = &records[0].1;
+230:     let mut fixtures = std::collections::HashMap::<(&str, Seed), (&str, &str)>::new();
+231:     for ((actual_name, manifest), expected) in records.iter().zip(PROJECTED_PROOF_SUITE) {
+232:         if *actual_name != expected.basename
+233:             || manifest.fixture != expected.fixture
+234:             || manifest.view != expected.view
+235:             || manifest.seed != expected.seed
+236:             || manifest.projected_defense_kind.as_deref() != expected.kind
+237:             || manifest.projected_defense_deployment.as_deref() != expected.deployment
+238:         {
+239:             return Err(format!(
+240:                 "projected proof {actual_name} does not match its expected fixture/view/seed/state"
+241:             ));
+242:         }
+243:         if !manifest.validation_passed || manifest.resolver_schema_version != 2 {
+244:             return Err(format!(
+245:                 "projected proof {actual_name} is invalid or not resolver schema 2"
+246:             ));
+247:         }
+248:         if manifest.source_revision != first.source_revision
+249:             || manifest.source_dirty_fingerprint != first.source_dirty_fingerprint
+250:         {
+251:             return Err(format!(
+252:                 "projected proof {actual_name} comes from a mixed source build"
+253:             ));
+254:         }
+255:         if expected.kind.is_some()
+256:             && (manifest.focus_kind.as_deref() != Some("resolved_projected")
+257:                 || manifest.focused_resolved_item_ids.is_empty()
+258:                 || manifest.focused_resolved_void_ids.is_empty()
+259:                     && expected.deployment != Some("sockets_only")
+260:                 || manifest.focused_projected_ray_count == 0
+261:                     && expected.deployment != Some("sockets_only")
+262:                 || manifest.projected_tactical_target.is_none())
+263:         {
+264:             return Err(format!(
+265:                 "projected proof {actual_name} lacks exact assembly IDs, voids, rays, or tactical target"
+266:             ));
+267:         }
+268:         let fixture_key = (expected.fixture, expected.seed);
+269:         if let Some((plan_hash, resolved_hash)) = fixtures.get(&fixture_key) {
+270:             if *plan_hash != manifest.plan_hash || *resolved_hash != manifest.resolved_geometry_hash
+271:             {
+272:                 return Err(format!(
+273:                     "projected proof {actual_name} disagrees with its fixture/seed hashes"
+274:                 ));
+275:             }
+276:         } else {
+277:             fixtures.insert(
+278:                 fixture_key,
+279:                 (&manifest.plan_hash, &manifest.resolved_geometry_hash),
+280:             );
+281:         }
+282:     }
+283:     Ok(())
+284: }
+285: 
+286: pub(crate) fn validate_projected_suite(directory: &std::path::Path) -> Result<(), String> {
+287:     let mut owned = Vec::with_capacity(PROJECTED_PROOF_SUITE.len());
+288:     for expected in PROJECTED_PROOF_SUITE {
+289:         let path = directory.join(format!("{}.capture.json", expected.basename));
+290:         let bytes = fs::read(&path).map_err(|error| format!("read {}: {error}", path.display()))?;
+291:         let manifest = serde_json::from_slice::<ProjectedSuiteManifest>(&bytes)
+292:             .map_err(|error| format!("parse {}: {error}", path.display()))?;
+293:         owned.push((expected.basename, manifest));
+294:     }
+295:     validate_projected_suite_records(&owned)
+296: }

@@ -1,0 +1,64 @@
+{
+  "schema": "726-root-l2-prospective-source-registration-v1",
+  "registered_at": "2026-11-02T18:22:37.398829+00:00",
+  "author": "/root",
+  "lens": 2,
+  "prospective": true,
+  "base_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "8426137d415fc7e69ed22a591ad337e1fef19f6b1d27ebe42f1eb4402dd1153c"
+  },
+  "selected_l2_state": {
+    "path": "segovb/STATE-L2-EXT-CURRENT-021.json",
+    "sha256": "f9ebe5880df907cbf11887b28a42a542bfda8138a9c9012bcb0c0ed5e0ca8390"
+  },
+  "prior_scoped_read": {
+    "path": "adler-continuation-20261030/READ-ROOT-L2-ITEM-VALIDATION-REMAINDER-001.json",
+    "sha256": "e3f3fb10a0338dd14685888b0c877780386dac93f86971c10299f18658a40e4a"
+  },
+  "sources": [
+    {
+      "source_id": "current-337:crates/adventuresim-stdb-module/src/reputation.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-stdb-module/src/reputation.rs",
+      "source_sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "source_object": "adler-continuation-20261030/objects/054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "bytes": 13386,
+      "actual_EOF": 440,
+      "ranges": [
+        [
+          258,
+          348
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 91
+    },
+    {
+      "source_id": "current-337:crates/adventuresim-stdb-module/src/strategic/world_import.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-stdb-module/src/strategic/world_import.rs",
+      "source_sha256": "cc83d5f3e3c415a12dc0ced11a5e9271a2b115d3ed5ac9703d1a8b8ae9728d22",
+      "source_object": "adler-continuation-20261030/objects/cc83d5f3e3c415a12dc0ced11a5e9271a2b115d3ed5ac9703d1a8b8ae9728d22",
+      "bytes": 41257,
+      "actual_EOF": 1159,
+      "ranges": [
+        [
+          110,
+          166
+        ],
+        [
+          523,
+          720
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 255
+    }
+  ],
+  "fresh_lines_registered": 0,
+  "uncredited_total_source_lines_registered": 346,
+  "purpose": "Bounded own-L2 catalog validation helper, existing-owner and producer/consumer qualification. All lines uncredited; no full-family/global/current-delta closure, no inherited-author relabelling or other-lens verdict transfer."
+}

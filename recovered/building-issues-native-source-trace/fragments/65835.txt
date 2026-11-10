@@ -1,0 +1,442 @@
+SOURCE current-337:crates/adventuresim-tactical-client/Cargo.toml
+1: [package]
+2: name = "adventuresim-tactical-client"
+3: description = "Fabelgeist: Wasm game client"
+4: version.workspace = true
+5: edition.workspace = true
+6: repository.workspace = true
+7: license.workspace = true
+8: 
+9: [features]
+10: default = ["debug", "client-audio"]
+11: debug = ["bevy/debug", "bevy/bevy_remote", "adventuresim-tactical-core/avian_debug"]
+12: client-audio = ["bevy/audio"]
+13: tracy = ["bevy/trace_tracy", "dep:tracing-tracy", "dep:tracing-subscriber", "dep:tracy-client-sys"]
+14: # See src/lib.rs - only used by crates/adventuresim-tactical-brp-generator.
+15: remote-types = ["debug"]
+16: 
+17: [dependencies]
+18: fabelgeist-math = { path = "../fabelgeist-math", default-features = false }
+19: fabelgeist-geometry.workspace = true
+20: derive_more = { version = "2.1.1", default-features = false, features = ["debug", "display", "from", "into", "deref"] }
+21: strum = { version = "0.27.2", features = ["derive"] }
+22: fabelgeist-rig.workspace = true
+23: thiserror.workspace = true
+24: adventuresim-character-creator = { path = "../adventuresim-character-creator", default-features = false }
+25: fabelgeist-armor = { path = "../fabelgeist-armor" }
+26: 
+27: adventuresim-procedural-materials.workspace = true
+28: anyhow = "1"
+29: bevy.workspace = true
+30: bevy_flair.workspace = true
+31: bevy_egui.workspace = true
+32: bevy_mod_outline.workspace = true
+33: adventuresim-core.workspace = true
+34: adventuresim-tactical-core = { workspace = true, features = ["meshgen"] }
+35: adventuresim-tactical-netcode = { workspace = true, features = ["client"] }
+36: adventuresim-weapon-model.workspace = true
+37: adventuresim-world-schema.workspace = true
+38: adventuresim-building-generator = { workspace = true, features = ["sign-render"] }
+39: adventuresim-procedural-textures.workspace = true
+40: adventuresim-plant-generator.workspace = true
+41: fabelgeist-determinism.workspace = true
+42: flate2.workspace = true
+43: libm.workspace = true
+44: clap.workspace = true
+45: serde.workspace = true
+46: serde_json.workspace = true
+47: ciborium = "0.2"
+48: bytemuck = { version = "1", features = ["extern_crate_alloc"] }
+49: serde-saphyr.workspace = true
+50: postcard.workspace = true
+51: tracing.workspace = true
+52: web-time.workspace = true
+53: tracing-tracy = { version = "0.11", optional = true }
+54: tracing-subscriber = { version = "0.3", optional = true }
+55: tracy-client-sys = { version = "=0.28.0", optional = true }
+56: 
+57: [target."cfg(not(target_family = \"wasm\"))".dependencies]
+58: bevy = { workspace = true, default-features = true, features = ["file_watcher", "jpeg"] }
+59: 
+60: [target."cfg(target_family = \"wasm\")".dependencies]
+61: # Select the shared hashing backend only for the browser renderer graph.
+62: blake3 = { workspace = true, features = ["wasm32_simd"] }
+63: bevy = { workspace = true, default-features = false, features = [
+64:     "default_app",
+65:     "std",
+66:     "bevy_winit",
+67:     "web",
+68:     "webgpu",
+69:     "2d_bevy_render",
+70:     "3d_bevy_render",
+71:     "bevy_anti_alias",
+72:     "ui_bevy_render",
+73:     "scene",
+74:     "picking",
+75:     "jpeg",
+76:     "png",
+77:     "smaa_luts",
+78:     "tonemapping_luts",
+79:     "zstd_rust",
+80: ] }
+81: console_error_panic_hook.workspace = true
+82: wasm-bindgen.workspace = true
+83: wasm-bindgen-futures = "0.4"
+84: 
+85: [lints]
+86: workspace = true
+87: 
+88: [build-dependencies]
+89: serde.workspace = true
+90: semver = "1"
+91: toml = "0.9"
+92: thiserror.workspace = true
+93: 
+94: [lib]
+95: name = "adventuresim_tactical_client"
+96: path = "src/lib.rs"
+97: 
+98: [[bin]]
+99: name = "adventuresim-tactical-client"
+100: doc = false
+101: 
+102: [[bin]]
+103: name = "art-demo"
+104: path = "src/art_demo_main.rs"
+105: doc = false
+106: 
+107: [[bin]]
+108: name = "animation-viewer"
+109: path = "src/animation_viewer_main.rs"
+110: doc = false
+111: required-features = ["debug"]
+112: 
+113: [[bin]]
+114: name = "tactical-scene-viewer"
+115: path = "src/tactical_scene_viewer_main.rs"
+116: doc = false
+117: required-features = ["debug"]
+118: 
+119: [[bin]]
+120: name = "tactical-sky-viewer"
+121: path = "src/tactical_sky_viewer_main.rs"
+122: doc = false
+123: required-features = ["debug"]
+124: 
+125: [dev-dependencies]
+126: fabelgeist-gpu = { path = "../fabelgeist-gpu", default-features = false }
+127: fabelgeist-bvh = { path = "../fabelgeist-bvh", default-features = false }
+128: gltf = { version = "1.4", default-features = false, features = ["utils", "names"] }
+SOURCE current-337:Cargo.toml
+90: fabelgeist-fs = { version = "0.1.0", path = "crates/fabelgeist-fs" }
+91: fabelgeist-gpu = { version = "0.1.0", path = "crates/fabelgeist-gpu" }
+92: fabelgeist-fbx = { version = "0.1.0", path = "crates/fabelgeist-fbx" }
+93: fabelgeist-rig = { version = "0.1.0", path = "crates/fabelgeist-rig" }
+94: 
+95: bevy = { version = "0.19.0", default-features = false, features = [
+96:   "reflect_auto_register",
+97:   "bevy_log",
+98:   "serialize",
+99: ] }
+100: aeronet = { version = "0.21.0" }
+SOURCE current-337:Cargo.lock
+1804: [[package]]
+1805: name = "bevy_ecs"
+1806: version = "0.19.1"
+1807: source = "registry+https://github.com/rust-lang/crates.io-index"
+1808: checksum = "a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354"
+1809: dependencies = [
+1810:  "arrayvec",
+1811:  "bevy_ecs_macros",
+1812:  "bevy_platform",
+1813:  "bevy_ptr",
+1814:  "bevy_reflect",
+1815:  "bevy_tasks",
+1816:  "bevy_utils",
+1817:  "bitflags 2.13.1",
+1818:  "bumpalo",
+1819:  "concurrent-queue",
+1820:  "derive_more 2.1.1",
+1821:  "fixedbitset 0.5.7",
+1822:  "indexmap 2.14.1",
+1823:  "log",
+1824:  "nonmax",
+1825:  "serde",
+1826:  "slotmap",
+1827:  "smallvec",
+1828:  "thiserror 2.0.20",
+1829:  "tracing",
+1830:  "variadics_please 1.1.0",
+1831: ]
+1832: 
+SOURCE native:crates.io/bevy_ecs@0.19.1/src/error/handler.rs
+1: use core::fmt::Display;
+2: 
+3: use crate::{change_detection::Tick, error::BevyError, prelude::Resource};
+4: use bevy_ecs::error::Severity;
+5: use bevy_utils::prelude::DebugName;
+6: use derive_more::derive::{Deref, DerefMut};
+7: 
+8: /// Context for a [`BevyError`] to aid in debugging.
+9: #[derive(Debug, PartialEq, Eq, Clone)]
+10: pub enum ErrorContext {
+11:     /// The error occurred in a system.
+12:     System {
+13:         /// The name of the system that failed.
+14:         name: DebugName,
+15:         /// The last tick that the system was run.
+16:         last_run: Tick,
+17:     },
+18:     /// The error occurred in a run condition.
+19:     RunCondition {
+20:         /// The name of the run condition that failed.
+21:         name: DebugName,
+22:         /// The last tick that the run condition was evaluated.
+23:         last_run: Tick,
+24:         /// The system this run condition is attached to.
+25:         system: DebugName,
+26:         /// `true` if this run condition was on a set.
+27:         on_set: bool,
+28:     },
+29:     /// The error occurred in a command.
+30:     Command {
+31:         /// The name of the command that failed.
+32:         name: DebugName,
+33:     },
+34:     /// The error occurred in an observer.
+35:     Observer {
+36:         /// The name of the observer that failed.
+37:         name: DebugName,
+38:         /// The last tick that the observer was run.
+39:         last_run: Tick,
+40:     },
+41: }
+42: 
+43: impl Display for ErrorContext {
+44:     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+45:         match self {
+46:             Self::System { name, .. } => {
+47:                 write!(f, "System `{name}` failed")
+48:             }
+49:             Self::Command { name } => write!(f, "Command `{name}` failed"),
+50:             Self::Observer { name, .. } => {
+51:                 write!(f, "Observer `{name}` failed")
+52:             }
+53:             Self::RunCondition {
+54:                 name,
+55:                 system,
+56:                 on_set,
+57:                 ..
+58:             } => {
+59:                 write!(
+60:                     f,
+61:                     "Run condition `{name}` failed for{} system `{system}`",
+62:                     if *on_set { " set containing" } else { "" }
+63:                 )
+64:             }
+65:         }
+66:     }
+67: }
+68: 
+69: impl ErrorContext {
+70:     /// The name of the ECS construct that failed.
+71:     pub fn name(&self) -> DebugName {
+72:         match self {
+73:             Self::System { name, .. }
+74:             | Self::Command { name, .. }
+75:             | Self::Observer { name, .. }
+76:             | Self::RunCondition { name, .. } => name.clone(),
+77:         }
+78:     }
+79: 
+80:     /// A string representation of the kind of ECS construct that failed.
+81:     ///
+82:     /// This is a simpler helper used for logging.
+83:     pub fn kind(&self) -> &str {
+84:         match self {
+85:             Self::System { .. } => "system",
+86:             Self::Command { .. } => "command",
+87:             Self::Observer { .. } => "observer",
+88:             Self::RunCondition { .. } => "run condition",
+89:         }
+90:     }
+91: }
+92: 
+93: macro_rules! inner {
+94:     ($call:path, $e:ident, $c:ident) => {
+95:         $call!(
+96:             "Encountered an error in {} `{}`: {}",
+97:             $c.kind(),
+98:             $c.name(),
+99:             $e
+100:         );
+101:     };
+102: }
+103: 
+104: /// Defines how Bevy reacts to errors.
+105: pub type ErrorHandler = fn(BevyError, ErrorContext);
+106: 
+107: /// Fallback error handler to call when an error is not handled otherwise.
+108: /// Defaults to [`match_severity()`].
+109: ///
+110: /// When updated while a [`Schedule`] is running, it doesn't take effect for
+111: /// that schedule until it's completed.
+112: ///
+113: /// [`Schedule`]: crate::schedule::Schedule
+114: #[derive(Resource, Deref, DerefMut, Copy, Clone)]
+115: pub struct FallbackErrorHandler(pub ErrorHandler);
+116: 
+117: impl Default for FallbackErrorHandler {
+118:     fn default() -> Self {
+119:         Self(match_severity)
+120:     }
+121: }
+122: 
+123: /// Deprecated alias for [`FallbackErrorHandler`].
+124: #[deprecated(since = "0.19.0", note = "Renamed to `FallbackErrorHandler`.")]
+125: pub type DefaultErrorHandler = FallbackErrorHandler;
+126: 
+127: /// Error handler that defers to an error's [`Severity`].
+128: #[track_caller]
+129: #[inline]
+130: pub fn match_severity(err: BevyError, ctx: ErrorContext) {
+131:     match err.severity() {
+132:         Severity::Ignore => ignore(err, ctx),
+133:         Severity::Trace => trace(err, ctx),
+134:         Severity::Debug => debug(err, ctx),
+135:         Severity::Info => info(err, ctx),
+136:         Severity::Warning => warn(err, ctx),
+137:         Severity::Error => error(err, ctx),
+138:         Severity::Panic => panic(err, ctx),
+139:     }
+140: }
+141: 
+142: /// Error handler that panics with the system error.
+143: #[track_caller]
+144: #[inline]
+145: pub fn panic(error: BevyError, ctx: ErrorContext) {
+146:     inner!(panic, error, ctx);
+147: }
+148: 
+149: /// Error handler that logs the system error at the `error` level.
+150: #[track_caller]
+151: #[inline]
+152: pub fn error(error: BevyError, ctx: ErrorContext) {
+153:     inner!(log::error, error, ctx);
+154: }
+155: 
+156: /// Error handler that logs the system error at the `warn` level.
+157: #[track_caller]
+158: #[inline]
+159: pub fn warn(error: BevyError, ctx: ErrorContext) {
+160:     inner!(log::warn, error, ctx);
+161: }
+162: 
+163: /// Error handler that logs the system error at the `info` level.
+164: #[track_caller]
+165: #[inline]
+166: pub fn info(error: BevyError, ctx: ErrorContext) {
+167:     inner!(log::info, error, ctx);
+168: }
+169: 
+170: /// Error handler that logs the system error at the `debug` level.
+171: #[track_caller]
+172: #[inline]
+173: pub fn debug(error: BevyError, ctx: ErrorContext) {
+174:     inner!(log::debug, error, ctx);
+175: }
+176: 
+177: /// Error handler that logs the system error at the `trace` level.
+178: #[track_caller]
+179: #[inline]
+180: pub fn trace(error: BevyError, ctx: ErrorContext) {
+181:     inner!(log::trace, error, ctx);
+182: }
+183: 
+184: /// Error handler that ignores the system error.
+185: #[track_caller]
+186: #[inline]
+187: pub fn ignore(_: BevyError, _: ErrorContext) {}
+SOURCE native:crates.io/bevy_ecs@0.19.1/src/error/mod.rs
+1: //! Error handling for Bevy systems, commands, and observers.
+2: //!
+3: //! When a system is added to a [`Schedule`], and its return type is that of [`Result`], then Bevy
+4: //! considers those systems to be "fallible", and the ECS scheduler will special-case the [`Err`]
+5: //! variant of the returned `Result`.
+6: //!
+7: //! All [`BevyError`]s returned by a system, observer or command are handled by an "error handler". By default, the
+8: //! [`match_severity`] error handler function is used, which defers to an error's [`Severity`].
+9: //!
+10: //! You can change the default behavior by registering a custom error handler:
+11: //! Use [`FallbackErrorHandler`] to set a custom error handler function for a world,
+12: //! or `App::set_error_handler` for a whole app.
+13: //! In practice, this is generally feature-flagged: panicking or loudly logging errors in development,
+14: //! and quietly logging or ignoring them in production to avoid crashing the app.
+15: //!
+16: //! Bevy provides a number of pre-built error-handlers for you to use:
+17: //!
+18: //! - [`match_severity`] defers to an error's [`Severity`], using one of the handlers listed below.
+19: //! - [`panic`] � panics with the system error
+20: //! - [`error`] � logs the system error at the `error` level
+21: //! - [`warn`] � logs the system error at the `warn` level
+22: //! - [`info`] � logs the system error at the `info` level
+23: //! - [`debug`] � logs the system error at the `debug` level
+24: //! - [`trace`] � logs the system error at the `trace` level
+25: //! - [`ignore`] � ignores the system error
+26: //!
+27: //! However, you can use any custom error handler logic by providing your own function (or
+28: //! non-capturing closure that coerces to the function signature) as long as it matches the
+29: //! signature:
+30: //!
+31: //! ```rust,ignore
+32: //! fn(BevyError, ErrorContext)
+33: //! ```
+34: //!
+35: //! The [`ErrorContext`] allows you to access additional details relevant to providing
+36: //! context surrounding the error � such as the system's [`name`] � in your error messages.
+37: //!
+38: //! ```rust, ignore
+39: //! use bevy_ecs::error::{BevyError, ErrorContext, FallbackErrorHandler};
+40: //! use log::trace;
+41: //!
+42: //! fn my_error_handler(error: BevyError, ctx: ErrorContext) {
+43: //!    if ctx.name().ends_with("plz_ignore") {
+44: //!       trace!("Nothing to see here, move along.");
+45: //!       return;
+46: //!   }
+47: //!   bevy_ecs::error::error(error, ctx);
+48: //! }
+49: //!
+50: //! fn main() {
+51: //!     let mut world = World::new();
+52: //!     world.insert_resource(FallbackErrorHandler(my_error_handler));
+53: //!     // Use your world here
+54: //! }
+55: //! ```
+56: //!
+57: //! If you need special handling of individual fallible systems, you can use Bevy's [`system piping
+58: //! feature`] to capture the [`Result`] output of the system and handle it accordingly.
+59: //!
+60: //! When working with commands, you can handle the result of each command separately
+61: //! using the [`Command::handle_error_with`] method.
+62: //!
+63: //! [`Schedule`]: crate::schedule::Schedule
+64: //! [`panic`]: panic()
+65: //! [`World`]: crate::world::World
+66: //! [`System`]: crate::system::System
+67: //! [`name`]: crate::system::System::name
+68: //! [`system piping feature`]: crate::system::In
+69: //! [`Command::handle_error_with`]: crate::system::Command::handle_error_with
+70: 
+71: mod bevy_error;
+72: mod command_handling;
+73: mod handler;
+74: 
+75: pub use bevy_error::*;
+76: pub use command_handling::*;
+77: pub use handler::*;
+78: 
+79: /// A result type for use in fallible systems, commands and observers.
+80: ///
+81: /// The [`BevyError`] type is a type-erased error type with optional Bevy-specific diagnostics.
+82: pub type Result<T = (), E = BevyError> = core::result::Result<T, E>;

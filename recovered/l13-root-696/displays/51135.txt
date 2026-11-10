@@ -1,0 +1,211 @@
+SOURCE 2638 pr-working:crates/fabelgeist-hair/src/haircut.rs
+1: //! Haircuts: how long the hair is, everywhere on the head, and where its
+2: //! ends are cut.
+3: //!
+4: //! A cut is the same whatever the hair then does -- a bob is a bob parted,
+5: //! swept back or tied -- so it is kept apart from the style
+6: //! ([`crate::Hairstyle`]). [`Haircut`] gives a length for every follicle,
+7: //! from the lengths at the top, the front hairline, over the ears and at the
+8: //! back, and then what a hairdresser does to that:
+9: //!
+10: //! * a **hemline**, the line the ends are cut straight along, level or
+11: //!   sloping down towards the face (an A-line) or away from it;
+12: //! * **clippers** up the back and sides to a height, with a hard line (an
+13: //!   undercut) or a fade;
+14: //! * a **strip** down the middle kept long and the rest clipped (a mohawk);
+15: //! * a **fringe**, the front cut to the brows;
+16: //! * a **dome**, the ends cut round to a sphere (an afro's shape).
+17: //!
+18: //! [`Cut`] names the usual cuts; [`Haircut::new`] makes one, whose numbers
+19: //! are then free to change.
+20: 
+21: use serde::{Deserialize, Serialize};
+22: 
+23: use crate::head::{Head, around};
+24: use crate::ops::smoothstep;
+25: use fabelgeist_math::Vec3;
+26: 
+27: /// The usual cuts.
+28: #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+29: #[serde(rename_all = "snake_case")]
+30: pub enum Cut {
+31:     /// One length, well past the shoulders.
+32:     Long,
+33:     /// One length to the shoulders.
+34:     Shoulder,
+35:     /// Long, the top and front cut shorter in layers.
+36:     Layered,
+37:     /// Shoulder length, heavily layered, the front shortest.
+38:     Shag,
+39:     /// One length to the collar.
+40:     Collar,
+41:     /// To the jaw, one length.
+42:     Bob,
+43:     /// A bob longer in front than behind.
+44:     AngledBob,
+45:     /// Straight all round at the brow, a fringe in front.
+46:     BowlCut,
+47:     /// Short, a little longer on top.
+48:     Pixie,
+49:     /// A few centimetres all over.
+50:     Crop,
+51:     /// Clipped back and sides under a longer top, faded.
+52:     ShortBackAndSides,
+53:     /// Clipped back and sides to a hard line under a long top.
+54:     Undercut,
+55:     /// Clipped almost to the skin low, growing longer up the head.
+56:     Fade,
+57:     /// A strip down the middle, the rest clipped.
+58:     Mohawk,
+59:     /// Clipped close all over.
+60:     Buzz,
+61:     /// The ends cut round to a dome.
+62:     Rounded,
+63: }
+64: 
+65: impl Cut {
+66:     pub const ALL: [Cut; 16] = [
+67:         Cut::Long,
+68:         Cut::Shoulder,
+69:         Cut::Layered,
+70:         Cut::Shag,
+71:         Cut::Collar,
+72:         Cut::Bob,
+73:         Cut::AngledBob,
+74:         Cut::BowlCut,
+75:         Cut::Pixie,
+76:         Cut::Crop,
+77:         Cut::ShortBackAndSides,
+78:         Cut::Undercut,
+79:         Cut::Fade,
+80:         Cut::Mohawk,
+81:         Cut::Buzz,
+82:         Cut::Rounded,
+83:     ];
+84: 
+85:     pub const fn name(self) -> &'static str {
+86:         match self {
+87:             Cut::Long => "Long",
+88:             Cut::Shoulder => "Shoulder length",
+89:             Cut::Layered => "Long layers",
+90:             Cut::Shag => "Shag",
+91:             Cut::Collar => "Collar length",
+92:             Cut::Bob => "Bob",
+93:             Cut::AngledBob => "Angled bob",
+94:             Cut::BowlCut => "Bowl cut",
+95:             Cut::Pixie => "Pixie",
+96:             Cut::Crop => "Crop",
+97:             Cut::ShortBackAndSides => "Short back and sides",
+98:             Cut::Undercut => "Undercut",
+99:             Cut::Fade => "Fade",
+100:             Cut::Mohawk => "Mohawk",
+101:             Cut::Buzz => "Buzz",
+102:             Cut::Rounded => "Rounded",
+103:         }
+104:     }
+105: }
+106: 
+107: /// A fringe: the front of the scalp cut short, to hang over the forehead.
+108: #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+109: pub struct Fringe {
+110:     /// Half its width, metres.
+111:     pub width: f32,
+112:     /// How far back from the front of the head it reaches, metres.
+113:     pub depth: f32,
+114:     /// How far below the front hairline its ends are, metres (about 5 cm
+115:     /// is the brows).
+116:     pub drop: f32,
+117: }
+118: 
+119: impl Default for Fringe {
+120:     fn default() -> Self {
+121:         Self {
+122:             width: 0.066,
+123:             depth: 0.07,
+124:             drop: 0.048,
+125:         }
+126:     }
+127: }
+128: 
+129: impl Fringe {
+130:     /// Whether a root belongs to the fringe.
+131:     pub fn holds(&self, root: Vec3) -> bool {
+132:         root.z > FRONT - self.depth && root.x.abs() < self.width
+133:     }
+134: 
+135:     /// The `z` behind which the fringe ends.
+136:     pub fn back(&self) -> f32 {
+137:         FRONT - self.depth
+138:     }
+139: }
+140: 
+141: /// About where the front of the head is, `z`.
+142: const FRONT: f32 = 0.1;
+143: 
+144: /// A haircut: a length for every follicle, and where the ends are cut.
+145: #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+146: pub struct Haircut {
+147:     /// The cut this one started from.
+148:     pub cut: Cut,
+149:     /// Lengths, metres: at the top, at the front hairline, over the ears
+150:     /// and at the back.
+151:     pub top: f32,
+152:     pub front: f32,
+153:     pub sides: f32,
+154:     pub back: f32,
+155:     /// The height the ends are cut straight along behind, `y` metres, if
+156:     /// they are.
+157:     pub hemline: Option<f32>,
+158:     /// How much lower the hemline is a metre towards the face: positive is
+159:     /// an A-line, longer in front.
+160:     pub slope: f32,
+161:     /// Clippers up to this height on the scalp (0 the hairline, 1 the
+162:     /// crown); below it hair is `clipper` long. The change takes `fade` of
+163:     /// the height: 0 is a hard line.
+164:     pub clip: f32,
+165:     pub clipper: f32,
+166:     pub fade: f32,
+167:     /// A strip this wide either side of the middle kept long, the rest
+168:     /// clipped, metres (0: none).
+169:     pub strip: f32,
+170:     pub fringe: Option<Fringe>,
+171:     /// The ends cut to a dome this far from the head's centre, metres (0:
+172:     /// none).
+173:     pub dome: f32,
+174: }
+175: 
+176: impl Haircut {
+177:     pub fn new(cut: Cut) -> Self {
+178:         let long = Self {
+179:             cut,
+180:             top: 0.45,
+181:             front: 0.4,
+182:             sides: 0.43,
+183:             back: 0.45,
+184:             hemline: None,
+185:             slope: 0.0,
+186:             clip: 0.0,
+187:             clipper: 0.006,
+188:             fade: 0.0,
+189:             strip: 0.0,
+190:             fringe: None,
+191:             dome: 0.0,
+192:         };
+193:         let short = |top: f32, front: f32, sides: f32, back: f32| Self {
+194:             top,
+195:             front,
+196:             sides,
+197:             back,
+198:             ..long
+199:         };
+200:         match cut {
+201:             Cut::Long => Self {
+202:                 hemline: Some(-0.45),
+203:                 ..long
+204:             },
+205:             Cut::Shoulder => Self {
+206:                 top: 0.32,
+207:                 front: 0.26,
+208:                 sides: 0.3,
+209:                 back: 0.32,
+210:                 hemline: Some(-0.27),

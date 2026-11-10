@@ -1,0 +1,64 @@
+{
+  "schema": "726-prospective-l2-sdk-registration-v1",
+  "lens": 2,
+  "source_revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+  "lock_sha256": "b36b6a88eebfff2628c4626c1f890f1589f7e06d324aab6d22a998475daa97d1",
+  "package": {
+    "name": "spacetimedb-sats",
+    "version": "2.6.1",
+    "source": "registry+https://github.com/rust-lang/crates.io-index",
+    "checksum": "6cefb87b7d5e760d43cb65855591e25af772bdcca19562e5796ae797240d1998",
+    "dependencies": [
+      "anyhow",
+      "arrayvec",
+      "bitflags 2.13.1",
+      "bytemuck",
+      "bytes",
+      "bytestring",
+      "chrono",
+      "decorum",
+      "derive_more 0.99.20",
+      "enum-as-inner",
+      "ethnum",
+      "hex",
+      "itertools 0.12.1",
+      "lean_string",
+      "rand 0.9.5",
+      "second-stack",
+      "serde",
+      "sha3",
+      "smallvec",
+      "spacetimedb-bindings-macro",
+      "spacetimedb-memory-usage",
+      "spacetimedb-metrics",
+      "spacetimedb-primitives",
+      "thiserror 1.0.69",
+      "uuid"
+    ]
+  },
+  "rows": [
+    {
+      "package": "spacetimedb-sats",
+      "version": "2.6.1",
+      "archive_checksum": "6cefb87b7d5e760d43cb65855591e25af772bdcca19562e5796ae797240d1998",
+      "archive_member": "spacetimedb-sats-2.6.1/src/de.rs",
+      "source_sha256": "c5b97e748643a3321da1fecd3a77298660affb27f2640002f4ca9b4a9f76588b",
+      "actual_EOF": 1071,
+      "source_object": "adler-continuation-20261030/objects/c5b97e748643a3321da1fecd3a77298660affb27f2640002f4ca9b4a9f76588b",
+      "prospective_ranges": [
+        [
+          208,
+          230
+        ],
+        [
+          682,
+          724
+        ]
+      ],
+      "new_body_credit": 0
+    }
+  ],
+  "scope": "Native decoding error/custom and Deserialize/default validation contracts only. No SDK execution.",
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

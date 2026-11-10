@@ -1,0 +1,527 @@
+SOURCE crates/adventuresim-tactical-client/src/tactical_scene_viewer_main.rs
+1: //! Deterministic native capture harness for generated tactical environments.
+2: 
+3: #![cfg_attr(
+4:     not(target_family = "wasm"),
+5:     expect(
+6:         dead_code,
+7:         reason = "the native scene viewer compiles shared gameplay presentation but exercises only deterministic capture paths"
+8:     )
+9: )]
+10: 
+11: #[cfg(not(target_family = "wasm"))]
+12: mod camera;
+13: #[cfg(not(target_family = "wasm"))]
+14: mod presentation;
+15: #[cfg(not(target_family = "wasm"))]
+16: mod tactical_scene_viewer;
+17: 
+18: #[cfg(not(target_family = "wasm"))]
+19: use std::path::PathBuf;
+20: 
+21: #[cfg(not(target_family = "wasm"))]
+22: use clap::{Parser, ValueEnum};
+23: 
+24: #[cfg(not(target_family = "wasm"))]
+25: fn resolve_scene_fixture(selector: &str) -> Result<PathBuf, String> {
+26:     Ok(adventuresim_core::fixture_path::resolve_fixture_path(
+27:         selector,
+28:         "assets/tactical-scenes",
+29:         "json",
+30:     ))
+31: }
+32: 
+33: #[cfg(not(target_family = "wasm"))]
+34: #[derive(Clone, Copy, Debug, Default, Eq, PartialEq, ValueEnum)]
+35: enum CaptureProfile {
+36:     /// Actual procedural flower/fungi roots at contact and gameplay distances.
+37:     PlantReview,
+38:     /// Actual placed fungi, one contact view per species and wider habitat views.
+39:     FungusReview,
+40:     /// Actual botanical LODs before, inside and after both crossfade bands.
+41:     PlantLodReview,
+42:     /// Same production roots and LODs with occluding vegetation hidden for diagnosis.
+43:     PlantLodIsolated,
+44:     /// Existing exhaustive semantic presentation suite (23 recorded views).
+45:     #[default]
+46:     Semantic,
+47:     /// Compact environment-art review suite; intended for matrix review.
+48:     EnvironmentReview,
+49:     /// Deterministic terrain and geological-landform material review suite.
+50:     LandformReview,
+51:     /// Eye-height views inside each civilian city-building archetype.
+52:     InteriorReview,
+53:     /// Facade, street, neighbourhood, and whole-settlement city review.
+54:     CityReview,
+55:     /// Fixed geographic cameras and matched production building LODs.
+56:     TerrainGrounding,
+57:     /// Outdoor furniture, market access and street surface review.
+58:     FurnitureReview,
+59:     /// Compact and broad interior furniture models rendered as catalog specimens.
+60:     InteriorFurnitureCatalog,
+61:     /// Furnished rooms with independently validated entrance access.
+62:     FurnishedRoomReview,
+63:     /// Storefront lettering, mounting, glass, plaster and distance review.
+64:     ShopSignReview,
+65:     /// Working-building exteriors, interiors and production distance LODs.
+66:     WorkplaceReview,
+67:     /// Capacity-scaled chapel and parish church architectural review.
+68:     ParishReview,
+69:     CompoundReview,
+70:     /// Supported fixed attic glazing across production building LODs.
+71:     GableReview,
+72:     HeatingReview,
+73:     FacadeReview,
+74:     /// Inspect owned garden plots and accepted planting specimens.
+75:     GardenReview,
+76:     /// Production third-person camera sweep on the unmodified animation scene.
+77:     AnimationPlay,
+78:     /// Cold first approach, retreat, and warm second approach across tree LODs.
+79:     TreeColdTraversal,
+80:     /// Consecutive fractional-pixel common-beech leaf-card slow zoom.
+81:     BeechLeafMotion,
+82: }
+83: 
+84: #[cfg(not(target_family = "wasm"))]
+85: #[derive(Debug, Parser)]
+86: #[command(version, about = "Capture and validate a tactical environment fixture")]
+87: struct Args {
+88:     /// Fixture name from assets/tactical-scenes, without the .json suffix.
+89:     #[arg(long, conflicts_with = "scene_input")]
+90:     fixture: Option<String>,
+91: 
+92:     /// TacticalSceneInput fixture stem or explicit JSON path.
+93:     #[arg(long, conflicts_with = "fixture", value_parser = resolve_scene_fixture)]
+94:     scene_input: Option<PathBuf>,
+95: 
+96:     /// Fresh output directory. A timestamped directory is chosen when omitted.
+97:     #[arg(long)]
+98:     output: Option<PathBuf>,
+99: 
+100:     /// Render frames allowed to settle between fixed camera views.
+101:     #[arg(long, default_value_t = 12)]
+102:     settle_frames: u32,
+103: 
+104:     /// Test-only world canopy override in basis points (0..=10000).
+105:     #[arg(long, value_parser = clap::value_parser!(u16).range(0..=10_000))]
+106:     canopy_bps: Option<u16>,
+107: 
+108:     /// Test-only celestial time override, in absolute world minutes.
+109:     #[arg(long)]
+110:     absolute_minute: Option<u64>,
+111: 
+112:     /// Benchmark each leaf representation for this many frames in dense woodland.
+113:     #[arg(long, value_parser = clap::value_parser!(u32).range(30..))]
+114:     leaf_benchmark_frames: Option<u32>,
+115: 
+116:     /// Benchmark baseline, canopy AO, shadows, and combined tree lighting.
+117:     #[arg(long, value_parser = clap::value_parser!(u32).range(30..), conflicts_with = "leaf_benchmark_frames")]
+118:     tree_lighting_benchmark_frames: Option<u32>,
+119: 
+120:     /// Benchmark natural and isolated tree/LOD costs for this many frames per mode.
+121:     #[arg(long, value_parser = clap::value_parser!(u32).range(30..), conflicts_with_all = ["leaf_benchmark_frames", "tree_lighting_benchmark_frames"])]
+122:     scene_performance_benchmark_frames: Option<u32>,
+123: 
+124:     /// Collect GPU timestamps and render diagnostics during the scene benchmark.
+125:     #[arg(long, requires = "scene_performance_benchmark_frames")]
+126:     scene_performance_render_diagnostics: bool,
+127: 
+128:     /// Capture only terrain as color-coded wireframes and count visible triangles by LOD.
+129:     #[arg(long, conflicts_with_all = ["leaf_benchmark_frames", "tree_lighting_benchmark_frames", "scene_performance_benchmark_frames"])]
+130:     terrain_wireframe: bool,
+131: 
+132:     /// Count resident and submitted terrain, building, and grass triangles without timing frames.
+133:     #[arg(long, conflicts_with_all = ["leaf_benchmark_frames", "tree_lighting_benchmark_frames", "scene_performance_benchmark_frames", "terrain_wireframe"])]
+134:     triangle_census: bool,
+135: 
+136:     /// Azimuth around the review tree for locked leaf-LOD comparison views.
+137:     #[arg(long, default_value_t = 45.0)]
+138:     tree_review_azimuth_degrees: f32,
+139: 
+140:     /// Named capture profile. The default preserves the exhaustive semantic suite.
+141:     #[arg(long, value_enum, default_value_t)]
+142:     profile: CaptureProfile,
+143: 
+144:     /// Capture only these named views (repeatable). Unknown or unavailable views fail closed.
+145:     #[arg(long = "view")]
+146:     views: Vec<String>,
+147: 
+148:     /// Frozen world-space city cameras; required for terrain-grounding captures.
+149:     #[arg(long)]
+150:     city_cameras: Option<PathBuf>,
+151: }
+152: 
+153: #[cfg(not(target_family = "wasm"))]
+154: fn main() {
+155:     let args = Args::parse();
+156:     if args.fixture.is_none() && args.scene_input.is_none() {
+157:         clap::Error::raw(
+158:             clap::error::ErrorKind::MissingRequiredArgument,
+159:             "one of --fixture or --scene-input is required",
+160:         )
+161:         .exit();
+162:     }
+163:     tactical_scene_viewer::run(
+164:         args.fixture,
+165:         args.scene_input,
+166:         args.output,
+167:         args.settle_frames,
+168:         args.canopy_bps,
+169:         args.absolute_minute,
+170:         args.leaf_benchmark_frames,
+171:         args.tree_lighting_benchmark_frames,
+172:         args.scene_performance_benchmark_frames,
+173:         args.scene_performance_render_diagnostics,
+174:         args.terrain_wireframe,
+175:         args.triangle_census,
+176:         args.tree_review_azimuth_degrees,
+177:         match args.profile {
+178:             CaptureProfile::PlantReview => "plant-review",
+179:             CaptureProfile::FungusReview => "fungus-review",
+180:             CaptureProfile::PlantLodReview => "plant-lod-review",
+181:             CaptureProfile::PlantLodIsolated => "plant-lod-isolated",
+182:             CaptureProfile::Semantic => "semantic",
+183:             CaptureProfile::EnvironmentReview => "environment-review",
+184:             CaptureProfile::LandformReview => tactical_scene_viewer::LANDFORM_REVIEW_PROFILE,
+185:             CaptureProfile::InteriorReview => "interior-review",
+186:             CaptureProfile::CityReview => "city-review",
+187:             CaptureProfile::TerrainGrounding => tactical_scene_viewer::fixed_city_cameras::PROFILE,
+188:             CaptureProfile::FurnitureReview => "furniture-review",
+189:             CaptureProfile::InteriorFurnitureCatalog => "interior-furniture-catalog",
+190:             CaptureProfile::FurnishedRoomReview => "furnished-room-review",
+191:             CaptureProfile::ShopSignReview => "shop-sign-review",
+192:             CaptureProfile::WorkplaceReview => "workplace-review",
+193:             CaptureProfile::ParishReview => "parish-review",
+194:             CaptureProfile::CompoundReview => "compound-review",
+195:             CaptureProfile::HeatingReview => "heating-review",
+196:             CaptureProfile::FacadeReview => "facade-review",
+197:             CaptureProfile::GardenReview => "garden-review",
+198:             CaptureProfile::GableReview => "gable-review",
+199:             CaptureProfile::AnimationPlay => "animation-play",
+200:             CaptureProfile::TreeColdTraversal => "tree-cold-traversal",
+201:             CaptureProfile::BeechLeafMotion => "beech-leaf-motion",
+202:         },
+203:         args.views,
+204:         args.city_cameras,
+205:     );
+206: }
+SOURCE crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs
+1: //! Authored review inputs and read-only capture checks. Rendering belongs to presentation.
+2: use super::capture_state::BuildingReviewCamera;
+3: use adventuresim_building_generator::{
+4:     compile_operable_doors, compile_operable_windows,
+5:     signs::{ShopSign, SignSite},
+6: };
+7: use adventuresim_tactical_core::prelude::GeneratedBuilding;
+8: use bevy::prelude::*;
+9: use serde::{Deserialize, Serialize};
+10: use std::{collections::BTreeMap, path::Path};
+11: 
+12: mod cameras;
+13: mod heating;
+14: mod lod;
+15: pub(super) use lod::ReviewLod;
+16: mod gardens;
+17: mod openings;
+18: mod readiness;
+19: pub(super) use openings::{ReviewLeafPose, spawn_openings};
+20: pub(super) use readiness::{BuildingReviewPlugin, ready};
+21: pub(super) const SHOP_PROFILE: &str = "shop-sign-review";
+22: pub(super) const WORKPLACE_PROFILE: &str = "workplace-review";
+23: pub(super) const PARISH_PROFILE: &str = "parish-review";
+24: pub(super) const HEATING_PROFILE: &str = "heating-review";
+25: pub(super) const GARDEN_PROFILE: &str = "garden-review";
+26: pub(super) const FACADE_PROFILE: &str = "facade-review";
+27: pub(super) const GABLE_PROFILE: &str = "gable-review";
+28: pub(super) const COMPOUND_PROFILE: &str = "compound-review";
+29: 
+30: pub(super) fn is_profile(profile: &str) -> bool {
+31:     matches!(
+32:         profile,
+33:         SHOP_PROFILE
+34:             | WORKPLACE_PROFILE
+35:             | PARISH_PROFILE
+36:             | COMPOUND_PROFILE
+37:             | GABLE_PROFILE
+38:             | HEATING_PROFILE
+39:             | FACADE_PROFILE
+40:             | GARDEN_PROFILE
+41:     )
+42: }
+43: 
+44: #[derive(Resource, Deserialize, Serialize)]
+45: #[serde(deny_unknown_fields)]
+46: struct ReviewFixture {
+47:     signs: BTreeMap<adventuresim_tactical_core::scene_input::SceneBuildingId, ShopSign>,
+48:     views: Vec<cameras::ReviewView>,
+49: }
+50: 
+51: #[derive(Resource)]
+52: pub(super) struct ReviewRequirements {
+53:     buildings: usize,
+54:     boundaries: usize,
+55:     doors: usize,
+56:     windows: usize,
+57:     signs: BTreeMap<adventuresim_tactical_core::scene_input::SceneBuildingId, ExpectedSign>,
+58:     output: std::path::PathBuf,
+59: }
+60: 
+61: struct ExpectedSign {
+62:     sign: ShopSign,
+63:     site: SignSite,
+64: }
+65: 
+66: impl ReviewRequirements {
+67:     fn for_buildings(buildings: &[GeneratedBuilding], output: &Path) -> Result<Self> {
+68:         for building in buildings {
+69:             if !adventuresim_building_generator::audit_plan(&building.plan)?.is_empty() {
+70:                 return Err(format!(
+71:                     "review building {} fails the structural audit",
+72:                     building.placement.id
+73:                 )
+74:                 .into());
+75:             }
+76:         }
+77:         Ok(Self {
+78:             buildings: buildings.len(),
+79:             boundaries: 0,
+80:             doors: buildings
+81:                 .iter()
+82:                 .map(|b| compile_operable_doors(&b.plan).map(|doors| doors.len()))
+83:                 .collect::<std::result::Result<Vec<_>, _>>()?
+84:                 .into_iter()
+85:                 .sum(),
+86:             windows: buildings
+87:                 .iter()
+88:                 .map(|b| compile_operable_windows(&b.plan).map(|windows| windows.len()))
+89:                 .collect::<std::result::Result<Vec<_>, _>>()?
+90:                 .into_iter()
+91:                 .sum(),
+92:             signs: BTreeMap::new(),
+93:             output: output.to_owned(),
+94:         })
+95:     }
+96: }
+97: 
+98: /// Furnished rooms require the identical production building and opening checks as facade reviews.
+99: pub(super) fn setup_geometry_requirements(
+100:     commands: &mut Commands,
+101:     buildings: &[GeneratedBuilding],
+102:     output: &Path,
+103: ) -> Result {
+104:     commands.insert_resource(ReviewRequirements::for_buildings(buildings, output)?);
+105:     Ok(())
+106: }
+107: 
+108: pub(super) fn setup(
+109:     commands: &mut Commands,
+110:     buildings: &[GeneratedBuilding],
+111:     boundaries: usize,
+112:     input: &Path,
+113:     output: &Path,
+114:     profile: &str,
+115: ) -> Result<Option<Vec<BuildingReviewCamera>>> {
+116:     if !is_profile(profile) {
+117:         return Ok(None);
+118:     }
+119:     let path = input.with_extension("review.json");
+120:     let bytes = std::fs::read(&path)?;
+121:     let fixture: ReviewFixture = serde_json::from_slice(&bytes)?;
+122:     let specs =
+123:         super::selected_capture_views(profile, &[]).map_err(bevy::ecs::error::BevyError::from)?;
+124:     assert_eq!(
+125:         fixture.views.len(),
+126:         specs.len() - 1,
+127:         "fixture must cover every review view"
+128:     );
+129:     for (view, spec) in fixture.views.iter().zip(&specs[1..]) {
+130:         assert_eq!(view.slug, spec.slug);
+131:     }
+132:     let mut requirements = ReviewRequirements::for_buildings(buildings, output)?;
+133:     requirements.boundaries = boundaries;
+134:     requirements.doors += boundaries;
+135:     for (&id, sign) in &fixture.signs {
+136:         let building = buildings
+137:             .iter()
+138:             .find(|b| b.placement.id == id)
+139:             .ok_or_else(|| format!("review sign building {id} is absent"))?;
+140:         assert!(
+141:             building
+142:                 .placement
+143:                 .program
+144:                 .usage
+145:                 .and_then(adventuresim_building_generator::signs::shop_trade)
+146:                 .is_some(),
+147:             "sign requires a public shopfront"
+148:         );
+149:         let site = SignSite::for_plan(&building.plan)
+150:             .ok_or_else(|| format!("review sign building {id} lacks structural support"))?;
+151:         assert!(
+152:             site.supports(&building.plan, sign.mount),
+153:             "review sign must fit its specified mount"
+154:         );
+155:         requirements.signs.insert(
+156:             id,
+157:             ExpectedSign {
+158:                 sign: sign.clone(),
+159:                 site,
+160:             },
+161:         );
+162:     }
+163:     let cameras = fixture
+164:         .views
+165:         .iter()
+166:         .map(|view| view.camera(buildings, &fixture.signs))
+167:         .collect::<Result<Vec<_>>>()?;
+168:     std::fs::write(output.join("input.review.json"), bytes)?;
+169:     commands.insert_resource(requirements);
+170:     commands.insert_resource(fixture);
+171:     Ok(Some(cameras))
+172: }
+173: 
+174: pub(super) fn insert_authored_sign(
+175:     world: &mut World,
+176:     entity: Entity,
+177:     id: adventuresim_tactical_core::scene_input::SceneBuildingId,
+178: ) {
+179:     let sign = world
+180:         .get_resource::<ReviewFixture>()
+181:         .and_then(|fixture| fixture.signs.get(&id))
+182:         .cloned();
+183:     if let Some(sign) = sign {
+184:         world.entity_mut(entity).insert(sign);
+185:     }
+186: }
+SOURCE crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs
+1: use adventuresim_building_generator::spatial_geometry::Position;
+2: use adventuresim_tactical_core::animation::{NonnegativeLength, SignedAngleDegrees};
+3: use adventuresim_tactical_core::scene_coordinates::Scene;
+4: use fabelgeist_determinism::Seed;
+5: use std::{collections::BTreeSet, path::PathBuf};
+6: 
+7: use adventuresim_tactical_core::prelude::{SceneSource, WeatherSnapshot};
+8: use adventuresim_world_schema::calendar::StrategicMinute;
+9: use bevy::prelude::{Entity, Resource, Vec3};
+10: 
+11: use super::{
+12:     manifest::{CaptureRecord, RepairSummary, TerrainSummary},
+13:     view_specs::CaptureViewSpec,
+14:     vista_geometry::VistaCaptureGeometry,
+15: };
+16: use crate::presentation::TreeLeafRepresentation;
+17: 
+18: /// Maximum settled readbacks for asynchronous production lighting to converge.
+19: const LIGHTING_READBACK_BUDGET: usize = 8;
+20: 
+21: #[derive(Clone, Copy, Debug)]
+22: pub(super) struct BuildingReviewCamera {
+23:     pub(super) position: Position<Scene>,
+24:     pub(super) target: Position<Scene>,
+25:     pub(super) plaster_raking_light: Option<PlasterRakingLight>,
+26: }
+27: 
+28: #[derive(Clone, Copy, Debug)]
+29: pub(super) struct PlasterRakingLight {
+30:     pub(super) wall_point: Vec3,
+31:     pub(super) inward_normal: Vec3,
+32:     pub(super) position: Vec3,
+33: }
+34: 
+35: #[derive(Resource)]
+36: pub(super) struct SceneCaptureState {
+37:     pub(super) fixture: String,
+38:     pub(super) input_path: PathBuf,
+39:     pub(super) output: PathBuf,
+40:     pub(super) digest: String,
+41:     pub(super) seed: Seed,
+42:     pub(super) absolute_minute: StrategicMinute,
+43:     pub(super) latitude_microdegrees: i32,
+44:     pub(super) longitude_microdegrees: i32,
+45:     pub(super) canopy_bps: u16,
+46:     pub(super) generation_version: u16,
+47:     pub(super) scene_source: SceneSource,
+48:     pub(super) weather: WeatherSnapshot,
+49:     pub(super) repairs: RepairSummary,
+50:     pub(super) terrain: TerrainSummary,
+51:     pub(super) expected_trees: usize,
+52:     pub(super) expected_rocks: usize,
+53:     pub(super) expects_grass: bool,
+54:     pub(super) vista_contract: super::vista_validation::VistaCaptureContract,
+55:     pub(super) vista_geometry: Option<VistaCaptureGeometry>,
+56:     pub(super) city_half_extent_metres: fabelgeist_geometry::SignedLength,
+57:     pub(super) obstacle_focus: Position<Scene>,
+58:     pub(super) tree_focus: Option<Position<Scene>>,
+59:     pub(super) rock_focus: Option<Position<Scene>>,
+60:     pub(super) debris_focus: Option<Position<Scene>>,
+61:     pub(super) plant_focus: Option<Position<Scene>>,
+62:     pub(super) debris_camera: Option<Position<Scene>>,
+63:     pub(super) debris_leaf_distance_metres: Option<NonnegativeLength>,
+64:     pub(super) debris_twig_distance_metres: Option<NonnegativeLength>,
+65:     pub(super) tree_leaf_focus: Option<Position<Scene>>,
+66:     pub(super) tree_leaf_camera: Option<Position<Scene>>,
+67:     pub(super) tree_focus_entity: Option<Entity>,
+68:     pub(super) tree_review_entities: Vec<Entity>,
+69:     pub(super) tree_review_leaf_entities: Vec<(Entity, TreeLeafRepresentation)>,
+70:     pub(super) ground_eye_position: Position<Scene>,
+71:     pub(super) ground_eye_target: Position<Scene>,
+72:     pub(super) animation_play_focus: Position<Scene>,
+73:     pub(super) building_interior_cameras: Vec<BuildingReviewCamera>,
+74:     pub(super) city_exterior_cameras: Vec<BuildingReviewCamera>,
+75:     pub(super) settle_frames: u32,
+76:     pub(super) tree_review_azimuth_degrees: SignedAngleDegrees,
+77:     pub(super) profile: String,
+78:     pub(super) requested_views: Vec<String>,
+79:     pub(super) views: Vec<CaptureViewSpec>,
+80:     pub(super) view: usize,
+81:     pub(super) phase: CapturePhase,
+82:     pub(super) lighting_luminance_samples: Vec<f32>,
+83:     pub(super) last_prime_readback_hash: Option<u64>,
+84:     pub(super) captures: Vec<CaptureRecord>,
+85:     pub(super) recursive_lods_observed: BTreeSet<(u8, u8)>,
+86:     pub(super) recursive_aggregate_lods_observed: BTreeSet<u8>,
+87: }
+88: 
+89: #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+90: pub(super) enum CaptureReadback {
+91:     Prime,
+92:     Warmup,
+93:     Screenshot,
+94: }
+95: 
+96: #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+97: pub(super) enum CapturePhase {
+98:     Configure,
+99:     Settling {
+100:         frames: u32,
+101:         prime_readbacks: u8,
+102:     },
+103:     Readback {
+104:         view: usize,
+105:         prime_readbacks: u8,
+106:         kind: CaptureReadback,
+107:     },
+108: }
+109: 
+110: #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+111: pub(super) enum LightingConvergence {
+112:     Pending,
+113:     Ready,
+114:     Exhausted,
+115: }
+116: 
+117: impl CapturePhase {
+118:     pub(super) fn settling(self) -> Option<(u32, u8)> {
+119:         match self {
+120:             Self::Settling {
+121:                 frames,
+122:                 prime_readbacks,
+123:             } => Some((frames, prime_readbacks)),
+124:             Self::Configure | Self::Readback { .. } => None,
+125:         }
+126:     }
+127: 
+128:     pub(super) fn readback_in_flight(self) -> bool {
+129:         matches!(self, Self::Readback { .. })
+130:     }
+131: }
+132: 

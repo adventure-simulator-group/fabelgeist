@@ -1,0 +1,1016 @@
+{
+  "schema": "726-exact2689-2692-admission-mixed-material-v1",
+  "at": "2026-11-01T19:37:58.316994+00:00",
+  "author": "/root",
+  "lens": 13,
+  "proof_builder": {
+    "path": "adler-continuation-20261030/qualify_admission2689_v1.py",
+    "sha256": "15e234a97af58609829081d996798339a4e79fe7a4d05148fc0fd098437b6cc4"
+  },
+  "registry": {
+    "path": "evidence/audit05/original-scope-072.json",
+    "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2689-2692-001.json",
+    "sha256": "0773593fe4344bccedd08c4264ed1692206055c888fef6b788e3fc315e28c786"
+  },
+  "qualified_against_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "b001989b00912811be625c87001868b32f19c90d892d9de3577c2e7cbfc370a6"
+  },
+  "qualified_against_selector": {
+    "path": "CURRENT-ADLER.json",
+    "sha256": "36790abfe352452690788dc15f350b9125c60af07b8de7f0e8822dde014880da"
+  },
+  "entries": [
+    {
+      "original": 2689,
+      "source": {
+        "original": 2689,
+        "source_id": "p16:crates/adventuresim-tactical-server/src/combat/authority.rs",
+        "sha256": "115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+        "actual_eof": 672,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+        "prospective_ranges": [
+          [
+            24,
+            43
+          ]
+        ],
+        "revision_qualification": "ExactP16/native-prefix identities preserved; archivef82transport only andqualifiedoldPR/P16literalbody joins, no currentsemantic/authority transfer.",
+        "purpose": "Four P16precision/recovery/arrival/presence roles300material:30fresh/270priorread, no newtacticalpersistence or native/runtime execution."
+      },
+      "mode": "delegated-reuse",
+      "bytes": 22727,
+      "assessed_union": [
+        [
+          24,
+          43
+        ]
+      ],
+      "material_line_count": 20,
+      "new_root_personal_lines": 0,
+      "registry_entry_sha256": "00d43a29097b0847710c0a69c31b4c75850ca3ddd1fda6be3150b609a4b9c5c4",
+      "registry_path_as_recorded": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-server\\src\\combat\\authority.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          1,
+          23
+        ],
+        [
+          44,
+          672
+        ]
+      ],
+      "whole_file_coverage": false,
+      "prior": {
+        "prior_adoption": {
+          "path": "segovb/READ-L13-PARALLEL-004.json",
+          "sha256": "8b8fa6de803a7a5d2485ecd815caf5362b72048caa706e89251a5f054eac20d9"
+        },
+        "prior_raw_receipt": {
+          "path": "parallel-l13-20261029/READ-PL13-006.json",
+          "sha256": "6b244564a64e0a2c19ac9867097efa3888812ca5c17782dbebbc492c6362f8e1"
+        },
+        "prior_verification": {
+          "path": "parallel-l13-20261029/VERIFY-PL13-006.json",
+          "sha256": "6a829bd01ab59072f03068e5e602c6bf466ad9179ff95e8d8e0a8660b134b16a"
+        },
+        "prior_registration": {
+          "path": "parallel-l13-20261029/REGISTRATION-PL13-006.json",
+          "sha256": "a3faa557553c4fada764afe7cb8ffa61e66f66ce8b8271d5fc9276adbe87c7d4"
+        },
+        "prior_row_pointer": "/rows/1",
+        "prior_registration_pointer": "/sources/1",
+        "prior_source_read": {
+          "original": 382,
+          "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/authority.rs",
+          "sha256": "115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+          "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+          "actual_eof": 672,
+          "prospective_ranges": [
+            [
+              1,
+              70
+            ]
+          ],
+          "source_revision": "physical-p16 f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact",
+          "purpose": "380 ordered full actualbody with exactEOF qualification;382 connected ReportedPrecision canonicalowner constructor and import/error record, zero ordered382 credit",
+          "ordered_credit_proposed": 0,
+          "fresh_personal_assessed_ranges": [
+            [
+              1,
+              70
+            ]
+          ],
+          "body_outputs_untruncated": true
+        },
+        "historical_attribution": "Exact agent personal reads and qualified inherited/prior same-lens reuse remain separately attributed; root adoption is zero personal rereads.",
+        "prior_numeric_inventory": {
+          "380:1\u201348": "initiative_delay_seconds native RNG configured interval then factor (3/instinct.max(.5)).clamp(.6,2); raw Instinct/ratio/reference/time tuning requires canonical AI policy owner. Delay checked AnimationElapsed beforeactualTimer recipient378/376; invalid elapsed error handled. committed_threat_recognition_probability typedUnitInterval phase butrawInstinct\u2192phase.clamp(0,.5)*2 sqrt\u2192instinct.max0/5\u2192clamp0..1; normalization legitimate, half-windup factor2 mathematical mapping if actualhalf-contact policy confirmed, 3/5 references attribute policies not native units. Return rawf32 probability carriedtoapplicationRNGcomparison378205, existingprobabilityownerfitneeded. below_preferred_long_weapon_measure typedSignedLength args then actualnativeadd preferred+canonicalminimumcenterseparation and rawcomparison; finiteoverflow/currentactualboundsqualified, no ordinarypanicclaim. Longweapon threshold and negativeYmovement semantic adapters toactualinputframework; validNone ifno retreat. ExactEOF48,raw49\u201368absent,zero bodycredit.",
+          "382:1\u201370": "Connected actualcanonicalReportedPrecision owner, privatef32storage andfinite-onlynew36\u201338 preservingallfinite clientreports inclnegative/>1 as documented; no0\u20131restriction. get40\u201342 rawnativeprojection, exactuse/nativekernelstillpending. TransformedMeleeAttack.retained_power rawf32 semanticfraction beforeauthorityconsumer bodyunread; queueownerfit. ValidatedMeleeAttack retainscheckedReportedPrecision+Position<Scene> butrawyaws; exactconstructor/validation/allconsumer bodies remainunread71\u2013672. Getterdeclaration70 only, no completedgetterbodyclaim."
+        },
+        "historical_verification_as_recorded": {
+          "lens": 13,
+          "status": "Evidence-only passed, rootadoptionrequired",
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-006.json",
+            "sha256": "6b244564a64e0a2c19ac9867097efa3888812ca5c17782dbebbc492c6362f8e1"
+          },
+          "registration_hash_exact": true,
+          "source_hashes_eof_scopes_exact": true,
+          "original380_actual_body_complete": true,
+          "original380_nonexistent49_68_credit": 0,
+          "original382_partial_only": [
+            1,
+            70
+          ],
+          "original382_ordered_credit": 0,
+          "authoritative_count_changes": 0,
+          "product_execution": false,
+          "current_reconciled": false
+        },
+        "historical_registration_fields_absent": [
+          "at"
+        ],
+        "historical_body_attestation_field": "body_outputs_untruncated",
+        "prior_future_proof_preserved": {
+          "receipt": "parallel-l13-20261029/READ-PL13-006.json",
+          "receipt_sha256": "6b244564a64e0a2c19ac9867097efa3888812ca5c17782dbebbc492c6362f8e1",
+          "proof": {
+            "original": 382,
+            "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/authority.rs",
+            "sha256": "115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+            "actual_eof": 672,
+            "qualified_ranges": [
+              [
+                1,
+                70
+              ]
+            ],
+            "ordered_original_credit": 0,
+            "receipt_row_pointer": "/rows/1",
+            "require_at_ordered_frontier": "Recheck exactregistration+receipt hash/revision/identity/scope/attribution; register andassess71\u2013672 complement. Do notcountfull672frompartial1\u201370;70onlygetterdeclaration."
+          },
+          "ordered_credit_now": 0
+        },
+        "prior_alias_application_preserved": {
+          "original": 382,
+          "receipt": "segovb/READ-L13-PARALLEL-005.json",
+          "receipt_sha256": "6723d4219c7152946a643a63ef40bcb64990e16afd1b09f1ee328d0cf02c71f3",
+          "reuse": {
+            "read": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-006.json",
+              "sha256": "6b244564a64e0a2c19ac9867097efa3888812ca5c17782dbebbc492c6362f8e1"
+            },
+            "pointer": "/rows/1",
+            "registration": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-006.json",
+              "sha256": "a3faa557553c4fada764afe7cb8ffa61e66f66ce8b8271d5fc9276adbe87c7d4"
+            },
+            "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/authority.rs",
+            "sha256": "115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+            "ranges": [
+              [
+                1,
+                70
+              ]
+            ],
+            "fresh_personal_reads_this_batch": [],
+            "prior_ordered_credit": 0,
+            "proposed_original_credit_once_now": 1
+          },
+          "ordered_credit_once_now": true
+        },
+        "completed_old_authority_read": {
+          "adoption": {
+            "path": "segovb/READ-L13-PARALLEL-005.json",
+            "sha256": "6723d4219c7152946a643a63ef40bcb64990e16afd1b09f1ee328d0cf02c71f3"
+          },
+          "read": {
+            "path": "parallel-l13-20261029/READ-PL13-007.json",
+            "sha256": "468febcda9d90f018e46fea94090cf631515b3ae73f7cbf7035075a44e8d9e0e"
+          },
+          "verification": {
+            "path": "parallel-l13-20261029/VERIFY-PL13-007.json",
+            "sha256": "d787d2beeb51b2828275cc49a751fe33db18a1afe70c46d9c14d020b37af5553"
+          },
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-007.json",
+            "sha256": "cb2670dd88ba8ecbc609825fb7686dda7525abf6a001a13df3f57531441eefd8"
+          },
+          "row": {
+            "original": 382,
+            "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/authority.rs",
+            "sha256": "115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+            "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+            "actual_eof": 672,
+            "prospective_ranges": [
+              [
+                71,
+                672
+              ]
+            ],
+            "scope_kind": "frozen_requested_change",
+            "source_revision": "physical-p16 f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact",
+            "purpose": "Independent L13 orderedcombat/authorityclock/ranged inventory;382complementsownconnectedPL13-0061\u201370 exactreuse, neverinheritedall672frompartial",
+            "fresh_personal_assessed_ranges": [
+              [
+                71,
+                672
+              ]
+            ],
+            "untruncated_body_outputs": true
+          },
+          "inventory": {
+            "381:1\u2013534": "Actualnativeimpact presentation: semantic metal/blood Bools as protocol output, cuts>0 selects blood/flesh. authoritative_impact rawmasskg/typedposition/nativeTransform\u2192hit_velocity_change\u2192positional Entity/velocity/point/normal tuple before nativeevent; frame/unit/role owner records required. Accumulated injury cut/blunt/maxsinglehit rawf32, bloodfraction rawf32, ammoU32, inventoryitemIDu64/contactstressf32/defender_equipmentBool retained in nativeResource before strategic receipt boundary; transient wounds remain server. remaining_ammo subtract1 from checked nonzero CoreItemQuantity then new\u2192None atlastshot: no underflow for admittedquantity. ApplyMeleeAttackResult/MeleeAttackResolved retain typed BodyPart/anatomical/contacttiming but surface coordinate/optional probability/alignment/engagement rawf32, power/engagement other events rawf32; actualadmission/consumer sourcespending. impactkernel349 picks affectedside Bool and nonnegativecontactenergy, rejectsnonfinite/nonpositive toZERO365, horizontalnormalize_or_zero anddirectionreverse forattacker; sqrt(2E/mass.max1kg)*configuredscale thenvelocitycap is actualnativeVec3 operation. Mathematical2 versusphysicalmassfloor1 distinct; no rule thatallrawmass justifiedbyprivatekernel. Hitframe usesactualcanonicalimpact_surface contact.rs bodypending. Rangedfacts target Option +side/state/geometry/aim optional bundle and rawyaws, actualvalidmisssupported. Meleefacts checkedlengths/precision/positions, rawyaws/authority flags; LOSBool actualnativeobservation. Plugin nativeobserver registrations and Condition schedule, no descendantbodycredit.",
+            "381:535\u20131165": "All authoredtests source only, neverexecuted. Validmelee dimensions.55/.8/.25m/separation1.2; fistsweapon0 positivearm valid; beyondarm+tolerance+.01 rejects. Rangedreach120/tolerance.5/separation30, precision99 valid finite,121 rejects; targetNone missvalid consumesammo; aim20degrees forward/back. include_str assertions inspect childsources as strings, notactualchildbodycoverage or compatibility requirements for exact token prose. Ammunitionquantity1\u2192None/3\u21922 andMAXreceiptlimit/CharacterId7. Damagechesthealth.2,cut100/blunt0/balance.4/contact100,oneopenwound,60secbleed.1\u00b1.0001;recoilbalance.25;100hits .003/.002\u2192.3/.2,maxsingle.002 andoneaggregateinjury. NativeEntities1/2 andslotflags fixtures. Incapacitysource cases0/1/.3/.2;recovery.75after2sec\u2192.25,.01after1\u21920; imbalance1.01 clearsmovement thenrecovers2sec. Jog endurance3/fatigue.25, externalvelocity+10mustnotaffectexertion,1secjog/sprint/rest. ImpactE140,mass70\u21923.86\u00b11e-4m/s; helper64Hz withstoppingspeed.001m/s;E49.4667,mass80 expected.23..27m;recoilE40/mass80vs60 axisnegative. Several historicaltestcallers passVec3whereproductionnowPosition and382test445raw1whereSignedLength; no buildexecuted or frozencompilability claim, sourceexpectations do notauthorizecompatibilityrestoration.",
+            "382:1\u2013672": "1\u201370 exactsame-agentpriorPL13-006 reuse, fresh71\u2013672 completesactualbody; no doublednewreads. ReportedPrecision privatefinite-onlyf32 acceptsallfinite unchanged; get nativeprojection. AuthorizedMeleeAttack carriestypedattack+rawpowermultiplier; ValidatedRangedImpact Miss orHit ownsrequiredtargetposition/yaw/body; ValidatedRangedShot stillretains reportedprecision outsideimpact. ObservedMeleeWindup typedkey/target/bodyOptions/readiness/expiry; ActiveAttack typedstart/precision/scheduledmeasure butrawpower. MeleeAttackAuthority separateOptionwindup/active plusnativeclockcooldown/u8consecutiveintercepts. observe setsboth,power1;complete_miss clearsactive/takeswindup;commit increments saturating1 andclears;trade saturatingdecrement1. transformeffectivenessrawclamp0..1\u21921\u2212.4*f thenmultiplypower; .4 productiontuning shouldcanonicalconfig, rawfiniteadmissionactualdefensecaller387pending, noordinaryNaNproof. permits inclusive[ready,expiry] andcooldown nativeclock. Reciprocal opportunity requiresactive.targetsame andstrictlylaterstart,computesdelaypositive; onlydelay<=window executesclosuredivision(1\u2212delay/window).clamp0..1, sozero-window suspicionrejectedonactualgate. Seedderive keybytes +startednanos\u2192nativeinclusiveunitf32; rawinputreflex/decisionprobabilities/counter stillapplicationsemanticowners. authorize expectactive360 representation/rulecase: every exposedstateoperationmaintains windup\u2192active correlation, no reachableNoneproven. ConsumeonlyonSomeauthorization,clearbothandcooldown. Nativeclock saturatingAPI383 narrows overflow. Source-onlytests seconds1/entity7/9/3,keys7/42/8/19/23,precision\u22121/99/.75/.25 andNaN/Inf rejects;later100ms/reflex500ms gives.8;power.6 afterfullintercept. Rangedvalidation requires side/state/rangedpositiveweapon; optionaltargetNone validMiss. SomeTarget requiresdifferentvalidside/nonincap/separationwithinreach+tolerance/aimtrue;thenexpectsposition/yaw613/614 whoseactualcoherentfactsbuilder mustbequalifiedbeforeordinarypanicclaim. Cheapmelee validates capability/positivearm/nonnegweapon/reach+tolerance andauthority;typedpositions forwarded,rawyawsnoextraadmissionhere.",
+            "383:1\u201362": "CombatInstant private nativeDuration, elapsedfromBevyTime<()>, native nanosU128 only seednativebyteadapter. elapsed_since saturatingSub; CombatDuration checkedAnimationElapsed.native_duration admission andnativeDuration\u2192elapsed conversion. Nativeas_secs_f32 explicitsecondsadapter, validzero. CombatInstant+CombatDuration usesDuration.saturating_add60; no overflowpanic oruncheckedwrap atthisactualclockboundary. Saturation semantics atDurationMAX/publicapi lifetime policy sourcequalified, notordinarywalltimecase. No hardcodedproductiontuning.",
+            "384:1\u201354": "Rangedauthority typednativeclockready/expiry/cooldown, optionalwindup validabsence. observe now+windup and+allowance useexact383saturatingaddition. permits inclusivewindow andcooldown; authorize consumeswindup andsetsnewcooldown onlywhenvalid. Authorize_shot returnsownedAuthorizedRangedShot iftrue, no separateprimitivepayloadpublication. No rawduration/precision rewrite ornewtuningliteral. Actualnativefiringcaller/ammoconsumption laterbodypending."
+          },
+          "scope_union": [
+            [
+              1,
+              672
+            ]
+          ],
+          "correction": "Oldroot005actuallyread71..672complement; previouspendingonly70note stale. Newrole24..43 usesoldfirst70 only, no full672credit here."
+        }
+      }
+    },
+    {
+      "original": 2690,
+      "source": {
+        "original": 2690,
+        "source_id": "p16:crates/adventuresim-core/src/combat/incapacitation.rs",
+        "sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+        "actual_eof": 115,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+        "prospective_ranges": [
+          [
+            1,
+            54
+          ]
+        ],
+        "revision_qualification": "ExactP16/native-prefix identities preserved; archivef82transport only andqualifiedoldPR/P16literalbody joins, no currentsemantic/authority transfer.",
+        "purpose": "Four P16precision/recovery/arrival/presence roles300material:30fresh/270priorread, no newtacticalpersistence or native/runtime execution."
+      },
+      "mode": "delegated-reuse",
+      "bytes": 3835,
+      "assessed_union": [
+        [
+          1,
+          54
+        ]
+      ],
+      "material_line_count": 54,
+      "new_root_personal_lines": 0,
+      "registry_entry_sha256": "7cb3a7aedd731a5befa0ef3995bfdc8ce2b9e194222ccad335dab3b972478c6b",
+      "registry_path_as_recorded": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\combat\\incapacitation.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          55,
+          115
+        ]
+      ],
+      "whole_file_coverage": false,
+      "prior": {
+        "prior_adoption": {
+          "path": "segovb/READ-L13-PARALLEL-147.json",
+          "sha256": "cc4ac1f5e52a0939bbdf1325855d794282c49e37142b8fcfe8b0792834127f7a"
+        },
+        "prior_raw_receipt": {
+          "path": "parallel-l13-20261029/READ-PL13-149.json",
+          "sha256": "f72744d3c641c0fef4fa4c6faaa3776a0a5867c846bb7604f6b74451d71ad951"
+        },
+        "prior_verification": {
+          "path": "parallel-l13-20261029/VERIFY-PL13-149.json",
+          "sha256": "36dcda1cfdf613542b5d80122d6676d765d5866069c078c4e639afba3f467055"
+        },
+        "prior_registration": {
+          "path": "parallel-l13-20261029/REGISTRATION-PL13-149.json",
+          "sha256": "ded28c0b1859bb6c216894e805a726e2ec8d8b4e91446b4a56c8979e47c04640"
+        },
+        "prior_validation_manifest": {
+          "path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-147-149.json",
+          "sha256": "0ef269409768da72ee6350ed7b010fa3c9f939ea2cf48e8f2f94871348df1977"
+        },
+        "prior_row_pointer": "/rows/0",
+        "prior_registration_pointer": "/sources/0",
+        "prior_source_read": {
+          "original": 900,
+          "source_id": "pr-working:crates/adventuresim-core/src/combat/incapacitation.rs",
+          "sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+          "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+          "actual_eof": 115,
+          "prospective_ranges": [
+            [
+              1,
+              115
+            ]
+          ],
+          "scope_kind": "frozen_requested_change",
+          "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "purpose": "Ordered Lens13 impairment, melee/targeting/contact and wound numeric owner/API/retained state/consumer/native contracts, source only.",
+          "fresh_personal_assessed_ranges": [
+            [
+              1,
+              115
+            ]
+          ],
+          "untruncated_body_outputs": true
+        },
+        "exact_old_source_record": {
+          "original": 900,
+          "source_id": "pr-working:crates/adventuresim-core/src/combat/incapacitation.rs",
+          "sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+          "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "actual_eof": 115,
+          "assessed_ranges": [
+            [
+              1,
+              115
+            ]
+          ],
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-149.json",
+            "sha256": "f72744d3c641c0fef4fa4c6faaa3776a0a5867c846bb7604f6b74451d71ad951"
+          },
+          "read_pointer": "/rows/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-149.json",
+            "sha256": "ded28c0b1859bb6c216894e805a726e2ec8d8b4e91446b4a56c8979e47c04640"
+          },
+          "registration_pointer": "/sources/0",
+          "git_hash_eof_range_check": true,
+          "registered_before_read_attestation": true,
+          "chronology_basis": "Direct personal execution: exact row registration persisted before its own fresh untruncated body displays.147actual1209parts1..400 then401..760 then761..1677 each uses distinct pre-read registration;1015full573 independently registered originally. All fixtures/assertions read only, no product execution."
+        },
+        "historical_attribution": "Delegated independent Lens13 personal body assessment; no root/other-lens/current transfer.",
+        "prior_numeric_inventory": [
+          "900 total incapacitation -> typed UnitInterval performance, zero base recovery returns typedZERO even when performance0, positive recovery atzero returnsCannotRecover, finiteoverflow returnsElapsedError. These legitimate optional/zero modes do not require obsolete behavior preservation. Encumbrance uses existing capacity rule once aswheel contribution. Actualnativewheel/producers/limb penalties separate, source tests not runtimepassed.",
+          "901 actualmelee resolver rejects InvalidatedMiss beforeaccuracy/damage, then applies contactmeasure once and routes signedattackmargin toavoidedcontact or891energy. Categorical physicalcontact and armor provenance retained; rawf32 energyfraction/precision/flanking/response members dependactualownerproducer. No duplicate measure penalty fromcomputing accuracyandattack because sameadjustedprecision usedfor distinctavoidance and hit paths. Own857/873 actualconsumer proof notcurrentmain.",
+          "902 seven bodycontactweights sum1 with namedanatomicalsurface partitions .38/.72/.85/.92 andabdomen.85. Actualonecoordinate drives anatomy+armor_surface, gap targetingmoves localcoordinate towardnext_down1 while preservingbodypart; no independentwholebodyarmorsample. Wholecoverage is weightedfraction summary, not percontactowner. Public MeleeContactLocation::new canreceive inconsistentanatomy/surface, actualgenericcallers needadmissiontrace; rawconstructoralone notordinary failure. Factorclosure inprivateweightedselection calledwith1 inreadbody, no inventednegative/sumzerocase.",
+          "903 ContactPrecision privatefinite>=0 assertion constructor; zero isvalid diffusecontact and resistanceinfinity sentinel, concentrated_fraction=value/(1+value) boundedforfinitepositive. precision_for_design12..73 selects mostconcentrated Head workingsurface, neveraddsduplicateheadscores; fallbackshaftonlywhenprecision0. GeometryMetres f64 ->mm f32 at20 thenarea arithmetic/division canunderflow/overflow foroutofscale admittedgeometry, withassert at89..95; actualMetres/shape/designvalidation and producer/nativecontracts needed before retainedfinding. Do notinfercataloguefailure frompublicarbitraryinvaliddesign. handling_accuracy75..81 separatephysical lever/balance fromconcentration, finiteextremelever canlegitimatelyapproachzeroaccuracy.",
+          "904 sourcefixtures assert canonicalreferenceweapons4/1/.5/.1 andeachrecipefinite, duplicateheadsnotadditive, customconditiononce. Readonly, no executedcatalogueproof.905validatespositivefinite referencecontrol/areas andfinite>=0unarmedprecision (zero isvalid). Actualconfigvalidation/currentnativeinput stillpending.906typedtime advances sumofnonnegative perwoundbloodfraction/sec thenclamps0..1; appliedcut/blunt health separatelydriveopen/internalflow andbodyregionJoulethreshold4/8/6. Two perwoundkindchannels are distincttrauma, not hiddenper-musclefatigue. Transientcombatwound description persistentmeansongoingwithincombat; no strategicDBwrite inthisbody. Actualpostbattlemedicalandnativebleedingownership connected."
+        ],
+        "inherited_connected_contracts": [
+          {
+            "proposed_id": "PL13-149-CONTACT-CONCENTRATION-WIDTH-PENDING",
+            "status": "Source-reasoned numeric conversion suspicion pending actual admitted geometry",
+            "source_originals": [
+              903,
+              905
+            ],
+            "primary_function": "WeaponContactParameters::precision_for_design",
+            "first_failure_candidate": "Metres f64 to millimetres f32 conversion20 and squared/product area arithmetic21..52 before ContactPrecision assertion89..95",
+            "needed": "Inspect actual Metres scalar owner, shape/design validation and all production recipe entrypoints/derived physical projections/native consumers. Establish supported finite-positive geometry bounds or reject suspicion; do not alias prior dimension-width candidates from common remedy."
+          },
+          {
+            "status": "Native numeric owner dependencies remain pending",
+            "source_originals": [
+              900,
+              901,
+              902,
+              903,
+              904,
+              905,
+              906
+            ],
+            "needed": "Wheel native display and medicalpostbattleboundary; typedraw contactlocation admission at actualcallers; calibrated physical geometry/config authorities, actualcombat energy upperbounds and output units. Preserve zero/recovery-unavailable/normalization/categoricalcontact modes."
+          }
+        ],
+        "historical_registration_fields_absent": [
+          "at"
+        ]
+      }
+    },
+    {
+      "original": 2691,
+      "source": {
+        "original": 2691,
+        "source_id": "p16:crates/adventuresim-tactical-core/src/combat.rs",
+        "sha256": "98f3cb6b60b6672e3bdb730f6c922c012120f3763add4beb906040f1be122c2f",
+        "actual_eof": 310,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/98f3cb6b60b6672e3bdb730f6c922c012120f3763add4beb906040f1be122c2f",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/98f3cb6b60b6672e3bdb730f6c922c012120f3763add4beb906040f1be122c2f",
+        "prospective_ranges": [
+          [
+            49,
+            57
+          ],
+          [
+            88,
+            108
+          ]
+        ],
+        "revision_qualification": "ExactP16/native-prefix identities preserved; archivef82transport only andqualifiedoldPR/P16literalbody joins, no currentsemantic/authority transfer.",
+        "purpose": "Four P16precision/recovery/arrival/presence roles300material:30fresh/270priorread, no newtacticalpersistence or native/runtime execution."
+      },
+      "mode": "fresh",
+      "bytes": 14143,
+      "assessed_union": [
+        [
+          49,
+          57
+        ],
+        [
+          88,
+          108
+        ]
+      ],
+      "material_line_count": 30,
+      "new_root_personal_lines": 30,
+      "registry_entry_sha256": "c41c2f980992b8d6b68eb4091de884092c56745b3c0f34c9ed6114d0fdfffd9c",
+      "registry_path_as_recorded": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\combat.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          1,
+          48
+        ],
+        [
+          58,
+          87
+        ],
+        [
+          109,
+          310
+        ]
+      ],
+      "whole_file_coverage": false
+    },
+    {
+      "original": 2692,
+      "source": {
+        "original": 2692,
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+        "sha256": "39cd6d057c070e586f5701d068b930beaafe12dc00d68465ffd460ede664c5ea",
+        "actual_eof": 196,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/39cd6d057c070e586f5701d068b930beaafe12dc00d68465ffd460ede664c5ea",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/39cd6d057c070e586f5701d068b930beaafe12dc00d68465ffd460ede664c5ea",
+        "prospective_ranges": [
+          [
+            1,
+            196
+          ]
+        ],
+        "revision_qualification": "ExactP16/native-prefix identities preserved; archivef82transport only andqualifiedoldPR/P16literalbody joins, no currentsemantic/authority transfer.",
+        "purpose": "Four P16precision/recovery/arrival/presence roles300material:30fresh/270priorread, no newtacticalpersistence or native/runtime execution."
+      },
+      "mode": "root-reuse",
+      "bytes": 6264,
+      "assessed_union": [
+        [
+          1,
+          196
+        ]
+      ],
+      "material_line_count": 196,
+      "new_root_personal_lines": 0,
+      "registry_entry_sha256": "43ab559c2e2993efa49263bb25a9b4a5d3a7c9ae4821dd8ea11b304820004152",
+      "registry_path_as_recorded": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\world_actor\\presence.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [],
+      "whole_file_coverage": true,
+      "prior": {
+        "prior_adoption": {
+          "path": "segovb/READ-L13-PARALLEL-319.json",
+          "sha256": "6b86725ff363934a0ec7c4de67ad55be13802a888ec5a3e28588213c2248408d"
+        },
+        "prior_packet": {
+          "path": "adler-continuation-20261030/READ-ROOT-L13-1262-1265-001.json",
+          "sha256": "411c965c4497fdd52c64d65918a4a69d15914b72e8d177843544539bbde66e75"
+        },
+        "prior_plan": {
+          "path": "adler-continuation-20261030/PLAN-ROOT-L13-1262-1265-001.json",
+          "sha256": "09bd171b6f86085b2d94a3e9e372d6c4a96bec087a74a81db088e0249cb8ff5d"
+        },
+        "prior_registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1262-1265-001.json",
+          "sha256": "ff8dd89c50126cdc731bec293292e932cc2bd5c1c1e418fe69544224e5e5e106"
+        },
+        "prior_native_verification": {
+          "path": "segovb/VERIFY-L13-PARALLEL-319.json",
+          "sha256": "9b38fa884121ed39ba4e26c0082bfa5be978ed389ee9982ffd6e26fa25200a0d"
+        },
+        "prior_state": {
+          "path": "segovb/STATE-L13-PARALLEL-319.json",
+          "sha256": "e9e57967584884c4bfdb39482bc5f0b3e46289a9d7cb4a03c3dd2c86bc82b00d"
+        },
+        "prior_row_pointer": "/ordered/1",
+        "prior_registration_pointer": "/sources/1",
+        "prior_source_row": {
+          "source": {
+            "original": 1263,
+            "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+            "sha256": "39cd6d057c070e586f5701d068b930beaafe12dc00d68465ffd460ede664c5ea",
+            "actual_eof": 196,
+            "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/39cd6d057c070e586f5701d068b930beaafe12dc00d68465ffd460ede664c5ea",
+            "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "prospective_ranges": [
+              [
+                1,
+                196
+              ]
+            ],
+            "purpose": "Full Lens13 contact authority, observer presence, roster closure and world event numeric contracts. Source only."
+          },
+          "registration": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1262-1265-001.json",
+            "sha256": "ff8dd89c50126cdc731bec293292e932cc2bd5c1c1e418fe69544224e5e5e106"
+          },
+          "registration_pointer": "/sources/1",
+          "assessed_ranges": [
+            [
+              1,
+              196
+            ]
+          ],
+          "author": "/root",
+          "untruncated_body_outputs": true,
+          "observations": [
+            "Full196 source assessed. Membership validity is a half-open interval entered<=minute<left; left==entered is well formed but empty. exactly_one rejects zero/multiple matches. Exact context claim requires allowed context kind, fixed public reference and equality of revisions; no numeric tolerance or derived revision exists here.",
+            "Party/actor case presence requires an actual personal clock row; no ZERO fallback here. Canonical occupancy must be unique, places agree, exact observer provenance/lead coordinates match and lead recorded_at<=minute. Correction hides the old lead at and after correction time; a later same-owner correction retains earlier historical visibility. Birth is inclusive and death exclusive at the queried minute. Tuple alias index1 is structural provenance, not a magic gameplay number.",
+            "Actual native investigation/case/clock producers and current-source contracts remain independently qualified; this source narrows ROOT-L13-1260-TREATMENT-MISSING-CLOCK contextual path, without proving supported missing-clock same-party admission."
+          ]
+        },
+        "historical_attribution": "/root"
+      }
+    }
+  ],
+  "all_nested_range_fields": [
+    {
+      "pointer": "/files/2689/material_ranges",
+      "raw_value": [
+        [
+          24,
+          43
+        ]
+      ],
+      "actual_eof": 672
+    },
+    {
+      "pointer": "/files/2689/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          41
+        ]
+      ],
+      "actual_eof": 672
+    },
+    {
+      "pointer": "/files/2689/admission03_scope_observations/0/local_qualifications/0/original_registration/material_ranges",
+      "raw_value": [
+        [
+          1,
+          41
+        ]
+      ],
+      "actual_eof": 672
+    },
+    {
+      "pointer": "/files/2689/admission03_scope_observations/0/local_qualifications/0/original_requested_context_ranges",
+      "raw_value": [
+        [
+          1,
+          41
+        ]
+      ],
+      "actual_eof": 672
+    },
+    {
+      "pointer": "/files/2689/admission03_scope_observations/0/local_qualifications/0/qualified_material_ranges",
+      "raw_value": [
+        [
+          24,
+          41
+        ]
+      ],
+      "actual_eof": 672
+    },
+    {
+      "pointer": "/files/2689/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          24,
+          41
+        ]
+      ],
+      "actual_eof": 672
+    },
+    {
+      "pointer": "/files/2689/admission03_scope_observations/1/original_record/material_ranges",
+      "raw_value": [
+        [
+          42,
+          44
+        ]
+      ],
+      "actual_eof": 672
+    },
+    {
+      "pointer": "/files/2689/admission03_scope_observations/1/local_qualifications/0/original_registration/material_ranges",
+      "raw_value": [
+        [
+          42,
+          44
+        ]
+      ],
+      "actual_eof": 672
+    },
+    {
+      "pointer": "/files/2689/admission03_scope_observations/1/local_qualifications/0/original_requested_context_ranges",
+      "raw_value": [
+        [
+          42,
+          44
+        ]
+      ],
+      "actual_eof": 672
+    },
+    {
+      "pointer": "/files/2689/admission03_scope_observations/1/local_qualifications/0/qualified_material_ranges",
+      "raw_value": [
+        [
+          42,
+          43
+        ]
+      ],
+      "actual_eof": 672
+    },
+    {
+      "pointer": "/files/2689/admission03_scope_observations/1/effective_material_ranges",
+      "raw_value": [
+        [
+          42,
+          43
+        ]
+      ],
+      "actual_eof": 672
+    },
+    {
+      "pointer": "/files/2690/material_ranges",
+      "raw_value": [
+        [
+          1,
+          54
+        ]
+      ],
+      "actual_eof": 115
+    },
+    {
+      "pointer": "/files/2690/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          57
+        ]
+      ],
+      "actual_eof": 115
+    },
+    {
+      "pointer": "/files/2690/admission03_scope_observations/0/local_qualifications/0/original_registration/material_ranges",
+      "raw_value": [
+        [
+          1,
+          57
+        ]
+      ],
+      "actual_eof": 115
+    },
+    {
+      "pointer": "/files/2690/admission03_scope_observations/0/local_qualifications/0/original_requested_context_ranges",
+      "raw_value": [
+        [
+          1,
+          57
+        ]
+      ],
+      "actual_eof": 115
+    },
+    {
+      "pointer": "/files/2690/admission03_scope_observations/0/local_qualifications/0/qualified_material_ranges",
+      "raw_value": [
+        [
+          1,
+          54
+        ]
+      ],
+      "actual_eof": 115
+    },
+    {
+      "pointer": "/files/2690/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          54
+        ]
+      ],
+      "actual_eof": 115
+    },
+    {
+      "pointer": "/files/2691/material_ranges",
+      "raw_value": [
+        [
+          49,
+          57
+        ],
+        [
+          88,
+          108
+        ]
+      ],
+      "actual_eof": 310
+    },
+    {
+      "pointer": "/files/2691/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          31,
+          37
+        ],
+        [
+          60,
+          80
+        ]
+      ],
+      "actual_eof": 310
+    },
+    {
+      "pointer": "/files/2691/admission03_scope_observations/0/local_qualifications/0/original_registration/material_ranges",
+      "raw_value": [
+        [
+          31,
+          37
+        ],
+        [
+          60,
+          80
+        ]
+      ],
+      "actual_eof": 310
+    },
+    {
+      "pointer": "/files/2691/admission03_scope_observations/0/local_qualifications/0/original_requested_context_ranges",
+      "raw_value": [
+        [
+          31,
+          37
+        ],
+        [
+          60,
+          80
+        ]
+      ],
+      "actual_eof": 310
+    },
+    {
+      "pointer": "/files/2691/admission03_scope_observations/1/original_record/material_ranges",
+      "raw_value": [
+        [
+          49,
+          57
+        ],
+        [
+          88,
+          108
+        ]
+      ],
+      "actual_eof": 310
+    },
+    {
+      "pointer": "/files/2691/admission03_scope_observations/1/local_qualifications/0/original_registration/material_ranges",
+      "raw_value": [
+        [
+          49,
+          57
+        ],
+        [
+          88,
+          108
+        ]
+      ],
+      "actual_eof": 310
+    },
+    {
+      "pointer": "/files/2691/admission03_scope_observations/1/local_qualifications/0/original_requested_context_ranges",
+      "raw_value": [
+        [
+          49,
+          57
+        ],
+        [
+          88,
+          108
+        ]
+      ],
+      "actual_eof": 310
+    },
+    {
+      "pointer": "/files/2691/admission03_scope_observations/1/local_qualifications/0/qualified_material_ranges",
+      "raw_value": [
+        [
+          49,
+          57
+        ],
+        [
+          88,
+          108
+        ]
+      ],
+      "actual_eof": 310
+    },
+    {
+      "pointer": "/files/2691/admission03_scope_observations/1/effective_material_ranges",
+      "raw_value": [
+        [
+          49,
+          57
+        ],
+        [
+          88,
+          108
+        ]
+      ],
+      "actual_eof": 310
+    },
+    {
+      "pointer": "/files/2692/material_ranges",
+      "raw_value": [
+        [
+          1,
+          196
+        ]
+      ],
+      "actual_eof": 196
+    },
+    {
+      "pointer": "/files/2692/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          196
+        ]
+      ],
+      "actual_eof": 196
+    },
+    {
+      "pointer": "/files/2692/admission03_scope_observations/0/local_qualifications/0/original_registration/material_ranges",
+      "raw_value": [
+        [
+          1,
+          196
+        ]
+      ],
+      "actual_eof": 196
+    },
+    {
+      "pointer": "/files/2692/admission03_scope_observations/0/local_qualifications/0/original_requested_context_ranges",
+      "raw_value": [
+        [
+          1,
+          196
+        ]
+      ],
+      "actual_eof": 196
+    },
+    {
+      "pointer": "/files/2692/admission03_scope_observations/0/local_qualifications/0/qualified_material_ranges",
+      "raw_value": [
+        [
+          1,
+          196
+        ]
+      ],
+      "actual_eof": 196
+    },
+    {
+      "pointer": "/files/2692/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          196
+        ]
+      ],
+      "actual_eof": 196
+    }
+  ],
+  "exact_hash_prior_hits": [
+    {
+      "original": 2689,
+      "receipt": {
+        "path": "segovb/READ-L13-PARALLEL-004.json",
+        "sha256": "8b8fa6de803a7a5d2485ecd815caf5362b72048caa706e89251a5f054eac20d9"
+      }
+    },
+    {
+      "original": 2689,
+      "receipt": {
+        "path": "segovb/READ-L13-PARALLEL-005.json",
+        "sha256": "6723d4219c7152946a643a63ef40bcb64990e16afd1b09f1ee328d0cf02c71f3"
+      }
+    },
+    {
+      "original": 2690,
+      "receipt": {
+        "path": "segovb/READ-L13-PARALLEL-147.json",
+        "sha256": "cc4ac1f5e52a0939bbdf1325855d794282c49e37142b8fcfe8b0792834127f7a"
+      }
+    },
+    {
+      "original": 2692,
+      "receipt": {
+        "path": "segovb/READ-L13-PARALLEL-319.json",
+        "sha256": "6b86725ff363934a0ec7c4de67ad55be13802a888ec5a3e28588213c2248408d"
+      }
+    }
+  ],
+  "future_proofs_preserved": [
+    {
+      "receipt": "parallel-l13-20261029/READ-PL13-006.json",
+      "receipt_sha256": "6b244564a64e0a2c19ac9867097efa3888812ca5c17782dbebbc492c6362f8e1",
+      "proof": {
+        "original": 382,
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/authority.rs",
+        "sha256": "115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+        "actual_eof": 672,
+        "qualified_ranges": [
+          [
+            1,
+            70
+          ]
+        ],
+        "ordered_original_credit": 0,
+        "receipt_row_pointer": "/rows/1",
+        "require_at_ordered_frontier": "Recheck exactregistration+receipt hash/revision/identity/scope/attribution; register andassess71\u2013672 complement. Do notcountfull672frompartial1\u201370;70onlygetterdeclaration."
+      },
+      "ordered_credit_now": 0
+    }
+  ],
+  "old_ordered_applications_preserved": [
+    {
+      "original": 382,
+      "receipt": "segovb/READ-L13-PARALLEL-005.json",
+      "receipt_sha256": "6723d4219c7152946a643a63ef40bcb64990e16afd1b09f1ee328d0cf02c71f3",
+      "reuse": {
+        "read": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-006.json",
+          "sha256": "6b244564a64e0a2c19ac9867097efa3888812ca5c17782dbebbc492c6362f8e1"
+        },
+        "pointer": "/rows/1",
+        "registration": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-006.json",
+          "sha256": "a3faa557553c4fada764afe7cb8ffa61e66f66ce8b8271d5fc9276adbe87c7d4"
+        },
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/authority.rs",
+        "sha256": "115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+        "ranges": [
+          [
+            1,
+            70
+          ]
+        ],
+        "fresh_personal_reads_this_batch": [],
+        "prior_ordered_credit": 0,
+        "proposed_original_credit_once_now": 1
+      },
+      "ordered_credit_once_now": true
+    }
+  ],
+  "discovery_metadata_sha256": "2a85551e707a1c6efc7c66f1eb62e6e00b8c50e8b157f9da7ab108ac3066fe75",
+  "production_source_lines": 300,
+  "fixture_source_lines": 0,
+  "fixture_execution": false,
+  "exact_partial_scopes_preserved": true,
+  "empty_wrong_context_2691_scope_preserved": true,
+  "authority_old005_complement_completion_qualified": true,
+  "all_nested_range_fields_inspected": true,
+  "historical_receipts_unchanged": true,
+  "transport_only_not_current_source": true,
+  "material_lines": 300,
+  "fresh_lines": 30,
+  "reused_material_lines": 270,
+  "body_credit": 0,
+  "authority_changes": 0,
+  "other_population_credit": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "limits": [
+    "2691arrival49..57/88..108 thirty fresh lines requireboundedbodyread; originalwrongNative051context31..37/60..80 effective[] retained, zerosemanticcredit. All32nestedfields valid/preserved.",
+    "2689twenty24..43 usesoldroot004actual1..70read; oldroot005actualfresh71..672 completesoldbody672. Prioronly70pendingnote stale andcorrected, newrole20only. Old382future/application andnativefieldbody_outputs_untruncated schema retained, no newbody credit.",
+    "2690recovery1..54 usesoldroot147/PL149full115;55..115 uncreditedhere.2692presencefull196 usesoldroot319/PR1263 full196. Allreader/namespace/source/current/authority context independent, no tacticaltickpersistence authorized or performed.",
+    "NativeP16combat1..48/58..87/109..310 andauthorityoutside24..43 uncreditedhere; actualparent/native/consumer/current/all20/lateracceptance remainincomplete."
+  ]
+}

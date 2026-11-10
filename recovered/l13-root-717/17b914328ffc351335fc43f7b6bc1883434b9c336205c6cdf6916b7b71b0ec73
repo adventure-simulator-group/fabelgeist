@@ -1,0 +1,87 @@
+{
+  "kind": "Exact native source provenance, no source body credit",
+  "at": "2026-10-31T23:54:22.715368+00:00",
+  "original_registry": {
+    "path": "evidence/audit05/original-scope-072.json",
+    "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "frozen_lock_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+  "frozen_rand_package": {
+    "name": "rand",
+    "version": "0.9.5",
+    "source": "registry+https://github.com/rust-lang/crates.io-index",
+    "checksum": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+    "dependencies": [
+      "rand_chacha 0.9.0",
+      "rand_core 0.9.5"
+    ]
+  },
+  "registry_archive": {
+    "path": "adler-continuation-20261030/objects/b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+    "sha256": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41"
+  },
+  "archive_bytes": 100216,
+  "archive_matches_frozen_lock_checksum": true,
+  "member_sources": [
+    {
+      "original": 2757,
+      "source_sha256": "b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003",
+      "archive_member": "rand-0.9.5/src/distr/weighted/weighted_index.rs",
+      "bytes": 21498,
+      "actual_eof": 631
+    },
+    {
+      "original": 2758,
+      "source_sha256": "04efcc061e1904b824e3feb68541c4e8259a46ecd2c118af6fb383b3ad37f73c",
+      "archive_member": "rand-0.9.5/src/distr/uniform.rs",
+      "bytes": 21611,
+      "actual_eof": 622
+    },
+    {
+      "original": 2759,
+      "source_sha256": "30c620bc9d74263162de2e0755ae4b323abce1d6aa22c00d1b9de378480f22c0",
+      "archive_member": "rand-0.9.5/src/distr/uniform_int.rs",
+      "bytes": 34184,
+      "actual_eof": 914
+    },
+    {
+      "original": 2760,
+      "source_sha256": "52379f09ea06c8ac54bdb4ecaed93fd7fc08f85866b5e3fcb4e40d0f1576bdfe",
+      "archive_member": "rand-0.9.5/src/distr/weighted/mod.rs",
+      "bytes": 3775,
+      "actual_eof": 115
+    },
+    {
+      "original": 2761,
+      "source_sha256": "a631940e728257c9b0cb753bc64fa631958c92ce52d5b2265c7ed06a46567b8f",
+      "archive_member": "rand-0.9.5/src/distr/utils.rs",
+      "bytes": 12603,
+      "actual_eof": 408
+    },
+    {
+      "original": 2762,
+      "source_sha256": "69ac205b6fed57ae09e2f8f1b15ae3d2049b85874bc4da3f246a18188b42d8ea",
+      "archive_member": "rand-0.9.5/src/distr/integer.rs",
+      "bytes": 9993,
+      "actual_eof": 307
+    },
+    {
+      "original": 2763,
+      "source_sha256": "19a29d58ea169c50ae7fea0a941c405e4a8f3a9b2ac0dc0edd9f7a55e9431703",
+      "archive_member": "rand-0.9.5/src/rng.rs",
+      "bytes": 20807,
+      "actual_eof": 657
+    }
+  ],
+  "existing_own_lock_adoption": {
+    "path": "segovb/READ-L13-PARALLEL-022.json",
+    "sha256": "cb376d19e5655769fe0d8525ab9977de06c4a0e6c9b10dd23b83d25ac82df8f5"
+  },
+  "existing_own_stream_adoption": {
+    "path": "segovb/READ-L13-PARALLEL-313.json",
+    "sha256": "6a63567664bca0b8ff065a0dd8b3fab373f976501a36455c97fb3e847397e6fe"
+  },
+  "source_materialization_credit": 0,
+  "product_execution": false
+}

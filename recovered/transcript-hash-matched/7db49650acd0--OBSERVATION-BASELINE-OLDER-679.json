@@ -1,0 +1,48 @@
+{
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-BASELINE-OLDER-679.json",
+    "sha256": "8a6af12d0c1ea3ded7376bfcada56620efcc902a17af20acff5595d466fa422f"
+  },
+  "whole_contract_closed": false,
+  "new_accepted_unique_count": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "at": "2026-11-03T06:03:54.893085+00:00",
+  "schema": "726-scoped-native-git-observation-v1",
+  "source_trace": [
+    "For each nonempty tier/species batch, grass_tuft_mesh uses configured native_blades_per_tuft_side as grid_side and enumerates 0..grid_side * grid_side before collecting blades; validation currently requires only a nonzero side.",
+    "Ribbon mesh buffer capacities depend on blade count and configured ribbon_rows length: ordinary blades use 2 * rows + 1 vertices and 2 * rows - 1 triangles. Vertex bases and offsets are cast to u32; near-tier seed heads append extra quads and crossed spikelets depending on species and deterministic selection.",
+    "The per-tier configured tuft footprint divides patch spacing by its tuft-side count, including near-edge, even though near-edge placements are copied from near. Safe admission must preserve that crossfade relationship while accounting for composed placement, mesh, allocation and device limits; no particular native failure is asserted."
+  ],
+  "remaining_evidence": [
+    "Determine bounded composed topology and index/byte/device admission using checked arithmetic, including maximum possible seed-head geometry and near-edge footprint policy.",
+    "Qualify scene producer and actual eligible placement; execute the modified configuration and placement only after the audit gate permits product tests.",
+    "Reconcile exact owner and independent lens dispositions."
+  ],
+  "source_references": [
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-BASELINE-OLDER-678.json",
+      "sha256": "1789d8baa7b0289180c085addfbc65e6b4649bbdb1993b594d7eaf96d5071438"
+    },
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-BASELINE-OLDER-677.json",
+      "sha256": "0d0981e12b95e8dcd392717ccffb9b1d461ece27de1713b4c8772320fa56b9ef"
+    },
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-BASELINE-OLDER-673.json",
+      "sha256": "0face0ea44b2f4bfc55cc6c176aa51aeaf4e3645d840ff744a9b9fdb7c0882c4"
+    },
+    {
+      "path": "adler-continuation-20261030/DIFF-METADATA-623-LOCK.patch",
+      "sha256": "90ef2adb9c90c6f469458557c19ec5655b91059e0d37d4372cb3cdf957f14420"
+    }
+  ],
+  "lock_registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-LOCK-DELTA-652.json",
+    "sha256": "9d5c1a0cd144cfc7b6965f6168a040e0e52a92c3b5d45c47661bd7eef331b963"
+  },
+  "native_git_registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-EIDOLON-656.json",
+    "sha256": "1724a826a6f90113b4449bebfb52db565595bc18b70f57ccefebe00472af24b9"
+  }
+}

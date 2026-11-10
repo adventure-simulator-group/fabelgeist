@@ -1,0 +1,39 @@
+1: #[cfg(feature = "gpu")]
+2: use crate::GpuMesh;
+3: use crate::{FrontFace, PrimitiveTopology};
+4: use anyhow::{Result, ensure};
+5: #[cfg(feature = "gpu")]
+6: use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
+7: #[cfg(feature = "gpu")]
+8: use fabelgeist_gpu::{
+9:     data::gpu::buffer::{Buffer, BufferDefinition},
+10:     globals::WgpuContext,
+11: };
+41: /// CPU mesh attributes. Empty normal/UV arrays mean those attributes are absent.
+42: /// Indices are optional; an unindexed mesh uses consecutive vertices.
+43: #[derive(Clone, Debug, PartialEq)]
+44: pub struct MeshData {
+45:     pub positions: Vec<[f32; 3]>,
+46:     pub normals: Vec<[f32; 3]>,
+47:     pub tex_coords: Vec<[f32; 2]>,
+48:     pub indices: Option<Vec<u32>>,
+49:     pub joints: Option<Vec<[u32; 4]>>,
+50:     pub weights: Option<Vec<[f32; 4]>>,
+51:     pub topology: PrimitiveTopology,
+52:     pub front_face: FrontFace,
+53: }
+54: 
+55: impl Default for MeshData {
+56:     fn default() -> Self {
+57:         Self {
+58:             positions: vec![],
+59:             normals: vec![],
+60:             tex_coords: vec![],
+61:             indices: None,
+62:             joints: None,
+63:             weights: None,
+64:             topology: PrimitiveTopology::TriangleList,
+65:             front_face: FrontFace::Ccw,
+66:         }
+67:     }
+68: }

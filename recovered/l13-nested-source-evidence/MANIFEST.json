@@ -1,0 +1,235 @@
+{
+  "schema": "726-l13-nested-source-evidence-v1",
+  "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "original_registry_path": "evidence/audit05/original-scope-072.json",
+  "original_registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+  "rows": [
+    {
+      "original": 2385,
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+      "git_path": "crates/strategic-web/src/spacetimedb/client.rs",
+      "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+      "bytes": 8664,
+      "actual_eof": 273,
+      "registration_extent": [
+        [
+          1,
+          273
+        ]
+      ],
+      "attribution": "historical prior same-lens reuse",
+      "original_registry_pointer": "/files/2385"
+    },
+    {
+      "original": 2386,
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client/sats.rs",
+      "git_path": "crates/strategic-web/src/spacetimedb/client/sats.rs",
+      "sha256": "dbb97caa3f3bb18aa862aacce19d0d76f82f7760e82a389f9347698d24031906",
+      "bytes": 20671,
+      "actual_eof": 540,
+      "registration_extent": [
+        [
+          1,
+          540
+        ]
+      ],
+      "attribution": "historical fresh source display",
+      "original_registry_pointer": "/files/2386"
+    },
+    {
+      "original": 2387,
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/mod.rs",
+      "git_path": "crates/strategic-web/src/spacetimedb/mod.rs",
+      "sha256": "a020d51bfbce659a44fe8f52c25124b01e77eb9659ef473bf76a4029e28ae130",
+      "bytes": 5625,
+      "actual_eof": 136,
+      "registration_extent": [
+        [
+          1,
+          136
+        ]
+      ],
+      "attribution": "historical prior same-lens reuse",
+      "original_registry_pointer": "/files/2387"
+    },
+    {
+      "original": 2388,
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/queries.rs",
+      "git_path": "crates/strategic-web/src/spacetimedb/queries.rs",
+      "sha256": "d0c3d034f86164b2ffc1acbe66095411629ed45e670ddb95938feea0c5c3e97e",
+      "bytes": 16243,
+      "actual_eof": 466,
+      "registration_extent": [
+        [
+          1,
+          45
+        ]
+      ],
+      "attribution": "historical fresh source display",
+      "original_registry_pointer": "/files/2388"
+    },
+    {
+      "original": 2389,
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/types.rs",
+      "git_path": "crates/strategic-web/src/spacetimedb/types.rs",
+      "sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+      "bytes": 90035,
+      "actual_eof": 2523,
+      "registration_extent": [
+        [
+          1,
+          2523
+        ]
+      ],
+      "attribution": "historical prior same-lens reuse",
+      "original_registry_pointer": "/files/2389"
+    },
+    {
+      "original": 2390,
+      "source_id": "pr-working:crates/strategic-web/src/strategic_map/markers.rs",
+      "git_path": "crates/strategic-web/src/strategic_map/markers.rs",
+      "sha256": "74c56dc2aadba44b69db845d705119d4b89c11c65493a8612304db22fdb5ffd9",
+      "bytes": 4656,
+      "actual_eof": 128,
+      "registration_extent": [
+        [
+          1,
+          128
+        ]
+      ],
+      "attribution": "historical fresh source display",
+      "original_registry_pointer": "/files/2390"
+    }
+  ],
+  "display_fragments": [
+    {
+      "ordinal": 43410,
+      "original": 2386,
+      "file": "43410-0.txt",
+      "sha256": "a748ded18ca014236273b2d3636883fb8c68ccfb78b380fcb4db2ba559ba4ee1",
+      "ranges": [
+        [
+          1,
+          270
+        ]
+      ],
+      "lines": 270
+    },
+    {
+      "ordinal": 43415,
+      "original": 2386,
+      "file": "43415-1.txt",
+      "sha256": "17c9d22f487c103d04e5023922df3e86eaa302e718ed64bfb8e4aa90f9e26b57",
+      "ranges": [
+        [
+          271,
+          540
+        ]
+      ],
+      "lines": 270
+    },
+    {
+      "ordinal": 43545,
+      "original": 2388,
+      "file": "43545-2.txt",
+      "sha256": "601a902e4af095480e930c813456655f476e5e1afbf4f361b3db5335aac0bdcd",
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "lines": 45
+    },
+    {
+      "ordinal": 43545,
+      "original": 2390,
+      "file": "43545-3.txt",
+      "sha256": "1a708460109678f54629c6745fa3bde45553ebdc1a805b26ccd8fae9120e5b50",
+      "ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "lines": 128
+    }
+  ],
+  "historical_fresh_display_lines": 713,
+  "historical_reused_source_lines": 2932,
+  "qualification": "The six source bytes match the hash-verified original registry. Historical displays account for 713 lines on three sources; the other three source scopes were recorded as prior same-lens reuse, not fresh rereads. Original registration, packet, plan, qualification and proposal files remain missing. No new credit, current authority or runtime result is inferred.",
+  "inherited_proof": {
+    "groups": [
+      {
+        "group": "017",
+        "files": [
+          {
+            "role": "root",
+            "original_path": "segovb/READ-L13-PARALLEL-017.json",
+            "sha256": "441ef6350f369224763a244a702c3e863cb7f2255cc15fef0c7f09d9c4dd473d"
+          },
+          {
+            "role": "receipt",
+            "original_path": "parallel-l13-20261029/READ-PL13-019.json",
+            "sha256": "fae771baef779c2e7b9db22e73000a30f382429dee71feae9c0e28c655e93bc0"
+          },
+          {
+            "role": "verification",
+            "original_path": "parallel-l13-20261029/VERIFY-PL13-019.json",
+            "sha256": "082aaea616898a3db40f445356cd2d7926991a552f653d0dc9ed0558be1979b8"
+          },
+          {
+            "role": "registration",
+            "original_path": "parallel-l13-20261029/REGISTRATION-PL13-019.json",
+            "sha256": "3985eeadf01be101a572f530d5a327af3f78cd7c9237cb952645e9a4428610cc"
+          }
+        ],
+        "reuse_mappings": [
+          {
+            "previous_original": 462,
+            "later_original": 2385,
+            "receipt_row": 3
+          },
+          {
+            "previous_original": 463,
+            "later_original": 2387,
+            "receipt_row": 4
+          }
+        ]
+      },
+      {
+        "group": "018",
+        "files": [
+          {
+            "role": "root",
+            "original_path": "segovb/READ-L13-PARALLEL-018.json",
+            "sha256": "1eea703f9e5f1116a704d69aa790bf3a0f069b74e008189df493859aa94219fe"
+          },
+          {
+            "role": "receipt",
+            "original_path": "parallel-l13-20261029/READ-PL13-020.json",
+            "sha256": "62209605e4fd704f21efcc1b668d45be720459a95f0d4ac14bc3ee439300ba99"
+          },
+          {
+            "role": "verification",
+            "original_path": "parallel-l13-20261029/VERIFY-PL13-020.json",
+            "sha256": "ba0330518cc11767aa6e03516667cab6a30a932da3749a9fac968f6d78913b1e"
+          },
+          {
+            "role": "registration",
+            "original_path": "parallel-l13-20261029/REGISTRATION-PL13-020.json",
+            "sha256": "04bde3ef46573e16d682bca95fbe13b05315bdfc2a02e53f07f55eb12592de86"
+          }
+        ],
+        "reuse_mappings": [
+          {
+            "previous_original": 464,
+            "later_original": 2389,
+            "receipt_row": 0
+          }
+        ]
+      }
+    ],
+    "qualification": "Eight original transport objects; source-row mappings preserve original delegated attribution and old ordered credit only. Later reuse qualification bytes remain missing; no new credit or current reconciliation is inferred."
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "at": "2026-10-31T12:08:31.211096+00:00",
+  "author": "/root",
+  "result": "passed",
+  "independent_agent_review": false,
+  "original_before": 1617,
+  "original_after": 1621,
+  "fresh_root_ordered_lines": 606,
+  "new_questions": [],
+  "revisited_contracts": [],
+  "ledger": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/evidence/continuation-segovb/ledger.json",
+    "sha256": "31c06561a3b6bf735647abaefae7855f8c6c23099e48681b9376c67e9f0e930f"
+  },
+  "selector": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/CURRENT-ADLER.json",
+    "sha256": "67c826eb865771fdf7576d13ccac8ef71b46fe28fb64127959f144bb74c72395"
+  },
+  "closure_queue": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/workflow-20261030/CLOSURE-QUEUE-290.json",
+    "sha256": "74632b8d016e229e1618be70aada215f96be1c636915cb0f8f024c4c265bec68"
+  },
+  "selected_lenses": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/SELECTED-LENSES-CONTINUATION-100.json",
+    "sha256": "54575e8a8a21f6c7d472c3a178aa4787e6686fbebd6a8b7c28069c51e10668cf"
+  },
+  "receipt": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/segovb/READ-L13-PARALLEL-408.json",
+    "sha256": "40a6c89d9e795ca552af464dfc1980c506e02eeb28184540fb723c5ad9aea474"
+  },
+  "state": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/segovb/STATE-L13-PARALLEL-408.json",
+    "sha256": "39c806081b8edf63b823998510e48dc243d23c5fd6720ad76fcfc4f8972ea220"
+  },
+  "checks": [
+    "Raw pre-adoption authority archive hashes/decodes exactly.",
+    "All thirteen selected state hashes verified; first twelve unchanged.",
+    "Four prospectively registered sources fully assessed,606 lines; strict registry/Git/hash/EOF/chronology passed.",
+    "All3804 queue entries unchanged; no new question or duplicate finding claimed.",
+    "Only verified Lens13 frontier and additive receipt/queue references changed; root1612 application, connected/deleted/current/other gates preserved."
+  ],
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

@@ -1,0 +1,189 @@
+SOURCE 2615 pr-working:crates/fabelgeist-armor/src/pierced_plate_domain.rs
+1: //! Closed-loop piercing in an authored plate chart, independent of its carrier.
+2: use crate::{DesignError, GenerateError};
+3: use spade::{ConstrainedDelaunayTriangulation, Point2, Triangulation};
+4: const SAMPLE_SPACING_MM: f64 = 5.0;
+5: const GRID_EDGE_CLEARANCE_MM: f64 = 1.0;
+6: pub(crate) const MINIMUM_WEB_MM: f64 = 3.0;
+7: const CORNER_STEPS: usize = 4;
+8: 
+9: pub(crate) struct PiercedDomain {
+10:     pub points: Vec<[f64; 2]>,
+11:     pub indices: Vec<u32>,
+12: }
+13: impl PiercedDomain {
+14:     pub fn new(
+15:         outer: &[[f64; 2]],
+16:         holes: &[Vec<[f64; 2]>],
+17:         interior: impl IntoIterator<Item = [f64; 2]>,
+18:         detail: crate::ArmorDetail,
+19:     ) -> Result<Self, GenerateError> {
+20:         for hole in holes {
+21:             if hole
+22:                 .iter()
+23:                 .any(|p| !inside(*p, outer) || edge_distance(*p, outer) < MINIMUM_WEB_MM)
+24:             {
+25:                 return Err(DesignError::VisorOpeningSpacing.into());
+26:             }
+27:         }
+28:         if holes
+29:             .iter()
+30:             .enumerate()
+31:             .any(|(i, a)| holes[i + 1..].iter().any(|b| openings_conflict(a, b)))
+32:         {
+33:             return Err(DesignError::VisorOpeningSpacing.into());
+34:         }
+35:         let (samples, constraints) = sample_domain(outer, holes, interior, detail);
+36:         let cdt =
+37:             ConstrainedDelaunayTriangulation::<Point2<f64>>::bulk_load_cdt(samples, constraints)
+38:                 .map_err(|_| GenerateError::InvalidSurface)?;
+39:         let points: Vec<_> = cdt
+40:             .vertices()
+41:             .map(|v| [v.position().x, v.position().y])
+42:             .collect();
+43:         let mut indices = Vec::new();
+44:         for face in cdt.inner_faces() {
+45:             let ids = face.vertices().map(|v| v.fix().index());
+46:             let [a, b, c] = ids.map(|i| points[i]);
+47:             // Interpolated boundary samples can be nearly collinear in f64.
+48:             // Such a CDT sliver has no material area in the authored domain.
+49:             const MINIMUM_DOMAIN_DOUBLE_AREA_MM2: f64 = 1e-7;
+50:             let area = (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]);
+51:             if area.abs() < MINIMUM_DOMAIN_DOUBLE_AREA_MM2 {
+52:                 continue;
+53:             }
+54:             let center =
+55:                 std::array::from_fn(|axis| ids.iter().map(|i| points[*i][axis]).sum::<f64>() / 3.0);
+56:             if inside(center, outer) && holes.iter().all(|h| !inside(center, h)) {
+57:                 // Surface coordinates run down the face; reverse the CDT's CCW faces.
+58:                 indices.extend([ids[0] as u32, ids[2] as u32, ids[1] as u32]);
+59:             }
+60:         }
+61:         Ok(Self { points, indices })
+62:     }
+63: }
+64: 
+65: fn sample_domain(
+66:     outer: &[[f64; 2]],
+67:     holes: &[Vec<[f64; 2]>],
+68:     interior: impl IntoIterator<Item = [f64; 2]>,
+69:     detail: crate::ArmorDetail,
+70: ) -> (Vec<Point2<f64>>, Vec<[usize; 2]>) {
+71:     let mut points = Vec::new();
+72:     let mut constraints = Vec::new();
+73:     for boundary in std::iter::once(outer).chain(holes.iter().map(Vec::as_slice)) {
+74:         let start = points.len();
+75:         for (a, b) in edges(boundary) {
+76:             let steps = detail.segments((distance(*a, *b) / SAMPLE_SPACING_MM).ceil() as usize, 1);
+77:             for i in 0..steps.max(1) {
+78:                 let t = i as f64 / steps.max(1) as f64;
+79:                 points.push(Point2::new(
+80:                     a[0] + (b[0] - a[0]) * t,
+81:                     a[1] + (b[1] - a[1]) * t,
+82:                 ));
+83:             }
+84:         }
+85:         let end = points.len();
+86:         constraints.extend((start..end).map(|i| [i, if i + 1 == end { start } else { i + 1 }]));
+87:     }
+88:     for p in interior {
+89:         if inside(p, outer)
+90:             && edge_distance(p, outer) > GRID_EDGE_CLEARANCE_MM
+91:             && holes
+92:                 .iter()
+93:                 .all(|h| !inside(p, h) && edge_distance(p, h) > GRID_EDGE_CLEARANCE_MM)
+94:         {
+95:             points.push(Point2::new(p[0], p[1]));
+96:         }
+97:     }
+98:     (points, constraints)
+99: }
+100: 
+101: pub(crate) fn rounded_slot(
+102:     center: [f64; 2],
+103:     width: f64,
+104:     height: f64,
+105:     angle: f64,
+106:     rounding: f64,
+107:     detail: crate::ArmorDetail,
+108: ) -> Vec<[f64; 2]> {
+109:     let corner_steps = detail.segments(CORNER_STEPS, 1);
+110:     let radius = width.min(height) * 0.5 * rounding;
+111:     let mut points = Vec::new();
+112:     for (corner, sign) in [[1.0, 1.0], [-1.0, 1.0], [-1.0, -1.0], [1.0, -1.0]]
+113:         .iter()
+114:         .enumerate()
+115:     {
+116:         let steps = if radius == 0.0 { 0 } else { corner_steps };
+117:         for step in 0..=steps {
+118:             let theta =
+119:                 (corner as f64 + step as f64 / corner_steps as f64) * std::f64::consts::FRAC_PI_2;
+120:             let x = sign[0] * (width * 0.5 - radius) + radius * theta.cos();
+121:             let y = sign[1] * (height * 0.5 - radius) + radius * theta.sin();
+122:             let p = [
+123:                 center[0] + x * angle.cos() - y * angle.sin(),
+124:                 center[1] + x * angle.sin() + y * angle.cos(),
+125:             ];
+126:             if points.last().is_none_or(|last| distance(*last, p) > 1e-8) {
+127:                 points.push(p);
+128:             }
+129:         }
+130:     }
+131:     if distance(points[0], *points.last().unwrap()) < 1e-8 {
+132:         points.pop();
+133:     }
+134:     points
+135: }
+136: 
+137: fn edges(polygon: &[[f64; 2]]) -> impl Iterator<Item = (&[f64; 2], &[f64; 2])> {
+138:     polygon
+139:         .iter()
+140:         .zip(polygon.iter().cycle().skip(1))
+141:         .take(polygon.len())
+142: }
+143: 
+144: pub(crate) fn inside(p: [f64; 2], polygon: &[[f64; 2]]) -> bool {
+145:     let mut result = false;
+146:     for (a, b) in edges(polygon) {
+147:         if (a[1] > p[1]) != (b[1] > p[1])
+148:             && p[0] < (b[0] - a[0]) * (p[1] - a[1]) / (b[1] - a[1]) + a[0]
+149:         {
+150:             result = !result;
+151:         }
+152:     }
+153:     result
+154: }
+155: 
+156: fn distance(a: [f64; 2], b: [f64; 2]) -> f64 {
+157:     (a[0] - b[0]).hypot(a[1] - b[1])
+158: }
+159: 
+160: pub(crate) fn edge_distance(p: [f64; 2], polygon: &[[f64; 2]]) -> f64 {
+161:     edges(polygon)
+162:         .map(|(a, b)| {
+163:             let v = [b[0] - a[0], b[1] - a[1]];
+164:             let t = (((p[0] - a[0]) * v[0] + (p[1] - a[1]) * v[1]) / (v[0] * v[0] + v[1] * v[1]))
+165:                 .clamp(0.0, 1.0);
+166:             distance(p, [a[0] + t * v[0], a[1] + t * v[1]])
+167:         })
+168:         .fold(f64::INFINITY, f64::min)
+169: }
+170: 
+171: /// Test containment, boundary crossing and the remaining metal between holes.
+172: fn openings_conflict(a: &[[f64; 2]], b: &[[f64; 2]]) -> bool {
+173:     if a.iter()
+174:         .any(|p| inside(*p, b) || edge_distance(*p, b) < MINIMUM_WEB_MM)
+175:         || b.iter()
+176:             .any(|p| inside(*p, a) || edge_distance(*p, a) < MINIMUM_WEB_MM)
+177:     {
+178:         return true;
+179:     }
+180:     fn side(a: [f64; 2], b: [f64; 2], p: [f64; 2]) -> f64 {
+181:         (b[0] - a[0]) * (p[1] - a[1]) - (b[1] - a[1]) * (p[0] - a[0])
+182:     }
+183:     edges(a).any(|(p, q)| {
+184:         edges(b).any(|(r, s)| {
+185:             side(*p, *q, *r) * side(*p, *q, *s) < 0.0 && side(*r, *s, *p) * side(*r, *s, *q) < 0.0
+186:         })
+187:     })
+188: }

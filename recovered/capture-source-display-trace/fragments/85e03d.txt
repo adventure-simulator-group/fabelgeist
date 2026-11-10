@@ -1,0 +1,339 @@
+SOURCE 4 crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2
+1: use adventuresim_building_generator::spatial_geometry::Position;
+2: use adventuresim_tactical_core::animation::{NonnegativeLength, SignedAngleDegrees};
+3: use adventuresim_tactical_core::scene_coordinates::Scene;
+4: use fabelgeist_determinism::Seed;
+5: use std::{collections::BTreeSet, path::PathBuf};
+6: 
+7: use adventuresim_tactical_core::prelude::{SceneSource, WeatherSnapshot};
+8: use adventuresim_world_schema::calendar::StrategicMinute;
+9: use bevy::prelude::{Entity, Resource, Vec3};
+10: 
+11: use super::{
+12:     manifest::{CaptureRecord, RepairSummary, TerrainSummary},
+13:     view_specs::CaptureViewSpec,
+14:     vista_geometry::VistaCaptureGeometry,
+15: };
+16: use crate::presentation::TreeLeafRepresentation;
+17: 
+18: /// Maximum settled readbacks for asynchronous production lighting to converge.
+19: const LIGHTING_READBACK_BUDGET: usize = 8;
+20: 
+21: #[derive(Clone, Copy, Debug)]
+22: pub(super) struct BuildingReviewCamera {
+23:     pub(super) position: Position<Scene>,
+24:     pub(super) target: Position<Scene>,
+25:     pub(super) plaster_raking_light: Option<PlasterRakingLight>,
+26: }
+27: 
+28: #[derive(Clone, Copy, Debug)]
+29: pub(super) struct PlasterRakingLight {
+30:     pub(super) wall_point: Vec3,
+31:     pub(super) inward_normal: Vec3,
+32:     pub(super) position: Vec3,
+33: }
+34: 
+35: #[derive(Resource)]
+36: pub(super) struct SceneCaptureState {
+37:     pub(super) fixture: String,
+38:     pub(super) input_path: PathBuf,
+39:     pub(super) output: PathBuf,
+40:     pub(super) digest: String,
+41:     pub(super) seed: Seed,
+42:     pub(super) absolute_minute: StrategicMinute,
+43:     pub(super) latitude_microdegrees: i32,
+44:     pub(super) longitude_microdegrees: i32,
+45:     pub(super) canopy_bps: u16,
+46:     pub(super) generation_version: u16,
+47:     pub(super) scene_source: SceneSource,
+48:     pub(super) weather: WeatherSnapshot,
+49:     pub(super) repairs: RepairSummary,
+50:     pub(super) terrain: TerrainSummary,
+51:     pub(super) expected_trees: usize,
+52:     pub(super) expected_rocks: usize,
+53:     pub(super) expects_grass: bool,
+54:     pub(super) vista_contract: super::vista_validation::VistaCaptureContract,
+55:     pub(super) vista_geometry: Option<VistaCaptureGeometry>,
+56:     pub(super) city_half_extent_metres: fabelgeist_geometry::SignedLength,
+57:     pub(super) obstacle_focus: Position<Scene>,
+58:     pub(super) tree_focus: Option<Position<Scene>>,
+59:     pub(super) rock_focus: Option<Position<Scene>>,
+60:     pub(super) debris_focus: Option<Position<Scene>>,
+61:     pub(super) plant_focus: Option<Position<Scene>>,
+62:     pub(super) debris_camera: Option<Position<Scene>>,
+63:     pub(super) debris_leaf_distance_metres: Option<NonnegativeLength>,
+64:     pub(super) debris_twig_distance_metres: Option<NonnegativeLength>,
+65:     pub(super) tree_leaf_focus: Option<Position<Scene>>,
+66:     pub(super) tree_leaf_camera: Option<Position<Scene>>,
+67:     pub(super) tree_focus_entity: Option<Entity>,
+68:     pub(super) tree_review_entities: Vec<Entity>,
+69:     pub(super) tree_review_leaf_entities: Vec<(Entity, TreeLeafRepresentation)>,
+70:     pub(super) ground_eye_position: Position<Scene>,
+71:     pub(super) ground_eye_target: Position<Scene>,
+72:     pub(super) animation_play_focus: Position<Scene>,
+73:     pub(super) building_interior_cameras: Vec<BuildingReviewCamera>,
+74:     pub(super) city_exterior_cameras: Vec<BuildingReviewCamera>,
+75:     pub(super) settle_frames: u32,
+76:     pub(super) tree_review_azimuth_degrees: SignedAngleDegrees,
+77:     pub(super) profile: String,
+78:     pub(super) requested_views: Vec<String>,
+79:     pub(super) views: Vec<CaptureViewSpec>,
+80:     pub(super) view: usize,
+81:     pub(super) phase: CapturePhase,
+82:     pub(super) lighting_luminance_samples: Vec<f32>,
+83:     pub(super) last_prime_readback_hash: Option<u64>,
+84:     pub(super) captures: Vec<CaptureRecord>,
+85:     pub(super) recursive_lods_observed: BTreeSet<(u8, u8)>,
+86:     pub(super) recursive_aggregate_lods_observed: BTreeSet<u8>,
+87: }
+88: 
+89: #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+90: pub(super) enum CaptureReadback {
+91:     Prime,
+92:     Warmup,
+93:     Screenshot,
+94: }
+95: 
+96: #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+97: pub(super) enum CapturePhase {
+98:     Configure,
+99:     Settling {
+100:         frames: u32,
+101:         prime_readbacks: u8,
+102:     },
+103:     Readback {
+104:         view: usize,
+105:         prime_readbacks: u8,
+106:         kind: CaptureReadback,
+107:     },
+108: }
+109: 
+110: #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+111: pub(super) enum LightingConvergence {
+112:     Pending,
+113:     Ready,
+114:     Exhausted,
+115: }
+116: 
+117: impl CapturePhase {
+118:     pub(super) fn settling(self) -> Option<(u32, u8)> {
+119:         match self {
+120:             Self::Settling {
+121:                 frames,
+122:                 prime_readbacks,
+123:             } => Some((frames, prime_readbacks)),
+124:             Self::Configure | Self::Readback { .. } => None,
+125:         }
+126:     }
+127: 
+128:     pub(super) fn readback_in_flight(self) -> bool {
+129:         matches!(self, Self::Readback { .. })
+130:     }
+131: }
+132: 
+133: pub(super) fn foreground_pixel_bps(data: Option<&[u8]>) -> u16 {
+134:     let Some(data) = data else { return 0 };
+135:     let Some(background) = data.get(..4) else {
+136:         return 0;
+137:     };
+138:     let mut pixels = 0usize;
+139:     let mut foreground = 0usize;
+140:     for pixel in data.as_chunks::<4>().0 {
+141:         pixels += 1;
+142:         let difference = pixel[..3]
+143:             .iter()
+144:             .zip(&background[..3])
+145:             .map(|(left, right)| left.abs_diff(*right) as u16)
+146:             .sum::<u16>();
+147:         foreground += usize::from(difference >= 12);
+148:     }
+149:     foreground
+150:         .checked_mul(10_000)
+SOURCE 5 crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1
+3189:         );
+3190:         // LOD1 and coarser collapse many biological groups into one mesh to
+3191:         // reduce draw calls. Record those visible aggregate tiers separately
+3192:         // instead of pretending they still have per-cluster entity identity.
+3193:         state.recursive_aggregate_lods_observed.extend(
+3194:             tree_lods
+3195:                 .iter()
+3196:                 .filter(|(lod, visibility, _)| lod.0 > 0 && visibility.get())
+3197:                 .map(|(lod, _, _)| lod.0),
+3198:         );
+3199:     }
+3200: 
+3201:     // Bevy's asynchronous window readback can still contain the render world
+3202:     // from before a camera transition. Retain bounded disposable readbacks until
+3203:     // consecutive lighting samples settle, without changing scene or camera state.
+3204:     if !temporal_motion
+3205:         && lighting_convergence(&state.lighting_luminance_samples) == LightingConvergence::Pending
+3206:     {
+3207:         state.phase = CapturePhase::Readback {
+3208:             view: state.view,
+3209:             prime_readbacks,
+3210:             kind: CaptureReadback::Prime,
+3211:         };
+3212:         commands.spawn(Screenshot::primary_window()).observe(
+3213:             |captured: On<ScreenshotCaptured>, mut state: ResMut<SceneCaptureState>| {
+3214:                 let CapturePhase::Readback {
+3215:                     view,
+3216:                     prime_readbacks,
+3217:                     kind: CaptureReadback::Prime,
+3218:                 } = state.phase
+3219:                 else {
+3220:                     return;
+3221:                 };
+3222:                 if state.view != view {
+3223:                     return;
+3224:                 }
+3225:                 state
+3226:                     .lighting_luminance_samples
+3227:                     .push(mean_luminance(captured.image.data.as_deref()));
+3228:                 state.last_prime_readback_hash =
+3229:                     deterministic_readback_hash(captured.image.data.as_deref());
+3230:                 state.phase = CapturePhase::Settling {
+3231:                     frames: 0,
+3232:                     prime_readbacks: prime_readbacks + 1,
+3233:                 };
+3234:             },
+3235:         );
+3236:         return;
+3237:     }
+3238:     if view.warmup {
+3239:         state.phase = CapturePhase::Readback {
+3240:             view: state.view,
+3241:             prime_readbacks,
+3242:             kind: CaptureReadback::Warmup,
+3243:         };
+3244:         commands.spawn(Screenshot::primary_window()).observe(
+3245:             |_: On<ScreenshotCaptured>, mut state: ResMut<SceneCaptureState>| {
+3246:                 if !matches!(
+3247:                     state.phase,
+3248:                     CapturePhase::Readback {
+3249:                         view,
+3250:                         kind: CaptureReadback::Warmup,
+3251:                         ..
+3252:                     } if view == state.view
+3253:                 ) {
+3254:                     return;
+3255:                 }
+3256:                 state.view += 1;
+3257:                 state.lighting_luminance_samples.clear();
+3258:                 state.phase = CapturePhase::Configure;
+3259:             },
+3260:         );
+3261:         return;
+3262:     }
+3263: 
+3264:     if let Some(record) = state.captures.last_mut() {
+3265:         record.focused_tree_lod_queued = record.forced_tree_lod.map(|forced_lod| {
+3266:             focused_tree_lod_queued(state.tree_focus_entity, forced_lod, &tree_lods)
+3267:         });
+3268:         record
+3269:             .lighting_luminance_samples
+3270:             .clone_from(&state.lighting_luminance_samples);
+3271:         record.lighting_luminance_delta =
+3272:             luminance_delta(settled_luminance_samples(&state.lighting_luminance_samples));
+3273:         record.lighting_ready = temporal_motion
+3274:             || lighting_convergence(&state.lighting_luminance_samples)
+3275:                 == LightingConvergence::Ready;
+3276:     }
+3277:     let celestial = capture_celestial(
+3278:         state.absolute_minute,
+3279:         state.latitude_microdegrees,
+3280:         state.longitude_microdegrees,
+3281:     );
+3282:     let observed_presentation = observed_presentation_features(
+3283:         &lighting.settings,
+3284:         camera.4,
+3285:         camera.5,
+3286:         &lighting.images,
+3287:         camera.6,
+3288:         camera.7,
+3289:         &lighting.ambient,
+3290:         &lighting.ambient_handoff,
+3291:         &celestial,
+3292:     );
+3293:     let path = state.output.join(format!("{}.png", view.slug));
+3294:     let final_view = state.view + 1 == state.views.len();
+3295:     let weather_particle_count = scene_visibility.p6().iter().count();
+3296:     let mut final_data = final_view.then(|| {
+3297:         build_manifest(
+3298:             state,
+3299:             &obstacles,
+3300:             &lighting.presented_tree_roots,
+3301:             &rock_visuals,
+3302:             &tree_lods,
+3303:             &tree_bakes,
+3304:             &foliage,
+3305:             &terrain_materials,
+3306:             &meshes,
+3307:             &scene_visibility.p0(),
+3308:             weather_particle_count,
+3309:             observed_presentation,
+3310:         )
+3311:     });
+3312:     state.phase = CapturePhase::Readback {
+3313:         view: state.view,
+3314:         prime_readbacks,
+3315:         kind: CaptureReadback::Screenshot,
+3316:     };
+3317:     commands.spawn(Screenshot::primary_window()).observe(
+3318:         move |captured: On<ScreenshotCaptured>,
+3319:               mut state: ResMut<SceneCaptureState>,
+3320:               mut exit: MessageWriter<AppExit>| {
+3321:             let foreground_pixel_bps = foreground_pixel_bps(captured.image.data.as_deref());
+3322:             if !matches!(
+3323:                 state.phase,
+3324:                 CapturePhase::Readback {
+3325:                     view,
+3326:                     kind: CaptureReadback::Screenshot,
+3327:                     ..
+3328:                 } if view == state.view
+3329:             ) {
+3330:                 return;
+3331:             }
+3332:             let rendered_width = captured.image.width();
+3333:             let rendered_height = captured.image.height();
+3334:             let detail_pixel_bps = foliage_detail_pixel_bps(
+3335:                 captured.image.data.as_deref(),
+3336:                 rendered_width,
+3337:                 rendered_height,
+3338:             );
+3339:             let canopy_pixel_bps = tree_canopy_pixel_bps(
+3340:                 captured.image.data.as_deref(),
+3341:                 rendered_width,
+3342:                 rendered_height,
+3343:             );
+3344:             let final_readback_hash = deterministic_readback_hash(captured.image.data.as_deref());
+3345:             let settled_reference_hash = state.last_prime_readback_hash;
+3346:             // Lighting convergence can precede completion of streamed geometry.
+3347:             // Keep the camera frozen and retain bounded raw retries until the
+3348:             // required pixel-identical pair exists; the final gate stays strict.
+3349:             const MAX_STABLE_READBACK_ATTEMPTS: u8 = 8;
+3350:             if view.verify_settled_readbacks
+3351:                 && settled_reference_hash != final_readback_hash
+3352:                 && prime_readbacks < MAX_STABLE_READBACK_ATTEMPTS
+3353:             {
+3354:                 let retry_path = state
+3355:                     .output
+3356:                     .join(format!("{}-unsettled-{prime_readbacks}.png", view.slug));
+3357:                 save_to_disk(retry_path)(captured);
+3358:                 state.last_prime_readback_hash = final_readback_hash;
+3359:                 state.phase = CapturePhase::Settling {
+3360:                     frames: 0,
+3361:                     prime_readbacks: prime_readbacks + 1,
+3362:                 };
+3363:                 return;
+3364:             }
+3365:             save_to_disk(&path)(captured);
+3366:             if let Some(record) = state.captures.last_mut() {
+3367:                 record.foreground_pixel_bps = foreground_pixel_bps;
+3368:                 record.detail_pixel_bps = detail_pixel_bps;
+3369:                 record.canopy_pixel_bps = canopy_pixel_bps;
+3370:                 record.rendered_resolution = [rendered_width, rendered_height];
+3371:                 if view.verify_settled_readbacks {
+3372:                     record.settled_readback_hashes = settled_reference_hash
+3373:                         .into_iter()
+3374:                         .chain(final_readback_hash)
+3375:                         .map(|hash| format!("{hash:016x}"))

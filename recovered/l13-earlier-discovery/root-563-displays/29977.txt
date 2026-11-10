@@ -1,0 +1,110 @@
+221:         let grip = view.weapon_grip_to_tip();
+222:         let head = view.weapon_striking_head_length();
+223:         let distal = adventuresim_core::combat::has_distal_striking_surface(
+224:             grip,
+225:             head,
+226:             view.weapon_body_material(),
+227:             view.weapon_striking_material(),
+228:         );
+229:         adventuresim_core::combat::preferred_melee_striking_measure(
+230:             reach,
+231:             grip,
+232:             head,
+233:             distal,
+234:             config.ai.ordinary.offense.melee_measure_reach_fraction,
+235:         )
+236:     });
+237:     log.decision_events.push(TacticalDecisionLogEntry {
+238:         tick: clock.tick,
+239:         elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
+240:         combatant: attacker.name.clone(),
+241:         decision: TacticalDecision::Attack,
+242:         status: TacticalDecisionStatus::Started,
+243:         target: target.map(|(player, _)| player.name.clone()),
+244:         center_separation_metres: target.map(|(_, transform)| {
+245:             attacker_transform
+246:                 .translation
+247:                 .xz()
+248:                 .distance(transform.translation.xz())
+249:         }),
+250:         preferred_melee_measure_metres,
+251:         attack_key: None,
+252:         cause: None,
+253:     });
+254: }
+255: 
+256: pub(super) fn record_defense_resolution(
+257:     event: On<crate::combat::DefendIntentResolved>,
+258:     clock: Res<IterationClock>,
+259:     players: Query<&Player>,
+260:     mut log: ResMut<IterationLog>,
+261: ) {
+262:     let Ok(defender) = players.get(event.defender) else {
+263:         return;
+264:     };
+265:     let decision = match event.choice {
+266:         adventuresim_tactical_netcode::message::DefendRequest::Dodge { .. }
+267:         | adventuresim_tactical_netcode::message::DefendRequest::Roll => TacticalDecision::Dodge,
+268:     };
+269:     log.decision_events.push(TacticalDecisionLogEntry {
+270:         tick: clock.tick,
+271:         elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
+272:         combatant: defender.name.clone(),
+273:         decision,
+274:         status: TacticalDecisionStatus::Attempted,
+275:         target: None,
+276:         center_separation_metres: None,
+277:         preferred_melee_measure_metres: None,
+278:         attack_key: None,
+279:         cause: None,
+280:     });
+281:     log.decision_events.push(TacticalDecisionLogEntry {
+282:         tick: clock.tick,
+283:         elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
+284:         combatant: defender.name.clone(),
+285:         decision,
+286:         status: if event.accepted {
+287:             TacticalDecisionStatus::Accepted
+288:         } else {
+289:             TacticalDecisionStatus::Rejected
+290:         },
+291:         target: None,
+292:         center_separation_metres: None,
+293:         preferred_melee_measure_metres: None,
+294:         attack_key: None,
+295:         cause: None,
+296:     });
+297: }
+298: 
+299: pub(super) fn record_resolved_attack(
+300:     event: On<MeleeAttackResolved>,
+301:     clock: Res<IterationClock>,
+302:     players: Query<(&Player, &Transform)>,
+303:     viewer: TacticalPlayerViewer,
+304:     states: Query<(&TacticalCombatState, &Limbs)>,
+305:     wounds: Query<&crate::combat::TacticalWounds>,
+306:     mut log: ResMut<IterationLog>,
+307: ) {
+308:     let Ok((attacker, attacker_transform)) = players.get(event.attacker) else {
+309:         return;
+310:     };
+311:     let Ok((defender, defender_transform)) = players.get(event.target) else {
+312:         return;
+313:     };
+314:     let sequence = log.events.len() as u32 + 1;
+315:     log.events.push(resolved_attack_entry(
+316:         sequence,
+317:         &clock,
+318:         &event,
+319:         attacker,
+320:         defender,
+321:         attacker_transform,
+322:         defender_transform,
+323:         &viewer,
+324:         &states,
+325:     ));
+326:     log_new_wounds(&clock, defender, event.target, &wounds, &mut log);
+327: }
+328: 
+329: fn log_new_wounds(
+330:     clock: &IterationClock,

@@ -1,0 +1,49 @@
+{
+  "schema": "726-prospective-current-source-registration-v1",
+  "at": "2026-11-04T12:53:20.594532+00:00",
+  "lenses": [
+    1
+  ],
+  "purpose": "Assess current schedule adapter, allocation admission and preview consumer.",
+  "rows": [
+    {
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_path": "crates/strategic-web/src/schedule.rs",
+      "source_sha256": "87bb6b40cc4c57605e3b8c0601b6db29818a0a548aa8d3d4c3b136f55411f001",
+      "actual_EOF": 99,
+      "source_object": "adler-continuation-20261030/objects/87bb6b40cc4c57605e3b8c0601b6db29818a0a548aa8d3d4c3b136f55411f001",
+      "prospective_ranges": [
+        [
+          1,
+          99
+        ]
+      ]
+    },
+    {
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_path": "crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+      "source_sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+      "actual_EOF": 364,
+      "source_object": "adler-continuation-20261030/objects/031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+      "prospective_ranges": [
+        [
+          1,
+          364
+        ]
+      ]
+    },
+    {
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_path": "crates/strategic-web/src/routes/settlements/party/schedule_preview.rs",
+      "source_sha256": "18945e511b6667fe1d2fdcaf4b582917ec5539db933ed1e2f1c64da5db3d46ab",
+      "actual_EOF": 283,
+      "source_object": "adler-continuation-20261030/objects/18945e511b6667fe1d2fdcaf4b582917ec5539db933ed1e2f1c64da5db3d46ab",
+      "prospective_ranges": [
+        [
+          1,
+          283
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "schema": "726-root-l2-prospective-source-registration-v1",
+  "registered_at": "2026-11-02T16:19:56.043745+00:00",
+  "author": "/root",
+  "lens": 2,
+  "prospective": true,
+  "base_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "b36b1f0bf97a9af07b62f452b9906bcc8ace100151522102d2b4ce04c498df39"
+  },
+  "selected_l2_state": {
+    "path": "segovb/STATE-L2-EXT-CURRENT-015.json",
+    "sha256": "cd3dcd9b27ecd2fa4f108004b85031716389d163b41f28c6f9eb11dc803fefd8"
+  },
+  "prior_scoped_read": {
+    "path": "adler-continuation-20261030/READ-ROOT-L2-ITEM-VALIDATION-REMAINDER-001.json",
+    "sha256": "e3f3fb10a0338dd14685888b0c877780386dac93f86971c10299f18658a40e4a"
+  },
+  "sources": [
+    {
+      "source_id": "current-337:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+      "source_sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+      "source_object": "adler-continuation-20261030/objects/a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+      "bytes": 18941,
+      "actual_EOF": 614,
+      "ranges": [
+        [
+          1,
+          489
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 489,
+      "purpose": "Actual equipment/weapon schema roles, units, serialization admission and defaults."
+    },
+    {
+      "source_id": "current-337:crates/adventuresim-core/src/unit_interval.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-core/src/unit_interval.rs",
+      "source_sha256": "06bd726fb8282af0ad5c1f54f64b1bfe383842e284e948a6226240178de4b6bb",
+      "source_object": "adler-continuation-20261030/objects/06bd726fb8282af0ad5c1f54f64b1bfe383842e284e948a6226240178de4b6bb",
+      "bytes": 3152,
+      "actual_EOF": 97,
+      "ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 97,
+      "purpose": "Actual checked numeric leaf bounds, representation and conversions; no inferred distribution fit."
+    },
+    {
+      "source_id": "current-337:crates/fabelgeist-geometry/src/cuboid.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/fabelgeist-geometry/src/cuboid.rs",
+      "source_sha256": "1fe1e6483da91ee1bd681df6ff788ec97d680ac453c450069a30111c66dc40ed",
+      "source_object": "adler-continuation-20261030/objects/1fe1e6483da91ee1bd681df6ff788ec97d680ac453c450069a30111c66dc40ed",
+      "bytes": 4298,
+      "actual_EOF": 126,
+      "ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 101,
+      "purpose": "Actual full/half dimensional constructor, zero/sign, serialization and coordinate policy."
+    },
+    {
+      "source_id": "current-337:crates/adventuresim-core/build.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-core/build.rs",
+      "source_sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+      "source_object": "adler-continuation-20261030/objects/58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+      "bytes": 19279,
+      "actual_EOF": 511,
+      "ranges": [
+        [
+          1,
+          57
+        ],
+        [
+          222,
+          289
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 125,
+      "purpose": "Build schema inclusion and item validation/typed compilation sequence."
+    },
+    {
+      "source_id": "current-337:crates/adventuresim-core/Cargo.toml",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-core/Cargo.toml",
+      "source_sha256": "e5e9c6ed987838be5b7fef72e25ba3e6b6e848bc84105c42f396fcdfd7d65f53",
+      "source_object": "adler-continuation-20261030/objects/e5e9c6ed987838be5b7fef72e25ba3e6b6e848bc84105c42f396fcdfd7d65f53",
+      "bytes": 1187,
+      "actual_EOF": 45,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 45,
+      "purpose": "Actual normal/build dependency availability for shared type owners."
+    },
+    {
+      "source_id": "current-337:crates/adventuresim-core/src/item_catalog.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-core/src/item_catalog.rs",
+      "source_sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+      "source_object": "adler-continuation-20261030/objects/de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+      "bytes": 22289,
+      "actual_EOF": 614,
+      "ranges": [
+        [
+          1,
+          203
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 203,
+      "purpose": "Runtime generated catalog decoding, typed accessors and reference API endpoints."
+    }
+  ],
+  "fresh_lines_registered": 0,
+  "uncredited_total_source_lines_registered": 1060,
+  "purpose": "Existing-owner definition and producer/consumer qualification for the two outstanding own-L2 catalog-validator bodies. No whole-file/current-delta/global closure or transferred other-lens verdict."
+}

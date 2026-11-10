@@ -1,0 +1,49 @@
+{
+  "at": "2026-10-31T11:40:30.456542+00:00",
+  "author": "/root",
+  "result": "passed",
+  "independent_agent_review": false,
+  "original_before": 1602,
+  "original_after": 1604,
+  "fresh_root_ordered_lines": 1032,
+  "new_questions": [],
+  "revisited_contracts": [
+    "ADLER-L11-TREE-CROWN-SELECTION-OWNERSHIP",
+    "ADLER-L11-TREE-BAKE-PROVENANCE-GEOMETRY-KEY",
+    "ADLER-L11-TREE-SHOOT-IDENTITY-OWNERSHIP",
+    "ADLER-L11-FOCUSED-TREE-VARIANT-ORACLE-AUTHORITY"
+  ],
+  "ledger": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/evidence/continuation-segovb/ledger.json",
+    "sha256": "943c56313f475bf377eba789af90f78261c46b003a7439b3428289c0d8149710"
+  },
+  "selector": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/CURRENT-ADLER.json",
+    "sha256": "e790215231d755d70a099d3eef94555e98de3c21dc930ef014fc9565aedbd11a"
+  },
+  "closure_queue": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/workflow-20261030/CLOSURE-QUEUE-279.json",
+    "sha256": "df89b96f7e70035e5763836bc198050f4a3051420bea049f01342d72155cbb48"
+  },
+  "selected_lenses": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/SELECTED-LENSES-CONTINUATION-093.json",
+    "sha256": "d22005953b6b01a262584ae4a745c3a68c855a23bcdd2ef2420ba16d98a7a209"
+  },
+  "receipt": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/segovb/READ-L13-PARALLEL-401.json",
+    "sha256": "635967553c42207d8d8d8b4c601983776bdafc7065adbbdb0ae6655be121924d"
+  },
+  "state": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/segovb/STATE-L13-PARALLEL-401.json",
+    "sha256": "bfad34ee58668ba7681ee21f03c9907ccd0d720bd0e645a3cd031eb8db2ad00f"
+  },
+  "checks": [
+    "Raw pre-adoption and intermediate authority archives hash/decode exactly.",
+    "All thirteen selected state hashes verified; first twelve selections unchanged.",
+    "Two prospectively registered sources fully assessed,1032lines; strict registry/Git/hash/EOF/chronology passed.",
+    "All3804 existing queue entries preserved except additive views on four existing contracts; canonical owners and acceptance unchanged.",
+    "Only verified Lens13 frontier and additive receipt/queue references changed; connected/deleted/future1612 proofs and other gates preserved."
+  ],
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

@@ -1,0 +1,243 @@
+{
+  "schema": "726-root-l12-bounded-connected-source-read-v1",
+  "at": "2026-11-02T10:21:21.727614+00:00",
+  "author": "/root",
+  "lens": 12,
+  "base_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "d60bcf6d10b4ad7830e8d4b675a45d2e306ef6d515e2e33abc048a4f33865d87"
+  },
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L12-BUILDING-AUDIT-ISSUES-001.json",
+    "sha256": "3d33802809ae37dad313d272ec39d549e9af6bb9c1e63aca94b499ebc56743b9"
+  },
+  "rows": [
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+        "source_sha256": "3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+        "source_object": "adler-continuation-20261030/objects/3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+        "bytes": 6073,
+        "actual_EOF": 186,
+        "ranges": [
+          [
+            1,
+            186
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 186,
+        "prior_body_join": "No new freshness/reuse/population/unique credit asserted. Preserve historical original/authors and other-lens views."
+      },
+      "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+      "source_sha256": "3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+      "assessed_ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "39d3b5"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 186,
+      "semantic_assessment": "ReviewRequirements.for_buildings67 calls audit_plan and already propagates actual Err via ?. Only Ok(nonempty Vec<AuditIssue>) is collapsed to a generic formatted building message, losing actual issue code/message records. Actual SceneBuildingId is already available from placement.id; retain it together with existing issues in review admission error. Door/window errors82/88 already propagate through ?. setup_geometry_requirements104 and review setup132 both call this admission. Native external review JSON119..121 denies unknown fields but does not establish count/order/sign relationships: asserts124..130/140..153 and missing building139/site150 are distinct source predicates. No runtime panic or failed test observed. Preserve all valid modes, layout/proof side effects and exact capture-profile identity repair. Actual system/native final error policy and source-dependent issue code taxonomy remain to qualify."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-building-generator/src/audit/core.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-building-generator/src/audit/core.rs",
+        "source_sha256": "41d8e020a989ec629feaf38d215346450568e2f942ced8fec3440bf91b66e557",
+        "source_object": "adler-continuation-20261030/objects/41d8e020a989ec629feaf38d215346450568e2f942ced8fec3440bf91b66e557",
+        "bytes": 6329,
+        "actual_EOF": 173,
+        "ranges": [
+          [
+            1,
+            112
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 112,
+        "prior_body_join": "No new freshness/reuse/population/unique credit asserted. Preserve historical original/authors and other-lens views."
+      },
+      "source_id": "current-337:crates/adventuresim-building-generator/src/audit/core.rs",
+      "source_sha256": "41d8e020a989ec629feaf38d215346450568e2f942ced8fec3440bf91b66e557",
+      "assessed_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "fa4501"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 112,
+      "semantic_assessment": "Existing public AuditIssue owns code static text plus message String and derives Clone/Debug/Eq/PartialEq/serde. audit_plan7 returns GenerationResult<Vec<AuditIssue>>: heating/native structural Err propagates with ?, actual issue records are accumulated (wall-walk width, stairwell access, tower/deck/circuit/etc) then returned Ok110. Capture rejection of nonempty vector must retain these existing records; do not relabel normal return of issues as GenerationError or invent a duplicate issue taxonomy. Detailed deeper audit/quantity/geometry/code closedness and later core113..173 remain unassessed."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-building-generator/src/audit.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-building-generator/src/audit.rs",
+        "source_sha256": "aff233410d3aa23607fd4124f078c29ea13f1e7bdf0f43a02ced2c665c2133a5",
+        "source_object": "adler-continuation-20261030/objects/aff233410d3aa23607fd4124f078c29ea13f1e7bdf0f43a02ced2c665c2133a5",
+        "bytes": 2512,
+        "actual_EOF": 73,
+        "ranges": [
+          [
+            1,
+            73
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 73,
+        "prior_body_join": "No new freshness/reuse/population/unique credit asserted. Preserve historical original/authors and other-lens views."
+      },
+      "source_id": "current-337:crates/adventuresim-building-generator/src/audit.rs",
+      "source_sha256": "aff233410d3aa23607fd4124f078c29ea13f1e7bdf0f43a02ced2c665c2133a5",
+      "assessed_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "fa4501"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 73,
+      "semantic_assessment": "audit.rs imports GenerationResult as Result18 and includes exact core20; no shadow issue owner. Heating/structural audit helper nativeErr differs from valid returned issue list. Listed audit helper module bodies are not implicitly read or cleared."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-building-generator/src/lib.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-building-generator/src/lib.rs",
+        "source_sha256": "ef8b3008250e9d2647e6d465f9b3c8bd2a2eb9642e61cb89a9e26590db1f70ac",
+        "source_object": "adler-continuation-20261030/objects/ef8b3008250e9d2647e6d465f9b3c8bd2a2eb9642e61cb89a9e26590db1f70ac",
+        "bytes": 2967,
+        "actual_EOF": 87,
+        "ranges": [
+          [
+            1,
+            87
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 87,
+        "prior_body_join": "No new freshness/reuse/population/unique credit asserted. Preserve historical original/authors and other-lens views."
+      },
+      "source_id": "current-337:crates/adventuresim-building-generator/src/lib.rs",
+      "source_sha256": "ef8b3008250e9d2647e6d465f9b3c8bd2a2eb9642e61cb89a9e26590db1f70ac",
+      "assessed_ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "fa4501"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 87,
+      "semantic_assessment": "lib.rs exports actual AuditIssue/audit_plan48 and GenerationError/GenerationResult60 from generator, making existing producer and error owners available to tactical review. Crate itself has no tactical runtime dependency. GenerationError body and code taxonomy still need source qualification; public export alone does not prove payload or native cause retention."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+        "source_sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+        "source_object": "adler-continuation-20261030/objects/f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+        "bytes": 173981,
+        "actual_EOF": 4477,
+        "ranges": [
+          [
+            920,
+            975
+          ],
+          [
+            1230,
+            1340
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 167,
+        "prior_body_join": "No new freshness/reuse/population/unique credit asserted. Preserve historical original/authors and other-lens views."
+      },
+      "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "source_sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+      "assessed_ranges": [
+        [
+          920,
+          975
+        ],
+        [
+          1230,
+          1340
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "39d3b5"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 167,
+      "semantic_assessment": "Actual setup_scene is Bevy Result1245, takes setup exactly once1246 and calls building_review.setup1309..1316 with ? after interior furnished-room path1299. run installs setup_scene in both performance and ordinary PostStartup chains930/940; Last capture_views readiness guards are separate. app.run967 returns AppExit and process exit1 occurs on non-Success968. No scoped source shows a review error translated into AppExit; actual Bevy system error handler/default/features need exact native source qualification before claiming terminal error behavior. No current hang/panic/runtime failure witnessed. Numeric/physical/other setup/proof operations remain separate."
+    }
+  ],
+  "fresh_root_personal_source_lines": 0,
+  "uncredited_total_source_lines": 625,
+  "prior_body_join": "No new freshness/reuse/population/unique credit asserted; exact previous authors and other-lens views preserved.",
+  "related_queue_contract": "L12-CLOSURE-BUILDING-REVIEW-AUDIT-ISSUES-ERASURE",
+  "observations": [
+    "ReviewRequirements.for_buildings67 calls audit_plan and already propagates actual Err via ?. Only Ok(nonempty Vec<AuditIssue>) is collapsed to a generic formatted building message, losing actual issue code/message records. Actual SceneBuildingId is already available from placement.id; retain it together with existing issues in review admission error. Door/window errors82/88 already propagate through ?. setup_geometry_requirements104 and review setup132 both call this admission. Native external review JSON119..121 denies unknown fields but does not establish count/order/sign relationships: asserts124..130/140..153 and missing building139/site150 are distinct source predicates. No runtime panic or failed test observed. Preserve all valid modes, layout/proof side effects and exact capture-profile identity repair. Actual system/native final error policy and source-dependent issue code taxonomy remain to qualify.",
+    "Existing public AuditIssue owns code static text plus message String and derives Clone/Debug/Eq/PartialEq/serde. audit_plan7 returns GenerationResult<Vec<AuditIssue>>: heating/native structural Err propagates with ?, actual issue records are accumulated (wall-walk width, stairwell access, tower/deck/circuit/etc) then returned Ok110. Capture rejection of nonempty vector must retain these existing records; do not relabel normal return of issues as GenerationError or invent a duplicate issue taxonomy. Detailed deeper audit/quantity/geometry/code closedness and later core113..173 remain unassessed.",
+    "audit.rs imports GenerationResult as Result18 and includes exact core20; no shadow issue owner. Heating/structural audit helper nativeErr differs from valid returned issue list. Listed audit helper module bodies are not implicitly read or cleared.",
+    "lib.rs exports actual AuditIssue/audit_plan48 and GenerationError/GenerationResult60 from generator, making existing producer and error owners available to tactical review. Crate itself has no tactical runtime dependency. GenerationError body and code taxonomy still need source qualification; public export alone does not prove payload or native cause retention.",
+    "Actual setup_scene is Bevy Result1245, takes setup exactly once1246 and calls building_review.setup1309..1316 with ? after interior furnished-room path1299. run installs setup_scene in both performance and ordinary PostStartup chains930/940; Last capture_views readiness guards are separate. app.run967 returns AppExit and process exit1 occurs on non-Success968. No scoped source shows a review error translated into AppExit; actual Bevy system error handler/default/features need exact native source qualification before claiming terminal error behavior. No current hang/panic/runtime failure witnessed. Numeric/physical/other setup/proof operations remain separate."
+  ],
+  "remaining_evidence": [
+    "GenerationError actual payload and actual issue helper producer; native BevyError/default system handler and feature policy tied to selected root Cargo.lock.",
+    "Explicit supported native fixture input admission policy for count/order/sign predicates, separate from observed runtime panic claim.",
+    "Concrete retained-error repair/acceptance and scoped current/all20/non-alias qualification; preserve prior L13 view."
+  ],
+  "new_body_population_unique_credit": 0,
+  "new_primary_findings": 0,
+  "source_adoption_performed": false,
+  "whole_contracts_closed": false,
+  "independent_agent_review": false,
+  "product_execution": false,
+  "tests_executed": false,
+  "implementation_gate_complete": false
+}

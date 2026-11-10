@@ -1,0 +1,184 @@
+211:             .count(),
+212:         1
+213:     );
+214:     assert_eq!(
+215:         app.world_mut()
+216:             .query::<&ProceduralEquipmentFailed>()
+217:             .iter(app.world())
+218:             .count(),
+219:         0
+220:     );
+221:     assert!(
+222:         app.world()
+223:             .resource::<RuntimeEquipmentBodyCache>()
+224:             .pending
+225:             .is_none()
+226:     );
+227: }
+228: 
+229: fn assert_invalid_outfit_recovers(app: &mut App) {
+230:     let root = app
+231:         .world_mut()
+232:         .query_filtered::<Entity, With<RuntimeEquipmentPresentation>>()
+233:         .single(app.world())
+234:         .unwrap();
+235:     app.world_mut()
+236:         .get_mut::<RuntimeEquipmentPresentation>(root)
+237:         .unwrap()
+238:         .placement_id = "invalid-placement".into();
+239:     app.update();
+240:     assert!(app.world().get::<ProceduralEquipmentFailed>(root).is_some());
+241:     assert_eq!(
+242:         app.world().get::<Visibility>(root),
+243:         Some(&Visibility::Hidden)
+244:     );
+245:     app.world_mut()
+246:         .get_mut::<RuntimeEquipmentPresentation>(root)
+247:         .unwrap()
+248:         .placement_id = "left".into();
+249:     app.update();
+250:     assert!(app.world().get::<ProceduralEquipmentFailed>(root).is_none());
+251:     assert_presentation(app.world_mut(), true, false);
+252: }
+253: 
+254: fn empty_armor() -> GeneratedArmor {
+255:     GeneratedArmor {
+256:         design_hash: [0; 32],
+257:         surface_domain: String::new(),
+258:         positions: vec![],
+259:         normals: vec![],
+260:         texcoords: vec![],
+261:         joint_indices: Default::default(),
+262:         joint_weights: vec![],
+263:         indices: vec![],
+264:         faces: vec![],
+265:         trim: None,
+266:         grids: vec![],
+267:         morphs: vec![],
+268:         components: vec![],
+269:     }
+270: }
+271: 
+272: fn actor(world: &mut World, id: u64) -> Entity {
+273:     use crate::animation::{AnimationRigScene, HumanoidBone, StrategicModel};
+274:     let owner = world.spawn((CharacterId(id), StrategicModel)).id();
+275:     world.spawn(AnimationRigScene(owner));
+276:     for role in [
+277:         BoneRole::ForearmLeft,
+278:         BoneRole::WeaponLeft,
+279:         BoneRole::WeaponRight,
+280:     ] {
+281:         world.spawn((
+282:             HumanoidBone { owner, role },
+283:             MhrBone { owner },
+284:             crate::animation::AuthoredRigJoint::new(
+285:                 if role == BoneRole::ForearmLeft {
+286:                     "l_lowarm"
+287:                 } else {
+288:                     "hand"
+289:                 }
+290:                 .into(),
+291:             ),
+292:             Name::new(if role == BoneRole::ForearmLeft {
+293:                 "l_lowarm"
+294:             } else {
+295:                 "hand"
+296:             }),
+297:         ));
+298:     }
+299:     owner
+300: }
+301: 
+302: fn worn_topology() -> EquipmentTopology {
+303:     EquipmentTopology {
+304:         placement_id: Some("left".into()),
+305:         occupancies: vec![EquipmentTopologyOccupancy {
+306:             occupancy_id: "arm".into(),
+307:             anchor: TacticalEquipmentAnchor::CharacterLocation(EquipmentLocation::LeftArm),
+308:             channel: EquipmentChannel::Accessory,
+309:             order: 0,
+310:             requirement_index: 0,
+311:             capacity_index: 0,
+312:         }],
+313:     }
+314: }
+315: 
+316: fn fixture_mesh() -> Mesh {
+317:     use bevy::mesh::VertexAttributeValues;
+318:     let mut mesh = Mesh::new(PrimitiveTopology::TriangleList, default());
+319:     // The unused fourth vertex must not affect the carried geometry's center.
+320:     mesh.insert_attribute(
+321:         Mesh::ATTRIBUTE_POSITION,
+322:         vec![
+323:             [1.0, 2.0, 0.0],
+324:             [3.0, 2.0, 0.0],
+325:             [2.0, 4.0, 0.0],
+326:             [100.0; 3],
+327:         ],
+328:     );
+329:     mesh.insert_indices(Indices::U32(vec![0, 1, 2]));
+330:     mesh.insert_attribute(
+331:         Mesh::ATTRIBUTE_JOINT_INDEX,
+332:         VertexAttributeValues::Uint16x4(vec![[0; 4]; 4]),
+333:     );
+334:     mesh.insert_attribute(Mesh::ATTRIBUTE_JOINT_WEIGHT, vec![[1.0, 0.0, 0.0, 0.0]; 4]);
+335:     mesh
+336: }
+337: 
+338: fn assert_presentation(world: &mut World, worn: bool, held: bool) {
+339:     let (entity, mesh, visibility) = world
+340:         .query_filtered::<(Entity, &Mesh3d, &Visibility), With<ProceduralEquipmentPart>>()
+341:         .single(world)
+342:         .unwrap();
+343:     assert_eq!(world.get::<SkinnedMesh>(entity).is_some(), worn);
+344:     assert_eq!(*visibility, Visibility::Inherited);
+345:     let positions = world
+346:         .resource::<Assets<Mesh>>()
+347:         .get(&mesh.0)
+348:         .unwrap()
+349:         .attribute(Mesh::ATTRIBUTE_POSITION)
+350:         .unwrap()
+351:         .as_float3()
+352:         .unwrap();
+353:     assert_eq!(
+354:         positions[0],
+355:         if worn {
+356:             [1.0, 2.0, 0.0]
+357:         } else {
+358:             [-1.0, -1.0, 0.0]
+359:         }
+360:     );
+361:     let (root, visibility) = world
+362:         .query_filtered::<(Entity, &Visibility), With<ItemPlaceholder>>()
+363:         .single(world)
+364:         .unwrap();
+365:     assert_eq!(*visibility, Visibility::Inherited);
+366:     assert_eq!(world.get::<HeldWeaponConstraint>(root).is_some(), held);
+367:     assert_eq!(world.get::<ChildOf>(root).is_some(), worn);
+368: }
+369: 
+370: #[test]
+371: fn cache_eviction_releases_old_bodies_and_keeps_recent_fits() {
+372:     let mut cache = ready_cache();
+373:     for id in 0..=CACHED_FIT_LIMIT as u64 {
+374:         let key = character_key(id);
+375:         cache.last_used.insert(key.clone(), id);
+376:         cache.bodies.insert(
+377:             key.shape.clone(),
+378:             FittedBody {
+379:                 body: Arc::new(empty_body()),
+380:                 inverse_bindposes: default(),
+381:             },
+382:         );
+383:         cache.models.insert(key, Err("fixture failure".into()));
+384:     }
+385:     cache.trim();
+386:     assert!(!cache.models.contains_key(&character_key(0)));
+387:     assert!(!cache.bodies.contains_key(&character_key(0).shape));
+388:     assert!(
+389:         cache
+390:             .models
+391:             .contains_key(&character_key(CACHED_FIT_LIMIT as u64))
+392:     );
+393:     assert_eq!(cache.models.len(), CACHED_FIT_LIMIT);
+394: }

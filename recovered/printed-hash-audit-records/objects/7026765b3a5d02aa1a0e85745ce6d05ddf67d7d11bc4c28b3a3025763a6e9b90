@@ -1,0 +1,78 @@
+{
+  "schema": "726-root-l2-book-repair-owner-join-v1",
+  "at": "2026-11-02T18:17:20.075859+00:00",
+  "author": "/root",
+  "lens": 2,
+  "prior_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L2-BOOK-TARGET-OWNERS-001.json",
+    "sha256": "8d15d56db8ed607ea58bf11c4c3bc19e70d4e1c2873566776a3b47735b39f95f"
+  },
+  "read": {
+    "path": "adler-continuation-20261030/READ-ROOT-L2-BOOK-NATIVE-035.json",
+    "sha256": "75e95365b575d299da37d9a5eefe297ca913ac23a2b561b809de3dea28777a1f"
+  },
+  "queue": {
+    "path": "workflow-20261030/CLOSURE-QUEUE-821.json",
+    "sha256": "b0cc6e8d5f05d84c79cb1d467dc70135457c55affc34c8476a014e66e29e67a8"
+  },
+  "owner_join_decisions": [
+    {
+      "role": "item-quality-and-target-band",
+      "decision": "Book.quality and Durability.quality are carried by the same already-assessed catalog schema. The book comment identifies a shared1..5 item-quality concept; the supported maximum is additionally constrained by the book target. No existing checked scalar ItemQuality owner was established in this scope. Reconcile one shared item-quality leaf with the canonical numeric repair rather than independent BookQuality/DurabilityQuality wrappers, and retain a book aggregate admitting the target-dependent cap and a named lower/upper band. Do not change general quality policy or a universal rank type based only on common u8 storage."
+    },
+    {
+      "role": "scalar-hours-versus-progress-aggregate",
+      "decision": "Existing SkillHours, ReligionHours, BestiaryHours, OralLanguageHours and WrittenLanguageHours retain multiple progress destinations/category correlations. They are not scalar real-time or accepted-effective-hour quantities. Reuse those aggregate owners in their actual roles and strengthen BoundedBookGain's accepted_effective_hours/unused_real_hours with the appropriate shared scalar leaves or numeric-boundary policy. Do not substitute one aggregate, a clock coordinate or a report quantity simply because its name contains hours."
+    },
+    {
+      "role": "rank-and-aptitude",
+      "decision": "Book rank_band is an integer interval tied to admitted quality; target_snapshot contains a potentially fractional current effective rank and a separate aptitude cap. Existing canonical Skill and language/category owners supply the actual curves/caps. Use named interval/snapshot fields and quantity-owned tolerances; no exact reusable checked scalar rank owner was established by the reached source and bounded declaration searches, and no repository-wide absence claim is made."
+    },
+    {
+      "role": "title-and-settlement-identities",
+      "decision": "BookCandidate's stable item_id is a catalog title definition identity, not an inventory instance ID or Bevy entity. Reuse the appropriate catalog definition owner/record at the lowest shared layer and retain book association, rather than inventing another candidate representation. settlement_allowlist owns authored settlement IDs and empty means unrestricted on-site access. Exact identity leaf placement remains with the canonical catalog/settlement contracts; preserve native representations at real storage/decoder endpoints."
+    }
+  ],
+  "canonical_comparisons": [
+    {
+      "queue_pointer": "/entries/2455",
+      "contract_id": "L2-SKILL-RAIL-TYPED-LEAVES-NATIVE-CLASSIFICATION",
+      "recorded_first_contract": "Exact selected scope preserves semantic leaves until native rendering; BookTarget/TrainingTarget raw skill/terrain mappings need actual schema and admitted subset before owner-fit judgement.",
+      "recorded_remaining_evidence": [
+        "Actual own L2 BookTarget/TrainingTarget schema/admission and schedule::effective producer; native schedule_icon/allocation/JS dependencies newly necessary beyond2355.",
+        "Registered selected1..2355 complete, actual2356..3812 remains unassessed and receives no credit from this receipt."
+      ],
+      "recorded_source_identity_count": 7,
+      "comparison": "Related UI source dependency, not a whole-record alias. Its raw BookTarget/TrainingTarget owner subquestion now has exact named L2 evidence at2492/2493, but schedule/renderer/allocation/JS and registered body-tail obligations remain independent. Retain the broader record and attach an explicit dependency; do not discard it because one subquestion is answered.",
+      "alias_applied": false,
+      "source_case_closed": false,
+      "foreign_lens_body_or_verdict_transferred": false
+    },
+    {
+      "queue_pointer": "/entries/1029",
+      "contract_id": "Q-L12-847ac92cdf2b4b1ffdee",
+      "recorded_first_contract": "BookTarget Terrainrawstringdispatch sixlabels core schema/catalogadmission/terraincanonicalowner/current unread; preservequalifiedconditionaluntilproducerbody.",
+      "recorded_remaining_evidence": [
+        "Assess the linked unresolved contract; if older status was superseded, attach exact later evidence and a scoped disposition instead of deleting the historical journal."
+      ],
+      "recorded_source_identity_count": 0,
+      "comparison": "Unresolved possible relation only. This L12 journal note has empty exact source identities and source contexts and only a prose pending-list pointer. Similar six-terrain dispatch wording is not an operation/source identity proof. Resolve the original source locator in L12 before any canonical alias, closure or body-verdict transfer.",
+      "alias_applied": false,
+      "source_case_closed": false,
+      "foreign_lens_body_or_verdict_transferred": false
+    }
+  ],
+  "search_qualification": "Bounded current declaration searches are navigation only. Similar render/geometry Quality names do not establish item-quality identity, and no global missing-owner claim or repair implementation follows from absent text matches.",
+  "remaining_evidence": [
+    "Exact shared scalar/identity implementation placement is a separate final repair design join; no duplicate feature wrappers authorized by this source comparison.",
+    "L12 note1029 still requires its exact original source locator. No alias or foreign lens source closure is applied.",
+    "Broader skill-rail current/producer/native/JS obligations remain independently open."
+  ],
+  "canonical_source_case_closed": false,
+  "canonical_alias_applied": false,
+  "new_primary_or_unique_credit": 0,
+  "product_execution": false,
+  "tests_executed": false,
+  "independent_agent_review": false,
+  "implementation_gate_complete": false
+}

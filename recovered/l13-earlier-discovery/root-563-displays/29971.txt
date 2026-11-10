@@ -1,0 +1,57 @@
+111:         measure_accuracy_multiplier: event.contact_at_time.measure_accuracy_multiplier,
+112:         contact_invalidation_cause: event.contact_at_time.invalidation_cause,
+113:         contact_material: event.contact_at_time.contact_material,
+114:         outcome: energy.outcome,
+115:         coverage_contact: energy.coverage_contact,
+116:         armor_item_id: armor_impact.and_then(|impact| impact.surface.inventory_item_id),
+117:         armor_material: armor_impact.and_then(|impact| impact.surface.material),
+118:         armor_outcome: armor_impact.map(|impact| impact.outcome),
+119:         resisted_energy_joules: armor_impact.map_or(0.0, |impact| impact.resisted_energy_joules),
+120:         transmitted_energy_joules: armor_impact
+121:             .map_or(0.0, |impact| impact.transmitted_energy_joules),
+122:         penetrated_energy_joules: armor_impact
+123:             .map_or(0.0, |impact| impact.penetrated_energy_joules),
+124:         contact_energy_joules: energy.contact,
+125:         cut_damage_joules: energy.cut,
+126:         blunt_damage_joules: energy.blunt,
+127:         attacker_incapacitation: incapacitation_log(viewer, states, event.attacker),
+128:         defender_incapacitation: incapacitation_log(viewer, states, event.target),
+129:     }
+130: }
+131: 
+132: fn defensive_implement_kind(
+133:     event: &MeleeAttackResolved,
+134:     viewer: &TacticalPlayerViewer<'_, '_>,
+135: ) -> Option<TacticalDefenseImplement> {
+136:     let slot = event.defender_blocking_slot?;
+137:     let defender = viewer.get(event.target).ok()?;
+138:     let side_slot = |side| match side {
+139:         BodySide::Left => Some(EquipSlot::HoldingLeft),
+140:         BodySide::Right => Some(EquipSlot::HoldingRight),
+141:         BodySide::Both => None,
+142:     };
+143:     if defender.shield_holding_side().and_then(side_slot) == Some(slot) {
+144:         Some(TacticalDefenseImplement::Shield)
+145:     } else if defender.weapon_holding_side().and_then(side_slot) == Some(slot) {
+146:         Some(TacticalDefenseImplement::Weapon)
+147:     } else {
+148:         Some(TacticalDefenseImplement::Other)
+149:     }
+150: }
+151: 
+152: fn defender_decision(response: DefenderResponse) -> TacticalDecision {
+153:     match response {
+154:         DefenderResponse::None => TacticalDecision::NoDefense,
+155:         DefenderResponse::Block { .. } => TacticalDecision::Block,
+156:         DefenderResponse::Parry { .. } => TacticalDecision::Parry,
+157:         DefenderResponse::Dodge { .. } => TacticalDecision::Dodge,
+158:     }
+159: }
+160: 
+161: fn serialized_name(value: impl Serialize) -> String {
+162:     serde_json::to_value(value)
+163:         .expect("combat diagnostic value is serializable")
+164:         .as_str()
+165:         .expect("combat diagnostic value serializes as a string")
+166:         .to_owned()
+167: }

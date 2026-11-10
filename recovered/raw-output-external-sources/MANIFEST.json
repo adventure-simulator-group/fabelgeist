@@ -1,0 +1,36 @@
+{
+  "schema": "726-raw-output-external-sources-v1",
+  "qualification": "Files were found in a dependency checkout after the project repository lacked the cited Git object. Exact source bytes match printed source hashes; original registration and authority are not established.",
+  "files": [
+    {
+      "revision": "b1502de8b396e7c575981d8df9fc84099619f458",
+      "git_path": "crates/burn-std/src/data/tensor.rs",
+      "sha256": "51c427cafcd2340258cf317477ca3e16dda9b9891c4e95c4c8403739bdc8d0ca",
+      "source_output_file": "recovered/source-registration-outputs/RECORDS-05.jsonl",
+      "source_output_ordinal": 206049,
+      "source_output_sha256": "971ef370d4bc91939b556620899ea9117fe14d124da1e8eb402d0617c51a4001",
+      "row_start": 1,
+      "row_end": 366,
+      "reason": "Git object unavailable",
+      "object": "51c427cafcd2340258cf317477ca3e16dda9b9891c4e95c4c8403739bdc8d0ca",
+      "bytes": 37049,
+      "cache_checkout_label": "burn b1502de",
+      "qualification": "File bytes match the printed source hash. The local checkout label identifies the source used; its Git metadata could not be inspected in the sandbox. This does not establish audit credit or final authority."
+    },
+    {
+      "revision": "b1502de8b396e7c575981d8df9fc84099619f458",
+      "git_path": "crates/burn-tensor/src/tensor/api/base.rs",
+      "sha256": "cf2c214c719f64912d466a65e2a1e77f66ed431b3ed2846b49145a7f0d431a5b",
+      "source_output_file": "recovered/source-registration-outputs/RECORDS-05.jsonl",
+      "source_output_ordinal": 206049,
+      "source_output_sha256": "971ef370d4bc91939b556620899ea9117fe14d124da1e8eb402d0617c51a4001",
+      "row_start": 368,
+      "row_end": 742,
+      "reason": "Git object unavailable",
+      "object": "cf2c214c719f64912d466a65e2a1e77f66ed431b3ed2846b49145a7f0d431a5b",
+      "bytes": 124643,
+      "cache_checkout_label": "burn b1502de",
+      "qualification": "File bytes match the printed source hash. The local checkout label identifies the source used; its Git metadata could not be inspected in the sandbox. This does not establish audit credit or final authority."
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "lens": 13,
+  "raw_read": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306.json",
+    "sha256": "d269436ed0cbc6393c1ae438fc64090be1d80329b84b2e7c970a56eed1160225"
+  },
+  "status": "Additive exact source-role metadata correction; preserve raw receipt",
+  "corrections": [
+    {
+      "field_pointer": "/contract_updates/0/exact_source_identities_and_assessed_ranges/1/original",
+      "raw": null,
+      "effective": 1136,
+      "exact_read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-160.json",
+        "sha256": "dc08d076595799741c3eae9d6c310f90755571b515f885b0b907bb6c2375d8ea"
+      },
+      "exact_read_pointer": "/connected/0",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/item.rs",
+      "source_sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e"
+    },
+    {
+      "field_pointer": "/contract_updates/0/exact_source_identities_and_assessed_ranges/2/original",
+      "raw": null,
+      "effective": 1118,
+      "exact_read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-255.json",
+        "sha256": "b6d7ac7a410866d727da317c32ae9f8d0ca023585c528855c8b23120532c329c"
+      },
+      "exact_read_pointer": "/rows/2",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "source_sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6"
+    },
+    {
+      "field_pointer": "/contract_updates/0/exact_source_identities_and_assessed_ranges/3/original",
+      "raw": null,
+      "effective": 988,
+      "exact_read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-201.json",
+        "sha256": "17ec7c3cfaf7699f8175b0339f24b2a386f4e7b2cc92a7f85dd6e235d20521ac"
+      },
+      "exact_read_pointer": "/rows/0",
+      "source_id": "pr-working:crates/adventuresim-core/src/settlement_economy.rs",
+      "source_sha256": "5ebaaf60d766322d2dc8bbd0cf1a54b0c790793a11d1d3f7b98e139861a3c54e"
+    }
+  ],
+  "reason": "Contract proof source projections used null placeholder for already-known original roles. Bind each to actual immutable own source row identity; null is not new-source status. No source body/ranges/hash/revision/attribution changed.",
+  "body_credit_delta": 0,
+  "original_credit_delta": 0,
+  "new_source_identity_delta": 0,
+  "product_execution": false
+}

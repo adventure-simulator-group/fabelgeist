@@ -1,0 +1,67 @@
+{
+  "schema": "726-final-frontier-entry-2708-trace-v1",
+  "qualification": "Observed full entry in printed historical queue 4151, normalized from command output; not original queue bytes. Later writer effects are conditional inference from static candidate derivation and historical self-reports, not proof of exact final row or its evidence. Intervening unobserved modifications cannot be excluded.",
+  "entry_index": 2708,
+  "contract_id": "OBLIGATION-ROOT-L3-EXT-0001-LENS-04",
+  "observed_queue": "workflow-20261030/CLOSURE-QUEUE-4151.json",
+  "observed_output_ordinal": 418995,
+  "observed_output_sha256": "905c3fc13cf49616ed5dc824811588dbe8ac3fa09a3b2e4ebcb4f7c259e5ccf9",
+  "observed_normalized_sha256": "e69931d1c91aea60f75c640e4c0891910a90bac29554542fab9a095cdc518b10",
+  "observed_granular_views": 0,
+  "observed_remaining_evidence_items": 1,
+  "writer_derivation": "recovered/final-writer-static-trace/MANIFEST.json",
+  "writer_change_ordinals": [
+    419026,
+    419184,
+    419288,
+    419395,
+    419492
+  ],
+  "reported_checkpoints": [
+    3817,
+    3818,
+    3819,
+    3820,
+    3821
+  ],
+  "conditional_effect": "Each derived writer targets entry 2708, appends one non-closing view and appends decision remaining-evidence items. If the recorded sequence was complete and actual writers matched the candidates, five views were appended; exact final content and independent validation remain unavailable.",
+  "no_final_authority_inferred": true,
+  "literal_command_fields": {
+    "file": "LITERAL-COMMAND-FIELDS.json",
+    "sha256": "8fde47eaa747c726f5ae623b152ba2a64b87387a502ebabf5b8f113fef935750",
+    "checkpoints": 5,
+    "qualification": "Statically extracted fields, not original full files or proof of final queue."
+  },
+  "first_update_source_evidence": {
+    "source_path": "crates/adventuresim-core/src/errantry.rs",
+    "source_sha256": "c745b617fe6b91b054b4f968565f295d03f9839eb329c4957d86306d65969858",
+    "source_git_blob_sha1": "09b003063a95e928ff0c1c363fe6271b6fd1590b",
+    "source_revisions_locally_byte_compared": [
+      "6533e444fa37552927070cc8d8190907fd3b413e",
+      "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04"
+    ],
+    "historical_receipt": "recovered/historical-remote-receipts/b9cff73df660fb081c0937df71b83bfd17f32c77bbc479279bb304b9cd5fa1ac",
+    "historical_receipt_recorded_range": [
+      1,
+      445
+    ],
+    "tail_registration_command_ordinal": 418957,
+    "tail_display_command_ordinal": 418962,
+    "tail_display_sha256": "3f31157f613723fd93286b87726a464447140972a93be376beaf21592d4eb12d",
+    "tail_displayed_range": [
+      446,
+      827
+    ],
+    "tail_displayed_lines": 382,
+    "registration_original_bytes_recovered": false,
+    "qualification": "Recorded historical receipt and displayed source lines, with byte identity checked locally; no runtime execution or current coverage inferred."
+  },
+  "tail_registration_template": {
+    "file": "TAIL-REGISTRATION-TEMPLATE.json",
+    "sha256": "e828d438a9e27f4ff9d79f75bdeef1d136d95bdd85d09cfb66c02e30fa567658",
+    "extractor": "extract_tail_template.py",
+    "original_timestamp_recovered": false,
+    "original_hash_recovered": false
+  }
+}

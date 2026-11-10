@@ -1,0 +1,272 @@
+SOURCE 2622 pr-working:crates/fabelgeist-armor/src/pauldron.rs
+1: //! Full shoulder defenses: a formed main plate, neck lames and upper-arm lames.
+2: //!
+3: //! Front and rear wings have independent reach and drop. The shoulder saddle
+4: //! follows gravity while the descending lames follow the anatomical arm axis.
+5: use serde::{Deserialize, Serialize};
+6: 
+7: use crate::{Millimeters, Milliradians, Permille, PlateFluting, PlateGauge};
+8: 
+9: #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+10: pub struct PauldronDesign {
+11:     pub gauge: PlateGauge,
+12:     /// Separation from the selected supporting torso plates.
+13:     pub plate_clearance: Millimeters,
+14:     /// Space occupied by the rerebrace beneath the descending lames.
+15:     pub arm_allowance: Millimeters,
+16:     pub fluting: Option<PlateFluting>,
+17:     pub front_reach: Millimeters,
+18:     pub rear_reach: Millimeters,
+19:     pub front_drop: Millimeters,
+20:     pub rear_drop: Millimeters,
+21:     pub neck_reach: Millimeters,
+22:     pub crown_height: Permille,
+23:     pub arm_length: Millimeters,
+24:     pub upper_lames: u8,
+25:     pub lower_lames: u8,
+26:     pub outline: PauldronOutline,
+27: }
+28: 
+29: /// Boundaries of the hanging main wings and the narrower arm articulation.
+30: #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+31: #[serde(deny_unknown_fields)]
+32: pub struct PauldronOutline {
+33:     /// Circumferential extent from the crown into each hanging main wing.
+34:     pub front_return: Milliradians,
+35:     pub rear_return: Milliradians,
+36:     pub front_extension: Millimeters,
+37:     pub rear_extension: Millimeters,
+38:     /// Angle away from the shoulder crown at which the wing starts descending.
+39:     pub wing_start: Milliradians,
+40:     pub corner_rounding: Permille,
+41:     /// Center of each hanging wing's lowest region, from arm to neck.
+42:     pub front_wing_position: Permille,
+43:     pub rear_wing_position: Permille,
+44:     /// Rounded approach to each low region. Larger values narrow its flat
+45:     /// interval; 1000 produces one continuously rounded low point.
+46:     pub front_wing_rounding: Permille,
+47:     pub rear_wing_rounding: Permille,
+48:     /// Fraction of the shoulder saddle occupied by the upper lames.
+49:     pub upper_span: Permille,
+50:     /// Half-angle covered by the narrower lower arm lames.
+51:     pub arm_wrap: Milliradians,
+52: }
+53: 
+54: impl Default for PauldronOutline {
+55:     fn default() -> Self {
+56:         Self {
+57:             front_return: Milliradians(2600),
+58:             rear_return: Milliradians(2680),
+59:             front_extension: Millimeters(0),
+60:             rear_extension: Millimeters(0),
+61:             wing_start: Milliradians(1100),
+62:             corner_rounding: Permille(280),
+63:             front_wing_position: Permille(500),
+64:             rear_wing_position: Permille(500),
+65:             front_wing_rounding: Permille(800),
+66:             rear_wing_rounding: Permille(800),
+67:             upper_span: Permille(260),
+68:             arm_wrap: Milliradians(1680),
+69:         }
+70:     }
+71: }
+72: 
+73: impl PauldronOutline {
+74:     pub const CORNER_ROUNDING_RANGE: std::ops::RangeInclusive<u16> = 100..=650;
+75:     pub const WING_POSITION_RANGE: std::ops::RangeInclusive<u16> = 250..=750;
+76:     pub const WING_ROUNDING_RANGE: std::ops::RangeInclusive<u16> = 100..=1000;
+77: 
+78:     fn valid(&self) -> bool {
+79:         (1800..=2800).contains(&self.front_return.0)
+80:             && (1800..=2800).contains(&self.rear_return.0)
+81:             && self.front_extension.0 <= 90
+82:             && self.rear_extension.0 <= 90
+83:             && (800..=1500).contains(&self.wing_start.0)
+84:             && Self::CORNER_ROUNDING_RANGE.contains(&self.corner_rounding.0)
+85:             && [self.front_wing_position, self.rear_wing_position]
+86:                 .iter()
+87:                 .all(|value| Self::WING_POSITION_RANGE.contains(&value.0))
+88:             && [self.front_wing_rounding, self.rear_wing_rounding]
+89:                 .iter()
+90:                 .all(|value| Self::WING_ROUNDING_RANGE.contains(&value.0))
+91:             && (150..=400).contains(&self.upper_span.0)
+92:             && (1400..=1800).contains(&self.arm_wrap.0)
+93:     }
+94: }
+95: 
+96: impl Default for PauldronDesign {
+97:     fn default() -> Self {
+98:         Self {
+99:             gauge: PlateGauge {
+100:                 clearance: Millimeters(12),
+101:                 thickness: Millimeters(2),
+102:             },
+103:             fluting: None,
+104:             plate_clearance: Millimeters(4),
+105:             arm_allowance: Millimeters(10),
+106:             front_reach: Millimeters(105),
+107:             rear_reach: Millimeters(95),
+108:             front_drop: Millimeters(50),
+109:             rear_drop: Millimeters(50),
+110:             neck_reach: Millimeters(38),
+111:             crown_height: Permille(1200),
+112:             arm_length: Millimeters(96),
+113:             upper_lames: 2,
+114:             lower_lames: 4,
+115:             outline: PauldronOutline::default(),
+116:         }
+117:     }
+118: }
+119: 
+120: impl PauldronDesign {
+121:     pub const PLATE_CLEARANCE_RANGE: std::ops::RangeInclusive<u16> = 2..=16;
+122:     pub const FRONT_REACH_RANGE: std::ops::RangeInclusive<u16> = 40..=180;
+123:     /// Supported sheet stock for this tightly returned shoulder construction.
+124:     pub const THICKNESS_RANGE: std::ops::RangeInclusive<u16> = 1..=3;
+125: 
+126:     pub(crate) fn valid_shape(&self) -> bool {
+127:         Self::THICKNESS_RANGE.contains(&self.gauge.thickness.0)
+128:             && self.outline.valid()
+129:             && Self::FRONT_REACH_RANGE.contains(&self.front_reach.0)
+130:             && Self::PLATE_CLEARANCE_RANGE.contains(&self.plate_clearance.0)
+131:             && self.arm_allowance.0 <= 20
+132:             && (60..=145).contains(&self.rear_reach.0)
+133:             && self.front_drop.0 <= 60
+134:             && self.rear_drop.0 <= 75
+135:             && (20..=60).contains(&self.neck_reach.0)
+136:             && (1000..=1450).contains(&self.crown_height.0)
+137:             && (65..=125).contains(&self.arm_length.0)
+138:             && (1..=3).contains(&self.upper_lames)
+139:             && (3..=7).contains(&self.lower_lames)
+140:     }
+141: }
+SOURCE 2623 pr-working:crates/fabelgeist-armor/src/garment_armor.rs
+1: //! Pattern-cut textile and mail carriers and articulated waist/neck defenses.
+2: //!
+3: //! These surfaces are authored independently of anatomical triangulation. Mail
+4: //! represents the garment envelope; individual links belong to material detail.
+5: use serde::{Deserialize, Serialize};
+6: 
+7: use crate::{DesignError, GarmentPlateShape, GenerateError, Millimeters, Permille, PlateFluting};
+8: 
+9: pub const GARMENT_RING_SEGMENTS: usize = 48;
+10: pub const GARMENT_AXIAL_SEGMENTS: usize = 16;
+11: /// Local radial clearance at the lower edge of an overlapping plate course.
+12: pub const GARMENT_LAME_SPACING_GAUGES: f32 = 2.5;
+13: pub(crate) const GARMENT_LAME_OVERLAP: f32 = 0.12;
+14: pub const GARMENT_PANEL_ACROSS: usize = 32;
+15: pub const GARMENT_PANEL_ALONG: usize = 12;
+16: pub const GARMENT_ARMPIT_ROW: usize = 9;
+17: pub const GARMENT_SHOULDER_DEPTH_SEGMENTS: usize = 8;
+18: 
+19: #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+20: pub enum GarmentArmorKind {
+21:     ArmingDoublet,
+22:     Brigandine,
+23:     JackOfPlates,
+24:     Fauld,
+25:     MailChausses,
+26:     MailShirt,
+27:     MailSkirt,
+28:     MailSleeve,
+29:     PaddedChausses,
+30:     PaddedSkirt,
+31:     QuiltedSleeve,
+32:     Tassets,
+33:     Gorget,
+34: }
+35: 
+36: #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+37: pub struct GarmentArmorDesign {
+38:     pub plate_shape: GarmentPlateShape,
+39:     pub fluting: Option<PlateFluting>,
+40:     pub kind: GarmentArmorKind,
+41:     pub clearance: Millimeters,
+42:     pub wall_thickness: Millimeters,
+43:     /// Axial length relative to the anatomical fitting frame.
+44:     pub length: Permille,
+45:     /// Additional lower-edge width, as a fraction of fitted width.
+46:     pub flare: Permille,
+47:     /// Waist width relative to fitted chest width for torso patterns.
+48:     pub waist: Permille,
+49:     /// Number of articulated plates for the fauld and each tasset.
+50:     pub lame_count: u8,
+51: }
+52: 
+53: impl GarmentArmorDesign {
+54:     pub fn new(kind: GarmentArmorKind) -> Self {
+55:         let padded = matches!(
+56:             kind,
+57:             GarmentArmorKind::ArmingDoublet
+58:                 | GarmentArmorKind::PaddedChausses
+59:                 | GarmentArmorKind::PaddedSkirt
+60:                 | GarmentArmorKind::QuiltedSleeve
+61:         );
+62:         Self {
+63:             plate_shape: GarmentPlateShape::for_kind(kind),
+64:             fluting: None,
+65:             kind,
+66:             clearance: Millimeters(if padded { 3 } else { 10 }),
+67:             wall_thickness: Millimeters(if padded { 5 } else { 3 }),
+68:             length: Permille(1_000),
+69:             flare: Permille(
+70:                 if matches!(
+71:                     kind,
+72:                     GarmentArmorKind::MailSkirt | GarmentArmorKind::PaddedSkirt
+73:                 ) {
+74:                     0
+75:                 } else {
+76:                     180
+77:                 },
+78:             ),
+79:             waist: Permille(if kind == GarmentArmorKind::MailShirt {
+80:                 1_100
+81:             } else if kind == GarmentArmorKind::JackOfPlates {
+82:                 960
+83:             } else {
+84:                 900
+85:             }),
+86:             lame_count: 4,
+87:         }
+88:     }
+89: 
+90:     pub fn validate(&self) -> Result<(), GenerateError> {
+91:         self.plate_shape.validate(self.kind)?;
+92:         if let Some(pattern) = &self.fluting {
+93:             if self.plate_shape == GarmentPlateShape::None {
+94:                 return Err(DesignError::ParametricParameters.into());
+95:             }
+96:             pattern.validate()?;
+97:         }
+98:         if !(1..=40).contains(&self.clearance.0)
+99:             || !(1..=16).contains(&self.wall_thickness.0)
+100:             || !(if self.kind == GarmentArmorKind::Fauld {
+101:                 100
+102:             } else {
+103:                 500
+104:             }..=1_300)
+105:                 .contains(&self.length.0)
+106:             || self.flare.0 > 500
+107:             || !(800..=1_100).contains(&self.waist.0)
+108:             || !(1..=if self.kind == GarmentArmorKind::Tassets {
+109:                 12
+110:             } else {
+111:                 8
+112:             })
+113:                 .contains(&self.lame_count)
+114:         {
+115:             return Err(DesignError::ParametricParameters.into());
+116:         }
+117:         if let GarmentPlateShape::WrappedTassets(shape) = self.plate_shape
+118:             && shape.section_break >= self.lame_count
+119:         {
+120:             return Err(DesignError::ParametricParameters.into());
+121:         }
+122:         if let GarmentPlateShape::Fauld { front_arch, .. } = self.plate_shape
+123:             && front_arch.0 >= self.length.0
+124:         {
+125:             return Err(DesignError::ParametricParameters.into());
+126:         }
+127:         Ok(())
+128:     }
+129: }

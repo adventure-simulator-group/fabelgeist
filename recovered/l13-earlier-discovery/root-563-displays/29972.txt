@@ -1,0 +1,110 @@
+111:     pub armor_outcome: Option<ArmorImpactOutcome>,
+112:     pub resisted_energy_joules: f32,
+113:     pub transmitted_energy_joules: f32,
+114:     pub penetrated_energy_joules: f32,
+115:     pub contact_energy_joules: f32,
+116:     pub cut_damage_joules: f32,
+117:     pub blunt_damage_joules: f32,
+118:     pub attacker_incapacitation: TacticalIncapacitationLog,
+119:     pub defender_incapacitation: TacticalIncapacitationLog,
+120: }
+121: 
+122: #[derive(Clone, Debug, Serialize)]
+123: pub struct TacticalConditionLogEntry {
+124:     pub tick: u64,
+125:     pub elapsed_seconds: TacticalElapsed,
+126:     pub combatant: String,
+127:     pub cause: String,
+128:     pub previous: f32,
+129:     pub current: f32,
+130:     pub delta: f32,
+131: }
+132: 
+133: #[derive(Clone, Debug, Serialize)]
+134: pub struct TacticalWoundLogEntry {
+135:     pub tick: u64,
+136:     pub elapsed_seconds: TacticalElapsed,
+137:     pub combatant: String,
+138:     pub body_part: String,
+139:     pub kind: adventuresim_core::combat::CombatWoundKind,
+140:     pub blood_fraction_per_second: f32,
+141: }
+142: 
+143: #[derive(Clone, Debug, Serialize)]
+144: pub struct TacticalDecisionLogEntry {
+145:     pub tick: u64,
+146:     pub elapsed_seconds: TacticalElapsed,
+147:     pub combatant: String,
+148:     pub decision: TacticalDecision,
+149:     pub status: TacticalDecisionStatus,
+150:     pub target: Option<String>,
+151:     pub center_separation_metres: Option<f32>,
+152:     pub preferred_melee_measure_metres: Option<f32>,
+153:     pub attack_key: Option<MeleeAttackKey>,
+154:     pub cause: Option<&'static str>,
+155: }
+156: 
+157: #[derive(Clone, Debug, PartialEq, Eq, Serialize)]
+158: #[serde(tag = "kind", rename_all = "snake_case")]
+159: pub enum TacticalDuelResolution {
+160:     Victory { victor: String },
+161:     MutualIncapacitation,
+162:     Timeout,
+163: }
+164: 
+165: #[derive(Clone, Debug, Serialize)]
+166: pub struct TacticalMeleeOutcome {
+167:     pub seed: Seed,
+168:     pub resolution: TacticalDuelResolution,
+169:     pub simulated_ticks: u64,
+170:     pub simulated_seconds: TacticalElapsed,
+171:     pub initial_center_separation_metres: f32,
+172:     pub final_center_separation_metres: Option<NonnegativeLength>,
+173:     pub attack_starts: u32,
+174:     pub resolved_attacks: u32,
+175:     pub events: Vec<TacticalMeleeLogEntry>,
+176:     pub decision_events: Vec<TacticalDecisionLogEntry>,
+177:     pub condition_events: Vec<TacticalConditionLogEntry>,
+178:     pub wound_events: Vec<TacticalWoundLogEntry>,
+179: }
+180: 
+181: #[derive(Resource)]
+182: pub(super) struct IterationClock {
+183:     pub(super) tick: u64,
+184: }
+185: 
+186: #[derive(Resource, Default)]
+187: pub(super) struct IterationLog {
+188:     pub(super) attack_starts: u32,
+189:     pub(super) events: Vec<TacticalMeleeLogEntry>,
+190:     pub(super) decision_events: Vec<TacticalDecisionLogEntry>,
+191:     pub(super) condition_events: Vec<TacticalConditionLogEntry>,
+192:     pub(super) wound_events: Vec<TacticalWoundLogEntry>,
+193:     last_conditions: HashMap<Entity, TacticalIncapacitationLog>,
+194:     logged_wound_counts: HashMap<Entity, usize>,
+195: }
+196: 
+197: pub(super) fn record_attack_start(
+198:     event: On<crate::combat::MeleeAttackStartedIntent>,
+199:     clock: Res<IterationClock>,
+200:     players: Query<(&Player, &Transform)>,
+201:     dimensions: Query<&CharacterDimensions>,
+202:     viewer: TacticalPlayerViewer,
+203:     config: Res<TacticalCombatConfig>,
+204:     mut log: ResMut<IterationLog>,
+205: ) {
+206:     log.attack_starts += 1;
+207:     let Ok((attacker, attacker_transform)) = players.get(event.attacker) else {
+208:         return;
+209:     };
+210:     let target = event.target.and_then(|entity| players.get(entity).ok());
+211:     let preferred_melee_measure_metres = viewer.get(event.attacker).ok().map(|view| {
+212:         let weapon_reach = view.weapon_reach();
+213:         let reach = melee_interaction_range(
+214:             dimensions
+215:                 .get(event.attacker)
+216:                 .copied()
+217:                 .unwrap_or_default()
+218:                 .arm_reach_metres,
+219:             weapon_reach,
+220:         );

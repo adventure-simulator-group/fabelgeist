@@ -1,0 +1,211 @@
+SOURCE 2634 pr-working:crates/fabelgeist-cloth/src/triangulate/mod.rs
+1: //! Turning a flat outline into a simulable mesh.
+2: //!
+3: //! A sewing pattern is a set of closed 2D outlines. A cloth solver needs
+4: //! triangles, and not just any triangles: the mesh has to be roughly uniform,
+5: //! because the stretch constraints are its edges and a sliver produces a
+6: //! constraint that is far stiffer than its neighbours. Ear clipping alone
+7: //! would give exactly that -- a fan of slivers with no interior vertices at
+8: //! all -- so this scatters interior points first and triangulates the whole
+9: //! set.
+10: //!
+11: //! 1. Resample the outline so that boundary segments are near the target edge
+12: //!    length, keeping track of which input edge each boundary vertex came from
+13: //!    (the seams need that later).
+14: //! 2. Lay a triangular lattice over the interior and keep the points that are
+15: //!    comfortably inside.
+16: //! 3. Delaunay-triangulate the lot, then throw away the triangles whose
+17: //!    centres fall outside the outline -- which is what makes a concave panel,
+18: //!    an armhole or a neckline come out right.
+19: 
+20: use fabelgeist_math::Vec2;
+21: 
+22: /// The mesh of one panel.
+23: #[derive(Clone, Debug, Default)]
+24: pub struct PanelMesh {
+25:     pub vertices: Vec<Vec2>,
+26:     pub triangles: Vec<[u32; 3]>,
+27:     /// For each edge of the input outline, the boundary vertices along it, in
+28:     /// order, including both endpoints. Consecutive edges share a vertex.
+29:     pub edge_chains: Vec<Vec<u32>>,
+30: }
+31: 
+32: impl PanelMesh {
+33:     pub fn is_empty(&self) -> bool {
+34:         self.triangles.is_empty()
+35:     }
+36: 
+37:     /// Vertices that lie on the outline. Interior vertices come after them, so
+38:     /// this is a prefix.
+39:     pub fn boundary_count(&self) -> usize {
+40:         self.edge_chains
+41:             .iter()
+42:             .flatten()
+43:             .copied()
+44:             .max()
+45:             .map(|m| m as usize + 1)
+46:             .unwrap_or(0)
+47:     }
+48: }
+49: 
+50: /// Twice the signed area of the polygon. Positive is counter-clockwise.
+51: pub fn signed_area(outline: &[Vec2]) -> f32 {
+52:     let mut total = 0.0;
+53:     for i in 0..outline.len() {
+54:         let a = outline[i];
+55:         let b = outline[(i + 1) % outline.len()];
+56:         total += a.x * b.y - b.x * a.y;
+57:     }
+58:     total * 0.5
+59: }
+60: 
+61: /// Ray casting: count crossings of a ray going in +x.
+62: pub fn contains(outline: &[Vec2], point: Vec2) -> bool {
+63:     let mut inside = false;
+64:     let mut j = outline.len() - 1;
+65:     for i in 0..outline.len() {
+66:         let a = outline[i];
+67:         let b = outline[j];
+68:         // `>` on one side and `<=` on the other, so a vertex exactly at the
+69:         // ray's height is counted once rather than twice or not at all.
+70:         if (a.y > point.y) != (b.y > point.y) {
+71:             let t = (point.y - a.y) / (b.y - a.y);
+72:             if point.x < a.x + t * (b.x - a.x) {
+73:                 inside = !inside;
+74:             }
+75:         }
+76:         j = i;
+77:     }
+78:     inside
+79: }
+80: 
+81: /// Distance from a point to the outline, unsigned.
+82: pub fn distance_to_outline(outline: &[Vec2], point: Vec2) -> f32 {
+83:     let mut best = f32::INFINITY;
+84:     for i in 0..outline.len() {
+85:         let a = outline[i];
+86:         let b = outline[(i + 1) % outline.len()];
+87:         best = best.min(distance_to_segment(point, a, b));
+88:     }
+89:     best
+90: }
+91: 
+92: fn distance_to_segment(point: Vec2, a: Vec2, b: Vec2) -> f32 {
+93:     let ab = b - a;
+94:     let length_squared = ab.length_sq();
+95:     let t = if length_squared > 1e-20 {
+96:         ((point - a).x * ab.x + (point - a).y * ab.y) / length_squared
+97:     } else {
+98:         0.0
+99:     };
+100:     let closest = a + ab * t.clamp(0.0, 1.0);
+101:     (point - closest).length()
+102: }
+103: 
+104: /// Mesh a closed outline.
+105: ///
+106: /// `outline` is a simple polygon: no repeated final point, no self-crossings.
+107: /// `target_edge` is the edge length to aim for -- the resolution knob for the
+108: /// whole simulation, since it sets both the particle count and how fine a fold
+109: /// the fabric can make.
+110: pub fn triangulate(outline: &[Vec2], target_edge: f32) -> PanelMesh {
+111:     triangulate_with_segments(outline, target_edge, &[])
+112: }
+113: 
+114: pub(crate) fn triangulate_with_segments(
+115:     outline: &[Vec2],
+116:     target_edge: f32,
+117:     segments: &[usize],
+118: ) -> PanelMesh {
+119:     if outline.len() < 3 || target_edge <= 0.0 || target_edge.is_nan() {
+120:         return PanelMesh::default();
+121:     }
+122: 
+123:     // The outline is used exactly as given, whichever way it winds. Reversing
+124:     // a clockwise one would renumber the edges, and `edge_chains` is what a
+125:     // seam declared between edge 3 of one panel and edge 5 of another resolves
+126:     // through -- so a reversal here would mis-wire every seam in the garment
+127:     // and still produce a plausible-looking mesh. Nothing downstream needs the
+128:     // winding anyway: `contains` counts ray crossings, which is
+129:     // winding-agnostic, and `orient` makes every output triangle
+130:     // counter-clockwise regardless.
+131:     let (mut vertices, edge_chains) =
+132:         resample_boundary_with_segments(outline, target_edge, segments);
+133:     let boundary_count = vertices.len();
+134:     if boundary_count < 3 {
+135:         return PanelMesh::default();
+136:     }
+137: 
+138:     vertices.extend(interior_points(outline, target_edge));
+139: 
+140:     let triangles = delaunay(&vertices)
+141:         .into_iter()
+142:         .filter(|triangle| {
+143:             let a = vertices[triangle[0] as usize];
+144:             let b = vertices[triangle[1] as usize];
+145:             let c = vertices[triangle[2] as usize];
+146:             let centroid = (a + b + c) * (1.0 / 3.0);
+147:             // The centroid decides. For a convex panel every triangle is
+148:             // inside anyway; for a neckline or an armhole this is what removes
+149:             // the ones spanning the hole.
+150:             contains(outline, centroid)
+151:         })
+152:         .collect();
+153: 
+154:     PanelMesh {
+155:         vertices,
+156:         triangles,
+157:         edge_chains,
+158:     }
+159: }
+160: 
+161: /// Split each outline edge into segments no longer than `target_edge`.
+162: ///
+163: /// The chains record which vertices came from which input edge, which is how a
+164: /// seam declared between two *edges* becomes constraints between two lists of
+165: /// *particles*.
+166: fn resample_boundary_with_segments(
+167:     outline: &[Vec2],
+168:     target_edge: f32,
+169:     counts: &[usize],
+170: ) -> (Vec<Vec2>, Vec<Vec<u32>>) {
+171:     let mut vertices: Vec<Vec2> = Vec::new();
+172:     let mut chains: Vec<Vec<u32>> = Vec::new();
+173: 
+174:     for i in 0..outline.len() {
+175:         let a = outline[i];
+176:         let b = outline[(i + 1) % outline.len()];
+177:         let length = (b - a).length();
+178:         let segments = counts
+179:             .get(i)
+180:             .copied()
+181:             .unwrap_or_else(|| ((length / target_edge).round() as usize).max(1))
+182:             .max(1);
+183: 
+184:         let mut chain = Vec::with_capacity(segments + 1);
+185:         // The first vertex of this edge is the last of the previous one; only
+186:         // the very first edge has to create it.
+187:         let start = if i == 0 {
+188:             vertices.push(a);
+189:             0u32
+190:         } else {
+191:             *chains[i - 1].last().unwrap()
+192:         };
+193:         chain.push(start);
+194: 
+195:         for step in 1..segments {
+196:             let t = step as f32 / segments as f32;
+197:             vertices.push(a + (b - a) * t);
+198:             chain.push(vertices.len() as u32 - 1);
+199:         }
+200: 
+201:         // The last edge closes the loop back onto vertex 0 rather than adding
+202:         // a duplicate of it.
+203:         if i + 1 == outline.len() {
+204:             chain.push(0);
+205:         } else {
+206:             vertices.push(b);
+207:             chain.push(vertices.len() as u32 - 1);
+208:         }
+209: 
+210:         chains.push(chain);

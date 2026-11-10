@@ -1,0 +1,168 @@
+{
+  "schema": "726-root-l12-current-feature-chain-read-v1",
+  "at": "2026-11-02T00:10:41.960992+00:00",
+  "author": "/root",
+  "lens": 12,
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L12-TANGENT-FEATURE-CHAIN-001.json",
+    "sha256": "49b072add70ca8a8f61300ec7db9f11a3554a6c8f42b9a7de5aee0bfb189d7b2"
+  },
+  "discovery": {
+    "path": "adler-continuation-20261030/DISCOVERY-ROOT-L12-TANGENT-FEATURE-CHAIN-001.json",
+    "sha256": "c40464a5ef37c4aeec8ae2188cb25900d5087505029fff204749a5515de2758b"
+  },
+  "base_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "811b1304fcfa0c81f5401c7a1b52178e9a0e5f98de74cc54c370a37725d64d37"
+  },
+  "rows": [
+    {
+      "source": {
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "path": "Cargo.toml",
+        "source_sha256": "f1fe1a1539e5d091112577726ac5723769c9a2bb098c149684e6810efe895881",
+        "bytes": 7569,
+        "EOF": 210,
+        "source_id": "current-main:33714256b6313ce86fdfbb534c54d92d024d7726:Cargo.toml",
+        "source_object": "adler-continuation-20261030/objects/f1fe1a1539e5d091112577726ac5723769c9a2bb098c149684e6810efe895881",
+        "git_blob": "1e797fa347804e56b1d4625d79c67ee39990df98",
+        "ranges": [
+          [
+            1,
+            210
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [
+          [
+            1,
+            210
+          ]
+        ]
+      },
+      "assessed_ranges": [
+        [
+          1,
+          210
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          210
+        ]
+      ],
+      "fresh_personal_lines": 210,
+      "author": "/root",
+      "output_chunk": "67d602",
+      "untruncated_body_status": "Personally consumed complete numbered current manifest after prospective registration.",
+      "lens12_observation": "Current root Cargo210 retains native Cargo workspace/member/exclusion/package/dependency/patch/profile/lint data. Bevy95..99 requests0.19.0 with default-features=false plus reflect_auto_register/bevy_log/serialize; exact lock0.19.1 is separate pin evidence, no version mismatch defect inferred. No private gameplay String protocol in this manifest. Optional isolated ML/MHR workspaces and release profiles are explicit build modes, not compatibility paths. Native package dependencies and features are compiler input tokens, not a new bespoke game enum."
+    },
+    {
+      "source": {
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "path": "crates/adventuresim-tactical-client/Cargo.toml",
+        "source_sha256": "c39360e6d15abbb62a6ad11effb50a89f79796973498f87fd5dee1ee8770b8b2",
+        "bytes": 3950,
+        "EOF": 129,
+        "source_id": "current-main:33714256b6313ce86fdfbb534c54d92d024d7726:crates/adventuresim-tactical-client/Cargo.toml",
+        "source_object": "adler-continuation-20261030/objects/c39360e6d15abbb62a6ad11effb50a89f79796973498f87fd5dee1ee8770b8b2",
+        "git_blob": "1df3f01892ed8118991c728b186ef34129ca0544",
+        "ranges": [
+          [
+            1,
+            129
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [
+          [
+            1,
+            129
+          ]
+        ]
+      },
+      "assessed_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          129
+        ]
+      ],
+      "fresh_personal_lines": 129,
+      "author": "/root",
+      "output_chunk": "dbb11c",
+      "untruncated_body_status": "Personally consumed complete numbered current manifest after prospective registration.",
+      "lens12_observation": "Current tactical client129 explicitly inherits Bevy29 and core meshgen34. Native target57..58 enables Bevy default features plus file_watcher/jpeg; wasm60..80 disables default features and selects default_app/std/webgpu/2d_bevy_render/3d_bevy_render and other renderer capabilities. Defaults debug/client-audio and optional tracing/required-feature viewer binaries are native Cargo modes. Exact facade/internal/mesh feature forwarding must be inspected before claiming optional Mikk activation. Native target alternatives do not justify a compatibility defect."
+    }
+  ],
+  "fresh_root_personal_source_lines": 339,
+  "source_adoption_performed": false,
+  "original_count_change": 0,
+  "other_population_credit": 0,
+  "accepted_unique_count_change": 0,
+  "prior_core_manifest_candidate": {
+    "receipt": {
+      "path": "segovb/READ-L12-565.json",
+      "sha256": "92a4614e64796b50f28d8fd9e9c3ec4377b59471d31b3aff98de13b30b8c9aee"
+    },
+    "pointer": "/rows/3",
+    "record": {
+      "original_index": 1749,
+      "registration": "segovb/REGISTRATION-SEGOVB-L12-656.json",
+      "registration_sha256": "37ed47e97ab3c1e040157eec3bbf1a963be009382c3f9536f78e1bb255cb48de",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/Cargo.toml",
+      "source_sha256": "a514b1eccfff839c875aaa5148d8299f119beb39ce645dc828e653399b6ef320",
+      "assessed_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          44
+        ]
+      ],
+      "same_lens_reuse": [],
+      "function_contract": {
+        "canonical_owner": "WorkspaceCargo package/dependency/feature/lint metadata and nativecratebuild-system boundaries.",
+        "exact_function_ownership": [
+          "package1..7/features9..12/dependencies14..36/lints38..39/devdependencies41..44"
+        ],
+        "string_inventory": [
+          "Nativepackagename/description2..3/dependencykeys/feature meshgen/avian_debug11..12/derivefeaturetokens16/30 buildsystemports; no privategameplayStringdispatch."
+        ],
+        "producer_internal_api_retained_state_consumer_native_boundary": [
+          "Packageinheritsworkspaceversion/edition/repository/license4..7/lints39, optionalmeshgenbevy_mesh11/nativeavian_debug12 explicitfeaturemodes. Dependencydeclarationsdo notprovecompiledfeatureunion/targetactivation orRustsourcecontracts.",
+          "Actualcurrentmanifest/source/lock separatelyqualified; thisfrozenreadnotbuild/lint/dependencygenerator execution, manifestunaltered."
+        ],
+        "first_failed_contract": "No retainedStringfindingfromnativebuildmetadata.",
+        "connected_repair_scope": "WorkspaceCargo/feature/lint declarations -> actualselectedtargetcrate APIs, onlysourceinspectionauthorized.",
+        "dependencies": [
+          "Actualworkspace/current/sourceifmaterial, no automaticdependencyversionequivalenceorfeatureactivationcredit"
+        ],
+        "acceptance_requirements": [
+          "Fresh1..44; no Cargo/build/test/lint/generator/scanner/manifestedit"
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    }
+  },
+  "prior_core_qualified_now": false,
+  "remaining_feature_sources": [
+    "Qualify earlier same-Lens12 core manifest44 exact current body proof",
+    "Exact locked Bevy facade and bevy_internal feature forwarding and native bevy_mesh optional bevy_mikktspace declaration",
+    "Current mesh input/index/finite/native algorithm admission remains a separate predicate from Cargo feature activation"
+  ],
+  "product_execution": false,
+  "tests_executed": false,
+  "current_semantic_reconciled": false,
+  "implementation_gate_complete": false,
+  "independent_agent_review": false
+}

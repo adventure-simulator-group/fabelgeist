@@ -1,0 +1,487 @@
+{
+  "lens": 13,
+  "status": "Immutable exact ordered source validation173..175 plus six exactownorderedapplications; noauthoritymutation",
+  "frozen_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "frozen_is_not_current_main": true,
+  "necessary_extensions": [],
+  "proposed_next_original": 948,
+  "original_delta_proposed": 13,
+  "overlays_delta": 0,
+  "merged_delta": 0,
+  "shared_delta": 0,
+  "new_source_identity_delta_inferred": 0,
+  "authoritative_counts_changed": false,
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "global_clearance": false,
+  "product_execution": false,
+  "batches": [
+    {
+      "batch": 173,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-173.json",
+        "sha256": "7f98ff76d08b66f6320adc253b8ff5eca1927cb512ed6e76a0fb7fd6d971deed"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-173.json",
+        "sha256": "fd2155422ba1e8a3e99116d9d9fe31abdc514cd856aa77ee66b42cab4e6c3560"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-173-PROPOSAL.json",
+        "sha256": "1455f91260c9ae2fc0e9c912c30710f7a1a32cb193642de3b1feb2ce4ee096f7"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-172-PROPOSAL.json",
+        "sha256": "48ac1fbf84c744a26c54e67571ce95999160d057e085a888bb4b97acb6a1329e"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-173.json",
+          "sha256": "b56ceaf66b00f344635f85292ea8b8b720c3ad89684113724723604db1ae6b8e"
+        }
+      ],
+      "proposed_next_original": 937
+    },
+    {
+      "batch": 174,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-174.json",
+        "sha256": "881cbbcb82860413bd0c81f7eb1603d8db903e7595dcbe4e4b5905a1b6c80475"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-174.json",
+        "sha256": "64a40bc9f3a8ef84b6aadd522302a3d09b946f8c8a7973efe42b40ade0ed697d"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-174-PROPOSAL.json",
+        "sha256": "2dafd8f0dc2374f91faea9f18d3d5a57067d21f5b8f7649a5c173360dd362f64"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-173-PROPOSAL.json",
+        "sha256": "1455f91260c9ae2fc0e9c912c30710f7a1a32cb193642de3b1feb2ce4ee096f7"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-174.json",
+          "sha256": "784e83d26912efc27207f06ed38b75b759de46f823230e20a47d567c90228014"
+        }
+      ],
+      "proposed_next_original": 940
+    },
+    {
+      "batch": 175,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-175.json",
+        "sha256": "e2ed668966571516ecb77a678946cbd45c9616fdba603f145bdb29da709746a3"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-175.json",
+        "sha256": "edf0b0cc6d0e6f1db01fff11b885e5fe3f40f769154f3d2d11873a63974c1728"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-175-PROPOSAL.json",
+        "sha256": "eca7ffdeff649be0bacd1245d66cf24054aa926cbe273d4e253081bdcfca0a6c"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-174-PROPOSAL.json",
+        "sha256": "2dafd8f0dc2374f91faea9f18d3d5a57067d21f5b8f7649a5c173360dd362f64"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-175.json",
+          "sha256": "dc97009a065d59451202ba829763ad12ffc42ebac719305d90ee7325229a9fcd"
+        }
+      ],
+      "proposed_next_original": 948
+    }
+  ],
+  "source_records": [
+    {
+      "original": 935,
+      "source_id": "pr-working:crates/adventuresim-core/src/investigation_action.rs",
+      "sha256": "717288409edb3210de986fef4dcf838525461956d2e686f59a78a781b5e354e2",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 1291,
+      "assessed_ranges": [
+        [
+          1,
+          1291
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-173.json",
+        "sha256": "7f98ff76d08b66f6320adc253b8ff5eca1927cb512ed6e76a0fb7fd6d971deed"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-173.json",
+        "sha256": "b56ceaf66b00f344635f85292ea8b8b720c3ad89684113724723604db1ae6b8e"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personalexecution: exactregistrationpersistedbeforeallfreshuntruncatedbodydisplays. Existingqualifiedownreusesnotreread; exactpriorregistrationpointersresolvedbyID/hash."
+    },
+    {
+      "original": 936,
+      "source_id": "pr-working:crates/adventuresim-core/src/investigation_action/vocabulary.rs",
+      "sha256": "8d67cde0fd321af7ee5bae1c5045bc1adeb4fbe118698c40d194878ed01f5b5e",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 186,
+      "assessed_ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-173.json",
+        "sha256": "7f98ff76d08b66f6320adc253b8ff5eca1927cb512ed6e76a0fb7fd6d971deed"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-173.json",
+        "sha256": "b56ceaf66b00f344635f85292ea8b8b720c3ad89684113724723604db1ae6b8e"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personalexecution: exactregistrationpersistedbeforeallfreshuntruncatedbodydisplays. Existingqualifiedownreusesnotreread; exactpriorregistrationpointersresolvedbyID/hash."
+    },
+    {
+      "original": 938,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_fit.rs",
+      "sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 46,
+      "assessed_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-174.json",
+        "sha256": "881cbbcb82860413bd0c81f7eb1603d8db903e7595dcbe4e4b5905a1b6c80475"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-174.json",
+        "sha256": "784e83d26912efc27207f06ed38b75b759de46f823230e20a47d567c90228014"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personalexecution: exactregistrationpersistedbeforeallfreshuntruncatedbodydisplays. Existingqualifiedownreusesnotreread; exactpriorregistrationpointersresolvedbyID/hash."
+    },
+    {
+      "original": 940,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_surface.rs",
+      "sha256": "9f49d61c21b245ad0793daea4f28f1f74769c76680ef383553454b688c9f6cbd",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 47,
+      "assessed_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-175.json",
+        "sha256": "e2ed668966571516ecb77a678946cbd45c9616fdba603f145bdb29da709746a3"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-175.json",
+        "sha256": "dc97009a065d59451202ba829763ad12ffc42ebac719305d90ee7325229a9fcd"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personalexecution: exactregistrationpersistedbeforeallfreshuntruncatedbodydisplays. Existingqualifiedownreusesnotreread; exactpriorregistrationpointersresolvedbyID/hash."
+    },
+    {
+      "original": 942,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_material.rs",
+      "sha256": "823eb461e0534843b71a2b8199e6428fd9a558cf9bc1387beedf87500bf71f8a",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 17,
+      "assessed_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-175.json",
+        "sha256": "e2ed668966571516ecb77a678946cbd45c9616fdba603f145bdb29da709746a3"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-175.json",
+        "sha256": "dc97009a065d59451202ba829763ad12ffc42ebac719305d90ee7325229a9fcd"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personalexecution: exactregistrationpersistedbeforeallfreshuntruncatedbodydisplays. Existingqualifiedownreusesnotreread; exactpriorregistrationpointersresolvedbyID/hash."
+    },
+    {
+      "original": 946,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_references.rs",
+      "sha256": "e794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 76,
+      "assessed_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-175.json",
+        "sha256": "e2ed668966571516ecb77a678946cbd45c9616fdba603f145bdb29da709746a3"
+      },
+      "read_pointer": "/rows/2",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-175.json",
+        "sha256": "dc97009a065d59451202ba829763ad12ffc42ebac719305d90ee7325229a9fcd"
+      },
+      "registration_pointer": "/sources/2",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personalexecution: exactregistrationpersistedbeforeallfreshuntruncatedbodydisplays. Existingqualifiedownreusesnotreread; exactpriorregistrationpointersresolvedbyID/hash."
+    },
+    {
+      "original": 947,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_references/gameplay.rs",
+      "sha256": "5ea6b74abe83e50e450510c6e28499ad7597e7dddf14a93428184b5ece767263",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 30,
+      "assessed_ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-175.json",
+        "sha256": "e2ed668966571516ecb77a678946cbd45c9616fdba603f145bdb29da709746a3"
+      },
+      "read_pointer": "/rows/3",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-175.json",
+        "sha256": "dc97009a065d59451202ba829763ad12ffc42ebac719305d90ee7325229a9fcd"
+      },
+      "registration_pointer": "/sources/3",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personalexecution: exactregistrationpersistedbeforeallfreshuntruncatedbodydisplays. Existingqualifiedownreusesnotreread; exactpriorregistrationpointersresolvedbyID/hash."
+    }
+  ],
+  "future_same_lens_reuse_proofs": [],
+  "qualified_ordered_reuses": [
+    {
+      "original": 937,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog.rs",
+      "source_sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 614,
+      "assessed_ranges": [
+        [
+          1,
+          614
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-151.json",
+        "sha256": "5b85ebd37c6a36ffe38dd58bf4deb263fcb91b39299e3048d2b0ded88eb761af"
+      },
+      "read_pointer": "/connected/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-151.json",
+        "sha256": "30f23e307245a25586fec3ad8c8cbe16ced702b311ab2ee5e92db71b3675dbb1"
+      },
+      "registration_pointer": "/sources/0",
+      "same_lens_only": true,
+      "fresh_personal_assessed_ranges": [],
+      "early_original_credit": 0,
+      "ordered_credit_proposed_now": 1,
+      "count_once_when_frontier_reaches": true,
+      "git_revision_for_exact_body": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "application": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-174.json",
+        "sha256": "881cbbcb82860413bd0c81f7eb1603d8db903e7595dcbe4e4b5905a1b6c80475"
+      }
+    },
+    {
+      "original": 939,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "source_sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 618,
+      "assessed_ranges": [
+        [
+          1,
+          618
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-122.json",
+        "sha256": "62f0594724d532d6bc9642d1b3af9a3ae07a58f291c39711de06c8dc541e92ed"
+      },
+      "read_pointer": "/connected/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-122-CONNECTED.json",
+        "sha256": "c41c2a68604c1142bd1a2b546cf93faf396a0f4fd60cdd312153623c5e39edd3"
+      },
+      "registration_pointer": "/sources/1",
+      "same_lens_only": true,
+      "fresh_personal_assessed_ranges": [],
+      "early_original_credit": 0,
+      "ordered_credit_proposed_now": 1,
+      "count_once_when_frontier_reaches": true,
+      "git_revision_for_exact_body": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "application": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-174.json",
+        "sha256": "881cbbcb82860413bd0c81f7eb1603d8db903e7595dcbe4e4b5905a1b6c80475"
+      }
+    },
+    {
+      "original": 941,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "source_sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 2053,
+      "assessed_ranges": [
+        [
+          1,
+          2053
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-124.json",
+        "sha256": "990e0ecc9c7261a0cd56ad47cff19c57a2876fbeefa2845742cd2b6e91d61d28"
+      },
+      "read_pointer": "/connected/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-124-CONNECTED.json",
+        "sha256": "284e53117d10c2d303ef3ae2362f729b26cb6a483452dfa28e46960e4a273cd9"
+      },
+      "registration_pointer": "/sources/0",
+      "same_lens_only": true,
+      "fresh_personal_assessed_ranges": [],
+      "early_original_credit": 0,
+      "ordered_credit_proposed_now": 1,
+      "count_once_when_frontier_reaches": true,
+      "git_revision_for_exact_body": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "application": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-175.json",
+        "sha256": "e2ed668966571516ecb77a678946cbd45c9616fdba603f145bdb29da709746a3"
+      }
+    },
+    {
+      "original": 943,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+      "source_sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 49,
+      "assessed_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-128.json",
+        "sha256": "3c695babf454ea7330b998788f97866bbd3a5128e6c584b48c6ebe9cefc8a6d5"
+      },
+      "read_pointer": "/connected/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+        "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+      },
+      "registration_pointer": "/sources/0",
+      "same_lens_only": true,
+      "fresh_personal_assessed_ranges": [],
+      "early_original_credit": 0,
+      "ordered_credit_proposed_now": 1,
+      "count_once_when_frontier_reaches": true,
+      "git_revision_for_exact_body": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "application": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-175.json",
+        "sha256": "e2ed668966571516ecb77a678946cbd45c9616fdba603f145bdb29da709746a3"
+      }
+    },
+    {
+      "original": 944,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "source_sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 185,
+      "assessed_ranges": [
+        [
+          1,
+          185
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-123.json",
+        "sha256": "3c53fb52c0b0f3c90081f516b870595d8e0be4d97f172c7ae96568890c3dc7d6"
+      },
+      "read_pointer": "/connected/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-123-CONNECTED.json",
+        "sha256": "6a39870cdc4cbf6f800f3932b0f29a2dbc9a4244cbca3ed194f69444a52a51a8"
+      },
+      "registration_pointer": "/sources/0",
+      "same_lens_only": true,
+      "fresh_personal_assessed_ranges": [],
+      "early_original_credit": 0,
+      "ordered_credit_proposed_now": 1,
+      "count_once_when_frontier_reaches": true,
+      "git_revision_for_exact_body": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "application": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-175.json",
+        "sha256": "e2ed668966571516ecb77a678946cbd45c9616fdba603f145bdb29da709746a3"
+      }
+    },
+    {
+      "original": 945,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+      "source_sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 219,
+      "assessed_ranges": [
+        [
+          1,
+          219
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-128.json",
+        "sha256": "3c695babf454ea7330b998788f97866bbd3a5128e6c584b48c6ebe9cefc8a6d5"
+      },
+      "read_pointer": "/connected/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+        "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+      },
+      "registration_pointer": "/sources/1",
+      "same_lens_only": true,
+      "fresh_personal_assessed_ranges": [],
+      "early_original_credit": 0,
+      "ordered_credit_proposed_now": 1,
+      "count_once_when_frontier_reaches": true,
+      "git_revision_for_exact_body": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "application": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-175.json",
+        "sha256": "e2ed668966571516ecb77a678946cbd45c9616fdba603f145bdb29da709746a3"
+      }
+    }
+  ],
+  "proposed_finding_provenance": [],
+  "qualifications": [
+    "Sevenfreshsourcebodies+sixexactownorderedreuses; nopersonalreadinvention/current/foreigntransfer. Numericconnectedscopes/qualificationsretained."
+  ]
+}

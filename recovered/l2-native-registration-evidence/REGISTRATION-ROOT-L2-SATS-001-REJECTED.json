@@ -1,0 +1,28 @@
+{
+  "schema": "726-rejected-prospective-registration-v1",
+  "reason": "Requested sats.rs700..760 exceeded actual EOF752; no successful registration or read credited.",
+  "attempted_ranges": {
+    "src/lib.rs": [
+      [
+        244,
+        295
+      ]
+    ],
+    "src/sats.rs": [
+      [
+        1,
+        190
+      ],
+      [
+        331,
+        480
+      ],
+      [
+        700,
+        760
+      ]
+    ]
+  },
+  "correction": "Register explicit700..752 trailing attribute/transparent conversion scope; preserve rejected request rather than generic clipping.",
+  "new_body_credit": 0
+}

@@ -1,0 +1,94 @@
+{
+  "schema": "726-l2-primary-observations-v1",
+  "source_output_ordinal": 73278,
+  "recorded_exit_code": 1,
+  "output_excerpt": [
+    "ADLER-L11-DIALOGUE-ANSWER-RECEIPT",
+    "FIRST Committed receipt proves prompt-scoped action identity, not equality of retried selected choices.",
+    "OWNER DialogueAction request receipt and admitted ballot at choose_dialogue_topic/answer_dialogue_prompt; reuse canonical prompt/choice/mode/policy owners.",
+    "SEGOVB-L11-CONTRACT-ABANDON-PARTY-ACTIVE-RELATION",
+    "FIRST Authority admission at abandon_contract must bind requested accepted contract to current active Party before any linked-state transition. Historical accepted_by alone is insufficient.",
+    "OWNER abandon_contract ContractAuthority/Party lifecycle relation; same failed contract across direct/queued/HTTP routes is one connected repair scope, not new aliases from common remedy",
+    "SEGOVB-L11-CONTRACT-ABANDON-HTTP-RESULT",
+    "FIRST abandon_quest345..352 discards Result from execute_or_request_party_action, so rejected native/queued request is followed by ordinary settlement redirect without retaining causal outcome in this function.",
+    "OWNER quests::abandon_quest action outcome and user-visible recovery handoff",
+    "SEGOVB-L12-HOSTILE-THREAT-DROP-PRIVATE-READMISSION",
+    "FIRST hostile_group_authority_row already admits canonical ThreatId but separate private autoresolve_drop API151 accepts the raw string and reparses152 rather than consuming the admitted identity/profile. Actual private readmission confirmed across own full READ283/284, final native storage is later.",
+    "OWNER Existing adventuresim_core::bestiary::ThreatId and its canonical profile combat escalation/loot data; no new duplicate threat enum.",
+    "SEGOVB-L12-COND-OPTIONAL-ROAD-TRIAL-CONTINUE",
+    "FIRST When anopenErrantry RoadChallenge is admitted at exactboundcamp, continue_camp_travel884 invokes guardREG133873..892 which rejectsanyopenboundchallenge before any localignore; documented optionalcourtesy contract REG1141460..1462 says simplycontinuing ignores it. Coreboundcampadmission and currentpolicy neededbeforepromotion.",
+    "OWNER Actual RoadChallengeAuthority/NarrativeEncounterPrivateAuthority origin, coreerrantry campmatching and explicitoptional narrative continuation policy.",
+    "SEGOVB-L1-NARRATIVE-COMBAT-TERMINAL-MAPPING",
+    "FIRST Current resolve_random_encounter_battle1090..1096 emits timeout/mutual_incapacitation for admitted BattleResolution terminals; before native encounter update, resolve_narrative_combat_followup1060 calls resolved_combat_outcome220..228 which rejects both. Narrative followup consumer does not admit all actual battle producer terminals.",
+    "OWNER Canonical relationship between core BattleResolution, broader strategic encounter outcome and road_encounter_catalog::CombatOutcomeKind, with deliberate narrative terminal mapping; no duplicate enum or obsolete stalemate preservation mandated."
+  ],
+  "records": [
+    {
+      "key": "ADLER-L11-DIALOGUE-ANSWER-RECEIPT",
+      "contract_id": "ADLER-L11-DIALOGUE-ANSWER-RECEIPT",
+      "matched_terms": [
+        "errantry"
+      ],
+      "observed_first_contract": "Committed receipt proves prompt-scoped action identity, not equality of retried selected choices.",
+      "observed_canonical_owner": "DialogueAction request receipt and admitted ballot at choose_dialogue_topic/answer_dialogue_prompt; reuse canonical prompt/choice/mode/policy owners.",
+      "writer_disposition": "distinct-recorded-first-predicate",
+      "writer_reason": "Recorded operation is dialogue retry/choice equality, HTTP action outcome, ThreatId private readmission, optional trial continuation, or battle terminal mapping as quoted; each differs from the selected key/minute/bound-site owner predicates."
+    },
+    {
+      "key": "SEGOVB-L11-CONTRACT-ABANDON-PARTY-ACTIVE-RELATION",
+      "contract_id": "SEGOVB-L11-CONTRACT-ABANDON-PARTY-ACTIVE-RELATION",
+      "matched_terms": [
+        "segovb-l11-contract-abandon"
+      ],
+      "observed_first_contract": "Authority admission at abandon_contract must bind requested accepted contract to current active Party before any linked-state transition. Historical accepted_by alone is insufficient.",
+      "observed_canonical_owner": "abandon_contract ContractAuthority/Party lifecycle relation; same failed contract across direct/queued/HTTP routes is one connected repair scope, not new aliases from common remedy",
+      "writer_disposition": "existing-related-canonical-repair",
+      "writer_reason": "Same active-contract relation independently traced in own contract source; retain existing canonical record rather than a new bug. It is distinct from the mixed identity parent."
+    },
+    {
+      "key": "SEGOVB-L11-CONTRACT-ABANDON-HTTP-RESULT",
+      "contract_id": "SEGOVB-L11-CONTRACT-ABANDON-HTTP-RESULT",
+      "matched_terms": [
+        "segovb-l11-contract-abandon"
+      ],
+      "observed_first_contract": "abandon_quest345..352 discards Result from execute_or_request_party_action, so rejected native/queued request is followed by ordinary settlement redirect without retaining causal outcome in this function.",
+      "observed_canonical_owner": "quests::abandon_quest action outcome and user-visible recovery handoff",
+      "writer_disposition": "distinct-recorded-first-predicate",
+      "writer_reason": "Recorded operation is dialogue retry/choice equality, HTTP action outcome, ThreatId private readmission, optional trial continuation, or battle terminal mapping as quoted; each differs from the selected key/minute/bound-site owner predicates."
+    },
+    {
+      "key": "SEGOVB-L12-HOSTILE-THREAT-DROP-PRIVATE-READMISSION",
+      "contract_id": "SEGOVB-L12-HOSTILE-THREAT-DROP-PRIVATE-READMISSION",
+      "matched_terms": [
+        "errantry"
+      ],
+      "observed_first_contract": "hostile_group_authority_row already admits canonical ThreatId but separate private autoresolve_drop API151 accepts the raw string and reparses152 rather than consuming the admitted identity/profile. Actual private readmission confirmed across own full READ283/284, final native storage is later.",
+      "observed_canonical_owner": "Existing adventuresim_core::bestiary::ThreatId and its canonical profile combat escalation/loot data; no new duplicate threat enum.",
+      "writer_disposition": "distinct-recorded-first-predicate",
+      "writer_reason": "Recorded operation is dialogue retry/choice equality, HTTP action outcome, ThreatId private readmission, optional trial continuation, or battle terminal mapping as quoted; each differs from the selected key/minute/bound-site owner predicates."
+    },
+    {
+      "key": "SEGOVB-L12-COND-OPTIONAL-ROAD-TRIAL-CONTINUE",
+      "contract_id": "SEGOVB-L12-COND-OPTIONAL-ROAD-TRIAL-CONTINUE",
+      "matched_terms": [
+        "errantry"
+      ],
+      "observed_first_contract": "When anopenErrantry RoadChallenge is admitted at exactboundcamp, continue_camp_travel884 invokes guardREG133873..892 which rejectsanyopenboundchallenge before any localignore; documented optionalcourtesy contract REG1141460..1462 says simplycontinuing ignores it. Coreboundcampadmission and currentpolicy neededbeforepromotion.",
+      "observed_canonical_owner": "Actual RoadChallengeAuthority/NarrativeEncounterPrivateAuthority origin, coreerrantry campmatching and explicitoptional narrative continuation policy.",
+      "writer_disposition": "distinct-recorded-first-predicate",
+      "writer_reason": "Recorded operation is dialogue retry/choice equality, HTTP action outcome, ThreatId private readmission, optional trial continuation, or battle terminal mapping as quoted; each differs from the selected key/minute/bound-site owner predicates."
+    },
+    {
+      "key": "SEGOVB-L1-NARRATIVE-COMBAT-TERMINAL-MAPPING",
+      "contract_id": "SEGOVB-L1-NARRATIVE-COMBAT-TERMINAL-MAPPING",
+      "matched_terms": [
+        "errantry"
+      ],
+      "observed_first_contract": "Current resolve_random_encounter_battle1090..1096 emits timeout/mutual_incapacitation for admitted BattleResolution terminals; before native encounter update, resolve_narrative_combat_followup1060 calls resolved_combat_outcome220..228 which rejects both. Narrative followup consumer does not admit all actual battle producer terminals.",
+      "observed_canonical_owner": "Canonical relationship between core BattleResolution, broader strategic encounter outcome and road_encounter_catalog::CombatOutcomeKind, with deliberate narrative terminal mapping; no duplicate enum or obsolete stalemate preservation mandated.",
+      "writer_disposition": "distinct-recorded-first-predicate",
+      "writer_reason": "Recorded operation is dialogue retry/choice equality, HTTP action outcome, ThreatId private readmission, optional trial continuation, or battle terminal mapping as quoted; each differs from the selected key/minute/bound-site owner predicates."
+    }
+  ],
+  "qualification": "Six observations were printed before a later master-ledger lookup failed. The source output proves only the earlier ledger observation; an intervening ledger change before the later comparison has not been excluded. These are not original index or comparison bytes and confer no credit."
+}

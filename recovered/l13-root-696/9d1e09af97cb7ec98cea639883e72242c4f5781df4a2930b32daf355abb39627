@@ -1,0 +1,488 @@
+{
+  "at": "2026-11-01T17:58:55.177414+00:00",
+  "author": "/root",
+  "kind": "Metadata-only exact source/hash prior navigation before any fresh body display or new reuse claim",
+  "frontier": 2632,
+  "prior_same_lens_receipts_authenticated": 699,
+  "entries": [
+    {
+      "original": 2632,
+      "registry_entry": {
+        "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-gpu\\src\\data\\gpu\\buffer\\definition.rs",
+        "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+        "bytes": 3925,
+        "actual_line_count": 138,
+        "scope_kind": "materially_reached_admission_contract",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            1,
+            135
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 87,
+            "registration_id": "RIG-ADMISSION03-REGISTER-087",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REGISTER-087",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-gpu\\src\\data\\gpu\\buffer\\definition.rs",
+              "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+              "actual_EOF": 138,
+              "material_ranges": [
+                [
+                  1,
+                  135
+                ]
+              ],
+              "reason": "Direct BufferDefinition/BufferUse constructor/builder/allocate_native called by assignedBuffer.new638; establishlogicalversusphysicalextent andrawusageadmission beforecurrentGPUbyteclaims.",
+              "exclusions": "Onlydirectcurrentconstructor/helper/receiverrole. No unrelatedauthoringfeature/tests/foreignpackage/laterlens.",
+              "status": "registered_before_bounded_actual_admission_analysis",
+              "at": "2026-10-22T11:03:53.215090+00:00"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                1,
+                135
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-gpu\\src\\data\\gpu\\buffer\\definition.rs",
+            "actual_EOF": 138,
+            "bytes": 3925
+          }
+        ],
+        "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      }
+    },
+    {
+      "original": 2633,
+      "registry_entry": {
+        "source_id": "pr-working:crates/fabelgeist-cloth/src/topology.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-cloth\\src\\topology.rs",
+        "sha256": "41dff2a972cd895174727de04e1407c5594a27e1682b4928dff8480db68e07da",
+        "bytes": 39,
+        "actual_line_count": 1,
+        "scope_kind": "materially_reached_admission_contract",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            1,
+            1
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 88,
+            "registration_id": "RIG-ADMISSION03-REGISTER-088",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REGISTER-088",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/fabelgeist-cloth/src/topology.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-cloth\\src\\topology.rs",
+              "sha256": "41dff2a972cd895174727de04e1407c5594a27e1682b4928dff8480db68e07da",
+              "actual_EOF": 1,
+              "material_ranges": [
+                [
+                  1,
+                  1
+                ]
+              ],
+              "reason": "Actual direct topology reexport used by newly reached cloth GarmentMesh.mass/build; identifytruecanonicalShell topology701, no duplicatebodygraph.",
+              "exclusions": "Directcurrentproductionrolesonly; no unrelatedclothfeature/tests/foreignpackage/laterlens.",
+              "status": "registered_before_bounded_actual_admission_analysis",
+              "at": "2026-10-22T11:05:20.274308+00:00"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                1,
+                1
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-cloth\\src\\topology.rs",
+            "actual_EOF": 1,
+            "bytes": 39
+          }
+        ],
+        "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      }
+    },
+    {
+      "original": 2634,
+      "registry_entry": {
+        "source_id": "pr-working:crates/fabelgeist-cloth/src/triangulate/mod.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-cloth\\src\\triangulate\\mod.rs",
+        "sha256": "18e60b537352a1753963980da26dd94705dee8a4b44232dece7c90fa07d8416b",
+        "bytes": 14820,
+        "actual_line_count": 413,
+        "scope_kind": "materially_reached_admission_contract",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            1,
+            410
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 89,
+            "registration_id": "RIG-ADMISSION03-REGISTER-089",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REGISTER-089",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/fabelgeist-cloth/src/triangulate/mod.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-cloth\\src\\triangulate\\mod.rs",
+              "sha256": "18e60b537352a1753963980da26dd94705dee8a4b44232dece7c90fa07d8416b",
+              "actual_EOF": 413,
+              "material_ranges": [
+                [
+                  1,
+                  410
+                ]
+              ],
+              "reason": "Actual PanelMesh/triangulate_with_segments andnecessaryboundary/interior/Delaunay helperproduction called by currentGarmentBuild; needed targetedge/outline admission andsemantic outputmembership. Tests412+excluded.",
+              "exclusions": "Directcurrentproductionrolesonly; no unrelatedclothfeature/tests/foreignpackage/laterlens.",
+              "status": "registered_before_bounded_actual_admission_analysis",
+              "at": "2026-10-22T11:05:20.287284+00:00"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                1,
+                410
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-cloth\\src\\triangulate\\mod.rs",
+            "actual_EOF": 413,
+            "bytes": 14820
+          }
+        ],
+        "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      }
+    },
+    {
+      "original": 2635,
+      "registry_entry": {
+        "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-gpu\\src\\data\\gpu\\compute\\pipeline\\compute_shader.rs",
+        "sha256": "1c55bd7318aad5de90e1269947be86e50e89d12439d37c0bba301f30d05a7668",
+        "bytes": 2947,
+        "actual_line_count": 88,
+        "scope_kind": "materially_reached_admission_contract",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            1,
+            88
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 90,
+            "registration_id": "RIG-ADMISSION03-REGISTER-090",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REGISTER-090",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-gpu\\src\\data\\gpu\\compute\\pipeline\\compute_shader.rs",
+              "sha256": "1c55bd7318aad5de90e1269947be86e50e89d12439d37c0bba301f30d05a7668",
+              "actual_EOF": 88,
+              "material_ranges": [
+                [
+                  1,
+                  88
+                ]
+              ],
+              "reason": "Direct ComputeShader declaration/default/new routes called by assignedKernel619 andComputePipeline642; qualifyactualnativeparsed/pendingstate andpubliccode/modulecorrelation.",
+              "exclusions": "Directnativecontractonly; no foreignGPUbackend/Blitter/presentation featuregraph/tests beyondexplicitowneddefinition.",
+              "status": "registered_before_bounded_actual_admission_analysis",
+              "at": "2026-10-22T11:08:20.100774+00:00"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                1,
+                88
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-gpu\\src\\data\\gpu\\compute\\pipeline\\compute_shader.rs",
+            "actual_EOF": 88,
+            "bytes": 2947
+          }
+        ],
+        "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      }
+    },
+    {
+      "original": 2636,
+      "registry_entry": {
+        "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-gpu\\src\\data\\gpu\\compute\\pipeline\\reflection.rs",
+        "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+        "bytes": 7584,
+        "actual_line_count": 209,
+        "scope_kind": "materially_reached_admission_contract",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            1,
+            209
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 91,
+            "registration_id": "RIG-ADMISSION03-REGISTER-091",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REGISTER-091",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-gpu\\src\\data\\gpu\\compute\\pipeline\\reflection.rs",
+              "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+              "actual_EOF": 209,
+              "material_ranges": [
+                [
+                  1,
+                  209
+                ]
+              ],
+              "reason": "Direct ReflectedInterface.new/schema/layout/member-size generator called by actualComputePipeline.prepare642; qualifyrequirednativeuniformsize metadata andgroup ordering for F058.",
+              "exclusions": "Directnativecontractonly; no foreignGPUbackend/Blitter/presentation featuregraph/tests beyondexplicitowneddefinition.",
+              "status": "registered_before_bounded_actual_admission_analysis",
+              "at": "2026-10-22T11:08:20.109871+00:00"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                1,
+                209
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-gpu\\src\\data\\gpu\\compute\\pipeline\\reflection.rs",
+            "actual_EOF": 209,
+            "bytes": 7584
+          }
+        ],
+        "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      }
+    },
+    {
+      "original": 2637,
+      "registry_entry": {
+        "source_id": "pr-working:crates/fabelgeist-hair/src/head.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-hair\\src\\head.rs",
+        "sha256": "5d1dcadadba0fa88cbd668791a3a995a7ef83af5fdbaa3b699b828531f339335",
+        "bytes": 17623,
+        "actual_line_count": 475,
+        "scope_kind": "materially_reached_admission_contract",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            1,
+            283
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 93,
+            "registration_id": "RIG-ADMISSION03-REGISTER-093",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REGISTER-093",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/fabelgeist-hair/src/head.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-hair\\src\\head.rs",
+              "sha256": "5d1dcadadba0fa88cbd668791a3a995a7ef83af5fdbaa3b699b828531f339335",
+              "actual_EOF": 475,
+              "material_ranges": [
+                [
+                  1,
+                  283
+                ]
+              ],
+              "reason": "Actual Head/Ellipsoid/Capsule declaration and direct SDF/gradient/elevation/azimuth/scalp wrapper contracts consumed by Hairdo/Follicles; surface_nets implementation284+ excluded.",
+              "exclusions": "Only direct current admission contracts. No unrelated hair feature or foreign graph; no execution/new cases/other lens.",
+              "status": "registered_before_bounded_actual_admission_analysis",
+              "at": "2026-10-22T11:17:45.736592+00:00"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                1,
+                283
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-hair\\src\\head.rs",
+            "actual_EOF": 475,
+            "bytes": 17623
+          }
+        ],
+        "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      }
+    },
+    {
+      "original": 2638,
+      "registry_entry": {
+        "source_id": "pr-working:crates/fabelgeist-hair/src/haircut.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-hair\\src\\haircut.rs",
+        "sha256": "707b015e87fe4c3b69df96658a1f904b186775ff7d80b7e3f2a3b68fb9a0f02b",
+        "bytes": 12855,
+        "actual_line_count": 409,
+        "scope_kind": "materially_reached_admission_contract",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            1,
+            373
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 94,
+            "registration_id": "RIG-ADMISSION03-REGISTER-094",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REGISTER-094",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/fabelgeist-hair/src/haircut.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-hair\\src\\haircut.rs",
+              "sha256": "707b015e87fe4c3b69df96658a1f904b186775ff7d80b7e3f2a3b68fb9a0f02b",
+              "actual_EOF": 409,
+              "material_ranges": [
+                [
+                  1,
+                  373
+                ]
+              ],
+              "reason": "Direct Hairdo cut.length/longest/clipped/line and GPU longest-path source; production declarations/factories/Serde only, original unrelated tests374+ excluded.",
+              "exclusions": "Only direct current admission contracts. No unrelated hair feature or foreign graph; no execution/new cases/other lens.",
+              "status": "registered_before_bounded_actual_admission_analysis",
+              "at": "2026-10-22T11:17:45.736592+00:00"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                1,
+                373
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-hair\\src\\haircut.rs",
+            "actual_EOF": 409,
+            "bytes": 12855
+          }
+        ],
+        "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      }
+    },
+    {
+      "original": 2639,
+      "registry_entry": {
+        "source_id": "pr-working:crates/fabelgeist-hair/src/hairstyle.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-hair\\src\\hairstyle.rs",
+        "sha256": "b5f8a3df2ec5973448ef2183c300de94346d3a00051e77fb1ed61a8c98ec68a2",
+        "bytes": 5361,
+        "actual_line_count": 173,
+        "scope_kind": "materially_reached_admission_contract",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            1,
+            173
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 95,
+            "registration_id": "RIG-ADMISSION03-REGISTER-095",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REGISTER-095",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/fabelgeist-hair/src/hairstyle.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-hair\\src\\hairstyle.rs",
+              "sha256": "b5f8a3df2ec5973448ef2183c300de94346d3a00051e77fb1ed61a8c98ec68a2",
+              "actual_EOF": 173,
+              "material_ranges": [
+                [
+                  1,
+                  173
+                ]
+              ],
+              "reason": "Direct Hairdo style declaration/factory/Serde/stands/sweep used by retained comb and packed native upload.",
+              "exclusions": "Only direct current admission contracts. No unrelated hair feature or foreign graph; no execution/new cases/other lens.",
+              "status": "registered_before_bounded_actual_admission_analysis",
+              "at": "2026-10-22T11:17:45.736592+00:00"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                1,
+                173
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-hair\\src\\hairstyle.rs",
+            "actual_EOF": 173,
+            "bytes": 5361
+          }
+        ],
+        "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      }
+    }
+  ],
+  "exact_hash_prior_hits": [],
+  "exact_hash_leaves": [],
+  "future_same_lens_proofs_navigation": [],
+  "prior_applications_preserved_navigation": [],
+  "body_credit": 0,
+  "authority_changes": 0,
+  "product_execution": false
+}

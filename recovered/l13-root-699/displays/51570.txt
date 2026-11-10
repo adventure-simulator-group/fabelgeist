@@ -1,0 +1,284 @@
+SOURCE 2659 pr-working:crates/fabelgeist-shell/src/selfcollision.rs
+1: //! Cloth against itself, through a uniform spatial hash.
+2: //!
+3: //! Rebuilt from scratch every substep: hash each particle into a bucket, sort
+4: //! by bucket, record where each bucket starts, then have every particle look
+5: //! at the 27 buckets around it. A hierarchy would be the wrong tool -- the
+6: //! particles are all the same size and roughly evenly spread, which is the one
+7: //! case a grid wins outright.
+8: 
+9: use fabelgeist_gpu::prelude::BufferUpload;
+10: use std::sync::Arc;
+11: 
+12: use anyhow::anyhow;
+13: use fabelgeist_compute::prelude::*;
+14: use fabelgeist_gpu::prelude::*;
+15: use fabelgeist_xpbd::{Particles, SubstepHook};
+16: 
+17: use crate::wgsl;
+18: 
+19: /// The hash grid, its buffers, and the passes over them.
+20: pub struct SelfCollision {
+21:     hash: Arc<Kernel>,
+22:     clear_ranges: Arc<Kernel>,
+23:     cell_ranges: Arc<Kernel>,
+24:     collide: Arc<Kernel>,
+25:     apply: Arc<Kernel>,
+26:     sort: RadixSort,
+27: 
+28:     cells: Buffer,
+29:     indices: Buffer,
+30:     starts: Buffer,
+31:     corrections: Buffer,
+32:     /// Flat adjacency: for particle `i`, `neighbours[starts[i]..starts[i+1]]`.
+33:     neighbour_starts: Buffer,
+34:     neighbours: Buffer,
+35:     scratch: SortScratch,
+36: 
+37:     table_size: u32,
+38:     capacity: u32,
+39:     /// Particles closer than twice this are pushed apart. Half the fabric
+40:     /// thickness, so two layers rest one thickness apart.
+41:     pub radius: f32,
+42:     /// Grid spacing. Equal to the interaction diameter, so that the 27
+43:     /// neighbouring buckets are guaranteed to hold every particle in range.
+44:     spacing: f32,
+45:     pub enabled: bool,
+46:     /// Whether a grid has been built at least once.
+47:     built: bool,
+48: }
+49: 
+50: impl SelfCollision {
+51:     /// `adjacency` is, per particle, the particles it already shares a mesh
+52:     /// edge with. Those pairs are skipped: a stretch constraint is already
+53:     /// holding them at the right distance, and pushing them apart as well
+54:     /// would inflate the fabric.
+55:     pub fn new(
+56:         context: &WgpuContext,
+57:         cache: &KernelCache,
+58:         particle_count: u32,
+59:         adjacency: &[Vec<u32>],
+60:         radius: f32,
+61:     ) -> Result<Self> {
+62:         if adjacency.len() as u32 != particle_count {
+63:             return Err(anyhow!(
+64:                 "SelfCollision: {particle_count} particles but {} adjacency lists",
+65:                 adjacency.len()
+66:             ));
+67:         }
+68:         let capacity = particle_count.max(1);
+69:         // Roughly two buckets per particle keeps the occupancy low enough that
+70:         // a bucket is a handful of entries, and the memory is trivial.
+71:         let table_size = (capacity * 2).next_power_of_two().max(64);
+72: 
+73:         let mut starts_data = Vec::with_capacity(capacity as usize + 1);
+74:         let mut flat = Vec::new();
+75:         for list in adjacency {
+76:             starts_data.push(flat.len() as u32);
+77:             flat.extend_from_slice(list);
+78:         }
+79:         starts_data.push(flat.len() as u32);
+80:         if flat.is_empty() {
+81:             // A zero-length buffer cannot be allocated; the ranges are all
+82:             // empty so nothing reads it.
+83:             flat.push(0);
+84:         }
+85: 
+86:         let storage = BufferDefinition::storage();
+87:         Ok(Self {
+88:             hash: cache.get(context, wgsl::HASH)?,
+89:             clear_ranges: cache.get(context, wgsl::CLEAR_RANGES)?,
+90:             cell_ranges: cache.get(context, wgsl::CELL_RANGES)?,
+91:             collide: cache.get(context, wgsl::SELF_COLLIDE)?,
+92:             apply: cache.get(context, wgsl::APPLY_CORRECTIONS)?,
+93:             sort: RadixSort::with_cache(context, cache)?,
+94: 
+95:             cells: Buffer::new(
+96:                 context,
+97:                 (capacity as u64 * 4).into(),
+98:                 storage.clone().with_label(("self-collision cells").into()),
+99:             )?,
+100:             indices: Buffer::new(
+101:                 context,
+102:                 (capacity as u64 * 4).into(),
+103:                 storage
+104:                     .clone()
+105:                     .with_label(("self-collision indices").into()),
+106:             )?,
+107:             starts: Buffer::new(
+108:                 context,
+109:                 ((table_size as u64 + 1) * 4).into(),
+110:                 storage
+111:                     .clone()
+112:                     .with_label(("self-collision buckets").into()),
+113:             )?,
+114:             corrections: Buffer::new(
+115:                 context,
+116:                 (capacity as u64 * 16).into(),
+117:                 storage
+118:                     .clone()
+119:                     .with_label(("self-collision corrections").into()),
+120:             )?,
+121:             neighbour_starts: Buffer::from_upload(
+122:                 context,
+123:                 BufferUpload::from_elements(&starts_data),
+124:                 storage
+125:                     .clone()
+126:                     .with_label(("self-collision adjacency starts").into()),
+127:             )?,
+128:             neighbours: Buffer::from_upload(
+129:                 context,
+130:                 BufferUpload::from_elements(&flat),
+131:                 storage.with_label(("self-collision adjacency").into()),
+132:             )?,
+133:             scratch: SortScratch::new(context, capacity)?,
+134: 
+135:             table_size,
+136:             capacity,
+137:             radius,
+138:             spacing: radius * 2.0,
+139:             enabled: true,
+140:             built: false,
+141:         })
+142:     }
+143: 
+144:     /// Build the adjacency the constructor wants from a mesh's edges.
+145:     pub fn adjacency(particle_count: usize, edges: &[[u32; 2]]) -> Vec<Vec<u32>> {
+146:         let mut adjacency = vec![Vec::new(); particle_count];
+147:         for &[a, b] in edges {
+148:             adjacency[a as usize].push(b);
+149:             adjacency[b as usize].push(a);
+150:         }
+151:         adjacency
+152:     }
+153: 
+154:     pub fn set_radius(&mut self, radius: f32) {
+155:         self.radius = radius;
+156:         self.spacing = radius * 2.0;
+157:         self.built = false;
+158:     }
+159: 
+160:     /// Record one self-collision pass.
+161:     ///
+162:     /// Rebuild after integration or constraint corrections: even a small
+163:     /// displacement can cross a hash cell boundary. Reuse is valid only when
+164:     /// every particle remains in its previously hashed cell. Cloth rebuilds
+165:     /// before and after its structural solve to satisfy that requirement.
+166:     pub fn record(
+167:         &mut self,
+168:         batch: &mut KernelBatch,
+169:         particles: &Particles,
+170:         rebuild: bool,
+171:     ) -> Result<()> {
+172:         if !self.enabled {
+173:             return Ok(());
+174:         }
+175:         let count = particles.count();
+176:         if count < 2 {
+177:             return Ok(());
+178:         }
+179:         if count > self.capacity {
+180:             return Err(anyhow!(
+181:                 "SelfCollision: built for {} particles, given {count}",
+182:                 self.capacity
+183:             ));
+184:         }
+185: 
+186:         let inverse_spacing = 1.0 / self.spacing;
+187: 
+188:         if !rebuild && !self.built {
+189:             // Nothing to collide against yet: the first substep after a
+190:             // rebuild-less start still has to build one.
+191:             return self.record(batch, particles, true);
+192:         }
+193:         if !rebuild {
+194:             return self.record_collide(batch, particles, inverse_spacing);
+195:         }
+196:         self.built = true;
+197: 
+198:         let mut hash_parameters = PassParameters::new();
+199:         hash_parameters.insert("positions", particles.positions.clone());
+200:         hash_parameters.insert("cells", self.cells.clone());
+201:         hash_parameters.insert("indices", self.indices.clone());
+202:         hash_parameters.insert("count", count);
+203:         hash_parameters.insert("table_size", self.table_size);
+204:         hash_parameters.insert("inverse_spacing", inverse_spacing);
+205:         hash_parameters.insert("pad", 0u32);
+206:         batch.dispatch_items(&self.hash, &hash_parameters, count)?;
+207: 
+208:         // Sorting the indices by bucket is what makes a bucket contiguous.
+209:         self.sort.record(
+210:             batch,
+211:             &self.cells,
+212:             &self.indices,
+213:             &mut self.scratch,
+214:             count,
+215:             32,
+216:         )?;
+217: 
+218:         let mut clear_parameters = PassParameters::new();
+219:         clear_parameters.insert("starts", self.starts.clone());
+220:         clear_parameters.insert("table_size", self.table_size);
+221:         clear_parameters.insert("count", count);
+222:         clear_parameters.insert("pad0", 0u32);
+223:         clear_parameters.insert("pad1", 0u32);
+224:         batch.dispatch_items(&self.clear_ranges, &clear_parameters, self.table_size + 1)?;
+225: 
+226:         let mut range_parameters = PassParameters::new();
+227:         range_parameters.insert("cells", self.cells.clone());
+228:         range_parameters.insert("starts", self.starts.clone());
+229:         range_parameters.insert("count", count);
+230:         range_parameters.insert("table_size", self.table_size);
+231:         range_parameters.insert("pad0", 0u32);
+232:         range_parameters.insert("pad1", 0u32);
+233:         batch.dispatch_items(&self.cell_ranges, &range_parameters, count)?;
+234: 
+235:         self.record_collide(batch, particles, inverse_spacing)
+236:     }
+237: 
+238:     /// The collision itself: two dispatches against whatever grid is current.
+239:     fn record_collide(
+240:         &mut self,
+241:         batch: &mut KernelBatch,
+242:         particles: &Particles,
+243:         inverse_spacing: f32,
+244:     ) -> Result<()> {
+245:         let count = particles.count();
+246:         let mut collide_parameters = PassParameters::new();
+247:         collide_parameters.insert("positions", particles.positions.clone());
+248:         collide_parameters.insert("cells", self.cells.clone());
+249:         collide_parameters.insert("sorted", self.indices.clone());
+250:         collide_parameters.insert("starts", self.starts.clone());
+251:         collide_parameters.insert("corrections", self.corrections.clone());
+252:         collide_parameters.insert("neighbour_starts", self.neighbour_starts.clone());
+253:         collide_parameters.insert("neighbours", self.neighbours.clone());
+254:         collide_parameters.insert("count", count);
+255:         collide_parameters.insert("table_size", self.table_size);
+256:         collide_parameters.insert("inverse_spacing", inverse_spacing);
+257:         collide_parameters.insert("radius", self.radius);
+258:         batch.dispatch_items(&self.collide, &collide_parameters, count)?;
+259: 
+260:         let mut apply_parameters = PassParameters::new();
+261:         apply_parameters.insert("positions", particles.positions.clone());
+262:         apply_parameters.insert("corrections", self.corrections.clone());
+263:         apply_parameters.insert("count", count);
+264:         apply_parameters.insert("pad0", 0u32);
+265:         apply_parameters.insert("pad1", 0u32);
+266:         apply_parameters.insert("pad2", 0u32);
+267:         batch.dispatch_items(&self.apply, &apply_parameters, count)?;
+268: 
+269:         Ok(())
+270:     }
+271: }
+272: 
+273: impl SubstepHook for SelfCollision {
+274:     fn record(
+275:         &mut self,
+276:         batch: &mut KernelBatch,
+277:         particles: &Particles,
+278:         _substep: f32,
+279:     ) -> Result<()> {
+280:         // Integration can move particles across cell boundaries.
+281:         SelfCollision::record(self, batch, particles, true)
+282:     }
+283: }

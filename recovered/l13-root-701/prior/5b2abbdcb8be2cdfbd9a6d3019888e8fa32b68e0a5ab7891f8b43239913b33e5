@@ -1,0 +1,102 @@
+{
+  "lens": 13,
+  "namespace": "PL13-025",
+  "status": "Prospective literal and actual nontext contracts",
+  "sources": [
+    {
+      "original": 498,
+      "source_id": "pr-working:Cargo.toml",
+      "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+      "scope_kind": "frozen_requested_change",
+      "source_revision": "pr-working exact frozen original",
+      "purpose": "Ordered L13 manifest/config and actual visual/deleted asset contracts; no empty text range coverage for PNG.",
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+      "material_kind": "text",
+      "actual_eof": 221,
+      "prospective_ranges": [
+        [
+          1,
+          221
+        ]
+      ]
+    },
+    {
+      "original": 499,
+      "source_id": "pr-working:assets/config/tactical-graphics.yaml",
+      "sha256": "b922faa3643a9e55508cbf50304273912d9be0b7e0282d271f1b243c75c40307",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "source_revision": "pr-working exact frozen original",
+      "purpose": "Ordered L13 manifest/config and actual visual/deleted asset contracts; no empty text range coverage for PNG.",
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/b922faa3643a9e55508cbf50304273912d9be0b7e0282d271f1b243c75c40307",
+      "material_kind": "text",
+      "actual_eof": 96,
+      "prospective_ranges": [
+        [
+          1,
+          96
+        ]
+      ]
+    },
+    {
+      "original": 500,
+      "source_id": "pr-working:assets/equipment/procedural/icons/belt--worn.png",
+      "sha256": "5b4ab9883c3153a5f2aaff6dc07d118e75eb7f8b1f17e99a562c9186f2fa438c",
+      "scope_kind": "frozen_requested_change",
+      "source_revision": "pr-working exact frozen original",
+      "purpose": "Ordered L13 manifest/config and actual visual/deleted asset contracts; no empty text range coverage for PNG.",
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/5b4ab9883c3153a5f2aaff6dc07d118e75eb7f8b1f17e99a562c9186f2fa438c",
+      "material_kind": "png",
+      "actual_eof": null,
+      "prospective_ranges": [],
+      "png_header": {
+        "width": 128,
+        "height": 128,
+        "bit_depth": 8,
+        "color_type": 6,
+        "compression": 0,
+        "filter": 0,
+        "interlace": 0
+      },
+      "prospective_nontext_contracts": [
+        "Actual visible image",
+        "Native PNG representation/dimensions/alpha",
+        "Manifest502 owner/path/default visual contract and deleted501 base equivalence"
+      ]
+    },
+    {
+      "original": 501,
+      "source_id": "pr-working:assets/equipment/procedural/icons/leather_belt--worn.png",
+      "sha256": null,
+      "scope_kind": "frozen_requested_change",
+      "source_revision": "pr-working exact frozen original",
+      "purpose": "Ordered L13 manifest/config and actual visual/deleted asset contracts; no empty text range coverage for PNG.",
+      "material_kind": "deleted_png",
+      "base_sha256": "5b4ab9883c3153a5f2aaff6dc07d118e75eb7f8b1f17e99a562c9186f2fa438c",
+      "actual_eof": null,
+      "prospective_ranges": [],
+      "prospective_nontext_contracts": [
+        "Exact registry deletion state and original base-byte identity",
+        "Actual base visual assessed through exact shared500 PNG bytes, with owner/consumer manifest502 contract",
+        "Current-source and author/export/native load dependencies remain separate"
+      ]
+    },
+    {
+      "original": 502,
+      "source_id": "pr-working:assets/equipment/procedural/manifest.json",
+      "sha256": "7c9d975e49e5b775696c4120b075383ce2915b619761f7142d3feec1e35d0f10",
+      "scope_kind": "frozen_requested_change",
+      "source_revision": "pr-working exact frozen original",
+      "purpose": "Ordered L13 manifest/config and actual visual/deleted asset contracts; no empty text range coverage for PNG.",
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/7c9d975e49e5b775696c4120b075383ce2915b619761f7142d3feec1e35d0f10",
+      "material_kind": "text",
+      "actual_eof": 694,
+      "prospective_ranges": [
+        [
+          1,
+          694
+        ]
+      ]
+    }
+  ],
+  "authority_changes": 0
+}

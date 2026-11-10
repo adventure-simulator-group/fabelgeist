@@ -1,0 +1,100 @@
+{
+  "schema": "726-root-l2-profession-reward-projection-parity-disposition-v1",
+  "at": "2026-11-02T18:27:21.435331+00:00",
+  "author": "/root",
+  "lens": 2,
+  "read": {
+    "path": "adler-continuation-20261030/READ-ROOT-L2-FAME-PARITY-036-038.json",
+    "sha256": "ef3fc358807bf8add209819086d790adb374017096885a55a633a1f61261dcc1"
+  },
+  "canonical_contract_id": "L2-PROFESSION-FAME-PREVIEW-MULTIPLIER-PARITY-QUESTION",
+  "canonical_revisit_identity": {
+    "queue": {
+      "path": "workflow-20261030/CLOSURE-QUEUE-822.json",
+      "sha256": "803f5f4efbeeea1e3327d1ca7019aac0609226d0beeec5a0dddc6c6d205d6b96"
+    },
+    "entry_pointer": "/entries/2491",
+    "first_contract": "Separate unresolved first native projection: Rust reward_delta567 multiplies Fame by reputation_multiplier while JS professionReward21 returns raw delta; emitted form2322..2326 lacks multiplier. Nonunit supported producer/admission/current proof still required; not alias to enum erasure834.",
+    "operation": "Same profession practice reward preview before native DOM projection and client duration recomputation, now connected to native raw fame recording and population-scaled contribution.",
+    "unchanged_web_and_js_definitions": [
+      {
+        "git_path": "crates/strategic-web/static/immediate-activity.js",
+        "source_sha256": "dc1c81c7bb8a93b95f740071f78d4d1cbc09c1d7c8b3e9b2da52309683d248b4",
+        "qualified_ranges_used": [
+          [
+            1,
+            157
+          ]
+        ]
+      },
+      {
+        "git_path": "crates/strategic-web/src/templates/settlement/character_skills.rs",
+        "source_sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+        "qualified_ranges_used": [
+          [
+            1,
+            2355
+          ]
+        ]
+      }
+    ],
+    "canonical_alias_applied": false,
+    "new_accepted_unique_count": 0
+  },
+  "first_failed_projection_contract": "ProfessionActivityPreview retains reputation_multiplier and Rust reward_delta scales Fame by it, but schedule_special_row emits accrued/threshold/reward/sign/tier without this multiplier. JS professionReward accepts those four reward inputs and returns raw interval-count fame. copyPreview then overwrites the general reputation-rate estimate with that unscaled result.",
+  "producer_api_state_consumer_native_trace": [
+    "SettlementImport publicly retains population_level:i32 and population_estimate:u32 with derived Deserialize and no field-specific population decoder. import_settlements reconstructs/validates other profile data then copies these two population fields into Settlement. This source path does not force a unit fame multiplier. Exact whole-world finalization/other profile validity is not inferred from these fields alone.",
+    "Core effective_population uses positive estimate, otherwise level fallback1000/3000/6000/10000/16000. local_multiplier_bps derives bounded integer basis points from that effective population; local_delta multiplies raw reputation centipoints using integer arithmetic before contribution/aggregate updates. Zero estimate is an intentional unknown-estimate mode, not invalid positive-population data.",
+    "Native apply_organization_outcomes accrues elapsed*allocated practice minutes, computes completed reward intervals and matches existing ActivityReward::Gold/Fame. Fame passes reward*100 as raw reputation centipoints to record_event. The event adapter snapshots actual settlement population fields, calls core contributions, stores raw event provenance and applies the scaled contribution to settlement reputation.",
+    "Web ActivityPreviewRates::from_character accepts SettlementView and computes the same core multiplier from its population fields. with_professions preserves active/paid/chapter/role conditions, creates the practice cadence and sets practice_weight1, erasing ActivityReward into the native gold/fame tag while retaining the multiplier in ProfessionActivityPreview. Native and web cadence scale use MINUTES_PER_DAY.",
+    "Rust reward_delta multiplies the completed Fame interval count by reputation_multiplier. schedule_special_row uses that value for its rendered reputation cell but projects only cadence/tag/sign/tier fields. JS copyPreview calls professionReward, which recomputes raw interval count and overwrites the reputation cell without population scaling. This is the reached source-backed missing-data projection, not evidence the native Fame event omitted its scaling."
+  ],
+  "source_supported_conditional_witness": {
+    "population_example": {
+      "population_level": 2,
+      "population_estimate": 0
+    },
+    "source_reason": "The public import/retained representations permit this pair; effective_population explicitly maps it to3000, for which the local factor is below1. With an eligible Fame role and a positive completed interval, server preview scales the reward while JS reports the unscaled interval count. This is a source-level conditional witness, not an executed importer, accepted complete world artifact, queried live row or observed browser incident.",
+    "runtime_or_database_witness_claimed": false,
+    "native_formula_executed": false
+  },
+  "owner_decisions": [
+    "Reuse existing ActivityReward through internal preview construction; a required native preview record must retain the reward role together with the data needed to reproduce its local amount. Gold amount, base Fame centipoints, localized reputation and a dimensionless basis-point multiplier have distinct units/authority. A generic f32 value or positional [gold,reputation] pair does not encode them.",
+    "Reuse core reputation local_delta/multiplier policy as the authoritative arithmetic contract. Browser decoding/calculation must respect basis-point scaling, integer centipoint quantization and supported integer representability rather than a different floating approximation or a pre-rounded single-interval factor multiplied afterward.",
+    "Retain accrual scale/cadence versus requested UI duration as separate meaningful quantities; preserve the actual positive practice interval contract and legitimate zero elapsed/completed reward. Do not turn the valid unknown population estimate0 into an error, conflate population band with inhabitants, or substitute report-only quantities.",
+    "HTML data attributes/JS numeric/string values are true native projection/decoder endpoints. Emit the complete required final payload and decode the supported closed reward modes once; no legacy missing-multiplier default or unknown-reward-to-Gold fallback should become a supported compatibility path. Final display strings remain presentation."
+  ],
+  "separate_canonical_contract_comparison": {
+    "other_contract_id": "SEGOVB-L12-PROFESSION-PREVIEW-REWARD-ENUM-STRING",
+    "queue_pointer": "/entries/540",
+    "other_first_contract": "ActivityPreviewRates::with_professions834..837 converts existingActivityReward::Gold/Fame to staticgold/fame before retaining ProfessionActivityPreview.practice_reward535/862; reward_delta566 reparsesusingstringcomparison before numericresult",
+    "decision": "Related repair dependency, not an alias. The L12 record starts at existing ActivityReward erasure834..837 into retained practice_reward. This L2 record starts at loss of required population scaling in the DOM/client preview projection even though Rust still retains and uses it. Reusing the enum helps both but does not itself restore the multiplier; preserve both first contracts and all independent lens evidence.",
+    "alias_applied": false,
+    "other_lens_body_or_verdict_transferred": false
+  },
+  "required_repair": [
+    "Make profession reward projection complete: carry the admitted closed reward role, required population/basis-point scaling and exact cadence/accrual semantics through Rust preview, native markup and client recomputation. Use an existing appropriate preview/amount owner or strengthen the current record; do not introduce parallel equivalent wrappers.",
+    "Keep core, initial server-rendered and recomputed client reward semantics aligned over supported count/duration bounds, including reputation centipoint rounding and zero reward. Preserve Gold behavior and the distinct base-versus-local Fame roles. Native aggregate caps and event idempotency remain separate authoritative contracts.",
+    "Remove the internal enum-to-string-reparse path as part of the existing enum-erasure repair, without counting a new alias finding or preserving old attribute payloads. Do not silently accept a required Fame payload without its scaling data."
+  ],
+  "later_acceptance": [
+    "After the full audit gate, use the isolated development workflow with an admitted nonunit-population settlement and eligible positive-cadence Fame role. Compare initial server preview, duration-changed client preview and native local reputation contribution over complete/partial interval boundaries and supported large counts.",
+    "Cover unit and nonunit factors, Gold, zero elapsed/reward, cadence remainder, unknown-estimate0 fallback and integer/centipoint rounding. No database has been queried/reset/imported, no browser started and no test/object unit test written or run."
+  ],
+  "remaining_evidence": [
+    "Canonical adoption of this exact named L2 source disposition remains required; enum-erasure L12 and other lens/global/current-delta obligations remain independent.",
+    "No complete world artifact admission, actual eligible current Fame membership, live nonunit settlement or observed UI run is claimed. Actual end-to-end witness/acceptance is a later isolated validation requirement; this source disposition remains explicitly conditional on an eligible Fame role and nonunit population.",
+    "Exact final shared multiplier/amount/accrual owner placement and native integer encoding must join canonical repair records. Whole import finalization/profile/SettlementView fetching, event identity/idempotency and other numerical/admission scopes are not cleared by this packet."
+  ],
+  "scoped_fame_projection_question_answered_with_conditional_source_witness": true,
+  "canonical_source_case_closed": false,
+  "canonical_alias_applied": false,
+  "new_primary_or_unique_credit": 0,
+  "current_delta_cells_closed": 0,
+  "source_adoption_performed": false,
+  "product_edits": false,
+  "product_execution": false,
+  "tests_executed": false,
+  "independent_agent_review": false,
+  "implementation_gate_complete": false
+}

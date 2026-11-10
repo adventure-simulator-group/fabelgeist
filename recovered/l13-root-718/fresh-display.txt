@@ -1,0 +1,447 @@
+SOURCE 2771
+7: pub type V2 = [f64; 2];
+8: pub type V3 = [f64; 3];
+SOURCE 2772
+1: //! Stable strand identities and parting membership on the host.
+2: //!
+3: //! Integer words are admitted or extracted only by hash, file and GPU adapters.
+4: 
+5: /// A stable strand identity, independent of its current collection index.
+6: #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Hash)]
+7: pub struct StrandId(u32);
+8: 
+9: /// The identity of one side or lane of a parting.
+10: #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+11: pub struct PartingGroupId(u32);
+12: 
+13: /// A strand may be unassigned to a parting, rather than carrying a sentinel ID.
+14: #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+15: pub enum PartingGroup {
+16:     Unassigned,
+17:     Assigned(PartingGroupId),
+18: }
+19: 
+20: impl StrandId {
+21:     pub const fn from_word(word: u32) -> Self {
+22:         Self(word)
+23:     }
+24:     pub const fn word(self) -> u32 {
+25:         self.0
+26:     }
+27: }
+28: 
+29: impl PartingGroup {
+30:     /// Decode the shader's negative unassigned sentinel at GPU admission.
+31:     pub const fn from_gpu_word(word: i32) -> Self {
+32:         if word < 0 {
+33:             Self::Unassigned
+34:         } else {
+35:             Self::Assigned(PartingGroupId(word as u32))
+36:         }
+37:     }
+38: 
+39:     /// Pack the shader's existing signed representation without layout changes.
+40:     pub const fn gpu_word(self) -> i32 {
+41:         match self {
+42:             Self::Unassigned => -1,
+43:             Self::Assigned(group) => group.0 as i32,
+44:         }
+45:     }
+46: 
+47:     /// Native braid integration coordinate for this parting membership.
+48:     pub(crate) fn lane(self, lanes: u32) -> f32 {
+49:         match self {
+50:             Self::Assigned(group) => (group.0 % lanes) as f32,
+51:             Self::Unassigned => (lanes - 1) as f32,
+52:         }
+53:     }
+54: 
+55:     pub const fn is_unassigned(self) -> bool {
+56:         matches!(self, Self::Unassigned)
+57:     }
+58: }
+59: 
+60: impl Default for PartingGroup {
+61:     fn default() -> Self {
+62:         Self::Assigned(PartingGroupId(0))
+63:     }
+64: }
+SOURCE 2774
+1: //! The topology of a thickened plate, decided on the host from its carrier's
+2: //! triangles alone.
+3: //!
+4: //! A carrier becomes a closed shell of three parts: the carrier itself as the
+5: //! outer wall, a copy offset inward as the inner wall, and a return wall
+6: //! closing every boundary edge between them. Which vertices exist, and which
+7: //! triangles join them, depends only on the carrier's connectivity; where
+8: //! they end up is the device's business. Each final vertex is therefore
+9: //! described by its [`VertexSource`]: the carrier vertex it derives from and
+10: //! the wall it lies on.
+11: 
+12: use std::collections::BTreeMap;
+13: 
+14: use crate::{BoundaryNormals, GenerateError, PlateFace};
+15: 
+16: /// The wall a final vertex lies on, and the carrier vertex it derives from.
+17: #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+18: pub(crate) enum VertexSource {
+19:     Outer(u32),
+20:     Inner(u32),
+21: }
+22: 
+23: impl VertexSource {
+24:     /// Packed for the device: the carrier index, with the top bit set for the
+25:     /// inner wall.
+26:     pub(crate) fn packed(self) -> u32 {
+27:         match self {
+28:             Self::Outer(i) => i,
+29:             Self::Inner(i) => i | INNER_BIT,
+30:         }
+31:     }
+32: }
+33: 
+34: pub(crate) const INNER_BIT: u32 = 1 << 31;
+35: 
+36: /// The final vertices and triangles of one thickened carrier, indexed from
+37: /// zero within the shell.
+38: #[derive(Clone, Debug)]
+39: pub(crate) struct ShellPlan {
+40:     pub sources: Vec<VertexSource>,
+41:     /// The carrier's own triangles first, as the outer wall, then the inner
+42:     /// and return walls.
+43:     pub indices: Vec<u32>,
+44:     pub carrier_triangles: usize,
+45: }
+46: 
+47: impl ShellPlan {
+48:     /// Thicken a carrier of `count` vertices wound outward, closing every
+49:     /// boundary edge. Seams must share indices; an edge used more than twice,
+50:     /// or twice in the same direction, is not a surface.
+51:     pub(crate) fn new(
+52:         count: u32,
+53:         carrier: &[u32],
+54:         boundary_normals: BoundaryNormals,
+55:     ) -> Result<Self, GenerateError> {
+56:         if count == 0
+57:             || carrier.is_empty()
+58:             || !carrier.len().is_multiple_of(3)
+59:             || carrier.iter().any(|i| *i >= count)
+60:         {
+61:             return Err(GenerateError::InvalidSurface);
+62:         }
+63:         let mut edges = BTreeMap::<(u32, u32), Vec<(u32, u32)>>::new();
+64:         for triangle in carrier.as_chunks::<3>().0 {
+65:             for (a, b) in [
+66:                 (triangle[0], triangle[1]),
+67:                 (triangle[1], triangle[2]),
+68:                 (triangle[2], triangle[0]),
+69:             ] {
+70:                 edges.entry((a.min(b), a.max(b))).or_default().push((a, b));
+71:             }
+72:         }
+73:         if edges
+74:             .values()
+75:             .any(|e| e.len() > 2 || (e.len() == 2 && e[0] != (e[1].1, e[1].0)))
+76:         {
+77:             return Err(GenerateError::InvalidSurface);
+78:         }
+79:         let mut sources = (0..count)
+80:             .map(VertexSource::Outer)
+81:             .chain((0..count).map(VertexSource::Inner))
+82:             .collect::<Vec<_>>();
+83:         let mut indices = carrier.to_vec();
+84:         indices.extend(
+85:             carrier
+86:                 .as_chunks::<3>()
+87:                 .0
+88:                 .iter()
+89:                 .flat_map(|t| [t[0] + count, t[2] + count, t[1] + count]),
+90:         );
+91:         for edge in edges.values().filter(|e| e.len() == 1) {
+92:             let (a, b) = edge[0];
+93:             // Keep alias ordering independent of winding, including reflected fits.
+94:             let reversed = a > b;
+95:             let (a, b) = if reversed { (b, a) } else { (a, b) };
+96:             let [a, b, c, d] = match boundary_normals {
+97:                 BoundaryNormals::Smooth => [a, b, a + count, b + count],
+98:                 BoundaryNormals::Separate => {
+99:                     let first = sources.len() as u32;
+100:                     sources.extend([
+101:                         VertexSource::Outer(a),
+102:                         VertexSource::Outer(b),
+103:                         VertexSource::Inner(a),
+104:                         VertexSource::Inner(b),
+105:                     ]);
+106:                     [first, first + 1, first + 2, first + 3]
+107:                 }
+108:             };
+109:             indices.extend(if reversed {
+110:                 [b, c, a, b, d, c]
+111:             } else {
+112:                 [b, a, c, b, c, d]
+113:             });
+114:         }
+115:         Ok(Self {
+116:             sources,
+117:             indices,
+118:             carrier_triangles: carrier.len() / 3,
+119:         })
+120:     }
+121: 
+122:     /// The plate face of each triangle, in [`ShellPlan::indices`] order.
+123:     pub(crate) fn faces(&self) -> impl Iterator<Item = PlateFace> + '_ {
+124:         let walls = self.indices.len() / 3 - 2 * self.carrier_triangles;
+125:         std::iter::repeat_n(PlateFace::Outer, self.carrier_triangles)
+126:             .chain(std::iter::repeat_n(
+127:                 PlateFace::Inner,
+128:                 self.carrier_triangles,
+129:             ))
+130:             .chain(std::iter::repeat_n(PlateFace::Edge, walls))
+131:     }
+132: }
+SOURCE 2776
+1: use crate::{
+2:     body::BodyPart,
+3:     item_catalog_schema::{EquipmentBodyPart, EquipmentChannel},
+4: };
+5: 
+6: /// Combat projection of one wearable layer over one fine-grained location.
+7: #[derive(Clone, Copy, Debug, PartialEq)]
+8: pub struct WearableProtection {
+9:     pub inventory_item_id: u64,
+10:     pub body_part: BodyPart,
+11:     pub channel: EquipmentChannel,
+12:     pub order: u16,
+13:     pub coverage: f32,
+14:     pub resistance: f32,
+15:     pub padding: f32,
+16:     pub flexibility: f32,
+17:     pub range_of_motion: f32,
+18: }
+19: 
+20: #[derive(Clone, Copy, Debug, Default, PartialEq)]
+21: pub struct LayeredArmor {
+22:     pub coverage: f32,
+23:     pub resistance: f32,
+24:     pub padding: f32,
+25:     pub flexibility: f32,
+26:     pub range_of_motion: f32,
+27: }
+28: 
+29: /// The specific authored protection layer intersected by a contact sample.
+30: /// `None` from `PlayerEquipment::armor_surface` is an anatomical coverage gap.
+31: #[derive(Clone, Copy, Debug, PartialEq, serde::Serialize, serde::Deserialize)]
+32: pub struct ArmorSurface {
+33:     pub inventory_item_id: Option<u64>,
+34:     pub material: Option<crate::item_catalog_schema::EquipmentMaterial>,
+35:     pub resistance: f32,
+36:     pub padding: f32,
+37:     pub flexibility: f32,
+38: }
+39: 
+SOURCE 2777
+1: //! Canonical seven simple attributes, also used by authored checks.
+2: 
+3: use serde::{Deserialize, Serialize};
+4: 
+5: #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
+6: #[cfg_attr(
+7:     all(feature = "spacetimedb", runtime_catalog),
+8:     derive(spacetimedb::SpacetimeType)
+9: )]
+10: #[serde(rename_all = "snake_case")]
+11: pub enum SimpleAttribute {
+12:     /// Heart strength, lung capacity, endurance for traveling.
+13:     Endurance,
+14:     /// Liver, spleen, immune system, toxin filtering.
+15:     Immunity,
+16:     /// Digestive system, food tolerance.
+17:     Gut,
+18:     /// Deep thinking; learning speed and mastery cap for intellectual skills.
+19:     Intelligence,
+20:     /// Quick decisions; learning speed and mastery cap for instinctive skills.
+21:     Instinct,
+22:     /// Visual acuity.
+23:     Eyesight,
+24:     /// Auditory perception.
+25:     Hearing,
+26: }
+SOURCE 2778
+1: //! Canonical authored and runtime combat styles.
+2: 
+3: use serde::{Deserialize, Serialize};
+4: 
+5: /// The two mechanically distinct melee paths exposed by direct controls.
+6: /// `Swing` covers cuts, chops, and swung impact/pick attacks; `Stab` covers
+7: /// punches and point-first thrusts.
+8: #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
+9: #[cfg_attr(
+10:     all(feature = "spacetimedb", runtime_catalog),
+11:     derive(spacetimedb::SpacetimeType)
+12: )]
+13: #[serde(rename_all = "snake_case")]
+14: pub enum MeleeAttackStyle {
+15:     #[default]
+16:     Swing,
+17:     Stab,
+18: }
+SOURCE 2779
+1: //! The supported initial-loadout anchors shared by player and enemy generation.
+2: 
+3: use serde::{Deserialize, Serialize};
+4: 
+5: /// Initial loadouts support a restricted set of body anchors. The full
+6: /// EquipmentLocation topology also includes pockets, belts, and attachments.
+7: #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+8: #[serde(rename_all = "snake_case")]
+9: pub enum LoadoutSlot {
+10:     LeftHand,
+11:     RightHand,
+12:     LeftArm,
+13:     RightArm,
+14:     LeftLeg,
+15:     RightLeg,
+16:     LeftFoot,
+17:     RightFoot,
+18:     Head,
+19:     Chest,
+20:     Stomach,
+21: }
+22: 
+23: impl From<LoadoutSlot> for crate::item_catalog_schema::EquipmentLocation {
+24:     fn from(slot: LoadoutSlot) -> Self {
+25:         match slot {
+26:             LoadoutSlot::LeftHand => Self::LeftHand,
+27:             LoadoutSlot::RightHand => Self::RightHand,
+28:             LoadoutSlot::LeftArm => Self::LeftArm,
+29:             LoadoutSlot::RightArm => Self::RightArm,
+30:             LoadoutSlot::LeftLeg => Self::LeftLeg,
+31:             LoadoutSlot::RightLeg => Self::RightLeg,
+32:             LoadoutSlot::LeftFoot => Self::LeftFoot,
+33:             LoadoutSlot::RightFoot => Self::RightFoot,
+34:             LoadoutSlot::Head => Self::Head,
+35:             LoadoutSlot::Chest => Self::Chest,
+36:             LoadoutSlot::Stomach => Self::Stomach,
+37:         }
+38:     }
+39: }
+SOURCE 2780
+1: /// Combat-facing geometry derived from one physical weapon recipe.
+2: ///
+3: /// Mass and rotational inertia come from the same component solids as the mesh.
+4: /// Melee reach is the generated controlling-grip-to-tip distance.
+5: #[derive(Clone, Copy, Debug, PartialEq)]
+6: pub struct ParametricWeaponCombatGeometry {
+7:     pub mass_kg: f32,
+8:     pub total_length_m: f32,
+9:     pub grip_to_tip_m: f32,
+10:     pub striking_head_length_m: f32,
+11:     pub moment_of_inertia_kg_m2: f32,
+12:     pub balance: f32,
+13:     pub precision: f32,
+14: }
+15: 
+16: impl ParametricWeaponCombatGeometry {
+17:     pub fn new(
+18:         mass_kg: f32,
+19:         total_length_m: f32,
+20:         grip_to_tip_m: f32,
+21:         striking_head_length_m: f32,
+22:         moment_of_inertia_kg_m2: f32,
+23:         balance: f32,
+24:         precision: f32,
+25:     ) -> Option<Self> {
+26:         let values = [
+27:             mass_kg,
+28:             total_length_m,
+29:             grip_to_tip_m,
+30:             striking_head_length_m,
+31:             moment_of_inertia_kg_m2,
+32:             balance,
+33:             precision,
+34:         ];
+35:         (values.into_iter().all(f32::is_finite)
+36:             && mass_kg > 0.0
+37:             && total_length_m > 0.0
+38:             && grip_to_tip_m > 0.0
+39:             && grip_to_tip_m <= total_length_m
+40:             && (0.0..=total_length_m).contains(&striking_head_length_m)
+41:             && moment_of_inertia_kg_m2 >= 0.0
+42:             && balance >= 0.0
+43:             && precision >= 0.0)
+44:             .then_some(Self {
+45:                 mass_kg,
+46:                 total_length_m,
+47:                 grip_to_tip_m,
+48:                 striking_head_length_m,
+49:                 moment_of_inertia_kg_m2,
+50:                 balance,
+51:                 precision,
+52:             })
+53:     }
+54: 
+55:     pub const fn melee_reach_m(self) -> f32 {
+56:         self.grip_to_tip_m
+57:     }
+58: 
+59:     /// Apply the existing edge-condition factor once to this instance's geometry.
+60:     pub fn conditioned_precision(self, catalog_id: &str, effective_catalog_precision: f32) -> f32 {
+61:         let base = crate::item_catalog::weapon_precision(catalog_id)
+62:             .filter(|value| *value > 0.0)
+63:             .expect("generated weapon has positive catalog precision");
+64:         self.precision * effective_catalog_precision / base
+65:     }
+66: }
+SOURCE 2785
+29: pub struct Map<K, V> {
+30:     map: MapImpl<K, V>,
+31: }
+32: 
+33: #[cfg(not(feature = "preserve_order"))]
+34: type MapImpl<K, V> = BTreeMap<K, V>;
+35: #[cfg(feature = "preserve_order")]
+36: type MapImpl<K, V> = IndexMap<K, V>;
+120:     /// Inserts a key-value pair into the map.
+121:     ///
+122:     /// If the map did not have this key present, `None` is returned.
+123:     ///
+124:     /// If the map did have this key present, the value is updated, and the old
+125:     /// value is returned.
+126:     #[inline]
+127:     pub fn insert(&mut self, k: String, v: Value) -> Option<Value> {
+128:         self.map.insert(k, v)
+129:     }
+SOURCE 2786
+3: pub(super) const HENRY_ITEMS: &[&str] = &[
+4:     "arming_doublet",
+5:     "padded_chausses",
+6:     "breastplate",
+7:     "burgonet",
+8:     "gorget",
+9:     "tassets",
+10:     "leather_boot",
+11:     "pauldron",
+12:     "rerebrace",
+13:     "couter",
+14:     "vambrace",
+15:     "mitten_gauntlet",
+16:     "poleyn",
+17: ];
+19: pub(super) const NUREMBERG_ITEMS: &[&str] = &[
+20:     "arming_doublet",
+21:     "padded_chausses",
+22:     "mail_brayette",
+23:     "breastplate",
+24:     "close_helmet",
+25:     "gorget",
+26:     "fauld",
+27:     "spaulder",
+28:     "rerebrace",
+29:     "couter",
+30:     "vambrace",
+31:     "mitten_gauntlet",
+32:     "cuisse",
+33:     "poleyn",
+34:     "greave",
+35:     "sabaton",
+36: ];

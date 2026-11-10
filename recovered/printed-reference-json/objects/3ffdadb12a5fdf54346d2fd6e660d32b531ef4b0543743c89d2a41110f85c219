@@ -1,0 +1,114 @@
+{
+  "at": "2026-11-02T11:35:05.786470+00:00",
+  "author": "/root",
+  "baseline_current": {
+    "path": "target/726-intake-20261030/CURRENT.json",
+    "sha256": "3aa13d77fae411262e2cb42f926ee16cc29597870ec43755397684b1ff5a8864"
+  },
+  "baseline_checkpoint": {
+    "path": "target/726-intake-20261030/CHECKPOINT-476.json",
+    "sha256": "1c79f919e0e5a1543bf771ed889b71d0628c4cc73a469bf892ecf0a46b61134e"
+  },
+  "previous_working_progress": {
+    "path": "target/726-intake-20261030/WORLD-EVENT-IDENTITY-PROGRESS-CP475-002.json",
+    "sha256": "7e50596bade940fa56c0b8990f26b1f9b81c854475927ff88b0465e0c7607269"
+  },
+  "previous_goal_turn_classification": "progress",
+  "current_goal_turn_classification": "progress",
+  "goal_status": "active",
+  "packets": [
+    {
+      "path": "adler-continuation-20261030/READ-ROOT-L12-WORLD-EVENT-IDENTITY-001.json",
+      "sha256": "19fc4d812554a0e3c570f2230d0a95be70c73afe2ddb7aec3326df5430fe0b3b"
+    },
+    {
+      "path": "adler-continuation-20261030/READ-ROOT-L12-WORLD-EVENT-IDENTITY-002.json",
+      "sha256": "8676b08e1c8b1a9d46c02ef0b0fb36d6cd0cfabdafd93542646bbc8ec6dc80c7"
+    },
+    {
+      "path": "adler-continuation-20261030/READ-ROOT-L12-WORLD-EVENT-IDENTITY-003.json",
+      "sha256": "3f2595175874999f4186138d062af58c4467fce5d3c1fed1bfdb552ae33fc21d"
+    },
+    {
+      "path": "adler-continuation-20261030/READ-ROOT-L12-WORLD-EVENT-IDENTITY-004.json",
+      "sha256": "1a5994145c3f25103c352ca21a4790f32c11d8e16bf2a10b591b3e615b5299b6"
+    },
+    {
+      "path": "adler-continuation-20261030/READ-ROOT-L12-WORLD-EVENT-IDENTITY-005.json",
+      "sha256": "afcf536f133aeec20d13b7f2ef95ec64da23293421a4d62111c12d94e40aef58"
+    },
+    {
+      "path": "adler-continuation-20261030/READ-ROOT-L12-WORLD-EVENT-IDENTITY-006.json",
+      "sha256": "dacdd6f477ea8fc86f9ec7c60448abbb08a740bc4a92a35d19f2905347367f53"
+    },
+    {
+      "path": "adler-continuation-20261030/READ-ROOT-L12-WORLD-EVENT-IDENTITY-007.json",
+      "sha256": "951878a0bb0e0f3338d0b77d588c3353275a029179231e11797eb532d2b0aadb"
+    },
+    {
+      "path": "adler-continuation-20261030/READ-ROOT-L12-WORLD-EVENT-IDENTITY-008.json",
+      "sha256": "fd7381ce0078999703fcd8b4c03ae38f5bbbec0792f5a98679bec2297561cc92"
+    }
+  ],
+  "cumulative_uncredited_assessed_lines": 4531,
+  "new_this_turn_uncredited_assessed_lines": 1421,
+  "fresh_source_population_unique_credit": 0,
+  "whole_parent_case_closed": false,
+  "whole_parent_source_adopted": false,
+  "consequence_key_closed": {
+    "case_index": 247,
+    "resolution": {
+      "path": "segovb/RESOLUTION-ROOT-L12-WORLD-EVENT-CONSEQUENCE-KEY-SOURCE-CLOSURE-001.json",
+      "sha256": "d4d2ef4e3dcabd56c585702c51cf10d7bb1d29ee24eeb3181aa99e0978215ba0"
+    },
+    "repair": {
+      "path": "adler-continuation-20261030/OWNED-REPAIR-ROOT-L12-WORLD-EVENT-CONSEQUENCE-KEY-001.json",
+      "sha256": "a67c1fd924ecb5f326629575210b80cac89ed6998dba38b3b528a92b90b85621"
+    },
+    "adopted_packets": [
+      {
+        "path": "adler-continuation-20261030/READ-ROOT-L12-WORLD-EVENT-IDENTITY-001.json",
+        "sha256": "19fc4d812554a0e3c570f2230d0a95be70c73afe2ddb7aec3326df5430fe0b3b"
+      },
+      {
+        "path": "adler-continuation-20261030/READ-ROOT-L12-WORLD-EVENT-IDENTITY-002.json",
+        "sha256": "8676b08e1c8b1a9d46c02ef0b0fb36d6cd0cfabdafd93542646bbc8ec6dc80c7"
+      }
+    ],
+    "qualified_first_predicate_only": true,
+    "repair_complete": false
+  },
+  "exposure_facet": {
+    "path": "adler-continuation-20261030/FACET-REPAIR-ROOT-L12-WORLD-EVENT-EXPOSURE-ORIGIN-001.json",
+    "sha256": "6cbcf41ec6f309244968a1269bd8bafb681476b756839ede6a87ce84f6bdcc05"
+  },
+  "historical_exposure_qualification": {
+    "path": "target/726-intake-20261030/QUALIFICATION-L12-WORLD-EVENT-EXPOSURE-POLICY-PARTIAL.json",
+    "sha256": "4a3f888a405ea02f661445cbaf70e34c858e17c8ead38e9feedaa51226eb9fcb"
+  },
+  "original_packet_base_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "06910e917243fbd6a38ebcb743ce14578ba9f4a942704d9df53aaebd7fe0da85",
+    "immutable_archive": "checkpoint-history/06910e917243fbd6a38ebcb743ce14578ba9f4a942704d9df53aaebd7fe0da85.json",
+    "qualification": "Packet registrations retain actual prior authority baseline. Future parent proof can bind it through immutable archive/exact selected337 source and current unchanged parent entry, not relabel original registrations or assume fresh credit."
+  },
+  "decisions": [
+    "Actual ActionRequestId in live foraging planner731, existing core CaseId macro with actual native case adapters, existing nonzero CustodyCharacterId and checked CustodyPartyId are relevant owners. DiseaseId/StrategicPlaceId already qualified; do not duplicate roles.",
+    "ActionRequestId permits256, actual forage native guard64lowerhex, core CaseId requirescase: max160, StrategicPlaceId allows4096 versus generic event192. Preserve role-specific native admission, not globally tighten owner to event generic maximum.",
+    "Quest-generation FinaleId is authored/generated option identity. Native runtime final authority ID is minted finale:{canonicalCaseId}:{path|problem}; same spelling does not establish alias. Public case identifier is different from canonical CaseId.",
+    "Actual CaseOutcomeSource distinguishes MissionOutcome(outcome:coordinate) and other nonempty DomainEvent; execution source passed as finale:{source_id}. Do not force either into OutcomeFactId/ActionRequestId/WorldEvent receipt identity or infer permissions.",
+    "Actual selected runtime finale Option<String> is erased to emptyString before persisted CaseOutcome and later !empty execution branch. Keep this connected absence issue open rather than assume key refactor resolves it.",
+    "Core case ID macro derives transparent Deserialize without constructor; quest IDs have public tuple field/derived Deserialize. Existing type names do not prove all admission invariants. Add precise shared serde/admission repair where actual guaranteed roles need it, not duplicate types.",
+    "Q247 mechanical typed consequence identity is now source closed with owned repair. Preserve that resolution; parent Q3718, Q896/Q964/Q2299 and other native/quantity/rights/current/alias obligations remain open."
+  ],
+  "next_actions": [
+    "Finish canonical runtime finale/source/public case/local problem/episode/food-lot reference owner map through actual native producer/reader APIs. Reuse macro-generated ActionRequestId/CaseId and core Custody referents without mistaking quest FinaleId for runtime key.",
+    "Qualify the three native SHA request/envelope/consequence fingerprint owners and private WorldEventError/serde/commit source cause transport. Preserve native replay before commit build/participant read and receipt-last/privacy.",
+    "Reconcile explicit food/water source sum, current generic event bounds, optional selected finale/native clean schema and actual owning generated clients/acceptance. Parent all20/non-alias/current qualification remains required.",
+    "When qualifying existing packets after CP476, retain original06910 baseline and creation flags; bind archive/exact337 bytes instead of expecting them to have been registered against the new33281 ledger."
+  ],
+  "implementation_gate_complete": false,
+  "independent_agent_review": false,
+  "subagents_used": false,
+  "product_execution": false
+}

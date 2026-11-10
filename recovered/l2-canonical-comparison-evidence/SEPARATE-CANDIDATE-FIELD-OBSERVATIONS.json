@@ -1,0 +1,551 @@
+{
+  "records": [
+    {
+      "queue_index": 188,
+      "contract_id": "ADLER-L11-LOOT-PAIR-ADMISSION",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "Loot selection must validate complete item/quantity pairs without independently dropping malformed fields.",
+          "source_normalized_sha256": "06ff926484b59fbb2a0b99ddb4e5f4c2d1de77623731d5612441b484c40c45ce"
+        },
+        "canonical_owner": {
+          "value": "Loot transfer form admission and paired item/quantity request representation.",
+          "source_normalized_sha256": "06ff926484b59fbb2a0b99ddb4e5f4c2d1de77623731d5612441b484c40c45ce"
+        }
+      }
+    },
+    {
+      "queue_index": 189,
+      "contract_id": "ADLER-L11-QUEST-SITE-READ-ERROR-AS-ABSENCE",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "An unavailable authoritative lookup must remain distinct from an absent or unauthorized case-site identity.",
+          "source_normalized_sha256": "07ee4daf0aefd000c80c45916ac8ce40042b3691214766201503dd3ebed16919"
+        },
+        "canonical_owner": {
+          "value": "Quest case-site read outcome and observer/occupancy admission boundary.",
+          "source_normalized_sha256": "07ee4daf0aefd000c80c45916ac8ce40042b3691214766201503dd3ebed16919"
+        }
+      }
+    },
+    {
+      "queue_index": 194,
+      "contract_id": "ADLER-L11-TERRAIN-CACHE-ADMISSION-PARITY",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "Input admission must precede a cache hit when a cache key can collapse invalid and valid inputs.",
+          "source_normalized_sha256": "4ec385972740ded5ddf3595feaa418a80b2bbe45b71ba63e28783a4aaf6ad716"
+        },
+        "canonical_owner": {
+          "value": "TerrainPlanner coordinate admission and cache result reuse boundary.",
+          "source_normalized_sha256": "4ec385972740ded5ddf3595feaa418a80b2bbe45b71ba63e28783a4aaf6ad716"
+        }
+      }
+    },
+    {
+      "queue_index": 195,
+      "contract_id": "ADLER-L11-STRATEGIC-DB-ERROR-OWNERSHIP",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "A database boundary must retain the failed operation stage, HTTP outcome and owned decoding/body-read cause needed by its consumers.",
+          "source_normalized_sha256": "514b3640d727cdf44757617034dd04ea8a5c0e6bfdedaea5768c4ca902ed91a3"
+        },
+        "canonical_owner": {
+          "value": "Strategic SpacetimeClient query/reducer transport, row decoding and presentation error ownership.",
+          "source_normalized_sha256": "514b3640d727cdf44757617034dd04ea8a5c0e6bfdedaea5768c4ca902ed91a3"
+        }
+      }
+    },
+    {
+      "queue_index": 204,
+      "contract_id": "SEGOVB-L11-CONTRACT-ABANDON-PARTY-ACTIVE-RELATION",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "Authority admission at abandon_contract must bind requested accepted contract to current active Party before any linked-state transition. Historical accepted_by alone is insufficient.",
+          "source_normalized_sha256": "bb49d4105aeb4a5b4a9fc8c011a8201acc28b1cba0c21db5b0fb9e8708783a10"
+        },
+        "canonical_owner": {
+          "value": "abandon_contract ContractAuthority/Party lifecycle relation; same failed contract across direct/queued/HTTP routes is one connected repair scope, not new aliases from common remedy",
+          "source_normalized_sha256": "bb49d4105aeb4a5b4a9fc8c011a8201acc28b1cba0c21db5b0fb9e8708783a10"
+        }
+      }
+    },
+    {
+      "queue_index": 205,
+      "contract_id": "SEGOVB-L11-CONTRACT-ABANDON-HTTP-RESULT",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "abandon_quest345..352 discards Result from execute_or_request_party_action, so rejected native/queued request is followed by ordinary settlement redirect without retaining causal outcome in this function.",
+          "source_normalized_sha256": "271bd804599bf14be965444e93926f00a9575e4cc3800743734cedaa6601f21c"
+        },
+        "canonical_owner": {
+          "value": "quests::abandon_quest action outcome and user-visible recovery handoff",
+          "source_normalized_sha256": "271bd804599bf14be965444e93926f00a9575e4cc3800743734cedaa6601f21c"
+        }
+      }
+    },
+    {
+      "queue_index": 245,
+      "contract_id": "SEGOVB-L12-COND-OPTIONAL-ROAD-TRIAL-CONTINUE",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "When anopenErrantry RoadChallenge is admitted at exactboundcamp, continue_camp_travel884 invokes guardREG133873..892 which rejectsanyopenboundchallenge before any localignore; documented optionalcourtesy contract REG1141460..1462 says simplycontinuing ignores it. Coreboundcampadmission and currentpolicy neededbeforepromotion.",
+          "source_normalized_sha256": "0e468c5229a6ad37722a8e41d7bb051d2165ac8e53eebef1cb05fcb721e61a0b"
+        },
+        "canonical_owner": {
+          "value": "Actual RoadChallengeAuthority/NarrativeEncounterPrivateAuthority origin, coreerrantry campmatching and explicitoptional narrative continuation policy.",
+          "source_normalized_sha256": "0e468c5229a6ad37722a8e41d7bb051d2165ac8e53eebef1cb05fcb721e61a0b"
+        }
+      }
+    },
+    {
+      "queue_index": 499,
+      "contract_id": "SEGOVB-L12-QUEST-QUESTTITLE-OBSERVATION-ERROR-DISCARD",
+      "observations": {
+        "canonical_owner": {
+          "value": "Questobservation preserving unavailable/absent/present state untilpresentationpolicy",
+          "source_normalized_sha256": "d6d9b2fbb5a1ca4a68733457046d763cc9d0cee18ab190cc060ac35811dfc641"
+        }
+      }
+    },
+    {
+      "queue_index": 500,
+      "contract_id": "SEGOVB-L12-QUEST-QUESTREWARD-OBSERVATION-ERROR-DISCARD",
+      "observations": {
+        "canonical_owner": {
+          "value": "Questobservation preserving unavailable/absent/present state untilpresentationpolicy",
+          "source_normalized_sha256": "e45ee811537b61cb8aec2b86384f7903862b1745d5e2ec7fe06f56b8142f47f1"
+        }
+      }
+    },
+    {
+      "queue_index": 518,
+      "contract_id": "SEGOVB-L12-TERRAIN-PLANNER-FORAGE-TERRAIN-ERROR",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "ActualTerrainPack.cell Error Io/Json/Validation -> to_string176",
+          "source_normalized_sha256": "ed86de497e29ff1289d349201abe30fa5df92fb0acb9813cbaf49ad592bcbc78"
+        },
+        "canonical_owner": {
+          "value": "Boundedstrategic terrainplanner/foraging error owning actualsemanticstage andtypednativecause whereapplicable",
+          "source_normalized_sha256": "ed86de497e29ff1289d349201abe30fa5df92fb0acb9813cbaf49ad592bcbc78"
+        }
+      }
+    },
+    {
+      "queue_index": 519,
+      "contract_id": "SEGOVB-L12-TERRAIN-PLANNER-FORAGE-OUTSIDE-PACKAGE-REASON",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "ActualcenterOkNone -> closedString177 before internalResultString",
+          "source_normalized_sha256": "1f590670ae3c37cbc65e7fd26d26f0ab1f860361ec786b93bd037d96db6362c1"
+        },
+        "canonical_owner": {
+          "value": "Boundedstrategic terrainplanner/foraging error owning actualsemanticstage andtypednativecause whereapplicable",
+          "source_normalized_sha256": "1f590670ae3c37cbc65e7fd26d26f0ab1f860361ec786b93bd037d96db6362c1"
+        }
+      }
+    },
+    {
+      "queue_index": 520,
+      "contract_id": "SEGOVB-L12-TERRAIN-PLANNER-CACHE-LOOKUP-POISON-REASON",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "Nativecachelock poison -> fixedprose217 beforeinternalResult",
+          "source_normalized_sha256": "a871d0f1036ae3b1c830fc6388b0b02bf51e20f99b688ca1075a37b6e4eb0093"
+        },
+        "canonical_owner": {
+          "value": "Boundedstrategic terrainplanner/foraging error owning actualsemanticstage andtypednativecause whereapplicable",
+          "source_normalized_sha256": "a871d0f1036ae3b1c830fc6388b0b02bf51e20f99b688ca1075a37b6e4eb0093"
+        }
+      }
+    },
+    {
+      "queue_index": 521,
+      "contract_id": "SEGOVB-L12-TERRAIN-PLANNER-QUEUE-TIMEOUT-REASON",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "NativeElapsed queuewait -> fixedprose227 beforeinternalResult",
+          "source_normalized_sha256": "9406149364806209919c677c93b3a61631866d2e6c318868221f8871225bdad5"
+        },
+        "canonical_owner": {
+          "value": "Boundedstrategic terrainplanner/foraging error owning actualsemanticstage andtypednativecause whereapplicable",
+          "source_normalized_sha256": "9406149364806209919c677c93b3a61631866d2e6c318868221f8871225bdad5"
+        }
+      }
+    },
+    {
+      "queue_index": 522,
+      "contract_id": "SEGOVB-L12-TERRAIN-PLANNER-PERMIT-CLOSED-REASON",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "Nativeacquire_owned AcquireError -> fixedprose228 beforeinternalResult",
+          "source_normalized_sha256": "869d8c2874004be4e2e4f2f7622208df373cfce2455990d9518a56310a89f2cd"
+        },
+        "canonical_owner": {
+          "value": "Boundedstrategic terrainplanner/foraging error owning actualsemanticstage andtypednativecause whereapplicable",
+          "source_normalized_sha256": "869d8c2874004be4e2e4f2f7622208df373cfce2455990d9518a56310a89f2cd"
+        }
+      }
+    },
+    {
+      "queue_index": 523,
+      "contract_id": "SEGOVB-L12-TERRAIN-PLANNER-PLANNING-WAIT-TIMEOUT-REASON",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "NativeElapsed workerawait -> fixedprose251 beforeinternalResult",
+          "source_normalized_sha256": "877d2fabfc65db1fb94c2ff9eeeeab09eef47f44a5499ae0ebfb7646d64f69a7"
+        },
+        "canonical_owner": {
+          "value": "Boundedstrategic terrainplanner/foraging error owning actualsemanticstage andtypednativecause whereapplicable",
+          "source_normalized_sha256": "877d2fabfc65db1fb94c2ff9eeeeab09eef47f44a5499ae0ebfb7646d64f69a7"
+        }
+      }
+    },
+    {
+      "queue_index": 524,
+      "contract_id": "SEGOVB-L12-TERRAIN-PLANNER-WORKER-JOIN-CAUSE-ERASURE",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "ActualTokio JoinError -> format252 erasespanic/cancel typedclassification/context",
+          "source_normalized_sha256": "ec965f0b18ae7136ac26d260d070fc1b15a01947ab62c32934c898978bca7d62"
+        },
+        "canonical_owner": {
+          "value": "Boundedstrategic terrainplanner/foraging error owning actualsemanticstage andtypednativecause whereapplicable",
+          "source_normalized_sha256": "ec965f0b18ae7136ac26d260d070fc1b15a01947ab62c32934c898978bca7d62"
+        }
+      }
+    },
+    {
+      "queue_index": 525,
+      "contract_id": "SEGOVB-L12-TERRAIN-PLANNER-PLANNING-TERRAIN-ERROR",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "ActualTerrainPack.plan Error NoRoute/Deadline/Io/Json/Validation -> to_string253 erasesenum/nativecause",
+          "source_normalized_sha256": "4827964d14dce473d9a36229329a6ff2daf0ec9015d231f3430fe5b58e389c4f"
+        },
+        "canonical_owner": {
+          "value": "Boundedstrategic terrainplanner/foraging error owning actualsemanticstage andtypednativecause whereapplicable",
+          "source_normalized_sha256": "4827964d14dce473d9a36229329a6ff2daf0ec9015d231f3430fe5b58e389c4f"
+        }
+      }
+    },
+    {
+      "queue_index": 526,
+      "contract_id": "SEGOVB-L12-TERRAIN-PLANNER-CACHE-COMMIT-POISON-REASON",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "Nativecachelock poison oncompletedplan -> fixedprose257 beforeinternalResult",
+          "source_normalized_sha256": "510fd97c796e913ec9d9ff988ca4352189a7f07dc4ffc2c54b15440445c406c7"
+        },
+        "canonical_owner": {
+          "value": "Boundedstrategic terrainplanner/foraging error owning actualsemanticstage andtypednativecause whereapplicable",
+          "source_normalized_sha256": "510fd97c796e913ec9d9ff988ca4352189a7f07dc4ffc2c54b15440445c406c7"
+        }
+      }
+    },
+    {
+      "queue_index": 531,
+      "contract_id": "SEGOVB-L12-SPACETIME-QUERY-ONE-SATS-QUERYCARDINALITY",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "query_one_sats: rows.len()>1 -> closedprose145/146 losesstructuredexpected/actual/sqlcontext",
+          "source_normalized_sha256": "8412fd2d3fbb26bdf3ebc09693c9687ff676edee84c7e74cba9f8036655bc78a"
+        },
+        "canonical_owner": {
+          "value": "Database rowprojection/cardinality error retaining actualsemanticreason andownedUError/context",
+          "source_normalized_sha256": "8412fd2d3fbb26bdf3ebc09693c9687ff676edee84c7e74cba9f8036655bc78a"
+        }
+      }
+    },
+    {
+      "queue_index": 532,
+      "contract_id": "SEGOVB-L12-SPACETIME-QUERY-SATS-INTO-PROJECTIONERROR",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "query_sats_into: ActualgenericU::try_from Err -> format166 / Displayonlybound dropsconcreteUError beforeinternalResultSpacetimeString",
+          "source_normalized_sha256": "f736b4c5e53877c2f804477ccc75c5d12cc37301a9b413da74117b35e258f62f"
+        },
+        "canonical_owner": {
+          "value": "Database rowprojection/cardinality error retaining actualsemanticreason andownedUError/context",
+          "source_normalized_sha256": "f736b4c5e53877c2f804477ccc75c5d12cc37301a9b413da74117b35e258f62f"
+        }
+      }
+    },
+    {
+      "queue_index": 533,
+      "contract_id": "SEGOVB-L12-SPACETIME-QUERY-ONE-SATS-INTO-PROJECTIONERROR",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "query_one_sats_into: ActualgenericU::try_from Err -> format186 / Displayonlybound dropsconcreteUError beforeinternalResultSpacetimeString",
+          "source_normalized_sha256": "4879d66360dbfd3e7b30e956e1d9fef502abdebe2a73ecc6ff0fbd738c3b7192"
+        },
+        "canonical_owner": {
+          "value": "Database rowprojection/cardinality error retaining actualsemanticreason andownedUError/context",
+          "source_normalized_sha256": "4879d66360dbfd3e7b30e956e1d9fef502abdebe2a73ecc6ff0fbd738c3b7192"
+        }
+      }
+    },
+    {
+      "queue_index": 991,
+      "contract_id": "Q-L12-b8bf793d5357d4292bb4",
+      "observations": {
+        "canonical_owner": {
+          "value": {
+            "unresolved_question": "Resolve canonical owner from the exact linked source scope before closing this contract."
+          },
+          "source_normalized_sha256": "3633aac746f35e071705dcecd26196b82851fb0e181c2b41fcc3a0f879c361f8"
+        },
+        "first_failed_contract_or_unresolved_question": {
+          "value": {
+            "source_originals": [
+              1226
+            ],
+            "contracts": [
+              "ActualcontinueTravel optionaltrialclose/ignore sequence+corecatalog/nativeUI/current",
+              "CanonicalglobalCampPlace vsframeTrialBinding localreference semantics/allexactconsumers",
+              "Actualcoretime/diseaseplan/fatigue/encumbrance/nativecurrent/all20family and routegeographicadmission",
+              "Resolvedstopcamp promotion versusbetweenCamp comment exactcurrentintent; auditcode notdocumentationrepair"
+            ]
+          },
+          "source_normalized_sha256": "ac55e587f7ba53de53b2c0dd137659917832d9010153d53e19dcd38fb8009e1e"
+        }
+      }
+    },
+    {
+      "queue_index": 1869,
+      "contract_id": "Q-L12-977fb7f4a5177921f0be",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": [
+            "Safe travelerror413 intentionally hidesprivateprose; preservegenericactionablemessage, do notrestoresecretproseclassifier. AutoresolveErr1495loggedthenredirect1548 knownexplicitmode; Requested1552separate.",
+            "party_readiness refreshErr1429 -> false, missing/queryErr1446 ->false failclosed unavailablemode; actualreason/diagnosticpolicyopen. Deceasedmembersfiltered1420 deliberate. No inferred newincapacitation orhiddenfatigue penalty.",
+            "Loader .ok/unwrap_or_default failures discardactualcauses at exact inventory below. Actual unavailable versus validempty andpublicprivacy/feedback requirements needpolicy; no claim everyemptyinvalid. Abandon actionresult345 discarded; corpse818/loot478 logged thenredirect; diagnostic/publicfeedback policyopen.",
+            "Generatedsite contract-free combatflag584 andmanualaccepted-activecontract587 legitimate modes. Geographic1561 usesWGS84, nongeographic1565 usesUnboundedCoordinateE7 deliberate; noforceonecoordinateinterpretation.",
+            "Corpus location rawString scene1329 andmedical query surgery1340/physiology1343 -> retainedwindow1351 -> template1406; examination discipline722/stage723 -> nativeargs808/809. Earlier nativeprojection/admission/canonicalmedicalowner bodiesneeded before newfirstcutfinding; defaultmedicalwindow deliberate normalization.",
+            "Knownsite/character/party/battleowner/context filters actualbodies read; no unauthorizeddisclosure claim. Tests1595..2102 readas source only. includestrassertions do notgrant additionalbodycoverage/runtime results.",
+            "ActualCSVproducer/backend parallelvector association needed before supported misassociationclaim; parseerror erasure itself sourceproven."
+          ],
+          "source_normalized_sha256": "73b4d586199f5cb1a99c05df18b0f2048b7e24ce6ce1762a7a91120d16e09e2a"
+        },
+        "canonical_owner": {
+          "value": {
+            "unresolved_question": "Resolve canonical owner from the exact linked source scope before closing this contract."
+          },
+          "source_normalized_sha256": "73b4d586199f5cb1a99c05df18b0f2048b7e24ce6ce1762a7a91120d16e09e2a"
+        }
+      }
+    },
+    {
+      "queue_index": 1879,
+      "contract_id": "Q-L12-b20c483ed43f4bb0dd61",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": [
+            "Nativebase64/HMAC/getrandom/CookieJar/HeaderValue bodies mustbeexactlyregistered/readwhere semantics require; comment83 isnotconstant-time proof. sign116 expect fixed32byteSecretfromconstructor, noordinaryinvalidkeypanicproved withoutactualnativeHMACcontract.",
+            "CookieJarerror213 -> defaultanonymous; verifybadsyntax/signature/timefailureNone -> anonymous intentionalfailclosed publicmode. HeaderValue263 invalidformattedcookie omitted, no actualnormalIssuedtokenfailure/injectionwitness; actualnativebrowserencodingcontract pending.",
+            "Securecookiefalse intendedconfiguredmode; no automaticsecurityrecommendation orbackcompatdefect. Owner-domainv1 andsessionwirev2 distinctpurposes; clearingselectionkeepsopaquebrowsergrantsperactualclear270..274 doc, do notrestoreobsoletecookie-clearingbehavior.",
+            "PublicIssuedSession/DebugSessiontoken areopaquecredentialtransport; actualloggingconsumer neededbeforeclaimedcredentialdisclosure, noneclaimed. No actualusersecretsread, onlysourcefixtures.",
+            "GrantedCharacterIdprivateconstruct242/245 afterverifiedowner/nativegrants; numericgetter171/175 discardsproof atAPI boundary forotherlenses/current, no L12crosslensverdictcredit. Exactnativebackendbrowsergrantproducer/sharedOwnerKey definition/current/all20 remainopen.",
+            "NativeErrorbodytextHTTPunknownforeignmessage mayremainopaque; statuscode andbodyReadError typedcontextshouldnotsilentlydisappear126/214. No productnetworkcall/probe occurred. NativeHTTP/Reqwest/TryFrom/errorcodecactualcontracts neededbeforeacceptance.",
+            "U::Error Displayonly159/179 can beInfallible forsomeactualprojections; instantiatedproductionfallibleUproof types2389needed. PublicgenericfallibleAPI caneraseownedUError166/186 conditionally; no fabricatednormalprojectionfailurewitness.",
+            "queryone145 closedcardinalityerror concretecount/sql currentlyprose; actualmultiplequeryrownativeproducer mustreconcile, invariantqueryoneconsumer legitimatevalid0/1 modes.",
+            "QueryMetrics independentAtomicAcquire vsRelaxed snapshot maybemixedconcurrent-observation: doc96..99 callsmonotoniccounters notatomicpair; no assumedreset/single-requestattributionguarantee. u128elapsedasu64120/wrap counters conditionalnumericcontracts otherlensespending.",
+            "SlowSQLlog122/nativeerrorcardinality146 includesquerycontext; actualsensitivedata/logpolicyrequirescallerproof, no claimedsecretleak. No runtime/testresultsfromfixtures222..273."
+          ],
+          "source_normalized_sha256": "46de547dbac4739a453d371381f1ab5350b266a69a947dc55f22c061e6403706"
+        },
+        "canonical_owner": {
+          "value": {
+            "unresolved_question": "Resolve canonical owner from the exact linked source scope before closing this contract."
+          },
+          "source_normalized_sha256": "46de547dbac4739a453d371381f1ab5350b266a69a947dc55f22c061e6403706"
+        }
+      }
+    },
+    {
+      "queue_index": 1880,
+      "contract_id": "Q-L12-b01e5712196abbeea3d3",
+      "observations": {
+        "canonical_owner": {
+          "value": {
+            "unresolved_question": "Resolve canonical owner from the exact linked source scope before closing this contract."
+          },
+          "source_normalized_sha256": "92464f5b553ca47a7ea5a39b6beb33a303f95547e1dc8ab0dcf100ff0d755d8d"
+        },
+        "first_failed_contract_or_unresolved_question": {
+          "value": [
+            "Actual native SQL/SATS serde bridge contracts pending; legitimate normalization not compatibility defect",
+            "New malformed-wire finding remains exactly in prior connected receipt, adoption separate; no duplicate finding/count from ordered reuse",
+            "983 full100 and2389 partial source support retains personal attribution; connected receipt authoritatively unadopted until root checks",
+            "Currentmain/all20/exactaliases/nativeclosure remain open"
+          ],
+          "source_normalized_sha256": "ee0ba87ae4f73a6f9feae16ee3cbc9facc67572a9f0ba2615116d96a1292ea34"
+        }
+      }
+    },
+    {
+      "queue_index": 1895,
+      "contract_id": "Q-L12-79684fdf1e302bd4cdb3",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": [
+            "ActualnativeDialogueView/PromptMode/Fragment/claim socialstate/nativeStrategicScenepeople producer/canonicalIDs/admission andsession/reducerauthority current/all20/exactaliases required",
+            "Original2415PNGand2416deletedPNG visual/owner/deletion contracts next; no binarylinecoverage",
+            "CanonicalPersonalityAxis414 separateunadopted; actualnativeequipment/asset/semanticowners/currentmain/allotherlenses/extensions remainopen"
+          ],
+          "source_normalized_sha256": "3372d95ea5de12d33ea86726aec8edae49b5b03f7ae8f80d2aef269c22d92c80"
+        },
+        "canonical_owner": {
+          "value": {
+            "unresolved_question": "Resolve canonical owner from the exact linked source scope before closing this contract."
+          },
+          "source_normalized_sha256": "3372d95ea5de12d33ea86726aec8edae49b5b03f7ae8f80d2aef269c22d92c80"
+        }
+      }
+    },
+    {
+      "queue_index": 2341,
+      "contract_id": "L2-EXT-ERRANTRY-CAMP-COORDINATE-OWNER-FIT",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "Existing absolute StrategicMinute is retained correctly; raw journey-relative movement/elapsed coordinates require actual producer/zero admission and exact owner fit. RequestedDuration rejects zero and is a positive request, so no blanket reuse is established.",
+          "source_normalized_sha256": "19aa04de7b3c5dd9dbd673e361228af4d7a82e1f72c05be1b26442afd9e34dde"
+        },
+        "canonical_owner": {
+          "value": "Errantry core camp-coordinate API and strategic PartyJourney/ChallengeAuthority field owners",
+          "source_normalized_sha256": "19aa04de7b3c5dd9dbd673e361228af4d7a82e1f72c05be1b26442afd9e34dde"
+        }
+      }
+    },
+    {
+      "queue_index": 2342,
+      "contract_id": "L2-EXT-ERRANTRY-FRAME-ID-OWNER-FIT",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "Frame/trial/challenge/site String fields carry distinct identity roles; actual namespace/admission/producers/native consumers must establish an existing owner match. Similar names or the same representation are insufficient.",
+          "source_normalized_sha256": "0bd7f4c6fa7147d47fc0d38d4d8423c3b8515574df8378214ab0f9e2cb8aebb3"
+        },
+        "canonical_owner": {
+          "value": "ErrantryFrame/TrialBinding identity producers and their canonical shared identity owners",
+          "source_normalized_sha256": "0bd7f4c6fa7147d47fc0d38d4d8423c3b8515574df8378214ab0f9e2cb8aebb3"
+        }
+      }
+    },
+    {
+      "queue_index": 2451,
+      "contract_id": "L2-DIALOGUE-SESSION-ID-LOCAL-OWNER-QUESTION",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "Local parsed session owner1693..1703 exists but topic/answer/join request and internal build_view/start_public APIs retain raw session strings. Determine admission boundary/owner fit before retaining a migration finding.",
+          "source_normalized_sha256": "6b297bd9b849eee2ee9d7f33af8e592edd5ed33b2e1d7dfc4cb76c5ac15f9fe9"
+        },
+        "canonical_owner": {
+          "value": "Existing local DialogueSessionId and DialoguePromptRowId; actual reducer session identity owner to reconcile",
+          "source_normalized_sha256": "6b297bd9b849eee2ee9d7f33af8e592edd5ed33b2e1d7dfc4cb76c5ac15f9fe9"
+        }
+      }
+    },
+    {
+      "queue_index": 2697,
+      "contract_id": "REVIEW-L3-ORDERED-CLUE-POSITION-ADMISSION",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "Public Exact/NotAt position:u8 and derived Serde permit position5 while fey_clue_text indexes five strings; normal native GET route is protected by puzzle.validate407 before projection408. Direct public-value preconditions require explicit ownership decision; no ordinary malformed network incident.",
+          "source_normalized_sha256": "0b6b952b52bb895e09faf7be27d2e93e5d562e4b5b98784e94eed568ecacad4f"
+        },
+        "canonical_owner": {
+          "value": "OrderedSigilClue/OrderedSigilProjection admission and errantry::fey_clue_text270..289; canonical public API obligation unresolved",
+          "source_normalized_sha256": "0b6b952b52bb895e09faf7be27d2e93e5d562e4b5b98784e94eed568ecacad4f"
+        }
+      }
+    },
+    {
+      "queue_index": 2706,
+      "contract_id": "OBLIGATION-ROOT-L3-EXT-0001-LENS-01",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "Qualify existing same-lens exact body/admission evidence or prospectively read this necessary connected scope under this lens; registration/read by Lens3 gives zero coverage here.",
+          "source_normalized_sha256": "71eec8d46383d5b44a1d814f8615828ea9fca0cba2b2c90874ca67b988953499"
+        },
+        "canonical_owner": {
+          "value": "Same source/functions as exact prospective registration; lens-specific owner may require qualified extension, no foreign verdict transfer",
+          "source_normalized_sha256": "71eec8d46383d5b44a1d814f8615828ea9fca0cba2b2c90874ca67b988953499"
+        }
+      }
+    },
+    {
+      "queue_index": 2707,
+      "contract_id": "OBLIGATION-ROOT-L3-EXT-0001-LENS-02",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "Qualify existing same-lens exact body/admission evidence or prospectively read this necessary connected scope under this lens; registration/read by Lens3 gives zero coverage here.",
+          "source_normalized_sha256": "462a58b0e615f232ad94f779228d8a2580bc05bef42ea688878167275b15eae5"
+        },
+        "canonical_owner": {
+          "value": "Same source/functions as exact prospective registration; lens-specific owner may require qualified extension, no foreign verdict transfer",
+          "source_normalized_sha256": "462a58b0e615f232ad94f779228d8a2580bc05bef42ea688878167275b15eae5"
+        }
+      }
+    },
+    {
+      "queue_index": 2708,
+      "contract_id": "OBLIGATION-ROOT-L3-EXT-0001-LENS-04",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "Qualify existing same-lens exact body/admission evidence or prospectively read this necessary connected scope under this lens; registration/read by Lens3 gives zero coverage here.",
+          "source_normalized_sha256": "e69931d1c91aea60f75c640e4c0891910a90bac29554542fab9a095cdc518b10"
+        },
+        "canonical_owner": {
+          "value": "Same source/functions as exact prospective registration; lens-specific owner may require qualified extension, no foreign verdict transfer",
+          "source_normalized_sha256": "e69931d1c91aea60f75c640e4c0891910a90bac29554542fab9a095cdc518b10"
+        }
+      }
+    },
+    {
+      "queue_index": 3292,
+      "contract_id": "PL13-297-JOURNEY-ZERO-DEPARTURE-BINDING",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "Zero epoch journey binding sentinel: initial challenge journey_departureZERO2295/2315 and bindselectZERO1188/1228 may remainunbound whenactualjourneydepartureZERO. Need actual production departure/admission bound to establish/reject repeated rebind; no injectedclockrow or runtimeincident.",
+          "source_normalized_sha256": "12ed83563e5aa8e92eeba912ed52a8eb3d1fef10706ac934affe97c1a0d97ff3"
+        },
+        "canonical_owner": {
+          "value": "Exact producer/API/state/consumer functions in attached qualified own-L13 source and question; canonical owner remains explicitly unresolved where stated",
+          "source_normalized_sha256": "12ed83563e5aa8e92eeba912ed52a8eb3d1fef10706ac934affe97c1a0d97ff3"
+        }
+      }
+    },
+    {
+      "queue_index": 3293,
+      "contract_id": "PL13-297-ERRANTRY-COORDINATE-BINDING-PENDING",
+      "observations": {
+        "canonical_owner": {
+          "value": "Exact producer/API/state/consumer functions in attached qualified own-L13 source and question; canonical owner remains explicitly unresolved where stated",
+          "source_normalized_sha256": "279af206c3266a14fe45fa08e99875c6f279017da957fcd6aada7c8d848aa238"
+        },
+        "first_failed_contract_or_unresolved_question": {
+          "value": "Normal errantry sharedmaterializer setscourier longitude/latitude0 at2322..2323; bind1232..1241 updates timefields only, and narrativecombat949..960 consumes challengecoordinates. Reachability requires actual authored quest-eligible StartCombat selection; do not assume allcourier choicesstartcombat.",
+          "source_normalized_sha256": "27df81f215f2a79255c8ea3396678c0c3ff73d9d78ac7a842914cdc496f72fab"
+        }
+      }
+    },
+    {
+      "queue_index": 3768,
+      "contract_id": "ROOT-L13-1297-JOURNEY-REST-IDENTITY",
+      "observations": {
+        "first_failed_contract_or_unresolved_question": {
+          "value": "Post-rest classification compares surviving journey destination to after-party destination and uses newly read total, without explicit comparison to before journey identity. Completion can first be inferred from absent camp destination. Establish native rest/continuation identity invariants and admitted terminal behavior before accepting cross-journey progress or stale-row suspicion.",
+          "source_normalized_sha256": "71f3e781a61939fecdd56f7c731687f096111fcfe5b482ebd5c94b5980b64b51"
+        },
+        "canonical_owner": {
+          "value": "Journey-relative elapsed interval and identity continuity through rest",
+          "source_normalized_sha256": "71f3e781a61939fecdd56f7c731687f096111fcfe5b482ebd5c94b5980b64b51"
+        }
+      }
+    }
+  ],
+  "first_contract_values": 34,
+  "canonical_owner_values": 36,
+  "qualification": "Separately printed, normalized historical observations tied by contract ID to the candidate list. They are not established as exact fields from queue 828, final queue, or authoritative alias decisions; no audit credit is inferred."
+}

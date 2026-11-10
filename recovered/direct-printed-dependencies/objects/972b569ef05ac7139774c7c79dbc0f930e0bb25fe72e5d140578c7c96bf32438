@@ -1,0 +1,304 @@
+"""Strict evidence-only adopter for full root or exact prior Lens13 packets.
+
+The immutable plan pins the packet, authority, queue and selected-lens state.
+Read-only preflight is default. No source execution, source search or repair.
+"""
+import argparse
+import copy
+from datetime import datetime, timezone
+import hashlib
+import json
+from pathlib import Path
+import subprocess
+
+R=Path('target/726-audit-adler-20261027')
+A=R/'adler-continuation-20261030'
+LP=R/'evidence/continuation-segovb/ledger.json'
+CP=R/'CURRENT-ADLER.json'
+GIT='6533e444fa37552927070cc8d8190907fd3b413e'
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+load=lambda p:json.loads(p.read_text(encoding='utf-8'))
+pack=lambda j:(json.dumps(j,indent=2)+'\n').encode('utf-8')
+def ref(p): return {'path':p.resolve().relative_to(R.resolve()).as_posix(),'sha256':sha(p)}
+def read_ref(v):
+    p=R/v['path']; assert sha(p)==v['sha256'],p
+    return load(p)
+def old_ref(v):
+    p=Path(v['path']);assert p.resolve().is_relative_to(R.resolve())
+    assert sha(p)==v['sha256'],p
+    return load(p)
+
+parser=argparse.ArgumentParser()
+parser.add_argument('plan')
+parser.add_argument('--plan-sha',required=True)
+parser.add_argument('--apply',action='store_true')
+args=parser.parse_args()
+mp=Path(args.plan); assert sha(mp)==args.plan_sha
+m=load(mp); packet=read_ref(m['packet'])
+ledger=read_ref(m['ledger']);current=read_ref(m['selector'])
+assert m['ledger']['path']==ref(LP)['path'] and m['selector']['path']==ref(CP)['path']
+old_l,old_c=copy.deepcopy(ledger),copy.deepcopy(current)
+assert current['ledger_sha256']==m['ledger']['sha256']
+assert m['queue']==ledger['audit_workflow']['closure_queue']==current['audit_workflow']['closure_queue']
+queue=read_ref(m['queue']);old_queue=copy.deepcopy(queue)
+selected=read_ref(m['selected_lenses']);old_selected=copy.deepcopy(selected)
+assert len(selected['lenses'])==13
+for sl in selected['lenses']:read_ref(sl['selected_state'])
+co=ledger['segovb_continuation']['lens13']
+before,after=packet['original_before'],packet['original_after']
+assert co['next_original']==co['original_accounted']==before
+assert m['previous_state']=={'path':co['current_state'],'sha256':co['current_state_sha256']}
+read_ref(m['previous_state'])
+assert packet['schema']=='726-root-l13-source-packet-v1' and packet['lens']==13 and packet['author']=='/root'
+assert packet['registered_before_read_attestation'] is True
+for key in ('current_source_reconciled','product_execution','implementation_gate_complete'):assert packet[key] is False
+assert packet['accepted_unique_count_change']==packet['other_population_credit']==0
+assert [row['source']['original'] for row in packet['ordered']]==list(range(before,after))
+registry_path=R/'evidence/audit05/original-scope-072.json'
+assert sha(registry_path)=='d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f'
+files=load(registry_path)['files']
+def nested_ranges(node,eof,index,where=""):
+    """No generic shape repair: only immutable exact1242/1243 field qualifications."""
+    if isinstance(node,dict):
+        for key,value in node.items():
+            location=where+'/'+key
+            if (key.endswith('ranges') or key in ('read_ranges_as_recorded','material_contract_ranges_as_recorded')) and value:
+                if index==1242 and location=='/producer_reached_contract_observations/7/source_context/read_ranges':
+                    qp=R/'parallel-l13-20261029/QUALIFICATION-PL13-1242-RANGE-SHAPE-001.json'
+                    assert sha(qp)=='010fc3fa163f535a8adf3f0f319ef966cf32684b325ca5bf10dba979d03cf77d'
+                    q=load(qp)
+                    assert q['registry']=={'path':registry_path.as_posix(),'sha256':sha(registry_path)}
+                    assert q['original']==index and q['actual_eof']==eof==1515
+                    assert q['source_id']==files[index]['source_id'] and q['sha256']==files[index]['sha256']
+                    assert q['git_revision']==GIT and q['qualified_field_pointer']=='/files/1242'+location
+                    assert value==q['raw_value']==[271,490] and q['effective_existing_ranges']==[[271,490]]
+                    assert q['nonexistent_tail_credit']==0 and q['inherited_metadata_unchanged'] is True
+                    assert q['other_nested_flat_fields']==q['other_nested_over_eof_fields']==[]
+                    value=q['effective_existing_ranges']
+                elif index==1243 and location=='/producer_reached_contract_observations/5/source_context/read_ranges':
+                    qp=A/'QUALIFICATION-ROOT-L13-1243-RANGE-SHAPE-001.json'
+                    assert sha(qp)=='bb749f6a96f44146e3c5a49e4a3ef22cf8a7d8f16257ddd38a20ade2c80e7507'
+                    q=load(qp)
+                    assert q['registry']=={'path':registry_path.as_posix(),'sha256':sha(registry_path)}
+                    assert q['original']==index and q['actual_eof']==eof==133
+                    assert q['source_id']==files[index]['source_id'] and q['sha256']==files[index]['sha256']
+                    assert q['git_revision']==GIT and q['qualified_field_pointer']=='/files/1243'+location
+                    assert value==q['raw_value']==[1,133] and q['effective_existing_ranges']==[[1,133]]
+                    assert q['nonexistent_tail_credit']==q['body_credit_from_qualification']==q['authority_changes']==0
+                    assert q['inherited_metadata_unchanged'] is q['all_nested_range_fields_inspected'] is True
+                    assert q['other_nested_flat_fields']==q['other_nested_over_eof_fields']==[]
+                    read=read_ref(q['fresh_root_read'])
+                    assert read['source']['original']==1243 and read['assessed_ranges']==[[1,133]]
+                    assert read['source']['sha256']==q['sha256'] and read['fresh_personal_source_lines']==133
+                    value=q['effective_existing_ranges']
+                elif index==1273 and location in ['/producer_reached_contract_observations/0/read_ranges_as_recorded', '/producer_reached_contract_observations/0/source_context/read_ranges', '/producer_reached_contract_observations/2/read_ranges_as_recorded', '/producer_reached_contract_observations/2/source_context/read_ranges']:
+                    qp=A/'QUALIFICATION-ROOT-L13-1273-NONEXISTENT-TAIL-001.json'
+                    assert sha(qp)=='dbbcf9753680e3944dd55d238283827f4d73ffd209750873a930a377d00f248c'
+                    q=load(qp)
+                    assert q['registry']==ref(registry_path) and q['original']==index
+                    assert q['source_id']==files[index]['source_id'] and q['sha256']==files[index]['sha256']
+                    assert q['actual_eof']==eof==330 and q['git_revision']==GIT
+                    assert location in q['qualified_fields'] and len(q['qualified_fields'])==4
+                    assert value==q['raw_value']==[[290,346]]
+                    assert q['effective_existing_ranges']==[[290,330]] and q['nonexistent_tail']==[[331,346]]
+                    assert q['nonexistent_tail_credit']==q['body_credit']==q['authority_changes']==0
+                    assert q['inherited_metadata_unchanged'] is q['all_nested_range_fields_inspected'] is True
+                    assert q['other_invalid_range_fields']==[]
+                    read=pointer(read_ref(q['fresh_root_read']),q['fresh_root_read_pointer'])
+                    assert read['source']['original']==1273 and read['source']['sha256']==q['sha256']
+                    assert read['assessed_ranges']==q['fresh_root_full_scope']==[[1,330]]
+                    assert read['author']=='/root' and read['untruncated_body_outputs'] is True
+                    value=q['effective_existing_ranges']
+                elif index==1280 and location in ['/producer_reached_contract_observations/1/read_ranges_as_recorded', '/producer_reached_contract_observations/1/source_context/read_ranges']:
+                    qp=A/'QUALIFICATION-ROOT-L13-1280-NONEXISTENT-TAIL-001.json'
+                    assert sha(qp)=='1f1e87b84e99c18bffe2536cc39bf6c946cdb1ae1225d6940e18455eefc5c282'
+                    q=load(qp)
+                    assert q['registry']==ref(registry_path) and q['original']==index
+                    assert q['source_id']==files[index]['source_id'] and q['sha256']==files[index]['sha256']
+                    assert q['actual_eof']==eof==133 and q['git_revision']==GIT
+                    assert location in q['qualified_fields'] and len(q['qualified_fields'])==2
+                    assert value==q['raw_value']==[[96,137]]
+                    assert q['effective_existing_ranges']==[[96,133]] and q['nonexistent_tail']==[[134,137]]
+                    assert q['nonexistent_tail_credit']==q['body_credit']==q['authority_changes']==0
+                    assert q['inherited_metadata_unchanged'] is q['all_nested_range_fields_inspected'] is True
+                    assert q['other_invalid_range_fields']==[]
+                    read=pointer(read_ref(q['fresh_root_read']),q['fresh_root_read_pointer'])
+                    assert read['source']['original']==1280 and read['source']['sha256']==q['sha256']
+                    assert read['assessed_ranges']==q['fresh_root_full_scope']==[[1,133]]
+                    assert read['author']=='/root' and read['untruncated_body_outputs'] is True
+                    value=q['effective_existing_ranges']
+                assert isinstance(value,list)
+                for pair in value:
+                    assert isinstance(pair,list) and len(pair)==2 and all(type(n) is int for n in pair)
+                    assert 1<=pair[0]<=pair[1]<=eof
+            else:nested_ranges(value,eof,index,location)
+    elif isinstance(node,list):
+        for n,item in enumerate(node):nested_ranges(item,eof,index,where+"/"+str(n))
+def exact_source(src):
+    index=src['original'];f=files[index]
+    assert src['source_id']==f['source_id'] and src['sha256']==f['sha256']
+    assert src['source_id'].startswith('pr-working:')
+    assert src['source_revision'] in (GIT,'pr-working exact frozen object; Git'+GIT)
+    p=Path(src['object_path']);assert p.resolve().is_relative_to(R.resolve())
+    body=p.read_bytes();assert hashlib.sha256(body).hexdigest()==src['sha256']
+    assert len(body.splitlines())==src['actual_eof']
+    if 'bytes' in f:assert len(body)==f['bytes']
+    git_path=f['path']
+    if index in (1244,1245,1247,1248,1249,1252,1253,1269,1273,1280,1289):
+        qp=A/'QUALIFICATION-ROOT-L13-SNAPSHOT-LOCATORS-006.json'
+        assert sha(qp)=='1af19f98643c7733fd74c494cf8740d80153dc5b08da0b8ef32aa2ef85856edf'
+        q=load(qp);assert q['registry']==ref(registry_path)
+        assert q['body_credit']==q['authority_changes']==0
+        matches=[x for x in q['entries'] if x['original']==index];assert len(matches)==1
+        entry=matches[0]
+        assert entry['source_id']==src['source_id'] and entry['sha256']==src['sha256']
+        assert entry['actual_eof']==src['actual_eof']==f['actual_line_count']
+        assert entry['registry_path']==f['path']
+        git_path=entry['git_path'];assert git_path==src['source_id'].split(':',1)[1]
+        assert f['path']=='SNAPSHOTS\\pr-working\\'+git_path.replace('/','\\')
+    assert body==subprocess.check_output(['git','show',GIT+':'+git_path])
+    nested_ranges(f,src['actual_eof'],index)
+def pointer(j,p):
+    for part in p.strip('/').split('/'):j=j[int(part)] if isinstance(j,list) else j[part]
+    return j
+ordered_reuses=[]
+for section in ('ordered','connected'):
+    for row in packet[section]:
+        src=row['source'];exact_source(src)
+        reg=read_ref(row['registration'])
+        assert reg['lens']==13 and reg['authority_changes']==0 and 'prospective' in reg['status'].lower()
+        if row.get('read_kind')=='qualified_same_lens_future_reuse':
+            assert section=='ordered' and row['author']=='Inherited independent Lens13 reader'
+            reuse=row['reuse'];assert reuse in m['prior_reuses']
+            assert reuse['adoption'] in co['discovery_receipts']
+            previous_root=read_ref(reuse['adoption'])
+            previous_raw=old_ref(previous_root['delegated_receipt'])
+            assert previous_root['evidence']==previous_raw and previous_raw['lens']==13
+            assert previous_raw['registered_before_read_attestation'] is True
+            assert pointer(previous_raw,reuse['pointer'])==src
+            for key,value in pointer(reg,row['registration_pointer']).items():assert src[key]==value
+            proofs=[x for x in co['future_same_lens_reuse_proofs'] if x.get('original')==src['original']
+                    and x.get('receipt_sha256')==previous_root['delegated_receipt']['sha256']
+                    and x.get('row_pointer')==reuse['pointer']]
+            assert len(proofs)==1 and proofs[0]==row['authoritative_future_proof']
+            proof=proofs[0]
+            assert proof['source_id']==src['source_id'] and proof['source_sha256']==src['sha256']
+            assert proof['actual_EOF']==src['actual_eof'] and proof['assessed_ranges']==src['fresh_personal_assessed_ranges']
+            assert proof['ordered_credit_now']==0 and old_ref(proof['registration'])==reg
+            assert src['original_credit_now']==src['original_role_credit_now']==0
+            assert not any(x.get('original')==src['original'] for x in co['future_same_lens_ordered_applications'])
+            assert row['root_personal_source_lines']==0
+            ordered_reuses.append({'original':src['original'],'reuse':reuse,'proof':proof})
+        else:
+            assert reg['at']<packet['at'] and pointer(reg,row['registration_pointer'])==src
+            assert row['author']=='/root'
+        assert row['untruncated_body_outputs'] is True
+        assert row['assessed_ranges']==src['prospective_ranges']==[[1,src['actual_eof']]]
+        assert row['observations']
+        if section=='connected':
+            assert row['ordered_credit_now']==0
+            assert row['prior_same_lens_adoption'] in co['discovery_receipts']
+assert sum(x['source']['actual_eof'] for x in packet['ordered'] if x['author']=='/root')==packet['new_root_ordered_lines']
+assert sum(x['source']['actual_eof'] for x in packet['connected'])==packet['new_root_connected_reread_lines']
+# Authenticate exact previous same-lens sources without transferring authorship.
+assert packet['prior_same_lens_adoptions']==[x['adoption'] for x in m['prior_reuses']]
+for reuse in m['prior_reuses']:
+    rr=reuse['adoption'];assert rr in co['discovery_receipts']
+    root=read_ref(rr);raw=old_ref(root['delegated_receipt'])
+    assert root['evidence']==raw and raw['lens']==13 and raw['registered_before_read_attestation'] is True
+    src=pointer(raw,reuse['pointer']);assert src['original']==reuse['original'];exact_source(src)
+    reg=old_ref(src.get('registration',raw['registration']))
+    assert reg['lens']==13 and reg['authority_changes']==0 and 'prospective' in reg['status'].lower()
+    matches=[x for x in reg['sources'] if x['source_id']==src['source_id']]
+    assert len(matches)==1
+    for key,value in matches[0].items():assert src[key]==value
+    assert src['fresh_personal_assessed_ranges']==[[1,src['actual_eof']]]
+    assert src['untruncated_body_outputs'] is True
+assert current['implementation_gate_complete'] is False
+now=datetime.now(timezone.utc).isoformat();planned={}
+def plan(p,j):
+    assert not p.exists() and p not in planned
+    data=pack(j);planned[p]=data
+    return {'path':p.relative_to(R).as_posix(),'sha256':hashlib.sha256(data).hexdigest()}
+seq=m['root_sequence'];qseq=m['queue_sequence']
+assert m['previous_state']['path']==f'segovb/STATE-L13-PARALLEL-{seq-1:03d}.json'
+assert m['queue']['path']==f'workflow-20261030/CLOSURE-QUEUE-{qseq-1:03d}.json'
+writer=ref(Path(__file__))
+receipt=plan(R/f'segovb/READ-L13-PARALLEL-{seq:03d}.json',{
+    'lens':13,'kind':'Root full-source assessment adoption','at':now,'packet':m['packet'],
+    'evidence':packet,'original_before':before,'original_after':after,'new_original_roles':after-before,
+    'root_personal_ordered_lines':packet['new_root_ordered_lines'],'root_personal_connected_reread_lines':packet['new_root_connected_reread_lines'],
+    'prior_same_lens_reuses':m['prior_reuses'],'prior_authorship_retained':True,'future_original_credit':0,
+    'qualified_ordered_reuses':ordered_reuses,'new_original_roles_from_prior_connected_reads':len(ordered_reuses),
+    'other_population_credit':0,'accepted_unique_count_change':0,'current_source_reconciled':False,
+    'product_execution':False,'implementation_gate_complete':False,'writer':writer,'plan':ref(mp)})
+state=plan(R/f'segovb/STATE-L13-PARALLEL-{seq:03d}.json',{
+    'lens':13,'predecessor':m['previous_state']['path'],'predecessor_sha256':m['previous_state']['sha256'],
+    'receipt':receipt['path'],'receipt_sha256':receipt['sha256'],'next_original':after,'original_accounted':after,
+    'original_total':2853,'other_population_counts_unchanged':True,'inherited_qualifications_retained':True,'implementation_gate_complete':False})
+plan(R/f'segovb/VERIFY-L13-PARALLEL-{seq:03d}.json',{'lens':13,'receipt_sha256':receipt['sha256'],
+    'state_sha256':state['sha256'],'exact_registry_Git_hash_EOF_prospective_chronology_scope_and_reuse_checked':True,
+    'new_original_roles':after-before,'other_lens_credit':0,'product_execution':False,'gate':False,'writer':writer})
+ids={e['contract_id'] for e in queue['entries']};new_ids=[]
+for question in packet['new_questions']:
+    assert question['contract_id'] not in ids
+    for key in ('canonical_owner','first_failed_contract_or_unresolved_question','remaining_evidence','dependencies','closure_condition','later_repair_acceptance_requirements'):assert question[key]
+    sources=[x for x in packet['ordered'] if x['source']['original'] in question['source_originals']]
+    assert len(sources)==len(question['source_originals'])
+    entry=dict(question,kind='connected-contract-question',lens=13,
+        exact_source_identities_and_assessed_ranges=sources,body_receipt=receipt,
+        connected_source_evidence=packet['connected'],prior_same_lens_reuses=m['prior_reuses'],
+        body_or_population_credit=0,new_unique_finding_claimed=False,current_reconciled=False,audit_discovery_closed=False)
+    queue['entries'].append(entry);new_ids.append(question['contract_id'])
+queue.update(at=now,predecessor=m['queue'],latest_contract_updates=new_ids)
+queue['progress']['reconciliation_closure']['queue_entries_not_unique_findings']=len(queue['entries'])
+queue['progress']['original_inventory']['lens13'].update(accounted=after,next_original=after,remaining=2853-after,proof=state)
+for item in queue['progress']['original_inventory']['all_lens_selected_coverage_statements']:
+    if item['lens']==13:item['current_original_accounted']=after
+new_queue=plan(R/f'workflow-20261030/CLOSURE-QUEUE-{qseq:03d}.json',queue)
+update=plan(R/f'workflow-20261030/QUEUE-UPDATE-{qseq:03d}.json',{'at':now,'writer':writer,'source_adoption':receipt,'contract_updates':new_ids,'new_body_population_unique_credit_from_queue':0})
+history=R/'checkpoint-history'/f"{m['ledger']['sha256']}.json"
+plan(history,{'ledger':old_l,'current':old_c,'ledger_raw_utf8':LP.read_text(encoding='utf-8'),'current_raw_utf8':CP.read_text(encoding='utf-8'),'ledger_sha256':sha(LP),'current_sha256':sha(CP)})
+co.update(next_original=after,original_accounted=after,current_state=state['path'],current_state_sha256=state['sha256'],last_checkpoint_at=now)
+co['discovery_receipts'].append(receipt)
+for reuse in ordered_reuses:
+    co['future_same_lens_ordered_applications'].append({'original':reuse['original'],
+        'receipt':receipt['path'],'receipt_sha256':receipt['sha256'],
+        'exact_reuses':[reuse],'ordered_credit_once_now':True,'root_personal_rereads':[]})
+co.setdefault('qualified_contract_bundle_views',[]).append({'source_adoption':receipt,'queue':new_queue,'contract_updates':new_ids,'current_and_alias_closure':False})
+co.setdefault('root_connected_source_rereads',[]).extend({'adoption':receipt,**x} for x in packet['connected'])
+ledger['segovb_continuation']['last_checkpoint_at']=now
+cov=next(x for x in ledger['lens_coverage'] if x['number']==13)
+cov.update(current_successor='../../'+state['path'],current_successor_sha256=state['sha256'],latest_receipt='../../'+receipt['path'],current_original_accounted=after)
+ledger['audit_workflow']['closure_queue']=new_queue;ledger['audit_workflow']['queue_updates'].append(update)
+front=next(x for x in current['frontiers'] if x['lens']==13)
+front.update(next_original=after,original_accounted=after,state=state['path'],state_sha256=state['sha256'],latest_receipt=receipt['path'])
+current['audit_workflow']['closure_queue']=new_queue
+current.update(at=now,ledger_sha256=hashlib.sha256(pack(ledger)).hexdigest(),previous_checkpoint_archive=history.relative_to(R).as_posix())
+selected['at']=now;selected['authority']='Exact root Lens13 packet adoption; other lens selections and all qualifications retained.'
+next(x for x in selected['lenses'] if x['lens']==13)['selected_state']=state
+selected_ref=plan(A/m['next_selected_lenses_filename'],selected)
+for key in old_l:
+    if key not in ('segovb_continuation','lens_coverage','audit_workflow'):assert old_l[key]==ledger[key]
+for key in old_l['segovb_continuation']:
+    if key not in ('lens13','last_checkpoint_at'):assert old_l['segovb_continuation'][key]==ledger['segovb_continuation'][key]
+for old,new in zip(old_l['lens_coverage'],ledger['lens_coverage'],strict=True):
+    if old['number']!=13:assert old==new
+for old,new in zip(old_c['frontiers'],current['frontiers'],strict=True):
+    if old['lens']!=13:assert old==new
+assert queue['entries'][:len(old_queue['entries'])]==old_queue['entries']
+assert sha(LP)==m['ledger']['sha256'] and sha(CP)==m['selector']['sha256']
+report={'preflight':'passed','original_before':before,'original_after':after,'root_ordered_lines':packet['new_root_ordered_lines'],
+        'root_connected_reread_lines':packet['new_root_connected_reread_lines'],'queue_entries_not_unique_findings':len(queue['entries']),
+        'ordered_prior_reuses':len(ordered_reuses),
+        'writer':writer,'plan':ref(mp),'product_execution':False,'implementation_gate_complete':False,'authority_writes':0}
+if args.apply:
+    for p,data in planned.items():
+        with p.open('xb') as f:f.write(data)
+    lt=A/f'LEDGER-ROOT-{seq}.tmp';ct=A/f'CURRENT-ROOT-{seq}.tmp'
+    for p,j in [(lt,ledger),(ct,current)]:
+        with p.open('xb') as f:f.write(pack(j))
+    assert sha(LP)==m['ledger']['sha256'] and sha(CP)==m['selector']['sha256']
+    lt.replace(LP);ct.replace(CP)
+    report.update(authority_writes=2,ledger=ref(LP),selector=ref(CP),queue=new_queue,selected_lenses=selected_ref)
+print(json.dumps(report))

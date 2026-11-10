@@ -1,0 +1,45 @@
+{
+  "schema": "726-scoped-mhr-skin-v1",
+  "at": "2026-11-03T17:22:00.241470+00:00",
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-PINNED-SKIN-1078.json",
+    "sha256": "932794bb9ddc7c0b8b11e642e789f057e8d241397a20f5aec7bbf2736de345c1"
+  },
+  "evidence": [
+    {
+      "path": "target/726-intake-20261030/pinned_skin_1078.log",
+      "sha256": "1e53579b673c470de53e740a054105452f95ee343c4af5060dcc77ff6d80abec"
+    },
+    {
+      "path": "target/726-intake-20261030/pinned_skin_1078-receipt.json",
+      "sha256": "11ad7de5d570ffbb129461d33f800069f3e26f12d5423cc2a7b487e131023b26"
+    },
+    {
+      "path": "target/726-intake-20261030/verify_skin_probe_1078.py",
+      "sha256": "a572bac5d54abd40810ebce948d843f6434901aa6ed70c22f6196f6d5bcf6e6a"
+    },
+    {
+      "path": "target/726-intake-20261030/mhr-module-probe/tests/pinned_skin_1078.rs",
+      "sha256": "6606ab2c5c78d792e854ec0e17816b381187b0c32fb11ad93126ea51c01bec6d"
+    },
+    {
+      "path": "target/726-intake-20261030/mhr-release-verify-1077.log",
+      "sha256": "620e246f57dcc601af1969cfe014366c211fa00f9f9f70adb4819f919e4c4a0d"
+    },
+    {
+      "path": "target/726-intake-20261030/mhr_nan_probe_1048-result.json",
+      "sha256": "e7a657c3ee7a1ab5ef1a74ae58ee1174fd97967bcc66b17fa9f1f01f69fed1f4"
+    }
+  ],
+  "whole_contract_closed": false,
+  "source_trace": [
+    "The selected-revision character, skin, skeleton, vertex and math modules in an isolated harness accepted all three verified pinned MHR release FBX rigs without blend shapes. The harness modules and dependency manifest and lock matched the earlier selected-source receipt; dependencies are separately resolved and this is not a full MHR crate test.",
+    "LOD4 produced 2461 skin rows, LOD5 971, and LOD6 595. All produced weights were finite and nonnegative, with maximum absolute row-sum error 1.1920929e-7.",
+    "This establishes behavior for the tested release assets, not arbitrary inputs, raw pre-normalization weights, rendering, model correctives or the full product. The earlier constructed NaN case remains a separate admission finding."
+  ],
+  "remaining_evidence": [
+    "Resolve unsupported input admission, connected consumer and exact aliases; complete the broader family and all-lens repair ledger."
+  ],
+  "product_execution": true,
+  "implementation_gate_complete": false
+}

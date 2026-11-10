@@ -1,0 +1,32 @@
+{
+  "schema": "726-independent-own-lens-current-cell-decision-v1",
+  "lens": 1,
+  "delta_index": 0,
+  "path_index": 3,
+  "git_path": "crates/adventuresim-character-creator/src/animation_preview.rs",
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-CREATOR-ANIMATION-797.json",
+    "sha256": "386c48d24edac91a5afe967288240a1a01c6ec330afee047457eecee1381af23"
+  },
+  "connected_same_lens_evidence": [
+    {
+      "path": "adler-continuation-20261030/QUALIFICATION-CREATOR-ANIMATION-797.json",
+      "sha256": "386c48d24edac91a5afe967288240a1a01c6ec330afee047457eecee1381af23"
+    },
+    {
+      "path": "adler-continuation-20261030/QUALIFICATION-CREATOR-CONSUMERS-787.json",
+      "sha256": "e6f609b0d4c1563893d165a56f17f0982fb719a9ae61511fa099179eb7b8f2d4"
+    },
+    {
+      "path": "adler-continuation-20261030/QUALIFICATION-MHR-CHARACTER-COUNTS-779.json",
+      "sha256": "b711eac8ce0525f88439f19016fc9968fed7476dda7efd7c26f7a8b50e42bc8a"
+    }
+  ],
+  "effective_disposition": "Animation preview now compares the packed skin and matrix joint-count owners directly. Preview consumes generated rig states, model names and parents, skin binding and native animation assets; complete producers and playback systems remain separate.",
+  "exact_current_path_complete": true,
+  "scope_limit": "This file and perspective only. Rig identity, binding/collider dependencies, native scheduling, geometry and animation/cloth acceptance remain open.",
+  "other_lens_or_global_closure": false,
+  "runtime_validation": "Not run; separate later acceptance",
+  "body_or_population_credit": 0,
+  "implementation_gate_complete": false
+}

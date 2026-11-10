@@ -1,0 +1,20 @@
+{
+  "schema": "726-provisional-connected-repair-plan-v1",
+  "at": "2026-11-04T00:59:50.025725+00:00",
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-ORG-PROFESSION-DISPLAY-L12-1325.json",
+    "sha256": "25e49d51d040b3924edc7ca8084c18875e5ed1c26da4050bed964847f3626cdf"
+  },
+  "status": "owner fit and connected display contract; implementation gate incomplete",
+  "problem": "StartingProfession, role profession text, service identity and displayed role label describe overlapping but non-identical concepts.",
+  "constraints": [
+    "Do not restrict all organization roles to StartingProfession; preserve legitimate civic, family, religious and non-starting professional roles.",
+    "Preserve the existing displayed role/service behavior and explicit absence of presented organization, unless a separate product decision changes them.",
+    "Use semantically fitting existing owners; resolve service and role identity types at their actual authority boundaries rather than inventing parallel aliases."
+  ],
+  "acceptance": [
+    "Cover a starting trade, physician or surgeon without starting metadata, and civic or family roles; preserve dues, recognition and no-presentation behavior.",
+    "Verify membership projection and display through native boundaries after the audit gate."
+  ],
+  "implementation_gate_complete": false
+}

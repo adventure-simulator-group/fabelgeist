@@ -1,0 +1,207 @@
+231:     visited: &mut std::collections::HashSet<Entity>,
+232:     output: &mut Vec<PreviewTarget>,
+233: ) {
+234:     if !visited.insert(entity) {
+235:         return;
+236:     }
+237:     let Ok((_, _, _, properties, _)) = items.get(entity) else {
+238:         output.push(PreviewTarget::Occupied {
+239:             entity,
+240:             attachment: PreviewAttachment::Detached,
+241:         });
+242:         return;
+243:     };
+244:     let Some(equipment) = item_catalog::definition(&properties.id)
+245:         .and_then(|definition| definition.equipment.as_ref())
+246:     else {
+247:         output.push(PreviewTarget::Occupied {
+248:             entity,
+249:             attachment: PreviewAttachment::Detached,
+250:         });
+251:         return;
+252:     };
+253:     let mut points: Vec<_> = equipment.attachment_points.iter().collect();
+254:     points.sort_by_key(|point| (point.order, point.id.as_str()));
+255:     for point in points
+256:         .into_iter()
+257:         .filter(|point| point.locations.is_empty() || point.locations.contains(&location))
+258:     {
+259:         for capacity_index in 0..point.capacity {
+260:             let child =
+261:                 items.iter().find_map(|(child, _, _, _, topology)| {
+262:                     topology.occupancies.iter().any(|occupancy| {
+263:                     matches!(
+264:                         &occupancy.anchor,
+265:                         TacticalEquipmentAnchor::ItemAttachment { parent, attachment_point_id }
+266:                             if *parent == entity
+267:                                 && attachment_point_id == &point.id
+268:                                 && occupancy.capacity_index == capacity_index
+269:                     )
+270:                 }).then_some(child)
+271:                 });
+272:             if let Some(child) = child {
+273:                 append_hud_preview(child, location, items, visited, output);
+274:             } else {
+275:                 output.push(PreviewTarget::EmptyAttachment { parent: entity });
+276:             }
+277:         }
+278:     }
+279:     output.push(PreviewTarget::Occupied {
+280:         entity,
+281:         attachment: PreviewAttachment::from_predicate(items.get(entity).is_ok_and(
+282:             |(_, _, _, _, topology)| {
+283:                 topology.occupancies.iter().any(|occupancy| {
+284:                     matches!(
+285:                         occupancy.anchor,
+286:                         TacticalEquipmentAnchor::ItemAttachment { .. }
+287:                     )
+288:                 })
+289:             },
+290:         )),
+291:     });
+292: }
+293: #[cfg(test)]
+294: mod tests {
+295:     use super::*;
+296:     use bevy::ecs::system::RunSystemOnce;
+297: 
+298:     #[test]
+299:     fn outermost_display_skips_empty_attachment_capacity() {
+300:         let parent = Entity::from_bits(1);
+301:         let child = Entity::from_bits(2);
+302:         let layers = [
+303:             PreviewTarget::EmptyAttachment { parent },
+304:             PreviewTarget::Occupied {
+305:                 entity: child,
+306:                 attachment: PreviewAttachment::Attached,
+307:             },
+308:             PreviewTarget::Occupied {
+309:                 entity: parent,
+310:                 attachment: PreviewAttachment::Detached,
+311:             },
+312:         ];
+313:         assert_eq!(outermost_occupied_depth(&layers), Some(1));
+314:     }
+315: 
+316:     #[test]
+317:     fn preview_traversal_keeps_belt_attachment_points_in_their_slots() {
+318:         let mut world = World::new();
+319:         let actor = world.spawn_empty().id();
+320:         let belt = world
+321:             .spawn((
+322:                 ItemOf(actor),
+323:                 ItemProperties {
+324:                     id: "belt".into(),
+325:                     weight: 0.35,
+326:                 },
+327:                 EquipmentTopology {
+328:                     placement_id: Some("worn".into()),
+329:                     occupancies: [
+330:                         EquipmentLocation::LeftBelt,
+331:                         EquipmentLocation::RightBelt,
+332:                         EquipmentLocation::FrontBelt,
+333:                         EquipmentLocation::BackBelt,
+334:                     ]
+335:                     .into_iter()
+336:                     .enumerate()
+337:                     .map(|(index, location)| EquipmentTopologyOccupancy {
+338:                         occupancy_id: format!("belt-{index}"),
+339:                         anchor: TacticalEquipmentAnchor::CharacterLocation(location),
+340:                         channel: EquipmentChannel::Accessory,
+341:                         order: 0,
+342:                         requirement_index: index as u16,
+343:                         capacity_index: 0,
+344:                     })
+345:                     .collect(),
+346:                 },
+347:             ))
+348:             .id();
+349:         let right_sheath = world
+350:             .spawn((
+351:                 ItemOf(actor),
+352:                 ItemProperties {
+353:                     id: "scabbard".into(),
+354:                     weight: 0.3,
+355:                 },
+356:                 EquipmentTopology {
+357:                     placement_id: Some("right".into()),
+358:                     occupancies: vec![EquipmentTopologyOccupancy {
+359:                         occupancy_id: "right-sheath".into(),
+360:                         anchor: TacticalEquipmentAnchor::ItemAttachment {
+361:                             parent: belt,
+362:                             attachment_point_id: "right".into(),
+363:                         },
+364:                         channel: EquipmentChannel::Mount,
+365:                         order: 1,
+366:                         requirement_index: 0,
+367:                         capacity_index: 0,
+368:                     }],
+369:                 },
+370:             ))
+371:             .id();
+372:         let sheath = world
+373:             .spawn((
+374:                 ItemOf(actor),
+375:                 ItemProperties {
+376:                     id: "sword_sheath".into(),
+377:                     weight: 0.3,
+378:                 },
+379:                 EquipmentTopology {
+380:                     placement_id: Some("attached".into()),
+381:                     occupancies: vec![EquipmentTopologyOccupancy {
+382:                         occupancy_id: "sheath".into(),
+383:                         anchor: TacticalEquipmentAnchor::ItemAttachment {
+384:                             parent: belt,
+385:                             attachment_point_id: "left".into(),
+386:                         },
+387:                         channel: EquipmentChannel::Mount,
+388:                         order: 0,
+389:                         requirement_index: 0,
+390:                         capacity_index: 0,
+391:                     }],
+392:                 },
+393:             ))
+394:             .id();
+395:         let preview = world
+396:             .run_system_once(
+397:                 move |items: Query<(Entity, &ItemOf, &EquipmentTopology, &ItemProperties)>| {
+398:                     ordered_preview_at_location(actor, EquipmentLocation::LeftBelt, &items)
+399:                 },
+400:             )
+401:             .unwrap();
+402:         assert_eq!(
+403:             preview.first().map(|target| target.addressed_entity()),
+404:             Some(sheath)
+405:         );
+406:         assert!(
+407:             matches!(
+408:                 preview.first().unwrap(),
+409:                 PreviewTarget::EmptyAttachment { .. }
+410:             ),
+411:             "deepest empty blade is first"
+412:         );
+413:         assert_eq!(
+414:             preview.last().map(|target| target.addressed_entity()),
+415:             Some(belt)
+416:         );
+417:         let right_preview = world
+418:             .run_system_once(
+419:                 move |items: Query<(Entity, &ItemOf, &EquipmentTopology, &ItemProperties)>| {
+420:                     ordered_preview_at_location(actor, EquipmentLocation::RightBelt, &items)
+421:                 },
+422:             )
+423:             .unwrap();
+424:         assert_eq!(
+425:             right_preview
+426:                 .first()
+427:                 .map(|target| target.addressed_entity()),
+428:             Some(right_sheath)
+429:         );
+430:         assert!(
+431:             right_preview
+432:                 .iter()
+433:                 .all(|target| target.addressed_entity() != sheath),
+434:             "the left sheath must not appear in the right belt slot"
+435:         );
+436:     }
+437: }

@@ -1,0 +1,71 @@
+80: 
+81: #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+82: struct DirectDemoContractId {
+83:     character_id: u64,
+84:     ordinal: u64,
+85: }
+86: 
+87: impl DirectDemoContractId {
+88:     fn parse(value: &str) -> Option<Self> {
+89:         let mut segments = value.split(':');
+90:         if segments.next()? != "contract"
+91:             || segments.next()? != "errantry-puzzle"
+92:             || segments.next()? != "demo"
+93:         {
+94:             return None;
+95:         }
+96:         let character_id = segments.next()?.parse().ok()?;
+97:         let ordinal = segments.next()?.parse().ok()?;
+98:         segments.next().is_none().then_some(Self {
+99:             character_id,
+100:             ordinal,
+101:         })
+102:     }
+103: }
+104: 
+105: #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+106: struct DirectDemoChallengeId {
+107:     character_id: u64,
+108:     ordinal: u64,
+109: }
+110: 
+111: impl DirectDemoChallengeId {
+112:     fn parse(value: &str) -> Option<Self> {
+113:         let mut segments = value.split(':');
+114:         if segments.next()? != "challenge" || segments.next()?.is_empty() {
+115:             return None;
+116:         }
+117:         if segments.next()? != "demo" {
+118:             return None;
+119:         }
+120:         let character_id = segments.next()?.parse().ok()?;
+121:         let ordinal = segments.next()?.parse().ok()?;
+122:         segments.next().is_none().then_some(Self {
+123:             character_id,
+124:             ordinal,
+125:         })
+126:     }
+127: }
+128: 
+129: pub(super) async fn camp(
+130:     State(state): State<AppState>,
+131:     Query(query): Query<CampQuery>,
+132:     session: Session,
+133: ) -> Response {
+134:     let Some((character, _inventory)) =
+135:         get_active_character(&state, session.character_id_u64()).await
+136:     else {
+137:         return Redirect::to("/characters").into_response();
+138:     };
+139:     let Some(party_id) = character.party_id.as_deref() else {
+140:         return Redirect::to("/").into_response();
+141:     };
+142:     // A reducer response can arrive a fraction before its row is visible to
+143:     // the SQL endpoint. Retry briefly so a completed travel POST resolves to
+144:     // camp rather than falling through to the character picker.
+145:     let mut party = None;
+146:     for attempt in 0..4 {
+147:         let query = party_by_id(party_id);
+148:         party = state
+149:             .db
+150:             .query_one_sats_into::<adventuresim_stdb_client::Party, PartyView>(query.as_str())

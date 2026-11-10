@@ -1,0 +1,115 @@
+346:                 .any(|event| { event.cause == "blood_loss_fraction" && event.delta > 0.0 })
+347:         );
+348:         assert!(
+349:             outcome
+350:                 .condition_events
+351:                 .iter()
+352:                 .any(|event| { event.cause == "blood_loss_incapacitation" && event.delta > 0.0 })
+353:         );
+354:         for event in outcome
+355:             .condition_events
+356:             .iter()
+357:             .filter(|event| event.cause == "blood_loss_fraction" && event.delta > 0.0)
+358:         {
+359:             let active_wound_flow = outcome
+360:                 .wound_events
+361:                 .iter()
+362:                 .filter(|wound| wound.combatant == event.combatant && wound.tick < event.tick)
+363:                 .map(|wound| wound.blood_fraction_per_second)
+364:                 .sum::<f32>();
+365:             let expected_delta = active_wound_flow * TACTICAL_TICK_SECONDS;
+366:             assert!(
+367:                 (event.delta - expected_delta).abs() < 1.0e-6,
+368:                 "raw blood loss must integrate the active wound flow: {event:?}"
+369:             );
+370:         }
+371:         assert!(outcome.decision_events.iter().any(|event| {
+372:             event.decision == TacticalDecision::Attack
+373:                 && event.tick > 0
+374:                 && event
+375:                     .center_separation_metres
+376:                     .is_some_and(|distance| distance < outcome.initial_center_separation_metres)
+377:         }));
+378:     }
+379: 
+380:     #[test]
+381:     fn production_dodge_observers_cover_a_seeded_melee_sample() {
+382:         let (john, opponents) = melee_iteration_roster().unwrap();
+383:         let mut total_attempts = 0;
+384:         for seed in (0..4).map(Seed::from_u64) {
+385:             let outcome = resolve_tactical_server_melee_duel(&john, &opponents[0], seed).unwrap();
+386:             let count = |status| {
+387:                 outcome
+388:                     .decision_events
+389:                     .iter()
+390:                     .filter(|event| {
+391:                         event.decision == TacticalDecision::Dodge && event.status == status
+392:                     })
+393:                     .count()
+394:             };
+395:             let attempted = count(TacticalDecisionStatus::Attempted);
+396:             assert_eq!(
+397:                 attempted,
+398:                 count(TacticalDecisionStatus::Accepted) + count(TacticalDecisionStatus::Rejected)
+399:             );
+400:             total_attempts += attempted;
+401:         }
+402:         assert!(
+403:             total_attempts > 0,
+404:             "the sample must exercise actual dodge observers"
+405:         );
+406:     }
+407: 
+408:     #[test]
+409:     fn fixed_step_advances_production_skeleton_projection() {
+410:         let (john, opponents) = melee_iteration_roster().unwrap();
+411:         let mut app = tactical_iteration_app(fabelgeist_determinism::Seed::from_u64(1));
+412:         let john_entity = spawn_combatant(
+413:             app.world_mut(),
+414:             &john,
+415:             TacticalCombatSide::Party,
+416:             Vec3::new(0.0, 0.95, -2.0),
+417:         );
+418:         spawn_combatant(
+419:             app.world_mut(),
+420:             &opponents[0],
+421:             TacticalCombatSide::Enemy,
+422:             Vec3::new(0.0, 0.95, 2.0),
+423:         );
+424:         for tick in 0..4 {
+425:             app.world_mut().resource_mut::<IterationClock>().tick = tick;
+426:             app.world_mut()
+427:                 .resource_mut::<Time<()>>()
+428:                 .advance_by(Duration::from_secs_f32(TACTICAL_TICK_SECONDS));
+429:             app.update();
+430:         }
+431:         let skeleton = app.world().get::<SkeletonState>(john_entity).unwrap();
+432:         assert!(skeleton.locomotion_sample_tick.encoded() > 0);
+433:     }
+434: 
+435:     #[test]
+436:     fn fixed_seed_replays_identically() {
+437:         let (john, opponents) = melee_iteration_roster().unwrap();
+438:         let first = resolve_tactical_server_melee_duel(
+439:             &john,
+440:             &opponents[0],
+441:             fabelgeist_determinism::Seed::from_u64(22),
+442:         )
+443:         .unwrap();
+444:         let second = resolve_tactical_server_melee_duel(
+445:             &john,
+446:             &opponents[0],
+447:             fabelgeist_determinism::Seed::from_u64(22),
+448:         )
+449:         .unwrap();
+450:         assert_eq!(
+451:             serde_json::to_string(&first).unwrap(),
+452:             serde_json::to_string(&second).unwrap()
+453:         );
+454:     }
+455: 
+456:     #[test]
+457:     fn parry_consumes_the_committed_attack_before_any_later_riposte() {
+458:         let (john, opponents) = melee_iteration_roster().unwrap();
+459:         let outcome = (1..=8)
+460:             .map(Seed::from_u64)

@@ -1,0 +1,99 @@
+101:                     (c.0 - p).perp_dot(a.0 - p),
+102:                     (a.0 - p).perp_dot(b.0 - p),
+103:                 ) / area;
+104:                 if weights.min_element() < 0.0 {
+105:                     continue;
+106:                 }
+107:                 let depth = weights.dot(Vec3::new(a.1, b.1, c.1));
+108:                 let index = y * self.width + x;
+109:                 if depth <= self.depth[index] {
+110:                     continue;
+111:                 }
+112:                 let normal =
+113:                     (a.2 * weights.x + b.2 * weights.y + c.2 * weights.z).normalize_or_zero();
+114:                 if normal == Vec3::ZERO {
+115:                     continue;
+116:                 }
+117:                 self.depth[index] = depth;
+118:                 self.colors[index] = studio::shade(
+119:                     normal,
+120:                     view,
+121:                     material.albedo,
+122:                     material.metallic,
+123:                     material.roughness,
+124:                 );
+125:             }
+126:         }
+127:     }
+128: 
+129:     fn resolve(self, spec: WeaponIconSpec) -> (Vec<u8>, Vec<u8>) {
+130:         let size = usize::from(spec.size);
+131:         let samples = usize::from(spec.supersampling);
+132:         let mut rgba = Vec::with_capacity(size * size * 4);
+133:         let mut coverage = Vec::with_capacity(size * size);
+134:         for y in 0..size {
+135:             for x in 0..size {
+136:                 let mut color = Vec3::ZERO;
+137:                 let mut covered = 0;
+138:                 for sy in 0..samples {
+139:                     for sx in 0..samples {
+140:                         let index = (y * samples + sy) * self.width + x * samples + sx;
+141:                         color += self.colors[index];
+142:                         covered += usize::from(self.depth[index].is_finite());
+143:                     }
+144:                 }
+145:                 color /= (samples * samples) as f32;
+146:                 rgba.extend([
+147:                     studio::srgb(color.x),
+148:                     studio::srgb(color.y),
+149:                     studio::srgb(color.z),
+150:                     255,
+151:                 ]);
+152:                 coverage.push((covered * 255 / (samples * samples)) as u8);
+153:             }
+154:         }
+155:         (rgba, coverage)
+156:     }
+157: }
+158: 
+159: #[cfg(test)]
+160: mod tests {
+161:     use super::*;
+162: 
+163:     #[test]
+164:     fn nearer_surface_occludes_far_surface_regardless_of_submission_order() {
+165:         let render = |reverse: bool| {
+166:             let mut target = Target {
+167:                 width: 4,
+168:                 colors: vec![Vec3::ZERO; 16],
+169:                 depth: vec![f32::NEG_INFINITY; 16],
+170:             };
+171:             let surfaces = if reverse {
+172:                 [(1.0, RecipeMaterial::Brass), (0.0, RecipeMaterial::Leather)]
+173:             } else {
+174:                 [(0.0, RecipeMaterial::Leather), (1.0, RecipeMaterial::Brass)]
+175:             };
+176:             for (depth, material) in surfaces {
+177:                 let vertices =
+178:                     [Vec2::ZERO, Vec2::new(4.0, 0.0), Vec2::new(0.0, 4.0)].map(|screen| Vertex {
+179:                         screen,
+180:                         depth,
+181:                         normal: Vec3::Z,
+182:                     });
+183:                 target.triangle(vertices, &Material::from(material), Vec3::Z);
+184:             }
+185:             target.colors
+186:         };
+187:         assert_eq!(render(false), render(true));
+188:         let color = render(false)[0];
+189:         assert!(
+190:             color.x > color.z,
+191:             "the nearer brass surface retains its warm material"
+192:         );
+193:         assert_eq!(
+194:             render(false)[15],
+195:             Vec3::ZERO,
+196:             "uncovered pixels remain black"
+197:         );
+198:     }
+199: }

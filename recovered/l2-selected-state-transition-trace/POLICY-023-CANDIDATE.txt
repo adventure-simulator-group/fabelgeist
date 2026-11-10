@@ -1,0 +1,74 @@
+{
+  "schema": "726-l2-camp-carrier-policy-v1",
+  "at": "STAMP_MARKER",
+  "lens": 2,
+  "parent_contract": "L2-EXT-ERRANTRY-FRAME-ID-OWNER-FIT",
+  "parent_first_contract": "Frame/trial/challenge/site String fields carry distinct identity roles; actual namespace/admission/producers/native consumers must establish an existing owner match. Similar names or the same representation are insufficient.",
+  "source_evidence": {
+    "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L2-ERRANTRY-REUSE-001.json",
+    "sha256": "c8ac419fd0fe6b38f12eeb8f2338f54331c2589ef46b7f13aa09e31c04904299"
+  },
+  "binding_state": [
+    "Unbound",
+    "Bound(JourneyCampRef)"
+  ],
+  "bound_owner": "Checked narrow view of existing StrategicPlaceId::JourneyCamp; one canonical payload and codec",
+  "camp_identity_fields": [
+    "party_id",
+    "departure_minute",
+    "movement_minute"
+  ],
+  "elapsed_is_identity": false,
+  "decision_reason": "TrialBinding retains real unbound/bound state before native JSON. The existing canonical JourneyCamp place denotes the bound referent, including party identity. A narrow checked view prevents other StrategicPlaceId variants from being admitted. Elapsed time can advance during rest at the same camp and therefore cannot define camp identity.",
+  "construction_and_admission": [
+    "Construct Unbound explicitly in the actual production factory; do not manufacture a fake place or use departure zero to mean absence.",
+    "Construct Bound only from a checked JourneyCamp variant using existing party component, StrategicMinute departure and zero-valid movement coordinate; no duplicate text codec or payload.",
+    "Native challenge binding must carry explicit binding state and its elapsed availability stamp. Raw independently mutable parallel fields must not recreate the old sentinel protocol.",
+    "Use the same canonical place identity for binding and matching after existing party/case/contract/revision guards. Encode only at native JSON/wire/storage boundaries."
+  ],
+  "repair_requirements": [
+    "Replace TrialBinding.site_id String with the explicit Unbound/Bound carrier using the checked canonical camp owner.",
+    "Update materialize_order_errantry unbound initialization, binder construction/transition, stored challenge binding state and submit consumer together.",
+    "Remove journey-camp:unbound string dispatch and departure-zero state dispatch in scope; do not preserve old field/wire formats through shims or dual paths.",
+    "Keep movement and elapsed quantities semantically distinct. Keep the existing absolute StrategicMinute and intentional frozen-day normalization.",
+    "Preserve legitimate optional challenges, NormalTravel and DirectDemoCamp modes, actual gateway/party/case/destination/contract/revision checks and exact idempotent retry behavior."
+  ],
+  "later_acceptance_requirements": [
+    "At the later implementation gate verify a bound zero coordinate and an unbound state are distinguishable, and a non-JourneyCamp place is rejected by the narrow owner.",
+    "Verify camp rest advances elapsed time without changing camp identity; do not add elapsed to the place codec.",
+    "Verify actual factory/binder/native serialization/submit and retry behavior in the prescribed isolated acceptance workflow after bindings are generated.",
+    "Verify no obsolete sentinel, duplicate camp codec, raw parallel authority path or compatibility API remains in connected scope."
+  ],
+  "historical_questions_resolved": [
+    {
+      "receipt": "READ-ROOT-L2-CURRENT-003.json",
+      "question": "Binder and submit consumers unread",
+      "resolved_by": "READ-ROOT-L2-CURRENT-004.json",
+      "result": "Actual factory, binder, serialized retained state and submit comparison traced; source-level canonical bound owner fit established."
+    },
+    {
+      "receipt": "READ-ROOT-L2-CURRENT-005.json",
+      "question": "Activity segment constant unread",
+      "resolved_by": "READ-ROOT-L2-CURRENT-006.json",
+      "result": "15-minute step established; not an arbitrary zero-valid u64 minute owner."
+    }
+  ],
+  "separate_related_contract": {
+    "queue_pointer": "/entries/991",
+    "contract_id": "Q-L12-b8bf793d5357d4292bb4",
+    "relation": "Other lens asks global camp place versus local trial reference and continueTravel sequencing; its connected consumer scope and verdict remain independent.",
+    "alias_applied": false,
+    "other_lens_verdict_transferred": false
+  },
+  "remaining_evidence": [
+    "Exact global first-operation aliases and all required current/all20 reconciliation. The bounded primary metadata search is not an exhaustive alias proof.",
+    "Distinct frame/trial/challenge ID owner and admission policies; do not infer the role from common String representation or force factory prefixes on all producers.",
+    "Journey movement/elapsed role ownership, native SDK/feature admission, other connected source scopes and other lenses remain independent."
+  ],
+  "global_alias_complete": false,
+  "all_frame_id_owner_questions_complete": false,
+  "new_body_credit": 0,
+  "new_accepted_unique_count": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

@@ -1,0 +1,33 @@
+{
+  "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "scope": "unchanged copied character and math modules compiled in a minimal harness; dependencies separately resolved offline, not full MHR crate",
+  "files": [
+    {
+      "source": "character.rs",
+      "sha256": "582999d2d449669acea9251cf4f2c64ddcc4a876d3834bddca1efa1edba6afcc"
+    },
+    {
+      "source": "math.rs",
+      "sha256": "20b8033a4cd2771f494d9a73e0820bd9c27c5cdce23c097687360719bfc46b0a"
+    },
+    {
+      "source": "character/skeleton.rs",
+      "sha256": "2383576b6c27646e1d1a0f8d8ace26b841a830c28d9bdf745a3a6efe0df1d50d"
+    },
+    {
+      "source": "character/skin.rs",
+      "sha256": "62b86b89435aeeffe4fe8ad5f034ce5ab5736dfb15b66e4f08afc21337e41697"
+    },
+    {
+      "source": "character/vertices.rs",
+      "sha256": "29b48faa4e75d7d03b64072a24aa8305ecf2e042011dfb2660c4e4052b0ce1b1"
+    }
+  ],
+  "fixture_sha256": "a1be46cf909a64a28b1af843386cbc69f420f8c1e87ae6e7d1908a19e88feb03",
+  "test_sha256": "1af4b71a7d22317b1629fe30daf3aa56b55d5492e2140ef53578058896b8fbdf",
+  "manifest_sha256": "eae7cef79c7360cb68d628d1e196815abf282a4e7653c2b275c02312b29daeaf",
+  "lock_sha256": "1009c5b0a538c5a41e696a3f7635509d60a773dd82b58b082b7f0fd539e7a573",
+  "command": "cargo test --offline --manifest-path target/726-intake-20261030/mhr-module-probe/Cargo.toml --test nan_skin_probe -- --nocapture",
+  "exit_code": 0,
+  "output": "test nonfinite_skin_weight_probe ... ok; 1 passed; 0 failed"
+}

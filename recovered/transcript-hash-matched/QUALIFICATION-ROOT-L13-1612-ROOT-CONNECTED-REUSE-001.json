@@ -1,0 +1,141 @@
+{
+  "schema": "726-exact-root382-connected1612-ordered-reuse-qualification-v1",
+  "at": "2026-10-31T12:00:12.723024+00:00",
+  "original": 1612,
+  "registry": {
+    "path": "evidence/audit05/original-scope-072.json",
+    "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "source": {
+    "original": 1612,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/preparation.rs",
+    "sha256": "35db8b8b632500bacb59de9fffe065979e5da709c52dbaf0ea4d80ae6847af12",
+    "actual_eof": 115,
+    "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/35db8b8b632500bacb59de9fffe065979e5da709c52dbaf0ea4d80ae6847af12",
+    "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "prospective_ranges": [
+      [
+        1,
+        115
+      ]
+    ],
+    "purpose": "Full same-Lens13 connected read of live preparation owner replacing deleted1537; zero ordered credit until its own frontier."
+  },
+  "prior_adoption": {
+    "path": "segovb/READ-L13-PARALLEL-382.json",
+    "sha256": "99b487075bd0f8080bdb2bc5d6edf871e12d392fd3f514f5fe6e5b6f1c6c6c56"
+  },
+  "prior_packet": {
+    "path": "adler-continuation-20261030/READ-ROOT-L13-1537-DELETION-1612-001.json",
+    "sha256": "2bafd68095beb03837f32b6cfd95deb79bb1a1b933b938784ba75868402dec41"
+  },
+  "row_pointer": "/evidence/sources/0",
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1537-DELETION-1612-001.json",
+    "sha256": "1ce3fbc0a17038792efbea91c2fa4939c7efc92e3f55d849b6cfc5323bc0db15"
+  },
+  "registration_pointer": "/sources/0",
+  "prior_source_read": {
+    "source": {
+      "original": 1612,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/preparation.rs",
+      "sha256": "35db8b8b632500bacb59de9fffe065979e5da709c52dbaf0ea4d80ae6847af12",
+      "actual_eof": 115,
+      "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/35db8b8b632500bacb59de9fffe065979e5da709c52dbaf0ea4d80ae6847af12",
+      "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "prospective_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "purpose": "Full same-Lens13 connected read of live preparation owner replacing deleted1537; zero ordered credit until its own frontier."
+    },
+    "registration": {
+      "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1537-DELETION-1612-001.json",
+      "sha256": "1ce3fbc0a17038792efbea91c2fa4939c7efc92e3f55d849b6cfc5323bc0db15"
+    },
+    "registration_pointer": "/sources/0",
+    "assessed_ranges": [
+      [
+        1,
+        115
+      ]
+    ],
+    "author": "/root",
+    "untruncated_body_outputs": true,
+    "ordered_credit_now": 0,
+    "observations": [
+      {
+        "ranges": [
+          [
+            1,
+            19
+          ]
+        ],
+        "assessment": "Live shared PreparationResult and ProductKind own generation/preparation result and exact asset roles RegionalCity/Scene/Facade/Venue/VenueGeometry. Distinct meaningful enum cases, no parallel numeric role IDs."
+      },
+      {
+        "ranges": [
+          [
+            21,
+            67
+          ]
+        ],
+        "assessment": "PreparationError retains identity exhaustion/stale/owner/input/residency/product/binding failures as variants, serde_json/ciborium errors as owned source causes, and boxed canonical scene/building/interior errors plus native geometry/vista errors. Missing/promoted placement failures keep SceneBuildingId. GraphicsConfiguration alone stores String because upstream parser already exposes prose; current comment classifies this boundary without message branching, but actual earlier audit traced parser cause loss before final display."
+      },
+      {
+        "ranges": [
+          [
+            69,
+            97
+          ]
+        ],
+        "assessment": "Wasm code maps every error variant exhaustively to a stable generation/... wire code. Display remains diagnostic; no matching strings to recover internal meaning. Actual wasm decoder/native callers and current source remain independent evidence."
+      },
+      {
+        "ranges": [
+          [
+            99,
+            115
+          ]
+        ],
+        "assessment": "From implementations box existing owned SceneInputError/GenerationError/InteriorLayoutError without flattening causes. Replacement is shared PreparationError, not a compatibility forwarding module. Source-only, no product execution."
+      }
+    ]
+  },
+  "authoritative_future_proof": {
+    "receipt": "segovb/READ-L13-PARALLEL-382.json",
+    "receipt_sha256": "99b487075bd0f8080bdb2bc5d6edf871e12d392fd3f514f5fe6e5b6f1c6c6c56",
+    "reference_base": "evidence root",
+    "row_pointer": "/evidence/sources/0",
+    "registration": {
+      "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1537-DELETION-1612-001.json",
+      "sha256": "1ce3fbc0a17038792efbea91c2fa4939c7efc92e3f55d849b6cfc5323bc0db15"
+    },
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/preparation.rs",
+    "source_sha256": "35db8b8b632500bacb59de9fffe065979e5da709c52dbaf0ea4d80ae6847af12",
+    "actual_EOF": 115,
+    "assessed_ranges": [
+      [
+        1,
+        115
+      ]
+    ],
+    "attribution": "Fresh /root same-Lens13 connected read; no ordered or other-lens/current transfer",
+    "ordered_credit_now": 0,
+    "other_population_credit": 0,
+    "original": 1612,
+    "future_rule": "At original1612 frontier authenticate exact root382 nested source row, prospective registration/hash/Git/EOF/ranges and count once with zero repeat body credit; no delegated authorship assumption."
+  },
+  "historical_author": "/root",
+  "historical_receipts_unchanged": true,
+  "only_ordered_role_credit_at_exact_frontier": true,
+  "new_body_credit": 0,
+  "new_connected_credit": 0,
+  "other_population_credit": 0,
+  "authority_changes": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "qualification": "Exact root382 nested source read, not delegated flat inherited format. Authenticate root receipt/packet/registration/source Git hash/EOF/chronology and retained proof. Apply original1612 once at its frontier with zero repeat body credit; retain original /root connected-read attribution."
+}

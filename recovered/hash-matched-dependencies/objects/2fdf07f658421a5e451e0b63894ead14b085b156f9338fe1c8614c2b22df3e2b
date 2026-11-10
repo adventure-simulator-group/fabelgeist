@@ -1,0 +1,40 @@
+{
+  "contract_id": "ADLER-L8-DEBUG-COMBAT-STATE-RESTORE",
+  "kind": "provisional-source-question",
+  "lens": 8,
+  "status": "open-source-current-alias-policy-qualification",
+  "canonical_owner": {
+    "unresolved_question": "Debug world-dump combatant restore initialization and transient combat state."
+  },
+  "first_failed_contract_or_unresolved_question": "Determine whether debug-restored participants receive required equipment action state and tactical wound state, and whether existing wounds must survive the snapshot.",
+  "exact_source_identities_and_assessed_ranges": [],
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-DEBUG-RESTORE-TESTS-L8-3398.json",
+    "sha256": "5291bfebb10d382646aad8962352a4ce41d9813c0b54ad7efd21a94df2abc9a9"
+  },
+  "connected_source_qualifications": [
+    {
+      "path": "adler-continuation-20261030/QUALIFICATION-DEBUG-ACTION-STATE-L8-3395.json",
+      "sha256": "f900a5fa5d19d88212971a71019d0cafa281423e7769f825637ea7313692507e"
+    },
+    {
+      "path": "adler-continuation-20261030/QUALIFICATION-DEBUG-WOUNDS-L8-3396.json",
+      "sha256": "591cd9e20444efa1ac4a593dbaaa14f45f5198866322bb815996e96021676fdb"
+    }
+  ],
+  "remaining_evidence": [
+    "Trace indirect required-component and observer initialization, admitted debug restore participants, combat event delivery, exact aliases and intended handling of existing wounds."
+  ],
+  "dependencies": [
+    "Debug physical item restore and equipment fit identity are related but have distinct first contracts."
+  ],
+  "closure_condition": [
+    "Record producer, retained state, consumers, native restore boundary, exact alias comparisons and concrete later acceptance; preserve conditional reachability."
+  ],
+  "later_repair_acceptance_requirements": [
+    "Exercise action-state availability and melee and ranged consequences after supported debug restore.",
+    "Preserve existing wounds or reject unsupported snapshots according to explicit policy; keep wounds transient."
+  ],
+  "body_or_population_credit": 0,
+  "implementation_gate_complete": false
+}

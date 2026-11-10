@@ -1,0 +1,38 @@
+1: use fabelgeist_determinism::Seed;
+2: use serde::{Deserialize, Serialize};
+3: 
+4: use super::{MAX_MINIMIZATION_SUBSETS, ORDERED_SIGIL_COUNT, ORDERED_SIGIL_RULES_VERSION, Sigil};
+5: 
+6: #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+7: pub enum OrderedSigilClue {
+8:     Exact { sigil: Sigil, position: u8 },
+9:     Before { first: Sigil, second: Sigil },
+10:     Adjacent { first: Sigil, second: Sigil },
+11:     NotAt { sigil: Sigil, position: u8 },
+12: }
+56: impl OrderedSigilClue {
+57:     pub fn text(&self) -> String {
+58:         match self {
+59:             Self::Exact { sigil, position } => {
+60:                 format!("The {} belongs in place {}.", sigil.label(), position + 1)
+61:             }
+62:             Self::Before { first, second } => format!(
+63:                 "The {} stands somewhere before the {}.",
+64:                 first.label(),
+65:                 second.label()
+66:             ),
+67:             Self::Adjacent { first, second } => format!(
+68:                 "The {} and {} stand beside one another.",
+69:                 first.label(),
+70:                 second.label()
+71:             ),
+72:             Self::NotAt { sigil, position } => {
+73:                 format!(
+74:                     "The {} does not belong in place {}.",
+75:                     sigil.label(),
+76:                     position + 1
+77:                 )
+78:             }
+79:         }
+80:     }
+81: }

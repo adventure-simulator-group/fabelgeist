@@ -1,0 +1,198 @@
+SOURCE 2613 pr-working:crates/fabelgeist-armor/src/visor_breaths.rs
+1: //! Parametric rounded breath slots shared by pierced helmet plates.
+2: use crate::{DesignError, Millimeters, Permille};
+3: use serde::{Deserialize, Serialize};
+4: 
+5: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+6: pub enum VentSides {
+7:     Both,
+8:     Left,
+9:     Right,
+10: }
+11: 
+12: /// Slot rotation from vertical in the authored visor surface.
+13: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+14: pub struct SlotInclination(pub i16);
+15: 
+16: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+17: pub struct VisorBreaths {
+18:     pub count_per_row: u8,
+19:     pub rows: u8,
+20:     pub width: Millimeters,
+21:     pub length: Millimeters,
+22:     /// Total width of each cheek pattern, including its first and last slots.
+23:     pub span: Millimeters,
+24:     pub row_spacing: Millimeters,
+25:     /// Lateral distance from the face center to each pattern center.
+26:     pub center_offset: Millimeters,
+27:     /// Vertical location on the authored visor, measured from brow to chin.
+28:     pub height: Permille,
+29:     /// Fraction of the maximum corner radius. Zero produces square corners.
+30:     pub rounding: Permille,
+31:     pub inclination: SlotInclination,
+32:     pub sides: VentSides,
+33: }
+34: 
+35: impl Default for VisorBreaths {
+36:     fn default() -> Self {
+37:         Self {
+38:             count_per_row: 2,
+39:             rows: 1,
+40:             width: Millimeters(3),
+41:             length: Millimeters(8),
+42:             span: Millimeters(26),
+43:             row_spacing: Millimeters(22),
+44:             center_offset: Millimeters(30),
+45:             height: Permille(820),
+46:             rounding: Permille(500),
+47:             inclination: SlotInclination(90),
+48:             sides: VentSides::Both,
+49:         }
+50:     }
+51: }
+52: 
+53: impl VisorBreaths {
+54:     /// An upper row of vertical slots on a separate burgonet face defense.
+55:     pub fn buffe() -> Self {
+56:         Self {
+57:             count_per_row: 4,
+58:             width: Millimeters(3),
+59:             length: Millimeters(12),
+60:             span: Millimeters(54),
+61:             center_offset: Millimeters(36),
+62:             height: Permille(160),
+63:             inclination: SlotInclination(0),
+64:             ..Self::default()
+65:         }
+66:     }
+67: 
+68:     pub(crate) fn validate(
+69:         &self,
+70:         heights: std::ops::RangeInclusive<u16>,
+71:     ) -> Result<(), DesignError> {
+72:         let b = self;
+73:         if b.count_per_row > 8
+74:             || !(1..=4).contains(&b.rows)
+75:             || !(2..=6).contains(&b.width.0)
+76:             || !(8..=20).contains(&b.length.0)
+77:             || !(20..=60).contains(&b.span.0)
+78:             || !(14..=25).contains(&b.row_spacing.0)
+79:             || !(10..=100).contains(&b.center_offset.0)
+80:             || !heights.contains(&b.height.0)
+81:             || b.rounding.0 > 1000
+82:             || !(-90..=90).contains(&b.inclination.0)
+83:         {
+84:             return Err(DesignError::ParametricParameters);
+85:         }
+86:         if b.count_per_row == 0 {
+87:             return Ok(());
+88:         }
+89:         let angle = f32::from(b.inclination.0).to_radians();
+90:         let width = f32::from(b.width.0) * angle.cos() + f32::from(b.length.0) * angle.sin().abs();
+91:         let height = f32::from(b.length.0) * angle.cos() + f32::from(b.width.0) * angle.sin().abs();
+92:         let web = crate::pierced_plate_domain::MINIMUM_WEB_MM as f32;
+93:         let required_span =
+94:             width * f32::from(b.count_per_row) + web * f32::from(b.count_per_row - 1);
+95:         if required_span > f32::from(b.span.0)
+96:             || (b.sides == VentSides::Both
+97:                 && 2.0 * f32::from(b.center_offset.0) - f32::from(b.span.0) < web)
+98:             || (b.rows > 1 && height + web > f32::from(b.row_spacing.0))
+99:         {
+100:             return Err(DesignError::VisorOpeningSpacing);
+101:         }
+102:         Ok(())
+103:     }
+104: 
+105:     pub(crate) fn openings(
+106:         &self,
+107:         chart_height: f64,
+108:         detail: crate::ArmorDetail,
+109:     ) -> Vec<Vec<[f64; 2]>> {
+110:         let b = self;
+111:         let mut holes = Vec::new();
+112:         let angle = f64::from(b.inclination.0).to_radians();
+113:         let width = f64::from(b.width.0);
+114:         let length = f64::from(b.length.0);
+115:         let projected_width = width * angle.cos() + length * angle.sin().abs();
+116:         for side in [-1.0, 1.0] {
+117:             if matches!(b.sides, VentSides::Left) && side < 0.0
+118:                 || matches!(b.sides, VentSides::Right) && side > 0.0
+119:             {
+120:                 continue;
+121:             }
+122:             for row in 0..b.rows {
+123:                 for slot in 0..b.count_per_row {
+124:                     let offset = if b.count_per_row == 1 {
+125:                         0.0
+126:                     } else {
+127:                         (f64::from(slot) / f64::from(b.count_per_row - 1) - 0.5)
+128:                             * (f64::from(b.span.0) - projected_width)
+129:                     };
+130:                     let center = [
+131:                         side * (f64::from(b.center_offset.0) + offset),
+132:                         f64::from(b.height.0) * chart_height / 1000.0
+133:                             + (f64::from(row) - f64::from(b.rows - 1) * 0.5)
+134:                                 * f64::from(b.row_spacing.0),
+135:                     ];
+136:                     holes.push(crate::pierced_plate_domain::rounded_slot(
+137:                         center,
+138:                         width,
+139:                         length,
+140:                         angle * side,
+141:                         f64::from(b.rounding.0) / 1000.0,
+142:                         detail,
+143:                     ));
+144:                 }
+145:             }
+146:         }
+147:         holes
+148:     }
+149: }
+SOURCE 2614 pr-working:crates/fabelgeist-armor/src/helmets_buffe_courses.rs
+1: use crate::{DesignError, Millimeters, Permille};
+2: use serde::{Deserialize, Serialize};
+3: 
+4: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+5: #[serde(deny_unknown_fields)]
+6: pub struct BuffeCourses {
+7:     pub plate_count: u8,
+8:     /// First seam's height, measured upward from chin to sight edge.
+9:     pub lower_boundary: Permille,
+10:     /// Second seam's height; used when there are three faceplates.
+11:     pub upper_boundary: Permille,
+12:     /// Physical vertical overlap at each descending edge.
+13:     pub overlap: Millimeters,
+14:     /// Additional air between courses, beyond twice the plate gauge.
+15:     pub lap_clearance: Millimeters,
+16:     /// Downward median point at the internal seams; outer edges stay fixed.
+17:     pub boundary_drop: Millimeters,
+18: }
+19: 
+20: impl Default for BuffeCourses {
+21:     fn default() -> Self {
+22:         Self {
+23:             plate_count: 3,
+24:             lower_boundary: Permille(350),
+25:             upper_boundary: Permille(700),
+26:             overlap: Millimeters(5),
+27:             lap_clearance: Millimeters(1),
+28:             boundary_drop: Millimeters(12),
+29:         }
+30:     }
+31: }
+32: 
+33: impl BuffeCourses {
+34:     pub fn validate(&self) -> Result<(), DesignError> {
+35:         if !(2..=3).contains(&self.plate_count)
+36:             || !(200..=700).contains(&self.lower_boundary.0)
+37:             || !(450..=850).contains(&self.upper_boundary.0)
+38:             || (self.plate_count == 3 && self.upper_boundary.0 < self.lower_boundary.0 + 180)
+39:             || !(2..=12).contains(&self.overlap.0)
+40:             || self.lap_clearance.0 > 4
+41:             || self.boundary_drop.0 > 25
+42:         {
+43:             return Err(DesignError::ParametricParameters);
+44:         }
+45:         Ok(())
+46:     }
+47: }

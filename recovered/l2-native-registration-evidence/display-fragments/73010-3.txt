@@ -1,0 +1,66 @@
+208: pub trait Error: Sized {
+209:     /// Raised when there is general error when deserializing a type.
+210:     fn custom(msg: impl fmt::Display) -> Self;
+211: 
+212:     /// Deserializing named products are not supported for this visitor.
+213:     fn named_products_not_supported() -> Self {
+214:         Self::custom("named products not supported")
+215:     }
+216: 
+217:     /// The product length was not as promised.
+218:     fn invalid_product_length<'de, T: ProductVisitor<'de>>(len: usize, expected: &T) -> Self {
+219:         Self::custom(format_args!(
+220:             "invalid length {}, expected {}",
+221:             len,
+222:             fmt_invalid_len(expected)
+223:         ))
+224:     }
+225: 
+226:     /// There was a missing field at `index`.
+227:     fn missing_field<'de, T: ProductVisitor<'de>>(index: usize, field_name: Option<&str>, prod: &T) -> Self {
+228:         Self::custom(error_on_field("missing ", index, field_name, prod))
+229:     }
+230: 
+682: pub trait Deserialize<'de>: Sized {
+683:     /// Deserialize this value from the given `deserializer`.
+684:     fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error>;
+685: 
+686:     #[doc(hidden)]
+687:     /// Deserialize this value from the given the BSATN `deserializer`.
+688:     fn deserialize_from_bsatn<R: BufReader<'de>>(
+689:         deserializer: bsatn::Deserializer<'de, R>,
+690:     ) -> Result<Self, bsatn::DecodeError> {
+691:         Self::deserialize(deserializer)
+692:     }
+693: 
+694:     /// used in the Deserialize for Vec<T> impl to allow specializing deserializing Vec<T> as bytes
+695:     #[doc(hidden)]
+696:     #[inline(always)]
+697:     fn __deserialize_vec<D: Deserializer<'de>>(deserializer: D) -> Result<Vec<Self>, D::Error> {
+698:         deserializer.deserialize_array(BasicVecVisitor)
+699:     }
+700: 
+701:     #[doc(hidden)]
+702:     #[inline(always)]
+703:     fn __deserialize_array<D: Deserializer<'de>, const N: usize>(deserializer: D) -> Result<[Self; N], D::Error> {
+704:         deserializer.deserialize_array(BasicArrayVisitor)
+705:     }
+706: 
+707:     #[doc(hidden)]
+708:     #[inline(always)]
+709:     /// Validate that the input is of the correct form for this type.
+710:     ///
+711:     /// The default implementation simply deserializes the input and discards the result,
+712:     /// but implementations can override this to perform more efficient validation
+713:     /// without fully deserializing the input.
+714:     fn validate<D: Deserializer<'de>>(deserializer: D) -> Result<(), D::Error> {
+715:         let _ = Self::deserialize(deserializer)?;
+716:         Ok(())
+717:     }
+718: }
+719: 
+720: /// A data structure that can be deserialized in SATS
+721: /// without borrowing any data from the deserializer.
+722: pub trait DeserializeOwned: for<'de> Deserialize<'de> {}
+723: impl<T: for<'de> Deserialize<'de>> DeserializeOwned for T {}
+724: 

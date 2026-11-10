@@ -1,0 +1,442 @@
+SOURCE 0 crates/adventuresim-building-generator/src/model/walls.rs 0ccc94972996dae71d762e7019f9814a02a26ff12a2eabe8709f7c791c8b9930
+1: use super::*;
+2: 
+3: #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+4: #[serde(rename_all = "snake_case", tag = "kind")]
+5: pub enum WallSourceId {
+6:     WorkplaceWall {
+7:         index: u32,
+8:     },
+9:     StoreyWall {
+10:         storey_level: u16,
+11:         wall_index: usize,
+12:     },
+13:     CurtainWall {
+14:         wall_index: usize,
+15:     },
+16:     RoundTower {
+17:         tower_index: usize,
+18:     },
+19:     ArtilleryCurtain {
+20:         curtain_index: usize,
+21:     },
+22:     ArtilleryRondel {
+23:         rondel_index: usize,
+24:         station_index: usize,
+25:     },
+26:     SquareTowerFace {
+27:         tower_index: usize,
+28:         face: Direction,
+29:         bay: u8,
+30:     },
+31:     ChurchClerestory {
+32:         side: Direction,
+33:     },
+34:     RoofChildFront {
+35:         roof: RoofAssemblyId,
+36:     },
+37:     RoofGable {
+38:         roof: RoofAssemblyId,
+39:         enclosure: ResolvedItemId,
+40:     },
+41:     ChurchExterior {
+42:         range: ChurchRange,
+43:         side: Direction,
+44:         bay: u8,
+45:     },
+46:     ChurchArcade {
+47:         side: Direction,
+48:         bay: u8,
+49:     },
+50:     ChurchCrossing {
+51:         side: Direction,
+52:     },
+53:     ChurchApse {
+54:         facet: u8,
+55:     },
+56:     ChurchTowerFace {
+57:         face: Direction,
+58:         stage: ChurchTowerStage,
+59:         bay: u8,
+60:     },
+61: }
+62: 
+63: #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+64: #[serde(rename_all = "snake_case")]
+65: pub enum ChurchRange {
+66:     Nave,
+67:     Transept,
+68:     Choir,
+69:     Apse,
+70:     WestTower,
+71: }
+72: 
+73: #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+74: #[serde(rename_all = "snake_case")]
+75: pub enum ChurchTowerStage {
+76:     Portal,
+77:     Stair,
+78:     Bell,
+79: }
+80: 
+81: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+82: #[serde(rename_all = "snake_case")]
+83: pub enum WallMaterialClass {
+84:     RubbleMasonry,
+85:     TimberInfill,
+86:     CivilianMasonry,
+87:     ButtressedChurchMasonry,
+88:     FortifiedMasonry,
+89:     InternalTimber,
+90:     InternalMasonry,
+91: }
+92: 
+93: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+94: #[serde(rename_all = "snake_case")]
+95: pub enum WallStructuralRole {
+96:     Infill,
+97:     LoadBearing,
+98:     Buttressed,
+99:     Curtain,
+100:     TowerShell,
+101: }
+102: 
+103: impl WallAssembly {
+104:     pub(crate) fn has_valid_structural_thickness(&self) -> bool {
+105:         match self.material {
+106:             WallMaterialClass::RubbleMasonry => (0.45..=1.20).contains(&self.thickness_metres),
+107:             WallMaterialClass::TimberInfill => (0.18..=0.24).contains(&self.thickness_metres),
+108:             WallMaterialClass::CivilianMasonry => (0.40..=0.70).contains(&self.thickness_metres),
+109:             WallMaterialClass::ButtressedChurchMasonry => {
+110:                 (0.75..=1.10).contains(&self.thickness_metres)
+111:             }
+112:             WallMaterialClass::FortifiedMasonry => self.thickness_metres >= 1.20,
+113:             WallMaterialClass::InternalTimber => (0.12..=0.18).contains(&self.thickness_metres),
+114:             WallMaterialClass::InternalMasonry => (0.20..=0.35).contains(&self.thickness_metres),
+115:         }
+116:     }
+117: }
+118: 
+119: #[derive(Clone, Copy, Debug, Serialize, Deserialize)]
+120: pub struct WallLocalFrame {
+121:     pub origin: Vec2,
+122:     pub tangent: Vec2,
+123:     pub outward: Vec2,
+124:     pub inside_room: Option<u16>,
+125:     pub outside_room: Option<u16>,
+126: }
+127: 
+128: #[derive(Clone, Copy, Debug, Serialize, Deserialize)]
+129: pub struct RadialWallFrame {
+130:     pub centre: Vec2,
+131:     /// Deterministic radial axis used by section proofs and opening stations.
+132:     pub reference_outward: Vec2,
+133: }
+134: 
+135: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+136: #[serde(rename_all = "snake_case")]
+137: pub enum OpeningUse {
+138:     Door,
+139:     Window,
+140:     Gate,
+141:     ArrowLoop,
+142:     GunLoop,
+143:     BellOpening,
+144: }
+145: 
+146: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+147: #[serde(rename_all = "snake_case")]
+148: pub enum WeaponMountClass {
+149:     Handgun,
+150:     LightArquebus,
+151:     LightSwivelGun,
+152: }
+153: 
+154: #[derive(Clone, Copy, Debug, Serialize, Deserialize)]
+155: #[serde(rename_all = "snake_case", tag = "kind")]
+156: pub enum OpeningProfile {
+157:     Rectangular {
+158:         width_metres: f32,
+159:         height_metres: f32,
+160:     },
+161:     Segmental {
+162:         width_metres: f32,
+163:         spring_height_metres: f32,
+164:         rise_metres: f32,
+165:         intrados_depth_metres: f32,
+166:     },
+167:     PointedTwoCentred {
+168:         width_metres: f32,
+169:         spring_height_metres: f32,
+170:         apex_height_metres: f32,
+171:         arc_radius_metres: f32,
+172:     },
+173:     ArrowLoop {
+174:         exterior_width_metres: f32,
+175:         interior_width_metres: f32,
+176:         exterior_height_metres: f32,
+177:         interior_height_metres: f32,
+178:     },
+179:     GunLoop {
+180:         exterior_width_metres: f32,
+181:         interior_width_metres: f32,
+182:         exterior_height_metres: f32,
+183:         interior_height_metres: f32,
+184:         mount: WeaponMountClass,
+185:         traverse_degrees: f32,
+186:         recoil_metres: f32,
+187:         crew_clearance_metres: f32,
+188:     },
+189: }
+190: 
+191: impl OpeningProfile {
+192:     pub fn exterior_width_metres(self) -> f32 {
+193:         match self {
+194:             Self::Rectangular { width_metres, .. }
+195:             | Self::Segmental { width_metres, .. }
+196:             | Self::PointedTwoCentred { width_metres, .. } => width_metres,
+197:             Self::ArrowLoop {
+198:                 exterior_width_metres,
+199:                 ..
+200:             }
+201:             | Self::GunLoop {
+202:                 exterior_width_metres,
+203:                 ..
+204:             } => exterior_width_metres,
+205:         }
+206:     }
+207: 
+208:     pub fn interior_width_metres(self) -> f32 {
+209:         match self {
+210:             Self::Rectangular { width_metres, .. }
+211:             | Self::Segmental { width_metres, .. }
+212:             | Self::PointedTwoCentred { width_metres, .. } => width_metres,
+213:             Self::ArrowLoop {
+214:                 interior_width_metres,
+215:                 ..
+216:             }
+217:             | Self::GunLoop {
+218:                 interior_width_metres,
+219:                 ..
+220:             } => interior_width_metres,
+221:         }
+222:     }
+223: 
+224:     pub fn clear_height_metres(self) -> f32 {
+225:         match self {
+226:             Self::Rectangular { height_metres, .. } => height_metres,
+227:             Self::Segmental {
+228:                 spring_height_metres,
+229:                 rise_metres,
+230:                 ..
+231:             } => spring_height_metres + rise_metres,
+232:             Self::PointedTwoCentred {
+233:                 apex_height_metres, ..
+234:             } => apex_height_metres,
+235:             Self::ArrowLoop {
+236:                 interior_height_metres,
+237:                 ..
+238:             }
+239:             | Self::GunLoop {
+240:                 interior_height_metres,
+241:                 ..
+242:             } => interior_height_metres,
+243:         }
+244:     }
+245: }
+246: 
+247: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+248: #[serde(rename_all = "snake_case")]
+249: pub enum OpeningHeadKind {
+250:     TimberLintel,
+251:     TimberFrameMember { member: TimberMemberId },
+252:     StoneLintel,
+253:     SegmentalArch,
+254:     PointedVoussoir,
+255: }
+256: 
+257: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+258: #[serde(rename_all = "snake_case")]
+259: pub enum ClosureKind {
+260:     OpenMilitary,
+261:     TimberShutter,
+262:     LeadedGlazing,
+263:     IronBars,
+264:     OiledClothLattice,
+265:     DoorLeaf,
+266:     TimberLouvre,
+267: }
+268: 
+269: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+270: #[serde(rename_all = "snake_case")]
+271: pub enum ClosureState {
+272:     Open,
+273:     Closed,
+274:     Operable,
+275: }
+276: 
+277: #[derive(Clone, Debug, Serialize, Deserialize)]
+278: pub struct ClosurePolicy {
+279:     pub layers: Vec<ClosureKind>,
+280:     pub state: ClosureState,
+281:     pub thickness_metres: f32,
+282:     pub swing_clearance_metres: f32,
+283: }
+284: 
+285: #[derive(Clone, Debug, Serialize, Deserialize)]
+286: pub struct WallAssembly {
+287:     pub id: WallAssemblyId,
+288:     pub owner: GeometryOwnerId,
+289:     pub source: WallSourceId,
+290:     pub material: WallMaterialClass,
+291:     pub storey_level: u16,
+292:     pub frame: WallLocalFrame,
+293:     pub radial_frame: Option<RadialWallFrame>,
+294:     pub length_metres: f32,
+295:     pub height_metres: f32,
+296:     pub base_elevation_metres: f32,
+297:     pub thickness_metres: f32,
+298:     pub structural_role: WallStructuralRole,
+299:     pub support_node: StructuralNodeId,
+300:     pub host_solids: Vec<ResolvedItemId>,
+301:     pub opening_ids: Vec<OpeningAssemblyId>,
+302:     pub replaced_by_owner: Option<GeometryOwnerId>,
+303: }
+304: 
+305: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+306: pub struct WallStyleOverride {
+307:     pub wall: WallSelector,
+308:     pub style: WallStyle,
+309: }
+310: 
+311: #[derive(Clone, Debug, Serialize, Deserialize)]
+312: pub struct OpeningAssembly {
+313:     pub id: OpeningAssemblyId,
+314:     pub owner: GeometryOwnerId,
+315:     pub host_wall: WallAssemblyId,
+316:     pub host_source: WallSourceId,
+317:     pub frame: WallLocalFrame,
+318:     pub use_kind: OpeningUse,
+319:     pub profile: OpeningProfile,
+320:     pub sill_elevation_metres: f32,
+321:     pub closure: ClosurePolicy,
+322:     pub head_kind: OpeningHeadKind,
+323:     pub void_id: ResolvedItemId,
+324:     pub jamb_solids: [ResolvedItemId; 2],
+325:     pub sill_solid: Option<ResolvedItemId>,
+326:     pub head_solid: ResolvedItemId,
+327:     pub spandrel_solid: ResolvedItemId,
+328:     pub reveal_surfaces: Vec<ResolvedItemId>,
+329:     pub closure_solids: Vec<ResolvedItemId>,
+330:     pub jamb_nodes: [StructuralNodeId; 2],
+331:     pub head_node: StructuralNodeId,
+332:     pub spandrel_node: StructuralNodeId,
+333:     pub tracery_node: Option<StructuralNodeId>,
+334:     pub stance_surface: Option<ResolvedItemId>,
+335:     pub mount_solid: Option<ResolvedItemId>,
+336:     pub ray_indices: Vec<usize>,
+337:     /// Ordered free-space samples from the exterior throat (0) to the
+338:     /// interior mouth (1). These are the subtraction authority; the broad
+339:     /// bounds on `void_id` are only its conservative envelope.
+340:     pub sectional_void: Vec<OpeningVoidSlice>,
+341:     pub head_bearing_interfaces: [ResolvedItemId; 2],
+342:     pub wall_above_interface: ResolvedItemId,
+343: }
+344: 
+345: #[derive(Clone, Copy, Debug, Serialize, Deserialize)]
+346: pub struct OpeningVoidSlice {
+347:     pub depth_fraction: f32,
+348:     pub width_metres: f32,
+349:     pub height_metres: f32,
+350: }
+351: 
+352: /// Fixed attic glazing sheet depth within its structural bay.
+353: pub const FIXED_GABLE_GLAZING_DEPTH_METRES: f32 = 0.025;
+SOURCE 1 crates/adventuresim-building-generator/src/viewer/focus_helpers.rs a0b977f93b1c8a862dc61c2adccdc8ec10fae73f1b796584203ee50588b9420c
+365: fn opening_profile_slug(profile: adventuresim_building_generator::OpeningProfile) -> &'static str {
+366:     use adventuresim_building_generator::OpeningProfile;
+367:     match profile {
+368:         OpeningProfile::Rectangular { .. } => "rectangular",
+369:         OpeningProfile::Segmental { .. } => "segmental",
+370:         OpeningProfile::PointedTwoCentred { .. } => "pointed_two_centred",
+371:         OpeningProfile::ArrowLoop { .. } => "arrow_loop",
+372:         OpeningProfile::GunLoop { .. } => "gun_loop",
+373:     }
+374: }
+375: 
+376: fn focused_opening(
+377:     plan: &BuildingPlan,
+378:     view: ViewerView,
+379: ) -> Option<&adventuresim_building_generator::OpeningAssembly> {
+380:     let profile = opening_proof_profile(view)?;
+381:     plan.opening_assemblies
+382:         .iter()
+383:         .filter(|opening| opening_profile_slug(opening.profile) == profile)
+384:         .min_by_key(|opening| {
+385:             (
+386:                 usize::from(opening.frame.outside_room.is_some()),
+387:                 opening.host_wall.0,
+388:             )
+389:         })
+390: }
+391: 
+392: fn focused_wall(
+393:     plan: &BuildingPlan,
+394:     view: ViewerView,
+395: ) -> Option<&adventuresim_building_generator::WallAssembly> {
+SOURCE 3 crates/adventuresim-building-generator/src/viewer/battlement_rendering.rs 772914a6c507eb0089c517a80e197af35ce5c5ecbd662e5e380d2b6e8446489a
+204: fn spawn_box(
+205:     world: &mut World,
+206:     material: &Handle<StandardMaterial>,
+207:     size: Vec3,
+208:     translation: Vec3,
+209:     rotation: Quat,
+210:     name: &'static str,
+211: ) -> Entity {
+212:     let mesh = world
+213:         .resource_mut::<Assets<Mesh>>()
+214:         .add(Cuboid::new(size.x, size.y, size.z));
+215:     let entity = world
+216:         .spawn((
+217:             Name::new(name),
+218:             ClosedSolid,
+219:             Mesh3d(mesh),
+220:             MeshMaterial3d(material.clone()),
+221:             Transform {
+222:                 translation,
+223:                 rotation,
+224:                 ..default()
+225:             },
+226:         ))
+227:         .id();
+228:     tag_player_build_entity(world, entity, material);
+229:     if world.get_resource::<PlayerBuildSpawnContext>().is_some() {
+230:         let half = size * 0.5;
+231:         let axes = [rotation * Vec3::X, rotation * Vec3::Y, rotation * Vec3::Z];
+232:         let extent = Vec3::new(
+233:             half.x * axes[0].x.abs() + half.y * axes[1].x.abs() + half.z * axes[2].x.abs(),
+234:             half.x * axes[0].y.abs() + half.y * axes[1].y.abs() + half.z * axes[2].y.abs(),
+235:             half.x * axes[0].z.abs() + half.y * axes[1].z.abs() + half.z * axes[2].z.abs(),
+236:         );
+237:         world.entity_mut(entity).insert(PlayerBuildRenderPrism {
+238:             min: translation - extent,
+239:             max: translation + extent,
+240:         });
+241:     }
+242:     entity
+243: }
+244: 
+245: fn tag_player_build_entity(world: &mut World, entity: Entity, material: &Handle<StandardMaterial>) {
+246:     if let Some(context) = world.get_resource::<PlayerBuildSpawnContext>().copied() {
+247:         world.entity_mut(entity).insert((
+248:             PlayerBuildEntity,
+249:             EditorVisibilityTarget {
+250:                 storey: context.storey,
+251:                 role: context.role,
+252:             },
+253:             EditorBaseMaterial(material.clone()),
+254:             EditorAppearanceIsTranslucent(false),
+255:             Visibility::Visible,
+256:         ));
+257:     }
+258: }

@@ -1,0 +1,49 @@
+{
+  "at": "2026-10-31T04:39:50.695372+00:00",
+  "status": "passed",
+  "previous_goal_turn": "progress",
+  "ledger": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/evidence/continuation-segovb/ledger.json",
+    "sha256": "4d6d77ddf4bb9412bf22f1f772dca2efc4d72d588507b96e9791f79b04e5cee1"
+  },
+  "selector": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/CURRENT-ADLER.json",
+    "sha256": "e91c50a7fe31ea76ac7e335b3c497158a1385a96f3588f3d84865b85909a4a86"
+  },
+  "queue": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/workflow-20261030/CLOSURE-QUEUE-115.json",
+    "sha256": "23f0e09886f9e471254b782667cd7f18f68f3f71d55f0e3433f5a384575bc0e7"
+  },
+  "selected_lenses": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/SELECTED-LENSES-CONTINUATION-009.json",
+    "sha256": "4196de964529d5702bcf89edfa620eb77aece2eb41afd8e95870ff3f77741b67"
+  },
+  "adoptions": [
+    {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/segovb/READ-L13-PARALLEL-316.json",
+      "sha256": "9cb6e59b45eae5c59ad116026666bc472a69cf587e1eb1fb79b44d8da386f2d2"
+    },
+    {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/segovb/READ-L13-PARALLEL-317.json",
+      "sha256": "310373b396e6350cbf5951a053e4efbbfb92c811b2669e82dba4997cb0714a47"
+    }
+  ],
+  "source_roles_added": 7,
+  "original_before": 1250,
+  "next_original": 1257,
+  "root_fresh_ordered_lines_this_turn": 814,
+  "root_connected_reread_lines_this_turn": 898,
+  "inherited_ordered_source_lines_applied_once": 1490,
+  "future_proofs_preserved": true,
+  "queue_entries_not_unique_findings": 3736,
+  "contract_updates": [
+    "ROOT-L13-1246-LIFECYCLE-SEGMENT-PROGRESS",
+    "PL13-268-NPC-AGE-CHRONOLOGY-ELIGIBILITY-PENDING"
+  ],
+  "frozen_lifecycle_endpoint_suspicion_rejected_current_pending": true,
+  "npc_initialization_policy_still_pending": true,
+  "other_lenses_preserved": true,
+  "primary_records_and_current_deltas_unchanged": true,
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

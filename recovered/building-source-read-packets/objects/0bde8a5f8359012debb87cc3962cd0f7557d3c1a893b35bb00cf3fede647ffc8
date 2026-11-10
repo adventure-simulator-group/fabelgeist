@@ -1,0 +1,338 @@
+{
+  "schema": "726-root-l12-bounded-connected-source-read-v1",
+  "at": "2026-11-02T08:54:41.695686+00:00",
+  "author": "/root",
+  "lens": 12,
+  "base_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "6d1d0ac64658e3d09e0845f8b03f542ccc0c69f2cf346cd8ef86198f56fa1fb5"
+  },
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L12-BUILDING-CAPTURE-IDENTITY-003.json",
+    "sha256": "827a47a146183e2481317ca278c7adba8b8e52ef620e5c11c9ac8f074b0cb1f2"
+  },
+  "prior_adopted_source_resolution": {
+    "path": "segovb/RESOLUTION-ROOT-L12-BUILDING-CAPTURE-IDENTITY-001.json",
+    "sha256": "7f779d3d444a9883be81bc24ef28448af3c12db2686e3d7d2aaf19bdda98d4e6"
+  },
+  "rows": [
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-building-generator/src/model/walls.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-building-generator/src/model/walls.rs",
+        "source_sha256": "0ccc94972996dae71d762e7019f9814a02a26ff12a2eabe8709f7c791c8b9930",
+        "source_object": "adler-continuation-20261030/objects/0ccc94972996dae71d762e7019f9814a02a26ff12a2eabe8709f7c791c8b9930",
+        "bytes": 9766,
+        "actual_EOF": 353,
+        "ranges": [
+          [
+            1,
+            353
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 353,
+        "prior_body_join": "Not asserted; no fresh, population or unique credit requested."
+      },
+      "source_id": "current-337:crates/adventuresim-building-generator/src/model/walls.rs",
+      "source_sha256": "0ccc94972996dae71d762e7019f9814a02a26ff12a2eabe8709f7c791c8b9930",
+      "assessed_ranges": [
+        [
+          1,
+          353
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "295597:1..353"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 353,
+      "prior_body_join_as_registered": "Not asserted; no fresh, population or unique credit requested.",
+      "semantic_assessment": "OpeningProfile156..189 is an existing payload-bearing five-case enum; OpeningAssembly319 retains it. OpeningUse137..144 is not a substitute shape kind. Match actual profile variants and typed ViewerView criteria directly in opening selection, retaining numeric payload and native serde tag; do not reduce to a label merely to compare, reconstruct a dummy profile, or impose numeric validation from this identity assessment. Native dimensions/frames/closure policies remain independent obligations."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-building-generator/src/viewer/focus_helpers.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-building-generator/src/viewer/focus_helpers.rs",
+        "source_sha256": "a0b977f93b1c8a862dc61c2adccdc8ec10fae73f1b796584203ee50588b9420c",
+        "source_object": "adler-continuation-20261030/objects/a0b977f93b1c8a862dc61c2adccdc8ec10fae73f1b796584203ee50588b9420c",
+        "bytes": 25767,
+        "actual_EOF": 623,
+        "ranges": [
+          [
+            365,
+            395
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 31,
+        "prior_body_join": "Not asserted; no fresh, population or unique credit requested."
+      },
+      "source_id": "current-337:crates/adventuresim-building-generator/src/viewer/focus_helpers.rs",
+      "source_sha256": "a0b977f93b1c8a862dc61c2adccdc8ec10fae73f1b796584203ee50588b9420c",
+      "assessed_ranges": [
+        [
+          365,
+          395
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "295597:365..395"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 31,
+      "prior_body_join_as_registered": "Not asserted; no fresh, population or unique credit requested.",
+      "semantic_assessment": "Complete opening_profile_slug365..374 and focused_opening376..390 expose the earlier identity-erasure roundtrip: typed view to expected label, typed actual profile to label, text equality. Replace with direct typed variant matching while preserving outside_room/host_wall min_by_key ordering, optional absence and five shape cases. focused_wall body after395 not assessed."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-building-generator/src/viewer/setup.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-building-generator/src/viewer/setup.rs",
+        "source_sha256": "94ef06021dff7c2ebedf573ef64d8e23dd275f9520baebd4e419ff110a6bb13e",
+        "source_object": "adler-continuation-20261030/objects/94ef06021dff7c2ebedf573ef64d8e23dd275f9520baebd4e419ff110a6bb13e",
+        "bytes": 76668,
+        "actual_EOF": 1797,
+        "ranges": [
+          [
+            640,
+            820
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 181,
+        "prior_body_join": "Not asserted; no fresh, population or unique credit requested."
+      },
+      "source_id": "current-337:crates/adventuresim-building-generator/src/viewer/setup.rs",
+      "source_sha256": "94ef06021dff7c2ebedf573ef64d8e23dd275f9520baebd4e419ff110a6bb13e",
+      "assessed_ranges": [
+        [
+          640,
+          820
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "89f285:640..820"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 181,
+      "prior_body_join_as_registered": "Not asserted; no fresh, population or unique credit requested.",
+      "semantic_assessment": "Exact setup648..795 supplies actual artillery/timber/church/roof authority annotation spawns. Human-readable format including program/phase Debug here is presentation, so not by itself a private retained-type defect. Attach semantic annotation marker at those spawns; preserve actual Text/Node placement, visual-only marker, validity guards and displayed information. No pixel visibility guarantee follows from marker existence."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-building-generator/src/viewer/battlement_rendering.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-building-generator/src/viewer/battlement_rendering.rs",
+        "source_sha256": "772914a6c507eb0089c517a80e197af35ce5c5ecbd662e5e380d2b6e8446489a",
+        "source_object": "adler-continuation-20261030/objects/772914a6c507eb0089c517a80e197af35ce5c5ecbd662e5e380d2b6e8446489a",
+        "bytes": 8918,
+        "actual_EOF": 258,
+        "ranges": [
+          [
+            204,
+            258
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 55,
+        "prior_body_join": "Not asserted; no fresh, population or unique credit requested."
+      },
+      "source_id": "current-337:crates/adventuresim-building-generator/src/viewer/battlement_rendering.rs",
+      "source_sha256": "772914a6c507eb0089c517a80e197af35ce5c5ecbd662e5e380d2b6e8446489a",
+      "assessed_ranges": [
+        [
+          204,
+          258
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "295597:204..258"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 55,
+      "prior_body_join_as_registered": "Not asserted; no fresh, population or unique credit requested.",
+      "semantic_assessment": "Actual spawn_box204..243 returns Entity, assigns Name/ClosedSolid/native mesh/material/transform, and tags player-built geometry; semantic review feature can be attached at actual caller without requiring a generic arbitrary label parser. Preserve player build prism and editor visibility metadata. Do not force every primitive or Name through closed capture taxonomy."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-building-generator/src/viewer/architectural_rendering.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-building-generator/src/viewer/architectural_rendering.rs",
+        "source_sha256": "2c1b73c981d93a537ccc39ac377be7dbe2a0ae15462b4703898bb574f1306f3a",
+        "source_object": "adler-continuation-20261030/objects/2c1b73c981d93a537ccc39ac377be7dbe2a0ae15462b4703898bb574f1306f3a",
+        "bytes": 22264,
+        "actual_EOF": 596,
+        "ranges": [
+          [
+            190,
+            290
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 101,
+        "prior_body_join": "Not asserted; no fresh, population or unique credit requested."
+      },
+      "source_id": "current-337:crates/adventuresim-building-generator/src/viewer/architectural_rendering.rs",
+      "source_sha256": "2c1b73c981d93a537ccc39ac377be7dbe2a0ae15462b4703898bb574f1306f3a",
+      "assessed_ranges": [
+        [
+          190,
+          290
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "89f285:190..290"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 101,
+      "prior_body_join_as_registered": "Not asserted; no fresh, population or unique credit requested.",
+      "semantic_assessment": "Actual selected architectural surface spawns190..277 retain typed SurfaceRole before Name formatting, GeometryOwner and ResolvedRenderItem, with OpeningBoundary kind already attached for throat/mouth. Retain distinct SurfaceRole identity for role maps/capture instead of reparsing Name, preserving visible-owner, removed-reveal, timber circulation inclusion, materials, noncolliding state and bounds. opening_surface_mesh279..290 only partial, no numeric/geometry clearance."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-building-generator/src/viewer/run.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-building-generator/src/viewer/run.rs",
+        "source_sha256": "12133c8b9ec176a6aaba627152c252cec7c616682e8c54ed342aed0107787a63",
+        "source_object": "adler-continuation-20261030/objects/12133c8b9ec176a6aaba627152c252cec7c616682e8c54ed342aed0107787a63",
+        "bytes": 58071,
+        "actual_EOF": 1401,
+        "ranges": [
+          [
+            245,
+            305
+          ],
+          [
+            1255,
+            1304
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 111,
+        "prior_body_join": "Not asserted; no fresh, population or unique credit requested."
+      },
+      "source_id": "current-337:crates/adventuresim-building-generator/src/viewer/run.rs",
+      "source_sha256": "12133c8b9ec176a6aaba627152c252cec7c616682e8c54ed342aed0107787a63",
+      "assessed_ranges": [
+        [
+          245,
+          305
+        ],
+        [
+          1255,
+          1304
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "89f285:245..305",
+        "89f285:1255..1304"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 111,
+      "prior_body_join_as_registered": "Not asserted; no fresh, population or unique credit requested.",
+      "semantic_assessment": "Artillery focused roles1267..1297 originate actual SolidRole then use Debug string sets/maps, so reuse SolidRole directly, distinct from mixed timber SolidRole/SurfaceRole. Artillery target token1299..1301 includes a typed-view-derived slug inside formatted component label; its structured target identity is a connected contract, not arbitrary freeform text. Bridge state1263..1266 is another typed-value formatting boundary needing existing owner binding before final private storage change. Roof correspondence245..305 remains independent exact multiset and optional selection policy."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-building-generator/src/viewer/fortification_rendering.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-building-generator/src/viewer/fortification_rendering.rs",
+        "source_sha256": "66f62b0e1bb038d1da8cebc618a201b0e78af78aa4049c4a2863fa80775c56c2",
+        "source_object": "adler-continuation-20261030/objects/66f62b0e1bb038d1da8cebc618a201b0e78af78aa4049c4a2863fa80775c56c2",
+        "bytes": 29146,
+        "actual_EOF": 838,
+        "ranges": [
+          [
+            1,
+            838
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 838,
+        "prior_body_join": "Not asserted; no fresh, population or unique credit requested."
+      },
+      "source_id": "current-337:crates/adventuresim-building-generator/src/viewer/fortification_rendering.rs",
+      "source_sha256": "66f62b0e1bb038d1da8cebc618a201b0e78af78aa4049c4a2863fa80775c56c2",
+      "assessed_ranges": [
+        [
+          1,
+          838
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "31f636:1..220",
+        "618f6f:221..440",
+        "94eda0:441..660",
+        "f103ca:661..838"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 838,
+      "prior_body_join_as_registered": "Not asserted; no fresh, population or unique credit requested.",
+      "semantic_assessment": "Full fortification renderer1..838 binds static gate/chamber/access feature label producers to actual typed GateClosureKind, GuardOpeningKind, ViewerView and semantic model fields. Keep exact leaves/bars, floor/opening parts, support piers, firing opening, door state, section exclusions, roof cut, landings/guards/stairs/posts/ledger/braces/windlass. Attach meaningful capture feature/category at each actual spawn and carry through wall-local/beam helpers; preserve current meshes, transforms and counts. Noncolliding opening-depth backdrop is distinct, never fake collision authority. Incidental numeric/geometric defaults are not broadly cleared."
+    }
+  ],
+  "fresh_root_personal_source_lines": 0,
+  "uncredited_total_source_lines": 1670,
+  "prior_body_join": "Not asserted; no source novelty/reuse or fresh population credit. Boundary lines shared across packets are not a new unique count.",
+  "related_queue_contract": "ROOT-L12-BUILDING-REVIEW-PRIVATE-IDENTITY-ADMISSION",
+  "observations": [
+    "OpeningProfile156..189 is an existing payload-bearing five-case enum; OpeningAssembly319 retains it. OpeningUse137..144 is not a substitute shape kind. Match actual profile variants and typed ViewerView criteria directly in opening selection, retaining numeric payload and native serde tag; do not reduce to a label merely to compare, reconstruct a dummy profile, or impose numeric validation from this identity assessment. Native dimensions/frames/closure policies remain independent obligations.",
+    "Complete opening_profile_slug365..374 and focused_opening376..390 expose the earlier identity-erasure roundtrip: typed view to expected label, typed actual profile to label, text equality. Replace with direct typed variant matching while preserving outside_room/host_wall min_by_key ordering, optional absence and five shape cases. focused_wall body after395 not assessed.",
+    "Exact setup648..795 supplies actual artillery/timber/church/roof authority annotation spawns. Human-readable format including program/phase Debug here is presentation, so not by itself a private retained-type defect. Attach semantic annotation marker at those spawns; preserve actual Text/Node placement, visual-only marker, validity guards and displayed information. No pixel visibility guarantee follows from marker existence.",
+    "Actual spawn_box204..243 returns Entity, assigns Name/ClosedSolid/native mesh/material/transform, and tags player-built geometry; semantic review feature can be attached at actual caller without requiring a generic arbitrary label parser. Preserve player build prism and editor visibility metadata. Do not force every primitive or Name through closed capture taxonomy.",
+    "Actual selected architectural surface spawns190..277 retain typed SurfaceRole before Name formatting, GeometryOwner and ResolvedRenderItem, with OpeningBoundary kind already attached for throat/mouth. Retain distinct SurfaceRole identity for role maps/capture instead of reparsing Name, preserving visible-owner, removed-reveal, timber circulation inclusion, materials, noncolliding state and bounds. opening_surface_mesh279..290 only partial, no numeric/geometry clearance.",
+    "Artillery focused roles1267..1297 originate actual SolidRole then use Debug string sets/maps, so reuse SolidRole directly, distinct from mixed timber SolidRole/SurfaceRole. Artillery target token1299..1301 includes a typed-view-derived slug inside formatted component label; its structured target identity is a connected contract, not arbitrary freeform text. Bridge state1263..1266 is another typed-value formatting boundary needing existing owner binding before final private storage change. Roof correspondence245..305 remains independent exact multiset and optional selection policy.",
+    "Full fortification renderer1..838 binds static gate/chamber/access feature label producers to actual typed GateClosureKind, GuardOpeningKind, ViewerView and semantic model fields. Keep exact leaves/bars, floor/opening parts, support piers, firing opening, door state, section exclusions, roof cut, landings/guards/stairs/posts/ledger/braces/windlass. Attach meaningful capture feature/category at each actual spawn and carry through wall-local/beam helpers; preserve current meshes, transforms and counts. Noncolliding opening-depth backdrop is distinct, never fake collision authority. Incidental numeric/geometric defaults are not broadly cleared."
+  ],
+  "remaining_evidence": [
+    "Exact church focused/required role and structured target producers, actual artillery bridge state owner and projected descriptor owners when implicated by suite fields.",
+    "Exact P17/all20/current/alias comparison; final owned repair/acceptance and source obligation disposition.",
+    "Independent mesh/numeric/hash/native-cause/resource/other-lens duties remain separately pending."
+  ],
+  "new_body_population_unique_credit": 0,
+  "new_primary_findings": 0,
+  "source_adoption_performed": false,
+  "whole_contracts_closed": false,
+  "independent_agent_review": false,
+  "product_execution": false,
+  "tests_executed": false,
+  "implementation_gate_complete": false
+}

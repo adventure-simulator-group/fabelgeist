@@ -1,0 +1,152 @@
+"""Reusable ignored-evidence publication, independent of source batch rules.
+
+The caller authenticates its frozen semantic proposal before calling publish.
+This module checks base authorities, exact append-only changes and inverses.
+It never edits product files or closes a whole mixed-lens canonical case.
+"""
+import copy
+import hashlib
+import json
+import os
+import subprocess
+from pathlib import Path
+
+def sha(data): return hashlib.sha256(data).hexdigest()
+def encode(value): return (json.dumps(value,indent=2)+"\n").encode()
+def load(path): return json.loads(path.read_bytes())
+
+class Publication:
+    def __init__(self,base,mode,archive_name,bundle):
+        assert mode in {"--preflight","--apply","--verify"}
+        self.base=base; self.root=base.parent; self.mode=mode; self.bundle=bundle
+        self.workspace=next(p for p in base.parents if (p/"crates/AGENTS.md").is_file())
+        self.intake=self.workspace/"target/726-intake-20261030"
+        self.archive=base/archive_name
+        self.mutable={"ledger":self.root/"evidence/continuation-segovb/ledger.json",
+            "root":self.root/"CURRENT-ADLER.json","current":self.intake/"CURRENT.json"}
+        self.old_bytes={k:(self.archive/f"base-{k}.json" if mode=="--verify" else p).read_bytes() for k,p in self.mutable.items()}
+        self.old={k:json.loads(v) for k,v in self.old_bytes.items()}
+        for authority in bundle["base_authority_snapshot"]:
+            path=self.resolve(authority); key=next((k for k,p in self.mutable.items() if p==path),None)
+            assert sha(self.old_bytes[key] if key else path.read_bytes())==authority["sha256"],path.name
+        self.new=copy.deepcopy(self.old); self.edits=[]
+
+    def resolve(self,value):
+        path=(self.workspace if value["path"].startswith("target/") else self.root)/value["path"]
+        assert path.resolve().is_relative_to((self.workspace/"target").resolve())
+        return path
+
+    def check(self,value):
+        path=self.resolve(value); assert sha(path.read_bytes())==value["sha256"],path.name
+        return path
+
+    def ref(self,path,data=None,full=False):
+        origin=self.workspace if full else (self.root if path.is_relative_to(self.root) else self.workspace)
+        return {"path":path.relative_to(origin).as_posix(),"sha256":sha(path.read_bytes() if data is None else data)}
+
+    def put(self,name,keys,value):
+        obj=self.new[name]
+        for key in keys[:-1]: obj=obj[key]
+        key=keys[-1]; exists=key in obj if isinstance(obj,dict) else key<len(obj)
+        self.edits.append((name,keys,exists,copy.deepcopy(obj[key]) if exists else None)); obj[key]=value
+
+    def publish(self,*,bundle_path,state_data,view,entry_index,checkpoint,queue_number,
+                selected_number,marker,scope_text,verification_name,facts):
+        root=self.root; base=self.base; intake=self.intake; old=self.old
+        bundle=self.bundle; stamp=bundle["created_at"]
+        state=json.loads(state_data)
+        assert state["current_source_complete"] is state["implementation_gate_complete"] is False
+        assert view["lens"]==2 and view["all_current_and_all_lens_closure"] is False
+        assert view["new_accepted_unique_count"]==view["new_body_credit"]==0
+        assert view["canonical_alias_applied"] is view["repair_implemented"] is view["runtime_validation_passed"] is view["implementation_gate_complete"] is False
+        state_path=root/bundle["intended_state_destination"]; state_ref=self.ref(state_path,state_data)
+        old_selected=load(self.check(old["current"]["selected_lenses"]))
+        selected=copy.deepcopy(old_selected); selected["at"]=stamp
+        next(v for v in selected["lenses"] if v["lens"]==2)["selected_state"]={**state_ref,"bytes":len(state_data)}
+        assert [v for v in selected["lenses"] if v["lens"]!=2]==[v for v in old_selected["lenses"] if v["lens"]!=2]
+        for lens in old_selected["lenses"]: self.check(lens["selected_state"])
+        selected_path=base/f"SELECTED-LENSES-CONTINUATION-{selected_number}.json"
+        queue_old_path=self.check(old["current"]["closure_queue"]); queue_old=load(queue_old_path)
+        original_entry=queue_old["entries"][entry_index]
+        assert original_entry["contract_id"]==view["contract_id"]
+        entry=dict(original_entry); entry["granular_contract_views"]=original_entry["granular_contract_views"]+[view]
+        entry["latest_own_l2_source_disposition"]={"bundle":self.ref(bundle_path),"view_index":len(original_entry["granular_contract_views"]),"status":view["status"]}
+        # Repeat-entry publication advances only the latest pointer and appends
+        # an immutable pointer history; every previous source view stays intact.
+        history=list(original_entry.get("own_l2_source_disposition_history",[]))
+        if "latest_own_l2_source_disposition" in original_entry:
+            history.append(original_entry["latest_own_l2_source_disposition"])
+        if history:
+            entry["own_l2_source_disposition_history"]=history
+            assert history[:len(original_entry.get("own_l2_source_disposition_history",[]))]==original_entry.get("own_l2_source_disposition_history",[])
+            assert history[-1]==original_entry["latest_own_l2_source_disposition"]
+        assert all(entry[k]==v for k,v in original_entry.items() if k not in {"granular_contract_views","latest_own_l2_source_disposition","own_l2_source_disposition_history"})
+        assert entry["granular_contract_views"][:-1]==original_entry["granular_contract_views"]
+        queue=dict(queue_old); queue["entries"]=list(queue_old["entries"]); queue["entries"][entry_index]=entry
+        assert all(a==b for i,(a,b) in enumerate(zip(queue["entries"],queue_old["entries"])) if i!=entry_index)
+        progress={"bundle":self.ref(bundle_path),"state":state_ref,"canonical_contract_id":view["contract_id"],
+            "scoped_l2_source_views_closed":1,"whole_canonical_cases_closed":0,"alias_applications":0,"current_delta_cells_closed":0,"implementation_gate_complete":False}
+        queue.update(at=stamp,predecessor=self.ref(queue_old_path),metadata_qualifications=queue_old["metadata_qualifications"]+[{"kind":"own-L2-named-source-disposition",**progress}])
+        assert all(queue[k]==v for k,v in queue_old.items() if k not in {"entries","at","predecessor","metadata_qualifications"})
+        queue_path=root/f"workflow-20261030/CLOSURE-QUEUE-{queue_number}.json"; queue_data=encode(queue); queue_ref=self.ref(queue_path,queue_data)
+        l2=["segovb_continuation","lens2"]
+        self.put("ledger",l2+["current_state"],state_ref["path"]); self.put("ledger",l2+["current_state_sha256"],state_ref["sha256"])
+        for field,addition in [("current_source_receipts",bundle["source_receipts"]),("registration_authorities",bundle["registration_refs"])]:
+            self.put("ledger",l2+[field],old["ledger"]["segovb_continuation"]["lens2"][field]+addition)
+        self.put("ledger",l2+[marker],progress)
+        index=next(i for i,v in enumerate(self.new["ledger"]["lens_coverage"]) if v["number"]==2)
+        for key,value in {"current_successor":"../../"+state_ref["path"],"current_successor_sha256":state_ref["sha256"],
+            "latest_receipt":"../../"+bundle["source_receipts"][-1]["path"],"current_scope_qualification":scope_text}.items(): self.put("ledger",["lens_coverage",index,key],value)
+        self.put("ledger",["audit_workflow","closure_queue"],queue_ref); ledger_data=encode(self.new["ledger"])
+        self.put("root",["ledger_sha256"],sha(ledger_data)); self.put("root",["at"],stamp); self.put("root",["audit_workflow","closure_queue"],queue_ref)
+        self.put("root",["other_lens_current_continuations","2"],{"state":state_ref["path"],"sha256":state_ref["sha256"],"latest_receipt":bundle["source_receipts"][-1],"qualification":scope_text})
+        self.put("root",["latest_l2_"+marker],progress); root_data=encode(self.new["root"])
+        old_checkpoint=self.check(old["current"]["preservation_checkpoint"]); cp=load(old_checkpoint)
+        cp.update(at=stamp,ledger={**self.ref(self.mutable["ledger"],ledger_data,True),"bytes":len(ledger_data)},
+            selector={**self.ref(self.mutable["root"],root_data,True),"bytes":len(root_data)},closure_queue=queue_ref,predecessor=self.ref(old_checkpoint,full=True))
+        cp["scoped_l2_"+marker]=progress; cp_path=intake/f"CHECKPOINT-{checkpoint}.json"
+        outputs={state_path:state_data,selected_path:encode(selected),queue_path:queue_data,self.mutable["ledger"]:ledger_data,self.mutable["root"]:root_data,cp_path:encode(cp)}
+        verification_path=intake/verification_name
+        verification_data=encode({"schema":"726-l2-exact-source-publication-verification-v1","at":stamp,"status":"pass","bundle":self.ref(bundle_path),
+            "publication_kernel":self.ref(Path(__file__)),"expected_outputs":[self.ref(p,d,True) for p,d in outputs.items()],**facts,
+            "unrelated_queue_entries_preserved":len(queue_old["entries"])-1,"historical_entry_fields_and_views_preserved":True,"other_lens_selections_preserved":12,
+            "inverse_mutable_authorities_verified":True,"scoped_l2_source_views_closed":1,"whole_canonical_cases_closed":0,"current_delta_cells_closed":0,
+            "product_execution":False,"independent_agent_review":False,"implementation_gate_complete":False})
+        for key,value in {"at":stamp,"ledger":self.ref(self.mutable["ledger"],ledger_data,True),"selector":self.ref(self.mutable["root"],root_data,True),
+            "closure_queue":self.ref(queue_path,queue_data,True),"selected_lenses":self.ref(selected_path,outputs[selected_path],True),
+            "preservation_checkpoint":self.ref(cp_path,outputs[cp_path],True),"adoption_verification":self.ref(verification_path,verification_data,True),
+            "latest_l2_"+marker:progress,"status":f"Checkpoint{checkpoint}: {scope_text}"}.items(): self.put("current",[key],value)
+        outputs[self.mutable["current"]]=encode(self.new["current"])
+        for name,value in self.new.items():
+            inverse=copy.deepcopy(value)
+            for owner,keys,exists,before in reversed(self.edits):
+                if owner!=name: continue
+                obj=inverse
+                for key in keys[:-1]: obj=obj[key]
+                if exists: obj[keys[-1]]=before
+                else: del obj[keys[-1]]
+            assert inverse==old[name],name
+        assert self.new["current"]["progress"]==old["current"]["progress"] and self.new["current"]["current_source"]==old["current"]["current_source"]
+        assert all(p.resolve().is_relative_to((self.workspace/"target").resolve()) for p in list(outputs)+[verification_path,self.archive])
+        assert subprocess.check_output(["git","status","--porcelain"],cwd=self.workspace)==b""
+        if self.mode!="--verify":
+            assert not self.archive.exists() and not verification_path.exists()
+            assert all(not p.exists() for p in outputs if p not in self.mutable.values())
+        if self.mode=="--preflight":
+            print(json.dumps({"status":"pass","mode":self.mode,"writes":0,"checkpoint":checkpoint,"inverse_checks":3,"scoped_l2_source_views_closed":1})); return
+        def write(path,data):
+            with path.open("xb") as f: f.write(data)
+        if self.mode=="--apply":
+            for name,path in self.mutable.items(): assert path.read_bytes()==self.old_bytes[name]
+            self.archive.mkdir()
+            for name,data in self.old_bytes.items(): write(self.archive/f"base-{name}.json",data)
+            write(self.archive/"inverse-edits.json",encode(self.edits))
+            for path,data in outputs.items():
+                if path in self.mutable.values():
+                    temp=self.archive/f"new-{path.name}"; write(temp,data); os.replace(temp,path)
+                else: write(path,data)
+            write(verification_path,verification_data)
+        for path,data in outputs.items(): assert path.read_bytes()==data,path.name
+        assert verification_path.read_bytes()==verification_data
+        print(json.dumps({"status":"pass","mode":self.mode,"checkpoint":checkpoint,"verification":self.ref(verification_path,full=True),
+            "current":self.ref(self.mutable["current"],full=True),"scoped_l2_source_views_closed":1,"whole_canonical_cases_closed":0,"implementation_gate_complete":False}))

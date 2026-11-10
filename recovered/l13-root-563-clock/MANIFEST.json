@@ -1,0 +1,37 @@
+{
+  "schema": "726-l13-root-563-clock-reuse-v1",
+  "qualification_sha256": "d3b5f0b0858c13fe4e39dc8449dee63af2b860ce16fc3a56542926e60a424fa1",
+  "printed_qualification_ordinal": 29992,
+  "printed_qualification_writer_candidate_sha256": "9465d51f8fb572361e1b6997ae5d9d72a8f6a90661b50b9b116535fc678eef33",
+  "matched_timestamp": "2026-10-31T21:03:12.449868+00:00",
+  "dependencies": [
+    {
+      "field": "prior_adoption",
+      "sha256": "64b1c80d8a8743a27e7466e91244a17046e1c9d5b7750d47411ca63c15948dec",
+      "bytes": 26537,
+      "file": "dependencies/64b1c80d8a8743a27e7466e91244a17046e1c9d5b7750d47411ca63c15948dec"
+    },
+    {
+      "field": "prior_raw_receipt",
+      "sha256": "0005ad670edd0eb3df3bf09ad79e9415344f59211f66c971ea8c8f3389c94c9d",
+      "bytes": 21341,
+      "file": "dependencies/0005ad670edd0eb3df3bf09ad79e9415344f59211f66c971ea8c8f3389c94c9d"
+    },
+    {
+      "field": "prior_registration",
+      "sha256": "ffea3c0d06cb92a0b3e218ed38abc1a9beed6f109250b0471d7f463f83f52cbd",
+      "bytes": 1197,
+      "file": "dependencies/ffea3c0d06cb92a0b3e218ed38abc1a9beed6f109250b0471d7f463f83f52cbd"
+    },
+    {
+      "field": "prior_verification",
+      "sha256": "7fa6afea07ed86cdedf49871b3756170445257f87b908575161a1e23ab21b812",
+      "bytes": 1593,
+      "file": "dependencies/7fa6afea07ed86cdedf49871b3756170445257f87b908575161a1e23ab21b812"
+    }
+  ],
+  "source_sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+  "source_bytes": 1076,
+  "source_line_count": 29,
+  "qualification": "Exact original alias qualification reconstructed from base receipt, proof and recorded ledger/selector references, then matched to its printed hash. Four cited original dependency files and frozen clock source match their hashes. The later root 563 packet, plan and receipt remain missing. No new source credit or current authority follows."
+}

@@ -1,0 +1,106 @@
+{
+  "schema": "726-root-l13-source-packet-v1",
+  "at": "2026-10-31T14:02:21.780935+00:00",
+  "lens": 13,
+  "author": "/root",
+  "original_before": 1718,
+  "original_after": 1719,
+  "registered_before_read_attestation": true,
+  "connected": [],
+  "prior_same_lens_adoptions": [],
+  "new_root_ordered_lines": 288,
+  "new_root_connected_reread_lines": 0,
+  "accepted_unique_count_change": 0,
+  "other_population_credit": 0,
+  "current_source_reconciled": false,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "new_questions": [],
+  "ordered": [
+    {
+      "source": {
+        "original": 1718,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms/sightlines.rs",
+        "sha256": "3b246c9e91979cdd7f23a8527adef2df1dbe28bf14662cd1060b557d89c77324",
+        "actual_eof": 288,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/3b246c9e91979cdd7f23a8527adef2df1dbe28bf14662cd1060b557d89c77324",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            288
+          ]
+        ],
+        "purpose": "Full Lens13 furnished room sightline selection, signature admission and numerical ray kernel. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1718-001.json",
+        "sha256": "8d15870221029f195413978855171ac552eab3ad597539a940065286f6207f38"
+      },
+      "registration_pointer": "/sources/0",
+      "assessed_ranges": [
+        [
+          1,
+          288
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              55
+            ]
+          ],
+          "assessment": "Owner distinguishes canonical architecture ResolvedItemId and private furniture index; Subject native sample points/importance/signature/front/working points paired with architectural typed CollisionCuboid blockers. PreparedBlocker rotates yawY*crossfallX*longfallZ, builds inverse and absolute world halfextents plus rotated unit padding sum. Actual canonical cuboid rotation order and finite admitted source bounds required; native prepared representation is local query cache, not independent geometry authority."
+        },
+        {
+          "ranges": [
+            [
+              57,
+              91
+            ]
+          ],
+          "assessment": "segment_hit broad world AABB of segment first rejects separation; padded rotated world extents match local margin. Narrow inverse rotation gives start and segmentdelta, inclusive slab interval0..1 per three axes; exact delta0 handles parallel/point containment. Calls use margin0 for ray and.12 for eye clearance. Actual ordinary source domain from canonical generated points required before finite-subtraction overflow claim; no extreme numerical witness invented."
+        },
+        {
+          "ranges": [
+            [
+              93,
+              108
+            ]
+          ],
+          "assessment": "clear_line ignores all blockers with same Owner as subject, so furniture own collider collection does not occlude its sampled envelope; other subjects/architecture still block. in_frame uses horizontal right normalized_or_zero, up crossforward, depth>.4 and FOV78*margin.88 at configured aspect. choose below excludes short or nearvertical horizontal offsets before calling in_frame; no generic zero-right direction claim for supported finite values."
+        },
+        {
+          "ranges": [
+            [
+              110,
+              173
+            ]
+          ],
+          "assessment": "choose prepares all blockers, needs_signature only if any subject.signature. This narrowly rejects prior1717 CountingRoom concern: no designated signatures permits ordinary candidate scoring rather than requiring impossible signature_visible. Each eye must be outside every blocker padded.12; visible points exclude other owners; targets need distance>=1 and xz>=.8. Subject score uses fraction of all authored points clear+inframe, importance and saturated distance reward min(6/maxdistance3,1). Signature requires all workingpoints clear/framed, optional frontside positive, fraction>=.5, ALL envelopepoints framed (not all unoccluded). Actual subject constructors1717 supply nine furniture or three stair points, rejecting emptypoints[0] suspicion for those callers. Exact ties keep first sortedeye/point order."
+        },
+        {
+          "ranges": [
+            [
+              175,
+              288
+            ]
+          ],
+          "assessment": "Unexecuted fixtures verify rotated sloping cuboid hit fraction.475, padded corner containment, partition rotation/clear doorway and selecting reachable clear eye over far blocked eye. They do not prove all current fixtures/native SDK geometry or numerical extremes. No product execution."
+        }
+      ]
+    }
+  ],
+  "contract_revisits_pending_queue_adoption": [],
+  "remaining_connected_obligations": [
+    "CountingRoom no-signature concern narrowly rejected: choose only requires signature when any exists. This source conclusion does not prove fixture has a reachable clear/framed target.",
+    "Canonical cuboid yaw/crossfall/longfall ordering, generated architectural route/sample bounds and rendered door/solid agreement remain connected. No arbitrary finite-input overflow defect asserted.",
+    "Owner self-occlusion policy ignores all same-furniture colliders; signature requires all points framed but at least half unoccluded. Confirm authored review acceptance/composition intent, not full object pixel visibility claim.",
+    "Parent constructors supply nonempty9/3 point vectors and bounded positive importance; actual other callers/current aliases must retain own evidence.",
+    "All288 frozen lines read, tests unexecuted, no imported/native/current credit. All13/all20/extensions/aliases/repair gate incomplete."
+  ]
+}

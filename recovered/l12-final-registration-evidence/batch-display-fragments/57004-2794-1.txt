@@ -1,0 +1,152 @@
+1: use crate::allocator::utils::ensure_buffer_capacity;
+2: use crate::render::prepare::{core::Clear, utils::data_offset, *};
+3: 
+4: use bevy_ecs::entity::EntityHashMap;
+5: use bevy_render::{
+6:     render_resource::{Buffer, BufferUsages},
+7:     renderer::{RenderDevice, RenderQueue},
+8: };
+9: 
+10: /// Logic for resizing and updating raw Instance Data buffers.
+11: pub(super) struct InstanceBufferUpdater<'a> {
+12:     pub(super) device: &'a RenderDevice,
+13:     pub(super) queue: &'a RenderQueue,
+14:     pub(super) page_id: usize,
+15:     pub(super) source_allocator: &'a mut InstanceAllocatorBackend,
+16:     pub(super) material_name: &'static str,
+17: }
+18: 
+19: impl<'a> InstanceBufferUpdater<'a> {
+20:     pub fn update(
+21:         &mut self,
+22:         page: &mut InstancePage,
+23:         writes: &[Write],
+24:         entities: &Vec<Entity>,
+25:         inputs: &EntityHashMap<BatchInput>,
+26:     ) -> Vec<(u64, Vec<InstanceData>)> {
+27:         let page_size = self.source_allocator.size(self.page_id) as u64;
+28:         let capacity = page_size * size_of::<InstanceData>() as u64;
+29: 
+30:         self.ensure_capacity(page, capacity);
+31: 
+32:         let Some(source_buffer) = &page.source_buffer else {
+33:             return Vec::new();
+34:         };
+35: 
+36:         self.process_clears(source_buffer);
+37:         self.process_writes(ProcessWriteContext {
+38:             writes,
+39:             source_buffer,
+40:             inputs,
+41:         });
+42:         self.collect_output_writes(CollectOutputContext { entities, inputs })
+43:     }
+44: 
+45:     fn ensure_capacity(&self, page: &mut InstancePage, capacity: u64) {
+46:         let material_name = self.material_name;
+47:         let page_id = self.page_id;
+48: 
+49:         self.ensure_buffer_capacity(
+50:             &mut page.source_buffer,
+51:             capacity,
+52:             BufferUsages::STORAGE | BufferUsages::COPY_DST | BufferUsages::COPY_SRC,
+53:             &format!("material_{material_name}_page_{page_id}_source",),
+54:             true,
+55:         );
+56: 
+57:         self.ensure_buffer_capacity(
+58:             &mut page.output_buffer,
+59:             capacity,
+60:             BufferUsages::STORAGE | BufferUsages::VERTEX | BufferUsages::COPY_DST,
+61:             &format!("material_{material_name}_page_{page_id}_output"),
+62:             false,
+63:         );
+64:     }
+65:     fn ensure_buffer_capacity(
+66:         &self,
+67:         buffer: &mut Option<Buffer>,
+68:         capacity: u64,
+69:         usage: BufferUsages,
+70:         label: &str,
+71:         copy: bool,
+72:     ) {
+73:         ensure_buffer_capacity(
+74:             self.device,
+75:             self.queue,
+76:             buffer,
+77:             capacity,
+78:             usage,
+79:             label,
+80:             copy,
+81:         );
+82:     }
+83: 
+84:     fn process_clears(&mut self, buffer: &Buffer) {
+85:         for Clear { offset, clear } in self
+86:             .source_allocator
+87:             .drain(self.page_id)
+88:             .into_iter()
+89:             .map(Clear::from)
+90:             .filter(|clear| buffer.check_bounds(clear.offset, &clear.clear))
+91:         {
+92:             self.queue
+93:                 .write_buffer(buffer, offset, bytemuck::cast_slice(&clear));
+94:         }
+95:     }
+96: 
+97:     /// Processes 'writes' to the source buffer.
+98:     fn process_writes(&self, ctx: ProcessWriteContext<'_>) {
+99:         for (offset, modified) in ctx.writes.iter().filter_map(|write| {
+100:             ctx.inputs.get(&write.entity).map(|input| {
+101:                 (
+102:                     write.offset,
+103:                     input
+104:                         .instances
+105:                         .iter()
+106:                         .map(|d| d.with_batch_id(write.batch_id))
+107:                         .collect::<Vec<_>>(),
+108:                 )
+109:             })
+110:         }) {
+111:             self.queue.write_buffer(
+112:                 ctx.source_buffer,
+113:                 data_offset::<InstanceData>(offset),
+114:                 bytemuck::cast_slice(&modified),
+115:             );
+116:         }
+117:     }
+118: 
+119:     /// Collects writes to the output buffer for non-compute culling instances.
+120:     fn collect_output_writes(
+121:         &self,
+122:         ctx: CollectOutputContext<'_>,
+123:     ) -> Vec<(u64, Vec<InstanceData>)> {
+124:         ctx.entities
+125:             .iter()
+126:             .filter_map(|e| ctx.inputs.get(e))
+127:             .filter(|i| !i.gpu_cull)
+128:             .filter_map(|input| {
+129:                 self.source_allocator
+130:                     .get(input.entity)
+131:                     .map(|alloc| (input, alloc))
+132:             })
+133:             .map(|(input, alloc)| {
+134:                 (
+135:                     alloc.offset as u64 * size_of::<InstanceData>() as u64,
+136:                     input.instances.to_vec(),
+137:                 )
+138:             })
+139:             .collect()
+140:     }
+141: }
+142: 
+143: struct ProcessWriteContext<'a> {
+144:     writes: &'a [Write],
+145:     source_buffer: &'a Buffer,
+146:     inputs: &'a EntityHashMap<BatchInput>,
+147: }
+148: 
+149: struct CollectOutputContext<'a> {
+150:     entities: &'a Vec<Entity>,
+151:     inputs: &'a EntityHashMap<BatchInput>,
+152: }

@@ -1,0 +1,168 @@
+{
+  "kind": "Independent lens12 ordered original raw-string inventory",
+  "lens": 12,
+  "batch": 412,
+  "at": "2026-10-29T08:33:17.440156+00:00",
+  "plan": "segovb/PLAN-L12-412.json",
+  "plan_sha256": "ba20e02da0182bc0d4258b97bc01556b3c2329a1dda169bbc84de78c0d3b3550",
+  "rows": [
+    {
+      "original_index": 1429,
+      "registration": "segovb/REGISTRATION-SEGOVB-L12-336.json",
+      "registration_sha256": "366f140f113cb80d1682dd2689177fbba766cf75c36f10b65bd152839f10beb8",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+      "source_sha256": "df0755d84bee3dcbea4124ffdf5f53bb89e513796b87e1577bdfafbdf7fd17f0",
+      "assessed_ranges": [
+        [
+          1,
+          220
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          220
+        ]
+      ],
+      "same_lens_reuse": [],
+      "function_contract": {
+        "dependencies": [
+          "Actual FrameSample producer/capture completeness and finite gates, report metrics/pass/exit consumer/current; native pose/terrain/support producers.",
+          "Actual CapturedBones/JitterBoneIdentity/report-label consumers/serialization/schema/current; all20 families/exact aliases/extensions."
+        ],
+        "acceptance_requirements": [
+          "Require valid selected plan, actual retained observations and all enclosing report gates before missing/nonfinite measurement finding; optional absent scenarios can legitimately not apply.",
+          "Keep BoneRole identity throughout internal operations; assess whether lexical report-label order is native output policy or unwanted retained internal dependency before assigning repair. No obsolete ordering preservation mandate.",
+          "Source-only frozen read; runtime/native SDK/current/other-lens tests not credited. Concrete acceptance must distinguish measured failure from unavailable/not-applicable."
+        ],
+        "exact_function_ownership": [
+          "foot_continuity_limit5..41/knee_continuity_limit43..64/loop_seam_position_limit66..85",
+          "scenario_requires_strict_terrain_toe_clearance87..97/planted_drift_limit99..105/supported_foot_slip_limit107..113/procedural_leg_solver_gates_apply115..117/inter_foot_separation_limit119..134/expects_loop_seam136..138",
+          "vertical_range_limit140..163/expected_visual_height165..174/cadence_contacts_valid176..220"
+        ],
+        "string_inventory": [
+          "Scenario identity/features typed ScenarioId/ScenarioFeature/ScenarioKind throughout conditions; no raw scenario-label branching.",
+          "Authored policy thresholds numeric in own acceptance owner, comments measured historical evidence not current runtime proof; typed units/threshold families other-lens separate."
+        ],
+        "producer_internal_api_retained_state_consumer_native_boundary": [
+          "Typed ScenarioMetadata identity/features -> scenario-specific acceptance limit -> actual measured metrics/report gates/native result.",
+          "Typed FrameSample scenario/contact_sequence/contact_foot/gaitphase + raw rootdistance -> select actual CadenceContact frames179 -> successor transitions184..188 -> adjusteddistances202 -> exactlyfour contacts207/alternation/successors/distance gates208..219 -> AnimationValueResult<bool>."
+        ],
+        "first_failed_contract": "No L12 String failure. Cadence absent scenario true206 is deliberate conditional application, not missing-selected-plan proof. Existing contact sequence admits only consecutive transitions; actual skipped sample/plan/finite producer/report/current needed for missing-event coverage finding. Actual mixed-scenario views/frame ordering must be established before adjacency claim.",
+        "canonical_owner": "Scenario acceptance policy and typed ScenarioMetadata/FrameSample/contact sequencing; native report result.",
+        "connected_repair_scope": "Actual report metrics/discrete frame windows and complete plan finite measurements/current. Numeric policy or historical tuning comments not String compatibility."
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 1430,
+      "registration": "segovb/REGISTRATION-SEGOVB-L12-337.json",
+      "registration_sha256": "e36b0cb11f51f6a898a2c25792e8259b535f3eef3e5c9c1801500265fa124c13",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/body_response_validation.rs",
+      "source_sha256": "b3292ab6c13201b261d597d9aa15c5e07143c7503fd78ecb229aab8c7bb967ca",
+      "assessed_ranges": [
+        [
+          1,
+          133
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          133
+        ]
+      ],
+      "same_lens_reuse": [],
+      "function_contract": {
+        "dependencies": [
+          "Actual FrameSample producer/capture completeness and finite gates, report metrics/pass/exit consumer/current; native pose/terrain/support producers.",
+          "Actual CapturedBones/JitterBoneIdentity/report-label consumers/serialization/schema/current; all20 families/exact aliases/extensions."
+        ],
+        "acceptance_requirements": [
+          "Require valid selected plan, actual retained observations and all enclosing report gates before missing/nonfinite measurement finding; optional absent scenarios can legitimately not apply.",
+          "Keep BoneRole identity throughout internal operations; assess whether lexical report-label order is native output policy or unwanted retained internal dependency before assigning repair. No obsolete ordering preservation mandate.",
+          "Source-only frozen read; runtime/native SDK/current/other-lens tests not credited. Concrete acceptance must distinguish measured failure from unavailable/not-applicable."
+        ],
+        "exact_function_ownership": [
+          "BodyResponseValidation5..8/body_response_validation10..98",
+          "lean_range100..113/body_lateral_range115..133"
+        ],
+        "string_inventory": [
+          "All scenario filtering/equality typed ScenarioMetadata authored ScenarioId, body bone selector typed BoneRole. No raw domain String API."
+        ],
+        "producer_internal_api_retained_state_consumer_native_boundary": [
+          "Actual captured typed lean angles -> per-scenario min/max and consecutiveleansteps36..46 -> presence-conditional signed response bounds59..93 -> BodyResponseValidation response/straight_run_sway -> report pass consumer.",
+          "Typed BoneRole Chest/Head -> actual body_local optionalposition -> filter_map123 -> extrema125..126 -> finite span129 or missing/nonfinite extrema default0 at131 -> upper-bound sway56..57 -> straight_run_sway."
+        ],
+        "first_failed_contract": "No String failure. Conditional missing lateral measurements become zero131 and can locally satisfy upper-bound sway; actual body_local/valid supported capture completeness/finite/full-report gate/current required before falsecertificate finding. lean absence guarded has_scenario, optional unrelated scenario true intentional; do not equate missing scenario with selected-plan omission without actual plan gate.",
+        "canonical_owner": "BodyResponseValidation and actual finite measured body-local observation/report completeness owner; scenario metadata/typed angles.",
+        "connected_repair_scope": "Native body_local/capture presence plus report gates and all scenario sampling windows; distinguish unavailable vs measuredzero before acceptance. No invalid fixture or unrun-source-test proof."
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 1431,
+      "registration": "segovb/REGISTRATION-SEGOVB-L12-338.json",
+      "registration_sha256": "cd289f10786fdaff392f0f7263a4185738d2254cde590dbe82aa0f364f32a5d3",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+      "source_sha256": "1178bf380da9126c00678608493b9d252af9746d853d347d5f334d451586b5bb",
+      "assessed_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          138
+        ]
+      ],
+      "same_lens_reuse": [],
+      "function_contract": {
+        "dependencies": [
+          "Actual FrameSample producer/capture completeness and finite gates, report metrics/pass/exit consumer/current; native pose/terrain/support producers.",
+          "Actual CapturedBones/JitterBoneIdentity/report-label consumers/serialization/schema/current; all20 families/exact aliases/extensions."
+        ],
+        "acceptance_requirements": [
+          "Require valid selected plan, actual retained observations and all enclosing report gates before missing/nonfinite measurement finding; optional absent scenarios can legitimately not apply.",
+          "Keep BoneRole identity throughout internal operations; assess whether lexical report-label order is native output policy or unwanted retained internal dependency before assigning repair. No obsolete ordering preservation mandate.",
+          "Source-only frozen read; runtime/native SDK/current/other-lens tests not credited. Concrete acceptance must distinguish measured failure from unavailable/not-applicable."
+        ],
+        "exact_function_ownership": [
+          "REPORT_BONES6..24/CapturedBones28/iter31..35/keys36..38/values39..41/get42..44/contains_key52..54/len63..65/ordered66..70",
+          "test-onlyget_mut46..51/insert56..62/FromIterator72..76/IntoIterator77..83",
+          "Serialize84..94/JitterBoneIdentity96..100/report_bone_label102..106/parent_bone109..129/serialize_report_bone131..138"
+        ],
+        "string_inventory": [
+          "REPORT_BONES typed role->wirelabel table6..24 final report naming policy, serializers88..90/135..137 explicit native port and typed Jitter identity impl96..100.",
+          "Actual internal CapturedBones::ordered sorts semantic BoneRole map by Option<&str> report_bone_label68, used notonlyserialization but every iter/keys/values/IntoIterator34/37/40/81. Comment26 explicitly former lexical order/floating folds/ties. Actual metrics/jitter receivers/current/order policy needed before String dependency vs intentional output-order verdict; no obligation to preserve obsolete order."
+        ],
+        "producer_internal_api_retained_state_consumer_native_boundary": [
+          "Native bone collection already seen1420 keeps BoneRole->BoneSample -> FromIterator retains BTreeMap74 -> internal ordered67..68 projects reportlabels as sortkey -> all internal iter/values/keys and serialization -> report metrics/nativewire.",
+          "Typed BoneRole -> reduced hierarchy parent_bone110..127, explicitpartial role universe _None127, not authored full tree. Unsupported reportrole serialization returns typedserializererror89/136, not silently coerced."
+        ],
+        "first_failed_contract": "Actual internal report-label sort dependency exists, but first failed contract classification needs actual consumer/order semantic policy/current. No generic raw-string branching or early identity erasure: mapkey remains BoneRole. REPORT_BONES membership and native wirelabels legitimate; duplicated map roles mayoverwrite bycollect74 onlyactualvalidduplicateproducer/nativepolicy beforefinding.",
+        "canonical_owner": "BoneRole/CapturedBones typed retained identity, reduced report hierarchy and native report-label serializer adapter; internal deterministic ordering policy must be explicit.",
+        "connected_repair_scope": "Actual all CapturedBones iter/fold/tie/report/JitterBoneIdentity consumers and current native report ordering before dedup. Exact report_label implementation now personally read; no cross-lens verdict transfer."
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    }
+  ],
+  "connected_dispositions": [
+    "No raw String scenario dispatch: all acceptance policy typed.",
+    "Local missing body lateral observation defaults zero but full report/source/native gates still required.",
+    "Exact BoneRole wire adapter verified; internal label sorting separately recorded with no backwards compatibility requirement."
+  ],
+  "new_original_roles": 3,
+  "new_overlay_merged_shared_or_extension_credit": 0,
+  "accepted_unique_count_change": 0,
+  "current_source_reconciled": false,
+  "runtime_validation": "Not run; audit only",
+  "inherited_disease1093_read_qualification_unchanged": true,
+  "implementation_gate_complete": false,
+  "pending": "Prospectively register1432report/html99 full and1433metrics2050; readHTML then metrics in strict bounded full/partial chain, no invented tail. Continue complete thirteen-lens audit/current/native/all20/aliases/extensions without repairs."
+}

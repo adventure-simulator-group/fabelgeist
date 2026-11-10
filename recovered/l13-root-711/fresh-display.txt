@@ -1,0 +1,339 @@
+SOURCE 2709
+1: //! Client-only extraction of render surfaces from bounded scalar fields.
+2: //!
+3: //! The network and tactical server replicate compact recipes. They do not
+4: //! depend on this module, sample these fields, or transmit extracted meshes.
+5: 
+6: use super::*;
+7: 
+8: #[derive(Clone, Copy, Debug)]
+9: pub(super) struct SurfaceNetsGrid {
+10:     pub sample_counts: [usize; 3],
+11:     pub minimum: Vec3,
+12:     pub maximum: Vec3,
+13: }
+14: 
+15: #[derive(Debug, Default, PartialEq)]
+16: pub(super) struct ExtractedSurface {
+17:     pub positions: Vec<[f32; 3]>,
+18:     pub normals: Vec<[f32; 3]>,
+19:     pub indices: Vec<u32>,
+20: }
+21: 
+22: impl ExtractedSurface {
+23:     pub fn into_mesh(self) -> Mesh {
+24:         let mut mesh = Mesh::new(
+25:             PrimitiveTopology::TriangleList,
+26:             RenderAssetUsages::MAIN_WORLD | RenderAssetUsages::RENDER_WORLD,
+27:         );
+28:         mesh.insert_attribute(Mesh::ATTRIBUTE_POSITION, self.positions);
+29:         mesh.insert_attribute(Mesh::ATTRIBUTE_NORMAL, self.normals);
+30:         mesh.insert_indices(Indices::U32(self.indices));
+31:         mesh
+32:     }
+33: }
+34: 
+35: pub(super) fn extract_surface_nets(
+36:     grid: SurfaceNetsGrid,
+37:     field: impl Fn(Vec3) -> f32,
+38: ) -> Option<ExtractedSurface> {
+39:     let [nx, ny, nz] = grid.sample_counts;
+40:     if nx < 2
+41:         || ny < 2
+42:         || nz < 2
+43:         || !grid.minimum.is_finite()
+44:         || !grid.maximum.is_finite()
+45:         || !grid.minimum.cmplt(grid.maximum).all()
+46:     {
+47:         return None;
+48:     }
+49:     let sample_count = nx.checked_mul(ny)?.checked_mul(nz)?;
+50:     let cell_counts = [nx - 1, ny - 1, nz - 1];
+51:     let cell_count = cell_counts[0]
+52:         .checked_mul(cell_counts[1])?
+53:         .checked_mul(cell_counts[2])?;
+54:     let spacing = (grid.maximum - grid.minimum)
+55:         / Vec3::new((nx - 1) as f32, (ny - 1) as f32, (nz - 1) as f32);
+56:     let sample_position = |x: usize, y: usize, z: usize| {
+57:         grid.minimum + Vec3::new(x as f32, y as f32, z as f32) * spacing
+58:     };
+59:     let sample_index = |x: usize, y: usize, z: usize| (z * ny + y) * nx + x;
+60:     let cell_index = |x: usize, y: usize, z: usize| (z * cell_counts[1] + y) * cell_counts[0] + x;
+61:     let mut samples = Vec::with_capacity(sample_count);
+62:     for z in 0..nz {
+63:         for y in 0..ny {
+64:             for x in 0..nx {
+65:                 let value = field(sample_position(x, y, z));
+66:                 if !value.is_finite() {
+67:                     return None;
+68:                 }
+69:                 samples.push(value);
+70:             }
+71:         }
+72:     }
+73: 
+74:     const CORNERS: [[usize; 3]; 8] = [
+75:         [0, 0, 0],
+76:         [1, 0, 0],
+77:         [0, 1, 0],
+78:         [1, 1, 0],
+79:         [0, 0, 1],
+80:         [1, 0, 1],
+81:         [0, 1, 1],
+82:         [1, 1, 1],
+83:     ];
+84:     const EDGES: [(usize, usize); 12] = [
+85:         (0, 1),
+86:         (2, 3),
+87:         (4, 5),
+88:         (6, 7),
+89:         (0, 2),
+90:         (1, 3),
+91:         (4, 6),
+92:         (5, 7),
+93:         (0, 4),
+94:         (1, 5),
+95:         (2, 6),
+96:         (3, 7),
+97:     ];
+98:     let mut vertices = vec![None; cell_count];
+99:     let mut surface = ExtractedSurface::default();
+100:     let normal_step = spacing.min_element() * 0.35;
+101:     for z in 0..cell_counts[2] {
+102:         for y in 0..cell_counts[1] {
+103:             for x in 0..cell_counts[0] {
+104:                 let corner_values =
+105:                     CORNERS.map(|[dx, dy, dz]| samples[sample_index(x + dx, y + dy, z + dz)]);
+106:                 let inside = corner_values.map(|value| value <= 0.0);
+107:                 if inside.iter().all(|value| *value) || inside.iter().all(|value| !*value) {
+108:                     continue;
+109:                 }
+110:                 let mut point = Vec3::ZERO;
+111:                 let mut intersections = 0_u32;
+112:                 for (start, end) in EDGES {
+113:                     if inside[start] == inside[end] {
+114:                         continue;
+115:                     }
+116:                     let [sx, sy, sz] = CORNERS[start];
+117:                     let [ex, ey, ez] = CORNERS[end];
+118:                     let start_position = sample_position(x + sx, y + sy, z + sz);
+119:                     let end_position = sample_position(x + ex, y + ey, z + ez);
+120:                     let start_value = corner_values[start];
+121:                     let end_value = corner_values[end];
+122:                     let amount = (start_value / (start_value - end_value)).clamp(0.0, 1.0);
+123:                     point += start_position.lerp(end_position, amount);
+124:                     intersections += 1;
+125:                 }
+126:                 if intersections == 0 {
+127:                     continue;
+128:                 }
+129:                 point /= intersections as f32;
+130:                 let step = Vec3::splat(normal_step);
+131:                 let gradient = Vec3::new(
+132:                     field(point + Vec3::X * step.x) - field(point - Vec3::X * step.x),
+133:                     field(point + Vec3::Y * step.y) - field(point - Vec3::Y * step.y),
+134:                     field(point + Vec3::Z * step.z) - field(point - Vec3::Z * step.z),
+135:                 );
+136:                 let normal = gradient.try_normalize().unwrap_or(Vec3::Y);
+137:                 let index = surface.positions.len() as u32;
+138:                 surface.positions.push(point.to_array());
+139:                 surface.normals.push(normal.to_array());
+140:                 vertices[cell_index(x, y, z)] = Some(index);
+141:             }
+142:         }
+143:     }
+144: 
+145:     let mut add_quad = |cells: [[usize; 3]; 4]| {
+146:         let [Some(a), Some(b), Some(c), Some(d)] =
+147:             cells.map(|[x, y, z]| vertices[cell_index(x, y, z)])
+148:         else {
+149:             return;
+150:         };
+151:         let indices = [a, b, c, d];
+152:         let positions = indices.map(|index| Vec3::from_array(surface.positions[index as usize]));
+153:         let face_normal = (positions[1] - positions[0]).cross(positions[2] - positions[0]);
+154:         let expected_normal = indices
+155:             .iter()
+156:             .map(|index| Vec3::from_array(surface.normals[*index as usize]))
+157:             .sum::<Vec3>();
+158:         if face_normal.dot(expected_normal) >= 0.0 {
+159:             surface.indices.extend_from_slice(&[
+160:                 indices[0], indices[1], indices[2], indices[0], indices[2], indices[3],
+161:             ]);
+162:         } else {
+163:             surface.indices.extend_from_slice(&[
+164:                 indices[0], indices[3], indices[2], indices[0], indices[2], indices[1],
+165:             ]);
+166:         }
+167:     };
+168:     let changes_sign = |left: f32, right: f32| (left <= 0.0) != (right <= 0.0);
+169:     for z in 1..nz - 1 {
+170:         for y in 1..ny - 1 {
+171:             for x in 0..nx - 1 {
+172:                 if changes_sign(
+173:                     samples[sample_index(x, y, z)],
+174:                     samples[sample_index(x + 1, y, z)],
+175:                 ) {
+176:                     add_quad([[x, y - 1, z - 1], [x, y, z - 1], [x, y, z], [x, y - 1, z]]);
+177:                 }
+178:             }
+179:         }
+180:     }
+181:     for z in 1..nz - 1 {
+182:         for y in 0..ny - 1 {
+183:             for x in 1..nx - 1 {
+184:                 if changes_sign(
+185:                     samples[sample_index(x, y, z)],
+186:                     samples[sample_index(x, y + 1, z)],
+187:                 ) {
+188:                     add_quad([[x - 1, y, z - 1], [x - 1, y, z], [x, y, z], [x, y, z - 1]]);
+189:                 }
+190:             }
+191:         }
+192:     }
+193:     for z in 0..nz - 1 {
+194:         for y in 1..ny - 1 {
+195:             for x in 1..nx - 1 {
+196:                 if changes_sign(
+197:                     samples[sample_index(x, y, z)],
+198:                     samples[sample_index(x, y, z + 1)],
+199:                 ) {
+200:                     add_quad([[x - 1, y - 1, z], [x, y - 1, z], [x, y, z], [x - 1, y, z]]);
+201:                 }
+202:             }
+203:         }
+204:     }
+205:     Some(surface)
+206: }
+SOURCE 2710
+1: //! Durable demonstration administrations for the seeded disease cohort.
+2: 
+3: use super::*;
+4: 
+5: pub(super) fn seed(
+6:     ctx: &ReducerContext,
+7:     patient_id: u64,
+8:     fixture_now: StrategicMinute,
+9:     day_minutes: u64,
+10: ) -> Result<(), String> {
+11:     let key_version = physiology_key(ctx)?.version;
+12:     for (administered_at, stopped_at, dose) in [
+13:         (
+14:             fixture_now.saturating_sub_minutes(6 * day_minutes),
+15:             Some(fixture_now.saturating_sub_minutes(5 * day_minutes)),
+16:             physiology::DoseMilliunits::try_new(750).unwrap(),
+17:         ),
+18:         (
+19:             fixture_now.saturating_sub_minutes(4 * day_minutes),
+20:             Some(fixture_now.saturating_sub_minutes(3 * day_minutes)),
+21:             physiology::DoseMilliunits::STANDARD,
+22:         ),
+23:         (
+24:             fixture_now.saturating_sub_minutes(2 * day_minutes),
+25:             None,
+26:             physiology::DoseMilliunits::try_new(1_250).unwrap(),
+27:         ),
+28:     ] {
+29:         let (sensitivity_bps, adverse_bps) =
+30:             private_variation(ctx, patient_id, administered_at, "oral_rehydration_draught")?;
+31:         ctx.db
+32:             .physiology_administration()
+33:             .insert(PhysiologyAdministration {
+34:                 id: 0,
+35:                 patient_id,
+36:                 preparation_id: "oral_rehydration_draught".into(),
+37:                 profile_version: 1,
+38:                 route: InterventionRoute::Oral,
+39:                 dose_milliunits: dose.get(),
+40:                 region: None,
+41:                 administered_at,
+42:                 stopped_at,
+43:                 sensitivity_bps,
+44:                 adverse_bps,
+45:                 ruleset_version: physiology::PHYSIOLOGY_RULESET_VERSION,
+46:                 phenotype_key_version: key_version,
+47:             });
+48:     }
+49:     Ok(())
+50: }
+SOURCE 2713
+1: use serde::{Deserialize, Serialize};
+2: 
+3: use crate::{MappedGeologicWindow, TravelGeometryPoint};
+4: 
+5: pub const MAX_FAULT_GEOMETRY_POINTS: usize = 100_000;
+6: pub const MAX_FAULT_LINE_POINTS: usize = 4_096;
+7: 
+8: #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+9: #[serde(deny_unknown_fields)]
+10: pub enum TerrainFeature {
+11:     MappedFault(MappedFault),
+12:     MappedGeology(MappedGeologicWindow),
+13: }
+14: 
+15: impl TerrainFeature {
+16:     pub fn id(&self) -> &str {
+17:         match self {
+18:             Self::MappedFault(fault) => &fault.id,
+19:             Self::MappedGeology(window) => &window.id,
+20:         }
+21:     }
+22: 
+23:     pub fn geometry(&self) -> &[TravelGeometryPoint] {
+24:         match self {
+25:             Self::MappedFault(fault) => &fault.trace,
+26:             Self::MappedGeology(_) => &[],
+27:         }
+28:     }
+29: }
+30: 
+31: /// Modern mapped fault evidence retained as a terrain-generation prior. The
+32: /// source activity fields do not imply historical activity in the game year.
+33: #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+34: #[serde(deny_unknown_fields)]
+35: pub struct MappedFault {
+36:     /// Stable source-qualified identifier.
+37:     pub id: String,
+38:     pub local_name: Option<String>,
+39:     pub classification: Option<String>,
+40:     pub mapped_active: bool,
+41:     pub mapped_capable: bool,
+42:     pub trace: Vec<TravelGeometryPoint>,
+43: }
+SOURCE 2714
+1: use serde::{Deserialize, Serialize};
+2: 
+3: use crate::{GeologicUnitId, SurfaceLithology};
+4: 
+5: pub const MAX_GEOLOGIC_WINDOWS: usize = 50_000;
+6: pub const MAX_GEOLOGIC_WINDOW_SIDE_METRES: i32 = 2_000;
+7: 
+8: /// A rectangle proven wholly contained in one mapped EGDI polygon, including
+9: /// exclusion of its holes. Coordinates are EPSG:3034 metres. This establishes
+10: /// mapped lithology coverage, not the presence of a particular landform.
+11: #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+12: #[serde(deny_unknown_fields)]
+13: pub struct MappedGeologicWindow {
+14:     pub id: String,
+15:     pub unit: GeologicUnitId,
+16:     pub lithology: SurfaceLithology,
+17:     /// West, south, east, north in EPSG:3034, rounded inward by the compiler.
+18:     pub bounds_metres: [i32; 4],
+19: }
+20: 
+21: impl MappedGeologicWindow {
+22:     pub fn is_valid(&self) -> bool {
+23:         let [west, south, east, north] = self.bounds_metres.map(i64::from);
+24:         !self.id.is_empty()
+25:             && self.id.len() <= 256
+26:             && east > west
+27:             && north > south
+28:             && east - west <= i64::from(MAX_GEOLOGIC_WINDOW_SIDE_METRES)
+29:             && north - south <= i64::from(MAX_GEOLOGIC_WINDOW_SIDE_METRES)
+30:     }
+31: 
+32:     pub fn contains(&self, point: [f64; 2]) -> bool {
+33:         let [west, south, east, north] = self.bounds_metres.map(f64::from);
+34:         point[0] >= west && point[0] <= east && point[1] >= south && point[1] <= north
+35:     }
+36: }

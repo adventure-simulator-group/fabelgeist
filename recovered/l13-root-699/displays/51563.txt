@@ -1,0 +1,231 @@
+SOURCE 2657 pr-working:crates/fabelgeist-garment-fit/src/pose.rs
+115:         if self.is_angle() { "°" } else { " cm" }
+161: /// of them turns about.
+162: ///
+163: /// Taken from the mesh as it was built and never from the posed positions, so
+164: /// that editing a pose is not a walk: moving a panel and moving it back
+165: /// leaves it exactly where it started, and a pose read off one build means
+166: /// the same thing on the next.
+167: #[derive(Clone, Debug, Default, PartialEq)]
+168: pub struct Pivots {
+169:     /// The whole garment's centre.
+170:     pub garment: Vec3,
+171:     /// Per panel, in the mesh's own panel order: which particles it owns, and
+172:     /// its own centre.
+173:     pub panels: Vec<(Range<usize>, Vec3)>,
+174: }
+175: 
+176: impl Pivots {
+177:     pub fn of(mesh: &GarmentMesh) -> Self {
+178:         Self {
+179:             garment: center(&mesh.positions),
+180:             panels: (0..mesh.panel_count())
+181:                 .map(|panel| {
+182:                     let range = mesh.panel_range(panel);
+183:                     let pivot = center(&mesh.positions[range.clone()]);
+184:                     (range, pivot)
+185:                 })
+186:                 .collect(),
+187:         }
+188:     }
+189: }
+190: 
+191: /// The centre of a set of points' bounding box.
+192: ///
+193: /// The box rather than the mean: a mean is pulled about by how finely a panel
+194: /// happened to be meshed, so it moves when the resolution slider does -- and
+195: /// a pivot that moves makes the same pose mean two different things on two
+196: /// builds of the same pattern.
+197: fn center(points: &[Vec3]) -> Vec3 {
+198:     if points.is_empty() {
+199:         return Vec3::default();
+200:     }
+201:     let mut lowest = points[0];
+202:     let mut highest = points[0];
+203:     for point in &points[1..] {
+204:         lowest = lowest.min(*point);
+205:         highest = highest.max(*point);
+206:     }
+207:     (lowest + highest) * 0.5
+208: }
+209: 
+210: /// Where a garment has been put: one move for all of it, and one per panel.
+211: #[derive(Clone, Debug, Default, PartialEq)]
+212: pub struct GarmentPose {
+213:     pub garment: Move,
+214:     /// Indexed as the mesh's panels are. A short list -- or an empty one --
+215:     /// leaves the rest of the panels where the pattern put them.
+216:     pub panels: Vec<Move>,
+217: }
+218: 
+219: impl GarmentPose {
+220:     /// An untouched pose with a slot for every panel of a mesh.
+221:     pub fn for_mesh(mesh: &GarmentMesh) -> Self {
+222:         Self {
+223:             garment: Move::IDENTITY,
+224:             panels: vec![Move::IDENTITY; mesh.panel_count()],
+225:         }
+226:     }
+227: 
+228:     pub fn is_identity(&self) -> bool {
+229:         self.garment.is_identity() && self.panels.iter().all(Move::is_identity)
+230:     }
+231: 
+232:     pub fn panel(&self, index: usize) -> Move {
+233:         self.panels.get(index).copied().unwrap_or(Move::IDENTITY)
+234:     }
+235: 
+236:     pub fn panel_mut(&mut self, index: usize) -> &mut Move {
+237:         if self.panels.len() <= index {
+238:             self.panels.resize(index + 1, Move::IDENTITY);
+239:         }
+240:         &mut self.panels[index]
+241:     }
+242: 
+243:     /// Place a mesh's particles: each panel's own move first, then the whole
+244:     /// garment's over the top of it.
+245:     ///
+246:     /// `base` is the mesh's own positions -- where the *pattern* put the
+247:     /// panels -- not wherever the garment happens to be now. Composing
+248:     /// against the base is what keeps a pose a description of a place rather
+249:     /// than of a journey to it.
+250:     pub fn place(&self, base: &[Vec3], pivots: &Pivots) -> Vec<Vec3> {
+251:         let mut placed = base.to_vec();
+252: 
+253:         for (index, (range, pivot)) in pivots.panels.iter().enumerate() {
+254:             let nudge = self.panel(index);
+255:             if nudge.is_identity() {
+256:                 continue;
+257:             }
+258:             let range = range.start.min(placed.len())..range.end.min(placed.len());
+259:             for position in &mut placed[range] {
+260:                 *position = nudge.apply(*position, *pivot);
+261:             }
+262:         }
+263: 
+264:         if !self.garment.is_identity() {
+265:             for position in &mut placed {
+266:                 *position = self.garment.apply(*position, pivots.garment);
+267:             }
+268:         }
+269: 
+270:         placed
+271:     }
+272: }
+SOURCE 2658 pr-working:crates/fabelgeist-shell/src/outer_layer.rs
+1: //! One-sided outer layers: normals point into the space occupied by the cloth.
+2: use crate::{ParticleInverseMass, ParticleMobility};
+3: use fabelgeist_bvh::TriangleBvh;
+4: use fabelgeist_math::Vec3;
+5: mod surface;
+6: 
+7: /// Maximum tolerated fitting residual in metres.
+8: pub const CLEARANCE_TOLERANCE: f32 = 0.0005;
+9: 
+10: pub struct OuterLayer {
+11:     surface: TriangleBvh,
+12:     pub clearance: f32,
+13:     inward: Vec3,
+14: }
+15: 
+16: impl OuterLayer {
+17:     pub fn new(positions: Vec<Vec3>, faces: Vec<[u32; 3]>, clearance: f32, inward: Vec3) -> Self {
+18:         assert!(inward.is_finite() && inward.length() > 0.0);
+19:         assert!(clearance.is_finite() && clearance >= 0.0);
+20:         Self {
+21:             surface: TriangleBvh::new(positions, faces),
+22:             clearance,
+23:             inward: inward / inward.length(),
+24:         }
+25:     }
+26: 
+27:     /// Find the first finite plate seen from inside the layer. All triangles
+28:     /// must face the given inward direction. This supports open and overlapping
+29:     /// plates without extending their edges into infinite collision planes.
+30:     fn correction(&self, point: Vec3) -> Option<(Vec3, Vec3)> {
+31:         let bounds = self.surface.bvh.bounds();
+32:         let reach = (point - bounds.center()).length() + bounds.extent().length() + self.clearance;
+33:         let origin = point + self.inward * reach;
+34:         let ray = fabelgeist_bvh::Ray::new(origin, self.inward * -1.0);
+35:         let (index, distance) = self.surface.raycast(&ray, reach * 2.0)?;
+36:         let closest = origin - self.inward * distance;
+37:         let (a, b, c) = self.surface.triangle(index);
+38:         let raw = (b - a).cross(c - a);
+39:         if raw.length() <= 1e-10 {
+40:             return None;
+41:         }
+42:         let normal = raw / raw.length();
+43:         let alignment = normal.dot(self.inward);
+44:         if alignment <= 1e-5 {
+45:             return None;
+46:         }
+47:         let signed = (point - closest).dot(normal);
+48:         if signed >= self.clearance {
+49:             return None;
+50:         }
+51:         Some((point + normal * (self.clearance - signed), normal))
+52:     }
+53: 
+54:     /// Maximum remaining displacement needed to satisfy an outer layer.
+55:     pub fn residual(&self, positions: &[Vec3]) -> f32 {
+56:         positions
+57:             .iter()
+58:             .filter_map(|&p| self.correction(p).map(|(q, _)| (q - p).length()))
+59:             .fold(0.0, f32::max)
+60:     }
+61: 
+62:     /// Project host particles, preserving pinned vertices and sliding velocity.
+63:     pub fn project(
+64:         &self,
+65:         positions: &mut [Vec3],
+66:         velocities: &mut [Vec3],
+67:         masses: &[ParticleInverseMass],
+68:         faces: &[[u32; 3]],
+69:     ) -> bool {
+70:         assert_eq!(positions.len(), velocities.len());
+71:         assert_eq!(positions.len(), masses.len());
+72:         let mut changed = false;
+73:         for (i, point) in positions.iter_mut().enumerate() {
+74:             if masses[i].mobility() == ParticleMobility::Prescribed {
+75:                 continue;
+76:             }
+77:             if let Some((corrected, normal)) = self.correction(*point) {
+78:                 *point = corrected;
+79:                 let incoming = velocities[i].dot(normal).min(0.0);
+80:                 velocities[i] -= normal * incoming;
+81:                 changed = true;
+82:             }
+83:         }
+84:         changed |= self.project_surface(positions, velocities, masses, faces);
+85:         changed
+86:     }
+87: 
+88:     pub async fn project_particles(
+89:         &self,
+90:         context: &fabelgeist_gpu::globals::WgpuContext,
+91:         particles: &fabelgeist_xpbd::Particles,
+92:         faces: &[[u32; 3]],
+93:     ) -> anyhow::Result<()> {
+94:         let mut positions = particles.read_positions(context).await?;
+95:         let mut velocities = particles.read_velocities(context).await?;
+96:         let changed = self.project(
+97:             &mut positions,
+98:             &mut velocities,
+99:             particles.inverse_masses(),
+100:             faces,
+101:         );
+102:         if changed {
+103:             particles.positions.write(
+104:                 context,
+105:                 fabelgeist_xpbd::ParticlePositions::new(&positions, particles.inverse_masses())?
+106:                     .upload(),
+107:             )?;
+108:             particles.velocities.write(
+109:                 context,
+110:                 fabelgeist_xpbd::ParticleVelocities::from(velocities.as_slice()).upload(),
+111:             )?;
+112:         }
+113:         Ok(())
+114:     }
+115: }
+116: 

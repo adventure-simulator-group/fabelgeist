@@ -1,0 +1,19 @@
+1: //! Deterministic, presenter-independent puzzle generation and analysis.
+2: 
+3: pub const ORDERED_SIGIL_RULES_VERSION: u16 = 4;
+4: pub const ORDERED_SIGIL_COUNT: usize = 5;
+5: pub const MAX_MINIMIZATION_SUBSETS: usize = 100_000;
+6: 
+7: mod analysis;
+8: mod choices;
+9: mod logic_grid;
+10: mod ordered_sigils;
+11: mod puzzles;
+12: mod resource_allocation;
+13: 
+14: pub use analysis::*;
+15: pub use choices::*;
+16: pub use logic_grid::*;
+17: pub use ordered_sigils::*;
+18: pub use puzzles::*;
+19: pub use resource_allocation::*;

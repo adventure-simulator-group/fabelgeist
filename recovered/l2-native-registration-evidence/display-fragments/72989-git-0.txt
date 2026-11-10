@@ -1,0 +1,167 @@
+1: //! Deterministic strategic investigation actions.
+2: //!
+3: //! This module deliberately accepts no canonical case truth. The server binds a
+4: //! private target to an opaque capability and supplies only authoritative
+5: //! environmental and party inputs.
+6: 
+7: mod vocabulary;
+8: pub use vocabulary::{
+9:     InvestigationActionKind, ParseInvestigationActionKindError, ParseTerrainError, Terrain,
+10: };
+11: 
+12: use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, calendar::StrategicMinute};
+13: use fabelgeist_determinism::{Seed, StreamId};
+14: use serde::{Deserialize, Serialize};
+15: 
+16: use crate::{
+17:     physical_object::CustodyCharacterId,
+18:     rights::{
+19:         CanonicalRightsQuestionDigest, DecisionProvenance, DomainJurisdiction,
+20:         DomainRightsOperation, DomainRightsResource, DomainRightsSubject, PrivateRightsDecision,
+21:         RightsDecisionKind, RightsJurisdiction, RightsOperation, RightsQuestion,
+22:         RightsQuestionError, RightsResource, RightsRevision, RightsSubject,
+23:     },
+24:     strategic_action::{
+25:         ActionCoordinates, ActionEffect, ActionRequirement, AuthoritativeSnapshot,
+26:         CalculatedAction, DomainCapability, DomainEffect, DomainInterruption, DomainRequirement,
+27:         DomainTarget, PlanInput, PlanProvenance, PlanningOutcome, PublicPreview, PublicRejection,
+28:         RequestedDuration, RequirementCheck, TimeBoundaries, build_plan,
+29:     },
+30:     strategic_place::StrategicPlaceId,
+31: };
+32: 
+33: /// Stable observer-facing result of evaluating whether an investigation action
+34: /// can begin now.
+35: #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+36: #[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+37: #[serde(rename_all = "snake_case")]
+38: pub enum InvestigationActionUnavailableReason {
+39:     PartyNotReady,
+40:     TravelRequired,
+41:     NightWindow,
+42:     TargetChanged,
+43:     ContactScheduleWindow,
+44:     ContactNotPresent,
+45:     CharacterUnavailable,
+46:     PartyRequired,
+47: }
+48: 
+49: #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+50: #[serde(rename_all = "snake_case")]
+51: pub enum InvestigationActionAvailability {
+52:     Available,
+53:     Unavailable {
+54:         reason: InvestigationActionUnavailableReason,
+55:         can_travel_to_required_site: bool,
+56:         wait_minutes: u32,
+57:     },
+58: }
+59: 
+60: #[cfg(feature = "spacetimedb")]
+61: #[derive(Clone, Copy, Debug, PartialEq, Eq, spacetimedb::SpacetimeType)]
+62: #[sats(name = "InvestigationActionUnavailableFields")]
+63: struct InvestigationActionUnavailableFieldsSats {
+64:     reason: InvestigationActionUnavailableReason,
+65:     can_travel_to_required_site: bool,
+66:     wait_minutes: u32,
+67: }
+68: 
+69: #[cfg(feature = "spacetimedb")]
+70: #[derive(Clone, Copy, Debug, PartialEq, Eq, spacetimedb::SpacetimeType)]
+71: #[sats(name = "InvestigationActionAvailability")]
+72: enum InvestigationActionAvailabilitySats {
+73:     Available,
+74:     Unavailable(InvestigationActionUnavailableFieldsSats),
+75: }
+76: 
+77: #[cfg(feature = "spacetimedb")]
+78: impl From<InvestigationActionAvailability> for InvestigationActionAvailabilitySats {
+79:     fn from(availability: InvestigationActionAvailability) -> Self {
+80:         match availability {
+81:             InvestigationActionAvailability::Available => Self::Available,
+82:             InvestigationActionAvailability::Unavailable {
+83:                 reason,
+84:                 can_travel_to_required_site,
+85:                 wait_minutes,
+86:             } => Self::Unavailable(InvestigationActionUnavailableFieldsSats {
+87:                 reason,
+88:                 can_travel_to_required_site,
+89:                 wait_minutes,
+90:             }),
+91:         }
+92:     }
+93: }
+94: 
+95: #[cfg(feature = "spacetimedb")]
+96: impl From<InvestigationActionAvailabilitySats> for InvestigationActionAvailability {
+97:     fn from(availability: InvestigationActionAvailabilitySats) -> Self {
+98:         match availability {
+99:             InvestigationActionAvailabilitySats::Available => Self::Available,
+100:             InvestigationActionAvailabilitySats::Unavailable(
+101:                 InvestigationActionUnavailableFieldsSats {
+102:                     reason,
+103:                     can_travel_to_required_site,
+104:                     wait_minutes,
+105:                 },
+106:             ) => Self::Unavailable {
+107:                 reason,
+108:                 can_travel_to_required_site,
+109:                 wait_minutes,
+110:             },
+111:         }
+112:     }
+113: }
+114: 
+115: #[cfg(feature = "spacetimedb")]
+116: impl spacetimedb::SpacetimeType for InvestigationActionAvailability {
+117:     fn make_type<S: spacetimedb::sats::typespace::TypespaceBuilder>(
+118:         typespace: &mut S,
+119:     ) -> spacetimedb::spacetimedb_lib::AlgebraicType {
+120:         InvestigationActionAvailabilitySats::make_type(typespace)
+121:     }
+122: }
+123: 
+124: #[cfg(feature = "spacetimedb")]
+125: impl spacetimedb::Serialize for InvestigationActionAvailability {
+126:     fn serialize<S: spacetimedb::spacetimedb_lib::ser::Serializer>(
+127:         &self,
+128:         serializer: S,
+129:     ) -> Result<S::Ok, S::Error> {
+130:         spacetimedb::Serialize::serialize(
+131:             &InvestigationActionAvailabilitySats::from(*self),
+132:             serializer,
+133:         )
+134:     }
+135: }
+136: 
+137: #[cfg(feature = "spacetimedb")]
+138: impl<'de> spacetimedb::Deserialize<'de> for InvestigationActionAvailability {
+139:     fn deserialize<D: spacetimedb::spacetimedb_lib::de::Deserializer<'de>>(
+140:         deserializer: D,
+141:     ) -> Result<Self, D::Error> {
+142:         <InvestigationActionAvailabilitySats as spacetimedb::Deserialize<'de>>::deserialize(
+143:             deserializer,
+144:         )
+145:         .map(Self::from)
+146:     }
+147: }
+148: 
+149: impl InvestigationActionAvailability {
+150:     pub const fn is_available(self) -> bool {
+151:         matches!(self, Self::Available)
+152:     }
+153: 
+154:     pub const fn unavailable(
+155:         reason: InvestigationActionUnavailableReason,
+156:         can_travel_to_required_site: bool,
+157:         wait_minutes: u32,
+158:     ) -> Self {
+159:         Self::Unavailable {
+160:             reason,
+161:             can_travel_to_required_site,
+162:             wait_minutes,
+163:         }
+164:     }
+165: }
+166: 
+167: #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]

@@ -1,0 +1,30 @@
+{
+  "lens": 13,
+  "status": "Additive exact prose-only EOF correction; raw receipt preserved",
+  "read": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-163.json",
+    "sha256": "f32dc27470ff2a88498e272fcd41f8ba3fd35bc1fe81ba89fa813c775b8064d7"
+  },
+  "original": 2815,
+  "source_sha256": "24e17b0e16c1731ef4fa81d7e8f2448cd42b12b6b75dbbe16bc502f0f606508d",
+  "actual_eof": 102,
+  "authoritative_row_and_registration_ranges": [
+    [
+      1,
+      102
+    ]
+  ],
+  "incorrect_prose": [
+    "numeric_role_inventory describes fixture tail79..105",
+    "qualifications describes full105"
+  ],
+  "effective_prose": "Actual2815receipt source102 lines and fixtures79..102; original display1..160 reachedactualEOF102. Registration/row/futureproof exact1..102 already correct. Nonexistent103..105 zero coverage.",
+  "nonexistent_tail": [
+    103,
+    105
+  ],
+  "nonexistent_tail_credit": 0,
+  "source_or_population_credit_change": 0,
+  "authoritative_counts_changed": false,
+  "product_execution": false
+}

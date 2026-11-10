@@ -1,0 +1,57 @@
+{
+  "schema": "726-historical-receipt-dependencies-v1",
+  "qualification": "A matching citation restores exact bytes only. Mismatched same-path candidates are historical evidence of differing versions and must not be substituted for the cited bytes; no audit credit or final authority follows.",
+  "references": [
+    {
+      "parent_sha256": "b9cff73df660fb081c0937df71b83bfd17f32c77bbc479279bb304b9cd5fa1ac",
+      "parent_pointer": "/scope",
+      "record": "continuation/cumulative-source-scope-parallel-059.json",
+      "cited_sha256": "27f1f45cd5c4b91bfbbee6a128f8939104a2eb113fd987d197128741e951fe9a",
+      "candidate_source_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "candidate_source_path": "handoff/774/adler-original/audit/continuation/cumulative-source-scope-parallel-059.json",
+      "candidate_sha256": "305dafb0b6fecb81d1c1c329b0c840dac72dbda8f3aea9d62963b3ddeda005fb",
+      "matches_cited_sha256": false
+    },
+    {
+      "parent_sha256": "b9cff73df660fb081c0937df71b83bfd17f32c77bbc479279bb304b9cd5fa1ac",
+      "parent_pointer": "/mandatory_overlays",
+      "record": "continuation/owner-range-extensions.jsonl",
+      "cited_sha256": "e7f32dbf953ff76417492b323e263ab3b8210163691823732b7a9bff5eb8deee",
+      "candidate_source_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "candidate_source_path": "handoff/774/adler-original/audit/continuation/owner-range-extensions.jsonl",
+      "candidate_sha256": "c26e2def8f8520c870f359ef66919ce730fcddb65beb051365fce42371a7bc68",
+      "matches_cited_sha256": false,
+      "candidate_prefix_check": {
+        "candidate_line_count": 246,
+        "prefix_lengths_checked": 247,
+        "newline_variants_per_prefix": 4,
+        "result": "No tested byte sequence matched the cited hash."
+      }
+    },
+    {
+      "parent_sha256": "b9cff73df660fb081c0937df71b83bfd17f32c77bbc479279bb304b9cd5fa1ac",
+      "parent_pointer": "/mandatory_qualification170",
+      "record": "continuation/root/parallel-scope-qualification-170.json",
+      "cited_sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c",
+      "candidate_source_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "candidate_source_path": "handoff/774/adler-original/audit/continuation/root/parallel-scope-qualification-170.json",
+      "candidate_sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c",
+      "matches_cited_sha256": true,
+      "object": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c",
+      "bytes": 1159
+    }
+  ],
+  "unhashed_citation_candidates": [
+    {
+      "parent_sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c",
+      "parent_pointer": "/raw_record",
+      "record": "continuation/root/initial04-invariant-operations/contract-groups-103.json",
+      "source_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "source_path": "handoff/774/adler-original/audit/continuation/root/initial04-invariant-operations/contract-groups-103.json",
+      "candidate_sha256": "92c1d0712516d88d1470f9f7d760ad0e1de54f6eda124e9dc851ae5dc2154743",
+      "object": "92c1d0712516d88d1470f9f7d760ad0e1de54f6eda124e9dc851ae5dc2154743",
+      "bytes": 11589,
+      "qualification": "The parent gives a path but no hash. This is the immutable Git snapshot candidate, not a verified copy of the bytes historically referenced. The parent excludes premature mass and armor comparisons from semantic and global credit."
+    }
+  ]
+}

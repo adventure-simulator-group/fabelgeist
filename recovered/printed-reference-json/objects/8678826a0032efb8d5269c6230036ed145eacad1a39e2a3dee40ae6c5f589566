@@ -1,0 +1,56 @@
+{
+  "schema": "726-scoped-source-disposition-v1",
+  "at": "2026-11-08T23:20:52.812083+00:00",
+  "contract_id": "PL13-242-CORPSE-FAMILY-BINDING-POLICY-PENDING",
+  "selected_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "remote_main_at_check": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "owner": "Corpse family authority and ordinary character kinship",
+  "source_discovery_scope": "Ordinary corpse family binding and explicit kinship policy",
+  "disposition": "Ordinary death supplies empty bindings despite existing child and marriage authorities; the binding helper restricts recipients to same-settlement residents. Eligible-relative reachability and intended policy remain open.",
+  "explicit_alias_comparison": [
+    {
+      "entry_index": 2227,
+      "contract_id": "PL13-238-DEATH-CASCADE-PENDING",
+      "result": "Death cascade supplies the lifecycle call but has distinct obligations."
+    },
+    {
+      "entry_index": 2286,
+      "contract_id": "PL13-241-ESTATE-SUBTREE-CUSTODY-AND-LIFECYCLE-PENDING",
+      "result": "Estate kinship and custody are related but not the same permission policy."
+    },
+    {
+      "entry_index": 1025,
+      "contract_id": "Q-L12-ffbb74aa44fe9f0e2774",
+      "result": "Broader family scope remains independently tracked."
+    }
+  ],
+  "alias_result": "Related contract retained; global alias inventory incomplete.",
+  "evidence": [
+    {
+      "path": "target/726-intake-20261030/CORPSE-FAMILY-CLOSURE-L13-3778.md",
+      "sha256": "c1cc3e6fcaa8427d03434a17a4e9a1eba9d986dc5b04e5a1fbedb091c01f09d1"
+    },
+    {
+      "path": "adler-continuation-20261030/QUALIFICATION-CORPSE-FAMILY-CLOSURE-L13-3778.json",
+      "sha256": "c874a02be4632dd97174372ec0be0135d8a3826032ea92798e466b822877dc3d"
+    },
+    {
+      "path": "parallel-l13-20261029/READ-PL13-242.json",
+      "sha256": "9ecccfbccffcac46087e52e9d3a3fe39932bdcdaaa7ce8be6ab739fc87e8429d"
+    },
+    {
+      "path": "adler-continuation-20261030/DECISION-ESTATE-CLOSURE-L13-3759.json",
+      "sha256": "da63eed9634525285948defc6c92251877d7a08be8eee6f476f96aec9a499fca"
+    }
+  ],
+  "policy": {
+    "path": "adler-continuation-20261030/PARTIAL-PLAN-CORPSE-FAMILY-CLOSURE-L13-3778.json",
+    "sha256": "2075ec2cd8101fb92f8fb5b5bca42db98c0e08252cc864bbf68bafb2d1f8c3e1"
+  },
+  "remaining_after_discovery": [
+    "After the audit gate decide qualifying corpse-family policy and validate explicit kin, residence and permission consequences."
+  ],
+  "global_alias_inventory_complete": false,
+  "source_discovery_scope_complete": true,
+  "product_execution": false
+}

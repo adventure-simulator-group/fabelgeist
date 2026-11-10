@@ -1,0 +1,205 @@
+{
+  "schema": "726-root-l13-source-packet-v1",
+  "at": "2026-10-31T12:10:42.409392+00:00",
+  "lens": 13,
+  "author": "/root",
+  "original_before": 1621,
+  "original_after": 1624,
+  "registered_before_read_attestation": true,
+  "connected": [],
+  "prior_same_lens_adoptions": [],
+  "new_root_ordered_lines": 494,
+  "new_root_connected_reread_lines": 0,
+  "accepted_unique_count_change": 0,
+  "other_population_credit": 0,
+  "current_source_reconciled": false,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "new_questions": [],
+  "ordered": [
+    {
+      "source": {
+        "original": 1621,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/mod.rs",
+        "sha256": "365b296fd751df7d5a2a463d6c2ea22c5885f0a3b55d1c836004bb2617b38363",
+        "actual_eof": 231,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/365b296fd751df7d5a2a463d6c2ea22c5885f0a3b55d1c836004bb2617b38363",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            231
+          ]
+        ],
+        "purpose": "Full Lens13 map state/surface publication and sky astrometric native projection contracts. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1621-1623-001.json",
+        "sha256": "7bf63e83235399253ac8d35f6c2d51f569bf9a90d3b21a9dd46d9e8cb4424f56"
+      },
+      "registration_pointer": "/sources/0",
+      "assessed_ranges": [
+        [
+          1,
+          231
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              68
+            ]
+          ],
+          "assessment": "MapState retains optional typedpose/environment/presentedsurface/overlayrevision/route/failure andcityresidency, no gameplayauthority. Startupsetup; Update surface->city->connections->routes chain, separatemaplight sync. PostUpdate camera beforeCameraUpdateSystems andTransformPropagate, Laststatuspublish. Concreteorderingqualifies surface/city replacement and markerprojection consumers; nativeRenderworld/GPU readiness stillseparate. TypedMapProtocolError retained fornormalmapcommand failures."
+        },
+        {
+          "ranges": [
+            [
+              70,
+              159
+            ]
+          ],
+          "assessment": "InstallCity dispatches directlytoinstallerbeforeresourcestate match andreturns, retainingitsseparateInstallationStatus/categoricalerror policy. Resizechangerects resetssettle; pan/zoom/rotate/reset/frameroute/hide explicitnoactivepose/rect no-op policies. InstallEnvironment acceptssamesource only, no request/revisioncomparisonhere; actualasynccaller ordering stillrequired. InstallOverlay requiresmatchingSourcePackageDigest andstrictlynewerMapOverlayRevision; atomicallyreplaceoverlay+revision andresetsettle. Anyordinarysuccessful/no-opcommand clearsMapState.failure viaresult.err; intendederroracknowledgement semantics needstatusconsumer, notimplicitterminalstate."
+        },
+        {
+          "ranges": [
+            [
+              161,
+              209
+            ]
+          ],
+          "assessment": "open same source/home updatesrect only andpreservesnavigation/home_span; different source/home resetsnewpose/environment/overlay/revision butretainsoldpresented/city/route temporarily. Thisisretainedhandoff, not BCfallback; downstreamsource checks preventforeignsurfacecameraactivation. Pan chooses matchingpresentedrequestorigin elsehome; frameroute onlyexistingpose/overlayroute. Currentprotocol/caller singleflight/requestidentity and allretainedcomponent eviction remain connected."
+        },
+        {
+          "ranges": [
+            [
+              211,
+              231
+            ]
+          ],
+          "assessment": "One regionalrootinitialhidden/defaulttransform, oneinactive orthographicmapcamera withorder64, regionallayer3, FixedViewExposure/SUNLIGHT, MSAAoff. Rootidentity/localtransform explains maplight copying underidentityroot onthissetup path; stillactualuser/native replacement/lifetimes needed. Nativeorder64 intentionalcompositorpolicy, no arbitraryopaque type forliteral."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1622,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/surface.rs",
+        "sha256": "bccc776702dc9fffcbe8d608fa0de1f2ab28f6fc601d4186762fa8641fd87022",
+        "actual_eof": 231,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/bccc776702dc9fffcbe8d608fa0de1f2ab28f6fc601d4186762fa8641fd87022",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            231
+          ]
+        ],
+        "purpose": "Full Lens13 map state/surface publication and sky astrometric native projection contracts. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1621-1623-001.json",
+        "sha256": "7bf63e83235399253ac8d35f6c2d51f569bf9a90d3b21a9dd46d9e8cb4424f56"
+      },
+      "registration_pointer": "/sources/1",
+      "assessed_ranges": [
+        [
+          1,
+          231
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              66
+            ]
+          ],
+          "assessment": "PresentedSurface retains exactSourcePackageDigest/RegionalTerrainRequest/weather/grass and explicitEmpty versusDrawn with strongmesh/materialhandle pluscanonicalElevationMeters datum/min/max. Elevationbounds folds presentvertices initializedfromfirst, none=>None ratherthaninfinities; nativefixedgridcardinality remainscanonicalterrain contract. Readystate nameDrawn alone denotesCPUpresentation variant, not observedGPUsubmission."
+        },
+        {
+          "ranges": [
+            [
+              68,
+              154
+            ]
+          ],
+          "assessment": "Surfacepresent requirespose/rect/terrain/activesceneenv; caches exactterrain source/request pluscurrentweather/grass. regional_meshactualnativeproducerunread; Some mesh requiresboundsexist andmiddlevertexdatum elsemin, reliesnonemptygrid forindex. Createsnewvista material andmesh/child, replacesstate, queuesoldentitydespawn thenexplicitremovesoldmesh/materialstores andresetsettle. No GPUreadygate inthisfunction; capture/status determinesready later. Materialnewpublication connects existingcelestialinitializer/schedule question; actualshaderdefaults/updater ordering needed. Earlycacheequalityassumes canonical source/request imply stableterraincontent andhandlesvalid."
+        },
+        {
+          "ranges": [
+            [
+              156,
+              195
+            ]
+          ],
+          "assessment": "Camerasingle required; defaultdeactivateandhideroots beforechecks. Requirespose/presented/rect andmatchingSourcePackageDigest, uniqueWindow, thenCanvasRect.apply determinescroppedactivation. Emptycoverage intentionallyleavescameraactive toclearpreviouscanvas whilekeepingrootshidden. Thisisexplicitabsence renderingpolicy, not inventedterrain or fallbackgeometry. Rect/windownativeprotocol and status settle/extraction required."
+        },
+        {
+          "ranges": [
+            [
+              196,
+              231
+            ]
+          ],
+          "assessment": "Drawn camera usesnativeeast/northoffset withZreflection, actualgroundposition ifterrainrequestmatches; ONLYcamera mayretaincanonicaldatum overcoveragehole, pins/routes remainmissing. Distance=max(admittedspan,elevationrange)*2, yaw+fixedpitch direction normalizedanalytically, look_at target; orthographicfixedverticalspan near0/far4distance. Typedspan/elevationbounds keepfiniteboundedinputs subjectnativeprojection/currentposebounds; geographicf64->f32 actualsupportedextent needsownerproof. Updatestransform/projectionbeforeCameraUpdate/Propagate permodschedule; directnativeframecounterpart preserved."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1623,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/sky/astrometry.rs",
+        "sha256": "553895e6bbe39722c38999355c9d30c0c5bd72f3e5a702b2143d5826b749b6f2",
+        "actual_eof": 32,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/553895e6bbe39722c38999355c9d30c0c5bd72f3e5a702b2143d5826b749b6f2",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            32
+          ]
+        ],
+        "purpose": "Full Lens13 map state/surface publication and sky astrometric native projection contracts. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1621-1623-001.json",
+        "sha256": "7bf63e83235399253ac8d35f6c2d51f569bf9a90d3b21a9dd46d9e8cb4424f56"
+      },
+      "registration_pointer": "/sources/2",
+      "assessed_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              32
+            ]
+          ],
+          "assessment": "Equatorialrotation inputsexistingtypedStrategicMinute/Latitude/Longitude, projectsdegrees tof32radians anddays_since_epoch_f32. Sidereal empiricalphase4.3834 +dayTAU*1.0027379+lon wrappedTAU, columnsbuildexplicitorthonormalrotationframe. Thisisnativevisualapproximation; supportedlargeepochprecision/coordinate handedness/catalogframe andactualcaller elapsedclock acceptance needowncontract. No finiteoverfloworastrometricaccuracyfailure inferred withoutsupporteddatewitness; do notreplacecanonicalcalendartype withparallelscalar time."
+        }
+      ]
+    }
+  ],
+  "contract_revisits_pending_queue_adoption": [],
+  "remaining_connected_obligations": [
+    "ActualMapProtocol/CanvasRect/overlayrevision/nativeincomingasyncenvironment requestidentity and status::publish settle/readiness/capture consumer; oldretainedcity/surface replacement association remains priorcityQ.",
+    "Actualregional_mesh/nativeAssetsremove/extraction/materiallifetime andcelestial newvista initialization scheduling; source/request content identity versuscachevalidity. CPU Drawn isnotGPUproof.",
+    "Actualcanonical calendar days projection/supportedepochs/equatorialcatalog/worldaxis and skyconsumer; no externalastrometry facts inferred or runtimechecks.",
+    "All13/current/aliases/extensions/repairgates incomplete; no productchanges/execution."
+  ]
+}

@@ -1,0 +1,192 @@
+193: fn consume_contract_interaction(
+194:     ctx: &ReducerContext,
+195:     contract_id: &str,
+196:     party_id: &str,
+197:     stage: ContractInteractionStage,
+198: ) -> Result<(), String> {
+199:     let id = contract_interaction_receipt_id(contract_id, party_id, stage);
+200:     let mut receipt = ctx
+201:         .db
+202:         .contract_issuer_interaction_receipt()
+203:         .id()
+204:         .find(&id)
+205:         .ok_or("Interact with the contract issuer first")?;
+206:     if receipt.consumed || receipt.stage != stage {
+207:         return Err("Contract issuer interaction receipt is unavailable".into());
+208:     }
+209:     receipt.consumed = true;
+210:     ctx.db
+211:         .contract_issuer_interaction_receipt()
+212:         .id()
+213:         .update(receipt);
+214:     Ok(())
+215: }
+216: 
+217: #[reducer]
+218: pub fn accept_contract(
+219:     ctx: &ReducerContext,
+220:     character_id: u64,
+221:     contract_id: String,
+222: ) -> Result<(), String> {
+223:     require_strategic_character_authority(ctx, character_id)?;
+224:     crate::character::require_living_character(ctx, character_id)?;
+225:     let Some(character) = ctx.db.character().id().find(character_id) else {
+226:         return Err("Character not found".into());
+227:     };
+228: 
+229:     let Some(party_id) = character.party_id.clone() else {
+230:         return Err("Must be in a party to accept quests".into());
+231:     };
+232: 
+233:     let Some(mut party) = ctx.db.party_authority().id().find(&party_id) else {
+234:         return Err("Party not found".into());
+235:     };
+236: 
+237:     if party.leader_id != character_id {
+238:         return Err("Only the party leader can accept quests".into());
+239:     }
+240: 
+241:     if party.active_contract_id.is_some() {
+242:         return Err("Party already has an active quest".into());
+243:     }
+244: 
+245:     let Some(mut quest) = ctx.db.contract_authority().id().find(&contract_id) else {
+246:         return Err("Quest not found".into());
+247:     };
+248:     quest.parsed_state().map_err(|error| error.to_string())?;
+249: 
+250:     if quest.status != ContractStatus::Offered {
+251:         return Err("Quest is not available".into());
+252:     }
+253:     let case = ctx
+254:         .db
+255:         .case_authority()
+256:         .id()
+257:         .find(&quest.case_id)
+258:         .ok_or("Contract case not found")?;
+259:     if case.resolution_status != CaseStatus::Open {
+260:         return Err("This case is no longer open".into());
+261:     }
+262: 
+263:     if character.current_settlement_id.as_ref() != Some(&quest.settlement_id) {
+264:         return Err("Must be at the quest's settlement to accept it".into());
+265:     }
+266:     consume_contract_interaction(
+267:         ctx,
+268:         &contract_id,
+269:         &party_id,
+270:         ContractInteractionStage::Accept,
+271:     )?;
+272: 
+273:     quest.status = ContractStatus::Accepted;
+274:     quest.accepted_by = Some(party_id.clone());
+275:     quest.accepted_at_minute = Some(crate::time::refresh_clock(ctx)?);
+276:     let case_id = quest.case_id.clone();
+277:     let contract_id = quest.id.clone();
+278:     ctx.db.contract_authority().id().update(quest);
+279: 
+280:     let site = ctx
+281:         .db
+282:         .case_site_authority()
+283:         .case_id()
+284:         .filter(&case_id)
+285:         .next()
+286:         .ok_or("Quest destination is not configured")?;
+287:     disclose_exact_case_site(ctx, character_id, &case_id, &site, "the contract issuer")?;
+288: 
+289:     party.active_contract_id = Some(contract_id);
+290:     ctx.db.party_authority().id().update(party);
+291:     Ok(())
+292: }
+293: 
+294: /// Selects an already-known exact site for presentation. This reducer has no
+295: /// quest, contract, objective, reward, movement, or knowledge side effects.
+296: #[reducer]
+297: pub fn track_case_site(
+298:     ctx: &ReducerContext,
+299:     character_id: u64,
+300:     case_site_id: CaseSiteId,
+301: ) -> Result<(), String> {
+302:     require_strategic_gateway(ctx)?;
+303:     let character = crate::character::require_living_character(ctx, character_id)?;
+304:     let party_id = character
+305:         .party_id
+306:         .ok_or("Must be in a party to track a case site")?;
+307:     let party = ctx
+308:         .db
+309:         .party_authority()
+310:         .id()
+311:         .find(&party_id)
+312:         .ok_or("Party not found")?;
+313:     if party.leader_id != character_id {
+314:         return Err("Only the party leader can change the tracked site".into());
+315:     }
+316:     exact_case_site_for_observer(ctx, character_id, case_site_id.as_str())
+317:         .ok_or("That exact site has not been disclosed to this observer")?;
+318:     let row = PartyCaseSiteTracking {
+319:         party_id: party_id.clone(),
+320:         observer_character_id: character_id,
+321:         case_site_id,
+322:         tracked_at: crate::time::refresh_clock(ctx)?,
+323:     };
+324:     if ctx
+325:         .db
+326:         .party_case_site_tracking()
+327:         .party_id()
+328:         .find(&party_id)
+329:         .is_some()
+330:     {
+331:         ctx.db.party_case_site_tracking().party_id().update(row);
+332:     } else {
+333:         ctx.db.party_case_site_tracking().insert(row);
+334:     }
+335:     Ok(())
+336: }
+337: 
+338: #[reducer]
+339: pub fn abandon_contract(
+340:     ctx: &ReducerContext,
+341:     character_id: u64,
+342:     contract_id: String,
+343: ) -> Result<(), String> {
+344:     require_strategic_character_authority(ctx, character_id)?;
+345:     require_character_no_unresolved_encounter(ctx, character_id)?;
+346:     crate::character::require_living_character(ctx, character_id)?;
+347:     let Some(character) = ctx.db.character().id().find(character_id) else {
+348:         return Err("Character not found".into());
+349:     };
+350: 
+351:     let Some(party_id) = character.party_id.clone() else {
+352:         return Err("Not in a party".into());
+353:     };
+354: 
+355:     let Some(mut party) = ctx.db.party_authority().id().find(&party_id) else {
+356:         return Err("Party not found".into());
+357:     };
+358: 
+359:     if party.leader_id != character_id {
+360:         return Err("Only the party leader can abandon quests".into());
+361:     }
+362:     if crate::investigation::character_case_site_id(ctx, character_id).is_some() {
+363:         return Err("Travel to a settlement before abandoning the quest".into());
+364:     }
+365: 
+366:     let Some(mut quest) = ctx.db.contract_authority().id().find(&contract_id) else {
+367:         return Err("Quest not found".into());
+368:     };
+369:     quest.parsed_state().map_err(|error| error.to_string())?;
+370: 
+371:     if quest.accepted_by.as_ref() != Some(&party_id) {
+372:         return Err("This quest is not accepted by your party".into());
+373:     }
+374:     if quest.status == ContractStatus::ReadyToReport {
+375:         return Err("A completed quest must be returned to its questgiver".into());
+376:     }
+377: 
+378:     quest.status = ContractStatus::Withdrawn;
+379:     ctx.db.contract_authority().id().update(quest);
+380: 
+381:     party.active_contract_id = None;
+382:     ctx.db.party_authority().id().update(party);
+383:     Ok(())
+384: }

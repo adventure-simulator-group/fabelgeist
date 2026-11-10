@@ -1,0 +1,115 @@
+231:     world.entity_mut(entity).insert((
+232:         Collider::cylinder(HUMANOID_COLLISION_RADIUS_METRES, 1.9),
+233:         LinearVelocity::ZERO,
+234:         crate::combat::MeleeAttackAuthority::default(),
+235:         AuthoritativeMovementIntent::default(),
+236:         AuthoritativePostureIntent::default(),
+237:         QuickstepPush::default(),
+238:         MovementPace::default(),
+239:         MissionEnemy,
+240:         CombatantBehaviorPackages::standard_combat(&TacticalCombatConfig::default()),
+241:     ));
+242:     spawn_equipment(world, entity, build);
+243:     entity
+244: }
+245: 
+246: fn tactical_skills(source: &Combatant) -> Skills {
+247:     let skills = &source.skills;
+248:     Skills {
+249:         polearm_hours: skills.polearm_hours,
+250:         axe_hours: skills.axe_hours,
+251:         bludgeon_hours: skills.bludgeon_hours,
+252:         sword_hours: skills.sword_hours,
+253:         knife_hours: skills.knife_hours,
+254:         dodge_hours: skills.dodge_hours,
+255:         block_hours: skills.block_hours,
+256:         bow_hours: 0.0,
+257:         crossbow_hours: 0.0,
+258:         firearm_hours: 0.0,
+259:         throw_hours: skills.throw_hours,
+260:         will_hours: skills.will_hours,
+261:         insight_hours: skills.insight_hours,
+262:         charm_hours: skills.charm_hours,
+263:         command_hours: skills.command_hours,
+264:         deception_hours: skills.deception_hours,
+265:         physiology_hours: skills.physiology_hours,
+266:         religion_hours: skills.religion_hours,
+267:         bestiary_human_hours: skills.bestiary_hours.human,
+268:         surgery_hours: skills.surgery_hours,
+269:         stealth_hours: skills.stealth_hours,
+270:         balance_hours: skills.balance_hours,
+271:         tailoring_hours: skills.tailoring_hours,
+272:         smithing_hours: skills.smithing_hours,
+273:         ..Skills::default()
+274:     }
+275: }
+276: 
+277: fn tactical_limbs(source: &Combatant) -> Limbs {
+278:     Limbs {
+279:         body_weight_kg: source.body.weight_kg,
+280:         left_arm: source.body.health(BodyPart::LeftArm),
+281:         right_arm: source.body.health(BodyPart::RightArm),
+282:         left_leg: source.body.health(BodyPart::LeftLeg),
+283:         right_leg: source.body.health(BodyPart::RightLeg),
+284:         chest: source.body.health(BodyPart::Chest),
+285:         stomach: source.body.health(BodyPart::Stomach),
+286:         head: source.body.health(BodyPart::Head),
+287:     }
+288: }
+289: 
+290: #[cfg(test)]
+291: mod tests {
+292:     use super::*;
+293:     use adventuresim_core::autoresolve::melee_iteration_roster;
+294: 
+295:     #[test]
+296:     fn duel_uses_production_bot_and_combat_observers() {
+297:         let (john, opponents) = melee_iteration_roster().unwrap();
+298:         let outcome = resolve_tactical_server_melee_duel(
+299:             &john,
+300:             &opponents[1],
+301:             fabelgeist_determinism::Seed::from_u64(2),
+302:         )
+303:         .unwrap();
+304:         assert!(outcome.attack_starts > 0, "{outcome:?}");
+305:         assert!(outcome.resolved_attacks > 0);
+306:         assert_eq!(outcome.resolved_attacks as usize, outcome.events.len());
+307:         let attempted = outcome
+308:             .decision_events
+309:             .iter()
+310:             .filter(|event| {
+311:                 event.decision == TacticalDecision::Dodge
+312:                     && event.status == TacticalDecisionStatus::Attempted
+313:             })
+314:             .count();
+315:         let validated = outcome
+316:             .decision_events
+317:             .iter()
+318:             .filter(|event| {
+319:                 matches!(
+320:                     event.status,
+321:                     TacticalDecisionStatus::Accepted | TacticalDecisionStatus::Rejected
+322:                 ) && event.decision == TacticalDecision::Dodge
+323:             })
+324:             .count();
+325:         // Whether this particular duel calls for a dodge is a gameplay choice;
+326:         // the separate seeded coverage test below requires real attempts.
+327:         assert_eq!(attempted, validated);
+328:         assert!(
+329:             outcome
+330:                 .events
+331:                 .iter()
+332:                 .any(|event| { event.defender_decision != TacticalDecision::NoDefense })
+333:         );
+334:         assert!(outcome.initial_center_separation_metres > 3.0);
+335:         assert!(
+336:             outcome
+337:                 .condition_events
+338:                 .iter()
+339:                 .any(|event| { event.cause == "fatigue" && event.delta > 0.0 })
+340:         );
+341:         assert!(!outcome.wound_events.is_empty());
+342:         assert!(
+343:             outcome
+344:                 .condition_events
+345:                 .iter()

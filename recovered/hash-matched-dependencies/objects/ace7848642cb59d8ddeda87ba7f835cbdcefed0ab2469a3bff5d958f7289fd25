@@ -1,0 +1,16 @@
+"""Reviewed Windows path adapter; original handoff script remains immutable."""
+import hashlib
+from pathlib import Path
+
+original = Path('handoff/726-audit-20261030-adler/restore.py').resolve()
+raw = original.read_bytes()
+source = raw.decode('utf-8')
+# Authenticate against the exact pinned Git blob, including its length header.
+assert hashlib.sha1(b'blob ' + str(len(raw)).encode() + b'\0' + raw).hexdigest() == '61881fa3fbde2158e18badf9ca43556bcb05a85e'
+old = "if subprocess.check_output(['git', 'rev-parse', '--show-toplevel'],\n                               text=True).strip() != str(repo):"
+new = "if Path(subprocess.check_output(['git', 'rev-parse', '--show-toplevel'],\n                                    text=True).strip()).resolve() != repo:"
+assert source.count(old) == 1
+# Same root-equality contract, normalizing Git's forward slashes on Windows.
+adapted = source.replace(old, new)
+print('Windows adapter: canonical root equality only; all transport checks unchanged', flush=True)
+exec(compile(adapted, str(original), 'exec'), {'__name__': '__main__', '__file__': str(original)})

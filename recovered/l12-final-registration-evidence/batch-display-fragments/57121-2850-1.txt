@@ -1,0 +1,47 @@
+1: //! Longitudinal blade lofts with a ricasso and an authored transverse section.
+2: use super::*;
+3: #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+4: #[serde(rename_all = "camelCase")]
+5: pub enum BladePlan {
+6:     Straight,
+7:     Leaf,
+8:     Cleaver,
+9: }
+10: #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+11: #[serde(rename_all = "camelCase")]
+12: pub enum BladeCrossSection {
+13:     Diamond,
+14:     Fullered,
+15:     Hexagonal,
+16:     Lenticular,
+17:     Recessed,
+18: }
+31: #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+32: #[serde(rename_all = "camelCase", deny_unknown_fields)]
+33: pub struct LoftedBladeParameters {
+34:     #[serde(
+35:         default,
+36:         skip_serializing_if = "Option::is_none",
+37:         deserialize_with = "super::deserialize_present"
+38:     )]
+39:     pub fuller: Option<FullerParameters>,
+40:     #[serde(
+41:         default,
+42:         skip_serializing_if = "Option::is_none",
+43:         deserialize_with = "super::deserialize_present"
+44:     )]
+45:     pub point: Option<BladePoint>,
+46:     pub length: Metres,
+47:     pub width: Metres,
+48:     pub thickness: Metres,
+49:     pub curvature: Metres,
+50:     pub plan: BladePlan,
+51:     pub section: BladeCrossSection,
+52:     pub samples: Count,
+53:     pub taper: Ratio,
+54:     pub single_edge: Ratio,
+55:     pub belly: Ratio,
+56:     pub ricasso: Metres,
+57: }
+58: 
+59: /// A round member along an arbitrary spatial path, with an explicit section.

@@ -1,0 +1,47 @@
+1: use crate::components::{InstanceData, InstanceUniforms};
+2: 
+3: use bevy_asset::AssetId;
+4: use bevy_ecs::entity::Entity;
+5: use bevy_mesh::Mesh;
+6: use bevy_render::sync_world::MainEntity;
+7: 
+8: use crate::render::prepare::utils::data_offset;
+9: use std::ops::Range;
+10: use std::sync::Arc;
+11: 
+12: #[derive(Debug, Clone, Copy)]
+13: pub(super) struct Write {
+14:     pub(super) entity: Entity,
+15:     pub(super) offset: u32,
+16:     pub(super) batch_id: u32,
+17: }
+18: 
+19: #[derive(Clone)]
+20: pub(super) struct Clear {
+21:     pub(super) offset: u64,
+22:     pub(super) clear: Vec<InstanceData>,
+23: }
+24: 
+25: impl From<Range<u32>> for Clear {
+26:     fn from(Range { start, end }: Range<u32>) -> Self {
+27:         let invalid_instance = InstanceData::invalid();
+28:         Clear {
+29:             offset: data_offset::<InstanceData>(start),
+30:             clear: vec![invalid_instance; (end - start) as usize],
+31:         }
+32:     }
+33: }
+34: 
+35: pub(super) struct BatchInput {
+36:     pub(super) entity: Entity,
+37:     pub(super) main_entity: MainEntity,
+38:     pub(super) mesh_id: AssetId<Mesh>,
+39:     pub(super) instances: Arc<Vec<InstanceData>>,
+40:     pub(super) gpu_cull: bool,
+41:     pub(super) batch: InstanceUniforms,
+42: }
+43: 
+44: pub(crate) struct CachedInputState {
+45:     pub(super) instances: Arc<Vec<InstanceData>>,
+46:     pub(super) key_hash: u64,
+47: }

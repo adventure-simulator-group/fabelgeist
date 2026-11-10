@@ -1,0 +1,308 @@
+SOURCE 2823 physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/report.rs
+1: //! Causal report records retain their measurements until serialization.
+2: 
+3: use std::collections::BTreeMap;
+4: 
+5: use serde::Serialize;
+6: 
+7: use super::measurement::*;
+8: 
+9: #[derive(Serialize)]
+10: pub(super) struct MatchupSummary {
+11:     pub(super) matchup: String,
+12:     pub(super) opponent: String,
+13:     pub(super) tactical_runs: u64,
+14:     pub(super) tactical_john_wins: u64,
+15:     pub(super) tactical_opponent_wins: u64,
+16:     pub(super) tactical_mutual_incapacitations: u64,
+17:     pub(super) tactical_timeouts: u64,
+18:     pub(super) tactical_causal: TacticalCausalSummary,
+19:     pub(super) tactical_total_simulated_seconds: Measurement<TacticalSeconds>,
+20:     pub(super) tactical_mean_simulated_seconds: Measurement<TacticalSeconds>,
+21:     pub(super) autoresolve_runs: u64,
+22:     pub(super) autoresolve_john_wins: u64,
+23:     pub(super) autoresolve_opponent_wins: u64,
+24:     pub(super) autoresolve_mutual_incapacitations: u64,
+25:     pub(super) autoresolve_timeouts: u64,
+26:     pub(super) autoresolve_causal: AutoresolveCausalSummary,
+27:     pub(super) john_win_rate_difference: Measurement<WinRateDifference>,
+28:     pub(super) tactical_wall_milliseconds: Measurement<WallMilliseconds>,
+29:     pub(super) autoresolve_wall_milliseconds: Measurement<WallMilliseconds>,
+30:     pub(super) tactical_duels_per_second: Measurement<DuelsPerWallSecond>,
+31:     pub(super) tactical_simulated_seconds_per_wall_second: Measurement<TacticalSecondsPerWallSecond>,
+32:     pub(super) autoresolve_duels_per_second: Measurement<DuelsPerWallSecond>,
+33: }
+34: 
+35: #[derive(Default, Serialize)]
+36: pub(super) struct TacticalCausalSummary {
+37:     pub(super) john_attack_starts: u64,
+38:     pub(super) opponent_attack_starts: u64,
+39:     pub(super) john_resolved_attacks: u64,
+40:     pub(super) opponent_resolved_attacks: u64,
+41:     pub(super) john_first_contacts: u64,
+42:     pub(super) opponent_first_contacts: u64,
+43:     pub(super) john_canceled_for_defense: u64,
+44:     pub(super) opponent_canceled_for_defense: u64,
+45:     pub(super) john_transformed_by_defense: u64,
+46:     pub(super) opponent_transformed_by_defense: u64,
+47:     pub(super) dodge_attempts: u64,
+48:     pub(super) dodge_avoids: u64,
+49:     pub(super) dodge_contacts: u64,
+50:     pub(super) shield_block_attempts: u64,
+51:     pub(super) shield_blocks_defended: u64,
+52:     pub(super) shield_blocks_failed: u64,
+53:     pub(super) weapon_defense_contacts: u64,
+54:     pub(super) armor_contacts: u64,
+55:     pub(super) armor_stopped: u64,
+56:     pub(super) armor_deflected: u64,
+57:     pub(super) armor_penetrated: u64,
+58:     pub(super) open_wounds: u64,
+59:     pub(super) internal_wounds: u64,
+60:     pub(super) energy_partition_failures: u64,
+61:     pub(super) minimum_contact_separation_metres: Option<Measurement<CenterSeparationMetres>>,
+62:     pub(super) maximum_contact_separation_metres: Option<Measurement<CenterSeparationMetres>>,
+63:     pub(super) maximum_fatigue: Measurement<Fatigue>,
+64:     pub(super) john: TacticalCombatantCausal,
+65:     pub(super) opponent: TacticalCombatantCausal,
+66: }
+67: 
+68: #[derive(Default, Serialize)]
+69: pub(super) struct TacticalCombatantCausal {
+70:     pub(super) attack_starts: u64,
+71:     pub(super) resolved_attacks: u64,
+72:     pub(super) contacts_dealt: u64,
+73:     pub(super) attacks_received: u64,
+74:     pub(super) block_attempts: u64,
+75:     pub(super) parry_attempts: u64,
+76:     pub(super) dodge_attempts: u64,
+77:     pub(super) effective_weapon_contacts: u64,
+78:     pub(super) shield_block_attempts: u64,
+79:     pub(super) effective_shield_blocks: u64,
+80:     pub(super) dodge_avoids: u64,
+81:     pub(super) dodge_contacts: u64,
+82:     pub(super) committed_attacks_canceled: u64,
+83:     pub(super) committed_attacks_transformed: u64,
+84:     pub(super) armor_surface_contacts_received: u64,
+85:     pub(super) armor_gap_contacts_received: u64,
+86:     pub(super) armor_stopped: u64,
+87:     pub(super) armor_deflected: u64,
+88:     pub(super) armor_penetrated: u64,
+89:     pub(super) anatomical_subregions_received: BTreeMap<String, u64>,
+90:     pub(super) armor_layers_intersected: BTreeMap<String, u64>,
+91:     pub(super) armor_layers_missed: BTreeMap<String, u64>,
+92:     pub(super) open_wounds_received: u64,
+93:     pub(super) internal_wounds_received: u64,
+94:     pub(super) attack_interval_samples: u64,
+95:     pub(super) mean_attack_start_interval_seconds: Measurement<TacticalSeconds>,
+96:     pub(super) contact_energy_samples: u64,
+97:     pub(super) mean_contact_energy_joules: Measurement<ContactJoules>,
+98:     pub(super) maximum_fatigue: Measurement<Fatigue>,
+99: }
+100: 
+101: #[derive(Default, Serialize)]
+102: pub(super) struct AutoresolveCausalSummary {
+103:     pub(super) total_rounds: u64,
+104:     pub(super) melee_attacks: u64,
+105:     pub(super) hits: u64,
+106:     pub(super) blocks_or_parries: u64,
+107:     pub(super) block_attempts: u64,
+108:     pub(super) parry_attempts: u64,
+109:     pub(super) misses: u64,
+110:     pub(super) dodge_attempts: u64,
+111:     pub(super) dodge_avoids: u64,
+112:     pub(super) dodge_contacts: u64,
+113:     pub(super) shield_contacts: u64,
+114:     pub(super) weapon_defense_contacts: u64,
+115:     pub(super) armor_contacts: u64,
+116:     pub(super) armor_stopped: u64,
+117:     pub(super) armor_deflected: u64,
+118:     pub(super) armor_penetrated: u64,
+119:     pub(super) john_attacks: u64,
+120:     pub(super) opponent_attacks: u64,
+121:     pub(super) john_first_contacts: u64,
+122:     pub(super) opponent_first_contacts: u64,
+123:     pub(super) john_weapon_reach_metres: Measurement<WeaponReachMetres>,
+124:     pub(super) opponent_weapon_reach_metres: Measurement<WeaponReachMetres>,
+125:     pub(super) total_contact_energy_joules: Measurement<ContactJoules>,
+126:     pub(super) total_health_damage: Measurement<HealthDamage>,
+127:     pub(super) final_blood_loss_fraction: Measurement<BloodLossFraction>,
+128:     pub(super) final_wound_count: u64,
+129:     pub(super) final_open_wound_count: u64,
+130:     pub(super) final_internal_wound_count: u64,
+131:     pub(super) final_wound_flow_fraction_per_second: Measurement<WoundFlowFractionPerSecond>,
+132:     pub(super) final_fatigue: Measurement<Fatigue>,
+133:     pub(super) final_acute_trauma: Measurement<AcuteTrauma>,
+134:     pub(super) final_imbalance: Measurement<Imbalance>,
+135:     pub(super) john_yields: u64,
+136:     pub(super) opponent_yields: u64,
+137:     pub(super) john: AutoresolveCombatantCausal,
+138:     pub(super) opponent: AutoresolveCombatantCausal,
+139: }
+140: 
+141: #[derive(Default, Serialize)]
+142: pub(super) struct AutoresolveCombatantCausal {
+143:     pub(super) attack_starts: u64,
+144:     pub(super) attacks: u64,
+145:     pub(super) hits_dealt: u64,
+146:     pub(super) attacks_received: u64,
+147:     pub(super) block_attempts: u64,
+148:     pub(super) parry_attempts: u64,
+149:     pub(super) dodge_attempts: u64,
+150:     pub(super) effective_weapon_contacts: u64,
+151:     pub(super) dodge_avoids: u64,
+152:     pub(super) dodge_contacts: u64,
+153:     pub(super) committed_attacks_canceled: u64,
+154:     pub(super) committed_attacks_transformed: u64,
+155:     pub(super) movement_actions: BTreeMap<String, u64>,
+156:     pub(super) movement_segments: u64,
+157:     pub(super) movement_elapsed_seconds: Measurement<AutoresolveSeconds>,
+158:     pub(super) movement_absolute_displacement_metres: Measurement<MovementMetres>,
+159:     pub(super) maximum_movement_speed_metres_per_second: Measurement<MovementSpeed>,
+160:     pub(super) maximum_movement_segment_seconds: Measurement<AutoresolveSeconds>,
+161:     pub(super) movement_displacement_limit_failures: u64,
+162:     pub(super) movement_nonzero_delta_zero_elapsed: u64,
+163:     pub(super) premature_contact_events: u64,
+164:     pub(super) response_availability: BTreeMap<String, u64>,
+165:     pub(super) response_choices: BTreeMap<String, u64>,
+166:     pub(super) phase_adaptation_events: u64,
+167:     pub(super) phase_adaptation_delay_seconds: Measurement<AutoresolveSeconds>,
+168:     pub(super) simultaneous_contacts: u64,
+169:     pub(super) armor_surface_contacts_received: u64,
+170:     pub(super) armor_gap_contacts_received: u64,
+171:     pub(super) armor_stopped: u64,
+172:     pub(super) armor_deflected: u64,
+173:     pub(super) armor_penetrated: u64,
+174:     pub(super) anatomical_subregions_received: BTreeMap<String, u64>,
+175:     pub(super) armor_layers_intersected: BTreeMap<String, u64>,
+176:     pub(super) armor_layers_missed: BTreeMap<String, u64>,
+177:     pub(super) attack_samples: u64,
+178:     pub(super) contact_classifications: BTreeMap<String, u64>,
+179:     pub(super) contact_measure_samples: u64,
+180:     pub(super) mean_scheduled_contact_measure_metres: Measurement<ContactMetres>,
+181:     pub(super) mean_actual_contact_measure_metres: Measurement<ContactMetres>,
+182:     pub(super) minimum_actual_contact_measure_metres: Option<Measurement<ContactMetres>>,
+183:     pub(super) maximum_actual_contact_measure_metres: Option<Measurement<ContactMetres>>,
+184:     pub(super) minimum_actual_center_separation_metres: Option<Measurement<CenterSeparationMetres>>,
+185:     pub(super) full_energy_intended_contacts_inside_ten_centimetres: u64,
+186:     pub(super) mean_attack_interval_seconds: Measurement<AutoresolveSeconds>,
+187:     pub(super) mean_attack_power_multiplier: Measurement<AttackPowerMultiplier>,
+188:     pub(super) minimum_attack_incapacitation_performance: Option<Measurement<IncapacitationPerformance>>,
+189:     pub(super) final_pain_incapacitation: Measurement<PainIncapacitation>,
+190:     pub(super) final_blood_loss_fraction: Measurement<BloodLossFraction>,
+191:     pub(super) final_acute_trauma: Measurement<AcuteTrauma>,
+192:     pub(super) final_fatigue: Measurement<Fatigue>,
+193:     pub(super) final_imbalance: Measurement<Imbalance>,
+194:     pub(super) final_open_wounds: u64,
+195:     pub(super) final_internal_wounds: u64,
+196:     pub(super) incapacitated_runs: u64,
+197:     pub(super) yielded_runs: u64,
+198:     pub(super) terminal_causes: BTreeMap<String, u64>,
+199: }
+200: 
+201: impl TacticalCausalSummary {
+202:     pub(super) fn finish_means(&mut self) -> MeasurementResult<()> {
+203:         self.john.finish_means()?;
+204:         self.opponent.finish_means()?;
+205:         Ok(())
+206:     }
+207: }
+208: 
+209: impl TacticalCombatantCausal {
+210:     pub(super) fn finish_means(&mut self) -> MeasurementResult<()> {
+211:         self.mean_attack_start_interval_seconds = self
+212:             .mean_attack_start_interval_seconds
+213:             .mean(self.attack_interval_samples)?;
+214:         self.mean_contact_energy_joules = self
+215:             .mean_contact_energy_joules
+216:             .mean(self.contact_energy_samples)?;
+217:         Ok(())
+218:     }
+219: }
+220: 
+221: impl AutoresolveCombatantCausal {
+222:     pub(super) fn record_final(
+223:         &mut self,
+224:         outcome: &adventuresim_core::autoresolve::CombatantOutcome,
+225:     ) -> MeasurementResult<()> {
+226:         self.final_pain_incapacitation.checked_add(
+227:             Measurement::<PainIncapacitation>::from_native(outcome.pain_incapacitation)?,
+228:         )?;
+229:         self.final_blood_loss_fraction.checked_add(
+230:             Measurement::<BloodLossFraction>::from_native(outcome.blood_loss_fraction)?,
+231:         )?;
+232:         self.final_acute_trauma.checked_add(
+233:             Measurement::<AcuteTrauma>::from_native(outcome.acute_trauma)?,
+234:         )?;
+235:         self.final_fatigue.checked_add(
+236:             Measurement::<Fatigue>::from_native(outcome.fatigue)?,
+237:         )?;
+238:         self.final_imbalance.checked_add(
+239:             Measurement::<Imbalance>::from_native(outcome.imbalance)?,
+240:         )?;
+241:         self.final_open_wounds += outcome.open_wound_count as u64;
+242:         self.final_internal_wounds += outcome.internal_wound_count as u64;
+243:         self.incapacitated_runs += u64::from(outcome.incapacitated);
+244:         self.yielded_runs += u64::from(outcome.yielded);
+245:         if let Some(cause) = outcome.terminal_cause {
+246:             *self
+247:                 .terminal_causes
+248:                 .entry(format!("{cause:?}"))
+249:                 .or_default() += 1;
+250:         }
+251:         Ok(())
+252:     }
+253: 
+254:     pub(super) fn finish_means(&mut self) -> MeasurementResult<()> {
+255:         self.mean_attack_interval_seconds = self
+256:             .mean_attack_interval_seconds
+257:             .mean(self.attack_samples)?;
+258:         self.mean_attack_power_multiplier = self
+259:             .mean_attack_power_multiplier
+260:             .mean(self.attack_samples)?;
+261:         self.mean_scheduled_contact_measure_metres = self
+262:             .mean_scheduled_contact_measure_metres
+263:             .mean(self.contact_measure_samples)?;
+264:         self.mean_actual_contact_measure_metres = self
+265:             .mean_actual_contact_measure_metres
+266:             .mean(self.contact_measure_samples)?;
+267:         Ok(())
+268:     }
+269: }
+SOURCE 2825 physical-p16:crates/adventuresim-stdb-module/src/strategic/world_import.rs
+681:         let currency_id = crate::item::settlement_currency_id(&settlement.id).to_string();
+682:         let row = Settlement {
+683:             id: settlement.id,
+684:             name: settlement.name,
+685:             coord_x: settlement.longitude,
+686:             coord_y: settlement.latitude,
+687:             population_level: settlement.population_level,
+688:             population_estimate: settlement.population_estimate,
+689:             category: settlement_category(
+690:                 settlement.population_estimate,
+691:                 settlement.population_level,
+692:             ),
+693:             elevation,
+694:             land_use,
+695:             forest_cover,
+696:             potential_vegetation,
+697:             historical_vegetation,
+698:             tree_species,
+699:             soil,
+700:             geology,
+701:             scene_key: settlement.scene_key,
+702:             religion_id: settlement.religious_status.church().religion_id().into(),
+703:             currency_id,
+704:             religious_status: settlement.religious_status,
+705:             languages: settlement.languages,
+706:             drought,
+707:             hydrology: settlement.hydrology,
+708:             industries: settlement.industries,
+709:             economy: settlement.economy,
+710:             source_node_id: Some(settlement.source_node_id),
+711:             sources: settlement.sources,
+712:         };
+713:         if ctx.db.settlement().id().find(&row.id).is_some() {
+714:             ctx.db.settlement().id().update(row);
+715:         } else {
+716:             ctx.db.settlement().insert(row);
+717:         }

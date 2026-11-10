@@ -1,0 +1,182 @@
+SOURCE crates/adventuresim-tactical-client/src/tactical_scene_viewer/city_capture.rs
+1: use adventuresim_building_generator::spatial_geometry::Position;
+2: use adventuresim_tactical_core::prelude::{
+3:     BuildingOrientation, CityStreetPatch, DistantBuildingPlacement, GeneratedBuilding, SceneTerrain,
+4: };
+5: use adventuresim_tactical_core::scene_coordinates::Scene;
+6: use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
+7: use bevy::prelude::*;
+8: use fabelgeist_geometry::SignedLength;
+9: 
+10: use super::capture_state::BuildingReviewCamera;
+11: 
+12: const STREET_EYE_HEIGHT_METRES: f32 = 1.65;
+13: const STREET_CAMERA_CLEARANCE_METRES: f32 = 0.75;
+14: const STREET_CONTEXT_OFFSET_METRES: f32 = 8.0;
+15: const FACADE_STREET_SEARCH_METRES: f32 = 40.0;
+16: const NEIGHBOURHOOD_RADIUS_METRES: f32 = 75.0;
+17: 
+18: pub(super) fn capture_cameras(
+19:     buildings: &[GeneratedBuilding],
+20:     distant_buildings: &[DistantBuildingPlacement],
+21:     streets: &[CityStreetPatch],
+22:     terrain: &SceneTerrain,
+23:     profile: &str,
+24: ) -> Result<Vec<BuildingReviewCamera>> {
+25:     if profile != super::CITY_REVIEW_PROFILE {
+26:         return Ok(Vec::new());
+27:     }
+28:     let bounds = PlacementBounds::collect(buildings, distant_buildings)?;
+29:     // The corridor search supplies a completed native scene-plane interpolation.
+30:     let clear = |native| {
+31:         let Some(point) = ScenePlanPoint::from_metres(native) else {
+32:             return false;
+33:         };
+34:         bounds.iter().all(|bounds| !bounds.contains(native)) && terrain.height_at(point).is_some()
+35:     };
+36:     let mut focus_candidates = buildings.iter().collect::<Vec<_>>();
+37:     focus_candidates.sort_by(|left, right| {
+38:         left.placement
+39:             .centre_metres
+40:             .metres()
+41:             .length_squared()
+42:             .total_cmp(&right.placement.centre_metres.metres().length_squared())
+43:     });
+44:     let mut selected = None;
+45:     for focus in focus_candidates {
+46:         let transform = focus.transform()?;
+47:         let width = f32::from(focus.placement.program.footprint.dimensions().0)
+48:             * adventuresim_building_generator::CELL_SIZE_METRES;
+49:         let target = transform.transform_point(
+50:             Vec3::new(width * 0.5, 2.4, 0.0) - focus.collision.bounds.centre()?.metres(),
+51:         );
+52:         let outward = focus.placement.orientation.local_to_world(Vec2::NEG_Y);
+53:         if let Some(street) = StreetPosition::nearest(streets, target.xz(), outward, &clear) {
+54:             selected = Some((focus, target, street));
+55:             break;
+56:         }
+57:     }
+58:     let (focus, facade_target, street) =
+59:         selected.ok_or("city review has no clear street corridor facing a playable building")?;
+60:     let eye = |point: ScenePlanPoint| -> Result<Position<Scene>> {
+61:         let elevation = terrain.required_height_at(point)?;
+62:         Ok(Position::from_metres(Vec3::new(
+63:             point.metres().x,
+64:             elevation.metres() + STREET_EYE_HEIGHT_METRES,
+65:             point.metres().y,
+66:         ))?)
+67:     };
+68:     let context = [-STREET_CONTEXT_OFFSET_METRES, STREET_CONTEXT_OFFSET_METRES]
+69:         .into_iter()
+70:         .map(|offset| street.shifted(offset))
+71:         .find(|candidate| clear(candidate.point()))
+72:         .unwrap_or(street);
+73:     let street_target = if context.fraction < 0.5 {
+74:         context.end
+75:     } else {
+76:         context.start
+77:     };
+78:     let centres = buildings
+79:         .iter()
+80:         .map(|building| building.placement.centre_metres.metres())
+SOURCE crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_capture.rs
+1: //! Cameras and placement annotations only; production observers render all furniture.
+2: use adventuresim_building_generator::furniture::FurnitureKind;
+3: use adventuresim_building_generator::spatial_geometry::Position;
+4: use adventuresim_tactical_core::{prelude::*, scene_coordinates::ScenePlanPoint};
+5: use bevy::prelude::*;
+6: 
+7: use super::capture_state::BuildingReviewCamera;
+8: 
+9: pub(super) const PROFILE: &str = "furniture-review";
+10: const EYE_HEIGHT_METRES: f32 = 1.65;
+11: const CAMERA_OBJECT_CLEARANCE_METRES: f32 = 3.0;
+12: 
+13: #[derive(Debug, thiserror::Error)]
+14: enum FurnitureCaptureError {
+15:     #[error("furniture review requires generated market vendors")]
+16:     MissingVendors,
+17: }
+18: 
+19: pub(super) fn spawn(commands: &mut Commands, layout: &FurnitureLayout) -> Result {
+20:     for instance in &layout.instances {
+21:         commands.spawn((
+22:             Name::new(format!("Furniture {}", instance.scene.id.0)),
+23:             instance.scene,
+24:             RigidBody::Static,
+25:             CollisionLayers::new(TACTICAL_TERRAIN_LAYER, LayerMask::ALL),
+26:             furniture_collider(instance.scene.key)?,
+27:             Transform::from_translation(instance.position_metres.metres())
+28:                 .with_rotation(Quat::from_rotation_y(instance.orientation.yaw_radians())),
+29:         ));
+30:     }
+31:     Ok(())
+32: }
+33: 
+34: pub(super) fn setup(
+35:     commands: &mut Commands,
+36:     layout: &FurnitureLayout,
+37:     terrain: &SceneTerrain,
+38:     profile: &str,
+39:     output: &std::path::Path,
+40:     meshes: &mut Assets<Mesh>,
+41:     materials: &mut Assets<StandardMaterial>,
+42: ) -> Result<Option<Vec<BuildingReviewCamera>>> {
+43:     write_layout(layout, output)?;
+44:     if profile != PROFILE {
+45:         return Ok(None);
+46:     }
+47:     let camera = |position, target| BuildingReviewCamera {
+48:         position,
+49:         target,
+50:         plaster_raking_light: None,
+51:     };
+52:     let mut cameras = FurnitureKind::OUTDOOR
+53:         .into_iter()
+54:         .map(|kind| {
+55:             let mut matching = layout
+56:                 .instances
+57:                 .iter()
+58:                 .filter(|instance| instance.scene.key.kind() == kind);
+59:             // Review the stable's last accepted group rather than the inn's
+60:             // first group so the smaller frontage frames these low objects.
+61:             let instance = if matches!(
+62:                 kind,
+63:                 FurnitureKind::TableBenchSet | FurnitureKind::HitchingTrough
+64:             ) {
+65:                 matching.next_back()
+66:             } else {
+67:                 matching.next()
+68:             }
+69:             .ok_or_else(|| format!("furniture review lacks {kind:?}"))?;
+70:             let bounds = instance.scene.key.recipe()?.bounds;
+71:             let distance =
+72:                 bounds.plan_half_extents()?.metres().max_element() + CAMERA_OBJECT_CLEARANCE_METRES;
+73:             let offset = instance
+74:                 .orientation
+75:                 .local_to_world(Vec2::new(distance * 0.6, -distance));
+76:             let point = ScenePlanPoint::try_from(instance.position_metres.metres().xz() + offset)?;
+77:             let height = terrain.required_height_at(point)?;
+78:             Ok(camera(
+79:                 Position::from_metres(Vec3::new(
+80:                     point.metres().x,
+81:                     height.metres() + EYE_HEIGHT_METRES,
+82:                     point.metres().y,
+83:                 ))?,
+84:                 Position::from_metres(
+85:                     instance.position_metres.metres() + Vec3::Y * bounds.centre()?.metres().y,
+86:                 )?,
+87:             ))
+88:         })
+89:         .collect::<Result<Vec<_>>>()?;
+90:     let market = layout
+91:         .groups
+92:         .iter()
+93:         .filter(|group| group.kind == FurnitureGroupKind::Vendor)
+94:         .map(|group| group.footprint.centre().metres())
+95:         .collect::<Vec<_>>();
+96:     if market.is_empty() {
+97:         return Err(FurnitureCaptureError::MissingVendors.into());
+98:     }
+99:     let centre = market.iter().copied().sum::<Vec2>() / market.len() as f32;
+100:     let point = ScenePlanPoint::try_from(centre)?;

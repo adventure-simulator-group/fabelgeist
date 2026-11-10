@@ -1,0 +1,32 @@
+1: //! Settlement trade coordination and stable facade exports.
+2: 
+3: use adventuresim_core::{
+4:     equipment::{EncumbranceSummary, INPUT_ADDRESS_MAPPINGS, InputAddressMapping},
+5:     item_catalog_schema::{
+6:         EquipmentChannel as CoreEquipmentChannel, EquipmentLocation as CoreEquipmentLocation,
+7:     },
+8: };
+9: use adventuresim_stdb_client::{
+10:     EquipmentChannel as SatsEquipmentChannel, IngredientPreparationAction,
+11: };
+12: use maud::{Markup, html};
+13: 
+14: use super::{
+15:     character_health::stat_icon,
+16:     character_skills::{SkillRankBarOptions, skill_rank_bar},
+17:     chrome::{VisualStageKind, party_portrait_overlay, visual_stage},
+18:     context::LocationView,
+19:     rest::{RestServiceKind, SoapRestPreview, rest_service_menu},
+20:     social::{
+21:         forge_description_stage, npc_description_stage, npc_location_id, npc_portrait_strip,
+22:         player_chat_area, settlement_chat_area, settlement_resident_chat_area,
+23:     },
+24: };
+25: use crate::spacetimedb::{
+26:     BackendIngredientPreparationPlan, CharacterEquipmentGraph, CharacterView, EquipmentBodyPart,
+27:     EquipmentLocation, FoodLot, InventoryItem, InventoryItemAmount, InventoryQuantityTarget,
+28:     ItemConditionExt, PartyInventoryItem, SettlementView,
+29: };
+30: use crate::templates::inventory_browser::{InventoryBrowser, InventoryColumnSet};
+31: use crate::templates::{
+32:     decorative_game_icon, empty_state, game_icon, item_display_name, item_icon_name,

@@ -1,0 +1,90 @@
+{
+  "schema": "726-owned-repair-contract-v1",
+  "at": "2026-11-02T05:36:48.942680+00:00",
+  "author": "/root",
+  "scope_key": "scene-capture-image-persistence-and-active-view-admission",
+  "status": "required-after-full-audit-gate",
+  "source_discovery_complete_for_scoped_failure": true,
+  "whole_queue_contract_closed": false,
+  "primary_existing_question": {
+    "queue_index": 257,
+    "contract_id": "SEGOVB-L12-SCENE-CAPTURE-PERSISTENCE-OUTCOME"
+  },
+  "related_existing_question": {
+    "queue_index": 1938,
+    "contract_id": "Q-L12-e04c3e179a71044f1d5b"
+  },
+  "evidence_packets": [
+    {
+      "path": "adler-continuation-20261030/READ-ROOT-L12-CAPTURE-PERSISTENCE-FINALIZATION-001.json",
+      "sha256": "7e09db8a99f28979872b0906c741d42d57b02dd57444a50fc34bdd7bc22bed4b"
+    },
+    {
+      "path": "adler-continuation-20261030/READ-ROOT-L12-CAPTURE-PHASE-READINESS-001.json",
+      "sha256": "b984f5e569927384be1ca19b1ac6b204fbde02a92553e737203854528e2429be"
+    }
+  ],
+  "first_failed_contract": "Required PNG save errors are discarded behind a native unit observer, yet the application publishes capture metrics, advances view and can report final Success without a persisted-image outcome. Separately, terminal cursor availability is not owned consistently across state producers and selectors; native AppExit writes do not synchronously cancel Update. No observed filesystem failure or reachable scheduler panic is claimed.",
+  "canonical_owners": [
+    "Existing SceneCaptureState/CapturePhase for admitted active/finished/failed capture lifecycle, not a new parallel manager.",
+    "Existing PendingSceneCaptureManifest/CaptureRecord and native capture artifact port for actual requested-image persistence/completion; coordinate existing Q3714 canonical profile/view identity."
+  ],
+  "required_repair": [
+    {
+      "id": "typed-native-image-outcome",
+      "requirement": "Replace native unit-save observation at required-image call sites with an application-owned fallible image conversion/PNG encoding/file-write port. Retain actual owned conversion/encoding/IO causes with admitted run/view/path context until the final native diagnostic/exit. Requested output format is PNG; native path/text formatting is a boundary, not an internal category dispatcher. Preserve RGB/alpha semantics and supported target behavior; do not treat browser download dispatch as proved filesystem persistence."
+    },
+    {
+      "id": "completion-after-persistence",
+      "requirement": "Only a successful actual requested-image persistence outcome may commit that completed capture record and advance required-view completion. Readback, nonzero pixel counts, settled hashes and merely having a screenshot filename are insufficient evidence. Provisional measurement placeholders remain provisional; final validation/manifest.passed and Success require every requested image for this admitted run. Preserve existing scalar/scene/sequence quality checks."
+    },
+    {
+      "id": "owned-active-view-lifecycle",
+      "requirement": "Existing capture state privately owns valid active-view access and phase/advance transitions, with explicit finished/failed absence of an active view. All capture system, LOD/opening selectors, screenshot callbacks and both readiness observers consume that admitted availability. Do not leave externally mutable index/phase combinations that callers must validate independently, clamp to the last view, fabricate a fallback, or add per-index/per-GPU-word wrappers. A private native ordinal is valid when construction proves its bounds."
+    },
+    {
+      "id": "phase-and-optional-output-policy",
+      "requirement": "Preserve Configure/Settling/Prime/Warmup/Screenshot behavior, bounded retry and temporal capture modes. Warmup/prime are not requested persisted images. Optional unsettled retry/evidence files require an explicit diagnostic outcome and must not impersonate successful required-image persistence. Preserve valid callback phase/view guards; do not invent duplicate request identity machinery when native construction proves one response per in-flight request."
+    },
+    {
+      "id": "final-output-errors",
+      "requirement": "Actual required manifest/index/failure-output errors must retain typed cause/context and end in failure, never a Success marker or false completed record. A failure to write the failure marker still has an owned failure outcome and a native diagnostic/exit. Preserve already written files and the existing isolated fresh-output policy; no broad deletion/reset or compatibility path."
+    },
+    {
+      "id": "shared-identity-and-report-types",
+      "requirement": "Consume the existing/planned canonical capture profile/view identity under Q3714 and P17 measurement owners; do not add shadow string classifiers, duplicate quantity owners, extraction/readmission loops, or fake finite measurements. Scope Q258 species display-name authority separately even where this function is shared."
+    }
+  ],
+  "actual_affected_sources": [
+    "tactical_scene_viewer/capture_state.rs: state/phase representation and methods",
+    "tactical_scene_viewer.rs: setup_scene, capture_views callbacks, build_manifest, finish_capture",
+    "tactical_scene_viewer/manifest.rs: record/provisional/final outcome and PendingSceneCaptureManifest/validation_passes",
+    "tactical_scene_viewer/building_review/lod.rs and openings.rs: current-view consumers",
+    "tactical_scene_viewer/building_review/readiness.rs and furniture_readiness.rs: admitted active-view readiness bookkeeping"
+  ],
+  "later_acceptance": [
+    {
+      "id": "real-positive-output",
+      "requirement": "After full audit gate, applicable existing capture acceptance must produce each requested PNG exactly once, with decodable dimensions/content and unchanged required quality gates. Warmup/optional retries do not count as requested images. Cover supported filtered and complete review modes, including installed LOD review for rooms/terrain-grounding and applicable temporal behavior."
+    },
+    {
+      "id": "native-save-failure",
+      "requirement": "A controlled capture-artifact/native I/O failure must retain the actual typed cause and exact admitted view/path, prevent completed-view/final Success evidence, preserve successful prior files, and yield explicit failure. Exercise applicable conversion/encoding errors at their real port without fabricating an impossible admitted table slot or giant allocation."
+    },
+    {
+      "id": "terminal-and-callback-behavior",
+      "requirement": "Source/construction proof and applicable capture acceptance establish that selectors/readiness have no active view after completion/failure, no out-of-range indexing, and callbacks cannot advance the wrong active view. Do not claim a prior native runtime panic was reproduced. Reuse appropriate integration/runtime checks; do not add object unit tests without explicit user request."
+    }
+  ],
+  "remaining_independent_obligations": [
+    "Readback map/error/deadline liveness policy and absent callback evidence stay separate; pending must never be reported persisted. No arbitrary new deadline prescribed here.",
+    "Exact all20/P17/CONT08/animation-viewer alias/current/all13 reconciliation remains required. A common SDK helper/remedy is not a whole-case alias.",
+    "Native window mesh/assets/material/buffer lifetime, frame/publication/capacity and Q1938/Q1327 broader duties are untouched.",
+    "Implementation, independent review, required formatting/lint and applicable executable/visual acceptance remain unperformed."
+  ],
+  "new_unique_findings": 0,
+  "new_original_population_credit": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "independent_agent_review": false
+}

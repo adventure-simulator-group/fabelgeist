@@ -1,0 +1,114 @@
+1: //! Linear radiance in a latitude-longitude studio light map, shared with armor baking.
+2: 
+3: use glam::Vec3;
+4: use std::{f32::consts::PI, sync::LazyLock};
+5: use tiny_skia::Pixmap;
+6: 
+7: const MAP_WIDTH: usize = 128;
+8: const MAP_HEIGHT: usize = 64;
+9: const EXPOSURE: f32 = 1.4;
+10: const REFLECTION_SAMPLES: usize = 12;
+11: 
+12: static ENVIRONMENT: LazyLock<Vec<Vec3>> = LazyLock::new(|| {
+13:     (0..MAP_WIDTH * MAP_HEIGHT)
+14:         .map(|index| {
+15:             let longitude = ((index % MAP_WIDTH) as f32 + 0.5) / MAP_WIDTH as f32;
+16:             let latitude = ((index / MAP_WIDTH) as f32 + 0.5) / MAP_HEIGHT as f32;
+17:             let theta = latitude * PI;
+18:             let phi = longitude * 2.0 * PI;
+19:             let direction = Vec3::new(
+20:                 theta.sin() * phi.cos(),
+21:                 theta.cos(),
+22:                 theta.sin() * phi.sin(),
+23:             );
+24:             let sky = Vec3::new(0.16, 0.19, 0.25);
+25:             let floor = Vec3::new(0.035, 0.028, 0.022);
+26:             let surround = floor.lerp(sky, direction.y * 0.5 + 0.5);
+27:             let key = direction
+28:                 .dot(Vec3::new(-0.4, 0.4, 0.8).normalize())
+29:                 .max(0.0)
+30:                 .powi(12);
+31:             let rim = direction
+32:                 .dot(Vec3::new(0.85, 0.25, -0.45).normalize())
+33:                 .max(0.0)
+34:                 .powi(48);
+35:             surround
+36:                 + Vec3::new(1.0, 0.92, 0.78) * key * 3.0
+37:                 + Vec3::new(0.65, 0.8, 1.0) * rim * 2.0
+38:         })
+39:         .collect()
+40: });
+41: 
+42: fn sample(direction: Vec3) -> Vec3 {
+43:     let u = direction.z.atan2(direction.x).rem_euclid(2.0 * PI) / (2.0 * PI);
+44:     let v = direction.y.clamp(-1.0, 1.0).acos() / PI;
+45:     let x = (u * MAP_WIDTH as f32) as usize % MAP_WIDTH;
+46:     let y = ((v * MAP_HEIGHT as f32) as usize).min(MAP_HEIGHT - 1);
+47:     ENVIRONMENT[y * MAP_WIDTH + x]
+48: }
+49: 
+50: fn filtered(direction: Vec3, spread: f32) -> Vec3 {
+51:     let tangent = direction.any_orthonormal_vector();
+52:     let bitangent = direction.cross(tangent);
+53:     let mut color = sample(direction);
+54:     for index in 0..REFLECTION_SAMPLES {
+55:         let angle = index as f32 * 2.399_963_1;
+56:         let radius = ((index as f32 + 0.5) / REFLECTION_SAMPLES as f32).sqrt() * spread;
+57:         color += sample(
+58:             (direction + radius * (angle.cos() * tangent + angle.sin() * bitangent)).normalize(),
+59:         );
+60:     }
+61:     color / (REFLECTION_SAMPLES + 1) as f32
+62: }
+63: 
+64: pub(super) fn shade(normal: Vec3, view: Vec3, albedo: Vec3, metallic: f32, roughness: f32) -> Vec3 {
+65:     let normal = if normal.dot(view) < 0.0 {
+66:         -normal
+67:     } else {
+68:         normal
+69:     };
+70:     let reflection = 2.0 * normal.dot(view) * normal - view;
+71:     let fresnel = albedo.lerp(Vec3::splat(0.04), 1.0 - metallic);
+72:     let fresnel = fresnel + (Vec3::ONE - fresnel) * (1.0 - normal.dot(view).max(0.0)).powi(5);
+73:     let diffuse = filtered(normal, 1.5) * albedo * (1.0 - metallic);
+74:     let specular = filtered(reflection.normalize(), roughness * roughness * 2.0) * fresnel;
+75:     (diffuse + specular) * EXPOSURE
+76: }
+77: 
+78: pub(super) fn srgb(linear: f32) -> u8 {
+79:     // Reinhard highlight compression followed by the display transfer function.
+80:     let value = linear.max(0.0) / (1.0 + linear.max(0.0));
+81:     let encoded = if value <= 0.003_130_8 {
+82:         value * 12.92
+83:     } else {
+84:         1.055 * value.powf(1.0 / 2.4) - 0.055
+85:     };
+86:     (encoded * 255.0).round() as u8
+87: }
+88: 
+89: /// Export the same linear studio radiance as RGBE for offline armor rendering.
+90: pub fn environment_hdr() -> Vec<u8> {
+91:     let mut output =
+92:         format!("#?RADIANCE\nFORMAT=32-bit_rle_rgbe\n\n-Y {MAP_HEIGHT} +X {MAP_WIDTH}\n")
+93:             .into_bytes();
+94:     for color in ENVIRONMENT.iter() {
+95:         let exponent = color.max_element().log2().floor() as i32 + 1;
+96:         let scale = 256.0 / 2.0_f32.powi(exponent);
+97:         output.extend([
+98:             (color.x * scale) as u8,
+99:             (color.y * scale) as u8,
+100:             (color.z * scale) as u8,
+101:             (exponent + 128) as u8,
+102:         ]);
+103:     }
+104:     output
+105: }
+106: 
+107: pub(super) fn encode_png(size: u16, rgba: Vec<u8>) -> Result<Vec<u8>, super::IconError> {
+108:     let dimensions = tiny_skia::IntSize::from_wh(u32::from(size), u32::from(size))
+109:         .ok_or(super::IconError::InvalidSpec)?;
+110:     Pixmap::from_vec(rgba, dimensions)
+111:         .ok_or(super::IconError::Rasterization)?
+112:         .encode_png()
+113:         .map_err(|error| super::IconError::Png(error.to_string()))
+114: }

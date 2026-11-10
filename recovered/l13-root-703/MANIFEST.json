@@ -1,0 +1,63 @@
+{
+  "schema": "726-l13-root-703-evidence-v1",
+  "plan_sha256": "b79f5d1acdd60e8a689161756743926442bc0ebefabe81e9ef2f56eec6c64835",
+  "discovery_sha256": "43f3144840d38fae90478dcf16e64ea30dade2381b6db14305b1f960ab406eb1",
+  "narrow_discovery_sha256": "2fe6e64f1cbf1830824678a324bb88a39da38694a72aed2a8acefa868812eefe",
+  "helper_sha256": "d1e367ba0c44dd53ef6a89010e3e9ee1d374584ad3573c385231937b0fff2ea4",
+  "registration_sha256": "ddbae026663a703f4a9df2b908480d0ca5fc311ba2bd9f24237a91bebf9e4638",
+  "source_objects": [
+    {
+      "original": 2677,
+      "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+      "bytes": 1076
+    },
+    {
+      "original": 2678,
+      "sha256": "f6fd77cd38865e477731cf06914d6e576b6498e4b2847c2a586368b378073929",
+      "bytes": 340
+    }
+  ],
+  "qualification": "Exact full and narrowed discovery, helper, registration, qualification and packet; two frozen source objects cover 36 registered delegated lines and zero fresh lines. The next exact plan verifies its linked receipt and state. Seven prior supporting files match, as do the earlier clock qualification and root 009 adoption. The root 212 adoption and old 2056 application receipt bytes remain unavailable. The narrowed discovery preserves four prior hits, two future proofs and the old application. No current authority or new audit credit follows.",
+  "qualification_sha256": "3a6b3f3df7fa4eb23e6da65f5560168d3f3ae945524fad43e2761d3b0572955b",
+  "packet_sha256": "73a5ca680f9fc12d4a5a4ddfad0fd39e082c54341a062cb70256b9578b706153",
+  "prior_files": [
+    {
+      "original": 2677,
+      "role": "prior_raw_receipt",
+      "sha256": "0005ad670edd0eb3df3bf09ad79e9415344f59211f66c971ea8c8f3389c94c9d"
+    },
+    {
+      "original": 2677,
+      "role": "prior_verification",
+      "sha256": "7fa6afea07ed86cdedf49871b3756170445257f87b908575161a1e23ab21b812"
+    },
+    {
+      "original": 2677,
+      "role": "prior_registration",
+      "sha256": "ffea3c0d06cb92a0b3e218ed38abc1a9beed6f109250b0471d7f463f83f52cbd"
+    },
+    {
+      "original": 2678,
+      "role": "prior_raw_receipt",
+      "sha256": "8b840ad72cc35b949f4a9246545b9d17863ed8ed731a307bb32322f33ca88f48"
+    },
+    {
+      "original": 2678,
+      "role": "prior_verification",
+      "sha256": "7e23023d7f22aca364c2a9f9b39dd46481bbc9086ac0670d6d1d0d13cccba414"
+    },
+    {
+      "original": 2678,
+      "role": "prior_registration",
+      "sha256": "3c603eea864621f7e11c0fb9c54ca88bd35124ae781f81de28f223601d16fa56"
+    },
+    {
+      "original": 2678,
+      "role": "prior_validation_manifest",
+      "sha256": "f091d98f33482166ca9a58308f67e0f2d2ac92cc9a729215c9797028ba6d6d12"
+    }
+  ],
+  "receipt_sha256": "b3bb5138a472a1bf4207c0b1eb81c242803355c1fd14a069bd996e439f96784a",
+  "state_sha256": "c17710e2ccfad9020c0c8e479f714e7341f11b5d9ad67f7293876766d55cedf4",
+  "successor_plan_sha256": "3bf532bc33ca53ce000424a208ed24e1dababee573651529f5ce66ef9249f8c4"
+}

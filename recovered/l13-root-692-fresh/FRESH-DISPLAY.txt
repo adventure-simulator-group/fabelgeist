@@ -1,0 +1,362 @@
+FRESH 2600 pr-working:crates/adventuresim-strategic-sim/src/lifecycle/runner/sampling.rs SCOPE [[1, 15]]
+0001 //! Lifecycle event sampling keyed by defined event sequence.
+0002 
+0003 use fabelgeist_determinism::Seed;
+0004 
+0005 pub(super) fn lifecycle_entropy(seed: Seed, domain: &str, ordinal: u64) -> u16 {
+0006     fabelgeist_determinism::Seed::derive(
+0007         &seed.to_le_bytes(),
+0008         fabelgeist_determinism::StreamId::new("simulation.lifecycle"),
+0009         &[domain.as_bytes(), &ordinal.to_le_bytes()],
+0010     )
+0011     .rng()
+0012     .index(usize::from(
+0013         adventuresim_world_schema::BASIS_POINTS_PER_WHOLE,
+0014     )) as u16
+0015 }
+FRESH 2601 dependency-serde_json1.0.151:src/de.rs SCOPE [[109, 142], [319, 359], [462, 529], [567, 674], [880, 913], [933, 959], [1341, 1362], [1505, 1515]]
+0109 pub(crate) enum ParserNumber {
+0110     F64(f64),
+0111     U64(u64),
+0112     I64(i64),
+0113     #[cfg(feature = "arbitrary_precision")]
+0114     String(String),
+0115 }
+0116 
+0117 impl ParserNumber {
+0118     fn visit<'de, V>(self, visitor: V) -> Result<V::Value>
+0119     where
+0120         V: de::Visitor<'de>,
+0121     {
+0122         match self {
+0123             ParserNumber::F64(x) => visitor.visit_f64(x),
+0124             ParserNumber::U64(x) => visitor.visit_u64(x),
+0125             ParserNumber::I64(x) => visitor.visit_i64(x),
+0126             #[cfg(feature = "arbitrary_precision")]
+0127             ParserNumber::String(x) => visitor.visit_map(NumberDeserializer { number: x.into() }),
+0128         }
+0129     }
+0130 
+0131     fn invalid_type(self, exp: &dyn Expected) -> Error {
+0132         match self {
+0133             ParserNumber::F64(x) => de::Error::invalid_type(Unexpected::Float(x), exp),
+0134             ParserNumber::U64(x) => de::Error::invalid_type(Unexpected::Unsigned(x), exp),
+0135             ParserNumber::I64(x) => de::Error::invalid_type(Unexpected::Signed(x), exp),
+0136             #[cfg(feature = "arbitrary_precision")]
+0137             ParserNumber::String(_) => de::Error::invalid_type(Unexpected::Other("number"), exp),
+0138         }
+0139     }
+0140 }
+0141 
+0142 impl<'de, R: Read<'de>> Deserializer<R> {
+0319     pub(crate) fn deserialize_number<'any, V>(&mut self, visitor: V) -> Result<V::Value>
+0320     where
+0321         V: de::Visitor<'any>,
+0322     {
+0323         let peek = match tri!(self.parse_whitespace()) {
+0324             Some(b) => b,
+0325             None => {
+0326                 return Err(self.peek_error(ErrorCode::EofWhileParsingValue));
+0327             }
+0328         };
+0329 
+0330         let value = match peek {
+0331             b'-' => {
+0332                 self.eat_char();
+0333                 tri!(self.parse_integer(false)).visit(visitor)
+0334             }
+0335             b'0'..=b'9' => tri!(self.parse_integer(true)).visit(visitor),
+0336             _ => Err(self.peek_invalid_type(&visitor)),
+0337         };
+0338 
+0339         match value {
+0340             Ok(value) => Ok(value),
+0341             Err(err) => Err(self.fix_position(err)),
+0342         }
+0343     }
+0344 
+0345     #[cfg(feature = "float_roundtrip")]
+0346     pub(crate) fn do_deserialize_f32<'any, V>(&mut self, visitor: V) -> Result<V::Value>
+0347     where
+0348         V: de::Visitor<'any>,
+0349     {
+0350         self.single_precision = true;
+0351         let val = self.deserialize_number(visitor);
+0352         self.single_precision = false;
+0353         val
+0354     }
+0355 
+0356     pub(crate) fn do_deserialize_i128<'any, V>(&mut self, visitor: V) -> Result<V::Value>
+0357     where
+0358         V: de::Visitor<'any>,
+0359     {
+0462     fn parse_integer(&mut self, positive: bool) -> Result<ParserNumber> {
+0463         let next = match tri!(self.next_char()) {
+0464             Some(b) => b,
+0465             None => {
+0466                 return Err(self.error(ErrorCode::EofWhileParsingValue));
+0467             }
+0468         };
+0469 
+0470         match next {
+0471             b'0' => {
+0472                 // There can be only one leading '0'.
+0473                 match tri!(self.peek_or_null()) {
+0474                     b'0'..=b'9' => Err(self.peek_error(ErrorCode::InvalidNumber)),
+0475                     _ => self.parse_number(positive, 0),
+0476                 }
+0477             }
+0478             c @ b'1'..=b'9' => {
+0479                 let mut significand = (c - b'0') as u64;
+0480 
+0481                 loop {
+0482                     match tri!(self.peek_or_null()) {
+0483                         c @ b'0'..=b'9' => {
+0484                             let digit = (c - b'0') as u64;
+0485 
+0486                             // We need to be careful with overflow. If we can,
+0487                             // try to keep the number as a `u64` until we grow
+0488                             // too large. At that point, switch to parsing the
+0489                             // value as a `f64`.
+0490                             if overflow!(significand * 10 + digit, u64::MAX) {
+0491                                 return Ok(ParserNumber::F64(tri!(
+0492                                     self.parse_long_integer(positive, significand),
+0493                                 )));
+0494                             }
+0495 
+0496                             self.eat_char();
+0497                             significand = significand * 10 + digit;
+0498                         }
+0499                         _ => {
+0500                             return self.parse_number(positive, significand);
+0501                         }
+0502                     }
+0503                 }
+0504             }
+0505             _ => Err(self.error(ErrorCode::InvalidNumber)),
+0506         }
+0507     }
+0508 
+0509     fn parse_number(&mut self, positive: bool, significand: u64) -> Result<ParserNumber> {
+0510         Ok(match tri!(self.peek_or_null()) {
+0511             b'.' => ParserNumber::F64(tri!(self.parse_decimal(positive, significand, 0))),
+0512             b'e' | b'E' => ParserNumber::F64(tri!(self.parse_exponent(positive, significand, 0))),
+0513             _ => {
+0514                 if positive {
+0515                     ParserNumber::U64(significand)
+0516                 } else {
+0517                     let neg = (significand as i64).wrapping_neg();
+0518 
+0519                     // Convert into a float if we underflow, or on `-0`.
+0520                     if neg >= 0 {
+0521                         ParserNumber::F64(-(significand as f64))
+0522                     } else {
+0523                         ParserNumber::I64(neg)
+0524                     }
+0525                 }
+0526             }
+0527         })
+0528     }
+0529 
+0567     fn parse_exponent(
+0568         &mut self,
+0569         positive: bool,
+0570         significand: u64,
+0571         starting_exp: i32,
+0572     ) -> Result<f64> {
+0573         self.eat_char();
+0574 
+0575         let positive_exp = match tri!(self.peek_or_null()) {
+0576             b'+' => {
+0577                 self.eat_char();
+0578                 true
+0579             }
+0580             b'-' => {
+0581                 self.eat_char();
+0582                 false
+0583             }
+0584             _ => true,
+0585         };
+0586 
+0587         let next = match tri!(self.next_char()) {
+0588             Some(b) => b,
+0589             None => {
+0590                 return Err(self.error(ErrorCode::EofWhileParsingValue));
+0591             }
+0592         };
+0593 
+0594         // Make sure a digit follows the exponent place.
+0595         let mut exp = match next {
+0596             c @ b'0'..=b'9' => (c - b'0') as i32,
+0597             _ => {
+0598                 return Err(self.error(ErrorCode::InvalidNumber));
+0599             }
+0600         };
+0601 
+0602         while let c @ b'0'..=b'9' = tri!(self.peek_or_null()) {
+0603             self.eat_char();
+0604             let digit = (c - b'0') as i32;
+0605 
+0606             if overflow!(exp * 10 + digit, i32::MAX) {
+0607                 let zero_significand = significand == 0;
+0608                 return self.parse_exponent_overflow(positive, zero_significand, positive_exp);
+0609             }
+0610 
+0611             exp = exp * 10 + digit;
+0612         }
+0613 
+0614         let final_exp = if positive_exp {
+0615             starting_exp.saturating_add(exp)
+0616         } else {
+0617             starting_exp.saturating_sub(exp)
+0618         };
+0619 
+0620         self.f64_from_parts(positive, significand, final_exp)
+0621     }
+0622 
+0623     #[cfg(feature = "float_roundtrip")]
+0624     fn f64_from_parts(&mut self, positive: bool, significand: u64, exponent: i32) -> Result<f64> {
+0625         let f = if self.single_precision {
+0626             lexical::parse_concise_float::<f32>(significand, exponent) as f64
+0627         } else {
+0628             lexical::parse_concise_float::<f64>(significand, exponent)
+0629         };
+0630 
+0631         if f.is_infinite() {
+0632             Err(self.error(ErrorCode::NumberOutOfRange))
+0633         } else {
+0634             Ok(if positive { f } else { -f })
+0635         }
+0636     }
+0637 
+0638     #[cfg(not(feature = "float_roundtrip"))]
+0639     fn f64_from_parts(
+0640         &mut self,
+0641         positive: bool,
+0642         significand: u64,
+0643         mut exponent: i32,
+0644     ) -> Result<f64> {
+0645         let mut f = significand as f64;
+0646         loop {
+0647             match POW10.get(exponent.wrapping_abs() as usize) {
+0648                 Some(&pow) => {
+0649                     if exponent >= 0 {
+0650                         f *= pow;
+0651                         if f.is_infinite() {
+0652                             return Err(self.error(ErrorCode::NumberOutOfRange));
+0653                         }
+0654                     } else {
+0655                         f /= pow;
+0656                     }
+0657                     break;
+0658                 }
+0659                 None => {
+0660                     if f == 0.0 {
+0661                         break;
+0662                     }
+0663                     if exponent >= 0 {
+0664                         return Err(self.error(ErrorCode::NumberOutOfRange));
+0665                     }
+0666                     f /= 1e308;
+0667                     exponent += 308;
+0668                 }
+0669             }
+0670         }
+0671         Ok(if positive { f } else { -f })
+0672     }
+0673 
+0674     #[cfg(feature = "float_roundtrip")]
+0880         integer_end: usize,
+0881         exponent: i32,
+0882     ) -> Result<f64> {
+0883         let integer = &self.scratch[..integer_end];
+0884         let fraction = &self.scratch[integer_end..];
+0885 
+0886         let f = if self.single_precision {
+0887             lexical::parse_truncated_float::<f32>(integer, fraction, exponent) as f64
+0888         } else {
+0889             lexical::parse_truncated_float::<f64>(integer, fraction, exponent)
+0890         };
+0891 
+0892         if f.is_infinite() {
+0893             Err(self.error(ErrorCode::NumberOutOfRange))
+0894         } else {
+0895             Ok(if positive { f } else { -f })
+0896         }
+0897     }
+0898 
+0899     fn parse_any_signed_number(&mut self) -> Result<ParserNumber> {
+0900         let peek = match tri!(self.peek()) {
+0901             Some(b) => b,
+0902             None => {
+0903                 return Err(self.peek_error(ErrorCode::EofWhileParsingValue));
+0904             }
+0905         };
+0906 
+0907         let value = match peek {
+0908             b'-' => {
+0909                 self.eat_char();
+0910                 self.parse_any_number(false)
+0911             }
+0912             b'0'..=b'9' => self.parse_any_number(true),
+0913             _ => Err(self.peek_error(ErrorCode::InvalidNumber)),
+0933     fn parse_any_number(&mut self, positive: bool) -> Result<ParserNumber> {
+0934         self.parse_integer(positive)
+0935     }
+0936 
+0937     #[cfg(feature = "arbitrary_precision")]
+0938     fn parse_any_number(&mut self, positive: bool) -> Result<ParserNumber> {
+0939         let mut buf = String::with_capacity(16);
+0940         if !positive {
+0941             buf.push('-');
+0942         }
+0943         tri!(self.scan_integer(&mut buf));
+0944         if positive {
+0945             if let Ok(unsigned) = buf.parse() {
+0946                 return Ok(ParserNumber::U64(unsigned));
+0947             }
+0948         } else {
+0949             if let Ok(signed) = buf.parse() {
+0950                 return Ok(ParserNumber::I64(signed));
+0951             }
+0952         }
+0953         Ok(ParserNumber::String(buf))
+0954     }
+0955 
+0956     #[cfg(feature = "arbitrary_precision")]
+0957     fn scan_or_eof(&mut self, buf: &mut String) -> Result<u8> {
+0958         match tri!(self.next_char()) {
+0959             Some(b) => {
+1341 macro_rules! deserialize_number {
+1342     ($method:ident) => {
+1343         deserialize_number!($method, deserialize_number);
+1344     };
+1345 
+1346     ($method:ident, $using:ident) => {
+1347         fn $method<V>(self, visitor: V) -> Result<V::Value>
+1348         where
+1349             V: de::Visitor<'de>,
+1350         {
+1351             self.$using(visitor)
+1352         }
+1353     };
+1354 }
+1355 
+1356 #[cfg(not(feature = "unbounded_depth"))]
+1357 macro_rules! if_checking_recursion_limit {
+1358     ($($body:tt)*) => {
+1359         $($body)*
+1360     };
+1361 }
+1362 
+1505     deserialize_number!(deserialize_u16);
+1506     deserialize_number!(deserialize_u32);
+1507     deserialize_number!(deserialize_u64);
+1508     #[cfg(not(feature = "float_roundtrip"))]
+1509     deserialize_number!(deserialize_f32);
+1510     deserialize_number!(deserialize_f64);
+1511 
+1512     #[cfg(feature = "float_roundtrip")]
+1513     deserialize_number!(deserialize_f32, do_deserialize_f32);
+1514     deserialize_number!(deserialize_i128, do_deserialize_i128);
+1515     deserialize_number!(deserialize_u128, do_deserialize_u128);

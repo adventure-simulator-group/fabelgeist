@@ -1,0 +1,78 @@
+{
+  "schema": "726-root-l2-prospective-source-registration-v1",
+  "registered_at": "2026-11-02T17:14:00.245762+00:00",
+  "author": "/root",
+  "lens": 2,
+  "prospective": true,
+  "base_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "b36b1f0bf97a9af07b62f452b9906bcc8ace100151522102d2b4ce04c498df39"
+  },
+  "selected_l2_state": {
+    "path": "segovb/STATE-L2-EXT-CURRENT-015.json",
+    "sha256": "cd3dcd9b27ecd2fa4f108004b85031716389d163b41f28c6f9eb11dc803fefd8"
+  },
+  "prior_scoped_read": {
+    "path": "adler-continuation-20261030/READ-ROOT-L2-ITEM-VALIDATION-REMAINDER-001.json",
+    "sha256": "e3f3fb10a0338dd14685888b0c877780386dac93f86971c10299f18658a40e4a"
+  },
+  "sources": [
+    {
+      "source_id": "current-337:crates/adventuresim-stdb-module/src/tactical.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-stdb-module/src/tactical.rs",
+      "source_sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "source_object": "adler-continuation-20261030/objects/82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "bytes": 53585,
+      "actual_EOF": 1515,
+      "ranges": [
+        [
+          405,
+          424
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 20
+    },
+    {
+      "source_id": "current-337:crates/adventuresim-stdb-module/src/item.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-stdb-module/src/item.rs",
+      "source_sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "source_object": "adler-continuation-20261030/objects/68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "bytes": 34605,
+      "actual_EOF": 957,
+      "ranges": [
+        [
+          291,
+          321
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 31
+    },
+    {
+      "source_id": "current-337:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "source_sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "source_object": "adler-continuation-20261030/objects/53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "bytes": 132880,
+      "actual_EOF": 3497,
+      "ranges": [
+        [
+          910,
+          935
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 26
+    }
+  ],
+  "fresh_lines_registered": 0,
+  "uncredited_total_source_lines_registered": 77,
+  "purpose": "Bounded own-L2 catalog validation helper, existing-owner and producer/consumer qualification. All lines uncredited; no full-family/global/current-delta closure, no inherited-author relabelling or other-lens verdict transfer."
+}

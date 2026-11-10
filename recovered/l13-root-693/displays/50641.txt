@@ -1,0 +1,222 @@
+SOURCE 2610 pr-working:crates/fabelgeist-armor/src/helmets.rs
+1: //! Helmet families have their own construction and style controls. A barbute's
+2: //! integrated face opening is deliberately distinct from a burgonet's peak and
+3: //! separate cheek plates; a visor is a separate solid with a real sight gap.
+4: 
+5: #[path = "helmets_close_design.rs"]
+6: mod close_design;
+7: #[path = "helmets_visor_domain.rs"]
+8: pub(crate) mod visor_domain;
+9: pub use close_design::CloseHelmetDesign;
+10: #[path = "visor_breaths.rs"]
+11: mod breaths;
+12: pub use breaths::{SlotInclination, VentSides, VisorBreaths};
+13: #[path = "helmets_buffe.rs"]
+14: mod buffe;
+15: pub use buffe::{BuffeCourses, BuffeDesign};
+16: 
+17: use serde::{Deserialize, Serialize};
+18: 
+19: use crate::{DesignError, Millimeters, Permille};
+20: 
+21: /// Shared fit controls in physical units. The frame describes the bare head.
+22: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+23: pub struct HelmetFit {
+24:     pub clearance: Millimeters,
+25:     pub wall_thickness: Millimeters,
+26:     /// Skull dome height relative to the upper half of the wearer's head.
+27:     pub crown_height: Permille,
+28: }
+29: 
+30: impl Default for HelmetFit {
+31:     fn default() -> Self {
+32:         Self {
+33:             clearance: Millimeters(12),
+34:             wall_thickness: Millimeters(2),
+35:             crown_height: Permille(1050),
+36:         }
+37:     }
+38: }
+39: 
+40: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+41: pub struct MorionDesign {
+42:     pub front_reach: Permille,
+43:     pub back_reach: Permille,
+44:     pub back_sweep: Permille,
+45:     pub crown: crate::HelmetCrown,
+46:     pub fit: HelmetFit,
+47:     pub brim_width: Millimeters,
+48:     pub brim_sweep: Millimeters,
+49:     pub comb_height: Millimeters,
+50: }
+51: 
+52: impl Default for MorionDesign {
+53:     fn default() -> Self {
+54:         Self {
+55:             front_reach: Permille(1250),
+56:             back_reach: Permille(1250),
+57:             back_sweep: Permille(1000),
+58:             crown: crate::HelmetCrown::default(),
+59:             fit: HelmetFit::default(),
+60:             brim_width: Millimeters(35),
+61:             brim_sweep: Millimeters(38),
+62:             comb_height: Millimeters(75),
+63:         }
+64:     }
+65: }
+66: 
+67: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+68: pub struct KettleHatDesign {
+69:     pub crown: crate::HelmetCrown,
+70:     pub fit: HelmetFit,
+71:     pub brim_width: Millimeters,
+72:     pub brim_drop: Millimeters,
+73: }
+74: 
+75: impl Default for KettleHatDesign {
+76:     fn default() -> Self {
+77:         Self {
+78:             crown: crate::HelmetCrown::default(),
+79:             fit: HelmetFit::default(),
+80:             brim_width: Millimeters(55),
+81:             brim_drop: Millimeters(8),
+82:         }
+83:     }
+84: }
+85: 
+86: /// Eye and mouth apertures are independent, allowing T and open Y outlines.
+87: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+88: pub struct BarbuteDesign {
+89:     pub rear_edge_lift: Millimeters,
+90:     pub eye_height: Millimeters,
+91:     pub opening_roundness: Permille,
+92:     pub chin_taper: Permille,
+93:     pub nape_flare: Millimeters,
+94:     pub crown: crate::HelmetCrown,
+95:     pub fit: HelmetFit,
+96:     pub eye_opening: crate::Milliradians,
+97:     pub mouth_opening: crate::Milliradians,
+98:     pub cheek_depth: Permille,
+99: }
+100: 
+101: impl Default for BarbuteDesign {
+102:     fn default() -> Self {
+103:         Self {
+104:             rear_edge_lift: Millimeters(20),
+105:             eye_height: Millimeters(28),
+106:             opening_roundness: Permille(650),
+107:             chin_taper: Permille(840),
+108:             nape_flare: Millimeters(3),
+109:             crown: crate::HelmetCrown::default(),
+110:             fit: HelmetFit::default(),
+111:             eye_opening: crate::Milliradians(700),
+112:             mouth_opening: crate::Milliradians(210),
+113:             cheek_depth: Permille(930),
+114:         }
+115:     }
+116: }
+117: 
+118: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+119: pub struct BurgonetDesign {
+120:     pub buffe: Option<BuffeDesign>,
+121:     /// Fraction of the nape covered by a separate overlapping neck guard.
+122:     pub neck_guard_fraction: Permille,
+123:     pub chin_tab: Millimeters,
+124:     pub nape_depth: Permille,
+125:     pub nape_taper: Permille,
+126:     /// Fore-aft neck constriction, independent of lateral neck width.
+127:     pub nape_recession: Millimeters,
+128:     pub cheek_fluting: Option<crate::PlateFluting>,
+129:     pub cheek_width: Permille,
+130:     pub cheek_taper: Permille,
+131:     pub peak_drop: Millimeters,
+132:     /// Central rise of the peak, independent of its downward pitch.
+133:     pub peak_rise: Millimeters,
+134:     pub crown: crate::HelmetCrown,
+135:     pub fit: HelmetFit,
+136:     pub peak_length: Millimeters,
+137:     pub comb_height: Millimeters,
+138:     pub cheek_depth: Permille,
+139:     pub neck_flare: Millimeters,
+140: }
+141: 
+142: impl Default for BurgonetDesign {
+143:     fn default() -> Self {
+144:         Self {
+145:             buffe: None,
+146:             neck_guard_fraction: Permille(400),
+147:             chin_tab: Millimeters(20),
+148:             nape_depth: Permille(920),
+149:             nape_taper: Permille(880),
+150:             nape_recession: Millimeters(12),
+151:             cheek_fluting: None,
+152:             cheek_width: Permille(1000),
+153:             cheek_taper: Permille(900),
+154:             peak_drop: Millimeters(6),
+155:             peak_rise: Millimeters(0),
+156:             crown: crate::HelmetCrown::default(),
+157:             fit: HelmetFit::default(),
+158:             peak_length: Millimeters(38),
+159:             comb_height: Millimeters(30),
+160:             cheek_depth: Permille(1050),
+161:             neck_flare: Millimeters(22),
+162:         }
+163:     }
+164: }
+165: 
+166: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+167: pub struct SalletDesign {
+168:     /// Raises the posterior skirt independently of the face-side coverage.
+169:     pub rear_edge_lift: Millimeters,
+170:     /// Half of the frontal opening angle, in thousandths of a radian.
+171:     pub opening_width: crate::Milliradians,
+172:     pub opening_sweep: Permille,
+173:     pub cheek_depth: Permille,
+174:     pub tail_width: Permille,
+175:     pub crown: crate::HelmetCrown,
+176:     pub fit: HelmetFit,
+177:     pub tail_length: Millimeters,
+178:     pub tail_drop: Millimeters,
+179:     pub brow_projection: Millimeters,
+180: }
+181: 
+182: impl Default for SalletDesign {
+183:     fn default() -> Self {
+184:         Self {
+185:             rear_edge_lift: Millimeters(0),
+186:             cheek_depth: Permille(550),
+187:             opening_width: crate::Milliradians(1047),
+188:             opening_sweep: Permille(600),
+189:             tail_width: Permille(1000),
+190:             crown: crate::HelmetCrown::default(),
+191:             fit: HelmetFit::default(),
+192:             tail_length: Millimeters(70),
+193:             tail_drop: Millimeters(25),
+194:             brow_projection: Millimeters(8),
+195:         }
+196:     }
+197: }
+198: 
+199: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+200: pub struct VisoredSalletDesign {
+201:     pub visor_height: Millimeters,
+202:     /// Height retained by the side panel below the rising pivot attachment.
+203:     pub side_panel: Permille,
+204:     pub pivot_rise: Millimeters,
+205:     pub skull: SalletDesign,
+206:     pub visor_projection: Millimeters,
+207:     pub sight_gap: Millimeters,
+208: }
+209: 
+210: impl Default for VisoredSalletDesign {
+211:     fn default() -> Self {
+212:         Self {
+213:             visor_height: Millimeters(55),
+214:             side_panel: Permille(800),
+215:             pivot_rise: Millimeters(45),
+216:             skull: SalletDesign::default(),
+217:             visor_projection: Millimeters(12),
+218:             sight_gap: Millimeters(8),
+219:         }
+220:     }
+221: }

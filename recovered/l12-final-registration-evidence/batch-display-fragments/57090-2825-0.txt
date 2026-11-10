@@ -1,0 +1,37 @@
+681:         let currency_id = crate::item::settlement_currency_id(&settlement.id).to_string();
+682:         let row = Settlement {
+683:             id: settlement.id,
+684:             name: settlement.name,
+685:             coord_x: settlement.longitude,
+686:             coord_y: settlement.latitude,
+687:             population_level: settlement.population_level,
+688:             population_estimate: settlement.population_estimate,
+689:             category: settlement_category(
+690:                 settlement.population_estimate,
+691:                 settlement.population_level,
+692:             ),
+693:             elevation,
+694:             land_use,
+695:             forest_cover,
+696:             potential_vegetation,
+697:             historical_vegetation,
+698:             tree_species,
+699:             soil,
+700:             geology,
+701:             scene_key: settlement.scene_key,
+702:             religion_id: settlement.religious_status.church().religion_id().into(),
+703:             currency_id,
+704:             religious_status: settlement.religious_status,
+705:             languages: settlement.languages,
+706:             drought,
+707:             hydrology: settlement.hydrology,
+708:             industries: settlement.industries,
+709:             economy: settlement.economy,
+710:             source_node_id: Some(settlement.source_node_id),
+711:             sources: settlement.sources,
+712:         };
+713:         if ctx.db.settlement().id().find(&row.id).is_some() {
+714:             ctx.db.settlement().id().update(row);
+715:         } else {
+716:             ctx.db.settlement().insert(row);
+717:         }

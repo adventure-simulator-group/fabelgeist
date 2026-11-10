@@ -1,0 +1,303 @@
+{
+  "schema": "726-profile-source-display-trace-v1",
+  "qualification": "Filtered recorded source displays match pinned source except explicitly identified replacement-character lines. Occurrences can overlap; no new credit or runtime acceptance.",
+  "chunks": [
+    {
+      "chunk_id": "1255ef",
+      "recorded_at": "2026-11-02T10:06:36.746Z",
+      "fragment": "fragments/1255ef.txt",
+      "sha256": "f99b1eed7b0ba4975ad695acb285dcbf73eee1eb98ecd127c2540166425365db",
+      "scopes": [
+        {
+          "packet_sha256": "fe3c91d4ceb4659337bf7e5b80332a933aa93ffe2c40f7f1b12c0b568798f635",
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer_main.rs",
+          "source_sha256": "c47317c7b2aa4afb18ac097c828f3b3bdd0c38bb2e52312dccbdc8b66bf80f69",
+          "ranges": [
+            [
+              1,
+              206
+            ]
+          ]
+        },
+        {
+          "packet_sha256": "fe3c91d4ceb4659337bf7e5b80332a933aa93ffe2c40f7f1b12c0b568798f635",
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+          "source_sha256": "3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+          "ranges": [
+            [
+              1,
+              186
+            ]
+          ]
+        },
+        {
+          "packet_sha256": "fe3c91d4ceb4659337bf7e5b80332a933aa93ffe2c40f7f1b12c0b568798f635",
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+          "source_sha256": "c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2",
+          "ranges": [
+            [
+              1,
+              132
+            ]
+          ]
+        }
+      ],
+      "line_occurrences": 524,
+      "display_differences": []
+    },
+    {
+      "chunk_id": "25d050",
+      "recorded_at": "2026-11-02T10:12:09.064Z",
+      "fragment": "fragments/25d050.txt",
+      "sha256": "1f50dd2eac0b7f07b12c63ed24bb23dae4d8c579c4de1cdc13785839c97db86f",
+      "scopes": [
+        {
+          "packet_sha256": "a263acf548c30466b1ef9b265faa6671760f4befef06d41b75cbf49991e2b557",
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/city_capture.rs",
+          "source_sha256": "0c29ec29fbd66e1990af24207697a0f3c11610bbf2027623f2d4989288e4d7e8",
+          "ranges": [
+            [
+              1,
+              80
+            ]
+          ]
+        },
+        {
+          "packet_sha256": "a263acf548c30466b1ef9b265faa6671760f4befef06d41b75cbf49991e2b557",
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_capture.rs",
+          "source_sha256": "5b18a1ddb04059c6126b350b2df16288411ef3402b2573d661ab0bafcb582ea5",
+          "ranges": [
+            [
+              1,
+              100
+            ]
+          ]
+        }
+      ],
+      "line_occurrences": 180,
+      "display_differences": []
+    },
+    {
+      "chunk_id": "3d7a28",
+      "recorded_at": "2026-11-02T10:06:52.135Z",
+      "fragment": "fragments/3d7a28.txt",
+      "sha256": "c0ea33a1a1e6d6d5c510b087ef665e77f92cb749c62b1eec7bb6099a17c5d85c",
+      "scopes": [
+        {
+          "packet_sha256": "fe3c91d4ceb4659337bf7e5b80332a933aa93ffe2c40f7f1b12c0b568798f635",
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+          "source_sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+          "ranges": [
+            [
+              1600,
+              1665
+            ],
+            [
+              2420,
+              2480
+            ],
+            [
+              3130,
+              3160
+            ],
+            [
+              3655,
+              3835
+            ],
+            [
+              4100,
+              4126
+            ]
+          ]
+        }
+      ],
+      "line_occurrences": 366,
+      "display_differences": []
+    },
+    {
+      "chunk_id": "a6062e",
+      "recorded_at": "2026-11-02T10:12:13.506Z",
+      "fragment": "fragments/a6062e.txt",
+      "sha256": "1a74854627770b3484f8caa72be59e2ef82d3513018e213e0e9cdd07520ba529",
+      "scopes": [
+        {
+          "packet_sha256": "a263acf548c30466b1ef9b265faa6671760f4befef06d41b75cbf49991e2b557",
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_capture.rs",
+          "source_sha256": "bce910fe4144f1301ece257fd3e0a1b333d4f4e61ae2908f796f4e4e72faa933",
+          "ranges": [
+            [
+              1,
+              80
+            ]
+          ]
+        },
+        {
+          "packet_sha256": "a263acf548c30466b1ef9b265faa6671760f4befef06d41b75cbf49991e2b557",
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs",
+          "source_sha256": "bcaff9a888ddff154b19d741d428659d595446dbb78e29938811c169810b6738",
+          "ranges": [
+            [
+              200,
+              265
+            ]
+          ]
+        },
+        {
+          "packet_sha256": "a263acf548c30466b1ef9b265faa6671760f4befef06d41b75cbf49991e2b557",
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/catalog.rs",
+          "source_sha256": "e02b7ac3ba7478629a9233a5790f4c54e8f1d2f20d859926fd2c804a87759cd1",
+          "ranges": [
+            [
+              1,
+              35
+            ]
+          ]
+        }
+      ],
+      "line_occurrences": 181,
+      "display_differences": []
+    },
+    {
+      "chunk_id": "a6a931",
+      "recorded_at": "2026-11-02T10:07:05.836Z",
+      "fragment": "fragments/a6a931.txt",
+      "sha256": "2d9b40a936bf3e3e9676b0d9723c2696e58967d3fba6d5ff9958d91c360e8af8",
+      "scopes": [
+        {
+          "packet_sha256": "a263acf548c30466b1ef9b265faa6671760f4befef06d41b75cbf49991e2b557",
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_resolution.rs",
+          "source_sha256": "9a666b81058f7de3538f158dac1c48a0d09280839f879f80de70c70abf967bd7",
+          "ranges": [
+            [
+              1,
+              63
+            ]
+          ]
+        },
+        {
+          "packet_sha256": "a263acf548c30466b1ef9b265faa6671760f4befef06d41b75cbf49991e2b557",
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_readiness.rs",
+          "source_sha256": "8f349e6bcd0e513f6a77a8b70f6957051ba93b126b1d2f6a6fe384e2ee035ab3",
+          "ranges": [
+            [
+              1,
+              160
+            ]
+          ]
+        },
+        {
+          "packet_sha256": "a263acf548c30466b1ef9b265faa6671760f4befef06d41b75cbf49991e2b557",
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/fixed_city_cameras.rs",
+          "source_sha256": "116ed503cb72625c577fd02ecf334fc72a8e6968aee36fe97cf6fdd82ac725df",
+          "ranges": [
+            [
+              1,
+              232
+            ]
+          ]
+        }
+      ],
+      "line_occurrences": 455,
+      "display_differences": [
+        {
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/fixed_city_cameras.rs",
+          "line": 44,
+          "reason": "recorded display contains Unicode replacement character"
+        }
+      ]
+    },
+    {
+      "chunk_id": "baf31c",
+      "recorded_at": "2026-11-02T10:13:18.886Z",
+      "fragment": "fragments/baf31c.txt",
+      "sha256": "c1a51b5c2ea55f9371d5d52b9d132a2f25a292b8f490538737b6851ffdded6fe",
+      "scopes": [
+        {
+          "packet_sha256": "f6f25111d0541a4c4b984687d728633da8212dc451a768e8d3ac55c70d581bc4",
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+          "source_sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+          "ranges": [
+            [
+              1715,
+              1745
+            ],
+            [
+              1820,
+              1850
+            ]
+          ]
+        },
+        {
+          "packet_sha256": "f6f25111d0541a4c4b984687d728633da8212dc451a768e8d3ac55c70d581bc4",
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/triangle_census.rs",
+          "source_sha256": "9f32fafdb5d230e4220d8fef7f9dee75b369f8f55d282708b73d55524f2bc7a5",
+          "ranges": [
+            [
+              255,
+              285
+            ]
+          ]
+        }
+      ],
+      "line_occurrences": 93,
+      "display_differences": []
+    },
+    {
+      "chunk_id": "e143e1",
+      "recorded_at": "2026-11-02T10:06:42.750Z",
+      "fragment": "fragments/e143e1.txt",
+      "sha256": "483343b8265659bad6a34226f841d140d7908569078324997f566b63278e606b",
+      "scopes": [
+        {
+          "packet_sha256": "fe3c91d4ceb4659337bf7e5b80332a933aa93ffe2c40f7f1b12c0b568798f635",
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+          "source_sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+          "ranges": [
+            [
+              129,
+              145
+            ],
+            [
+              762,
+              919
+            ],
+            [
+              1118,
+              1200
+            ],
+            [
+              1240,
+              1340
+            ]
+          ]
+        }
+      ],
+      "line_occurrences": 359,
+      "display_differences": []
+    },
+    {
+      "chunk_id": "f92890",
+      "recorded_at": "2026-11-02T10:12:18.192Z",
+      "fragment": "fragments/f92890.txt",
+      "sha256": "a969deb580f62c26e8d92470c39ac88ae961049db4f4e759cbcc595cc22d1631",
+      "scopes": [
+        {
+          "packet_sha256": "a263acf548c30466b1ef9b265faa6671760f4befef06d41b75cbf49991e2b557",
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/manifest.rs",
+          "source_sha256": "d5ced13275995ed15eb02c87b8889992a0e5a2070e752a05c3bed45505651f92",
+          "ranges": [
+            [
+              215,
+              430
+            ]
+          ]
+        }
+      ],
+      "line_occurrences": 216,
+      "display_differences": []
+    }
+  ],
+  "packet_count": 3,
+  "line_occurrences": 2374,
+  "replacement_character_lines": 1
+}

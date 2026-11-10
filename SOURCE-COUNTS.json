@@ -1,0 +1,27 @@
+{
+  "schema": "726-source-counts-v1",
+  "qualification": "Counts are deduplicated within the listed manifests by exact revision/path/hash or blob hash. They are historical source evidence, not audit coverage, unique findings or final authority.",
+  "git_manifest_collections": [
+    "registered-source-objects",
+    "printed-source-identities",
+    "supplemental-registration-sources",
+    "frontier-source-trace",
+    "terminal-source-trace",
+    "raw-output-git-sources",
+    "alternate-output-git-sources"
+  ],
+  "git_identity_count": 786,
+  "git_blob_count": 691,
+  "git_identity_set_sha256": "180d469e2d2fe136b8cf05825cc319e82c8f779513eb599e9739e39d04c6277e",
+  "preserved_dependency_collections": [
+    "native-bevy-source-objects",
+    "native-archive-source-objects",
+    "native-tangent-source-objects",
+    "printed-native-source-objects",
+    "raw-output-native-source-objects",
+    "partial-output-native-source-objects",
+    "raw-output-external-sources"
+  ],
+  "preserved_dependency_blob_count": 83,
+  "git_and_dependency_blob_overlap": 0
+}

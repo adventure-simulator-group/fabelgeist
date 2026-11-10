@@ -1,0 +1,230 @@
+SOURCE 2656 pr-working:crates/fabelgeist-numpy-storage/src/npz.rs
+1: //! `.npz` archive reading (a zip of `.npy` members).
+2: //!
+3: //! `np.savez` writes stored members and `np.savez_compressed` writes deflated
+4: //! ones; both are handled, as is zip64, which NumPy emits for large arrays. The
+5: //! archive plumbing itself lives in [`crate::zip`].
+6: 
+7: use std::path::Path;
+8: 
+9: use anyhow::{Context, Result};
+10: 
+11: use crate::npy::{self, NpyArray};
+12: use crate::zip::ZipArchive;
+13: 
+14: /// A memory-mapped `.npz` archive.
+15: pub struct Npz {
+16:     archive: ZipArchive,
+17: }
+18: 
+19: impl Npz {
+20:     pub fn open(path: impl AsRef<Path>) -> Result<Self> {
+21:         Ok(Self {
+22:             archive: ZipArchive::open(path)?,
+23:         })
+24:     }
+25: 
+26:     /// Opens an archive already loaded in memory, for browser and streamed assets.
+27:     pub fn from_bytes(bytes: Vec<u8>) -> Result<Self> {
+28:         Ok(Self {
+29:             archive: ZipArchive::from_bytes(bytes)?,
+30:         })
+31:     }
+32: 
+33:     /// Member names, as stored (NumPy keeps the `.npy` suffix).
+34:     pub fn names(&self) -> impl Iterator<Item = &str> {
+35:         self.archive.names()
+36:     }
+37: 
+38:     /// Array names, with the `.npy` suffix stripped.
+39:     pub fn keys(&self) -> impl Iterator<Item = &str> {
+40:         self.names()
+41:             .map(|name| name.strip_suffix(".npy").unwrap_or(name))
+42:     }
+43: 
+44:     pub fn contains(&self, name: &str) -> bool {
+45:         self.archive.find(|member| matches(member, name)).is_some()
+46:     }
+47: 
+48:     /// Size of a member once decoded, without decoding it.
+49:     pub fn uncompressed_size(&self, name: &str) -> Option<u64> {
+50:         self.archive
+51:             .find(|member| matches(member, name))
+52:             .and_then(|entry| self.archive.uncompressed_size(&entry.name))
+53:     }
+54: 
+55:     /// Decodes one member. The `.npy` suffix is optional.
+56:     pub fn array(&self, name: &str) -> Result<NpyArray> {
+57:         let entry = self
+58:             .archive
+59:             .find(|member| matches(member, name))
+60:             .with_context(|| format!("archive has no member {name:?}"))?;
+61:         let bytes = self.archive.entry_bytes(entry)?;
+62:         npy::parse(&bytes).with_context(|| format!("reading array {name:?}"))
+63:     }
+64: }
+65: 
+66: fn matches(member: &str, name: &str) -> bool {
+67:     member == name || member.strip_suffix(".npy") == Some(name)
+68: }
+69: 
+SOURCE 2657 pr-working:crates/fabelgeist-garment-fit/src/pose.rs
+1: //! Where the garment sits on the body, before it is let go.
+2: //!
+3: //! A pattern places its own panels: every `PanelSpec` carries a translation
+4: //! and a rotation, and those are what put a sleeve beside an arm and a back
+5: //! panel behind a back. What the pattern cannot know is the body. It was
+6: //! drawn for a set of measurements, and the mesh it is draped on is matched
+7: //! to those by height alone -- so a garment can start a few centimetres too
+8: //! low, facing the wrong way, or with a panel run through a limb. No amount
+9: //! of simulation recovers from that: the first substep only makes it
+10: //! permanent.
+11: //!
+12: //! This is the adjustment, and it is made in **body space** -- the solver's
+13: //! own frame, metres, +Y up, the body standing with its feet at the origin
+14: //! and +Z the way the pattern's front panels face. A [`GarmentPose`] is one
+15: //! rigid [`Move`] for the whole garment, plus one per panel for the pieces
+16: //! the whole-garment move cannot fix on its own.
+17: //!
+18: //! Rigid on purpose. Every rest length, bending weight and particle mass in a
+19: //! `GarmentMesh` was measured from its placed positions, so a move that
+20: //! preserves distances leaves all of them correct, and the garment can be
+21: //! re-placed without being meshed again -- which is what lets a slider show
+22: //! its answer at once rather than after a rebuild. A scale could not: it
+23: //! would stretch the fabric's own rest shape, which is a change to the
+24: //! pattern rather than to where the pattern is worn.
+25: 
+26: use std::ops::Range;
+27: 
+28: use fabelgeist_cloth::GarmentMesh;
+29: use fabelgeist_cloth::garment::rotate_xyz;
+30: use fabelgeist_math::Vec3;
+31: 
+32: use super::CM_TO_M;
+33: 
+34: /// A rigid move in body space: a turn about a pivot, then an offset.
+35: #[derive(Clone, Copy, Debug, Default, PartialEq)]
+36: pub struct Move {
+37:     /// Metres.
+38:     pub offset: Vec3,
+39:     /// Degrees about the vertical axis -- the turn that puts a garment on
+40:     /// back to front, and the one that takes it off again.
+41:     pub yaw: f32,
+42:     /// Degrees about the left-right axis.
+43:     pub pitch: f32,
+44:     /// Degrees about the front-back axis.
+45:     pub roll: f32,
+46: }
+47: 
+48: impl Move {
+49:     pub const IDENTITY: Self = Self {
+50:         offset: Vec3 {
+51:             x: 0.0,
+52:             y: 0.0,
+53:             z: 0.0,
+54:         },
+55:         yaw: 0.0,
+56:         pitch: 0.0,
+57:         roll: 0.0,
+58:     };
+59: 
+60:     pub fn is_identity(&self) -> bool {
+61:         *self == Self::IDENTITY
+62:     }
+63: 
+64:     /// Apply the move to one point, turning it about `pivot`.
+65:     pub fn apply(&self, point: Vec3, pivot: Vec3) -> Vec3 {
+66:         // `rotate_xyz` is the order the pattern format itself uses -- X, then
+67:         // Y, then Z -- reused rather than reimplemented, so that a panel
+68:         // nudged here turns the same way as a panel placed by the pattern.
+69:         rotate_xyz(point - pivot, Vec3::new(self.pitch, self.yaw, self.roll)) + pivot + self.offset
+70:     }
+71: }
+72: 
+73: /// One of the six numbers a [`Move`] is made of, as a control.
+74: ///
+75: /// The point of naming them is that the interface can be a loop rather than
+76: /// six near-identical blocks, and that the units live in one place: a shift
+77: /// is read and written in centimetres, which is what a sewing pattern is
+78: /// drawn in, while the solver keeps metres.
+79: #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+80: pub enum Axis {
+81:     Sideways,
+82:     Vertical,
+83:     Depth,
+84:     Yaw,
+85:     Pitch,
+86:     Roll,
+87: }
+88: 
+89: impl Axis {
+90:     pub const ALL: [Axis; 6] = [
+91:         Axis::Sideways,
+92:         Axis::Vertical,
+93:         Axis::Depth,
+94:         Axis::Yaw,
+95:         Axis::Pitch,
+96:         Axis::Roll,
+97:     ];
+98: 
+99:     pub fn label(self) -> &'static str {
+100:         match self {
+101:             Axis::Sideways => "Left / right",
+102:             Axis::Vertical => "Up / down",
+103:             Axis::Depth => "Front / back",
+104:             Axis::Yaw => "Turn",
+105:             Axis::Pitch => "Tip",
+106:             Axis::Roll => "Lean",
+107:         }
+108:     }
+109: 
+110:     pub fn is_angle(self) -> bool {
+111:         matches!(self, Axis::Yaw | Axis::Pitch | Axis::Roll)
+112:     }
+113: 
+114:     pub fn unit(self) -> &'static str {
+116:     }
+117: 
+118:     /// How far the control travels either side of zero.
+119:     ///
+120:     /// A turn goes all the way round, because facing the wrong way is a whole
+121:     /// half-turn wrong. Tipping and leaning do not: past about a quarter turn
+122:     /// a garment is not being placed on a body any more.
+123:     pub fn limit(self) -> f32 {
+124:         match self {
+125:             Axis::Yaw => 180.0,
+126:             Axis::Pitch | Axis::Roll => 45.0,
+127:             _ => 40.0,
+128:         }
+129:     }
+130: 
+131:     pub fn step(self) -> f32 {
+132:         if self.is_angle() { 1.0 } else { 0.5 }
+133:     }
+134: 
+135:     /// Read the axis in the control's own units.
+136:     pub fn get(self, moved: &Move) -> f32 {
+137:         match self {
+138:             Axis::Sideways => moved.offset.x / CM_TO_M,
+139:             Axis::Vertical => moved.offset.y / CM_TO_M,
+140:             Axis::Depth => moved.offset.z / CM_TO_M,
+141:             Axis::Yaw => moved.yaw,
+142:             Axis::Pitch => moved.pitch,
+143:             Axis::Roll => moved.roll,
+144:         }
+145:     }
+146: 
+147:     /// Write the axis in the control's own units.
+148:     pub fn set(self, moved: &mut Move, value: f32) {
+149:         match self {
+150:             Axis::Sideways => moved.offset.x = value * CM_TO_M,
+151:             Axis::Vertical => moved.offset.y = value * CM_TO_M,
+152:             Axis::Depth => moved.offset.z = value * CM_TO_M,
+153:             Axis::Yaw => moved.yaw = value,
+154:             Axis::Pitch => moved.pitch = value,
+155:             Axis::Roll => moved.roll = value,
+156:         }
+157:     }
+158: }
+159: 
+160: /// What a pose is applied against: the panels it can move, and the point each

@@ -1,0 +1,267 @@
+FRESH 2592 physical-p16:crates/adventuresim-core/src/equipment_assets.rs SCOPE [[1, 106]]
+0001 //! Procedural-equipment manifest wire records and catalogue-checked assets.
+0002 
+0003 use crate::item_catalog::{self, EquipmentMaterial, EquipmentPlacement, ItemDefinition};
+0004 use serde::{Deserialize, Serialize};
+0005 
+0006 pub const GLB_EXTENSION: &str = "glb";
+0007 pub const EQUIPMENT_MANIFEST_SCHEMA_VERSION: u32 = 1;
+0008 pub const EQUIPMENT_MHR_RELEASE: &str = "v1.0.1";
+0009 
+0010 #[derive(Serialize, Deserialize)]
+0011 pub struct ProceduralEquipmentManifest {
+0012     pub assets: Vec<ProceduralEquipmentAsset>,
+0013     pub lod: u8,
+0014     pub mhr_release: String,
+0015     pub schema_version: u32,
+0016 }
+0017 
+0018 #[derive(Serialize, Deserialize)]
+0019 pub struct ProceduralEquipmentAsset {
+0020     #[serde(default, skip_serializing_if = "Option::is_none")]
+0021     pub armor_design_hash: Option<String>,
+0022     #[serde(default, skip_serializing_if = "Option::is_none")]
+0023     pub armor_generator_version: Option<u16>,
+0024     pub coverage: f32,
+0025     pub file: String,
+0026     pub item_id: String,
+0027     pub material: Option<EquipmentMaterial>,
+0028     pub morph_targets: usize,
+0029     pub placement_id: String,
+0030     #[serde(default, skip_serializing_if = "Option::is_none")]
+0031     pub surface_uv_domain: Option<String>,
+0032     pub triangles: usize,
+0033 }
+0034 
+0035 pub struct EquipmentAssetEntry {
+0036     pub item: &'static ItemDefinition,
+0037     pub placement: &'static EquipmentPlacement,
+0038     pub file: String,
+0039 }
+0040 
+0041 pub struct EquipmentAssets {
+0042     entries: Vec<EquipmentAssetEntry>,
+0043 }
+0044 
+0045 impl EquipmentAssets {
+0046     pub fn from_json(source: &str) -> Result<Self, serde_json::Error> {
+0047         let manifest: ProceduralEquipmentManifest = serde_json::from_str(source)?;
+0048         let mut entries: Vec<EquipmentAssetEntry> = Vec::new();
+0049         for asset in manifest.assets {
+0050             let item = item_catalog::definition(&asset.item_id).ok_or_else(|| {
+0051                 <serde_json::Error as serde::de::Error>::custom(format!(
+0052                     "unknown equipment manifest item {}",
+0053                     asset.item_id
+0054                 ))
+0055             })?;
+0056             let placement = item
+0057                 .equipment
+0058                 .as_ref()
+0059                 .and_then(|equipment| {
+0060                     equipment
+0061                         .placements
+0062                         .iter()
+0063                         .find(|placement| placement.id == asset.placement_id)
+0064                 })
+0065                 .ok_or_else(|| {
+0066                     <serde_json::Error as serde::de::Error>::custom(format!(
+0067                         "unknown placement {} for {}",
+0068                         asset.placement_id, item.id
+0069                     ))
+0070                 })?;
+0071             if entries.iter().any(|entry| {
+0072                 std::ptr::eq(entry.item, item) && std::ptr::eq(entry.placement, placement)
+0073             }) {
+0074                 return Err(<serde_json::Error as serde::de::Error>::custom(
+0075                     "procedural equipment manifest keys must be unique",
+0076                 ));
+0077             }
+0078             entries.push(EquipmentAssetEntry {
+0079                 item,
+0080                 placement,
+0081                 file: asset.file,
+0082             });
+0083         }
+0084         // Preserve the previous nested ordered-map default-placement selection.
+0085         entries.sort_by(|left, right| {
+0086             (&left.item.id, &left.placement.id).cmp(&(&right.item.id, &right.placement.id))
+0087         });
+0088         Ok(Self { entries })
+0089     }
+0090     pub fn file_for(
+0091         &self,
+0092         item: &ItemDefinition,
+0093         placement: Option<&EquipmentPlacement>,
+0094     ) -> Option<&str> {
+0095         self.entries
+0096             .iter()
+0097             .find(|entry| {
+0098                 std::ptr::eq(entry.item, item)
+0099                     && placement.is_none_or(|placement| std::ptr::eq(entry.placement, placement))
+0100             })
+0101             .map(|entry| entry.file.as_str())
+0102     }
+0103     pub fn entries(&self) -> impl Iterator<Item = &EquipmentAssetEntry> {
+0104         self.entries.iter()
+0105     }
+0106 }
+FRESH 2595 pr-working:crates/adventuresim-puzzles/src/choices/sigil.rs SCOPE [[1, 83]]
+0001 //! Fixed puzzle choices and their canonical submission vocabulary.
+0002 
+0003 use crate::ORDERED_SIGIL_COUNT;
+0004 use serde::{Deserialize, Serialize};
+0005 use std::{fmt, str::FromStr};
+0006 
+0007 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+0008 pub enum Sigil {
+0009     Crown,
+0010     Hart,
+0011     Moon,
+0012     Rose,
+0013     Sword,
+0014 }
+0015 
+0016 impl Sigil {
+0017     pub const ALL: [Self; ORDERED_SIGIL_COUNT] =
+0018         [Self::Crown, Self::Hart, Self::Moon, Self::Rose, Self::Sword];
+0019 
+0020     /// Canonical submission key, independent of the visible label.
+0021     pub const fn stable_id(self) -> &'static str {
+0022         match self {
+0023             Self::Crown => "Crown",
+0024             Self::Hart => "Hart",
+0025             Self::Moon => "Moon",
+0026             Self::Rose => "Rose",
+0027             Self::Sword => "Sword",
+0028         }
+0029     }
+0030 
+0031     pub const fn label(self) -> &'static str {
+0032         match self {
+0033             Self::Crown => "Crown",
+0034             Self::Hart => "Hart",
+0035             Self::Moon => "Moon",
+0036             Self::Rose => "Rose",
+0037             Self::Sword => "Sword",
+0038         }
+0039     }
+0040 }
+0041 
+0042 /// The supplied key is outside the canonical Sigil vocabulary.
+0043 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+0044 pub struct ParseSigilError;
+0045 
+0046 impl fmt::Display for ParseSigilError {
+0047     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+0048         formatter.write_str("Choose one of the named sigils")
+0049     }
+0050 }
+0051 
+0052 impl std::error::Error for ParseSigilError {}
+0053 
+0054 impl FromStr for Sigil {
+0055     type Err = ParseSigilError;
+0056 
+0057     fn from_str(value: &str) -> Result<Self, Self::Err> {
+0058         Self::deserialize(serde::de::value::StrDeserializer::<serde::de::value::Error>::new(value))
+0059             .map_err(|_| ParseSigilError)
+0060     }
+0061 }
+0062 
+0063 #[cfg(test)]
+0064 mod tests {
+0065     use super::*;
+0066 
+0067     #[test]
+0068     fn offered_choices_round_trip_through_submission_and_serde() {
+0069         for choice in Sigil::ALL {
+0070             assert_eq!(choice.stable_id().parse(), Ok(choice));
+0071             let json = serde_json::to_string(&choice).unwrap();
+0072             assert_eq!(json, format!("\"{}\"", choice.stable_id()));
+0073             assert_eq!(serde_json::from_str::<Sigil>(&json).unwrap(), choice);
+0074         }
+0075     }
+0076 
+0077     #[test]
+0078     fn malformed_choices_are_rejected() {
+0079         for value in ["", "unknown", "moon", "Moon path", " Moon"] {
+0080             assert_eq!(value.parse::<Sigil>(), Err(ParseSigilError));
+0081         }
+0082     }
+0083 }
+FRESH 2596 pr-working:crates/adventuresim-puzzles/src/choices/witness_path.rs SCOPE [[1, 75]]
+0001 //! Fixed puzzle choices and their canonical submission vocabulary.
+0002 
+0003 use serde::{Deserialize, Serialize};
+0004 use std::{fmt, str::FromStr};
+0005 
+0006 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+0007 pub enum WitnessPath {
+0008     Ash,
+0009     Moon,
+0010     Thorn,
+0011 }
+0012 
+0013 impl WitnessPath {
+0014     pub const ALL: [Self; 3] = [Self::Ash, Self::Moon, Self::Thorn];
+0015 
+0016     /// Canonical submission key, independent of the visible label.
+0017     pub const fn stable_id(self) -> &'static str {
+0018         match self {
+0019             Self::Ash => "Ash",
+0020             Self::Moon => "Moon",
+0021             Self::Thorn => "Thorn",
+0022         }
+0023     }
+0024 
+0025     pub const fn label(self) -> &'static str {
+0026         match self {
+0027             Self::Ash => "Ash path",
+0028             Self::Moon => "Moon path",
+0029             Self::Thorn => "Thorn path",
+0030         }
+0031     }
+0032 }
+0033 
+0034 /// The supplied key is outside the canonical WitnessPath vocabulary.
+0035 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+0036 pub struct ParseWitnessPathError;
+0037 
+0038 impl fmt::Display for ParseWitnessPathError {
+0039     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+0040         formatter.write_str("Choose one of the named paths")
+0041     }
+0042 }
+0043 
+0044 impl std::error::Error for ParseWitnessPathError {}
+0045 
+0046 impl FromStr for WitnessPath {
+0047     type Err = ParseWitnessPathError;
+0048 
+0049     fn from_str(value: &str) -> Result<Self, Self::Err> {
+0050         Self::deserialize(serde::de::value::StrDeserializer::<serde::de::value::Error>::new(value))
+0051             .map_err(|_| ParseWitnessPathError)
+0052     }
+0053 }
+0054 
+0055 #[cfg(test)]
+0056 mod tests {
+0057     use super::*;
+0058 
+0059     #[test]
+0060     fn offered_choices_round_trip_through_submission_and_serde() {
+0061         for choice in WitnessPath::ALL {
+0062             assert_eq!(choice.stable_id().parse(), Ok(choice));
+0063             let json = serde_json::to_string(&choice).unwrap();
+0064             assert_eq!(json, format!("\"{}\"", choice.stable_id()));
+0065             assert_eq!(serde_json::from_str::<WitnessPath>(&json).unwrap(), choice);
+0066         }
+0067     }
+0068 
+0069     #[test]
+0070     fn malformed_choices_are_rejected() {
+0071         for value in ["", "unknown", "moon", "Moon path", " Moon"] {
+0072             assert_eq!(value.parse::<WitnessPath>(), Err(ParseWitnessPathError));
+0073         }
+0074     }
+0075 }

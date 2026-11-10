@@ -1,0 +1,64 @@
+{
+  "schema": "726-root-l2-catalog-owner-evidence-integrity-verification-v1",
+  "at": "2026-11-02T17:05:31.641736+00:00",
+  "author": "/root",
+  "status": "pass",
+  "read": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+    "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+  },
+  "qualification": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/QUALIFICATION-ROOT-L2-CATALOG-OWNER-FITS-001.json",
+    "sha256": "0b7af7f5b2b95daad5cf555145358c25a530977cbb582c9e0787718dcffd8b2d"
+  },
+  "authorities_unchanged": [
+    {
+      "path": "target/726-intake-20261030/CURRENT.json",
+      "sha256": "b13003e6122cc21cc4b51b00bd532badae8772e9207962580e6f6f078abf759c"
+    },
+    {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/evidence/continuation-segovb/ledger.json",
+      "sha256": "b36b1f0bf97a9af07b62f452b9906bcc8ace100151522102d2b4ce04c498df39"
+    },
+    {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/CURRENT-ADLER.json",
+      "sha256": "e4d54a519dea9d5945b9f993a8e391dde91a0bc73c3485ea7f8db9019dc21dc2"
+    },
+    {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/SELECTED-LENSES-CONTINUATION-419.json",
+      "sha256": "d9248e6f08197fcad06a4f0647e039b8c2e69b4ac33609d0470a148cb192c778"
+    },
+    {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/workflow-20261030/CLOSURE-QUEUE-816.json",
+      "sha256": "35aa77013c1ed40aeaf8bad8abae758b0016011643da99e57bf3092d7bf75a44"
+    },
+    {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/segovb/STATE-L2-EXT-CURRENT-015.json",
+      "sha256": "cd3dcd9b27ecd2fa4f108004b85031716389d163b41f28c6f9eb11dc803fefd8"
+    }
+  ],
+  "source_excerpt_rows": 37,
+  "distinct_exact_current_source_paths": 35,
+  "uncredited_support_assessed_lines": 3886,
+  "qualified_local_role_comparisons": 19,
+  "open_owner_contracts": [
+    "placement-identity",
+    "attachment-point-identity-tags-and-slot-capacity",
+    "equipment-dimensions",
+    "grip-distance-and-anchor-offset",
+    "weapon-reach-and-rotational-inertia",
+    "weapon-skill-weights-and-capabilities",
+    "protection-padding-and-resistance",
+    "surface-uv-tangent-and-domain"
+  ],
+  "prior_plus_new_own_l2_item_body_ranges_cover_2059_exact_same_source_lines": true,
+  "coverage_join_is_owner_fit_or_global_clearance": false,
+  "source_and_range_reference_integrity_verified": true,
+  "semantic_findings_independently_reviewed": false,
+  "product_checkout_clean": true,
+  "stashes_preserved": true,
+  "source_adoption_performed": false,
+  "product_execution": false,
+  "tests_executed": false,
+  "implementation_gate_complete": false
+}

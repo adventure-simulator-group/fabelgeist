@@ -1,0 +1,74 @@
+{
+  "schema": "726-root-l12-bounded-connected-source-read-v1",
+  "at": "2026-11-02T10:28:10.420250+00:00",
+  "author": "/root",
+  "lens": 12,
+  "base_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "d60bcf6d10b4ad7830e8d4b675a45d2e306ef6d515e2e33abc048a4f33865d87"
+  },
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L12-BUILDING-AUDIT-ISSUES-004.json",
+    "sha256": "0ef61786826e6ab4e94ad23e6faa436b7868f1d355cc0ee64015d6befa39fb98"
+  },
+  "rows": [
+    {
+      "source": {
+        "source_kind": "firstparty",
+        "source_id": "current-337:crates/adventuresim-building-generator/src/generator/core.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-building-generator/src/generator/core.rs",
+        "source_sha256": "f9cad0ec57715ef451e89d64fc3b833ffba8beb778e82d9a286f269d71849e4d",
+        "source_object": "adler-continuation-20261030/objects/f9cad0ec57715ef451e89d64fc3b833ffba8beb778e82d9a286f269d71849e4d",
+        "bytes": 13231,
+        "actual_EOF": 311,
+        "ranges": [
+          [
+            301,
+            311
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 11,
+        "prior_body_join": "No new freshness/reuse/population/unique credit; preserve all historical authors/views. Native package bound to selected root lock checksum and exact cached archive bytes, not runtime execution."
+      },
+      "source_id": "current-337:crates/adventuresim-building-generator/src/generator/core.rs",
+      "source_sha256": "f9cad0ec57715ef451e89d64fc3b833ffba8beb778e82d9a286f269d71849e4d",
+      "assessed_ranges": [
+        [
+          301,
+          311
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "3b2f1c"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 11,
+      "semantic_assessment": "Actual validate_generated_plan301..311 calls audit_plan, returns original plan for empty list, and constructs existing GenerationError::StructuralContract with issues_count=issues.len() and owned issues for nonempty list. The existing owner already models this exact rejection, so review can use it with typed building context. Preserve first failing building/error ordering and original issue order/content; do not introduce a duplicate parallel structural issue failure type. Invalid registration003 beyondEOF311 remains unadopted; corrected004 read3b2f1c is exact eleven lines."
+    }
+  ],
+  "fresh_root_personal_source_lines": 0,
+  "uncredited_total_source_lines": 11,
+  "prior_body_join": "No new freshness/reuse/population/unique credit asserted; preserve exact historical authors and other-lens verdicts. Native source assessed uncredited as connected dependency, not a new native population receipt.",
+  "related_queue_contract": "L12-CLOSURE-BUILDING-REVIEW-AUDIT-ISSUES-ERASURE",
+  "observations": [
+    "Actual validate_generated_plan301..311 calls audit_plan, returns original plan for empty list, and constructs existing GenerationError::StructuralContract with issues_count=issues.len() and owned issues for nonempty list. The existing owner already models this exact rejection, so review can use it with typed building context. Preserve first failing building/error ordering and original issue order/content; do not introduce a duplicate parallel structural issue failure type. Invalid registration003 beyondEOF311 remains unadopted; corrected004 read3b2f1c is exact eleven lines."
+  ],
+  "remaining_evidence": [
+    "Formal exact first-predicate owned repair/all20/current/non-alias qualification. Q3821 fixture assertions/sign admission and broader/native runtime remain independently open."
+  ],
+  "new_body_population_unique_credit": 0,
+  "new_primary_findings": 0,
+  "source_adoption_performed": false,
+  "whole_contracts_closed": false,
+  "independent_agent_review": false,
+  "product_execution": false,
+  "tests_executed": false,
+  "implementation_gate_complete": false
+}

@@ -1,0 +1,449 @@
+{
+  "schema": "726-l2-selected-state-transition-trace-v1",
+  "qualification": "Static expressions and reported verifications, not recovered original state bytes or proof of final selection. Dynamic operands remain unresolved; no helper code was executed.",
+  "target_selected_state_sha256": "199a4a9479b5ed3491ccc6df6d5f667cf41db2f9745c26bff939348c9a2f4158",
+  "transitions": [
+    {
+      "write_ordinal": 72674,
+      "verification_ordinal": 72698,
+      "intended_state_destination": "segovb/STATE-L2-EXT-CURRENT-023.json",
+      "view_expression": "72674-view-expression.txt",
+      "view_expression_sha256": "20ed7574985b314cbee5ea206ddea2a2bdf1b76ba4811c762418c4b36418b611",
+      "view_fields": {
+        "lens": 2,
+        "contract_id": {
+          "unresolved_expression": "entry['contract_id']"
+        },
+        "status": "named-camp-binding-carrier-policy-selected-parent-open",
+        "canonical_owner": "Core TrialBinding binding state and existing StrategicPlaceId::JourneyCamp with native strategic adapters",
+        "first_failed_contract_or_unresolved_question": {
+          "unresolved_expression": "entry['first_failed_contract_or_unresolved_question']"
+        },
+        "scoped_discovery_closed": "Explicit unbound/bound camp carrier policy only",
+        "all_frame_id_owner_questions_complete": false,
+        "exact_source_identities_and_assessed_ranges": {
+          "unresolved_expression": "proof['rows']"
+        },
+        "source_qualification": {
+          "unresolved_expression": "ref(reuse)"
+        },
+        "policy": {
+          "unresolved_expression": "ref(policypath)"
+        },
+        "repair_requirements": {
+          "unresolved_expression": "policy['repair_requirements']"
+        },
+        "later_acceptance_requirements": {
+          "unresolved_expression": "policy['later_acceptance_requirements']"
+        },
+        "remaining_evidence": {
+          "unresolved_expression": "policy['remaining_evidence']"
+        },
+        "all_current_and_all_lens_closure": false,
+        "new_accepted_unique_count": 0,
+        "new_body_credit": 0,
+        "canonical_alias_applied": false,
+        "repair_implemented": false,
+        "runtime_validation_passed": false,
+        "implementation_gate_complete": false
+      },
+      "state_update_expression": "state.update(at=stamp, predecessor=ref(oldstate), current_receipt=ref(reuse), camp_carrier_source_disposition=view)",
+      "recorded_verification": {
+        "status": "pass",
+        "mode": "--verify",
+        "checkpoint": 489,
+        "verification": {
+          "path": "target/726-intake-20261030/VERIFICATION-L2-CAMP-CARRIER-ADOPTION-001.json",
+          "sha256": "f1cbd34093bb5d0e26b6f5966c0f8f3fe6a3b4accc19255a7189ad98a3fad770"
+        },
+        "current": {
+          "path": "target/726-intake-20261030/CURRENT.json",
+          "sha256": "56cd76982da0cf0d63fb3324bac49bdf5cd217cf0b7ac7595095d9e043a11b86"
+        },
+        "scoped_l2_source_views_closed": 1,
+        "whole_canonical_cases_closed": 0,
+        "implementation_gate_complete": false
+      }
+    },
+    {
+      "write_ordinal": 72782,
+      "verification_ordinal": 72807,
+      "intended_state_destination": "segovb/STATE-L2-EXT-CURRENT-024.json",
+      "view_expression": "72782-view-expression.txt",
+      "view_expression_sha256": "2d6975de5203a0c3fa754141852d3464c2b1649953e23786b948a1702074b2bf",
+      "view_fields": {
+        "lens": 2,
+        "contract_id": {
+          "unresolved_expression": "entry['contract_id']"
+        },
+        "status": "scoped-journey-quantity-carrier-policy-selected-global-reconciliation-open",
+        "canonical_owner": "Shared zero-valid movement and elapsed minute owners at the core/native boundary",
+        "first_failed_contract_or_unresolved_question": {
+          "unresolved_expression": "entry['first_failed_contract_or_unresolved_question']"
+        },
+        "exact_source_identities_and_assessed_ranges": {
+          "unresolved_expression": "rows"
+        },
+        "source_evidence": {
+          "unresolved_expression": "policy['evidence']"
+        },
+        "selected_roles": {
+          "unresolved_expression": "policy['selected_roles']"
+        },
+        "repair_requirements": {
+          "unresolved_expression": "policy['repair_requirements']"
+        },
+        "later_acceptance_requirements": {
+          "unresolved_expression": "policy['later_acceptance_requirements']"
+        },
+        "remaining_evidence": {
+          "unresolved_expression": "policy['remaining_evidence']"
+        },
+        "parent_global_alias_and_current_reconciliation_complete": false,
+        "all_current_and_all_lens_closure": false,
+        "new_accepted_unique_count": 0,
+        "new_body_credit": 0,
+        "canonical_alias_applied": false,
+        "repair_implemented": false,
+        "runtime_validation_passed": false,
+        "implementation_gate_complete": false
+      },
+      "state_update_expression": "state.update(at=stamp, predecessor=ref(oldstate), current_receipt=ref(readpath), journey_quantity_source_disposition=view)",
+      "recorded_verification": {
+        "status": "pass",
+        "mode": "--verify",
+        "checkpoint": 490,
+        "verification": {
+          "path": "target/726-intake-20261030/VERIFICATION-L2-JOURNEY-QUANTITIES-ADOPTION-001.json",
+          "sha256": "765b28bd7d0bffc998fdb718c4bda9cdf78cb9a3d7254db390d84293fa9e97b8"
+        },
+        "current": {
+          "path": "target/726-intake-20261030/CURRENT.json",
+          "sha256": "8a376884be302c17c5b74f177c19aa3b64cee2766ec1dda1550258c7c1200a5f"
+        },
+        "scoped_l2_source_views_closed": 1,
+        "whole_canonical_cases_closed": 0,
+        "implementation_gate_complete": false
+      }
+    },
+    {
+      "write_ordinal": 72875,
+      "verification_ordinal": 72899,
+      "intended_state_destination": "segovb/STATE-L2-EXT-CURRENT-025.json",
+      "view_expression": "72875-view-expression.txt",
+      "view_expression_sha256": "dd9f60f5086d49fbb3c60a86d04b3ce9ebea9c02bb0d423c245c7b2767efb928",
+      "view_fields": {
+        "lens": 2,
+        "contract_id": {
+          "unresolved_expression": "entry['contract_id']"
+        },
+        "status": "named-full-key-owner-policy-selected-native-global-admission-open",
+        "canonical_owner": "Core shared frame/trial/challenge opaque key owners and complete errantry family identity decoder",
+        "first_failed_contract_or_unresolved_question": {
+          "unresolved_expression": "entry['first_failed_contract_or_unresolved_question']"
+        },
+        "exact_source_identities_and_assessed_ranges": {
+          "unresolved_expression": "rows"
+        },
+        "source_evidence": {
+          "unresolved_expression": "ref(readpath)"
+        },
+        "policy": {
+          "unresolved_expression": "ref(policypath)"
+        },
+        "repair_requirements": {
+          "unresolved_expression": "policy['repair_requirements']"
+        },
+        "later_acceptance_requirements": {
+          "unresolved_expression": "policy['later_acceptance_requirements']"
+        },
+        "remaining_evidence": {
+          "unresolved_expression": "policy['remaining_evidence']"
+        },
+        "all_identity_producer_admission_complete": false,
+        "all_current_and_all_lens_closure": false,
+        "new_accepted_unique_count": 0,
+        "new_body_credit": 0,
+        "canonical_alias_applied": false,
+        "repair_implemented": false,
+        "runtime_validation_passed": false,
+        "implementation_gate_complete": false
+      },
+      "state_update_expression": "state.update(at=stamp, predecessor=ref(oldstate), current_receipt=ref(readpath), errantry_id_source_disposition=view)",
+      "recorded_verification": {
+        "status": "pass",
+        "mode": "--verify",
+        "checkpoint": 491,
+        "verification": {
+          "path": "target/726-intake-20261030/VERIFICATION-L2-ERRANTRY-IDS-ADOPTION-001.json",
+          "sha256": "f3a9cec34f52e3d65145686513b5c1d4540a3984afdad24a270b53ddf26b0ba8"
+        },
+        "current": {
+          "path": "target/726-intake-20261030/CURRENT.json",
+          "sha256": "f5b33e60df5ea450eef5ee6f48fe39bc63e7414527cf556734c365a374979e02"
+        },
+        "scoped_l2_source_views_closed": 1,
+        "whole_canonical_cases_closed": 0,
+        "implementation_gate_complete": false
+      }
+    },
+    {
+      "write_ordinal": 73050,
+      "verification_ordinal": 73074,
+      "intended_state_destination": "segovb/STATE-L2-EXT-CURRENT-026.json",
+      "view_expression": "73050-view-expression.txt",
+      "view_expression_sha256": "c76c70a6dc20fe8a0a8adce6efd4f79bbcc71c78798d1ed7b12c8538b75fbc4c",
+      "view_fields": {
+        "lens": 2,
+        "contract_id": {
+          "unresolved_expression": "entry['contract_id']"
+        },
+        "status": "named-native-admission-dependency-source-qualified-repair-selected",
+        "canonical_owner": "Checked shared identity construction and native SATS adapter boundary",
+        "first_failed_contract_or_unresolved_question": {
+          "unresolved_expression": "entry['first_failed_contract_or_unresolved_question']"
+        },
+        "exact_source_identities_and_assessed_ranges": {
+          "unresolved_expression": "rows"
+        },
+        "source_evidence": {
+          "unresolved_expression": "policy['evidence']"
+        },
+        "policy": {
+          "unresolved_expression": "ref(policypath)"
+        },
+        "repair_requirements": {
+          "unresolved_expression": "policy['repair_requirements']"
+        },
+        "later_acceptance_requirements": {
+          "unresolved_expression": "policy['later_acceptance_requirements']"
+        },
+        "remaining_evidence": {
+          "unresolved_expression": "policy['remaining_evidence']"
+        },
+        "all_current_and_all_lens_closure": false,
+        "new_accepted_unique_count": 0,
+        "new_body_credit": 0,
+        "canonical_alias_applied": false,
+        "repair_implemented": false,
+        "runtime_validation_passed": false,
+        "implementation_gate_complete": false
+      },
+      "state_update_expression": "state.update(at=stamp, predecessor=ref(oldstate), current_receipt=ref(readpath), native_identity_admission_source_disposition=view)",
+      "recorded_verification": {
+        "status": "pass",
+        "mode": "--verify",
+        "checkpoint": 492,
+        "verification": {
+          "path": "target/726-intake-20261030/VERIFICATION-L2-NATIVE-ADMISSION-ADOPTION-001.json",
+          "sha256": "eccba344e9fa0306eb017a5e404910d7672732e21bb2b3f8741e13a9b7e4eb43"
+        },
+        "current": {
+          "path": "target/726-intake-20261030/CURRENT.json",
+          "sha256": "b6c14be56e89e4cc8184e5696637845e14a11139106507f5c5548d1db7f91925"
+        },
+        "scoped_l2_source_views_closed": 1,
+        "whole_canonical_cases_closed": 0,
+        "implementation_gate_complete": false
+      }
+    },
+    {
+      "write_ordinal": 73181,
+      "verification_ordinal": 73256,
+      "intended_state_destination": "segovb/STATE-L2-EXT-CURRENT-027.json",
+      "view_expression": "73181-view-expression.txt",
+      "view_expression_sha256": "cec81ae2d29461f3c37512539c7a23e9f2a70f0ad4281c68c37a8cd733df213a",
+      "view_fields": {
+        "lens": 2,
+        "contract_id": {
+          "unresolved_expression": "entry['contract_id']"
+        },
+        "status": "named-contract-identity-dependency-qualified-linked-lifecycle-owner-retained",
+        "canonical_owner": "Shared contract key at native/core/web boundaries; existing ContractState lifecycle and canonical active-party relation record",
+        "first_failed_contract_or_unresolved_question": {
+          "unresolved_expression": "entry['first_failed_contract_or_unresolved_question']"
+        },
+        "exact_source_identities_and_assessed_ranges": {
+          "unresolved_expression": "rows"
+        },
+        "source_evidence": {
+          "unresolved_expression": "ref(readpath)"
+        },
+        "policy": {
+          "unresolved_expression": "ref(policypath)"
+        },
+        "repair_requirements": {
+          "unresolved_expression": "policy['repair_requirements']"
+        },
+        "later_acceptance_requirements": {
+          "unresolved_expression": "policy['later_acceptance_requirements']"
+        },
+        "remaining_evidence": {
+          "unresolved_expression": "policy['remaining_evidence']"
+        },
+        "all_current_and_all_lens_closure": false,
+        "new_accepted_unique_count": 0,
+        "new_body_credit": 0,
+        "canonical_alias_applied": false,
+        "repair_implemented": false,
+        "runtime_validation_passed": false,
+        "implementation_gate_complete": false
+      },
+      "state_update_expression": "state.update(at=stamp, predecessor=ref(oldstate), current_receipt=ref(readpath), contract_identity_source_disposition=view)",
+      "recorded_verification": {
+        "status": "pass",
+        "mode": "--verify",
+        "checkpoint": 493,
+        "report": {
+          "path": "target/726-intake-20261030/PROGRESS.md",
+          "sha256": "fb7ad0893dbff2262cbebb6669f114c205a0d9ee90df78ecf7db14d177fa8aa4"
+        }
+      }
+    },
+    {
+      "write_ordinal": 73399,
+      "verification_ordinal": 73423,
+      "intended_state_destination": "segovb/STATE-L2-EXT-CURRENT-028.json",
+      "view_expression": "73399-view-expression.txt",
+      "view_expression_sha256": "74f0ca8575a7c4853fcbeeee0a99424ac5a798ea5f2c88a524bc46ade27a76ef",
+      "view_fields": {
+        "lens": 2,
+        "contract_id": {
+          "unresolved_expression": "entry['contract_id']"
+        },
+        "status": "named-bound-site-repair-mapped-to-inherited-M40-global-reconciliation-open",
+        "canonical_owner": "Inherited M40 canonical explicit challenge binding state and existing StrategicPlaceId::JourneyCamp owner",
+        "first_failed_contract_or_unresolved_question": {
+          "unresolved_expression": "entry['first_failed_contract_or_unresolved_question']"
+        },
+        "exact_source_identities_and_assessed_ranges": {
+          "unresolved_expression": "proof['rows']"
+        },
+        "source_evidence": {
+          "unresolved_expression": "ref(readpath)"
+        },
+        "comparison": {
+          "unresolved_expression": "ref(comparisonpath)"
+        },
+        "canonical_repair_mapping": {
+          "unresolved_expression": "comp['canonical_repair_mapping']"
+        },
+        "repair_requirements": {
+          "unresolved_expression": "policy['repair_requirements']"
+        },
+        "later_acceptance_requirements": {
+          "unresolved_expression": "policy['later_acceptance_requirements']"
+        },
+        "remaining_evidence": {
+          "unresolved_expression": "comp['remaining']"
+        },
+        "named_bound_site_canonical_repair_mapping_complete": true,
+        "whole_parent_alias_applied": false,
+        "all_current_and_all_lens_closure": false,
+        "new_accepted_unique_count": 0,
+        "new_body_credit": 0,
+        "canonical_alias_applied": false,
+        "repair_implemented": false,
+        "runtime_validation_passed": false,
+        "implementation_gate_complete": false
+      },
+      "state_update_expression": "state.update(at=stamp, predecessor=ref(oldstate), current_receipt=ref(readpath), errantry_canonical_reconciliation=view)",
+      "recorded_verification": {
+        "status": "pass",
+        "mode": "--verify",
+        "checkpoint": 494,
+        "verification": {
+          "path": "target/726-intake-20261030/VERIFICATION-L2-ERRANTRY-RECONCILIATION-ADOPTION-001.json",
+          "sha256": "dff49f965b11d3e3c1d2a1b54798f4b6b8dbd0d92aa1af273a789e2898a64319"
+        },
+        "current": {
+          "path": "target/726-intake-20261030/CURRENT.json",
+          "sha256": "f9197d156f0d7bd63706f1e6bb877c9adbb07da242e5f365ca172f487a5dbdbe"
+        },
+        "scoped_l2_source_views_closed": 1,
+        "whole_canonical_cases_closed": 0,
+        "implementation_gate_complete": false
+      }
+    }
+  ],
+  "state_023_candidate": {
+    "state_template_sha256": "23caa4c21e6b6af4bf8786ef7346096cc3c084f2475e357f7307088d76858fcc",
+    "policy_template_sha256": "9be623ac368173916bed806845e5838f80c96cf5fddc073487c68ae10f056357",
+    "target_sha256": "935a9f99452fa380d7a9b14121a43993f752af17cad6c348f0a68ca30e98e7da",
+    "window": [
+      "2026-11-02T18:48:40+00:00",
+      "2026-11-02T18:48:40.628845+00:00"
+    ],
+    "matched_timestamp": "2026-11-02T18:48:40.628845+00:00",
+    "qualification": "Original state matches recorded hash; policy matches the hash referenced by that state. Later states and final authority remain unverified.",
+    "policy_sha256": "c629db04aa01db2eb44305a5fbe2cfd7b653f7f01d39cdeb7d3ca45fda5ef0ee"
+  },
+  "printed_state_references": {
+    "transcript_ordinal": 99495,
+    "references": [
+      {
+        "sequence": 23,
+        "path": "segovb/STATE-L2-EXT-CURRENT-023.json",
+        "sha256": "935a9f99452fa380d7a9b14121a43993f752af17cad6c348f0a68ca30e98e7da",
+        "fragment": "STATE-023-REFERENCE.txt",
+        "fragment_sha256": "f8be599f680f7ee44609f0adb98620d89d1ad4a8604bab790e10f668955d8efe"
+      },
+      {
+        "sequence": 24,
+        "path": "segovb/STATE-L2-EXT-CURRENT-024.json",
+        "sha256": "6901a1f78dcf408957be9cad5de3cb3ec34fe51c134b0ce0c71a14b715d6e7a2",
+        "fragment": "STATE-024-REFERENCE.txt",
+        "fragment_sha256": "8dc78ba1f770e38fa344f6f25857f01b3c9d69ce6e184200ca2331084cb4f48f"
+      },
+      {
+        "sequence": 25,
+        "path": "segovb/STATE-L2-EXT-CURRENT-025.json",
+        "sha256": "e0945cab01ecd08b259aca5cb769e84644b71a18fc296ab3a6c0d97ef4027374",
+        "fragment": "STATE-025-REFERENCE.txt",
+        "fragment_sha256": "43ecd16cdfb662caf7a6c32f3f803358290f536bcb52854a9a7fa727aa9b4685"
+      },
+      {
+        "sequence": 26,
+        "path": "segovb/STATE-L2-EXT-CURRENT-026.json",
+        "sha256": "d16c39775477164d99d6fd78aff7231465301bdfecf398a0b50b3c9e83c20299",
+        "fragment": "STATE-026-REFERENCE.txt",
+        "fragment_sha256": "51e47cf3cc6ff51fbd8f991e2f9dee4bf16b1846da953a7bce8d2486db1e12a9"
+      },
+      {
+        "sequence": 27,
+        "path": "segovb/STATE-L2-EXT-CURRENT-027.json",
+        "sha256": "7ae4cacab8b115accdf246a682527648e995a0acd86838cdfd3e1544cb4cd62e",
+        "fragment": "STATE-027-REFERENCE.txt",
+        "fragment_sha256": "3521c33ab162159e52094bfb051909270d0e51133c6716c0e667f1daa2295d84"
+      },
+      {
+        "sequence": 28,
+        "path": "segovb/STATE-L2-EXT-CURRENT-028.json",
+        "sha256": "199a4a9479b5ed3491ccc6df6d5f667cf41db2f9745c26bff939348c9a2f4158",
+        "fragment": "STATE-028-REFERENCE.txt",
+        "fragment_sha256": "0a0142ba792cf93a3f6e0cdc705c2b429e203e78c92f28709d312b0e5779d85e"
+      }
+    ],
+    "qualification": "Printed references within a truncated CURRENT output; only state 023 bytes have been reconstructed in this collection."
+  },
+  "state_024_candidate": {
+    "target_sha256": "6901a1f78dcf408957be9cad5de3cb3ec34fe51c134b0ce0c71a14b715d6e7a2",
+    "read_sha256": "127342bca9eaedaf7af336451499c8b69ce411e75b4eec02909a8d831db1e6f3",
+    "matched_timestamp": "2026-11-02T18:51:35.354276+00:00",
+    "state_template_sha256": "d0d78e9134316c836896489eb5e0c4a861a106968707c905064f89e6f296c739",
+    "read_template_sha256": "cf47b903bf26e66566414254208bbb1d6a56120f9758d581e9b832607dc6ca25",
+    "policy_candidate_sha256": "77b243e0c33e108bb19fe81add96594bff314841d9827f15ad6d5cebd03fee56",
+    "registration_refs_040_042": "../l2-journey-source-registrations/MANIFEST.json",
+    "qualification": "State bytes match the independently printed state reference; read bytes match the reference in that exact state. The policy candidate has no separately recovered original hash; its fields are reconstructed from the recorded write expression. The source registrations 040-042 remain printed references only. No new audit credit."
+  },
+  "state_025_candidate": {
+    "target_sha256": "e0945cab01ecd08b259aca5cb769e84644b71a18fc296ab3a6c0d97ef4027374",
+    "read_sha256": "df08ce88981b002e36000914048f28d8a0780e3cdc4e4d863e8cce095ce8f20d",
+    "policy_sha256": "b1cd80a76cd7cff0147ca9db37cc9740cd243970dc9a613daa3067f27079b250",
+    "matched_timestamp": "2026-11-02T18:54:58.661525+00:00",
+    "state_template_sha256": "ff75ebccc5b10b1318439d4349af5d21c5f368054195ee97022880cf35e537cb",
+    "read_template_sha256": "b92ddcdbab01e1f6fa96396f3b559961b3d9b37afcaaff7edf63381dc66f8323",
+    "policy_template_sha256": "375957c7b8eab212b8e572e69611d584c36cd4f473929db2441cb211a873959d",
+    "qualification": "State bytes match independently printed reference; receipt and policy bytes match references inside the exact state. The 26 reused rows are inherited uncredited historical evidence; no global admission or audit closure is established."
+  }
+}

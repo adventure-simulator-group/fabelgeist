@@ -1,0 +1,965 @@
+{
+  "schema": "726-exact2836-2845-admission-mixed-material-v1",
+  "at": "2026-11-01T22:15:19.894589+00:00",
+  "author": "/root",
+  "lens": 13,
+  "proof_builder": {
+    "path": "adler-continuation-20261030/qualify_admission2836_v1.py",
+    "sha256": "50ab67fb073b7317c27948d932b2b2b7496e3525e375f9698ac180cb3740b830"
+  },
+  "registry": {
+    "path": "evidence/audit05/original-scope-072.json",
+    "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2836-2845-001.json",
+    "sha256": "62fb22103d5c5b8930b1c2d2b4f620ef867f131721f29fd3dbc7c600623d5623"
+  },
+  "qualified_against_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "53ae8ac4268cbbe060ab4c470e0a38f7170b741bc1dd20a1f12fcba062413b73"
+  },
+  "qualified_against_selector": {
+    "path": "CURRENT-ADLER.json",
+    "sha256": "3b3bfdf68898124ada58a3a9f30ff33957387175625cbb2d8566cc922ade372b"
+  },
+  "entries": [
+    {
+      "original": 2836,
+      "source": {
+        "original": 2836,
+        "source_id": "pr-working:crates/adventuresim-core/src/bestiary/report_quality.rs",
+        "sha256": "99cf829423d94b7d5cafa84c6bc853ce91d1c74dc20891d894e1ca435cc5310b",
+        "actual_eof": 39,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/99cf829423d94b7d5cafa84c6bc853ce91d1c74dc20891d894e1ca435cc5310b",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/99cf829423d94b7d5cafa84c6bc853ce91d1c74dc20891d894e1ca435cc5310b",
+        "prospective_ranges": [
+          [
+            1,
+            39
+          ]
+        ],
+        "revision_qualification": "Exact archived snapshot bytes; archive is transport only. Native PR or pinned dependency comparison does not supply current semantic credit.",
+        "purpose": "Ten exact bestiary/stairs/coif/hair roles858material:573fresh and285historical; fixture source only, no execution."
+      },
+      "mode": "fresh",
+      "bytes": 1575,
+      "assessed_union": [
+        [
+          1,
+          39
+        ]
+      ],
+      "material_line_count": 39,
+      "new_root_personal_lines": 39,
+      "registry_entry_sha256": "a110a6253b67e4ebd87c7c79822f6c828e84a50eca605c2439bdd76bfb7398df",
+      "registry_bytes_field_present": false,
+      "source_current_reconciled": false,
+      "unread_ranges": [],
+      "whole_file_coverage": true,
+      "native_pr_comparison": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-core/src/bestiary/report_quality.rs",
+        "sha256": "99cf829423d94b7d5cafa84c6bc853ce91d1c74dc20891d894e1ca435cc5310b",
+        "actual_eof": 39,
+        "literal_bytes_equal": true,
+        "semantic_or_current_credit": false
+      }
+    },
+    {
+      "original": 2837,
+      "source": {
+        "original": 2837,
+        "source_id": "pr-working:crates/adventuresim-core/src/bestiary/catalog_tests.rs",
+        "sha256": "3ed5388a106af6a5915305446634cba57154d784984dc9f05ffc089161938279",
+        "actual_eof": 33,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/3ed5388a106af6a5915305446634cba57154d784984dc9f05ffc089161938279",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/3ed5388a106af6a5915305446634cba57154d784984dc9f05ffc089161938279",
+        "prospective_ranges": [
+          [
+            1,
+            33
+          ]
+        ],
+        "revision_qualification": "Exact archived snapshot bytes; archive is transport only. Native PR or pinned dependency comparison does not supply current semantic credit.",
+        "purpose": "Ten exact bestiary/stairs/coif/hair roles858material:573fresh and285historical; fixture source only, no execution."
+      },
+      "mode": "fresh",
+      "bytes": 1240,
+      "assessed_union": [
+        [
+          1,
+          33
+        ]
+      ],
+      "material_line_count": 33,
+      "new_root_personal_lines": 33,
+      "registry_entry_sha256": "a4b2ea28058516274865c97dc54f5fd515f604f3f52d6f0ae0cba5f5f2b5f272",
+      "registry_bytes_field_present": false,
+      "source_current_reconciled": false,
+      "unread_ranges": [],
+      "whole_file_coverage": true,
+      "native_pr_comparison": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-core/src/bestiary/catalog_tests.rs",
+        "sha256": "3ed5388a106af6a5915305446634cba57154d784984dc9f05ffc089161938279",
+        "actual_eof": 33,
+        "literal_bytes_equal": true,
+        "semantic_or_current_credit": false
+      }
+    },
+    {
+      "original": 2838,
+      "source": {
+        "original": 2838,
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/landing_policy.rs",
+        "sha256": "e054b33865a02762e480744ec0074a04fe71d7bf73e61c10ca5357f493eaf7d3",
+        "actual_eof": 62,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/e054b33865a02762e480744ec0074a04fe71d7bf73e61c10ca5357f493eaf7d3",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/e054b33865a02762e480744ec0074a04fe71d7bf73e61c10ca5357f493eaf7d3",
+        "prospective_ranges": [
+          [
+            1,
+            62
+          ]
+        ],
+        "revision_qualification": "Exact archived snapshot bytes; archive is transport only. Native PR or pinned dependency comparison does not supply current semantic credit.",
+        "purpose": "Ten exact bestiary/stairs/coif/hair roles858material:573fresh and285historical; fixture source only, no execution."
+      },
+      "mode": "fresh",
+      "bytes": 2228,
+      "assessed_union": [
+        [
+          1,
+          62
+        ]
+      ],
+      "material_line_count": 62,
+      "new_root_personal_lines": 62,
+      "registry_entry_sha256": "82bdffbbdeac89d716f7169ab40c1b433dccea0fcc77ee56c356d58321421a52",
+      "registry_bytes_field_present": false,
+      "source_current_reconciled": false,
+      "unread_ranges": [],
+      "whole_file_coverage": true,
+      "native_pr_comparison": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-building-generator/src/spiral_stairs/landing_policy.rs",
+        "sha256": "e054b33865a02762e480744ec0074a04fe71d7bf73e61c10ca5357f493eaf7d3",
+        "actual_eof": 62,
+        "literal_bytes_equal": true,
+        "semantic_or_current_credit": false
+      }
+    },
+    {
+      "original": 2839,
+      "source": {
+        "original": 2839,
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/floors.rs",
+        "sha256": "8a2961c2a6d64a997bc81cf6cc94ac1647dbe32afa1093446f97f6de93cedca4",
+        "actual_eof": 101,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/8a2961c2a6d64a997bc81cf6cc94ac1647dbe32afa1093446f97f6de93cedca4",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/8a2961c2a6d64a997bc81cf6cc94ac1647dbe32afa1093446f97f6de93cedca4",
+        "prospective_ranges": [
+          [
+            1,
+            101
+          ]
+        ],
+        "revision_qualification": "Exact archived snapshot bytes; archive is transport only. Native PR or pinned dependency comparison does not supply current semantic credit.",
+        "purpose": "Ten exact bestiary/stairs/coif/hair roles858material:573fresh and285historical; fixture source only, no execution."
+      },
+      "mode": "fresh",
+      "bytes": 3493,
+      "assessed_union": [
+        [
+          1,
+          101
+        ]
+      ],
+      "material_line_count": 101,
+      "new_root_personal_lines": 101,
+      "registry_entry_sha256": "4c32f148cd187a2807c6b872b4a883a5e313566e468ab7b6c9fa36322152663e",
+      "registry_bytes_field_present": false,
+      "source_current_reconciled": false,
+      "unread_ranges": [],
+      "whole_file_coverage": true,
+      "native_pr_comparison": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-building-generator/src/spiral_stairs/floors.rs",
+        "sha256": "8a2961c2a6d64a997bc81cf6cc94ac1647dbe32afa1093446f97f6de93cedca4",
+        "actual_eof": 101,
+        "literal_bytes_equal": true,
+        "semantic_or_current_credit": false
+      }
+    },
+    {
+      "original": 2840,
+      "source": {
+        "original": 2840,
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/keep_core.rs",
+        "sha256": "4fe112080f5dcc507eb0600309b787389a2dbb7b056ead9fd82bea634d9e496b",
+        "actual_eof": 70,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/4fe112080f5dcc507eb0600309b787389a2dbb7b056ead9fd82bea634d9e496b",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/4fe112080f5dcc507eb0600309b787389a2dbb7b056ead9fd82bea634d9e496b",
+        "prospective_ranges": [
+          [
+            1,
+            36
+          ]
+        ],
+        "revision_qualification": "Exact archived snapshot bytes; archive is transport only. Native PR or pinned dependency comparison does not supply current semantic credit.",
+        "purpose": "Ten exact bestiary/stairs/coif/hair roles858material:573fresh and285historical; fixture source only, no execution."
+      },
+      "mode": "fresh",
+      "bytes": 2787,
+      "assessed_union": [
+        [
+          1,
+          36
+        ]
+      ],
+      "material_line_count": 36,
+      "new_root_personal_lines": 36,
+      "registry_entry_sha256": "2d2a02f8dd5433ee70f3b446575e92e59039e649ea5c41132e9da5aec6c6bdad",
+      "registry_bytes_field_present": false,
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          37,
+          70
+        ]
+      ],
+      "whole_file_coverage": false,
+      "native_pr_comparison": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-building-generator/src/spiral_stairs/keep_core.rs",
+        "sha256": "4fe112080f5dcc507eb0600309b787389a2dbb7b056ead9fd82bea634d9e496b",
+        "actual_eof": 70,
+        "literal_bytes_equal": true,
+        "semantic_or_current_credit": false
+      }
+    },
+    {
+      "original": 2841,
+      "source": {
+        "original": 2841,
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/bearings.rs",
+        "sha256": "fe9290ba0a257cd25b730ebad5762e929b2c184773fb1b92f4b4591722a36089",
+        "actual_eof": 69,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/fe9290ba0a257cd25b730ebad5762e929b2c184773fb1b92f4b4591722a36089",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/fe9290ba0a257cd25b730ebad5762e929b2c184773fb1b92f4b4591722a36089",
+        "prospective_ranges": [
+          [
+            1,
+            69
+          ]
+        ],
+        "revision_qualification": "Exact archived snapshot bytes; archive is transport only. Native PR or pinned dependency comparison does not supply current semantic credit.",
+        "purpose": "Ten exact bestiary/stairs/coif/hair roles858material:573fresh and285historical; fixture source only, no execution."
+      },
+      "mode": "fresh",
+      "bytes": 2835,
+      "assessed_union": [
+        [
+          1,
+          69
+        ]
+      ],
+      "material_line_count": 69,
+      "new_root_personal_lines": 69,
+      "registry_entry_sha256": "3c8b7651f20458018d3de1d4ad2aff209d962ee2ffaa2e3861b4a7b9a5eb9647",
+      "registry_bytes_field_present": false,
+      "source_current_reconciled": false,
+      "unread_ranges": [],
+      "whole_file_coverage": true,
+      "native_pr_comparison": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-building-generator/src/spiral_stairs/bearings.rs",
+        "sha256": "fe9290ba0a257cd25b730ebad5762e929b2c184773fb1b92f4b4591722a36089",
+        "actual_eof": 69,
+        "literal_bytes_equal": true,
+        "semantic_or_current_credit": false
+      }
+    },
+    {
+      "original": 2842,
+      "source": {
+        "original": 2842,
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/tests.rs",
+        "sha256": "cc9107fd14bb47171e08b5020021594835c779dc021dd32e095a926ff9e977f1",
+        "actual_eof": 221,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/cc9107fd14bb47171e08b5020021594835c779dc021dd32e095a926ff9e977f1",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/cc9107fd14bb47171e08b5020021594835c779dc021dd32e095a926ff9e977f1",
+        "prospective_ranges": [
+          [
+            1,
+            221
+          ]
+        ],
+        "revision_qualification": "Exact archived snapshot bytes; archive is transport only. Native PR or pinned dependency comparison does not supply current semantic credit.",
+        "purpose": "Ten exact bestiary/stairs/coif/hair roles858material:573fresh and285historical; fixture source only, no execution."
+      },
+      "mode": "fresh",
+      "bytes": 7676,
+      "assessed_union": [
+        [
+          1,
+          221
+        ]
+      ],
+      "material_line_count": 221,
+      "new_root_personal_lines": 221,
+      "registry_entry_sha256": "3fc2ef783dab329cfd5ee01c1cd3c11b8906f0e0dde358477e55e3bc45eac944",
+      "registry_bytes_field_present": false,
+      "source_current_reconciled": false,
+      "unread_ranges": [],
+      "whole_file_coverage": true,
+      "native_pr_comparison": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-building-generator/src/spiral_stairs/tests.rs",
+        "sha256": "cc9107fd14bb47171e08b5020021594835c779dc021dd32e095a926ff9e977f1",
+        "actual_eof": 221,
+        "literal_bytes_equal": true,
+        "semantic_or_current_credit": false
+      }
+    },
+    {
+      "original": 2843,
+      "source": {
+        "original": 2843,
+        "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/coif_drape.rs",
+        "sha256": "f9ccb3bf0662590f4dd34ea6de4ce89569348359037efc93e3736a9524c3bca1",
+        "actual_eof": 72,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/f9ccb3bf0662590f4dd34ea6de4ce89569348359037efc93e3736a9524c3bca1",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/f9ccb3bf0662590f4dd34ea6de4ce89569348359037efc93e3736a9524c3bca1",
+        "prospective_ranges": [
+          [
+            1,
+            12
+          ]
+        ],
+        "revision_qualification": "Exact archived snapshot bytes; archive is transport only. Native PR or pinned dependency comparison does not supply current semantic credit.",
+        "purpose": "Ten exact bestiary/stairs/coif/hair roles858material:573fresh and285historical; fixture source only, no execution."
+      },
+      "mode": "fresh",
+      "bytes": 2350,
+      "assessed_union": [
+        [
+          1,
+          12
+        ]
+      ],
+      "material_line_count": 12,
+      "new_root_personal_lines": 12,
+      "registry_entry_sha256": "9b8d13f03fac27418b4edf435ffe9233c0eab4e9dcc0ec9f1eb7b110001ee3ee",
+      "registry_bytes_field_present": false,
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          13,
+          72
+        ]
+      ],
+      "whole_file_coverage": false,
+      "native_pr_comparison": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/fabelgeist-armor/src/gpu/coif_drape.rs",
+        "sha256": "f9ccb3bf0662590f4dd34ea6de4ce89569348359037efc93e3736a9524c3bca1",
+        "actual_eof": 72,
+        "literal_bytes_equal": true,
+        "semantic_or_current_credit": false
+      }
+    },
+    {
+      "original": 2844,
+      "source": {
+        "original": 2844,
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+        "sha256": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+        "actual_eof": 147,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+        "prospective_ranges": [
+          [
+            1,
+            147
+          ]
+        ],
+        "revision_qualification": "Exact archived snapshot bytes; archive is transport only. Native PR or pinned dependency comparison does not supply current semantic credit.",
+        "purpose": "Ten exact bestiary/stairs/coif/hair roles858material:573fresh and285historical; fixture source only, no execution."
+      },
+      "mode": "delegated-reuse",
+      "bytes": 5672,
+      "assessed_union": [
+        [
+          1,
+          147
+        ]
+      ],
+      "material_line_count": 147,
+      "new_root_personal_lines": 0,
+      "registry_entry_sha256": "c2e4cab736f1a45790bc8a3f1703668cf28c1e469daff84007eb5a615990ed12",
+      "registry_bytes_field_present": false,
+      "source_current_reconciled": false,
+      "unread_ranges": [],
+      "whole_file_coverage": true,
+      "native_pr_comparison": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+        "sha256": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+        "actual_eof": 147,
+        "literal_bytes_equal": true,
+        "semantic_or_current_credit": false
+      },
+      "prior": {
+        "prior_adoption": {
+          "path": "segovb/READ-L13-PARALLEL-109.json",
+          "sha256": "e0871ab6712bbfffc3442b90c3e4e1af80e5759b8a018758d8c566eabcc7f83a"
+        },
+        "prior_raw_receipt": {
+          "path": "parallel-l13-20261029/READ-PL13-111.json",
+          "sha256": "5580ce0d1ae0b75b7f927abf39f549b6e0ea6ac3e02757a435a478258505573a"
+        },
+        "prior_verification": {
+          "path": "parallel-l13-20261029/VERIFY-PL13-111.json",
+          "sha256": "690005fccb5e1eb49eda241d09709e413b8beee0b9b6843c4b42e1df8008d453"
+        },
+        "prior_registration": {
+          "path": "parallel-l13-20261029/REGISTRATION-PL13-111-CONNECTED.json",
+          "sha256": "f2679596d339659542362be05433a5b75945447042f41ffe531e9214f2b12c99"
+        },
+        "prior_validation_manifest": {
+          "path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-109-111.json",
+          "sha256": "dd03a922fcf435619c587c7d708ccdcaedb91df4440b8604db77ff999d8a1f3e"
+        },
+        "prior_row_pointer": "/connected/1",
+        "prior_registration_pointer": "/sources/1",
+        "prior_source_read": {
+          "original": 2844,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+          "sha256": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+          "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+          "actual_eof": 147,
+          "prospective_ranges": [
+            [
+              1,
+              147
+            ]
+          ],
+          "scope_kind": "materially_reached_initial_audit_contract",
+          "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "purpose": "Materially reached actual selection stage validation and map geometry admission; zero early original credit.",
+          "fresh_personal_assessed_ranges": [
+            [
+              1,
+              147
+            ]
+          ],
+          "untruncated_body_outputs": true
+        },
+        "exact_old_source_record": {
+          "original": 2844,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+          "sha256": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+          "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "actual_eof": 147,
+          "assessed_ranges": [
+            [
+              1,
+              147
+            ]
+          ],
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-111.json",
+            "sha256": "5580ce0d1ae0b75b7f927abf39f549b6e0ea6ac3e02757a435a478258505573a"
+          },
+          "read_pointer": "/connected/1",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-111-CONNECTED.json",
+            "sha256": "f2679596d339659542362be05433a5b75945447042f41ffe531e9214f2b12c99"
+          },
+          "registration_pointer": "/sources/1",
+          "git_hash_eof_range_check": true,
+          "registered_before_read_attestation": true,
+          "chronology_basis": "Direct personal execution: exact registration persisted before all credited untruncated body displays; connected111 original2597/2844 receive zero early role count."
+        },
+        "historical_attribution": "Inherited independent Lens13 reader",
+        "prior_numeric_inventory": [
+          "2597 GarmentSelection::validate207..223 requires finite resolution_cm2.5..6, actual construction pattern.validate or HelmetDesign::MailCoif.validate, then drape.validate and mail.validate. Together with792 actual validators and782 drape selection.validate first, this closes scoped modulo-zero preview_interval and body_fit out-of-range suspicions for that actual drape path. It does not grant coverage to other programmatic stage consumers.",
+          "2597 resolution_cm public raw retained semantic length before pattern conversion/native Fit; same_simulation compares construction/fabric/resolution/drape, intentionally ignores name/layer/mail appearance. Semantic layers/channel enums map explicitly. Need actual exact owner/reuse policy before a retained length finding; not a compatibility defect that display/name changes avoid rerunning simulation.",
+          "2844 ScalpMap::fit computes valid finite nonzero directions via unit predicate and uses fallbackup for empty mean. AXIS_STEPS64 shrink cone, RIM_MARGIN.02rad produces sinrim, finite unit directions angle clamps dot beforeacos. radius averages every original scalp position distance, including inputs excluded from valid directions; finite positive radius/nonempty actual generated scalp remains upstream native source admission, not established by direction filter. texel uses requested size; actual798size2048 positive. Actual empty scalp may make texelside0; no ordinary canonical empty-scalp incident claimed.",
+          "2844 equal-area disk/square projection intentionally uses numeric angle constants and inverse mapping, native799 follows same formula. Forward fallbackface may not be orthogonal if degenerate axis parallelface; actual scalp/Head geometry policy needed to establish supported axis domain. Source map is private constructed only throughfit, so native source generation is the canonical proof dependency.",
+          "New necessary hair/gpu/mod.rs explicitly makes storage nonempty bytes.max16 and upload empty data -> four default elements. Resolves empty native buffer allocation suspicion for these helpers; padding does not itself make a zero semantic strand/source row valid for shader. KernelSource caches exact code on context and HairGpu serializes GpuGroomer scratch ownership by Mutex. Poison recovery is documented reset-per-groom policy, not an obsolete compatibility fallback. Underlying Buffer/Kernel/GpuGroomer actual contracts remain unread; wrappers alone give no finite/count guarantee."
+        ],
+        "missing_original_schema_qualification": null,
+        "historical_original_credit_field_preserved_absent": true,
+        "connected_credit_schema_qualification": {
+          "manifest": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-109-111.json",
+            "sha256": "dd03a922fcf435619c587c7d708ccdcaedb91df4440b8604db77ff999d8a1f3e"
+          },
+          "scope": "Exact111 source_records omit original_credit_now; explicit future proof/necessary extension original_role_credit_now=0 and connected-only unchanged807 frontier independently establish zero credit. Raw records unchanged; no generic missing-field default.",
+          "source_and_population_credit": 0
+        }
+      }
+    },
+    {
+      "original": 2845,
+      "source": {
+        "original": 2845,
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+        "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+        "actual_eof": 138,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+        "prospective_ranges": [
+          [
+            1,
+            138
+          ]
+        ],
+        "revision_qualification": "Exact archived snapshot bytes; archive is transport only. Native PR or pinned dependency comparison does not supply current semantic credit.",
+        "purpose": "Ten exact bestiary/stairs/coif/hair roles858material:573fresh and285historical; fixture source only, no execution."
+      },
+      "mode": "delegated-reuse",
+      "bytes": 4706,
+      "assessed_union": [
+        [
+          1,
+          138
+        ]
+      ],
+      "material_line_count": 138,
+      "new_root_personal_lines": 0,
+      "registry_entry_sha256": "4b1bd341016a49c74802f7566f3cd27c9e77c29c6c39fa47fdcab3f9d3100bfc",
+      "registry_bytes_field_present": false,
+      "source_current_reconciled": false,
+      "unread_ranges": [],
+      "whole_file_coverage": true,
+      "native_pr_comparison": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+        "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+        "actual_eof": 138,
+        "literal_bytes_equal": true,
+        "semantic_or_current_credit": false
+      },
+      "prior": {
+        "prior_adoption": {
+          "path": "segovb/READ-L13-PARALLEL-109.json",
+          "sha256": "e0871ab6712bbfffc3442b90c3e4e1af80e5759b8a018758d8c566eabcc7f83a"
+        },
+        "prior_raw_receipt": {
+          "path": "parallel-l13-20261029/READ-PL13-111.json",
+          "sha256": "5580ce0d1ae0b75b7f927abf39f549b6e0ea6ac3e02757a435a478258505573a"
+        },
+        "prior_verification": {
+          "path": "parallel-l13-20261029/VERIFY-PL13-111.json",
+          "sha256": "690005fccb5e1eb49eda241d09709e413b8beee0b9b6843c4b42e1df8008d453"
+        },
+        "prior_registration": {
+          "path": "parallel-l13-20261029/REGISTRATION-PL13-111-CONNECTED.json",
+          "sha256": "f2679596d339659542362be05433a5b75945447042f41ffe531e9214f2b12c99"
+        },
+        "prior_validation_manifest": {
+          "path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-109-111.json",
+          "sha256": "dd03a922fcf435619c587c7d708ccdcaedb91df4440b8604db77ff999d8a1f3e"
+        },
+        "prior_row_pointer": "/connected/2",
+        "prior_registration_pointer": "/sources/2",
+        "prior_source_read": {
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+          "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+          "object_path": "target/726-audit-adler-20261027/parallel-l13-20261029/objects/f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+          "actual_eof": 138,
+          "prospective_ranges": [
+            [
+              1,
+              138
+            ]
+          ],
+          "scope_kind": "new_necessary_connected_contract",
+          "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "purpose": "Actual HairGpu ownership, upload/storage native admission helpers materially reached by798..804; global identity dedup pending root.",
+          "fresh_personal_assessed_ranges": [
+            [
+              1,
+              138
+            ]
+          ],
+          "untruncated_body_outputs": true
+        },
+        "exact_old_source_record": {
+          "original": null,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+          "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+          "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "actual_eof": 138,
+          "assessed_ranges": [
+            [
+              1,
+              138
+            ]
+          ],
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-111.json",
+            "sha256": "5580ce0d1ae0b75b7f927abf39f549b6e0ea6ac3e02757a435a478258505573a"
+          },
+          "read_pointer": "/connected/2",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-111-CONNECTED.json",
+            "sha256": "f2679596d339659542362be05433a5b75945447042f41ffe531e9214f2b12c99"
+          },
+          "registration_pointer": "/sources/2",
+          "git_hash_eof_range_check": true,
+          "registered_before_read_attestation": true,
+          "chronology_basis": "Direct personal execution: exact registration persisted before all credited untruncated body displays; connected111 original2597/2844 receive zero early role count."
+        },
+        "historical_attribution": "Inherited independent Lens13 reader",
+        "prior_numeric_inventory": [
+          "2597 GarmentSelection::validate207..223 requires finite resolution_cm2.5..6, actual construction pattern.validate or HelmetDesign::MailCoif.validate, then drape.validate and mail.validate. Together with792 actual validators and782 drape selection.validate first, this closes scoped modulo-zero preview_interval and body_fit out-of-range suspicions for that actual drape path. It does not grant coverage to other programmatic stage consumers.",
+          "2597 resolution_cm public raw retained semantic length before pattern conversion/native Fit; same_simulation compares construction/fabric/resolution/drape, intentionally ignores name/layer/mail appearance. Semantic layers/channel enums map explicitly. Need actual exact owner/reuse policy before a retained length finding; not a compatibility defect that display/name changes avoid rerunning simulation.",
+          "2844 ScalpMap::fit computes valid finite nonzero directions via unit predicate and uses fallbackup for empty mean. AXIS_STEPS64 shrink cone, RIM_MARGIN.02rad produces sinrim, finite unit directions angle clamps dot beforeacos. radius averages every original scalp position distance, including inputs excluded from valid directions; finite positive radius/nonempty actual generated scalp remains upstream native source admission, not established by direction filter. texel uses requested size; actual798size2048 positive. Actual empty scalp may make texelside0; no ordinary canonical empty-scalp incident claimed.",
+          "2844 equal-area disk/square projection intentionally uses numeric angle constants and inverse mapping, native799 follows same formula. Forward fallbackface may not be orthogonal if degenerate axis parallelface; actual scalp/Head geometry policy needed to establish supported axis domain. Source map is private constructed only throughfit, so native source generation is the canonical proof dependency.",
+          "New necessary hair/gpu/mod.rs explicitly makes storage nonempty bytes.max16 and upload empty data -> four default elements. Resolves empty native buffer allocation suspicion for these helpers; padding does not itself make a zero semantic strand/source row valid for shader. KernelSource caches exact code on context and HairGpu serializes GpuGroomer scratch ownership by Mutex. Poison recovery is documented reset-per-groom policy, not an obsolete compatibility fallback. Underlying Buffer/Kernel/GpuGroomer actual contracts remain unread; wrappers alone give no finite/count guarantee."
+        ],
+        "missing_original_schema_qualification": {
+          "ref": {
+            "path": "parallel-l13-20261029/QUALIFICATION-PL13-111-CONNECTED-ORIGINAL-NULL-001.json",
+            "sha256": "1bd26cb3058a7cfb366f2e18c3bbf5fffe3fbda4a60d2e1f505785c9f32a7f72"
+          },
+          "evidence": {
+            "lens": 13,
+            "status": "Exact hash-specific additive schema qualification only; no receipt rewrite or authoritative mutation",
+            "read": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-111.json",
+              "sha256": "5580ce0d1ae0b75b7f927abf39f549b6e0ea6ac3e02757a435a478258505573a"
+            },
+            "registration": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-111-CONNECTED.json",
+              "sha256": "f2679596d339659542362be05433a5b75945447042f41ffe531e9214f2b12c99"
+            },
+            "manifest": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-109-111.json",
+              "sha256": "dd03a922fcf435619c587c7d708ccdcaedb91df4440b8604db77ff999d8a1f3e"
+            },
+            "exact_rows": [
+              {
+                "read_pointer": "/connected/2",
+                "registration_pointer": "/sources/2",
+                "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+                "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+                "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+                "actual_eof": 138,
+                "assessed_ranges": [
+                  [
+                    1,
+                    138
+                  ]
+                ],
+                "historical_original_key": "Absent in these two immutable rows",
+                "effective_original": null,
+                "original_credit_now": 0,
+                "scope": "New necessary connected material only; exact necessary extension/all-other-lens queue preserved, global identity novelty pending root dedup, no original role population membership inferred"
+              }
+            ],
+            "truthful_basis": "111 directly registered and personally assessed this full138 source as necessary hair GPU helper, explicitly zero early original credit and global novelty pending. Existing source_records original:null and necessary original_role_credit_now:0 already capture the intended classification. This only makes that exact omitted row key explicit for guarded adoption; it does not add source/body/frontier/identity coverage.",
+            "guards": [
+              "Apply only exact READ111 and REG111 hashes and exact connected2/sources2 identity/hash/EOF138/range1..138",
+              "No generic missing-original defaults for any other file/row/source",
+              "Keep raw receipt, registry, manifest, queues and prospective chronology unchanged"
+            ],
+            "authoritative_counts_changed": false,
+            "new_source_identity_delta_inferred": 0,
+            "accepted_unique_count_change": 0,
+            "product_execution": false
+          }
+        },
+        "historical_original_credit_field_preserved_absent": true,
+        "connected_credit_schema_qualification": {
+          "manifest": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-109-111.json",
+            "sha256": "dd03a922fcf435619c587c7d708ccdcaedb91df4440b8604db77ff999d8a1f3e"
+          },
+          "scope": "Exact111 source_records omit original_credit_now; explicit future proof/necessary extension original_role_credit_now=0 and connected-only unchanged807 frontier independently establish zero credit. Raw records unchanged; no generic missing-field default.",
+          "source_and_population_credit": 0
+        }
+      }
+    }
+  ],
+  "all_nested_range_fields": [
+    {
+      "pointer": "/files/2836/material_ranges",
+      "raw_value": [
+        [
+          1,
+          39
+        ]
+      ],
+      "actual_eof": 39
+    },
+    {
+      "pointer": "/files/2836/scope_registration/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          39
+        ]
+      ],
+      "actual_eof": 39
+    },
+    {
+      "pointer": "/files/2837/material_ranges",
+      "raw_value": [
+        [
+          1,
+          33
+        ]
+      ],
+      "actual_eof": 33
+    },
+    {
+      "pointer": "/files/2837/scope_registration/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          33
+        ]
+      ],
+      "actual_eof": 33
+    },
+    {
+      "pointer": "/files/2838/material_ranges",
+      "raw_value": [
+        [
+          1,
+          62
+        ]
+      ],
+      "actual_eof": 62
+    },
+    {
+      "pointer": "/files/2838/scope_registration/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          62
+        ]
+      ],
+      "actual_eof": 62
+    },
+    {
+      "pointer": "/files/2839/material_ranges",
+      "raw_value": [
+        [
+          1,
+          101
+        ]
+      ],
+      "actual_eof": 101
+    },
+    {
+      "pointer": "/files/2839/scope_registration/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          101
+        ]
+      ],
+      "actual_eof": 101
+    },
+    {
+      "pointer": "/files/2840/material_ranges",
+      "raw_value": [
+        [
+          1,
+          36
+        ]
+      ],
+      "actual_eof": 70
+    },
+    {
+      "pointer": "/files/2840/scope_registration/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          37
+        ]
+      ],
+      "actual_eof": 70
+    },
+    {
+      "pointer": "/files/2841/material_ranges",
+      "raw_value": [
+        [
+          1,
+          69
+        ]
+      ],
+      "actual_eof": 69
+    },
+    {
+      "pointer": "/files/2841/scope_registration/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          69
+        ]
+      ],
+      "actual_eof": 69
+    },
+    {
+      "pointer": "/files/2842/material_ranges",
+      "raw_value": [
+        [
+          1,
+          221
+        ]
+      ],
+      "actual_eof": 221
+    },
+    {
+      "pointer": "/files/2842/scope_registration/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          221
+        ]
+      ],
+      "actual_eof": 221
+    },
+    {
+      "pointer": "/files/2843/material_ranges",
+      "raw_value": [
+        [
+          1,
+          12
+        ]
+      ],
+      "actual_eof": 72
+    },
+    {
+      "pointer": "/files/2843/scope_registration/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          12
+        ]
+      ],
+      "actual_eof": 72
+    },
+    {
+      "pointer": "/files/2844/material_ranges",
+      "raw_value": [
+        [
+          1,
+          147
+        ]
+      ],
+      "actual_eof": 147
+    },
+    {
+      "pointer": "/files/2844/scope_registration/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          147
+        ]
+      ],
+      "actual_eof": 147
+    },
+    {
+      "pointer": "/files/2845/material_ranges",
+      "raw_value": [
+        [
+          1,
+          138
+        ]
+      ],
+      "actual_eof": 138
+    },
+    {
+      "pointer": "/files/2845/scope_registration/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          138
+        ]
+      ],
+      "actual_eof": 138
+    }
+  ],
+  "exact_hash_prior_hits": [
+    {
+      "original": 2844,
+      "receipt": {
+        "path": "segovb/READ-L13-PARALLEL-109.json",
+        "sha256": "e0871ab6712bbfffc3442b90c3e4e1af80e5759b8a018758d8c566eabcc7f83a"
+      }
+    },
+    {
+      "original": 2845,
+      "receipt": {
+        "path": "segovb/READ-L13-PARALLEL-109.json",
+        "sha256": "e0871ab6712bbfffc3442b90c3e4e1af80e5759b8a018758d8c566eabcc7f83a"
+      }
+    }
+  ],
+  "future_proofs_preserved": [
+    {
+      "receipt": "parallel-l13-20261029/READ-PL13-111.json",
+      "receipt_sha256": "5580ce0d1ae0b75b7f927abf39f549b6e0ea6ac3e02757a435a478258505573a",
+      "row_pointer": "/connected/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-111-CONNECTED.json",
+        "sha256": "f2679596d339659542362be05433a5b75945447042f41ffe531e9214f2b12c99"
+      },
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+      "source_sha256": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+      "actual_EOF": 147,
+      "assessed_ranges": [
+        [
+          1,
+          147
+        ]
+      ],
+      "attribution": "Delegated independent L13 personal read; no root/other-lens/current transfer",
+      "ordered_credit_now": 0,
+      "original": 2844,
+      "future_rule": "Exact identity/revision/hash/Git/EOF/prospective/range/attribution qualification, then count once at ordered frontier."
+    }
+  ],
+  "old_ordered_applications_preserved": [],
+  "discovery_metadata_sha256": "833bf8943cafb748d73f2d2caf90b13c3e68a65f8fc7566941b3b5a855ff7a92",
+  "production_source_lines": 858,
+  "fixture_source_lines": 0,
+  "fixture_execution": false,
+  "exact_partial_scopes_preserved": true,
+  "connected_future_and_missing_original_history_preserved": true,
+  "native_pr_identity_and_missing_byte_fields_preserved": true,
+  "all_nested_range_fields_inspected": true,
+  "historical_receipts_unchanged": true,
+  "transport_only_not_current_source": true,
+  "material_lines": 858,
+  "fresh_lines": 573,
+  "reused_material_lines": 285,
+  "body_credit": 0,
+  "authority_changes": 0,
+  "other_population_credit": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "limits": [
+    "Eight fresh bodies573 lines require prospective read, two historical roles285 retain original authorship. All20 nested ranges and10 missing bytes fields preserved.",
+    "Exact native PR identity is explicit; actual current activation/graph and full audit/repair ledger/implementation/review/runtime remain incomplete."
+  ]
+}

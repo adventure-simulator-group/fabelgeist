@@ -1,0 +1,39 @@
+1: //! Quality gates for open catalog descriptions against the canonical bestiary.
+2: //!
+3: //! Callers enumerate catalog entries, including additions without named constants.
+4: //! The embedded monster and relation authority supplies the support distribution.
+5: use super::{
+6:     BestiaryCatalogDiagnostic, RegionalContext, ReportDescription,
+7:     ambiguous_description_cardinality, distinguishing_clue_set_count, distribution_summary,
+8: };
+9: 
+10: const MAX_CURATED_REPORT_BASIS_POINTS: u16 = 9_500;
+11: 
+12: pub(crate) fn validate_report_descriptions(
+13:     reports: impl IntoIterator<Item = ReportDescription>,
+14: ) -> Vec<BestiaryCatalogDiagnostic> {
+15:     let mut errors = Vec::new();
+16:     for report in reports {
+17:         let cardinality = ambiguous_description_cardinality(report);
+18:         if cardinality < 2 {
+19:             errors.push(BestiaryCatalogDiagnostic {
+20:                 message: format!("description {report:?} is not ambiguous"),
+21:             });
+22:         }
+23:         let marginals = distribution_summary(report, RegionalContext::NorthernGermany1544);
+24:         if marginals
+25:             .iter()
+26:             .any(|item| item.curated_basis_points > MAX_CURATED_REPORT_BASIS_POINTS)
+27:         {
+28:             errors.push(BestiaryCatalogDiagnostic {
+29:                 message: format!("description {report:?} is over-dominant"),
+30:             });
+31:         }
+32:         if cardinality > 1 && distinguishing_clue_set_count(report) < 2 {
+33:             errors.push(BestiaryCatalogDiagnostic {
+34:                 message: format!("description {report:?} lacks distinguishing clues"),
+35:             });
+36:         }
+37:     }
+38:     errors
+39: }

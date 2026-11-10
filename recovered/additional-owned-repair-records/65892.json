@@ -1,0 +1,70 @@
+{
+  "schema": "726-recorded-owned-repair-expression-v1",
+  "event_ordinal": 65892,
+  "printed_output": {
+    "packets": [
+      {
+        "path": "adler-continuation-20261030/READ-ROOT-L12-BUILDING-AUDIT-ISSUES-001.json",
+        "sha256": "926d115376aa460d6b45952eda509388ac71ee1a6645fd661360503719c44aeb"
+      },
+      {
+        "path": "adler-continuation-20261030/READ-ROOT-L12-BUILDING-AUDIT-ISSUES-002.json",
+        "sha256": "98307196ccd6666455d6d88e2bb4982cfae275804d57b136c7798f6c7070d146"
+      },
+      {
+        "path": "adler-continuation-20261030/READ-ROOT-L12-BUILDING-AUDIT-ISSUES-004.json",
+        "sha256": "0a2e12a4b8a8df451d67aed497f36312c2eb95e43e20a92751e52f971a17cbc1"
+      }
+    ],
+    "uncredited": 1653,
+    "repair": {
+      "path": "adler-continuation-20261030/OWNED-REPAIR-ROOT-L12-BUILDING-AUDIT-ISSUES-001.json",
+      "sha256": "bf8dd873c4b314e3e2fc57f7656fd8cfbc9f14bc996cc71dd06ac38f38a021fd"
+    }
+  },
+  "literal_fields": {
+    "at": {
+      "unresolved_expression": "datetime.now(timezone.utc).isoformat()"
+    },
+    "author": "/root",
+    "contract_id": {
+      "unresolved_expression": "q['entries'][3715]['contract_id']"
+    },
+    "evidence_packets": {
+      "unresolved_expression": "packets"
+    },
+    "source_dependencies": {
+      "unresolved_expression": "deps"
+    },
+    "owner": "Existing AuditIssue and GenerationError::StructuralContract own structural audit issue records. A building-review admission context owns the existing typed SceneBuildingId and GenerationError without converting either to text; native BevyError owns it at the actual fallible-system error boundary, and final Display renders issue details.",
+    "required_repair": [
+      "Replace ReviewRequirements.for_buildings nonempty-audit generic formatString with the actual existing GenerationError::StructuralContract issue owner. Preserve complete returned Vec<AuditIssue>, order, code/message and exact first failing building. Construct its existing count consistently from the owned issues at this producer; do not invent a parallel structural-issues type or claim the existing owner is absent.",
+      "Attach typed SceneBuildingId to the owned generation/audit failure in a purpose-specific review admission context. Where actual audit_plan returns Err, retain original GenerationError and its source chain, preserving current propagation/failure semantics rather than relabeling it as Ok(nonemptyissues). Keep empty issue list success distinct from returned issue rejection and native generation failure.",
+      "Carry owned review context through actual review setup and furnished-room geometry admission to fallible setup_scene; native Bevy Result/BevyError may box an Error and retains downcastable payload. Do not use private format!/to_string, generic String error cache, issue count alone or a synthesized replacement cause as transport. Preserve existing door/window/native IO/serde/camera failures instead of swallowing or reclassifying them.",
+      "At the actual final diagnostic formatter, include typed building identity and each retained issue code/message. Native Bevy0.19.1 default handler uses Display, so deriving Debug or retaining Vec alone is insufficient; existing GenerationError::StructuralContract Display reports count only. Implement review-context Display or actual final error renderer that inspects the retained StructuralContract payload, formats once and does not duplicate issue strings privately. For other GenerationError variants preserve original cause/Display semantics without redesigning all generators.",
+      "Preserve terminal error behavior and existing native severity policy. Blanket BevyError conversion is Panic severity and fallback defaults to matching severity; do not downgrade it to log-and-continue or introduce a speculative watchdog/AppExit loop based on an unobserved hang. Actual capture success/write outcome remains separately owned; any existing/future custom handler must not certify failed review as successful capture.",
+      "Keep native external review fixture validation and missing sign building/support predicates explicit independent work under Q3821/connected admission obligations. This repair does not establish a runtime panic witness or convert every assertion automatically. Preserve source observations at124..131/140..154 and string errors139/150 for that separate admission-owner decision; no transfer of L13 verdict or erasure of open obligations.",
+      "Use the clean final existing owner/API directly across actual callers and update applicable owning acceptance/fixtures. No compatibility alias, duplicate GenerationError facade, legacy fallback or native crate edits. Keep actual AuditIssue.code taxonomy/message construction, broader quantities/geometry/camera/input policy and all other error graphs independently audited."
+    ],
+    "later_acceptance": [
+      "After full audit gate, inspect actual nonempty audit producer through for_buildings/setup/furnished-room/setup_scene/native Result boundary: complete existing issue records and typed building identity remain owned; no generic private text or count-only replacement. Native type erasure must retain concrete context/downcastable original cause.",
+      "Use owning existing building-review/capture acceptance with a source-supported invalid plan: multiple audit issues retain exact codes/messages/order/building context in final Display diagnostic and native failure. A single code substring or Debug-only assertion is insufficient. No new object unit tests.",
+      "Verify empty audit success and actual audit_plan GenerationError preserve distinct behavior and original typed cause/source. Door/window/read/parse/camera errors keep current causes and fail; no error silently permits ReviewRequirements or successful capture.",
+      "Verify both normal building-review setup and furnished-room geometry requirements use the same context/issue owner without duplicate transport records. Preserve first-failure order and valid successful counts, views, camera setup and readiness.",
+      "At final configured native runner, verify fatal failure with visible issue details and no success-looking final manifest. Qualify actual handler configuration in acceptance; native default source evidence is not execution or proof of all plugins/features.",
+      "Run applicable final-revision build/CLI/native invalid-review and existing capture integration validation after implementation; independent review remains required. Keep Q3821 fixture mismatch/shopfront/mount and connected missing-building/support admission policy open until separately reconciled."
+    ],
+    "source_discovery_repair_specification_complete": true,
+    "remaining_independent_obligations": [
+      "Q3821 ROOT-L13-2703-REVIEW-FIXTURE-ADMISSION-ASSERTIONS remains open, including count/slug/shopfront/mount policy and connected native missing sign building139/support150 error owner decisions. No new runtime panic/hang witness or L13 clearance.",
+      "AuditIssue.code taxonomy and full audit algorithm/deep native generation causes, numerical/physical measures, geometry and independent report error/absence/applicability families remain open.",
+      "Historical original proposal and original L13 source view remain authored false/current-open. Canonical own-L12 selected337 issue-payload first predicate only; all13/all20/current59path767cell/global aliases/live-main and implementation/independent review/runtime remain mandatory."
+    ],
+    "repair_complete": false,
+    "tests_executed": false,
+    "independent_agent_review": false,
+    "product_execution": false,
+    "implementation_gate_complete": false
+  },
+  "qualification": "Literal values and unresolved expressions from recorded command; not original JSON bytes, authority, implementation, acceptance, or evidence of a successful repair."
+}

@@ -1,0 +1,190 @@
+1: //! When editing generated code in this module, use `__`-prefixed reserved names
+2: //! for macro-emitted local bindings and helper items to avoid collisions with
+3: //! user-defined items at the expansion site.
+4: 
+5: extern crate core;
+6: extern crate proc_macro;
+7: 
+8: use proc_macro2::{Span, TokenStream};
+9: use quote::{quote, quote_spanned, ToTokens};
+10: use syn::punctuated::Pair;
+11: use syn::spanned::Spanned;
+12: use syn::{LitStr, Token};
+13: 
+14: use crate::sym;
+15: use crate::util::{check_duplicate, match_meta};
+16: 
+17: pub(crate) struct SatsType<'a> {
+18:     pub ident: &'a syn::Ident,
+19:     pub generics: &'a syn::Generics,
+20:     pub name: LitStr,
+21:     pub krate: TokenStream,
+22:     // may want to use in the future
+23:     #[allow(unused)]
+24:     pub original_attrs: &'a [syn::Attribute],
+25:     pub data: SatsTypeData<'a>,
+26:     /// Was the type marked as `#[repr(C)]`?
+27:     pub is_repr_c: bool,
+28: }
+29: 
+30: pub(crate) enum SatsTypeData<'a> {
+31:     Product(Vec<SatsField<'a>>),
+32:     Sum(Vec<SatsVariant<'a>>),
+33: }
+34: 
+35: #[derive(Clone)]
+36: pub(crate) struct SatsField<'a> {
+37:     pub ident: Option<&'a syn::Ident>,
+38:     pub vis: &'a syn::Visibility,
+39:     pub name: Option<String>,
+40:     pub ty: &'a syn::Type,
+41:     pub original_attrs: &'a [syn::Attribute],
+42: }
+43: 
+44: pub(crate) struct SatsVariant<'a> {
+45:     pub ident: &'a syn::Ident,
+46:     pub name: String,
+47:     pub ty: Option<&'a syn::Type>,
+48:     pub member: Option<syn::Member>,
+49:     // may want to use in the future
+50:     #[allow(unused)]
+51:     pub original_attrs: &'a [syn::Attribute],
+52: }
+53: 
+54: pub(crate) fn sats_type_from_derive(
+55:     input: &syn::DeriveInput,
+56:     crate_fallback: TokenStream,
+57: ) -> syn::Result<SatsType<'_>> {
+58:     let data = match &input.data {
+59:         syn::Data::Struct(struc) => {
+60:             let fields = struc.fields.iter().map(|field| SatsField {
+61:                 ident: field.ident.as_ref(),
+62:                 vis: &field.vis,
+63:                 name: field.ident.as_ref().map(syn::Ident::to_string),
+64:                 ty: &field.ty,
+65:                 original_attrs: &field.attrs,
+66:             });
+67:             SatsTypeData::Product(fields.collect())
+68:         }
+69:         syn::Data::Enum(enu) => {
+70:             let variants = enu.variants.iter().map(|var| {
+71:                 let (member, ty) = variant_data(var)?.unzip();
+72:                 Ok(SatsVariant {
+73:                     ident: &var.ident,
+74:                     name: var.ident.to_string(),
+75:                     ty,
+76:                     member,
+77:                     original_attrs: &var.attrs,
+78:                 })
+79:             });
+80:             SatsTypeData::Sum(variants.collect::<syn::Result<Vec<_>>>()?)
+81:         }
+82:         syn::Data::Union(u) => return Err(syn::Error::new(u.union_token.span, "unions not supported")),
+83:     };
+84:     extract_sats_type(&input.ident, &input.generics, &input.attrs, data, crate_fallback)
+85: }
+86: 
+87: fn is_repr_c(attrs: &[syn::Attribute]) -> bool {
+88:     let mut is_repr_c = false;
+89:     for attr in attrs.iter().filter(|a| a.path() == sym::repr) {
+90:         let _ = attr.parse_nested_meta(|meta| {
+91:             is_repr_c |= meta.path.is_ident("C");
+92:             Ok(())
+93:         });
+94:     }
+95:     is_repr_c
+96: }
+97: 
+98: pub(crate) fn extract_sats_type<'a>(
+99:     ident: &'a syn::Ident,
+100:     generics: &'a syn::Generics,
+101:     attrs: &'a [syn::Attribute],
+102:     data: SatsTypeData<'a>,
+103:     crate_fallback: TokenStream,
+104: ) -> syn::Result<SatsType<'a>> {
+105:     let mut name = None;
+106:     let mut krate = None;
+107:     for attr in attrs {
+108:         if attr.path() != sym::sats {
+109:             continue;
+110:         }
+111:         attr.parse_nested_meta(|meta| {
+112:             match_meta!(match meta {
+113:                 sym::crate_ => {
+114:                     check_duplicate(&krate, &meta)?;
+115:                     let value = meta.value()?;
+116:                     let v = value.call(syn::Path::parse_mod_style)?;
+117:                     krate = Some(v.into_token_stream());
+118:                 }
+119:                 sym::name => {
+120:                     check_duplicate(&name, &meta)?;
+121:                     let value = meta.value()?;
+122:                     let v = value.parse::<LitStr>()?;
+123:                     name = Some(v);
+124:                 }
+125:             });
+126:             Ok(())
+127:         })?;
+128:     }
+129:     let krate = krate.unwrap_or(crate_fallback);
+130:     let name = name.unwrap_or_else(|| crate::util::ident_to_litstr(ident));
+131: 
+132:     let is_repr_c = is_repr_c(attrs);
+133: 
+134:     Ok(SatsType {
+135:         ident,
+136:         generics,
+137:         name,
+138:         krate,
+139:         original_attrs: attrs,
+140:         data,
+141:         is_repr_c,
+142:     })
+143: }
+144: 
+145: pub(crate) fn derive_satstype(ty: &SatsType<'_>) -> TokenStream {
+146:     let ty_name = &ty.name;
+147:     let name = &ty.ident;
+148:     let krate = &ty.krate;
+149: 
+150:     let mut add_impls_for_plain_enum = false;
+151:     let typ = match &ty.data {
+152:         SatsTypeData::Product(fields) => {
+153:             let fields = fields.iter().map(|field| {
+154:                 let field_name = match &field.name {
+155:                     Some(name) => quote!(Some(#name)),
+156:                     None => quote!(None),
+157:                 };
+158:                 let ty = field.ty;
+159:                 quote!((
+160:                     #field_name,
+161:                     <#ty as #krate::SpacetimeType>::make_type(__typespace)
+162:                 ))
+163:             });
+164:             let len = fields.len();
+165:             quote!(
+166:                 #krate::sats::AlgebraicType::product::<
+167:                     [(Option<&str>, #krate::sats::AlgebraicType); #len]
+168:                 >(
+169:                     [#(#fields),*]
+170:                 )
+171:             )
+172:         }
+173:         SatsTypeData::Sum(variants) => {
+174:             // To allow an enum, with all-unit variants, as an index key type,
+175:             // add derive `Filterable` for the enum.
+176:             add_impls_for_plain_enum = variants.iter().all(|var| var.ty.is_none());
+177: 
+178:             let unit = syn::Type::Tuple(syn::TypeTuple {
+179:                 paren_token: Default::default(),
+180:                 elems: Default::default(),
+181:             });
+182:             let variants = variants.iter().map(|var| {
+183:                 let variant_name = &var.name;
+184:                 let ty = var.ty.unwrap_or(&unit);
+185:                 quote!((
+186:                     #variant_name,
+187:                     <#ty as #krate::SpacetimeType>::make_type(__typespace)
+188:                 ))
+189:             });
+190:             let len = variants.len();

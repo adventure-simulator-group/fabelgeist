@@ -1,0 +1,47 @@
+"""Read-only exact eight fresh armor-admission scopes, no prior hash hit."""
+from pathlib import Path
+import json,hashlib,subprocess
+def build(r,w,a,co,files):
+ r,w,a=[p.resolve()for p in(r,w,a)]
+ def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+ def read(p):return json.loads(p.read_bytes())
+ def resolve(v):
+  ps={p.resolve()for p in[r/v['path'],w/v['path'],r/'evidence/continuation-segovb'/v['path']]if p.is_file()and sha(p)==v['sha256']};assert len(ps)==1;return ps.pop()
+ assert co['next_original']==2632 and len(co['discovery_receipts'])==699
+ dp=w.parent/'726-intake-20261030/DISCOVERY-L13-2632-2639-METADATA-001.json';assert sha(dp)=='9d1e09af97cb7ec98cea639883e72242c4f5781df4a2930b32daf355abb39627';d=read(dp)
+ targets={files[n]['sha256']:n for n in range(2632,2640)};hits=[]
+ for v in co['discovery_receipts']:
+  raw=resolve(v).read_bytes()
+  for h,n in targets.items():
+   if h.encode()in raw:hits.append({'original':n,'receipt':v})
+ futures=[v for v in co['future_same_lens_reuse_proofs']if any(h in json.dumps(v)for h in targets)];apps=[v for v in co['future_same_lens_ordered_applications']if any(h in json.dumps(v)for h in targets)]
+ assert hits==d['exact_hash_prior_hits']==[]and futures==d['future_same_lens_proofs_navigation']==[]and apps==d['prior_applications_preserved_navigation']==[]and d['body_credit']==d['authority_changes']==0 and d['prior_same_lens_receipts_authenticated']==699
+ fields=[]
+ def inspect(v,eof,p):
+  if isinstance(v,dict):
+   for k,x in v.items():
+    at=p+'/'+k
+    if(k.endswith('ranges')or k in['read_ranges_as_recorded','material_contract_ranges_as_recorded','requested_range_limits'])and x:
+     assert isinstance(x,list)and all(isinstance(z,list)and len(z)==2 and all(isinstance(y,int)for y in z)and 1<=z[0]<=z[1]<=eof for z in x),(at,x,eof);fields.append({'pointer':at,'raw_value':x,'actual_eof':eof})
+    inspect(x,eof,at)
+  elif isinstance(v,list):
+   for j,x in enumerate(v):inspect(x,eof,p+'/'+str(j))
+ specs=[(2632,138,3925,[[1,135]]),(2633,1,39,[[1,1]]),(2634,413,14820,[[1,410]]),(2635,88,2947,[[1,88]]),(2636,209,7584,[[1,209]]),(2637,475,17623,[[1,283]]),(2638,409,12855,[[1,373]]),(2639,173,5361,[[1,173]])];sources=[];entries=[]
+ for n,eof,size,rs in specs:
+  f=files[n];assert d['entries'][n-2632]=={'original':n,'registry_entry':f}and f['actual_line_count']==eof and f['bytes']==size and f['scope_kind']=='materially_reached_admission_contract'and f['material_ranges']==rs;inspect(f,eof,f'/files/{n}')
+  gp=f['source_id'].split(':',1)[1];assert f['source_id']=='pr-working:'+gp and f['snapshot']=='pr-working'and f['path']==('SNAPSHOTS/pr-working/'+gp).replace('/','\\');git='6533e444fa37552927070cc8d8190907fd3b413e'
+  assert {j for role in f['admission03_scope_observations']for lo,hi in role['effective_material_ranges']for j in range(lo,hi+1)}=={j for lo,hi in rs for j in range(lo,hi+1)}
+  body=subprocess.check_output(['git','show',git+':'+gp]);assert hashlib.sha256(body).hexdigest()==f['sha256']and len(body)==size and len(body.splitlines())==eof;obj=a/'objects'/f['sha256']
+  if obj.is_file():assert obj.read_bytes()==body
+  else:
+   with obj.open('xb')as out:out.write(body)
+  src={'original':n,'source_id':f['source_id'],'sha256':f['sha256'],'actual_eof':eof,'object_path':obj.relative_to(w).as_posix(),'source_revision':git,'transport_git_path':gp,'prospective_ranges':rs,'revision_qualification':'Eight directprworking identities pinnedGit6533; no current-main or native feature transfer.','purpose':'Exact armor admission1672 fresh material lines across8 roles; Exact GPU definition135/topology1/cloth410/shader88/reflection209/head283/cut373/style173; other tails excluded.'};sources.append(src)
+  covered={j for lo,hi in rs for j in range(lo,hi+1)};unread=[]
+  for j in range(1,eof+1):
+   if j not in covered:
+    if unread and unread[-1][1]==j-1:unread[-1][1]=j
+    else:unread.append([j,j])
+  entries.append({'original':n,'source':src,'mode':'fresh','bytes':size,'assessed_union':rs,'material_line_count':len(covered),'new_root_personal_lines':len(covered),'registry_entry_sha256':hashlib.sha256((json.dumps(f,indent=2)+'\n').encode()).hexdigest(),'registry_path_as_recorded':f['path'],'source_current_reconciled':False,'unread_ranges':unread,'whole_file_coverage':not unread})
+ assert len(fields)==24 and files[2632]['material_ranges']==[[1,135]]and files[2634]['material_ranges']==[[1,410]]and files[2637]['material_ranges']==[[1,283]]and files[2638]['material_ranges']==[[1,373]]
+ assert sum(e['material_line_count']for e in entries)==1672
+ return {'entries':entries,'sources':sources,'all_nested_range_fields':fields,'exact_hash_prior_hits':hits,'future_proofs_preserved':futures,'old_ordered_applications_preserved':apps,'discovery_metadata_sha256':sha(dp),'exact_partial_scopes_preserved':True}

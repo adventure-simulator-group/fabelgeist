@@ -1,0 +1,248 @@
+{
+  "kind": "Isolated ordered Lens12 source assessment proposal; root adoption required",
+  "lens": 12,
+  "proposed_batch": 882,
+  "proposed_original_before": 2594,
+  "proposed_original_after": 2597,
+  "new_original_roles_proposed": 3,
+  "new_overlay_merged_shared_extension_credit": 0,
+  "accepted_unique_count_change": 0,
+  "authoritative_ledger_written": false,
+  "current_source_reconciled": false,
+  "implementation_gate_complete": false,
+  "product_execution": false,
+  "runtime_validation": "Notrun; source/evidenceonly",
+  "at": "2026-10-30T03:28:10.452324+00:00",
+  "new_findings": [],
+  "predecessor_proposal": "parallel-l12-20261029/PROPOSAL-L12-881.json",
+  "predecessor_proposal_sha256": "a9d45f55793987a9cf29b5c2f297e83bff33a620071d52e50a6e49cdbc268bae",
+  "rows": [
+    {
+      "original_index": 2594,
+      "source_id": "physical-p16:crates/fabelgeist-determinism/src/lib.rs",
+      "source_sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "actual_EOF": 58,
+      "source_object": "parallel-l12-20261029/source-881-888-ordered-20261030/85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "identity_specific_windows_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-659-ORIGINAL2594.json",
+        "sha256": "c58dd5e6f3dfcff7502c3289ab8f04c25cb873d5441b307a2a61c60e4252c615"
+      },
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-659.json",
+      "registration_sha256": "92f384490823032bb81ede02b1576b4eb785cbc772a206dcdc7ddf592084396d",
+      "requested_ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          35
+        ]
+      ],
+      "unread_registered_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "body_output_truncation_status": "untruncated",
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": 0,
+      "metadata_nested_range_shape_preflight": "Exact original recursive ranges/locators and source-specific EOF qualified; no generic tail clipping or inherited body transfer.",
+      "function_contract": {
+        "exact_function_ownership": [
+          "unit_f3218..20/inclusive_unit_f3223..25/unit_f6428..30/inclusive_unit_f6433..35 complete; seed/stream children and36..58 testsource unread"
+        ],
+        "string_inventory": [
+          "No runtime Strings in requested functions; module names/documentation do not introducesemanticIDprotocol."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Nativeu64highbits -> intentional unit/inclusive numeric scale -> native f32/f64 result; no retainedsemanticStringstate or finaltextparser."
+        ],
+        "conditional_cases": [
+          "Supported inclusive vs halfopen interval distinction preserved; no speculative numerical defect or fixture/replay compatibility requirement."
+        ]
+      }
+    },
+    {
+      "original_index": 2595,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/sigil.rs",
+      "source_sha256": "938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+      "actual_EOF": 83,
+      "source_object": "parallel-l12-20261029/source-881-888-ordered-20261030/938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/adventuresim-puzzles/src/choices/sigil.rs",
+      "identity_specific_windows_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-660-ORIGINAL2595.json",
+        "sha256": "64a168ea027e441623993c30bb98476c9b2607a6fc0b47e7b516c0801f76e290"
+      },
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-660.json",
+      "registration_sha256": "4c480c03175b283c336802cd1603507ac322e864db8c5f5b081b58c4b06adca0",
+      "requested_ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          83
+        ]
+      ],
+      "unread_registered_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "body_output_truncation_status": "untruncated",
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": 0,
+      "metadata_nested_range_shape_preflight": "Exact original recursive ranges/locators and source-specific EOF qualified; no generic tail clipping or inherited body transfer.",
+      "function_contract": {
+        "exact_function_ownership": [
+          "Sigil declaration8..14/ALL17..18/stable_id21..29/label31..39; ParseSigilError Display46..50/FromStr54..61; allsource1..83 complete"
+        ],
+        "string_inventory": [
+          "Typed five-way vocabulary; native stable_id literal emission distinct label API even when textcurrentlyequal. Native serde error maps to typedunit ParseSigilError59; human Display48."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Native submissionkey -> FromStr native StrDeserializer58 -> typed Sigil retained bycaller -> native stable_id21/Serde final encoding. Callerretention not inferred solelyenumsource."
+        ],
+        "conditional_cases": [
+          "Malformed-case tests source-only1..83 included; no tests run. No unusedStringcompatibility/prose preservation; actual UI-native caller roles remain independent."
+        ]
+      }
+    },
+    {
+      "original_index": 2596,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/witness_path.rs",
+      "source_sha256": "363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+      "actual_EOF": 75,
+      "source_object": "parallel-l12-20261029/source-881-888-ordered-20261030/363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/adventuresim-puzzles/src/choices/witness_path.rs",
+      "identity_specific_windows_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-661-ORIGINAL2596.json",
+        "sha256": "9ca6827101c2c1acd2a6afe4f8459f4080db08f24c985524381152ceac9cc7f1"
+      },
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-661.json",
+      "registration_sha256": "7564cfc426d8c9a82e84a2e55faa0d2a182557628439125a4f8b9c13da56830f",
+      "requested_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          75
+        ]
+      ],
+      "unread_registered_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "body_output_truncation_status": "untruncated",
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": 0,
+      "metadata_nested_range_shape_preflight": "Exact original recursive ranges/locators and source-specific EOF qualified; no generic tail clipping or inherited body transfer.",
+      "function_contract": {
+        "exact_function_ownership": [
+          "WitnessPath declaration7..11/ALL14/stable_id17..23/label25..32; typed ParseWitnessPathError Display38..42/FromStr46..53; full75 source"
+        ],
+        "string_inventory": [
+          "Native exactIDs Ash/Moon/Thorn differ humanlabels Ash path etc; typedowner correct. NativeFromStr usesSerde dispatch50 andtypeduniterror51, no privateproseclassifier."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Nativekey -> parse typedWitnessPath -> typedowner -> label/native submission serialization; exactcaller body independent."
+        ],
+        "conditional_cases": [
+          "Case/whitespace rejection native grammar is explicit, not obsolete API compatibility. Testsource assertions read only, not executed/passed."
+        ]
+      }
+    }
+  ],
+  "pending_connected_contracts": [
+    "Actual native runtime equipment generation/socket/cache/error producer+consumer and existingexactID owner; child imports confer no coverage.",
+    "Actual current e275/all20/all13/allpopulation+extension/alias reconciliation; no runtimevalidation."
+  ],
+  "necessary_all_other_lens_queue": [
+    {
+      "original_index": 2594,
+      "source_id": "physical-p16:crates/fabelgeist-determinism/src/lib.rs",
+      "source_sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "credit": 0,
+      "reason": "Exact actual firstparty/native contracts; independent ownlens qualifications required."
+    },
+    {
+      "original_index": 2595,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/sigil.rs",
+      "source_sha256": "938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+      "ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "credit": 0,
+      "reason": "Exact actual firstparty/native contracts; independent ownlens qualifications required."
+    },
+    {
+      "original_index": 2596,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/witness_path.rs",
+      "source_sha256": "363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "credit": 0,
+      "reason": "Exact actual firstparty/native contracts; independent ownlens qualifications required."
+    }
+  ],
+  "scope_qualifications": [
+    "Exact actual dirtyphysical hashobjects, no cleanhead/currentmain/PR substitution. PreviouslysamehashPR body notrelabeledasnewphysicalrole.",
+    "Only registered materialscopes credited; connected gap/caller proof separateandzerooriginalcredit; allpartial/unreadlimitations explicit."
+  ],
+  "contract_updates": [],
+  "current_delta_updates": [
+    {
+      "scope": "Original2594..2596 exact source contracts",
+      "status": "unreconciled",
+      "new_current_source_credit": 0,
+      "required": "Current main exact identities/contracts/nativecallers/all20/exactaliases"
+    }
+  ],
+  "partial_read_receipts": [
+    {
+      "path": "parallel-l12-20261029/PARTIAL-PAR-L12-882-001.json",
+      "sha256": "fa8d1af5967eab7a2cc2ecc8cc379f4ac3c86fb4b48d937f0107a548da5fe6b9"
+    }
+  ],
+  "actual_new_body_lines_counted_once_in_ordered_rows": 193
+}

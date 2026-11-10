@@ -1,0 +1,60 @@
+1: //! Static outdoor fixtures reconstruct their collider from the replicated kit key.
+2: use adventuresim_tactical_core::prelude::*;
+3: use adventuresim_tactical_netcode::bevy_replicon::prelude::Replicated;
+4: use bevy::prelude::*;
+5: 
+6: pub(crate) fn on_furniture_added(
+7:     event: On<Add, SceneFurniture>,
+8:     furniture: Query<&SceneFurniture>,
+9:     mut commands: Commands,
+10: ) -> Result {
+11:     let furniture = furniture.get(event.entity)?;
+12:     commands.entity(event.entity).insert((
+13:         Replicated,
+14:         RigidBody::Static,
+15:         CollisionLayers::new(TACTICAL_TERRAIN_LAYER, LayerMask::ALL),
+16:         furniture_collider(furniture.key)?,
+17:     ));
+18:     Ok(())
+19: }
+20: 
+21: pub(crate) fn spawn(commands: &mut Commands, layout: FurnitureLayout) {
+22:     commands.spawn(SceneVistaFurniture(layout.distant_instances));
+23:     for group in layout.groups {
+24:         commands.spawn(SceneFurnitureGroup(group));
+25:     }
+26:     for instance in layout.instances {
+27:         commands.spawn((
+28:             Name::new(format!("Furniture {}", instance.scene.id.0)),
+29:             instance.scene,
+30:             Transform::from_translation(instance.position_metres.metres())
+31:                 .with_rotation(Quat::from_rotation_y(instance.orientation.yaw_radians())),
+32:         ));
+33:     }
+34: }
+35: 
+36: pub(crate) fn on_group_added(
+37:     event: On<Add, SceneFurnitureGroup>,
+38:     groups: Query<&SceneFurnitureGroup>,
+39:     mut vista: ResMut<crate::SceneVistaBundleResource>,
+40: ) -> Result {
+41:     let group = &groups.get(event.entity)?.0;
+42:     if let Some(bundle) = &mut vista.0 {
+43:         bundle.furniture_groups.retain(|old| old.id != group.id);
+44:         bundle.furniture_groups.push(group.clone());
+45:         bundle.furniture_groups.sort_by_key(|group| group.id);
+46:     }
+47:     Ok(())
+48: }
+49: 
+50: /// Vista scenery is retained for reconnect/dump, without collider or Replicated.
+51: pub(crate) fn on_vista_furniture_added(
+52:     event: On<Add, SceneVistaFurniture>,
+53:     scenery: Query<&SceneVistaFurniture>,
+54:     mut vista: ResMut<crate::SceneVistaBundleResource>,
+55: ) -> Result {
+56:     if let Some(bundle) = &mut vista.0 {
+57:         bundle.distant_furniture = scenery.get(event.entity)?.0.clone();
+58:     }
+59:     Ok(())
+60: }

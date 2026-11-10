@@ -1,0 +1,264 @@
+{
+  "schema": "726-root-l12-window-observer-publication-read-v1",
+  "at": "2026-11-02T04:24:44.420775+00:00",
+  "author": "/root",
+  "lens": 12,
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L12-WINDOW-OBSERVER-PUBLICATION-001.json",
+    "sha256": "4da70b6fc74178365da8ec855294daed9399b45e70d04fd08633578fd7053e3a"
+  },
+  "discovery": {
+    "path": "adler-continuation-20261030/DISCOVERY-ROOT-L12-WINDOW-OBSERVER-PUBLICATION-001.json",
+    "sha256": "b9d72d4011f3ee4bb3d1aacf598a8caec8ced4e255d6e9184269d988242211a3"
+  },
+  "base_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "c799511039c6d42ca0d66dea6ee14865113b920dc25f89b751fb05a8d00ca751"
+  },
+  "rows": [
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-tactical-client/src/presentation/building_closures.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-tactical-client/src/presentation/building_closures.rs",
+        "source_sha256": "af2c9b3d3279b11ed2414d2f698f3c3eeae0d7f71ffff09fd4cffc894826bfbb",
+        "source_object": "adler-continuation-20261030/objects/af2c9b3d3279b11ed2414d2f698f3c3eeae0d7f71ffff09fd4cffc894826bfbb",
+        "bytes": 5282,
+        "actual_EOF": 150,
+        "ranges": [
+          [
+            1,
+            150
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [
+          [
+            53,
+            150
+          ]
+        ],
+        "fresh_personal_lines_registered": 98,
+        "prior_own_lens_read": {
+          "receipt": {
+            "path": "segovb/READ-L12-853.json",
+            "sha256": "0841f10904cdf7394a920324fcd3c8258a1919abd6080b2a2fb4a65ac6d40eff"
+          },
+          "pointer": "/rows/1",
+          "range_field": "assessed_ranges"
+        }
+      },
+      "assessed_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          53,
+          150
+        ]
+      ],
+      "fresh_root_personal_lines": 98,
+      "uncredited_reassessment_lines": 52,
+      "author": "/root",
+      "output_chunk": "8cdf4a",
+      "untruncated_body_status": "All548 prospectively registered lines personally consumed in three complete bounded outputs. New own-L12 body98 covers helper/test tail53..150; tests source only, not executed. Other450 lines preserve prior authorship with no fresh credit."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-tactical-client/src/presentation/windows.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-tactical-client/src/presentation/windows.rs",
+        "source_sha256": "2d77a52e25f3ddce4d5ddba62a3d79b48c9479e298e4e1e89e3abbe4b25e157e",
+        "source_object": "adler-continuation-20261030/objects/2d77a52e25f3ddce4d5ddba62a3d79b48c9479e298e4e1e89e3abbe4b25e157e",
+        "bytes": 2645,
+        "actual_EOF": 77,
+        "ranges": [
+          [
+            1,
+            77
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "prior_own_lens_read": {
+          "receipt": {
+            "path": "segovb/READ-L12-533.json",
+            "sha256": "8f6580556e7d3da0279fd99b34b037033b6198a1fcbaae05ee303bec50abf250"
+          },
+          "pointer": "/rows/0",
+          "range_field": "assessed_ranges"
+        }
+      },
+      "assessed_ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_reassessment_lines": 77,
+      "author": "/root",
+      "output_chunk": "8cdf4a",
+      "untruncated_body_status": "All548 prospectively registered lines personally consumed in three complete bounded outputs. New own-L12 body98 covers helper/test tail53..150; tests source only, not executed. Other450 lines preserve prior authorship with no fresh credit."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-tactical-client/src/strategic_scene/instances.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-tactical-client/src/strategic_scene/instances.rs",
+        "source_sha256": "66149a921888d0c9cf3f530e5c3d909dc4950a182bbaefc83c15ff8f7adf792b",
+        "source_object": "adler-continuation-20261030/objects/66149a921888d0c9cf3f530e5c3d909dc4950a182bbaefc83c15ff8f7adf792b",
+        "bytes": 3520,
+        "actual_EOF": 95,
+        "ranges": [
+          [
+            1,
+            81
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "prior_own_lens_read": {
+          "receipt": {
+            "path": "segovb/READ-L12-536.json",
+            "sha256": "826ac59fb1750f19da6db5f50670419fb0a1ee87309fab9c469394fbec70f0d0"
+          },
+          "pointer": "/rows/1",
+          "range_field": "assessed_ranges"
+        }
+      },
+      "assessed_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_reassessment_lines": 81,
+      "author": "/root",
+      "output_chunk": "dfd629",
+      "untruncated_body_status": "All548 prospectively registered lines personally consumed in three complete bounded outputs. New own-L12 body98 covers helper/test tail53..150; tests source only, not executed. Other450 lines preserve prior authorship with no fresh credit."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/openings.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/openings.rs",
+        "source_sha256": "14199ccf21d392bf19b46f9cfe2acb7675b248c2034bb65d04f9ace610aacc03",
+        "source_object": "adler-continuation-20261030/objects/14199ccf21d392bf19b46f9cfe2acb7675b248c2034bb65d04f9ace610aacc03",
+        "bytes": 7890,
+        "actual_EOF": 217,
+        "ranges": [
+          [
+            1,
+            217
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "prior_own_lens_read": {
+          "receipt": {
+            "path": "segovb/READ-L12-855.json",
+            "sha256": "46daa3b19b5c8884f8a9444d251a86f37b96aa7a64f6ca67ba6097efbc7d2393"
+          },
+          "pointer": "/rows/1",
+          "range_field": "assessed_ranges"
+        }
+      },
+      "assessed_ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_reassessment_lines": 217,
+      "author": "/root",
+      "output_chunk": "d3ade1",
+      "untruncated_body_status": "All548 prospectively registered lines personally consumed in three complete bounded outputs. New own-L12 body98 covers helper/test tail53..150; tests source only, not executed. Other450 lines preserve prior authorship with no fresh credit."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-tactical-client/src/presentation/buildings/signs.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-tactical-client/src/presentation/buildings/signs.rs",
+        "source_sha256": "57739c962cf2f6d39add14a9e57aac70c6d418dc2a57972bd12080a7135dc4b3",
+        "source_object": "adler-continuation-20261030/objects/57739c962cf2f6d39add14a9e57aac70c6d418dc2a57972bd12080a7135dc4b3",
+        "bytes": 5114,
+        "actual_EOF": 155,
+        "ranges": [
+          [
+            1,
+            23
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "prior_own_lens_read": {
+          "receipt": {
+            "path": "segovb/READ-L12-465.json",
+            "sha256": "0ce10ac92e284cc9e32c963e94894c7db142b44849d03637726a3ad81a5808e6"
+          },
+          "pointer": "/rows/1",
+          "range_field": "assessed_ranges"
+        }
+      },
+      "assessed_ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_reassessment_lines": 23,
+      "author": "/root",
+      "output_chunk": "dfd629",
+      "untruncated_body_status": "All548 prospectively registered lines personally consumed in three complete bounded outputs. New own-L12 body98 covers helper/test tail53..150; tests source only, not executed. Other450 lines preserve prior authorship with no fresh credit."
+    }
+  ],
+  "fresh_root_personal_source_lines": 98,
+  "uncredited_reassessment_lines": 450,
+  "source_adoption_performed": false,
+  "observations": [
+    {
+      "scope": "building_closures.rs1..150",
+      "assessment": "Actual sync iterates every PresentedBuildingClosureMesh, resolves typed building/opening pair against FacadeOpenings and changes facade/range only; it has no Transform access or writes. Native helper54..59 makes start_margin0 and inherits other values from building_lod_visibility(Lod1). Existing tests61..150 express all-material-batch/open-transform and range/no-gap expectations, but were not executed. Fresh53..150 resolves the old exact2511 tail/helper unread status; actual numeric/visual/native activation acceptance is not implied."
+    },
+    {
+      "scope": "presentation/windows.rs1..77",
+      "assessment": "WindowPresentationPlugin initializes ClosureMeshes and registers the SceneWindow observer. Observer gets cache.window result and requires matching primary material before queuing PresentedWindowCasement or visual children. Primary uses the existing replicated leaf entity; extra material batches have identity local transforms and the same typed building/opening IDs/LOD metadata. This narrows partial visual-publication suspicion for this exact observer, without proving mesh cache allocation/lifetime, absence of supported preparation failures or server/fixture transaction behavior."
+    },
+    {
+      "scope": "strategic_scene/instances.rs1..81",
+      "assessment": "Checked building transform/datum precede initial building queue. Door/window compilation and per-leaf conversion then interleave with additional queued children; final PreparedBuildingGeometry and SceneBuilding insertion occurs after both loops. Building and leaves attach to supplied root, with converted Scene poses. Actual root transform/ownership must be qualified before extending the server-root tangent/frame conclusion to this caller. No local rollback or actual published partial scene is asserted from ordering alone."
+    },
+    {
+      "scope": "building_review/openings.rs1..217",
+      "assessment": "Typed OpeningTarget/OpeningPose are native fixture serde modes, not gameplay authority. OpeningFrame checks point/directions; private ReviewLeafPose retains native closed transform/hinge/angle and computes selected open/closed native transform. select_pose indexes actual SceneCaptureState views/current index and fixture views by CapturePose camera, so caller/state/fixture bounds remain a materially reached contract before a reachable panic claim. Door/window pose conversion is fallible within spawn loops; no local command rollback shown, and no supported error/publication failure is demonstrated. Review diagnostics are literal native error text, not string classifiers."
+    },
+    {
+      "scope": "presentation/buildings/signs.rs1..23",
+      "assessment": "Actual BuildingPresentationPlugin registers on_scene_building_added and on_scene_vista_buildings17..18, plus native city/boundary plugins and streaming/lettering update. This resolves the earlier metadata-only client building observer registration locator. Outer app activation/current cells and native asset plugin lifetime remain separate; no compiled graph or runtime observation."
+    }
+  ],
+  "remaining_evidence": [
+    "Qualify fresh98/prior450 exact source attribution and frozen physical2511/current identity, then supersede only the old tail/helper unread clause in Q1938; preserve its other obligations.",
+    "Actual ClosureMeshes::window preparation/cache/material result source in presentation/closure_meshes.rs, including whether retained native batches are complete before logical visual publication; reuse existing mesh index/finite native repair contracts rather than repeat their diagnosis.",
+    "Actual strategic_scene instances root producer/transform and SceneCaptureState/view_specs/ReviewFixture selection/manifest producer bounds before full frame/selection disposition. Source indexing alone is not an observed panic.",
+    "Actual native building_lod_visibility constructor/previous exact native visibility source qualification before any stronger margin/visual claim; new tests are unexecuted source evidence only.",
+    "Own request preparation/publication/error policy across server/ordinary/fixture calls; current search found no named DefaultErrorHandler/set_error_handler/GLOBAL_ERROR_HANDLER override in tactical client/server source, which does not establish native framework rollback/default semantics.",
+    "All other Q1938/Q1327 native lifetime/capacity, exact aliases/current/lens/population/all20 repairs/independent review/executable acceptance obligations remain open."
+  ],
+  "new_original_population_credit": 0,
+  "new_unique_findings": 0,
+  "product_execution": false,
+  "tests_executed": false,
+  "implementation_gate_complete": false,
+  "independent_agent_review": false
+}

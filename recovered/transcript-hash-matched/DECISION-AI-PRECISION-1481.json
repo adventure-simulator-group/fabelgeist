@@ -1,0 +1,37 @@
+{
+  "schema": "726-scoped-source-disposition-v1",
+  "at": "2026-11-04T06:25:04.910046+00:00",
+  "contract_id": "SEGOVB-L12-AI-PRECISION-ADMISSION-GAP",
+  "selected_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "remote_main_at_check": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "owner": "AI offense precision admission and shared reported precision",
+  "source_discovery_scope": "Current AI field and interval check, parent validation AI branch and two intent consumers; loader and mutation reachability remain open.",
+  "disposition": "AiOffenseConfig.hit_precision is f32 and has_valid_intervals does not inspect it; the parent AI branch calls that check while a separate targeting precision field is checked for finiteness. Both melee and ranged AI intent paths call ReportedPrecision::new(...).expect. ReportedPrecision accepts every finite value. No reachable malformed configuration or runtime panic was demonstrated.",
+  "explicit_alias_comparison": [
+    {
+      "entry_index": 266,
+      "contract_id": "SEGOVB-L12-HILLY-DETAIL-RANGE-ADMISSION-PANIC"
+    }
+  ],
+  "alias_result": "AI finite precision admission and fixed nonzero RNG bound have different owners and invariants; global aliases remain open.",
+  "evidence": [
+    {
+      "path": "adler-continuation-20261030/QUALIFICATION-AI-PRECISION-L12-1481.json",
+      "sha256": "831d63435823b3201d0f7b8f8d45caac0c96acc0bf5aeed11ba83b570af73d8d"
+    },
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-AI-PRECISION-L12-1481.json",
+      "sha256": "7f1c70ee57de87216233a130d6c9ca2cc0e64d2f79ed1ec27729a9f8c28e07df"
+    }
+  ],
+  "owned_repair": {
+    "path": "adler-continuation-20261030/REPAIR-PLAN-AI-PRECISION-1481.json",
+    "sha256": "f463bb6ec405791461853e00c96e68cda5f4ba98723900e6d933aced97ed1682"
+  },
+  "remaining_after_discovery": [
+    "Qualify loader, installation, mutation and related authority aliases.",
+    "Resolve remaining lenses and validate all-finite policy after audit gate."
+  ],
+  "global_alias_inventory_complete": false,
+  "product_execution": false
+}

@@ -1,0 +1,219 @@
+"""Adopt exact inherited prefix and root tail without merging read authorship.
+
+Default is read-only. Product execution and source edits are never performed.
+All output bytes are planned and reviewed before explicit --apply publication.
+"""
+import argparse
+import copy
+from datetime import datetime, timezone
+import hashlib
+import json
+from pathlib import Path
+import subprocess
+
+R = Path('target/726-audit-adler-20261027')
+A = R / 'adler-continuation-20261030'
+P = R / 'parallel-l13-20261029'
+LP = R / 'evidence/continuation-segovb/ledger.json'
+CP = R / 'CURRENT-ADLER.json'
+sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
+load = lambda p: json.loads(p.read_text(encoding='utf-8'))
+pack = lambda j: (json.dumps(j, indent=2) + '\n').encode('utf-8')
+def ref(p):
+    return {'path': p.resolve().relative_to(R.resolve()).as_posix(), 'sha256': sha(p)}
+def checked(p, expected):
+    assert sha(p) == expected, p
+    return load(p)
+def historical_ref(p):
+    return {'path': p.as_posix(), 'sha256': sha(p)}
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--apply', action='store_true')
+args = parser.parse_args()
+ledger = checked(LP, 'a0739869257051b5785acee68b9ccde3909529c6241549894699aa9a54d60d67')
+current = checked(CP, '4624f50575729d25804060ea1744d2f769b4840245f2261e7a3823b21450febd')
+old_l, old_c = copy.deepcopy(ledger), copy.deepcopy(current)
+lh, ch = sha(LP), sha(CP)
+assert current['ledger_sha256'] == lh
+co = ledger['segovb_continuation']['lens13']
+assert co['next_original'] == co['original_accounted'] == 1238
+assert co['current_state'] == 'segovb/STATE-L13-PARALLEL-311.json'
+previous = R / co['current_state']
+assert sha(previous) == co['current_state_sha256']
+assert current['implementation_gate_complete'] is False
+qr = ledger['audit_workflow']['closure_queue']
+assert qr == current['audit_workflow']['closure_queue']
+assert qr == {'path':'workflow-20261030/CLOSURE-QUEUE-108.json',
+              'sha256':'be8705830f515d1cfe7482f4866b70ec9118b907a71505b8e6b850b92a221844'}
+queue = checked(R / qr['path'], qr['sha256'])
+assert len(queue['entries']) == 3729
+registry_path = R / 'evidence/audit05/original-scope-072.json'
+registry = checked(registry_path, 'd1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f')['files'][1238]
+gp = P / 'REGISTRATION-PL13-314.json'
+g = checked(gp, 'cef4f30b0582de280bfc92fb6d4b75e704e908b890f9b14a37dba0352bb2e846')
+p1p = P / 'READ-PL13-314-PARTIAL-001.json'
+p2p = P / 'READ-PL13-314-PARTIAL-002.json'
+p1 = checked(p1p, '856888af3abbc852d52977939b0470f42314a3898776d289ed2c7beca95dd7a0')
+p2 = checked(p2p, '565dbdfd986d78056ff001a4480bcd6e33c5be0c5cbcd18251b623a5cd755f22')
+tgp = A / 'REGISTRATION-ROOT-L13-1238-TAIL-001.json'
+tg = checked(tgp, '40c0f131e113fa17fb28d034a03d125c11db63b29adc951331bb776b19b5a81e')
+tp = A / 'READ-ROOT-L13-1238-TAIL-001.json'
+t = checked(tp, '255e814f12d57e3c8ad461615611d72c84a5b3540e2ed39e14e155dc97d91fe5')
+assert g['lens'] == tg['lens'] == t['lens'] == 13
+assert g['authority_changes'] == tg['authority_changes'] == t['authority_changes'] == 0
+assert 'prospective' in g['status'].lower() and 'prospective' in tg['status'].lower()
+assert len(g['sources']) == 1
+src = g['sources'][0]
+assert src == tg['source'] == t['source']
+assert src['original'] == 1238 and src['actual_eof'] == 1435
+assert src['source_id'] == registry['source_id'] and src['sha256'] == registry['sha256']
+assert src['prospective_ranges'] == tg['full_required_scope_preserved'] == t['full_required_scope'] == [[1,1435]]
+assert src['source_revision'] == 'pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e'
+body = Path(src['object_path']).read_bytes()
+assert hashlib.sha256(body).hexdigest() == src['sha256']
+assert len(body) == registry['bytes'] and len(body.splitlines()) == 1435
+assert body == subprocess.check_output(['git','show','6533e444fa37552927070cc8d8190907fd3b413e:'+registry['path']])
+range_fields = []
+def required(node, pointer=''):
+    if isinstance(node, dict):
+        for key, value in node.items():
+            location = pointer + '/' + key
+            if (key.endswith('ranges') or key in ('read_ranges_as_recorded','material_contract_ranges_as_recorded')) and value:
+                assert isinstance(value,list)
+                for pair in value:
+                    assert isinstance(pair,list) and len(pair)==2
+                    assert all(type(n) is int for n in pair) and 1 <= pair[0] <= pair[1] <= 1435
+                range_fields.append(location)
+            else:
+                required(value, location)
+    elif isinstance(node,list):
+        for i,value in enumerate(node): required(value,pointer+'/'+str(i))
+required(registry)
+assert range_fields
+for part,end in [(p1,460),(p2,920)]:
+    for key in ('original','source_id','sha256','actual_eof'): assert part[key] == src[key]
+    assert part['lens'] == 13 and part['registration'] == historical_ref(gp)
+    assert part['registered_before_read_attestation'] is part['untruncated_body_outputs'] is True
+    assert part['assessed_ranges'] == [[1,end]] and part['next_unread_range'] == [end+1,1435]
+    assert part['original_delta'] == 0 and part['proposed_next_original_unchanged'] == 1238
+    assert part['product_execution'] is False
+assert p2['previous_partial'] == historical_ref(p1p)
+assert p2['fresh_personal_ranges_this_checkpoint'] == [[461,920]]
+assert tg['original_registration'] == ref(gp)
+assert tg['inherited_prefix'] == t['inherited_prefix']
+assert t['inherited_prefix']['path'] == ref(p2p)['path']
+assert t['inherited_prefix']['sha256'] == sha(p2p)
+assert t['inherited_prefix']['assessed_ranges'] == [[1,920]]
+assert t['registration'] == ref(tgp) and t['author'] == '/root'
+assert tg['root_fresh_read_scope'] == t['assessed_ranges'] == [[921,1435]]
+assert t['fresh_source_lines'] == 515 and t['root_personal_full_file_read'] is False
+assert t['ordered_frontier_delta'] == 0 and t['product_execution'] is False
+assert t['at'] > tg['at'] and t['union_full_file_complete'] is True
+
+now = datetime.now(timezone.utc).isoformat()
+writer = ref(Path(__file__))
+planned = {}
+def plan(p, value):
+    assert not p.exists() and p not in planned
+    data = pack(value); planned[p] = data
+    return {'path':p.relative_to(R).as_posix(),'sha256':hashlib.sha256(data).hexdigest()}
+rp = R / 'segovb/READ-L13-PARALLEL-312.json'
+sp = R / 'segovb/STATE-L13-PARALLEL-312.json'
+vp = R / 'segovb/VERIFY-L13-PARALLEL-312.json'
+parts = [dict(read=ref(p2p),registration=ref(gp),assessed_ranges=[[1,920]],author='Inherited independent Lens13 reader',personal_root_credit=0),
+         dict(read=ref(tp),registration=ref(tgp),assessed_ranges=[[921,1435]],author='/root',personal_root_credit=515)]
+receipt = {'lens':13,'kind':'Root adoption of exact composite same-lens source evidence',
+           'at':now,'source':src,'source_components':parts,'inherited_partial_chain':[ref(p1p),ref(p2p)],
+           'assessed_union':[[1,1435]],'required_registry':ref(registry_path),'checked_nested_range_fields':range_fields,
+           'original_before':1238,'original_after':1239,'new_original_roles':1,
+           'inherited_source_lines':920,'root_personal_source_lines':515,
+           'root_personal_full_file_read':False,'inherited_observations':p2['partial_observations'],
+           'root_tail_dispositions':t['dispositions'],'remaining_connected_contracts':t['unresolved_connected_contracts'],
+           'current_source_reconciled':False,'other_population_credit':0,'other_lens_credit':0,
+           'accepted_unique_count_change':0,'runtime_validation':'Not run','implementation_gate_complete':False,
+           'execution_adapter':writer}
+rr = plan(rp,receipt)
+sr = plan(sp,{'lens':13,'kind':'Ordered source state; connected/current discovery remains incomplete',
+              'predecessor':ref(previous)['path'],'predecessor_sha256':sha(previous),
+              'receipt':rr['path'],'receipt_sha256':rr['sha256'],'next_original':1239,
+              'original_accounted':1239,'original_total':2853,'other_population_counts_unchanged':True,
+              'inherited_qualifications_retained':True,'implementation_gate_complete':False})
+plan(vp,{'lens':13,'receipt_sha256':rr['sha256'],'state_sha256':sr['sha256'],
+         'exact_registry_Git_hash_EOF_prospective_chronology_scope_and_reuse_checked':True,
+         'mixed_authorship_preserved':True,'new_original_roles':1,'other_lens_credit':0,
+         'product_execution':False,'gate':False,'execution_adapter':writer})
+
+questions = [
+ ('ROOT-L13-1238-INFECTION-EXPOSURE-TIMING','Native surgery infection exposure/check ordinal and disease producer',
+  'Inherited prefix establishes per-cut-day exposure and stored check ordinals; actual disease time admission and producer bounds still require same-lens qualification before claiming overflow or artificial interval coverage.',
+  [[1,920]],['Qualify exact disease admission, timestamp and finite exposure producers under Lens13, including existing clinical-contract evidence before claiming an alias.',
+             'Reconcile exact current counterpart and canonical first operation.'],
+  'Record supported exposure/time envelope and disposition: source-backed failure, bounded rejection or explicit policy question. Preserve zero recovery and separate elapsed time.',
+  'Any later repair must preserve supported zero recovery, nonduplicated clock settlement, valid disease exposure chronology and canonical numeric units.'),
+ ('ROOT-L13-1238-TREATMENT-NUMERIC-POLICY','Native treatment effects and canonical core surgery, blood and filth policies',
+  'Native bandage/stitch contamination fractions and extraction trauma/blood conversion require canonical policy-owner comparison. Literal presence alone is not a proven defect; guarded extraction unwrap and rejected OpenBody establish no numeric failure.',
+  [[949,1168]],['Qualify canonical duration, blood simulation, contamination and alcohol/soap policy owners in this lens; compare existing exact evidence before any new finding or alias.',
+                'Retain finite cut admission and transaction-boundary questions in their own existing clinical contracts; this source alone does not close them.',
+                'Reconcile actual current source and all applicable migration-family contracts.'],
+  'Identify each policy owner and justified native conversion, or a source-backed first failed contract with dependency and acceptance requirements; current and alias obligations remain explicit.',
+  'Any later repair must keep supported procedure effects and interruption semantics, use canonical policy ownership and preserve actor/patient/request binding and inventory custody.')]
+ids = {e['contract_id'] for e in queue['entries']}
+new_ids = []
+for cid,owner,question,ranges,remaining,closure,acceptance in questions:
+    assert cid not in ids
+    new_ids.append(cid)
+    queue['entries'].append({'contract_id':cid,'kind':'connected-contract-question','lens':13,
+        'canonical_owner':owner,'first_failed_contract_or_unresolved_question':question,
+        'exact_source_identities_and_assessed_ranges':[{'source':src,'assessed_ranges':ranges,'adoption':rr,'components':parts}],
+        'remaining_evidence':remaining,'dependencies':[rr],'closure_condition':closure,
+        'later_repair_acceptance_requirements':[acceptance],
+        'new_unique_finding_claimed':False,'body_or_population_credit':0,
+        'current_reconciled':False,'audit_discovery_closed':False,'implementation_gate_complete':False})
+queue.update(at=now,predecessor=qr,latest_contract_updates=new_ids)
+queue['progress']['reconciliation_closure']['queue_entries_not_unique_findings']=3731
+queue['progress']['original_inventory']['lens13'].update(accounted=1239,next_original=1239,remaining=1614,proof=sr)
+for item in queue['progress']['original_inventory']['all_lens_selected_coverage_statements']:
+    if item['lens']==13: item['current_original_accounted']=1239
+new_q=plan(R/'workflow-20261030/CLOSURE-QUEUE-109.json',queue)
+update=plan(R/'workflow-20261030/QUEUE-UPDATE-109.json',{'at':now,'writer':writer,'source_adoption':rr,
+    'contract_updates':new_ids,'new_body_population_unique_credit_from_queue':0})
+history=R/'checkpoint-history'/f'{lh}.json'
+plan(history,{'ledger':old_l,'current':old_c,'ledger_raw_utf8':LP.read_text(encoding='utf-8'),
+              'current_raw_utf8':CP.read_text(encoding='utf-8'),'ledger_sha256':lh,'current_sha256':ch})
+co.update(next_original=1239,original_accounted=1239,current_state=sr['path'],current_state_sha256=sr['sha256'],last_checkpoint_at=now)
+co['discovery_receipts'].append(rr)
+co.setdefault('qualified_mixed_author_source_unions',[]).append({'adoption':rr,'components':parts,'original':1238})
+co.setdefault('qualified_contract_bundle_views',[]).append({'source_adoption':rr,'queue':new_q,'contract_updates':new_ids,'current_and_alias_closure':False})
+ledger['segovb_continuation']['last_checkpoint_at']=now
+cov=next(x for x in ledger['lens_coverage'] if x['number']==13)
+cov.update(current_successor='../../'+sr['path'],current_successor_sha256=sr['sha256'],latest_receipt='../../'+rr['path'],current_original_accounted=1239)
+ledger['audit_workflow']['closure_queue']=new_q
+ledger['audit_workflow']['queue_updates'].append(update)
+front=next(x for x in current['frontiers'] if x['lens']==13)
+front.update(next_original=1239,original_accounted=1239,state=sr['path'],state_sha256=sr['sha256'],latest_receipt=rr['path'])
+current['audit_workflow']['closure_queue']=new_q
+current.update(at=now,ledger_sha256=hashlib.sha256(pack(ledger)).hexdigest(),previous_checkpoint_archive=history.relative_to(R).as_posix())
+# Prove there are no changes outside this lens and the selected queue pointers.
+for key in old_l:
+    if key not in ('segovb_continuation','lens_coverage','audit_workflow'): assert ledger[key]==old_l[key]
+for key in old_l['segovb_continuation']:
+    if key not in ('lens13','last_checkpoint_at'): assert ledger['segovb_continuation'][key]==old_l['segovb_continuation'][key]
+for old,new in zip(old_l['lens_coverage'],ledger['lens_coverage'],strict=True):
+    if old['number']!=13: assert old==new
+for old,new in zip(old_c['frontiers'],current['frontiers'],strict=True):
+    if old['lens']!=13: assert old==new
+assert queue['entries'][:-2]==load(R/qr['path'])['entries']
+assert sha(LP)==lh and sha(CP)==ch
+report={'preflight':'passed','original_before':1238,'original_after':1239,'root_personal_lines':515,
+        'inherited_lines':920,'queue_entries_not_unique_findings':3731,'writer':writer,
+        'product_execution':False,'implementation_gate_complete':False,'authority_writes':0}
+if args.apply:
+    for p,data in planned.items():
+        with p.open('xb') as f: f.write(data)
+    lt=A/'LEDGER-L13-COMPOSITE-314.tmp'; ct=A/'CURRENT-L13-COMPOSITE-314.tmp'
+    for p,j in [(lt,ledger),(ct,current)]:
+        with p.open('xb') as f: f.write(pack(j))
+    assert sha(LP)==lh and sha(CP)==ch
+    lt.replace(LP);ct.replace(CP)
+    report.update(authority_writes=2,ledger=ref(LP),selector=ref(CP),queue=new_q)
+print(json.dumps(report))

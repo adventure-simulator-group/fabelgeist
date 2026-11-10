@@ -1,0 +1,78 @@
+{
+  "schema": "726-root-l2-existing-owner-additive-qualification-v1",
+  "at": "2026-11-02T17:13:15.683085+00:00",
+  "author": "/root",
+  "lens": 2,
+  "read": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/READ-ROOT-L2-ARMOR-PRODUCERS-011-012.json",
+    "sha256": "1f6875055a8f894b5b7d7b94ca7bd98ec7c8d0c90032f2b819daae97b03cbbb5"
+  },
+  "prior_qualification": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/QUALIFICATION-ROOT-L2-TACTICAL-ARMOR-ADDENDUM-001.json",
+    "sha256": "93c1be5b070c5fd45e62e010a2fb0ad8c7ed951a031c4316df66ad8d827e9a4b"
+  },
+  "contracts": [
+    {
+      "role": "iteration-covered-geometry-admission",
+      "source_row": 1,
+      "ranges": [
+        [
+          91,
+          151
+        ]
+      ],
+      "decision": "spawn_armor derives covered_parts and Some(AuthoredArmorCoverage) together in one loop over the selected placement's protection list, then constructs ArmorItem. Channel-derived layer_order comes from that placement. Repeated armor definitions cycle through authored placements by occurrence modulo placement count; slot follows the first protected part. This establishes the local correlation producer, not roster/catalog/general serialized admission. Existing expects still require structural removal under crate rules; no ordinary invalid roster witness is established.",
+      "acceptance": "Retain authored occurrence/placement selection, paired covered geometry, fixed body-part mapping and actual channel order. Use an existing admitted catalog placement/protection owner rather than an unchecked parallel flag/Option construction. Preserve iteration-only synthetic inventory identity and keep it distinct from real strategic inventory IDs."
+    },
+    {
+      "role": "received-protection-versus-authored-placement",
+      "source_row": 2,
+      "ranges": [
+        [
+          94,
+          139
+        ]
+      ],
+      "decision": "projected_armor obtains slot and covered flags from ConnectedPlayerItem.protected_body_parts, while resolving the selected authored placement and generating geometry from placement.protection. Material comes from authored equipment; scalar protection comes from received item data. These are distinct authority inputs which must agree at admission. The function's own body does not compare the two protection sets. Return None for empty protected_body_parts is a valid optional no-armor path. An actual contradictory ordinary message has not been established.",
+      "acceptance": "Admit selected item/placement and protection projection together, retaining field provenance. Prove received protected parts are the selected placement's projection or report an owned admission error; do not fabricate geometry, discard protected parts, or introduce compatibility fallbacks. Remove production expects without inventing unsupported failure modes.",
+      "remaining_evidence": "Actual strategic ConnectedPlayerItem producer and player-projection admission must qualify protection-set/placement agreement. tactical.rs309 and player_projection.rs356 located only, not yet read in this continuation."
+    },
+    {
+      "role": "inventory-sequence-and-equal-order-layers",
+      "source_row": 3,
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "decision": "InventoryView::iter obtains actor InventoryItems, expands InventoryItems::iter, then uses Bevy Query::iter_many. InventoryItems retains a relationship Vec<Entity> and returns its copied sequence. Contact's stable descending channel sort adds no equal-order key, so no semantic inventory-ID tie breaker is proved. Serialized scenes retain relationship data as documented locally, but native query ordering and relationship insertion/replay behavior are not proved by this wrapper. item_at_slot exposes a semantic tuple of definition identity and optional inventory identity and should reuse a named record at internal APIs.",
+      "acceptance": "Preserve existing actor ownership and source sequence behavior; determine and document equal-order policy before introducing any different ordering. Retain existing identity owners through slot selection, converting only at true native/serialization endpoints.",
+      "remaining_evidence": "Native iter_many/relationship sequence guarantee or an explicit admitted order policy remains required before claiming deterministic cross-run ties. Do not infer a runtime ordering bug from missing proof."
+    },
+    {
+      "role": "adjacent-parametric-owner-boundary",
+      "source_row": 2,
+      "ranges": [
+        [
+          8,
+          92
+        ]
+      ],
+      "decision": "Reached weapon and holder projections validate generator version, decoded catalog ID and design hash before deriving physical geometry/mass. They use existing ParametricWeaponCombatGeometry and ContactPrecision, but extract primitive leaves and use panic/expect for foreign recipe boundaries. This is a separate reached producer/admission scope; reading these bodies does not prove the strategic recipe producer or all generated-property checks.",
+      "acceptance": "Reuse the existing geometry/recipe/version/hash owners with actual decoded-authority errors and shared units, preserving correct weapon versus holder identity and optional absence. Carry ContactPrecision until the actual endpoint. No ordinary invalid authority recipe or generic missing-recipe defect is asserted.",
+      "remaining_evidence": "Keep generated producer/ABI/current alias qualification independent from armor and from previous completed capture/rest source cases."
+    }
+  ],
+  "all_producer_admission_or_alias_contracts_complete": false,
+  "source_adoption_performed": false,
+  "canonical_source_case_closed": false,
+  "new_primary_findings": 0,
+  "new_body_population_unique_credit": 0,
+  "current_delta_cells_closed": 0,
+  "product_edits": false,
+  "product_execution": false,
+  "tests_executed": false,
+  "independent_agent_review": false,
+  "implementation_gate_complete": false
+}

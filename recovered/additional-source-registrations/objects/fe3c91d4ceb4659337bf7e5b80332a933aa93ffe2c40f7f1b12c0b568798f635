@@ -1,0 +1,258 @@
+{
+  "schema": "726-root-l12-bounded-connected-source-read-v1",
+  "at": "2026-11-02T10:15:19.564918+00:00",
+  "author": "/root",
+  "lens": 12,
+  "base_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "bff7307e7ca533185aef0843fb72b5127f2a8e918ab63532ced0e64875e9fa2a"
+  },
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L12-CAPTURE-PROFILE-OWNERS-001.json",
+    "sha256": "27e038f047fc7936f7f3fdc9b074a62cf4a393a54fe112f127583ba9bf4aa804"
+  },
+  "rows": [
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer_main.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer_main.rs",
+        "source_sha256": "c47317c7b2aa4afb18ac097c828f3b3bdd0c38bb2e52312dccbdc8b66bf80f69",
+        "source_object": "adler-continuation-20261030/objects/c47317c7b2aa4afb18ac097c828f3b3bdd0c38bb2e52312dccbdc8b66bf80f69",
+        "bytes": 10159,
+        "actual_EOF": 254,
+        "ranges": [
+          [
+            1,
+            206
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 206,
+        "prior_body_join": "No new freshness/reuse/population/unique credit requested; original authors and other lens views remain intact."
+      },
+      "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer_main.rs",
+      "source_sha256": "c47317c7b2aa4afb18ac097c828f3b3bdd0c38bb2e52312dccbdc8b66bf80f69",
+      "assessed_ranges": [
+        [
+          1,
+          206
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "1255ef"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 206,
+      "semantic_assessment": "Actual CLI CaptureProfile35..82 is already a closed24-variant ValueEnum with Semantic default. main177..202 erases each admitted variant into a static slug before run. Retain this existing enum (relocate/share declaration if needed) through the real run API; no shadow enum, dual raw API or implicit fallback.23 in the help comment counts Semantic views, not modes. Native fixture/path/requested view text have separate admission roles."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+        "source_sha256": "3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+        "source_object": "adler-continuation-20261030/objects/3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+        "bytes": 6073,
+        "actual_EOF": 186,
+        "ranges": [
+          [
+            1,
+            186
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 186,
+        "prior_body_join": "No new freshness/reuse/population/unique credit requested; original authors and other lens views remain intact."
+      },
+      "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+      "source_sha256": "3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+      "assessed_ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "1255ef"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 186,
+      "semantic_assessment": "building_review is_profile30..42 recognizes eight review modes as a subset, not the whole24-mode taxonomy. setup108..171 returns Ok(None) outside that subset, loads native review JSON and uses selected_capture_views for count/order. Replace string guards with the shared existing enum and retain typed selection. Generic audit issue/error erasure and missing-building/SignSite predicates remain Q3715. Native ReviewFixture has no capture-profile field."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+        "source_sha256": "c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2",
+        "source_object": "adler-continuation-20261030/objects/c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2",
+        "bytes": 12845,
+        "actual_EOF": 373,
+        "ranges": [
+          [
+            1,
+            132
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 132,
+        "prior_body_join": "No new freshness/reuse/population/unique credit requested; original authors and other lens views remain intact."
+      },
+      "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+      "source_sha256": "c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2",
+      "assessed_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "1255ef"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 132,
+      "semantic_assessment": "SceneCaptureState.profile String77 retains already-admitted capture mode; requested_views Vec<String> and per-view CaptureViewSpec are separate catalog/name roles. Keep profile typed through setup and final state. Other phase/ordinal/native coordinate/error/quantity duties are not closed."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+        "source_sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+        "source_object": "adler-continuation-20261030/objects/f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+        "bytes": 173981,
+        "actual_EOF": 4477,
+        "ranges": [
+          [
+            129,
+            145
+          ],
+          [
+            762,
+            919
+          ],
+          [
+            1118,
+            1200
+          ],
+          [
+            1240,
+            1340
+          ],
+          [
+            1600,
+            1665
+          ],
+          [
+            2420,
+            2480
+          ],
+          [
+            3130,
+            3160
+          ],
+          [
+            3655,
+            3835
+          ],
+          [
+            4100,
+            4126
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 725,
+        "prior_body_join": "No new freshness/reuse/population/unique credit requested; original authors and other lens views remain intact."
+      },
+      "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "source_sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+      "assessed_ranges": [
+        [
+          129,
+          145
+        ],
+        [
+          762,
+          919
+        ],
+        [
+          1118,
+          1200
+        ],
+        [
+          1240,
+          1340
+        ],
+        [
+          1600,
+          1665
+        ],
+        [
+          2420,
+          2480
+        ],
+        [
+          3130,
+          3160
+        ],
+        [
+          3655,
+          3835
+        ],
+        [
+          4100,
+          4126
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "e143e1:129..145,762..919,1118..1200,1240..1340",
+        "3d7a28:1600..1665,2420..2480,3130..3160,3655..3835,4100..4126"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 725,
+      "semantic_assessment": "run776 receives static string after enum erasure and copies it into SceneSetupData141/854, then setup passes the same identity into all camera/layout helpers and SceneCaptureState1643. selected_capture_views1118..1193 has explicit24-mode dispatch and unknown mode Err, not a fallback-to-Semantic. Preserve full catalog on no request, explicit warmup/duplicates/unknown view rejection, ordinary implicit-leading-warmup/request order and tree-cold prefix-through-last-requested temporal sequence. Late tree-cold traversal3145, beech motion3661, Semantic recursive LOD3775 and manifest3813/resolution3818 must branch on the same retained enum. Hardware profiler_value2465 consumes arbitrary system_profiler stdout, not capture identity; leave its text role separate. Existing warmup tests4105..4121 were inspected, not run. Physical/numeric/native report payloads and unread surrounding code remain separate."
+    }
+  ],
+  "fresh_root_personal_source_lines": 0,
+  "uncredited_total_source_lines": 1249,
+  "prior_body_join": "No new freshness/reuse/population/unique credit asserted; preserve exact historical authors and all other-lens views.",
+  "related_queue_contract": "L12-CLOSURE-CAPTURE-PROFILE-TEXT-STATE",
+  "observations": [
+    "Actual CLI CaptureProfile35..82 is already a closed24-variant ValueEnum with Semantic default. main177..202 erases each admitted variant into a static slug before run. Retain this existing enum (relocate/share declaration if needed) through the real run API; no shadow enum, dual raw API or implicit fallback.23 in the help comment counts Semantic views, not modes. Native fixture/path/requested view text have separate admission roles.",
+    "building_review is_profile30..42 recognizes eight review modes as a subset, not the whole24-mode taxonomy. setup108..171 returns Ok(None) outside that subset, loads native review JSON and uses selected_capture_views for count/order. Replace string guards with the shared existing enum and retain typed selection. Generic audit issue/error erasure and missing-building/SignSite predicates remain Q3715. Native ReviewFixture has no capture-profile field.",
+    "SceneCaptureState.profile String77 retains already-admitted capture mode; requested_views Vec<String> and per-view CaptureViewSpec are separate catalog/name roles. Keep profile typed through setup and final state. Other phase/ordinal/native coordinate/error/quantity duties are not closed.",
+    "run776 receives static string after enum erasure and copies it into SceneSetupData141/854, then setup passes the same identity into all camera/layout helpers and SceneCaptureState1643. selected_capture_views1118..1193 has explicit24-mode dispatch and unknown mode Err, not a fallback-to-Semantic. Preserve full catalog on no request, explicit warmup/duplicates/unknown view rejection, ordinary implicit-leading-warmup/request order and tree-cold prefix-through-last-requested temporal sequence. Late tree-cold traversal3145, beech motion3661, Semantic recursive LOD3775 and manifest3813/resolution3818 must branch on the same retained enum. Hardware profiler_value2465 consumes arbitrary system_profiler stdout, not capture identity; leave its text role separate. Existing warmup tests4105..4121 were inspected, not run. Physical/numeric/native report payloads and unread surrounding code remain separate."
+  ],
+  "remaining_evidence": [
+    "Formal exact first-predicate current/all20/non-alias disposition and owned clean repair acceptance. Other-lens/current delta/global aliases remain independently open."
+  ],
+  "new_body_population_unique_credit": 0,
+  "new_primary_findings": 0,
+  "source_adoption_performed": false,
+  "whole_contracts_closed": false,
+  "independent_agent_review": false,
+  "product_execution": false,
+  "tests_executed": false,
+  "implementation_gate_complete": false
+}

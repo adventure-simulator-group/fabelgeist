@@ -1,0 +1,28 @@
+{
+  "schema": "726-historical-lock-delta-v1",
+  "sha256": "90ef2adb9c90c6f469458557c19ec5655b91059e0d37d4372cb3cdf957f14420",
+  "historical_path": "adler-continuation-20261030/DIFF-METADATA-623-LOCK.patch",
+  "source_output_ordinal": 101190,
+  "base_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "target_revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+  "path": "Cargo.lock",
+  "verification": "Recorded transcript output and a fresh read-only Git diff from the two pinned revisions both matched the independently cited SHA-256.",
+  "qualification": "Historical source delta only; no new audit credit, current-source reconciliation or final authority follows.",
+  "references": [
+    {
+      "cited_path": "adler-continuation-20261030/DIFF-METADATA-623-LOCK.patch",
+      "from_file": "OBSERVATION-BASELINE-OLDER-662.json",
+      "json_pointer": "/source_references/3"
+    },
+    {
+      "cited_path": "adler-continuation-20261030/DIFF-METADATA-623-LOCK.patch",
+      "from_file": "ecaab0e06404--VIEW-GRASS-WITNESS-675.json",
+      "json_pointer": "/evidence/2"
+    },
+    {
+      "cited_path": "adler-continuation-20261030/DIFF-METADATA-623-LOCK.patch",
+      "from_file": "7db49650acd0--OBSERVATION-BASELINE-OLDER-679.json",
+      "json_pointer": "/source_references/3"
+    }
+  ]
+}

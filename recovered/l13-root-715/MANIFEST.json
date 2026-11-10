@@ -1,0 +1,68 @@
+{
+  "schema": "726-l13-root-715-partial-evidence-v1",
+  "discovery_sha256": "1a1697d0c1e1fe4cd126160823bdfdbd2c66ef15b21f212b8a038305cb0b0674",
+  "helper_sha256": "e630cac6d5febe6c1241948ccd6bcfefeb9247bb8c3f4eb28afca2db014f1554",
+  "registration_sha256": "384d6c11141f2bc91db35f343b9aa80891cd36372754a284e248caa1539095f5",
+  "source_objects": [
+    {
+      "original": 2736,
+      "sha256": "1cbb4c6032d77345ba85c017d2e5f94b1600c1a4064ff586f0e1872afd63df74",
+      "bytes": 4419
+    },
+    {
+      "original": 2737,
+      "sha256": "c50dcf6eef9aa348c8c259b105a9734f1e25ee2e57a043ee484a3892e9795dfa",
+      "bytes": 5682
+    },
+    {
+      "original": 2738,
+      "sha256": "555b21fb6dddac260f0a951252041fd40a0d3e02dd8bb0d649fda9a528e0ed77",
+      "bytes": 20827
+    },
+    {
+      "original": 2739,
+      "sha256": "7178c20d189f6254be6bd97094c550465c0b137c2c2e3ccf0b8f033cc80d435d",
+      "bytes": 7058
+    },
+    {
+      "original": 2740,
+      "sha256": "0f579abd98b3de2924ebba3a1addc74b37c30c098af4667ae23b6fdaaef398e2",
+      "bytes": 3860
+    },
+    {
+      "original": 2741,
+      "sha256": "edaab496e73d7ae22b10743303627d76c5526cdff566e72e60f563dcbc2c77f9",
+      "bytes": 2163
+    },
+    {
+      "original": 2742,
+      "sha256": "b4c9d8460c2b511a8ddd6bac50546cb06ab9e83daab5df6007605e4b65c65a00",
+      "bytes": 65084
+    }
+  ],
+  "fresh_display_sha256": "9163d8445e57d0cf06ffc7cbb56e5932a18c22450521ed8e1609637e4a03727c",
+  "fresh_display_event_ordinal": 54575,
+  "qualification_sha256_recorded": "c18f5835617f59e1bffc37f57c4cf97e4e9cb1dde7d42efd8286d072f29e18fa",
+  "qualification": "Exact discovery, helper and registration cover seven frozen sources, 111 fresh displayed and 960 earlier-read lines. The helper preserves original Windows line endings. Original 2742 is a pinned dependency source, with native activation and current behavior unresolved. Five complete prior source row extracts and their printed packet, plan and writer references are preserved; full prior receipts, qualification, packet and adoption remain unrecovered.",
+  "prior_row_extracts": {
+    "file": "prior-row-extracts.json",
+    "sha256": "43a00a2cf12df881f1ad90adeb06840259d23cacd06e7ae58fda680d02cc850e",
+    "display_excerpt": "prior-row-display-excerpts.txt",
+    "display_excerpt_sha256": "a1c32d362ab7a42c806d82e4bf731acb37eae4d174450d50251b38f7a4ae9c36",
+    "private_snapshot_event_ordinal": 54527,
+    "private_snapshot_output_sha256": "2806de6a3a2dbacd5f096f90b8e21bfffb158f60838df321fedaa66b8358a421",
+    "rows": 5,
+    "qualification": "Five complete printed rows with packet, plan and writer references extracted from a potentially truncated output. The excerpt preserves only those lines; full receipts, verification and current authority remain unavailable."
+  },
+  "conditional_proposal_assessments": {
+    "file": "CONDITIONAL-PROPOSAL-ASSESSMENTS.json",
+    "sha256": "05a40df7c9f4df39b0b0d06764299d29a66be809021bdcad70fa04dfef0e8a3d",
+    "command_ordinal": 54682,
+    "fresh_literal_assessments": 2,
+    "conditional_reused_assessments": 5,
+    "qualification": "Missing qualification input prevents byte-exact packet reconstruction; no authority, execution or adoption inferred."
+  },
+  "packet_sha256_recorded_from_output": "206d9aed4363bb4615b07d1744425b2c4f91a900db374055e70e00df82da8181",
+  "plan_sha256_recorded_from_output": "844931a50dd01fba4c84381997f398f71f63e2832b72a6ff1eea76170d267a54",
+  "plan_original_recovered": false
+}

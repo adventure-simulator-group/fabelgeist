@@ -1,0 +1,87 @@
+//! Audited semantic and geometric recipes for procedural buildings.
+//!
+//! This crate intentionally has no dependency on either the strategic or the
+//! tactical runtime. It turns a high-level [`BuildingProgram`] into a bounded,
+//! deterministic [`BuildingPlan`] consumed by the viewer and tactical city adapter.
+
+mod arch_geometry;
+mod audit;
+mod axle;
+mod bell;
+mod church_programme;
+mod collision;
+mod detail;
+mod doors;
+mod entrances;
+pub use entrances::{
+    BuildingEntrance, BuildingEntranceId, BuildingEntranceSupport, EntranceError,
+    PassageEntranceSide, compile_ground_entrances,
+};
+#[cfg(test)]
+mod enclosure_tests;
+pub mod furniture;
+mod gable_frame;
+mod generator;
+mod geometry_index;
+mod heating;
+pub mod interior;
+mod lod;
+mod member_uv;
+mod model;
+pub mod plan_geometry;
+mod roof_enclosure;
+mod roof_tessellation;
+mod settlement;
+pub mod signs;
+mod solid_overlap;
+pub mod spatial_geometry;
+pub mod spiral_stairs;
+mod windows;
+mod workplace;
+pub use settlement::{ServiceBuildingSize, settlement_archetype};
+pub use workplace::{
+    PartAuthority, WorkplaceConstructionError, WorkplaceFeature, WorkplaceKind, WorkplaceMaterial,
+    WorkplacePart, WorkplacePassage, WorkplacePassageId, WorkplacePassagePurpose, WorkplacePlan,
+    WorkplaceSurface,
+};
+
+pub use audit::{AuditIssue, MeshAuditReport, audit_plan, audit_triangle_mesh};
+pub use collision::{
+    BuildingCollision, CollisionCuboid, CollisionError, CollisionResult, CuboidCorners,
+    GroundContact, GroundFloorFootprint, compile_building_collision,
+};
+pub use detail::{
+    BUILDING_DETAIL_UV_METRES_PER_UNIT, BuildingDetail, BuildingKit, TimberComponent,
+    TimberInstance, compile_building_detail, compile_solid_detail, compile_static_building_detail,
+};
+pub use doors::{DoorError, DoorErrorCause, DoorSpec, compile_operable_doors};
+pub use generator::small_church::{SmallChurchKind, SmallChurchPlan};
+pub use generator::{
+    AllocationFailure, GenerationError, GenerationResult, ReservationFailure, edit_document,
+    generate, generate_document, set_roof_pitch,
+};
+pub use heating::{
+    DomesticHeatingPlan, DomesticHeatingProgramme, HeatingConstructionError,
+    HeatingFloorPenetration, HeatingPart, HeatingPartKind, HeatingPassage, HeatingPassageKind,
+    HeatingRoofPenetration, HeatingRoom,
+};
+pub use lod::{
+    BuildingLod, BuildingLodLevel, BuildingLodMaterial, FacadeRun, FacadeRunPath, LodMesh,
+    LodVertex, compile_building_lod, compile_program_shell, compile_static_building_lod,
+};
+pub use model::*;
+pub use roof_tessellation::{
+    RoofSurface, RoofSurfaceTriangle, tessellate_roof_enclosure, tessellate_roof_face,
+};
+pub use windows::{
+    WindowBarPresence, WindowBarSpec, WindowError, WindowErrorCause, WindowLeafKind, WindowResult,
+    WindowSpec, compile_operable_windows, compile_window_bars, compile_window_leaf,
+};
+
+#[cfg(test)]
+mod mixed_construction_tests;
+
+#[cfg(test)]
+mod storage_range_tests;
+
+pub use spatial_geometry::{Architectural, SpatialBounds};

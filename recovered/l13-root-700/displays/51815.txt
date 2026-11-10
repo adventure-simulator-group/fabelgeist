@@ -1,0 +1,253 @@
+SOURCE 2668 pr-working:crates/fabelgeist-shell/src/outer_layer/surface.rs
+1: use super::*;
+2: 
+3: use fabelgeist_xpbd::{
+4:     BarycentricWeight, ClippingFraction, EffectiveInverseMass, IncomingNormalSpeed,
+5:     ProjectionActivity, ProjectionDepth,
+6: };
+7: #[derive(Clone, Copy)]
+8: struct ClippedSample {
+9:     point: Vec3,
+10:     weights: [BarycentricWeight; 3],
+11: }
+12: 
+13: // Leave headroom for subsequent body and self-contact corrections.
+14: const PROJECTION_TOLERANCE: f32 = CLEARANCE_TOLERANCE * 0.1;
+15: 
+16: impl OuterLayer {
+17:     /// Maximum normal-clearance deficit anywhere on the cloth triangles.
+18:     /// Checking only particle positions would miss a plate wholly inside a face.
+19:     pub fn surface_residual(&self, positions: &[Vec3], faces: &[[u32; 3]]) -> f32 {
+20:         let mut residual = self.residual(positions);
+21:         for face in faces {
+22:             let points = face.map(|i| positions[i as usize]);
+23:             for index in self.overlaps(points) {
+24:                 let (a, b, c) = self.surface.triangle(index);
+25:                 let raw = (b - a).cross(c - a);
+26:                 if raw.length() <= 1e-10 {
+27:                     continue;
+28:                 }
+29:                 let normal = raw / raw.length();
+30:                 let alignment = normal.dot(self.inward);
+31:                 if alignment <= 1e-5 {
+32:                     continue;
+33:                 }
+34:                 for ClippedSample { point, .. } in clipped(points, [a, b, c], self.inward) {
+35:                     residual = residual.max(self.clearance - (point - a).dot(normal));
+36:                 }
+37:             }
+38:         }
+39:         residual
+40:     }
+41: 
+42:     /// Constrain triangle interiors as well as vertices. In the layer's view,
+43:     /// signed separation is linear over each overlap polygon, so its vertices
+44:     /// include every possible minimum (including a plate edge through cloth).
+45:     pub(super) fn project_surface(
+46:         &self,
+47:         positions: &mut [Vec3],
+48:         velocities: &mut [Vec3],
+49:         masses: &[ParticleInverseMass],
+50:         faces: &[[u32; 3]],
+51:     ) -> bool {
+52:         let mut changed = false;
+53:         for &face in faces {
+54:             let points = face.map(|i| positions[i as usize]);
+55:             let candidates = self.overlaps(points);
+56:             for index in candidates {
+57:                 let points = face.map(|i| positions[i as usize]);
+58:                 let (a, b, c) = self.surface.triangle(index);
+59:                 let raw = (b - a).cross(c - a);
+60:                 if raw.length() <= 1e-10 {
+61:                     continue;
+62:                 }
+63:                 let normal = raw / raw.length();
+64:                 let alignment = normal.dot(self.inward);
+65:                 if alignment <= 1e-5 {
+66:                     continue;
+67:                 }
+68:                 for ClippedSample { weights, .. } in clipped(points, [a, b, c], self.inward) {
+69:                     let point = (0..3).fold(Vec3::default(), |p: Vec3, i: usize| -> Vec3 {
+70:                         p + weights[i].contribution(positions[face[i] as usize])
+71:                     });
+72:                     let depth = self.clearance - (point - a).dot(normal);
+73:                     if depth <= PROJECTION_TOLERANCE {
+74:                         continue;
+75:                     }
+76:                     let denominator: EffectiveInverseMass = (0..3)
+77:                         .map(|i: usize| -> EffectiveInverseMass {
+78:                             weights[i].inverse_response(masses[face[i] as usize])
+79:                         })
+80:                         .sum();
+81:                     if denominator.layer_activity() == ProjectionActivity::Inactive {
+82:                         continue;
+83:                     }
+84:                     let incoming = (0..3)
+85:                         .map(|i: usize| -> IncomingNormalSpeed {
+86:                             weights[i].weighted_normal_speed(velocities[face[i] as usize], normal)
+87:                         })
+88:                         .sum::<IncomingNormalSpeed>()
+89:                         .incoming();
+90:                     for i in 0..3 {
+91:                         let vertex = face[i] as usize;
+92:                         let share = weights[i].mass_share(masses[vertex], denominator);
+93:                         positions[vertex] += share
+94:                             .position_correction(ProjectionDepth::from(depth))
+95:                             .along(normal);
+96:                         velocities[vertex] -= share.speed_correction(incoming).along(normal);
+97:                     }
+98:                     changed = true;
+99:                 }
+100:             }
+101:         }
+102:         changed
+103:     }
+104: 
+105:     fn overlaps(&self, points: [Vec3; 3]) -> Vec<u32> {
+106:         let bounds = self.surface.bvh.bounds();
+107:         let reach = (points[0] - bounds.center()).length() + bounds.extent().length();
+108:         let query = fabelgeist_bvh::Aabb::from_points(
+109:             points
+110:                 .into_iter()
+111:                 .flat_map(|p| [p - self.inward * reach, p + self.inward * reach]),
+112:         );
+113:         let mut candidates = Vec::new();
+114:         self.surface
+115:             .bvh
+116:             .candidates_aabb(&query, |i| candidates.push(i));
+117:         candidates
+118:     }
+119: }
+120: 
+121: fn clipped(cloth: [Vec3; 3], plate: [Vec3; 3], inward: Vec3) -> Vec<ClippedSample> {
+122:     let mut polygon: Vec<ClippedSample> = cloth
+123:         .into_iter()
+124:         .enumerate()
+125:         .map(|(i, p): (usize, Vec3)| -> ClippedSample {
+126:             let mut w = [BarycentricWeight::ZERO; 3];
+127:             w[i] = BarycentricWeight::ONE;
+128:             ClippedSample {
+129:                 point: p,
+130:                 weights: w,
+131:             }
+132:         })
+133:         .collect();
+134:     for edge in 0..3 {
+135:         let a = plate[edge];
+136:         let direction = plate[(edge + 1) % 3] - a;
+137:         let signed = |point: Vec3| direction.cross(point - a).dot(inward);
+138:         let mut output = Vec::new();
+139:         for i in 0..polygon.len() {
+140:             let ClippedSample {
+141:                 point: p,
+142:                 weights: pw,
+143:             } = polygon[i];
+144:             let ClippedSample {
+145:                 point: q,
+146:                 weights: qw,
+147:             } = polygon[(i + 1) % polygon.len()];
+148:             let (dp, dq) = (signed(p), signed(q));
+149:             if dp >= 0.0 {
+150:                 output.push(ClippedSample {
+151:                     point: p,
+152:                     weights: pw,
+153:                 });
+154:             }
+155:             if (dp < 0.0) != (dq < 0.0) {
+156:                 let t = ClippingFraction::from(dp / (dp - dq));
+157:                 output.push(ClippedSample {
+158:                     point: t.interpolate_point(p, q),
+159:                     weights: std::array::from_fn(|k: usize| -> BarycentricWeight {
+160:                         pw[k].interpolate(qw[k], t)
+161:                     }),
+162:                 });
+163:             }
+164:         }
+165:         polygon = output;
+166:     }
+167:     polygon
+168: }
+169: 
+SOURCE 2669 pr-working:crates/strategic-web/src/routes/inventory_forms.rs
+1: //! Parsing boundary for the browser's compact inventory form encoding.
+2: 
+3: use serde::Deserialize;
+4: 
+5: #[derive(Debug, Clone, PartialEq, Eq)]
+6: pub(crate) struct QuantityEntry<T> {
+7:     pub id: T,
+8:     pub quantity: u32,
+9: }
+10: 
+11: fn parse_entries<T: std::str::FromStr>(
+12:     ids: &str,
+13:     quantities: &str,
+14: ) -> Result<Vec<QuantityEntry<T>>, &'static str> {
+15:     let ids = ids
+16:         .split(',')
+17:         .filter(|value| !value.is_empty())
+18:         .collect::<Vec<_>>();
+19:     let quantities = quantities
+20:         .split(',')
+21:         .filter(|value| !value.is_empty())
+22:         .collect::<Vec<_>>();
+23:     if ids.len() != quantities.len() {
+24:         return Err("inventory IDs and quantities have different lengths");
+25:     }
+26:     ids.into_iter()
+27:         .zip(quantities)
+28:         .map(|(id, quantity)| {
+29:             let id = id.parse().map_err(|_| "invalid inventory ID")?;
+30:             let quantity = quantity.parse().map_err(|_| "invalid inventory quantity")?;
+31:             if quantity == 0 {
+32:                 return Err("inventory quantity must be positive");
+33:             }
+34:             Ok(QuantityEntry { id, quantity })
+35:         })
+36:         .collect()
+37: }
+38: 
+39: #[derive(Deserialize)]
+40: pub(crate) struct PartyPoolTransferForm {
+41:     pub item_id: String,
+42:     #[serde(default)]
+43:     pub quantity: String,
+44: }
+45: impl PartyPoolTransferForm {
+46:     pub fn entries(&self) -> Result<Vec<QuantityEntry<u64>>, &'static str> {
+47:         parse_entries(&self.item_id, &self.quantity)
+48:     }
+49: }
+50: 
+SOURCE 2670 physical-p16:crates/adventuresim-world-schema/Cargo.toml
+1: [package]
+2: name = "adventuresim-world-schema"
+3: version.workspace = true
+4: edition.workspace = true
+5: repository.workspace = true
+6: license.workspace = true
+7: build = "build.rs"
+8: 
+9: [features]
+10: default = []
+11: spacetimedb = ["dep:spacetimedb-lib"]
+12: 
+13: [dependencies]
+14: serde.workspace = true
+15: serde_json.workspace = true
+16: fabelgeist-determinism.workspace = true
+17: spacetimedb-lib = { workspace = true, optional = true }
+18: strum = { version = "0.28", features = ["derive"] }
+19: 
+20: [build-dependencies]
+21: serde = { workspace = true, features = ["derive"] }
+22: serde_json.workspace = true
+23: sha2.workspace = true
+24: spacetimedb-lib.workspace = true
+25: strum = { version = "0.28", features = ["derive"] }
+26: 
+27: [dev-dependencies]
+28: serde_json.workspace = true
+29: 
+30: [lints]
+31: workspace = true

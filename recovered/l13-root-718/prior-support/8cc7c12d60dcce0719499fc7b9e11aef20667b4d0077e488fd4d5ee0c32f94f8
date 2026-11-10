@@ -1,0 +1,345 @@
+{
+  "lens": 13,
+  "status": "Immutable exact source validation144..146; no authoritative mutation",
+  "frozen_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "frozen_is_not_current_main": true,
+  "necessary_extensions": [],
+  "proposed_next_original": 896,
+  "original_delta_proposed": 9,
+  "overlays_delta": 0,
+  "merged_delta": 0,
+  "shared_delta": 0,
+  "new_source_identity_delta_inferred": 0,
+  "authoritative_counts_changed": false,
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "global_clearance": false,
+  "product_execution": false,
+  "batches": [
+    {
+      "batch": 144,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-144.json",
+        "sha256": "6d24c850893036f0c0f6f9e0cef938547c14e617f4e4f5ca4c4614f3ebb324b4"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-144.json",
+        "sha256": "8b9dcb225790ce0035ed4b81fc2628c5b673373ea7efa3cb0efca414ffdca014"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-144-PROPOSAL.json",
+        "sha256": "d547fdbfe152ce2d5b3ca0836f5907fc502eaace048a50e5ef3dbfaff01bb103"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-143-PROPOSAL.json",
+        "sha256": "d6d606e7c5d30a12a24fac0279984eafeaa34bc6253e85047cb21e19763359dc"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-144.json",
+          "sha256": "3383f8dd878ee67a5f476bc2556aa6b97116d55231102fe219c56115f83b8001"
+        }
+      ],
+      "proposed_next_original": 890
+    },
+    {
+      "batch": 145,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-145.json",
+        "sha256": "5dd6853d8576c6a391b996eb0ffba5d6f939aa4d8c4b9416db5c07e7f7720cf2"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-145.json",
+        "sha256": "1aea97b4a652be7f5673741f8a30544cdf422edc04fedb112df3ddd9780f9f01"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-145-PROPOSAL.json",
+        "sha256": "c7d5f34bf20e931a57f8a5e3df00ca551e0a8fdf0611cb86c46be8d54824b18b"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-144-PROPOSAL.json",
+        "sha256": "d547fdbfe152ce2d5b3ca0836f5907fc502eaace048a50e5ef3dbfaff01bb103"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-145.json",
+          "sha256": "2cb5432eb0ef59387b5bd26bd534353ce32692ad789438b9f9fc0adb29f2b7dc"
+        }
+      ],
+      "proposed_next_original": 892
+    },
+    {
+      "batch": 146,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-146.json",
+        "sha256": "860772bfd7ae5ddb9b87f9f2421b0af4697e04761e10cd5b322bd3ee661b85dc"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-146.json",
+        "sha256": "463526ca2338423b113c2ea994718fdf8bbaaedfb3074d9925e15557c79d8817"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-146-PROPOSAL.json",
+        "sha256": "e280fa1e19a50107784bff7ea5e3fe0444ce3fcec4e80c0a3e127cf156a88725"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-145-PROPOSAL.json",
+        "sha256": "c7d5f34bf20e931a57f8a5e3df00ca551e0a8fdf0611cb86c46be8d54824b18b"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-146.json",
+          "sha256": "b1c4f157fef144b8036187269e0fdaaacad2a8bba87abf0f53e39d4e9f87a698"
+        }
+      ],
+      "proposed_next_original": 896
+    }
+  ],
+  "source_records": [
+    {
+      "original": 887,
+      "source_id": "pr-working:crates/adventuresim-core/src/case.rs",
+      "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 921,
+      "assessed_ranges": [
+        [
+          1,
+          921
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-144.json",
+        "sha256": "6d24c850893036f0c0f6f9e0cef938547c14e617f4e4f5ca4c4614f3ebb324b4"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-144.json",
+        "sha256": "3383f8dd878ee67a5f476bc2556aa6b97116d55231102fe219c56115f83b8001"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration was persisted before all fresh untruncated body displays.145 partial001 records actual prior890full208 and891prefix1..710; completion personally assessed only fresh891711..1137. Source assertions/fixtures read only, no product execution."
+    },
+    {
+      "original": 888,
+      "source_id": "pr-working:crates/adventuresim-core/src/celestial.rs",
+      "sha256": "c31595528b5df5ab5137bb15789e202abcc096187f12ba1f5f207d7299726b06",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 169,
+      "assessed_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-144.json",
+        "sha256": "6d24c850893036f0c0f6f9e0cef938547c14e617f4e4f5ca4c4614f3ebb324b4"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-144.json",
+        "sha256": "3383f8dd878ee67a5f476bc2556aa6b97116d55231102fe219c56115f83b8001"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration was persisted before all fresh untruncated body displays.145 partial001 records actual prior890full208 and891prefix1..710; completion personally assessed only fresh891711..1137. Source assertions/fixtures read only, no product execution."
+    },
+    {
+      "original": 889,
+      "source_id": "pr-working:crates/adventuresim-core/src/character_morph.rs",
+      "sha256": "078e18702247381254e0d5970a170bf88f594487ea11fee98a44c1b01d849013",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 73,
+      "assessed_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-144.json",
+        "sha256": "6d24c850893036f0c0f6f9e0cef938547c14e617f4e4f5ca4c4614f3ebb324b4"
+      },
+      "read_pointer": "/rows/2",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-144.json",
+        "sha256": "3383f8dd878ee67a5f476bc2556aa6b97116d55231102fe219c56115f83b8001"
+      },
+      "registration_pointer": "/sources/2",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration was persisted before all fresh untruncated body displays.145 partial001 records actual prior890full208 and891prefix1..710; completion personally assessed only fresh891711..1137. Source assertions/fixtures read only, no product execution."
+    },
+    {
+      "original": 890,
+      "source_id": "pr-working:crates/adventuresim-core/src/character_proportions.rs",
+      "sha256": "7a3b0a5797dbb6d8c811aa2e2df9d831e7424367faf501cf6b3b9bffe1683433",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 208,
+      "assessed_ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-145.json",
+        "sha256": "5dd6853d8576c6a391b996eb0ffba5d6f939aa4d8c4b9416db5c07e7f7720cf2"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-145.json",
+        "sha256": "2cb5432eb0ef59387b5bd26bd534353ce32692ad789438b9f9fc0adb29f2b7dc"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration was persisted before all fresh untruncated body displays.145 partial001 records actual prior890full208 and891prefix1..710; completion personally assessed only fresh891711..1137. Source assertions/fixtures read only, no product execution."
+    },
+    {
+      "original": 891,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat.rs",
+      "sha256": "7d00629a7da937cf41b5bc49a86df7119cc7054743dce1f70ac2507a7aba59b0",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 1137,
+      "assessed_ranges": [
+        [
+          1,
+          1137
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-145.json",
+        "sha256": "5dd6853d8576c6a391b996eb0ffba5d6f939aa4d8c4b9416db5c07e7f7720cf2"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-145.json",
+        "sha256": "2cb5432eb0ef59387b5bd26bd534353ce32692ad789438b9f9fc0adb29f2b7dc"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration was persisted before all fresh untruncated body displays.145 partial001 records actual prior890full208 and891prefix1..710; completion personally assessed only fresh891711..1137. Source assertions/fixtures read only, no product execution."
+    },
+    {
+      "original": 892,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/armor.rs",
+      "sha256": "3aeb6961c084a063132b1d1302d006c8cbf59cacaf960081e799b7ce46d37930",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 138,
+      "assessed_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-146.json",
+        "sha256": "860772bfd7ae5ddb9b87f9f2421b0af4697e04761e10cd5b322bd3ee661b85dc"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-146.json",
+        "sha256": "b1c4f157fef144b8036187269e0fdaaacad2a8bba87abf0f53e39d4e9f87a698"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration was persisted before all fresh untruncated body displays.145 partial001 records actual prior890full208 and891prefix1..710; completion personally assessed only fresh891711..1137. Source assertions/fixtures read only, no product execution."
+    },
+    {
+      "original": 893,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/capability.rs",
+      "sha256": "877f8932ea920a91c610829b96a637ad6d361189a28f41d464376763ca8d160c",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 72,
+      "assessed_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-146.json",
+        "sha256": "860772bfd7ae5ddb9b87f9f2421b0af4697e04761e10cd5b322bd3ee661b85dc"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-146.json",
+        "sha256": "b1c4f157fef144b8036187269e0fdaaacad2a8bba87abf0f53e39d4e9f87a698"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration was persisted before all fresh untruncated body displays.145 partial001 records actual prior890full208 and891prefix1..710; completion personally assessed only fresh891711..1137. Source assertions/fixtures read only, no product execution."
+    },
+    {
+      "original": 894,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/config.rs",
+      "sha256": "69009bf458abab5d6affbd82ce193c159586c474cff8229b545a3f6c4d5e6677",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 121,
+      "assessed_ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-146.json",
+        "sha256": "860772bfd7ae5ddb9b87f9f2421b0af4697e04761e10cd5b322bd3ee661b85dc"
+      },
+      "read_pointer": "/rows/2",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-146.json",
+        "sha256": "b1c4f157fef144b8036187269e0fdaaacad2a8bba87abf0f53e39d4e9f87a698"
+      },
+      "registration_pointer": "/sources/2",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration was persisted before all fresh untruncated body displays.145 partial001 records actual prior890full208 and891prefix1..710; completion personally assessed only fresh891711..1137. Source assertions/fixtures read only, no product execution."
+    },
+    {
+      "original": 895,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/contact_geometry.rs",
+      "sha256": "8be98e18f4aa0d7bb6fbc302c7a10e6df912a744927240f6a4618ce41541e75f",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 488,
+      "assessed_ranges": [
+        [
+          1,
+          488
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-146.json",
+        "sha256": "860772bfd7ae5ddb9b87f9f2421b0af4697e04761e10cd5b322bd3ee661b85dc"
+      },
+      "read_pointer": "/rows/3",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-146.json",
+        "sha256": "b1c4f157fef144b8036187269e0fdaaacad2a8bba87abf0f53e39d4e9f87a698"
+      },
+      "registration_pointer": "/sources/3",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration was persisted before all fresh untruncated body displays.145 partial001 records actual prior890full208 and891prefix1..710; completion personally assessed only fresh891711..1137. Source assertions/fixtures read only, no product execution."
+    }
+  ],
+  "future_same_lens_reuse_proofs": [],
+  "proposed_finding_provenance": [],
+  "qualifications": [
+    "Nine exact ordered original roles887..895.145 exact cumulative partial is prior890full208 and8911..710 then fresh711..1137; no invented rereads. Custody version exhaustion remains a pending source-reasoned conditional connected question, no accepted finding/alias/runtime/current credit."
+  ],
+  "partial_union_evidence": [
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-145-PARTIAL-001.json",
+      "sha256": "3aec9103c88d3dec90162b0c6433b9d568efd2dfeff16739c805916186d54fc9"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "schema": "726-independent-own-lens-current-read-v1",
+  "lens": 12,
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L12-CURRENT-GRAPHICS-CONFIG-001.json",
+    "sha256": "9a924002da1e63319993996e5be8f2132e52022411575d2bf72179b464d7bb1f"
+  },
+  "assessed_ranges": [
+    {
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "git_path": "crates/adventuresim-tactical-client/src/presentation/config.rs",
+      "source_sha256": "e2ec96c28d8458610bba86df77c1adceae1cdfe0e71ab972e227c362f72f0fe1",
+      "ranges": [
+        [
+          1,
+          414
+        ]
+      ]
+    },
+    {
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-tactical-client/src/presentation/config.rs",
+      "source_sha256": "4b39a948e24517a32a421b021307c7d1d7dad7a152be348ac952a3c88384f961",
+      "ranges": [
+        [
+          1,
+          404
+        ]
+      ]
+    }
+  ],
+  "body_output_truncated": false,
+  "other_lens_verdict_transfer": false,
+  "source_packet": {
+    "path": "adler-continuation-20261030/READ-ROOT-L12-CURRENT-GRAPHICS-CONFIG-PACKET-001.json",
+    "sha256": "26cde81e472f6ee6f371b73970a71b599227be9245f39c6c8a84753854b48103"
+  },
+  "source_conclusion": "Mode strings decode into explicit enums; field paths in validation are human context, not gameplay discriminants. Current parse/load formatting maps exactly to existing graphics-error ownership record71. This source-complete perspective retains that repair and broad journals1303/1313 instead of claiming a no-error finding.",
+  "new_body_credit": 0,
+  "new_accepted_unique_count": 0,
+  "product_execution": false
+}

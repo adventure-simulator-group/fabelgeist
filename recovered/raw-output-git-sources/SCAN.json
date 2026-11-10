@@ -1,0 +1,33 @@
+{
+  "candidates": 250,
+  "counts": {
+    "verified": 248,
+    "missing_git": 2
+  },
+  "unavailable": [
+    {
+      "revision": "b1502de8b396e7c575981d8df9fc84099619f458",
+      "git_path": "crates/burn-std/src/data/tensor.rs",
+      "sha256": "51c427cafcd2340258cf317477ca3e16dda9b9891c4e95c4c8403739bdc8d0ca",
+      "source_output_file": "recovered/source-registration-outputs/RECORDS-05.jsonl",
+      "source_output_ordinal": 206049,
+      "source_output_sha256": "971ef370d4bc91939b556620899ea9117fe14d124da1e8eb402d0617c51a4001",
+      "row_start": 1,
+      "row_end": 366,
+      "reason": "Git object unavailable"
+    },
+    {
+      "revision": "b1502de8b396e7c575981d8df9fc84099619f458",
+      "git_path": "crates/burn-tensor/src/tensor/api/base.rs",
+      "sha256": "cf2c214c719f64912d466a65e2a1e77f66ed431b3ed2846b49145a7f0d431a5b",
+      "source_output_file": "recovered/source-registration-outputs/RECORDS-05.jsonl",
+      "source_output_ordinal": 206049,
+      "source_output_sha256": "971ef370d4bc91939b556620899ea9117fe14d124da1e8eb402d0617c51a4001",
+      "row_start": 368,
+      "row_end": 742,
+      "reason": "Git object unavailable"
+    }
+  ],
+  "qualification": "Limited to complete JSON row fragments in selected output collections; missing or mismatched candidates are not recovered.",
+  "alternative_cache_objects_preserved": 2
+}

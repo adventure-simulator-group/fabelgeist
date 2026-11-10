@@ -1,0 +1,41 @@
+{
+  "schema": "726-root-l12-prospective-source-registration-v1",
+  "registered_at": "2026-11-02T10:26:03.945829+00:00",
+  "author": "/root",
+  "lens": 12,
+  "prospective": true,
+  "base_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "d60bcf6d10b4ad7830e8d4b675a45d2e306ef6d515e2e33abc048a4f33865d87"
+  },
+  "sources": [
+    {
+      "source_kind": "firstparty",
+      "source_id": "current-337:crates/adventuresim-building-generator/src/generator/core.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-building-generator/src/generator/core.rs",
+      "source_sha256": "f9cad0ec57715ef451e89d64fc3b833ffba8beb778e82d9a286f269d71849e4d",
+      "source_object": "adler-continuation-20261030/objects/f9cad0ec57715ef451e89d64fc3b833ffba8beb778e82d9a286f269d71849e4d",
+      "bytes": 13231,
+      "actual_EOF": 311,
+      "ranges": [
+        [
+          301,
+          311
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 11,
+      "prior_body_join": "No new freshness/reuse/population/unique credit; preserve all historical authors/views. Native package bound to selected root lock checksum and exact cached archive bytes, not runtime execution."
+    }
+  ],
+  "fresh_lines_registered": 0,
+  "uncredited_total_source_lines_registered": 11,
+  "purpose": "Q3715 actual existing GenerationError::StructuralContract constructor and empty/nonempty audit issue admission; source only.",
+  "superseded_invalid_registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L12-BUILDING-AUDIT-ISSUES-003.json",
+    "sha256": "b62a098a45943a24bbcc8009200385ebb7c5ed6ae97658a1930d5d6af7987026",
+    "reason": "003 registered301..314 beyond actualEOF311; body output22bfc7 ended IndexError. Not adopted and no credit.004 prospectively bounds exact301..311 before reread."
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "lens": 13,
+  "status": "evidence-onlyverification passed; rootadoptionrequired",
+  "receipt": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-001-003.json",
+    "sha256": "af28d2047f8b4163b18e1578914944e000782680795310927afa41337fcccbed"
+  },
+  "checks": [
+    {
+      "original": 360,
+      "hash_and_eof_exact": true,
+      "fresh_prospective_scopes_exact": true,
+      "qualified_range_union_complete_actual_body": true,
+      "fresh_personal_ranges": [
+        [
+          1,
+          149
+        ],
+        [
+          371,
+          1762
+        ]
+      ],
+      "inherited_ranges": [
+        [
+          150,
+          370
+        ]
+      ]
+    },
+    {
+      "original": 361,
+      "hash_and_eof_exact": true,
+      "fresh_prospective_scopes_exact": true,
+      "qualified_range_union_complete_actual_body": true,
+      "fresh_personal_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "inherited_ranges": []
+    },
+    {
+      "original": 362,
+      "hash_and_eof_exact": true,
+      "fresh_prospective_scopes_exact": true,
+      "qualified_range_union_complete_actual_body": true,
+      "fresh_personal_ranges": [
+        [
+          1,
+          650
+        ]
+      ],
+      "inherited_ranges": []
+    },
+    {
+      "original": 363,
+      "hash_and_eof_exact": true,
+      "fresh_prospective_scopes_exact": true,
+      "qualified_range_union_complete_actual_body": true,
+      "fresh_personal_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "inherited_ranges": []
+    },
+    {
+      "original": 364,
+      "hash_and_eof_exact": true,
+      "fresh_prospective_scopes_exact": true,
+      "qualified_range_union_complete_actual_body": true,
+      "fresh_personal_ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "inherited_ranges": []
+    }
+  ],
+  "inherited_original360_exact_pointers": [
+    "/actual_source_reads/3",
+    "/actual_source_reads/9"
+  ],
+  "nonexistent_original364_tail": [
+    39,
+    44
+  ],
+  "nonexistent_line_credit": 0,
+  "authority_mutations": 0,
+  "product_execution": false,
+  "current_reconciliation": false,
+  "all_populations_complete": false
+}

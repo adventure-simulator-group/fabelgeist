@@ -1,0 +1,46 @@
+{
+  "lens": 13,
+  "status": "Exact hash-specific additive schema qualification only; no receipt rewrite or authoritative mutation",
+  "read": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-111.json",
+    "sha256": "5580ce0d1ae0b75b7f927abf39f549b6e0ea6ac3e02757a435a478258505573a"
+  },
+  "registration": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-111-CONNECTED.json",
+    "sha256": "f2679596d339659542362be05433a5b75945447042f41ffe531e9214f2b12c99"
+  },
+  "manifest": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-109-111.json",
+    "sha256": "dd03a922fcf435619c587c7d708ccdcaedb91df4440b8604db77ff999d8a1f3e"
+  },
+  "exact_rows": [
+    {
+      "read_pointer": "/connected/2",
+      "registration_pointer": "/sources/2",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 138,
+      "assessed_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "historical_original_key": "Absent in these two immutable rows",
+      "effective_original": null,
+      "original_credit_now": 0,
+      "scope": "New necessary connected material only; exact necessary extension/all-other-lens queue preserved, global identity novelty pending root dedup, no original role population membership inferred"
+    }
+  ],
+  "truthful_basis": "111 directly registered and personally assessed this full138 source as necessary hair GPU helper, explicitly zero early original credit and global novelty pending. Existing source_records original:null and necessary original_role_credit_now:0 already capture the intended classification. This only makes that exact omitted row key explicit for guarded adoption; it does not add source/body/frontier/identity coverage.",
+  "guards": [
+    "Apply only exact READ111 and REG111 hashes and exact connected2/sources2 identity/hash/EOF138/range1..138",
+    "No generic missing-original defaults for any other file/row/source",
+    "Keep raw receipt, registry, manifest, queues and prospective chronology unchanged"
+  ],
+  "authoritative_counts_changed": false,
+  "new_source_identity_delta_inferred": 0,
+  "accepted_unique_count_change": 0,
+  "product_execution": false
+}

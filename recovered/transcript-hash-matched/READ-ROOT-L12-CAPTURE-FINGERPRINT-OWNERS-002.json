@@ -1,0 +1,123 @@
+{
+  "schema": "726-root-l12-bounded-connected-source-read-v1",
+  "at": "2026-11-02T09:46:06.670048+00:00",
+  "author": "/root",
+  "lens": 12,
+  "base_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "668b9478b9c36bf98e246038bc258c889a5fef86e6e3afbde2361d63ae52f7e8"
+  },
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L12-CAPTURE-FINGERPRINT-OWNERS-002.json",
+    "sha256": "9e9c947744b01a72e6fc9f1879bcbe81aac81f6d5d2459ac9ecdf3f678e65da5"
+  },
+  "rows": [
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+        "source_sha256": "c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2",
+        "source_object": "adler-continuation-20261030/objects/c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2",
+        "bytes": 12845,
+        "actual_EOF": 373,
+        "ranges": [
+          [
+            151,
+            205
+          ],
+          [
+            315,
+            340
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 81,
+        "prior_body_join": "No new freshness/reuse/unique credit requested; exact prior evidence remains unchanged."
+      },
+      "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+      "source_sha256": "c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2",
+      "assessed_ranges": [
+        [
+          151,
+          205
+        ],
+        [
+          315,
+          340
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "71ed73:151..205",
+        "71ed73:315..340"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 81,
+      "semantic_assessment": "Scene deterministic_readback_hash173..181 already returns None for None but Some(FNV64(empty)) for Some(empty). Keep None distinct; admit actual nonempty observed raw pixels before full-readback fingerprint, without rejecting any u64 digest value. Source comment not adversarial integrity explicitly limits purpose; test321..333 proves only bounded byte-change example, not universal collision-free image equality. Mean luminance NaN/foreground fallback/convergence and numeric admission remain independent existing obligations; no whole metrics clearance."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+        "source_sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+        "source_object": "adler-continuation-20261030/objects/f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+        "bytes": 173981,
+        "actual_EOF": 4477,
+        "ranges": [
+          [
+            3376,
+            3410
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 35,
+        "prior_body_join": "No new freshness/reuse/unique credit requested; exact prior evidence remains unchanged."
+      },
+      "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "source_sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+      "assessed_ranges": [
+        [
+          3376,
+          3410
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "71ed73:3376..3410"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 35,
+      "semantic_assessment": "Scene settled_readbacks_identical3377..3381 uses zip.is_some_and, so absent None/None does NOT pass equality. Preserve that positive-presence guard and per-view verification applicability. Retain typed raw fingerprint pair through report and format only at native serialization; do not turn this correct absence guard into a new defect. Final output/phase increment3384..3390 is already covered by separately owned required image/lifecycle repair. focused_tree_lod body3396..3408 independent."
+    }
+  ],
+  "fresh_root_personal_source_lines": 0,
+  "uncredited_total_source_lines": 116,
+  "prior_body_join": "No new freshness/reuse/population/unique credit asserted; exact prior body evidence/authorship and other-lens verdicts preserved.",
+  "related_queue_contract": "ROOT-L12-SHELL-CAPTURE-FINGERPRINT-REPRESENTATION",
+  "observations": [
+    "Scene deterministic_readback_hash173..181 already returns None for None but Some(FNV64(empty)) for Some(empty). Keep None distinct; admit actual nonempty observed raw pixels before full-readback fingerprint, without rejecting any u64 digest value. Source comment not adversarial integrity explicitly limits purpose; test321..333 proves only bounded byte-change example, not universal collision-free image equality. Mean luminance NaN/foreground fallback/convergence and numeric admission remain independent existing obligations; no whole metrics clearance.",
+    "Scene settled_readbacks_identical3377..3381 uses zip.is_some_and, so absent None/None does NOT pass equality. Preserve that positive-presence guard and per-view verification applicability. Retain typed raw fingerprint pair through report and format only at native serialization; do not turn this correct absence guard into a new defect. Final output/phase increment3384..3390 is already covered by separately owned required image/lifecycle repair. focused_tree_lod body3396..3408 independent."
+  ],
+  "remaining_evidence": [
+    "Final actual native report/owning existing suite admission/serializer contract dependency and exact first-predicate all20/current/alias qualification.",
+    "Distinct full-buffer versus sampled-view owners and availability repair with concrete later acceptance; generic geometry/provenance hashes and other native/physical/measurement/resource duties remain independent."
+  ],
+  "new_body_population_unique_credit": 0,
+  "new_primary_findings": 0,
+  "source_adoption_performed": false,
+  "whole_contracts_closed": false,
+  "independent_agent_review": false,
+  "product_execution": false,
+  "tests_executed": false,
+  "implementation_gate_complete": false
+}

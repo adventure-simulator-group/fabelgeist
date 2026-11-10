@@ -1,0 +1,93 @@
+"""Exact prior-target source adoption; historical records remain unchanged.
+
+Admits the seven e275 scopes as evidence about e275 after the selected target
+advanced to337. Every source/Git/scope check still uses the recorded e275
+identity. No evidence is relabelled to337 and no current delta cell is closed.
+"""
+import ast
+import hashlib
+import json
+from pathlib import Path
+import sys
+
+sys.dont_write_bytecode = True
+R = Path('target/726-audit-adler-20261027')
+P = R / 'parallel-l13-20261029/ROOT-CURRENT-ADOPTION-STABLE-ROW-v2-PROPOSAL.py'
+assert hashlib.sha256(P.read_bytes()).hexdigest() == 'a70447a1d7f1c14b1f216848687035f689537cd46a9a11c9ebf789b9d720d2d3'
+T = R / 'adler-continuation-20261030/CURRENT-TARGET-TRANSITION-001.json'
+assert hashlib.sha256(T.read_bytes()).hexdigest() == '8b723e58afad6c01e10967209c6f6d6de8e7499035d35a69cd4a020e63d2033a'
+transition = json.loads(T.read_text(encoding='utf-8'))
+OLD = 'e2755a732c84e67296b5e3441a4259a84f461b2f'
+ACTIVE = '33714256b6313ce86fdfbb534c54d92d024d7726'
+assert (transition['from_revision'], transition['to_revision']) == (OLD, ACTIVE)
+own = Path(__file__).resolve()
+own_ref = {'path': own.relative_to(R.resolve()).as_posix(),
+           'sha256': hashlib.sha256(own.read_bytes()).hexdigest()}
+
+def portable_str(value):
+    return value.as_posix() if isinstance(value, Path) else str(value)
+
+def source_revision(ledger, selector, receipt):
+    assert ledger['segovb_continuation']['reconciliation_target_current_main']['revision'] == selector['current_main_pin'] == ACTIVE
+    assert receipt['revision'] == OLD
+    queue_ref = ledger['audit_workflow']['closure_queue']
+    assert queue_ref == selector['audit_workflow']['closure_queue']
+    assert queue_ref == {'path':'workflow-20261030/CLOSURE-QUEUE-106.json', 'sha256':'22c7bb07dbb4bdaedec7190d794d8bdaadaffd07dd2a57771dd1da39f656b596'}
+    assert hashlib.sha256((R / queue_ref['path']).read_bytes()).hexdigest() == queue_ref['sha256']
+    queue = json.loads((R / queue_ref['path']).read_text(encoding='utf-8'))
+    assert queue['current_main_deltas'][-1]['from_revision'] == OLD
+    assert queue['current_main_deltas'][-1]['to_revision'] == ACTIVE
+    return OLD
+
+def report_qualification(report, args):
+    assert args.queue_number == 107 and args.source_number == 5
+    for stem in ('READ', 'VERIFY'):
+        files = list((R / 'segovb').glob(f'{stem}-L13-CURRENT-TEAM-*.json'))
+        assert sorted(int(p.stem.split('-')[-1]) for p in files) == [1,2,3,4]
+    return {**report, 'execution_adapter':own_ref,
+            'selected_current_target':ACTIVE,
+            'recorded_source_revision':OLD,
+            'revision_qualification':'Prior selected-target evidence only. Source identities, scopes and attribution preserved; no credit or delta closure for337.',
+            'target_transition':{'path':T.relative_to(R).as_posix(),
+                                 'sha256':hashlib.sha256(T.read_bytes()).hexdigest()}}
+
+class Adapt(ast.NodeTransformer):
+    def __init__(self):
+        self.target = self.guard = self.report = 0
+
+    def visit_Call(self, node):
+        self.generic_visit(node)
+        if isinstance(node.func, ast.Name) and node.func.id == 'str':
+            assert len(node.args) == 1 and not node.keywords
+            node.func.id = '_portable_str'
+        return node
+
+    def visit_Assign(self, node):
+        self.generic_visit(node)
+        if len(node.targets) == 1 and isinstance(node.targets[0], ast.Name):
+            name = node.targets[0].id
+            if name == 'target':
+                assert ast.unparse(node.value) == "L['segovb_continuation']['reconciliation_target_current_main']['revision']"
+                node.value = ast.parse('_source_revision(L,C,J)', mode='eval').body
+                self.target += 1
+            if name == 'report':
+                node.value = ast.Call(func=ast.Name(id='_report_qualification', ctx=ast.Load()), args=[node.value, ast.Name(id='a', ctx=ast.Load())], keywords=[])
+                self.report += 1
+        return node
+
+    def visit_Assert(self, node):
+        if ast.unparse(node.test) == "target == C['current_main_pin'] == J['revision'] == 'e2755a732c84e67296b5e3441a4259a84f461b2f'":
+            node.test = ast.parse("target == J['revision'] == 'e2755a732c84e67296b5e3441a4259a84f461b2f'", mode='eval').body
+            self.guard += 1
+        self.generic_visit(node)
+        return node
+
+tree = ast.parse(P.read_bytes(), filename=str(P))
+count = sum(isinstance(n, ast.Assert) for n in ast.walk(tree))
+adapter = Adapt()
+tree = ast.fix_missing_locations(adapter.visit(tree))
+assert (adapter.target, adapter.guard, adapter.report) == (1,1,1)
+assert sum(isinstance(n, ast.Assert) for n in ast.walk(tree)) == count
+exec(compile(tree, str(P), 'exec'), {'__name__':'__main__', '__file__':str(P),
+                                   '_portable_str':portable_str, '_source_revision':source_revision,
+                                   '_report_qualification':report_qualification})

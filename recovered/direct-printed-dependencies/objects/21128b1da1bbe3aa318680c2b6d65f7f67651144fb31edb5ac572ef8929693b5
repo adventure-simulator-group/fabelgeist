@@ -1,0 +1,77 @@
+"""Qualify newly read closure helper/test tail and bounded observer/publication source roles."""
+from pathlib import Path
+import hashlib,json,subprocess
+A=Path(__file__).resolve().parent;R=A.parent;W=R.parent.parent
+
+def pack(v):return (json.dumps(v,indent=2)+'\n').encode()
+def sha(p):
+    with p.open('rb') as f:return hashlib.file_digest(f,'sha256').hexdigest()
+def read(p):return json.loads(p.read_bytes())
+def ref(p):return {'path':p.relative_to(R).as_posix(),'sha256':sha(p)}
+def checked(v):
+    p=R/v['path'];assert p.resolve().is_relative_to(R) and sha(p)==v['sha256'];return read(p)
+def pointer(v,p):
+    for k in p.strip('/').split('/'):v=v[int(k)] if isinstance(v,list) else v[k]
+    return v
+def lines(rs):return {n for lo,hi in rs for n in range(lo,hi+1)}
+
+def build(L,Q):
+    assert hashlib.sha256(pack(L)).hexdigest()=='c799511039c6d42ca0d66dea6ee14865113b920dc25f89b751fb05a8d00ca751'
+    assert len(Q['entries'])==3834 and Q['entries'][1938]['status']=='open-evidence-or-disposition'
+    assert len(Q['entries'][1938]['granular_contract_views'])==9
+    co=L['segovb_continuation']['lens12'];assert len(co['connected_body_receipts'])==147 and len(co['native_receipts'])==7
+    p=A/'READ-ROOT-L12-WINDOW-OBSERVER-PUBLICATION-001.json';d=read(p);reg=checked(d['registration']);disc=checked(d['discovery'])
+    assert d['author']=='/root' and d['lens']==12 and reg['prospective'] is True and reg['registered_at']<d['at']
+    assert d['base_ledger']==reg['base_ledger']==disc['base_ledger'] and d['base_ledger']['sha256']==hashlib.sha256(pack(L)).hexdigest()
+    assert d['source_adoption_performed'] is d['product_execution'] is d['tests_executed'] is False
+    assert d['fresh_root_personal_source_lines']==reg['fresh_lines_registered']==98
+    assert d['uncredited_reassessment_lines']==reg['uncredited_reassessment_lines_registered']==450
+    assert reg['sources']==[row['source'] for row in d['rows']]
+    assert len(disc['own_lens_receipts'])==disc['own_lens_receipt_count']==1077
+    eligible={(rr['path'],rr['sha256']) for rr in disc['own_lens_receipts']}
+    scopes=[];fresh_scopes=[];fresh=reused=0
+    for row in d['rows']:
+        s=row['source'];raw=(R/s['source_object']).read_bytes()
+        assert hashlib.sha256(raw).hexdigest()==s['source_sha256'] and len(raw)==s['bytes'] and len(raw.splitlines())==s['actual_EOF']
+        assert s['revision']=='33714256b6313ce86fdfbb534c54d92d024d7726'
+        assert subprocess.check_output(['git','show',s['revision']+':'+s['git_path']],cwd=W)==raw
+        prior=s['prior_own_lens_read'];rr=prior['receipt'];assert (rr['path'],rr['sha256']) in eligible
+        old=pointer(checked(rr),prior['pointer'])
+        assert old.get('source_sha256',old.get('sha256'))==s['source_sha256']
+        assessed=lines(row['assessed_ranges']);f=lines(row['fresh_personal_body_reads']);prior_lines=lines(old[prior['range_field']])
+        assert f<=assessed and not f.intersection(prior_lines) and assessed-f<=prior_lines
+        assert row['assessed_ranges']==s['ranges'] and row['fresh_personal_body_reads']==s['fresh_personal_body_reads_registered']
+        assert row['fresh_root_personal_lines']==s['fresh_personal_lines_registered']==len(f)
+        assert row['uncredited_reassessment_lines']==len(assessed-f)
+        assert row['author']=='/root' and row['output_chunk'] and row['untruncated_body_status']
+        if f:
+            assert s['git_path']=='crates/adventuresim-tactical-client/src/presentation/building_closures.rs'
+            assert row['assessed_ranges']==[[1,150]] and row['fresh_personal_body_reads']==[[53,150]]
+            assert old['assessed_ranges']==[[1,52]]
+            hits=[hit for hit in disc['exact_hash_hits'] if s['source_sha256'] in [hit['record'].get('source_sha256'),hit['record'].get('sha256')]]
+            assert len(hits)==1 and hits[0]['receipt']==rr and hits[0]['pointer']==prior['pointer'] and hits[0]['record']==old
+            fresh_scopes.append({'source_id':s['source_id'],'source_sha256':s['source_sha256'],'ranges':row['fresh_personal_body_reads']})
+        scopes.append({'source_id':s['source_id'],'source_sha256':s['source_sha256'],'ranges':s['ranges'],'fresh_ranges':row['fresh_personal_body_reads'],'previous_own_lens_body':prior,'original_author_fields_present':{k:old[k] for k in ['author','attribution','roles','status'] if k in old}})
+        fresh+=len(f);reused+=len(assessed-f)
+    assert (fresh,reused)==(98,450) and len(fresh_scopes)==1
+    rp=R/'evidence/audit05/original-scope-072.json';assert sha(rp)=='d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f'
+    original=read(rp)['files'][2511]
+    assert original['source_id']=='physical-p16:crates/adventuresim-tactical-client/src/presentation/building_closures.rs'
+    assert original['sha256']==reg['sources'][0]['source_sha256'] and original['actual_line_count']==150
+    historical=Q['entries'][1938]['granular_contract_views'][0]['remaining_evidence'][0]
+    assert 'fresh2511 tail53..150 and called visibility helper remain unread' in historical
+    visref=next({'path':rr['path'],'sha256':rr['sha256']} for rr in co['native_receipts'] if rr.get('path')=='segovb/READ-ROOT-L12-NATIVE-VISIBILITY-001.json')
+    vis=checked(visref);assert vis['qualification'] in co['exact_source_qualifications'];checked(vis['qualification'])
+    assert vis['fresh_root_personal_source_lines']==549 and vis['native_current_contracts_complete'] is False
+    assert vis['source_scope']==[{'source_id':'native:bevy_camera@0.19.1/src/visibility/range.rs','ranges':[[1,284]]},{'source_id':'native:bevy_render@0.19.1/src/view/visibility/range.rs','ranges':[[1,265]]}]
+    return {'packets':[ref(p)],'fresh_body_packet':ref(p),'qualified_scopes':scopes,'fresh_source_scopes':fresh_scopes,
+        'new_body_credit':98,'fresh_root_personal_source_lines':98,'uncredited_semantic_reassessment_lines':450,'new_population_credit':0,'new_unique_findings':0,
+        'observations':d['observations'],'prior_native_visibility_source':visref,
+        'source_status_supersession':{'queue_index':1938,'historical_pointer':'/entries/1938/granular_contract_views/0/remaining_evidence/0','historical_text':historical,'resolved_original_index':2511,'source_id':original['source_id'],'source_sha256':original['sha256'],'prior_ranges':[[1,52]],'newly_read_ranges':[[53,150]],'full_own_lens_body_union':[[1,150]],'tests_source_only':True,'other_historical_obligations_preserved':True},
+        'established_subcontracts':[
+            'Exact old physical2511/current helper-test tail53..150 now read; prior1..52 plus fresh98 form disjoint full150 own-L12 body union. Supersede only that unread-helper status, not the broader aggregate or native/visual acceptance.',
+            'Every closure material batch uses the same typed building/opening association; visibility sync changes facade/range only and never accesses Transform. Helper sets zero start margin and inherits Lod1 fields; new tests express expectations without an executed pass or numeric/native activation claim.',
+            'Actual window observer resolves mesh preparation and matching primary material before queuing visual components/identity children. Client building/window observer registrations are source-qualified. Mesh cache/lifetime/failure policy remains independent.',
+            'Ordinary scene and fixture spawn loops interleave queued entities with fallible compile/pose work; current source does not show local rollback. Strategic root transform and capture-state/fixture selector domains remain required before broad frame or panic/publication dispositions.'
+        ],'remaining_evidence':d['remaining_evidence'][1:],
+        'whole_contract_closed':False,'current_full_lens_or_delta_cell_closure':False,'independent_agent_review':False,'product_execution':False,'implementation_gate_complete':False}

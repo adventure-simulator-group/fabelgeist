@@ -1,0 +1,13 @@
+# Private physiology and public illness projection
+
+The private combined physiology takes a deterministic baseline, adds each
+episode's private meter state, and adds intervention effects. Terminal status
+checks each combined meter against its terminal threshold. The public illness
+status writer instead derives symptomatic and critical flags from individual
+episode stages when a notice is written. These are different inputs and update
+mechanisms; this source read does not prove a supported state where a terminal
+private meter passes every action or simulator readiness gate.
+
+Qualify all condition inputs, public readiness call sites, notification and
+intervention histories, and supported states before deciding the zero-preview
+path's reachability. No runtime execution or product repair was performed.

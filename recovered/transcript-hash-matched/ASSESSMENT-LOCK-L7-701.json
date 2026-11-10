@@ -1,0 +1,29 @@
+{
+  "schema": "726-provisional-lock-lens-assessment-v1",
+  "at": "2026-11-03T06:34:26.728580+00:00",
+  "lens": 7,
+  "lens_name": "redundant-authority",
+  "delta_index": 1,
+  "path_index": 1,
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-LOCK-RECONCILIATION-700.json",
+    "sha256": "cead0281d6e7e5b773f63a40cbdf636bdb015b412937d641a82dc90e7747c9ee"
+  },
+  "disposition": "The old renderer dependency is absent but this alone does not prove replacement authority or absence of duplicate representations.",
+  "cell_closed": false,
+  "connected_evidence": [
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-BASELINE-OLDER-652.json",
+      "sha256": "56ff59598876d72c42dbf2334dbf479fb1ca749b4de6b0e150be200118e49eb6"
+    },
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-BASELINE-OLDER-671.json",
+      "sha256": "dd136cf6e5532b9a3b35ad3931bb2e45a66fe2b537b42661f0c66c7b7eff3c17"
+    },
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-BASELINE-OLDER-680.json",
+      "sha256": "7b40660cb74627cdd03bf7d29897d68c98b1053c9d223b0f0c3a48308065d6ed"
+    }
+  ],
+  "scope_limit": "Provisional: connected renderer obligations and whole-audit closure remain open."
+}

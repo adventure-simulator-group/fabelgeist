@@ -1,0 +1,19 @@
+from pathlib import Path
+from datetime import datetime,timezone
+import hashlib,json,subprocess,runpy
+repo=Path.cwd().resolve();i=repo/'target/726-intake-20261030';w=repo/'target/726-audit-continuation-20261030';r=w/'target/726-audit-adler-20261027';a=r/'adler-continuation-20261030'
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def read(p):return json.loads(p.read_bytes())
+def ref(p):return {'path':p.relative_to(r).as_posix(),'sha256':sha(p)}
+def save(p,v):
+ with p.open('x',encoding='utf-8',newline='\n')as f:json.dump(v,f,indent=2);f.write('\n')
+assert sha(i/'CURRENT.json')=='0adbbe7e7bbde634ad92245d7da3b3c3908f6457be59feb633e58edf5f283c20'
+lp=r/'evidence/continuation-segovb/ledger.json';cp=r/'CURRENT-ADLER.json';registry=r/'evidence/audit05/original-scope-072.json';assert sha(registry)=='d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f';files=read(registry)['files'];co=read(lp)['segovb_continuation']['lens13']
+for n in range(2592,2600):
+ f=files[n];git='f82adcabd9d89c4fa2dd7f99253a45297a0681ee'if n<=2594 else'6533e444fa37552927070cc8d8190907fd3b413e';gp='handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/'+f['sha256']if n<=2594 else f['source_id'].split(':',1)[1];body=subprocess.check_output(['git','show',git+':'+gp]);assert hashlib.sha256(body).hexdigest()==f['sha256']and len(body)==f['bytes']and len(body.splitlines())==f['actual_line_count'];obj=a/'objects'/f['sha256']
+ if obj.exists():assert obj.read_bytes()==body
+ else:
+  with obj.open('xb')as out:out.write(body)
+hp=a/'qualify_admission2592_v1.py';b=runpy.run_path(str(hp))['build'](r,w,a,co,files)
+reg={'schema':'726-exact2592-2599-admission-mixed-registration-v1','at':datetime.now(timezone.utc).isoformat(),'author':'/root','lens':13,'status':'Prospective exact mixed admission roles: assets and two choices264 fresh, five prior roles596 reused; raw107 qualified to actual106','authority_changes':0,'product_execution':False,'body_credit':0,'sources':b['sources'],'fresh_lines_registered':264,'prior_material_lines_reused':596,'prior_same_lens_receipts_checked':694,'valid_nested_range_fields':b['all_nested_range_fields'],'exact_hash_prior_hits':b['exact_hash_prior_hits'],'future_proofs_preserved':b['future_proofs_preserved'],'old_ordered_applications_preserved':b['old_ordered_applications_preserved'],'historical_metadata_unchanged':True};rp=a/'REGISTRATION-ROOT-L13-2592-2599-001.json';save(rp,reg)
+q={'schema':'726-exact2592-2599-admission-mixed-material-v1','at':datetime.now(timezone.utc).isoformat(),'author':'/root','lens':13,'proof_builder':ref(hp),'registry':ref(registry),'registration':ref(rp),'qualified_against_ledger':ref(lp),'qualified_against_selector':ref(cp),**{k:v for k,v in b.items()if k!='sources'},'all_nested_range_fields_inspected':True,'historical_receipts_unchanged':True,'transport_only_not_current_source':True,'material_lines':860,'fresh_lines':264,'reused_material_lines':596,'body_credit':0,'authority_changes':0,'other_population_credit':0,'product_execution':False,'implementation_gate_complete':False,'limits':['Three fresh assets106/sigil83/witness75 total264; five exact prior runtime143/determinism35/garment225/underlayer137/trunk56 total596 reuse preserves readers withzero newbodycredit.','2592 historical two raw1..107 requests unchanged; explicit localactual1..106 and native EOF106 exclude nonexistent107. No generic range clipping or field rewriting.','P16 three archivedtransport vsfive directprGit6533 roles independent, actual current/source/native producer graph unresolved. Original2597/2598/2599future now countonce;2248 earlierapplication preserved. Garment226..271 anddeterminism36..58 excluded newroles.']};qp=a/'QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json';save(qp,q);print(json.dumps({'registration':ref(rp),'qualification':ref(qp),'helper':ref(hp),'fresh':264,'reused':596,'nested':len(b['all_nested_range_fields'])}))

@@ -1,0 +1,193 @@
+SOURCE 2654 pr-working:crates/fabelgeist-xpbd/src/dynamics/constraint.rs
+1: //! Distance violation, compliance scaled by substep, and constraint multipliers.
+2: use super::projection::EffectiveInverseMass;
+3: 
+4: /// Compliance divided by squared substep duration, in inverse kilograms.
+5: #[derive(Clone, Copy, Debug)]
+6: pub struct CompliancePerSubstep(pub(super) f32);
+7: impl From<f32> for CompliancePerSubstep {
+8:     fn from(inverse_kilograms: f32) -> Self {
+9:         Self(inverse_kilograms)
+10:     }
+11: }
+12: /// Signed distance from the rest target, in metres.
+13: #[derive(Clone, Copy, Debug)]
+14: pub struct ConstraintViolation(f32);
+15: impl From<f32> for ConstraintViolation {
+16:     fn from(metres: f32) -> Self {
+17:         Self(metres)
+18:     }
+19: }
+20: impl ConstraintViolation {
+21:     pub fn multiplier_delta(
+22:         self,
+23:         compliance: CompliancePerSubstep,
+24:         multiplier: ConstraintMultiplier,
+25:         response: EffectiveInverseMass,
+26:     ) -> ConstraintMultiplier {
+27:         ConstraintMultiplier((-self.0 - compliance.0 * multiplier.0) / response.0)
+28:     }
+29: }
+30: /// Accumulated distance-constraint multiplier, in kilogram metres.
+31: #[derive(Clone, Copy, Debug, Default)]
+32: pub struct ConstraintMultiplier(pub(super) f32);
+33: impl ConstraintMultiplier {
+34:     pub const ZERO: Self = Self(0.0);
+35: }
+36: impl std::ops::AddAssign for ConstraintMultiplier {
+37:     fn add_assign(&mut self, delta: Self) {
+38:         self.0 += delta.0;
+39:     }
+40: }
+SOURCE 2655 pr-working:crates/fabelgeist-xpbd/src/coloring.rs
+1: //! Greedy constraint coloring preserves arrival order within each color.
+2: //!
+3: //! Constraints sharing a particle occupy different dispatches. Sequential color
+4: //! dispatches retain the solver's Gauss-Seidel order without device races.
+5: use std::collections::HashMap;
+6: 
+7: use crate::{ConstraintCount, ConstraintIncidence, ConstraintIndex, ParticleIndex};
+8: use derive_more::{Display, From};
+9: use fabelgeist_gpu::prelude::PassParameters;
+10: 
+11: /// A color's position in the sequential solve schedule.
+12: #[derive(Clone, Copy, Debug, Display, PartialEq, Eq)]
+13: pub struct ConstraintColor(usize);
+14: 
+15: /// Number of colors in the sequential solve schedule.
+16: #[derive(Clone, Copy, Debug, Display, From, PartialEq, Eq, PartialOrd, Ord)]
+17: pub struct ColorCount(usize);
+18: 
+19: /// A constraint address after permutation into color order.
+20: ///
+21: /// ```compile_fail
+22: /// use fabelgeist_xpbd::{ConstraintIndex, ConstraintSlot};
+23: /// fn original(_: ConstraintIndex) {}
+24: /// fn wrong(slot: ConstraintSlot) { original(slot); }
+25: /// ```
+26: #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+27: pub struct ConstraintSlot(u32);
+28: 
+29: /// Immutable color interval, in reordered constraint slots.
+30: #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+31: pub struct ColorRange {
+32:     color: ConstraintColor,
+33:     first: ConstraintSlot,
+34:     end: ConstraintSlot,
+35: }
+36: 
+37: /// Constraints grouped into colors, with their immutable permutation.
+38: #[derive(Clone, Debug, Default)]
+39: pub struct Coloring {
+40:     order: Vec<ConstraintIndex>,
+41:     ranges: Vec<ConstraintSlot>,
+42: }
+43: 
+44: impl From<ConstraintSlot> for usize {
+45:     fn from(slot: ConstraintSlot) -> Self {
+46:         slot.0 as usize
+47:     }
+48: }
+49: 
+50: impl ColorRange {
+51:     pub fn color(self) -> ConstraintColor {
+52:         self.color
+53:     }
+54:     pub fn count(self) -> ConstraintCount {
+55:         ((self.end.0 - self.first.0) as usize).into()
+56:     }
+57:     pub fn slots(self) -> impl Iterator<Item = ConstraintSlot> {
+58:         (self.first.0..self.end.0).map(ConstraintSlot)
+59:     }
+60:     pub(crate) fn bind(self, parameters: &mut PassParameters) {
+61:         parameters.insert("first", self.first.0);
+62:         parameters.insert("count", self.count().uniform());
+63:     }
+64:     pub(crate) fn dispatch_items(self) -> u32 {
+65:         self.count().dispatch_items()
+66:     }
+67: }
+68: 
+69: impl Coloring {
+70:     pub fn color_count(&self) -> ColorCount {
+71:         self.ranges.len().saturating_sub(1).into()
+72:     }
+73:     pub fn constraint_count(&self) -> ConstraintCount {
+74:         self.order.len().into()
+75:     }
+76:     pub fn order(&self) -> &[ConstraintIndex] {
+77:         &self.order
+78:     }
+79:     pub fn colors(&self) -> impl Iterator<Item = ColorRange> + '_ {
+80:         self.ranges
+81:             .windows(2)
+82:             .enumerate()
+83:             .map(|(color, bounds)| ColorRange {
+84:                 color: ConstraintColor(color),
+85:                 first: bounds[0],
+86:                 end: bounds[1],
+87:             })
+88:     }
+89:     pub fn for_incidence(incidence: &ConstraintIncidence<'_>) -> Self {
+90:         let records: Vec<&[ParticleIndex]> = incidence.records().collect();
+91:         Self::for_constraints(&records)
+92:     }
+93:     /// Variable-arity graphs may contain empty records and repeated addresses.
+94:     /// Incidence identifies conflicts; it does not validate particle membership.
+95:     pub fn for_constraints(constraints: &[&[ParticleIndex]]) -> Self {
+96:         if constraints.is_empty() {
+97:             return Self {
+98:                 order: Vec::new(),
+99:                 ranges: vec![ConstraintSlot(0)],
+100:             };
+101:         }
+102:         let mut taken: HashMap<ParticleIndex, Vec<bool>> = HashMap::new();
+103:         let mut colors = Vec::with_capacity(constraints.len());
+104:         let mut color_count = ColorCount(0);
+105:         for particles in constraints {
+106:             let mut candidate = ConstraintColor(0);
+107:             loop {
+108:                 let mut free = true;
+109:                 for particle in *particles {
+110:                     if let Some(used) = taken.get(particle)
+111:                         && used.get(candidate.0).is_some_and(|&occupied| occupied)
+112:                     {
+113:                         free = false;
+114:                         break;
+115:                     }
+116:                 }
+117:                 if free {
+118:                     break;
+119:                 }
+120:                 candidate.0 += 1;
+121:             }
+122:             for &particle in *particles {
+123:                 let used = taken.entry(particle).or_default();
+124:                 if used.len() <= candidate.0 {
+125:                     used.resize(candidate.0 + 1, false);
+126:                 }
+127:                 used[candidate.0] = true;
+128:             }
+129:             // Preserve the original native u32 color word narrowing.
+130:             colors.push(ConstraintColor(candidate.0 as u32 as usize));
+131:             color_count.0 = color_count.0.max(candidate.0 + 1);
+132:         }
+133:         let mut counts = vec![ConstraintSlot(0); color_count.0 + 1];
+134:         for color in &colors {
+135:             counts[color.0 + 1].0 += 1;
+136:         }
+137:         for i in 1..counts.len() {
+138:             counts[i].0 += counts[i - 1].0;
+139:         }
+140:         let ranges = counts.clone();
+141:         let mut cursor = counts;
+142:         let mut order = vec![ConstraintIndex::from(0); constraints.len()];
+143:         for (index, color) in colors.iter().enumerate() {
+144:             let slot = &mut cursor[color.0];
+145:             order[slot.0 as usize] = ConstraintIndex::from(index as u32);
+146:             slot.0 += 1;
+147:         }
+148:         Self { order, ranges }
+149:     }
+150: }
+151: 

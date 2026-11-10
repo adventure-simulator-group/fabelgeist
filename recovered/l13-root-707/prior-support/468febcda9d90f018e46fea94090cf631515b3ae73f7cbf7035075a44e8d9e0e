@@ -1,0 +1,219 @@
+{
+  "lens": 13,
+  "namespace": "PL13-007",
+  "status": "381\u2013384source-accountingproposalWITHqualifiedfindings",
+  "registration": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-007.json",
+    "sha256": "cb2670dd88ba8ecbc609825fb7686dda7525abf6a001a13df3f57531441eefd8"
+  },
+  "rows": [
+    {
+      "original": 381,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat.rs",
+      "sha256": "a21f436f16e7c331c844e120198460cd485a9342d6d9c41ff79fc039c913e0c5",
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/a21f436f16e7c331c844e120198460cd485a9342d6d9c41ff79fc039c913e0c5",
+      "actual_eof": 1165,
+      "prospective_ranges": [
+        [
+          1,
+          1165
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "source_revision": "physical-p16 f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact",
+      "purpose": "Independent L13 orderedcombat/authorityclock/ranged inventory;382complementsownconnectedPL13-0061\u201370 exactreuse, neverinheritedall672frompartial",
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          1165
+        ]
+      ],
+      "untruncated_body_outputs": true
+    },
+    {
+      "original": 382,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/authority.rs",
+      "sha256": "115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+      "actual_eof": 672,
+      "prospective_ranges": [
+        [
+          71,
+          672
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "source_revision": "physical-p16 f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact",
+      "purpose": "Independent L13 orderedcombat/authorityclock/ranged inventory;382complementsownconnectedPL13-0061\u201370 exactreuse, neverinheritedall672frompartial",
+      "fresh_personal_assessed_ranges": [
+        [
+          71,
+          672
+        ]
+      ],
+      "untruncated_body_outputs": true
+    },
+    {
+      "original": 383,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/authority/clock.rs",
+      "sha256": "e2a1bd81fce6833b5da2be52e337c95192e41486450c4b1fa3260f684965d6d4",
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/e2a1bd81fce6833b5da2be52e337c95192e41486450c4b1fa3260f684965d6d4",
+      "actual_eof": 62,
+      "prospective_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "source_revision": "physical-p16 f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact",
+      "purpose": "Independent L13 orderedcombat/authorityclock/ranged inventory;382complementsownconnectedPL13-0061\u201370 exactreuse, neverinheritedall672frompartial",
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "untruncated_body_outputs": true
+    },
+    {
+      "original": 384,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/authority/ranged.rs",
+      "sha256": "d35702462831557e7e11e2ea5120640b22819bc95b1bc85858cbfc7d5e95d20c",
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/d35702462831557e7e11e2ea5120640b22819bc95b1bc85858cbfc7d5e95d20c",
+      "actual_eof": 54,
+      "prospective_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "source_revision": "physical-p16 f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact",
+      "purpose": "Independent L13 orderedcombat/authorityclock/ranged inventory;382complementsownconnectedPL13-0061\u201370 exactreuse, neverinheritedall672frompartial",
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "untruncated_body_outputs": true
+    }
+  ],
+  "same_lens_reuse382": {
+    "read": {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-006.json",
+      "sha256": "6b244564a64e0a2c19ac9867097efa3888812ca5c17782dbebbc492c6362f8e1"
+    },
+    "pointer": "/rows/1",
+    "registration": {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-006.json",
+      "sha256": "a3faa557553c4fada764afe7cb8ffa61e66f66ce8b8271d5fc9276adbe87c7d4"
+    },
+    "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/authority.rs",
+    "sha256": "115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+    "ranges": [
+      [
+        1,
+        70
+      ]
+    ],
+    "fresh_personal_reads_this_batch": [],
+    "prior_ordered_credit": 0,
+    "proposed_original_credit_once_now": 1
+  },
+  "numeric_role_inventory": {
+    "381:1\u2013534": "Actualnativeimpact presentation: semantic metal/blood Bools as protocol output, cuts>0 selects blood/flesh. authoritative_impact rawmasskg/typedposition/nativeTransform\u2192hit_velocity_change\u2192positional Entity/velocity/point/normal tuple before nativeevent; frame/unit/role owner records required. Accumulated injury cut/blunt/maxsinglehit rawf32, bloodfraction rawf32, ammoU32, inventoryitemIDu64/contactstressf32/defender_equipmentBool retained in nativeResource before strategic receipt boundary; transient wounds remain server. remaining_ammo subtract1 from checked nonzero CoreItemQuantity then new\u2192None atlastshot: no underflow for admittedquantity. ApplyMeleeAttackResult/MeleeAttackResolved retain typed BodyPart/anatomical/contacttiming but surface coordinate/optional probability/alignment/engagement rawf32, power/engagement other events rawf32; actualadmission/consumer sourcespending. impactkernel349 picks affectedside Bool and nonnegativecontactenergy, rejectsnonfinite/nonpositive toZERO365, horizontalnormalize_or_zero anddirectionreverse forattacker; sqrt(2E/mass.max1kg)*configuredscale thenvelocitycap is actualnativeVec3 operation. Mathematical2 versusphysicalmassfloor1 distinct; no rule thatallrawmass justifiedbyprivatekernel. Hitframe usesactualcanonicalimpact_surface contact.rs bodypending. Rangedfacts target Option +side/state/geometry/aim optional bundle and rawyaws, actualvalidmisssupported. Meleefacts checkedlengths/precision/positions, rawyaws/authority flags; LOSBool actualnativeobservation. Plugin nativeobserver registrations and Condition schedule, no descendantbodycredit.",
+    "381:535\u20131165": "All authoredtests source only, neverexecuted. Validmelee dimensions.55/.8/.25m/separation1.2; fistsweapon0 positivearm valid; beyondarm+tolerance+.01 rejects. Rangedreach120/tolerance.5/separation30, precision99 valid finite,121 rejects; targetNone missvalid consumesammo; aim20degrees forward/back. include_str assertions inspect childsources as strings, notactualchildbodycoverage or compatibility requirements for exact token prose. Ammunitionquantity1\u2192None/3\u21922 andMAXreceiptlimit/CharacterId7. Damagechesthealth.2,cut100/blunt0/balance.4/contact100,oneopenwound,60secbleed.1\u00b1.0001;recoilbalance.25;100hits .003/.002\u2192.3/.2,maxsingle.002 andoneaggregateinjury. NativeEntities1/2 andslotflags fixtures. Incapacitysource cases0/1/.3/.2;recovery.75after2sec\u2192.25,.01after1\u21920; imbalance1.01 clearsmovement thenrecovers2sec. Jog endurance3/fatigue.25, externalvelocity+10mustnotaffectexertion,1secjog/sprint/rest. ImpactE140,mass70\u21923.86\u00b11e-4m/s; helper64Hz withstoppingspeed.001m/s;E49.4667,mass80 expected.23..27m;recoilE40/mass80vs60 axisnegative. Several historicaltestcallers passVec3whereproductionnowPosition and382test445raw1whereSignedLength; no buildexecuted or frozencompilability claim, sourceexpectations do notauthorizecompatibilityrestoration.",
+    "382:1\u2013672": "1\u201370 exactsame-agentpriorPL13-006 reuse, fresh71\u2013672 completesactualbody; no doublednewreads. ReportedPrecision privatefinite-onlyf32 acceptsallfinite unchanged; get nativeprojection. AuthorizedMeleeAttack carriestypedattack+rawpowermultiplier; ValidatedRangedImpact Miss orHit ownsrequiredtargetposition/yaw/body; ValidatedRangedShot stillretains reportedprecision outsideimpact. ObservedMeleeWindup typedkey/target/bodyOptions/readiness/expiry; ActiveAttack typedstart/precision/scheduledmeasure butrawpower. MeleeAttackAuthority separateOptionwindup/active plusnativeclockcooldown/u8consecutiveintercepts. observe setsboth,power1;complete_miss clearsactive/takeswindup;commit increments saturating1 andclears;trade saturatingdecrement1. transformeffectivenessrawclamp0..1\u21921\u2212.4*f thenmultiplypower; .4 productiontuning shouldcanonicalconfig, rawfiniteadmissionactualdefensecaller387pending, noordinaryNaNproof. permits inclusive[ready,expiry] andcooldown nativeclock. Reciprocal opportunity requiresactive.targetsame andstrictlylaterstart,computesdelaypositive; onlydelay<=window executesclosuredivision(1\u2212delay/window).clamp0..1, sozero-window suspicionrejectedonactualgate. Seedderive keybytes +startednanos\u2192nativeinclusiveunitf32; rawinputreflex/decisionprobabilities/counter stillapplicationsemanticowners. authorize expectactive360 representation/rulecase: every exposedstateoperationmaintains windup\u2192active correlation, no reachableNoneproven. ConsumeonlyonSomeauthorization,clearbothandcooldown. Nativeclock saturatingAPI383 narrows overflow. Source-onlytests seconds1/entity7/9/3,keys7/42/8/19/23,precision\u22121/99/.75/.25 andNaN/Inf rejects;later100ms/reflex500ms gives.8;power.6 afterfullintercept. Rangedvalidation requires side/state/rangedpositiveweapon; optionaltargetNone validMiss. SomeTarget requiresdifferentvalidside/nonincap/separationwithinreach+tolerance/aimtrue;thenexpectsposition/yaw613/614 whoseactualcoherentfactsbuilder mustbequalifiedbeforeordinarypanicclaim. Cheapmelee validates capability/positivearm/nonnegweapon/reach+tolerance andauthority;typedpositions forwarded,rawyawsnoextraadmissionhere.",
+    "383:1\u201362": "CombatInstant private nativeDuration, elapsedfromBevyTime<()>, native nanosU128 only seednativebyteadapter. elapsed_since saturatingSub; CombatDuration checkedAnimationElapsed.native_duration admission andnativeDuration\u2192elapsed conversion. Nativeas_secs_f32 explicitsecondsadapter, validzero. CombatInstant+CombatDuration usesDuration.saturating_add60; no overflowpanic oruncheckedwrap atthisactualclockboundary. Saturation semantics atDurationMAX/publicapi lifetime policy sourcequalified, notordinarywalltimecase. No hardcodedproductiontuning.",
+    "384:1\u201354": "Rangedauthority typednativeclockready/expiry/cooldown, optionalwindup validabsence. observe now+windup and+allowance useexact383saturatingaddition. permits inclusivewindow andcooldown; authorize consumeswindup andsetsnewcooldown onlywhenvalid. Authorize_shot returnsownedAuthorizedRangedShot iftrue, no separateprimitivepayloadpublication. No rawduration/precision rewrite ornewtuningliteral. Actualnativefiringcaller/ammoconsumption laterbodypending."
+  },
+  "connected_contracts": [
+    {
+      "id": "PL13-AUTHORITY-SEMANTIC-PRIMITIVES",
+      "status": "Retained migration gaps; exactaliases/currentpending,+0unique",
+      "first_failed_contract": "Power/effectiveness/reflex/probability/nativeyaws/healthdamage/mass/count/ID/rawsemanticrecords retained and forwarded internally beforeactualnativekernel/receiptboundary",
+      "trace": "Attack/config/nativeview\u2192protocol/facts381\u2192authority382 retainedpower/metadata\u2192authorizedpayload\u2192combatconsumer andconsequence385\u2192nativeimpact/strategicreceiptpending",
+      "canonical_owner": "Existingcanonicalfraction/precision/health/quantity/mass/identity/sceneorientation owners; .4offhandpowerpolicy inTacticalCombatConfig",
+      "function_ownership": [
+        "MeleeAttackAuthority::observe/transform_attack_for_offhand_defense/reciprocal_attack_opportunity/authorize",
+        "hit_velocity_change/authoritative_impact",
+        "AppliedTacticalInjury/AccumulatedPartyConsequence/AccumulatedEquipmentContact",
+        "actualprotocol/consequenceconsumerspending"
+      ],
+      "repair_scope": "Completecheckedleafpropagationandnamedrole records acrossactualproducer\u2192retainedstate\u2192consumer; nativeVec3/Duration extractionatdocumentednativeoperations",
+      "dependencies": [
+        "Actualdefense effectiveness producer387 andcore UnitIntervalowner",
+        "Consequence385/admission/nativeimpactsource",
+        "Currentall20family andexactaliases",
+        "Nativeframe/mass/outputcontract"
+      ],
+      "acceptance": [
+        "PreserveallfiniteReportedPrecision includingnegative/>1",
+        "Canonicaltypedbounds/units carrieduntilactualnativeoperation",
+        "Offhandpowerconfigvalidated/defaultYAML synchronized",
+        "SupportedMiss/trade/optionalmetadata modesremainlegitimate",
+        "No parallelfatigue/mass penalties added"
+      ]
+    },
+    {
+      "id": "PL13-ACTIVE-WINDUP-EXPECT",
+      "status": "Outside-test expect rule/representation case, no reachableNone proof",
+      "first_failed_contract": "authorize382360 reliesonpairedOptionrepresentation thenproductionexpect",
+      "trace": "observe writeswindup+active; allmethods clear/preservepair\u2192authorizecallback\u2192AuthorizedMeleeAttack\u2192consumer/nativepending",
+      "canonical_owner": "MeleeAttackAuthority correlatedobservedattack state",
+      "dependencies": [
+        "Allactualmethods382read;futureexternalnativeconstruction/lifecyclereconciliation",
+        "Current/family/exactaliases"
+      ],
+      "acceptance": [
+        "Representcorrelatedwindup+activemetadata underoneowningstate orbindguaranteedpayloadwithoutproductionexpect",
+        "Do notinventmissing-dataerror orreachablepanic forguaranteedpair"
+      ],
+      "accepted_unique_change": 0
+    },
+    {
+      "id": "PL13-NATIVE-CLOCK-OVERFLOW-REJECTED",
+      "status": "Scopedrejection",
+      "proof": "383CombatInstant Add60 Duration.saturating_add andelapsed_since28 saturating_sub;382/384 actualauthorityusesithere",
+      "limits": "Saturationpublicdomainpolicy/nativeTime lifetime/currentnotgloballyclosed"
+    },
+    {
+      "id": "PL13-RECIPROCAL-ZERO-WINDOW-REJECTED",
+      "status": "Scopedrejection",
+      "proof": "382314 rejectsactive.start<=incoming.start;positiveDurationdelay then319 delaysecs<=window;window0 cannotreachclosure328division",
+      "limits": "No allnumericMAX/nativeRNG/currentbehaviorclaim"
+    },
+    {
+      "id": "PL13-RANGED-GEOMETRY-BUNDLE",
+      "status": "Conditionalrepresentation/productionexpectcase, ordinaryproducerreachabilitypending",
+      "first_failed_contract": "SomeTargetfactsOptiongeometry remainsindependent fromtarget/separationbeforevalidate613/614expects",
+      "trace": "Actualfactsbuilderpending\u2192RangedIntentFacts381\u2192validator382\u2192ValidatedRangedImpactHit\u2192authority384\u2192consumer/nativepending",
+      "canonical_owner": "OwningRangedHitFacts/checkedtargetgeometrybundle, existingPosition<Scene>/orientationowner",
+      "dependencies": [
+        "Actualrangedfactsbuilder andnativequerylifetime",
+        "Currentall20/exactaliases"
+      ],
+      "acceptance": [
+        "SomeTargetcoherentlyownsactualtargetgeometryoradmissionreturns typedcasebeforeexpects",
+        "Missislegitimateandneednohitpayload",
+        "Do notclassifyunknowngeometrypanicordinarywithoutactualproducerproof"
+      ]
+    }
+  ],
+  "proposed_original_count_delta": 4,
+  "proposed_next_original": 385,
+  "authoritative_count_changes": 0,
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "runtime_validation_run": false,
+  "audit_complete": false,
+  "qualifications": [
+    "382priorpartial1\u201370 reusedexactly, complement71\u2013672fresh; noextraoriginalcredit",
+    "AllhistoricalAdler/partial/EOF/connectedqualificationsretained",
+    "Current/all20/exactaliases/nativeacceptance incomplete; sourcecountsnotledgerclosure",
+    "Allpopulationsseparate",
+    "No productexecution/edits/tests/probes/generators/CI"
+  ]
+}

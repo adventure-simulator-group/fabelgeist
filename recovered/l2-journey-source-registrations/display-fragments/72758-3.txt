@@ -1,0 +1,93 @@
+190:     let party_members = get_active_party_members(&state, Some(&character)).await;
+191:     let member_times: Vec<CharacterTime> = state
+192:         .db
+193:         .query_sats("SELECT * FROM backend_character_times")
+194:         .await
+195:         .unwrap_or_default();
+196:     let current_party_minute = party_members
+197:         .iter()
+198:         .filter_map(|member| {
+199:             member_times
+200:                 .iter()
+201:                 .find(|time| time.character_id == member.id)
+202:         })
+203:         .map(|time| StrategicMinute::new(time.minutes.minutes))
+204:         .max()
+205:         .unwrap_or(StrategicMinute::ZERO);
+206:     let expects_direct_demo = party
+207:         .active_contract_id
+208:         .as_deref()
+209:         .and_then(DirectDemoContractId::parse)
+210:         .is_some_and(|id| id.character_id == character.id);
+211:     let mut challenges = Vec::new();
+212:     for attempt in 0..4 {
+213:         match state
+214:             .db
+215:             .query_sats::<BackendChallenge>(&format!(
+216:                 "SELECT * FROM backend_challenges WHERE owner_character_id = {}",
+217:                 character.id
+218:             ))
+219:             .await
+220:         {
+221:             Ok(rows) => challenges = rows,
+222:             Err(error) => tracing::warn!(
+223:                 %error,
+224:                 character_id = character.id,
+225:                 "camp challenge state unavailable"
+226:             ),
+227:         }
+228:         if !expects_direct_demo
+229:             || challenges
+230:                 .iter()
+231:                 .any(|challenge| is_direct_demo_challenge_id(&challenge.id, character.id))
+232:             || attempt == 3
+233:         {
+234:             break;
+235:         }
+236:         tokio::time::sleep(std::time::Duration::from_millis(150)).await;
+237:     }
+238:     let road_challenges = match state
+239:         .db
+240:         .query_sats::<BackendRoadChallenge>(&format!(
+510:     character_id: u64,
+511: ) -> Option<String> {
+512:     if road_challenges.iter().any(|challenge| {
+513:         challenge.owner_character_id == character_id && challenge.active && challenge.open
+514:     }) {
+515:         return None;
+516:     }
+517:     let mut playable = challenges.iter().filter(|challenge| {
+518:         challenge.owner_character_id == character_id
+519:             && challenge.active
+520:             && challenge.open
+521:             && !challenge.solved
+522:             && is_direct_demo_challenge_id(&challenge.id, character_id)
+523:     });
+524:     let challenge = playable.next()?;
+525:     playable
+526:         .next()
+527:         .is_none()
+528:         .then(|| format!("/quests/{}/challenges/{}", challenge.case_id, challenge.id))
+529: }
+530: 
+531: fn is_direct_demo_challenge_id(challenge_id: &str, character_id: u64) -> bool {
+532:     DirectDemoChallengeId::parse(challenge_id)
+533:         .is_some_and(|challenge| challenge.character_id == character_id)
+534: }
+535: 
+536: pub(super) fn camp_continue_block_reason(
+537:     encounter_status: Option<StrategicEncounterStatus>,
+538:     is_walking_time: bool,
+539: ) -> Option<&'static str> {
+540:     if encounter_status == Some(StrategicEncounterStatus::AwaitingChoice) {
+541:         Some("Resolve the encounter above before continuing travel.")
+542:     } else if !is_walking_time {
+543:         Some("Rest until the planned walking window begins.")
+544:     } else {
+545:         None
+546:     }
+547: }
+548: 
+549: #[cfg(test)]
+550: mod direct_demo_redirect_tests {
+551:     use super::{

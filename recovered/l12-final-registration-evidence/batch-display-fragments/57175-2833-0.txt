@@ -1,0 +1,144 @@
+801:             shuffle(&mut inputs, &mut rng);
+802:             let chosen = rune_gate_examples(
+803:                 gate,
+804:                 operation,
+805:                 &inputs,
+806:                 spec.examples_per_gate,
+807:                 spec.minimum_single_example_candidates,
+808:             )
+809:             .ok_or("could not generate rune examples for this specification")?;
+810:             examples.extend(chosen);
+811:         }
+812:         shuffle(&mut examples, &mut rng);
+813:         let solution = apply_rune_route(&gate_laws, &route, query)
+814:             .ok_or("rune route references an unknown gate")?;
+815:         let puzzle = Self {
+816:             rules_version: RUNE_TRANSFORMATION_RULES_VERSION,
+817:             seed,
+818:             spec,
+819:             gate_laws,
+820:             examples,
+821:             route,
+822:             query,
+823:             solution,
+824:         };
+825:         puzzle.validate()?;
+826:         Ok(puzzle)
+827:     }
+828: 
+829:     pub fn projection(&self) -> RuneTransformationProjection {
+830:         RuneTransformationProjection {
+831:             rules_version: self.rules_version,
+832:             sigils: Sigil::ALL,
+833:             candidate_rules: RuneOperation::ALL,
+834:             examples: self.examples.clone(),
+835:             route: self.route.clone(),
+836:             query: self.query,
+837:         }
+838:     }
+839: 
+840:     pub fn validate(&self) -> Result<(), &'static str> {
+841:         if self.rules_version != RUNE_TRANSFORMATION_RULES_VERSION {
+842:             return Err("unsupported rune-transformation rules version");
+843:         }
+844:         self.spec.validate()?;
+845:         if self.gate_laws.len() != usize::from(self.spec.gate_count)
+846:             || self.examples.len()
+847:                 != usize::from(self.spec.gate_count) * usize::from(self.spec.examples_per_gate)
+848:             || self.route.len() != usize::from(self.spec.route_length)
+849:         {
+850:             return Err("rune transformation dimensions violate their generation spec");
+851:         }
+852:         if Some(self.solution) != apply_rune_route(&self.gate_laws, &self.route, self.query)
+853:             || self.examples.iter().any(|example| {
+854:                 gate_operation(&self.gate_laws, example.gate)
+855:                     .is_none_or(|operation| example.output != operation.apply(example.input))
+856:             })
+857:             || self
+858:                 .route
+859:                 .iter()
+860:                 .any(|gate| gate_operation(&self.gate_laws, *gate).is_none())
+861:         {
+862:             return Err("rune transformation contradicts private authority");
+863:         }
+864:         for law in &self.gate_laws {
+865:             let gate = law.gate;
+866:             let gate_examples = self
+867:                 .examples
+868:                 .iter()
+869:                 .copied()
+870:                 .filter(|example| example.gate == gate)
+871:                 .collect::<Vec<_>>();
+872:             if gate_examples.len() != usize::from(self.spec.examples_per_gate)
+873:                 || rune_operations_consistent_with(&gate_examples) != vec![law.operation]
+874:             {
+875:                 return Err("rune examples do not prove every gate law");
+876:             }
+877:             for example in &gate_examples {
+878:                 if rune_operations_consistent_with(&[*example]).len()
+879:                     < usize::from(self.spec.minimum_single_example_candidates)
+880:                 {
+881:                     return Err("rune transformation contains a redundant example");
+882:                 }
+883:             }
+884:         }
+885:         Ok(())
+886:     }
+887: }
+888: 
+889: pub fn rune_operations_consistent_with(examples: &[RuneExample]) -> Vec<RuneOperation> {
+890:     RuneOperation::ALL
+891:         .into_iter()
+892:         .filter(|operation| {
+893:             examples
+894:                 .iter()
+895:                 .all(|example| operation.apply(example.input) == example.output)
+896:         })
+897:         .collect()
+898: }
+899: 
+900: pub fn apply_rune_route(laws: &[RuneGateLaw], route: &[RuneGate], input: Sigil) -> Option<Sigil> {
+901:     route.iter().try_fold(input, |current, gate| {
+902:         Some(gate_operation(laws, *gate)?.apply(current))
+903:     })
+904: }
+905: 
+906: fn gate_operation(laws: &[RuneGateLaw], gate: RuneGate) -> Option<RuneOperation> {
+907:     laws.iter()
+908:         .find(|law| law.gate == gate)
+909:         .map(|law| law.operation)
+910: }
+911: 
+912: fn rune_gate_examples(
+913:     gate: RuneGate,
+914:     operation: RuneOperation,
+915:     inputs: &[Sigil],
+916:     count: u8,
+917:     minimum_single_candidates: u8,
+918: ) -> Option<Vec<RuneExample>> {
+919:     let example = |input| RuneExample {
+920:         gate,
+921:         input,
+922:         output: operation.apply(input),
+923:     };
+924:     if count == 1 {
+925:         return inputs.iter().copied().map(example).find_map(|example| {
+926:             (rune_operations_consistent_with(&[example]) == vec![operation])
+927:                 .then_some(vec![example])
+928:         });
+929:     }
+930:     inputs.iter().enumerate().find_map(|(first, left)| {
+931:         inputs.iter().skip(first + 1).find_map(|right| {
+932:             let pair = vec![example(*left), example(*right)];
+933:             (pair.iter().all(|item| {
+934:                 rune_operations_consistent_with(&[*item]).len()
+935:                     >= usize::from(minimum_single_candidates)
+936:             }) && rune_operations_consistent_with(&pair) == vec![operation])
+937:             .then_some(pair)
+938:         })
+939:     })
+940: }
+941: 
+942: pub(crate) fn shuffle<T>(values: &mut [T], rng: &mut DeterministicRng) {
+943:     rng.shuffle(values);
+944: }

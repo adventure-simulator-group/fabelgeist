@@ -1,0 +1,44 @@
+{
+  "schema": "726-prospective-current-source-registration-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    7,
+    8,
+    10,
+    11,
+    13
+  ],
+  "purpose": "Trace chunk instance data through upload, queue and draw; earlier exploratory reads disclosed.",
+  "rows": [
+    {
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/queue.rs",
+      "source_sha256": "e171e3975a749c9ff6e528d1af5daf3c3b1eabac43e8c9b71807b5dc8c6cbc18",
+      "actual_EOF": 201,
+      "source_object": "adler-continuation-20261030/objects/e171e3975a749c9ff6e528d1af5daf3c3b1eabac43e8c9b71807b5dc8c6cbc18",
+      "prospective_ranges": [
+        [
+          1,
+          201
+        ]
+      ]
+    },
+    {
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/draw.rs",
+      "source_sha256": "fbf96c0e6ddbe1f00e12b1e74da3fb6cb129075a860617e548b95871ed8f5dba",
+      "actual_EOF": 211,
+      "source_object": "adler-continuation-20261030/objects/fbf96c0e6ddbe1f00e12b1e74da3fb6cb129075a860617e548b95871ed8f5dba",
+      "prospective_ranges": [
+        [
+          1,
+          211
+        ]
+      ]
+    }
+  ]
+}

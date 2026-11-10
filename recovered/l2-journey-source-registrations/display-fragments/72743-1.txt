@@ -1,0 +1,96 @@
+1760:             catalog_revision: challenge.catalog_revision,
+1761:             catalog_digest: challenge.catalog_digest.clone(),
+1762:             result_transcript: selected.result.clone(),
+1763:             effects_json,
+1764:             resolved_at_minute: now,
+1765:         });
+1766:     Ok(())
+1767: }
+1768: 
+1769: fn active_puzzle_demo(
+1770:     ctx: &ReducerContext,
+1771:     party_id: &str,
+1772:     character_id: u64,
+1773:     puzzle_kind: PuzzleKind,
+1774: ) -> Option<(ChallengeAuthority, ContractAuthority)> {
+1775:     let party_key = party_id.to_string();
+1776:     let mut challenges = ctx
+1777:         .db
+1778:         .challenge_authority()
+1779:         .party_id()
+1780:         .filter(&party_key)
+1781:         .filter(|challenge| {
+1782:             challenge.is_open()
+1783:                 && ErrantryChallengeId::parse(&challenge.id).is_some_and(|identity| {
+1784:                     identity.puzzle_kind == puzzle_kind.slug()
+1785:                         && identity.namespace == ErrantryChallengeNamespace::Demo
+1786:                         && identity.character_id == character_id
+1787:                 })
+1788:         })
+1789:         .collect::<Vec<_>>();
+1790:     challenges.sort_by(|left, right| left.id.cmp(&right.id));
+1791:     challenges.into_iter().find_map(|challenge| {
+1792:         let contract = ctx
+1793:             .db
+1794:             .contract_authority()
+1795:             .case_id()
+1796:             .filter(&challenge.case_id)
+1797:             .find(|contract| {
+1798:                 contract.service_id == "errantry:order_saint_george"
+1799:                     && contract.status == ContractStatus::Accepted
+1800:                     && contract.accepted_by.as_deref() == Some(party_id)
+1801:             })?;
+1802:         Some((challenge, contract))
+1803:     })
+1804: }
+1805: 
+1806: #[derive(Clone, Copy, Eq, PartialEq)]
+1807: enum ErrantryChallengeNamespace {
+1808:     Demo,
+1809:     Order,
+1810: }
+1811: 
+1812: struct ErrantryChallengeId<'a> {
+1813:     puzzle_kind: &'a str,
+1814:     namespace: ErrantryChallengeNamespace,
+1815:     character_id: u64,
+1816: }
+1817: 
+1818: impl<'a> ErrantryChallengeId<'a> {
+1819:     fn parse(value: &'a str) -> Option<Self> {
+1820:         let mut parts = value.split(':');
+1821:         let domain = parts.next()?;
+1822:         let puzzle_kind = parts.next()?;
+1823:         let namespace = match parts.next()? {
+1824:             "demo" => ErrantryChallengeNamespace::Demo,
+1825:             "order" => ErrantryChallengeNamespace::Order,
+1826:             _ => return None,
+1827:         };
+1828:         let character_id = parts.next()?.parse().ok()?;
+1829:         let _ordinal = parts.next()?.parse::<u64>().ok()?;
+1830:         if domain != "challenge" || puzzle_kind.is_empty() || parts.next().is_some() {
+1831:             return None;
+1832:         }
+1833:         Some(Self {
+1834:             puzzle_kind,
+1835:             namespace,
+1836:             character_id,
+1837:         })
+1838:     }
+1839: }
+1840: 
+1841: fn puzzle_demo_suffix(character_id: u64, ordinal: u64) -> String {
+1842:     format!("demo:{character_id}:{ordinal}")
+1843: }
+1844: 
+1845: fn errantry_suffix(character_id: u64, ordinal: u64, launch: ErrantryLaunch) -> String {
+1846:     match launch {
+1847:         ErrantryLaunch::DirectDemoCamp(_) => puzzle_demo_suffix(character_id, ordinal),
+1848:         ErrantryLaunch::NormalTravel => format!("order:{character_id}:{ordinal}"),
+1849:     }
+1850: }
+1851: 
+1852: fn order_errantry_issuer(
+1853:     ctx: &ReducerContext,
+1854: ) -> Option<(
+1855:     crate::settlement_population::SettlementResidentProfile,

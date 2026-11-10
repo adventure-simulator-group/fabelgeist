@@ -1,0 +1,59 @@
+{
+  "packet": {
+    "path": "adler-continuation-20261030/READ-ROOT-L13-2687-2688-001.json",
+    "sha256": "d05142ad169327a4c3210f13b529e15822117a689493b35c7db26ae51be597d8"
+  },
+  "ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "c08c046329750a3fc46cddfae381cc9647ffe40f893f96e746715d6949e2ddd0"
+  },
+  "selector": {
+    "path": "CURRENT-ADLER.json",
+    "sha256": "70e1e3498f4e2a857543e359d78f6359ff10d6364ee9b66749d44df7066782bd"
+  },
+  "queue": {
+    "path": "workflow-20261030/CLOSURE-QUEUE-732.json",
+    "sha256": "5bd851d3caeb443f36bff39d324b808e27f4dd643b19ef10e014ea34e61a40b3"
+  },
+  "selected_lenses": {
+    "path": "adler-continuation-20261030/SELECTED-LENSES-CONTINUATION-397.json",
+    "sha256": "1ea5e2610305a99d4fc14fe348e26226f227fa607600c26e838efbba9ce4ff89"
+  },
+  "previous_state": {
+    "path": "segovb/STATE-L13-PARALLEL-705.json",
+    "sha256": "31d5ef8dc20f32f1e1cb1230aadc085a800e45a93756b71b4bc27977f72c01b2"
+  },
+  "root_sequence": 706,
+  "queue_sequence": 733,
+  "next_selected_lenses_filename": "SELECTED-LENSES-CONTINUATION-398.json",
+  "prior_reuses": [
+    {
+      "kind": "exact_admission_2687_2688_material",
+      "original": 2687,
+      "adoption": {
+        "path": "segovb/READ-L13-PARALLEL-053.json",
+        "sha256": "8431831f2604bbc9f0612de606d801c572a68ca90cbee188437445bc5d8de3ac"
+      },
+      "qualification": {
+        "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2687-2688-ADMISSION-MIXED-001.json",
+        "sha256": "4d095758ea59ddda20c9007e4618197341c5ac64f9f27c2e0136567f31e8f242"
+      }
+    },
+    {
+      "kind": "exact_admission_2687_2688_material",
+      "original": 2688,
+      "adoption": {
+        "path": "segovb/READ-L13-PARALLEL-053.json",
+        "sha256": "8431831f2604bbc9f0612de606d801c572a68ca90cbee188437445bc5d8de3ac"
+      },
+      "qualification": {
+        "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2687-2688-ADMISSION-MIXED-001.json",
+        "sha256": "4d095758ea59ddda20c9007e4618197341c5ac64f9f27c2e0136567f31e8f242"
+      }
+    }
+  ],
+  "admission_2687_2688_material_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2687-2688-ADMISSION-MIXED-001.json",
+    "sha256": "4d095758ea59ddda20c9007e4618197341c5ac64f9f27c2e0136567f31e8f242"
+  }
+}

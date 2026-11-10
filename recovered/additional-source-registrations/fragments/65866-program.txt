@@ -1,0 +1,8 @@
+from pathlib import Path
+from datetime import datetime,timezone
+import json,hashlib
+r=Path('target/726-audit-continuation-20261030/target/726-audit-adler-20261027').resolve();a=r/'adler-continuation-20261030';j=json.loads((a/'REGISTRATION-ROOT-L12-BUILDING-AUDIT-ISSUES-002.json').read_bytes());s=dict(j['sources'][0]);s.update(ranges=[[301,314]],uncredited_assessment_lines_registered=14)
+v=dict(j);v.update(registered_at=datetime.now(timezone.utc).isoformat(),sources=[s],uncredited_total_source_lines_registered=14,purpose='Q3715 actual existing GenerationError::StructuralContract constructor and empty/nonempty audit issue admission; source only.')
+p=a/'REGISTRATION-ROOT-L12-BUILDING-AUDIT-ISSUES-003.json'
+with p.open('x',encoding='utf-8',newline='\n')as f:f.write(json.dumps(v,indent=2)+'\n')
+print(p.name,hashlib.sha256(p.read_bytes()).hexdigest())

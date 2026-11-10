@@ -1,0 +1,211 @@
+SOURCE 2628 cargo-registry:num_enum_derive-0.7.6/src/enum_attributes.rs
+1: use crate::utils::die;
+2: use proc_macro2::Span;
+3: use syn::{
+4:     parse::{Parse, ParseStream},
+5:     Error, Result,
+6: };
+7: 
+8: mod kw {
+9:     syn::custom_keyword!(constructor);
+10:     syn::custom_keyword!(error_type);
+11:     syn::custom_keyword!(name);
+12: }
+13: 
+14: // Example: error_type(name = Foo, constructor = Foo::new)
+15: #[cfg_attr(test, derive(Debug))]
+16: #[derive(Default)]
+17: pub(crate) struct Attributes {
+18:     pub(crate) error_type: Option<ErrorTypeAttribute>,
+19:     pub(crate) crate_path: Option<CrateAttribute>,
+20: }
+21: 
+22: // Example: error_type(name = Foo, constructor = Foo::new)
+23: #[cfg_attr(test, derive(Debug))]
+24: pub(crate) enum AttributeItem {
+25:     ErrorType(ErrorTypeAttribute),
+26:     CratePath(CrateAttribute),
+27: }
+28: 
+29: impl Attributes {
+30:     pub(crate) fn exclusive_union(&mut self, other: Self) -> Result<()> {
+31:         if self.crate_path.is_some() {
+32:             if let Some(other) = &other.crate_path {
+33:                 return Err(Error::new(
+34:                     other.span,
+35:                     "num_enum attribute must have at most one crate",
+36:                 ));
+37:             }
+38:         } else {
+39:             self.crate_path = other.crate_path;
+40:         }
+41:         if self.error_type.is_some() {
+42:             if let Some(other) = &other.error_type {
+43:                 return Err(Error::new(
+44:                     other.span,
+45:                     "num_enum attribute must have at most one error_type",
+46:                 ));
+47:             }
+48:         } else {
+49:             self.error_type = other.error_type;
+50:         }
+51:         Ok(())
+52:     }
+53: }
+54: 
+55: impl Parse for Attributes {
+56:     fn parse(input: ParseStream<'_>) -> Result<Self> {
+57:         let attribute_items = input.parse_terminated(AttributeItem::parse, syn::Token![,])?;
+58:         let mut maybe_error_type = None;
+59:         let mut maybe_krate_path = None;
+60:         for attribute_item in &attribute_items {
+61:             match attribute_item {
+62:                 AttributeItem::ErrorType(error_type) => {
+63:                     if maybe_error_type.is_some() {
+64:                         return Err(Error::new(
+65:                             error_type.span,
+66:                             "num_enum attribute must have at most one error_type",
+67:                         ));
+68:                     }
+69:                     maybe_error_type = Some(error_type.clone());
+70:                 }
+71:                 AttributeItem::CratePath(krate_path) => {
+72:                     if maybe_krate_path.is_some() {
+73:                         return Err(Error::new(
+74:                             krate_path.span,
+75:                             "num_enum attribute must have at most one crate",
+76:                         ));
+77:                     }
+78:                     maybe_krate_path = Some(krate_path.clone());
+79:                 }
+80:             }
+81:         }
+82:         Ok(Self {
+83:             error_type: maybe_error_type,
+84:             crate_path: maybe_krate_path,
+85:         })
+86:     }
+87: }
+88: 
+89: impl Parse for AttributeItem {
+90:     fn parse(input: ParseStream<'_>) -> Result<Self> {
+91:         let lookahead = input.lookahead1();
+92:         if lookahead.peek(kw::error_type) {
+93:             input.parse().map(Self::ErrorType)
+94:         } else if lookahead.peek(syn::token::Crate) {
+95:             input.parse().map(Self::CratePath)
+96:         } else {
+97:             Err(lookahead.error())
+98:         }
+99:     }
+100: }
+101: 
+102: // Example: error_type(name = Foo, constructor = Foo::new)
+103: #[derive(Clone)]
+104: #[cfg_attr(test, derive(Debug))]
+105: pub(crate) struct ErrorTypeAttribute {
+106:     pub(crate) name: ErrorTypeNameAttribute,
+107:     pub(crate) constructor: ErrorTypeConstructorAttribute,
+108: 
+109:     span: Span,
+110: }
+111: 
+112: impl Parse for ErrorTypeAttribute {
+113:     fn parse(input: ParseStream) -> Result<Self> {
+114:         let keyword: kw::error_type = input.parse()?;
+115:         let span = keyword.span;
+116:         let content;
+117:         syn::parenthesized!(content in input);
+118:         let attribute_values =
+119:             content.parse_terminated(ErrorTypeAttributeNamedArgument::parse, syn::Token![,])?;
+120:         let mut name = None;
+121:         let mut constructor = None;
+122:         for attribute_value in &attribute_values {
+123:             match attribute_value {
+124:                 ErrorTypeAttributeNamedArgument::Name(name_attr) => {
+125:                     if name.is_some() {
+126:                         die!("num_enum error_type attribute must have exactly one `name` value");
+127:                     }
+128:                     name = Some(name_attr.clone());
+129:                 }
+130:                 ErrorTypeAttributeNamedArgument::Constructor(constructor_attr) => {
+131:                     if constructor.is_some() {
+132:                         die!("num_enum error_type attribute must have exactly one `constructor` value")
+133:                     }
+134:                     constructor = Some(constructor_attr.clone());
+135:                 }
+136:             }
+137:         }
+138:         match (name, constructor) {
+139:             (None, None) => Err(Error::new(
+140:                 span,
+141:                 "num_enum error_type attribute requires `name` and `constructor` values",
+142:             )),
+143:             (Some(_), None) => Err(Error::new(
+144:                 span,
+145:                 "num_enum error_type attribute requires `constructor` value",
+146:             )),
+147:             (None, Some(_)) => Err(Error::new(
+148:                 span,
+149:                 "num_enum error_type attribute requires `name` value",
+150:             )),
+151:             (Some(name), Some(constructor)) => Ok(Self {
+152:                 name,
+153:                 constructor,
+154:                 span,
+155:             }),
+156:         }
+157:     }
+158: }
+159: 
+160: // Examples:
+161: //  * name = Foo
+162: //  * constructor = Foo::new
+163: pub(crate) enum ErrorTypeAttributeNamedArgument {
+164:     Name(ErrorTypeNameAttribute),
+165:     Constructor(ErrorTypeConstructorAttribute),
+166: }
+167: 
+168: impl Parse for ErrorTypeAttributeNamedArgument {
+169:     fn parse(input: ParseStream<'_>) -> Result<Self> {
+170:         let lookahead = input.lookahead1();
+171:         if lookahead.peek(kw::name) {
+172:             input.parse().map(Self::Name)
+173:         } else if lookahead.peek(kw::constructor) {
+174:             input.parse().map(Self::Constructor)
+175:         } else {
+176:             Err(lookahead.error())
+177:         }
+178:     }
+179: }
+180: 
+181: // Example: name = Foo
+182: #[derive(Clone)]
+183: #[cfg_attr(test, derive(Debug))]
+184: pub(crate) struct ErrorTypeNameAttribute {
+185:     pub(crate) path: syn::Path,
+186: }
+187: 
+188: impl Parse for ErrorTypeNameAttribute {
+189:     fn parse(input: ParseStream) -> Result<Self> {
+190:         input.parse::<kw::name>()?;
+191:         input.parse::<syn::Token![=]>()?;
+192:         let path = input.parse()?;
+193:         Ok(Self { path })
+194:     }
+195: }
+196: 
+197: // Example: constructor = Foo::new
+198: #[derive(Clone)]
+199: #[cfg_attr(test, derive(Debug))]
+200: pub(crate) struct ErrorTypeConstructorAttribute {
+201:     pub(crate) path: syn::Path,
+202: }
+203: 
+204: impl Parse for ErrorTypeConstructorAttribute {
+205:     fn parse(input: ParseStream) -> Result<Self> {
+206:         input.parse::<kw::constructor>()?;
+207:         input.parse::<syn::Token![=]>()?;
+208:         let path = input.parse()?;
+209:         Ok(Self { path })
+210:     }

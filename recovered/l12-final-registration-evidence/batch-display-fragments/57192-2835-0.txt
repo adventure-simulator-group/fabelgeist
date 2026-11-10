@@ -1,0 +1,180 @@
+1: use fabelgeist_determinism::Seed;
+2: use serde::{Deserialize, Serialize};
+3: 
+4: use crate::shuffle;
+5: 
+6: const RESOURCE_ALLOCATION_GENERATION_DOMAIN: fabelgeist_determinism::StreamId =
+7:     fabelgeist_determinism::StreamId::new("puzzle.resource_allocation");
+8: 
+9: pub const RESOURCE_ALLOCATION_RULES_VERSION: u16 = 2;
+10: 
+11: #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+12: pub enum JourneyHazard {
+13:     Darkness,
+14:     Chasm,
+15:     Thirst,
+16:     Wounds,
+17:     Glamour,
+18:     Cold,
+19: }
+20: 
+21: impl JourneyHazard {
+22:     pub const ALL: [Self; 6] = [
+23:         Self::Darkness,
+24:         Self::Chasm,
+25:         Self::Thirst,
+26:         Self::Wounds,
+27:         Self::Glamour,
+28:         Self::Cold,
+29:     ];
+30: 
+31:     pub const fn label(self) -> &'static str {
+32:         match self {
+33:             Self::Darkness => "lightless ground",
+34:             Self::Chasm => "a broken crossing",
+35:             Self::Thirst => "a waterless march",
+36:             Self::Wounds => "untended wounds",
+37:             Self::Glamour => "deceiving glamour",
+38:             Self::Cold => "bitter cold",
+39:         }
+40:     }
+41: }
+42: 
+43: #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+44: pub enum ProvisionId {
+45:     Torch,
+46:     Rope,
+47:     WaterSkin,
+48:     Salve,
+49:     IronBell,
+50:     WoolCloak,
+51:     ClimbingStaff,
+52: }
+53: 
+54: impl ProvisionId {
+55:     pub const ALL: [Self; 7] = [
+56:         Self::Torch,
+57:         Self::Rope,
+58:         Self::WaterSkin,
+59:         Self::Salve,
+60:         Self::IronBell,
+61:         Self::WoolCloak,
+62:         Self::ClimbingStaff,
+63:     ];
+64: 
+65:     pub const fn label(self) -> &'static str {
+66:         match self {
+67:             Self::Torch => "Pitch torch",
+68:             Self::Rope => "Coiled rope",
+69:             Self::WaterSkin => "Full waterskin",
+70:             Self::Salve => "Surgeon's salve",
+71:             Self::IronBell => "Cold-iron bell",
+72:             Self::WoolCloak => "Wool cloak",
+73:             Self::ClimbingStaff => "Ash climbing staff",
+74:         }
+75:     }
+76: 
+77:     pub const fn weight(self) -> u8 {
+78:         match self {
+79:             Self::Torch | Self::IronBell => 1,
+80:             Self::Salve | Self::ClimbingStaff => 2,
+81:             Self::Rope | Self::WaterSkin | Self::WoolCloak => 3,
+82:         }
+83:     }
+84: 
+85:     pub const fn readiness(self) -> u8 {
+86:         match self {
+87:             Self::Torch => 3,
+88:             Self::Rope => 5,
+89:             Self::WaterSkin => 4,
+90:             Self::Salve => 5,
+91:             Self::IronBell => 4,
+92:             Self::WoolCloak => 4,
+93:             Self::ClimbingStaff => 3,
+94:         }
+95:     }
+96: 
+97:     pub const fn protections(self) -> &'static [JourneyHazard] {
+98:         match self {
+99:             Self::Torch => &[JourneyHazard::Darkness, JourneyHazard::Cold],
+100:             Self::Rope => &[JourneyHazard::Chasm],
+101:             Self::WaterSkin => &[JourneyHazard::Thirst],
+102:             Self::Salve => &[JourneyHazard::Wounds],
+103:             Self::IronBell => &[JourneyHazard::Darkness, JourneyHazard::Glamour],
+104:             Self::WoolCloak => &[JourneyHazard::Cold, JourneyHazard::Wounds],
+105:             Self::ClimbingStaff => &[JourneyHazard::Chasm, JourneyHazard::Glamour],
+106:         }
+107:     }
+108: }
+109: 
+110: #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+111: pub struct ResourceAllocationSpec {
+112:     pub provision_count: u8,
+113:     pub hazard_count: u8,
+114:     pub capacity: u8,
+115:     pub require_irredundant_hazards: bool,
+116:     pub require_capacity_to_matter: bool,
+117: }
+118: 
+119: impl Default for ResourceAllocationSpec {
+120:     fn default() -> Self {
+121:         Self {
+122:             provision_count: 6,
+123:             hazard_count: 3,
+124:             capacity: 7,
+125:             require_irredundant_hazards: true,
+126:             require_capacity_to_matter: true,
+127:         }
+128:     }
+129: }
+130: 
+131: impl ResourceAllocationSpec {
+132:     pub fn validate(self) -> Result<Self, &'static str> {
+133:         if !(4..=ProvisionId::ALL.len() as u8).contains(&self.provision_count) {
+134:             return Err("resource puzzle must offer between four and seven provisions");
+135:         }
+136:         if !(2..=4).contains(&self.hazard_count) {
+137:             return Err("resource puzzle must present between two and four hazards");
+138:         }
+139:         if !(3..=14).contains(&self.capacity) {
+140:             return Err("resource-puzzle capacity must be between three and fourteen");
+141:         }
+142:         Ok(self)
+143:     }
+144: }
+145: 
+146: #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+147: pub struct ProvisionProfile {
+148:     pub id: ProvisionId,
+149:     pub weight: u8,
+150:     pub readiness: u8,
+151:     pub protections: Vec<JourneyHazard>,
+152: }
+153: 
+154: impl From<ProvisionId> for ProvisionProfile {
+155:     fn from(id: ProvisionId) -> Self {
+156:         Self {
+157:             id,
+158:             weight: id.weight(),
+159:             readiness: id.readiness(),
+160:             protections: id.protections().to_vec(),
+161:         }
+162:     }
+163: }
+164: 
+165: #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+166: pub struct ResourceAllocationPuzzle {
+167:     pub rules_version: u16,
+168:     pub seed: Seed,
+169:     pub spec: ResourceAllocationSpec,
+170:     pub provisions: Vec<ProvisionId>,
+171:     pub hazards: Vec<JourneyHazard>,
+172:     solution: Vec<ProvisionId>,
+173: }
+174: 
+175: #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+176: pub struct ResourceAllocationProjection {
+177:     pub rules_version: u16,
+178:     pub capacity: u8,
+179:     pub provisions: Vec<ProvisionProfile>,
+180:     pub hazards: Vec<JourneyHazard>,

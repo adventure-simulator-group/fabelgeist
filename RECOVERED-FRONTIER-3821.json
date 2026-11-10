@@ -1,0 +1,64 @@
+{
+  "schema": "726-transcript-frontier-3821-v1",
+  "qualification": "Historical reconstruction from recorded commands and reports; not a recovered authoritative checkpoint, ledger, queue, registration, receipt, or audit credit.",
+  "reported_audit_checkpoint": 3821,
+  "selected_source_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "reported_checkpoint_sha256": "5344407a722fb44ddde7ac5ffcf5fc77e63ee31e3e35253548f157c65d55e541",
+  "reported_queue_sha256": "f8cae3846353303bb996c4206c152260bee1b88be0ce0816a3b70a1cfb27c6ea",
+  "proposal_intended_queue_path": "workflow-20261030/CLOSURE-QUEUE-4156.json",
+  "proposal_base_snapshot_paths": [
+    "target/726-intake-20261030/CURRENT.json",
+    "CURRENT-ADLER.json",
+    "evidence/continuation-segovb/ledger.json",
+    "workflow-20261030/CLOSURE-QUEUE-4155.json",
+    "adler-continuation-20261030/SELECTED-LENSES-CONTINUATION-440.json"
+  ],
+  "late_registration_files": [
+    "REGISTRATION-ERRANTRY-LAB-CALLERS-L4-3821.json",
+    "REGISTRATION-ERRANTRY-GENERATOR-L4-3821.json",
+    "REGISTRATION-ERRANTRY-CLUE-L4-3818.json"
+  ],
+  "recorded_prepare_command_ordinal": 419492,
+  "recorded_preflight_apply_verify_ordinal": 419499,
+  "recorded_preflight": "pass",
+  "recorded_apply": "pass",
+  "recorded_verify": "pass",
+  "recorded_new_cells_closed": 0,
+  "recorded_implementation_gate_complete": false,
+  "scope_as_recorded": "Four identified puzzle-lab renderer call sites use generated or validated ordered-sigil authority. Other production projection sources, public API ownership, global aliases and native acceptance remain open.",
+  "missing": [
+    "resulting checkpoint 3821 bytes",
+    "closure queue 4156 bytes",
+    "current ledger bytes and selected-state pointers",
+    "full registrations, qualifications, observations, decisions and supporting receipts for the final frontier"
+  ],
+  "next_action": "Use recovered source records, command/output evidence and public summaries to identify dependencies; verify against surviving hashes before using or adopting. Do not execute historical commands blindly.",
+  "source_trace": {
+    "path": "recovered/frontier-source-trace/TRACE.json",
+    "verified_source_identities": 4,
+    "verified_printed_lines": 387,
+    "original_registration_bytes_recovered": false,
+    "connected_late_checkpoint_observations": 12,
+    "connected_late_printed_lines": 755,
+    "connected_late_distinct_source_objects": 7,
+    "portable_verifier": "recovered/frontier-source-trace/verify_portable_frontier.py",
+    "source_objects_packaged": 7,
+    "multi_file_headings_checked": true
+  },
+  "historical_lens4_receipt": {
+    "path": "recovered/historical-remote-receipts/b9cff73df660fb081c0937df71b83bfd17f32c77bbc479279bb304b9cd5fa1ac",
+    "sha256": "b9cff73df660fb081c0937df71b83bfd17f32c77bbc479279bb304b9cd5fa1ac",
+    "qualification": "Byte-identical historical receipt used at checkpoint 3817; not the final queue, checkpoint or a transfer of audit credit."
+  },
+  "selection_lineage": {
+    "recorded_current_checkpoint": 3802,
+    "selected_snapshot_sha256": "eccc459c300b5faddd10db40aec1bfa7b0f59d91f58e5243760680670f51d232",
+    "successive_recorded_checkpoints": 19,
+    "evidence": "recovered/final-writer-static-trace/MANIFEST.json",
+    "qualification": "Inference: checkpoint 3802 CURRENT printed this pointer, and 3803–3821 derived writers preserve their prior selection with recorded pass reports. Final CURRENT bytes and any unobserved intervening changes remain unverified."
+  },
+  "entry_2708_conditional_lineage": {
+    "manifest": "recovered/final-frontier-entry-2708/MANIFEST.json",
+    "qualification": "Printed queue 4151 row and five derived writer effects; final row bytes and intervening state are not proven."
+  }
+}

@@ -1,0 +1,434 @@
+{
+  "lens": 13,
+  "status": "Immutable exact ordered/connected source validation188..190; no authority mutation",
+  "frozen_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "frozen_is_not_current_main": true,
+  "necessary_extensions": [],
+  "proposed_next_original": 975,
+  "original_delta_proposed": 3,
+  "overlays_delta": 0,
+  "merged_delta": 0,
+  "shared_delta": 0,
+  "new_source_identity_delta_inferred": 0,
+  "authoritative_counts_changed": false,
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "global_clearance": false,
+  "product_execution": false,
+  "batches": [
+    {
+      "batch": 188,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-188.json",
+        "sha256": "ead90e6341f9b5b63badd4ebdd499a0b13214f15343106134fc176dee96d12ce"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-188.json",
+        "sha256": "c3bcc182768a115089840ae66cd54c3166bdb062f880858da9cc795e1f1ed332"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-188-PROPOSAL.json",
+        "sha256": "85d4c343a5a96b080c69499d0cd7b1c7d7936a43692011f5f9d99ba6ccdab86f"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-187-PROPOSAL.json",
+        "sha256": "891d69141a8802b547259dfc8e64ac3c4ccebf4fcdaeef93f3d4d45d024ac6ef"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-188.json",
+          "sha256": "36ef7bb8177872ed0058163674759178c91375793595b69ea72094df87ae5f45"
+        }
+      ],
+      "proposed_next_original": 973
+    },
+    {
+      "batch": 189,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-189.json",
+        "sha256": "c860cbc81bed83dcb37baacf2f7227a1c55e5d1921be1c14b07df69789a708a9"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-189.json",
+        "sha256": "0c64ae41755ef8620c6cf3f348b2d210deea3ef8e228204fbf4788d58040582c"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-189-PROPOSAL.json",
+        "sha256": "118c953d5c985a71beea0070088f203968f4308f721b5e7e4bc4c0d2af7c0e05"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-188-PROPOSAL.json",
+        "sha256": "85d4c343a5a96b080c69499d0cd7b1c7d7936a43692011f5f9d99ba6ccdab86f"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-189.json",
+          "sha256": "f7da795bb2cd820630b32f8915c2b85b1e311716bb580e47efb546e564308c08"
+        }
+      ],
+      "proposed_next_original": 975
+    },
+    {
+      "batch": 190,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-190.json",
+        "sha256": "b9f286ca894cf7866818c74024f62c4b7518e3fe7b690c4bb91795f4b235e948"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-190.json",
+        "sha256": "3beef32bb1b1f8c3f8f0d0b6a9c863bd5f36feae6f7e26cc64541a29499a5ae9"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-190-PROPOSAL.json",
+        "sha256": "1402245a819264257141db13147026c83d5ff6023d483f6a40baa1e4be5dbc52"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-189-PROPOSAL.json",
+        "sha256": "118c953d5c985a71beea0070088f203968f4308f721b5e7e4bc4c0d2af7c0e05"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-190.json",
+          "sha256": "f8fe02fd09a6af617caa5a584e0336dfe4637e660082cdf3be6ee0ebf011fdeb"
+        }
+      ],
+      "proposed_next_original": 975
+    }
+  ],
+  "source_records": [
+    {
+      "original": 972,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+      "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 1230,
+      "assessed_ranges": [
+        [
+          1,
+          1230
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-188.json",
+        "sha256": "ead90e6341f9b5b63badd4ebdd499a0b13214f15343106134fc176dee96d12ce"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-188.json",
+        "sha256": "36ef7bb8177872ed0058163674759178c91375793595b69ea72094df87ae5f45"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: persisted exactregistration beforefreshuntruncatedranges. Savedpartials preserve priorcumulativepersonalreads. No fixtures/RNG/product execution."
+    },
+    {
+      "original": 973,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/projection.rs",
+      "sha256": "2ef4a66455b4f4fb0790abfcc0e0ca9ff70e312d140170fbf47b9f880e79fb87",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 506,
+      "assessed_ranges": [
+        [
+          1,
+          506
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-189.json",
+        "sha256": "c860cbc81bed83dcb37baacf2f7227a1c55e5d1921be1c14b07df69789a708a9"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-189.json",
+        "sha256": "f7da795bb2cd820630b32f8915c2b85b1e311716bb580e47efb546e564308c08"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: persisted exactregistration beforefreshuntruncatedranges. Savedpartials preserve priorcumulativepersonalreads. No fixtures/RNG/product execution."
+    },
+    {
+      "original": 974,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/sampling.rs",
+      "sha256": "3c679c4e5177ee4462d6286d81cdd3e3cfaa9b6e2d91e844d3d45b8e2f666a44",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 213,
+      "assessed_ranges": [
+        [
+          1,
+          213
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-189.json",
+        "sha256": "c860cbc81bed83dcb37baacf2f7227a1c55e5d1921be1c14b07df69789a708a9"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-189.json",
+        "sha256": "f7da795bb2cd820630b32f8915c2b85b1e311716bb580e47efb546e564308c08"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: persisted exactregistration beforefreshuntruncatedranges. Savedpartials preserve priorcumulativepersonalreads. No fixtures/RNG/product execution."
+    },
+    {
+      "original": 1139,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem.rs",
+      "sha256": "49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 2518,
+      "assessed_ranges": [
+        [
+          1,
+          2518
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-190.json",
+        "sha256": "b9f286ca894cf7866818c74024f62c4b7518e3fe7b690c4bb91795f4b235e948"
+      },
+      "read_pointer": "/connected/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-190.json",
+        "sha256": "f8fe02fd09a6af617caa5a584e0336dfe4637e660082cdf3be6ee0ebf011fdeb"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: persisted exactregistration beforefreshuntruncatedranges. Savedpartials preserve priorcumulativepersonalreads. No fixtures/RNG/product execution.",
+      "original_credit_now": 0,
+      "original_role_credit_now": 0
+    },
+    {
+      "original": 2248,
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/lib.rs",
+      "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 58,
+      "assessed_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-190.json",
+        "sha256": "b9f286ca894cf7866818c74024f62c4b7518e3fe7b690c4bb91795f4b235e948"
+      },
+      "read_pointer": "/connected/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-190.json",
+        "sha256": "f8fe02fd09a6af617caa5a584e0336dfe4637e660082cdf3be6ee0ebf011fdeb"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: persisted exactregistration beforefreshuntruncatedranges. Savedpartials preserve priorcumulativepersonalreads. No fixtures/RNG/product execution.",
+      "original_credit_now": 0,
+      "original_role_credit_now": 0
+    },
+    {
+      "original": 2249,
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/seed.rs",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 213,
+      "assessed_ranges": [
+        [
+          1,
+          213
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-190.json",
+        "sha256": "b9f286ca894cf7866818c74024f62c4b7518e3fe7b690c4bb91795f4b235e948"
+      },
+      "read_pointer": "/connected/2",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-190.json",
+        "sha256": "f8fe02fd09a6af617caa5a584e0336dfe4637e660082cdf3be6ee0ebf011fdeb"
+      },
+      "registration_pointer": "/sources/2",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: persisted exactregistration beforefreshuntruncatedranges. Savedpartials preserve priorcumulativepersonalreads. No fixtures/RNG/product execution.",
+      "original_credit_now": 0,
+      "original_role_credit_now": 0
+    },
+    {
+      "original": 2250,
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/stream.rs",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 169,
+      "assessed_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-190.json",
+        "sha256": "b9f286ca894cf7866818c74024f62c4b7518e3fe7b690c4bb91795f4b235e948"
+      },
+      "read_pointer": "/connected/3",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-190.json",
+        "sha256": "f8fe02fd09a6af617caa5a584e0336dfe4637e660082cdf3be6ee0ebf011fdeb"
+      },
+      "registration_pointer": "/sources/3",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: persisted exactregistration beforefreshuntruncatedranges. Savedpartials preserve priorcumulativepersonalreads. No fixtures/RNG/product execution.",
+      "original_credit_now": 0,
+      "original_role_credit_now": 0
+    }
+  ],
+  "future_same_lens_reuse_proofs": [
+    {
+      "original": 1139,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem.rs",
+      "sha256": "49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 2518,
+      "assessed_ranges": [
+        [
+          1,
+          2518
+        ]
+      ],
+      "read_pointer": "/connected/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-190.json",
+        "sha256": "f8fe02fd09a6af617caa5a584e0336dfe4637e660082cdf3be6ee0ebf011fdeb"
+      },
+      "registration_pointer": "/sources/0",
+      "same_lens_only": true,
+      "count_once_when_frontier_reaches": true,
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-190.json",
+        "sha256": "b9f286ca894cf7866818c74024f62c4b7518e3fe7b690c4bb91795f4b235e948"
+      }
+    },
+    {
+      "original": 2248,
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/lib.rs",
+      "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 58,
+      "assessed_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "read_pointer": "/connected/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-190.json",
+        "sha256": "f8fe02fd09a6af617caa5a584e0336dfe4637e660082cdf3be6ee0ebf011fdeb"
+      },
+      "registration_pointer": "/sources/1",
+      "same_lens_only": true,
+      "count_once_when_frontier_reaches": true,
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-190.json",
+        "sha256": "b9f286ca894cf7866818c74024f62c4b7518e3fe7b690c4bb91795f4b235e948"
+      }
+    },
+    {
+      "original": 2249,
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/seed.rs",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 213,
+      "assessed_ranges": [
+        [
+          1,
+          213
+        ]
+      ],
+      "read_pointer": "/connected/2",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-190.json",
+        "sha256": "f8fe02fd09a6af617caa5a584e0336dfe4637e660082cdf3be6ee0ebf011fdeb"
+      },
+      "registration_pointer": "/sources/2",
+      "same_lens_only": true,
+      "count_once_when_frontier_reaches": true,
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-190.json",
+        "sha256": "b9f286ca894cf7866818c74024f62c4b7518e3fe7b690c4bb91795f4b235e948"
+      }
+    },
+    {
+      "original": 2250,
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/stream.rs",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 169,
+      "assessed_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "read_pointer": "/connected/3",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-190.json",
+        "sha256": "f8fe02fd09a6af617caa5a584e0336dfe4637e660082cdf3be6ee0ebf011fdeb"
+      },
+      "registration_pointer": "/sources/3",
+      "same_lens_only": true,
+      "count_once_when_frontier_reaches": true,
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-190.json",
+        "sha256": "b9f286ca894cf7866818c74024f62c4b7518e3fe7b690c4bb91795f4b235e948"
+      }
+    }
+  ],
+  "proposed_finding_provenance": [],
+  "qualifications": [
+    "Threefreshoriginalbodies plusfournecessaryconnectedexistingoriginalfullbodies withzeroearlycredit. Exact188two-partialand190fiveconnected-partialunions; no rereads/current/foreign transfer."
+  ],
+  "partial_checkpoints": [
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-188-PARTIAL-001.json",
+      "sha256": "80ae73a32ca1478acb050aed635c41008c1cdb0ac677715a3e475745c1d0e5fd"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-188-PARTIAL-002.json",
+      "sha256": "2d84b6e227e4d84e1051abbc4f087bac913f83d945d2205f4447378ef315df4b"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-190-PARTIAL-001.json",
+      "sha256": "27e1cd01083e670f30fbf5ad48c26a3aae709c4feab83e9bf1aa9e99ca22e134"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-190-PARTIAL-002.json",
+      "sha256": "9f26b454348c075e51034fd203a6fc66e1402a60e146bde21a87e4215138df96"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-190-PARTIAL-003.json",
+      "sha256": "4bb197bb248c7f971fa430997b6d14594b5e9eaecbe6cfb823b0cf359072261c"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-190-PARTIAL-004.json",
+      "sha256": "7ba4439bf3630e7c5d25a3a7315747bb14ed9fccf2832024cb1a5392968dcd68"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-190-PARTIAL-005.json",
+      "sha256": "22d26a20d6628cc20f298fbe0f0529254102fbd7774a920927e964f64faaf2ad"
+    }
+  ]
+}

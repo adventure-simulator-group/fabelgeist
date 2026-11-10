@@ -1,0 +1,468 @@
+SOURCE 2665 pr-working:crates/fabelgeist-xpbd/tests/fixtures/constraint-native.json
+1: {
+2:   "clear_dispatches": 1,
+3:   "disabled_dispatches": 0,
+4:   "empty_attachment_words": [
+5:     0
+6:   ],
+7:   "empty_dispatches": 0,
+8:   "empty_lambda_bytes": 4,
+9:   "empty_words": [
+10:     0
+11:   ],
+12:   "lambda_bytes": 20,
+13:   "messages": [
+14:     "ConstraintSet: arity must be at least one",
+15:     "ConstraintSet: 3 indices is not a whole number of arity-2 constraints",
+16:     "ConstraintSet::distance: 1 edges but 2 rest lengths",
+17:     "ConstraintSet::spring: 1 edges, 2 rest lengths, 0 spring params",
+18:     "ConstraintSet `empty`: attachment `rest_lengths` has 1 values for 0 constraints",
+19:     "ConstraintSet `distance`: attachment `weights` has 1 values, which is not a whole number per constraint (5)"
+20:   ],
+21:   "particle_words": [
+22:     0,
+23:     1,
+24:     2,
+25:     3,
+26:     4294967295,
+27:     7,
+28:     1,
+29:     2,
+30:     3,
+31:     0
+32:   ],
+33:   "reordered": [
+34:     5,
+35:     7,
+36:     9,
+37:     6,
+38:     8
+39:   ],
+40:   "rest_words": [
+41:     1036831949,
+42:     1050253722,
+43:     1056964608,
+44:     1045220557,
+45:     1053609165
+46:   ]
+47: }
+SOURCE 2666 pr-working:crates/fabelgeist-numpy-storage/src/npy.rs
+1: //! `.npy` array decoding.
+2: 
+3: use std::path::Path;
+4: 
+5: use anyhow::{Context, Result, bail};
+6: use burn::tensor::{Device, Int, Tensor, TensorData};
+7: 
+8: /// The NumPy element types this crate decodes.
+9: #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+10: pub enum Dtype {
+11:     F32,
+12:     F64,
+13:     I32,
+14:     I64,
+15:     U8,
+16:     Bool,
+17: }
+18: 
+19: impl Dtype {
+20:     fn parse(descr: &str) -> Result<Self> {
+21:         Ok(match descr.trim_matches(['\'', '"']) {
+22:             "<f4" | "=f4" | "f4" => Dtype::F32,
+23:             "<f8" | "=f8" | "f8" => Dtype::F64,
+24:             "<i4" | "=i4" | "i4" => Dtype::I32,
+25:             "<i8" | "=i8" | "i8" => Dtype::I64,
+26:             "|u1" | "u1" => Dtype::U8,
+27:             "|b1" | "b1" => Dtype::Bool,
+28:             other => bail!("unsupported NumPy dtype {other:?}"),
+29:         })
+30:     }
+31: 
+32:     pub fn size(self) -> usize {
+33:         match self {
+34:             Dtype::U8 | Dtype::Bool => 1,
+35:             Dtype::F32 | Dtype::I32 => 4,
+36:             Dtype::F64 | Dtype::I64 => 8,
+37:         }
+38:     }
+39: }
+40: 
+41: /// One decoded array: shape, element type, and the raw little-endian payload.
+42: pub struct NpyArray {
+43:     pub shape: Vec<usize>,
+44:     pub dtype: Dtype,
+45:     pub(crate) bytes: Vec<u8>,
+46: }
+47: 
+48: impl NpyArray {
+49:     pub fn len(&self) -> usize {
+50:         self.shape.iter().product()
+51:     }
+52: 
+53:     pub fn is_empty(&self) -> bool {
+54:         self.len() == 0
+55:     }
+56: 
+57:     /// Element bytes, exactly as stored.
+58:     pub fn bytes(&self) -> &[u8] {
+59:         &self.bytes
+60:     }
+61: 
+62:     /// Values widened to `f32`, whatever the stored element type.
+63:     pub fn to_f32(&self) -> Vec<f32> {
+64:         match self.dtype {
+65:             Dtype::F32 => self.map_chunks(4, |b| f32::from_le_bytes(b.try_into().unwrap())),
+66:             Dtype::F64 => self.map_chunks(8, |b| f64::from_le_bytes(b.try_into().unwrap()) as f32),
+67:             Dtype::I32 => self.map_chunks(4, |b| i32::from_le_bytes(b.try_into().unwrap()) as f32),
+68:             Dtype::I64 => self.map_chunks(8, |b| i64::from_le_bytes(b.try_into().unwrap()) as f32),
+69:             Dtype::U8 | Dtype::Bool => self.bytes.iter().map(|b| *b as f32).collect(),
+70:         }
+71:     }
+72: 
+73:     /// Values widened to `i64`, whatever the stored element type.
+74:     pub fn to_i64(&self) -> Vec<i64> {
+75:         match self.dtype {
+76:             Dtype::F32 => self.map_chunks(4, |b| f32::from_le_bytes(b.try_into().unwrap()) as i64),
+77:             Dtype::F64 => self.map_chunks(8, |b| f64::from_le_bytes(b.try_into().unwrap()) as i64),
+78:             Dtype::I32 => self.map_chunks(4, |b| i32::from_le_bytes(b.try_into().unwrap()) as i64),
+79:             Dtype::I64 => self.map_chunks(8, |b| i64::from_le_bytes(b.try_into().unwrap())),
+80:             Dtype::U8 | Dtype::Bool => self.bytes.iter().map(|b| *b as i64).collect(),
+81:         }
+82:     }
+83: 
+84:     pub fn to_bool(&self) -> Vec<bool> {
+85:         self.bytes.iter().map(|b| *b != 0).collect()
+86:     }
+87: 
+88:     fn map_chunks<T>(&self, width: usize, convert: impl Fn(&[u8]) -> T) -> Vec<T> {
+89:         self.bytes.chunks_exact(width).map(convert).collect()
+90:     }
+91: 
+92:     fn dims<const D: usize>(&self) -> Result<[usize; D]> {
+93:         self.shape
+94:             .as_slice()
+95:             .try_into()
+96:             .with_context(|| format!("array has {} dimensions, expected {D}", self.shape.len()))
+97:     }
+98: 
+99:     /// Uploads the array to a device as a float tensor.
+100:     pub fn to_tensor<const D: usize>(&self, device: &Device) -> Result<Tensor<D>> {
+101:         Ok(Tensor::from_data(
+102:             TensorData::new(self.to_f32(), self.dims::<D>()?),
+103:             device,
+104:         ))
+105:     }
+106: 
+107:     /// Uploads the array to a device as an integer tensor.
+108:     pub fn to_int_tensor<const D: usize>(&self, device: &Device) -> Result<Tensor<D, Int>> {
+109:         Ok(Tensor::from_data(
+110:             TensorData::new(self.to_i64(), self.dims::<D>()?),
+111:             device,
+112:         ))
+113:     }
+114: }
+115: 
+116: /// Parses a `.npy` buffer: header dictionary first, then the element payload.
+117: pub fn parse(bytes: &[u8]) -> Result<NpyArray> {
+118:     const MAGIC: &[u8] = b"\x93NUMPY";
+119:     if bytes.len() < 10 || &bytes[..6] != MAGIC {
+120:         bail!("not a .npy array");
+121:     }
+122:     let (header_len, header_start) = if bytes[6] == 1 {
+123:         (
+124:             u16::from_le_bytes(bytes[8..10].try_into().unwrap()) as usize,
+125:             10,
+126:         )
+127:     } else {
+128:         (
+129:             u32::from_le_bytes(bytes[8..12].try_into().unwrap()) as usize,
+130:             12,
+131:         )
+132:     };
+133:     if header_start + header_len > bytes.len() {
+134:         bail!("truncated .npy header");
+135:     }
+136:     let header = std::str::from_utf8(&bytes[header_start..header_start + header_len])
+137:         .context("non-UTF-8 .npy header")?;
+138: 
+139:     let dtype =
+140:         Dtype::parse(header_value(header, "'descr'").context("missing 'descr' in .npy header")?)?;
+141:     if header_value(header, "'fortran_order'").is_some_and(|v| v.starts_with("True")) {
+142:         bail!("Fortran-ordered .npy arrays are not supported");
+143:     }
+144: 
+145:     let shape_text = header
+146:         .split_once("'shape'")
+147:         .and_then(|(_, rest)| rest.split_once('('))
+148:         .and_then(|(_, rest)| rest.split_once(')'))
+149:         .map(|(inside, _)| inside)
+150:         .context("missing 'shape' in .npy header")?;
+151:     let shape: Vec<usize> = shape_text
+152:         .split(',')
+153:         .map(str::trim)
+154:         .filter(|token| !token.is_empty())
+155:         .map(|token| token.parse::<usize>().context("bad .npy shape"))
+156:         .collect::<Result<_>>()?;
+157: 
+158:     let count: usize = shape.iter().product();
+159:     let start = header_start + header_len;
+160:     let end = start + count * dtype.size();
+161:     if end > bytes.len() {
+162:         bail!("truncated .npy payload");
+163:     }
+164: 
+165:     Ok(NpyArray {
+166:         shape,
+167:         dtype,
+168:         bytes: bytes[start..end].to_vec(),
+169:     })
+170: }
+171: 
+172: /// Reads a standalone `.npy` file.
+173: pub fn read(path: impl AsRef<Path>) -> Result<NpyArray> {
+174:     let path = path.as_ref();
+175:     let bytes = std::fs::read(path).with_context(|| format!("reading {}", path.display()))?;
+176:     parse(&bytes).with_context(|| format!("parsing {}", path.display()))
+177: }
+178: 
+179: /// The scalar value following `key:` in the header dictionary, up to the next
+180: /// comma. Only used for `descr` and `fortran_order`, neither of which is a
+181: /// composite value.
+182: fn header_value<'a>(header: &'a str, key: &str) -> Option<&'a str> {
+183:     let (_, rest) = header.split_once(key)?;
+184:     let rest = rest.trim_start().strip_prefix(':')?;
+185:     Some(rest.split(',').next()?.trim())
+186: }
+SOURCE 2667 pr-working:crates/fabelgeist-numpy-storage/src/zip.rs
+1: //! A minimal read-only zip archive reader.
+2: //!
+3: //! Stored and deflated members, zip64 included. Lives here because `.npz` is a
+4: //! zip of `.npy` members, and is public because PyTorch archives are zips too:
+5: //! `burn-torch-storage` reads `.pt`/`.ckpt` through this same code rather than
+6: //! carrying a second copy of the central-directory parser.
+7: //!
+8: //! Stored members are handed back as borrowed slices of the mapping, so reading
+9: //! a multi-gigabyte tensor storage costs no copy.
+10: 
+11: use std::borrow::Cow;
+12: use std::io::Read;
+13: use std::path::Path;
+14: 
+15: use anyhow::{Context, Result, bail};
+16: use flate2::read::DeflateDecoder;
+17: use memmap2::Mmap;
+18: 
+19: enum ArchiveData {
+20:     Mapped(Mmap),
+21:     Owned(Vec<u8>),
+22: }
+23: 
+24: impl AsRef<[u8]> for ArchiveData {
+25:     fn as_ref(&self) -> &[u8] {
+26:         match self {
+27:             Self::Mapped(data) => data,
+28:             Self::Owned(data) => data,
+29:         }
+30:     }
+31: }
+32: 
+33: impl std::ops::Deref for ArchiveData {
+34:     type Target = [u8];
+35: 
+36:     fn deref(&self) -> &Self::Target {
+37:         self.as_ref()
+38:     }
+39: }
+40: 
+41: const END_OF_CENTRAL_DIRECTORY: u32 = 0x0605_4b50;
+42: const CENTRAL_FILE_HEADER: u32 = 0x0201_4b50;
+43: const LOCAL_FILE_HEADER: u32 = 0x0403_4b50;
+44: const ZIP64_END_OF_CENTRAL_DIRECTORY: u32 = 0x0606_4b50;
+45: const ZIP64_LOCATOR: u32 = 0x0706_4b50;
+46: 
+47: pub(crate) struct Entry {
+48:     pub name: String,
+49:     compression: u16,
+50:     compressed_size: u64,
+51:     uncompressed_size: u64,
+52:     local_header_offset: u64,
+53: }
+54: 
+55: /// A memory-mapped zip archive.
+56: pub struct ZipArchive {
+57:     data: ArchiveData,
+58:     entries: Vec<Entry>,
+59: }
+60: 
+61: fn u16_at(data: &[u8], offset: usize) -> u16 {
+62:     u16::from_le_bytes(data[offset..offset + 2].try_into().unwrap())
+63: }
+64: 
+65: fn u32_at(data: &[u8], offset: usize) -> u32 {
+66:     u32::from_le_bytes(data[offset..offset + 4].try_into().unwrap())
+67: }
+68: 
+69: fn u64_at(data: &[u8], offset: usize) -> u64 {
+70:     u64::from_le_bytes(data[offset..offset + 8].try_into().unwrap())
+71: }
+72: 
+73: /// Replaces saturated 32-bit sizes/offsets with their zip64 values.
+74: fn apply_zip64_extra(extra: &[u8], entry: &mut Entry) {
+75:     let mut offset = 0;
+76:     while offset + 4 <= extra.len() {
+77:         let id = u16_at(extra, offset);
+78:         let size = u16_at(extra, offset + 2) as usize;
+79:         let body = offset + 4;
+80:         if body + size > extra.len() {
+81:             return;
+82:         }
+83:         if id == 0x0001 {
+84:             let mut cursor = body;
+85:             for slot in [
+86:                 &mut entry.uncompressed_size,
+87:                 &mut entry.compressed_size,
+88:                 &mut entry.local_header_offset,
+89:             ] {
+90:                 if *slot == u32::MAX as u64 && cursor + 8 <= body + size {
+91:                     *slot = u64_at(extra, cursor);
+92:                     cursor += 8;
+93:                 }
+94:             }
+95:             return;
+96:         }
+97:         offset = body + size;
+98:     }
+99: }
+100: 
+101: /// Locates the central directory, following the zip64 locator when present.
+102: fn find_central_directory(data: &[u8]) -> Result<(u64, u64)> {
+103:     // The end-of-central-directory record is within 64 KiB of the file end.
+104:     let earliest = data.len().saturating_sub(66_000);
+105:     let mut eocd = None;
+106:     for offset in (earliest..data.len().saturating_sub(21)).rev() {
+107:         if u32_at(data, offset) == END_OF_CENTRAL_DIRECTORY {
+108:             eocd = Some(offset);
+109:             break;
+110:         }
+111:     }
+112:     let eocd = eocd.context("not a zip archive: no end-of-central-directory record")?;
+113:     let mut count = u16_at(data, eocd + 10) as u64;
+114:     let mut offset = u32_at(data, eocd + 16) as u64;
+115: 
+116:     if (count == u16::MAX as u64 || offset == u32::MAX as u64) && eocd >= 20 {
+117:         let locator = eocd - 20;
+118:         if u32_at(data, locator) == ZIP64_LOCATOR {
+119:             let record = u64_at(data, locator + 8) as usize;
+120:             if record + 56 <= data.len() && u32_at(data, record) == ZIP64_END_OF_CENTRAL_DIRECTORY {
+121:                 count = u64_at(data, record + 32);
+122:                 offset = u64_at(data, record + 48);
+123:             }
+124:         }
+125:     }
+126:     Ok((count, offset))
+127: }
+128: 
+129: impl ZipArchive {
+130:     pub fn open(path: impl AsRef<Path>) -> Result<Self> {
+131:         let path = path.as_ref();
+132:         let file =
+133:             std::fs::File::open(path).with_context(|| format!("opening {}", path.display()))?;
+134:         // SAFETY: model assets are read-only inputs; concurrent truncation by
+135:         // another process is out of scope, as elsewhere in this workspace.
+136:         let data = unsafe { Mmap::map(&file) }
+137:             .with_context(|| format!("memory-mapping {}", path.display()))?;
+138:         Self::from_data(ArchiveData::Mapped(data))
+139:     }
+140: 
+141:     pub fn from_bytes(data: Vec<u8>) -> Result<Self> {
+142:         Self::from_data(ArchiveData::Owned(data))
+143:     }
+144: 
+145:     fn from_data(data: ArchiveData) -> Result<Self> {
+146:         let (count, mut offset) = find_central_directory(data.as_ref())?;
+147:         let mut entries = Vec::with_capacity(count.min(4096) as usize);
+148:         for _ in 0..count {
+149:             let base = offset as usize;
+150:             if base + 46 > data.len() || u32_at(&data, base) != CENTRAL_FILE_HEADER {
+151:                 break;
+152:             }
+153:             let name_len = u16_at(&data, base + 28) as usize;
+154:             let extra_len = u16_at(&data, base + 30) as usize;
+155:             let comment_len = u16_at(&data, base + 32) as usize;
+156:             let mut entry = Entry {
+157:                 name: String::from_utf8_lossy(&data[base + 46..base + 46 + name_len]).into_owned(),
+158:                 compression: u16_at(&data, base + 10),
+159:                 compressed_size: u32_at(&data, base + 20) as u64,
+160:                 uncompressed_size: u32_at(&data, base + 24) as u64,
+161:                 local_header_offset: u32_at(&data, base + 42) as u64,
+162:             };
+163:             apply_zip64_extra(
+164:                 &data[base + 46 + name_len..base + 46 + name_len + extra_len],
+165:                 &mut entry,
+166:             );
+167:             entries.push(entry);
+168:             offset += (46 + name_len + extra_len + comment_len) as u64;
+169:         }
+170: 
+171:         Ok(Self { data, entries })
+172:     }
+173: 
+174:     /// Member names, in central-directory order.
+175:     pub fn names(&self) -> impl Iterator<Item = &str> {
+176:         self.entries.iter().map(|entry| entry.name.as_str())
+177:     }
+178: 
+179:     pub fn contains(&self, name: &str) -> bool {
+180:         self.entries.iter().any(|entry| entry.name == name)
+181:     }
+182: 
+183:     /// Size of a member once decoded, without decoding it.
+184:     pub fn uncompressed_size(&self, name: &str) -> Option<u64> {
+185:         self.entries
+186:             .iter()
+187:             .find(|entry| entry.name == name)
+188:             .map(|entry| entry.uncompressed_size)
+189:     }
+190: 
+191:     pub(crate) fn find(&self, predicate: impl Fn(&str) -> bool) -> Option<&Entry> {
+192:         self.entries.iter().find(|entry| predicate(&entry.name))
+193:     }
+194: 
+195:     /// Decodes one member. Stored members borrow from the mapping.
+196:     pub fn bytes(&self, name: &str) -> Result<Cow<'_, [u8]>> {
+197:         let entry = self
+198:             .entries
+199:             .iter()
+200:             .find(|entry| entry.name == name)
+201:             .with_context(|| format!("archive has no member {name:?}"))?;
+202:         self.entry_bytes(entry)
+203:     }
+204: 
+205:     pub(crate) fn entry_bytes(&self, entry: &Entry) -> Result<Cow<'_, [u8]>> {
+206:         let base = entry.local_header_offset as usize;
+207:         if base + 30 > self.data.len() || u32_at(&self.data, base) != LOCAL_FILE_HEADER {
+208:             bail!("corrupt zip entry {}", entry.name);
+209:         }
+210:         // The local header repeats the name and may carry a different extra field.
+211:         let name_len = u16_at(&self.data, base + 26) as usize;
+212:         let extra_len = u16_at(&self.data, base + 28) as usize;
+213:         let start = base + 30 + name_len + extra_len;
+214:         let end = start + entry.compressed_size as usize;
+215:         if end > self.data.len() {
+216:             bail!("zip entry {} runs past the end of the archive", entry.name);
+217:         }
+218:         let raw = &self.data[start..end];
+219: 
+220:         match entry.compression {
+221:             0 => Ok(Cow::Borrowed(raw)),
+222:             8 => {
+223:                 let mut out = Vec::with_capacity(entry.uncompressed_size as usize);
+224:                 DeflateDecoder::new(raw)
+225:                     .read_to_end(&mut out)
+226:                     .with_context(|| format!("inflating zip entry {}", entry.name))?;
+227:                 Ok(Cow::Owned(out))
+228:             }
+229:             other => bail!("unsupported zip compression method {other}"),
+230:         }
+231:     }
+232: }

@@ -1,0 +1,224 @@
+[
+  {
+    "source": {
+      "original": 1783,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/downed_facing.rs",
+      "sha256": "a9750618561952fe5915714dea2b3d942edf076b37f122e4c7518920255d7d63",
+      "actual_eof": 353,
+      "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/a9750618561952fe5915714dea2b3d942edf076b37f122e4c7518920255d7d63",
+      "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "prospective_ranges": [
+        [
+          1,
+          353
+        ]
+      ],
+      "purpose": "Full Lens13 action timeline and downed-facing admission, arithmetic, transition and publication contracts. Source inspection only."
+    },
+    "registration": {
+      "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1782-1783-001.json",
+      "sha256": "3fdf116c01607d9be94e7726ec2e983b2a0713790d9e65f92bee3015e6758a22"
+    },
+    "registration_pointer": "/sources/1",
+    "assessed_ranges": [
+      [
+        1,
+        353
+      ]
+    ],
+    "author": "/root",
+    "untruncated_body_outputs": true,
+    "observations": [
+      {
+        "ranges": [
+          [
+            1,
+            90
+          ]
+        ],
+        "assessment": "SignedHalfTurns finite signed unwrapped role deliberately permits large coordinates; DownedFacingStep finite nonnegative and SETTLE_CONTACT1. for_frame divides admitted nonnegative elapsed by strictlypositive full_turn, replacing nonfinite quotient with0 at producer; checked scalar constructor never repairs. Actual admitted configured duration range and overflow policy remain separate, no blanket compatibility finding."
+      },
+      {
+        "ranges": [
+          [
+            92,
+            158
+          ]
+        ],
+        "assessment": "DownedRollMotion validates finite[-1,1], while private from_change emits sign only above1e-5. DownedFacingWire deliberately sanitizes nonfinite coordinate tozero and clamps/sanitizes motion, unlike public checked scalar admission. Exact wire policy and callers needed; no Reflect bypass. Distinct motion versus angle versus step representation preserved."
+      },
+      {
+        "ranges": [
+          [
+            160,
+            212
+          ]
+        ],
+        "assessment": "Pose lattice classifies (value*2).round() as i64 %4; canonical sectors0,.5,1,-.5 and half_turns_near retains unwrapped turns. normalized reclassifies target near retained coordinate. Actual admitted finite scalar domain exceeds saturating i64 classification range. Corroborates existing ADLER-L11-DOWNED-ROLL-LATTICE-RANGE; this is distinct from1758 evaluator, whose integer guard skips action before its cast. Preserve signed-unwrapped role; repair operation or justified admission range, not arbitrary modulo-on-retention."
+      },
+      {
+        "ranges": [
+          [
+            214,
+            270
+          ]
+        ],
+        "assessment": "advance_downed_facing rejects unsupported posture by clearing optionalstate. Held camera uses runtime authored sector width+stickiness and nearest equivalent unwrap; release settles nearest integer with fixed1e-4 exact-half tolerance preserving body parity. Intermediate camera/current subtraction can overflow for independently admitted extreme signed values; bounded actual camera producer narrows ordinary path but decoded retained values remain fullfinite. Complete supported state trace required."
+      },
+      {
+        "ranges": [
+          [
+            271,
+            303
+          ]
+        ],
+        "assessment": "Held target sector uses lattice cast; release target parity uses target as i64, and final near-integer contact next.round as i64 parity transitions body. Finite2^64 represented integer has even mathematical parity but saturates to i64MAX odd in these operations; large finite positive admitted wire/public coordinate therefore supports existing lattice question at actual consumer, subject to actual state/current admission trace. Typed next is checked in complete RHS before replacing downed_facing; remaining transition nonfallible. from_change deadband1e-5 and contacttolerance1e-4 need same precision-policy ownership trace as ROOT-L13-1758-ANIMATION-EVALUATION-TUNING-OWNERSHIP; not duplicate finding."
+      },
+      {
+        "ranges": [
+          [
+            306,
+            353
+          ]
+        ],
+        "assessment": "Actual downed_camera_roll_target projects body/controller yaw, atan2, wraps delta to[-PI,PI), maps near-negativePI seam within1e-5 topositivePI, dividesbyPI and sanitizes nonfinite tozero. Hence ordinary finite camera producer is bounded near[-1,1], unlike open checked SignedHalfTurns and decoded unwrapped retained state. body_yaw/controller_yaw implementations still separate. Unexecuted tests specify same/quarter/opposite headings only; no large-coordinate or native execution acceptance."
+      }
+    ]
+  },
+  {
+    "source": {
+      "original": 1789,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+      "sha256": "bb92ce4b2c2252c6c68cc37955cba5f4d2c90ccdab05a4456a632a7f4adadc4e",
+      "actual_eof": 432,
+      "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/bb92ce4b2c2252c6c68cc37955cba5f4d2c90ccdab05a4456a632a7f4adadc4e",
+      "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "prospective_ranges": [
+        [
+          1,
+          432
+        ]
+      ],
+      "purpose": "Full Lens13 body turn deadline and yaw observation owner; admission, scheduling, retarget and native projection. Source inspection only."
+    },
+    "registration": {
+      "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1789-001.json",
+      "sha256": "aa0142357fe93b260169ea02041e3a778284f16cd56a8b6d8899dca6ed62a256"
+    },
+    "registration_pointer": "/sources/0",
+    "assessed_ranges": [
+      [
+        1,
+        432
+      ]
+    ],
+    "author": "/root",
+    "untruncated_body_outputs": true,
+    "observations": [
+      {
+        "ranges": [
+          [
+            1,
+            61
+          ]
+        ],
+        "assessment": "BodyFacingTurn opaque closed Speed/HalfTurn/Deadline policy retains admitted speed or positive duration and finite Radians. for_deadline accepts raw currentQuat/desiredVec3, normalizes desired planar direction or returnszero speed, takesmax(remaining,elapsed), bothzero returnszero speed, then checks native angle magnitude and positive effective duration. Missing planar direction and true pause are explicit modes. No arbitrary reciprocal representability restriction is imposed at leaf duration."
+      },
+      {
+        "ranges": [
+          [
+            63,
+            98
+          ]
+        ],
+        "assessment": "Complete native advance derives body/desired yaw, wrapped delta and fixed1e-5 reversal seam, computes transient native rate*elapsed then minPI and checked final rotation. Tiny positive half-turn/deadline duration can produce infinite rate, intentionally allowed internally; elapsed0 then createsNaN before minPI. Existing Q-L12-113eccfc6c80e1389988 requires native min/max semantics, actual config/deadline/paused callers and current proof before retaining/rejecting pause failure. Tracking residual independently subtracts raw angle_between minus rate*elapsed then max0, so invalid inputs/NaN report policy distinct from retained quaternion. No execution claimed."
+      },
+      {
+        "ranges": [
+          [
+            100,
+            126
+          ]
+        ],
+        "assessment": "Runtime presentation config supplies positive body half-turn duration and nonnegative downed angular speed. controller_yaw rotates NEG_Z, planar try_normalize or identity, atan2 produces yaw; finite quaternion need notunit. dive_launch_root_rotation uses controller yaw NEG_Z and yieldsroot mapping for camera-relative authored axes. This supplies actual helper bodies referenced1783camera and1787projection, without proving native quaternion implementation or loadedconfig route."
+      },
+      {
+        "ranges": [
+          [
+            128,
+            207
+          ]
+        ],
+        "assessment": "Raisedguard or Attack/Block faces controllerNEG_Z; ordinary motion at/belowstationary returns current yaw, missing normalizedvelocity also returnscurrent. Otherwise uses movementdirection and complete bounded turn. Downed facinguses configured angularspeed. body_yaw rawQuat*Z thenatan2; rotation_from_yaw checks finite Radians then nativeQuat construction. No world mutation inside these helpers. Raw native observation admission and caller publication remain separate."
+      },
+      {
+        "ranges": [
+          [
+            209,
+            277
+          ]
+        ],
+        "assessment": "Unexecuted tests assert bothzero deadline giveszero rate, tiny1e-10 duration givesfinite large rate, missing desired directionzero, bounded default turn and positive exact reversal. They do not exercise reciprocal overflow with zeroelapsed. Actual tests/nativemin behavior remain unexecuted, preserving conditional existingquestion."
+      },
+      {
+        "ranges": [
+          [
+            279,
+            340
+          ]
+        ],
+        "assessment": "Unexecuted dive launch axis test maps four authored directions through pitched/rolled camera yaw, downed halfsecond expectsPIquarter, guard/blocklook versus ordinary worldvelocity and raisedlook are asserted. Self-assignment unchanged_without_another_step is not evidence of application scheduling or paused integration."
+      },
+      {
+        "ranges": [
+          [
+            342,
+            432
+          ]
+        ],
+        "assessment": "Unexecuted fixtures advance local aim/travel each render elapsed1/60 and monotonically approach target; attack deadline recomputed10steps of0.05 tocanonical0.5contact without firststep snap. These specified ordinary cases do not cover different clock origins, replay sampletimes, actual renderer/server publication or extreme admitted pause combination."
+      }
+    ]
+  },
+  {
+    "source": {
+      "original": 2160,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+      "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+      "actual_eof": 49,
+      "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+      "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "prospective_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "purpose": "Full Lens13 coordinate bounds/projection and economy schema review; actual units, admission and native numeric/identity boundaries. Foreign-lens proofs grant no L13 coverage. No code or tests executed."
+    },
+    "registration": {
+      "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2160-2162-001.json",
+      "sha256": "bddfad66e50c14323e660a7727203b7a6c5628cc665c9efc95980ea874ae7c90"
+    },
+    "registration_pointer": "/sources/0",
+    "assessed_ranges": [
+      [
+        1,
+        49
+      ]
+    ],
+    "author": "/root",
+    "untruncated_body_outputs": true,
+    "observations": [
+      {
+        "ranges": [
+          [
+            1,
+            49
+          ]
+        ],
+        "assessment": "Wgs84BoundsE7 private checked corners require southwest latitude/longitude<=northeast; from raw west/south/east/north degrees first uses checked Wgs84CoordinateE7 constructors, resolving earlier bounds-module absence. Inclusive rectangle intersection uses allfour checkedaxis comparisons, so shared edge/point intersects and zero extent are supported; antimeridian crossing explicitly outside regional contract. Do not force globally positive area without actual native consumer requirement. Rawfourdegree array return is named native numerical-kernel adapter, not retained gameplay frame. No independent unchecked Serde implementation here. All49 production lines personally read, no execution."
+      }
+    ]
+  }
+]

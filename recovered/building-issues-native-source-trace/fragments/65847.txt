@@ -1,0 +1,166 @@
+SOURCE native:crates.io/bevy_ecs@0.19.1/src/error/bevy_error.rs
+201:                             skip_next_location_line = true;
+202:                             continue;
+203:                         }
+204:                         if line.contains("__rust_begin_short_backtrace") {
+205:                             break;
+206:                         }
+207:                         if line.contains("bevy_ecs::observer::Observers::invoke::{{closure}}") {
+208:                             break;
+209:                         }
+210:                     }
+211:                     writeln!(f, "{line}")?;
+212:                 }
+213:                 if !full_backtrace {
+214:                     if std::thread::panicking() {
+215:                         SKIP_NORMAL_BACKTRACE.set(true);
+216:                     }
+217:                     writeln!(f, "{FILTER_MESSAGE}")?;
+218:                 }
+219:             }
+220:         }
+221:         Ok(())
+222:     }
+223: }
+224: 
+225: /// This type exists (rather than having a `BevyError(Box<dyn InnerBevyError)`) to make [`BevyError`] use a "thin pointer" instead of
+226: /// a "fat pointer", which reduces the size of our Result by a usize. This does introduce an extra indirection, but error handling is a "cold path".
+227: /// We don't need to optimize it to that degree.
+228: /// PERF: We could probably have the best of both worlds with a "custom vtable" impl, but that's not a huge priority right now and the code simplicity
+229: /// of the current impl is nice.
+230: struct InnerBevyError {
+231:     error: Box<dyn Error + Send + Sync + 'static>,
+232:     severity: Severity,
+233:     #[cfg(feature = "backtrace")]
+234:     backtrace: std::backtrace::Backtrace,
+235: }
+236: 
+237: /// Indicates how severe a [`BevyError`] is.
+238: ///
+239: /// These levels correspond to traditional logging levels,
+240: /// but the severity is advisory metadata used by error handlers to decide how to react (for example: ignore, log, or panic).
+241: ///
+242: /// To change the behavior of unhandled errors returned from systems,
+243: /// you can modify the [fallback error handler], and read the [`Severity`] stored inside of each [`BevyError`].
+244: ///
+245: /// You can change the severity of an error (including assigning an error severity) to an ordinary result
+246: /// by calling [`with_severity`] or [`map_severity`].
+247: ///
+248: /// [`with_severity`]: ResultSeverityExt::with_severity
+249: /// [`map_severity`]: ResultSeverityExt::map_severity
+250: /// [fallback error handler]: crate::error::handler::FallbackErrorHandler
+251: #[derive(Debug, Clone, Copy, PartialEq, Eq, Ord, PartialOrd)]
+252: pub enum Severity {
+253:     /// The error can be safely ignored, and can be completely discarded.
+254:     Ignore,
+255:     /// The error can be ignored, unless verbose debugging is required.
+256:     Trace,
+257:     /// The error can be safely ignored, but may need to be surfaced during debugging.
+258:     Debug,
+259:     /// Nothing has gone wrong, but the error is useful to the user and should be reported.
+260:     Info,
+261:     /// Something unexpected but recoverable happened.
+262:     ///
+263:     /// Something has probably gone wrong.
+264:     Warning,
+265:     /// A real error occurred, but the program may continue.
+266:     Error,
+267:     /// A fatal error; the program cannot continue.
+268:     Panic,
+269: }
+270: 
+271: impl BevyError {
+272:     /// Returns the severity of this error.
+273:     pub fn severity(&self) -> Severity {
+274:         self.inner.severity
+275:     }
+276: 
+277:     /// Returns this error with its severity overridden.
+278:     ///
+279:     /// Note that this doesn't change the underlying error value;
+280:     /// only the [`Severity`] metadata used by the error handler.
+281:     pub fn with_severity(mut self, severity: Severity) -> Self {
+282:         self.inner.severity = severity;
+283:         self
+284:     }
+285: }
+286: 
+383: impl<T, E> ResultSeverityExt<T, E> for Result<T, E>
+384: where
+385:     E: Into<BevyError>,
+386: {
+387:     fn with_severity(self, severity: Severity) -> Result<T, BevyError> {
+388:         self.map_err(|e| e.into().with_severity(severity))
+389:     }
+390: 
+391:     fn map_severity(self, f: impl FnOnce(&E) -> Severity) -> Result<T, BevyError> {
+392:         self.map_err(|e| {
+393:             let severity = f(&e);
+394:             e.into().with_severity(severity)
+395:         })
+396:     }
+397: }
+398: 
+399: // NOTE: writing the impl this way gives us From<&str> ... nice!
+400: impl<E> From<E> for BevyError
+401: where
+402:     Box<dyn Error + Send + Sync + 'static>: From<E>,
+403: {
+404:     #[cold]
+405:     fn from(error: E) -> Self {
+406:         BevyError {
+407:             inner: Box::new(InnerBevyError {
+408:                 error: error.into(),
+409:                 severity: Severity::Panic,
+410:                 #[cfg(feature = "backtrace")]
+411:                 backtrace: std::backtrace::Backtrace::capture(),
+412:             }),
+413:         }
+414:     }
+415: }
+416: 
+417: impl Display for BevyError {
+418:     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+419:         writeln!(f, "{}", self.inner.error)?;
+420:         self.format_backtrace(f)?;
+421:         Ok(())
+422:     }
+423: }
+424: 
+425: impl Debug for BevyError {
+426:     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+427:         writeln!(f, "{:?}", self.inner.error)?;
+428:         self.format_backtrace(f)?;
+429:         Ok(())
+430:     }
+431: }
+432: 
+433: #[cfg(feature = "backtrace")]
+434: const FILTER_MESSAGE: &str = "note: Some \"noisy\" backtrace lines have been filtered out. Run with `BEVY_BACKTRACE=full` for a verbose backtrace.";
+435: 
+436: #[cfg(feature = "backtrace")]
+437: std::thread_local! {
+438:     static SKIP_NORMAL_BACKTRACE: core::cell::Cell<bool> =
+439:         const { core::cell::Cell::new(false) };
+440: }
+441: 
+442: /// When called, this will skip the currently configured panic hook when a [`BevyError`] backtrace has already been printed.
+443: #[cfg(feature = "backtrace")]
+444: #[expect(clippy::print_stdout, reason = "Allowed behind `std` feature gate.")]
+445: pub fn bevy_error_panic_hook(
+446:     current_hook: impl Fn(&std::panic::PanicHookInfo),
+447: ) -> impl Fn(&std::panic::PanicHookInfo) {
+448:     move |info| {
+449:         if SKIP_NORMAL_BACKTRACE.replace(false) {
+450:             if let Some(payload) = info.payload().downcast_ref::<&str>() {
+451:                 std::println!("{payload}");
+452:             } else if let Some(payload) = info.payload().downcast_ref::<alloc::string::String>() {
+453:                 std::println!("{payload}");
+454:             }
+455:             return;
+456:         }
+457: 
+458:         current_hook(info);
+459:     }
+460: }
+461: 

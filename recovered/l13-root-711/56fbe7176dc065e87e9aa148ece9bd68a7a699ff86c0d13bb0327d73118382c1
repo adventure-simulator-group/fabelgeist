@@ -1,0 +1,135 @@
+"""Qualify six volumetric/fixture/locomotion/terrain admission roles before fresh body reads."""
+from pathlib import Path
+import hashlib
+import json
+import subprocess
+
+
+def build(r, w, a, co, files):
+    r, w, a = [p.resolve() for p in (r, w, a)]
+
+    def sha(p):
+        return hashlib.sha256(p.read_bytes()).hexdigest()
+
+    def read(p):
+        return json.loads(p.read_bytes())
+
+    def resolve(v):
+        ps = {p.resolve() for p in [r / v['path'], w / v['path'],
+              r / 'evidence/continuation-segovb' / v['path']]
+              if p.is_file() and sha(p) == v['sha256']}
+        assert len(ps) == 1
+        return ps.pop()
+
+    assert co['next_original'] == 2709 and len(co['discovery_receipts']) == 714
+    dp = w.parent / '726-intake-20261030/DISCOVERY-L13-2709-2714-METADATA-001.json'
+    assert sha(dp) == '283d3f63c0ccf6789e3dde0ab1ddf8300fe194d3e705cda40eab6bcee22b1fb8'
+    d = read(dp)
+    targets = {files[n]['sha256']: n for n in range(2709, 2715)}
+    assert len(targets) == 6
+    hits = []
+    for v in co['discovery_receipts']:
+        raw = resolve(v).read_bytes()
+        for h, n in targets.items():
+            if h.encode() in raw:
+                hits.append({'original': n, 'receipt': v})
+    futures = [v for v in co['future_same_lens_reuse_proofs']
+               if any(h in json.dumps(v) for h in targets)]
+    apps = [v for v in co['future_same_lens_ordered_applications']
+            if any(h in json.dumps(v) for h in targets)]
+    assert hits == d['exact_hash_prior_hits'] and [(x['original'],x['receipt']['path']) for x in hits] == [(2711,'segovb/READ-L13-PARALLEL-453.json'),(2712,'segovb/READ-L13-PARALLEL-689.json')]
+    assert futures == d['future_same_lens_proofs_navigation'] == []
+    assert apps == d['prior_applications_preserved_navigation'] == []
+    assert d['frontier'] == 2709 and d['prior_same_lens_receipts_authenticated'] == 714
+    assert d['body_credit'] == d['authority_changes'] == 0
+    fields = []
+
+    def inspect(v, eof, p):
+        if isinstance(v, dict):
+            for k, x in v.items():
+                at = p + '/' + k
+                if (k.endswith('ranges') or k in ['read_ranges_as_recorded',
+                        'material_contract_ranges_as_recorded',
+                        'requested_range_limits', 'context_excluded','context_or_blank_no_material_credit','context_or_excluded_within_registration']) and x:
+                    assert isinstance(x, list) and all(isinstance(z, list)
+                        and len(z) == 2 and all(isinstance(y, int) for y in z)
+                        and 1 <= z[0] <= z[1] <= eof for z in x), (at, x, eof)
+                    fields.append({'pointer': at, 'raw_value': x, 'actual_eof': eof})
+                inspect(x, eof, at)
+        elif isinstance(v, list):
+            for j, x in enumerate(v):
+                inspect(x, eof, p + '/' + str(j))
+
+    specs=[(2709,280,9619,[[1,206]]),(2710,50,1745,[[1,50]]),(2711,267,9690,[[88,92]]),(2712,51,1799,[[1,51]]),(2713,43,1295,[[1,43]]),(2714,36,1392,[[1,36]])]
+    sources, entries = [], []
+    for n, eof, size, rs in specs:
+        f = files[n]
+        gp = f['source_id'].split(':', 1)[1]
+        assert d['entries'][n - 2709] == {'original': n, 'registry_entry': f}
+        prefix,snapshot,pathpart=('physical-p16','physical-p16','p16')if n==2711 else('pr-working','pr-working','pr-working')
+        assert f['source_id']==prefix+':'+gp and f['snapshot']==snapshot
+        assert f['path']==('SNAPSHOTS/'+pathpart+'/'+gp).replace('/','\\')
+        assert f['actual_line_count'] == eof and f['bytes'] == size
+        assert f['scope_kind'] == 'materially_reached_admission_contract'
+        assert f['material_ranges'] == rs
+        inspect(f, eof, f'/files/{n}')
+        covered = {j for lo, hi in rs for j in range(lo, hi + 1)}
+        assert {j for role in f['admission03_scope_observations']
+                for lo, hi in role['effective_material_ranges']
+                for j in range(lo, hi + 1)} == covered
+        git = 'f82adcabd9d89c4fa2dd7f99253a45297a0681ee'
+        ap = ('handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/'
+              + f['sha256'])
+        body = subprocess.check_output(['git', 'show', git + ':' + ap])
+        assert hashlib.sha256(body).hexdigest() == f['sha256']
+        assert len(body) == size and len(body.splitlines()) == eof
+        if n in range(2709,2715):
+            assert body == subprocess.check_output(['git','show','6533e444fa37552927070cc8d8190907fd3b413e:'+gp])
+        obj = a / 'objects' / f['sha256']
+        if obj.is_file():
+            assert obj.read_bytes() == body
+        else:
+            with obj.open('xb') as out:
+                out.write(body)
+        src = {'original': n, 'source_id': f['source_id'], 'sha256': f['sha256'],
+               'actual_eof': eof, 'object_path': obj.relative_to(w).as_posix(),
+               'source_revision': git, 'transport_git_path': ap,
+               'prospective_ranges': rs,
+               'revision_qualification': 'Exact recorded native prefix/snapshot/path; archivef82 transport only, literal frozenPR join only where independently checked, no current semantic transfer.',
+               'purpose': 'Six volumetric/fixture/locomotion/terrain roles391material,335fresh/56priorread; fixture writer source only, no seeding or native execution.'}
+        sources.append(src)
+        unread = []
+        for k in range(1, eof + 1):
+            if k not in covered:
+                if unread and unread[-1][1] == k - 1:
+                    unread[-1][1] = k
+                else:
+                    unread.append([k, k])
+        prior=None
+        if n in(2711,2712):
+            seq,ix,original,oldprefix,oldranges={2711:(453,3,1767,'pr-working',[[1,267]]),2712:(689,2,2580,'physical-p16',[[1,51]])}[n]
+            rp=resolve(next(x['receipt']for x in hits if x['original']==n));root=read(rp);rawp=resolve(root['packet']);raw=read(rawp);row=raw['ordered'][ix];old=row['source'];pregp=resolve(row['registration']);preg=read(pregp);plan=read(resolve(root['plan']));vp=r/f'segovb/VERIFY-L13-PARALLEL-{seq}.json';statep=r/f'segovb/STATE-L13-PARALLEL-{seq}.json';v=read(vp)
+            assert root['evidence']==raw and root['lens']==raw['lens']==preg['lens']==v['lens']==13 and raw['author']==row['author']=='/root' and raw['registered_before_read_attestation']is row['untruncated_body_outputs']is True
+            assert row['registration_pointer']==f'/sources/{ix}' and preg['sources'][ix]==old and row['assessed_ranges']==old['prospective_ranges']==oldranges and old['original']==original and old['source_id']==oldprefix+':'+gp and old['sha256']==f['sha256'] and old['actual_eof']==eof and preg['at']<raw['at']<root['at'] and plan['packet']==root['packet']
+            assert v['receipt_sha256']==sha(rp) and v['state_sha256']==sha(statep) and v['writer']==root['writer'] and sha(resolve(root['writer']))==root['writer']['sha256'] and v['exact_registry_Git_hash_EOF_prospective_chronology_scope_and_reuse_checked']is True and v['other_lens_credit']==0 and v['product_execution']is v['gate']is False and (w/old['object_path']).read_bytes()==body
+            assert covered.issubset({j for lo,hi in oldranges for j in range(lo,hi+1)})
+            def ref(p):return {'path':p.relative_to(r).as_posix(),'sha256':sha(p)}
+            prior={'prior_adoption':ref(rp),'prior_packet':root['packet'],'prior_plan':root['plan'],'prior_registration':row['registration'],'prior_native_verification':ref(vp),'prior_state':ref(statep),'prior_row_pointer':f'/ordered/{ix}','prior_registration_pointer':f'/sources/{ix}','prior_source_row':row,'historical_attribution':'/root'}
+        e={'original': n, 'source': src, 'mode': 'root-reuse' if prior else 'fresh', 'bytes': size,
+            'assessed_union': rs, 'material_line_count': len(covered),
+            'new_root_personal_lines': 0 if prior else len(covered),
+            'registry_entry_sha256': hashlib.sha256(
+                (json.dumps(f, indent=2) + '\n').encode()).hexdigest(),
+            'registry_path_as_recorded': f['path'], 'source_current_reconciled': False,
+            'unread_ranges': unread, 'whole_file_coverage': not unread}
+        if prior:e['prior']=prior
+        entries.append(e)
+    assert len(fields)==47 and sum(e['material_line_count']for e in entries)==391 and sum(e['new_root_personal_lines']for e in entries)==335
+    assert files[2711]['admission03_scope_observations'][0]['local_qualifications'][0]['context_or_excluded_within_registration']==[[93,94]]
+    return {'entries': entries, 'sources': sources, 'all_nested_range_fields': fields,
+            'exact_hash_prior_hits': hits, 'future_proofs_preserved': futures,
+            'old_ordered_applications_preserved': apps, 'discovery_metadata_sha256': sha(dp),
+            'production_source_lines': 391, 'fixture_source_lines': 0,
+            'fixture_execution': False, 'exact_partial_scopes_preserved': True,
+            'locomotion_rate_scope_exclusions_preserved': True,
+            'terrain_old689_full_read_qualified': True, 'dev_fixture_writer_source_lines': 50}

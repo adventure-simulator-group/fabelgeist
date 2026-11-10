@@ -1,0 +1,206 @@
+SOURCE 2846
+216: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+SOURCE 2848
+7: const TIMBER_UPPER_FLOOR_SURFACE_OFFSET_METRES: f32 = 0.08;
+8: const TIMBER_CEILING_JOIST_ZONE_METRES: f32 = 0.50;
+9: 
+10: fn resolved_wall_vertical_span(
+11:     material: crate::WallMaterialClass,
+12:     level: u16,
+13:     base: f32,
+14:     height: f32,
+15: ) -> (f32, f32) {
+16:     if material != crate::WallMaterialClass::InternalTimber {
+17:         return (base, height);
+18:     }
+19:     let floor_offset = if level > 0 {
+20:         TIMBER_UPPER_FLOOR_SURFACE_OFFSET_METRES
+21:     } else {
+22:         0.0
+23:     };
+24:     (
+25:         base + floor_offset,
+26:         height - floor_offset - TIMBER_CEILING_JOIST_ZONE_METRES,
+27:     )
+28: }
+SOURCE 2849
+19: impl Shape {
+20:     /// Assembly attachments use their declared node; other shapes use axial seats.
+21:     pub(super) fn attachment_anchor(
+22:         &self,
+23:         at: AttachmentAnchor,
+24:         range: [f64; 2],
+25:     ) -> Result<Point, String> {
+26:         if at == AttachmentAnchor::HeelCenter {
+27:             return match self {
+28:                 Self::Blade(p) => Ok(p.heel_center()),
+29:                 _ => Err("heel-center requires a generic blade".into()),
+30:             };
+31:         }
+32:         if let Self::GuardAssembly(p) = self {
+33:             return p
+34:                 .nodes
+35:                 .get(
+36:                     p.anchor_node
+37:                         .as_ref()
+38:                         .ok_or("guard assembly needs anchorNode")?,
+39:                 )
+40:                 .ok_or_else(|| "missing guard anchor node".to_owned())
+41:                 .map(|point| point.map(Metres::get));
+42:         }
+43:         let y = match at {
+44:             AttachmentAnchor::Base => range[0],
+45:             AttachmentAnchor::Center => (range[0] + range[1]) / 2.0,
+46:             AttachmentAnchor::Top => range[1],
+47:             AttachmentAnchor::Origin => 0.0,
+48:             AttachmentAnchor::HeelCenter => unreachable!(),
+49:         };
+50:         Ok([0.0, y, 0.0])
+51:     }
+52: 
+53:     pub(super) fn range(&self) -> Result<[f64; 2], String> {
+54:         Ok(match self {
+55:             Self::ContouredPlate(p) => [0.0, p.length.get()],
+56:             Self::WheelPommel(p) => [-p.diameter.get() / 2.0, p.seat_height.get()],
+57:             Self::MortisedGuard(p) => [0.0, p.height.get()],
+58:             Self::BentBar(p) => match p.centerline {
+59:                 BarCenterline::Opposed { sweep, .. } => [-sweep.get().abs(), sweep.get().abs()],
+60:                 BarCenterline::Arch { length, .. } => [0.0, length.get()],
+61:             },
+62:             Self::SpatialTube(p) => {
+63:                 if p.points.is_empty() {
+64:                     return Err("spatial member needs points".into());
+65:                 }
+66:                 [
+67:                     p.points
+68:                         .iter()
+69:                         .map(|p| p[1].get())
+70:                         .fold(f64::INFINITY, f64::min),
+71:                     p.points
+72:                         .iter()
+73:                         .map(|p| p[1].get())
+74:                         .fold(f64::NEG_INFINITY, f64::max),
+75:                 ]
+76:             }
+77:             Self::LoftedBlade(p) => [0.0, p.length.get()],
+78:             Self::Shaft(p) => [0.0, p.length.get()],
+79:             Self::Crossbow(p) => [0.0, p.length.get()],
+80:             Self::CrossbowBolt(p) => [0.0, p.length.get()],
+81:             Self::BoltQuiver(p) => [0.0, p.length.get()],
+82:             Self::Firearm(p) => [0.0, p.length.get()],
+83:             Self::BallPouch(p) => [0.0, p.height.get()],
+84:             Self::LeadBall(p) => [-p.radius.get(), p.radius.get()],
+85:             Self::ArcheryBow(p) => [
+86:                 -p.length.get() * (1.0 - p.upper_ratio.get()),
+87:                 p.length.get() * p.upper_ratio.get(),
+88:             ],
+89:             Self::Arrow(p) => [0.0, p.length.get()],
+90:             Self::ArrowQuiver(p) => [0.0, p.length.get()],
+91:             Self::RoundShield(p) => [-p.radius.get(), p.radius.get()],
+92:             Self::ShapedShield(p) => [
+93:                 -p.height.get() / 2.0 - p.bottom_depth.get(),
+94:                 p.height.get() / 2.0 + p.top_depth.get(),
+95:             ],
+96:             Self::Grip(p) => [0.0, p.length.get()],
+97:             Self::OvalGrip(p) => [0.0, p.length.get()],
+98:             Self::ProfileGrip(p) | Self::ProfileBody(p) => [0.0, p.length.get()],
+99:             Self::SlabGrip(p) => [0.0, p.length.get()],
+100:             Self::Blade(p) => [0.0, p.length.get()],
+101:             Self::SectionBlade(p) => [0.0, p.length.get()],
+102:             Self::DiamondBlade(p) => [0.0, p.length.get()],
+103:             Self::Spear(p) => [
+104:                 -p.socket.as_ref().map_or(0.0, |s| s.length.get()),
+105:                 p.length.get(),
+106:             ],
+107:             Self::Fork(p) => [0.0, p.length.get()],
+108:             Self::Partisan(p) => [0.0, p.length.get()],
+109:             Self::Glaive(p) => [0.0, p.length.get()],
+110:             Self::Bill(p) => [0.0, p.length.get()],
+111:             Self::Sleeve(p) => [0.0, p.length.get()],
+112:             Self::Guard(p) => [-p.height.get() / 2.0, p.height.get() / 2.0],
+113:             Self::RingGuard(p) => [-p.radius.get(), p.radius.get()],
+114:             Self::FigureEight(p) => {
+115:                 let h = p.height.map_or(p.width.get() * 0.15, Metres::get);
+116:                 [-h, h]
+117:             }
+118:             Self::KnuckleBow(p) => [0.0, p.length.get()],
+119:             Self::Tube(p) => [0.0, p.points.last().ok_or("tube needs points")?[1].get()],
+120:             Self::Pommel(p) => pommel_range(p)?,
+121:             Self::GuardAssembly(p) => {
+122:                 if p.nodes.is_empty() {
+123:                     return Err("guard assembly needs nodes".into());
+124:                 }
+125:                 [
+126:                     p.nodes
+127:                         .values()
+128:                         .map(|p| p[1].get())
+129:                         .fold(f64::INFINITY, f64::min),
+130:                     p.nodes
+131:                         .values()
+132:                         .map(|p| p[1].get())
+133:                         .fold(f64::NEG_INFINITY, f64::max),
+134:                 ]
+135:             }
+136:             Self::Socket(p) => profile_range(&p.profile)?,
+137:             Self::Mace(p) => [
+138:                 -p.length.get() / 2.0,
+139:                 p.length.get() / 2.0 + p.crown_length.map_or(0.0, Metres::get),
+140:             ],
+141:             Self::Collar(p) => [-p.width.get() / 2.0, p.width.get() / 2.0],
+142:             Self::Box(p) => [-p.size[1].get() / 2.0, p.size[1].get() / 2.0],
+143:             Self::Axe(_)
+144:             | Self::FacetedBeak(_)
+145:             | Self::Pick(_)
+146:             | Self::Beak(_)
+147:             | Self::Hammer(_) => [0.0, 0.0],
+148:         })
+149:     }
+150: }
+SOURCE 2850
+1: //! Longitudinal blade lofts with a ricasso and an authored transverse section.
+2: use super::*;
+3: #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+4: #[serde(rename_all = "camelCase")]
+5: pub enum BladePlan {
+6:     Straight,
+7:     Leaf,
+8:     Cleaver,
+9: }
+10: #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+11: #[serde(rename_all = "camelCase")]
+12: pub enum BladeCrossSection {
+13:     Diamond,
+14:     Fullered,
+15:     Hexagonal,
+16:     Lenticular,
+17:     Recessed,
+18: }
+31: #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+32: #[serde(rename_all = "camelCase", deny_unknown_fields)]
+33: pub struct LoftedBladeParameters {
+34:     #[serde(
+35:         default,
+36:         skip_serializing_if = "Option::is_none",
+37:         deserialize_with = "super::deserialize_present"
+38:     )]
+39:     pub fuller: Option<FullerParameters>,
+40:     #[serde(
+41:         default,
+42:         skip_serializing_if = "Option::is_none",
+43:         deserialize_with = "super::deserialize_present"
+44:     )]
+45:     pub point: Option<BladePoint>,
+46:     pub length: Metres,
+47:     pub width: Metres,
+48:     pub thickness: Metres,
+49:     pub curvature: Metres,
+50:     pub plan: BladePlan,
+51:     pub section: BladeCrossSection,
+52:     pub samples: Count,
+53:     pub taper: Ratio,
+54:     pub single_edge: Ratio,
+55:     pub belly: Ratio,
+56:     pub ricasso: Metres,
+57: }
+58: 
+59: /// A round member along an arbitrary spatial path, with an explicit section.

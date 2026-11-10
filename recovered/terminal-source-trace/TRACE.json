@@ -1,0 +1,76 @@
+{
+  "schema": "726-terminal-source-trace-v1",
+  "qualification": "Ranges and source hashes match reconstructed registrations, the recovered qualification, pinned Git bytes, and recorded source output. Observations overlap; this does not establish final authority or runtime acceptance.",
+  "qualification_file": "recovered/transcript-hash-matched/QUALIFICATION-TERMINAL-BOUNDARY-L13-3802.json",
+  "qualification_sha256": "19896b5effd57fa9389869a52ed146ccbab1ad58ade46bf62d326ab64e62bbee",
+  "observations": [
+    {
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-TERMINAL-BOUNDARY-L13-3802.json",
+        "sha256": "fb6f8964328c14413650494ec8e4522bd02e58b24e28fb1188394047e2b7b7cc"
+      },
+      "row_index": 0,
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_path": "crates/adventuresim-core/src/physiology.rs",
+      "source_sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "actual_eof": 1169,
+      "ranges": [
+        [
+          775,
+          875
+        ]
+      ],
+      "read_ordinal": 416932,
+      "printed_lines_verified": 101,
+      "recorded_output_sha256": "a0fcf1b5ae9a44c4c6549751ae028c5f73034139ffc424d2e799b8c2608fc7fe"
+    },
+    {
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-TERMINAL-BOUNDARY-L13-3802.json",
+        "sha256": "fb6f8964328c14413650494ec8e4522bd02e58b24e28fb1188394047e2b7b7cc"
+      },
+      "row_index": 1,
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_path": "crates/adventuresim-stdb-module/src/disease.rs",
+      "source_sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+      "actual_eof": 2950,
+      "ranges": [
+        [
+          1700,
+          1825
+        ]
+      ],
+      "read_ordinal": 416932,
+      "printed_lines_verified": 126,
+      "recorded_output_sha256": "a0fcf1b5ae9a44c4c6549751ae028c5f73034139ffc424d2e799b8c2608fc7fe"
+    },
+    {
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-TERMINAL-INTERPOLATION-L13-3802.json",
+        "sha256": "b61acadd3902437f19fcefdd26969ab4e87602e58131268e0444bc38d5f2361c"
+      },
+      "row_index": 0,
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_path": "crates/adventuresim-core/src/physiology.rs",
+      "source_sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "actual_eof": 1169,
+      "ranges": [
+        [
+          340,
+          455
+        ],
+        [
+          470,
+          530
+        ],
+        [
+          670,
+          740
+        ]
+      ],
+      "read_ordinal": 416951,
+      "printed_lines_verified": 248,
+      "recorded_output_sha256": "f04ef7912b4bd0f28a2046a576ad7cfcb8cd95b0191dd857ecc4e5307e4ae2b6"
+    }
+  ]
+}

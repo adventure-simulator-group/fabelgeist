@@ -1,0 +1,100 @@
+401:     }
+402:     if !scale.is_finite() || scale <= 0.0 {
+403:         return Err(IconError::MissingFocus);
+404:     }
+405:     Ok(scale)
+406: }
+407: 
+408: fn framing_anchor(
+409:     design: &WeaponDesign,
+410:     generated: &GeneratedWeapon,
+411:     roles: &HashMap<&str, ComponentRole>,
+412:     layout: WeaponIconLayout,
+413: ) -> Result<[f32; 3], IconError> {
+414:     let named_anchor = |name: &str| {
+415:         generated
+416:             .anchors
+417:             .iter()
+418:             .find(|anchor| anchor.name == name)
+419:             .map(|anchor| anchor.position)
+420:     };
+421:     match layout {
+422:         WeaponIconLayout::HiltFocus => {
+423:             let main_guard = generated
+424:                 .parts
+425:                 .iter()
+426:                 .filter(|part| roles.get(part.component_id.as_str()) == Some(&ComponentRole::Guard))
+427:                 .max_by(|left, right| {
+428:                     let left_span = (left.bounds.max[0] - left.bounds.min[0])
+429:                         + (left.bounds.max[2] - left.bounds.min[2]);
+430:                     let right_span = (right.bounds.max[0] - right.bounds.min[0])
+431:                         + (right.bounds.max[2] - right.bounds.min[2]);
+432:                     left_span.total_cmp(&right_span)
+433:                 })
+434:                 .ok_or(IconError::MissingFocus)?;
+435:             named_anchor(&format!("{}.base", main_guard.component_id))
+436:                 .ok_or(IconError::MissingFocus)
+437:         }
+438:         WeaponIconLayout::HeadFocus => {
+439:             let socket_roots = design
+440:                 .recipe
+441:                 .components
+442:                 .iter()
+443:                 .filter(|component| {
+444:                     component.role == Some(ComponentRole::Socket)
+445:                         && matches!(
+446:                             component.shape,
+447:                             crate::recipe::Shape::Socket(_) | crate::recipe::Shape::Sleeve(_)
+448:                         )
+449:                 })
+450:                 .filter_map(|component| named_anchor(&format!("{}.top", component.id.as_deref()?)))
+451:                 .collect::<Vec<_>>();
+452:             if let Some(root) = socket_roots
+453:                 .into_iter()
+454:                 .max_by(|left, right| left[1].total_cmp(&right[1]))
+455:             {
+456:                 return Ok(root);
+457:             }
+458:             let mut bases = design
+459:                 .recipe
+460:                 .components
+461:                 .iter()
+462:                 .filter(|component| component.role == Some(ComponentRole::Head))
+463:                 .filter_map(|component| named_anchor(&format!("{}.base", component.id.as_deref()?)))
+464:                 .collect::<Vec<_>>();
+465:             if bases.is_empty() {
+466:                 let top = design
+467:                     .recipe
+468:                     .components
+469:                     .iter()
+470:                     .filter(|component| {
+471:                         matches!(
+472:                             component.role,
+473:                             Some(ComponentRole::Grip | ComponentRole::Structure)
+474:                         )
+475:                     })
+476:                     .filter_map(|component| {
+477:                         named_anchor(&format!("{}.top", component.id.as_deref()?))
+478:                     })
+479:                     .max_by(|left, right| left[1].total_cmp(&right[1]));
+480:                 if let Some(mut top) = top {
+481:                     let span = generated.bounds.max[1] - generated.bounds.min[1];
+482:                     top[1] -= SYNTHETIC_HEAD_LENGTH_M.min(span * 0.2);
+483:                     bases.push(top);
+484:                 }
+485:             }
+486:             let count = bases.len() as f32;
+487:             if count == 0.0 {
+488:                 return Err(IconError::MissingFocus);
+489:             }
+490:             Ok(bases.into_iter().fold([0.0; 3], |mut sum, point| {
+491:                 for axis in 0..3 {
+492:                     sum[axis] += point[axis] / count;
+493:                 }
+494:                 sum
+495:             }))
+496:         }
+497:     }
+498: }
+499: 
+500: fn synthetic_head_focus(

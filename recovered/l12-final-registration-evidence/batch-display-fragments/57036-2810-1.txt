@@ -1,0 +1,41 @@
+1: //! Authenticated carried construction mass, including food and fractional stock.
+2: use super::*;
+3: pub(super) fn dry_inventory_weight(ctx: &ReducerContext, character_id: u64) -> f32 {
+4:     ctx.db
+5:         .inventory_item()
+6:         .character_id()
+7:         .filter(character_id)
+8:         .filter_map(|inventory: InventoryItem| {
+9:             if crate::inventory_container::row_is_fireplace_rooted(
+10:                 ctx,
+11:                 CarriedInventoryScope::Personal,
+12:                 inventory.id,
+13:             ) {
+14:                 return None;
+15:             }
+16:             if let Some(lot) = ctx
+17:                 .db
+18:                 .food_lot()
+19:                 .iter()
+20:                 .find(|lot| lot.inventory_item_id == Some(inventory.id))
+21:             {
+22:                 return Some(lot.mass_kg.max(0.0));
+23:             }
+24:             ctx.db.item().id().find(&inventory.item_id).map(|item| {
+25:                 let effective_quantity =
+26:                     crate::inventory_amount::personal_fraction(ctx, inventory.id)
+27:                         .map_or(inventory.quantity as f32, |fraction| fraction.as_unit_f32());
+28:                 let unit_mass = if adventuresim_weapon_model::default_design(&item.id).is_some() {
+29:                     crate::weapon_instance::combat_geometry(ctx, inventory.id, &item.id)
+30:                         .expect("parametric inventory weapon has valid physical recipe")
+31:                         .mass_kg
+32:                 } else {
+33:                     crate::weapon_instance::fitted_holder_mass(ctx, inventory.id, &item.id)
+34:                         .expect("fitted inventory holder has valid physical recipe")
+35:                         .unwrap_or(item.weight)
+36:                 };
+37:                 unit_mass * effective_quantity
+38:             })
+39:         })
+40:         .sum()
+41: }

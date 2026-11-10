@@ -1,0 +1,2625 @@
+{
+  "schema": "726-proposal-bundle-v1",
+  "lens": 13,
+  "frozen_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "frozen_is_not_current_main": true,
+  "overlays_delta": 0,
+  "merged_delta": 0,
+  "shared_delta": 0,
+  "new_source_identity_delta_inferred": 0,
+  "authoritative_counts_changed": false,
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "global_clearance": false,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "created_at": "2026-10-30T03:06:39.482651+00:00",
+  "status": "Immutable8completed271\u2013278 ownsource/connected audit; root adoption pending",
+  "ordered_frontier_before": 1148,
+  "ordered_frontier_after": 1154,
+  "proposed_next_original": 1154,
+  "original_delta_proposed": 6,
+  "population_deltas_separate": {
+    "original_roles_proposed": 6,
+    "overlays": 0,
+    "frozen_merged_paths": 0,
+    "original_shared_scopes": 0,
+    "new_unique_findings": 0,
+    "new_source_identity_count_inferred": 0
+  },
+  "base_authority_snapshot": {
+    "observed_ledger": {
+      "mutable_path_at_observation": "target/726-audit-adler-20261027/evidence/continuation-segovb/ledger.json",
+      "observed_sha256": "752abdcf849fbf3eb27624d0dcebcc59831b75ef1198b9c6dab84a9f18ec6a31"
+    },
+    "observed_current": {
+      "mutable_path_at_observation": "target/726-audit-adler-20261027/CURRENT-ADLER.json",
+      "observed_sha256": "812c5a9da69aed62604ce8837a7cb5ee2d63d663a884b2ce90d39866b0903ba3"
+    },
+    "root_last_reported_next_original": 1148
+  },
+  "batches": [
+    {
+      "batch": 271,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-271.json",
+        "sha256": "e959d7e0962a48b4ea6c15b7f2da627a8d497b653ed20d8b145f836b0dfb23af"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-271.json",
+        "sha256": "d5c916f13e76e92b1d0daf23fa26de7316057858b52159bcd6e30a629834aee6"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-271-PROPOSAL.json",
+        "sha256": "5c685c4601c551b3506decd97e14bec261531caab0a1c57304154bf40e3ed954"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-270-PROPOSAL.json",
+        "sha256": "e07fb4418d1422552b87943e1bccf03def1c3878a115d66541d08c0266bc3919"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-271.json",
+          "sha256": "b586d704837f2721ccf419119d12ebed44f5bbdacb5b8562e727fc8f1f44efee"
+        }
+      ],
+      "proposed_next_original": 1152
+    },
+    {
+      "batch": 272,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-272.json",
+        "sha256": "d628d9c238c50ac510f834502a224436340fb0372fe94b4f7bf765c1a497f905"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-272.json",
+        "sha256": "f1ebe224d1c6b5270bef74856f26ed5a312b455ee442cb5030ecded7844f8aff"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-272-PROPOSAL.json",
+        "sha256": "42327778cb419fd0e5185becd41e7391ca205e3d5f1e4330d0f69170a8299654"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-271-PROPOSAL.json",
+        "sha256": "5c685c4601c551b3506decd97e14bec261531caab0a1c57304154bf40e3ed954"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-272-CONNECTED.json",
+          "sha256": "f2b661efce62b191eb99c21c35a42162459b1bf3998514e4b21edc79334a5c50"
+        }
+      ],
+      "proposed_next_original": 1152
+    },
+    {
+      "batch": 273,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-273.json",
+        "sha256": "2e9c013f9e20600db8eece33a7963977fadae25e782782d886219bbdd3fdfbe9"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-273.json",
+        "sha256": "fe560107f06b6526cf25b38cdc548a00e1675e9bf4fedb3b341f357573a5d592"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-273-PROPOSAL.json",
+        "sha256": "7e6d9dd9c41fd2a66301d60bc180764e717eef795d9866b88942092d7e756f1c"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-272-PROPOSAL.json",
+        "sha256": "42327778cb419fd0e5185becd41e7391ca205e3d5f1e4330d0f69170a8299654"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-273-CONNECTED.json",
+          "sha256": "d59d65f0c653307c14bf55fa5c217ba9dd75050d9623ca19feed9979b887d194"
+        }
+      ],
+      "proposed_next_original": 1152
+    },
+    {
+      "batch": 274,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-274.json",
+        "sha256": "f0185f5acbc845fd573393ea4d4638dba6c693e8a5b8985d1b68144e7a01b896"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-274.json",
+        "sha256": "bcde6a24d8d1dec86bf0df983d395e9d039f2688e20e31d1679cb9b7586fe265"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-274-PROPOSAL.json",
+        "sha256": "99441b683a837e9a3ecb0400b499121a38b5236a31bd147ca754d46630920e8a"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-273-PROPOSAL.json",
+        "sha256": "7e6d9dd9c41fd2a66301d60bc180764e717eef795d9866b88942092d7e756f1c"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-274-CONNECTED.json",
+          "sha256": "ef91984aa2aa6e3c22bc62f64259dfb3b81561ea1f13edfe1654e65db17ae25a"
+        }
+      ],
+      "proposed_next_original": 1152
+    },
+    {
+      "batch": 275,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-275.json",
+        "sha256": "0af9ffefe39fac59702116613194e04b5515c98163cbca1e9671062ff19c3944"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-275.json",
+        "sha256": "6790b5a562085b2df7d2e81d799f404dbb4bdadc5e4a19f5a1047b9fcb436c7d"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-275-PROPOSAL.json",
+        "sha256": "06728462913e5eb6a30b2563b32abd7cccf674114445acc89f4404f506c6f47e"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-274-PROPOSAL.json",
+        "sha256": "99441b683a837e9a3ecb0400b499121a38b5236a31bd147ca754d46630920e8a"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-275-CONNECTED.json",
+          "sha256": "c466cfed7a385f23ed81b280a7b30ca8b2f387e62e1abe402e5eec959faf09dd"
+        }
+      ],
+      "proposed_next_original": 1152
+    },
+    {
+      "batch": 276,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-276.json",
+        "sha256": "8c16d8d57c2c1163c74117bfe1cc76e32b9bf9b99378ae710734421b11cff063"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-276.json",
+        "sha256": "cb4f539190e713da2f1b52d9f40057c298ebe771e68b26abcb8aac2e0a9f2c05"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-276-PROPOSAL.json",
+        "sha256": "e6ede1d248ec3cbbd4c968d70a3b0506ebd1dfaf88f2709a960c4b37a6c6ffb6"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-275-PROPOSAL.json",
+        "sha256": "06728462913e5eb6a30b2563b32abd7cccf674114445acc89f4404f506c6f47e"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-276-CONNECTED.json",
+          "sha256": "6fd7444bad21d1c4d84f361de84e779c41be0eec324ca2fccce19162ce24cdda"
+        }
+      ],
+      "proposed_next_original": 1152
+    },
+    {
+      "batch": 277,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-277.json",
+        "sha256": "33ca840fcf2a21dbcbee16f032e0f9bf4c80b4694551fa41fe96c8cc083bd0c2"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-277.json",
+        "sha256": "cad19aa695b4014997266c11e26b6c2bbedaa0e5623fea50be64779e848bc9bf"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-277-PROPOSAL.json",
+        "sha256": "68bfd28d64188f75138a3c50de934257b5c06ecc9f61f6b875193d1a9df349b7"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-276-PROPOSAL.json",
+        "sha256": "e6ede1d248ec3cbbd4c968d70a3b0506ebd1dfaf88f2709a960c4b37a6c6ffb6"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-277-CONNECTED.json",
+          "sha256": "cf8a4e750517689257b1fce466db999c677eeec6071b41e25a8b4d0001e0fffa"
+        }
+      ],
+      "proposed_next_original": 1152
+    },
+    {
+      "batch": 278,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-278.json",
+        "sha256": "d8cecd523210ca6a6e9750118651deb8d546c6b99994ad4520ac1031489ef1fe"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-278.json",
+        "sha256": "47f301aa1c381a5e2df2d4ea7d104039c938cc18e3ab80aca9cf6231870e89dc"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-278-PROPOSAL.json",
+        "sha256": "cd14b539d84230f31afca8e8ef5fbb5e0ab645f276bb68083e24424e84225f57"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-277-PROPOSAL.json",
+        "sha256": "68bfd28d64188f75138a3c50de934257b5c06ecc9f61f6b875193d1a9df349b7"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-278.json",
+          "sha256": "15c89d0fcc0f59a601f69d13cdb42d54a9e83ecaa44cf6776b6fb5ae0c14e851"
+        }
+      ],
+      "proposed_next_original": 1154
+    }
+  ],
+  "source_records": [
+    {
+      "original": 1148,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak.rs",
+      "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 2111,
+      "assessed_ranges": [
+        [
+          1,
+          2111
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-271.json",
+        "sha256": "e959d7e0962a48b4ea6c15b7f2da627a8d497b653ed20d8b145f836b0dfb23af"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-271.json",
+        "sha256": "b586d704837f2721ccf419119d12ebed44f5bbdacb5b8562e727fc8f1f44efee"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Successfulprospectiveregistration persisted+inspected before personallyassessedbody; exactcheckpoints cumulativeunion,no artificialtimestamps.",
+      "original_credit_now": 1
+    },
+    {
+      "original": 1149,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/authority_tests.rs",
+      "sha256": "327d9f247ed9c164305e23809fbe5b46f77e8a1f5fb14adb60d01093c5f3324a",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 212,
+      "assessed_ranges": [
+        [
+          1,
+          212
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-271.json",
+        "sha256": "e959d7e0962a48b4ea6c15b7f2da627a8d497b653ed20d8b145f836b0dfb23af"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-271.json",
+        "sha256": "b586d704837f2721ccf419119d12ebed44f5bbdacb5b8562e727fc8f1f44efee"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Successfulprospectiveregistration persisted+inspected before personallyassessedbody; exactcheckpoints cumulativeunion,no artificialtimestamps.",
+      "original_credit_now": 1
+    },
+    {
+      "original": 1150,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/patient_chronology.rs",
+      "sha256": "13d2838fd47720c3645d3c0cba3875699b4ad7984159ddeded1b2a23a32f15ee",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 37,
+      "assessed_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-271.json",
+        "sha256": "e959d7e0962a48b4ea6c15b7f2da627a8d497b653ed20d8b145f836b0dfb23af"
+      },
+      "read_pointer": "/rows/2",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-271.json",
+        "sha256": "b586d704837f2721ccf419119d12ebed44f5bbdacb5b8562e727fc8f1f44efee"
+      },
+      "registration_pointer": "/sources/2",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Successfulprospectiveregistration persisted+inspected before personallyassessedbody; exactcheckpoints cumulativeunion,no artificialtimestamps.",
+      "original_credit_now": 1
+    },
+    {
+      "original": 1151,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/water_time.rs",
+      "sha256": "de713cf1a7816326fcc398a37c9194736867f984202e5efaa22e7ac944bb1390",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 13,
+      "assessed_ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-271.json",
+        "sha256": "e959d7e0962a48b4ea6c15b7f2da627a8d497b653ed20d8b145f836b0dfb23af"
+      },
+      "read_pointer": "/rows/3",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-271.json",
+        "sha256": "b586d704837f2721ccf419119d12ebed44f5bbdacb5b8562e727fc8f1f44efee"
+      },
+      "registration_pointer": "/sources/3",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Successfulprospectiveregistration persisted+inspected before personallyassessedbody; exactcheckpoints cumulativeunion,no artificialtimestamps.",
+      "original_credit_now": 1
+    },
+    {
+      "original": null,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/clock.rs",
+      "sha256": "5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 127,
+      "assessed_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-272.json",
+        "sha256": "d628d9c238c50ac510f834502a224436340fb0372fe94b4f7bf765c1a497f905"
+      },
+      "read_pointer": "/connected/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-272-CONNECTED.json",
+        "sha256": "f2b661efce62b191eb99c21c35a42162459b1bf3998514e4b21edc79334a5c50"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Successfulprospectiveregistration persisted+inspected before personallyassessedbody; exactcheckpoints cumulativeunion,no artificialtimestamps.",
+      "original_credit_now": 0
+    },
+    {
+      "original": 1153,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+      "sha256": "ee9606893c2011c97cecde3bb8bef19e0b6354b96c165b66695c8f9e2b104646",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 200,
+      "assessed_ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-272.json",
+        "sha256": "d628d9c238c50ac510f834502a224436340fb0372fe94b4f7bf765c1a497f905"
+      },
+      "read_pointer": "/connected/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-272-CONNECTED.json",
+        "sha256": "f2b661efce62b191eb99c21c35a42162459b1bf3998514e4b21edc79334a5c50"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Successfulprospectiveregistration persisted+inspected before personallyassessedbody; exactcheckpoints cumulativeunion,no artificialtimestamps.",
+      "original_credit_now": 0
+    },
+    {
+      "original": 1157,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/family.rs",
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 267,
+      "assessed_ranges": [
+        [
+          1,
+          267
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-273.json",
+        "sha256": "2e9c013f9e20600db8eece33a7963977fadae25e782782d886219bbdd3fdfbe9"
+      },
+      "read_pointer": "/connected/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-273-CONNECTED.json",
+        "sha256": "d59d65f0c653307c14bf55fa5c217ba9dd75050d9623ca19feed9979b887d194"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Successfulprospectiveregistration persisted+inspected before personallyassessedbody; exactcheckpoints cumulativeunion,no artificialtimestamps.",
+      "original_credit_now": 0
+    },
+    {
+      "original": null,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/mod.rs",
+      "sha256": "00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 107,
+      "assessed_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-273.json",
+        "sha256": "2e9c013f9e20600db8eece33a7963977fadae25e782782d886219bbdd3fdfbe9"
+      },
+      "read_pointer": "/connected/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-273-CONNECTED.json",
+        "sha256": "d59d65f0c653307c14bf55fa5c217ba9dd75050d9623ca19feed9979b887d194"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Successfulprospectiveregistration persisted+inspected before personallyassessedbody; exactcheckpoints cumulativeunion,no artificialtimestamps.",
+      "original_credit_now": 0
+    },
+    {
+      "original": null,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/advancement.rs",
+      "sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 582,
+      "assessed_ranges": [
+        [
+          1,
+          582
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-273.json",
+        "sha256": "2e9c013f9e20600db8eece33a7963977fadae25e782782d886219bbdd3fdfbe9"
+      },
+      "read_pointer": "/connected/2",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-273-CONNECTED.json",
+        "sha256": "d59d65f0c653307c14bf55fa5c217ba9dd75050d9623ca19feed9979b887d194"
+      },
+      "registration_pointer": "/sources/2",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Successfulprospectiveregistration persisted+inspected before personallyassessedbody; exactcheckpoints cumulativeunion,no artificialtimestamps.",
+      "original_credit_now": 0
+    },
+    {
+      "original": null,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/stationary.rs",
+      "sha256": "4b9f686e5eb3dc2600ce935086991c271678c71692415cfb58c056a74883caf2",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 263,
+      "assessed_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-274.json",
+        "sha256": "f0185f5acbc845fd573393ea4d4638dba6c693e8a5b8985d1b68144e7a01b896"
+      },
+      "read_pointer": "/connected/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-274-CONNECTED.json",
+        "sha256": "ef91984aa2aa6e3c22bc62f64259dfb3b81561ea1f13edfe1654e65db17ae25a"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Successfulprospectiveregistration persisted+inspected before personallyassessedbody; exactcheckpoints cumulativeunion,no artificialtimestamps.",
+      "original_credit_now": 0
+    },
+    {
+      "original": null,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+      "sha256": "517f93978b1b2a9fe9debaaa7d6386aa3200cda88348cd23a9ef6e5e94b5004a",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 3985,
+      "assessed_ranges": [
+        [
+          85,
+          103
+        ],
+        [
+          1882,
+          2067
+        ],
+        [
+          2166,
+          2787
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-274.json",
+        "sha256": "f0185f5acbc845fd573393ea4d4638dba6c693e8a5b8985d1b68144e7a01b896"
+      },
+      "read_pointer": "/connected/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-274-CONNECTED.json",
+        "sha256": "ef91984aa2aa6e3c22bc62f64259dfb3b81561ea1f13edfe1654e65db17ae25a"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Successfulprospectiveregistration persisted+inspected before personallyassessedbody; exactcheckpoints cumulativeunion,no artificialtimestamps.",
+      "original_credit_now": 0
+    },
+    {
+      "original": 1250,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/model.rs",
+      "sha256": "8b5882561331877cca6e022666a6fc03c813375df88bcdda95752cddd3cd1a1e",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 98,
+      "assessed_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-275.json",
+        "sha256": "0af9ffefe39fac59702116613194e04b5515c98163cbca1e9671062ff19c3944"
+      },
+      "read_pointer": "/connected/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-275-CONNECTED.json",
+        "sha256": "c466cfed7a385f23ed81b280a7b30ca8b2f387e62e1abe402e5eec959faf09dd"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Successfulprospectiveregistration persisted+inspected before personallyassessedbody; exactcheckpoints cumulativeunion,no artificialtimestamps.",
+      "original_credit_now": 0
+    },
+    {
+      "original": 1251,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/schedule.rs",
+      "sha256": "08c054563be5757fc2da0ce95af4c995e5a8f8d1acf549bc5dbc65f2c3443077",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 741,
+      "assessed_ranges": [
+        [
+          1,
+          741
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-276.json",
+        "sha256": "8c16d8d57c2c1163c74117bfe1cc76e32b9bf9b99378ae710734421b11cff063"
+      },
+      "read_pointer": "/connected/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-276-CONNECTED.json",
+        "sha256": "6fd7444bad21d1c4d84f361de84e779c41be0eec324ca2fccce19162ce24cdda"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Successfulprospectiveregistration persisted+inspected before personallyassessedbody; exactcheckpoints cumulativeunion,no artificialtimestamps.",
+      "original_credit_now": 0
+    },
+    {
+      "original": null,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+      "sha256": "517f93978b1b2a9fe9debaaa7d6386aa3200cda88348cd23a9ef6e5e94b5004a",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 3985,
+      "assessed_ranges": [
+        [
+          317,
+          635
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-277.json",
+        "sha256": "33ca840fcf2a21dbcbee16f032e0f9bf4c80b4694551fa41fe96c8cc083bd0c2"
+      },
+      "read_pointer": "/connected/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-277-CONNECTED.json",
+        "sha256": "cf8a4e750517689257b1fce466db999c677eeec6071b41e25a8b4d0001e0fffa"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Successfulprospectiveregistration persisted+inspected before personallyassessedbody; exactcheckpoints cumulativeunion,no artificialtimestamps.",
+      "original_credit_now": 0
+    },
+    {
+      "original": 1152,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/authority_tests.rs",
+      "sha256": "79cb2928c581b94b83b90e220abb46105033b5e89588d1c7ba20e497772a0992",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 75,
+      "assessed_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-278.json",
+        "sha256": "d8cecd523210ca6a6e9750118651deb8d546c6b99994ad4520ac1031489ef1fe"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-278.json",
+        "sha256": "15c89d0fcc0f59a601f69d13cdb42d54a9e83ecaa44cf6776b6fb5ae0c14e851"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Successfulprospectiveregistration persisted+inspected before personallyassessedbody; exactcheckpoints cumulativeunion,no artificialtimestamps.",
+      "original_credit_now": 1
+    }
+  ],
+  "exact_source_read_rows": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak.rs",
+      "source_sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_EOF_or_visual_contract": 2111,
+      "requested_ranges": [
+        [
+          1,
+          2111
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          2111
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          2111
+        ]
+      ],
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-271.json",
+        "sha256": "b586d704837f2721ccf419119d12ebed44f5bbdacb5b8562e727fc8f1f44efee"
+      },
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-271.json",
+        "sha256": "e959d7e0962a48b4ea6c15b7f2da627a8d497b653ed20d8b145f836b0dfb23af"
+      },
+      "read_pointer": "/rows/0",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/authority_tests.rs",
+      "source_sha256": "327d9f247ed9c164305e23809fbe5b46f77e8a1f5fb14adb60d01093c5f3324a",
+      "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_EOF_or_visual_contract": 212,
+      "requested_ranges": [
+        [
+          1,
+          212
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          212
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          212
+        ]
+      ],
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-271.json",
+        "sha256": "b586d704837f2721ccf419119d12ebed44f5bbdacb5b8562e727fc8f1f44efee"
+      },
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-271.json",
+        "sha256": "e959d7e0962a48b4ea6c15b7f2da627a8d497b653ed20d8b145f836b0dfb23af"
+      },
+      "read_pointer": "/rows/1",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/patient_chronology.rs",
+      "source_sha256": "13d2838fd47720c3645d3c0cba3875699b4ad7984159ddeded1b2a23a32f15ee",
+      "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_EOF_or_visual_contract": 37,
+      "requested_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-271.json",
+        "sha256": "b586d704837f2721ccf419119d12ebed44f5bbdacb5b8562e727fc8f1f44efee"
+      },
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-271.json",
+        "sha256": "e959d7e0962a48b4ea6c15b7f2da627a8d497b653ed20d8b145f836b0dfb23af"
+      },
+      "read_pointer": "/rows/2",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/water_time.rs",
+      "source_sha256": "de713cf1a7816326fcc398a37c9194736867f984202e5efaa22e7ac944bb1390",
+      "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_EOF_or_visual_contract": 13,
+      "requested_ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-271.json",
+        "sha256": "b586d704837f2721ccf419119d12ebed44f5bbdacb5b8562e727fc8f1f44efee"
+      },
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-271.json",
+        "sha256": "e959d7e0962a48b4ea6c15b7f2da627a8d497b653ed20d8b145f836b0dfb23af"
+      },
+      "read_pointer": "/rows/3",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/clock.rs",
+      "source_sha256": "5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587",
+      "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_EOF_or_visual_contract": 127,
+      "requested_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-272-CONNECTED.json",
+        "sha256": "f2b661efce62b191eb99c21c35a42162459b1bf3998514e4b21edc79334a5c50"
+      },
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-272.json",
+        "sha256": "d628d9c238c50ac510f834502a224436340fb0372fe94b4f7bf765c1a497f905"
+      },
+      "read_pointer": "/connected/0",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+      "source_sha256": "ee9606893c2011c97cecde3bb8bef19e0b6354b96c165b66695c8f9e2b104646",
+      "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_EOF_or_visual_contract": 200,
+      "requested_ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-272-CONNECTED.json",
+        "sha256": "f2b661efce62b191eb99c21c35a42162459b1bf3998514e4b21edc79334a5c50"
+      },
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-272.json",
+        "sha256": "d628d9c238c50ac510f834502a224436340fb0372fe94b4f7bf765c1a497f905"
+      },
+      "read_pointer": "/connected/1",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/family.rs",
+      "source_sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_EOF_or_visual_contract": 267,
+      "requested_ranges": [
+        [
+          1,
+          267
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          267
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          267
+        ]
+      ],
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-273-CONNECTED.json",
+        "sha256": "d59d65f0c653307c14bf55fa5c217ba9dd75050d9623ca19feed9979b887d194"
+      },
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-273.json",
+        "sha256": "2e9c013f9e20600db8eece33a7963977fadae25e782782d886219bbdd3fdfbe9"
+      },
+      "read_pointer": "/connected/0",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/mod.rs",
+      "source_sha256": "00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+      "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_EOF_or_visual_contract": 107,
+      "requested_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-273-CONNECTED.json",
+        "sha256": "d59d65f0c653307c14bf55fa5c217ba9dd75050d9623ca19feed9979b887d194"
+      },
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-273.json",
+        "sha256": "2e9c013f9e20600db8eece33a7963977fadae25e782782d886219bbdd3fdfbe9"
+      },
+      "read_pointer": "/connected/1",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/advancement.rs",
+      "source_sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+      "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_EOF_or_visual_contract": 582,
+      "requested_ranges": [
+        [
+          1,
+          582
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          582
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          582
+        ]
+      ],
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-273-CONNECTED.json",
+        "sha256": "d59d65f0c653307c14bf55fa5c217ba9dd75050d9623ca19feed9979b887d194"
+      },
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-273.json",
+        "sha256": "2e9c013f9e20600db8eece33a7963977fadae25e782782d886219bbdd3fdfbe9"
+      },
+      "read_pointer": "/connected/2",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/stationary.rs",
+      "source_sha256": "4b9f686e5eb3dc2600ce935086991c271678c71692415cfb58c056a74883caf2",
+      "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_EOF_or_visual_contract": 263,
+      "requested_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-274-CONNECTED.json",
+        "sha256": "ef91984aa2aa6e3c22bc62f64259dfb3b81561ea1f13edfe1654e65db17ae25a"
+      },
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-274.json",
+        "sha256": "f0185f5acbc845fd573393ea4d4638dba6c693e8a5b8985d1b68144e7a01b896"
+      },
+      "read_pointer": "/connected/0",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+      "source_sha256": "517f93978b1b2a9fe9debaaa7d6386aa3200cda88348cd23a9ef6e5e94b5004a",
+      "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_EOF_or_visual_contract": 3985,
+      "requested_ranges": [
+        [
+          85,
+          103
+        ],
+        [
+          1882,
+          2067
+        ],
+        [
+          2166,
+          2787
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          85,
+          103
+        ],
+        [
+          1882,
+          2067
+        ],
+        [
+          2166,
+          2787
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          85,
+          103
+        ],
+        [
+          1882,
+          2067
+        ],
+        [
+          2166,
+          2787
+        ]
+      ],
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-274-CONNECTED.json",
+        "sha256": "ef91984aa2aa6e3c22bc62f64259dfb3b81561ea1f13edfe1654e65db17ae25a"
+      },
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-274.json",
+        "sha256": "f0185f5acbc845fd573393ea4d4638dba6c693e8a5b8985d1b68144e7a01b896"
+      },
+      "read_pointer": "/connected/1",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/model.rs",
+      "source_sha256": "8b5882561331877cca6e022666a6fc03c813375df88bcdda95752cddd3cd1a1e",
+      "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_EOF_or_visual_contract": 98,
+      "requested_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-275-CONNECTED.json",
+        "sha256": "c466cfed7a385f23ed81b280a7b30ca8b2f387e62e1abe402e5eec959faf09dd"
+      },
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-275.json",
+        "sha256": "0af9ffefe39fac59702116613194e04b5515c98163cbca1e9671062ff19c3944"
+      },
+      "read_pointer": "/connected/0",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/schedule.rs",
+      "source_sha256": "08c054563be5757fc2da0ce95af4c995e5a8f8d1acf549bc5dbc65f2c3443077",
+      "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_EOF_or_visual_contract": 741,
+      "requested_ranges": [
+        [
+          1,
+          741
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          741
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          741
+        ]
+      ],
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-276-CONNECTED.json",
+        "sha256": "6fd7444bad21d1c4d84f361de84e779c41be0eec324ca2fccce19162ce24cdda"
+      },
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-276.json",
+        "sha256": "8c16d8d57c2c1163c74117bfe1cc76e32b9bf9b99378ae710734421b11cff063"
+      },
+      "read_pointer": "/connected/0",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+      "source_sha256": "517f93978b1b2a9fe9debaaa7d6386aa3200cda88348cd23a9ef6e5e94b5004a",
+      "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_EOF_or_visual_contract": 3985,
+      "requested_ranges": [
+        [
+          317,
+          635
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          317,
+          635
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          317,
+          635
+        ]
+      ],
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-277-CONNECTED.json",
+        "sha256": "cf8a4e750517689257b1fce466db999c677eeec6071b41e25a8b4d0001e0fffa"
+      },
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-277.json",
+        "sha256": "33ca840fcf2a21dbcbee16f032e0f9bf4c80b4694551fa41fe96c8cc083bd0c2"
+      },
+      "read_pointer": "/connected/0",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/authority_tests.rs",
+      "source_sha256": "79cb2928c581b94b83b90e220abb46105033b5e89588d1c7ba20e497772a0992",
+      "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_EOF_or_visual_contract": 75,
+      "requested_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-278.json",
+        "sha256": "15c89d0fcc0f59a601f69d13cdb42d54a9e83ecaa44cf6776b6fb5ae0c14e851"
+      },
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-278.json",
+        "sha256": "d8cecd523210ca6a6e9750118651deb8d546c6b99994ad4520ac1031489ef1fe"
+      },
+      "read_pointer": "/rows/0",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true"
+    }
+  ],
+  "prospective_registration_proofs": [
+    {
+      "batch": 271,
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-271.json",
+        "sha256": "b586d704837f2721ccf419119d12ebed44f5bbdacb5b8562e727fc8f1f44efee"
+      },
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-271.json",
+        "sha256": "e959d7e0962a48b4ea6c15b7f2da627a8d497b653ed20d8b145f836b0dfb23af"
+      },
+      "chronology_basis": "Successfulprospectiveregistrationpersisted+inspected beforedependentbodydisplays;272/273actualcheckpoint chronology retained, no reread reconstructed."
+    },
+    {
+      "batch": 272,
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-272-CONNECTED.json",
+        "sha256": "f2b661efce62b191eb99c21c35a42162459b1bf3998514e4b21edc79334a5c50"
+      },
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-272.json",
+        "sha256": "d628d9c238c50ac510f834502a224436340fb0372fe94b4f7bf765c1a497f905"
+      },
+      "chronology_basis": "Successfulprospectiveregistrationpersisted+inspected beforedependentbodydisplays;272/273actualcheckpoint chronology retained, no reread reconstructed."
+    },
+    {
+      "batch": 273,
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-273-CONNECTED.json",
+        "sha256": "d59d65f0c653307c14bf55fa5c217ba9dd75050d9623ca19feed9979b887d194"
+      },
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-273.json",
+        "sha256": "2e9c013f9e20600db8eece33a7963977fadae25e782782d886219bbdd3fdfbe9"
+      },
+      "chronology_basis": "Successfulprospectiveregistrationpersisted+inspected beforedependentbodydisplays;272/273actualcheckpoint chronology retained, no reread reconstructed."
+    },
+    {
+      "batch": 274,
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-274-CONNECTED.json",
+        "sha256": "ef91984aa2aa6e3c22bc62f64259dfb3b81561ea1f13edfe1654e65db17ae25a"
+      },
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-274.json",
+        "sha256": "f0185f5acbc845fd573393ea4d4638dba6c693e8a5b8985d1b68144e7a01b896"
+      },
+      "chronology_basis": "Successfulprospectiveregistrationpersisted+inspected beforedependentbodydisplays;272/273actualcheckpoint chronology retained, no reread reconstructed."
+    },
+    {
+      "batch": 275,
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-275-CONNECTED.json",
+        "sha256": "c466cfed7a385f23ed81b280a7b30ca8b2f387e62e1abe402e5eec959faf09dd"
+      },
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-275.json",
+        "sha256": "0af9ffefe39fac59702116613194e04b5515c98163cbca1e9671062ff19c3944"
+      },
+      "chronology_basis": "Successfulprospectiveregistrationpersisted+inspected beforedependentbodydisplays;272/273actualcheckpoint chronology retained, no reread reconstructed."
+    },
+    {
+      "batch": 276,
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-276-CONNECTED.json",
+        "sha256": "6fd7444bad21d1c4d84f361de84e779c41be0eec324ca2fccce19162ce24cdda"
+      },
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-276.json",
+        "sha256": "8c16d8d57c2c1163c74117bfe1cc76e32b9bf9b99378ae710734421b11cff063"
+      },
+      "chronology_basis": "Successfulprospectiveregistrationpersisted+inspected beforedependentbodydisplays;272/273actualcheckpoint chronology retained, no reread reconstructed."
+    },
+    {
+      "batch": 277,
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-277-CONNECTED.json",
+        "sha256": "cf8a4e750517689257b1fce466db999c677eeec6071b41e25a8b4d0001e0fffa"
+      },
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-277.json",
+        "sha256": "33ca840fcf2a21dbcbee16f032e0f9bf4c80b4694551fa41fe96c8cc083bd0c2"
+      },
+      "chronology_basis": "Successfulprospectiveregistrationpersisted+inspected beforedependentbodydisplays;272/273actualcheckpoint chronology retained, no reread reconstructed."
+    },
+    {
+      "batch": 278,
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-278.json",
+        "sha256": "15c89d0fcc0f59a601f69d13cdb42d54a9e83ecaa44cf6776b6fb5ae0c14e851"
+      },
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-278.json",
+        "sha256": "d8cecd523210ca6a6e9750118651deb8d546c6b99994ad4520ac1031489ef1fe"
+      },
+      "chronology_basis": "Successfulprospectiveregistrationpersisted+inspected beforedependentbodydisplays;272/273actualcheckpoint chronology retained, no reread reconstructed."
+    }
+  ],
+  "semantic_dispositions": [
+    {
+      "batch": 271,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-271.json",
+        "sha256": "e959d7e0962a48b4ea6c15b7f2da627a8d497b653ed20d8b145f836b0dfb23af"
+      },
+      "numeric_role_inventory": [
+        "1148 actualpatientcap8 beforeenumeration; ordinalu16try_from failsifnotbounded, no counttruncation. Nativepatient materializer1216 resolvesactualordinaryresident,requiresordinaryclock/attributes, moveslaggingclock andsettlescanonical lifecycle1233. Patientdeathresolve usesactualprivate terminal, corpse ordinarydeath andgenericpathology. Immunityfallback3 onlycorpse path; fullCharacter prerequisites ordinarymaterializer checksimmunityactual, arbitrarymissingcomponentinjection excluded.",
+        "1148 ordinarycontaminatedwell source1184..1193 concentration12,growth0,500000ml,revision1. Collectionrequiresrequested_ml>0/nativecapacity/custody/exactsourcepresence/activegeneratedcapability/version; conservedsource/container andcheckedu64revision602, requestedmilliliters\u2192Microliters checked595. Arbitraryu64MAXwater volume/NaN/unboundedgrowth notordinaryproducerwitness.",
+        "1148 take_contributions usesproportional_material_transfer perexactsource_total/moved/canonicalcontribution; u64volume/loadsubtraction assumesactualcoreboundedtransfer. None/zero provenancepreview668 intentionallynomaterial. Contaminationfirstload/uL vsconsumerload/(ml*1000) unitconversionconsistent; no rawfactor1000bug. Actualcorewater quantum/conservation proof qualifyfromownexactpriorbody beforeacceptingotherarithmeticsuspicion.",
+        "1148 collect536 dropsResult<bool> fromtimeadvance, subsequentlivingcheck538 canreturnErr aftercanonicalterminal; plan.endminute usedconcentration594 andreceipts625/635/653. Ownconnected273actualadvance6..73 confirmsclock/terminal settledbeforefalse. Actualnative1093/surgery/reducerrollback source semantics stillneededbeforedefectclassification; no observedfailure.",
+        "1148 SHA256truncation tou64 material/output IDs usesmax1 andactualoutput collisioncheck533 plusfixture uniqueness provenance. First64bitscollision isconditionalpolicy/collisionbudget, notanobservedroster collision orautomaticalias tootherIDwidthcases. Compound full128bitknowledgeprovenancesource-material alsoidentitymode distinct.",
+        "1148 latesthealth_active/remediationflags separatedfromobserverchronology1542/1592. Suppression compares contracted/recovery/remediation/observer/lifebirthdeath; missingbirthinview1603 allowsvsreducerrequiresbirth butactualfullCharacter invariant mustqualify beforehypotheticalmissingbirthdefect. Typedrole/illness/context release notacure deliberatelypreserved.",
+        "1148 recordpresence transition1890 closesoldspans atpersonalminute thenonlyinsertsnewidifabsent; same-minute reentryintoclosedexistingid question requiresactualsupportednavigationproducer, notarbitrarydirectinternalcalls. Carrierremediation retryignoresatminute1782whileactualsource-remediation retrycompares1483; deliberateidempotence/policy unlessactualimmutableeffectcontract provesotherwise.",
+        "1149 full212 bootstrapguarded acceptance SOURCE explicitlybypassesfullquestgenerationbinding52 andmutatesfixtures; do notinferordinaryunreachablemanifests asruntimewitness. Testsource checksrecovery/death/readministrationchronology, no execution.",
+        "1150 full37 reconcilesdiseaseprivate death, carrierattack latest=min(private-1,now), clampafterbecamesymptomatic then rejectsifbeyondlatest. Saturatingsub1atZERO deliberatelowerboundary, invalidpastattack suppressesdeath, noinventedunderflow.",
+        "1151 full13 contamination_at usesat.elapsed_since(anchor), no unsignedsubtractionwrap. Callsactualcorefoodmodel; legitimate elapsedclamp meanspastanchor handling mustbeassessedaspolicy, notbackwardcompatibilitydefect."
+      ],
+      "connected_contracts": []
+    },
+    {
+      "batch": 272,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-272.json",
+        "sha256": "d628d9c238c50ac510f834502a224436340fb0372fe94b4f7bf765c1a497f905"
+      },
+      "numeric_role_inventory": [
+        "Ownclock12..31 refresh_clock initializesmissing world_clock0 beforeonlyErr21 lookup; currentordinary source hasno supported clockErrreturn aftersuccessfulnativeinsert. Reject inventing ordinaryzero-disclosuretime incidentfromhypotheticalmissingDBrow; actualfallback policy conditionalfutureerror semantics retained.",
+        "Ownchronology1153 full200: advance_npc_personal_time nonretrograde personalclockwrite181+time::settle_lifecycle_after_character_time_write183. NPC scheduler268usesadvance_stationary_character_to, separateactualcaller notclosedyet."
+      ],
+      "connected_contracts": []
+    },
+    {
+      "batch": 273,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-273.json",
+        "sha256": "2e9c013f9e20600db8eece33a7963977fadae25e782782d886219bbdd3fdfbe9"
+      },
+      "numeric_role_inventory": [
+        "Ownfamily1157effective_age_years94 usesbirthcoordinate atrequestedMinute; settle_character_age103 updatesrawCharacter.age_years110..112. Native time/mod.rs57..74 invokesagefirst62 ateveryauthoritative lifecyclewrite thencontinuity/residence/weddings/births. Rawcache maythereforebecoherent;268notfindingbeforestationaryactualbody qualifiescalls.",
+        "Ownadvance_character_time6..73 returnsResult<bool>, falseonlyterminal.is_some() or!settled.alive; writesclockandsettlesdisease/lifecycle beforefalse. Frozenoutbreak271watercollect536 dropsbool thenrequireliving538, so classifyactualterminal semantics/transactionrollback beforeclaimingpaidtimewatercommit. Ordinaryadultageafteradvance hascanonicalupdate62, notautomaticallyallconstructorsproof."
+      ],
+      "connected_contracts": []
+    },
+    {
+      "batch": 274,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-274.json",
+        "sha256": "f0185f5acbc845fd573393ea4d4638dba6c693e8a5b8985d1b68144e7a01b896"
+      },
+      "numeric_role_inventory": [
+        "Actualstationaryfull263 writesclock109thenlifecycle130\u2192own273agefirst62. Birthdayrecursion37splitsbeforetarget andhonorsNPCauthoritytransfer63. Zeroelapsed34changesnoclock, no staleage proof justbecauseitdoesnotrefreshcache.",
+        "Frozen6533Character517f...EOF3985 exact selected85..103/1882..2067/2166..2787; old1079historic806a...EOF3983 remainsseparate. Agefield92 documentscachedprojection; constructor2202rawagefromstarting/npc/default25 and2210birthderivedfromoptions.initialMinuteorZERO. Timeinit2445thenoptionsSomeoverride2453; fullcomponentvalidator2651..2785 checkscomponentpresencebutdoesnotitselfcomparebirth/effectiveage. Ordinaryinitialpolicy mustqualifyactualclockensure/callers, not assumeallNone optionsbroken.",
+        "ActualNPCstablelifeage1964 index43\u219218..60, fullu64stableSeed. GenericPlayer/Persistent/Temporary/Newborn modesexplicit; newbornrequiresreservedID2182butageactualcreatorstillmatters. Fullconstructor/validatorbody assessed, no entire3985/currentcoverage."
+      ],
+      "connected_contracts": []
+    },
+    {
+      "batch": 275,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-275.json",
+        "sha256": "0af9ffefe39fac59702116613194e04b5515c98163cbca1e9671062ff19c3944"
+      },
+      "numeric_role_inventory": [
+        "1250full98 ownsWorldClock/CharacterTime/24hrScheduleAllocation wiremodels, StrategicMinute semanticfields, u16minutes notintermediate arithmetic. allocated_minutes84 delegatesboundedowner. Headerofficialinitializationdoc isnotensure_character_time implementation; actualinitializerisnew276schedule99.",
+        "Future1250full98 proofcountonceonlywhenfrontierarrives, no earlyoriginalcredit. Optionalapprenticeship/practice organization fieldsactualzero/None modes intentional; nativewritesvalidate_daily_allocation alreadyown274source."
+      ],
+      "connected_contracts": []
+    },
+    {
+      "batch": 276,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-276.json",
+        "sha256": "8c16d8d57c2c1163c74117bfe1cc76e32b9bf9b99378ae710734421b11cff063"
+      },
+      "numeric_role_inventory": [
+        "1251full741actualensure_character_time99 refreshesofficialclock thenmissingpersonalclock\u2192official111 andcreatesdefaultschedule. ConstructorbirthbaselineZEROwhenoptionsNone vsactualofficialclock mattersinitialagepolicy; optionsSome fromordinarypopulation/newborncreator mustbetracedbeforeuniversalcoherencefinding/rejection. Canonicalpostwritecache update proven274/273, no ordinaryunsupportedstaleageincidentinvented.",
+        "Actualschedule admission128 verifiesorganization/rolepractice atpersonalclock; interval effectiveeligibility invalidallocationsbecomeleisure intentionallywithoutpersistedplanmutation. NativevalidatedDailySchedule numerical24hrlaw/typeowner; duplicate rawschedulefields aretransport projection, no automaticNaN/overflowwitness.",
+        "Nativeapply_training228 consumesactualelapsed u64\u2192f32hours, boundedselectedschedules andobservedparty/attributes; hourslarge-extremeconditional sourceproofsfromowncore retainedseparately, noarbitraryMAXworldtimewitness. Oralambient2/3wakingtime andlanguageBPS10000actualproducersemantics, no doubleunitconversionclaim.",
+        "Nativebookselectedtargetsnapshot477/apply_selected_book518 carriesrank/aptitude/readability/finiteband throughcanonicalbookowner. Loop677 stopsunusablefinitecatalogue orusedprogress epsilon1e-5, notunboundedtime claim; excess+=0 deliberateboundedbookcap excludesoverflowXP; no inferredmasterybug. Future1251full741qualifiedzeroearly."
+      ],
+      "connected_contracts": []
+    },
+    {
+      "batch": 277,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-277.json",
+        "sha256": "33ca840fcf2a21dbcbee16f032e0f9bf4c80b4694551fa41fe96c8cc083bd0c2"
+      },
+      "numeric_role_inventory": [
+        "Own new517f...Character317..635 fullrequire_living317..331 andtransitiondeath336..436: successfultransitioninsertsdeath388,setsalivefalse404andupdates422, returnsOk435. require_living327thenErr328 onfalse. No claimfull3985orhistoric1079bodytransfer; trailingtransport declarationsreadonly.",
+        "Qualifiedoldown243native1093full2950 (notL12 inherited) focusedhonest1825..2056reread preserved. clip1825plansactualdiseaseinterval, findsfirst_private_terminal1861, clipsinclusiveprefix/noticeandreturnsterminal1926. finish2028callsnativeDeath transition2034. Own273advancewritesclockbeforefinish/lifecycle thenreturnsfalse. Thusactualconditionalterminalwatercollection cannotreachpostlivingErr-freesuccesspath; no imaginedalivefalseorunsupportedNaNinjectneeded.",
+        "Concreteconditionalchain: existingcanonicalillness whose firstterminalfallsinrequested5minutes atcollection\u2192actualclip/finishdeath\u2192advancefalse\u2192collect536dropsit\u2192living538Err. Underrepositorynativeerrorrollback contract (own272chronology178..180 documentsit), terminalstate/clock rollbackinstead ofsuccessfulno-completionreturn. ActualnativeSDKtransactionimplementation/current/ordinarydiseaseprofile witness remainexplicitneededbeforeruntimeorunconditionalnativefindingclassification.",
+        "Outputstock/contribution plan commit remainsafterlivingcheck, so this isnotclaimeddeadcharacterreceiveswater orunconditionalplannedendcommit. Firstfailedoperationactualignoredcompletionbool536; retry/rawsourcepolicy differentcontracts noaliasfromcommonremedy."
+      ],
+      "connected_contracts": []
+    },
+    {
+      "batch": 278,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-278.json",
+        "sha256": "d8cecd523210ca6a6e9750118651deb8d546c6b99994ad4520ac1031489ef1fe"
+      },
+      "numeric_role_inventory": [
+        "1152full75source explicitlyguardedtestchronology: deliberatelywritesbirth10,clocklaterdeath,alivefalse/displayage0, deletesbirth. Testsconception historicaleligibilityfromcanonicalbirth/death notdisplaycache. Thesearepurposefulinvalidstaleprojectionfixtures, notordinaryNPC initializationwitness; no testingexecuted.",
+        "1153 exactown272full200 chronology futureproof appliedonceatorderedfrontier; no reread. Rootmuststrictlypreflightactual272body/prospective/full200/plannedfuture0 thenrequireactualselected272futureproofbefore278apply. Containscanonical_nowpersonalclockResult,nextlifecycleboundariesandNPCadvancewrite+settlement; no reinterpretationasfreshbody."
+      ],
+      "connected_contracts": []
+    }
+  ],
+  "contract_updates": [
+    {
+      "contract_id_or_proposed_new_id": "PL13-271-WATER-COLLECTION-TERMINAL-PROPAGATION-PENDING",
+      "lens": 13,
+      "canonical_owner_or_explicit_unresolved_owner_question": "collect_fixture_water_into_container536 posttimeadvance completion/terminal result propagation",
+      "first_failed_contract_or_unresolved_question": "collect536 dropsadvance_character_time Result<bool>, thenlivingcheck538 andplannedend594/625/635/653. Ownactualtime6..73 settlesclock+disease+lifecycle beforefalse. Qualifyactual supportedterminal andposterrortransaction law beforeclassifying rollback/commit effects; absenceofprimarycanonicalcollectname isnotglobalaliasproof.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "original": 1148,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+          "actual_EOF": 2111,
+          "assessed_ranges": [
+            [
+              1,
+              2111
+            ]
+          ],
+          "read_pointer": "/rows/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-271.json",
+            "sha256": "b586d704837f2721ccf419119d12ebed44f5bbdacb5b8562e727fc8f1f44efee"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Own Lens13 fullactualnativeproducer body;0otherlenscoverage"
+        }
+      ],
+      "read_pointer": "/rows/0",
+      "status_proposed": "Conditional actualnative terminal Result<bool> propagation question; pendingown death/error boundary proof",
+      "remaining_evidence": [
+        "Qualify exactown native1093clip/finish andsurgeryterminal, actuallivingcheck/transaction errorlaw andconcreteordinary within5minute terminal reachability.",
+        "Qualify current exactsource andsame-firstcontract canonicalalias; no aliasjustcommonterminalremedy."
+      ],
+      "dependencies": [
+        "Actualnative personalclock/injury/disease terminalboundary",
+        "Watercollection immutableplan/receipt andsource-stock conservation"
+      ],
+      "closure_condition": [
+        "Documentfirstfailedcontract andsupportedproducer\u2192nativeboundary orrejectordinarywitness; sourcefinding/conditional/policy/rejection cancloseauditdiscovery independentlyfromrepair/runtimeacceptance."
+      ],
+      "later_repair_acceptance_requirements": [
+        "Incomplete/terminal time interval mustpreservecanonicalterminalclock/state withoutwaterwithdrawal/output/provenancecommit orfabricatedplannedend; completedinterval preservesexactconservation, currentcustody/source/capability revalidation andretry semantics."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": null,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-271.json",
+        "sha256": "e959d7e0962a48b4ea6c15b7f2da627a8d497b653ed20d8b145f836b0dfb23af"
+      }
+    },
+    {
+      "contract_id_or_proposed_new_id": "PL13-263-DISCLOSURE-CLOCK-ERROR-DEFAULT-PENDING",
+      "lens": 13,
+      "canonical_owner_or_explicit_unresolved_owner_question": "Actualnativeclock refresh/init producer anddisclose_exact_case_site472 errorfallback",
+      "first_failed_contract_or_unresolved_question": "Actual refresh_clock12..31 initializesrow0 thenonlyErr21 iflookupstillabsent. Successfulnormalnativeinsert leavesrowpresent, so originalmissingclockfallback suspicion hasnoestablished ordinaryErrwitness; do notpromote hypotheticalcorruptDBstate tosourcefinding. Preservezero-error-normalizationfuturepolicy conditional, actualsourcefirstbranch alone notobservedincident.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "original": null,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/clock.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587",
+          "actual_EOF": 127,
+          "assessed_ranges": [
+            [
+              1,
+              127
+            ]
+          ],
+          "read_pointer": "/connected/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-272-CONNECTED.json",
+            "sha256": "f2b661efce62b191eb99c21c35a42162459b1bf3998514e4b21edc79334a5c50"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Own Lens13 actualbodyassessedonce afterprospectiveregistration, exactcheckpoint reusedwithoutreread"
+        },
+        {
+          "original": 1153,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "ee9606893c2011c97cecde3bb8bef19e0b6354b96c165b66695c8f9e2b104646",
+          "actual_EOF": 200,
+          "assessed_ranges": [
+            [
+              1,
+              200
+            ]
+          ],
+          "read_pointer": "/connected/1",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-272-CONNECTED.json",
+            "sha256": "f2b661efce62b191eb99c21c35a42162459b1bf3998514e4b21edc79334a5c50"
+          },
+          "registration_pointer": "/sources/1",
+          "read_attribution": "Own Lens13 actualbodyassessedonce afterprospectiveregistration, exactcheckpoint reusedwithoutreread"
+        }
+      ],
+      "read_pointer": "/connected/0",
+      "status_proposed": "Scoped source-reasoned ordinary missingclockErr suspicion rejected; conditional futureerror policy retained",
+      "remaining_evidence": [
+        "Own current exactsourcecomparison ifneeded forrevisionclosure; no ordinaryErrorincident claim.",
+        "Explicitfutureerrorpolicy ifrefresh_clock acquiresactualsupportedfallibleproducer; no runtimeblocker."
+      ],
+      "dependencies": [
+        "Native time lifecycle andpersistedstate admission"
+      ],
+      "closure_condition": [
+        "Fullydocumentactualsupportedscope/rejection/conditionalpolicy withremaining current/alias distinctions; runtime/repairs notneeded tofinishdiscovery."
+      ],
+      "later_repair_acceptance_requirements": [
+        "If futureclockErrvalidlyoccurs, do not silently inventzero disclosuretime; originalordinaryproducercurrentlyestablishesrow."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": {
+        "same_exact_contract": "PL13-263-DISCLOSURE-CLOCK-ERROR-DEFAULT-PENDING",
+        "basis": "Sameexact263472clockfallback or268housing282/romance360 owner question; nowactualconnectedproducerbody. Noaliasfromgenericremedy."
+      },
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-272.json",
+        "sha256": "d628d9c238c50ac510f834502a224436340fb0372fe94b4f7bf765c1a497f905"
+      }
+    },
+    {
+      "contract_id_or_proposed_new_id": "PL13-268-NPC-AGE-CHRONOLOGY-ELIGIBILITY-PENDING",
+      "lens": 13,
+      "canonical_owner_or_explicit_unresolved_owner_question": "Actualcanonicalbirth/effectiveage/cachematerialization beforeNPC housing/romance eligibility",
+      "first_failed_contract_or_unresolved_question": "Ownactualeffective_age_years94 frombirth,settle_character_age103 updatesCharacter.age_years andtime lifecycle57 callsagefirst62. This establishescanonical personalclockwritecachecoherence; original268rawage discrepancy narrows towardscopedrejection. Actualscheduler advance_stationary_character_to andinitialfullCharacter birth/cache admission remainrequired beforeclosingentire supportedNPCchain.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "original": 1157,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/family.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+          "actual_EOF": 267,
+          "assessed_ranges": [
+            [
+              1,
+              267
+            ]
+          ],
+          "read_pointer": "/connected/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-273-CONNECTED.json",
+            "sha256": "d59d65f0c653307c14bf55fa5c217ba9dd75050d9623ca19feed9979b887d194"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Own Lens13 actualbodyassessedonce afterprospectiveregistration, exactcheckpoint reusedwithoutreread"
+        },
+        {
+          "original": null,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/mod.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+          "actual_EOF": 107,
+          "assessed_ranges": [
+            [
+              1,
+              107
+            ]
+          ],
+          "read_pointer": "/connected/1",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-273-CONNECTED.json",
+            "sha256": "d59d65f0c653307c14bf55fa5c217ba9dd75050d9623ca19feed9979b887d194"
+          },
+          "registration_pointer": "/sources/1",
+          "read_attribution": "Own Lens13 actualbodyassessedonce afterprospectiveregistration, exactcheckpoint reusedwithoutreread"
+        },
+        {
+          "original": null,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/advancement.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+          "actual_EOF": 582,
+          "assessed_ranges": [
+            [
+              1,
+              582
+            ]
+          ],
+          "read_pointer": "/connected/2",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-273-CONNECTED.json",
+            "sha256": "d59d65f0c653307c14bf55fa5c217ba9dd75050d9623ca19feed9979b887d194"
+          },
+          "registration_pointer": "/sources/2",
+          "read_attribution": "Own Lens13 actualbodyassessedonce afterprospectiveregistration, exactcheckpoint reusedwithoutreread"
+        }
+      ],
+      "read_pointer": "/connected/0",
+      "status_proposed": "Canonicalage writechain sourcequalified; ordinary staleage suspicion narrowed,stationary/initialization pending",
+      "remaining_evidence": [
+        "Own exactschedulerstationarytimeadvance andordinaryfullCharacter birth/cache initialization, including initialage policy.",
+        "Current exactsourceandcanonicalaliases afterboundedchain; no hypotheticalinvalidbirth/Character injections."
+      ],
+      "dependencies": [
+        "Native time lifecycle andpersistedstate admission"
+      ],
+      "closure_condition": [
+        "Fullydocumentactualsupportedscope/rejection/conditionalpolicy withremaining current/alias distinctions; runtime/repairs notneeded tofinishdiscovery."
+      ],
+      "later_repair_acceptance_requirements": [
+        "All supportedNPCeligibility usescanonicalpersonal-time age orprovedcoherentcache. No alternateageauthority/obsoleteAPIshim."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": {
+        "same_exact_contract": "PL13-268-NPC-AGE-CHRONOLOGY-ELIGIBILITY-PENDING",
+        "basis": "Sameexact263472clockfallback or268housing282/romance360 owner question; nowactualconnectedproducerbody. Noaliasfromgenericremedy."
+      },
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-273.json",
+        "sha256": "2e9c013f9e20600db8eece33a7963977fadae25e782782d886219bbdd3fdfbe9"
+      }
+    },
+    {
+      "contract_id_or_proposed_new_id": "PL13-268-NPC-AGE-CHRONOLOGY-ELIGIBILITY-PENDING",
+      "lens": 13,
+      "canonical_owner_or_explicit_unresolved_owner_question": "Actualcanonicalbirth/effectiveage/cachematerialization beforeNPC housing/romance eligibility",
+      "first_failed_contract_or_unresolved_question": "Actual stationary109\u2192lifecycle130\u2192age62 andconstructor2202/2210/2445 qualifiesrealpostclock cache coherence. Nativeensure_character_time99 usesofficialminute; initializeroptionsSome overridesat2453, NonebirthbaselineZERO needsactualordinaryNPCpolicyproducer/initialageintent. Thisisremainingboundedinitializationquestion, notnewstaleagerollwitness.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "original": null,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/stationary.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "4b9f686e5eb3dc2600ce935086991c271678c71692415cfb58c056a74883caf2",
+          "actual_EOF": 263,
+          "assessed_ranges": [
+            [
+              1,
+              263
+            ]
+          ],
+          "read_pointer": "/connected/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-274-CONNECTED.json",
+            "sha256": "ef91984aa2aa6e3c22bc62f64259dfb3b81561ea1f13edfe1654e65db17ae25a"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Own Lens13 exactregisteredselectedbody; originalfuture0early, nohistoricalvarianttransfer"
+        },
+        {
+          "original": null,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "517f93978b1b2a9fe9debaaa7d6386aa3200cda88348cd23a9ef6e5e94b5004a",
+          "actual_EOF": 3985,
+          "assessed_ranges": [
+            [
+              85,
+              103
+            ],
+            [
+              1882,
+              2067
+            ],
+            [
+              2166,
+              2787
+            ]
+          ],
+          "read_pointer": "/connected/1",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-274-CONNECTED.json",
+            "sha256": "ef91984aa2aa6e3c22bc62f64259dfb3b81561ea1f13edfe1654e65db17ae25a"
+          },
+          "registration_pointer": "/sources/1",
+          "read_attribution": "Own Lens13 exactregisteredselectedbody; originalfuture0early, nohistoricalvarianttransfer"
+        }
+      ],
+      "read_pointer": "/connected/0",
+      "status_proposed": "Canonicalpostwrite/actualstationaryagechain sourcequalified; initialNone-vsSome policy/caller scope remains conditional",
+      "remaining_evidence": [
+        "ActualsupportedNPCpolicy creators anddefaultinitialminute/birthcache semantics (e.g ordinarypopulation/Newborn) beforeclosinginitializationconditional; genericfullCharacter publicfieldinjections excluded.",
+        "Own currentrevision/exactaliases afterboundedfrozenchain, nootherlensbodytransfer."
+      ],
+      "dependencies": [
+        "Native time lifecycle andpersistedstate admission"
+      ],
+      "closure_condition": [
+        "Fullydocumentactualsupportedscope/rejection/conditionalpolicy withremaining current/alias distinctions; runtime/repairs notneeded tofinishdiscovery."
+      ],
+      "later_repair_acceptance_requirements": [
+        "All supportedNPCeligibility usescanonicalpersonal-time age orprovedcoherentcache. No alternateageauthority/obsoleteAPIshim."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": {
+        "same_exact_contract": "PL13-268-NPC-AGE-CHRONOLOGY-ELIGIBILITY-PENDING",
+        "basis": "Sameexact263472clockfallback or268housing282/romance360 owner question; nowactualconnectedproducerbody. Noaliasfromgenericremedy."
+      },
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-274.json",
+        "sha256": "f0185f5acbc845fd573393ea4d4638dba6c693e8a5b8985d1b68144e7a01b896"
+      }
+    },
+    {
+      "contract_id_or_proposed_new_id": "PL13-268-NPC-AGE-CHRONOLOGY-ELIGIBILITY-PENDING",
+      "lens": 13,
+      "canonical_owner_or_explicit_unresolved_owner_question": "Actualcanonicalbirth/effectiveage/cachematerialization beforeNPC housing/romance eligibility",
+      "first_failed_contract_or_unresolved_question": "Actual stationary109\u2192lifecycle130\u2192age62 andconstructor2202/2210/2445 qualifiesrealpostclock cache coherence. Nativeensure_character_time99 usesofficialminute; initializeroptionsSome overridesat2453, NonebirthbaselineZERO needsactualordinaryNPCpolicyproducer/initialageintent. Thisisremainingboundedinitializationquestion, notnewstaleagerollwitness.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "original": 1250,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/model.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "8b5882561331877cca6e022666a6fc03c813375df88bcdda95752cddd3cd1a1e",
+          "actual_EOF": 98,
+          "assessed_ranges": [
+            [
+              1,
+              98
+            ]
+          ],
+          "read_pointer": "/connected/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-275-CONNECTED.json",
+            "sha256": "c466cfed7a385f23ed81b280a7b30ca8b2f387e62e1abe402e5eec959faf09dd"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Own Lens13 exactregisteredselectedbody; originalfuture0early, nohistoricalvarianttransfer"
+        }
+      ],
+      "read_pointer": "/connected/0",
+      "status_proposed": "Canonicalpostwrite/actualstationaryagechain sourcequalified; initialNone-vsSome policy/caller scope remains conditional",
+      "remaining_evidence": [
+        "ActualsupportedNPCpolicy creators anddefaultinitialminute/birthcache semantics (e.g ordinarypopulation/Newborn) beforeclosinginitializationconditional; genericfullCharacter publicfieldinjections excluded.",
+        "Own currentrevision/exactaliases afterboundedfrozenchain, nootherlensbodytransfer."
+      ],
+      "dependencies": [
+        "Native time lifecycle andpersistedstate admission"
+      ],
+      "closure_condition": [
+        "Fullydocumentactualsupportedscope/rejection/conditionalpolicy withremaining current/alias distinctions; runtime/repairs notneeded tofinishdiscovery."
+      ],
+      "later_repair_acceptance_requirements": [
+        "All supportedNPCeligibility usescanonicalpersonal-time age orprovedcoherentcache. No alternateageauthority/obsoleteAPIshim."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": {
+        "same_exact_contract": "PL13-268-NPC-AGE-CHRONOLOGY-ELIGIBILITY-PENDING",
+        "basis": "Sameexact263472clockfallback or268housing282/romance360 owner question; nowactualconnectedproducerbody. Noaliasfromgenericremedy."
+      },
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-275.json",
+        "sha256": "0af9ffefe39fac59702116613194e04b5515c98163cbca1e9671062ff19c3944"
+      }
+    },
+    {
+      "contract_id_or_proposed_new_id": "PL13-268-NPC-AGE-CHRONOLOGY-ELIGIBILITY-PENDING",
+      "lens": 13,
+      "canonical_owner_or_explicit_unresolved_owner_question": "Actualcanonicalbirth/effectiveage/cachematerialization beforeNPC housing/romance eligibility",
+      "first_failed_contract_or_unresolved_question": "Actual stationary109\u2192lifecycle130\u2192age62 andconstructor2202/2210/2445 qualifiesrealpostclock cache coherence. Nativeensure_character_time99 usesofficialminute; initializeroptionsSome overridesat2453, NonebirthbaselineZERO needsactualordinaryNPCpolicyproducer/initialageintent. Thisisremainingboundedinitializationquestion, notnewstaleagerollwitness.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "original": 1251,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/schedule.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "08c054563be5757fc2da0ce95af4c995e5a8f8d1acf549bc5dbc65f2c3443077",
+          "actual_EOF": 741,
+          "assessed_ranges": [
+            [
+              1,
+              741
+            ]
+          ],
+          "read_pointer": "/connected/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-276-CONNECTED.json",
+            "sha256": "6fd7444bad21d1c4d84f361de84e779c41be0eec324ca2fccce19162ce24cdda"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Own Lens13 exactregisteredselectedbody; originalfuture0early, nohistoricalvarianttransfer"
+        }
+      ],
+      "read_pointer": "/connected/0",
+      "status_proposed": "Canonicalpostwrite/actualstationaryagechain sourcequalified; initialNone-vsSome policy/caller scope remains conditional",
+      "remaining_evidence": [
+        "ActualsupportedNPCpolicy creators anddefaultinitialminute/birthcache semantics (e.g ordinarypopulation/Newborn) beforeclosinginitializationconditional; genericfullCharacter publicfieldinjections excluded.",
+        "Own currentrevision/exactaliases afterboundedfrozenchain, nootherlensbodytransfer."
+      ],
+      "dependencies": [
+        "Native time lifecycle andpersistedstate admission"
+      ],
+      "closure_condition": [
+        "Fullydocumentactualsupportedscope/rejection/conditionalpolicy withremaining current/alias distinctions; runtime/repairs notneeded tofinishdiscovery."
+      ],
+      "later_repair_acceptance_requirements": [
+        "All supportedNPCeligibility usescanonicalpersonal-time age orprovedcoherentcache. No alternateageauthority/obsoleteAPIshim."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": {
+        "same_exact_contract": "PL13-268-NPC-AGE-CHRONOLOGY-ELIGIBILITY-PENDING",
+        "basis": "Sameexact263472clockfallback or268housing282/romance360 owner question; nowactualconnectedproducerbody. Noaliasfromgenericremedy."
+      },
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-276.json",
+        "sha256": "8c16d8d57c2c1163c74117bfe1cc76e32b9bf9b99378ae710734421b11cff063"
+      }
+    },
+    {
+      "contract_id_or_proposed_new_id": "PL13-271-WATER-COLLECTION-TERMINAL-PROPAGATION-PENDING",
+      "lens": 13,
+      "canonical_owner_or_explicit_unresolved_owner_question": "collect_fixture_water_into_container536 posttimeadvance completion/terminal result propagation",
+      "first_failed_contract_or_unresolved_question": "Exactsourcechain nowqualified: collect536dropsbool\u2192own273advance6..73writesclock/finish/lifecycle\u2192own243clip/finishdisease1825..2056\u2192new517fCharacterdeath404/422\u2192require_living327Err\u2192collect538propagatesErr. Underactualreducerrollbacklaw thisrollsbackcanonicalterminalprefix. KeepconditionaluntilactualSDKtransactionlaw,currentandordinary5minuteterminalreachability documented; no deadactorwatercommitclaim.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "original": null,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "517f93978b1b2a9fe9debaaa7d6386aa3200cda88348cd23a9ef6e5e94b5004a",
+          "actual_EOF": 3985,
+          "assessed_ranges": [
+            [
+              317,
+              635
+            ]
+          ],
+          "read_pointer": "/connected/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-277-CONNECTED.json",
+            "sha256": "cf8a4e750517689257b1fce466db999c677eeec6071b41e25a8b4d0001e0fffa"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Own Lens13 exactnew frozenvariantselectedbody afterprospective277"
+        },
+        {
+          "original": 1148,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+          "actual_EOF": 2111,
+          "assessed_ranges": [
+            [
+              1,
+              2111
+            ]
+          ],
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-271.json",
+            "sha256": "e959d7e0962a48b4ea6c15b7f2da627a8d497b653ed20d8b145f836b0dfb23af"
+          },
+          "read_pointer": "/rows/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-271.json",
+            "sha256": "b586d704837f2721ccf419119d12ebed44f5bbdacb5b8562e727fc8f1f44efee"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "ExactqualifiedownLens13earlierbody, no rereadclaimedexceptown1093selectedfocusstatedinproof"
+        },
+        {
+          "original": null,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/advancement.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+          "actual_EOF": 582,
+          "assessed_ranges": [
+            [
+              1,
+              582
+            ]
+          ],
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-273.json",
+            "sha256": "2e9c013f9e20600db8eece33a7963977fadae25e782782d886219bbdd3fdfbe9"
+          },
+          "read_pointer": "/connected/2",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-273-CONNECTED.json",
+            "sha256": "d59d65f0c653307c14bf55fa5c217ba9dd75050d9623ca19feed9979b887d194"
+          },
+          "registration_pointer": "/sources/2",
+          "read_attribution": "ExactqualifiedownLens13earlierbody, no rereadclaimedexceptown1093selectedfocusstatedinproof"
+        },
+        {
+          "original": 1093,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+          "actual_EOF": 2950,
+          "assessed_ranges": [
+            [
+              1,
+              2950
+            ]
+          ],
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-243.json",
+            "sha256": "4695633ae1ef7f816444e96628c193b6683cd5aeffe14e5ddaf8257fa22d984e"
+          },
+          "read_pointer": "/rows/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-243.json",
+            "sha256": "b1ac03fb940e2e165f5a19ef779901efa8833c6903b3744aaee2b23986bfdceb"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "ExactqualifiedownLens13earlierbody, no rereadclaimedexceptown1093selectedfocusstatedinproof"
+        }
+      ],
+      "read_pointer": "/rows/0",
+      "status_proposed": "Actualfrozenproducer/terminal/state/consumer chain sourcequalified; nativeSDK/current/witness conditional remains",
+      "remaining_evidence": [
+        "ActualnativeSDK/reducerErrtransactionlaw andactualsupportedexistingcanonicaldiseasefive-minuteterminalpath/currentrevision qualification.",
+        "Exactsamefirstfunction canonicalalias review; noaliasfromcommonterminalremedy."
+      ],
+      "dependencies": [
+        "Actualnative personalclock/injury/disease terminalboundary",
+        "Watercollection immutableplan/receipt andsource-stock conservation"
+      ],
+      "closure_condition": [
+        "Documentfirstfailedcontract andsupportedproducer\u2192nativeboundary orrejectordinarywitness; sourcefinding/conditional/policy/rejection cancloseauditdiscovery independentlyfromrepair/runtimeacceptance."
+      ],
+      "later_repair_acceptance_requirements": [
+        "Incomplete/terminal time interval mustpreservecanonicalterminalclock/state withoutwaterwithdrawal/output/provenancecommit orfabricatedplannedend; completedinterval preservesexactconservation, currentcustody/source/capability revalidation andretry semantics."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": {
+        "same_exact_contract": "PL13-271-WATER-COLLECTION-TERMINAL-PROPAGATION-PENDING",
+        "basis": "Same271collect536firstoperation, nowactualownnativeconsumer/death boundary, no newunique finding."
+      },
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-277.json",
+        "sha256": "33ca840fcf2a21dbcbee16f032e0f9bf4c80b4694551fa41fe96c8cc083bd0c2"
+      }
+    }
+  ],
+  "current_delta_updates": [],
+  "partial_checkpoints": [
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-271-PARTIAL-001.json",
+      "sha256": "3501be6fbe5f8f2354844e2b268b08d4e43951225b1ddf329b69e696968ba79d"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-271-PARTIAL-002.json",
+      "sha256": "3a8ffb0f30611125222c6f1ab4288ab19ec2f183d55b4bf3072244bb29a4aaec"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-274-CONNECTED-PARTIAL-001.json",
+      "sha256": "d46f98d01fbfbfb8d7bc24fb7a26668254dfc50f50984c6368a900b3bec1c126"
+    }
+  ],
+  "necessary_extensions": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/clock.rs",
+      "sha256": "5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 127,
+      "required_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-272-CONNECTED.json",
+        "sha256": "f2b661efce62b191eb99c21c35a42162459b1bf3998514e4b21edc79334a5c50"
+      },
+      "registration_pointer": "/sources/0",
+      "read_pointer": "/connected/0",
+      "reason": "Necessary actualclock/age/timeprimitive contracts for263/268/271 producer\u2192retainedstate\u2192nativeboundary; exactexistingidentity/revision dedup mandatory",
+      "global_source_identity_novelty": "Pending rootglobaldedup, no identitycountinferred",
+      "all_other_lenses_pending": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-272.json",
+        "sha256": "d628d9c238c50ac510f834502a224436340fb0372fe94b4f7bf765c1a497f905"
+      }
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/mod.rs",
+      "sha256": "00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 107,
+      "required_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-273-CONNECTED.json",
+        "sha256": "d59d65f0c653307c14bf55fa5c217ba9dd75050d9623ca19feed9979b887d194"
+      },
+      "registration_pointer": "/sources/1",
+      "read_pointer": "/connected/1",
+      "reason": "Necessary actualclock/age/timeprimitive contracts for263/268/271 producer\u2192retainedstate\u2192nativeboundary; exactexistingidentity/revision dedup mandatory",
+      "global_source_identity_novelty": "Pending rootglobaldedup, no identitycountinferred",
+      "all_other_lenses_pending": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-273.json",
+        "sha256": "2e9c013f9e20600db8eece33a7963977fadae25e782782d886219bbdd3fdfbe9"
+      }
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/advancement.rs",
+      "sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 582,
+      "required_ranges": [
+        [
+          1,
+          582
+        ]
+      ],
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-273-CONNECTED.json",
+        "sha256": "d59d65f0c653307c14bf55fa5c217ba9dd75050d9623ca19feed9979b887d194"
+      },
+      "registration_pointer": "/sources/2",
+      "read_pointer": "/connected/2",
+      "reason": "Necessary actualclock/age/timeprimitive contracts for263/268/271 producer\u2192retainedstate\u2192nativeboundary; exactexistingidentity/revision dedup mandatory",
+      "global_source_identity_novelty": "Pending rootglobaldedup, no identitycountinferred",
+      "all_other_lenses_pending": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-273.json",
+        "sha256": "2e9c013f9e20600db8eece33a7963977fadae25e782782d886219bbdd3fdfbe9"
+      }
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/stationary.rs",
+      "sha256": "4b9f686e5eb3dc2600ce935086991c271678c71692415cfb58c056a74883caf2",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 263,
+      "required_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-274-CONNECTED.json",
+        "sha256": "ef91984aa2aa6e3c22bc62f64259dfb3b81561ea1f13edfe1654e65db17ae25a"
+      },
+      "registration_pointer": "/sources/0",
+      "read_pointer": "/connected/0",
+      "reason": "ActualNPCage/rawcache producer andcanonicalstationarywrite law, exactnewfrozenview/rootglobaldeduppending",
+      "global_source_identity_novelty": "Pending rootglobaldedup; no inferredunique sourcecount",
+      "all_other_lenses_pending": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-274.json",
+        "sha256": "f0185f5acbc845fd573393ea4d4638dba6c693e8a5b8985d1b68144e7a01b896"
+      }
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+      "sha256": "517f93978b1b2a9fe9debaaa7d6386aa3200cda88348cd23a9ef6e5e94b5004a",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 3985,
+      "required_ranges": [
+        [
+          85,
+          103
+        ],
+        [
+          1882,
+          2067
+        ],
+        [
+          2166,
+          2787
+        ]
+      ],
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-274-CONNECTED.json",
+        "sha256": "ef91984aa2aa6e3c22bc62f64259dfb3b81561ea1f13edfe1654e65db17ae25a"
+      },
+      "registration_pointer": "/sources/1",
+      "read_pointer": "/connected/1",
+      "reason": "ActualNPCage/rawcache producer andcanonicalstationarywrite law, exactnewfrozenview/rootglobaldeduppending",
+      "global_source_identity_novelty": "Pending rootglobaldedup; no inferredunique sourcecount",
+      "all_other_lenses_pending": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-274.json",
+        "sha256": "f0185f5acbc845fd573393ea4d4638dba6c693e8a5b8985d1b68144e7a01b896"
+      }
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+      "sha256": "517f93978b1b2a9fe9debaaa7d6386aa3200cda88348cd23a9ef6e5e94b5004a",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 3985,
+      "required_ranges": [
+        [
+          317,
+          635
+        ]
+      ],
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-277-CONNECTED.json",
+        "sha256": "cf8a4e750517689257b1fce466db999c677eeec6071b41e25a8b4d0001e0fffa"
+      },
+      "registration_pointer": "/sources/0",
+      "read_pointer": "/connected/0",
+      "reason": "Necessaryactualnative living/death boundary for271ignoredcompletionbool conditional",
+      "global_source_identity_novelty": "Samequalified517f frozenviewas274, newexactranges only; rootglobaldedup no extraidentity inferred",
+      "all_other_lenses_pending": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-277.json",
+        "sha256": "33ca840fcf2a21dbcbee16f032e0f9bf4c80b4694551fa41fe96c8cc083bd0c2"
+      }
+    }
+  ],
+  "future_same_lens_reuse_proofs": [
+    {
+      "original": 1153,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+      "sha256": "ee9606893c2011c97cecde3bb8bef19e0b6354b96c165b66695c8f9e2b104646",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 200,
+      "assessed_ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "read_pointer": "/connected/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-272-CONNECTED.json",
+        "sha256": "f2b661efce62b191eb99c21c35a42162459b1bf3998514e4b21edc79334a5c50"
+      },
+      "registration_pointer": "/sources/1",
+      "same_lens_only": true,
+      "count_once_when_frontier_reaches": true,
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-272.json",
+        "sha256": "d628d9c238c50ac510f834502a224436340fb0372fe94b4f7bf765c1a497f905"
+      }
+    },
+    {
+      "original": 1157,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/family.rs",
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 267,
+      "assessed_ranges": [
+        [
+          1,
+          267
+        ]
+      ],
+      "read_pointer": "/connected/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-273-CONNECTED.json",
+        "sha256": "d59d65f0c653307c14bf55fa5c217ba9dd75050d9623ca19feed9979b887d194"
+      },
+      "registration_pointer": "/sources/0",
+      "same_lens_only": true,
+      "count_once_when_frontier_reaches": true,
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-273.json",
+        "sha256": "2e9c013f9e20600db8eece33a7963977fadae25e782782d886219bbdd3fdfbe9"
+      }
+    },
+    {
+      "original": 1250,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/model.rs",
+      "sha256": "8b5882561331877cca6e022666a6fc03c813375df88bcdda95752cddd3cd1a1e",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 98,
+      "assessed_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "read_pointer": "/connected/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-275-CONNECTED.json",
+        "sha256": "c466cfed7a385f23ed81b280a7b30ca8b2f387e62e1abe402e5eec959faf09dd"
+      },
+      "registration_pointer": "/sources/0",
+      "same_lens_only": true,
+      "count_once_when_frontier_reaches": true,
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-275.json",
+        "sha256": "0af9ffefe39fac59702116613194e04b5515c98163cbca1e9671062ff19c3944"
+      }
+    },
+    {
+      "original": 1251,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/schedule.rs",
+      "sha256": "08c054563be5757fc2da0ce95af4c995e5a8f8d1acf549bc5dbc65f2c3443077",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 741,
+      "assessed_ranges": [
+        [
+          1,
+          741
+        ]
+      ],
+      "read_pointer": "/connected/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-276-CONNECTED.json",
+        "sha256": "6fd7444bad21d1c4d84f361de84e779c41be0eec324ca2fccce19162ce24cdda"
+      },
+      "registration_pointer": "/sources/0",
+      "same_lens_only": true,
+      "count_once_when_frontier_reaches": true,
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-276.json",
+        "sha256": "8c16d8d57c2c1163c74117bfe1cc76e32b9bf9b99378ae710734421b11cff063"
+      }
+    }
+  ],
+  "proposed_finding_provenance": [],
+  "qualified_same_lens_reuse": [
+    {
+      "application": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-278.json",
+        "sha256": "d8cecd523210ca6a6e9750118651deb8d546c6b99994ad4520ac1031489ef1fe"
+      },
+      "original": 1153,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 200,
+      "assessed_ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "read_pointer": "/connected/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-272-CONNECTED.json",
+        "sha256": "f2b661efce62b191eb99c21c35a42162459b1bf3998514e4b21edc79334a5c50"
+      },
+      "registration_pointer": "/sources/1",
+      "same_lens_only": true,
+      "count_once_when_frontier_reaches": true,
+      "source_sha256": "ee9606893c2011c97cecde3bb8bef19e0b6354b96c165b66695c8f9e2b104646",
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-272.json",
+        "sha256": "d628d9c238c50ac510f834502a224436340fb0372fe94b4f7bf765c1a497f905"
+      },
+      "fresh_personal_assessed_ranges": [],
+      "early_original_credit": 0,
+      "ordered_credit_proposed_now": 1,
+      "git_revision_for_exact_body": "6533e444fa37552927070cc8d8190907fd3b413e"
+    }
+  ],
+  "typed_metadata_components": [
+    {
+      "kind": "own-native1093-full2950-prior-proof-with-honest-focused-reread",
+      "ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/PROOF-PL13-277-OWN1093-TERMINAL-REUSE-001.json",
+        "sha256": "4294cb606c33a2b555c069b5579701165107bdad3deac76016c069490392225f"
+      },
+      "new_body_credit": 0,
+      "original_role_credit": 0
+    }
+  ],
+  "source_adoption_components": [],
+  "source_identity_qualifications": [
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/QUALIFICATION-PL13-274-CHARACTER-FROZEN-VARIANT-001.json",
+      "sha256": "1220ebf34a08922a375e51686c315202aadce75595b33f1cc42d3381f4f3cab3"
+    }
+  ],
+  "qualifications": [
+    "Fivefreshorderedroles1148\u20131152 plusown272future1153countonce\u21921154; sixzerooriginalconnectedproposals serveactualboundedproducer/clock/death/agequestions.",
+    "Exact517fCharacterEOF3985selectedview differsoriginal1079historic806aEOF3983; nohashfallback/bodytransfer.274/277sameidentitydifferentregisteredranges aggregatewithoutoverwritingeither.",
+    "Actual272/273bodyassessmentatfrontier1148between271partials recorded; regularproposedstates1152dependon271completion, no inventedreread.",
+    "Fourfuture1153/1157/1250/1251proofszeroearly;1153orderedapplyonce278onlyafteractualroot272adoptedfutureproof. ClockordinaryErrsuspicionscopedrejection; agecachepostwriteprovenbutinitializationpolicyconditional; waterterminalSDK/current/witnessquestionsnotruntimeclaims.",
+    "Initialmanifestgenerationattempt failedSyntaxError beforeexecuting/writing; thissuccessfulnewmanifest doesnotalterread/registrationbytes orgrantbodycredit."
+  ],
+  "immutable_proposals": [
+    {
+      "batch": 271,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-271.json",
+        "sha256": "e959d7e0962a48b4ea6c15b7f2da627a8d497b653ed20d8b145f836b0dfb23af"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-271.json",
+        "sha256": "d5c916f13e76e92b1d0daf23fa26de7316057858b52159bcd6e30a629834aee6"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-271-PROPOSAL.json",
+        "sha256": "5c685c4601c551b3506decd97e14bec261531caab0a1c57304154bf40e3ed954"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-270-PROPOSAL.json",
+        "sha256": "e07fb4418d1422552b87943e1bccf03def1c3878a115d66541d08c0266bc3919"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-271.json",
+          "sha256": "b586d704837f2721ccf419119d12ebed44f5bbdacb5b8562e727fc8f1f44efee"
+        }
+      ],
+      "proposed_next_original": 1152
+    },
+    {
+      "batch": 272,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-272.json",
+        "sha256": "d628d9c238c50ac510f834502a224436340fb0372fe94b4f7bf765c1a497f905"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-272.json",
+        "sha256": "f1ebe224d1c6b5270bef74856f26ed5a312b455ee442cb5030ecded7844f8aff"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-272-PROPOSAL.json",
+        "sha256": "42327778cb419fd0e5185becd41e7391ca205e3d5f1e4330d0f69170a8299654"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-271-PROPOSAL.json",
+        "sha256": "5c685c4601c551b3506decd97e14bec261531caab0a1c57304154bf40e3ed954"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-272-CONNECTED.json",
+          "sha256": "f2b661efce62b191eb99c21c35a42162459b1bf3998514e4b21edc79334a5c50"
+        }
+      ],
+      "proposed_next_original": 1152
+    },
+    {
+      "batch": 273,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-273.json",
+        "sha256": "2e9c013f9e20600db8eece33a7963977fadae25e782782d886219bbdd3fdfbe9"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-273.json",
+        "sha256": "fe560107f06b6526cf25b38cdc548a00e1675e9bf4fedb3b341f357573a5d592"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-273-PROPOSAL.json",
+        "sha256": "7e6d9dd9c41fd2a66301d60bc180764e717eef795d9866b88942092d7e756f1c"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-272-PROPOSAL.json",
+        "sha256": "42327778cb419fd0e5185becd41e7391ca205e3d5f1e4330d0f69170a8299654"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-273-CONNECTED.json",
+          "sha256": "d59d65f0c653307c14bf55fa5c217ba9dd75050d9623ca19feed9979b887d194"
+        }
+      ],
+      "proposed_next_original": 1152
+    },
+    {
+      "batch": 274,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-274.json",
+        "sha256": "f0185f5acbc845fd573393ea4d4638dba6c693e8a5b8985d1b68144e7a01b896"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-274.json",
+        "sha256": "bcde6a24d8d1dec86bf0df983d395e9d039f2688e20e31d1679cb9b7586fe265"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-274-PROPOSAL.json",
+        "sha256": "99441b683a837e9a3ecb0400b499121a38b5236a31bd147ca754d46630920e8a"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-273-PROPOSAL.json",
+        "sha256": "7e6d9dd9c41fd2a66301d60bc180764e717eef795d9866b88942092d7e756f1c"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-274-CONNECTED.json",
+          "sha256": "ef91984aa2aa6e3c22bc62f64259dfb3b81561ea1f13edfe1654e65db17ae25a"
+        }
+      ],
+      "proposed_next_original": 1152
+    },
+    {
+      "batch": 275,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-275.json",
+        "sha256": "0af9ffefe39fac59702116613194e04b5515c98163cbca1e9671062ff19c3944"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-275.json",
+        "sha256": "6790b5a562085b2df7d2e81d799f404dbb4bdadc5e4a19f5a1047b9fcb436c7d"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-275-PROPOSAL.json",
+        "sha256": "06728462913e5eb6a30b2563b32abd7cccf674114445acc89f4404f506c6f47e"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-274-PROPOSAL.json",
+        "sha256": "99441b683a837e9a3ecb0400b499121a38b5236a31bd147ca754d46630920e8a"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-275-CONNECTED.json",
+          "sha256": "c466cfed7a385f23ed81b280a7b30ca8b2f387e62e1abe402e5eec959faf09dd"
+        }
+      ],
+      "proposed_next_original": 1152
+    },
+    {
+      "batch": 276,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-276.json",
+        "sha256": "8c16d8d57c2c1163c74117bfe1cc76e32b9bf9b99378ae710734421b11cff063"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-276.json",
+        "sha256": "cb4f539190e713da2f1b52d9f40057c298ebe771e68b26abcb8aac2e0a9f2c05"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-276-PROPOSAL.json",
+        "sha256": "e6ede1d248ec3cbbd4c968d70a3b0506ebd1dfaf88f2709a960c4b37a6c6ffb6"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-275-PROPOSAL.json",
+        "sha256": "06728462913e5eb6a30b2563b32abd7cccf674114445acc89f4404f506c6f47e"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-276-CONNECTED.json",
+          "sha256": "6fd7444bad21d1c4d84f361de84e779c41be0eec324ca2fccce19162ce24cdda"
+        }
+      ],
+      "proposed_next_original": 1152
+    },
+    {
+      "batch": 277,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-277.json",
+        "sha256": "33ca840fcf2a21dbcbee16f032e0f9bf4c80b4694551fa41fe96c8cc083bd0c2"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-277.json",
+        "sha256": "cad19aa695b4014997266c11e26b6c2bbedaa0e5623fea50be64779e848bc9bf"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-277-PROPOSAL.json",
+        "sha256": "68bfd28d64188f75138a3c50de934257b5c06ecc9f61f6b875193d1a9df349b7"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-276-PROPOSAL.json",
+        "sha256": "e6ede1d248ec3cbbd4c968d70a3b0506ebd1dfaf88f2709a960c4b37a6c6ffb6"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-277-CONNECTED.json",
+          "sha256": "cf8a4e750517689257b1fce466db999c677eeec6071b41e25a8b4d0001e0fffa"
+        }
+      ],
+      "proposed_next_original": 1152
+    },
+    {
+      "batch": 278,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-278.json",
+        "sha256": "d8cecd523210ca6a6e9750118651deb8d546c6b99994ad4520ac1031489ef1fe"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-278.json",
+        "sha256": "47f301aa1c381a5e2df2d4ea7d104039c938cc18e3ab80aca9cf6231870e89dc"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-278-PROPOSAL.json",
+        "sha256": "cd14b539d84230f31afca8e8ef5fbb5e0ab645f276bb68083e24424e84225f57"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-277-PROPOSAL.json",
+        "sha256": "68bfd28d64188f75138a3c50de934257b5c06ecc9f61f6b875193d1a9df349b7"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-278.json",
+          "sha256": "15c89d0fcc0f59a601f69d13cdb42d54a9e83ecaa44cf6776b6fb5ae0c14e851"
+        }
+      ],
+      "proposed_next_original": 1154
+    }
+  ],
+  "ordered_contract_update_count": 7,
+  "recovery_checkpoint": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-278-PROPOSAL.json",
+    "sha256": "cd14b539d84230f31afca8e8ef5fbb5e0ab645f276bb68083e24424e84225f57"
+  },
+  "recovery_checkpoint_details": {
+    "next_registration": 279,
+    "next_original": 1154,
+    "all_registered_sources_completed": true,
+    "registered_unread_sources": []
+  },
+  "validation_ruleset": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/ROOT-ADOPTION-263-270-PROPOSAL.py",
+    "sha256": "bb0cf04dd9ff1b5f6e53c3abd793da9d4ad79edf87cb399e284ed2b0af25ba3f"
+  },
+  "new_ruleset_delta": {
+    "proposal_path": "target/726-audit-adler-20261027/parallel-l13-20261029/ROOT-ADOPTION-271-278-PROPOSAL.py",
+    "status": "Unexecuted, root inspectbefore defaultreadonlypreflight/apply",
+    "same_bundle_futureproof": "1153planned272full200zeroearly;278applyrequiresactualroot272adoptedfutureproofbeforecountonce"
+  }
+}

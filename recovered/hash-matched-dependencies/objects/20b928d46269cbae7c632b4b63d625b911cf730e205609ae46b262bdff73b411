@@ -1,0 +1,51 @@
+{
+  "at": "2026-10-31T08:24:07.439777+00:00",
+  "registry": {
+    "path": "evidence/audit05/original-scope-072.json",
+    "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "original": 1428,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+  "sha256": "40cfb0af104c5b99efdf25346bf83168023b20c4305655f392ef49dcca1ab584",
+  "actual_eof": 179,
+  "git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "qualified_fields": [
+    "/producer_source_proof/0/ranges"
+  ],
+  "raw_value": [
+    [
+      145,
+      180
+    ]
+  ],
+  "effective_existing_ranges": [
+    [
+      145,
+      179
+    ]
+  ],
+  "nonexistent_tail": [
+    [
+      180,
+      180
+    ]
+  ],
+  "nonexistent_tail_credit": 0,
+  "body_credit": 0,
+  "authority_changes": 0,
+  "inherited_metadata_unchanged": true,
+  "all_nested_range_fields_inspected": true,
+  "other_invalid_range_fields": [],
+  "fresh_root_read": {
+    "path": "adler-continuation-20261030/READ-ROOT-L13-1426-1428-001.json",
+    "sha256": "069f8495ea0f223dc2abd3e1f347040ab55bab66950c6b8c3688da012b9db54f"
+  },
+  "fresh_root_read_pointer": "/ordered/2",
+  "fresh_root_full_scope": [
+    [
+      1,
+      179
+    ]
+  ],
+  "reason": "One exact inherited producer-source range exceeds actual frozen Git EOF by one line. Preserve raw reference; existing145..179 is effective scope. Fresh prospective full1..179 Lens13 read is independent; nonexistent180 and other lenses receive no credit."
+}

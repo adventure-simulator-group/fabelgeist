@@ -1,0 +1,114 @@
+"""Exact Windows path/UTF-8/LF adapter; all historical assertions preserved.
+
+Default executes the full inherited read-only preflight. --apply-all uses the
+same preflight before the exclusive historical writer. No product commands.
+Only the ten exact inspected helper identities can be loaded by this adapter.
+"""
+import ast
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+import sys
+
+sys.dont_write_bytecode = True
+ROOT = Path('target/726-audit-adler-20261027')
+FOLDER = ROOT / 'parallel-l13-20261029'
+HASHES = {
+    'ROOT-ADOPTION-303-310-PROPOSAL.py': '74d79763933be4ccec1b38c707a8b480d29e709aca1dd4640f6902da919e89ca',
+    'ROOT-ADOPTION-295-302-v2-PROPOSAL.py': '353e454ba96e78b4307931e4ff99bd6184417c81ed629fd9ba53da13661e1f58',
+    'ROOT-ADOPTION-287-294-PROPOSAL.py': '07dfde7fe909c5818fd23ec73548b4b2ec2e48a8c6aa76faae7d96d9225cba8c',
+    'ROOT-ADOPTION-279-286-v2-PROPOSAL.py': 'f3eff04b217d57a026bb16932070c7da91ce232661cc387a2be62be9c0b93728',
+    'ROOT-ADOPTION-271-278-v2-PROPOSAL.py': 'a56222e963066516f77c3b7054f94039245e450161e2787527cefe5795760d08',
+    'ROOT-ADOPTION-263-270-PROPOSAL.py': 'bb0cf04dd9ff1b5f6e53c3abd793da9d4ad79edf87cb399e284ed2b0af25ba3f',
+    'ROOT-ADOPTION-255-262-PROPOSAL.py': 'a642cf94fc9845c39a4686d349c11f82e794dc1b5df370eeb39a51b3d089acf8',
+    'ROOT-ADOPTION-247-254-v2-PROPOSAL.py': '279ae415a55da23dacaed6abf0d6395f78026d97d2427d080168386d7e6bba72',
+    'ROOT-ADOPTION-239-246-v4-PROPOSAL.py': 'da04926b6eda528445905a91cec5a1307b7147e3b90fe9dc03349414051689dd',
+    'ROOT-ADOPTION-236-238-PROPOSAL.py': '1ee7cbc9f02702ad15deb1f1c068850715528ae3b14973623259c1f25658c9ab',
+}
+ADAPTER = Path(__file__).resolve()
+ADAPTER_REF = {'path': ADAPTER.relative_to(ROOT.resolve()).as_posix(),
+               'sha256': hashlib.sha256(ADAPTER.read_bytes()).hexdigest()}
+original_spec = importlib.util.spec_from_file_location
+transforms = {}
+
+def portable_str(value):
+    return value.as_posix() if isinstance(value, Path) else str(value)
+
+class Portable(ast.NodeTransformer):
+    def __init__(self, name):
+        self.name = name
+        self.count = 0
+        self.writer_count = 0
+        self.receipt_count = 0
+
+    def visit_Call(self, node):
+        self.generic_visit(node)
+        if isinstance(node.func, ast.Name) and node.func.id == 'str':
+            assert len(node.args) == 1 and not node.keywords
+            node.func.id = '_portable_str'
+            self.count += 1
+        if self.name == 'ROOT-ADOPTION-236-238-PROPOSAL.py' and ast.unparse(node) == "Path(path).open('x')":
+            node.keywords.extend([ast.keyword(arg='encoding', value=ast.Constant('utf-8')),
+                                  ast.keyword(arg='newline', value=ast.Constant('\n'))])
+            self.writer_count += 1
+        return node
+
+    def visit_Assign(self, node):
+        self.generic_visit(node)
+        if self.name == 'ROOT-ADOPTION-236-238-PROPOSAL.py' and len(node.targets) == 1 and isinstance(node.targets[0], ast.Name) and node.targets[0].id == 'receipt':
+            assert isinstance(node.value, ast.Dict)
+            node.value.keys.append(ast.Constant('execution_adapter'))
+            node.value.values.append(ast.Name(id='_execution_adapter_ref', ctx=ast.Load()))
+            self.receipt_count += 1
+        return node
+
+def source_tree(path):
+    path = Path(path)
+    assert path.resolve().parent == FOLDER.resolve() and path.name in HASHES
+    body = path.read_bytes()
+    assert hashlib.sha256(body).hexdigest() == HASHES[path.name]
+    original = ast.parse(body, filename=str(path))
+    original_assertions = sum(isinstance(n, ast.Assert) for n in ast.walk(original))
+    adapter = Portable(path.name)
+    tree = ast.fix_missing_locations(adapter.visit(original))
+    assert sum(isinstance(n, ast.Assert) for n in ast.walk(tree)) == original_assertions
+    if path.name == 'ROOT-ADOPTION-236-238-PROPOSAL.py':
+        assert adapter.writer_count == adapter.receipt_count == 1
+    else:
+        assert adapter.writer_count == adapter.receipt_count == 0
+    transforms[path.name] = {'path_string_calls': adapter.count,
+                             'assertions_preserved': original_assertions,
+                             'exclusive_lf_writers': adapter.writer_count,
+                             'additive_adapter_receipt_fields': adapter.receipt_count}
+    return compile(tree, str(path), 'exec')
+
+class ExactLoader:
+    def __init__(self, path):
+        self.path = Path(path)
+
+    def create_module(self, spec):
+        return None
+
+    def exec_module(self, module):
+        module.__dict__.update(_portable_str=portable_str,
+                               _execution_adapter_ref=ADAPTER_REF)
+        exec(source_tree(self.path), module.__dict__)
+
+def exact_spec(name, location, *args, **kwargs):
+    assert not args and not kwargs
+    path = Path(location)
+    assert path.resolve().parent == FOLDER.resolve() and path.name in HASHES
+    return original_spec(name, path, loader=ExactLoader(path))
+
+if __name__ == '__main__':
+    assert sys.argv[1:] in ([], ['--apply-all'])
+    importlib.util.spec_from_file_location = exact_spec
+    entry = FOLDER / 'ROOT-ADOPTION-303-310-PROPOSAL.py'
+    try:
+        exec(source_tree(entry), {'__name__': '__main__', '__file__': str(entry),
+                                '_portable_str': portable_str,
+                                '_execution_adapter_ref': ADAPTER_REF})
+    finally:
+        importlib.util.spec_from_file_location = original_spec
+        print(json.dumps({'execution_adapter': ADAPTER_REF, 'transforms': transforms}))

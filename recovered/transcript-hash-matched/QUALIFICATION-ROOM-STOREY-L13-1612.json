@@ -1,0 +1,53 @@
+{
+  "schema": "726-current-source-qualification-v1",
+  "at": "2026-11-04T10:09:20.907572+00:00",
+  "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "project_registrations": [
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-CUSTODY-OWNER-L6-1612.json",
+      "sha256": "3a0e9faf6104301aa9b3c460fa3537bea09edf189ba4c7f29d9a9f7f3f1563ce"
+    },
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-CHAR-CUSTODY-L6-1610.json",
+      "sha256": "5a6159b5b443c39ee7c8dca2e2d4169a81410212690690c3eb58d985df56c922"
+    }
+  ],
+  "project_observations": [
+    {
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-CUSTODY-OWNER-L6-1612.json",
+        "sha256": "3a0e9faf6104301aa9b3c460fa3537bea09edf189ba4c7f29d9a9f7f3f1563ce"
+      },
+      "row_index": 0,
+      "ranges": [
+        [
+          147,
+          175
+        ],
+        [
+          198,
+          230
+        ]
+      ],
+      "tool": "Read registered frozen source after registration"
+    },
+    {
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-CHAR-CUSTODY-L6-1610.json",
+        "sha256": "5a6159b5b443c39ee7c8dca2e2d4169a81410212690690c3eb58d985df56c922"
+      },
+      "row_index": 1,
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "tool": "Read registered frozen source after registration"
+    }
+  ],
+  "native_registrations": [],
+  "native_observations": [],
+  "body_output_truncated": false,
+  "whole_contract_closed": false
+}

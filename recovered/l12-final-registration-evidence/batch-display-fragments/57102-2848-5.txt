@@ -1,0 +1,22 @@
+7: const TIMBER_UPPER_FLOOR_SURFACE_OFFSET_METRES: f32 = 0.08;
+8: const TIMBER_CEILING_JOIST_ZONE_METRES: f32 = 0.50;
+9: 
+10: fn resolved_wall_vertical_span(
+11:     material: crate::WallMaterialClass,
+12:     level: u16,
+13:     base: f32,
+14:     height: f32,
+15: ) -> (f32, f32) {
+16:     if material != crate::WallMaterialClass::InternalTimber {
+17:         return (base, height);
+18:     }
+19:     let floor_offset = if level > 0 {
+20:         TIMBER_UPPER_FLOOR_SURFACE_OFFSET_METRES
+21:     } else {
+22:         0.0
+23:     };
+24:     (
+25:         base + floor_offset,
+26:         height - floor_offset - TIMBER_CEILING_JOIST_ZONE_METRES,
+27:     )
+28: }

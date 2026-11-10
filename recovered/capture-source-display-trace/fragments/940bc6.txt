@@ -1,0 +1,450 @@
+SOURCE crates/adventuresim-building-generator/src/bin/building-lod-viewer/capture.rs 193a12a2c36dfda21c1bb0fee7ab76329815ff4223900cd65d4ae49d013bf6a6
+183: 
+184: #[derive(Clone, Debug, Serialize)]
+185: struct CaptureRecord {
+186:     sample_index: usize,
+187:     screenshot: String,
+188:     frame_index: u64,
+189:     camera_position: [f32; 3],
+190:     camera_target: [f32; 3],
+191:     distance_metres: f32,
+192:     azimuth_degrees: f32,
+193:     settled_frames: u32,
+194:     prime_readbacks: u8,
+195:     capture_attempt: u8,
+196:     pixel_hash: String,
+197:     non_clear_pixel_bps: u32,
+198:     crown_diagnostic_screenshot: String,
+199:     crown_pixel_count: u32,
+200:     crown_pixel_bps: u32,
+201: }
+202: 
+203: #[derive(Clone, Debug, Serialize)]
+204: struct TemporalReadback {
+205:     sample_index: usize,
+206:     repeat_index: u8,
+207:     screenshot: String,
+208:     frame_index: u64,
+209:     pixel_hash: String,
+210:     non_clear_pixel_bps: u32,
+211: }
+212: 
+213: #[derive(Clone, Debug, Serialize)]
+214: struct ContinuousReadback {
+215:     sample_index: usize,
+216:     screenshot: String,
+217:     requested_frame_index: u64,
+218:     completed_frame_index: u64,
+219:     camera_position: [f32; 3],
+220:     camera_target: [f32; 3],
+221:     distance_metres: f32,
+222:     azimuth_degrees: f32,
+223:     pixel_hash: String,
+224:     non_clear_pixel_bps: u32,
+225: }
+226: 
+227: #[derive(Clone, Debug, Serialize)]
+228: struct ContinuousCrownReadback {
+229:     sample_index: usize,
+230:     screenshot: String,
+231:     requested_frame_index: u64,
+232:     completed_frame_index: u64,
+233:     distance_metres: f32,
+234:     crown_pixel_count: u32,
+235:     crown_pixel_bps: u32,
+236: }
+237: 
+238: #[derive(Clone, Debug, Serialize)]
+239: struct DiscardedReadback {
+240:     sample_index: usize,
+241:     screenshot: String,
+242:     frame_index: u64,
+243:     capture_attempt: u8,
+244:     reason: &'static str,
+245:     pixel_hash: String,
+246:     non_clear_pixel_bps: u32,
+247: }
+248: 
+249: #[derive(Serialize)]
+250: struct CaptureManifest<'a> {
+251:     schema: u32,
+252:     pipeline: &'static str,
+253:     status: &'static str,
+254:     fixture: &'a str,
+255:     seed: Seed,
+256:     lod: &'static str,
+257:     revision: &'a str,
+258:     dirty_state: &'a str,
+259:     width: u32,
+260:     height: u32,
+261:     alpha_mode: &'static str,
+386:             let repeat_index = state.prime_readbacks + 1;
+387:             let screenshot =
+388:                 format!("shell-traversal-{sample_index:02}-temporal-{repeat_index:02}.png");
+389:             let path = state.output.join(&screenshot);
+390:             commands.spawn(Screenshot::primary_window()).observe(
+391:                 move |captured: On<ScreenshotCaptured>, mut state: ResMut<ShellCaptureConfig>| {
+392:                     let bytes = captured.image.data.as_deref().unwrap_or(&[]);
+393:                     let pixel_hash = format!("{:016x}", stable_hash(bytes));
+394:                     let non_clear_pixel_bps = non_clear_pixel_bps(bytes);
+395:                     if non_clear_pixel_bps < 25
+396:                         && state.capture_attempt < MAX_CAPTURE_ATTEMPTS_PER_POSE
+397:                     {
+398:                         let discarded_screenshot = format!(
+399:                             "shell-traversal-{sample_index:02}-discarded-temporal-attempt-{:02}.png",
+400:                             state.capture_attempt
+401:                         );
+402:                         save_to_disk(state.output.join(&discarded_screenshot))(captured);
+403:                         let frame_index = state.frame_index;
+404:                         let capture_attempt = state.capture_attempt;
+405:                         state.discarded_readbacks.push(DiscardedReadback {
+406:                             sample_index,
+407:                             screenshot: discarded_screenshot,
+408:                             frame_index,
+409:                             capture_attempt,
+410:                             reason: "startup_or_clear_temporal_readback_below_25_bps",
+411:                             pixel_hash,
+412:                             non_clear_pixel_bps,
+413:                         });
+414:                         state.capture_attempt += 1;
+415:                         state.settled = 0;
+416:                         state.readback_in_flight = false;
+417:                         state.phase = CapturePhase::Settle;
+418:                         return;
+419:                     }
+420:                     save_to_disk(&path)(captured);
+421:                     let frame_index = state.frame_index;
+422:                     state.temporal_readbacks.push(TemporalReadback {
+423:                         sample_index,
+424:                         repeat_index,
+425:                         screenshot: screenshot.clone(),
+426:                         frame_index,
+427:                         pixel_hash,
+428:                         non_clear_pixel_bps,
+429:                     });
+430:                     state.prime_readbacks += 1;
+431:                     state.readback_in_flight = false;
+432:                 },
+433:             );
+434:         }
+462: fn request_final_readback(commands: &mut Commands, state: &mut ShellCaptureConfig) {
+463:     if state.readback_in_flight {
+464:         return;
+465:     }
+466:     state.readback_in_flight = true;
+467:     let sample_index = state.sample_index;
+468:     let pose = state.poses[sample_index];
+469:     let screenshot = format!("shell-traversal-{sample_index:02}.png");
+470:     commands.spawn(Screenshot::primary_window()).observe(
+471:         move |captured: On<ScreenshotCaptured>, mut state: ResMut<ShellCaptureConfig>| {
+472:             let bytes = captured.image.data.as_deref().unwrap_or(&[]);
+473:             let non_clear_pixel_bps = non_clear_pixel_bps(bytes);
+474:             let pixel_hash = format!("{:016x}", stable_hash(bytes));
+475:             if non_clear_pixel_bps < 25 && state.capture_attempt < MAX_CAPTURE_ATTEMPTS_PER_POSE {
+476:                 let discarded_screenshot = format!(
+477:                     "shell-traversal-{sample_index:02}-discarded-attempt-{:02}.png",
+478:                     state.capture_attempt
+479:                 );
+480:                 save_to_disk(state.output.join(&discarded_screenshot))(captured);
+481:                 let frame_index = state.frame_index;
+482:                 let capture_attempt = state.capture_attempt;
+483:                 state.discarded_readbacks.push(DiscardedReadback {
+484:                     sample_index,
+485:                     screenshot: discarded_screenshot,
+486:                     frame_index,
+487:                     capture_attempt,
+488:                     reason: "startup_or_clear_readback_below_25_bps",
+489:                     pixel_hash,
+490:                     non_clear_pixel_bps,
+491:                 });
+492:                 state.capture_attempt += 1;
+493:                 state.settled = 0;
+494:                 state.prime_readbacks = 0;
+495:                 state.readback_in_flight = false;
+496:                 state.phase = CapturePhase::Settle;
+497:                 return;
+498:             }
+499:             let record = CaptureRecord {
+500:                 sample_index,
+501:                 screenshot: screenshot.clone(),
+502:                 frame_index: state.frame_index,
+503:                 camera_position: pose.position.to_array(),
+504:                 camera_target: pose.target.to_array(),
+505:                 distance_metres: pose.distance_metres,
+506:                 azimuth_degrees: pose.azimuth_degrees,
+507:                 settled_frames: state.settle_frames,
+508:                 prime_readbacks: state.prime_readbacks,
+509:                 capture_attempt: state.capture_attempt,
+510:                 pixel_hash,
+511:                 non_clear_pixel_bps,
+512:                 crown_diagnostic_screenshot: String::new(),
+513:                 crown_pixel_count: 0,
+514:                 crown_pixel_bps: 0,
+515:             };
+516:             save_to_disk(state.output.join(&screenshot))(captured);
+517:             state.records.push(record);
+518:             state.readback_in_flight = false;
+519:             state.phase = CapturePhase::Diagnostic;
+520:         },
+521:     );
+522: }
+561: fn request_continuous_readbacks(
+562:     commands: &mut Commands,
+563:     state: &mut ShellCaptureConfig,
+564:     camera: &mut Transform,
+565:     diagnostic_camera: &mut Transform,
+566:     diagnostic_target: &Handle<Image>,
+567: ) {
+568:     if state.continuous_index >= state.poses.len() {
+569:         state.phase = CapturePhase::ContinuousDrain;
+570:         return;
+571:     }
+572:     let sample_index = state.continuous_index;
+573:     let pose = state.poses[sample_index];
+574:     *camera = Transform::from_translation(pose.position).looking_at(pose.target, Vec3::Y);
+575:     *diagnostic_camera =
+576:         Transform::from_translation(pose.position).looking_at(pose.target, Vec3::Y);
+577:     let requested_frame_index = state.frame_index;
+578: 
+579:     let screenshot = format!("shell-motion-{sample_index:02}.png");
+580:     let path = state.output.join(&screenshot);
+581:     commands.spawn(Screenshot::primary_window()).observe(
+582:         move |captured: On<ScreenshotCaptured>, mut state: ResMut<ShellCaptureConfig>| {
+583:             let bytes = captured.image.data.as_deref().unwrap_or(&[]);
+584:             let record = ContinuousReadback {
+585:                 sample_index,
+586:                 screenshot: screenshot.clone(),
+587:                 requested_frame_index,
+588:                 completed_frame_index: state.frame_index,
+589:                 camera_position: pose.position.to_array(),
+590:                 camera_target: pose.target.to_array(),
+591:                 distance_metres: pose.distance_metres,
+592:                 azimuth_degrees: pose.azimuth_degrees,
+593:                 pixel_hash: format!("{:016x}", stable_hash(bytes)),
+594:                 non_clear_pixel_bps: non_clear_pixel_bps(bytes),
+595:             };
+596:             save_to_disk(&path)(captured);
+597:             state.continuous_readbacks.push(record);
+598:         },
+599:     );
+600: 
+601:     let crown_screenshot = format!("shell-motion-{sample_index:02}-crown-diagnostic.png");
+602:     let crown_path = state.output.join(&crown_screenshot);
+603:     commands
+604:         .spawn(Screenshot::image(diagnostic_target.clone()))
+605:         .observe(
+606:             move |captured: On<ScreenshotCaptured>, mut state: ResMut<ShellCaptureConfig>| {
+607:                 let bytes = captured.image.data.as_deref().unwrap_or(&[]);
+608:                 let crown_pixel_count = diagnostic_pixel_count(bytes);
+609:                 let total_pixels = (bytes.len() / 4).max(1) as u64;
+610:                 let record = ContinuousCrownReadback {
+611:                     sample_index,
+612:                     screenshot: crown_screenshot.clone(),
+613:                     requested_frame_index,
+614:                     completed_frame_index: state.frame_index,
+615:                     distance_metres: pose.distance_metres,
+616:                     crown_pixel_count,
+617:                     crown_pixel_bps: (u64::from(crown_pixel_count) * 10_000 / total_pixels) as u32,
+618:                 };
+619:                 save_to_disk(&crown_path)(captured);
+620:                 state.continuous_crown_readbacks.push(record);
+621:             },
+622:         );
+623:     state.continuous_index += 1;
+639: fn stable_hash(bytes: &[u8]) -> u64 {
+640:     bytes.iter().fold(0xcbf2_9ce4_8422_2325, |hash, byte| {
+641:         (hash ^ u64::from(*byte)).wrapping_mul(0x100_0000_01b3)
+642:     })
+643: }
+644: 
+645: fn non_clear_pixel_bps(bytes: &[u8]) -> u32 {
+646:     if bytes.len() < 4 {
+647:         return 0;
+648:     }
+649:     let clear = [184_i16, 204, 219];
+650:     let non_clear = bytes
+651:         .as_chunks::<4>()
+652:         .0
+653:         .iter()
+654:         .filter(|pixel| {
+655:             (i16::from(pixel[0]) - clear[0]).abs() > 12
+656:                 || (i16::from(pixel[1]) - clear[1]).abs() > 12
+657:                 || (i16::from(pixel[2]) - clear[2]).abs() > 12
+658:         })
+659:         .count();
+660:     (non_clear as u64 * 10_000 / (bytes.len() / 4) as u64) as u32
+661: }
+662: 
+663: fn diagnostic_pixel_count(bytes: &[u8]) -> u32 {
+664:     bytes
+665:         .as_chunks::<4>()
+666:         .0
+667:         .iter()
+668:         .filter(|pixel| pixel[0] > 16 || pixel[1] > 16 || pixel[2] > 16)
+669:         .count() as u32
+670: }
+671: 
+672: fn validation_failures(state: &ShellCaptureConfig) -> Vec<String> {
+673:     let mut failures = Vec::new();
+674:     if state.records.len() != state.poses.len() {
+675:         failures.push(format!(
+676:             "capture count {} != pose count {}",
+677:             state.records.len(),
+678:             state.poses.len()
+679:         ));
+680:     }
+681:     if state.git_head.len() != 40 || !state.git_head.bytes().all(|byte| byte.is_ascii_hexdigit()) {
+682:         failures.push(format!(
+683:             "revision provenance is invalid: {:?}",
+684:             state.git_head
+685:         ));
+686:     }
+687:     if state
+688:         .records
+689:         .windows(2)
+690:         .any(|pair| pair[1].distance_metres <= pair[0].distance_metres)
+691:     {
+692:         failures.push("camera distances are not strictly increasing".to_owned());
+693:     }
+694:     let expected_temporal_readbacks = state.poses.len() * usize::from(PRIME_READBACKS_PER_POSE);
+695:     if state.temporal_readbacks.len() != expected_temporal_readbacks {
+696:         failures.push(format!(
+697:             "temporal readback count {} != expected {}",
+698:             state.temporal_readbacks.len(),
+699:             expected_temporal_readbacks
+700:         ));
+701:     }
+702:     for record in &state.records {
+703:         if record.pixel_hash == "cbf29ce484222325" {
+704:             failures.push(format!(
+705:                 "capture {} has an empty pixel hash",
+706:                 record.sample_index
+707:             ));
+708:         }
+709:         if record.non_clear_pixel_bps < 25 {
+710:             failures.push(format!(
+711:                 "capture {} has only {} bps non-clear pixels",
+712:                 record.sample_index, record.non_clear_pixel_bps
+713:             ));
+714:         }
+715:         if record.prime_readbacks != PRIME_READBACKS_PER_POSE {
+716:             failures.push(format!(
+717:                 "capture {} had {} prime readbacks",
+718:                 record.sample_index, record.prime_readbacks
+719:             ));
+720:         }
+721:         if record.crown_pixel_count == 0 {
+722:             failures.push(format!(
+723:                 "capture {} has no CrownMask diagnostic pixels",
+724:                 record.sample_index
+725:             ));
+726:         }
+727:         let repeats = state
+728:             .temporal_readbacks
+729:             .iter()
+730:             .filter(|readback| readback.sample_index == record.sample_index)
+731:             .collect::<Vec<_>>();
+732:         if repeats.len() == usize::from(PRIME_READBACKS_PER_POSE) {
+733:             if repeats
+734:                 .iter()
+735:                 .any(|readback| readback.pixel_hash != record.pixel_hash)
+736:             {
+737:                 failures.push(format!(
+738:                     "capture {} changed across repeated same-pose GPU readbacks",
+739:                     record.sample_index
+740:                 ));
+741:             }
+742:             if repeats
+743:                 .iter()
+744:                 .any(|readback| readback.non_clear_pixel_bps < 25)
+745:             {
+746:                 failures.push(format!(
+747:                     "capture {} has a blank repeated GPU readback",
+748:                     record.sample_index
+749:                 ));
+750:             }
+751:         }
+752:     }
+753:     for pair in state.records.windows(2) {
+754:         let first =
+755:             f64::from(pair[0].crown_pixel_count) * f64::from(pair[0].distance_metres).powi(2);
+756:         let second =
+757:             f64::from(pair[1].crown_pixel_count) * f64::from(pair[1].distance_metres).powi(2);
+758:         if first > 0.0 {
+759:             let ratio = second / first;
+760:             if !(0.55..=1.80).contains(&ratio) {
+761:                 failures.push(format!(
+762:                     "CrownMask normalized occupancy jumped by ratio {ratio:.3} between samples {} and {}",
+763:                     pair[0].sample_index, pair[1].sample_index
+764:                 ));
+765:             }
+766:         }
+767:     }
+768:     if state.continuous_readbacks.len() != state.poses.len() {
+769:         failures.push(format!(
+770:             "continuous production readback count {} != pose count {}",
+771:             state.continuous_readbacks.len(),
+772:             state.poses.len()
+773:         ));
+774:     }
+775:     if state.continuous_crown_readbacks.len() != state.poses.len() {
+776:         failures.push(format!(
+777:             "continuous CrownMask readback count {} != pose count {}",
+778:             state.continuous_crown_readbacks.len(),
+779:             state.poses.len()
+780:         ));
+781:     }
+782:     let mut continuous = state.continuous_readbacks.iter().collect::<Vec<_>>();
+783:     continuous.sort_by_key(|record| record.sample_index);
+784:     if continuous
+785:         .windows(2)
+786:         .any(|pair| pair[1].requested_frame_index != pair[0].requested_frame_index + 1)
+787:     {
+788:         failures.push(
+789:             "continuous production readbacks were not requested on consecutive frames".to_owned(),
+790:         );
+791:     }
+792:     for record in &continuous {
+793:         if record.non_clear_pixel_bps < 25 {
+794:             failures.push(format!(
+795:                 "continuous production sample {} is blank",
+796:                 record.sample_index
+797:             ));
+798:         }
+799:     }
+800:     let mut continuous_crowns = state.continuous_crown_readbacks.iter().collect::<Vec<_>>();
+801:     continuous_crowns.sort_by_key(|record| record.sample_index);
+802:     if continuous_crowns
+803:         .windows(2)
+804:         .any(|pair| pair[1].requested_frame_index != pair[0].requested_frame_index + 1)
+805:     {
+806:         failures.push(
+807:             "continuous CrownMask readbacks were not requested on consecutive frames".to_owned(),
+808:         );
+809:     }
+810:     for record in &continuous_crowns {
+811:         if record.crown_pixel_count == 0 {
+812:             failures.push(format!(
+813:                 "continuous CrownMask sample {} disappeared",
+814:                 record.sample_index
+815:             ));
+816:         }
+817:     }
+818:     for pair in continuous_crowns.windows(2) {
+819:         let first =
+820:             f64::from(pair[0].crown_pixel_count) * f64::from(pair[0].distance_metres).powi(2);
+821:         let second =
+822:             f64::from(pair[1].crown_pixel_count) * f64::from(pair[1].distance_metres).powi(2);
+823:         if first > 0.0 {
+824:             let ratio = second / first;
+825:             if !(0.55..=1.80).contains(&ratio) {
+826:                 failures.push(format!(
+827:                     "continuous CrownMask normalized occupancy jumped by ratio {ratio:.3} between samples {} and {}",
+828:                     pair[0].sample_index, pair[1].sample_index
+829:                 ));
+830:             }
+831:         }
+832:     }
+833:     failures
+834: }
+835: 

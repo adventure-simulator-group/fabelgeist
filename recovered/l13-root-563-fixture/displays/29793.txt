@@ -1,0 +1,115 @@
+1: //! In-process, fixed-step tactical-server melee duel harness.
+2: 
+3: use fabelgeist_determinism::Seed;
+4: use std::time::Duration;
+5: 
+6: use adventuresim_core::{
+7:     autoresolve::{Combatant, MeleeIterationBuild, body_part_index},
+8:     combat::HUMANOID_COLLISION_RADIUS_METRES,
+9: };
+10: #[cfg(test)]
+11: use adventuresim_core::{
+12:     combat::MeleeContactClassification, item_catalog_schema::EquipmentMaterial,
+13: };
+14: use adventuresim_tactical_core::{
+15:     animation::{AnimationValueResult, NonnegativeLength},
+16:     physics::AdventureSimulatorPhysicsPlugin,
+17:     prelude::*,
+18: };
+19: use adventuresim_tactical_netcode::replication::AdventureSimulatorReplicationPlugin;
+20: use bevy::{prelude::*, time::TimeUpdateStrategy};
+21: 
+22: pub use clock::TacticalElapsed;
+23: use equipment::spawn_equipment;
+24: pub use logging::*;
+25: 
+26: mod clock;
+27: mod equipment;
+28: mod logging;
+29: 
+30: use crate::{
+31:     bot::{BotPlugin, CombatantBehaviorPackages, MissionEnemy},
+32:     combat::CombatPlugin,
+33:     equipment::TacticalEquipmentPlugin,
+34:     player_projection::{
+35:         AuthoritativeMovementIntent, AuthoritativePostureIntent,
+36:         restore_authoritative_movement_intent, trace_authoritative_quickstep_after_collision,
+37:         update_attack_facing_targets, update_character_motion_snapshots,
+38:         update_skeleton_locomotion,
+39:     },
+40: };
+41: 
+42: const TACTICAL_TICK_HZ: u64 = 64;
+43: const TACTICAL_TICK_SECONDS: f32 = 1.0 / TACTICAL_TICK_HZ as f32;
+44: const MAX_DUEL_SECONDS: u64 = 180;
+45: 
+46: pub fn resolve_tactical_server_melee_duel(
+47:     left: &MeleeIterationBuild,
+48:     right: &MeleeIterationBuild,
+49:     seed: Seed,
+50: ) -> AnimationValueResult<TacticalMeleeOutcome> {
+51:     let mut app = tactical_iteration_app(seed);
+52:     let left_entity = spawn_combatant(
+53:         app.world_mut(),
+54:         left,
+55:         TacticalCombatSide::Party,
+56:         Vec3::new(0.0, 0.95, -2.0),
+57:     );
+58:     let right_entity = spawn_combatant(
+59:         app.world_mut(),
+60:         right,
+61:         TacticalCombatSide::Enemy,
+62:         Vec3::new(0.0, 0.95, 2.0),
+63:     );
+64:     let maximum_ticks = MAX_DUEL_SECONDS * TACTICAL_TICK_HZ;
+65:     let mut final_tick = maximum_ticks;
+66:     for tick in 0..maximum_ticks {
+67:         app.world_mut().resource_mut::<IterationClock>().tick = tick;
+68:         app.world_mut()
+69:             .resource_mut::<Time<()>>()
+70:             .advance_by(Duration::from_secs_f32(TACTICAL_TICK_SECONDS));
+71:         app.update();
+72:         let left_down = combatant_defeated(app.world(), left_entity);
+73:         let right_down = combatant_defeated(app.world(), right_entity);
+74:         if left_down || right_down {
+75:             final_tick = tick;
+76:             break;
+77:         }
+78:     }
+79:     let left_down = combatant_defeated(app.world(), left_entity);
+80:     let right_down = combatant_defeated(app.world(), right_entity);
+81:     let resolution = tactical_duel_resolution(left_down, right_down, &left.name, &right.name);
+82:     let final_center_separation_metres = app
+83:         .world()
+84:         .get::<Transform>(left_entity)
+85:         .zip(app.world().get::<Transform>(right_entity))
+86:         .map(|(left, right)| {
+87:             NonnegativeLength::from_metres(left.translation.xz().distance(right.translation.xz()))
+88:         })
+89:         .transpose()?;
+90:     let log = app.world_mut().remove_resource::<IterationLog>().unwrap();
+91:     Ok(TacticalMeleeOutcome {
+92:         seed,
+93:         resolution,
+94:         simulated_ticks: final_tick + 1,
+95:         simulated_seconds: TacticalElapsed::from_tick_count(final_tick + 1),
+96:         initial_center_separation_metres: 4.0,
+97:         final_center_separation_metres,
+98:         attack_starts: log.attack_starts,
+99:         resolved_attacks: log.events.len() as u32,
+100:         events: log.events,
+101:         decision_events: log.decision_events,
+102:         condition_events: log.condition_events,
+103:         wound_events: log.wound_events,
+104:     })
+105: }
+106: 
+107: fn tactical_duel_resolution(
+108:     left_down: bool,
+109:     right_down: bool,
+110:     left_name: &str,
+111:     right_name: &str,
+112: ) -> TacticalDuelResolution {
+113:     match (left_down, right_down) {
+114:         (false, true) => TacticalDuelResolution::Victory {
+115:             victor: left_name.to_owned(),

@@ -1,0 +1,1111 @@
+{
+  "lens": 13,
+  "status": "Exact per-schema partial interval specification, metadata only",
+  "batches": {
+    "303": {
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-303.json",
+        "sha256": "f6f34673078c7e48c4694397982bc57a2cbbe59974aa9c22df63c26aee5b03f9"
+      },
+      "partial_read_union": [
+        {
+          "original": 1221,
+          "earlier_personal_ranges": [
+            [
+              1,
+              460
+            ]
+          ],
+          "fresh_completion_ranges": [
+            [
+              461,
+              687
+            ]
+          ],
+          "cumulative_assessed_ranges": [
+            [
+              1,
+              687
+            ]
+          ],
+          "reread_claimed": false
+        },
+        {
+          "original": 1227,
+          "first_personal_disjoint_range": [
+            [
+              1083,
+              1351
+            ]
+          ],
+          "subsequent_personal_complements": [
+            [
+              1,
+              1082
+            ],
+            [
+              1352,
+              2973
+            ]
+          ],
+          "last_partial_prefix": [
+            [
+              1,
+              2731
+            ]
+          ],
+          "fresh_completion_after_last_partial": [
+            [
+              2732,
+              2973
+            ]
+          ],
+          "cumulative_assessed_ranges": [
+            [
+              1,
+              2973
+            ]
+          ],
+          "reread_claimed": false
+        }
+      ],
+      "checkpoints": [
+        {
+          "receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-303-PARTIAL-001.json",
+            "sha256": "927fd1a041d0197f7576094ca35c1567c0758299ca6c79d756f9100c05a8dce9"
+          },
+          "fields": {
+            "/unread_registered_originals": [
+              {
+                "original": 1221,
+                "ranges": [
+                  [
+                    1,
+                    687
+                  ]
+                ]
+              },
+              {
+                "original": 1227,
+                "ranges": [
+                  [
+                    1,
+                    1082
+                  ],
+                  [
+                    1352,
+                    2973
+                  ]
+                ]
+              }
+            ],
+            "/rows": []
+          },
+          "source_rows": [
+            {
+              "partial_pointer": "/connected/0",
+              "final_pointer": "/connected/0",
+              "registration": {
+                "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-303.json",
+                "sha256": "0700c6d931d11e2aa462beb77ab8adefbb05e12f406f45431ecce5ceb559b720"
+              },
+              "registration_pointer": "/sources/1",
+              "assessed_ranges": [
+                [
+                  1083,
+                  1351
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-303-PARTIAL-002.json",
+            "sha256": "33d5fc1658e4b1f0ddcbdc8fa8023140c8316027d5b4a0af7bd0b5f3d2fc0d4e"
+          },
+          "fields": {
+            "/unread_registered_originals": [
+              {
+                "original": 1221,
+                "ranges": [
+                  [
+                    461,
+                    687
+                  ]
+                ]
+              },
+              {
+                "original": 1227,
+                "ranges": [
+                  [
+                    1,
+                    1082
+                  ],
+                  [
+                    1352,
+                    2973
+                  ]
+                ]
+              }
+            ],
+            "/fresh_personal_ranges_this_checkpoint": {
+              "1221": [
+                [
+                  1,
+                  460
+                ]
+              ],
+              "1227": []
+            },
+            "/rows": [
+              {
+                "original": 1221,
+                "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs",
+                "sha256": "9fc4780022d9229014f92e14ea895c8d0a07a7aca3cbb61dbe87957cc6190c7e",
+                "object_path": "target/726-audit-adler-20261027/parallel-l13-20261029/objects/9fc4780022d9229014f92e14ea895c8d0a07a7aca3cbb61dbe87957cc6190c7e",
+                "actual_eof": 687,
+                "prospective_ranges": [
+                  [
+                    1,
+                    687
+                  ]
+                ],
+                "scope_kind": "affected_unchanged_reached_contract",
+                "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+                "purpose": "Own ordered hostile negotiation and necessary actual resident-led party/offer and clock producers; full future proof only after all personally assessed, zero early credit",
+                "fresh_personal_assessed_ranges": [
+                  [
+                    1,
+                    460
+                  ]
+                ],
+                "untruncated_body_outputs": true
+              }
+            ]
+          },
+          "source_rows": [
+            {
+              "partial_pointer": "/rows/0",
+              "final_pointer": "/rows/0",
+              "registration": {
+                "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-303.json",
+                "sha256": "0700c6d931d11e2aa462beb77ab8adefbb05e12f406f45431ecce5ceb559b720"
+              },
+              "registration_pointer": "/sources/0",
+              "assessed_ranges": [
+                [
+                  1,
+                  460
+                ]
+              ]
+            },
+            {
+              "partial_pointer": "/connected/0",
+              "final_pointer": "/connected/0",
+              "registration": {
+                "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-303.json",
+                "sha256": "0700c6d931d11e2aa462beb77ab8adefbb05e12f406f45431ecce5ceb559b720"
+              },
+              "registration_pointer": "/sources/1",
+              "assessed_ranges": [
+                [
+                  1083,
+                  1351
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-303-PARTIAL-003.json",
+            "sha256": "e86a06efa74c1d8159e4cb0cf4922dfc0b2b91640611482813218665bc3a7858"
+          },
+          "fields": {
+            "/unread_registered_originals": [
+              {
+                "original": 1227,
+                "ranges": [
+                  [
+                    461,
+                    1082
+                  ],
+                  [
+                    1352,
+                    2973
+                  ]
+                ]
+              }
+            ],
+            "/fresh_personal_ranges_this_checkpoint": {
+              "1221": [
+                [
+                  461,
+                  687
+                ]
+              ],
+              "1227": [
+                [
+                  1,
+                  460
+                ]
+              ]
+            },
+            "/rows": [
+              {
+                "original": 1221,
+                "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs",
+                "sha256": "9fc4780022d9229014f92e14ea895c8d0a07a7aca3cbb61dbe87957cc6190c7e",
+                "object_path": "target/726-audit-adler-20261027/parallel-l13-20261029/objects/9fc4780022d9229014f92e14ea895c8d0a07a7aca3cbb61dbe87957cc6190c7e",
+                "actual_eof": 687,
+                "prospective_ranges": [
+                  [
+                    1,
+                    687
+                  ]
+                ],
+                "scope_kind": "affected_unchanged_reached_contract",
+                "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+                "purpose": "Own ordered hostile negotiation and necessary actual resident-led party/offer and clock producers; full future proof only after all personally assessed, zero early credit",
+                "fresh_personal_assessed_ranges": [
+                  [
+                    1,
+                    687
+                  ]
+                ],
+                "untruncated_body_outputs": true
+              }
+            ]
+          },
+          "source_rows": [
+            {
+              "partial_pointer": "/rows/0",
+              "final_pointer": "/rows/0",
+              "registration": {
+                "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-303.json",
+                "sha256": "0700c6d931d11e2aa462beb77ab8adefbb05e12f406f45431ecce5ceb559b720"
+              },
+              "registration_pointer": "/sources/0",
+              "assessed_ranges": [
+                [
+                  1,
+                  687
+                ]
+              ]
+            },
+            {
+              "partial_pointer": "/connected/0",
+              "final_pointer": "/connected/0",
+              "registration": {
+                "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-303.json",
+                "sha256": "0700c6d931d11e2aa462beb77ab8adefbb05e12f406f45431ecce5ceb559b720"
+              },
+              "registration_pointer": "/sources/1",
+              "assessed_ranges": [
+                [
+                  1,
+                  460
+                ],
+                [
+                  1083,
+                  1351
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-303-PARTIAL-004.json",
+            "sha256": "10bf6a82cd085edafd1744df988f77e08d44194bcdd7bf53c7a55ef491361dae"
+          },
+          "fields": {
+            "/unread_registered_originals": [
+              {
+                "original": 1227,
+                "ranges": [
+                  [
+                    1352,
+                    2973
+                  ]
+                ]
+              }
+            ],
+            "/fresh_personal_ranges_this_checkpoint": {
+              "1221": [],
+              "1227": [
+                [
+                  461,
+                  1082
+                ]
+              ]
+            },
+            "/rows": [
+              {
+                "original": 1221,
+                "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs",
+                "sha256": "9fc4780022d9229014f92e14ea895c8d0a07a7aca3cbb61dbe87957cc6190c7e",
+                "object_path": "target/726-audit-adler-20261027/parallel-l13-20261029/objects/9fc4780022d9229014f92e14ea895c8d0a07a7aca3cbb61dbe87957cc6190c7e",
+                "actual_eof": 687,
+                "prospective_ranges": [
+                  [
+                    1,
+                    687
+                  ]
+                ],
+                "scope_kind": "affected_unchanged_reached_contract",
+                "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+                "purpose": "Own ordered hostile negotiation and necessary actual resident-led party/offer and clock producers; full future proof only after all personally assessed, zero early credit",
+                "fresh_personal_assessed_ranges": [
+                  [
+                    1,
+                    687
+                  ]
+                ],
+                "untruncated_body_outputs": true
+              }
+            ]
+          },
+          "source_rows": [
+            {
+              "partial_pointer": "/rows/0",
+              "final_pointer": "/rows/0",
+              "registration": {
+                "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-303.json",
+                "sha256": "0700c6d931d11e2aa462beb77ab8adefbb05e12f406f45431ecce5ceb559b720"
+              },
+              "registration_pointer": "/sources/0",
+              "assessed_ranges": [
+                [
+                  1,
+                  687
+                ]
+              ]
+            },
+            {
+              "partial_pointer": "/connected/0",
+              "final_pointer": "/connected/0",
+              "registration": {
+                "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-303.json",
+                "sha256": "0700c6d931d11e2aa462beb77ab8adefbb05e12f406f45431ecce5ceb559b720"
+              },
+              "registration_pointer": "/sources/1",
+              "assessed_ranges": [
+                [
+                  1,
+                  1351
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-303-PARTIAL-005.json",
+            "sha256": "7fcee32ac4eaa6f256b67b1c12d727e3c821d36b0f4b2f1190210e334e55ac2d"
+          },
+          "fields": {
+            "/unread_registered_originals": [
+              {
+                "original": 1227,
+                "ranges": [
+                  [
+                    1812,
+                    2973
+                  ]
+                ]
+              }
+            ],
+            "/fresh_personal_ranges_this_checkpoint": {
+              "1221": [],
+              "1227": [
+                [
+                  1352,
+                  1811
+                ]
+              ]
+            },
+            "/rows": [
+              {
+                "original": 1221,
+                "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs",
+                "sha256": "9fc4780022d9229014f92e14ea895c8d0a07a7aca3cbb61dbe87957cc6190c7e",
+                "object_path": "target/726-audit-adler-20261027/parallel-l13-20261029/objects/9fc4780022d9229014f92e14ea895c8d0a07a7aca3cbb61dbe87957cc6190c7e",
+                "actual_eof": 687,
+                "prospective_ranges": [
+                  [
+                    1,
+                    687
+                  ]
+                ],
+                "scope_kind": "affected_unchanged_reached_contract",
+                "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+                "purpose": "Own ordered hostile negotiation and necessary actual resident-led party/offer and clock producers; full future proof only after all personally assessed, zero early credit",
+                "fresh_personal_assessed_ranges": [
+                  [
+                    1,
+                    687
+                  ]
+                ],
+                "untruncated_body_outputs": true
+              }
+            ]
+          },
+          "source_rows": [
+            {
+              "partial_pointer": "/rows/0",
+              "final_pointer": "/rows/0",
+              "registration": {
+                "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-303.json",
+                "sha256": "0700c6d931d11e2aa462beb77ab8adefbb05e12f406f45431ecce5ceb559b720"
+              },
+              "registration_pointer": "/sources/0",
+              "assessed_ranges": [
+                [
+                  1,
+                  687
+                ]
+              ]
+            },
+            {
+              "partial_pointer": "/connected/0",
+              "final_pointer": "/connected/0",
+              "registration": {
+                "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-303.json",
+                "sha256": "0700c6d931d11e2aa462beb77ab8adefbb05e12f406f45431ecce5ceb559b720"
+              },
+              "registration_pointer": "/sources/1",
+              "assessed_ranges": [
+                [
+                  1,
+                  1811
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-303-PARTIAL-006.json",
+            "sha256": "0318a69a1286e66f703acceecab8cc65d9cd6c52bac8d906401946f5e3856973"
+          },
+          "fields": {
+            "/unread_registered_originals": [
+              {
+                "original": 1227,
+                "ranges": [
+                  [
+                    2272,
+                    2973
+                  ]
+                ]
+              }
+            ],
+            "/fresh_personal_ranges_this_checkpoint": {
+              "1221": [],
+              "1227": [
+                [
+                  1812,
+                  2271
+                ]
+              ]
+            },
+            "/rows": [
+              {
+                "original": 1221,
+                "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs",
+                "sha256": "9fc4780022d9229014f92e14ea895c8d0a07a7aca3cbb61dbe87957cc6190c7e",
+                "object_path": "target/726-audit-adler-20261027/parallel-l13-20261029/objects/9fc4780022d9229014f92e14ea895c8d0a07a7aca3cbb61dbe87957cc6190c7e",
+                "actual_eof": 687,
+                "prospective_ranges": [
+                  [
+                    1,
+                    687
+                  ]
+                ],
+                "scope_kind": "affected_unchanged_reached_contract",
+                "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+                "purpose": "Own ordered hostile negotiation and necessary actual resident-led party/offer and clock producers; full future proof only after all personally assessed, zero early credit",
+                "fresh_personal_assessed_ranges": [
+                  [
+                    1,
+                    687
+                  ]
+                ],
+                "untruncated_body_outputs": true
+              }
+            ]
+          },
+          "source_rows": [
+            {
+              "partial_pointer": "/rows/0",
+              "final_pointer": "/rows/0",
+              "registration": {
+                "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-303.json",
+                "sha256": "0700c6d931d11e2aa462beb77ab8adefbb05e12f406f45431ecce5ceb559b720"
+              },
+              "registration_pointer": "/sources/0",
+              "assessed_ranges": [
+                [
+                  1,
+                  687
+                ]
+              ]
+            },
+            {
+              "partial_pointer": "/connected/0",
+              "final_pointer": "/connected/0",
+              "registration": {
+                "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-303.json",
+                "sha256": "0700c6d931d11e2aa462beb77ab8adefbb05e12f406f45431ecce5ceb559b720"
+              },
+              "registration_pointer": "/sources/1",
+              "assessed_ranges": [
+                [
+                  1,
+                  2271
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-303-PARTIAL-007.json",
+            "sha256": "5d6dcfc76e29f47f197b3c4492e26c5ab4f15faa4459b6b7ece41f83c4510e1e"
+          },
+          "fields": {
+            "/unread_registered_originals": [
+              {
+                "original": 1227,
+                "ranges": [
+                  [
+                    2732,
+                    2973
+                  ]
+                ]
+              }
+            ],
+            "/fresh_personal_ranges_this_checkpoint": {
+              "1221": [],
+              "1227": [
+                [
+                  2272,
+                  2731
+                ]
+              ]
+            },
+            "/rows": [
+              {
+                "original": 1221,
+                "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs",
+                "sha256": "9fc4780022d9229014f92e14ea895c8d0a07a7aca3cbb61dbe87957cc6190c7e",
+                "object_path": "target/726-audit-adler-20261027/parallel-l13-20261029/objects/9fc4780022d9229014f92e14ea895c8d0a07a7aca3cbb61dbe87957cc6190c7e",
+                "actual_eof": 687,
+                "prospective_ranges": [
+                  [
+                    1,
+                    687
+                  ]
+                ],
+                "scope_kind": "affected_unchanged_reached_contract",
+                "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+                "purpose": "Own ordered hostile negotiation and necessary actual resident-led party/offer and clock producers; full future proof only after all personally assessed, zero early credit",
+                "fresh_personal_assessed_ranges": [
+                  [
+                    1,
+                    687
+                  ]
+                ],
+                "untruncated_body_outputs": true
+              }
+            ]
+          },
+          "source_rows": [
+            {
+              "partial_pointer": "/rows/0",
+              "final_pointer": "/rows/0",
+              "registration": {
+                "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-303.json",
+                "sha256": "0700c6d931d11e2aa462beb77ab8adefbb05e12f406f45431ecce5ceb559b720"
+              },
+              "registration_pointer": "/sources/0",
+              "assessed_ranges": [
+                [
+                  1,
+                  687
+                ]
+              ]
+            },
+            {
+              "partial_pointer": "/connected/0",
+              "final_pointer": "/connected/0",
+              "registration": {
+                "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-303.json",
+                "sha256": "0700c6d931d11e2aa462beb77ab8adefbb05e12f406f45431ecce5ceb559b720"
+              },
+              "registration_pointer": "/sources/1",
+              "assessed_ranges": [
+                [
+                  1,
+                  2731
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "304": {
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-304.json",
+        "sha256": "75c65a17a6bcbe6aaabc1ec7bb1dee58f2035db17db5e4361e837980d71781d9"
+      },
+      "partial_read_union": [],
+      "checkpoints": []
+    },
+    "305": {
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-305.json",
+        "sha256": "e338b6d018195e7a219da726d69e7b90655370b3596709ab12ae820174554f5c"
+      },
+      "partial_read_union": [
+        {
+          "original": 1224,
+          "earlier_personal_ranges": [
+            [
+              1,
+              470
+            ]
+          ],
+          "fresh_completion_ranges": [
+            [
+              471,
+              703
+            ]
+          ],
+          "cumulative_assessed_ranges": [
+            [
+              1,
+              703
+            ]
+          ],
+          "reread_claimed": false
+        }
+      ],
+      "checkpoints": [
+        {
+          "receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-305-PARTIAL-001.json",
+            "sha256": "7adc8547b8b1d76fe3b6d176f9640cf442c4b4a77f2ed744d7495328d8cab6d0"
+          },
+          "fields": {
+            "/original": 1224,
+            "/source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/incidents.rs",
+            "/sha256": "9358dd5b0a17f5f01f321c614d3c3309139134a24febfb634a9e6fa19eb0d622",
+            "/actual_eof": 703,
+            "/assessed_ranges": [
+              [
+                1,
+                470
+              ]
+            ],
+            "/next_unread_range": [
+              471,
+              703
+            ]
+          },
+          "source_rows": []
+        }
+      ]
+    },
+    "306": {
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306.json",
+        "sha256": "d269436ed0cbc6393c1ae438fc64090be1d80329b84b2e7c970a56eed1160225"
+      },
+      "partial_read_union": [
+        {
+          "original": 1225,
+          "cumulative_prefixes": [
+            460,
+            920,
+            1380,
+            1840,
+            2300,
+            2760,
+            3005
+          ],
+          "fresh_completion_ranges": [
+            [
+              3006,
+              3250
+            ]
+          ],
+          "cumulative_assessed_ranges": [
+            [
+              1,
+              3250
+            ]
+          ],
+          "reread_claimed": false
+        }
+      ],
+      "checkpoints": [
+        {
+          "receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306-PARTIAL-001.json",
+            "sha256": "97ea6072b9bb4b055b305d7943aa6500d57481497b812fcc962d08785046b9f3"
+          },
+          "fields": {
+            "/original": 1225,
+            "/source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+            "/sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+            "/actual_eof": 3250,
+            "/assessed_ranges": [
+              [
+                1,
+                460
+              ]
+            ],
+            "/next_unread_range": [
+              461,
+              3250
+            ]
+          },
+          "source_rows": []
+        },
+        {
+          "receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306-PARTIAL-002.json",
+            "sha256": "4b07c818831ed526b40a75b84b9619ac3a5b9745c2fffd7d5f859023e0aba80e"
+          },
+          "fields": {
+            "/original": 1225,
+            "/source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+            "/sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+            "/actual_eof": 3250,
+            "/assessed_ranges": [
+              [
+                1,
+                920
+              ]
+            ],
+            "/next_unread_range": [
+              921,
+              3250
+            ],
+            "/fresh_personal_ranges_this_checkpoint": [
+              [
+                461,
+                920
+              ]
+            ]
+          },
+          "source_rows": []
+        },
+        {
+          "receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306-PARTIAL-003.json",
+            "sha256": "bda748de797137be0aefd40463d1dca0b7f242b1cc014feeea5019abfca90231"
+          },
+          "fields": {
+            "/original": 1225,
+            "/source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+            "/sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+            "/actual_eof": 3250,
+            "/assessed_ranges": [
+              [
+                1,
+                1380
+              ]
+            ],
+            "/next_unread_range": [
+              1381,
+              3250
+            ],
+            "/fresh_personal_ranges_this_checkpoint": [
+              [
+                921,
+                1380
+              ]
+            ]
+          },
+          "source_rows": []
+        },
+        {
+          "receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306-PARTIAL-004.json",
+            "sha256": "e4caca6de7bfa07e3789524d385f72cddca9900749b3d858689b5bf8d24a0bf6"
+          },
+          "fields": {
+            "/original": 1225,
+            "/source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+            "/sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+            "/actual_eof": 3250,
+            "/assessed_ranges": [
+              [
+                1,
+                1840
+              ]
+            ],
+            "/next_unread_range": [
+              1841,
+              3250
+            ],
+            "/fresh_personal_ranges_this_checkpoint": [
+              [
+                1381,
+                1840
+              ]
+            ]
+          },
+          "source_rows": []
+        },
+        {
+          "receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306-PARTIAL-005.json",
+            "sha256": "36dee4d8a468cf057f140ffe8ab500b6c178a7e6a7424606c73e4768e397cdca"
+          },
+          "fields": {
+            "/original": 1225,
+            "/source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+            "/sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+            "/actual_eof": 3250,
+            "/assessed_ranges": [
+              [
+                1,
+                2300
+              ]
+            ],
+            "/next_unread_range": [
+              2301,
+              3250
+            ],
+            "/fresh_personal_ranges_this_checkpoint": [
+              [
+                1841,
+                2300
+              ]
+            ]
+          },
+          "source_rows": []
+        },
+        {
+          "receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306-PARTIAL-006.json",
+            "sha256": "60c066d06b8c885eafbd37e09aa5865fb9a53b2e3e7616b86a744adacfeb08b6"
+          },
+          "fields": {
+            "/original": 1225,
+            "/source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+            "/sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+            "/actual_eof": 3250,
+            "/assessed_ranges": [
+              [
+                1,
+                2760
+              ]
+            ],
+            "/next_unread_range": [
+              2761,
+              3250
+            ],
+            "/fresh_personal_ranges_this_checkpoint": [
+              [
+                2301,
+                2760
+              ]
+            ]
+          },
+          "source_rows": []
+        },
+        {
+          "receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306-PARTIAL-007.json",
+            "sha256": "89841ab4073ed1a714515313013d1ff8f889cc2b78615cf34c6a6b7124fee5ba"
+          },
+          "fields": {
+            "/original": 1225,
+            "/source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+            "/sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+            "/actual_eof": 3250,
+            "/assessed_ranges": [
+              [
+                1,
+                3005
+              ]
+            ],
+            "/next_unread_range": [
+              3006,
+              3250
+            ],
+            "/fresh_personal_ranges_this_checkpoint": [
+              [
+                2761,
+                3005
+              ]
+            ]
+          },
+          "source_rows": []
+        }
+      ]
+    },
+    "307": {
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-307.json",
+        "sha256": "96013f2e641378607a8e937e3a2414f8729ade6a7460c5faba08b5147692c19a"
+      },
+      "partial_read_union": [
+        {
+          "original": 1226,
+          "earlier_personal_ranges": [
+            [
+              1,
+              460
+            ]
+          ],
+          "fresh_completion_ranges": [
+            [
+              461,
+              908
+            ]
+          ],
+          "cumulative_assessed_ranges": [
+            [
+              1,
+              908
+            ]
+          ],
+          "reread_claimed": false
+        }
+      ],
+      "checkpoints": [
+        {
+          "receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-307-PARTIAL-001.json",
+            "sha256": "0a7c3b9d0673d493e5f9bb880a7c8f3e7b2b35d252f9f7b247502d5dd59d687d"
+          },
+          "fields": {
+            "/original": 1226,
+            "/source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+            "/sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+            "/actual_eof": 908,
+            "/assessed_ranges": [
+              [
+                1,
+                460
+              ]
+            ],
+            "/next_unread_range": [
+              461,
+              908
+            ]
+          },
+          "source_rows": []
+        }
+      ]
+    },
+    "308": {
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-308.json",
+        "sha256": "0edc31272335267e6c8ba2e4e785502ab11e45be9a7736cf92f1fef246c7a8b5"
+      },
+      "partial_read_union": [],
+      "checkpoints": []
+    },
+    "309": {
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-309.json",
+        "sha256": "7885e2c378a47f15605db7e10cf0c3956dc759af14140cdbf02418fbeb0369c4"
+      },
+      "partial_read_union": [
+        {
+          "original": null,
+          "source_id": "pr-working:crates/strategic-web/src/routes/parties.rs",
+          "earlier_personal_ranges": [
+            [
+              1,
+              460
+            ]
+          ],
+          "fresh_completion_ranges": [
+            [
+              461,
+              878
+            ]
+          ],
+          "cumulative_assessed_ranges": [
+            [
+              1,
+              878
+            ]
+          ],
+          "reread_claimed": false,
+          "ordered1231_full231_personally_read_after_connected_complete": true
+        }
+      ],
+      "checkpoints": [
+        {
+          "receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-309-PARTIAL-001.json",
+            "sha256": "c9ef7e052907ac7e6f485ab843a0112e1507b21b59c1fcace2a633035e184ea7"
+          },
+          "fields": {
+            "/unread_registered_originals": [
+              {
+                "original": 1231,
+                "ranges": [
+                  [
+                    1,
+                    231
+                  ]
+                ]
+              },
+              {
+                "original": null,
+                "source_id": "pr-working:crates/strategic-web/src/routes/parties.rs",
+                "ranges": [
+                  [
+                    461,
+                    878
+                  ]
+                ]
+              }
+            ],
+            "/rows": []
+          },
+          "source_rows": [
+            {
+              "partial_pointer": "/connected/0",
+              "final_pointer": "/connected/0",
+              "registration": {
+                "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-309.json",
+                "sha256": "e101abe9aa6ee61738cd2d75ce93d33612582169f63cb944ab01d0dbd675508b"
+              },
+              "registration_pointer": "/sources/1",
+              "assessed_ranges": [
+                [
+                  1,
+                  460
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "310": {
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-310.json",
+        "sha256": "c05b6ef9734b859674bc8212e5ccccd28157d37871162ef0297de6623b3cdd98"
+      },
+      "partial_read_union": [],
+      "checkpoints": []
+    }
+  },
+  "no_new_body_credit": true,
+  "no_generic_missing_fields_or_range_clipping": true
+}

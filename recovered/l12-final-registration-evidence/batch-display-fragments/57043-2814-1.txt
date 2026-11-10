@@ -1,0 +1,125 @@
+1: use std::{collections::HashSet, num::NonZeroU32, time::Duration};
+2: 
+3: use adventuresim_tactical_core::prelude::CharacterId;
+4: 
+5: #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+6: pub(crate) enum EnrollmentEffect {
+7:     None,
+8:     Sealed,
+9:     Abandoned,
+10: }
+11: 
+12: #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+13: pub(crate) enum AdmissionResult {
+14:     Admitted,
+15:     RejectedAfterSeal,
+16: }
+17: 
+18: #[derive(Debug)]
+19: pub(crate) enum PartyEnrollment {
+20:     Awaiting {
+21:         expected: NonZeroU32,
+22:     },
+23:     Enrolling {
+24:         expected: NonZeroU32,
+25:         seen: HashSet<CharacterId>,
+26:         empty_for: Duration,
+27:     },
+28:     Sealed {
+29:         expected: NonZeroU32,
+30:         seen: HashSet<CharacterId>,
+31:         empty_for: Duration,
+32:     },
+33: }
+34: 
+35: impl PartyEnrollment {
+36:     pub(crate) fn new(expected: NonZeroU32) -> Self {
+37:         Self::Awaiting { expected }
+38:     }
+39: 
+40:     pub(crate) fn begin(&mut self) {
+41:         if let Self::Awaiting { expected } = *self {
+42:             *self = Self::Enrolling {
+43:                 expected,
+44:                 seen: HashSet::new(),
+45:                 empty_for: Duration::ZERO,
+46:             };
+47:         }
+48:     }
+49: 
+50:     pub(crate) fn observe_loaded(&mut self, character: CharacterId) -> AdmissionResult {
+51:         self.begin();
+52:         match self {
+53:             Self::Enrolling { seen, .. } => {
+54:                 seen.insert(character);
+55:                 AdmissionResult::Admitted
+56:             }
+57:             Self::Sealed { seen, .. } if seen.contains(&character) => AdmissionResult::Admitted,
+58:             Self::Sealed { .. } => AdmissionResult::RejectedAfterSeal,
+59:             Self::Awaiting { .. } => unreachable!("begin transitions awaiting enrollment"),
+60:         }
+61:     }
+62: 
+63:     pub(crate) fn allows_join(&self, character: CharacterId) -> bool {
+64:         match self {
+65:             Self::Awaiting { .. } | Self::Enrolling { .. } => true,
+66:             Self::Sealed { seen, .. } => seen.contains(&character),
+67:         }
+68:     }
+69: 
+70:     pub(crate) fn advance(
+71:         &mut self,
+72:         loaded_party: u32,
+73:         has_loading_player: bool,
+74:         delta: Duration,
+75:         reconnect_grace: Duration,
+76:     ) -> EnrollmentEffect {
+77:         let mut effect = EnrollmentEffect::None;
+78:         if let Self::Enrolling {
+79:             expected,
+80:             seen,
+81:             empty_for,
+82:         } = self
+83:             && seen.len() >= expected.get() as usize
+84:             && !has_loading_player
+85:         {
+86:             let expected = *expected;
+87:             let seen = std::mem::take(seen);
+88:             let empty_for = *empty_for;
+89:             *self = Self::Sealed {
+90:                 expected,
+91:                 seen,
+92:                 empty_for,
+93:             };
+94:             effect = EnrollmentEffect::Sealed;
+95:         }
+96: 
+97:         let empty_for = match self {
+98:             Self::Awaiting { .. } => return effect,
+99:             Self::Enrolling { empty_for, .. } | Self::Sealed { empty_for, .. } => empty_for,
+100:         };
+101:         if loaded_party == 0 && !has_loading_player {
+102:             *empty_for = empty_for.saturating_add(delta);
+103:         } else {
+104:             *empty_for = Duration::ZERO;
+105:         }
+106:         if *empty_for >= reconnect_grace {
+107:             EnrollmentEffect::Abandoned
+108:         } else {
+109:             effect
+110:         }
+111:     }
+112: 
+113:     pub(crate) fn ready_for_outcome(&self, has_loading_player: bool) -> bool {
+114:         matches!(self, Self::Sealed { .. }) && !has_loading_player
+115:     }
+116: 
+117:     pub(crate) fn expected(&self) -> NonZeroU32 {
+118:         match self {
+119:             Self::Awaiting { expected }
+120:             | Self::Enrolling { expected, .. }
+121:             | Self::Sealed { expected, .. } => *expected,
+122:         }
+123:     }
+124: }
+125: 

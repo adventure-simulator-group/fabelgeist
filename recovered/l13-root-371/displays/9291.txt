@@ -1,0 +1,374 @@
+SOURCE 6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c EOF 143
+1: use super::*;
+2: #[derive(Component)]
+3: pub(crate) struct RuntimeEquipmentPresentation {
+4:     pub(super) item: Entity,
+5:     pub(super) item_id: String,
+6:     pub(super) placement_id: String,
+7: }
+8: 
+9: mod body;
+10: mod generation;
+11: mod layers;
+12: mod meshes;
+13: mod rig;
+14: mod sockets;
+15: use body::try_build_runtime_body;
+16: use meshes::{CachedPart, equipment_parts, referenced_center};
+17: 
+18: use adventuresim_character_creator::{
+19:     design_input::{load_bracer_design, load_breastplate_design},
+20:     runtime_equipment::RuntimeBody,
+21: };
+22: use anyhow::{Context, bail};
+23: use bevy::{
+24:     gltf::{Gltf, GltfMesh, GltfNode, GltfSkin},
+25:     mesh::{VertexAttributeValues, morph::MorphAttributes, skinning::SkinnedMeshInverseBindposes},
+26: };
+27: use fabelgeist_armor::GeneratedArmor;
+28: 
+29: mod morphs;
+30: use generation::{FitKey, FittedBody, PendingFit};
+31: use morphs::BodyShapeKey;
+32: use std::sync::Arc;
+33: 
+34: #[derive(Resource, Default)]
+35: pub(crate) struct RuntimeEquipmentBodyCache {
+36:     body: Option<body::CanonicalBody>,
+37:     pub(super) bracer_design: Option<fabelgeist_armor::BracerDesign>,
+38:     pub(crate) breastplate_design: Option<fabelgeist_armor::BreastplateDesign>,
+39:     pub(super) failed: bool,
+40:     bodies: HashMap<BodyShapeKey, FittedBody>,
+41:     models: HashMap<FitKey, Result<CachedEquipment, String>>,
+42:     pending: Option<PendingFit>,
+43:     use_clock: u64,
+44:     last_used: HashMap<FitKey, u64>,
+45: }
+46: 
+47: impl RuntimeEquipmentBodyCache {
+48:     /// Device compilation and fitting belong to the requested item's task.
+49:     /// Capture budgets must not count its asynchronous device wait as a frame.
+50:     pub(crate) fn is_preparing(&self) -> bool {
+51:         self.pending.is_some()
+52:     }
+53: }
+54: 
+55: #[expect(clippy::too_many_arguments)]
+56: pub(super) fn prepare_runtime_equipment_body(
+57:     animation: Res<crate::animation::AnimationRuntime>,
+58:     gltfs: Res<Assets<Gltf>>,
+59:     gltf_meshes: Res<Assets<GltfMesh>>,
+60:     gltf_nodes: Res<Assets<GltfNode>>,
+61:     gltf_skins: Res<Assets<GltfSkin>>,
+62:     meshes: Res<Assets<Mesh>>,
+63:     inverse_bindposes: Res<Assets<SkinnedMeshInverseBindposes>>,
+64:     mut cache: ResMut<RuntimeEquipmentBodyCache>,
+65: ) {
+66:     if cache.failed {
+67:         return;
+68:     }
+69: 
+70:     if cache.body.is_none() {
+71:         let Some(base_handle) = animation.requested_base() else {
+72:             return;
+73:         };
+74:         let Some(body) = try_build_runtime_body(
+75:             base_handle,
+76:             &gltfs,
+77:             &gltf_meshes,
+78:             &gltf_nodes,
+79:             &gltf_skins,
+80:             &meshes,
+81:             &inverse_bindposes,
+82:         ) else {
+83:             return;
+84:         };
+85: 
+86:         match body {
+87:             Ok(body) => cache.body = Some(body),
+88:             Err(error) => {
+89:                 error!("failed to prepare the runtime armor body: {error:#}");
+90:                 cache.failed = true;
+91:                 return;
+92:             }
+93:         }
+94:     }
+95: 
+96:     if cache.bracer_design.is_none() {
+97:         match load_bracer_design(None) {
+98:             Ok(design) => cache.bracer_design = Some(design),
+99:             Err(error) => {
+100:                 error!("failed to load the runtime bracer design: {error:#}");
+101:                 cache.failed = true;
+102:                 return;
+103:             }
+104:         }
+105:     }
+106:     if cache.breastplate_design.is_none() {
+107:         match load_breastplate_design(None) {
+108:             Ok(design) => cache.breastplate_design = Some(design),
+109:             Err(error) => {
+110:                 error!("failed to load the runtime breastplate design: {error:#}");
+111:                 cache.failed = true;
+112:             }
+113:         }
+114:     }
+115: }
+116: 
+117: #[derive(Clone)]
+118: struct CachedEquipment {
+119:     generated: Arc<GeneratedArmor>,
+120:     parts: Vec<CachedPart>,
+121:     rigid_center: Vec3,
+122:     sockets: BTreeMap<String, Transform>,
+123: }
+124: 
+125: pub(super) use generation::generate_runtime_equipment_models;
+126: 
+127: /// The presentation of an item generated on the armor device, if it is one.
+128: pub(super) fn presentation(
+129:     item: Entity,
+130:     properties: Option<&ItemProperties>,
+131:     topology: Option<&EquipmentTopology>,
+132: ) -> Option<RuntimeEquipmentPresentation> {
+133:     let properties = properties.filter(|properties| {
+134:         adventuresim_character_creator::runtime_equipment::is_runtime_equipment(&properties.id)
+135:     })?;
+136:     Some(RuntimeEquipmentPresentation {
+137:         item,
+138:         item_id: properties.id.clone(),
+139:         placement_id: topology
+140:             .and_then(|topology| topology.placement_id.clone())
+141:             .unwrap_or_else(|| "worn".into()),
+142:     })
+143: }
+SOURCE fa65ba144131a0190348b38de97ef1fdcf28b5625f80f5b66ddd92a7d1ce3f82 EOF 229
+1: //! Extract the canonical skinned body used to generate fitted equipment.
+2: use super::rig::FittingRig;
+3: use super::*;
+4: use fabelgeist_rig::{PackedRigSkin, RigJointName, RigJointTable};
+5: 
+6: pub(super) struct CanonicalBody {
+7:     pub body: RuntimeBody,
+8:     pub targets: Vec<MorphAttributes>,
+9:     pub names: Vec<String>,
+10:     pub rig: FittingRig,
+11: }
+12: 
+13: pub(super) fn try_build_runtime_body(
+14:     base_handle: &Handle<Gltf>,
+15:     gltfs: &Assets<Gltf>,
+16:     gltf_meshes: &Assets<GltfMesh>,
+17:     gltf_nodes: &Assets<GltfNode>,
+18:     gltf_skins: &Assets<GltfSkin>,
+19:     meshes: &Assets<Mesh>,
+20:     inverse_bindposes: &Assets<SkinnedMeshInverseBindposes>,
+21: ) -> Option<anyhow::Result<CanonicalBody>> {
+22:     let gltf = gltfs.get(base_handle)?;
+23: 
+24:     for node_handle in &gltf.nodes {
+25:         let node = gltf_nodes.get(node_handle)?;
+26:         let (Some(mesh_handle), Some(skin_handle)) = (node.mesh.as_ref(), node.skin.as_ref())
+27:         else {
+28:             continue;
+29:         };
+30:         let gltf_mesh = gltf_meshes.get(mesh_handle)?;
+31:         let skin = gltf_skins.get(skin_handle)?;
+32:         let inverse_bindposes_asset = inverse_bindposes.get(&skin.inverse_bind_matrices)?;
+33:         for joint in &skin.joints {
+34:             gltf_nodes.get(joint)?;
+35:         }
+36: 
+37:         if let Some(primitive) = gltf_mesh.primitives.first() {
+38:             let mesh = meshes.get(&primitive.mesh)?;
+39:             return Some(build_runtime_body(
+40:                 mesh,
+41:                 gltf,
+42:                 skin,
+43:                 inverse_bindposes_asset,
+44:                 gltf_nodes,
+45:             ));
+46:         }
+47:     }
+48: 
+49:     Some(Err(anyhow::anyhow!(
+50:         "the base rig contains no skinned mesh primitive"
+51:     )))
+52: }
+53: 
+54: fn build_runtime_body(
+55:     mesh: &Mesh,
+56:     gltf: &Gltf,
+57:     skin: &GltfSkin,
+58:     inverse_bindposes: &SkinnedMeshInverseBindposes,
+59:     gltf_nodes: &Assets<GltfNode>,
+60: ) -> anyhow::Result<CanonicalBody> {
+61:     let positions = attribute_vec3(mesh, Mesh::ATTRIBUTE_POSITION, "positions")?;
+62:     let normals = attribute_vec3(mesh, Mesh::ATTRIBUTE_NORMAL, "normals")?;
+63:     let texcoords = body_surface_coordinates(&positions)?;
+64:     let joint_indices = attribute_u16x4(mesh, Mesh::ATTRIBUTE_JOINT_INDEX, "joint indices")?;
+65:     let joint_weights = attribute_f32x4(mesh, Mesh::ATTRIBUTE_JOINT_WEIGHT, "joint weights")?;
+66:     let indices = mesh
+67:         .indices()
+68:         .context("runtime armor body has no index buffer")?;
+69:     let indices = match indices {
+70:         Indices::U16(indices) => indices.iter().map(|index| u32::from(*index)).collect(),
+71:         Indices::U32(indices) => indices.clone(),
+72:     };
+73:     let (triangles, remainder) = indices.as_chunks::<3>();
+74:     if !remainder.is_empty() {
+75:         bail!("runtime armor body index buffer is not triangle-aligned");
+76:     }
+77:     let faces = triangles.to_vec();
+78: 
+79:     let joint_names: RigJointTable<RigJointName> = skin
+80:         .joints
+81:         .iter()
+82:         .map(|joint| {
+83:             gltf_nodes
+84:                 .get(joint)
+85:                 .map(|node| RigJointName::from(node.name.clone()))
+86:                 .context("runtime body joint asset is missing")
+87:         })
+88:         .collect::<anyhow::Result<_>>()?;
+89:     let global_joint_states: RigJointTable<[f32; 8]> = inverse_bindposes
+90:         .iter()
+91:         .map(|inverse_bindpose| {
+92:             let (scale, rotation, position) =
+93:                 inverse_bindpose.inverse().to_scale_rotation_translation();
+94:             [
+95:                 position.x, position.y, position.z, rotation.x, rotation.y, rotation.z, rotation.w,
+96:                 scale.x,
+97:             ]
+98:         })
+99:         .collect();
+100:     anyhow::ensure!(
+101:         joint_names.len() == global_joint_states.len(),
+102:         "runtime body joint names and bind poses differ in count"
+103:     );
+104: 
+105:     let body = RuntimeBody {
+106:         domain: "runtime_body_cylindrical_v1".into(),
+107:         faces: faces.clone(),
+108:         positions,
+109:         normals,
+110:         texcoords,
+111:         texcoord_faces: faces,
+112:         joint_indices: PackedRigSkin::from_native(
+113:             joint_indices
+114:                 .into_iter()
+115:                 .map(|joint| {
+116:                     [
+117:                         u32::from(joint[0]),
+118:                         u32::from(joint[1]),
+119:                         u32::from(joint[2]),
+120:                         u32::from(joint[3]),
+121:                         0,
+122:                         0,
+123:                         0,
+124:                         0,
+125:                     ]
+126:                 })
+127:                 .collect(),
+128:             joint_names.joint_count(),
+129:         )?,
+130:         joint_weights: joint_weights
+131:             .into_iter()
+132:             .map(|weight| {
+133:                 [
+134:                     weight[0], weight[1], weight[2], weight[3], 0.0, 0.0, 0.0, 0.0,
+135:                 ]
+136:             })
+137:             .collect(),
+138:         joint_names,
+139:         global_joint_states,
+140:         device: Default::default(),
+141:     };
+142:     Ok(CanonicalBody {
+143:         body,
+144:         targets: mesh.get_morph_targets().unwrap_or_default().to_vec(),
+145:         names: mesh.morph_target_names().unwrap_or_default().to_vec(),
+146:         rig: FittingRig::new(gltf, skin, gltf_nodes)?,
+147:     })
+148: }
+149: 
+150: fn attribute_vec3(
+151:     mesh: &Mesh,
+152:     attribute: bevy::mesh::MeshVertexAttribute,
+153:     label: &str,
+154: ) -> anyhow::Result<Vec<[f32; 3]>> {
+155:     match mesh.attribute(attribute).context(label.to_owned())? {
+156:         VertexAttributeValues::Float32x3(values) => Ok(values.clone()),
+157:         _ => bail!("runtime armor body {label} have an unsupported vertex format"),
+158:     }
+159: }
+160: 
+161: /// The canonical animation body contains geometry and skin without a UV atlas.
+162: /// Runtime surfaces own a geometric UV domain; they do not claim correspondence
+163: /// with the offline MHR atlas used by authored equipment attachment sockets.
+164: fn body_surface_coordinates(positions: &[[f32; 3]]) -> anyhow::Result<Vec<[f32; 2]>> {
+165:     let mut minimum = f32::INFINITY;
+166:     let mut maximum = f32::NEG_INFINITY;
+167:     for position in positions {
+168:         if !position.iter().all(|value| value.is_finite()) {
+169:             bail!("non-finite runtime body vertex");
+170:         }
+171:         minimum = minimum.min(position[1]);
+172:         maximum = maximum.max(position[1]);
+173:     }
+174:     let height = maximum - minimum;
+175:     if !height.is_finite() || height <= 0.0 {
+176:         bail!("runtime body has no height");
+177:     }
+178:     Ok(positions
+179:         .iter()
+180:         .map(|[x, y, z]| {
+181:             [
+182:                 x.atan2(*z) / std::f32::consts::TAU + 0.5,
+183:                 (y - minimum) / height,
+184:             ]
+185:         })
+186:         .collect())
+187: }
+188: 
+189: fn attribute_u16x4(
+190:     mesh: &Mesh,
+191:     attribute: bevy::mesh::MeshVertexAttribute,
+192:     label: &str,
+193: ) -> anyhow::Result<Vec<[u16; 4]>> {
+194:     match mesh.attribute(attribute).context(label.to_owned())? {
+195:         VertexAttributeValues::Uint16x4(values) => Ok(values.clone()),
+196:         _ => bail!("runtime armor body {label} have an unsupported vertex format"),
+197:     }
+198: }
+199: 
+200: fn attribute_f32x4(
+201:     mesh: &Mesh,
+202:     attribute: bevy::mesh::MeshVertexAttribute,
+203:     label: &str,
+204: ) -> anyhow::Result<Vec<[f32; 4]>> {
+205:     match mesh.attribute(attribute).context(label.to_owned())? {
+206:         VertexAttributeValues::Float32x4(values) => Ok(values.clone()),
+207:         _ => bail!("runtime armor body {label} have an unsupported vertex format"),
+208:     }
+209: }
+210: 
+211: #[cfg(test)]
+212: mod tests {
+213:     use super::*;
+214:     #[test]
+215:     fn geometric_surface_chart_handles_uv_free_body_and_rejects_invalid_geometry() {
+216:         let positions = [[0.0, -1.0, 0.2], [0.2, 0.0, 0.0], [-0.2, 1.0, 0.0]];
+217:         let chart = body_surface_coordinates(&positions).unwrap();
+218:         assert!(
+219:             chart
+220:                 .iter()
+221:                 .flatten()
+222:                 .all(|value| (0.0..=1.0).contains(value))
+223:         );
+224:         assert_ne!(chart[1][0], chart[2][0]);
+225:         assert!(body_surface_coordinates(&[]).is_err());
+226:         assert!(body_surface_coordinates(&[[0.0; 3]; 2]).is_err());
+227:         assert!(body_surface_coordinates(&[[0.0, f32::NAN, 0.0]]).is_err());
+228:     }
+229: }

@@ -1,0 +1,58 @@
+{
+  "schema": "726-root-l12-prospective-source-registration-v1",
+  "registered_at": "2026-11-02T09:42:36.001276+00:00",
+  "author": "/root",
+  "lens": 12,
+  "prospective": true,
+  "base_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "668b9478b9c36bf98e246038bc258c889a5fef86e6e3afbde2361d63ae52f7e8"
+  },
+  "sources": [
+    {
+      "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+      "source_sha256": "c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2",
+      "source_object": "adler-continuation-20261030/objects/c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2",
+      "bytes": 12845,
+      "actual_EOF": 373,
+      "ranges": [
+        [
+          151,
+          205
+        ],
+        [
+          315,
+          340
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 81,
+      "prior_body_join": "No new freshness/reuse/unique credit requested; exact prior evidence remains unchanged."
+    },
+    {
+      "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "source_sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+      "source_object": "adler-continuation-20261030/objects/f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+      "bytes": 173981,
+      "actual_EOF": 4477,
+      "ranges": [
+        [
+          3376,
+          3410
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 35,
+      "prior_body_join": "No new freshness/reuse/unique credit requested; exact prior evidence remains unchanged."
+    }
+  ],
+  "fresh_lines_registered": 0,
+  "uncredited_total_source_lines_registered": 116,
+  "purpose": "Complete actual scene deterministic_readback_hash Option behavior and native record/equality formatting; distinguish raw byte fingerprint from sampled animation fingerprint, preserving required presence and no collision-free claim."
+}

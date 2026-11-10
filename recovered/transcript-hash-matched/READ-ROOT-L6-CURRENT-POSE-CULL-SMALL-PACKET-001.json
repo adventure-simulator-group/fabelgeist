@@ -1,0 +1,114 @@
+{
+  "schema": "726-independent-current-source-packet-v1",
+  "lens": 6,
+  "at": "2026-11-02T21:43:29.095991+00:00",
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L6-CURRENT-POSE-CULL-SMALL-001.json",
+    "sha256": "04d471ee1edfc12ccb9aab5e87c9ab10d040829e1272335092d71d0f9e02913c"
+  },
+  "assessed_rows": [
+    {
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-tactical-client/src/animation/pose_buffer/pose_cull.rs",
+      "source_sha256": "c86b700372c2622f894cbf960eabd7a616326360d8ab561ee4932012b7188540",
+      "actual_EOF": 37,
+      "source_object": "adler-continuation-20261030/objects/c86b700372c2622f894cbf960eabd7a616326360d8ab561ee4932012b7188540",
+      "prospective_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "new_body_credit": 0
+    },
+    {
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "git_path": "crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+      "source_sha256": "678af470ebedb38a874258f1f27264052978d78d58b438469bc24e25ef4d0b78",
+      "actual_EOF": 109,
+      "source_object": "adler-continuation-20261030/objects/678af470ebedb38a874258f1f27264052978d78d58b438469bc24e25ef4d0b78",
+      "prospective_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "new_body_credit": 0
+    },
+    {
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+      "source_sha256": "754a5ea02732df10071edad99a78c5fc1524236ac1232401129c06da611834ee",
+      "actual_EOF": 118,
+      "source_object": "adler-continuation-20261030/objects/754a5ea02732df10071edad99a78c5fc1524236ac1232401129c06da611834ee",
+      "prospective_ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "new_body_credit": 0
+    },
+    {
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "git_path": "crates/adventuresim-tactical-client/src/equipment/skin.rs",
+      "source_sha256": "7d3de24eaaf295e510aeb41c6bd8e6f5d5204beea0b976cbc16cb617d862c7a4",
+      "actual_EOF": 111,
+      "source_object": "adler-continuation-20261030/objects/7d3de24eaaf295e510aeb41c6bd8e6f5d5204beea0b976cbc16cb617d862c7a4",
+      "prospective_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "new_body_credit": 0
+    },
+    {
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-tactical-client/src/equipment/skin.rs",
+      "source_sha256": "5f95d50f17638ad95c8d7848914f632321d38347685187be1dc0a7c6ea573874",
+      "actual_EOF": 116,
+      "source_object": "adler-continuation-20261030/objects/5f95d50f17638ad95c8d7848914f632321d38347685187be1dc0a7c6ea573874",
+      "prospective_ranges": [
+        [
+          1,
+          116
+        ]
+      ],
+      "new_body_credit": 0
+    }
+  ],
+  "source_observation_tools": [
+    "5b839d"
+  ],
+  "support_registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-CURRENT-POSE-CULL-SUPPORT-AS-READ-001.json",
+    "sha256": "74ff17fbdbbd47af2a3167627e3c6ec29116ff45890f6b74153da5a1b8f703a4"
+  },
+  "native_registrations": [
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-CURRENT-POSE-NATIVE-SCHEDULE-001.json",
+      "sha256": "c7ad9dd7dc43932dc3b672c868d74bc7c70973af1753a496df6c695b80b300d2"
+    }
+  ],
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-CURRENT-POSE-CULL-PIPELINE-001.json",
+    "sha256": "93fc75821513ca900ee5ec6ab0b156745c54829b585cf45f765a77cbbee8c13e"
+  },
+  "source_conclusion": "Culling state, pose metrics and rig buffers belong to transient presentation. PoseCulled lives on the same rig owner as the canonical visibility decision; schedule resources/components retain their current owners. Equipment borrows rig-name keys only within the local immutable query pass and publishes owned native handles/entity vectors. No borrowed names escape into deferred state or tactical tick data into strategic persistence.",
+  "per_path_dispositions": {
+    "16": "Added private cull helper and PoseCulled component; complete37linebody observed. Existingvisibility remainscanonical, metricscount increments perculledrig. Resume andphysics exemption traced inactualcaller, but allwriter/lifecycle/runtime proof notclaimed.",
+    "17": "Added wholePostUpdate chain presenceguard over existing PresentedSkeleton; fullbefore109/current118plugin bodies observed. Nativecollectivecondition anddefaultchaincontract qualified; actualallrigpresence andspawn/removal/emptyapp transitions remainseparate.",
+    "20": "Earlyreturn onemptyparts andborrowed HashMap<&RigJointName,Entity> replaceper-frame clonedkeys. Fullbefore111/current116includingtests observed. Actualtyped AuthoredRigJoint andProceduralEquipmentPart definitions/lookup/renderboundary read; no skin-transfer/compiler/test run claimed."
+  },
+  "source_limits": [
+    "Allproducer/writer membership andtag/visibility coherence under skipped/rejected clocks, custom scheduling, rig removal/reappearance, ragdoll ownership andall-app lifecycle.",
+    "Fullpose/IK/procedural bodies, numerical/frame/pose continuity, actualdefault/nativequeries/compiler/renderbehavior.",
+    "Rig namesintentionally permit empty/unfamiliar labels; membership andduplicate-name policy do notfollowfromexactname type. RetainsharedRigJointName, notaclosedenumofcataloglabels."
+  ],
+  "body_output_truncated": false,
+  "new_body_credit": 0,
+  "new_accepted_unique_count": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

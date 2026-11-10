@@ -1,0 +1,15 @@
+1: [package]
+2: name = "adventuresim-puzzles"
+3: version.workspace = true
+4: edition.workspace = true
+5: repository.workspace = true
+6: license.workspace = true
+7: 
+8: [dependencies]
+9: serde.workspace = true
+10: serde_json.workspace = true
+11: clap.workspace = true
+12: fabelgeist-determinism.workspace = true
+13: 
+14: [lints]
+15: workspace = true

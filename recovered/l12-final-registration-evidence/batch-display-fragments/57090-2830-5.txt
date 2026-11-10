@@ -1,0 +1,6 @@
+1: //! Canonical fixed choice vocabulary for puzzle submissions.
+2: mod sigil;
+3: mod witness_path;
+4: 
+5: pub use sigil::{ParseSigilError, Sigil};
+6: pub use witness_path::{ParseWitnessPathError, WitnessPath};

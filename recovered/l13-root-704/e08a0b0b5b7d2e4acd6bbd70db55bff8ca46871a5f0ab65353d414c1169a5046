@@ -1,0 +1,63 @@
+"""Six exact report-P17 roles, four fresh245 and two prior150 material lines."""
+from pathlib import Path
+import hashlib,json,subprocess
+def build(r,w,a,co,files):
+ r,w,a=[p.resolve()for p in(r,w,a)]
+ def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+ def read(p):return json.loads(p.read_bytes())
+ def ref(p):return {'path':p.relative_to(r).as_posix(),'sha256':sha(p)}
+ def resolve(v):
+  ps={p.resolve()for p in[r/v['path'],w/v['path'],r/'evidence/continuation-segovb'/v['path']]if p.is_file()and sha(p)==v['sha256']};assert len(ps)==1;return ps.pop()
+ def rr(v):return read(resolve(v))
+ assert co['next_original']==2679 and len(co['discovery_receipts'])==707
+ dp=w.parent/'726-intake-20261030/DISCOVERY-L13-2679-2684-METADATA-001.json';assert sha(dp)=='07d73384f40c63c5844783911073f82585e88fcecd37cc7c46d5b980b1028825';d=read(dp);targets={files[n]['sha256']:n for n in range(2679,2685)};hits=[]
+ for v in co['discovery_receipts']:
+  raw=resolve(v).read_bytes()
+  for h,n in targets.items():
+   if h.encode()in raw:hits.append({'original':n,'receipt':v})
+ futures=[v for v in co['future_same_lens_reuse_proofs']if any(h in json.dumps(v)for h in targets)];apps=[v for v in co['future_same_lens_ordered_applications']if any(h in json.dumps(v)for h in targets)]
+ assert hits==d['exact_hash_prior_hits']and [(x['original'],x['receipt']['path'])for x in hits]==[(2680,'segovb/READ-L13-PARALLEL-014.json'),(2680,'segovb/READ-L13-PARALLEL-063.json'),(2682,'segovb/READ-L13-PARALLEL-464.json'),(2680,'segovb/READ-L13-PARALLEL-613.json'),(2682,'segovb/READ-L13-PARALLEL-677.json')]and futures==d['future_same_lens_proofs_navigation']and [x['original']for x in futures]==[2270]and apps==d['prior_applications_preserved_navigation']and[x['original']for x in apps]==[2270,2524]and not any(x.get('original')in range(2679,2685)for x in co['future_same_lens_ordered_applications'])and d['body_credit']==d['authority_changes']==0 and d['prior_same_lens_receipts_authenticated']==707
+ fields=[]
+ def inspect(v,eof,p):
+  if isinstance(v,dict):
+   for k,x in v.items():
+    at=p+'/'+k
+    if(k.endswith('ranges')or k in['read_ranges_as_recorded','material_contract_ranges_as_recorded','requested_range_limits'])and x:
+     assert isinstance(x,list)and all(isinstance(z,list)and len(z)==2 and all(isinstance(y,int)for y in z)and 1<=z[0]<=z[1]<=eof for z in x),(at,x,eof);fields.append({'pointer':at,'raw_value':x,'actual_eof':eof})
+    inspect(x,eof,at)
+  elif isinstance(v,list):
+   for j,x in enumerate(v):inspect(x,eof,p+'/'+str(j))
+ specs=[(2679,102,3501,[[1,79]]),(2680,40,1383,[[1,40]]),(2681,120,4172,[[1,120]]),(2682,407,14801,[[1,110]]),(2683,55,1478,[[1,27]]),(2684,19,461,[[1,19]])];entries=[];sources=[]
+ for n,eof,size,rs in specs:
+  f=files[n];gp=f['source_id'].split(':',1)[1];assert d['entries'][n-2679]=={'original':n,'registry_entry':f}and f['source_id']=='report-p17:'+gp and f['snapshot']=='report-p17'and f['path']==('SNAPSHOTS/p17/'+gp).replace('/','\\')and f['actual_line_count']==eof and f['bytes']==size and f['scope_kind']=='materially_reached_admission_contract'and f['material_ranges']==rs;inspect(f,eof,f'/files/{n}')
+  assert {k for role in f['admission03_scope_observations']for lo,hi in role['effective_material_ranges']for k in range(lo,hi+1)}=={k for lo,hi in rs for k in range(lo,hi+1)}
+  git='f82adcabd9d89c4fa2dd7f99253a45297a0681ee';ap='handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/'+f['sha256'];body=subprocess.check_output(['git','show',git+':'+ap]);assert hashlib.sha256(body).hexdigest()==f['sha256']and len(body)==size and len(body.splitlines())==eof;obj=a/'objects'/f['sha256']
+  if obj.is_file():assert obj.read_bytes()==body
+  else:
+   with obj.open('xb')as out:out.write(body)
+  prior=None;mode='fresh'
+  if n==2680:
+   qp=a/'QUALIFICATION-ROOT-L13-2267-2272-GEOMETRY-REUSE-001.json';assert sha(qp)=='c74d8cc240b2f0a470a547d8f66f5cd0dfa22a3fd1b54499ff4f60af707d657c';q=read(qp);pr=next(x for x in q['records']if x['original']==2270);rp=resolve(pr['prior_adoption']);root=read(rp);rawp=resolve(pr['prior_raw_receipt']);raw=read(rawp);vp=resolve(pr['prior_verification']);v=read(vp);pregp=resolve(pr['prior_registration']);preg=read(pregp);old=raw['connected_source_reads'][1]
+   assert ref(rp)in co['discovery_receipts']and root['evidence']==raw and root['lens']==raw['lens']==preg['lens']==v['lens']==13 and old==pr['prior_source_read']and old['registration_pointer']=='/sources/1'and resolve(old['registration'])==pregp and all(old[k]==value for k,value in preg['sources'][1].items())and old['ordered_credit_proposed']==0 and old['fresh_personal_assessed_ranges']==old['prospective_ranges']==[[1,40]]and old['untruncated_body_outputs']is True and old['original']==2270 and v['product_execution']is False
+   cp=resolve(pr['chronology']);chron=read(cp);j=pr['chronology_pointer'].strip('/').split('/');ce=chron
+   for k in j:ce=ce[int(k)]if isinstance(ce,list)else ce[k]
+   assert ce==pr['chronology_entry_as_recorded']and ce['registered_before_read_attestation']is True and resolve(ce['read'])==rawp and resolve(ce['registration'])==pregp and ce['read_pointer']=='/connected_source_reads/1'and ce['registration_pointer']=='/sources/1'and ce['assessed_ranges']==[[1,40]]
+   assert futures==[pr['authoritative_prior_future_proof']];app=apps[0];ar=rr({'path':app['receipt'],'sha256':app['receipt_sha256']});assert app['exact_reuses'][0]['reuse']['qualification']==ref(qp)and app['exact_reuses'][0]['proof']['source_sha256']==f['sha256']and app['exact_reuses'][0]['proof']['new_body_credit']==0 and [x for x in ar['qualified_ordered_reuses']if x['original']==app['original']]==app['exact_reuses']
+   prior={'prior_adoption':ref(rp),'prior_raw_receipt':ref(rawp),'prior_verification':ref(vp),'prior_registration':ref(pregp),'prior_row_pointer':'/connected_source_reads/1','prior_registration_pointer':'/sources/1','prior_source_read':old,'historical_attribution':pr['historical_attribution'],'prior_numeric_inventory':pr['prior_numeric_inventory'],'inherited_connected_contracts':pr['inherited_connected_contracts'],'old_2270_qualification':ref(qp),'prior_chronology':pr['chronology'],'prior_chronology_entry':ce,'prior_future_proof_preserved':futures[0],'prior_alias_application_preserved':app,'historical_fields_absent':pr['historical_fields_absent']};mode='delegated-reuse'
+  elif n==2682:
+   qp=a/'QUALIFICATION-ROOT-L13-2518-2525-P16-MIXED-001.json';assert sha(qp)=='3aa42a39db3844eebfd03ed46c03e03b7a96dad9b56e4b9b3f2610ec9437ba40';q=read(qp);pr=next(x for x in q['entries']if x['original']==2524)['prior'];root=rr(pr['prior_adoption']);raw=rr(pr['prior_packet']);preg=rr(pr['prior_registration']);v=rr(pr['prior_native_verification']);statep=resolve(pr['prior_state']);oldrow=raw['ordered'][0];old=oldrow['source'];plan=rr(pr['prior_plan'])
+   assert pr['prior_adoption']in co['discovery_receipts']and root['evidence']==raw and oldrow==pr['prior_source_row']and raw['lens']==preg['lens']==v['lens']==13 and raw['author']==oldrow['author']=='/root'and raw['registered_before_read_attestation']is oldrow['untruncated_body_outputs']is True and oldrow['assessed_ranges']==old['prospective_ranges']==[[1,407]]and oldrow['registration_pointer']=='/sources/0'and preg['sources'][0]==old and oldrow['registration']==pr['prior_registration']and preg['at']<raw['at']<root['at']
+   assert plan['packet']==pr['prior_packet']and v['receipt_sha256']==pr['prior_adoption']['sha256']and v['state_sha256']==sha(statep)and v['exact_registry_Git_hash_EOF_prospective_chronology_scope_and_reuse_checked']is True and v['writer']==root['writer']and sha(r/root['writer']['path'])==root['writer']['sha256']and v['other_lens_credit']==0 and v['product_execution']is v['gate']is False
+   app=apps[1];ar=rr({'path':app['receipt'],'sha256':app['receipt_sha256']});assert app['exact_reuses'][0]['reuse']['qualification']==ref(qp)and app['exact_reuses'][0]['proof']['source_sha256']==f['sha256']and app['exact_reuses'][0]['proof']['new_body_credit']==0 and [x for x in ar['qualified_ordered_reuses']if x['original']==app['original']]==app['exact_reuses'];prior={**pr,'historical_attribution':'/root','old_2524_qualification':ref(qp),'prior_alias_application_preserved':app,'new_material_scope_from_old_full_body':[[1,110]],'old2524_material_subset_not_total_body':[[73,86],[104,110]]};mode='root-reuse'
+  if prior:
+   old=prior['prior_source_row']['source']if mode=='root-reuse'else prior['prior_source_read'];assert old['source_id']=='pr-working:'+gp and old['sha256']==f['sha256']and old['actual_eof']==eof and (w/old['object_path']).read_bytes()==body and body==subprocess.check_output(['git','show','6533e444fa37552927070cc8d8190907fd3b413e:'+gp])
+  src={'original':n,'source_id':f['source_id'],'sha256':f['sha256'],'actual_eof':eof,'object_path':obj.relative_to(w).as_posix(),'source_revision':git,'transport_git_path':ap,'prospective_ranges':rs,'revision_qualification':'ReportP17 archivef82transport only; twoexactliteralpriorPR bodyjoins preserve originalreader andnativescope, no currentsemantic/feature transfer.','purpose':'SixreportP17 measurement/scene/grounding/manifestroles395material:245fresh/150priorread, no nativecodec/macro/build/runtime execution.'};sources.append(src);covered={k for lo,hi in rs for k in range(lo,hi+1)};unread=[]
+  for k in range(1,eof+1):
+   if k not in covered:
+    if unread and unread[-1][1]==k-1:unread[-1][1]=k
+    else:unread.append([k,k])
+  e={'original':n,'source':src,'mode':mode,'bytes':size,'assessed_union':rs,'material_line_count':len(covered),'new_root_personal_lines':len(covered)if mode=='fresh'else 0,'registry_entry_sha256':hashlib.sha256((json.dumps(f,indent=2)+'\n').encode()).hexdigest(),'registry_path_as_recorded':f['path'],'source_current_reconciled':False,'unread_ranges':unread,'whole_file_coverage':not unread}
+  if prior:e['prior']=prior
+  entries.append(e)
+ assert len(fields)==36 and sum(e['material_line_count']for e in entries)==395 and sum(e['new_root_personal_lines']for e in entries)==245
+ return {'entries':entries,'sources':sources,'all_nested_range_fields':fields,'exact_hash_prior_hits':hits,'future_proofs_preserved':futures,'old_ordered_applications_preserved':apps,'discovery_metadata_sha256':sha(dp),'production_source_lines':395,'fixture_source_lines':0,'fixture_execution':False,'exact_partial_scopes_preserved':True}

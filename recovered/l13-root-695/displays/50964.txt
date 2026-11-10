@@ -1,0 +1,224 @@
+SOURCE 2631 pr-working:crates/fabelgeist-cloth/src/garment/mod.rs
+231:     let mut mesh = GarmentMesh::default();
+232:     let mut meshes: Vec<PanelMesh> = Vec::with_capacity(panels.len());
+233: 
+234:     // Match boundary subdivisions before triangulation. Rounding independent
+235:     // chains onto each other pulls multiple vertices into a single stitch.
+236:     let mut counts: Vec<Vec<usize>> = panels
+237:         .iter()
+238:         .map(|panel| {
+239:             (0..panel.outline.len())
+240:                 .map(|i| {
+241:                     (((panel.outline[(i + 1) % panel.outline.len()] - panel.outline[i]).length()
+242:                         / target_edge)
+243:                         .round() as usize)
+244:                         .max(1)
+245:                 })
+246:                 .collect()
+247:         })
+248:         .collect();
+249:     loop {
+250:         let mut changed = false;
+251:         for seam in seams {
+252:             let a = counts
+253:                 .get(seam.a.panel)
+254:                 .and_then(|c| c.get(seam.a.edge))
+255:                 .copied()
+256:                 .ok_or_else(|| anyhow!("invalid seam side {:?}", seam.a))?;
+257:             let b = counts
+258:                 .get(seam.b.panel)
+259:                 .and_then(|c| c.get(seam.b.edge))
+260:                 .copied()
+261:                 .ok_or_else(|| anyhow!("invalid seam side {:?}", seam.b))?;
+262:             let n = a.max(b);
+263:             changed |= a != n || b != n;
+264:             counts[seam.a.panel][seam.a.edge] = n;
+265:             counts[seam.b.panel][seam.b.edge] = n;
+266:         }
+267:         if !changed {
+268:             break;
+269:         }
+270:     }
+271:     for (panel_index, panel) in panels.iter().enumerate() {
+272:         let offset = mesh.positions.len() as u32;
+273:         mesh.panel_offsets.push(offset);
+274:         mesh.panel_names.push(panel.name.clone());
+275: 
+276:         let panel_mesh =
+277:             triangulate_with_segments(&panel.outline, target_edge, &counts[panel_index]);
+278:         for vertex in &panel_mesh.vertices {
+279:             mesh.positions.push(panel.placement.apply(*vertex));
+280:             mesh.material.push(*vertex);
+281:         }
+282:         for triangle in &panel_mesh.triangles {
+283:             mesh.triangles.push([
+284:                 triangle[0] + offset,
+285:                 triangle[1] + offset,
+286:                 triangle[2] + offset,
+287:             ]);
+288:         }
+289:         meshes.push(panel_mesh);
+290:     }
+291:     mesh.panel_offsets.push(mesh.positions.len() as u32);
+292: 
+293:     // Stretch and bending come straight from the triangles, and their rest
+294:     // states from the flat layout -- which is the point of a sewing pattern:
+295:     // the panel's own shape is the fabric's rest shape.
+296:     let derived = topology::build(&mesh.triangles);
+297:     mesh.rest_lengths = derived
+298:         .edges
+299:         .iter()
+300:         .map(|&[a, b]| (mesh.positions[a as usize] - mesh.positions[b as usize]).length())
+301:         .collect();
+302:     mesh.edges = derived.edges;
+303: 
+304:     // Interior hinges use each panel's flat rest layout. Sewn hinges are
+305:     // added below once the boundary correspondence is known.
+306:     for bend in derived.bends {
+307:         let [i0, i1, i2, i3] = bend.particles();
+308:         let points = [
+309:             mesh.positions[i0 as usize],
+310:             mesh.positions[i1 as usize],
+311:             mesh.positions[i2 as usize],
+312:             mesh.positions[i3 as usize],
+313:         ];
+314:         let Some(weights) = topology::bending_weights(points) else {
+315:             continue;
+316:         };
+317:         let rest = points
+318:             .iter()
+319:             .zip(&weights)
+320:             .fold(Vec3::default(), |acc, (p, &k)| acc + *p * k)
+321:             .length();
+322:         mesh.bends.push(bend);
+323:         mesh.bend_weights.push([
+324:             weights[0], weights[1], weights[2], weights[3], rest, 0.0, 0.0, 0.0,
+325:         ]);
+326:     }
+327: 
+328:     for (index, seam) in seams.iter().enumerate() {
+329:         let pairs = seam_pairs(seam, &meshes, &mesh.panel_offsets)
+330:             .map_err(|error| anyhow!("seam {index} ({:?} to {:?}): {error}", seam.a, seam.b))?;
+331:         mesh.seams.extend(pairs);
+332:     }
+333:     mesh.seams.sort_unstable();
+334:     mesh.seams.dedup();
+335:     // A pair that is already a mesh edge would be two constraints on the same
+336:     // two particles, fighting over the rest length.
+337:     let existing: std::collections::HashSet<[u32; 2]> = mesh.edges.iter().copied().collect();
+338:     mesh.seams
+339:         .retain(|&[a, b]| a != b && !existing.contains(&[a.min(b), a.max(b)]));
+340: 
+341:     add_seam_bends(&mut mesh);
+342:     mesh.masses = topology::vertex_masses(&mesh.positions, &mesh.triangles, density);
+343:     Ok(mesh)
+344: }
+345: 
+346: // Unfold the two incident triangles into one material plane. Using their
+347: // separated 3D placement here would bake the initial panel gap into the cloth.
+348: fn add_seam_bends(mesh: &mut GarmentMesh) {
+349:     let mut roots: Vec<u32> = (0..mesh.positions.len() as u32).collect();
+350:     fn root(roots: &[u32], mut i: u32) -> u32 {
+351:         while roots[i as usize] != i {
+352:             i = roots[i as usize];
+353:         }
+354:         i
+355:     }
+356:     for &[a, b] in &mesh.seams {
+357:         let (a, b) = (root(&roots, a), root(&roots, b));
+358:         roots[b as usize] = a;
+359:     }
+360:     let roots: Vec<_> = (0..roots.len() as u32).map(|i| root(&roots, i)).collect();
+361:     let mut incident = std::collections::BTreeMap::<(u32, u32), Vec<[u32; 3]>>::new();
+362:     for f in &mesh.triangles {
+363:         for k in 0..3 {
+364:             let (mut a, mut b, c) = (f[k], f[(k + 1) % 3], f[(k + 2) % 3]);
+365:             if roots[a as usize] > roots[b as usize] {
+366:                 std::mem::swap(&mut a, &mut b);
+367:             }
+368:             incident
+369:                 .entry((roots[a as usize], roots[b as usize]))
+370:                 .or_default()
+371:                 .push([a, b, c]);
+372:         }
+373:     }
+374:     for ((a, b), sides) in incident {
+375:         if a == b || sides.len() != 2 || mesh.panel_of(sides[0][0]) == mesh.panel_of(sides[1][0]) {
+376:             continue;
+377:         }
+378:         let side_points = |side: [u32; 3]| {
+379:             let [a, b, c] = side.map(|i| mesh.positions[i as usize]);
+380:             let edge = b - a;
+381:             let length = edge.length();
+382:             let x = (c - a).dot(edge) / length;
+383:             let y = ((c - a).length_squared() - x * x).max(0.0).sqrt();
+384:             (length, x, y)
+385:         };
+386:         let (l0, x0, y0) = side_points(sides[0]);
+387:         let (l1, x1, y1) = side_points(sides[1]);
+388:         if l0 < 1e-8 || l1 < 1e-8 || y0 < 1e-8 || y1 < 1e-8 {
+389:             continue;
+390:         }
+391:         let length = (l0 + l1) * 0.5;
+392:         let points = [
+393:             Vec3::default(),
+394:             Vec3::new(length, 0.0, 0.0),
+395:             Vec3::new(x0 * length / l0, y0, 0.0),
+396:             Vec3::new(x1 * length / l1, -y1, 0.0),
+397:         ];
+398:         let Some(w) = topology::bending_weights(points) else {
+399:             continue;
+400:         };
+401:         let bend = BendQuad {
+402:             shared: [a, b],
+403:             wings: [sides[0][2], sides[1][2]],
+404:         };
+405:         let ids = bend.particles();
+406:         if (0..4).any(|i| ids[..i].contains(&ids[i])) {
+407:             continue;
+408:         }
+409:         mesh.bends.push(bend);
+410:         mesh.bend_weights
+411:             .push([w[0], w[1], w[2], w[3], 0.0, 0.0, 0.0, 0.0]);
+412:     }
+413: }
+414: 
+415: /// Pair up the particles along two sewn edges.
+416: ///
+417: /// The two edges rarely have the same number of vertices -- they are different
+418: /// lengths, and each was resampled independently -- so both are walked by
+419: /// fraction of their length rather than by index. The finer of the two sets
+420: /// the number of stitches, so no vertex on either edge is left unsewn.
+421: fn seam_pairs(seam: &Seam, meshes: &[PanelMesh], offsets: &[u32]) -> anyhow::Result<Vec<[u32; 2]>> {
+422:     let chain_a = chain(seam.a, meshes, offsets)?;
+423:     let mut chain_b = chain(seam.b, meshes, offsets)?;
+424:     if seam.reversed {
+425:         chain_b.reverse();
+426:     }
+427:     if chain_a.len() < 2 || chain_b.len() < 2 {
+428:         return Err(anyhow!("an edge has fewer than two vertices"));
+429:     }
+430: 
+431:     let stitches = chain_a.len().max(chain_b.len());
+432:     let mut pairs = Vec::with_capacity(stitches);
+433:     for stitch in 0..stitches {
+434:         let t = stitch as f32 / (stitches - 1) as f32;
+435:         let a = chain_a[((t * (chain_a.len() - 1) as f32).round() as usize).min(chain_a.len() - 1)];
+436:         let b = chain_b[((t * (chain_b.len() - 1) as f32).round() as usize).min(chain_b.len() - 1)];
+437:         pairs.push([a.min(b), a.max(b)]);
+438:     }
+439:     Ok(pairs)
+440: }
+441: 
+442: fn chain(side: SeamSide, meshes: &[PanelMesh], offsets: &[u32]) -> anyhow::Result<Vec<u32>> {
+443:     let mesh = meshes
+444:         .get(side.panel)
+445:         .ok_or_else(|| anyhow!("no panel {}", side.panel))?;
+446:     let chain = mesh
+447:         .edge_chains
+448:         .get(side.edge)
+449:         .ok_or_else(|| anyhow!("panel {} has no edge {}", side.panel, side.edge))?;
+450:     let offset = offsets[side.panel];
+451:     Ok(chain.iter().map(|&v| v + offset).collect())
+452: }
+453: 

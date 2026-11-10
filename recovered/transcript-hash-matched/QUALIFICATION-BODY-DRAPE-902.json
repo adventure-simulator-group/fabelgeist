@@ -1,0 +1,49 @@
+{
+  "schema": "726-current-source-qualification-v1",
+  "at": "2026-11-03T11:18:44.981258+00:00",
+  "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "project_registrations": [
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-BODY-DRAPE-902.json",
+      "sha256": "0f73595e2937beff07ea280215147b7fc2a1b99023cb36127ddebdedf15c6bd9"
+    },
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-EXPORT-ENTRY-895.json",
+      "sha256": "7b373285a4e1e8c6e9496282df8771ddee4b69c769d5eb8d20109857a956a977"
+    }
+  ],
+  "project_observations": [
+    {
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-BODY-DRAPE-902.json",
+        "sha256": "0f73595e2937beff07ea280215147b7fc2a1b99023cb36127ddebdedf15c6bd9"
+      },
+      "row_index": 0,
+      "ranges": [
+        [
+          126,
+          187
+        ]
+      ],
+      "tool": "Registered exact range read without truncation"
+    },
+    {
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-EXPORT-ENTRY-895.json",
+        "sha256": "7b373285a4e1e8c6e9496282df8771ddee4b69c769d5eb8d20109857a956a977"
+      },
+      "row_index": 1,
+      "ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "tool": "Full registered source read without truncation"
+    }
+  ],
+  "native_registrations": [],
+  "native_observations": [],
+  "body_output_truncated": false,
+  "whole_contract_closed": false
+}

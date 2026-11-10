@@ -1,0 +1,57 @@
+{
+  "schema": "726-scoped-source-disposition-v1",
+  "at": "2026-11-06T02:40:55.061100+00:00",
+  "contract_id": "ROOT-L13-1586-INTERIOR-BUFFER-PUBLICATION",
+  "selected_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "remote_main_at_check": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "owner": "Interior lighting buffer publication",
+  "source_discovery_scope": "Interior buffer handle ownership and cache-publication policy",
+  "disposition": "Scoped source discovery of InteriorLightingGpu buffer publication is complete: plugin setup retains a strong ShaderBuffer handle, interior and blood materials clone it, and targeted current application paths do not establish explicit removal or replacement of that handle. Strong ownership protects against ordinary drop; pinned Assets APIs still permit explicit removal or replacement. The uploader advances cached selection and data even when get_mut fails and does not react to same-ID replacement, so supported recovery semantics require an explicit policy. CPU diagnostics use cached data and do not prove GPU publication. No actual missing buffer, replacement, stale display or runtime failure is asserted.",
+  "explicit_alias_comparison": [
+    {
+      "entry_index": 1327,
+      "contract_id": "Q-L12-825fb37d9759937f54e3"
+    },
+    {
+      "entry_index": 2244,
+      "contract_id": "L12-CLOSURE-SCENE-WINDOW-NATIVE-PROJECTION-LIGHTING"
+    }
+  ],
+  "alias_result": "Keep unrelated field and shader contracts independently tracked.",
+  "evidence": [
+    {
+      "path": "adler-continuation-20261030/QUALIFICATION-INTERIOR-BUFFER-L13-2626.json",
+      "sha256": "fc7b2826b545c6ab6c60c3b0d778817e82f0376625ec0c4f1cd7607fac7cf927"
+    },
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-INTERIOR-BUFFER-L13-2623.json",
+      "sha256": "2bb83ae9a0129fc93a10b3e11b9b3755c03024cb01687d54d4de5354ad4700cb"
+    },
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-SHADER-BUFFER-CALLERS-L13-2624.json",
+      "sha256": "56cc88b55b3a5fa98467521dcdf72062121191c756e6e79856add64be497d650"
+    },
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-INTERIOR-BUFFER-USERS-L13-2625.json",
+      "sha256": "d13757188534561864bd397f18c4d2c5d1eb7c2364908eb3cb36caf2bd79811e"
+    },
+    {
+      "path": "workflow-20261030/CLOSURE-QUEUE-2960.json",
+      "sha256": "a7ac9e7e6be482637db762eb311d311a8c2a384ecc9262ddbcaa6f56702fbfdc"
+    },
+    {
+      "path": "workflow-20261030/CLOSURE-QUEUE-2960.json",
+      "sha256": "a7ac9e7e6be482637db762eb311d311a8c2a384ecc9262ddbcaa6f56702fbfdc"
+    }
+  ],
+  "policy": {
+    "path": "adler-continuation-20261030/PARTIAL-PLAN-BATCH-REUSE-L13-2626.json",
+    "sha256": "ca219dc444a34de8a8b9fcf129a56b45c223c0ef3ced5ce6e19e75ce9816bdb5"
+  },
+  "remaining_after_discovery": [
+    "After the complete audit gate decide whether asset removal/replacement is supported. If supported, retain pending state until upload succeeds and rebind cached materials when the handle changes; otherwise document and enforce the lifetime invariant. Validate missing, restored and replaced cases and keep unrelated lighting and native asset contracts separate."
+  ],
+  "global_alias_inventory_complete": false,
+  "source_discovery_scope_complete": true,
+  "product_execution": false
+}

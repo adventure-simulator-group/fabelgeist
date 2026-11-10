@@ -1,0 +1,271 @@
+SOURCE 2648 pr-working:crates/fabelgeist-xpbd/src/particles.rs
+1: //! Particle state on the GPU.
+2: 
+3: use crate::ParticleInverseMass;
+4: use anyhow::anyhow;
+5: use fabelgeist_gpu::prelude::BufferUse;
+6: use fabelgeist_gpu::prelude::*;
+7: use fabelgeist_math::Vec3;
+8: mod packed;
+9: pub use packed::{
+10:     ParticlePositionRecord, ParticlePositions, ParticleVelocities, ParticleVelocityRecord,
+11: };
+12: 
+13: /// Positions, the previous substep's positions, and velocities.
+14: ///
+15: /// Position and inverse mass share a buffer -- `xyz` and `w` -- because a
+16: /// constraint solve reads both and nothing else, and one load beats two. An
+17: /// inverse mass of zero pins the particle: every correction is scaled by it,
+18: /// so a pinned particle never moves and the solver needs no special case.
+19: /// Since the two are interleaved, changing what is pinned means going through
+20: /// [`Particles::write`] with both.
+21: pub struct Particles {
+22:     /// xyz = position, w = inverse mass. Also usable as a vertex buffer.
+23:     pub positions: Buffer,
+24:     /// xyz = position at the start of the substep.
+25:     pub previous: Buffer,
+26:     /// xyz = velocity.
+27:     pub velocities: Buffer,
+28:     /// Kept on the host because the inverse masses share their words with the
+29:     /// positions: re-uploading positions alone would otherwise have to read
+30:     /// the buffer back first.
+31:     inverse_masses: Vec<ParticleInverseMass>,
+32:     count: u32,
+33:     capacity: u32,
+34: }
+35: 
+36: impl Particles {
+37:     pub fn new(context: &WgpuContext, capacity: u32) -> Result<Self> {
+38:         let capacity = capacity.max(1);
+39:         let bytes = capacity as u64 * 16;
+40:         // `vertex` so that the renderer can draw straight out of the solver's
+41:         // own buffer, with no copy between simulating and showing.
+42:         let definition = BufferDefinition::storage()
+43:             .with_usage(BufferUse::Vertex)
+44:             .with_usage(BufferUse::CopySource);
+45:         Ok(Self {
+46:             positions: Buffer::new(
+47:                 context,
+48:                 (bytes).into(),
+49:                 definition.clone().with_label(("particle positions").into()),
+50:             )?,
+51:             previous: Buffer::new(
+52:                 context,
+53:                 (bytes).into(),
+54:                 definition.clone().with_label(("particle previous").into()),
+55:             )?,
+56:             velocities: Buffer::new(
+57:                 context,
+58:                 (bytes).into(),
+59:                 definition.with_label(("particle velocities").into()),
+60:             )?,
+61:             inverse_masses: Vec::new(),
+62:             count: 0,
+63:             capacity,
+64:         })
+65:     }
+66: 
+67:     /// Allocate and upload in one go.
+68:     pub fn from_positions(
+69:         context: &WgpuContext,
+70:         positions: &[Vec3],
+71:         inverse_masses: &[ParticleInverseMass],
+72:     ) -> Result<Self> {
+73:         let mut particles = Self::new(context, positions.len() as u32)?;
+74:         particles.write(context, positions, inverse_masses)?;
+75:         Ok(particles)
+76:     }
+77: 
+78:     pub fn count(&self) -> u32 {
+79:         self.count
+80:     }
+81: 
+82:     pub fn capacity(&self) -> u32 {
+83:         self.capacity
+84:     }
+85: 
+86:     /// Upload positions and inverse masses, and reset velocities to rest.
+87:     pub fn write(
+88:         &mut self,
+89:         context: &WgpuContext,
+90:         positions: &[Vec3],
+91:         inverse_masses: &[ParticleInverseMass],
+92:     ) -> Result<()> {
+93:         if positions.len() != inverse_masses.len() {
+94:             return Err(anyhow!(
+95:                 "Particles::write: {} positions but {} inverse masses",
+96:                 positions.len(),
+97:                 inverse_masses.len()
+98:             ));
+99:         }
+100:         if positions.len() as u32 > self.capacity {
+101:             return Err(anyhow!(
+102:                 "Particles::write: capacity is {}, given {}",
+103:                 self.capacity,
+104:                 positions.len()
+105:             ));
+106:         }
+107: 
+108:         let packed = ParticlePositions::new(positions, inverse_masses)?;
+109:         self.positions.write(context, packed.upload())?;
+110:         self.previous.write(context, packed.upload())?;
+111:         self.velocities
+112:             .write(context, ParticleVelocities::at_rest(&packed).upload())?;
+113:         self.count = positions.len() as u32;
+114:         self.inverse_masses = inverse_masses.to_vec();
+115:         Ok(())
+116:     }
+117: 
+118:     /// The inverse masses as last uploaded. Zero pins the particle.
+119:     pub fn inverse_masses(&self) -> &[ParticleInverseMass] {
+120:         &self.inverse_masses
+121:     }
+122: 
+123:     /// Overwrite positions, keeping the inverse masses. Used to re-drape a
+124:     /// garment from a fresh layout without rebuilding the constraints.
+125:     pub fn write_positions(&mut self, context: &WgpuContext, positions: &[Vec3]) -> Result<()> {
+126:         if positions.len() as u32 != self.count {
+127:             return Err(anyhow!(
+128:                 "Particles::write_positions: holds {} particles, given {}",
+129:                 self.count,
+130:                 positions.len()
+131:             ));
+132:         }
+133:         let masses = std::mem::take(&mut self.inverse_masses);
+134:         let result = self.write(context, positions, &masses);
+135:         self.inverse_masses = masses;
+136:         result
+137:     }
+138: 
+139:     pub async fn read_positions(&self, context: &WgpuContext) -> Result<Vec<Vec3>> {
+140:         let records = ParticlePositions::from(
+141:             self.positions
+142:                 .read::<ParticlePositionRecord>(context)
+143:                 .await?,
+144:         );
+145:         Ok(records.positions().take(self.count as usize).collect())
+146:     }
+147: 
+148:     pub async fn read_velocities(&self, context: &WgpuContext) -> Result<Vec<Vec3>> {
+149:         let records = ParticleVelocities::from(
+150:             self.velocities
+151:                 .read::<ParticleVelocityRecord>(context)
+152:                 .await?,
+153:         );
+154:         Ok(records.velocities().take(self.count as usize).collect())
+155:     }
+156: 
+157:     pub async fn read_inverse_masses(
+158:         &self,
+159:         context: &WgpuContext,
+160:     ) -> Result<Vec<ParticleInverseMass>> {
+161:         let records = ParticlePositions::from(
+162:             self.positions
+163:                 .read::<ParticlePositionRecord>(context)
+164:                 .await?,
+165:         );
+166:         Ok(records.inverse_masses().take(self.count as usize).collect())
+167:     }
+168: }
+169: 
+SOURCE 2649 pr-working:crates/fabelgeist-xpbd/src/particles/packed.rs
+1: //! Native particle records preserve position, mass, and velocity roles.
+2: use crate::ParticleInverseMass;
+3: use anyhow::{Result, ensure};
+4: use fabelgeist_gpu::prelude::BufferUpload;
+5: use fabelgeist_math::Vec3;
+6: 
+7: /// Native xyz position followed by inverse kilograms, including signed zero.
+8: #[repr(C)]
+9: #[derive(Clone, Copy, Debug, bytemuck::Pod, bytemuck::Zeroable)]
+10: pub struct ParticlePositionRecord {
+11:     position: [f32; 3],
+12:     pub(super) inverse_mass: ParticleInverseMass,
+13: }
+14: 
+15: /// Native xyz velocity followed by the unused, zeroed shader word.
+16: #[repr(C)]
+17: #[derive(Clone, Copy, Debug, Default, bytemuck::Pod, bytemuck::Zeroable)]
+18: pub struct ParticleVelocityRecord {
+19:     velocity: [f32; 3],
+20:     padding: f32,
+21: }
+22: 
+23: /// Positions stay paired with their mass words through upload and readback.
+24: pub struct ParticlePositions(Vec<ParticlePositionRecord>);
+25: impl ParticlePositions {
+26:     pub fn new(positions: &[Vec3], inverse_masses: &[ParticleInverseMass]) -> Result<Self> {
+27:         ensure!(
+28:             positions.len() == inverse_masses.len(),
+29:             "Particles::write: {} positions but {} inverse masses",
+30:             positions.len(),
+31:             inverse_masses.len()
+32:         );
+33:         Ok(Self(
+34:             positions
+35:                 .iter()
+36:                 .zip(inverse_masses)
+37:                 .map(|(p, &inverse_mass)| ParticlePositionRecord {
+38:                     position: [p.x, p.y, p.z],
+39:                     inverse_mass,
+40:                 })
+41:                 .collect(),
+42:         ))
+43:     }
+44:     pub fn upload(&self) -> BufferUpload<'_> {
+45:         BufferUpload::from_elements(&self.0)
+46:     }
+47:     pub fn positions(&self) -> impl Iterator<Item = Vec3> + '_ {
+48:         self.0
+49:             .iter()
+50:             .map(|p| Vec3::new(p.position[0], p.position[1], p.position[2]))
+51:     }
+52:     pub fn inverse_masses(&self) -> impl Iterator<Item = ParticleInverseMass> + '_ {
+53:         self.0.iter().map(|p| p.inverse_mass)
+54:     }
+55: }
+56: impl From<Vec<ParticlePositionRecord>> for ParticlePositions {
+57:     fn from(records: Vec<ParticlePositionRecord>) -> Self {
+58:         Self(records)
+59:     }
+60: }
+61: 
+62: /// Velocity records cannot be used as position/mass records.
+63: ///
+64: /// ```compile_fail
+65: /// use fabelgeist_xpbd::{ParticlePositions, ParticleVelocities};
+66: /// fn positions(_: ParticlePositions) {}
+67: /// positions(ParticleVelocities::from(&[][..]));
+68: /// ```
+69: pub struct ParticleVelocities(Vec<ParticleVelocityRecord>);
+70: impl ParticleVelocities {
+71:     pub fn at_rest(positions: &ParticlePositions) -> Self {
+72:         Self(vec![ParticleVelocityRecord::default(); positions.0.len()])
+73:     }
+74:     pub fn upload(&self) -> BufferUpload<'_> {
+75:         BufferUpload::from_elements(&self.0)
+76:     }
+77:     pub fn velocities(&self) -> impl Iterator<Item = Vec3> + '_ {
+78:         self.0
+79:             .iter()
+80:             .map(|v| Vec3::new(v.velocity[0], v.velocity[1], v.velocity[2]))
+81:     }
+82: }
+83: impl From<&[Vec3]> for ParticleVelocities {
+84:     fn from(velocities: &[Vec3]) -> Self {
+85:         Self(
+86:             velocities
+87:                 .iter()
+88:                 .map(|v| ParticleVelocityRecord {
+89:                     velocity: [v.x, v.y, v.z],
+90:                     padding: 0.0,
+91:                 })
+92:                 .collect(),
+93:         )
+94:     }
+95: }
+96: impl From<Vec<ParticleVelocityRecord>> for ParticleVelocities {
+97:     fn from(records: Vec<ParticleVelocityRecord>) -> Self {
+98:         Self(records)
+99:     }
+100: }

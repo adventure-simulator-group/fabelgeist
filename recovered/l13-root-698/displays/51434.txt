@@ -1,0 +1,249 @@
+SOURCE 2650 pr-working:crates/fabelgeist-physics/src/contact/tests.rs
+1: use super::*;
+2: use crate::collider::COLLIDER_BYTES;
+3: 
+4: async fn bytes(collision: &Collisions, context: &WgpuContext) -> Vec<u8> {
+5:     collision.collider_buffer.read(context).await.unwrap()
+6: }
+7: 
+8: #[tokio::test]
+9: async fn growth_and_empty_replacement_keep_native_packing_and_retained_capacity() {
+10:     let context = WgpuContext::new().await.unwrap();
+11:     let cache = KernelCache::new();
+12:     let mut collision = Collisions::new(&context, &cache).unwrap();
+13:     assert_eq!(
+14:         u64::from(collision.collider_buffer.size),
+15:         (16 * COLLIDER_BYTES) as u64
+16:     );
+17:     let colliders: Vec<_> = (0..17).map(|i| Collider::ground(i as f32)).collect();
+18:     let expected = bytemuck::cast_slice::<f32, u8>(&pack_colliders(&colliders)).to_vec();
+19:     collision.set_colliders(&context, colliders).unwrap();
+20:     let uploaded = bytes(&collision, &context).await;
+21:     assert_eq!(uploaded.len(), 32 * COLLIDER_BYTES);
+22:     assert_eq!(&uploaded[..expected.len()], &expected);
+23:     collision.set_colliders(&context, vec![]).unwrap();
+24:     assert!(collision.colliders().is_empty());
+25:     assert_eq!(bytes(&collision, &context).await, uploaded);
+26:     collision
+27:         .set_colliders(&context, vec![Collider::ground(1.25)])
+28:         .unwrap();
+29:     let smaller = bytes(&collision, &context).await;
+30:     assert_eq!(smaller.len(), uploaded.len());
+31:     assert_eq!(&smaller[COLLIDER_BYTES..], &uploaded[COLLIDER_BYTES..]);
+32: }
+33: 
+34: #[tokio::test]
+35: async fn rejected_update_keeps_host_list_and_uploaded_words() {
+36:     let context = WgpuContext::new().await.unwrap();
+37:     let cache = KernelCache::new();
+38:     let mut collision = Collisions::new(&context, &cache).unwrap();
+39:     collision
+40:         .set_colliders(&context, vec![Collider::ground(0.5)])
+41:         .unwrap();
+42:     let before = bytes(&collision, &context).await;
+43:     let error = collision
+44:         .update_colliders(&context, &[Collider::ground(1.0), Collider::ground(2.0)])
+45:         .unwrap_err();
+46:     assert_eq!(
+47:         error.to_string(),
+48:         "Collisions::update_colliders: holds 1 colliders, given 2; use `set_colliders` to change the count"
+49:     );
+50:     assert_eq!(collision.colliders().len(), 1);
+51:     assert_eq!(bytes(&collision, &context).await, before);
+52:     let held = bytemuck::cast_slice::<f32, u8>(&pack_colliders(collision.colliders())).to_vec();
+53:     assert_eq!(&before[..held.len()], &held);
+54: }
+SOURCE 2651 pr-working:crates/fabelgeist-physics/src/contact/count/tests.rs
+1: use super::*;
+2: 
+3: #[test]
+4: #[cfg(target_pointer_width = "64")]
+5: fn preserves_main_host_growth_before_native_narrowing() {
+6:     for line in include_str!("../../../tests/fixtures/collider-capacity.txt").lines() {
+7:         let values: Vec<u64> = line
+8:             .split_whitespace()
+9:             .map(|v| v.parse().unwrap())
+10:             .collect();
+11:         let count = ColliderCount::from(values[0] as usize);
+12:         let capacity = match ColliderCapacity::INITIAL.fit(count) {
+13:             ColliderCapacityFit::Retained => ColliderCapacity::INITIAL,
+14:             ColliderCapacityFit::GrowthRequired => ColliderCapacity::for_count(count),
+15:         };
+16:         assert_eq!(capacity.0 as u64, values[1]);
+17:         assert_eq!(u64::from(capacity.byte_length()), values[2]);
+18:     }
+19: }
+SOURCE 2652 pr-working:crates/fabelgeist-xpbd/src/incidence.rs
+1: //! Particle incidence acquires its solver role before coloring or upload.
+2: use derive_more::{Display, Error, From};
+3: use fabelgeist_gpu::prelude::{Buffer, BufferDefinition, BufferUpload, WgpuContext};
+4: use std::num::NonZeroUsize;
+5: 
+6: /// Address of a solver particle, independent of draw or constraint addresses.
+7: /// Admission assigns a role, not membership in any particular particle buffer.
+8: ///
+9: /// ```compile_fail
+10: /// use fabelgeist_xpbd::{ConstraintIndex, ParticleIndex};
+11: /// let _: ConstraintIndex = ParticleIndex::from(3);
+12: /// ```
+13: #[derive(Clone, Copy, Debug, Display, From, PartialEq, Eq, Hash)]
+14: pub struct ParticleIndex(u32);
+15: 
+16: /// Number of particle entries in a flattened constraint input.
+17: #[derive(Clone, Copy, Debug, Display, PartialEq, Eq)]
+18: pub struct ConstraintParticleCount(usize);
+19: 
+20: /// A fixed constraint always touches at least one particle.
+21: #[derive(Clone, Copy, Debug, Display, PartialEq, Eq)]
+22: pub struct ConstraintArity(NonZeroUsize);
+23: 
+24: /// A checked view of complete, immutable fixed-arity particle records.
+25: #[derive(Clone, Debug)]
+26: pub struct ConstraintIncidence<'a> {
+27:     particles: &'a [ParticleIndex],
+28:     arity: ConstraintArity,
+29: }
+30: 
+31: /// The two-particle records used by distance and spring constraints.
+32: #[derive(Clone, Debug, Default)]
+33: pub struct ConstraintEdges(Vec<[ParticleIndex; 2]>);
+34: 
+35: #[derive(Clone, Debug, Display, Error, PartialEq, Eq)]
+36: pub enum ConstraintLayoutError {
+37:     #[display("ConstraintSet: arity must be at least one")]
+38:     ZeroArity,
+39:     #[display(
+40:         "ConstraintSet: {particles} indices is not a whole number of arity-{arity} constraints"
+41:     )]
+42:     Incomplete {
+43:         particles: ConstraintParticleCount,
+44:         arity: ConstraintArity,
+45:     },
+46: }
+47: 
+48: impl From<ParticleIndex> for usize {
+49:     fn from(index: ParticleIndex) -> Self {
+50:         index.0 as usize
+51:     }
+52: }
+53: 
+54: impl ConstraintArity {
+55:     // A native edge record contains two particle addresses.
+56:     const PAIR: Self = Self(NonZeroUsize::MIN.saturating_add(1));
+57: }
+58: 
+59: impl TryFrom<usize> for ConstraintArity {
+60:     type Error = ConstraintLayoutError;
+61:     fn try_from(arity: usize) -> Result<Self, ConstraintLayoutError> {
+62:         NonZeroUsize::new(arity)
+63:             .map(Self)
+64:             .ok_or(ConstraintLayoutError::ZeroArity)
+65:     }
+66: }
+67: 
+68: impl<'a> ConstraintIncidence<'a> {
+69:     /// Borrow particle-address records, preserving their exact order.
+70:     pub fn from_records<const N: usize>(
+71:         records: &'a [[ParticleIndex; N]],
+72:     ) -> Result<Self, ConstraintLayoutError> {
+73:         Self::new(records.as_flattened(), ConstraintArity::try_from(N)?)
+74:     }
+75: 
+76:     /// Borrow flat particle storage only when every record is complete.
+77:     pub fn new(
+78:         particles: &'a [ParticleIndex],
+79:         arity: ConstraintArity,
+80:     ) -> Result<Self, ConstraintLayoutError> {
+81:         if !particles.len().is_multiple_of(arity.0.get()) {
+82:             return Err(ConstraintLayoutError::Incomplete {
+83:                 particles: ConstraintParticleCount(particles.len()),
+84:                 arity,
+85:             });
+86:         }
+87:         Ok(Self { particles, arity })
+88:     }
+89:     pub fn arity(&self) -> ConstraintArity {
+90:         self.arity
+91:     }
+92:     pub(crate) fn records(&self) -> impl Iterator<Item = &[ParticleIndex]> {
+93:         self.particles.chunks(self.arity.0.get())
+94:     }
+95:     pub(crate) fn upload_ordered(
+96:         &self,
+97:         context: &WgpuContext,
+98:         coloring: &crate::Coloring,
+99:     ) -> anyhow::Result<Buffer> {
+100:         let mut words = Vec::with_capacity(self.particles.len());
+101:         for &constraint in coloring.order() {
+102:             let first = usize::from(constraint) * self.arity.0.get();
+103:             for particle in &self.particles[first..first + self.arity.0.get()] {
+104:                 // This is the constraint particle buffer's native u32 ABI.
+105:                 words.push(particle.0);
+106:             }
+107:         }
+108:         Buffer::from_upload(
+109:             context,
+110:             BufferUpload::from_elements(&words).with_empty_word(),
+111:             BufferDefinition::storage().with_label("constraint particles".into()),
+112:         )
+113:     }
+114: }
+115: 
+116: impl From<&[[u32; 2]]> for ConstraintEdges {
+117:     fn from(records: &[[u32; 2]]) -> Self {
+118:         let mut edges = Vec::with_capacity(records.len());
+119:         for &record in records {
+120:             edges.push(record.map(ParticleIndex::from));
+121:         }
+122:         Self(edges)
+123:     }
+124: }
+125: 
+126: impl ConstraintEdges {
+127:     pub fn pairs(&self) -> &[[ParticleIndex; 2]] {
+128:         &self.0
+129:     }
+130:     pub fn count(&self) -> crate::ConstraintCount {
+131:         self.0.len().into()
+132:     }
+133:     pub fn incidence(&self) -> ConstraintIncidence<'_> {
+134:         ConstraintIncidence {
+135:             particles: self.0.as_flattened(),
+136:             arity: ConstraintArity::PAIR,
+137:         }
+138:     }
+139: }
+140: 
+SOURCE 2653 pr-working:crates/fabelgeist-xpbd/src/constraint/address.rs
+1: //! Original constraint addresses remain separate from color-order slots.
+2: use derive_more::{Display, From, Into};
+3: use fabelgeist_gpu::prelude::{BufferByteLength, PassParameter};
+4: 
+5: /// Address of a constraint in its producer's original order.
+6: #[derive(Clone, Copy, Debug, Display, From, PartialEq, Eq)]
+7: pub struct ConstraintIndex(u32);
+8: 
+9: /// Complete per-constraint record cardinality, including an empty set.
+10: #[derive(Clone, Copy, Debug, Display, From, Into, PartialEq, Eq)]
+11: pub struct ConstraintCount(usize);
+12: 
+13: impl From<ConstraintIndex> for usize {
+14:     fn from(index: ConstraintIndex) -> Self {
+15:         index.0 as usize
+16:     }
+17: }
+18: 
+19: impl ConstraintCount {
+20:     pub fn is_empty(self) -> bool {
+21:         self.0 == 0
+22:     }
+23:     pub(crate) fn lambda_bytes(self) -> BufferByteLength {
+24:         ((self.0.max(1) as u64) * 4).into()
+25:     }
+26:     pub(crate) fn uniform(self) -> PassParameter {
+27:         (self.0 as u32).into()
+28:     }
+29:     pub(crate) fn dispatch_items(self) -> u32 {
+30:         self.0 as u32
+31:     }
+32: }

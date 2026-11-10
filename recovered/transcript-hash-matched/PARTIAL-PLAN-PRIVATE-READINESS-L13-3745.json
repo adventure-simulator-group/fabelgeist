@@ -1,0 +1,18 @@
+{
+  "schema": "726-partial-connected-repair-plan-v1",
+  "at": "2026-11-08T22:06:16.900233+00:00",
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-PRIVATE-READINESS-L13-3745.json",
+    "sha256": "31a3872c617a329a6b81becb01b0562b9bdb76ee7bf237cea65c954a40f955bd"
+  },
+  "status": "Private/public reachability remains open",
+  "observed_behavior": "Private terminal meters combine baseline, disease and interventions; illness flags derive from episode stages on notices.",
+  "constraints": [
+    "Preserve private health information and avoid inferring terminal state from public flags alone."
+  ],
+  "acceptance": [
+    "Qualify full readiness input path and supported intervention histories.",
+    "Exercise any admitted terminal boundary through the complete action after audit closure."
+  ],
+  "implementation_gate_complete": false
+}

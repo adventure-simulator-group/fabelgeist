@@ -1,0 +1,100 @@
+1: //! Deterministic studio-lit orthographic portraits of generated weapon meshes.
+2: 
+3: use std::collections::HashMap;
+4: 
+5: use thiserror::Error;
+6: mod render;
+7: mod screen;
+8: use screen::{occupied_bounds, raw_coordinates, relative_screen};
+9: mod studio;
+10: pub use studio::environment_hdr;
+11: 
+12: use crate::{
+13:     ComponentRole, GenerateError, GeneratedWeapon, GeneratedWeaponHolder, MeshPart, WeaponDesign,
+14:     WeaponHolderDesign, WeaponHolderKind, generate, generate_holder,
+15: };
+16: 
+17: /// Bump whenever projection, framing, or rasterization changes.
+18: pub const ICON_RENDERER_VERSION: u16 = 5;
+19: const MAX_HEAD_ZOOM: f32 = 2.0;
+20: const SYNTHETIC_HEAD_LENGTH_M: f32 = 0.12;
+21: 
+22: #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
+23: pub enum WeaponIconLayout {
+24:     /// Guard centered; complete handle extends upper-right and blade exits lower-left.
+25:     HiltFocus,
+26:     /// Head root centered; complete head extends upper-left and shaft exits lower-right.
+27:     HeadFocus,
+28: }
+29: 
+30: #[derive(Clone, Copy, Debug, PartialEq)]
+31: pub struct IconBounds {
+32:     pub min: [f32; 2],
+33:     pub max: [f32; 2],
+34: }
+35: 
+36: impl IconBounds {
+37:     fn empty() -> Self {
+38:         Self {
+39:             min: [f32::INFINITY; 2],
+40:             max: [f32::NEG_INFINITY; 2],
+41:         }
+42:     }
+43: 
+44:     fn include(&mut self, point: [f32; 2]) {
+45:         for (axis, value) in point.into_iter().enumerate() {
+46:             self.min[axis] = self.min[axis].min(value);
+47:             self.max[axis] = self.max[axis].max(value);
+48:         }
+49:     }
+50: 
+51:     pub fn center(self) -> [f32; 2] {
+52:         [
+53:             (self.min[0] + self.max[0]) * 0.5,
+54:             (self.min[1] + self.max[1]) * 0.5,
+55:         ]
+56:     }
+57: 
+58:     fn is_finite(self) -> bool {
+59:         self.min.into_iter().chain(self.max).all(f32::is_finite)
+60:     }
+61: }
+62: 
+63: #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
+64: pub struct WeaponIconSpec {
+65:     pub size: u16,
+66:     pub supersampling: u8,
+67: }
+68: 
+69: impl Default for WeaponIconSpec {
+70:     fn default() -> Self {
+71:         Self {
+72:             size: 96,
+73:             supersampling: 4,
+74:         }
+75:     }
+76: }
+77: 
+78: #[derive(Clone, Debug, PartialEq)]
+79: pub struct WeaponIcon {
+80:     pub size: u16,
+81:     pub rgba: Vec<u8>,
+82:     pub layout: WeaponIconLayout,
+83:     /// True when the base layout is horizontally mirrored, as for scabbards.
+84:     pub mirrored: bool,
+85:     /// Normalized semantic framing anchor: guard, head root, sheath throat, or loop center.
+86:     pub framing_anchor: [f32; 2],
+87:     /// Head-layout magnification relative to fitting the full head/socket assembly.
+88:     pub head_zoom: f32,
+89:     /// Normalized bounds of the hilt/head assembly that controls framing.
+90:     pub focus_bounds: IconBounds,
+91:     /// Normalized bounds of all occupied output pixels.
+92:     pub occupied_bounds: IconBounds,
+93: }
+94: 
+95: impl WeaponIcon {
+96:     pub fn encode_png(&self) -> Result<Vec<u8>, IconError> {
+97:         studio::encode_png(self.size, self.rgba.clone())
+98:     }
+99: }
+100: 

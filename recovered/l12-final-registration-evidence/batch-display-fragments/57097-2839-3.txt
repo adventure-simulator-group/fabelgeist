@@ -1,0 +1,101 @@
+1: use super::flight::{DECK_THICKNESS_METRES, SpiralFlight, WELL_MARGIN_METRES};
+2: use super::*;
+3: 
+4: #[derive(Clone, Copy)]
+5: struct Rectangle {
+6:     min: Vec2,
+7:     max: Vec2,
+8: }
+9: 
+10: impl Rectangle {
+11:     fn subtract(self, hole: Self) -> Vec<Self> {
+12:         let min = self.min.max(hole.min);
+13:         let max = self.max.min(hole.max);
+14:         if min.cmpge(max).any() {
+15:             return vec![self];
+16:         }
+17:         [
+18:             Self {
+19:                 min: self.min,
+20:                 max: Vec2::new(min.x, self.max.y),
+21:             },
+22:             Self {
+23:                 min: Vec2::new(max.x, self.min.y),
+24:                 max: self.max,
+25:             },
+26:             Self {
+27:                 min: Vec2::new(min.x, self.min.y),
+28:                 max: Vec2::new(max.x, min.y),
+29:             },
+30:             Self {
+31:                 min: Vec2::new(min.x, max.y),
+32:                 max: Vec2::new(max.x, self.max.y),
+33:             },
+34:         ]
+35:         .into_iter()
+36:         .filter(|rect| (rect.max - rect.min).min_element() > 0.001)
+37:         .collect()
+38:     }
+39: }
+40: 
+41: pub(super) fn resolve(
+42:     plan: &mut BuildingPlan,
+43:     flights: &[(usize, SpiralFlight)],
+44: ) -> Result<(), crate::GenerationError> {
+45:     let centre = plan.dimensions_metres() * 0.5;
+46:     let bearing = foundation(&mut plan.resolved_geometry, FLOOR_OWNER, centre)?;
+47:     let mut index = 0;
+48:     let _: () = for storey in &plan.storeys {
+49:         let cells = storey
+50:             .rooms
+51:             .iter()
+52:             .flat_map(|r| &r.cells)
+53:             .copied()
+54:             .collect::<std::collections::BTreeSet<_>>();
+55:         for cell in cells {
+56:             let mut panels = vec![Rectangle {
+57:                 min: cell.centre() - Vec2::splat(crate::CELL_SIZE_METRES * 0.5),
+58:                 max: cell.centre() + Vec2::splat(crate::CELL_SIZE_METRES * 0.5),
+59:             }];
+60:             if storey.level > 0 {
+61:                 for (_, flight) in flights.iter().filter(|(_, flight)| {
+62:                     let height = f32::from(storey.level) * plan.storey_height_metres;
+63:                     height > flight.base_height_metres && height <= flight.top_height_metres + 0.001
+64:                 }) {
+65:                     let half = Vec2::splat(flight.outer_radius_metres + WELL_MARGIN_METRES);
+66:                     let hole = Rectangle {
+67:                         min: flight.centre - half,
+68:                         max: flight.centre + half,
+69:                     };
+70:                     panels = panels
+71:                         .into_iter()
+72:                         .flat_map(|panel| panel.subtract(hole))
+73:                         .collect();
+74:                 }
+75:             }
+76:             for panel in panels {
+77:                 let centre = (panel.min + panel.max) * 0.5;
+78:                 let size = panel.max - panel.min;
+79:                 append(
+80:                     &mut plan.resolved_geometry,
+81:                     FLOOR_OWNER,
+82:                     index,
+83:                     bearing,
+84:                     SpiralMember {
+85:                         centre: Vec3::new(
+86:                             centre.x,
+87:                             f32::from(storey.level) * plan.storey_height_metres
+88:                                 - DECK_THICKNESS_METRES * 0.5,
+89:                             centre.y,
+90:                         ),
+91:                         size: Vec3::new(size.x, DECK_THICKNESS_METRES, size.y),
+92:                         yaw_radians: 0.0,
+93:                         role: SolidRole::InteriorFloor,
+94:                     },
+95:                 )?;
+96:                 index += 1;
+97:             }
+98:         }
+99:     };
+100:     Ok(())
+101: }

@@ -1,0 +1,100 @@
+301:                     [0.24, 0.24],
+302:                     focus,
+303:                     bounds_center(throat.bounds),
+304:                 )
+305:             }
+306:             WeaponHolderKind::HaftLoop => {
+307:                 let focus = generated
+308:                     .parts
+309:                     .iter()
+310:                     .flat_map(|part| part.positions.iter().copied())
+311:                     .collect::<Vec<_>>();
+312:                 (
+313:                     WeaponIconLayout::HeadFocus,
+314:                     false,
+315:                     false,
+316:                     [0.5, 0.5],
+317:                     focus,
+318:                     bounds_center(generated.bounds),
+319:                 )
+320:             }
+321:         };
+322:         if focus.is_empty() {
+323:             return Err(IconError::MissingFocus);
+324:         }
+325:         let [lateral_center, axial_center] = raw_coordinates(anchor, layout);
+326:         let safe = IconBounds {
+327:             min: [0.02, 0.02],
+328:             max: [0.98, 0.98],
+329:         };
+330:         let scale = fit_scale(
+331:             &focus,
+332:             [lateral_center, axial_center],
+333:             layout,
+334:             mirror_x,
+335:             flip_lateral,
+336:             target,
+337:             safe,
+338:         )? * 0.96;
+339:         let mut projection = Self {
+340:             layout,
+341:             lateral_center,
+342:             axial_center,
+343:             target,
+344:             scale,
+345:             mirror_x,
+346:             flip_lateral,
+347:             framing_anchor: target,
+348:             head_zoom: 1.0,
+349:             focus_bounds: IconBounds::empty(),
+350:         };
+351:         for point in focus {
+352:             projection.focus_bounds.include(projection.point(point));
+353:         }
+354:         Ok(projection)
+355:     }
+356: 
+357:     fn point(&self, point: [f32; 3]) -> [f32; 2] {
+358:         let relative = relative_screen(
+359:             raw_coordinates(point, self.layout),
+360:             [self.lateral_center, self.axial_center],
+361:             self.layout,
+362:             self.mirror_x,
+363:             self.flip_lateral,
+364:         );
+365:         [
+366:             self.target[0] + relative[0] * self.scale,
+367:             self.target[1] + relative[1] * self.scale,
+368:         ]
+369:     }
+370: }
+371: 
+372: fn bounds_center(bounds: crate::Bounds) -> [f32; 3] {
+373:     std::array::from_fn(|axis| (bounds.min[axis] + bounds.max[axis]) * 0.5)
+374: }
+375: 
+376: fn fit_scale(
+377:     points: &[[f32; 3]],
+378:     center: [f32; 2],
+379:     layout: WeaponIconLayout,
+380:     mirror_x: bool,
+381:     flip_lateral: bool,
+382:     target: [f32; 2],
+383:     safe: IconBounds,
+384: ) -> Result<f32, IconError> {
+385:     let mut scale = f32::INFINITY;
+386:     for point in points {
+387:         let relative = relative_screen(
+388:             raw_coordinates(*point, layout),
+389:             center,
+390:             layout,
+391:             mirror_x,
+392:             flip_lateral,
+393:         );
+394:         for axis in 0..2 {
+395:             if relative[axis] < -1.0e-6 {
+396:                 scale = scale.min((target[axis] - safe.min[axis]) / -relative[axis]);
+397:             } else if relative[axis] > 1.0e-6 {
+398:                 scale = scale.min((safe.max[axis] - target[axis]) / relative[axis]);
+399:             }
+400:         }

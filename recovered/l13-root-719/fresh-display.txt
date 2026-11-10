@@ -1,0 +1,1295 @@
+SOURCE 2790
+1: use crate::allocator::utils;
+2: use crate::allocator::{batch_buffer::BatchBuffer, core::BatchRanges, id_allocator::IdAllocator};
+3: use crate::prelude::*;
+4: 
+5: use bevy_derive::{Deref, DerefMut};
+6: use bevy_ecs::prelude::*;
+7: use bevy_render::{
+8:     render_resource::{
+9:         BindGroup, BindGroupEntry, BindGroupLayoutDescriptor, Buffer, BufferUsages, PipelineCache,
+10:     },
+11:     renderer::{RenderDevice, RenderQueue},
+12: };
+13: 
+14: use std::marker::PhantomData;
+15: use std::mem::size_of;
+16: 
+17: #[derive(Resource, Deref, DerefMut)]
+18: pub struct MaterialBatchRanges<M>(#[deref] pub BatchRanges, PhantomData<M>);
+19: 
+20: impl<M: InstancedMaterial> Default for MaterialBatchRanges<M> {
+21:     fn default() -> Self {
+22:         Self(BatchRanges::default(), PhantomData)
+23:     }
+24: }
+25: 
+26: impl<T: InstancedMaterial> MaterialBatchRanges<T> {
+27:     pub fn clear(&mut self) {
+28:         (**self).clear();
+29:     }
+30: }
+31: 
+32: #[derive(Default)]
+33: pub struct InstancePage {
+34:     pub source_buffer: Option<Buffer>,
+35:     pub output_buffer: Option<Buffer>,
+36:     pub indirect_buffer: Option<Buffer>,
+37:     pub metadata_buffer: Option<Buffer>,
+38:     pub batch_buffer: Option<Buffer>,
+39: 
+40:     pub compute_bind_group: Option<BindGroup>,
+41:     pub common_bind_group: Option<BindGroup>,
+42: 
+43:     pub compute_capacity: u32,
+44: 
+45:     pub batcher: BatchBuffer,
+46:     pub id_allocator: IdAllocator,
+47: }
+48: 
+49: impl InstancePage {
+50:     /// Allocates a batch ID for the given entity.
+51:     pub fn alloc(&mut self, entity: Entity) -> u32 {
+52:         self.id_allocator.alloc(entity)
+53:     }
+54: 
+55:     /// Frees the batch ID for the given entity and clears the associated batch data.
+56:     pub fn free(&mut self, entity: Entity) {
+57:         if let Some(id) = self.id_allocator.allocations.get(&entity).copied() {
+58:             self.id_allocator.free(entity);
+59:             self.batcher.clear(id as usize);
+60:         }
+61:     }
+62: 
+63:     /// Flushes the internal batcher to the GPU buffers, resizing if necessary.
+64:     pub fn flush(&mut self, device: &RenderDevice, queue: &RenderQueue, page_id: usize) {
+65:         let batch_capacity = self.batcher.capacity() as u64;
+66: 
+67:         let mut resized = false;
+68:         let mut check_resize = |buffer: &mut Option<Buffer>, size: u64, usage, label: String| {
+69:             let old_size = buffer.as_ref().map(|b| b.size()).unwrap_or(0);
+70:             let aligned = (size + 3) & !3;
+71:             if aligned > old_size {
+72:                 utils::ensure_buffer_capacity(device, queue, buffer, size, usage, &label, false);
+73:                 resized = true;
+74:             }
+75:         };
+76: 
+77:         check_resize(
+78:             &mut self.batch_buffer,
+79:             batch_capacity * size_of::<InstanceUniforms>() as u64,
+80:             BufferUsages::STORAGE | BufferUsages::COPY_DST,
+81:             format!("page_{}_batch", page_id),
+82:         );
+83: 
+84:         check_resize(
+85:             &mut self.indirect_buffer,
+86:             batch_capacity
+87:                 * size_of::<bevy_render::render_resource::DrawIndexedIndirectArgs>() as u64,
+88:             BufferUsages::STORAGE | BufferUsages::INDIRECT | BufferUsages::COPY_DST,
+89:             format!("page_{}_indirect", page_id),
+90:         );
+91: 
+92:         check_resize(
+93:             &mut self.metadata_buffer,
+94:             batch_capacity * size_of::<BatchMetadata>() as u64,
+95:             BufferUsages::STORAGE | BufferUsages::COPY_DST,
+96:             format!("page_{}_metadata", page_id),
+97:         );
+98: 
+99:         if resized {
+100:             self.batcher.mark_dirty();
+101:         }
+102: 
+103:         if let (Some(ind), Some(batch), Some(meta)) = (
+104:             &self.indirect_buffer,
+105:             &self.batch_buffer,
+106:             &self.metadata_buffer,
+107:         ) {
+108:             self.batcher.flush(queue, ind, batch, meta);
+109:         }
+110:     }
+111: 
+112:     /// Recreates bind groups if capacity or buffers have changed.
+113:     pub fn update(
+114:         &mut self,
+115:         device: &RenderDevice,
+116:         pipeline_cache: &PipelineCache,
+117:         page_id: usize,
+118:         common_layout: &BindGroupLayoutDescriptor,
+119:         compute_layout: Option<&BindGroupLayoutDescriptor>,
+120:         capacity: u32,
+121:     ) {
+122:         self.compute_capacity = capacity;
+123: 
+124:         if let Some(layout) = compute_layout
+125:             && self.source_buffer.is_some()
+126:             && self.metadata_buffer.is_some()
+127:         {
+128:             self.compute_bind_group = Some(device.create_bind_group(
+129:                 Some(format!("page_{}_compute_bind_group", page_id).as_str()),
+130:                 &pipeline_cache.get_bind_group_layout(layout),
+131:                 &[
+132:                     BindGroupEntry {
+133:                         binding: 0,
+134:                         resource: self.source_buffer.as_ref().unwrap().as_entire_binding(),
+135:                     },
+136:                     BindGroupEntry {
+137:                         binding: 1,
+138:                         resource: self.output_buffer.as_ref().unwrap().as_entire_binding(),
+139:                     },
+140:                     BindGroupEntry {
+141:                         binding: 2,
+142:                         resource: self.indirect_buffer.as_ref().unwrap().as_entire_binding(),
+143:                     },
+144:                     BindGroupEntry {
+145:                         binding: 3,
+146:                         resource: self.metadata_buffer.as_ref().unwrap().as_entire_binding(),
+147:                     },
+148:                 ],
+149:             ));
+150:         }
+151: 
+152:         let Some(batch_buffer) = &self.batch_buffer else {
+153:             return;
+154:         };
+155: 
+156:         self.common_bind_group = Some(device.create_bind_group(
+157:             Some(format!("page_{}_common_bind_group", page_id).as_str()),
+158:             &pipeline_cache.get_bind_group_layout(common_layout),
+159:             &[BindGroupEntry {
+160:                 binding: 0,
+161:                 resource: batch_buffer.as_entire_binding(),
+162:             }],
+163:         ));
+164:     }
+165: }
+166: 
+167: #[derive(Resource)]
+168: pub struct GlobalInstanceAllocator<M> {
+169:     pub pages: Vec<InstancePage>,
+170:     pub backend: InstanceAllocatorBackend,
+171:     pub _marker: PhantomData<M>,
+172: }
+173: 
+174: impl<M: InstancedMaterial> Default for GlobalInstanceAllocator<M> {
+175:     fn default() -> Self {
+176:         Self {
+177:             pages: Vec::new(),
+178:             backend: InstanceAllocatorBackend::default(),
+179:             _marker: PhantomData,
+180:         }
+181:     }
+182: }
+SOURCE 2791
+1: //! Defines the types and protocol for the module.
+2: 
+3: use crate::material::InstancedMaterial;
+4: 
+5: use bevy_asset::{Asset, AssetId};
+6: use bevy_ecs::entity::{Entity, EntityHashMap};
+7: use bevy_mesh::Mesh;
+8: use bevy_render::{render_resource::ShaderType, sync_world::MainEntity};
+9: 
+10: use std::hash::{Hash, Hasher};
+11: use std::ops::Range;
+12: 
+13: use bytemuck::{Pod, Zeroable};
+14: 
+15: /// A range of instances allocated within a page.
+16: #[derive(Debug, Clone, Copy)]
+17: pub struct InstanceAllocation {
+18:     /// The index of the page (buffer) where this allocation resides.
+19:     pub page: usize,
+20:     /// The start index within the page.
+21:     pub offset: u32,
+22: }
+23: 
+24: impl From<(usize, u32)> for InstanceAllocation {
+25:     fn from((page, offset): (usize, u32)) -> Self {
+26:         Self { page, offset }
+27:     }
+28: }
+29: 
+30: /// Interface for managing GPU instance indices.
+31: pub trait InstanceAllocator: Send + Sync + 'static {
+32:     /// Reserves a contiguous block of `count` indices for the given `entity`.
+33:     ///
+34:     /// Returns the [`InstanceAllocation`] if successful, or `None` if allocation failed.
+35:     fn alloc(&mut self, entity: Entity, count: u32) -> Option<InstanceAllocation>;
+36: 
+37:     /// Releases the indices associated with `entity`, making them available for reuse.
+38:     fn free(&mut self, entity: Entity);
+39: 
+40:     /// Returns the active "watermark" (the highest used index) for a specific page.
+41:     ///
+42:     /// Used to determine the required size of the GPU buffer.
+43:     fn size(&self, page_id: usize) -> u32;
+44: 
+45:     /// Returns ranges freed this frame to be written as "tombstones" (zeros) to the GPU.
+46:     fn drain(&mut self, page_id: usize) -> Vec<Range<u32>>;
+47: 
+48:     /// Clears all pages and allocations.
+49:     fn reset(&mut self);
+50: 
+51:     /// Retrieves the [`InstanceAllocation`] for an entity if it exists.
+52:     fn get(&self, entity: Entity) -> Option<InstanceAllocation>;
+53: 
+54:     /// Returns the number of active pages.
+55:     fn page_count(&self) -> usize;
+56: }
+84: pub struct BatchInfo {
+85:     pub page: usize,
+86:     pub range: Range<u32>,
+87:     #[cfg(target_family = "wasm")]
+88:     pub instance_offset: u32,
+89: }
+90: 
+91: #[derive(Default)]
+92: pub struct BatchRanges {
+93:     pub batches: Vec<BatchInfo>,
+94:     pub entities: Vec<(Entity, MainEntity)>,
+95:     pub batch_lookup: EntityHashMap<u32>,
+96: }
+97: 
+98: impl BatchRanges {
+99:     pub fn clear(&mut self) {
+100:         self.batches.clear();
+101:         self.entities.clear();
+102:         self.batch_lookup.clear();
+103:     }
+104: }
+105: 
+106: #[derive(Clone, Copy, Pod, Zeroable, Default, ShaderType, Debug)]
+107: #[repr(C)]
+108: pub struct BatchMetadata {
+109:     pub batch_id: u32,
+110:     pub start_index: u32,
+111:     pub end_index: u32,
+112: }
+SOURCE 2792
+1: use crate::allocator::core::BatchMetadata;
+2: use crate::components::InstanceUniforms;
+3: 
+4: use bevy_render::{
+5:     render_resource::{Buffer, DrawIndexedIndirectArgs},
+6:     renderer::RenderQueue,
+7: };
+8: use bevy_utils::default;
+9: use bytemuck::{Pod, cast_slice};
+10: use std::ops::RangeInclusive;
+11: 
+12: #[cfg(feature = "trace")]
+13: use tracing::trace;
+14: 
+15: /// Represents a range of instances to be drawn in a single indirect call.
+16: ///
+17: /// A "Batch" is a collection of instances that share a Mesh and Material.
+18: #[derive(Clone, Copy, Default)]
+19: pub struct BatchData {
+20:     pub indirect: DrawIndexedIndirectArgs,
+21:     pub uniform: InstanceUniforms,
+22:     pub metadata: BatchMetadata,
+23: }
+24: 
+25: /// Manages CPU-side mirrors of per-page GPU buffers during the prepare stage.
+26: /// Tracks dirty ranges to perform sparse uploads, i.e. O(changes) instead of O(total).
+27: #[derive(Default)]
+28: pub struct BatchBuffer {
+29:     pub indirect: Vec<DrawIndexedIndirectArgs>,
+30:     pub uniforms: Vec<InstanceUniforms>,
+31:     pub metadata: Vec<BatchMetadata>,
+32: 
+33:     /// Indices that have changed since the last flush.
+34:     pub dirty_indices: Vec<usize>,
+35: 
+36:     /// Capacity of the underlying [`Vec`]'s and [`Buffer`]'s.
+37:     pub capacity: usize,
+38: }
+39: 
+40: impl BatchBuffer {
+41:     #[inline]
+42:     pub fn ensure_capacity(&mut self, capacity: usize) {
+43:         if self.check_bounds(capacity) {
+44:             return;
+45:         }
+46: 
+47:         #[cfg(feature = "trace")]
+48:         trace!(
+49:             "BatchBuffer: Growing capacity {} -> {}",
+50:             self.capacity, capacity
+51:         );
+52: 
+53:         self.indirect.resize(capacity, default());
+54:         self.uniforms.resize(capacity, default());
+55:         self.metadata.resize(capacity, default());
+56:         self.capacity = capacity;
+57:     }
+58: 
+59:     pub fn update(&mut self, batch: usize, data: BatchData) {
+60:         if !self.check_bounds(batch) {
+61:             self.ensure_capacity(batch + 1);
+62:         }
+63: 
+64:         self.indirect[batch] = data.indirect;
+65:         self.uniforms[batch] = data.uniform;
+66:         self.metadata[batch] = data.metadata;
+67: 
+68:         self.dirty_indices.push(batch);
+69:     }
+70: 
+71:     /// Marks all currently used indices as dirty.
+72:     ///
+73:     /// Used when the underlying GPU buffer is resized/recreated and needs a full refresh.
+74:     pub fn mark_dirty(&mut self) {
+75:         self.dirty_indices.clear();
+76:         self.dirty_indices.extend(0..self.capacity);
+77:     }
+78: 
+79:     pub fn clear(&mut self, batch: usize) {
+80:         if !self.check_bounds(batch) || self.zeroed(batch) {
+81:             return;
+82:         }
+83: 
+84:         self.indirect[batch] = default();
+85:         self.uniforms[batch] = default();
+86:         self.metadata[batch] = default();
+87:         self.dirty_indices.push(batch);
+88:     }
+89: 
+90:     /// Used to avoid unnecessary writes if it's already zeroed.
+91:     fn zeroed(&self, batch: usize) -> bool {
+92:         cast_slice::<_, u8>(std::slice::from_ref(&self.metadata[batch]))
+93:             .iter()
+94:             .all(|&b| b == 0)
+95:     }
+96: 
+97:     fn check_bounds(&self, capacity: usize) -> bool {
+98:         capacity < self.capacity
+99:     }
+100: 
+101:     #[inline]
+102:     pub fn capacity(&self) -> usize {
+103:         self.capacity
+104:     }
+105: 
+106:     /// Uploads the dirty ranges to the GPU.
+107:     pub fn flush(
+108:         &mut self,
+109:         render_queue: &RenderQueue,
+110:         indirect_buffer: &Buffer,
+111:         uniform_buffer: &Buffer,
+112:         metadata_buffer: &Buffer,
+113:     ) {
+114:         if self.dirty_indices.is_empty() {
+115:             return;
+116:         }
+117: 
+118:         self.dirty_indices.sort_unstable();
+119:         self.dirty_indices.dedup();
+120: 
+121:         #[cfg(feature = "trace")]
+122:         trace!(
+123:             "BatchBuffer: Flushing {} dirty batches to GPU",
+124:             self.dirty_indices.len()
+125:         );
+126: 
+127:         let mut i = 0;
+128:         while i < self.dirty_indices.len() {
+129:             let start = self.dirty_indices[i];
+130:             let mut end = start;
+131: 
+132:             // find contiguous dirty indices
+133:             while let Some(&next) = self.dirty_indices.get(i + 1) {
+134:                 if next != end + 1 {
+135:                     break;
+136:                 }
+137:                 end = next;
+138:                 i += 1;
+139:             }
+140: 
+141:             self.write_buffers(WriteBuffersContext {
+142:                 start,
+143:                 end,
+144:                 render_queue,
+145:                 indirect_buffer,
+146:                 uniform_buffer,
+147:                 metadata_buffer,
+148:             });
+149: 
+150:             i += 1;
+151:         }
+152: 
+153:         self.dirty_indices.clear();
+154:     }
+155: 
+156:     pub fn reset(&mut self) {
+157:         self.indirect.clear();
+158:         self.uniforms.clear();
+159:         self.metadata.clear();
+160:         self.dirty_indices.clear();
+161:     }
+162: 
+163:     #[inline(always)]
+164:     fn write_buffers(&mut self, ctx: WriteBuffersContext) {
+165:         self.write_buffer::<DrawIndexedIndirectArgs>(ctx);
+166:         self.write_buffer::<InstanceUniforms>(ctx);
+167:         self.write_buffer::<BatchMetadata>(ctx);
+168:     }
+169: 
+170:     #[inline(always)]
+171:     fn write_buffer<T: BatchBufferWritable>(&self, ctx: WriteBuffersContext) {
+172:         let WriteBufferContext {
+173:             range,
+174:             render_queue,
+175:             buffer,
+176:         } = T::ctx(ctx);
+177: 
+178:         let offset = (range.start() * size_of::<T>()) as u64;
+179:         let data = T::get(self, range);
+180: 
+181:         render_queue.write_buffer(buffer, offset, cast_slice(data));
+182:     }
+183: }
+184: 
+185: #[derive(Clone, Copy)]
+186: struct WriteBuffersContext<'a> {
+187:     start: usize,
+188:     end: usize,
+189:     render_queue: &'a RenderQueue,
+190:     indirect_buffer: &'a Buffer,
+191:     uniform_buffer: &'a Buffer,
+192:     metadata_buffer: &'a Buffer,
+193: }
+194: 
+195: #[derive(Clone)]
+196: struct WriteBufferContext<'a> {
+197:     range: RangeInclusive<usize>,
+198:     render_queue: &'a RenderQueue,
+199:     buffer: &'a Buffer,
+200: }
+201: 
+202: trait BatchBufferWritable: Pod {
+203:     fn get(buffer: &BatchBuffer, range: RangeInclusive<usize>) -> &[Self];
+204: 
+205:     fn ctx(ctx: WriteBuffersContext) -> WriteBufferContext;
+206: }
+207: 
+208: macro_rules! batch_buffer_writable {
+209:     ($type:ty, $buffer_field:ident, $ctx_field:ident) => {
+210:         impl BatchBufferWritable for $type {
+211:             #[inline(always)]
+212:             fn get(buffer: &BatchBuffer, range: RangeInclusive<usize>) -> &[Self] {
+213:                 &buffer.$buffer_field[range]
+214:             }
+215: 
+216:             #[inline(always)]
+217:             fn ctx(ctx: WriteBuffersContext) -> WriteBufferContext {
+218:                 WriteBufferContext {
+219:                     range: ctx.start..=ctx.end,
+220:                     render_queue: ctx.render_queue,
+221:                     buffer: ctx.$ctx_field,
+222:                 }
+223:             }
+224:         }
+225:     };
+226: }
+SOURCE 2793
+1: use crate::allocator::{batch_buffer::BatchData, id_allocator::IdAllocator};
+2: use crate::prelude::*;
+3: use crate::render::prepare::core::BatchInput;
+4: 
+5: use bevy_ecs::entity::{Entity, EntityHashMap};
+6: 
+7: use bevy_render::{
+8:     mesh::{RenderMesh, RenderMeshBufferInfo, allocator::MeshAllocator},
+9:     render_asset::RenderAssets,
+10:     render_resource::DrawIndexedIndirectArgs,
+11: };
+12: 
+13: pub(super) struct Batcher<'a> {
+14:     pub(super) page_id: usize,
+15:     pub(super) mesh_allocator: &'a MeshAllocator,
+16:     pub(super) meshes: &'a RenderAssets<RenderMesh>,
+17:     pub(super) source_allocator: &'a InstanceAllocatorBackend,
+18:     pub(super) batch_ranges: &'a mut BatchRanges,
+19: }
+20: 
+21: impl Batcher<'_> {
+22:     pub fn batch(
+23:         &mut self,
+24:         buffer: &mut crate::allocator::batch_buffer::BatchBuffer,
+25:         page_entities: &[Entity],
+26:         input_map: &EntityHashMap<BatchInput>,
+27:         batch_allocator: &IdAllocator,
+28:     ) {
+29:         let max_batch = batch_allocator.watermark as usize;
+30: 
+31:         buffer.ensure_capacity(max_batch);
+32: 
+33:         for (input, index, index_count) in page_entities.iter().filter_map(|entity| {
+34:             let input = input_map.get(entity)?;
+35:             let index = batch_allocator.allocations.get(entity)?;
+36:             let mesh = self.meshes.get(input.mesh_id)?;
+37: 
+38:             let RenderMeshBufferInfo::Indexed {
+39:                 count: index_count, ..
+40:             } = mesh.buffer_info
+41:             else {
+42:                 return None;
+43:             };
+44: 
+45:             Some((input, *index, index_count))
+46:         }) {
+47:             let offset = self
+48:                 .source_allocator
+49:                 .get(input.entity)
+50:                 .map(|l| l.offset)
+51:                 .unwrap_or(0);
+52: 
+53:             let first_index = self
+54:                 .mesh_allocator
+55:                 .mesh_index_slice(&input.mesh_id)
+56:                 .map(|s| s.range.start)
+57:                 .unwrap_or(0);
+58: 
+59:             let base_vertex = self
+60:                 .mesh_allocator
+61:                 .mesh_vertex_slice(&input.mesh_id)
+62:                 .map(|s| s.range.start)
+63:                 .unwrap_or(0) as i32;
+64: 
+65:             self.register(input, index, offset);
+66: 
+67:             let instance_count = if input.gpu_cull {
+68:                 0
+69:             } else {
+70:                 input.instances.len() as u32
+71:             };
+72: 
+73:             // WebGPU forbids a non-zero `first_instance` in indirect draws (the
+74:             // `INDIRECT_FIRST_INSTANCE` wgpu feature is native-only). WASM draw
+75:             // path applies `offset` via a slot-1 vertex-buffer offset in
+76:             // `SetInstanceBindGroup` instead, so bake 0 here on wasm.
+77:             #[cfg(target_family = "wasm")]
+78:             let first_instance = 0;
+79:             #[cfg(not(target_family = "wasm"))]
+80:             let first_instance = offset;
+81: 
+82:             let data = BatchData {
+83:                 indirect: DrawIndexedIndirectArgs {
+84:                     index_count,
+85:                     instance_count,
+86:                     first_index,
+87:                     base_vertex,
+88:                     first_instance,
+89:                 },
+90:                 uniform: input.batch,
+91:                 metadata: BatchMetadata {
+92:                     batch_id: index,
+93:                     start_index: offset,
+94:                     end_index: offset + input.instances.len() as u32,
+95:                 },
+96:             };
+97: 
+98:             buffer.update(index as usize, data);
+99:         }
+100:     }
+101: 
+102:     #[allow(unused_variables)]
+103:     fn register(&mut self, input: &BatchInput, batch: u32, instance_offset: u32) {
+104:         let range = batch..(batch + 1);
+105:         self.batch_ranges.batches.push(BatchInfo {
+106:             page: self.page_id,
+107:             range,
+108:             #[cfg(target_family = "wasm")]
+109:             instance_offset,
+110:         });
+111: 
+112:         let index = (self.batch_ranges.batches.len() - 1) as u32;
+113:         self.batch_ranges.batch_lookup.insert(input.entity, index);
+114:         self.batch_ranges
+115:             .entities
+116:             .push((input.entity, input.main_entity));
+117:     }
+118: }
+SOURCE 2794
+1: use crate::allocator::utils::ensure_buffer_capacity;
+2: use crate::render::prepare::{core::Clear, utils::data_offset, *};
+3: 
+4: use bevy_ecs::entity::EntityHashMap;
+5: use bevy_render::{
+6:     render_resource::{Buffer, BufferUsages},
+7:     renderer::{RenderDevice, RenderQueue},
+8: };
+9: 
+10: /// Logic for resizing and updating raw Instance Data buffers.
+11: pub(super) struct InstanceBufferUpdater<'a> {
+12:     pub(super) device: &'a RenderDevice,
+13:     pub(super) queue: &'a RenderQueue,
+14:     pub(super) page_id: usize,
+15:     pub(super) source_allocator: &'a mut InstanceAllocatorBackend,
+16:     pub(super) material_name: &'static str,
+17: }
+18: 
+19: impl<'a> InstanceBufferUpdater<'a> {
+20:     pub fn update(
+21:         &mut self,
+22:         page: &mut InstancePage,
+23:         writes: &[Write],
+24:         entities: &Vec<Entity>,
+25:         inputs: &EntityHashMap<BatchInput>,
+26:     ) -> Vec<(u64, Vec<InstanceData>)> {
+27:         let page_size = self.source_allocator.size(self.page_id) as u64;
+28:         let capacity = page_size * size_of::<InstanceData>() as u64;
+29: 
+30:         self.ensure_capacity(page, capacity);
+31: 
+32:         let Some(source_buffer) = &page.source_buffer else {
+33:             return Vec::new();
+34:         };
+35: 
+36:         self.process_clears(source_buffer);
+37:         self.process_writes(ProcessWriteContext {
+38:             writes,
+39:             source_buffer,
+40:             inputs,
+41:         });
+42:         self.collect_output_writes(CollectOutputContext { entities, inputs })
+43:     }
+44: 
+45:     fn ensure_capacity(&self, page: &mut InstancePage, capacity: u64) {
+46:         let material_name = self.material_name;
+47:         let page_id = self.page_id;
+48: 
+49:         self.ensure_buffer_capacity(
+50:             &mut page.source_buffer,
+51:             capacity,
+52:             BufferUsages::STORAGE | BufferUsages::COPY_DST | BufferUsages::COPY_SRC,
+53:             &format!("material_{material_name}_page_{page_id}_source",),
+54:             true,
+55:         );
+56: 
+57:         self.ensure_buffer_capacity(
+58:             &mut page.output_buffer,
+59:             capacity,
+60:             BufferUsages::STORAGE | BufferUsages::VERTEX | BufferUsages::COPY_DST,
+61:             &format!("material_{material_name}_page_{page_id}_output"),
+62:             false,
+63:         );
+64:     }
+65:     fn ensure_buffer_capacity(
+66:         &self,
+67:         buffer: &mut Option<Buffer>,
+68:         capacity: u64,
+69:         usage: BufferUsages,
+70:         label: &str,
+71:         copy: bool,
+72:     ) {
+73:         ensure_buffer_capacity(
+74:             self.device,
+75:             self.queue,
+76:             buffer,
+77:             capacity,
+78:             usage,
+79:             label,
+80:             copy,
+81:         );
+82:     }
+83: 
+84:     fn process_clears(&mut self, buffer: &Buffer) {
+85:         for Clear { offset, clear } in self
+86:             .source_allocator
+87:             .drain(self.page_id)
+88:             .into_iter()
+89:             .map(Clear::from)
+90:             .filter(|clear| buffer.check_bounds(clear.offset, &clear.clear))
+91:         {
+92:             self.queue
+93:                 .write_buffer(buffer, offset, bytemuck::cast_slice(&clear));
+94:         }
+95:     }
+96: 
+97:     /// Processes 'writes' to the source buffer.
+98:     fn process_writes(&self, ctx: ProcessWriteContext<'_>) {
+99:         for (offset, modified) in ctx.writes.iter().filter_map(|write| {
+100:             ctx.inputs.get(&write.entity).map(|input| {
+101:                 (
+102:                     write.offset,
+103:                     input
+104:                         .instances
+105:                         .iter()
+106:                         .map(|d| d.with_batch_id(write.batch_id))
+107:                         .collect::<Vec<_>>(),
+108:                 )
+109:             })
+110:         }) {
+111:             self.queue.write_buffer(
+112:                 ctx.source_buffer,
+113:                 data_offset::<InstanceData>(offset),
+114:                 bytemuck::cast_slice(&modified),
+115:             );
+116:         }
+117:     }
+118: 
+119:     /// Collects writes to the output buffer for non-compute culling instances.
+120:     fn collect_output_writes(
+121:         &self,
+122:         ctx: CollectOutputContext<'_>,
+123:     ) -> Vec<(u64, Vec<InstanceData>)> {
+124:         ctx.entities
+125:             .iter()
+126:             .filter_map(|e| ctx.inputs.get(e))
+127:             .filter(|i| !i.gpu_cull)
+128:             .filter_map(|input| {
+129:                 self.source_allocator
+130:                     .get(input.entity)
+131:                     .map(|alloc| (input, alloc))
+132:             })
+133:             .map(|(input, alloc)| {
+134:                 (
+135:                     alloc.offset as u64 * size_of::<InstanceData>() as u64,
+136:                     input.instances.to_vec(),
+137:                 )
+138:             })
+139:             .collect()
+140:     }
+141: }
+142: 
+143: struct ProcessWriteContext<'a> {
+144:     writes: &'a [Write],
+145:     source_buffer: &'a Buffer,
+146:     inputs: &'a EntityHashMap<BatchInput>,
+147: }
+148: 
+149: struct CollectOutputContext<'a> {
+150:     entities: &'a Vec<Entity>,
+151:     inputs: &'a EntityHashMap<BatchInput>,
+152: }
+SOURCE 2795
+1: use crate::allocator::core::BatchRanges;
+2: use crate::prelude::*;
+3: use crate::render::prepare::{
+4:     batcher::Batcher, core::BatchInput, core::Write, instance_buffer_updater::InstanceBufferUpdater,
+5: };
+6: 
+7: use bevy_ecs::entity::{Entity, EntityHashMap};
+8: use bevy_render::{
+9:     mesh::RenderMesh,
+10:     mesh::allocator::MeshAllocator,
+11:     render_asset::RenderAssets,
+12:     render_resource::{BindGroupLayoutDescriptor, PipelineCache},
+13:     renderer::{RenderDevice, RenderQueue},
+14: };
+15: 
+16: pub(super) struct PagePrepareRunner<'a> {
+17:     pub(super) id: usize,
+18:     pub(super) page: &'a mut InstancePage,
+19:     pub(super) source_allocator: &'a mut InstanceAllocatorBackend,
+20:     pub(super) batch_ranges: &'a mut BatchRanges,
+21: 
+22:     pub(super) device: &'a RenderDevice,
+23:     pub(super) pipeline_cache: &'a PipelineCache,
+24:     pub(super) queue: &'a RenderQueue,
+25:     pub(super) meshes: &'a RenderAssets<RenderMesh>,
+26:     pub(super) mesh_allocator: &'a MeshAllocator,
+27: 
+28:     pub(super) common_layout: &'a BindGroupLayoutDescriptor,
+29:     pub(super) compute_layout: Option<&'a BindGroupLayoutDescriptor>,
+30: 
+31:     pub(super) material_name: &'static str,
+32: }
+33: 
+34: impl<'a> PagePrepareRunner<'a> {
+35:     pub fn prepare(
+36:         &mut self,
+37:         page_entities: &Vec<Entity>,
+38:         writes: &[Write],
+39:         all_inputs: &EntityHashMap<BatchInput>,
+40:     ) {
+41:         let writes = self.update(page_entities, writes, all_inputs);
+42: 
+43:         self.batch(page_entities, all_inputs);
+44:         self.write(writes);
+45:         self.flush();
+46:         self.update_page();
+47:     }
+48: 
+49:     /// Write non-compute culled instances directly to the output buffer.
+50:     fn write(&mut self, writes: Vec<(u64, Vec<InstanceData>)>) {
+51:         let Some(buffer) = &self.page.output_buffer else {
+52:             return;
+53:         };
+54: 
+55:         for (offset, data) in writes
+56:             .into_iter()
+57:             .filter(|(offset, data)| buffer.check_bounds(*offset, data))
+58:         {
+59:             self.queue
+60:                 .write_buffer(buffer, offset, bytemuck::cast_slice(&data));
+61:         }
+62:     }
+63: 
+64:     fn update(
+65:         &mut self,
+66:         entities: &Vec<Entity>,
+67:         writes: &[Write],
+68:         inputs: &EntityHashMap<BatchInput>,
+69:     ) -> Vec<(u64, Vec<InstanceData>)> {
+70:         let material_name = self.material_name;
+71:         let mut instance_updater = InstanceBufferUpdater {
+72:             device: self.device,
+73:             queue: self.queue,
+74:             page_id: self.id,
+75:             source_allocator: self.source_allocator,
+76:             material_name,
+77:         };
+78: 
+79:         instance_updater.update(self.page, writes, entities, inputs)
+80:     }
+81: 
+82:     /// Batch compute-culled instances.
+83:     fn batch(&mut self, entities: &[Entity], inputs: &EntityHashMap<BatchInput>) {
+84:         if entities.is_empty() {
+85:             return;
+86:         }
+87: 
+88:         let mut batcher = Batcher {
+89:             page_id: self.id,
+90:             mesh_allocator: self.mesh_allocator,
+91:             meshes: self.meshes,
+92:             source_allocator: self.source_allocator,
+93:             batch_ranges: self.batch_ranges,
+94:         };
+95: 
+96:         batcher.batch(
+97:             &mut self.page.batcher,
+98:             entities,
+99:             inputs,
+100:             &self.page.id_allocator,
+101:         );
+102:     }
+103: 
+104:     fn flush(&mut self) {
+105:         self.page.flush(self.device, self.queue, self.id);
+106:     }
+107: 
+108:     fn update_page(&mut self) {
+109:         self.page.update(
+110:             self.device,
+111:             self.pipeline_cache,
+112:             self.id,
+113:             self.common_layout,
+114:             self.compute_layout,
+115:             self.source_allocator.size(self.id),
+116:         );
+117:     }
+118: }
+SOURCE 2796
+1: use crate::components::{InstanceData, InstanceUniforms};
+2: 
+3: use bevy_asset::AssetId;
+4: use bevy_ecs::entity::Entity;
+5: use bevy_mesh::Mesh;
+6: use bevy_render::sync_world::MainEntity;
+7: 
+8: use crate::render::prepare::utils::data_offset;
+9: use std::ops::Range;
+10: use std::sync::Arc;
+11: 
+12: #[derive(Debug, Clone, Copy)]
+13: pub(super) struct Write {
+14:     pub(super) entity: Entity,
+15:     pub(super) offset: u32,
+16:     pub(super) batch_id: u32,
+17: }
+18: 
+19: #[derive(Clone)]
+20: pub(super) struct Clear {
+21:     pub(super) offset: u64,
+22:     pub(super) clear: Vec<InstanceData>,
+23: }
+24: 
+25: impl From<Range<u32>> for Clear {
+26:     fn from(Range { start, end }: Range<u32>) -> Self {
+27:         let invalid_instance = InstanceData::invalid();
+28:         Clear {
+29:             offset: data_offset::<InstanceData>(start),
+30:             clear: vec![invalid_instance; (end - start) as usize],
+31:         }
+32:     }
+33: }
+34: 
+35: pub(super) struct BatchInput {
+36:     pub(super) entity: Entity,
+37:     pub(super) main_entity: MainEntity,
+38:     pub(super) mesh_id: AssetId<Mesh>,
+39:     pub(super) instances: Arc<Vec<InstanceData>>,
+40:     pub(super) gpu_cull: bool,
+41:     pub(super) batch: InstanceUniforms,
+42: }
+43: 
+44: pub(crate) struct CachedInputState {
+45:     pub(super) instances: Arc<Vec<InstanceData>>,
+46:     pub(super) key_hash: u64,
+47: }
+SOURCE 2797
+1: use bevy_render::render_resource::{Buffer, BufferDescriptor, BufferUsages};
+2: use bevy_render::renderer::{RenderDevice, RenderQueue};
+3: use bevy_utils::default;
+4: use tracing::trace;
+5: 
+6: /// Ensures a GPU buffer has sufficient capacity, resizing and copying data if necessary.
+7: pub(crate) fn ensure_buffer_capacity(
+8:     device: &RenderDevice,
+9:     queue: &RenderQueue,
+10:     buffer_opt: &mut Option<Buffer>,
+11:     capacity: u64,
+12:     usage: BufferUsages,
+13:     label: &str,
+14:     copy: bool,
+15: ) {
+16:     let aligned_size = (capacity + 3) & !3; // 4-byte align
+17:     let current_size = buffer_opt.as_ref().map(|b| b.size()).unwrap_or(0);
+18:     if aligned_size <= current_size {
+19:         return;
+20:     }
+21: 
+22:     let size = aligned_size.max(1024);
+23: 
+24:     #[cfg(feature = "trace")]
+25:     trace!(
+26:         "Resizing Buffer [{}]: {} bytes -> {} bytes (Copy: {})",
+27:         label, current_size, size, copy
+28:     );
+29: 
+30:     let buffer = device.create_buffer(&BufferDescriptor {
+31:         label: Some(label),
+32:         size,
+33:         usage,
+34:         mapped_at_creation: false,
+35:     });
+36: 
+37:     if copy && let Some(old) = buffer_opt {
+38:         let mut encoder = device.create_command_encoder(&default());
+39:         let copy_size = old.size().min(size);
+40: 
+41:         encoder.copy_buffer_to_buffer(old, 0, &buffer, 0, copy_size);
+42: 
+43:         queue.submit(Some(encoder.finish()));
+44:     }
+45: 
+46:     *buffer_opt = Some(buffer);
+47: }
+SOURCE 2798
+3: pub(super) fn clip(
+4:     polygon: Vec<bevy::math::DVec2>,
+5:     side: impl Fn(bevy::math::DVec2) -> f64,
+6: ) -> Vec<bevy::math::DVec2> {
+7:     let mut result = Vec::new();
+8:     let Some(mut previous) = polygon.last().copied() else {
+9:         return result;
+10:     };
+11:     let mut previous_side = side(previous);
+12:     for point in polygon {
+13:         let current_side = side(point);
+14:         if (current_side >= 0.0) != (previous_side >= 0.0) {
+15:             result.push(previous.lerp(point, previous_side / (previous_side - current_side)));
+16:         }
+17:         if current_side >= 0.0 {
+18:             result.push(point);
+19:         }
+20:         previous = point;
+21:         previous_side = current_side;
+22:     }
+23:     result
+24: }
+25: 
+26: pub(super) fn subtract(
+27:     mut inside: Vec<bevy::math::DVec2>,
+28:     corners: &[bevy::math::DVec2],
+29: ) -> Vec<Vec<bevy::math::DVec2>> {
+30:     // Half-plane clipping can partition a wholly outside triangle along the
+31:     // infinite extensions of property edges. Test the complete intersection
+32:     // first: unrelated source triangles must keep their original topology.
+33:     let mut intersection = inside.clone();
+34:     for index in 0..corners.len() {
+35:         let a = corners[index];
+36:         let edge = corners[(index + 1) % corners.len()] - a;
+37:         intersection = clip(intersection, |p| edge.perp_dot(p - a));
+38:     }
+39:     if intersection.len() < 3 || signed_area(&intersection) == 0.0 {
+40:         return vec![inside];
+41:     }
+42:     let mut outside = Vec::new();
+43:     for index in 0..corners.len() {
+44:         let a = corners[index];
+45:         let edge = corners[(index + 1) % corners.len()] - a;
+46:         let remainder = clip(inside.clone(), |p| -edge.perp_dot(p - a));
+47:         if remainder.len() >= 3 {
+48:             outside.push(remainder);
+49:         }
+50:         inside = clip(inside, |p| edge.perp_dot(p - a));
+51:     }
+52:     outside
+53: }
+54: 
+55: pub(super) fn signed_area(polygon: &[bevy::math::DVec2]) -> f64 {
+56:     let Some(origin) = polygon.first() else {
+57:         return 0.0;
+58:     };
+59:     polygon
+60:         .iter()
+61:         .zip(polygon.iter().cycle().skip(1))
+62:         .take(polygon.len())
+63:         .map(|(a, b)| (*a - *origin).perp_dot(*b - *origin))
+64:         .sum::<f64>()
+65:         * 0.5
+66: }
+SOURCE 2799
+7: const MAX_PROPERTY_EXTENT_METRES: f32 = 100.0;
+8: const MAX_PROPERTY_ACCESS_SEGMENTS: usize = 16;
+9: const MAX_PROPERTY_WALL_SEGMENTS: usize = 16;
+10: const MAX_ACCESS_HALF_WIDTH_METRES: f32 = 2.0;
+11: 
+12: /// Immutable enclosure anchored at its accepted gate landing elevation.
+13: /// Horizontal coordinates remain in the scene's shared settlement frame.
+14: #[derive(Clone, Debug, PartialEq, Component, Serialize, Deserialize)]
+15: #[component(immutable)]
+16: #[serde(try_from = "SceneBoundaryWire")]
+17: pub struct SceneBoundary {
+18:     property_id: CityPropertyId,
+19:     front_building_id: crate::scene_input::SceneBuildingId,
+20:     boundary: CityBoundary,
+21:     fixed_support: crate::city_layout::grounding::BoundarySupportMesh,
+22: }
+23: 
+24: #[derive(Clone, Debug, Serialize, Deserialize)]
+25: #[serde(try_from = "GeneratedBoundaryWire")]
+26: pub struct GeneratedBoundary {
+27:     scene: SceneBoundary,
+28:     elevation_metres: crate::city_layout::grounding::SupportElevation,
+29: }
+30: 
+31: #[derive(Deserialize)]
+32: #[serde(deny_unknown_fields)]
+33: struct SceneBoundaryWire {
+34:     property_id: CityPropertyId,
+35:     front_building_id: crate::scene_input::SceneBuildingId,
+36:     boundary: CityBoundary,
+37:     fixed_support: crate::city_layout::grounding::BoundarySupportMesh,
+38: }
+39: impl TryFrom<SceneBoundaryWire> for SceneBoundary {
+40:     type Error = crate::city_layout::grounding::enclosure::BoundaryAdmissionError;
+41:     fn try_from(wire: SceneBoundaryWire) -> Result<Self, Self::Error> {
+42:         wire.fixed_support.binding().validate_scene(
+43:             wire.property_id,
+44:             wire.front_building_id,
+45:             &wire.boundary,
+46:         )?;
+47:         Ok(Self {
+48:             property_id: wire.property_id,
+49:             front_building_id: wire.front_building_id,
+50:             boundary: wire.boundary,
+51:             fixed_support: wire.fixed_support,
+52:         })
+53:     }
+54: }
+55: impl SceneBoundary {
+56:     pub fn property_id(&self) -> CityPropertyId {
+57:         self.property_id
+58:     }
+59:     pub fn front_building_id(&self) -> crate::scene_input::SceneBuildingId {
+60:         self.front_building_id
+61:     }
+62:     pub fn boundary(&self) -> &CityBoundary {
+63:         &self.boundary
+64:     }
+65:     pub fn fixed_support(&self) -> &crate::city_layout::grounding::BoundarySupportMesh {
+66:         &self.fixed_support
+67:     }
+68: }
+69: #[derive(Deserialize)]
+70: struct GeneratedBoundaryWire {
+71:     scene: SceneBoundary,
+72:     elevation_metres: crate::city_layout::grounding::SupportElevation,
+73: }
+74: impl TryFrom<GeneratedBoundaryWire> for GeneratedBoundary {
+75:     type Error = crate::city_layout::grounding::enclosure::BoundaryAdmissionError;
+76:     fn try_from(wire: GeneratedBoundaryWire) -> Result<Self, Self::Error> {
+77:         let expected = wire.scene.fixed_support.binding().gate();
+78:         if wire.elevation_metres != expected {
+79:             return Err(Self::Error::Datum {
+80:                 property: wire.scene.property_id,
+81:                 expected,
+82:                 actual: wire.elevation_metres,
+83:             });
+84:         }
+85:         Ok(Self {
+86:             scene: wire.scene,
+87:             elevation_metres: wire.elevation_metres,
+88:         })
+89:     }
+90: }
+91: impl GeneratedBoundary {
+92:     pub fn scene(&self) -> &SceneBoundary {
+93:         &self.scene
+94:     }
+95:     pub fn elevation_metres(&self) -> crate::city_layout::grounding::SupportElevation {
+96:         self.elevation_metres
+97:     }
+98:     pub fn into_scene(self) -> SceneBoundary {
+99:         self.scene
+100:     }
+218: impl GeneratedBoundary {
+219:     /// Project the complete enclosure atomically from its exact accepted owner.
+220:     /// No member floor, neighbouring support or sampled-terrain fallback exists.
+221:     pub fn project(
+222:         compound: &CityCompound,
+223:         terrain: &SceneTerrain,
+224:     ) -> Result<Self, SceneInputError> {
+225:         use crate::city_layout::grounding::enclosure::{
+226:             BoundarySupportConstraint, BoundarySupportElement,
+227:         };
+228:         use crate::city_layout::grounding::{BoundarySupportError, BoundarySupportMesh};
+229:         let foundation = terrain.property_foundation(compound.id).ok_or_else(|| {
+230:             BoundarySupportError::new(
+231:                 compound,
+232:                 BoundarySupportElement::Owner,
+233:                 BoundarySupportConstraint::OwnerBinding,
+234:                 compound.plot.centre_metres(),
+235:                 1.0,
+236:                 0.0,
+237:             )
+238:         })?;
+239:         let policy = crate::city_layout::CompoundGradingPolicy::bounded_settlement();
+240:         let projection =
+241:             BoundarySupportMesh::project(compound, foundation, policy.limits, policy.embedment)?;
+242:         Ok(Self {
+243:             scene: SceneBoundary {
+244:                 property_id: compound.id,
+245:                 front_building_id: compound.front_building_id,
+246:                 boundary: compound.boundary.clone(),
+247:                 fixed_support: projection.mesh,
+248:             },
+249:             elevation_metres: projection.gate_elevation,
+250:         })
+251:     }
+252: }
+SOURCE 2800
+325:             h3 class="sidebar-header" { "Join requests" }
+326:             @if panel.requests.is_empty() {
+327:                 p class="small-copy text-muted" { "No pending requests for this role." }
+328:             } @else {
+329:                 div class="role-request-detail-list" {
+330:                     @for applicant in &panel.requests {
+331:                         article class=(if applicant.request.meets_requirements { "role-request-detail" } else { "role-request-detail role-applicant-warning" }) {
+332:                             button type="button" class="role-applicant-portrait" data-select-role-applicant
+333:                                 aria-label=(format!("Inspect {}", applicant.character.name)) {
+334:                                 span class="party-portrait-initial" {
+335:                                     span class="party-portrait-face" data-bevy-character=(applicant.character.id) { (applicant.character.name.chars().next().unwrap_or('?')) }
+336:                                     span class="party-portrait-name" { (&applicant.character.name) }
+337:                                 }
+338:                             }
+339:                             p class="small-copy" {
+340:                                 @if applicant.request.meets_requirements { "Meets every individual recommendation" }
+341:                                 @else { "Below one or more recommendations" }
+342:                             }
+SOURCE 2802
+54: #[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
+55: pub enum MutablePersonalityAxis {
+56:     Nerve,
+57:     Drive,
+58:     Outlook,
+59:     Sociability,
+60:     Conscience,
+61:     SelfRegard,
+62:     Conviction,
+63:     Hygiene,
+64:     Temperance,
+65:     Mirth,
+66:     Courtship,
+67:     Transparency,
+68:     SelfKnowledge,
+69: }
+SOURCE 2804
+1: //! Private challenge records and their resolution-derived lifecycle.
+2: 
+3: use super::{ChallengePresenterCatalogId, NarrativeEncounterTrigger};
+4: use adventuresim_core::strategic_place::CaseSiteId;
+5: use adventuresim_world_schema::calendar::StrategicMinute;
+6: use spacetimedb::table;
+7: 
+8: #[cfg(feature = "authority-tests")]
+9: mod authority_tests;
+10: 
+11: /// A chat-native, non-puzzle interruption that becomes available only after
+12: /// resting at its bound road camp. Choice presence owns resolution; openness
+13: /// is derived. Ignoring it grants nothing but may carry a
+14: /// bounded travel delay; choosing another response may affect the finale.
+15: #[derive(Clone, Debug)]
+16: #[table(accessor = road_challenge_authority)]
+17: pub struct RoadChallengeAuthority {
+18:     #[primary_key]
+19:     pub id: String,
+20:     #[index(btree)]
+21:     pub gateway_bucket: u8,
+22:     #[index(btree)]
+23:     pub party_id: String,
+24:     pub case_id: String,
+25:     pub finale_case_site_id: Option<CaseSiteId>,
+26:     pub finale_hostile_group_id: String,
+27:     pub journey_departure_minute: StrategicMinute,
+28:     pub camp_movement_minute: u64,
+29:     pub available_at_elapsed_minute: u64,
+30:     pub catalog_id: String,
+31:     pub catalog_revision: u32,
+32:     pub catalog_digest: String,
+33:     pub absolute_minute: StrategicMinute,
+34:     pub longitude_e7: i32,
+35:     pub latitude_e7: i32,
+36:     pub trigger: NarrativeEncounterTrigger,
+37:     pub revision: u32,
+38:     pub resolved_choice: Option<String>,
+39:     pub resolved_deed: Option<String>,
+40:     pub virtue_exemplified: Option<crate::personality::ChivalricVirtue>,
+41:     pub result_transcript: Option<String>,
+42: }
+43: 
+44: /// Private deterministic challenge authority. `puzzle_json` contains the seed
+45: /// and canonical ordering and must never appear in a public table or view.
+46: /// The solve timestamp owns completion; wrong attempts only advance revision.
+47: #[derive(Clone, Debug)]
+48: #[table(accessor = challenge_authority)]
+49: pub struct ChallengeAuthority {
+50:     #[primary_key]
+51:     pub id: String,
+52:     #[index(btree)]
+53:     pub gateway_bucket: u8,
+54:     #[index(btree)]
+55:     pub case_id: String,
+56:     #[index(btree)]
+57:     pub party_id: String,
+58:     pub finale_case_site_id: CaseSiteId,
+59:     pub finale_hostile_group_id: String,
+60:     pub journey_departure_minute: StrategicMinute,
+61:     pub camp_movement_minute: u64,
+62:     pub camp_elapsed_minute: u64,
+63:     pub errantry_frame_json: String,
+64:     pub puzzle_json: String,
+65:     pub presenter_catalog_id: ChallengePresenterCatalogId,
+66:     pub revision: u32,
+67:     pub solved_at_minute: Option<StrategicMinute>,
+68: }
+69: 
+70: impl ChallengeAuthority {
+71:     pub(crate) fn is_open(&self) -> bool {
+72:         self.solved_at_minute.is_none()
+73:     }
+74: }
+75: 
+76: impl RoadChallengeAuthority {
+77:     pub(crate) fn is_open(&self) -> bool {
+78:         self.resolved_choice.is_none()
+79:     }
+80: }

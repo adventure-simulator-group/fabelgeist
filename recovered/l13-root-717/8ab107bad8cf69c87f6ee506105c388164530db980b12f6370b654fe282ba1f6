@@ -1,0 +1,63 @@
+{
+  "lens": 13,
+  "at": "2026-10-31T23:54:22.728529+00:00",
+  "author": "/root",
+  "status": "prospective-before-source-body-read",
+  "authority_changes": 0,
+  "product_execution": false,
+  "source_credit_from_materialization": 0,
+  "provenance": {
+    "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+    "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+  },
+  "prior_same_lens_receipts_checked": 595,
+  "exact_hash_prior_hits": [],
+  "future_same_lens_proof_hits": [],
+  "sources": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-determinism/Cargo.toml",
+      "git_path": "crates/fabelgeist-determinism/Cargo.toml",
+      "sha256": "c39a8a5055ca88572a587d0eadbde46eeb889d9060ec6b8930f59bfb76e44303",
+      "actual_eof": 26,
+      "bytes": 692,
+      "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/c39a8a5055ca88572a587d0eadbde46eeb889d9060ec6b8930f59bfb76e44303",
+      "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "prospective_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "original_role_credit": 0,
+      "other_population_credit": 0,
+      "new_source_identity_credit": 0,
+      "source_kind": "necessary connected frozen native package pin; identity novelty unresolved"
+    }
+  ],
+  "registered_fresh_source_lines": 26,
+  "new_original_roles": 0,
+  "other_lens_coverage_transferred": false,
+  "parent_registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+    "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+  },
+  "mandatory_lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "other_lenses_pending": true,
+  "source_novelty_resolved": false,
+  "new_source_identity_credit": 0,
+  "identity_qualification": "Manifest absent immutable original2853; originalshared196/registeredextensions/overlay/current exact source identity reconciliation remains pending; no added population index or novelty claim."
+}

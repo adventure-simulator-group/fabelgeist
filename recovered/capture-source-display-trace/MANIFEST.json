@@ -1,0 +1,264 @@
+{
+  "schema": "726-capture-source-display-trace-v1",
+  "qualification": "Recorded numbered source output filtered to source headers and numbered lines, with launcher diagnostics omitted. All referenced lines match preserved pinned Git source bytes. Historical self-attribution and uncredited scope are retained; occurrences can overlap and add no audit credit or runtime acceptance.",
+  "chunks": [
+    {
+      "chunk_id": "1388e8",
+      "transcript_ordinal": 65022,
+      "fragment": "fragments/1388e8.txt",
+      "sha256": "44579efa9129971d1f55d9b89506f0e8a9eb684474c1501a4a47ff62d0df6b79",
+      "scopes": [
+        {
+          "family": "callers",
+          "packet_sha256": "8059c37cd47538e31576239752084f82def1dab950ea677eaf77ae5b85e7220e",
+          "source_sha256": "b3298d4f786000953198fbc93c37c6351922ce42797fb63ae8faeb4caf122a0b",
+          "git_path": "crates/adventuresim-building-generator/src/bin/building-lod-viewer.rs",
+          "first": 1,
+          "last": 240
+        }
+      ]
+    },
+    {
+      "chunk_id": "566bbd",
+      "transcript_ordinal": 65276,
+      "fragment": "fragments/566bbd.txt",
+      "sha256": "92f6fdd7e240b948b45b1f2d6c4c03bd820d8decb9782307359e2083148f5c55",
+      "scopes": [
+        {
+          "family": "fingerprint",
+          "packet_sha256": "cbd482ef9ecb7ef5ec694265d3fd2bcb01bebc447fad6d5396610c468b469184",
+          "source_sha256": "ed2c084a06282c48116838736f7133ad284198b59236ffc80f44442ac22d8677",
+          "git_path": "crates/adventuresim-building-generator/src/viewer/evidence_hashes.rs",
+          "first": 1,
+          "last": 32
+        },
+        {
+          "family": "fingerprint",
+          "packet_sha256": "cbd482ef9ecb7ef5ec694265d3fd2bcb01bebc447fad6d5396610c468b469184",
+          "source_sha256": "b1d9fd4828b2ff02f54735cac737d97102a0fd99c6fd41c37af3e271d232ef76",
+          "git_path": "crates/adventuresim-building-generator/src/viewer/capture.rs",
+          "first": 310,
+          "last": 365
+        },
+        {
+          "family": "fingerprint",
+          "packet_sha256": "cbd482ef9ecb7ef5ec694265d3fd2bcb01bebc447fad6d5396610c468b469184",
+          "source_sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "first": 1,
+          "last": 130
+        },
+        {
+          "family": "fingerprint",
+          "packet_sha256": "cbd482ef9ecb7ef5ec694265d3fd2bcb01bebc447fad6d5396610c468b469184",
+          "source_sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "first": 740,
+          "last": 830
+        }
+      ]
+    },
+    {
+      "chunk_id": "71ed73",
+      "transcript_ordinal": 65315,
+      "fragment": "fragments/71ed73.txt",
+      "sha256": "fb71f3c3d3f60f1a2240f568d52d2b3bdcf748331b68bfba147ae375f772289e",
+      "scopes": [
+        {
+          "family": "fingerprint",
+          "packet_sha256": "d4b72c432ef9bd58c7a51c664c5fe381a707cbb97b981a47f2ca82e7e8bcb3b8",
+          "source_sha256": "c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2",
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+          "first": 151,
+          "last": 205
+        },
+        {
+          "family": "fingerprint",
+          "packet_sha256": "d4b72c432ef9bd58c7a51c664c5fe381a707cbb97b981a47f2ca82e7e8bcb3b8",
+          "source_sha256": "c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2",
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+          "first": 315,
+          "last": 340
+        },
+        {
+          "family": "fingerprint",
+          "packet_sha256": "d4b72c432ef9bd58c7a51c664c5fe381a707cbb97b981a47f2ca82e7e8bcb3b8",
+          "source_sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+          "first": 3376,
+          "last": 3410
+        }
+      ]
+    },
+    {
+      "chunk_id": "85e03d",
+      "transcript_ordinal": 65286,
+      "fragment": "fragments/85e03d.txt",
+      "sha256": "06bfb4b22bfaab15219cdb168193f527f12e0c5c9af76a0d6e9622cbaedf6266",
+      "scopes": [
+        {
+          "family": "fingerprint",
+          "packet_sha256": "cbd482ef9ecb7ef5ec694265d3fd2bcb01bebc447fad6d5396610c468b469184",
+          "source_sha256": "c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2",
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+          "first": 1,
+          "last": 150
+        },
+        {
+          "family": "fingerprint",
+          "packet_sha256": "cbd482ef9ecb7ef5ec694265d3fd2bcb01bebc447fad6d5396610c468b469184",
+          "source_sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+          "first": 3189,
+          "last": 3375
+        }
+      ]
+    },
+    {
+      "chunk_id": "8f2bad",
+      "transcript_ordinal": 65055,
+      "fragment": "fragments/8f2bad.txt",
+      "sha256": "49426bf76b5c49d59251da78eb6ec509ae93aa660d016ac4950ca0a5e855fc90",
+      "scopes": [
+        {
+          "family": "callers",
+          "packet_sha256": "8059c37cd47538e31576239752084f82def1dab950ea677eaf77ae5b85e7220e",
+          "source_sha256": "193a12a2c36dfda21c1bb0fee7ab76329815ff4223900cd65d4ae49d013bf6a6",
+          "git_path": "crates/adventuresim-building-generator/src/bin/building-lod-viewer/capture.rs",
+          "first": 1,
+          "last": 130
+        },
+        {
+          "family": "callers",
+          "packet_sha256": "8059c37cd47538e31576239752084f82def1dab950ea677eaf77ae5b85e7220e",
+          "source_sha256": "193a12a2c36dfda21c1bb0fee7ab76329815ff4223900cd65d4ae49d013bf6a6",
+          "git_path": "crates/adventuresim-building-generator/src/bin/building-lod-viewer/capture.rs",
+          "first": 376,
+          "last": 434
+        },
+        {
+          "family": "callers",
+          "packet_sha256": "8059c37cd47538e31576239752084f82def1dab950ea677eaf77ae5b85e7220e",
+          "source_sha256": "193a12a2c36dfda21c1bb0fee7ab76329815ff4223900cd65d4ae49d013bf6a6",
+          "git_path": "crates/adventuresim-building-generator/src/bin/building-lod-viewer/capture.rs",
+          "first": 462,
+          "last": 522
+        },
+        {
+          "family": "callers",
+          "packet_sha256": "8059c37cd47538e31576239752084f82def1dab950ea677eaf77ae5b85e7220e",
+          "source_sha256": "193a12a2c36dfda21c1bb0fee7ab76329815ff4223900cd65d4ae49d013bf6a6",
+          "git_path": "crates/adventuresim-building-generator/src/bin/building-lod-viewer/capture.rs",
+          "first": 561,
+          "last": 637
+        },
+        {
+          "family": "callers",
+          "packet_sha256": "8059c37cd47538e31576239752084f82def1dab950ea677eaf77ae5b85e7220e",
+          "source_sha256": "193a12a2c36dfda21c1bb0fee7ab76329815ff4223900cd65d4ae49d013bf6a6",
+          "git_path": "crates/adventuresim-building-generator/src/bin/building-lod-viewer/capture.rs",
+          "first": 836,
+          "last": 898
+        }
+      ]
+    },
+    {
+      "chunk_id": "934568",
+      "transcript_ordinal": 65030,
+      "fragment": "fragments/934568.txt",
+      "sha256": "3456681855bed2457979ac4f477fd2cf912fb140871cf83c3777b98221a3ee1b",
+      "scopes": [
+        {
+          "family": "callers",
+          "packet_sha256": "8059c37cd47538e31576239752084f82def1dab950ea677eaf77ae5b85e7220e",
+          "source_sha256": "b3298d4f786000953198fbc93c37c6351922ce42797fb63ae8faeb4caf122a0b",
+          "git_path": "crates/adventuresim-building-generator/src/bin/building-lod-viewer.rs",
+          "first": 241,
+          "last": 461
+        }
+      ]
+    },
+    {
+      "chunk_id": "940bc6",
+      "transcript_ordinal": 65269,
+      "fragment": "fragments/940bc6.txt",
+      "sha256": "16ea230c6f8fe1a683d2161b0b55ff4ba31888c945b1f1df68174ac332c0785c",
+      "scopes": [
+        {
+          "family": "fingerprint",
+          "packet_sha256": "cbd482ef9ecb7ef5ec694265d3fd2bcb01bebc447fad6d5396610c468b469184",
+          "source_sha256": "193a12a2c36dfda21c1bb0fee7ab76329815ff4223900cd65d4ae49d013bf6a6",
+          "git_path": "crates/adventuresim-building-generator/src/bin/building-lod-viewer/capture.rs",
+          "first": 183,
+          "last": 261
+        },
+        {
+          "family": "fingerprint",
+          "packet_sha256": "cbd482ef9ecb7ef5ec694265d3fd2bcb01bebc447fad6d5396610c468b469184",
+          "source_sha256": "193a12a2c36dfda21c1bb0fee7ab76329815ff4223900cd65d4ae49d013bf6a6",
+          "git_path": "crates/adventuresim-building-generator/src/bin/building-lod-viewer/capture.rs",
+          "first": 386,
+          "last": 434
+        },
+        {
+          "family": "fingerprint",
+          "packet_sha256": "cbd482ef9ecb7ef5ec694265d3fd2bcb01bebc447fad6d5396610c468b469184",
+          "source_sha256": "193a12a2c36dfda21c1bb0fee7ab76329815ff4223900cd65d4ae49d013bf6a6",
+          "git_path": "crates/adventuresim-building-generator/src/bin/building-lod-viewer/capture.rs",
+          "first": 462,
+          "last": 522
+        },
+        {
+          "family": "fingerprint",
+          "packet_sha256": "cbd482ef9ecb7ef5ec694265d3fd2bcb01bebc447fad6d5396610c468b469184",
+          "source_sha256": "193a12a2c36dfda21c1bb0fee7ab76329815ff4223900cd65d4ae49d013bf6a6",
+          "git_path": "crates/adventuresim-building-generator/src/bin/building-lod-viewer/capture.rs",
+          "first": 561,
+          "last": 623
+        },
+        {
+          "family": "fingerprint",
+          "packet_sha256": "cbd482ef9ecb7ef5ec694265d3fd2bcb01bebc447fad6d5396610c468b469184",
+          "source_sha256": "193a12a2c36dfda21c1bb0fee7ab76329815ff4223900cd65d4ae49d013bf6a6",
+          "git_path": "crates/adventuresim-building-generator/src/bin/building-lod-viewer/capture.rs",
+          "first": 639,
+          "last": 835
+        }
+      ]
+    },
+    {
+      "chunk_id": "ec131d",
+      "transcript_ordinal": 65041,
+      "fragment": "fragments/ec131d.txt",
+      "sha256": "f84f51d648bfd80cd9d629eba2946cf5741dbb4909aca14af8a5251980a3773f",
+      "scopes": [
+        {
+          "family": "callers",
+          "packet_sha256": "8059c37cd47538e31576239752084f82def1dab950ea677eaf77ae5b85e7220e",
+          "source_sha256": "c47317c7b2aa4afb18ac097c828f3b3bdd0c38bb2e52312dccbdc8b66bf80f69",
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer_main.rs",
+          "first": 1,
+          "last": 254
+        }
+      ]
+    },
+    {
+      "chunk_id": "ecd008",
+      "transcript_ordinal": 65048,
+      "fragment": "fragments/ecd008.txt",
+      "sha256": "d9835e40db09d33634d993f377e87c5ec746b357e016ffdfa4b7964e8604644c",
+      "scopes": [
+        {
+          "family": "callers",
+          "packet_sha256": "8059c37cd47538e31576239752084f82def1dab950ea677eaf77ae5b85e7220e",
+          "source_sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+          "first": 762,
+          "last": 976
+        }
+      ]
+    }
+  ],
+  "matched_line_occurrences": 2531,
+  "packet_count": 3
+}

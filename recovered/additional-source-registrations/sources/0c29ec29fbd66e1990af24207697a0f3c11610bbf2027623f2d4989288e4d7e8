@@ -1,0 +1,497 @@
+use adventuresim_building_generator::spatial_geometry::Position;
+use adventuresim_tactical_core::prelude::{
+    BuildingOrientation, CityStreetPatch, DistantBuildingPlacement, GeneratedBuilding, SceneTerrain,
+};
+use adventuresim_tactical_core::scene_coordinates::Scene;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
+use bevy::prelude::*;
+use fabelgeist_geometry::SignedLength;
+
+use super::capture_state::BuildingReviewCamera;
+
+const STREET_EYE_HEIGHT_METRES: f32 = 1.65;
+const STREET_CAMERA_CLEARANCE_METRES: f32 = 0.75;
+const STREET_CONTEXT_OFFSET_METRES: f32 = 8.0;
+const FACADE_STREET_SEARCH_METRES: f32 = 40.0;
+const NEIGHBOURHOOD_RADIUS_METRES: f32 = 75.0;
+
+pub(super) fn capture_cameras(
+    buildings: &[GeneratedBuilding],
+    distant_buildings: &[DistantBuildingPlacement],
+    streets: &[CityStreetPatch],
+    terrain: &SceneTerrain,
+    profile: &str,
+) -> Result<Vec<BuildingReviewCamera>> {
+    if profile != super::CITY_REVIEW_PROFILE {
+        return Ok(Vec::new());
+    }
+    let bounds = PlacementBounds::collect(buildings, distant_buildings)?;
+    // The corridor search supplies a completed native scene-plane interpolation.
+    let clear = |native| {
+        let Some(point) = ScenePlanPoint::from_metres(native) else {
+            return false;
+        };
+        bounds.iter().all(|bounds| !bounds.contains(native)) && terrain.height_at(point).is_some()
+    };
+    let mut focus_candidates = buildings.iter().collect::<Vec<_>>();
+    focus_candidates.sort_by(|left, right| {
+        left.placement
+            .centre_metres
+            .metres()
+            .length_squared()
+            .total_cmp(&right.placement.centre_metres.metres().length_squared())
+    });
+    let mut selected = None;
+    for focus in focus_candidates {
+        let transform = focus.transform()?;
+        let width = f32::from(focus.placement.program.footprint.dimensions().0)
+            * adventuresim_building_generator::CELL_SIZE_METRES;
+        let target = transform.transform_point(
+            Vec3::new(width * 0.5, 2.4, 0.0) - focus.collision.bounds.centre()?.metres(),
+        );
+        let outward = focus.placement.orientation.local_to_world(Vec2::NEG_Y);
+        if let Some(street) = StreetPosition::nearest(streets, target.xz(), outward, &clear) {
+            selected = Some((focus, target, street));
+            break;
+        }
+    }
+    let (focus, facade_target, street) =
+        selected.ok_or("city review has no clear street corridor facing a playable building")?;
+    let eye = |point: ScenePlanPoint| -> Result<Position<Scene>> {
+        let elevation = terrain.required_height_at(point)?;
+        Ok(Position::from_metres(Vec3::new(
+            point.metres().x,
+            elevation.metres() + STREET_EYE_HEIGHT_METRES,
+            point.metres().y,
+        ))?)
+    };
+    let context = [-STREET_CONTEXT_OFFSET_METRES, STREET_CONTEXT_OFFSET_METRES]
+        .into_iter()
+        .map(|offset| street.shifted(offset))
+        .find(|candidate| clear(candidate.point()))
+        .unwrap_or(street);
+    let street_target = if context.fraction < 0.5 {
+        context.end
+    } else {
+        context.start
+    };
+    let centres = buildings
+        .iter()
+        .map(|building| building.placement.centre_metres.metres())
+        .chain(
+            distant_buildings
+                .iter()
+                .map(|building| building.centre_metres.metres()),
+        )
+        .collect::<Vec<_>>();
+    let neighbourhood_bounds = Bounds2::from_points(centres.iter().copied().filter(|point| {
+        point.distance_squared(focus.placement.centre_metres.metres())
+            <= NEIGHBOURHOOD_RADIUS_METRES.powi(2)
+    }));
+    let playable_bounds = Bounds2::from_points(
+        buildings
+            .iter()
+            .map(|building| building.placement.centre_metres.metres()),
+    );
+    let city_bounds = Bounds2::from_points(centres.into_iter());
+
+    Ok(vec![
+        BuildingReviewCamera {
+            position: eye(ScenePlanPoint::try_from(street.point())?)?,
+            target: Position::from_metres(facade_target)?,
+            plaster_raking_light: None,
+        },
+        BuildingReviewCamera {
+            position: eye(ScenePlanPoint::try_from(context.point())?)?,
+            target: Position::from_metres(Vec3::new(
+                street_target.x,
+                eye(ScenePlanPoint::try_from(context.point())?)?.metres().y,
+                street_target.y,
+            ))?,
+            plaster_raking_light: None,
+        },
+        playable_bounds.oblique_camera(0.95, 0.8)?,
+        neighbourhood_bounds.oblique_camera(0.72, 0.42)?,
+        city_bounds.edge_camera()?,
+        city_bounds.aerial_camera()?,
+        city_bounds.horizon_camera()?,
+    ])
+}
+
+#[derive(Clone, Copy)]
+struct StreetPosition {
+    start: Vec2,
+    end: Vec2,
+    fraction: f32,
+}
+
+impl StreetPosition {
+    fn point(self) -> Vec2 {
+        self.start.lerp(self.end, self.fraction)
+    }
+
+    fn shifted(self, metres: f32) -> Self {
+        Self {
+            fraction: (self.fraction + metres / self.start.distance(self.end)).clamp(0.05, 0.95),
+            ..self
+        }
+    }
+
+    fn nearest(
+        streets: &[CityStreetPatch],
+        target: Vec2,
+        outward: Vec2,
+        clear: &impl Fn(Vec2) -> bool,
+    ) -> Option<Self> {
+        streets
+            .iter()
+            .filter_map(|street| {
+                let CityStreetPatch::Corridor {
+                    start_metres,
+                    end_metres,
+                    ..
+                } = *street
+                else {
+                    return None;
+                };
+                let displacement = end_metres - start_metres;
+                Some(Self {
+                    start: start_metres,
+                    end: end_metres,
+                    fraction: ((target - start_metres).dot(displacement)
+                        / displacement.length_squared())
+                    .clamp(0.05, 0.95),
+                })
+            })
+            .flat_map(|street| {
+                [
+                    street,
+                    street.shifted(-STREET_CONTEXT_OFFSET_METRES),
+                    street.shifted(STREET_CONTEXT_OFFSET_METRES),
+                ]
+            })
+            .filter(|street| {
+                let offset = street.point() - target;
+                offset.dot(outward) > STREET_CAMERA_CLEARANCE_METRES
+                    && offset.length_squared() < FACADE_STREET_SEARCH_METRES.powi(2)
+                    && clear(street.point())
+            })
+            .min_by(|a, b| {
+                a.point()
+                    .distance_squared(target)
+                    .total_cmp(&b.point().distance_squared(target))
+            })
+    }
+}
+
+struct PlacementBounds {
+    centre: Vec2,
+    half_extents: Vec2,
+    orientation: BuildingOrientation,
+}
+
+impl PlacementBounds {
+    fn collect(
+        buildings: &[GeneratedBuilding],
+        distant: &[DistantBuildingPlacement],
+    ) -> Result<Vec<Self>> {
+        let mut bounds = buildings
+            .iter()
+            .map(|building| {
+                Ok(Self {
+                    centre: building.placement.centre_metres.metres(),
+                    half_extents: building.collision.bounds.plan_half_extents()?.metres(),
+                    orientation: building.placement.orientation,
+                })
+            })
+            .collect::<Result<Vec<_>>>()?;
+        bounds.extend(distant.iter().map(|building| Self {
+            centre: building.centre_metres.metres(),
+            half_extents: building.occupied_program().plot_dimensions_metres() * 0.5,
+            orientation: building.orientation,
+        }));
+        Ok(bounds)
+    }
+
+    fn contains(&self, point: Vec2) -> bool {
+        self.orientation
+            .world_to_local(point - self.centre)
+            .abs()
+            .cmple(self.half_extents + Vec2::splat(STREET_CAMERA_CLEARANCE_METRES))
+            .all()
+    }
+}
+
+#[derive(Clone, Copy)]
+struct Bounds2 {
+    min: Vec2,
+    max: Vec2,
+}
+
+impl Bounds2 {
+    fn from_points(points: impl Iterator<Item = Vec2>) -> Self {
+        let bounds = points.fold(None::<Self>, |bounds, point| {
+            Some(match bounds {
+                None => Self {
+                    min: point,
+                    max: point,
+                },
+                Some(bounds) => Self {
+                    min: bounds.min.min(point),
+                    max: bounds.max.max(point),
+                },
+            })
+        });
+        bounds.expect("city-review fixture lacks building placements")
+    }
+
+    fn centre(self) -> Result<Position<Scene>> {
+        let centre = (self.min + self.max) * 0.5;
+        Ok(Position::from_metres(Vec3::new(centre.x, 4.0, centre.y))?)
+    }
+
+    fn radius(self) -> Result<SignedLength> {
+        Ok(SignedLength::from_metres(
+            ((self.max - self.min).max_element() * 0.5).max(20.0),
+        )?)
+    }
+
+    fn oblique_camera(
+        self,
+        distance_scale: f32,
+        height_scale: f32,
+    ) -> Result<BuildingReviewCamera> {
+        let target = self.centre()?;
+        let radius = self.radius()?.metres();
+        Ok(BuildingReviewCamera {
+            position: Position::from_metres(
+                target.metres() + Vec3::new(radius * distance_scale, radius * height_scale, radius),
+            )?,
+            target,
+            plaster_raking_light: None,
+        })
+    }
+
+    fn edge_camera(self) -> Result<BuildingReviewCamera> {
+        let target = self.centre()?;
+        let radius = self.radius()?.metres();
+        Ok(BuildingReviewCamera {
+            position: Position::from_metres(
+                target.metres() + Vec3::new(radius * 1.45, radius * 0.18, radius * 0.35),
+            )?,
+            target,
+            plaster_raking_light: None,
+        })
+    }
+
+    fn aerial_camera(self) -> Result<BuildingReviewCamera> {
+        let target = self.centre()?;
+        let radius = self.radius()?.metres();
+        Ok(BuildingReviewCamera {
+            position: Position::from_metres(
+                target.metres() + Vec3::new(0.0, radius * 1.7, radius * 0.18),
+            )?,
+            target,
+            plaster_raking_light: None,
+        })
+    }
+
+    fn horizon_camera(self) -> Result<BuildingReviewCamera> {
+        let target = self.centre()?;
+        let radius = self.radius()?.metres();
+        Ok(BuildingReviewCamera {
+            position: Position::from_metres(
+                target.metres() + Vec3::new(0.0, radius * 0.12, radius * 2.35),
+            )?,
+            target,
+            plaster_raking_light: None,
+        })
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use adventuresim_building_generator::{
+        BuildingArchetype, BuildingProgram, compile_building_collision, generate,
+    };
+    use adventuresim_tactical_core::prelude::{CityStreetSurface, TacticalBuildingPlacement};
+
+    fn house(id: u64, centre: Vec2, orientation: BuildingOrientation) -> GeneratedBuilding {
+        let placement = TacticalBuildingPlacement {
+            base_elevation_metres:
+                adventuresim_tactical_core::city_layout::grounding::SupportElevation::from_metres(
+                    3.0,
+                )
+                .unwrap(),
+            id: id.into(),
+            program: BuildingProgram::fixture(
+                BuildingArchetype::TownHouse,
+                fabelgeist_determinism::Seed::from_u64(42),
+            ),
+            centre_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                centre,
+            )
+            .unwrap(),
+            orientation,
+        };
+        let plan = generate(&placement.program).unwrap();
+        GeneratedBuilding {
+            placement,
+            collision: compile_building_collision(&plan).unwrap(),
+            plan,
+        }
+    }
+
+    fn corridor(orientation: BuildingOrientation) -> CityStreetPatch {
+        CityStreetPatch::Corridor {
+            start_metres: orientation.local_to_world(Vec2::new(-60.0, 0.0)),
+            end_metres: orientation.local_to_world(Vec2::new(60.0, 0.0)),
+            half_width_metres: 3.0,
+            surface: CityStreetSurface::Fieldstone,
+        }
+    }
+
+    #[test]
+    fn city_packet_spans_close_and_whole_settlement_views() {
+        let buildings = [house(
+            1,
+            Vec2::new(0.0, 12.0),
+            BuildingOrientation::IDENTITY,
+        )];
+        let distant_city = DistantBuildingPlacement {
+            prosperity: adventuresim_world_schema::ProsperityTier::Comfortable,
+            usage: None,
+            service_size: None,
+            id: (2).into(),
+            archetype: BuildingArchetype::FachwerkCottage,
+            seed: (7).into(),
+            centre_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                Vec2::new(300.0, 240.0),
+            )
+            .unwrap(),
+            base_elevation_metres:
+                adventuresim_tactical_core::city_layout::grounding::SupportElevation::ZERO,
+            orientation: BuildingOrientation::IDENTITY,
+        };
+        let distant = [
+            distant_city,
+            DistantBuildingPlacement {
+                id: (3).into(),
+                centre_metres:
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                        Vec2::new(70.0, 12.0),
+                    )
+                    .unwrap(),
+                ..distant_city
+            },
+        ];
+
+        let cameras = capture_cameras(
+            &buildings,
+            &distant,
+            &[corridor(BuildingOrientation::IDENTITY)],
+            &SceneTerrain::new(65, 65, 4.0, |_| 3.0).unwrap(),
+            crate::tactical_scene_viewer::CITY_REVIEW_PROFILE,
+        )
+        .unwrap();
+
+        assert_eq!(cameras.len(), 7);
+        assert!(cameras.iter().all(|camera| {
+            camera.position.metres().is_finite()
+                && camera.target.metres().is_finite()
+                && camera.position.metres().distance(camera.target.metres()) > 0.5
+        }));
+        assert!(cameras[5].position.metres().y > cameras[0].position.metres().y + 100.0);
+        assert_eq!(
+            cameras[2].target.metres().xz(),
+            buildings[0].placement.centre_metres.metres()
+        );
+        assert_eq!(cameras[3].target.metres().xz(), Vec2::new(35.0, 12.0));
+        assert!(
+            cameras[3]
+                .position
+                .metres()
+                .distance(cameras[3].target.metres())
+                < 75.0
+        );
+        assert!(
+            cameras[5]
+                .position
+                .metres()
+                .distance(cameras[5].target.metres())
+                > 150.0
+        );
+    }
+
+    #[test]
+    fn eye_level_views_stay_in_rotated_street_outside_both_rows_of_buildings() {
+        let orientation = BuildingOrientation::from_radians(0.63).unwrap();
+        let mut focus = house(1, Vec2::ZERO, orientation);
+        let local_centre = Vec2::new(
+            0.0,
+            focus
+                .collision
+                .bounds
+                .plan_half_extents()
+                .unwrap()
+                .metres()
+                .y
+                + 4.0,
+        );
+        focus.placement.centre_metres =
+            adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                orientation.local_to_world(local_centre),
+            )
+            .unwrap();
+        let opposite = house(
+            2,
+            orientation.local_to_world(-local_centre),
+            BuildingOrientation::from_radians(0.63 + std::f32::consts::PI).unwrap(),
+        );
+        let buildings = [focus, opposite];
+        let street = corridor(orientation);
+        let terrain = SceneTerrain::new(65, 65, 4.0, |_| 3.0).unwrap();
+        let cameras = capture_cameras(
+            &buildings,
+            &[],
+            &[street],
+            &terrain,
+            crate::tactical_scene_viewer::CITY_REVIEW_PROFILE,
+        )
+        .unwrap();
+
+        for camera in &cameras[..2] {
+            let point = camera.position.metres().xz();
+            assert!(
+                street.contains(point),
+                "eye must be in the actual street corridor"
+            );
+            for building in &buildings {
+                let local = building
+                    .placement
+                    .orientation
+                    .world_to_local(point - building.placement.centre_metres.metres());
+                assert!(
+                    local
+                        .abs()
+                        .cmpgt(
+                            building
+                                .collision
+                                .bounds
+                                .plan_half_extents()
+                                .unwrap()
+                                .metres()
+                        )
+                        .any(),
+                    "eye must be outside every placed building"
+                );
+            }
+            assert!((camera.position.metres().y - 4.65).abs() < 0.001);
+        }
+        let front_eye = orientation.world_to_local(
+            cameras[0].position.metres().xz() - buildings[0].placement.centre_metres.metres(),
+        );
+        assert!(front_eye.y < 0.0, "the front is local negative Z");
+    }
+}

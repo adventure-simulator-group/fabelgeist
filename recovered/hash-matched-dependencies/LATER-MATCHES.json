@@ -1,0 +1,868 @@
+{
+  "schema": "726-dependency-later-matches-v1",
+  "qualification": "Matches reconcile a fixed earlier inventory against bytes subsequently preserved in this handoff. The 484 unmatched hashes refer only to that limited inventory and are not proof of irrecoverability. Matches overlap other recovery counts and give no audit credit.",
+  "earlier_missing_distinct": 528,
+  "later_matched_distinct": 44,
+  "still_unmatched_distinct": 484,
+  "matches": [
+    {
+      "sha256": "0b7af7f5b2b95daad5cf555145358c25a530977cbb582c9e0787718dcffd8b2d",
+      "object": "recovered/printed-hash-audit-records/objects/0b7af7f5b2b95daad5cf555145358c25a530977cbb582c9e0787718dcffd8b2d",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/QUALIFICATION-ROOT-L2-CATALOG-OWNER-FITS-001.json",
+          "from_file": "QUALIFICATION-ROOT-L2-CATALOG-PROTECTION-ADDENDUM-001.json",
+          "json_pointer": "/prior_qualification"
+        }
+      ]
+    },
+    {
+      "sha256": "12218946a89cf0d17e82cb275cc7581bb1817103c9fa1ac63acc0d5cb44ab864",
+      "object": "recovered/cited-reconstructed-registrations/12218946a89cf0d17e82cb275cc7581bb1817103c9fa1ac63acc0d5cb44ab864",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-CHUNK-PLUGIN-577.json",
+          "from_file": "QUALIFICATION-MATERIAL-PLUGIN-586.json",
+          "json_pointer": "/project_registrations/5"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-CHUNK-PLUGIN-577.json",
+          "from_file": "QUALIFICATION-MATERIAL-PLUGIN-586.json",
+          "json_pointer": "/project_observations/18/registration"
+        }
+      ]
+    },
+    {
+      "sha256": "1388d72009fa9d4052878c3c2328afd779ff64be99018808f600deda774171c3",
+      "object": "recovered/owned-repair-capture/1388d72009fa9d4052878c3c2328afd779ff64be99018808f600deda774171c3",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/OWNED-REPAIR-ROOT-L12-CAPTURE-PERSISTENCE-LIFECYCLE-001.json",
+          "from_file": "OWNED-REPAIR-ROOT-L12-CAPTURE-PERSISTENCE-LIFECYCLE-002.json",
+          "json_pointer": "/supersedes/repair"
+        }
+      ]
+    },
+    {
+      "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2",
+      "object": "recovered/printed-hash-audit-records/objects/1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2",
+      "citations": [
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+          "from_file": "87d40345151b--QUALIFICATION-ROOT-L2-CONNECTED-PROTECTION-ADDENDUM-001.json",
+          "json_pointer": "/same_lens_dependencies/0"
+        }
+      ]
+    },
+    {
+      "sha256": "1f6875055a8f894b5b7d7b94ca7bd98ec7c8d0c90032f2b819daae97b03cbbb5",
+      "object": "recovered/printed-hash-audit-records/objects/1f6875055a8f894b5b7d7b94ca7bd98ec7c8d0c90032f2b819daae97b03cbbb5",
+      "citations": [
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/READ-ROOT-L2-ARMOR-PRODUCERS-011-012.json",
+          "from_file": "QUALIFICATION-ROOT-L2-ARMOR-PRODUCERS-ADDENDUM-001.json",
+          "json_pointer": "/read"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/READ-ROOT-L2-ARMOR-PRODUCERS-011-012.json",
+          "from_file": "87d40345151b--QUALIFICATION-ROOT-L2-CONNECTED-PROTECTION-ADDENDUM-001.json",
+          "json_pointer": "/same_lens_dependencies/1"
+        }
+      ]
+    },
+    {
+      "sha256": "21128b1da1bbe3aa318680c2b6d65f7f67651144fb31edb5ac572ef8929693b5",
+      "object": "recovered/direct-printed-dependencies/objects/21128b1da1bbe3aa318680c2b6d65f7f67651144fb31edb5ac572ef8929693b5",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/qualify_root_l12_window_observer_publication_v1.py",
+          "from_file": "QUALIFICATION-ROOT-L12-WINDOW-OBSERVER-PUBLICATION-001.json",
+          "json_pointer": "/proof_builder"
+        }
+      ]
+    },
+    {
+      "sha256": "2d39b6b66a770e25f524f4715da369bd6c1c186d5a2f11d413755f6ede6e7a0f",
+      "object": "recovered/printed-hash-audit-records/objects/2d39b6b66a770e25f524f4715da369bd6c1c186d5a2f11d413755f6ede6e7a0f",
+      "citations": [
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/READ-ROOT-L2-TACTICAL-ARMOR-009-010.json",
+          "from_file": "QUALIFICATION-ROOT-L2-TACTICAL-ARMOR-ADDENDUM-001.json",
+          "json_pointer": "/read"
+        }
+      ]
+    },
+    {
+      "sha256": "30b383cf044d3a75aa38e2326200afbe089ad53ab00c2650e794be3de420e91b",
+      "object": "recovered/cited-reconstructed-registrations/30b383cf044d3a75aa38e2326200afbe089ad53ab00c2650e794be3de420e91b",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-MATERIAL-PLUGIN-586.json",
+          "from_file": "QUALIFICATION-MATERIAL-PLUGIN-586.json",
+          "json_pointer": "/project_registrations/0"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-MATERIAL-PLUGIN-586.json",
+          "from_file": "QUALIFICATION-MATERIAL-PLUGIN-586.json",
+          "json_pointer": "/project_observations/0/registration"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-MATERIAL-PLUGIN-586.json",
+          "from_file": "QUALIFICATION-MATERIAL-PLUGIN-586.json",
+          "json_pointer": "/project_observations/1/registration"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-MATERIAL-PLUGIN-586.json",
+          "from_file": "QUALIFICATION-MATERIAL-PLUGIN-586.json",
+          "json_pointer": "/project_observations/2/registration"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-MATERIAL-PLUGIN-586.json",
+          "from_file": "QUALIFICATION-MATERIAL-PLUGIN-586.json",
+          "json_pointer": "/project_observations/3/registration"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-MATERIAL-PLUGIN-586.json",
+          "from_file": "DECISION-ROOT-L1-MATERIAL-PLUGIN-CELL-43-586.json",
+          "json_pointer": "/assessed_rows/0/registration"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-MATERIAL-PLUGIN-586.json",
+          "from_file": "DECISION-ROOT-L1-MATERIAL-PLUGIN-CELL-43-586.json",
+          "json_pointer": "/assessed_rows/1/registration"
+        }
+      ]
+    },
+    {
+      "sha256": "419f9ca3b504c96dc4c1a4fc360705ff944860033c03e8ba568d33cc3ecc004e",
+      "object": "recovered/direct-printed-dependencies/objects/419f9ca3b504c96dc4c1a4fc360705ff944860033c03e8ba568d33cc3ecc004e",
+      "citations": [
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/audit_progress_report_v1.py",
+          "from_file": "343ba811d165--REPORTING-WORKFLOW.json",
+          "json_pointer": "/report_writer"
+        }
+      ]
+    },
+    {
+      "sha256": "5b44e3cc59d4639a20ace20d8c6f5a11e11dcf3d348360ddda5a22b4eb820851",
+      "object": "recovered/direct-printed-dependencies/objects/5b44e3cc59d4639a20ace20d8c6f5a11e11dcf3d348360ddda5a22b4eb820851",
+      "citations": [
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_armor_cadence_revisits.py",
+          "from_file": "fab61f2165d8--CURRENT.json",
+          "json_pointer": "/portability/armor_cadence_queue_writer"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_armor_cadence_revisits.py",
+          "from_file": "46630e85748d--CURRENT.json",
+          "json_pointer": "/portability/armor_cadence_queue_writer"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_armor_cadence_revisits.py",
+          "from_file": "ad711163e12f--CURRENT.json",
+          "json_pointer": "/portability/armor_cadence_queue_writer"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_armor_cadence_revisits.py",
+          "from_file": "93707555aa4b--CURRENT.json",
+          "json_pointer": "/portability/armor_cadence_queue_writer"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_armor_cadence_revisits.py",
+          "from_file": "a94ba3e98090--CURRENT.json",
+          "json_pointer": "/portability/armor_cadence_queue_writer"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_armor_cadence_revisits.py",
+          "from_file": "0e6dc1e026ca--CURRENT.json",
+          "json_pointer": "/portability/armor_cadence_queue_writer"
+        }
+      ]
+    },
+    {
+      "sha256": "6146b622d39268608587f379ae13b7d699f4f6f6196389daf2c4700d04c2bfec",
+      "object": "recovered/cited-reconstructed-registrations/6146b622d39268608587f379ae13b7d699f4f6f6196389daf2c4700d04c2bfec",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-ANIMATION-EVALUATION-L11-2280.json",
+          "from_file": "60c1735a8992--QUALIFICATION-ANIMATION-EVALUATION-L11-2280.json",
+          "json_pointer": "/project_registrations/0"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-ANIMATION-EVALUATION-L11-2280.json",
+          "from_file": "60c1735a8992--QUALIFICATION-ANIMATION-EVALUATION-L11-2280.json",
+          "json_pointer": "/project_observations/0/registration"
+        }
+      ]
+    },
+    {
+      "sha256": "6b78ec11da438d14e072808163ca0cd65cedf889ecd9ed8c91538f6fbb79f393",
+      "object": "recovered/direct-printed-dependencies/objects/6b78ec11da438d14e072808163ca0cd65cedf889ecd9ed8c91538f6fbb79f393",
+      "citations": [
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_inertial_calibration_revisits.py",
+          "from_file": "46630e85748d--CURRENT.json",
+          "json_pointer": "/portability/inertial_calibration_queue_writer"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_inertial_calibration_revisits.py",
+          "from_file": "ad711163e12f--CURRENT.json",
+          "json_pointer": "/portability/inertial_calibration_queue_writer"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_inertial_calibration_revisits.py",
+          "from_file": "93707555aa4b--CURRENT.json",
+          "json_pointer": "/portability/inertial_calibration_queue_writer"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_inertial_calibration_revisits.py",
+          "from_file": "a94ba3e98090--CURRENT.json",
+          "json_pointer": "/portability/inertial_calibration_queue_writer"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_inertial_calibration_revisits.py",
+          "from_file": "0e6dc1e026ca--CURRENT.json",
+          "json_pointer": "/portability/inertial_calibration_queue_writer"
+        }
+      ]
+    },
+    {
+      "sha256": "6d439c64efa05889d5354c36527a4b5c3f7c5d2177d5ad367c9cd0bba1fcbfd0",
+      "object": "recovered/printed-hash-audit-records/objects/6d439c64efa05889d5354c36527a4b5c3f7c5d2177d5ad367c9cd0bba1fcbfd0",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+          "from_file": "QUALIFICATION-ROOT-L2-CATALOG-PROTECTION-ADDENDUM-001.json",
+          "json_pointer": "/supporting_read"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+          "from_file": "QUALIFICATION-ROOT-L2-CATALOG-PROTECTION-ADDENDUM-001.json",
+          "json_pointer": "/role_updates/0/new_evidence/0/receipt"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+          "from_file": "QUALIFICATION-ROOT-L2-CATALOG-PROTECTION-ADDENDUM-001.json",
+          "json_pointer": "/role_updates/0/new_evidence/1/receipt"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+          "from_file": "QUALIFICATION-ROOT-L2-CATALOG-PROTECTION-ADDENDUM-001.json",
+          "json_pointer": "/role_updates/0/new_evidence/2/receipt"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+          "from_file": "QUALIFICATION-ROOT-L2-CATALOG-PROTECTION-ADDENDUM-001.json",
+          "json_pointer": "/role_updates/0/new_evidence/3/receipt"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+          "from_file": "QUALIFICATION-ROOT-L2-CATALOG-PROTECTION-ADDENDUM-001.json",
+          "json_pointer": "/role_updates/0/new_evidence/4/receipt"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+          "from_file": "QUALIFICATION-ROOT-L2-CATALOG-PROTECTION-ADDENDUM-001.json",
+          "json_pointer": "/role_updates/0/new_evidence/5/receipt"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+          "from_file": "QUALIFICATION-ROOT-L2-CATALOG-PROTECTION-ADDENDUM-001.json",
+          "json_pointer": "/role_updates/0/new_evidence/6/receipt"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+          "from_file": "QUALIFICATION-ROOT-L2-CATALOG-PROTECTION-ADDENDUM-001.json",
+          "json_pointer": "/role_updates/1/new_evidence/0/receipt"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+          "from_file": "QUALIFICATION-ROOT-L2-CATALOG-PROTECTION-ADDENDUM-001.json",
+          "json_pointer": "/role_updates/1/new_evidence/1/receipt"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+          "from_file": "QUALIFICATION-ROOT-L2-CATALOG-PROTECTION-ADDENDUM-001.json",
+          "json_pointer": "/role_updates/1/new_evidence/2/receipt"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+          "from_file": "QUALIFICATION-ROOT-L2-CATALOG-PROTECTION-ADDENDUM-001.json",
+          "json_pointer": "/role_updates/1/new_evidence/3/receipt"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+          "from_file": "QUALIFICATION-ROOT-L2-CATALOG-PROTECTION-ADDENDUM-001.json",
+          "json_pointer": "/role_updates/1/new_evidence/4/receipt"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+          "from_file": "QUALIFICATION-ROOT-L2-CATALOG-CONTACT-ADDENDUM-001.json",
+          "json_pointer": "/bounded_coverage_source_join/prior_read"
+        }
+      ]
+    },
+    {
+      "sha256": "7861832358932d5d0c738b8965a38f8911a4892a04390abdb64b2129a304a437",
+      "object": "recovered/printed-hash-audit-records/objects/7861832358932d5d0c738b8965a38f8911a4892a04390abdb64b2129a304a437",
+      "citations": [
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/READ-ROOT-L2-CONNECTED-PROTECTION-013-014.json",
+          "from_file": "87d40345151b--QUALIFICATION-ROOT-L2-CONNECTED-PROTECTION-ADDENDUM-001.json",
+          "json_pointer": "/read"
+        }
+      ]
+    },
+    {
+      "sha256": "831d63435823b3201d0f7b8f8d45caac0c96acc0bf5aeed11ba83b570af73d8d",
+      "object": "recovered/embedded-printed-audit-records/objects/831d63435823b3201d0f7b8f8d45caac0c96acc0bf5aeed11ba83b570af73d8d",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/QUALIFICATION-AI-PRECISION-L12-1481.json",
+          "from_file": "DECISION-AI-PRECISION-1481.json",
+          "json_pointer": "/evidence/0"
+        }
+      ]
+    },
+    {
+      "sha256": "85a45c5952d5148b398f69b92bf66498862a87d871409934c3986b664e82e965",
+      "object": "recovered/cited-reconstructed-registrations/85a45c5952d5148b398f69b92bf66498862a87d871409934c3986b664e82e965",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-ROOT-L12-CURRENT-CHUNK-INSTANCING-001.json",
+          "from_file": "07ea59be440e--DECISION-ROOT-L12-CURRENT-CHUNK-CELL-005.json",
+          "json_pointer": "/registration"
+        }
+      ]
+    },
+    {
+      "sha256": "8b723e58afad6c01e10967209c6f6d6de8e7499035d35a69cd4a020e63d2033a",
+      "object": "recovered/current-transition-path-evidence/8b723e58afad6c01e10967209c6f6d6de8e7499035d35a69cd4a020e63d2033a",
+      "citations": [
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/CURRENT-TARGET-TRANSITION-001.json",
+          "from_file": "f96823f24451--CURRENT.json",
+          "json_pointer": "/current_source/transition"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/CURRENT-TARGET-TRANSITION-001.json",
+          "from_file": "2672fe6d1c09--CURRENT.json",
+          "json_pointer": "/current_source/transition"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/CURRENT-TARGET-TRANSITION-001.json",
+          "from_file": "fab61f2165d8--CURRENT.json",
+          "json_pointer": "/current_source/transition"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/CURRENT-TARGET-TRANSITION-001.json",
+          "from_file": "46630e85748d--CURRENT.json",
+          "json_pointer": "/current_source/transition"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/CURRENT-TARGET-TRANSITION-001.json",
+          "from_file": "ad711163e12f--CURRENT.json",
+          "json_pointer": "/current_source/transition"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/CURRENT-TARGET-TRANSITION-001.json",
+          "from_file": "93707555aa4b--CURRENT.json",
+          "json_pointer": "/current_source/transition"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/CURRENT-TARGET-TRANSITION-001.json",
+          "from_file": "a94ba3e98090--CURRENT.json",
+          "json_pointer": "/current_source/transition"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/CURRENT-TARGET-TRANSITION-001.json",
+          "from_file": "0e6dc1e026ca--CURRENT.json",
+          "json_pointer": "/current_source/transition"
+        }
+      ]
+    },
+    {
+      "sha256": "8ca196ac51eacefba577b73b20b51518ffc40528e3a6f7e67828a463dd1dd19f",
+      "object": "recovered/cited-reconstructed-registrations/8ca196ac51eacefba577b73b20b51518ffc40528e3a6f7e67828a463dd1dd19f",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-SCENE-READINESS-QUERY-PRODUCERS-542.json",
+          "from_file": "QUALIFICATION-SCENE-READINESS-REMAINING-543.json",
+          "json_pointer": "/project_registrations/1"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-SCENE-READINESS-QUERY-PRODUCERS-542.json",
+          "from_file": "QUALIFICATION-SCENE-READINESS-REMAINING-543.json",
+          "json_pointer": "/project_observations/8/registration"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-SCENE-READINESS-QUERY-PRODUCERS-542.json",
+          "from_file": "QUALIFICATION-SCENE-READINESS-REMAINING-543.json",
+          "json_pointer": "/project_observations/9/registration"
+        }
+      ]
+    },
+    {
+      "sha256": "90ef2adb9c90c6f469458557c19ec5655b91059e0d37d4372cb3cdf957f14420",
+      "object": "recovered/historical-lock-delta/90ef2adb9c90c6f469458557c19ec5655b91059e0d37d4372cb3cdf957f14420",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/DIFF-METADATA-623-LOCK.patch",
+          "from_file": "OBSERVATION-BASELINE-OLDER-662.json",
+          "json_pointer": "/source_references/3"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/DIFF-METADATA-623-LOCK.patch",
+          "from_file": "ecaab0e06404--VIEW-GRASS-WITNESS-675.json",
+          "json_pointer": "/evidence/2"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/DIFF-METADATA-623-LOCK.patch",
+          "from_file": "7db49650acd0--OBSERVATION-BASELINE-OLDER-679.json",
+          "json_pointer": "/source_references/3"
+        }
+      ]
+    },
+    {
+      "sha256": "972b569ef05ac7139774c7c79dbc0f930e0bb25fe72e5d140578c7c96bf32438",
+      "object": "recovered/direct-printed-dependencies/objects/972b569ef05ac7139774c7c79dbc0f930e0bb25fe72e5d140578c7c96bf32438",
+      "citations": [
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_root_l13_packet_v10.py",
+          "from_file": "fab61f2165d8--CURRENT.json",
+          "json_pointer": "/portability/root_lens13_packet_writer"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_root_l13_packet_v10.py",
+          "from_file": "46630e85748d--CURRENT.json",
+          "json_pointer": "/portability/root_lens13_packet_writer"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_root_l13_packet_v10.py",
+          "from_file": "ad711163e12f--CURRENT.json",
+          "json_pointer": "/portability/root_lens13_packet_writer"
+        }
+      ]
+    },
+    {
+      "sha256": "9d055293b7feb51d0f305940796806319779268c78933f4b688fe08ca6aa7cac",
+      "object": "recovered/l2-publication-continuity-evidence/9d055293b7feb51d0f305940796806319779268c78933f4b688fe08ca6aa7cac.txt",
+      "citations": [
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/audit_l2_publication_v2.py",
+          "from_file": "343ba811d165--REPORTING-WORKFLOW.json",
+          "json_pointer": "/new_l2_publication_backend"
+        }
+      ]
+    },
+    {
+      "sha256": "9d5c1a0cd144cfc7b6965f6168a040e0e52a92c3b5d45c47661bd7eef331b963",
+      "object": "recovered/cited-reconstructed-registrations/9d5c1a0cd144cfc7b6965f6168a040e0e52a92c3b5d45c47661bd7eef331b963",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-LOCK-DELTA-652.json",
+          "from_file": "OBSERVATION-BASELINE-OLDER-662.json",
+          "json_pointer": "/lock_registration"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-LOCK-DELTA-652.json",
+          "from_file": "7db49650acd0--OBSERVATION-BASELINE-OLDER-679.json",
+          "json_pointer": "/lock_registration"
+        }
+      ]
+    },
+    {
+      "sha256": "9e9c947744b01a72e6fc9f1879bcbe81aac81f6d5d2459ac9ecdf3f678e65da5",
+      "object": "recovered/fingerprint-source-evidence/objects/9e9c947744b01a72e6fc9f1879bcbe81aac81f6d5d2459ac9ecdf3f678e65da5",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-ROOT-L12-CAPTURE-FINGERPRINT-OWNERS-002.json",
+          "from_file": "READ-ROOT-L12-CAPTURE-FINGERPRINT-OWNERS-002.json",
+          "json_pointer": "/registration"
+        }
+      ]
+    },
+    {
+      "sha256": "a511a02f5796d3ee709b6a101bf67bbc1493bb6b01e0595823a732fd897ed7d6",
+      "object": "recovered/printed-hash-audit-records/objects/a511a02f5796d3ee709b6a101bf67bbc1493bb6b01e0595823a732fd897ed7d6",
+      "citations": [
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/READ-ROOT-L2-CATALOG-CONTACT-008.json",
+          "from_file": "QUALIFICATION-ROOT-L2-CATALOG-CONTACT-ADDENDUM-001.json",
+          "json_pointer": "/read"
+        }
+      ]
+    },
+    {
+      "sha256": "a613330ed29cd622ad2fa6b347a96794d13bd594121993a8aabc8182a335079d",
+      "object": "recovered/cited-reconstructed-registrations/a613330ed29cd622ad2fa6b347a96794d13bd594121993a8aabc8182a335079d",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-FOOT-CLEARANCE-L11-2281.json",
+          "from_file": "8b512bcfc186--QUALIFICATION-FOOT-CLEARANCE-L11-2281.json",
+          "json_pointer": "/project_registrations/0"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-FOOT-CLEARANCE-L11-2281.json",
+          "from_file": "8b512bcfc186--QUALIFICATION-FOOT-CLEARANCE-L11-2281.json",
+          "json_pointer": "/project_observations/0/registration"
+        }
+      ]
+    },
+    {
+      "sha256": "b0d0e27627165c079855a9bdc6e6c9f6580e68b795e1b205bbb30c5a867ad3a5",
+      "object": "recovered/cited-reconstructed-registrations/b0d0e27627165c079855a9bdc6e6c9f6580e68b795e1b205bbb30c5a867ad3a5",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-CHUNK-FADE-INPUTS-573.json",
+          "from_file": "QUALIFICATION-MATERIAL-PLUGIN-586.json",
+          "json_pointer": "/project_registrations/3"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-CHUNK-FADE-INPUTS-573.json",
+          "from_file": "QUALIFICATION-MATERIAL-PLUGIN-586.json",
+          "json_pointer": "/project_observations/13/registration"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-CHUNK-FADE-INPUTS-573.json",
+          "from_file": "QUALIFICATION-MATERIAL-PLUGIN-586.json",
+          "json_pointer": "/project_observations/14/registration"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-CHUNK-FADE-INPUTS-573.json",
+          "from_file": "QUALIFICATION-MATERIAL-PLUGIN-586.json",
+          "json_pointer": "/project_observations/15/registration"
+        }
+      ]
+    },
+    {
+      "sha256": "b12a963b6ce6d1027648827730c645ae432f5b3bf738f6149cecb2414c761f5e",
+      "object": "recovered/embedded-printed-audit-records/objects/b12a963b6ce6d1027648827730c645ae432f5b3bf738f6149cecb2414c761f5e",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/QUALIFICATION-BASELINE-OLDER-675.json",
+          "from_file": "ecaab0e06404--VIEW-GRASS-WITNESS-675.json",
+          "json_pointer": "/source_qualification"
+        }
+      ]
+    },
+    {
+      "sha256": "c13841f9c16ac9189b8aad7ef79c8e8822a57e107de07df0b27e1300a7c98320",
+      "object": "recovered/printed-hash-audit-records/objects/c13841f9c16ac9189b8aad7ef79c8e8822a57e107de07df0b27e1300a7c98320",
+      "citations": [
+        {
+          "cited_path": "segovb/STATE-L2-EXT-CURRENT-022.json",
+          "from_file": "be1c0e3a8e18--REGISTRATION-ROOT-L2-CATALOG-SUPPORT-039.json",
+          "json_pointer": "/selected_l2_state"
+        }
+      ]
+    },
+    {
+      "sha256": "c4c38c1021c74d9d259fa7f2f754e3101aaaa1c0525305cfc6442165922ba94c",
+      "object": "recovered/cited-reconstructed-registrations/c4c38c1021c74d9d259fa7f2f754e3101aaaa1c0525305cfc6442165922ba94c",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-SCENE-READINESS-REMAINING-542.json",
+          "from_file": "QUALIFICATION-SCENE-READINESS-REMAINING-543.json",
+          "json_pointer": "/project_registrations/0"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-SCENE-READINESS-REMAINING-542.json",
+          "from_file": "QUALIFICATION-SCENE-READINESS-REMAINING-543.json",
+          "json_pointer": "/project_observations/0/registration"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-SCENE-READINESS-REMAINING-542.json",
+          "from_file": "QUALIFICATION-SCENE-READINESS-REMAINING-543.json",
+          "json_pointer": "/project_observations/1/registration"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-SCENE-READINESS-REMAINING-542.json",
+          "from_file": "QUALIFICATION-SCENE-READINESS-REMAINING-543.json",
+          "json_pointer": "/project_observations/2/registration"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-SCENE-READINESS-REMAINING-542.json",
+          "from_file": "QUALIFICATION-SCENE-READINESS-REMAINING-543.json",
+          "json_pointer": "/project_observations/3/registration"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-SCENE-READINESS-REMAINING-542.json",
+          "from_file": "QUALIFICATION-SCENE-READINESS-REMAINING-543.json",
+          "json_pointer": "/project_observations/4/registration"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-SCENE-READINESS-REMAINING-542.json",
+          "from_file": "QUALIFICATION-SCENE-READINESS-REMAINING-543.json",
+          "json_pointer": "/project_observations/5/registration"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-SCENE-READINESS-REMAINING-542.json",
+          "from_file": "QUALIFICATION-SCENE-READINESS-REMAINING-543.json",
+          "json_pointer": "/project_observations/6/registration"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-SCENE-READINESS-REMAINING-542.json",
+          "from_file": "QUALIFICATION-SCENE-READINESS-REMAINING-543.json",
+          "json_pointer": "/project_observations/7/registration"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-SCENE-READINESS-REMAINING-542.json",
+          "from_file": "DECISION-ROOT-L1-SCENE-READINESS-CELL-20-543.json",
+          "json_pointer": "/assessed_rows/0/registration"
+        }
+      ]
+    },
+    {
+      "sha256": "c56c852cb47eb0e75f3e3be6cfe1a951b201771ad17d84a5963f5f030e4b0ea8",
+      "object": "recovered/direct-printed-dependencies/objects/c56c852cb47eb0e75f3e3be6cfe1a951b201771ad17d84a5963f5f030e4b0ea8",
+      "citations": [
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_ragdoll_revisits.py",
+          "from_file": "93707555aa4b--CURRENT.json",
+          "json_pointer": "/portability/ragdoll_queue_writer"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_ragdoll_revisits.py",
+          "from_file": "a94ba3e98090--CURRENT.json",
+          "json_pointer": "/portability/ragdoll_queue_writer"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_ragdoll_revisits.py",
+          "from_file": "0e6dc1e026ca--CURRENT.json",
+          "json_pointer": "/portability/ragdoll_queue_writer"
+        }
+      ]
+    },
+    {
+      "sha256": "ca254720e3a691693ec497c0f02c6f536cce74ec193d8135f808eac0b24ad7e9",
+      "object": "recovered/cited-reconstructed-registrations/ca254720e3a691693ec497c0f02c6f536cce74ec193d8135f808eac0b24ad7e9",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-ROOT-L6-CURRENT-SCATTER-SHADERS-001.json",
+          "from_file": "READ-ROOT-L6-CURRENT-SCATTER-SHADER-CELL-04-512-V2.json",
+          "json_pointer": "/registration"
+        }
+      ]
+    },
+    {
+      "sha256": "cbd482ef9ecb7ef5ec694265d3fd2bcb01bebc447fad6d5396610c468b469184",
+      "object": "recovered/fingerprint-source-evidence/objects/cbd482ef9ecb7ef5ec694265d3fd2bcb01bebc447fad6d5396610c468b469184",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/READ-ROOT-L12-CAPTURE-FINGERPRINT-OWNERS-001.json",
+          "from_file": "OWNED-REPAIR-ROOT-L12-CAPTURE-FINGERPRINT-OWNERS-001.json",
+          "json_pointer": "/evidence_packets/0"
+        }
+      ]
+    },
+    {
+      "sha256": "cc3e84c3cd5426c504ca2e537c1d85ca2b3eb4e9bf1059982e8a27e439a86631",
+      "object": "recovered/cited-reconstructed-registrations/cc3e84c3cd5426c504ca2e537c1d85ca2b3eb4e9bf1059982e8a27e439a86631",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-CHUNK-INSTANCE-CALLERS-573.json",
+          "from_file": "QUALIFICATION-MATERIAL-PLUGIN-586.json",
+          "json_pointer": "/project_registrations/2"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-CHUNK-INSTANCE-CALLERS-573.json",
+          "from_file": "QUALIFICATION-MATERIAL-PLUGIN-586.json",
+          "json_pointer": "/project_observations/9/registration"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-CHUNK-INSTANCE-CALLERS-573.json",
+          "from_file": "QUALIFICATION-MATERIAL-PLUGIN-586.json",
+          "json_pointer": "/project_observations/10/registration"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-CHUNK-INSTANCE-CALLERS-573.json",
+          "from_file": "QUALIFICATION-MATERIAL-PLUGIN-586.json",
+          "json_pointer": "/project_observations/11/registration"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-CHUNK-INSTANCE-CALLERS-573.json",
+          "from_file": "QUALIFICATION-MATERIAL-PLUGIN-586.json",
+          "json_pointer": "/project_observations/12/registration"
+        }
+      ]
+    },
+    {
+      "sha256": "cd40c931cc96b99d1af199187f7b599fcdcaa703c4df24f95d8622936a794005",
+      "object": "recovered/embedded-printed-audit-records/objects/cd40c931cc96b99d1af199187f7b599fcdcaa703c4df24f95d8622936a794005",
+      "citations": [
+        {
+          "cited_path": "target/726-intake-20261030/VERIFICATION-L13-1564-1567.json",
+          "from_file": "0e6dc1e026ca--CURRENT.json",
+          "json_pointer": "/prior_adoption_verifications/77"
+        }
+      ]
+    },
+    {
+      "sha256": "d4ff85ba08b167f807bcc827a0d362f9580a3e58d002effcae6095233831991c",
+      "object": "recovered/direct-printed-dependencies/objects/d4ff85ba08b167f807bcc827a0d362f9580a3e58d002effcae6095233831991c",
+      "citations": [
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_celestial_schedule_revisit.py",
+          "from_file": "0e6dc1e026ca--CURRENT.json",
+          "json_pointer": "/portability/celestial_schedule_queue_writer"
+        }
+      ]
+    },
+    {
+      "sha256": "dbce70a979ea789adda23c72a6bd0f5a46765606130d5e55d6ae543f20af8ac7",
+      "object": "recovered/direct-printed-dependencies/objects/dbce70a979ea789adda23c72a6bd0f5a46765606130d5e55d6ae543f20af8ac7",
+      "citations": [
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_tree_source_revisits.py",
+          "from_file": "0e6dc1e026ca--CURRENT.json",
+          "json_pointer": "/portability/tree_source_queue_writer"
+        }
+      ]
+    },
+    {
+      "sha256": "dfaee2bc1a08cadeb48bc0aa3c8e73bc87ffa93b42d4fefe41646b4e01b7842a",
+      "object": "recovered/bevy-asset-event-plan/dfaee2bc1a08cadeb48bc0aa3c8e73bc87ffa93b42d4fefe41646b4e01b7842a",
+      "citations": [
+        {
+          "cited_path": "BEVY-ASSET-EVENT-TYPE-PLAN.json",
+          "from_file": "BEVY-ASSET-RETRY-RECEIPT.json",
+          "json_pointer": "/event_type_plan"
+        }
+      ]
+    },
+    {
+      "sha256": "eccc459c300b5faddd10db40aec1bfa7b0f59d91f58e5243760680670f51d232",
+      "object": "recovered/selected-lens-440-values/eccc459c300b5faddd10db40aec1bfa7b0f59d91f58e5243760680670f51d232",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/SELECTED-LENSES-CONTINUATION-440.json",
+          "from_file": "7f47b52bef82--PROPOSAL-LOCK-RANGE-BATCH1357.json",
+          "json_pointer": "/base_authority_snapshot/4"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/SELECTED-LENSES-CONTINUATION-440.json",
+          "from_file": "b8025941a819--PROPOSAL-LOCK-RANGE-BATCH1531.json",
+          "json_pointer": "/base_authority_snapshot/4"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/SELECTED-LENSES-CONTINUATION-440.json",
+          "from_file": "26a0f985a2cd--PROPOSAL-LOCK-RANGE-BATCH3745.json",
+          "json_pointer": "/base_authority_snapshot/4"
+        }
+      ]
+    },
+    {
+      "sha256": "ef3fc358807bf8add209819086d790adb374017096885a55a633a1f61261dcc1",
+      "object": "recovered/printed-hash-audit-records/objects/ef3fc358807bf8add209819086d790adb374017096885a55a633a1f61261dcc1",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/READ-ROOT-L2-FAME-PARITY-036-038.json",
+          "from_file": "d497871cfb77--QUALIFICATION-ROOT-L2-PROFESSION-FAME-PARITY-001.json",
+          "json_pointer": "/read"
+        }
+      ]
+    },
+    {
+      "sha256": "f1ccf7d033bac660acb29a0d3b648d9becdcee83f2f69f84c7b3e1287deda1ed",
+      "object": "recovered/direct-printed-dependencies/objects/f1ccf7d033bac660acb29a0d3b648d9becdcee83f2f69f84c7b3e1287deda1ed",
+      "citations": [
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_report_revisits.py",
+          "from_file": "fab61f2165d8--CURRENT.json",
+          "json_pointer": "/portability/report_queue_writer"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_report_revisits.py",
+          "from_file": "46630e85748d--CURRENT.json",
+          "json_pointer": "/portability/report_queue_writer"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_report_revisits.py",
+          "from_file": "ad711163e12f--CURRENT.json",
+          "json_pointer": "/portability/report_queue_writer"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_report_revisits.py",
+          "from_file": "93707555aa4b--CURRENT.json",
+          "json_pointer": "/portability/report_queue_writer"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_report_revisits.py",
+          "from_file": "a94ba3e98090--CURRENT.json",
+          "json_pointer": "/portability/report_queue_writer"
+        },
+        {
+          "cited_path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/adopt_l13_report_revisits.py",
+          "from_file": "0e6dc1e026ca--CURRENT.json",
+          "json_pointer": "/portability/report_queue_writer"
+        }
+      ]
+    },
+    {
+      "sha256": "f3cef973358d6ff3bbda0e8b6cceec0c014b049bfe0a6344b4bc1341378b7342",
+      "object": "recovered/cited-reconstructed-registrations/f3cef973358d6ff3bbda0e8b6cceec0c014b049bfe0a6344b4bc1341378b7342",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-CHUNK-INSTANCE-CONSUMERS-576.json",
+          "from_file": "QUALIFICATION-MATERIAL-PLUGIN-586.json",
+          "json_pointer": "/project_registrations/4"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-CHUNK-INSTANCE-CONSUMERS-576.json",
+          "from_file": "QUALIFICATION-MATERIAL-PLUGIN-586.json",
+          "json_pointer": "/project_observations/16/registration"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-CHUNK-INSTANCE-CONSUMERS-576.json",
+          "from_file": "QUALIFICATION-MATERIAL-PLUGIN-586.json",
+          "json_pointer": "/project_observations/17/registration"
+        }
+      ]
+    },
+    {
+      "sha256": "f463bb6ec405791461853e00c96e68cda5f4ba98723900e6d933aced97ed1682",
+      "object": "recovered/embedded-printed-audit-records/objects/f463bb6ec405791461853e00c96e68cda5f4ba98723900e6d933aced97ed1682",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/REPAIR-PLAN-AI-PRECISION-1481.json",
+          "from_file": "DECISION-AI-PRECISION-1481.json",
+          "json_pointer": "/owned_repair"
+        }
+      ]
+    },
+    {
+      "sha256": "f7014b06f1de11da460e1c5ca59c04baad91eadbe42ed0a036154c1bb29dd72c",
+      "object": "recovered/capture-family-repair-contracts/objects/f7014b06f1de11da460e1c5ca59c04baad91eadbe42ed0a036154c1bb29dd72c",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/OWNED-REPAIR-ROOT-L12-REMAINING-CAPTURE-CALLERS-001.json",
+          "from_file": "c5201c65dd17--PLAN-ROOT-L12-REMAINING-CAPTURE-CALLERS-001.json",
+          "json_pointer": "/repair_contract"
+        }
+      ]
+    },
+    {
+      "sha256": "fc47d7de6bddfa8d18d734454d8d19fc9f41c5fe3a276b3202f4b24b0786854d",
+      "object": "recovered/cited-reconstructed-registrations/fc47d7de6bddfa8d18d734454d8d19fc9f41c5fe3a276b3202f4b24b0786854d",
+      "citations": [
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-SCENE-READINESS-NATIVE-542.json",
+          "from_file": "QUALIFICATION-SCENE-READINESS-REMAINING-543.json",
+          "json_pointer": "/native_registrations/0"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-SCENE-READINESS-NATIVE-542.json",
+          "from_file": "QUALIFICATION-SCENE-READINESS-REMAINING-543.json",
+          "json_pointer": "/native_observations/0/registration"
+        },
+        {
+          "cited_path": "adler-continuation-20261030/REGISTRATION-SCENE-READINESS-NATIVE-542.json",
+          "from_file": "QUALIFICATION-SCENE-READINESS-REMAINING-543.json",
+          "json_pointer": "/native_observations/1/registration"
+        }
+      ]
+    }
+  ]
+}

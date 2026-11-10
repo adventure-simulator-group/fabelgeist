@@ -1,0 +1,503 @@
+SOURCE 2730
+1: //! Coordinate conversion at the web transport boundary.
+2: use adventuresim_world_schema::coordinates::Wgs84CoordinateE7;
+3: 
+4: pub(super) fn wgs84_latitude_longitude_degrees(
+5:     latitude_e7: i32,
+6:     longitude_e7: i32,
+7: ) -> Result<(f64, f64), &'static str> {
+8:     Wgs84CoordinateE7::new(latitude_e7, longitude_e7)
+9:         .map(Wgs84CoordinateE7::latitude_longitude_degrees)
+10:         .ok_or("persisted coordinate is outside WGS84 bounds")
+11: }
+12: 
+13: pub(super) fn wgs84_e7(latitude: f64, longitude: f64) -> Result<(i32, i32), &'static str> {
+14:     let coordinate = Wgs84CoordinateE7::from_longitude_latitude_degrees(longitude, latitude)
+15:         .ok_or("route coordinate is outside WGS84 bounds")?;
+16:     Ok((coordinate.latitude().get(), coordinate.longitude().get()))
+17: }
+SOURCE 2731
+1: //! Closed set of party commands that can be queued for leader approval.
+2: 
+3: use serde::{Deserialize, Serialize};
+4: use serde_json::{Value, json};
+5: 
+6: use crate::spacetimedb::RoleRequirements;
+7: 
+8: #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+9: #[serde(tag = "action", rename_all = "snake_case")]
+10: pub(crate) enum PartyAction {
+11:     TravelToSettlement {
+12:         settlement_id: String,
+13:     },
+14:     TravelToCaseSite {
+15:         case_site_id: String,
+16:     },
+17:     RemovePartyMember {
+18:         character_id: u64,
+19:     },
+20:     CreateRecruitmentRole {
+21:         name: String,
+22:         quantity: u32,
+23:         requirements: RoleRequirements,
+24:         save_role: bool,
+25:     },
+26:     UpdateRecruitmentRole {
+27:         role_id: u64,
+28:         name: String,
+29:         quantity: u32,
+30:         requirements: RoleRequirements,
+31:     },
+32:     DeleteRecruitmentRole {
+33:         role_id: u64,
+34:     },
+35:     AcceptJoinRequest {
+36:         request_id: u64,
+37:     },
+38:     RejectJoinRequest {
+39:         request_id: u64,
+40:     },
+41:     AcceptContract {
+42:         contract_id: String,
+43:     },
+44:     AbandonContract {
+45:         contract_id: String,
+46:     },
+47:     ReportContract {
+48:         contract_id: String,
+49:     },
+50:     AutoresolveMission {
+51:         mission_id: String,
+52:     },
+53:     UpdatePartyCheckTargets {
+54:         physiology: f32,
+55:         command: f32,
+56:         religion: f32,
+57:     },
+58:     SetInventoryQuantityTarget {
+59:         item_id: String,
+60:         quantity: u32,
+61:     },
+62:     DisbandParty {
+63:         party_id: String,
+64:     },
+65:     RequestTacticalServer {
+66:         mission_id: String,
+67:         scene_key: String,
+68:     },
+69:     CancelMission {
+70:         mission_id: String,
+71:     },
+72:     PerformInvestigation {
+73:         action_id: String,
+74:         method: String,
+75:         expected_version: u32,
+76:     },
+77: }
+78: 
+79: impl PartyAction {
+80:     pub(super) fn requires_ready_party(&self) -> bool {
+81:         matches!(
+82:             self,
+83:             Self::TravelToCaseSite { .. }
+84:                 | Self::AutoresolveMission { .. }
+85:                 | Self::RequestTacticalServer { .. }
+86:                 | Self::PerformInvestigation { .. }
+87:         )
+88:     }
+89: 
+90:     pub(super) fn kind(&self) -> String {
+91:         match self {
+92:             Self::TravelToSettlement { .. } | Self::TravelToCaseSite { .. } => "travel".into(),
+93:             Self::RemovePartyMember { .. } => "kick".into(),
+94:             Self::CreateRecruitmentRole { .. } => "add_role".into(),
+95:             Self::UpdateRecruitmentRole { .. } => "edit_role".into(),
+96:             Self::DeleteRecruitmentRole { .. } => "delete_role".into(),
+97:             Self::AcceptJoinRequest { .. } => "accept_join".into(),
+98:             Self::RejectJoinRequest { .. } => "reject_join".into(),
+99:             Self::AcceptContract { .. } => "accept_contract".into(),
+100:             Self::AbandonContract { .. } => "abandon_contract".into(),
+101:             Self::ReportContract { .. } => "report_contract".into(),
+102:             Self::AutoresolveMission { .. } => "autoresolve".into(),
+103:             Self::UpdatePartyCheckTargets { .. } => "party_checks".into(),
+104:             Self::SetInventoryQuantityTarget { .. } => "party_inventory".into(),
+105:             Self::DisbandParty { .. } => "disband_party".into(),
+106:             Self::RequestTacticalServer { .. } => "initiate_combat".into(),
+107:             Self::CancelMission { .. } => "cancel_mission".into(),
+108:             Self::PerformInvestigation { .. } => "investigate".into(),
+109:         }
+110:     }
+111: 
+112:     pub(super) fn summary(&self) -> String {
+113:         match self {
+114:             Self::TravelToSettlement { settlement_id, .. } => {
+115:                 format!("Travel to settlement {settlement_id}")
+116:             }
+117:             Self::TravelToCaseSite { .. } => "Travel to investigation site".into(),
+118:             Self::RemovePartyMember { character_id } => {
+119:                 format!("Remove party member {character_id}")
+120:             }
+121:             Self::CreateRecruitmentRole { name, quantity, .. } => {
+122:                 format!("Add {quantity} {name} slot(s)")
+123:             }
+124:             Self::UpdateRecruitmentRole { name, .. } => format!("Edit recruitment role {name}"),
+125:             Self::DeleteRecruitmentRole { .. } => "Delete a recruitment role".into(),
+126:             Self::AcceptJoinRequest { request_id } => format!("Accept join request {request_id}"),
+127:             Self::RejectJoinRequest { request_id } => format!("Reject join request {request_id}"),
+128:             Self::AcceptContract { contract_id } => format!("Accept contract {contract_id}"),
+129:             Self::AbandonContract { contract_id } => format!("Abandon contract {contract_id}"),
+130:             Self::ReportContract { contract_id } => format!("Report contract {contract_id}"),
+131:             Self::AutoresolveMission { mission_id } => {
+132:                 format!("Autoresolve mission {mission_id}")
+133:             }
+134:             Self::UpdatePartyCheckTargets { .. } => "Change party skill targets".into(),
+135:             Self::SetInventoryQuantityTarget { .. } => "Manage party inventory targets".into(),
+136:             Self::DisbandParty { .. } => "Disband the party".into(),
+137:             Self::RequestTacticalServer { .. } => "Initiate tactical combat".into(),
+138:             Self::CancelMission { .. } => "Cancel tactical combat".into(),
+139:             Self::PerformInvestigation { method, .. } => {
+140:                 format!("Perform investigation action: {}", method.replace('_', " "))
+141:             }
+142:         }
+143:     }
+144: 
+145:     pub(super) fn reducer_call(&self, actor_id: u64) -> (&'static str, Vec<Value>) {
+146:         match self {
+147:             Self::TravelToSettlement { settlement_id } => (
+148:                 "travel_to_settlement",
+149:                 vec![json!(actor_id), json!(settlement_id)],
+150:             ),
+151:             Self::TravelToCaseSite { case_site_id } => (
+152:                 "travel_to_case_site",
+153:                 vec![json!(actor_id), json!({ "value": case_site_id })],
+154:             ),
+155:             Self::RemovePartyMember { character_id } => (
+156:                 "remove_party_member",
+157:                 vec![json!(actor_id), json!(character_id)],
+158:             ),
+159:             Self::CreateRecruitmentRole {
+160:                 name,
+161:                 quantity,
+162:                 requirements,
+163:                 save_role,
+164:             } => (
+165:                 "create_recruitment_role",
+166:                 vec![
+167:                     json!(actor_id),
+168:                     json!(name),
+169:                     json!(quantity),
+170:                     json!(requirements),
+171:                     json!(save_role),
+172:                 ],
+173:             ),
+174:             Self::UpdateRecruitmentRole {
+175:                 role_id,
+176:                 name,
+177:                 quantity,
+178:                 requirements,
+179:             } => (
+180:                 "update_recruitment_role",
+181:                 vec![
+182:                     json!(actor_id),
+183:                     json!(role_id),
+184:                     json!(name),
+185:                     json!(quantity),
+186:                     json!(requirements),
+187:                 ],
+188:             ),
+189:             Self::DeleteRecruitmentRole { role_id } => (
+190:                 "delete_recruitment_role",
+191:                 vec![json!(actor_id), json!(role_id)],
+192:             ),
+193:             Self::AcceptJoinRequest { request_id } => (
+194:                 "accept_party_join_request",
+195:                 vec![json!(actor_id), json!(request_id)],
+196:             ),
+197:             Self::RejectJoinRequest { request_id } => (
+198:                 "reject_party_join_request",
+199:                 vec![json!(actor_id), json!(request_id)],
+200:             ),
+201:             Self::AcceptContract { contract_id } => {
+202:                 ("accept_contract", vec![json!(actor_id), json!(contract_id)])
+203:             }
+204:             Self::AbandonContract { contract_id } => (
+205:                 "abandon_contract",
+206:                 vec![json!(actor_id), json!(contract_id)],
+207:             ),
+208:             Self::ReportContract { contract_id } => {
+209:                 ("report_contract", vec![json!(actor_id), json!(contract_id)])
+210:             }
+211:             Self::AutoresolveMission { mission_id } => (
+212:                 "autoresolve_mission",
+213:                 vec![json!(actor_id), json!(mission_id)],
+214:             ),
+215:             Self::UpdatePartyCheckTargets {
+216:                 physiology,
+217:                 command,
+218:                 religion,
+219:             } => (
+220:                 "update_party_check_targets",
+221:                 vec![
+222:                     json!(actor_id),
+223:                     json!(physiology),
+224:                     json!(command),
+225:                     json!(religion),
+226:                 ],
+227:             ),
+228:             Self::SetInventoryQuantityTarget { item_id, quantity } => (
+229:                 "set_inventory_quantity_target",
+230:                 vec![
+231:                     json!(actor_id),
+232:                     json!(true),
+233:                     json!(item_id),
+234:                     json!(quantity),
+235:                 ],
+236:             ),
+237:             Self::DisbandParty { party_id } => {
+238:                 ("disband_party", vec![json!(actor_id), json!(party_id)])
+239:             }
+240:             Self::RequestTacticalServer {
+241:                 mission_id,
+242:                 scene_key,
+243:             } => (
+244:                 "request_tactical_server",
+245:                 vec![json!(actor_id), json!(mission_id), json!(scene_key)],
+246:             ),
+247:             Self::CancelMission { mission_id } => (
+248:                 "cancel_mission_request",
+249:                 vec![json!(actor_id), json!(mission_id)],
+250:             ),
+251:             Self::PerformInvestigation {
+252:                 action_id,
+253:                 method,
+254:                 expected_version,
+255:             } => (
+256:                 "perform_investigation_action",
+257:                 vec![
+258:                     json!(actor_id),
+259:                     json!(action_id),
+260:                     json!(method),
+261:                     json!(expected_version),
+262:                 ],
+263:             ),
+264:         }
+265:     }
+266: }
+SOURCE 2733
+1: // THIS FILE IS AUTOMATICALLY GENERATED BY SPACETIMEDB. EDITS TO THIS FILE
+2: // WILL NOT BE SAVED. MODIFY TABLES IN YOUR MODULE SOURCE CODE INSTEAD.
+3: 
+4: #![allow(unused, clippy::all)]
+5: use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
+6: 
+7: #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
+8: #[sats(crate = __lib)]
+9: pub struct JourneyRoutePoint {
+10:     pub latitude_e_7: i32,
+11:     pub longitude_e_7: i32,
+12: }
+13: 
+14: impl __sdk::InModule for JourneyRoutePoint {
+15:     type Module = super::RemoteModule;
+16: }
+SOURCE 2734
+1: //! Anatomical equipment reservations are validated before reducer mutations.
+2: use super::character_equipped_item;
+3: use crate::item::{PersistedEquipmentPlacement, inventory_item, item};
+4: use adventuresim_core::item_catalog::OccupancyRequirement;
+5: use spacetimedb::ReducerContext;
+6: 
+7: pub(super) fn validate_attachment_requirement(
+8:     ctx: &ReducerContext,
+9:     parent_id: u64,
+10:     point: &crate::item::PersistedEquipmentAttachmentPoint,
+11:     requirement: adventuresim_core::item_catalog::ParentRequirement,
+12: ) -> Result<(), String> {
+13:     if !super::attachment_point_matches_requirement(point, requirement) {
+14:         return Err(format!(
+15:             "Attachment point {} uses {:?} order {}, but placement requires {:?} order {}",
+16:             point.id, point.channel, point.order, requirement.channel, requirement.order
+17:         ));
+18:     }
+19:     if requirement
+20:         .location
+21:         .is_some_and(|location| !reaches_location(ctx, parent_id, location))
+22:     {
+23:         return Err("Parent garment does not reach the required body location".into());
+24:     }
+25:     Ok(())
+26: }
+27: 
+28: pub(super) fn reaches_location(
+29:     ctx: &ReducerContext,
+30:     inventory_item_id: u64,
+31:     location: adventuresim_core::item_catalog::EquipmentLocation,
+32: ) -> bool {
+33:     use super::equipment_occupancy;
+34:     let mut pending = vec![inventory_item_id];
+35:     let mut visited = std::collections::BTreeSet::new();
+36:     while let Some(item) = pending.pop() {
+37:         if !visited.insert(item) {
+38:             continue;
+39:         }
+40:         for occupancy in ctx
+41:             .db
+42:             .equipment_occupancy()
+43:             .inventory_item_id()
+44:             .filter(item)
+45:         {
+46:             if occupancy.location == Some(location) {
+47:                 return true;
+48:             }
+49:             pending.extend(occupancy.parent_inventory_item_id);
+50:         }
+51:     }
+52:     false
+53: }
+54: 
+55: pub(super) fn character_occupancy_id(
+56:     character_id: u64,
+57:     inventory_item_id: u64,
+58:     requirement_index: u16,
+59: ) -> String {
+60:     format!("character:{character_id}:item:{inventory_item_id}:requirement:{requirement_index}")
+61: }
+62: 
+63: pub(super) fn conflicting_equipment_roots(
+64:     ctx: &ReducerContext,
+65:     character_id: u64,
+66:     inventory_item_id: u64,
+67:     placement: &PersistedEquipmentPlacement,
+68: ) -> Result<Vec<(OccupancyRequirement, u64)>, String> {
+69:     let mut conflicts = Vec::new();
+70:     for equipped in ctx
+71:         .db
+72:         .character_equipped_item()
+73:         .character_id()
+74:         .filter(character_id)
+75:     {
+76:         if equipped.inventory_item_id == inventory_item_id {
+77:             continue;
+78:         }
+79:         let inventory = ctx
+80:             .db
+81:             .inventory_item()
+82:             .id()
+83:             .find(equipped.inventory_item_id)
+84:             .ok_or("Equipped item has no inventory row")?;
+85:         let definition = ctx
+86:             .db
+87:             .item()
+88:             .id()
+89:             .find(inventory.item_id)
+90:             .ok_or("Equipped item has no catalog definition")?;
+91:         let current = definition
+92:             .equipment_placements
+93:             .iter()
+94:             .find(|current| current.id == equipped.placement_id)
+95:             .ok_or("Equipped item has no authored placement")?;
+96:         conflicts.extend(conflicting_requirements(
+97:             placement,
+98:             current,
+99:             equipped.inventory_item_id,
+100:         ));
+101:     }
+102:     Ok(conflicts)
+103: }
+104: 
+105: fn conflicting_requirements(
+106:     proposed: &PersistedEquipmentPlacement,
+107:     current: &PersistedEquipmentPlacement,
+108:     current_item_id: u64,
+109: ) -> Vec<(OccupancyRequirement, u64)> {
+110:     proposed
+111:         .occupancy
+112:         .iter()
+113:         .copied()
+114:         .filter(|requirement| {
+115:             current
+116:                 .occupancy
+117:                 .iter()
+118:                 .any(|other| requirement.conflicts_with(*other))
+119:         })
+120:         .map(|requirement| (requirement, current_item_id))
+121:         .collect()
+122: }
+SOURCE 2735
+1: //! Schedule transport conversion; policy and sampling belong to core.
+2: use adventuresim_core::{
+3:     activity::ActivityLocation,
+4:     strategic_schedule::{
+5:         DailySchedule, ScheduleParseError, ValidatedSchedule, validate_daily_allocation,
+6:     },
+7: };
+8: use adventuresim_stdb_client::ScheduleAllocation;
+9: use fabelgeist_determinism::Seed;
+10: 
+11: pub(crate) fn validate(
+12:     mut schedule: ScheduleAllocation,
+13: ) -> Result<ScheduleAllocation, ScheduleParseError> {
+14:     let normalize = |value: Option<String>| value.filter(|id| !id.trim().is_empty());
+15:     let plan = validate_daily_allocation(
+16:         [
+17:             schedule.labor_minutes,
+18:             schedule.prayer_minutes,
+19:             schedule.thievery_minutes,
+20:             schedule.raiding_minutes,
+21:             schedule.combat_training_minutes,
+22:             schedule.carousing_minutes,
+23:             schedule.socializing_minutes,
+24:             schedule.apprenticeship_minutes,
+25:             schedule.profession_practice_minutes,
+26:             schedule.reading_minutes,
+27:         ],
+28:         (
+29:             schedule.apprenticeship_minutes,
+30:             normalize(schedule.apprenticeship_organization_id),
+31:         ),
+32:         (
+33:             schedule.profession_practice_minutes,
+34:             normalize(schedule.practice_organization_id),
+35:         ),
+36:     )?;
+37:     schedule.apprenticeship_organization_id = plan.apprenticeship.organization_id();
+38:     schedule.practice_organization_id = plan.practice.organization_id();
+39:     Ok(schedule)
+40: }
+41: 
+42: pub(crate) fn effective(
+43:     schedule: &ScheduleAllocation,
+44:     location: ActivityLocation,
+45:     redistribution_seed: Seed,
+46: ) -> Result<ScheduleAllocation, ScheduleParseError> {
+47:     let core = ValidatedSchedule::try_from(core_allocation(schedule))?
+48:         .effective_at(location, redistribution_seed);
+49:     Ok(ScheduleAllocation {
+50:         reading_minutes: core.reading_minutes,
+51:         combat_training_minutes: core.combat_training_minutes,
+52:         carousing_minutes: core.carousing_minutes,
+53:         socializing_minutes: core.socializing_minutes,
+54:         apprenticeship_minutes: core.apprenticeship_minutes,
+55:         profession_practice_minutes: core.profession_practice_minutes,
+56:         labor_minutes: core.labor,
+57:         prayer_minutes: core.prayer,
+58:         thievery_minutes: core.thievery,
+59:         raiding_minutes: core.raiding,
+60:         ..schedule.clone()
+61:     })
+62: }
+63: 
+64: fn core_allocation(schedule: &ScheduleAllocation) -> DailySchedule {
+65:     DailySchedule {
+66:         reading_minutes: schedule.reading_minutes,
+67:         combat_training_minutes: schedule.combat_training_minutes,
+68:         carousing_minutes: schedule.carousing_minutes,
+69:         socializing_minutes: schedule.socializing_minutes,
+70:         apprenticeship_minutes: schedule.apprenticeship_minutes,
+71:         profession_practice_minutes: schedule.profession_practice_minutes,
+72:         labor: schedule.labor_minutes,
+73:         prayer: schedule.prayer_minutes,
+74:         thievery: schedule.thievery_minutes,
+75:         raiding: schedule.raiding_minutes,
+76:     }
+77: }

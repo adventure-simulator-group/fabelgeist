@@ -1,0 +1,164 @@
+SOURCE 2638 pr-working:crates/fabelgeist-hair/src/haircut.rs
+211:                 ..long
+212:             },
+213:             Cut::Layered => Self {
+214:                 top: 0.24,
+215:                 front: 0.2,
+216:                 sides: 0.34,
+217:                 back: 0.45,
+218:                 hemline: Some(-0.4),
+219:                 ..long
+220:             },
+221:             Cut::Shag => Self {
+222:                 top: 0.2,
+223:                 front: 0.15,
+224:                 sides: 0.24,
+225:                 back: 0.3,
+226:                 hemline: Some(-0.24),
+227:                 ..long
+228:             },
+229:             Cut::Collar => Self {
+230:                 top: 0.2,
+231:                 front: 0.2,
+232:                 sides: 0.2,
+233:                 back: 0.2,
+234:                 hemline: Some(-0.12),
+235:                 ..long
+236:             },
+237:             Cut::Bob => Self {
+238:                 top: 0.26,
+239:                 front: 0.2,
+240:                 sides: 0.23,
+241:                 back: 0.26,
+242:                 hemline: Some(-0.09),
+243:                 ..long
+244:             },
+245:             Cut::AngledBob => Self {
+246:                 top: 0.28,
+247:                 front: 0.24,
+248:                 sides: 0.26,
+249:                 back: 0.26,
+250:                 hemline: Some(-0.06),
+251:                 slope: 0.45,
+252:                 ..long
+253:             },
+254:             Cut::BowlCut => Self {
+255:                 top: 0.16,
+256:                 front: 0.13,
+257:                 sides: 0.15,
+258:                 back: 0.16,
+259:                 hemline: Some(-0.01),
+260:                 fringe: Some(Fringe::default()),
+261:                 ..long
+262:             },
+263:             Cut::Pixie => short(0.08, 0.11, 0.05, 0.05),
+264:             Cut::Crop => short(0.045, 0.04, 0.035, 0.04),
+265:             Cut::ShortBackAndSides => Self {
+266:                 clip: 0.45,
+267:                 clipper: 0.012,
+268:                 fade: 0.12,
+269:                 ..short(0.1, 0.12, 0.08, 0.08)
+270:             },
+271:             Cut::Undercut => Self {
+272:                 clip: 0.5,
+273:                 clipper: 0.008,
+274:                 ..short(0.14, 0.15, 0.14, 0.14)
+275:             },
+276:             Cut::Fade => Self {
+277:                 clip: 0.55,
+278:                 clipper: 0.001,
+279:                 fade: 0.45,
+280:                 ..short(0.06, 0.07, 0.05, 0.05)
+281:             },
+282:             Cut::Mohawk => Self {
+283:                 strip: 0.022,
+284:                 clipper: 0.006,
+285:                 ..short(0.12, 0.1, 0.12, 0.12)
+286:             },
+287:             Cut::Buzz => short(0.009, 0.007, 0.008, 0.009),
+288:             Cut::Rounded => Self {
+289:                 dome: 0.18,
+290:                 ..short(0.14, 0.1, 0.12, 0.12)
+291:             },
+292:         }
+293:     }
+294: 
+295:     /// The cut, every length times `factor`, the hemline as far from the
+296:     /// crown as the hair is long.
+297:     pub fn scaled(mut self, factor: f32) -> Self {
+298:         for length in [
+299:             &mut self.top,
+300:             &mut self.front,
+301:             &mut self.sides,
+302:             &mut self.back,
+303:         ] {
+304:             *length *= factor;
+305:         }
+306:         let crown = 0.115;
+307:         self.hemline = self.hemline.map(|y| crown - (crown - y) * factor);
+308:         self.dome = if self.dome > 0.0 {
+309:             0.09 + (self.dome - 0.09) * factor
+310:         } else {
+311:             0.0
+312:         };
+313:         self
+314:     }
+315: 
+316:     /// The longest hair anywhere, metres.
+317:     pub fn longest(&self) -> f32 {
+318:         self.top.max(self.front).max(self.sides).max(self.back)
+319:     }
+320: 
+321:     /// Whether a root is clipped short (under the clippers, or outside a
+322:     /// mohawk's strip).
+323:     pub fn clipped(&self, head: &Head, root: Vec3) -> bool {
+324:         (self.clip > 0.0 && head.elevation(root) < self.clip - 0.5 * self.fade)
+325:             || (self.strip > 0.0 && root.x.abs() > self.strip)
+326:     }
+327: 
+328:     /// Whether a root is in the fringe.
+329:     pub fn in_fringe(&self, root: Vec3) -> bool {
+330:         self.fringe.is_some_and(|f| f.holds(root))
+331:     }
+332: 
+333:     /// How long the hair rooted at `root` is, metres (before any hemline
+334:     /// or dome).
+335:     pub fn length(&self, head: &Head, root: Vec3) -> f32 {
+336:         if let Some(fringe) = self.fringe
+337:             && fringe.holds(root)
+338:         {
+339:             // Long enough to reach the fringe's line.
+340:             return 0.1 + fringe.drop;
+341:         }
+342:         let e = head.elevation(root);
+343:         let a = head.azimuth(root);
+344:         // Round the head by where the root is near the hairline, the top's
+345:         // length towards the crown.
+346:         let ring = around(self.front, self.sides, self.back, a);
+347:         let mut length = ring + (self.top - ring) * smoothstep(0.25, 0.85, e);
+348:         if self.clip > 0.0 {
+349:             let half = 0.5 * self.fade + 1e-3;
+350:             let t = smoothstep(self.clip - half, self.clip + half, e);
+351:             length = self.clipper + (length - self.clipper) * t;
+352:         }
+353:         if self.strip > 0.0 {
+354:             // Clipped outside the strip, the full length a little inside.
+355:             let t = 1.0 - smoothstep(self.strip - 0.006, self.strip, root.x.abs());
+356:             length = self.clipper + (length - self.clipper) * t;
+357:         }
+358:         length.max(0.0005)
+359:     }
+360: 
+361:     /// The height a strand rooted at `root` is cut at where it is at `p`,
+362:     /// if it is cut on a line: the fringe's line for the fringe, the
+363:     /// hemline for the rest.
+364:     pub fn line(&self, head: &Head, root: Vec3, p: Vec3) -> Option<f32> {
+365:         if let Some(fringe) = self.fringe
+366:             && fringe.holds(root)
+367:         {
+368:             return Some(head.hairline_height(0.0) - fringe.drop);
+369:         }
+370:         self.hemline.map(|y| y - self.slope * p.z)
+371:     }
+372: }
+373: 

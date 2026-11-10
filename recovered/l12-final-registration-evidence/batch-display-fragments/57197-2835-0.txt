@@ -1,0 +1,178 @@
+181: }
+182: 
+183: impl ResourceAllocationPuzzle {
+184:     pub fn generate(seed: Seed) -> Self {
+185:         Self::generate_with_spec(seed, ResourceAllocationSpec::default())
+186:             .expect("standard resource-allocation specification is valid")
+187:     }
+188: 
+189:     pub fn generate_with_spec(
+190:         seed: Seed,
+191:         spec: ResourceAllocationSpec,
+192:     ) -> Result<Self, &'static str> {
+193:         let spec = spec.validate()?;
+194:         let mut rng = RESOURCE_ALLOCATION_GENERATION_DOMAIN.rng(seed, &[]);
+195:         for _ in 0..512 {
+196:             let mut provisions = ProvisionId::ALL.to_vec();
+197:             let mut hazards = JourneyHazard::ALL.to_vec();
+198:             shuffle(&mut provisions, &mut rng);
+199:             shuffle(&mut hazards, &mut rng);
+200:             provisions.truncate(usize::from(spec.provision_count));
+201:             hazards.truncate(usize::from(spec.hazard_count));
+202:             provisions.sort_unstable();
+203:             hazards.sort_unstable();
+204: 
+205:             let optimal = allocation_optimal_packs(&provisions, &hazards, spec.capacity);
+206:             if optimal.len() != 1 {
+207:                 continue;
+208:             }
+209:             if spec.require_irredundant_hazards
+210:                 && (0..hazards.len()).any(|removed| {
+211:                     let reduced = hazards
+212:                         .iter()
+213:                         .copied()
+214:                         .enumerate()
+215:                         .filter_map(|(index, hazard)| (index != removed).then_some(hazard))
+216:                         .collect::<Vec<_>>();
+217:                     allocation_optimal_packs(&provisions, &reduced, spec.capacity) == optimal
+218:                 })
+219:             {
+220:                 continue;
+221:             }
+222:             if spec.require_capacity_to_matter
+223:                 && allocation_optimal_packs(&provisions, &hazards, u8::MAX) == optimal
+224:             {
+225:                 continue;
+226:             }
+227:             let puzzle = Self {
+228:                 rules_version: RESOURCE_ALLOCATION_RULES_VERSION,
+229:                 seed,
+230:                 spec,
+231:                 provisions,
+232:                 hazards,
+233:                 solution: optimal.into_iter().next().unwrap(),
+234:             };
+235:             puzzle.validate()?;
+236:             return Ok(puzzle);
+237:         }
+238:         Err("could not generate a unique resource allocation for this specification")
+239:     }
+240: 
+241:     pub fn projection(&self) -> ResourceAllocationProjection {
+242:         ResourceAllocationProjection {
+243:             rules_version: self.rules_version,
+244:             capacity: self.spec.capacity,
+245:             provisions: self.provisions.iter().copied().map(Into::into).collect(),
+246:             hazards: self.hazards.clone(),
+247:         }
+248:     }
+249: 
+250:     pub fn validate(&self) -> Result<(), &'static str> {
+251:         self.spec.validate()?;
+252:         if self.rules_version != RESOURCE_ALLOCATION_RULES_VERSION {
+253:             return Err("unsupported resource-allocation rules version");
+254:         }
+255:         if self.provisions.len() != usize::from(self.spec.provision_count)
+256:             || self.hazards.len() != usize::from(self.spec.hazard_count)
+257:             || !strictly_sorted_unique(&self.provisions)
+258:             || !strictly_sorted_unique(&self.hazards)
+259:         {
+260:             return Err("resource-allocation dimensions violate their generation spec");
+261:         }
+262:         let optimal = allocation_optimal_packs(&self.provisions, &self.hazards, self.spec.capacity);
+263:         if optimal != vec![self.solution.clone()] {
+264:             return Err("resource-allocation facts do not prove the private optimum");
+265:         }
+266:         if self.spec.require_irredundant_hazards
+267:             && (0..self.hazards.len()).any(|removed| {
+268:                 let reduced = self
+269:                     .hazards
+270:                     .iter()
+271:                     .copied()
+272:                     .enumerate()
+273:                     .filter_map(|(index, hazard)| (index != removed).then_some(hazard))
+274:                     .collect::<Vec<_>>();
+275:                 allocation_optimal_packs(&self.provisions, &reduced, self.spec.capacity) == optimal
+276:             })
+277:         {
+278:             return Err("resource-allocation puzzle contains a redundant hazard");
+279:         }
+280:         if self.spec.require_capacity_to_matter
+281:             && allocation_optimal_packs(&self.provisions, &self.hazards, u8::MAX) == optimal
+282:         {
+283:             return Err("resource-allocation capacity does not affect the optimum");
+284:         }
+285:         Ok(())
+286:     }
+287: 
+288:     pub fn check(&self, provisions: &[ProvisionId]) -> Result<bool, &'static str> {
+289:         let mut answer = provisions.to_vec();
+290:         answer.sort_unstable();
+291:         if !strictly_sorted_unique(&answer)
+292:             || answer.iter().any(|item| !self.provisions.contains(item))
+293:         {
+294:             return Err("resource-allocation answer contains invalid provisions");
+295:         }
+296:         Ok(answer == self.solution)
+297:     }
+298: }
+299: 
+300: pub fn allocation_legal_packs(
+301:     provisions: &[ProvisionId],
+302:     hazards: &[JourneyHazard],
+303:     capacity: u8,
+304: ) -> Vec<Vec<ProvisionId>> {
+305:     (0_u16..(1_u16 << provisions.len()))
+306:         .filter_map(|mask| {
+307:             let pack = provisions
+308:                 .iter()
+309:                 .copied()
+310:                 .enumerate()
+311:                 .filter_map(|(index, item)| (mask & (1 << index) != 0).then_some(item))
+312:                 .collect::<Vec<_>>();
+313:             let weight = pack
+314:                 .iter()
+315:                 .map(|item| u16::from(item.weight()))
+316:                 .sum::<u16>();
+317:             (weight <= u16::from(capacity)
+318:                 && hazards
+319:                     .iter()
+320:                     .all(|hazard| pack.iter().any(|item| item.protections().contains(hazard))))
+321:             .then_some(pack)
+322:         })
+323:         .collect()
+324: }
+325: 
+326: pub fn allocation_optimal_packs(
+327:     provisions: &[ProvisionId],
+328:     hazards: &[JourneyHazard],
+329:     capacity: u8,
+330: ) -> Vec<Vec<ProvisionId>> {
+331:     let legal = allocation_legal_packs(provisions, hazards, capacity);
+332:     let quality = |pack: &[ProvisionId]| {
+333:         let readiness = pack
+334:             .iter()
+335:             .map(|item| u16::from(item.readiness()))
+336:             .sum::<u16>();
+337:         let weight = pack
+338:             .iter()
+339:             .map(|item| u16::from(item.weight()))
+340:             .sum::<u16>();
+341:         (
+342:             readiness,
+343:             std::cmp::Reverse(weight),
+344:             std::cmp::Reverse(pack.len()),
+345:         )
+346:     };
+347:     let Some(best) = legal.iter().map(|pack| quality(pack)).max() else {
+348:         return Vec::new();
+349:     };
+350:     legal
+351:         .into_iter()
+352:         .filter(|pack| quality(pack) == best)
+353:         .collect()
+354: }
+355: 
+356: fn strictly_sorted_unique<T: Ord>(values: &[T]) -> bool {
+357:     values.windows(2).all(|pair| pair[0] < pair[1])
+358: }

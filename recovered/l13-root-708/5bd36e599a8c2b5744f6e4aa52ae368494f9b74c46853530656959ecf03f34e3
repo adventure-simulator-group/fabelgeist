@@ -1,0 +1,716 @@
+{
+  "schema": "726-exact2693-2699-admission-mixed-material-v1",
+  "at": "2026-11-01T19:47:41.446131+00:00",
+  "author": "/root",
+  "lens": 13,
+  "proof_builder": {
+    "path": "adler-continuation-20261030/qualify_admission2693_v1.py",
+    "sha256": "ebe353e65db333aec9bf21e7cd41ca7f1a748a5a661a09e8ffc8c01e398cff4f"
+  },
+  "registry": {
+    "path": "evidence/audit05/original-scope-072.json",
+    "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2693-2699-001.json",
+    "sha256": "7285d9ebc2cccb0ac748fae28a17bea518b965bc449e5585bd12027f0f696826"
+  },
+  "qualified_against_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "ef3a8f960497abe3ca6fa1a6c23f17649c484d6f7a3f2d3a96d4c40631092ce2"
+  },
+  "qualified_against_selector": {
+    "path": "CURRENT-ADLER.json",
+    "sha256": "0995b011c0e733736068164fc5189433fba9356d2fe3ea7af4fea85e0066bd14"
+  },
+  "entries": [
+    {
+      "original": 2693,
+      "source": {
+        "original": 2693,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source.rs",
+        "sha256": "ff887ab06cf0892fa9f624f587e493319a93fc570898a890fb117a382061e3b3",
+        "actual_eof": 181,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/ff887ab06cf0892fa9f624f587e493319a93fc570898a890fb117a382061e3b3",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/ff887ab06cf0892fa9f624f587e493319a93fc570898a890fb117a382061e3b3",
+        "prospective_ranges": [
+          [
+            1,
+            179
+          ]
+        ],
+        "revision_qualification": "Exact frozen PR6533 native Git bytes; archivef82 transports the same body, not current semantic proof.",
+        "purpose": "Seven grounding admission roles,913 fresh material lines; production edge-key scope305..311 retained, no test execution."
+      },
+      "mode": "fresh",
+      "bytes": 6759,
+      "assessed_union": [
+        [
+          1,
+          179
+        ]
+      ],
+      "material_line_count": 179,
+      "new_root_personal_lines": 179,
+      "registry_entry_sha256": "e7f46a1361e91311635cde24ab0c14568b2f0724bdbe7e61f4b4bf91c76f3fbd",
+      "registry_path_as_recorded": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\city_layout\\grounding\\foundations\\source.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          180,
+          181
+        ]
+      ],
+      "whole_file_coverage": false
+    },
+    {
+      "original": 2694,
+      "source": {
+        "original": 2694,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/members.rs",
+        "sha256": "9e11219c566b928235ef911905fcfbb6f5ee39eaae0b88b00c7852dda97892bc",
+        "actual_eof": 52,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/9e11219c566b928235ef911905fcfbb6f5ee39eaae0b88b00c7852dda97892bc",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/9e11219c566b928235ef911905fcfbb6f5ee39eaae0b88b00c7852dda97892bc",
+        "prospective_ranges": [
+          [
+            1,
+            52
+          ]
+        ],
+        "revision_qualification": "Exact frozen PR6533 native Git bytes; archivef82 transports the same body, not current semantic proof.",
+        "purpose": "Seven grounding admission roles,913 fresh material lines; production edge-key scope305..311 retained, no test execution."
+      },
+      "mode": "fresh",
+      "bytes": 1871,
+      "assessed_union": [
+        [
+          1,
+          52
+        ]
+      ],
+      "material_line_count": 52,
+      "new_root_personal_lines": 52,
+      "registry_entry_sha256": "ad886c10e528ebb9634d986217d59589d35795886db807716ed03b2f89f60763",
+      "registry_path_as_recorded": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\city_layout\\grounding\\members.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [],
+      "whole_file_coverage": true
+    },
+    {
+      "original": 2695,
+      "source": {
+        "original": 2695,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/validation.rs",
+        "sha256": "b3b0b91b5ad6af9f24f0166a723369ea8b37babe7d809934f513a2c0da87b91b",
+        "actual_eof": 159,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/b3b0b91b5ad6af9f24f0166a723369ea8b37babe7d809934f513a2c0da87b91b",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/b3b0b91b5ad6af9f24f0166a723369ea8b37babe7d809934f513a2c0da87b91b",
+        "prospective_ranges": [
+          [
+            1,
+            157
+          ]
+        ],
+        "revision_qualification": "Exact frozen PR6533 native Git bytes; archivef82 transports the same body, not current semantic proof.",
+        "purpose": "Seven grounding admission roles,913 fresh material lines; production edge-key scope305..311 retained, no test execution."
+      },
+      "mode": "fresh",
+      "bytes": 6022,
+      "assessed_union": [
+        [
+          1,
+          157
+        ]
+      ],
+      "material_line_count": 157,
+      "new_root_personal_lines": 157,
+      "registry_entry_sha256": "e97dcca951ee4460999a7b7cf4b1bebc81d2d9bcaa4d4e3bd9b336ffae3633dd",
+      "registry_path_as_recorded": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\city_layout\\grounding\\surface\\validation.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          158,
+          159
+        ]
+      ],
+      "whole_file_coverage": false
+    },
+    {
+      "original": 2696,
+      "source": {
+        "original": 2696,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+        "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+        "actual_eof": 323,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+        "prospective_ranges": [
+          [
+            1,
+            299
+          ],
+          [
+            305,
+            311
+          ],
+          [
+            314,
+            323
+          ]
+        ],
+        "revision_qualification": "Exact frozen PR6533 native Git bytes; archivef82 transports the same body, not current semantic proof.",
+        "purpose": "Seven grounding admission roles,913 fresh material lines; production edge-key scope305..311 retained, no test execution."
+      },
+      "mode": "fresh",
+      "bytes": 12656,
+      "assessed_union": [
+        [
+          1,
+          299
+        ],
+        [
+          305,
+          311
+        ],
+        [
+          314,
+          323
+        ]
+      ],
+      "material_line_count": 316,
+      "new_root_personal_lines": 316,
+      "registry_entry_sha256": "e60836c57ec31f746d73d8d7ed2a511dd43f64f9643045cc1fce4ab6d60902e0",
+      "registry_path_as_recorded": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\city_layout\\grounding\\surface\\floor.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          300,
+          304
+        ],
+        [
+          312,
+          313
+        ]
+      ],
+      "whole_file_coverage": false
+    },
+    {
+      "original": 2697,
+      "source": {
+        "original": 2697,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/region.rs",
+        "sha256": "0776d212c25f4a233acb887f1fa0e5318c494cff1121dfb5125e6f5105d3d409",
+        "actual_eof": 121,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/0776d212c25f4a233acb887f1fa0e5318c494cff1121dfb5125e6f5105d3d409",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/0776d212c25f4a233acb887f1fa0e5318c494cff1121dfb5125e6f5105d3d409",
+        "prospective_ranges": [
+          [
+            1,
+            78
+          ]
+        ],
+        "revision_qualification": "Exact frozen PR6533 native Git bytes; archivef82 transports the same body, not current semantic proof.",
+        "purpose": "Seven grounding admission roles,913 fresh material lines; production edge-key scope305..311 retained, no test execution."
+      },
+      "mode": "fresh",
+      "bytes": 4332,
+      "assessed_union": [
+        [
+          1,
+          78
+        ]
+      ],
+      "material_line_count": 78,
+      "new_root_personal_lines": 78,
+      "registry_entry_sha256": "f98f1ee33f616ec09654bb129550b488f3756f43e6f2834d5d4aa8f60c4ee635",
+      "registry_path_as_recorded": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\city_layout\\grounding\\surface\\floor\\region.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          79,
+          121
+        ]
+      ],
+      "whole_file_coverage": false
+    },
+    {
+      "original": 2698,
+      "source": {
+        "original": 2698,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/grounding.rs",
+        "sha256": "b6b4c68b580f96661e79986758218aaa58f8ac2b89c2414c58f5978f1c55bd80",
+        "actual_eof": 78,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/b6b4c68b580f96661e79986758218aaa58f8ac2b89c2414c58f5978f1c55bd80",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/b6b4c68b580f96661e79986758218aaa58f8ac2b89c2414c58f5978f1c55bd80",
+        "prospective_ranges": [
+          [
+            1,
+            75
+          ]
+        ],
+        "revision_qualification": "Exact frozen PR6533 native Git bytes; archivef82 transports the same body, not current semantic proof.",
+        "purpose": "Seven grounding admission roles,913 fresh material lines; production edge-key scope305..311 retained, no test execution."
+      },
+      "mode": "fresh",
+      "bytes": 3291,
+      "assessed_union": [
+        [
+          1,
+          75
+        ]
+      ],
+      "material_line_count": 75,
+      "new_root_personal_lines": 75,
+      "registry_entry_sha256": "de72d8a393e574533d48b9960427ac909642720bc79bf890c682722bcdac8037",
+      "registry_path_as_recorded": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\scene_input\\generation\\grounding.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          76,
+          78
+        ]
+      ],
+      "whole_file_coverage": false
+    },
+    {
+      "original": 2699,
+      "source": {
+        "original": 2699,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/supported.rs",
+        "sha256": "951ac796fe6192eccfebbeca4317a11c29f0ac3697424ddc46973810d05db06b",
+        "actual_eof": 56,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/951ac796fe6192eccfebbeca4317a11c29f0ac3697424ddc46973810d05db06b",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/951ac796fe6192eccfebbeca4317a11c29f0ac3697424ddc46973810d05db06b",
+        "prospective_ranges": [
+          [
+            1,
+            56
+          ]
+        ],
+        "revision_qualification": "Exact frozen PR6533 native Git bytes; archivef82 transports the same body, not current semantic proof.",
+        "purpose": "Seven grounding admission roles,913 fresh material lines; production edge-key scope305..311 retained, no test execution."
+      },
+      "mode": "fresh",
+      "bytes": 2242,
+      "assessed_union": [
+        [
+          1,
+          56
+        ]
+      ],
+      "material_line_count": 56,
+      "new_root_personal_lines": 56,
+      "registry_entry_sha256": "a943b75759fb46f1e74f5ec048d7ba4ad4c6632b9583560c921569ad05f6d742",
+      "registry_path_as_recorded": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\scene_input\\generation\\supported.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [],
+      "whole_file_coverage": true
+    }
+  ],
+  "all_nested_range_fields": [
+    {
+      "pointer": "/files/2693/material_ranges",
+      "raw_value": [
+        [
+          1,
+          179
+        ]
+      ],
+      "actual_eof": 181
+    },
+    {
+      "pointer": "/files/2693/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          179
+        ]
+      ],
+      "actual_eof": 181
+    },
+    {
+      "pointer": "/files/2693/admission03_scope_observations/0/local_qualifications/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          179
+        ]
+      ],
+      "actual_eof": 181
+    },
+    {
+      "pointer": "/files/2693/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          179
+        ]
+      ],
+      "actual_eof": 181
+    },
+    {
+      "pointer": "/files/2694/material_ranges",
+      "raw_value": [
+        [
+          1,
+          52
+        ]
+      ],
+      "actual_eof": 52
+    },
+    {
+      "pointer": "/files/2694/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          52
+        ]
+      ],
+      "actual_eof": 52
+    },
+    {
+      "pointer": "/files/2694/admission03_scope_observations/0/local_qualifications/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          52
+        ]
+      ],
+      "actual_eof": 52
+    },
+    {
+      "pointer": "/files/2694/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          52
+        ]
+      ],
+      "actual_eof": 52
+    },
+    {
+      "pointer": "/files/2695/material_ranges",
+      "raw_value": [
+        [
+          1,
+          157
+        ]
+      ],
+      "actual_eof": 159
+    },
+    {
+      "pointer": "/files/2695/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          157
+        ]
+      ],
+      "actual_eof": 159
+    },
+    {
+      "pointer": "/files/2695/admission03_scope_observations/0/local_qualifications/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          157
+        ]
+      ],
+      "actual_eof": 159
+    },
+    {
+      "pointer": "/files/2695/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          157
+        ]
+      ],
+      "actual_eof": 159
+    },
+    {
+      "pointer": "/files/2696/material_ranges",
+      "raw_value": [
+        [
+          1,
+          299
+        ],
+        [
+          305,
+          311
+        ],
+        [
+          314,
+          323
+        ]
+      ],
+      "actual_eof": 323
+    },
+    {
+      "pointer": "/files/2696/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          299
+        ],
+        [
+          314,
+          323
+        ]
+      ],
+      "actual_eof": 323
+    },
+    {
+      "pointer": "/files/2696/admission03_scope_observations/0/local_qualifications/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          299
+        ],
+        [
+          314,
+          323
+        ]
+      ],
+      "actual_eof": 323
+    },
+    {
+      "pointer": "/files/2696/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          299
+        ],
+        [
+          314,
+          323
+        ]
+      ],
+      "actual_eof": 323
+    },
+    {
+      "pointer": "/files/2696/admission03_scope_observations/1/original_record/material_ranges",
+      "raw_value": [
+        [
+          300,
+          313
+        ]
+      ],
+      "actual_eof": 323
+    },
+    {
+      "pointer": "/files/2696/admission03_scope_observations/1/local_qualifications/0/effective_material_ranges",
+      "raw_value": [
+        [
+          305,
+          311
+        ]
+      ],
+      "actual_eof": 323
+    },
+    {
+      "pointer": "/files/2696/admission03_scope_observations/1/local_qualifications/0/qualifications/0/effective_material_ranges",
+      "raw_value": [
+        [
+          305,
+          311
+        ]
+      ],
+      "actual_eof": 323
+    },
+    {
+      "pointer": "/files/2696/admission03_scope_observations/1/local_qualifications/0/qualifications/0/original_prospective_ranges",
+      "raw_value": [
+        [
+          300,
+          313
+        ]
+      ],
+      "actual_eof": 323
+    },
+    {
+      "pointer": "/files/2696/admission03_scope_observations/1/effective_material_ranges",
+      "raw_value": [
+        [
+          305,
+          311
+        ]
+      ],
+      "actual_eof": 323
+    },
+    {
+      "pointer": "/files/2697/material_ranges",
+      "raw_value": [
+        [
+          1,
+          78
+        ]
+      ],
+      "actual_eof": 121
+    },
+    {
+      "pointer": "/files/2697/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          78
+        ]
+      ],
+      "actual_eof": 121
+    },
+    {
+      "pointer": "/files/2697/admission03_scope_observations/0/local_qualifications/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          78
+        ]
+      ],
+      "actual_eof": 121
+    },
+    {
+      "pointer": "/files/2697/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          78
+        ]
+      ],
+      "actual_eof": 121
+    },
+    {
+      "pointer": "/files/2698/material_ranges",
+      "raw_value": [
+        [
+          1,
+          75
+        ]
+      ],
+      "actual_eof": 78
+    },
+    {
+      "pointer": "/files/2698/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          78
+        ]
+      ],
+      "actual_eof": 78
+    },
+    {
+      "pointer": "/files/2698/admission03_scope_observations/0/local_qualifications/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          75
+        ]
+      ],
+      "actual_eof": 78
+    },
+    {
+      "pointer": "/files/2698/admission03_scope_observations/0/local_qualifications/0/qualifications/0/qualified_material_ranges",
+      "raw_value": [
+        [
+          1,
+          75
+        ]
+      ],
+      "actual_eof": 78
+    },
+    {
+      "pointer": "/files/2698/admission03_scope_observations/0/local_qualifications/0/qualifications/0/context_excluded",
+      "raw_value": [
+        [
+          76,
+          78
+        ]
+      ],
+      "actual_eof": 78
+    },
+    {
+      "pointer": "/files/2698/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          75
+        ]
+      ],
+      "actual_eof": 78
+    },
+    {
+      "pointer": "/files/2699/material_ranges",
+      "raw_value": [
+        [
+          1,
+          56
+        ]
+      ],
+      "actual_eof": 56
+    },
+    {
+      "pointer": "/files/2699/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          56
+        ]
+      ],
+      "actual_eof": 56
+    },
+    {
+      "pointer": "/files/2699/admission03_scope_observations/0/local_qualifications/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          56
+        ]
+      ],
+      "actual_eof": 56
+    },
+    {
+      "pointer": "/files/2699/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          56
+        ]
+      ],
+      "actual_eof": 56
+    }
+  ],
+  "exact_hash_prior_hits": [],
+  "future_proofs_preserved": [],
+  "old_ordered_applications_preserved": [],
+  "discovery_metadata_sha256": "855cf7de434498208f43b4306a27057f4411d8774f2842ed0205618d04cdfb45",
+  "production_source_lines": 913,
+  "fixture_source_lines": 0,
+  "fixture_execution": false,
+  "exact_partial_scopes_preserved": true,
+  "floor_edge_key_scope_qualification_preserved": true,
+  "grounding_cfgtest_exclusion_preserved": true,
+  "all_nested_range_fields_inspected": true,
+  "historical_receipts_unchanged": true,
+  "transport_only_not_current_source": true,
+  "material_lines": 913,
+  "fresh_lines": 913,
+  "reused_material_lines": 0,
+  "body_credit": 0,
+  "authority_changes": 0,
+  "other_population_credit": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "limits": [
+    "Fresh913 material lines require prospective bounded untruncated body reads; no prior same-Lens13 receipt hit, future or application exists among711 authenticated own receipts.",
+    "Floor2696 production edge-key305..311 included by correctedREG030; raw300..313/context remains qualified, no excluded cfgtest-header credit. Grounding2698 cfgtest declarations76..78 excluded, not external test body coverage.",
+    "Other source ranges, actual native geometry/codec/caller/current/all13/extensions/all20/exactaliases/lateracceptance remain independently incomplete. No test/native/runtime execution or product edit."
+  ]
+}

@@ -1,0 +1,1134 @@
+{
+  "at": "2026-11-01T21:14:06.309143+00:00",
+  "author": "/root",
+  "kind": "Metadata-only exact source/hash prior navigation before any fresh body display or new reuse claim",
+  "frontier": 2757,
+  "prior_same_lens_receipts_authenticated": 720,
+  "entries": [
+    {
+      "original": 2757,
+      "registry_entry": {
+        "source_id": "native-rand0.9.5:src/distr/weighted/weighted_index.rs",
+        "snapshot": "native-rand0.9.5",
+        "path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rand-0.9.5\\src\\distr\\weighted\\weighted_index.rs",
+        "sha256": "b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003",
+        "bytes": 21498,
+        "actual_line_count": 631,
+        "scope_kind": "materially_reached_parallel_initial_dependency",
+        "audit_owner": "root",
+        "material_ranges": [
+          [
+            1,
+            145
+          ],
+          [
+            358,
+            369
+          ]
+        ],
+        "scope_limits": [
+          "u64 WeightedIndex private cumulative vector+total and actual checkednew/Distribution<usize>sample only; update_weights/remove/float/customWeight/testgraphs excluded"
+        ],
+        "parallel_reached_registrations": [
+          {
+            "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+            "sha256": "d36b92b2cb945270dc3d8c43217f43260b4d3d84fec03a77468c5c109e00dcc6",
+            "row_1based": 2,
+            "id": "ROOT-INITIAL04-REG002",
+            "original_record": {
+              "id": "ROOT-INITIAL04-REG002",
+              "at": "2026-10-22T19:33:45.435572+00:00",
+              "authority": "continuation/root/parallel-initial-audits-081.json",
+              "source_id": "native-rand0.9.5:src/distr/weighted/weighted_index.rs",
+              "snapshot": "native-rand0.9.5",
+              "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rand-0.9.5\\src\\distr\\weighted\\weighted_index.rs",
+              "sha256": "b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003",
+              "actual_EOF": 631,
+              "material_ranges": [
+                [
+                  1,
+                  145
+                ],
+                [
+                  358,
+                  369
+                ]
+              ],
+              "direct_role": "Direct pinnednativekernel proof for globallyscoped DeterministicRng::{below,index,weighted_index,weighted_order}; Native05existingproofqueryfoundnone, Root04actualnativecallsrequireboundedadmission/selectioncontract.",
+              "pin_basis": "ActualfrozenPRfabelgeist-determinism/Cargo.tomlexact=0.9.5 andPRCargo.lock8938-8945; no rand0.10 substitution. LiteralforeignSourceonly, no loading/execution/dependencyinstall.",
+              "scope_limits": "u64 WeightedIndex private cumulative vector+total and actual checkednew/Distribution<usize>sample only; update_weights/remove/float/customWeight/testgraphs excluded",
+              "status": "prospectively_registered_before_body_analysis; global021frontierpending"
+            }
+          }
+        ],
+        "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+        "admission_discovery": "exactnewrolemanualRootG095or096; nootherlensverdictfrommetadata"
+      }
+    },
+    {
+      "original": 2758,
+      "registry_entry": {
+        "source_id": "native-rand0.9.5:src/distr/uniform.rs",
+        "snapshot": "native-rand0.9.5",
+        "path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rand-0.9.5\\src\\distr\\uniform.rs",
+        "sha256": "04efcc061e1904b824e3feb68541c4e8259a46ecd2c118af6fb383b3ad37f73c",
+        "bytes": 21611,
+        "actual_line_count": 622,
+        "scope_kind": "materially_reached_parallel_initial_dependency",
+        "audit_owner": "root",
+        "material_ranges": [
+          [
+            219,
+            260
+          ],
+          [
+            268,
+            312
+          ],
+          [
+            399,
+            415
+          ],
+          [
+            190,
+            219
+          ]
+        ],
+        "scope_limits": [
+          "ActualUniform<u64> wrapper constructor/sample andstaticSampleUniform/UniformSampler/SampleBorrow bindings usedbycheckedzero-to-nonzeroupper; ranges mayendincontext, allunselectedsingle_range/testgraphs excluded",
+          "AttachedUniformdefinitionattrs/derivecontext neededforrepresentation versus canonicalconstructor guarantee; exactheader only, notextraalgorithm/testgraph."
+        ],
+        "parallel_reached_registrations": [
+          {
+            "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+            "sha256": "d36b92b2cb945270dc3d8c43217f43260b4d3d84fec03a77468c5c109e00dcc6",
+            "row_1based": 3,
+            "id": "ROOT-INITIAL04-REG003",
+            "original_record": {
+              "id": "ROOT-INITIAL04-REG003",
+              "at": "2026-10-22T19:33:45.452600+00:00",
+              "authority": "continuation/root/parallel-initial-audits-081.json",
+              "source_id": "native-rand0.9.5:src/distr/uniform.rs",
+              "snapshot": "native-rand0.9.5",
+              "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rand-0.9.5\\src\\distr\\uniform.rs",
+              "sha256": "04efcc061e1904b824e3feb68541c4e8259a46ecd2c118af6fb383b3ad37f73c",
+              "actual_EOF": 622,
+              "material_ranges": [
+                [
+                  219,
+                  260
+                ],
+                [
+                  268,
+                  312
+                ],
+                [
+                  399,
+                  415
+                ]
+              ],
+              "direct_role": "Direct pinnednativekernel proof for globallyscoped DeterministicRng::{below,index,weighted_index,weighted_order}; Native05existingproofqueryfoundnone, Root04actualnativecallsrequireboundedadmission/selectioncontract.",
+              "pin_basis": "ActualfrozenPRfabelgeist-determinism/Cargo.tomlexact=0.9.5 andPRCargo.lock8938-8945; no rand0.10 substitution. LiteralforeignSourceonly, no loading/execution/dependencyinstall.",
+              "scope_limits": "ActualUniform<u64> wrapper constructor/sample andstaticSampleUniform/UniformSampler/SampleBorrow bindings usedbycheckedzero-to-nonzeroupper; ranges mayendincontext, allunselectedsingle_range/testgraphs excluded",
+              "status": "prospectively_registered_before_body_analysis; global021frontierpending"
+            }
+          },
+          {
+            "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+            "sha256": "d36b92b2cb945270dc3d8c43217f43260b4d3d84fec03a77468c5c109e00dcc6",
+            "row_1based": 9,
+            "id": "ROOT-INITIAL04-REG009",
+            "original_record": {
+              "id": "ROOT-INITIAL04-REG009",
+              "at": "2026-10-22T19:37:33.459989+00:00",
+              "authority": "continuation/root/parallel-initial-audits-081.json",
+              "source_id": "native-rand0.9.5:src/distr/uniform.rs",
+              "snapshot": "native-rand0.9.5",
+              "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rand-0.9.5\\src\\distr\\uniform.rs",
+              "sha256": "04efcc061e1904b824e3feb68541c4e8259a46ecd2c118af6fb383b3ad37f73c",
+              "actual_EOF": 622,
+              "material_ranges": [
+                [
+                  190,
+                  219
+                ]
+              ],
+              "direct_role": "Onlynewlyactualdirectnativecallees/representationattrs fromRootREG002-004 toclose u64checkedweight construction, unbiasedin-bound fullword sampling andno-repeats weighted_order; beforebodyanalysis.",
+              "pin_basis": "FrozenPRdeterminismCargo=rand0.9.5/lock; nodependencyexecution/download/versionupgrade.",
+              "scope_limits": "AttachedUniformdefinitionattrs/derivecontext neededforrepresentation versus canonicalconstructor guarantee; exactheader only, notextraalgorithm/testgraph.",
+              "status": "prospectively_registered_before_body_analysis; samepending021frontier"
+            }
+          }
+        ],
+        "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+        "admission_discovery": "exactnewrolemanualRootG095or096; nootherlensverdictfrommetadata"
+      }
+    },
+    {
+      "original": 2759,
+      "registry_entry": {
+        "source_id": "native-rand0.9.5:src/distr/uniform_int.rs",
+        "snapshot": "native-rand0.9.5",
+        "path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rand-0.9.5\\src\\distr\\uniform_int.rs",
+        "sha256": "30c620bc9d74263162de2e0755ae4b323abce1d6aa22c00d1b9de378480f22c0",
+        "bytes": 34184,
+        "actual_line_count": 914,
+        "scope_kind": "materially_reached_parallel_initial_dependency",
+        "audit_owner": "root",
+        "material_ranges": [
+          [
+            71,
+            160
+          ],
+          [
+            280,
+            280
+          ],
+          [
+            1,
+            70
+          ]
+        ],
+        "scope_limits": [
+          "Actualu64 UniformInt state+genericintegerconstructor/newinclusive/sample+u64macroinstantiation; sample_single/SIMD/usize/float/otherint/tests excluded",
+          "DirectimportsWideningMultiply andUniformIntderive/representation/Lemirecontract context; notsample_single/SIMD/tests graph."
+        ],
+        "parallel_reached_registrations": [
+          {
+            "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+            "sha256": "d36b92b2cb945270dc3d8c43217f43260b4d3d84fec03a77468c5c109e00dcc6",
+            "row_1based": 4,
+            "id": "ROOT-INITIAL04-REG004",
+            "original_record": {
+              "id": "ROOT-INITIAL04-REG004",
+              "at": "2026-10-22T19:33:45.471137+00:00",
+              "authority": "continuation/root/parallel-initial-audits-081.json",
+              "source_id": "native-rand0.9.5:src/distr/uniform_int.rs",
+              "snapshot": "native-rand0.9.5",
+              "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rand-0.9.5\\src\\distr\\uniform_int.rs",
+              "sha256": "30c620bc9d74263162de2e0755ae4b323abce1d6aa22c00d1b9de378480f22c0",
+              "actual_EOF": 914,
+              "material_ranges": [
+                [
+                  71,
+                  160
+                ],
+                [
+                  280,
+                  280
+                ]
+              ],
+              "direct_role": "Direct pinnednativekernel proof for globallyscoped DeterministicRng::{below,index,weighted_index,weighted_order}; Native05existingproofqueryfoundnone, Root04actualnativecallsrequireboundedadmission/selectioncontract.",
+              "pin_basis": "ActualfrozenPRfabelgeist-determinism/Cargo.tomlexact=0.9.5 andPRCargo.lock8938-8945; no rand0.10 substitution. LiteralforeignSourceonly, no loading/execution/dependencyinstall.",
+              "scope_limits": "Actualu64 UniformInt state+genericintegerconstructor/newinclusive/sample+u64macroinstantiation; sample_single/SIMD/usize/float/otherint/tests excluded",
+              "status": "prospectively_registered_before_body_analysis; global021frontierpending"
+            }
+          },
+          {
+            "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+            "sha256": "d36b92b2cb945270dc3d8c43217f43260b4d3d84fec03a77468c5c109e00dcc6",
+            "row_1based": 10,
+            "id": "ROOT-INITIAL04-REG010",
+            "original_record": {
+              "id": "ROOT-INITIAL04-REG010",
+              "at": "2026-10-22T19:37:33.460522+00:00",
+              "authority": "continuation/root/parallel-initial-audits-081.json",
+              "source_id": "native-rand0.9.5:src/distr/uniform_int.rs",
+              "snapshot": "native-rand0.9.5",
+              "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rand-0.9.5\\src\\distr\\uniform_int.rs",
+              "sha256": "30c620bc9d74263162de2e0755ae4b323abce1d6aa22c00d1b9de378480f22c0",
+              "actual_EOF": 914,
+              "material_ranges": [
+                [
+                  1,
+                  70
+                ]
+              ],
+              "direct_role": "Onlynewlyactualdirectnativecallees/representationattrs fromRootREG002-004 toclose u64checkedweight construction, unbiasedin-bound fullword sampling andno-repeats weighted_order; beforebodyanalysis.",
+              "pin_basis": "FrozenPRdeterminismCargo=rand0.9.5/lock; nodependencyexecution/download/versionupgrade.",
+              "scope_limits": "DirectimportsWideningMultiply andUniformIntderive/representation/Lemirecontract context; notsample_single/SIMD/tests graph.",
+              "status": "prospectively_registered_before_body_analysis; samepending021frontier"
+            }
+          }
+        ],
+        "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+        "admission_discovery": "exactnewrolemanualRootG095or096; nootherlensverdictfrommetadata"
+      }
+    },
+    {
+      "original": 2760,
+      "registry_entry": {
+        "source_id": "native-rand0.9.5:src/distr/weighted/mod.rs",
+        "snapshot": "native-rand0.9.5",
+        "path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rand-0.9.5\\src\\distr\\weighted\\mod.rs",
+        "sha256": "52379f09ea06c8ac54bdb4ecaed93fd7fc08f85866b5e3fcb4e40d0f1576bdfe",
+        "bytes": 3775,
+        "actual_line_count": 115,
+        "scope_kind": "materially_reached_parallel_initial_dependency",
+        "audit_owner": "root",
+        "material_ranges": [
+          [
+            25,
+            60
+          ],
+          [
+            85,
+            115
+          ]
+        ],
+        "scope_limits": [
+          "Concreteu64 Weightchecked_add_assignmacro+instantiation, canonicalweightedErrorvariants/format only; floatWeight62-83 excluded."
+        ],
+        "parallel_reached_registrations": [
+          {
+            "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+            "sha256": "d36b92b2cb945270dc3d8c43217f43260b4d3d84fec03a77468c5c109e00dcc6",
+            "row_1based": 5,
+            "id": "ROOT-INITIAL04-REG005",
+            "original_record": {
+              "id": "ROOT-INITIAL04-REG005",
+              "at": "2026-10-22T19:37:33.414576+00:00",
+              "authority": "continuation/root/parallel-initial-audits-081.json",
+              "source_id": "native-rand0.9.5:src/distr/weighted/mod.rs",
+              "snapshot": "native-rand0.9.5",
+              "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rand-0.9.5\\src\\distr\\weighted\\mod.rs",
+              "sha256": "52379f09ea06c8ac54bdb4ecaed93fd7fc08f85866b5e3fcb4e40d0f1576bdfe",
+              "actual_EOF": 115,
+              "material_ranges": [
+                [
+                  25,
+                  60
+                ],
+                [
+                  85,
+                  115
+                ]
+              ],
+              "direct_role": "Onlynewlyactualdirectnativecallees/representationattrs fromRootREG002-004 toclose u64checkedweight construction, unbiasedin-bound fullword sampling andno-repeats weighted_order; beforebodyanalysis.",
+              "pin_basis": "FrozenPRdeterminismCargo=rand0.9.5/lock; nodependencyexecution/download/versionupgrade.",
+              "scope_limits": "Concreteu64 Weightchecked_add_assignmacro+instantiation, canonicalweightedErrorvariants/format only; floatWeight62-83 excluded.",
+              "status": "prospectively_registered_before_body_analysis; samepending021frontier"
+            }
+          }
+        ],
+        "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+        "admission_discovery": "exactnewrolemanualRootG095or096; nootherlensverdictfrommetadata"
+      }
+    },
+    {
+      "original": 2761,
+      "registry_entry": {
+        "source_id": "native-rand0.9.5:src/distr/utils.rs",
+        "snapshot": "native-rand0.9.5",
+        "path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rand-0.9.5\\src\\distr\\utils.rs",
+        "sha256": "a631940e728257c9b0cb753bc64fa631958c92ce52d5b2265c7ed06a46567b8f",
+        "bytes": 12603,
+        "actual_line_count": 408,
+        "scope_kind": "materially_reached_parallel_initial_dependency",
+        "audit_owner": "root",
+        "material_ranges": [
+          [
+            16,
+            61
+          ]
+        ],
+        "scope_limits": [
+          "ActualscalarWideningMultiplyu64\u2192u128high/low proof+u64macroinstantiation; SIMDmacrocontextonly, othernativekernels/usize/floats/tests excluded."
+        ],
+        "parallel_reached_registrations": [
+          {
+            "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+            "sha256": "d36b92b2cb945270dc3d8c43217f43260b4d3d84fec03a77468c5c109e00dcc6",
+            "row_1based": 6,
+            "id": "ROOT-INITIAL04-REG006",
+            "original_record": {
+              "id": "ROOT-INITIAL04-REG006",
+              "at": "2026-10-22T19:37:33.428805+00:00",
+              "authority": "continuation/root/parallel-initial-audits-081.json",
+              "source_id": "native-rand0.9.5:src/distr/utils.rs",
+              "snapshot": "native-rand0.9.5",
+              "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rand-0.9.5\\src\\distr\\utils.rs",
+              "sha256": "a631940e728257c9b0cb753bc64fa631958c92ce52d5b2265c7ed06a46567b8f",
+              "actual_EOF": 408,
+              "material_ranges": [
+                [
+                  16,
+                  61
+                ]
+              ],
+              "direct_role": "Onlynewlyactualdirectnativecallees/representationattrs fromRootREG002-004 toclose u64checkedweight construction, unbiasedin-bound fullword sampling andno-repeats weighted_order; beforebodyanalysis.",
+              "pin_basis": "FrozenPRdeterminismCargo=rand0.9.5/lock; nodependencyexecution/download/versionupgrade.",
+              "scope_limits": "ActualscalarWideningMultiplyu64\u2192u128high/low proof+u64macroinstantiation; SIMDmacrocontextonly, othernativekernels/usize/floats/tests excluded.",
+              "status": "prospectively_registered_before_body_analysis; samepending021frontier"
+            }
+          }
+        ],
+        "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+        "admission_discovery": "exactnewrolemanualRootG095or096; nootherlensverdictfrommetadata"
+      }
+    },
+    {
+      "original": 2762,
+      "registry_entry": {
+        "source_id": "native-rand0.9.5:src/distr/integer.rs",
+        "snapshot": "native-rand0.9.5",
+        "path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rand-0.9.5\\src\\distr\\integer.rs",
+        "sha256": "69ac205b6fed57ae09e2f8f1b15ae3d2049b85874bc4da3f246a18188b42d8ea",
+        "bytes": 9993,
+        "actual_line_count": 307,
+        "scope_kind": "materially_reached_parallel_initial_dependency",
+        "audit_owner": "root",
+        "material_ranges": [
+          [
+            49,
+            54
+          ]
+        ],
+        "scope_limits": [
+          "ExactStandardUniformDistribution<u64>::sample actualnext_u64nativewordprojection only; u8/u16/u32/u128/SIMD/tests excluded."
+        ],
+        "parallel_reached_registrations": [
+          {
+            "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+            "sha256": "d36b92b2cb945270dc3d8c43217f43260b4d3d84fec03a77468c5c109e00dcc6",
+            "row_1based": 7,
+            "id": "ROOT-INITIAL04-REG007",
+            "original_record": {
+              "id": "ROOT-INITIAL04-REG007",
+              "at": "2026-10-22T19:37:33.442330+00:00",
+              "authority": "continuation/root/parallel-initial-audits-081.json",
+              "source_id": "native-rand0.9.5:src/distr/integer.rs",
+              "snapshot": "native-rand0.9.5",
+              "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rand-0.9.5\\src\\distr\\integer.rs",
+              "sha256": "69ac205b6fed57ae09e2f8f1b15ae3d2049b85874bc4da3f246a18188b42d8ea",
+              "actual_EOF": 307,
+              "material_ranges": [
+                [
+                  49,
+                  54
+                ]
+              ],
+              "direct_role": "Onlynewlyactualdirectnativecallees/representationattrs fromRootREG002-004 toclose u64checkedweight construction, unbiasedin-bound fullword sampling andno-repeats weighted_order; beforebodyanalysis.",
+              "pin_basis": "FrozenPRdeterminismCargo=rand0.9.5/lock; nodependencyexecution/download/versionupgrade.",
+              "scope_limits": "ExactStandardUniformDistribution<u64>::sample actualnext_u64nativewordprojection only; u8/u16/u32/u128/SIMD/tests excluded.",
+              "status": "prospectively_registered_before_body_analysis; samepending021frontier"
+            }
+          }
+        ],
+        "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+        "admission_discovery": "exactnewrolemanualRootG095or096; nootherlensverdictfrommetadata"
+      }
+    },
+    {
+      "original": 2763,
+      "registry_entry": {
+        "source_id": "native-rand0.9.5:src/rng.rs",
+        "snapshot": "native-rand0.9.5",
+        "path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rand-0.9.5\\src\\rng.rs",
+        "sha256": "19a29d58ea169c50ae7fea0a941c405e4a8f3a9b2ac0dc0edd9f7a55e9431703",
+        "bytes": 20807,
+        "actual_line_count": 657,
+        "scope_kind": "materially_reached_parallel_initial_dependency",
+        "audit_owner": "root",
+        "material_ranges": [
+          [
+            58,
+            58
+          ],
+          [
+            95,
+            103
+          ],
+          [
+            357,
+            357
+          ]
+        ],
+        "scope_limits": [
+          "ExactRng:RngCore traitbinding, genericrandomdelegation andblanketRngimpl; otherRngmethodalgorithms excluded."
+        ],
+        "parallel_reached_registrations": [
+          {
+            "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+            "sha256": "d36b92b2cb945270dc3d8c43217f43260b4d3d84fec03a77468c5c109e00dcc6",
+            "row_1based": 8,
+            "id": "ROOT-INITIAL04-REG008",
+            "original_record": {
+              "id": "ROOT-INITIAL04-REG008",
+              "at": "2026-10-22T19:37:33.459170+00:00",
+              "authority": "continuation/root/parallel-initial-audits-081.json",
+              "source_id": "native-rand0.9.5:src/rng.rs",
+              "snapshot": "native-rand0.9.5",
+              "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rand-0.9.5\\src\\rng.rs",
+              "sha256": "19a29d58ea169c50ae7fea0a941c405e4a8f3a9b2ac0dc0edd9f7a55e9431703",
+              "actual_EOF": 657,
+              "material_ranges": [
+                [
+                  58,
+                  58
+                ],
+                [
+                  95,
+                  103
+                ],
+                [
+                  357,
+                  357
+                ]
+              ],
+              "direct_role": "Onlynewlyactualdirectnativecallees/representationattrs fromRootREG002-004 toclose u64checkedweight construction, unbiasedin-bound fullword sampling andno-repeats weighted_order; beforebodyanalysis.",
+              "pin_basis": "FrozenPRdeterminismCargo=rand0.9.5/lock; nodependencyexecution/download/versionupgrade.",
+              "scope_limits": "ExactRng:RngCore traitbinding, genericrandomdelegation andblanketRngimpl; otherRngmethodalgorithms excluded.",
+              "status": "prospectively_registered_before_body_analysis; samepending021frontier"
+            }
+          }
+        ],
+        "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+        "admission_discovery": "exactnewrolemanualRootG095or096; nootherlensverdictfrommetadata"
+      }
+    },
+    {
+      "original": 2764,
+      "registry_entry": {
+        "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/codes.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\gpu\\helmet\\codes.rs",
+        "sha256": "0b8a7c542323af91d7989eb07067b61c68e2ffe46254a1d10477293591c3cb13",
+        "bytes": 4618,
+        "actual_line_count": 171,
+        "scope_kind": "materially_reached_parallel_initial_dependency",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            1,
+            171
+          ]
+        ],
+        "scope_limits": [
+          "No helmet shape equation/foreign GPU package graph; exact directly used native code definitions only"
+        ],
+        "parallel_reached_registrations": [
+          {
+            "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+            "sha256": "74d566692010be470a3d23896f535c76738774312f6978c60a3a9faaa94caf96",
+            "row_1based": 6,
+            "id": "RIG-INITIAL06-REG-006",
+            "original_record": {
+              "id": "RIG-INITIAL06-REG-006",
+              "at": "2026-10-22T19:33:38.099632+00:00",
+              "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+              "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/codes.rs",
+              "snapshot": "pr-working",
+              "sha256": "0b8a7c542323af91d7989eb07067b61c68e2ffe46254a1d10477293591c3cb13",
+              "actual_EOF": 171,
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\gpu\\helmet\\codes.rs",
+              "material_ranges": [
+                [
+                  1,
+                  171
+                ]
+              ],
+              "material_caller": "Scoped gpu/helmet/{parts,surface,burgonet} imports CheekRow/PostMap/Slot/VertexKind and packs native coordinate/design words",
+              "reason": "Direct macro-generated native enum definitions required to locate exact ownership of source coordinate tags/slots and separate them from authored armor roles before current06 comparison; symbol navigation only before registration",
+              "exclusions": "No helmet shape equation/foreign GPU package graph; exact directly used native code definitions only",
+              "status": "prospectively_registered_before_body_analysis; new source pending global scope"
+            }
+          }
+        ],
+        "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+        "admission_discovery": "exactnewrolemanualRootG095or096; nootherlensverdictfrommetadata"
+      }
+    },
+    {
+      "original": 2765,
+      "registry_entry": {
+        "source_id": "pr-working:crates/fabelgeist-armor/src/puff_and_slash.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\puff_and_slash.rs",
+        "sha256": "d17c799bb303030a857deb25d4f1b93c144147bafa6ef4a1a2760b3528ea1717",
+        "bytes": 3578,
+        "actual_line_count": 100,
+        "scope_kind": "materially_reached_parallel_initial_dependency",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            11,
+            28
+          ]
+        ],
+        "scope_limits": [
+          "PuffAndSlashKind/design/factories and broader garment feature excluded"
+        ],
+        "parallel_reached_registrations": [
+          {
+            "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+            "sha256": "74d566692010be470a3d23896f535c76738774312f6978c60a3a9faaa94caf96",
+            "row_1based": 8,
+            "id": "RIG-INITIAL06-REG-008",
+            "original_record": {
+              "id": "RIG-INITIAL06-REG-008",
+              "at": "2026-10-22T19:40:51.069906+00:00",
+              "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+              "source_id": "pr-working:crates/fabelgeist-armor/src/puff_and_slash.rs",
+              "snapshot": "pr-working",
+              "sha256": "d17c799bb303030a857deb25d4f1b93c144147bafa6ef4a1a2760b3528ea1717",
+              "actual_EOF": 100,
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\puff_and_slash.rs",
+              "material_ranges": [
+                [
+                  11,
+                  28
+                ]
+              ],
+              "material_caller": "Scoped TrunkHoseDesign color field uses TextileColor; direct source-format ownership comparison only",
+              "reason": "Actual serialized sRGB color declaration/constants/conversion before body analysis; symbol boundary navigation only",
+              "exclusions": "PuffAndSlashKind/design/factories and broader garment feature excluded",
+              "status": "prospectively_registered_before_body_analysis; new source pending global"
+            }
+          }
+        ],
+        "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+        "admission_discovery": "exactnewrolemanualRootG095or096; nootherlensverdictfrommetadata"
+      }
+    },
+    {
+      "original": 2766,
+      "registry_entry": {
+        "source_id": "pr-working:crates/adventuresim-core/src/combat/coverage.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\combat\\coverage.rs",
+        "sha256": "8bebf038e281f0b1529dd8008a42379c43eac3e0c2f9767d9a29606eb69ddced",
+        "bytes": 13928,
+        "actual_line_count": 347,
+        "scope_kind": "materially_reached_parallel_initial_dependency",
+        "audit_owner": "camera",
+        "material_ranges": [
+          [
+            1,
+            142
+          ]
+        ],
+        "scope_limits": [
+          "No region_body_interval144+ helper, tests, unrelated anatomical mapping or new foreign packages. Exact1-142 only."
+        ],
+        "parallel_reached_registrations": [
+          {
+            "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+            "sha256": "82c96bf8e78f1664ab56bf7edbdcc45711f5d71d857db7fd2f4c9c0f8818db4f",
+            "row_1based": 3,
+            "id": "CAMERA-INITIAL07-REG-003",
+            "original_record": {
+              "id": "CAMERA-INITIAL07-REG-003",
+              "at": "2026-10-22T19:38:25.364160+00:00",
+              "authority": "continuation/root/parallel-initial-audits-081.json",
+              "source_id": "pr-working:crates/adventuresim-core/src/combat/coverage.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\combat\\coverage.rs",
+              "sha256": "8bebf038e281f0b1529dd8008a42379c43eac3e0c2f9767d9a29606eb69ddced",
+              "actual_EOF": 347,
+              "material_ranges": [
+                [
+                  1,
+                  142
+                ]
+              ],
+              "direct_material_role": "Actual retained authored armor interval geometry and constructor/Serde/getter contract, directly used by scoped CombatArmor.coverage_geometry/model::armor_surface versus independent armor.coverage observer path. Required before deciding whether scalar and geometry represent one current coverage fact.",
+              "exclusions": "No region_body_interval144+ helper, tests, unrelated anatomical mapping or new foreign packages. Exact1-142 only.",
+              "chronology_qualification": "A first1-150 display occurred before detecting missing scope membership. That premature display is explicitly uncredited. This registration precedes fresh bounded1-142 reread and any substantive current07 geometry/coverage relationship verdict; no retroactive body credit.",
+              "status": "prospectively_registered_before_fresh_bounded_analysis_after_uncredited_premature_display"
+            }
+          }
+        ],
+        "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+        "admission_discovery": "exactnewrolemanualRootG095or096; nootherlensverdictfrommetadata"
+      }
+    },
+    {
+      "original": 2767,
+      "registry_entry": {
+        "source_id": "pr-working:crates/fabelgeist-armor/src/components.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\components.rs",
+        "sha256": "0d82f83e694489be2b70f9208306217b283d1a8f11a5e174d80c8838b98109cd",
+        "bytes": 2685,
+        "actual_line_count": 87,
+        "scope_kind": "materially_reached_parallel_initial_dependency",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            1,
+            87
+          ]
+        ],
+        "scope_limits": "Only this tiny direct type-definition source; no broader new family/foreign graph",
+        "parallel_reached_registrations": [
+          {
+            "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+            "sha256": "2bcd0c77859786aae8eb2d165da3c55abdb2da2ca82bd21b6826eedc0d93a5c5",
+            "row_1based": 9,
+            "id": "RIG-INITIAL06-REG-009",
+            "original_record": {
+              "id": "RIG-INITIAL06-REG-009",
+              "at": "2026-10-22T19:49:05.873969+00:00",
+              "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+              "source_id": "pr-working:crates/fabelgeist-armor/src/components.rs",
+              "snapshot": "pr-working",
+              "sha256": "0d82f83e694489be2b70f9208306217b283d1a8f11a5e174d80c8838b98109cd",
+              "actual_EOF": 87,
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\components.rs",
+              "material_ranges": [
+                [
+                  1,
+                  87
+                ]
+              ],
+              "material_caller": "Scoped PartLayout/BuiltPart/TileTemplate/GeneratedArmor and TextileColor.material reference these canonical component/face/mount products",
+              "reason": "Exact direct declaration/helper source required to finish current06 owner/dependency comparison, symbol boundaries only before prospective registration",
+              "exclusions": "Only this tiny direct type-definition source; no broader new family/foreign graph",
+              "status": "prospectively_registered_before_body_analysis; new variant global pending"
+            }
+          }
+        ],
+        "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+        "admission_discovery": "Root098 actual source-specific new-role comparison, no other lens verdict"
+      }
+    },
+    {
+      "original": 2768,
+      "registry_entry": {
+        "source_id": "pr-working:crates/fabelgeist-armor/src/plate_face.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\plate_face.rs",
+        "sha256": "7c7d222066ebe81219e45b4ac4086acc9de7da36c7633f662027be299d93ba71",
+        "bytes": 631,
+        "actual_line_count": 16,
+        "scope_kind": "materially_reached_parallel_initial_dependency",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            1,
+            16
+          ]
+        ],
+        "scope_limits": "Only this tiny direct type-definition source; no broader new family/foreign graph",
+        "parallel_reached_registrations": [
+          {
+            "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+            "sha256": "2bcd0c77859786aae8eb2d165da3c55abdb2da2ca82bd21b6826eedc0d93a5c5",
+            "row_1based": 10,
+            "id": "RIG-INITIAL06-REG-010",
+            "original_record": {
+              "id": "RIG-INITIAL06-REG-010",
+              "at": "2026-10-22T19:49:05.903491+00:00",
+              "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+              "source_id": "pr-working:crates/fabelgeist-armor/src/plate_face.rs",
+              "snapshot": "pr-working",
+              "sha256": "7c7d222066ebe81219e45b4ac4086acc9de7da36c7633f662027be299d93ba71",
+              "actual_EOF": 16,
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\plate_face.rs",
+              "material_ranges": [
+                [
+                  1,
+                  16
+                ]
+              ],
+              "material_caller": "Scoped PartLayout/BuiltPart/TileTemplate/GeneratedArmor and TextileColor.material reference these canonical component/face/mount products",
+              "reason": "Exact direct declaration/helper source required to finish current06 owner/dependency comparison, symbol boundaries only before prospective registration",
+              "exclusions": "Only this tiny direct type-definition source; no broader new family/foreign graph",
+              "status": "prospectively_registered_before_body_analysis; new variant global pending"
+            }
+          }
+        ],
+        "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+        "admission_discovery": "Root098 actual source-specific new-role comparison, no other lens verdict"
+      }
+    },
+    {
+      "original": 2769,
+      "registry_entry": {
+        "source_id": "pr-working:crates/fabelgeist-armor/src/plate_mount.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\plate_mount.rs",
+        "sha256": "6b0650a1f0aa61c043d101edb7ed5f577b7291820201c1e5c4583559ab52f3f9",
+        "bytes": 1855,
+        "actual_line_count": 58,
+        "scope_kind": "materially_reached_parallel_initial_dependency",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            1,
+            58
+          ]
+        ],
+        "scope_limits": "Only this tiny direct type-definition source; no broader new family/foreign graph",
+        "parallel_reached_registrations": [
+          {
+            "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+            "sha256": "2bcd0c77859786aae8eb2d165da3c55abdb2da2ca82bd21b6826eedc0d93a5c5",
+            "row_1based": 11,
+            "id": "RIG-INITIAL06-REG-011",
+            "original_record": {
+              "id": "RIG-INITIAL06-REG-011",
+              "at": "2026-10-22T19:49:05.918705+00:00",
+              "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+              "source_id": "pr-working:crates/fabelgeist-armor/src/plate_mount.rs",
+              "snapshot": "pr-working",
+              "sha256": "6b0650a1f0aa61c043d101edb7ed5f577b7291820201c1e5c4583559ab52f3f9",
+              "actual_EOF": 58,
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\plate_mount.rs",
+              "material_ranges": [
+                [
+                  1,
+                  58
+                ]
+              ],
+              "material_caller": "Scoped PartLayout/BuiltPart/TileTemplate/GeneratedArmor and TextileColor.material reference these canonical component/face/mount products",
+              "reason": "Exact direct declaration/helper source required to finish current06 owner/dependency comparison, symbol boundaries only before prospective registration",
+              "exclusions": "Only this tiny direct type-definition source; no broader new family/foreign graph",
+              "status": "prospectively_registered_before_body_analysis; new variant global pending"
+            }
+          }
+        ],
+        "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+        "admission_discovery": "Root098 actual source-specific new-role comparison, no other lens verdict"
+      }
+    },
+    {
+      "original": 2770,
+      "registry_entry": {
+        "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/limb_build.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\gpu\\limb_build.rs",
+        "sha256": "3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+        "bytes": 1800,
+        "actual_line_count": 46,
+        "scope_kind": "materially_reached_parallel_initial_dependency",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            1,
+            46
+          ]
+        ],
+        "scope_limits": "No broad new geometry/foreign/feature graph",
+        "parallel_reached_registrations": [
+          {
+            "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+            "sha256": "2bcd0c77859786aae8eb2d165da3c55abdb2da2ca82bd21b6826eedc0d93a5c5",
+            "row_1based": 12,
+            "id": "RIG-INITIAL06-REG-012",
+            "original_record": {
+              "id": "RIG-INITIAL06-REG-012",
+              "at": "2026-10-22T19:52:04.613453+00:00",
+              "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+              "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/limb_build.rs",
+              "snapshot": "pr-working",
+              "sha256": "3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+              "actual_EOF": 46,
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\gpu\\limb_build.rs",
+              "material_ranges": [
+                [
+                  1,
+                  46
+                ]
+              ],
+              "material_caller": "Scoped gpu::mod reexports record_limb_armor/generate_limb_armor_on; LimbShape and ExtremityShape are exact2field PartRecipe/design products",
+              "reason": "Direct tiny terminal caller required to compare actual product producer/record recipient before deciding shared owner; navigation showed onlytwo functions, body notread before registration",
+              "exclusions": "No broad new geometry/foreign/feature graph",
+              "status": "prospectively_registered_before_body_analysis; new variant pendingglobal"
+            }
+          }
+        ],
+        "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+        "admission_discovery": "Root098 actual source-specific new-role comparison, no other lens verdict"
+      }
+    }
+  ],
+  "exact_hash_prior_hits": [
+    {
+      "original": 2757,
+      "receipt": {
+        "path": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+        "sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a"
+      }
+    },
+    {
+      "original": 2758,
+      "receipt": {
+        "path": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+        "sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a"
+      }
+    },
+    {
+      "original": 2759,
+      "receipt": {
+        "path": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+        "sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a"
+      }
+    },
+    {
+      "original": 2760,
+      "receipt": {
+        "path": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+        "sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a"
+      }
+    },
+    {
+      "original": 2761,
+      "receipt": {
+        "path": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+        "sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a"
+      }
+    },
+    {
+      "original": 2762,
+      "receipt": {
+        "path": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+        "sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a"
+      }
+    },
+    {
+      "original": 2763,
+      "receipt": {
+        "path": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+        "sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a"
+      }
+    }
+  ],
+  "future_same_lens_proofs_navigation": [
+    {
+      "receipt": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+      "receipt_sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a",
+      "reference_base": "evidence root",
+      "row_pointer": "/evidence/sources/0",
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+      },
+      "source_id": "native-rand0.9.5:src/distr/weighted/weighted_index.rs",
+      "source_sha256": "b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003",
+      "actual_EOF": 631,
+      "assessed_ranges": [
+        [
+          1,
+          145
+        ],
+        [
+          358,
+          369
+        ]
+      ],
+      "attribution": "Root personally assessed exact original material scope; no full-file or other-lens transfer",
+      "ordered_credit_now": 0,
+      "original": 2757,
+      "material_scope_complete": true,
+      "whole_file_coverage": false,
+      "native_package_provenance": {
+        "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+      },
+      "future_rule": "Qualify exact native archive/member/lock/source identity and requested material scope at ordered frontier; no rereads or population credit before that frontier."
+    },
+    {
+      "receipt": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+      "receipt_sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a",
+      "reference_base": "evidence root",
+      "row_pointer": "/evidence/sources/1",
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+      },
+      "source_id": "native-rand0.9.5:src/distr/uniform.rs",
+      "source_sha256": "04efcc061e1904b824e3feb68541c4e8259a46ecd2c118af6fb383b3ad37f73c",
+      "actual_EOF": 622,
+      "assessed_ranges": [
+        [
+          190,
+          260
+        ],
+        [
+          268,
+          312
+        ],
+        [
+          399,
+          415
+        ]
+      ],
+      "attribution": "Root personally assessed exact original material scope; no full-file or other-lens transfer",
+      "ordered_credit_now": 0,
+      "original": 2758,
+      "material_scope_complete": true,
+      "whole_file_coverage": false,
+      "native_package_provenance": {
+        "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+      },
+      "future_rule": "Qualify exact native archive/member/lock/source identity and requested material scope at ordered frontier; no rereads or population credit before that frontier."
+    },
+    {
+      "receipt": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+      "receipt_sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a",
+      "reference_base": "evidence root",
+      "row_pointer": "/evidence/sources/2",
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+      },
+      "source_id": "native-rand0.9.5:src/distr/uniform_int.rs",
+      "source_sha256": "30c620bc9d74263162de2e0755ae4b323abce1d6aa22c00d1b9de378480f22c0",
+      "actual_EOF": 914,
+      "assessed_ranges": [
+        [
+          1,
+          160
+        ],
+        [
+          280,
+          280
+        ]
+      ],
+      "attribution": "Root personally assessed exact original material scope; no full-file or other-lens transfer",
+      "ordered_credit_now": 0,
+      "original": 2759,
+      "material_scope_complete": true,
+      "whole_file_coverage": false,
+      "native_package_provenance": {
+        "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+      },
+      "future_rule": "Qualify exact native archive/member/lock/source identity and requested material scope at ordered frontier; no rereads or population credit before that frontier."
+    },
+    {
+      "receipt": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+      "receipt_sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a",
+      "reference_base": "evidence root",
+      "row_pointer": "/evidence/sources/3",
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+      },
+      "source_id": "native-rand0.9.5:src/distr/weighted/mod.rs",
+      "source_sha256": "52379f09ea06c8ac54bdb4ecaed93fd7fc08f85866b5e3fcb4e40d0f1576bdfe",
+      "actual_EOF": 115,
+      "assessed_ranges": [
+        [
+          25,
+          60
+        ],
+        [
+          85,
+          115
+        ]
+      ],
+      "attribution": "Root personally assessed exact original material scope; no full-file or other-lens transfer",
+      "ordered_credit_now": 0,
+      "original": 2760,
+      "material_scope_complete": true,
+      "whole_file_coverage": false,
+      "native_package_provenance": {
+        "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+      },
+      "future_rule": "Qualify exact native archive/member/lock/source identity and requested material scope at ordered frontier; no rereads or population credit before that frontier."
+    },
+    {
+      "receipt": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+      "receipt_sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a",
+      "reference_base": "evidence root",
+      "row_pointer": "/evidence/sources/4",
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+      },
+      "source_id": "native-rand0.9.5:src/distr/utils.rs",
+      "source_sha256": "a631940e728257c9b0cb753bc64fa631958c92ce52d5b2265c7ed06a46567b8f",
+      "actual_EOF": 408,
+      "assessed_ranges": [
+        [
+          16,
+          61
+        ]
+      ],
+      "attribution": "Root personally assessed exact original material scope; no full-file or other-lens transfer",
+      "ordered_credit_now": 0,
+      "original": 2761,
+      "material_scope_complete": true,
+      "whole_file_coverage": false,
+      "native_package_provenance": {
+        "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+      },
+      "future_rule": "Qualify exact native archive/member/lock/source identity and requested material scope at ordered frontier; no rereads or population credit before that frontier."
+    },
+    {
+      "receipt": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+      "receipt_sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a",
+      "reference_base": "evidence root",
+      "row_pointer": "/evidence/sources/5",
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+      },
+      "source_id": "native-rand0.9.5:src/distr/integer.rs",
+      "source_sha256": "69ac205b6fed57ae09e2f8f1b15ae3d2049b85874bc4da3f246a18188b42d8ea",
+      "actual_EOF": 307,
+      "assessed_ranges": [
+        [
+          49,
+          54
+        ]
+      ],
+      "attribution": "Root personally assessed exact original material scope; no full-file or other-lens transfer",
+      "ordered_credit_now": 0,
+      "original": 2762,
+      "material_scope_complete": true,
+      "whole_file_coverage": false,
+      "native_package_provenance": {
+        "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+      },
+      "future_rule": "Qualify exact native archive/member/lock/source identity and requested material scope at ordered frontier; no rereads or population credit before that frontier."
+    },
+    {
+      "receipt": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+      "receipt_sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a",
+      "reference_base": "evidence root",
+      "row_pointer": "/evidence/sources/6",
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+      },
+      "source_id": "native-rand0.9.5:src/rng.rs",
+      "source_sha256": "19a29d58ea169c50ae7fea0a941c405e4a8f3a9b2ac0dc0edd9f7a55e9431703",
+      "actual_EOF": 657,
+      "assessed_ranges": [
+        [
+          58,
+          58
+        ],
+        [
+          95,
+          103
+        ],
+        [
+          357,
+          357
+        ]
+      ],
+      "attribution": "Root personally assessed exact original material scope; no full-file or other-lens transfer",
+      "ordered_credit_now": 0,
+      "original": 2763,
+      "material_scope_complete": true,
+      "whole_file_coverage": false,
+      "native_package_provenance": {
+        "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+      },
+      "future_rule": "Qualify exact native archive/member/lock/source identity and requested material scope at ordered frontier; no rereads or population credit before that frontier."
+    }
+  ],
+  "prior_applications_preserved_navigation": [],
+  "body_credit": 0,
+  "authority_changes": 0
+}

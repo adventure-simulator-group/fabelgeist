@@ -1,0 +1,183 @@
+{
+  "kind": "Independent lens12 ordered original raw-string inventory",
+  "lens": 12,
+  "batch": 692,
+  "at": "2026-10-29T18:33:58.914738+00:00",
+  "plan": "segovb/PLAN-L12-692.json",
+  "plan_sha256": "d0353b313b4277b67e156664ecce1c0e7ac9d4c11a528b24db901178f86725a8",
+  "rows": [
+    {
+      "original_index": 2056,
+      "registration": "segovb/REGISTRATION-SEGOVB-L12-963.json",
+      "registration_sha256": "6671d5c929ddafd9e710e52943e36b4b25850be065867fbef7e37c52255fb19c",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/clock.rs",
+      "source_sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+      "assessed_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          29
+        ]
+      ],
+      "same_lens_reuse": [],
+      "function_contract": {
+        "string_inventory": [
+          "NativeSerde transparent9 explicitlyencodesTacticalElapsed scalar, noStringsemanticfield/API. Commentsoriginalrounding13/24 arehistoricalsourceintent notBCrequirement; cleanfinalAPI/arithmeticpolicygovernsactualowner."
+        ],
+        "exact_function_ownership": [
+          "TacticalElapsed::from_tick_count15..18/seconds20..23/elapsed_since26..29"
+        ],
+        "producer_internal_api_retained_state_consumer_native_boundary": [
+          "u64completedtickcount\u2192from_tick_count15 rawf32multiply16\u2192privateTacticalElapsedf32retention10\u2192nativeSerialize9 andseconds20 actualreportf64promotion. Allu64asf32<=~1.84e19 multipliedby1/64 finite; hugecountprecision/numericotherlensescurrent separate, no wholesaleoldf32-preservationpromise.",
+          "Qualifiedown2055loop exhaustion leavesfinal_tickmaximumCount65 then+1 count94/95, actualclockdoesNOTcorrectsentinel16. ExactexistingADLER-L11-ITERATION-TIMEOUT-TICK-COUNT firstfunctions nowindependentlyL12producer/clock/2017consumer traced. Onexhaustion maxupdatesbutreportmax+1; earlyterminaltickindex+1 legitimate. No actualTimeoutduel/rosterwitness/nativeTimePlugin/scalarkernel/probe executed.",
+          "elapsed_since26 returnscheckedAnimationElapsed fororderedobservations, descendingtime canErrrealnativeadmission; don'tinventcompatfallbackorforceWallClock/AutoresolveTimeunification."
+        ],
+        "disposition": "Full29freshpersonalread, no runtimecalculation; existingnumericfindingconnectedwithoutotherlensverdicttransfer."
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2057,
+      "registration": "segovb/REGISTRATION-SEGOVB-L12-964.json",
+      "registration_sha256": "1c7b965dae19d04d6b9192daa6598f19849238d214eb5b735325526bcf75e7a6",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/equipment.rs",
+      "source_sha256": "ca4439b826717b1d61d7efd26d33a4538f66c8fc5527e32d8e7d9768b71e7074",
+      "assessed_ranges": [
+        [
+          1,
+          163
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          163
+        ]
+      ],
+      "same_lens_reuse": [],
+      "function_contract": {
+        "string_inventory": [
+          "Rawbuild.weapon_id13/23, shield_id74/79, armor_ids93/129 arecatalogueidentity input\u2192actualitem_cataloglookup\u2192retainedItemPropertiesString. Actualsourcebuildfactory/canonicalItemID/admission/definitionreceiver/body/all20/nativecurrent required, notnativeStringexemption byarchetyperoster.",
+          "Productionexpects weapondefinition14/equipment18/strikingmaterial37/shielddefinition75/armordefinition94/equipment98/placement106/protectionbody112/material114 andweaponkindunreachable62 assumevalidatedrosterrole. ActualpublicMeleeIterationBuild rawIDs/resolvedCombatEquipment duplication andowningfactoryguarantees mustreadbeforepanicreachability/preciseconnectedrepair; **do NOTaddfictionalmissingerrorcasesifactualvalidfactoryguaranteesfacts**. Outside-testexpectrule remainsretainedcandidateexactsites.",
+          "Optionaloutermost_channel.maporder.unwrap_or_default147 representsnoauthoredchannel/layerdefault; actualplacementgrammar/corearmorconsumer policybeforecompatibilitydefect. Repeatedarmoroccurrence moduloavailableplacements105 actualproducer/core865duplicatehandling needscomparebeforewrongplacementclaim."
+        ],
+        "exact_function_ownership": [
+          "spawn_equipment5..10/spawn_weapon11..70/spawn_shield72..90/spawn_armor91..152/armor_slot153..163"
+        ],
+        "producer_internal_api_retained_state_consumer_native_boundary": [
+          "MeleeIterationBuild rawcatalogreferences+resolvedCombatEquipment \u2192actualnativeItemProperties id+unitweight24/80/130, Physical metadata27..30, Weaponstatsfromresolvedweapon/bodymaterial35..67, Shieldblock85, ArmorItem134..148 thennativeECSactorinventory. Actualquantity defaultcomponent/stack admission notinsertedexplicitlyinthisfile; no forcedclaimallharnessitemquantitiesONE untilItemPropertiesrequiredefaultsread.",
+          "**TacticalInventoryItemId literal1 weapon32, 2 shield82,10+armorindex132 repeatedPERcombatant**. ActualduelonlyoneParty/oneEnemy meanspartyconsequenceonlyoneactor bysource2055sideassignment and2032partyfilter; no witnessedcross-partyIDmergefromthisharness. TrueglobalID/nativecanonicalowner/abstracttestprovenance all20/current remainqualified, don'trenameasrawcatalogueID.",
+          "spawn_armor usesaggregatebuild.combatant.equipment.armor[part]113 andCOPIESitsresistance/coverage/padding/flexibility136..141 intoEACHauthoredarmoritem'snativeArmorItem whilematerialcomesfromauthoredindividualitem114 andgeometryfromplacement121. Actualcoreauthored_equipment accumulation865/ArmorItemkernel receiver beforeaggregate-duplicated-per-layerfinding; nativeDeclareddata orotherlensverdict notnumericalbodyproof.",
+          "Actualweapon.rangedfalse66 andrangedskillweights0, harnessspawnsmeleeweapon/shield/armor ONLY noammo. ThusnewsharedRanged\u2192MeleeResolvedevent concern2045 doesnotdemonstrateordinaryrangedcontacts inTHIScanonicalduel. Otheractualobservers/loggers/scopecurrent stillpending."
+        ],
+        "disposition": "Full163freshsourceonly, no ECSspawn/catalogue/runtime/probe. Necessaryconnectedcore865producer andinventorydefaults/nativearmorphysics receipt remainunreadL12fresh."
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2058,
+      "registration": "segovb/REGISTRATION-SEGOVB-L12-965.json",
+      "registration_sha256": "f3c0d3614a2c43669e8e50546ea0db86139fbfd745ea07a943c863b0996e51ba",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/logging.rs",
+      "source_sha256": "9b544bf84edcca32609b26242d2794c3800a45618c40cef1aa5f4d6965225b88",
+      "assessed_ranges": [
+        [
+          1,
+          427
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          427
+        ]
+      ],
+      "same_lens_reuse": [],
+      "function_contract": {
+        "string_inventory": [
+          "CanonicalTacticalDecision20/Status32/ContactOutcome43/CoverageContact51/DefenseImplement59 retainedtypedinrecords/nativeSerde snake_case19/31/42/50/58; correctdistinctsemanticroles despitecommonenumrepresentation, no closed-enummergebyvisualsimilarity.",
+          "**TacticalMeleeLogEntry attacker/defenderString82/83; ConditioncombatantString126; WoundcombatantString137; Decisioncombatant147/targetOptionString150; VictoryvictorString160.** Actualrecord_attack_start clonesPlayer.name240/243, record_defense_resolution272/284, wounds347/condition416. Notmerelyfinalnativeprose: knownprivatecausal2010comparesnames. NewVictorfindingretainedseparateexactfirstproducer2055; eventnamefirstlossesneed2059/2060fulltracebeforealias/globalclosure.",
+          "ConditioncauseString127 fromclosedsourcefieldlabels pain395/acute396/blood398,403/imbalance407/fatigue408/encumbrance409/total410\u2192cause.into417\u2192retainedVecConditionEvents\u2192ACTUALprivate sourcetests2055compareliteralcause339/346/352/357/491. ExistingTacticalIncapacitationSources fieldroles anduniqueRAWbloodfractionvsincapacitationunits needcanonicalcaseownerfit; notallcausesone impairmentvalue ornativefinalLabelonly.",
+          "BodyPartString93/138 andAnatomicalSubregionString94, woundproducerDebugLower348; resolvedentry2060 upcomingformatsbody/anatomy. ActualanatomicalStringclone2010:179\u2192privateMap\u2192report2015 provesrecipientsemantic, bodypartproseunusednativefieldmaydifferentrole; don'tautomaticallyaliasalllabels.",
+          "DecisioncauseOption<&staticstr>154 producerdecisions2059 upcoming; defensive_implementOption<String>87 rawcatalogueitem identityvsDefenseImplementenumkind88 andoptionalinstanceu6489 areDISTINCTroles. Noneabstractinventory/profile legitimate; no Stringtofiniteenumblindsubstitution."
+        ],
+        "exact_function_ownership": [
+          "TacticalDecision20..28/Status32..39/ContactOutcome43..47/CoverageContact51..55/DefenseImplement59..63",
+          "Logrecordschemas66..179/IterationClock182..184/IterationLog187..195",
+          "record_attack_start197..254/record_defense_resolution256..298/record_resolved_attack299..328/log_new_wounds329..356",
+          "incapacitation_log357..383/record_condition_changes384..427"
+        ],
+        "producer_internal_api_retained_state_consumer_native_boundary": [
+          "ActualnativeMeleeAttackStartedIntent\u2192observerlog.attack_starts206 BEFOREplayerquery207; acceptedStartlog meansobservedREQUEST notproofauthoritativeattackadmitted, becauseobserverorderwrt2035start validationnativeframeworknotguaranteedbyregisterobserverorder. Actualprivateauditmeaning/consumer/current beforefalseacceptedstartfinding.",
+          "DefendIntentResolved chosen actualattempt+acceptedbool\u2192loggerproducesAttempted274 ANDAccepted/Rejected286..290 aftersameevent; actualrejectedNativeRequestcouldstillcountattemptlegitimateobservationalrecord, noteoccursafterresolutionnotoriginalinputtimestamp. No fakevalidatorpassclaim.",
+          "Resolvedpostconsequenceevent\u2192players308/311\u2192resolved_attack_entry315 (body2060 UNREADnow)\u2192retainedlog.events\u2192log_new_wounds326 typedbody\u2192String348. SourceactorEntitycontinuesinlastconditions193/loggedwoundcounts194 butexportedeventidentityhumanonly. NativeResolvedRangedsharedMeleeevent declarationalone notsameactualduelrangedwitness; actualharness2057hardcodemeleeonly.",
+          "incapacitation_log productionexpectviewer364/state367 iscalledforEVERYPlayerinrecord_condition_changes391, canonicalspawn2055 suppliesview/state/limbs butactuallifecycle/Ragdoll/nativeadmissionguarantees/current neededbeforepanicreachability; productionrule/ownerpropagationcandidateexplicit. TypedtotalimpairmentlogfieldsPain/Acute/Bloodfraction/Bloodincap/Imbalance/Fatigue/Encumbrance66..75 intentionallydistinctunits/meanings, don'tdoubleapplyfatigueorblackwheelpenalty.",
+          "Conditionchangefilternetdelta>1e-6412 dropssmallerperstepchangesandupdateslastconditionseverytick425; actualnativefloats precision/meaningtraces/acceptableobservationalthresholdpolicy/current beforemissing cumulativegrowthfinding. Woundcountminlen342 letsclear/replacement: actualappendonly/currentwoundlifecyclebeforelostreplacementwoundcase; no genericerrorforvalidemptywounds."
+        ],
+        "disposition": "Full427personalprospectiveread, schema/actualrootproducersnowcovered. Nesteddecisions/resolutionbodiesnotcoveredbydecl14/16; no nativeobserver/app/timing/test/probeexecuted."
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    }
+  ],
+  "qualified_supporting_same_lens_reuse": [
+    {
+      "receipt": "segovb/READ-L12-691.json",
+      "receipt_sha256": "cd80c673bd9cf1efa8dee15f683f1918774a68c8fd5bc28712a3111ce61738c4",
+      "original_index": 2055,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration.rs",
+      "source_sha256": "812c3b491db93ba51220e73ebe4aef93934ff80abeb3f7d4e2af796c598ce1b7",
+      "registration": "segovb/REGISTRATION-SEGOVB-L12-962.json",
+      "registration_sha256": "28c5df91db89eb956460bfdae813955cbc92f96b4b151d6ec5aa13dac79f338f",
+      "assessed_ranges": [
+        [
+          1,
+          648
+        ]
+      ],
+      "actual_EOF": 648,
+      "fresh_personal_body_reads_this_batch": [],
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/adventuresim-tactical-server/src/iteration.rs"
+    },
+    {
+      "receipt": "segovb/READ-L12-675.json",
+      "receipt_sha256": "5900ed2d280d01bdcea63dcca52c0015b8e63162fe9ebf1db87dee6844420dd8",
+      "original_index": 2017,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "source_sha256": "682408c513c94a29855ef855be8d4e16dad21a2de2e3349ff61dea8f87a43d0a",
+      "registration": "segovb/REGISTRATION-SEGOVB-L12-924.json",
+      "registration_sha256": "9178a928ef2767397bdadfea2fcdd1307ded9b7ff398f75563e41793c1172e76",
+      "assessed_ranges": [
+        [
+          1,
+          325
+        ]
+      ],
+      "actual_EOF": 325,
+      "fresh_personal_body_reads_this_batch": [],
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs"
+    }
+  ],
+  "connected_contract_resolutions": [],
+  "connected_dispositions": [
+    "2056:29/2057:163/2058:427 fullprospectivepersonalreads untruncated, no app/duel/ECS/observer/serializer/test/probe/nativeoperationsrun.",
+    "Actualcanonicalduelspawnsmeleeonly/noammo2057; rangedsharedpostconsequenceeventconcernnotnormalrangedharnesswitness. BothsideIDsperactor testprojection notproofglobalinventoryIDcollision."
+  ],
+  "new_original_roles": 3,
+  "new_overlay_merged_shared_or_extension_credit": 0,
+  "accepted_unique_count_change": 0,
+  "current_source_reconciled": false,
+  "runtime_validation": "Not run; audit only",
+  "inherited_disease1093_read_qualification_unchanged": true,
+  "implementation_gate_complete": false,
+  "pending": "Continue original2059decisions89/2060resolution167 atbatch693/REG966; qualifyeventname/enumtext/condition/nativeproduceractualowners thennecessarycore865revisit/actualcurrent/all20/exactaliases/all13. No repairs."
+}

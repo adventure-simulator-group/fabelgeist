@@ -1,0 +1,230 @@
+1: //! Ordered equipment occupancy and attachment capacity for grab/HUD previews.
+2: 
+3: use super::*;
+4: 
+5: #[derive(Clone, Copy)]
+6: pub(super) enum PreviewTarget {
+7:     EmptyAttachment {
+8:         parent: Entity,
+9:     },
+10:     Occupied {
+11:         entity: Entity,
+12:         attachment: PreviewAttachment,
+13:     },
+14: }
+15: 
+16: #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+17: pub(super) enum PreviewAttachment {
+18:     Detached,
+19:     Attached,
+20: }
+21: 
+22: /// The held item at catalogue admission, retaining an unknown item separately
+23: /// from an empty hand so an unavailable definition cannot select occupied slots.
+24: #[derive(Clone, Copy)]
+25: pub(super) enum HeldPreviewItem {
+26:     Empty,
+27:     Unknown,
+28:     Defined(&'static item_catalog::ItemDefinition),
+29: }
+30: 
+31: impl From<Option<&ItemProperties>> for HeldPreviewItem {
+32:     fn from(properties: Option<&ItemProperties>) -> Self {
+33:         match properties {
+34:             None => Self::Empty,
+35:             Some(properties) => {
+36:                 item_catalog::definition(&properties.id).map_or(Self::Unknown, Self::Defined)
+37:             }
+38:         }
+39:     }
+40: }
+41: 
+42: impl PreviewTarget {
+43:     /// Protocol addressing selects either an empty capacity's parent or its occupied item.
+44:     pub(super) fn addressed_entity(self) -> Entity {
+45:         match self {
+46:             Self::EmptyAttachment { parent } => parent,
+47:             Self::Occupied { entity, .. } => entity,
+48:         }
+49:     }
+50:     pub(super) fn is_occupied(self) -> bool {
+51:         matches!(self, Self::Occupied { .. })
+52:     }
+53:     fn accepts_attachment(self) -> bool {
+54:         matches!(
+55:             self,
+56:             Self::EmptyAttachment { .. }
+57:                 | Self::Occupied {
+58:                     attachment: PreviewAttachment::Attached,
+59:                     ..
+60:                 }
+61:         )
+62:     }
+63: }
+64: 
+65: impl PreviewAttachment {
+66:     fn from_predicate(attached: bool) -> Self {
+67:         if attached {
+68:             Self::Attached
+69:         } else {
+70:             Self::Detached
+71:         }
+72:     }
+73: }
+74: 
+75: pub(super) fn outermost_occupied_depth(layers: &[PreviewTarget]) -> Option<usize> {
+76:     layers.iter().position(|target| target.is_occupied())
+77: }
+78: 
+79: pub(super) fn eligible_slot_depth(
+80:     item: &item_catalog::ItemDefinition,
+81:     location: EquipmentLocation,
+82:     layers: &[PreviewTarget],
+83: ) -> Option<usize> {
+84:     let equipment = item.equipment.as_ref()?;
+85:     if equipment.placements.iter().any(|placement| {
+86:         placement
+87:             .occupancy
+88:             .iter()
+89:             .any(|occupancy| occupancy.location == location)
+90:     }) {
+91:         return Some(0);
+92:     }
+93:     equipment
+94:         .placements
+95:         .iter()
+96:         .any(|placement| !placement.parents.is_empty())
+97:         .then(|| layers.iter().position(|target| target.accepts_attachment()))?
+98: }
+99: 
+100: pub(super) fn ordered_preview_at_location(
+101:     actor: Entity,
+102:     location: EquipmentLocation,
+103:     topologies: &Query<(Entity, &ItemOf, &EquipmentTopology, &ItemProperties)>,
+104: ) -> Vec<PreviewTarget> {
+105:     let mut found: Vec<_> = topologies
+106:         .iter()
+107:         .filter(|(_, owner, _, _)| owner.0 == actor)
+108:         .filter_map(|(entity, _, topology, properties)| {
+109:             topology
+110:                 .root_order(location, &properties.id)
+111:                 .map(|key| (key, entity))
+112:         })
+113:         .collect();
+114:     found.sort_by_key(|(key, _)| *key);
+115:     let mut output = Vec::new();
+116:     let mut visited = std::collections::HashSet::new();
+117:     for (_, entity) in found {
+118:         append_preview(entity, location, topologies, &mut visited, &mut output);
+119:     }
+120:     output
+121: }
+122: 
+123: pub(super) fn hud_layers(
+124:     actor: Entity,
+125:     location: EquipmentLocation,
+126:     items: &Query<(
+127:         Entity,
+128:         &ItemOf,
+129:         Option<&EquipSlot>,
+130:         &ItemProperties,
+131:         &EquipmentTopology,
+132:     )>,
+133: ) -> Vec<PreviewTarget> {
+134:     let mut roots: Vec<_> = items
+135:         .iter()
+136:         .filter(|(_, owner, _, _, _)| owner.0 == actor)
+137:         .filter_map(|(entity, _, _, properties, topology)| {
+138:             topology
+139:                 .root_order(location, &properties.id)
+140:                 .map(|key| (key, entity))
+141:         })
+142:         .collect();
+143:     roots.sort_by_key(|(key, _)| *key);
+144:     let mut output = Vec::new();
+145:     let mut visited = std::collections::HashSet::new();
+146:     for (_, root) in roots {
+147:         append_hud_preview(root, location, items, &mut visited, &mut output);
+148:     }
+149:     output
+150: }
+151: 
+152: fn append_preview(
+153:     entity: Entity,
+154:     location: EquipmentLocation,
+155:     items: &Query<(Entity, &ItemOf, &EquipmentTopology, &ItemProperties)>,
+156:     visited: &mut std::collections::HashSet<Entity>,
+157:     output: &mut Vec<PreviewTarget>,
+158: ) {
+159:     if !visited.insert(entity) {
+160:         return;
+161:     }
+162:     let Ok((_, _, _, properties)) = items.get(entity) else {
+163:         output.push(PreviewTarget::Occupied {
+164:             entity,
+165:             attachment: PreviewAttachment::Detached,
+166:         });
+167:         return;
+168:     };
+169:     let Some(equipment) = item_catalog::definition(&properties.id)
+170:         .and_then(|definition| definition.equipment.as_ref())
+171:     else {
+172:         output.push(PreviewTarget::Occupied {
+173:             entity,
+174:             attachment: PreviewAttachment::Detached,
+175:         });
+176:         return;
+177:     };
+178:     let mut points: Vec<_> = equipment.attachment_points.iter().collect();
+179:     points.sort_by_key(|point| (point.order, point.id.as_str()));
+180:     for point in points
+181:         .into_iter()
+182:         .filter(|point| point.locations.is_empty() || point.locations.contains(&location))
+183:     {
+184:         for capacity_index in 0..point.capacity {
+185:             let child =
+186:                 items.iter().find_map(|(child, _, topology, _)| {
+187:                     topology.occupancies.iter().any(|occupancy| {
+188:                     matches!(
+189:                         &occupancy.anchor,
+190:                         TacticalEquipmentAnchor::ItemAttachment { parent, attachment_point_id }
+191:                             if *parent == entity
+192:                                 && attachment_point_id == &point.id
+193:                                 && occupancy.capacity_index == capacity_index
+194:                     )
+195:                 }).then_some(child)
+196:                 });
+197:             if let Some(child) = child {
+198:                 append_preview(child, location, items, visited, output);
+199:             } else {
+200:                 // Empty attachment points address their mapped parent. Depth
+201:                 // disambiguates the exact authored point/capacity on server.
+202:                 output.push(PreviewTarget::EmptyAttachment { parent: entity });
+203:             }
+204:         }
+205:     }
+206:     output.push(PreviewTarget::Occupied {
+207:         entity,
+208:         attachment: PreviewAttachment::from_predicate(items.get(entity).is_ok_and(
+209:             |(_, _, topology, _)| {
+210:                 topology.occupancies.iter().any(|occupancy| {
+211:                     matches!(
+212:                         occupancy.anchor,
+213:                         TacticalEquipmentAnchor::ItemAttachment { .. }
+214:                     )
+215:                 })
+216:             },
+217:         )),
+218:     });
+219: }
+220: 
+221: fn append_hud_preview(
+222:     entity: Entity,
+223:     location: EquipmentLocation,
+224:     items: &Query<(
+225:         Entity,
+226:         &ItemOf,
+227:         Option<&EquipSlot>,
+228:         &ItemProperties,
+229:         &EquipmentTopology,
+230:     )>,

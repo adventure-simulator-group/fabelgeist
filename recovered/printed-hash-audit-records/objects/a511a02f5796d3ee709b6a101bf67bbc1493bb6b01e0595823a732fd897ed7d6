@@ -1,0 +1,100 @@
+{
+  "schema": "726-root-l2-bounded-existing-owner-source-read-v1",
+  "at": "2026-11-02T17:10:15.498131+00:00",
+  "author": "/root",
+  "lens": 2,
+  "rows": [
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-core/src/combat/coverage.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-core/src/combat/coverage.rs",
+        "source_sha256": "8bebf038e281f0b1529dd8008a42379c43eac3e0c2f9767d9a29606eb69ddced",
+        "source_object": "adler-continuation-20261030/objects/8bebf038e281f0b1529dd8008a42379c43eac3e0c2f9767d9a29606eb69ddced",
+        "bytes": 13928,
+        "actual_EOF": 347,
+        "ranges": [
+          [
+            180,
+            347
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 168
+      },
+      "registration": {
+        "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/REGISTRATION-ROOT-L2-CATALOG-SUPPORT-008.json",
+        "sha256": "195ac28f300e3eb415c395178e513de6223693ac22f6aa26be6bbcf51dede126"
+      },
+      "registration_pointer": "/sources/0",
+      "assessed_ranges": [
+        [
+          180,
+          347
+        ]
+      ],
+      "output_chunks": [
+        "06f811"
+      ],
+      "body_output_truncated": false,
+      "fresh_personal_body_or_population_credit": 0,
+      "uncredited_assessed_lines": 168,
+      "attribution": "Root prospective bounded own-L2 source assessment; no inherited author relabelling or foreign-lens transfer."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-core/src/combat/targeting.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-core/src/combat/targeting.rs",
+        "source_sha256": "ef6af9c32d9abfa63057616b145b7777bcd39042472238e8966e73cbab202c08",
+        "source_object": "adler-continuation-20261030/objects/ef6af9c32d9abfa63057616b145b7777bcd39042472238e8966e73cbab202c08",
+        "bytes": 15755,
+        "actual_EOF": 427,
+        "ranges": [
+          [
+            1,
+            73
+          ],
+          [
+            174,
+            280
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 180
+      },
+      "registration": {
+        "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/REGISTRATION-ROOT-L2-CATALOG-SUPPORT-008.json",
+        "sha256": "195ac28f300e3eb415c395178e513de6223693ac22f6aa26be6bbcf51dede126"
+      },
+      "registration_pointer": "/sources/1",
+      "assessed_ranges": [
+        [
+          1,
+          73
+        ],
+        [
+          174,
+          280
+        ]
+      ],
+      "output_chunks": [
+        "71a182"
+      ],
+      "body_output_truncated": false,
+      "fresh_personal_body_or_population_credit": 0,
+      "uncredited_assessed_lines": 180,
+      "attribution": "Root prospective bounded own-L2 source assessment; no inherited author relabelling or foreign-lens transfer."
+    }
+  ],
+  "uncredited_body_read_lines": 348,
+  "scope_qualification": "Coverage180..187 production selector and189..347 tests; targeting1..73/174..280 only. Targeting74..173 and281..427 are not read or credited here. Targeting test fixture258..280 is a partial source excerpt, not a complete test review or execution.",
+  "source_adoption_performed": false,
+  "selected_l2_state_updated": false,
+  "product_execution": false,
+  "tests_executed": false,
+  "independent_agent_review": false,
+  "implementation_gate_complete": false
+}

@@ -1,0 +1,138 @@
+1: //! The GPU hair is grown and prepared on.
+2: //!
+3: //! The hair crate grooms on the GPU ([`GpuGroomer`]): a hundred thousand
+4: //! strands are a hundred thousand independent sweeps, which compute kernels
+5: //! run about ten times faster than every core of the CPU. Placing hair on a
+6: //! character runs there too: the character's body sampled as a distance
+7: //! field ([`field`]), the strands carried onto its head and draped on it
+8: //! ([`place`]), and the levels of detail kept clear of it, all colliding
+9: //! with the field as the hair crate's kernels collide with its mannequin. A
+10: //! studio grooms on the device it draws with, so that what is grown can be
+11: //! drawn from where it lies; an export or a test without a window opens a
+12: //! device of its own.
+13: 
+14: mod bake;
+15: mod field;
+16: mod place;
+17: mod strips;
+18: 
+19: use std::sync::{Arc, Mutex, MutexGuard, PoisonError};
+20: 
+21: use anyhow::Result;
+22: use fabelgeist_compute::{Kernel, KernelCache};
+23: use fabelgeist_gpu::globals::WgpuContext;
+24: use fabelgeist_gpu::prelude::{Buffer, BufferDefinition, BufferUpload};
+25: use fabelgeist_hair::gpu::{GpuGroomer, headless_context};
+26: 
+27: pub(crate) use bake::longest;
+28: pub use bake::{GpuScalpTexture, Level as ScalpLevel, ScalpTexture, levels as scalp_levels};
+29: pub(crate) use field::BodyField;
+30: pub(crate) use place::Draping;
+31: pub use strips::GpuGeometry;
+32: pub(crate) use strips::StripSource;
+33: 
+34: /// A kernel's parameters: buffers and values bound by name.
+35: pub(super) type Params = fabelgeist_gpu::data::gpu::parameters::PassParameters;
+36: 
+37: /// Parameters by name, as the hair crate's kernels bind theirs.
+38: macro_rules! params {
+39:     ($($key:literal => $value:expr),* $(,)?) => {{
+40:         #[allow(unused_mut)]
+41:         let mut p = $crate::hair::gpu::Params::new();
+42:         $(p.insert($key, $value);)*
+43:         p
+44:     }};
+45: }
+46: pub(super) use params;
+47: 
+48: /// The hair kernels on one device: the hair crate's groomer, and the
+49: /// kernels placing its hair on a character. Grooms take turns: one at a
+50: /// time records into the groomer's scratch buffers.
+51: pub struct HairGpu {
+52:     context: WgpuContext,
+53:     groomer: Mutex<GpuGroomer>,
+54:     field: field::FieldKernels,
+55:     place: place::PlaceKernels,
+56:     strips: strips::StripKernels,
+57:     bake: bake::BakeKernels,
+58: }
+59: 
+60: /// Compiles kernels for one device, each source once.
+61: pub(super) struct KernelSource {
+62:     context: WgpuContext,
+63:     cache: KernelCache,
+64: }
+65: 
+66: impl KernelSource {
+67:     pub(super) fn compile(&self, code: &str) -> Result<Arc<Kernel>> {
+68:         self.cache.get(&self.context, code)
+69:     }
+70: }
+71: 
+72: impl HairGpu {
+73:     /// The hair kernels compiled for `context`'s device.
+74:     pub fn new(context: WgpuContext) -> Result<Self> {
+75:         let source = KernelSource {
+76:             context: context.clone(),
+77:             cache: KernelCache::new(),
+78:         };
+79:         Ok(Self {
+80:             groomer: Mutex::new(GpuGroomer::new(context.clone())?),
+81:             field: field::FieldKernels::new(&source)?,
+82:             place: place::PlaceKernels::new(&source)?,
+83:             strips: strips::StripKernels::new(&source)?,
+84:             bake: bake::BakeKernels::new(&source)?,
+85:             context,
+86:         })
+87:     }
+88: 
+89:     /// The hair kernels on a device of their own, for work without a
+90:     /// window.
+91:     pub fn headless() -> Result<Self> {
+92:         Self::new(headless_context()?)
+93:     }
+94: 
+95:     /// The device the kernels run on.
+96:     pub(super) fn context(&self) -> &WgpuContext {
+97:         &self.context
+98:     }
+99: 
+100:     /// Wait, however long it takes, for everything submitted to the
+101:     /// kernels' device to finish: before letting go of a device of their
+102:     /// own, which waits for its work only so long, and on a busy GPU might
+103:     /// not long enough.
+104:     pub fn finish(&self) {
+105:         self.groomer().finish();
+106:     }
+107: 
+108:     /// The groomer, once no other groom is using it. A groom that panicked
+109:     /// leaves nothing a later one relies on: every groom sizes and clears
+110:     /// what it uses.
+111:     pub(super) fn groomer(&self) -> MutexGuard<'_, GpuGroomer> {
+112:         self.groomer.lock().unwrap_or_else(PoisonError::into_inner)
+113:     }
+114: }
+115: 
+116: /// A fresh storage buffer of `bytes`, never empty.
+117: pub(super) fn storage(context: &WgpuContext, bytes: u64, label: &str) -> Result<Buffer> {
+118:     Buffer::new(
+119:         context,
+120:         bytes.max(16).into(),
+121:         BufferDefinition::storage().with_label(label.into()),
+122:     )
+123: }
+124: 
+125: /// A storage buffer holding `data`, never empty.
+126: pub(crate) fn upload<T: bytemuck::NoUninit + Default>(
+127:     context: &WgpuContext,
+128:     data: &[T],
+129:     label: &str,
+130: ) -> Result<Buffer> {
+131:     let padding = [T::default(); 4];
+132:     let data = if data.is_empty() { &padding[..] } else { data };
+133:     Buffer::from_upload(
+134:         context,
+135:         BufferUpload::from_elements(data),
+136:         BufferDefinition::storage().with_label(label.into()),
+137:     )
+138: }

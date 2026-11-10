@@ -1,0 +1,140 @@
+1: //! Parsed domain states for flattened strategic persistence rows.
+2: //!
+3: //! SpacetimeDB rows remain flat for queryability. Callers should construct these
+4: //! types at the storage boundary so contradictory option/status combinations do
+5: //! not escape into reducer logic.
+6: 
+7: use std::fmt;
+8: 
+9: use adventuresim_world_schema::calendar::StrategicMinute;
+10: 
+11: pub mod vocabulary;
+12: 
+13: use crate::{case::ContractStatus, strategic_place::CaseSiteId};
+14: use vocabulary::{
+15:     CommitmentStatus, CommitmentTerminalReason, CourtshipKind, CourtshipSecrecyReason,
+16:     CourtshipStatus, CourtshipTerminalReason, HostileResolutionKind, MarriageStatus,
+17:     MissionAttemptStatus, PregnancyStatus,
+18: };
+19: 
+20: #[derive(Clone, Debug, PartialEq, Eq)]
+21: pub enum ContractState {
+22:     Offered,
+23:     Accepted {
+24:         party_id: String,
+25:         accepted_at: StrategicMinute,
+26:     },
+27:     ReadyToReport {
+28:         party_id: String,
+29:         accepted_at: StrategicMinute,
+30:     },
+31:     Paid {
+32:         party_id: String,
+33:         accepted_at: StrategicMinute,
+34:         paid_at: StrategicMinute,
+35:     },
+36:     Withdrawn {
+37:         prior_acceptance: Option<ContractAcceptance>,
+38:     },
+39: }
+40: 
+41: #[derive(Clone, Debug, PartialEq, Eq)]
+42: pub struct ContractAcceptance {
+43:     pub party_id: String,
+44:     pub accepted_at: StrategicMinute,
+45: }
+46: 
+47: impl ContractState {
+48:     pub fn parse(
+49:         status: ContractStatus,
+50:         party_id: Option<String>,
+51:         accepted_at: Option<StrategicMinute>,
+52:         paid_at: Option<StrategicMinute>,
+53:     ) -> Result<Self, StateParseError> {
+54:         match (status, party_id, accepted_at, paid_at) {
+55:             (ContractStatus::Offered, None, None, None) => Ok(Self::Offered),
+56:             (ContractStatus::Accepted, Some(party_id), Some(accepted_at), None) => {
+57:                 Ok(Self::Accepted {
+58:                     party_id,
+59:                     accepted_at,
+60:                 })
+61:             }
+62:             (ContractStatus::ReadyToReport, Some(party_id), Some(accepted_at), None) => {
+63:                 Ok(Self::ReadyToReport {
+64:                     party_id,
+65:                     accepted_at,
+66:                 })
+67:             }
+68:             (ContractStatus::Paid, Some(party_id), Some(accepted_at), Some(paid_at))
+69:                 if paid_at >= accepted_at =>
+70:             {
+71:                 Ok(Self::Paid {
+72:                     party_id,
+73:                     accepted_at,
+74:                     paid_at,
+75:                 })
+76:             }
+77:             (ContractStatus::Withdrawn, None, None, None) => Ok(Self::Withdrawn {
+78:                 prior_acceptance: None,
+79:             }),
+80:             (ContractStatus::Withdrawn, Some(party_id), Some(accepted_at), None) => {
+81:                 Ok(Self::Withdrawn {
+82:                     prior_acceptance: Some(ContractAcceptance {
+83:                         party_id,
+84:                         accepted_at,
+85:                     }),
+86:                 })
+87:             }
+88:             _ => Err(StateParseError(
+89:                 "contract status and lifecycle fields disagree",
+90:             )),
+91:         }
+92:     }
+93: }
+94: 
+95: #[derive(Clone, Debug, PartialEq, Eq)]
+96: pub struct MissionBinding {
+97:     pub case_site_id: CaseSiteId,
+98:     pub hostile_group_id: String,
+99: }
+100: 
+101: #[derive(Clone, Debug, PartialEq, Eq)]
+102: pub enum HostileResolution {
+103:     Defeated,
+104:     DrivenOff,
+105:     Surrendered,
+106:     Captured {
+107:         subject_id: String,
+108:         custody_version: CustodyVersion,
+109:     },
+110:     CaptureTargetKilled {
+111:         subject_id: String,
+112:     },
+113: }
+114: 
+115: #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+116: pub struct CustodyVersion(u32);
+117: 
+118: impl CustodyVersion {
+119:     pub fn new(version: u32) -> Self {
+120:         Self(version)
+121:     }
+122: 
+123:     pub fn get(self) -> u32 {
+124:         self.0
+125:     }
+126: }
+127: 
+128: #[derive(Clone, Debug, PartialEq, Eq)]
+129: pub enum MissionAttemptState {
+130:     Bound {
+131:         binding: Option<MissionBinding>,
+132:     },
+133:     Committed {
+134:         binding: Option<MissionBinding>,
+135:         resolution: HostileResolution,
+136:     },
+137:     Failed,
+138:     Cancelled,
+139: }
+140: 

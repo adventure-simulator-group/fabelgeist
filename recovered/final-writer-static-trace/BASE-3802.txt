@@ -1,0 +1,134 @@
+"""Adopt scoped loading/native source evidence without closing matrix cells."""
+import copy,hashlib,json,os,runpy,subprocess,sys,tarfile,tomllib
+from pathlib import Path
+from audit_progress_report_v1 import check_context,render,update,verify
+base=Path(__file__).resolve().parent;r=base.parent
+b=next(p for p in base.parents if (p/'crates/AGENTS.md').is_file());i=b/'target/726-intake-20261030'
+mode=sys.argv[1] if len(sys.argv)>1 else '--preflight';assert mode in {'--preflight','--apply','--verify'}
+def sha(d):return hashlib.sha256(d).hexdigest()
+def encode(d):return (json.dumps(d,indent=2)+'\n').encode()
+def load(p):return json.loads(p.read_bytes())
+def resolve(v):return (b if v['path'].startswith('target/') else r)/v['path']
+def ref(p,d=None):return dict(path=p.relative_to(r if p.is_relative_to(r) else b).as_posix(),sha256=sha(p.read_bytes() if d is None else d))
+def fullref(p,d=None):return dict(path=p.relative_to(b).as_posix(),sha256=sha(p.read_bytes() if d is None else d))
+def check(v):
+ p=resolve(v);assert sha(p.read_bytes())==v['sha256'],p.name;return p
+bp=base/'PROPOSAL-LOCK-RANGE-BATCH3802.json';bundle=load(bp)
+assert ref(Path(__file__))==bundle['validation_ruleset']
+observation=load(check(bundle['scoped_observation']));assert observation['source_qualification']==bundle['source_qualification'] and observation['whole_contract_closed'] is False
+archive=base/'LOCK-RANGE-BATCH3802-ARCHIVE'
+mutable={'current':i/'CURRENT.json','root':r/'CURRENT-ADLER.json','ledger':r/'evidence/continuation-segovb/ledger.json'}
+old_bytes={k:(archive/f'base-{k}.json' if mode=='--verify' else p).read_bytes() for k,p in mutable.items()};old={k:json.loads(v) for k,v in old_bytes.items()}
+for v in bundle['base_authority_snapshot']:
+ p=resolve(v);k=next((k for k,path in mutable.items() if path==p),None);assert sha(old_bytes[k] if k else p.read_bytes())==v['sha256']
+context=check_context(3802);before=load(check(old['current']['closure_queue']));q=copy.deepcopy(before)
+selected=check(old['current']['selected_lenses']);selected_bytes=selected.read_bytes()
+for lens in load(selected)['lenses']:check(lens['selected_state'])
+revision=bundle['selected_revision'];assert revision==old['current']['current_source']['selected_target']==old['root']['current_main_pin']
+def gitbody(rev,path):return subprocess.check_output(['git','show',rev+':'+path],cwd=b)
+receipt=load(check(bundle['source_qualification']));assert receipt['body_output_truncated'] is False and receipt['whole_contract_closed'] is False
+registrations={}
+for registration_ref in receipt['project_registrations']:
+ reg=load(check(registration_ref));assert 13 in reg['lenses'];registrations[registration_ref['path']]=reg
+ for row in reg['rows']:
+  data=gitbody(row['revision'],row['git_path']);assert sha(data)==row['source_sha256'] and len(data.splitlines())==row['actual_EOF']
+  assert resolve({'path':row['source_object']}).read_bytes()==data
+  assert all(1<=lo<=hi<=row['actual_EOF'] for lo,hi in row['prospective_ranges'])
+for obs in receipt['project_observations']:
+ row=registrations[obs['registration']['path']]['rows'][obs['row_index']]
+ assert obs['tool'] and all(1<=lo<=hi<=row['actual_EOF'] for lo,hi in obs['ranges'])
+ assert all(any(rl<=lo<=hi<=rh for rl,rh in row['prospective_ranges']) for lo,hi in obs['ranges'])
+locked={(p['name'],p['version']):p for p in tomllib.loads(gitbody(revision,'Cargo.lock').decode())['package']}
+for native_ref in receipt['native_registrations']:
+ native=load(check(native_ref));assert 13 in native['lenses']
+ for n,row in enumerate(native['rows']):
+  package=locked[(row['package'],row['version'])];assert package['checksum']==row['archive_checksum']
+  arc=Path.home()/'.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f'/(row['package']+'-'+row['version']+'.crate');assert sha(arc.read_bytes())==package['checksum']
+  with tarfile.open(arc,'r:gz') as tar:data=tar.extractfile(row['archive_member']).read()
+  assert sha(data)==row['source_sha256'] and len(data.splitlines())==row['actual_EOF'] and resolve({'path':row['source_object']}).read_bytes()==data
+for obs in receipt['native_observations']:
+ native=load(check(obs['registration']));row=native['rows'][obs['row_index']]
+ assert obs['tool'] and all(1<=lo<=hi<=row['actual_EOF'] for lo,hi in obs['ranges'])
+ assert all(any(rl<=lo<=hi<=rh for rl,rh in row['prospective_ranges']) for lo,hi in obs['ranges'])
+for installed_ref in receipt.get('installed_registrations',[]):
+ installed=load(check(installed_ref));assert installed['lenses']==[13]
+ for row in installed['rows']:
+  toolchain=Path.home()/'.rustup/toolchains'/row['toolchain'];source=toolchain/row['source_relative'];manifest=toolchain/'lib/rustlib/multirust-channel-manifest.toml';data=source.read_bytes()
+  assert sha(manifest.read_bytes())==row['installed_manifest_sha256'] and sha(data)==row['source_sha256'] and len(data.splitlines())==row['actual_EOF']
+  assert resolve({'path':row['source_object']}).read_bytes()==data
+  assert row['toolchain'].startswith(tomllib.loads(gitbody(revision,'rust-toolchain.toml').decode())['toolchain']['channel']+'-')
+for obs in receipt.get('installed_observations',[]):
+ installed=load(check(obs['registration']));row=installed['rows'][obs['row_index']]
+ assert obs['tool'] and all(any(rl<=lo<=hi<=rh for rl,rh in row['prospective_ranges']) for lo,hi in obs['ranges'])
+assert before['current_main_deltas'][2]['to_revision']==revision
+assert sum(bool(c.get('delta_closed')) for p in before['current_main_deltas'][2]['paths'] for c in p['per_lens'])==403
+assert sum(bool(c.get('delta_closed')) for p in before['current_main_deltas'][1]['paths'] for c in p['per_lens'])==767
+prior_entries=[]
+for item in bundle['named_contract_updates']:
+ entry=q['entries'][item['entry_index']];assert entry['contract_id']==item['contract_id'];prior_entries.append((item['entry_index'],copy.deepcopy(entry)))
+ view=load(check(item['view']));assert view['source_qualification']==bundle['source_qualification'] and view['whole_contract_closed'] is False
+ entry['granular_contract_views']=entry.get('granular_contract_views',[])+[view]
+ item_observation=load(check(view['scoped_observation']));assert item_observation['source_qualification']==bundle['source_qualification'] and item_observation['whole_contract_closed'] is False;decision_ref=item_observation['decision'];decision=load(check(decision_ref));assert entry['contract_id']==decision['contract_id'] and decision['selected_revision']==revision and decision['remote_main_at_check']==revision
+ for evidence_ref in [decision['policy'],*decision['evidence']]:check(evidence_ref)
+ for candidate in decision['explicit_alias_comparison']:assert before['entries'][candidate['entry_index']]['contract_id']==candidate['contract_id']
+ assert item['entry_index']==2291 and entry['lens']==13 and entry.get('kind')=='connected-contract-question' and entry.get('audit_discovery_closed') is False
+ entry['remaining_evidence']=entry.get('remaining_evidence',[])+decision['remaining_after_discovery']
+
+assert bundle['new_current_cells_closed']==0 and len(bundle['named_contract_updates'])==1
+assert {item['entry_index'] for item in bundle['named_contract_updates']}=={2291}
+q['metadata_qualifications'].append(dict(kind='current-baseline-range-source-evidence',bundle=ref(bp),current_cells_closed=0,new_body_credit=0,implementation_gate_complete=False))
+q.update(at=bundle['at'],predecessor=old['current']['closure_queue'])
+inverse=copy.deepcopy(q)
+for n,entry in prior_entries:inverse['entries'][n]=entry
+for k in ['metadata_qualifications','at','predecessor']:inverse[k]=before[k]
+assert inverse==before
+queue_path=r/'workflow-20261030/CLOSURE-QUEUE-4137.json';queue_data=encode(q);queue_ref=ref(queue_path,queue_data)
+new=copy.deepcopy(old);edits=[]
+def put(owner,keys,value):
+ obj=new[owner]
+ for k in keys[:-1]:obj=obj[k]
+ k=keys[-1];edits.append((owner,keys,k in obj,copy.deepcopy(obj.get(k))));obj[k]=value
+progress=dict(bundle=ref(bp),current_cells_closed=0,whole_canonical_cases_closed=0,new_body_credit=0,new_accepted_unique_count=0,implementation_gate_complete=False)
+put('ledger',['audit_workflow','closure_queue'],queue_ref)
+put('ledger',['audit_workflow','independent_current_cell_batches'],old['ledger']['audit_workflow'].get('independent_current_cell_batches',[])+[progress])
+ledger_data=encode(new['ledger']);put('root',['ledger_sha256'],sha(ledger_data));put('root',['at'],bundle['at']);put('root',['audit_workflow','closure_queue'],queue_ref);put('root',['latest_independent_current_cell_batch'],progress);root_data=encode(new['root'])
+cp=load(check(old['current']['preservation_checkpoint']));cp.update(at=bundle['at'],ledger=fullref(mutable['ledger'],ledger_data),selector=fullref(mutable['root'],root_data),closure_queue=queue_ref,predecessor=old['current']['preservation_checkpoint'],independent_current_cell_batch=progress)
+cp_path=i/'CHECKPOINT-3802.json';cp_data=encode(cp)
+outputs={queue_path:queue_data,mutable['ledger']:ledger_data,mutable['root']:root_data,cp_path:cp_data}
+vp=i/'VERIFICATION-LOCK-RANGE-BATCH3802.json';vd=encode(dict(schema='726-chunk-fade-source-verification-v1',status='pass',at=bundle['at'],bundle=ref(bp),expected_outputs=[ref(p,d) for p,d in outputs.items()],current_cells_closed=0,prior_delta_closed=767,new_delta_closed=403,exact_queue_inverse_verified=True,inverse_mutable_authorities_verified=True,all13_selected_states_preserved=True,new_body_credit=0,product_execution=False,implementation_gate_complete=False))
+for keys,value in [(['at'],bundle['at']),(['ledger'],fullref(mutable['ledger'],ledger_data)),(['selector'],fullref(mutable['root'],root_data)),(['closure_queue'],fullref(queue_path,queue_data)),(['preservation_checkpoint'],ref(cp_path,cp_data)),(['adoption_verification'],ref(vp,vd)),(['latest_independent_current_cell_batch'],progress),(['status'],'Checkpoint3802: Qualified partial terminal crossing boundaries.')]:put('current',keys,value)
+outputs[mutable['current']]=encode(new['current'])
+for owner,value in new.items():
+ inverse=copy.deepcopy(value)
+ for name,keys,exists,prior in reversed(edits):
+  if name!=owner:continue
+  obj=inverse
+  for k in keys[:-1]:obj=obj[k]
+  if exists:obj[keys[-1]]=prior
+  else:del obj[keys[-1]]
+ assert inverse==old[owner]
+expected_progress=copy.deepcopy(old['current']['progress']);expected_progress['closure_queue_entries_not_unique_findings']=len(q['entries']);assert selected.read_bytes()==selected_bytes and new['current']['progress']==expected_progress
+expected_source=old['current']['current_source']
+assert new['current']['current_source']==expected_source
+assert subprocess.check_output(['git','status','--porcelain'],cwd=b)==b''
+assert all(p.resolve().is_relative_to((b/'target').resolve()) for p in [*outputs,vp,archive])
+if mode!='--verify':assert not archive.exists() and not vp.exists() and all(not p.exists() for p in outputs if p not in mutable.values())
+if mode=='--preflight':
+ preview=copy.deepcopy(new['current']);preview['progress']['closure_queue_entries_not_unique_findings']=len(before['entries']);render(preview,3802,context,bundle['at']);print(json.dumps(dict(status='pass',mode=mode,writes=0)));sys.exit()
+def exclusive(p,d):
+ with p.open('xb') as f:f.write(d)
+if mode=='--apply':
+ assert all(p.read_bytes()==old_bytes[k] for k,p in mutable.items());archive.mkdir()
+ for k,data in old_bytes.items():exclusive(archive/f'base-{k}.json',data)
+ exclusive(archive/'inverse-edits.json',encode(edits));exclusive(archive/'prior-queue-entries.json',encode(prior_entries))
+ for p,data in outputs.items():
+  if p in mutable.values():
+   temp=archive/f'new-{p.name}';exclusive(temp,data);os.replace(temp,p)
+  else:exclusive(p,data)
+ exclusive(vp,vd);assert update()['checkpoint_number']==3802
+ # Public report is published by the incremental checkpoint workflow.
+else:
+ assert verify()['checkpoint_number']==3802
+ # Remote publication is verified separately by the incremental checkpoint workflow.
+assert all(p.read_bytes()==data for p,data in outputs.items()) and vp.read_bytes()==vd
+print(json.dumps(dict(status='pass',mode=mode,checkpoint=3802,new_cells_closed=0,implementation_gate_complete=False)))

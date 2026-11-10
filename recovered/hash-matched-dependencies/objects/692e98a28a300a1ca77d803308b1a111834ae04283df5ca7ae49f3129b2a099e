@@ -1,0 +1,36 @@
+{
+  "schema": "726-prospective-current-source-registration-v1",
+  "at": "2026-11-04T03:45:03.733067+00:00",
+  "lenses": [
+    11
+  ],
+  "purpose": "Trace CPU compliance owner and direct shell solver caller.",
+  "rows": [
+    {
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_path": "crates/fabelgeist-xpbd/src/dynamics/constraint.rs",
+      "source_sha256": "3a8f7b401dcd7f06e0373678542ef523772827884cbbf5a64d718201eea63228",
+      "actual_EOF": 40,
+      "source_object": "adler-continuation-20261030/objects/3a8f7b401dcd7f06e0373678542ef523772827884cbbf5a64d718201eea63228",
+      "prospective_ranges": [
+        [
+          1,
+          40
+        ]
+      ]
+    },
+    {
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_path": "crates/fabelgeist-shell/src/shell.rs",
+      "source_sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "actual_EOF": 408,
+      "source_object": "adler-continuation-20261030/objects/d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "prospective_ranges": [
+        [
+          1,
+          408
+        ]
+      ]
+    }
+  ]
+}

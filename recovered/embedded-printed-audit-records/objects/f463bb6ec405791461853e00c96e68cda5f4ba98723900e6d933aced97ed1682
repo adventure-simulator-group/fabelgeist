@@ -1,0 +1,19 @@
+{
+  "schema": "726-provisional-connected-repair-plan-v1",
+  "at": "2026-11-04T06:25:04.910046+00:00",
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-AI-PRECISION-L12-1481.json",
+    "sha256": "831d63435823b3201d0f7b8f8d45caac0c96acc0bf5aeed11ba83b570af73d8d"
+  },
+  "status": "required after complete audit",
+  "problem": "AI precision is retained as raw f32 while attack intent construction assumes finite precision.",
+  "constraints": [
+    "Share one dependency-neutral finite reported-precision owner between configuration and server authority.",
+    "Preserve acceptance of all finite values rather than imposing a unit interval.",
+    "Qualify deserialization, installation and direct mutation before choosing the complete admission boundary."
+  ],
+  "acceptance": [
+    "After audit cover non-finite rejection and finite values outside zero to one for both attack paths."
+  ],
+  "implementation_gate_complete": false
+}

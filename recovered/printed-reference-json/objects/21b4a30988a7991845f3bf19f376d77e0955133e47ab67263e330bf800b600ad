@@ -1,0 +1,58 @@
+{
+  "packet": {
+    "path": "adler-continuation-20261030/READ-ROOT-L13-1250-1252-001.json",
+    "sha256": "bc35366261dc6a1dc9d267e0d7dc194e6665271427e2f4c1caaabe109e7246a8"
+  },
+  "ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "2784808d220a85df23feb894d9e43d96f7a62c2ba141595610e1fab3cf165c85"
+  },
+  "selector": {
+    "path": "CURRENT-ADLER.json",
+    "sha256": "e376df19f243611fc24b22792d10a751ca2dcdf977b84903610483e1417fa133"
+  },
+  "queue": {
+    "path": "workflow-20261030/CLOSURE-QUEUE-112.json",
+    "sha256": "a8aab2a0dfe1b1c8b26a81a093a653010a122f1b2c011ddfd563df180ac6e3d8"
+  },
+  "selected_lenses": {
+    "path": "adler-continuation-20261030/SELECTED-LENSES-CONTINUATION-007.json",
+    "sha256": "942b5dd669fb1095594283edb79a08865433824b53fc7072c88cac94c3a79905"
+  },
+  "previous_state": {
+    "path": "segovb/STATE-L13-PARALLEL-315.json",
+    "sha256": "6c49bd8a477f7b3483d73c724be0e38cbe1ac219db1a1e3180834adbff174107"
+  },
+  "root_sequence": 316,
+  "queue_sequence": 113,
+  "next_selected_lenses_filename": "SELECTED-LENSES-CONTINUATION-008.json",
+  "prior_reuses": [
+    {
+      "adoption": {
+        "path": "segovb/READ-L13-PARALLEL-273.json",
+        "sha256": "f88c931e6283e2388b573121eb0ae058c0ca3cd89d48b9cf38d61040386cb3dc"
+      },
+      "original": 1250,
+      "pointer": "/connected/0",
+      "attribution": "Inherited independent Lens13 full-source evidence; apply once at ordered frontier, no root personal read."
+    },
+    {
+      "adoption": {
+        "path": "segovb/READ-L13-PARALLEL-274.json",
+        "sha256": "f7b35daf6366139046e6aefdb928353765b3e9f07f7eeb5c32b2420e8e31b867"
+      },
+      "original": 1251,
+      "pointer": "/connected/0",
+      "attribution": "Inherited independent Lens13 full-source evidence; apply once at ordered frontier, no root personal read."
+    },
+    {
+      "adoption": {
+        "path": "segovb/READ-L13-PARALLEL-311.json",
+        "sha256": "59cbd0e9c2ecf6f1e00f5f35c68da381a111e7491b68249beea96943b6d9794c"
+      },
+      "original": 1252,
+      "pointer": "/connected/0",
+      "attribution": "Inherited independent Lens13 full-source evidence; apply once at ordered frontier, no root personal read."
+    }
+  ]
+}

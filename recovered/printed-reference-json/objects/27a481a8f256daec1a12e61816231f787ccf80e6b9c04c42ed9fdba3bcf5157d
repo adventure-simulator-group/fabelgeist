@@ -1,0 +1,44 @@
+{
+  "at": "2026-11-02T17:49:50.041191+00:00",
+  "goal_status": "active",
+  "previous_goal_turn_classification": "no progress: user-requested report only; checkpoint483 revalidated before resuming safe source work.",
+  "current_goal_turn_classification": "progress:550 registered energy-owner source lines assessed; surface/attachment/energy bundle15rows1384uncredited lines adopted in checkpoint484 after strict zero-write preflight, exact source/registration/receipt cross-checks, inverse preservation of3mutable authorities and replay verification.",
+  "prior_progress": {
+    "path": "target/726-intake-20261030/NEXT-L2-PROGRESS-CP483-004.json",
+    "sha256": "5fad4bfcb6c3da3a45773088a2ac374d70e2a87bf79f689c05a088748cb736fb"
+  },
+  "bundle": {
+    "path": "adler-continuation-20261030/PROPOSAL-BUNDLE-ROOT-L2-ROLE-COMPARISONS-001.json",
+    "sha256": "75bc184d2308b6d156d3596ebfa03f18a22774c0d1ade9da81da5010284053eb"
+  },
+  "verification": {
+    "path": "target/726-intake-20261030/VERIFICATION-L2-ROLE-COMPARISONS-ADOPTION-001.json",
+    "sha256": "7c39de6b5f53c79f161c301c55aabf82ce05484742b9091a07c0fe3022e6d3a0"
+  },
+  "current": {
+    "path": "target/726-intake-20261030/CURRENT.json",
+    "sha256": "d45d7907c933153fa8d9c491088cea2102d432c2820f7903f756d6c6a93f0386"
+  },
+  "state": {
+    "path": "segovb/STATE-L2-EXT-CURRENT-018.json",
+    "sha256": "4122c64396209a276dbf395722485c380d8b097914cae6bd16cdb6449db7b347"
+  },
+  "canonical_checkpoint": 484,
+  "current_verifier": "adopt_l2_role_comparisons_v2.py --verify",
+  "historical_verifier_note": "CP483 verifier is valid against archived CP483 authority snapshot; do not run it against new live mutable authorities. CP484 verifier replays its own base snapshots.",
+  "preparation_corrections": {
+    "first_preparer": "prepare_l2_role_bundle_v1.py failed before any proposal or authority writes: surface qualification uses existing_owner_dispositions, not owner_comparisons. v2 explicitly selects the real field; original retained.",
+    "first_preflight": "adopt_l2_role_comparisons_v1.py preflight passed without writes; v2 preserves workspace-relative intake reference convention. v1 retained; only v2 applied."
+  },
+  "next_action": "Reconcile each original pending catalog-owner obligation against the now-adopted same-lens evidence, recording explicit historical-obligation-to-successor mappings. Start exact canonical queue identity comparisons for catalog selection/attachment/geometry/energy using operation and first failed contract, not titles/remedies. Do not reopen completed reads or leave resolved formal-adoption/unit questions presented as newly unread. Actual native producer/admission and alias questions remain pending until proved.",
+  "queue_entries_preserved": 3837,
+  "other_lens_selections_preserved": 12,
+  "source_cases_closed": 0,
+  "current_delta_cells_closed": 0,
+  "product_edits": false,
+  "product_execution": false,
+  "tests_executed": false,
+  "subagents_used": false,
+  "independent_agent_review": false,
+  "implementation_gate_complete": false
+}

@@ -1,0 +1,28 @@
+216: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+217: pub struct ChurchProgram {
+218:     pub liturgical_east: Direction,
+219:     pub nave_bays: u8,
+220:     pub transept_bays: u8,
+221:     pub choir_bays: u8,
+222:     pub apse_sides: u8,
+223:     pub aisles: u8,
+224:     pub bay_length_cells: u8,
+225:     pub nave_width_cells: u8,
+226:     pub aisle_width_cells: u8,
+227:     pub material: WallMaterialClass,
+228: }
+229: 
+230: impl ChurchProgram {
+231:     pub const URBAN_BRICK_BASILICA: Self = Self {
+232:         liturgical_east: Direction::East,
+233:         nave_bays: 4,
+234:         transept_bays: 1,
+235:         choir_bays: 2,
+236:         apse_sides: 5,
+237:         aisles: 3,
+238:         bay_length_cells: 3,
+239:         nave_width_cells: 4,
+240:         aisle_width_cells: 2,
+241:         material: WallMaterialClass::ButtressedChurchMasonry,
+242:     };
+243: }

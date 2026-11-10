@@ -1,0 +1,21 @@
+from pathlib import Path
+from datetime import datetime,timezone
+import json,hashlib,subprocess
+B=Path.cwd();W=B/'target/726-audit-continuation-20261030';R=W/'target/726-audit-adler-20261027';A=R/'adler-continuation-20261030';rev='33714256b6313ce86fdfbb534c54d92d024d7726'
+def sha(p):
+ with p.open('rb') as f:return hashlib.file_digest(f,'sha256').hexdigest()
+def ref(p):return {'path':p.relative_to(R).as_posix(),'sha256':sha(p)}
+lp=R/'evidence/continuation-segovb/ledger.json';assert sha(lp)=='bff7307e7ca533185aef0843fb72b5127f2a8e918ab63532ced0e64875e9fa2a';prefix='crates/adventuresim-tactical-client/src/'
+sets=[('001',[('tactical_scene_viewer_main.rs',[[1,206]]),('tactical_scene_viewer/building_review.rs',None),('tactical_scene_viewer/capture_state.rs',[[1,132]]),('tactical_scene_viewer.rs',[[129,145],[762,919],[1118,1200],[1240,1340],[1600,1665],[2420,2480],[3130,3160],[3655,3835],[4100,4126]])]),('002',[('tactical_scene_viewer/capture_resolution.rs',None),('tactical_scene_viewer/furniture_readiness.rs',None),('tactical_scene_viewer/fixed_city_cameras.rs',None),('tactical_scene_viewer/city_capture.rs',[[1,80]]),('tactical_scene_viewer/furniture_capture.rs',[[1,100]]),('tactical_scene_viewer/interior_capture.rs',[[1,80]]),('tactical_scene_viewer/interior_furniture_capture.rs',[[200,265]]),('tactical_scene_viewer/interior_furniture_capture/catalog.rs',[[1,35]]),('tactical_scene_viewer/manifest.rs',[[215,430]])])]
+for suffix,paths in sets:
+ stem='ROOT-L12-CAPTURE-PROFILE-OWNERS-'+suffix;sources=[];total=0
+ for path,ranges in paths:
+  path=prefix+path;raw=subprocess.check_output(['git','show',rev+':'+path],cwd=W);digest=hashlib.sha256(raw).hexdigest();obj=A/'objects'/digest
+  if obj.exists():assert obj.read_bytes()==raw
+  else:
+   with obj.open('xb') as f:f.write(raw)
+  eof=len(raw.splitlines());ranges=ranges or [[1,eof]];assert max(hi for lo,hi in ranges)<=eof
+  count=sum(hi-lo+1 for lo,hi in ranges);total+=count;sources.append({'source_id':'current-337:'+path,'revision':rev,'git_path':path,'source_sha256':digest,'source_object':obj.relative_to(R).as_posix(),'bytes':len(raw),'actual_EOF':eof,'ranges':ranges,'fresh_personal_body_reads_registered':[],'fresh_personal_lines_registered':0,'uncredited_assessment_lines_registered':count,'prior_body_join':'No new freshness/reuse/population/unique credit requested; original authors and other lens views remain intact.'})
+ p=A/('REGISTRATION-'+stem+'.json');d={'schema':'726-root-l12-prospective-source-registration-v1','registered_at':datetime.now(timezone.utc).isoformat(),'author':'/root','lens':12,'prospective':True,'base_ledger':ref(lp),'sources':sources,'fresh_lines_registered':0,'uncredited_total_source_lines_registered':total,'purpose':'Q3714 actual CaptureProfile native CLI producer through selection/setup/SceneCaptureState/semantic mode consumers/JSON report and readiness/resolution/helper ports. Keep profiler output text, filesystem names, requested view admission and native document payloads distinct; no global closure or transfer of L13 verdict.'}
+ with p.open('x',encoding='utf-8',newline='\n') as f:f.write(json.dumps(d,indent=2)+'\n')
+ print(json.dumps({'registration':ref(p),'uncredited_lines':total,'sources':[{'n':n,'path':s['git_path'],'ranges':s['ranges'],'sha':s['source_sha256']} for n,s in enumerate(sources)]}))

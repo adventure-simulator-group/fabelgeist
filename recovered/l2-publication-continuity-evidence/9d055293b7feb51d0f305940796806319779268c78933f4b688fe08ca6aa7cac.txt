@@ -1,0 +1,23 @@
+"""Publication successor that requires and publishes the human progress report.
+
+The original backend stays byte-identical for historical replay. New adoption
+callers use this successor so a checkpoint cannot finish without its report.
+"""
+from datetime import datetime, timezone
+from audit_l2_publication_v1 import Publication as EvidencePublication
+from audit_progress_report_v1 import check_context, render, update, verify
+
+class Publication(EvidencePublication):
+    def publish(self,**kwargs):
+        number=kwargs["checkpoint"]
+        context=check_context(number)
+        super().publish(**kwargs)
+        if self.mode=="--preflight":
+            # Render the prospective checkpoint without writing any report files.
+            render(self.new["current"],number,context,datetime.now(timezone.utc).isoformat())
+        elif self.mode=="--apply":
+            state=update()
+            assert state["checkpoint_number"]==number
+        else:
+            state=verify()
+            assert state["checkpoint_number"]==number

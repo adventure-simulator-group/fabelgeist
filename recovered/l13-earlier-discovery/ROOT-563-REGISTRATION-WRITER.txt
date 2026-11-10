@@ -1,0 +1,54 @@
+from pathlib import Path
+import json,hashlib,subprocess
+from datetime import datetime,timezone
+repo=Path.cwd(); w=repo/'target/726-audit-continuation-20261030'; r=w/'target/726-audit-adler-20261027'; a=r/'adler-continuation-20261030'
+def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
+registry=r/'evidence/audit05/original-scope-072.json'
+assert sha(registry)=='d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f'
+rows=json.loads(registry.read_text())['files'][2058:2061]
+hashes=[row['sha256'] for row in rows]
+def resolve(p,h):
+    candidates={x.resolve() for x in [r/p,r/'evidence/continuation-segovb'/p,w/p] if x.is_file() and sha(x)==h}
+    assert len(candidates)==1,(p,h)
+    return candidates.pop()
+def getref(state,key):
+    value=state[key]
+    return (value['path'],value['sha256']) if isinstance(value,dict) else (value,state[key+'_sha256'])
+state=json.loads((r/'segovb/STATE-L13-PARALLEL-562.json').read_text()); count=0; hits=[]
+while True:
+    rp,rh=getref(state,'receipt'); receipt=resolve(rp,rh); raw=receipt.read_bytes(); count+=1
+    for h in hashes:
+        if h.encode() in raw: hits.append({'receipt':rp,'sha256':h})
+    pp,ph=getref(state,'predecessor'); predecessor=resolve(pp,ph)
+    if predecessor.name=='STATE-062-proposal.json': break
+    state=json.loads(predecessor.read_text())
+assert count==562 and not hits,(count,hits)
+future=[]
+def walk(value):
+    if isinstance(value,dict):
+        for k,v in value.items():
+            if k=='future_same_lens_reuse_proofs':
+                encoded=json.dumps(v)
+                future.extend(h for h in hashes if h in encoded)
+            walk(v)
+    elif isinstance(value,list):
+        for v in value: walk(v)
+for path in [r/'CURRENT-ADLER.json',r/'evidence/continuation-segovb/ledger.json']: walk(json.loads(path.read_text()))
+assert not future,future
+sources=[]
+revision='6533e444fa37552927070cc8d8190907fd3b413e'
+for n,row in enumerate(rows,2058):
+    body=subprocess.check_output(['git','show',revision+':'+row['source_id'].split(':',1)[1]])
+    assert hashlib.sha256(body).hexdigest()==row['sha256']
+    if 'bytes' in row: assert len(body)==row['bytes']
+    if 'actual_line_count' in row: assert len(body.splitlines())==row['actual_line_count']
+    obj=a/'objects'/row['sha256']
+    if obj.exists(): assert obj.read_bytes()==body
+    else:
+        with obj.open('xb') as f:f.write(body)
+    eof=len(body.splitlines())
+    sources.append({'original':n,'source_id':row['source_id'],'sha256':row['sha256'],'actual_eof':eof,'object_path':obj.relative_to(w).as_posix(),'source_revision':revision,'prospective_ranges':[[1,eof]],'purpose':'Full Lens13 iteration logging review; actual event/clock/condition joins, finite observation admission and diagnostic publication. No code or tests executed.'})
+registration={'lens':13,'at':datetime.now(timezone.utc).isoformat(),'author':'/root','status':'prospective-before-source-body-read','authority_changes':0,'product_execution':False,'source_credit_from_materialization':0,'prior_same_lens_receipts_checked':count,'exact_hash_prior_hits':hits,'future_same_lens_proof_hits':future,'sources':sources}
+out=a/'REGISTRATION-ROOT-L13-2058-2060-001.json'
+with out.open('x',encoding='utf-8',newline='\n') as f:json.dump(registration,f,indent=2);f.write('\n')
+print(json.dumps({'registration_sha256':sha(out),'sources':sources}))

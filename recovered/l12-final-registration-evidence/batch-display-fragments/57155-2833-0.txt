@@ -1,0 +1,200 @@
+1: use super::WitnessPath;
+2: use fabelgeist_determinism::{DeterministicRng, Seed};
+3: use serde::{Deserialize, Serialize};
+4: 
+5: use super::{
+6:     LogicGridProjection, LogicGridPuzzle, LogicGridSpec, OrderedSigilProjection,
+7:     OrderedSigilPuzzle, OrderedSigilSpec, OrderedSigilSubmission, ProvisionId,
+8:     ResourceAllocationProjection, ResourceAllocationPuzzle, ResourceAllocationSpec, Sigil,
+9: };
+10: 
+11: pub const TRUTHFUL_WITNESS_RULES_VERSION: u16 = 3;
+12: pub const RUNE_TRANSFORMATION_RULES_VERSION: u16 = 4;
+13: 
+14: #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+15: pub enum PuzzleKind {
+16:     OrderedSigils,
+17:     TruthfulWitnesses,
+18:     RuneTransformation,
+19:     LogicGrid,
+20:     ResourceAllocation,
+21: }
+22: 
+23: impl PuzzleKind {
+24:     pub const ALL: [Self; 5] = [
+25:         Self::OrderedSigils,
+26:         Self::TruthfulWitnesses,
+27:         Self::RuneTransformation,
+28:         Self::LogicGrid,
+29:         Self::ResourceAllocation,
+30:     ];
+31: 
+32:     pub const fn slug(self) -> &'static str {
+33:         match self {
+34:             Self::OrderedSigils => "ordered-sigils",
+35:             Self::TruthfulWitnesses => "truthful-witnesses",
+36:             Self::RuneTransformation => "rune-transformation",
+37:             Self::LogicGrid => "logic-grid",
+38:             Self::ResourceAllocation => "resource-allocation",
+39:         }
+40:     }
+41: 
+42:     pub fn from_slug(value: &str) -> Option<Self> {
+43:         Self::ALL.into_iter().find(|kind| kind.slug() == value)
+44:     }
+45: }
+46: 
+47: #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+48: pub struct GenerationRequest {
+49:     pub seed: Seed,
+50:     pub spec: PuzzleSpec,
+51: }
+52: 
+53: #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+54: #[serde(tag = "kind", content = "parameters", rename_all = "snake_case")]
+55: pub enum PuzzleSpec {
+56:     OrderedSigils(OrderedSigilSpec),
+57:     TruthfulWitnesses(TruthfulWitnessSpec),
+58:     RuneTransformation(RuneTransformationSpec),
+59:     LogicGrid(LogicGridSpec),
+60:     ResourceAllocation(ResourceAllocationSpec),
+61: }
+62: 
+63: impl PuzzleSpec {
+64:     pub const fn kind(&self) -> PuzzleKind {
+65:         match self {
+66:             Self::OrderedSigils(_) => PuzzleKind::OrderedSigils,
+67:             Self::TruthfulWitnesses(_) => PuzzleKind::TruthfulWitnesses,
+68:             Self::RuneTransformation(_) => PuzzleKind::RuneTransformation,
+69:             Self::LogicGrid(_) => PuzzleKind::LogicGrid,
+70:             Self::ResourceAllocation(_) => PuzzleKind::ResourceAllocation,
+71:         }
+72:     }
+73: 
+74:     pub fn standard(kind: PuzzleKind) -> Self {
+75:         match kind {
+76:             PuzzleKind::OrderedSigils => Self::OrderedSigils(OrderedSigilSpec::default()),
+77:             PuzzleKind::TruthfulWitnesses => {
+78:                 Self::TruthfulWitnesses(TruthfulWitnessSpec::default())
+79:             }
+80:             PuzzleKind::RuneTransformation => {
+81:                 Self::RuneTransformation(RuneTransformationSpec::default())
+82:             }
+83:             PuzzleKind::LogicGrid => Self::LogicGrid(LogicGridSpec::default()),
+84:             PuzzleKind::ResourceAllocation => {
+85:                 Self::ResourceAllocation(ResourceAllocationSpec::default())
+86:             }
+87:         }
+88:     }
+89: }
+90: 
+91: #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+92: #[serde(tag = "kind", content = "puzzle", rename_all = "snake_case")]
+93: pub enum PuzzleAuthority {
+94:     OrderedSigils(OrderedSigilPuzzle),
+95:     TruthfulWitnesses(TruthfulWitnessPuzzle),
+96:     RuneTransformation(RuneTransformationPuzzle),
+97:     LogicGrid(LogicGridPuzzle),
+98:     ResourceAllocation(ResourceAllocationPuzzle),
+99: }
+100: 
+101: #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+102: #[serde(tag = "kind", content = "puzzle", rename_all = "snake_case")]
+103: pub enum PuzzleProjection {
+104:     OrderedSigils(OrderedSigilProjection),
+105:     TruthfulWitnesses(TruthfulWitnessProjection),
+106:     RuneTransformation(RuneTransformationProjection),
+107:     LogicGrid(LogicGridProjection),
+108:     ResourceAllocation(ResourceAllocationProjection),
+109: }
+110: 
+111: impl PuzzleProjection {
+112:     pub const fn kind(&self) -> PuzzleKind {
+113:         match self {
+114:             Self::OrderedSigils(_) => PuzzleKind::OrderedSigils,
+115:             Self::TruthfulWitnesses(_) => PuzzleKind::TruthfulWitnesses,
+116:             Self::RuneTransformation(_) => PuzzleKind::RuneTransformation,
+117:             Self::LogicGrid(_) => PuzzleKind::LogicGrid,
+118:             Self::ResourceAllocation(_) => PuzzleKind::ResourceAllocation,
+119:         }
+120:     }
+121: }
+122: 
+123: #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+124: #[serde(tag = "kind", content = "answer", rename_all = "snake_case")]
+125: pub enum PuzzleSubmission {
+126:     OrderedSigils {
+127:         ordering: [Sigil; 5],
+128:     },
+129:     TruthfulWitnesses {
+130:         safe_path: WitnessPath,
+131:     },
+132:     RuneTransformation {
+133:         result: Sigil,
+134:     },
+135:     LogicGrid {
+136:         assignments: Vec<crate::LogicGridAssignment>,
+137:     },
+138:     ResourceAllocation {
+139:         provisions: Vec<ProvisionId>,
+140:     },
+141: }
+142: 
+143: impl PuzzleSubmission {
+144:     pub const fn kind(&self) -> PuzzleKind {
+145:         match self {
+146:             Self::OrderedSigils { .. } => PuzzleKind::OrderedSigils,
+147:             Self::TruthfulWitnesses { .. } => PuzzleKind::TruthfulWitnesses,
+148:             Self::RuneTransformation { .. } => PuzzleKind::RuneTransformation,
+149:             Self::LogicGrid { .. } => PuzzleKind::LogicGrid,
+150:             Self::ResourceAllocation { .. } => PuzzleKind::ResourceAllocation,
+151:         }
+152:     }
+153: }
+154: 
+155: #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+156: pub enum PuzzleSubmissionError {
+157:     WrongKind,
+158:     Malformed,
+159: }
+160: 
+161: impl PuzzleAuthority {
+162:     pub fn generate(kind: PuzzleKind, seed: Seed) -> Self {
+163:         Self::generate_request(GenerationRequest {
+164:             seed,
+165:             spec: PuzzleSpec::standard(kind),
+166:         })
+167:         .expect("standard puzzle specification is valid")
+168:     }
+169: 
+170:     pub fn generate_request(request: GenerationRequest) -> Result<Self, &'static str> {
+171:         let seed = request.seed;
+172:         Ok(match request.spec {
+173:             PuzzleSpec::OrderedSigils(spec) => {
+174:                 Self::OrderedSigils(OrderedSigilPuzzle::generate_with_spec(seed, spec)?)
+175:             }
+176:             PuzzleSpec::TruthfulWitnesses(spec) => {
+177:                 Self::TruthfulWitnesses(TruthfulWitnessPuzzle::generate_with_spec(seed, spec)?)
+178:             }
+179:             PuzzleSpec::RuneTransformation(spec) => {
+180:                 Self::RuneTransformation(RuneTransformationPuzzle::generate_with_spec(seed, spec)?)
+181:             }
+182:             PuzzleSpec::LogicGrid(spec) => {
+183:                 Self::LogicGrid(LogicGridPuzzle::generate_with_spec(seed, spec)?)
+184:             }
+185:             PuzzleSpec::ResourceAllocation(spec) => {
+186:                 Self::ResourceAllocation(ResourceAllocationPuzzle::generate_with_spec(seed, spec)?)
+187:             }
+188:         })
+189:     }
+190: 
+191:     pub fn standard_request(kind: PuzzleKind, seed: Seed) -> GenerationRequest {
+192:         GenerationRequest {
+193:             seed,
+194:             spec: PuzzleSpec::standard(kind),
+195:         }
+196:     }
+197: 
+198:     pub fn generation_request(&self) -> GenerationRequest {
+199:         match self {
+200:             Self::OrderedSigils(puzzle) => GenerationRequest {

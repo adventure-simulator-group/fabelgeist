@@ -1,0 +1,608 @@
+{
+  "schema": "726-exact2709-2714-admission-registration-v1",
+  "at": "2026-11-01T20:11:44.009730+00:00",
+  "author": "/root",
+  "lens": 13,
+  "status": "Prospective exact volumetric/fixture/locomotion/terrain admission roles:335fresh and56prior lines,391material; no seeding or native execution",
+  "authority_changes": 0,
+  "product_execution": false,
+  "body_credit": 0,
+  "sources": [
+    {
+      "original": 2709,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/volumetric.rs",
+      "sha256": "91cc6773da28100f122fbaa19b7bbc9a258f808a68f09e61f199d880652266b0",
+      "actual_eof": 280,
+      "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/91cc6773da28100f122fbaa19b7bbc9a258f808a68f09e61f199d880652266b0",
+      "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/91cc6773da28100f122fbaa19b7bbc9a258f808a68f09e61f199d880652266b0",
+      "prospective_ranges": [
+        [
+          1,
+          206
+        ]
+      ],
+      "revision_qualification": "Exact recorded native prefix/snapshot/path; archivef82 transport only, literal frozenPR join only where independently checked, no current semantic transfer.",
+      "purpose": "Six volumetric/fixture/locomotion/terrain roles391material,335fresh/56priorread; fixture writer source only, no seeding or native execution."
+    },
+    {
+      "original": 2710,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+      "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "actual_eof": 50,
+      "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "prospective_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "revision_qualification": "Exact recorded native prefix/snapshot/path; archivef82 transport only, literal frozenPR join only where independently checked, no current semantic transfer.",
+      "purpose": "Six volumetric/fixture/locomotion/terrain roles391material,335fresh/56priorread; fixture writer source only, no seeding or native execution."
+    },
+    {
+      "original": 2711,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+      "actual_eof": 267,
+      "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+      "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+      "prospective_ranges": [
+        [
+          88,
+          92
+        ]
+      ],
+      "revision_qualification": "Exact recorded native prefix/snapshot/path; archivef82 transport only, literal frozenPR join only where independently checked, no current semantic transfer.",
+      "purpose": "Six volumetric/fixture/locomotion/terrain roles391material,335fresh/56priorread; fixture writer source only, no seeding or native execution."
+    },
+    {
+      "original": 2712,
+      "source_id": "pr-working:crates/adventuresim-terrain/src/terrain_feature.rs",
+      "sha256": "6a6dfd572ca9979a848a5ce84711bace83217c58b2725218a77475f13e3b81ae",
+      "actual_eof": 51,
+      "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/6a6dfd572ca9979a848a5ce84711bace83217c58b2725218a77475f13e3b81ae",
+      "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/6a6dfd572ca9979a848a5ce84711bace83217c58b2725218a77475f13e3b81ae",
+      "prospective_ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "revision_qualification": "Exact recorded native prefix/snapshot/path; archivef82 transport only, literal frozenPR join only where independently checked, no current semantic transfer.",
+      "purpose": "Six volumetric/fixture/locomotion/terrain roles391material,335fresh/56priorread; fixture writer source only, no seeding or native execution."
+    },
+    {
+      "original": 2713,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/terrain_feature.rs",
+      "sha256": "0e27249f12fa5c9007dcb4fc1bc99d1b0106a6b741d0ae6b4078e3078825b36a",
+      "actual_eof": 43,
+      "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/0e27249f12fa5c9007dcb4fc1bc99d1b0106a6b741d0ae6b4078e3078825b36a",
+      "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/0e27249f12fa5c9007dcb4fc1bc99d1b0106a6b741d0ae6b4078e3078825b36a",
+      "prospective_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "revision_qualification": "Exact recorded native prefix/snapshot/path; archivef82 transport only, literal frozenPR join only where independently checked, no current semantic transfer.",
+      "purpose": "Six volumetric/fixture/locomotion/terrain roles391material,335fresh/56priorread; fixture writer source only, no seeding or native execution."
+    },
+    {
+      "original": 2714,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/geologic_window.rs",
+      "sha256": "371180d1fdfd5e93061a55a884f3bbf816db1e853a49f81540f215c4f9c3e2b3",
+      "actual_eof": 36,
+      "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/371180d1fdfd5e93061a55a884f3bbf816db1e853a49f81540f215c4f9c3e2b3",
+      "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/371180d1fdfd5e93061a55a884f3bbf816db1e853a49f81540f215c4f9c3e2b3",
+      "prospective_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "revision_qualification": "Exact recorded native prefix/snapshot/path; archivef82 transport only, literal frozenPR join only where independently checked, no current semantic transfer.",
+      "purpose": "Six volumetric/fixture/locomotion/terrain roles391material,335fresh/56priorread; fixture writer source only, no seeding or native execution."
+    }
+  ],
+  "fresh_lines_registered": 335,
+  "prior_material_lines_reused": 56,
+  "prior_same_lens_receipts_checked": 714,
+  "valid_nested_range_fields": [
+    {
+      "pointer": "/files/2709/material_ranges",
+      "raw_value": [
+        [
+          1,
+          206
+        ]
+      ],
+      "actual_eof": 280
+    },
+    {
+      "pointer": "/files/2709/admission03_scope_observations/0/original_record/ranges",
+      "raw_value": [
+        [
+          1,
+          207
+        ]
+      ],
+      "actual_eof": 280
+    },
+    {
+      "pointer": "/files/2709/admission03_scope_observations/0/local_qualifications/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          206
+        ]
+      ],
+      "actual_eof": 280
+    },
+    {
+      "pointer": "/files/2709/admission03_scope_observations/0/local_qualifications/0/context_excluded",
+      "raw_value": [
+        [
+          207,
+          207
+        ]
+      ],
+      "actual_eof": 280
+    },
+    {
+      "pointer": "/files/2709/admission03_scope_observations/0/local_qualifications/0/original_qualification/prospective_registered_ranges",
+      "raw_value": [
+        [
+          1,
+          207
+        ]
+      ],
+      "actual_eof": 280
+    },
+    {
+      "pointer": "/files/2709/admission03_scope_observations/0/local_qualifications/0/original_qualification/actual_material_ranges",
+      "raw_value": [
+        [
+          1,
+          206
+        ]
+      ],
+      "actual_eof": 280
+    },
+    {
+      "pointer": "/files/2709/admission03_scope_observations/0/local_qualifications/0/original_qualification/context_or_blank_no_material_credit",
+      "raw_value": [
+        [
+          207,
+          207
+        ]
+      ],
+      "actual_eof": 280
+    },
+    {
+      "pointer": "/files/2709/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          206
+        ]
+      ],
+      "actual_eof": 280
+    },
+    {
+      "pointer": "/files/2710/material_ranges",
+      "raw_value": [
+        [
+          1,
+          50
+        ]
+      ],
+      "actual_eof": 50
+    },
+    {
+      "pointer": "/files/2710/admission03_scope_observations/0/original_record/ranges",
+      "raw_value": [
+        [
+          1,
+          50
+        ]
+      ],
+      "actual_eof": 50
+    },
+    {
+      "pointer": "/files/2710/admission03_scope_observations/0/local_qualifications/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          50
+        ]
+      ],
+      "actual_eof": 50
+    },
+    {
+      "pointer": "/files/2710/admission03_scope_observations/0/local_qualifications/0/original_qualification/prospective_registered_ranges",
+      "raw_value": [
+        [
+          1,
+          50
+        ]
+      ],
+      "actual_eof": 50
+    },
+    {
+      "pointer": "/files/2710/admission03_scope_observations/0/local_qualifications/0/original_qualification/actual_material_ranges",
+      "raw_value": [
+        [
+          1,
+          50
+        ]
+      ],
+      "actual_eof": 50
+    },
+    {
+      "pointer": "/files/2710/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          50
+        ]
+      ],
+      "actual_eof": 50
+    },
+    {
+      "pointer": "/files/2711/material_ranges",
+      "raw_value": [
+        [
+          88,
+          92
+        ]
+      ],
+      "actual_eof": 267
+    },
+    {
+      "pointer": "/files/2711/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          88,
+          94
+        ]
+      ],
+      "actual_eof": 267
+    },
+    {
+      "pointer": "/files/2711/admission03_scope_observations/0/local_qualifications/0/registered_requested_ranges",
+      "raw_value": [
+        [
+          88,
+          94
+        ]
+      ],
+      "actual_eof": 267
+    },
+    {
+      "pointer": "/files/2711/admission03_scope_observations/0/local_qualifications/0/qualified_material_ranges",
+      "raw_value": [
+        [
+          88,
+          92
+        ]
+      ],
+      "actual_eof": 267
+    },
+    {
+      "pointer": "/files/2711/admission03_scope_observations/0/local_qualifications/0/context_or_excluded_within_registration",
+      "raw_value": [
+        [
+          93,
+          94
+        ]
+      ],
+      "actual_eof": 267
+    },
+    {
+      "pointer": "/files/2711/admission03_scope_observations/0/local_qualifications/0/original_registration/material_ranges",
+      "raw_value": [
+        [
+          88,
+          94
+        ]
+      ],
+      "actual_eof": 267
+    },
+    {
+      "pointer": "/files/2711/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/original_registration/material_ranges",
+      "raw_value": [
+        [
+          88,
+          94
+        ]
+      ],
+      "actual_eof": 267
+    },
+    {
+      "pointer": "/files/2711/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/qualified_material_ranges",
+      "raw_value": [
+        [
+          88,
+          92
+        ]
+      ],
+      "actual_eof": 267
+    },
+    {
+      "pointer": "/files/2711/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          88,
+          92
+        ]
+      ],
+      "actual_eof": 267
+    },
+    {
+      "pointer": "/files/2712/material_ranges",
+      "raw_value": [
+        [
+          1,
+          51
+        ]
+      ],
+      "actual_eof": 51
+    },
+    {
+      "pointer": "/files/2712/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          51
+        ]
+      ],
+      "actual_eof": 51
+    },
+    {
+      "pointer": "/files/2712/admission03_scope_observations/0/local_qualifications/0/registered_requested_ranges",
+      "raw_value": [
+        [
+          1,
+          51
+        ]
+      ],
+      "actual_eof": 51
+    },
+    {
+      "pointer": "/files/2712/admission03_scope_observations/0/local_qualifications/0/qualified_material_ranges",
+      "raw_value": [
+        [
+          1,
+          51
+        ]
+      ],
+      "actual_eof": 51
+    },
+    {
+      "pointer": "/files/2712/admission03_scope_observations/0/local_qualifications/0/original_registration/material_ranges",
+      "raw_value": [
+        [
+          1,
+          51
+        ]
+      ],
+      "actual_eof": 51
+    },
+    {
+      "pointer": "/files/2712/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/original_registration/material_ranges",
+      "raw_value": [
+        [
+          1,
+          51
+        ]
+      ],
+      "actual_eof": 51
+    },
+    {
+      "pointer": "/files/2712/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/qualified_material_ranges",
+      "raw_value": [
+        [
+          1,
+          51
+        ]
+      ],
+      "actual_eof": 51
+    },
+    {
+      "pointer": "/files/2712/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          51
+        ]
+      ],
+      "actual_eof": 51
+    },
+    {
+      "pointer": "/files/2713/material_ranges",
+      "raw_value": [
+        [
+          1,
+          43
+        ]
+      ],
+      "actual_eof": 43
+    },
+    {
+      "pointer": "/files/2713/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          43
+        ]
+      ],
+      "actual_eof": 43
+    },
+    {
+      "pointer": "/files/2713/admission03_scope_observations/0/local_qualifications/0/registered_requested_ranges",
+      "raw_value": [
+        [
+          1,
+          43
+        ]
+      ],
+      "actual_eof": 43
+    },
+    {
+      "pointer": "/files/2713/admission03_scope_observations/0/local_qualifications/0/qualified_material_ranges",
+      "raw_value": [
+        [
+          1,
+          43
+        ]
+      ],
+      "actual_eof": 43
+    },
+    {
+      "pointer": "/files/2713/admission03_scope_observations/0/local_qualifications/0/original_registration/material_ranges",
+      "raw_value": [
+        [
+          1,
+          43
+        ]
+      ],
+      "actual_eof": 43
+    },
+    {
+      "pointer": "/files/2713/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/original_registration/material_ranges",
+      "raw_value": [
+        [
+          1,
+          43
+        ]
+      ],
+      "actual_eof": 43
+    },
+    {
+      "pointer": "/files/2713/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/qualified_material_ranges",
+      "raw_value": [
+        [
+          1,
+          43
+        ]
+      ],
+      "actual_eof": 43
+    },
+    {
+      "pointer": "/files/2713/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          43
+        ]
+      ],
+      "actual_eof": 43
+    },
+    {
+      "pointer": "/files/2714/material_ranges",
+      "raw_value": [
+        [
+          1,
+          36
+        ]
+      ],
+      "actual_eof": 36
+    },
+    {
+      "pointer": "/files/2714/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          36
+        ]
+      ],
+      "actual_eof": 36
+    },
+    {
+      "pointer": "/files/2714/admission03_scope_observations/0/local_qualifications/0/registered_requested_ranges",
+      "raw_value": [
+        [
+          1,
+          36
+        ]
+      ],
+      "actual_eof": 36
+    },
+    {
+      "pointer": "/files/2714/admission03_scope_observations/0/local_qualifications/0/qualified_material_ranges",
+      "raw_value": [
+        [
+          1,
+          36
+        ]
+      ],
+      "actual_eof": 36
+    },
+    {
+      "pointer": "/files/2714/admission03_scope_observations/0/local_qualifications/0/original_registration/material_ranges",
+      "raw_value": [
+        [
+          1,
+          36
+        ]
+      ],
+      "actual_eof": 36
+    },
+    {
+      "pointer": "/files/2714/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/original_registration/material_ranges",
+      "raw_value": [
+        [
+          1,
+          36
+        ]
+      ],
+      "actual_eof": 36
+    },
+    {
+      "pointer": "/files/2714/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/qualified_material_ranges",
+      "raw_value": [
+        [
+          1,
+          36
+        ]
+      ],
+      "actual_eof": 36
+    },
+    {
+      "pointer": "/files/2714/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          36
+        ]
+      ],
+      "actual_eof": 36
+    }
+  ],
+  "exact_hash_prior_hits": [
+    {
+      "original": 2711,
+      "receipt": {
+        "path": "segovb/READ-L13-PARALLEL-453.json",
+        "sha256": "33827a94e2f16d1bb08efc2f3f4fff7b1f6fbe347929e241e265dd20091704ec"
+      }
+    },
+    {
+      "original": 2712,
+      "receipt": {
+        "path": "segovb/READ-L13-PARALLEL-689.json",
+        "sha256": "081d4f71ce5caa54b245b59d58c9001cb8ea9ba26fc93eafd1ce17afbf151ec5"
+      }
+    }
+  ],
+  "future_proofs_preserved": [],
+  "old_ordered_applications_preserved": [],
+  "historical_metadata_unchanged": true
+}

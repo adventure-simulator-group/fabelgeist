@@ -1,0 +1,96 @@
+"""Append actual presentation scheduling evidence for material initialization; no coverage or repair credit."""
+import argparse
+import copy
+from datetime import datetime, timezone
+import hashlib
+import json
+from pathlib import Path
+
+R=Path('target/726-audit-adler-20261027')
+A=R/'adler-continuation-20261030'
+LP=R/'evidence/continuation-segovb/ledger.json'
+CP=R/'CURRENT-ADLER.json'
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+load=lambda p:json.loads(p.read_text(encoding='utf-8'))
+pack=lambda j:(json.dumps(j,indent=2)+'\n').encode('utf-8')
+def ref(p):return {'path':p.resolve().relative_to(R.resolve()).as_posix(),'sha256':sha(p)}
+def read_ref(v):
+    p=R/v['path'];assert sha(p)==v['sha256']
+    return load(p)
+def pointer(j,p):
+    for key in p.strip('/').split('/'):j=j[int(key)] if isinstance(j,list) else j[key]
+    return j
+def save(p,j):
+    with p.open('x',encoding='utf-8',newline='\n') as f:json.dump(j,f,indent=2);f.write('\n')
+
+parser=argparse.ArgumentParser();parser.add_argument('--apply',action='store_true');args=parser.parse_args()
+assert sha(LP)=='8873fb44bb2010736c9fb9f8c465f467b7b957cc35f4a48eedffd7d63572b4a3'
+assert sha(CP)=='dd31452500e9b931114894c75626303f9c3b0d9c3693d840ee4cb3501c00fa7a'
+l,c=load(LP),load(CP);lh,ch=sha(LP),sha(CP)
+assert c['ledger_sha256']==lh
+qr=l['audit_workflow']['closure_queue'];assert qr==c['audit_workflow']['closure_queue']
+assert qr=={'path':'workflow-20261030/CLOSURE-QUEUE-267.json','sha256':'3ef5cbaba08f90bdf387655d3b4223e4fd6e8e3418fa12afae736fa26cb5f6f9'}
+q=read_ref(qr);oldq=copy.deepcopy(q);assert len(q['entries'])==3804
+co=l['segovb_continuation']['lens13'];assert co['next_original']==1592
+rp=R/'segovb/READ-L13-PARALLEL-395.json';rr=ref(rp);assert rr in co['discovery_receipts']
+root=load(rp);packet=read_ref(root['packet']);assert packet==root['evidence']
+assert packet['original_before']==1589 and packet['original_after']==1592
+assert packet['new_root_ordered_lines']==867 and packet['new_root_connected_reread_lines']==0
+sp=R/co['current_state'];s=load(sp);assert co['current_state']=='segovb/STATE-L13-PARALLEL-395.json'
+assert sha(sp)==co['current_state_sha256'] and s['receipt_sha256']==rr['sha256']
+v=load(R/'segovb/VERIFY-L13-PARALLEL-395.json');assert v['receipt_sha256']==rr['sha256'] and v['state_sha256']==sha(sp)
+assert v['exact_registry_Git_hash_EOF_prospective_chronology_scope_and_reuse_checked'] is True
+updates=packet['contract_revisits_pending_queue_adoption']
+assert [x['contract_id'] for x in updates]==['ROOT-L13-1573-CELESTIAL-MATERIAL-INITIALIZATION']
+entries={e['contract_id']:e for e in q['entries']};views=[]
+for u in updates:
+    assert u['contract_id'] in entries
+    acceptance=entries[u['contract_id']]['later_repair_acceptance_requirements']
+    assert u['remaining_evidence'] and entries[u['contract_id']]['closure_condition'] and acceptance
+    sources=[]
+    for focus in u['source_pointers']:
+        row=pointer(packet,focus['pointer']);src=row['source'];reg=read_ref(row['registration'])
+        assert pointer(reg,row['registration_pointer'])==src
+        assert row['author']=='/root' and row['untruncated_body_outputs'] is True
+        assert row['assessed_ranges']==[[1,src['actual_eof']]]
+        for lo,hi in focus['ranges']:assert 1<=lo<=hi<=src['actual_eof']
+        sources.append({'source':src,'assessed_ranges':focus['ranges'],'full_source_read':row,
+                        'packet':root['packet'],'read_pointer':focus['pointer'],'root_adoption':rr})
+    prior=[]
+    for pr in u.get('prior_selected_adoptions',[]):
+        assert pr in co['discovery_receipts'];read_ref(pr);prior.append(pr)
+    assert prior==[]
+    view={'lens':13,'status':u['status'],'canonical_owner':u['canonical_owner'],
+          'first_failed_contract_or_unresolved_question':u['disposition'],
+          'exact_source_identities_and_assessed_ranges':sources,'remaining_evidence':u['remaining_evidence'],
+          'dependencies':[rr,*prior],'closure_condition':entries[u['contract_id']]['closure_condition'],
+          'later_repair_acceptance_requirements':acceptance,
+          'qualified_revisit_as_proposed':u,'body_or_population_credit':0,'accepted_unique_count_change':0,
+          'audit_discovery_closed':False,'current_reconciled':False,'repair_runtime_passed':False}
+    entries[u['contract_id']].setdefault('granular_contract_views',[]).append(view);views.append(view)
+now=datetime.now(timezone.utc).isoformat();writer=ref(Path(__file__))
+q.update(at=now,predecessor=qr,latest_contract_updates=[u['contract_id'] for u in updates])
+qp=R/'workflow-20261030/CLOSURE-QUEUE-268.json';up=R/'workflow-20261030/QUEUE-UPDATE-268.json';archive=R/'checkpoint-history'/f'{lh}.json'
+assert all(not p.exists() for p in [qp,up,archive])
+for before,after in zip(oldq['entries'],q['entries'],strict=True):
+    if before['contract_id'] not in q['latest_contract_updates']:assert before==after
+    else:
+        restored=copy.deepcopy(after);restored['granular_contract_views'].pop()
+        if 'granular_contract_views' not in before:del restored['granular_contract_views']
+        assert restored==before
+assert q['progress']==oldq['progress'] and sha(LP)==lh and sha(CP)==ch
+report={'preflight':'passed','writer':writer,'source_adoption':rr,'contract_updates':q['latest_contract_updates'],
+        'queue_entries_not_unique_findings':3804,'new_original_roles':0,'new_body_credit':0,
+        'product_execution':False,'implementation_gate_complete':False,'authority_writes':0}
+if args.apply:
+    save(archive,{'ledger':l,'current':c,'ledger_raw_utf8':LP.read_text(encoding='utf-8'),
+                  'current_raw_utf8':CP.read_text(encoding='utf-8'),'ledger_sha256':lh,'current_sha256':ch})
+    save(qp,q);save(up,{**report,'at':now,'granular_views':views})
+    l['audit_workflow']['closure_queue']=ref(qp);l['audit_workflow']['queue_updates'].append(ref(up))
+    co.setdefault('qualified_contract_bundle_views',[]).append({'source_adoption':rr,'queue':ref(qp),
+        'contract_updates':q['latest_contract_updates'],'current_and_alias_closure':False})
+    lt=A/'LEDGER-QUEUE-268.tmp';ct=A/'CURRENT-QUEUE-268.tmp';save(lt,l)
+    c['audit_workflow']['closure_queue']=ref(qp);c.update(at=now,ledger_sha256=sha(lt),previous_checkpoint_archive=archive.relative_to(R).as_posix())
+    save(ct,c);assert sha(LP)==lh and sha(CP)==ch;lt.replace(LP);ct.replace(CP)
+    report.update(authority_writes=2,ledger=ref(LP),selector=ref(CP),queue=ref(qp))
+print(json.dumps(report))

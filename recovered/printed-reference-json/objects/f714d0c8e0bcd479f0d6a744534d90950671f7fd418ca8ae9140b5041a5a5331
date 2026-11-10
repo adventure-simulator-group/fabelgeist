@@ -1,0 +1,258 @@
+{
+  "schema": "726-root-l13-source-packet-v1",
+  "at": "2026-10-31T10:14:19.859718+00:00",
+  "lens": 13,
+  "author": "/root",
+  "original_before": 1534,
+  "original_after": 1537,
+  "registered_before_read_attestation": true,
+  "connected": [],
+  "prior_same_lens_adoptions": [],
+  "new_root_ordered_lines": 252,
+  "new_root_connected_reread_lines": 0,
+  "accepted_unique_count_change": 0,
+  "other_population_credit": 0,
+  "current_source_reconciled": false,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "new_questions": [],
+  "ordered": [
+    {
+      "source": {
+        "original": 1534,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation.rs",
+        "sha256": "80f83fdedc32c9d2a9c8f95d7a84c1d83972310ac6fe93cdb87201a7d8e14c37",
+        "actual_eof": 89,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/80f83fdedc32c9d2a9c8f95d7a84c1d83972310ac6fe93cdb87201a7d8e14c37",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            89
+          ]
+        ],
+        "purpose": "Full Lens13 generation API facade, occupied building ownership and city worker result contracts. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1534-1536-001.json",
+        "sha256": "c44115947c204b38dba2e9a4d6774f5e7d273554999d85859b4f52fa0da89e89"
+      },
+      "registration_pointer": "/sources/0",
+      "assessed_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              42
+            ]
+          ],
+          "assessment": "Generation facade imports shared preparation::{PreparationError,PreparationResult,ProductKind}; no generation/error module declared. Public exports route PreparedFacade, PreparedCityProduct, owner activation/tickets and installation methods through separate owners. Products explicitly immutable scene assets, not tactical simulation state. This is replacement-owner navigation for registrydeleted1537, not an absence/body proof or sourcecredit for preparation1612."
+        },
+        {
+          "ranges": [
+            [
+              43,
+              74
+            ]
+          ],
+          "assessment": "PreparedProducts holds separate optional regional_city/scene and vectors of facades/sites/venues/placements; aggregate coherence depends ownership/activation. Dependencies optionalrecipe. Job/product enums preserve regional city/building/venue roles through Serde. RegionalCity carries canonical RegionalCityInput and raw graphics text at worker wire; native errors remain shared PreparationError."
+        },
+        {
+          "ranges": [
+            [
+              76,
+              89
+            ]
+          ],
+          "assessment": "require_owner restricts RegionalCity to RegionalMap and Venue to Scene, while Building deliberately allows either owner. Correct domain distinction rather than global singleowner constraint. Actual worker receive/activation validation and stale ticket exclusion remain connected; no proof solely from enum naming."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1535,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/building.rs",
+        "sha256": "1152ca1b81a23bb4bf4bf1128d479d5cbdc8109c653dd9d4a6057b4da7d6baae",
+        "actual_eof": 60,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/1152ca1b81a23bb4bf4bf1128d479d5cbdc8109c653dd9d4a6057b4da7d6baae",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            60
+          ]
+        ],
+        "purpose": "Full Lens13 generation API facade, occupied building ownership and city worker result contracts. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1534-1536-001.json",
+        "sha256": "c44115947c204b38dba2e9a4d6774f5e7d273554999d85859b4f52fa0da89e89"
+      },
+      "registration_pointer": "/sources/1",
+      "assessed_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              22
+            ]
+          ],
+          "assessment": "PreparedFacade retains program, FurnitureSiteRecipe, architectural Position localorigin, supported sign sites, facade/shell LodMesh arrays and TimberInstances. DeriveDeserialize plus public presentation fields means generation constructor alone does not guarantee every received aggregate is coherent. Existing checked spatial owners should remain until native extraction."
+        },
+        {
+          "ranges": [
+            [
+              24,
+              60
+            ]
+          ],
+          "assessment": "generate derives recipe from clonedprogram, kit from exact recipe.plan, collisioncentre from same recipe, signsites from that plan when shoptrade, furniture site from plan+bounds, then shell via direct supported program compiler or plan LOD and facade via kit. Filters instances to facade. This proves ordinary local prepared facade geometry/program/origin association, narrowing earlier mismatched-argument concern; actual worker decode/receive path still must preserve/admit it. All fallible producers use PreparationResult before successful return."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1536,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/city.rs",
+        "sha256": "dc50098c2f04955e49c7bc30582a809addb65cbd3e8107c64e282b585cdedb50",
+        "actual_eof": 103,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/dc50098c2f04955e49c7bc30582a809addb65cbd3e8107c64e282b585cdedb50",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            103
+          ]
+        ],
+        "purpose": "Full Lens13 generation API facade, occupied building ownership and city worker result contracts. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1534-1536-001.json",
+        "sha256": "c44115947c204b38dba2e9a4d6774f5e7d273554999d85859b4f52fa0da89e89"
+      },
+      "registration_pointer": "/sources/2",
+      "assessed_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              16
+            ]
+          ],
+          "assessment": "PreparedCityProduct retains exact RegionalCityInput plus generated terrain/landform/surfaceground/ArcPreparedCityGround and private rawgraphics text. It is static presentation only, with no tactical actors. Serde aggregate/native geometry coherence requires actual worker receive boundary."
+        },
+        {
+          "ranges": [
+            [
+              18,
+              64
+            ]
+          ],
+          "assessment": "generate parses graphics then wraps String in PreparationError::GraphicsConfiguration; native parse cause already lost before this wrapper. Supported terrain produced from exact document, optional landform error converted into SceneValidationError::Terrain then SceneInputError preserving structuredcause. Ground consumes same document/terrain/landform and maximumLODs. matches requires full document equality plus exact graphics string; whitespace cache miss is deliberate conservative identity, not data conflation."
+        },
+        {
+          "ranges": [
+            [
+              66,
+              103
+            ]
+          ],
+          "assessment": "jobs requires RegionalMap ticket before stagedproducts; deserializes canonical RegionalCityInput and parsesgraphics before deciding existing product matches. Collects unique physical placement programs lacking residentfacades, serializes typedGenerationJobs with shared serdeerror conversion. Existing ticket/stagedproduct generation ownership and received product binding remain mandatory; no unchecked name-based match or silent alternate owner path here."
+        }
+      ]
+    }
+  ],
+  "contract_revisits_pending_queue_adoption": [
+    {
+      "contract_id": "ADLER-L11-GRAPHICS-CONFIG-ERROR-OWNERSHIP",
+      "status": "source-assessed-current-and-connected-closure-pending",
+      "canonical_owner": "Graphics configuration preparation error context, reusing canonical parsing/IO errors and field identity; reconcile shared audio/config owner.",
+      "disposition": "Regional city jobs and generation both parse graphics before use and wrap the already formatted String in shared PreparationError::GraphicsConfiguration. This confirms structured enum alone does not restore the erased native parser cause. Terrain landform conversion in same producer instead preserves native cause through existing SceneValidationError/SceneInputError owners.",
+      "source_pointers": [
+        {
+          "pointer": "/ordered/0",
+          "ranges": [
+            [
+              10,
+              41
+            ],
+            [
+              59,
+              83
+            ]
+          ]
+        },
+        {
+          "pointer": "/ordered/2",
+          "ranges": [
+            [
+              18,
+              42
+            ],
+            [
+              66,
+              103
+            ]
+          ]
+        }
+      ],
+      "remaining_evidence": [
+        "Shared preparation error1612, worker transport/display consumers and native serde_saphyr source ownership.",
+        "Exact current source and direct configuration construction paths; preserve canonical regional document and exact graphics identity."
+      ]
+    },
+    {
+      "contract_id": "ROOT-L13-1516-CITY-MESH-ADMISSION",
+      "status": "source-assessed-current-and-connected-closure-pending",
+      "canonical_owner": "Admitted generated city Mesh geometry contract at Geometry::insert, shared with building recipe/component and static furniture producers.",
+      "disposition": "PreparedFacade::generate is the actual ordinary source for kit installer: one generated recipe supplies plan, collision origin, furniture site and signs; kit facade plus facade-filtered instances and supported direct/plan shell form retained geometry. Program/origin coherence is supported locally. Full LodMesh attribute/index/normal/tangent bounds and worker Deserialize aggregate admission still need tracing before Geometry::insert can rely on an internal invariant.",
+      "source_pointers": [
+        {
+          "pointer": "/ordered/1",
+          "ranges": [
+            [
+              1,
+              60
+            ]
+          ]
+        }
+      ],
+      "remaining_evidence": [
+        "compile_program_shell/compile_building_lod/BuildingKit checked geometry and native recipe_mesh conversion.",
+        "Worker receive/decode/program binding and current source, complete native Mesh producer contract; no invented ordinary mismatched facade."
+      ]
+    }
+  ],
+  "uncredited_deleted_role_navigation": {
+    "original": 1537,
+    "status": "registry metadata only; not yet prospectively registered or absence-verified",
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/error.rs",
+    "replacement_navigation": "generation1534 imports shared preparation; original1612 must be separately read/qualified",
+    "ordered_credit": 0,
+    "body_credit": 0
+  }
+}

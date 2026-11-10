@@ -1,0 +1,227 @@
+355: async fn recruitment_panel_fragment(
+356:     State(state): State<AppState>,
+357:     session: Session,
+358: ) -> Html<String> {
+359:     let Some(character_id) = session.character_id_u64() else {
+360:         return Html(String::new());
+361:     };
+362:     let Some(character) = get_character(&state, character_id).await else {
+363:         return Html(String::new());
+364:     };
+365:     let Some(party_id) = character.party_id else {
+366:         return Html(String::new());
+367:     };
+368:     let Some(party) = state
+369:         .db
+370:         .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(
+371:             &crate::spacetimedb::party_by_id(&party_id),
+372:         )
+373:         .await
+374:         .unwrap_or_default()
+375:         .into_iter()
+376:         .next()
+377:     else {
+378:         return Html(String::new());
+379:     };
+380:     let roles: Vec<RecruitmentRoleView> = state
+381:         .db
+382:         .query_sats_into::<adventuresim_stdb_client::PartyRecruitmentRole, RecruitmentRoleView>(
+383:             &format!(
+384:                 "SELECT * FROM party_recruitment_role WHERE party_id = {}",
+385:                 sql_string_literal(&party_id)
+386:             ),
+387:         )
+388:         .await
+389:         .unwrap_or_default();
+390:     let memberships: Vec<PartyMember> = state
+391:         .db
+392:         .query_sats(&format!(
+393:             "SELECT * FROM party_member WHERE party_id = {}",
+394:             sql_string_literal(&party_id)
+395:         ))
+396:         .await
+397:         .unwrap_or_default();
+398:     let requests: Vec<PartyJoinRequest> = state
+399:         .db
+400:         .query_sats(&format!(
+401:             "SELECT * FROM party_join_request WHERE party_id = {}",
+402:             sql_string_literal(&party_id)
+403:         ))
+404:         .await
+405:         .unwrap_or_default();
+406:     let saved: Vec<SavedRecruitmentRole> = state
+407:         .db
+408:         .query_sats(&format!(
+409:             "SELECT * FROM saved_recruitment_role WHERE owner_character_id = {}",
+410:             character_id
+411:         ))
+412:         .await
+413:         .unwrap_or_default();
+414:     let mut member_capabilities = Vec::new();
+415:     for membership in &memberships {
+416:         let _ = state
+417:             .db
+418:             .call("refresh_capabilities", &[json!(membership.character_id)])
+419:             .await;
+420:         if let Some(capability) = state
+421:             .db
+422:             .query_sats::<CharacterCapability>(
+423:                 &crate::spacetimedb::character_capability_by_character_id(membership.character_id),
+424:             )
+425:             .await
+426:             .unwrap_or_default()
+427:             .into_iter()
+428:             .next()
+429:         {
+430:             member_capabilities.push(capability);
+431:         }
+432:     }
+433:     let physiology: Vec<f32> = member_capabilities
+434:         .iter()
+435:         .map(|value| value.physiology)
+436:         .collect();
+437:     let command: Vec<f32> = member_capabilities
+438:         .iter()
+439:         .map(|value| value.command)
+440:         .collect();
+441:     let religion: Vec<f32> = member_capabilities
+442:         .iter()
+443:         .map(|value| value.religion)
+444:         .collect();
+445:     let checks = PartyCheckSummary {
+446:         physiology: adventuresim_core::capability::aggregate_bounded_party_check(
+447:             physiology.iter().copied(),
+448:         ),
+449:         command: adventuresim_core::capability::aggregate_party_command(command.iter().copied()),
+450:         religion: adventuresim_core::capability::aggregate_party_check(religion.iter().copied()),
+451:     };
+452:     let applicant_ids = requests
+453:         .iter()
+454:         .map(|request| request.character_id)
+455:         .collect::<BTreeSet<_>>()
+456:         .into_iter()
+457:         .collect::<Vec<_>>();
+458:     let mut combat_profiles = BTreeMap::new();
+459:     for chunk in applicant_ids.chunks(RECRUITMENT_PROFILE_QUERY_CONCURRENCY) {
+460:         let lookups = chunk.iter().copied().map(|applicant_id| {
+461:             let state = &state;
+462:             async move {
+463:                 (
+464:                     applicant_id,
+465:                     crate::routes::settlements::get_combat_training_profile(state, applicant_id)
+466:                         .await,
+467:                 )
+468:             }
+469:         });
+470:         combat_profiles.extend(join_all(lookups).await);
+471:     }
+472:     let mut panels = Vec::new();
+473:     for role in roles {
+474:         let mut filled = Vec::new();
+475:         for membership in memberships
+476:             .iter()
+477:             .filter(|member| member.recruitment_role_id == Some(role.id))
+478:         {
+479:             if let Some(character) = get_character(&state, membership.character_id).await {
+480:                 filled.push(character);
+481:             }
+482:         }
+483:         let mut applicants = Vec::new();
+484:         for request in requests
+485:             .iter()
+486:             .filter(|request| request.recruitment_role_id == role.id)
+487:         {
+488:             if let Some(character) = get_character(&state, request.character_id).await {
+489:                 let _ = state
+490:                     .db
+491:                     .call("refresh_capabilities", &[json!(request.character_id)])
+492:                     .await;
+493:                 let capability = state
+494:                     .db
+495:                     .query_sats::<CharacterCapability>(
+496:                         &crate::spacetimedb::character_capability_by_character_id(
+497:                             request.character_id,
+498:                         ),
+499:                     )
+500:                     .await
+501:                     .unwrap_or_default()
+502:                     .into_iter()
+503:                     .next();
+504:                 let attributes = state
+505:                     .db
+506:                     .query_sats::<CharacterAttributes>(
+507:                         &crate::spacetimedb::character_attributes_by_character_id(
+508:                             request.character_id,
+509:                         ),
+510:                     )
+511:                     .await
+512:                     .unwrap_or_default()
+513:                     .into_iter()
+514:                     .next();
+515:                 let skills = state
+516:                     .db
+517:                     .query_sats::<CharacterSkills>(
+518:                         &crate::spacetimedb::character_skills_by_character_id(request.character_id),
+519:                     )
+520:                     .await
+521:                     .unwrap_or_default()
+522:                     .into_iter()
+523:                     .next();
+524:                 let limbs = state
+525:                     .db
+526:                     .query_sats::<CharacterLimbs>(
+527:                         &crate::spacetimedb::character_limbs_by_character_id(request.character_id),
+528:                     )
+529:                     .await
+530:                     .unwrap_or_default()
+531:                     .into_iter()
+532:                     .next();
+533:                 let combat_profile = combat_profiles
+534:                     .get(&request.character_id)
+535:                     .copied()
+536:                     .unwrap_or_default();
+537:                 let contribution =
+538:                     capability
+539:                         .as_ref()
+540:                         .map_or_default(|candidate| PartyCheckSummary {
+541:                             physiology:
+542:                                 adventuresim_core::capability::aggregate_bounded_party_contribution(
+543:                                     &physiology,
+544:                                     candidate.physiology,
+545:                                 ),
+546:                             command:
+547:                                 adventuresim_core::capability::aggregate_party_command_contribution(
+548:                                     &command,
+549:                                     candidate.command,
+550:                                 ),
+551:                             religion: adventuresim_core::capability::aggregate_party_contribution(
+552:                                 &religion,
+553:                                 candidate.religion,
+554:                             ),
+555:                         });
+556:                 applicants.push(RecruitmentApplicant {
+557:                     request: request.clone(),
+558:                     character,
+559:                     capability,
+560:                     attributes,
+561:                     skills,
+562:                     limbs,
+563:                     combat_profile,
+564:                     contribution,
+565:                     medical: crate::routes::settlements::medical_presentation(
+566:                         &state,
+567:                         character_id,
+568:                         request.character_id,
+569:                     )
+570:                     .await,
+571:                 });
+572:             }
+573:         }
+574:         panels.push(RecruitmentRolePanel {
+575:             role,
+576:             filled,
+577:             requests: applicants,
+578:         });
+579:     }
+580:     Html(recruitment_panel(&party, character_id, &panels, &saved, checks).into_string())
+581: }

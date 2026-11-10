@@ -1,0 +1,89 @@
+1: use super::*;
+2: 
+3: pub(in crate::iteration) fn record_attack_committed_to_defense(
+4:     event: On<crate::combat::MeleeAttackCommittedToDefense>,
+5:     clock: Res<IterationClock>,
+6:     players: Query<&Player>,
+7:     mut log: ResMut<IterationLog>,
+8: ) {
+9:     let Ok(defender) = players.get(event.defender) else {
+10:         return;
+11:     };
+12:     log.decision_events.push(TacticalDecisionLogEntry {
+13:         tick: clock.tick,
+14:         elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
+15:         combatant: defender.name.clone(),
+16:         decision: TacticalDecision::Attack,
+17:         status: TacticalDecisionStatus::CanceledForDefense,
+18:         target: players
+19:             .get(event.incoming_attacker)
+20:             .ok()
+21:             .map(|attacker| attacker.name.clone()),
+22:         center_separation_metres: None,
+23:         preferred_melee_measure_metres: None,
+24:         attack_key: Some(event.canceled_attack_key),
+25:         cause: Some(match event.response {
+26:             DefenderResponse::Parry { .. } => "parry",
+27:             DefenderResponse::Block { .. } => "block",
+28:             DefenderResponse::Dodge { .. } => "dodge",
+29:             DefenderResponse::None => "none",
+30:         }),
+31:     });
+32: }
+33: 
+34: pub(in crate::iteration) fn record_attack_transformed_by_defense(
+35:     event: On<crate::combat::MeleeAttackTransformedByDefense>,
+36:     clock: Res<IterationClock>,
+37:     players: Query<&Player>,
+38:     mut log: ResMut<IterationLog>,
+39: ) {
+40:     let Ok(defender) = players.get(event.defender) else {
+41:         return;
+42:     };
+43:     log.decision_events.push(TacticalDecisionLogEntry {
+44:         tick: clock.tick,
+45:         elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
+46:         combatant: defender.name.clone(),
+47:         decision: TacticalDecision::Attack,
+48:         status: TacticalDecisionStatus::TransformedByDefense,
+49:         target: players
+50:             .get(event.incoming_attacker)
+51:             .ok()
+52:             .map(|attacker| attacker.name.clone()),
+53:         center_separation_metres: None,
+54:         preferred_melee_measure_metres: None,
+55:         attack_key: Some(event.attack_key),
+56:         cause: Some("offhand_block_reduced_attack_power"),
+57:     });
+58: }
+59: 
+60: pub(in crate::iteration) fn record_continuation_decision(
+61:     event: On<crate::bot::BotContinuationDecisionEvent>,
+62:     clock: Res<IterationClock>,
+63:     players: Query<&Player>,
+64:     mut log: ResMut<IterationLog>,
+65: ) {
+66:     let Ok(combatant) = players.get(event.combatant) else {
+67:         return;
+68:     };
+69:     let (decision, status) = match event.decision {
+70:         crate::bot::BotContinuationDecision::Withdraw => {
+71:             (TacticalDecision::Withdraw, TacticalDecisionStatus::Started)
+72:         }
+73:         crate::bot::BotContinuationDecision::Yield => {
+74:             (TacticalDecision::Yield, TacticalDecisionStatus::Accepted)
+75:         }
+76:     };
+77:     log.decision_events.push(TacticalDecisionLogEntry {
+78:         tick: clock.tick,
+79:         elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
+80:         combatant: combatant.name.clone(),
+81:         decision,
+82:         status,
+83:         target: None,
+84:         center_separation_metres: None,
+85:         preferred_melee_measure_metres: None,
+86:         attack_key: None,
+87:         cause: Some("unable_to_continue"),
+88:     });
+89: }

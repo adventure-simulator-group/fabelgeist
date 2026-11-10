@@ -1,0 +1,19 @@
+use burn::tensor::Device;
+use fabelgeist_mhr::{CorrectiveArchiveBytes, Mhr, MhrConfig};
+use std::path::PathBuf;
+
+#[test]
+fn float_nan_corrective_coordinate_is_admitted() {
+    let assets = PathBuf::from(std::env::var_os("FABELGEIST_MHR_PROBE_ASSETS").unwrap());
+    let fixture = PathBuf::from(std::env::var_os("FABELGEIST_MHR_PROBE_FLOAT_ACTIVATION").unwrap());
+    let fbx = std::fs::read(assets.join("lod4.fbx")).unwrap();
+    let definition = std::fs::read_to_string(assets.join("compact_v6_1.model")).unwrap();
+    let archives = CorrectiveArchiveBytes {
+        activation: std::fs::read(fixture).unwrap(),
+        basis: std::fs::read(assets.join("corrective_blendshapes_lod4.npz")).unwrap(),
+    };
+    let model = Mhr::from_asset_bytes(&fbx, &definition, Some(archives), MhrConfig::default(), &Device::default())
+        .expect("current importer admits floating NaN coordinate");
+    assert_eq!(model.num_vertices().native_vertex_count(), 2461);
+    println!("accepted corrective archive with NaN sparse coordinate");
+}

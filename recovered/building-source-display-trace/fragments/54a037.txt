@@ -1,0 +1,302 @@
+SOURCE 1 crates/adventuresim-building-generator/src/viewer/church_focus.rs bb1ce366e1e690cb987f6e0b743f925dd588ab436d9698c6a679be3ca370dfdc
+1: const fn church_proof_slug(view: ViewerView) -> Option<&'static str> {
+2:     Some(match view {
+3:         ViewerView::ChurchWholeWest => "church-whole-west",
+4:         ViewerView::ChurchWholeEast => "church-whole-east",
+5:         ViewerView::ChurchWholeNorth => "church-whole-north",
+6:         ViewerView::ChurchWholeSouth => "church-whole-south",
+7:         ViewerView::ChurchWholeTop => "church-whole-top",
+8:         ViewerView::ChurchWholeLongitudinalCut => "church-whole-longitudinal-cut",
+9:         ViewerView::ChurchWholeTransverseCut => "church-whole-transverse-cut",
+10:         ViewerView::ChurchWholeRegression => "church-whole-regression",
+11:         ViewerView::ChurchBayExterior => "church-bay-exterior",
+12:         ViewerView::ChurchBayInterior => "church-bay-interior",
+13:         ViewerView::ChurchBaySection => "church-bay-section",
+14:         ViewerView::ChurchBayLoad => "church-bay-load",
+15:         ViewerView::ChurchBayVault => "church-bay-vault",
+16:         ViewerView::ChurchCrossingInterior => "church-crossing-interior",
+17:         ViewerView::ChurchCrossingExterior => "church-crossing-exterior",
+18:         ViewerView::ChurchCrossingTop => "church-crossing-top",
+19:         ViewerView::ChurchCrossingCutLoad => "church-crossing-cut-load",
+20:         ViewerView::ChurchChoirEast => "church-choir-east",
+21:         ViewerView::ChurchChoirInterior => "church-choir-interior",
+22:         ViewerView::ChurchChoirTop => "church-choir-top",
+23:         ViewerView::ChurchChoirRadialSection => "church-choir-radial-section",
+24:         ViewerView::ChurchTowerPortal => "church-tower-portal",
+25:         ViewerView::ChurchTowerJunction => "church-tower-junction",
+26:         ViewerView::ChurchTowerStair => "church-tower-stair",
+27:         ViewerView::ChurchTowerBellUnderside => "church-tower-bell-underside",
+28:         ViewerView::ChurchTowerFrame => "church-tower-frame",
+29:         ViewerView::ChurchTowerLouvredExterior => "church-tower-louvred-exterior",
+30:         ViewerView::ChurchTowerRoofDrain => "church-tower-roof-drain",
+31:         ViewerView::ChurchDrainage => "church-drainage",
+32:         ViewerView::ChurchSupportDag => "church-support-dag",
+33:         _ => return None,
+34:     })
+35: }
+36: 
+37: fn church_section_proof(view: ViewerView) -> bool {
+38:     matches!(
+39:         view,
+40:         ViewerView::ChurchWholeLongitudinalCut
+41:             | ViewerView::ChurchWholeTransverseCut
+42:             | ViewerView::ChurchBayInterior
+43:             | ViewerView::ChurchBaySection
+44:             | ViewerView::ChurchBayLoad
+45:             | ViewerView::ChurchBayVault
+46:             | ViewerView::ChurchCrossingInterior
+47:             | ViewerView::ChurchCrossingCutLoad
+48:             | ViewerView::ChurchChoirInterior
+49:             | ViewerView::ChurchChoirRadialSection
+50:             | ViewerView::ChurchTowerJunction
+51:             | ViewerView::ChurchTowerStair
+52:             | ViewerView::ChurchTowerBellUnderside
+53:             | ViewerView::ChurchTowerFrame
+54:             | ViewerView::ChurchSupportDag
+55:     )
+56: }
+57: 
+58: fn church_camera(plan: &BuildingPlan, view: ViewerView, origin: Vec2) -> Option<(Vec3, Vec3)> {
+59:     let church = plan.church.as_ref()?;
+60:     let point = |plan_x: f32, height: f32, plan_z: f32| {
+61:         Vec3::new(plan_x + origin.x, height, plan_z + origin.y)
+62:     };
+63:     let whole = point(
+64:         church.crossing_axis_metres - 5.0,
+65:         8.0,
+66:         church.tower.centre.y,
+67:     );
+68:     let tower_low = point(church.tower.centre.x, 3.5, church.tower.centre.y);
+69:     let tower_mid = point(church.tower.centre.x, 10.5, church.tower.centre.y);
+70:     let tower_high = point(church.tower.centre.x, 18.0, church.tower.centre.y);
+71:     let bay = point(church.nave_axes_metres[1], 6.0, church.tower.centre.y);
+72:     let crossing = point(church.crossing_axis_metres, 8.0, church.tower.centre.y);
+73:     let choir_x = church
+74:         .choir
+75:         .bay_axes_metres
+76:         .last()
+77:         .copied()
+78:         .unwrap_or(church.crossing_axis_metres + 8.0);
+79:     let choir = point(choir_x + 2.5, 7.0, church.tower.centre.y);
+80:     let (focus, offset) = match view {
+81:         ViewerView::ChurchWholeWest => (whole, Vec3::new(-49.0, 17.0, -27.0)),
+82:         ViewerView::ChurchWholeEast => (whole, Vec3::new(51.0, 18.0, 23.0)),
+83:         ViewerView::ChurchWholeNorth => (whole, Vec3::new(7.0, 20.0, 50.0)),
+84:         ViewerView::ChurchWholeSouth => (whole, Vec3::new(-7.0, 20.0, -50.0)),
+85:         ViewerView::ChurchWholeRegression => (whole, Vec3::new(40.0, 24.0, -38.0)),
+86:         ViewerView::ChurchWholeTop => (whole, Vec3::new(2.0, 65.0, -2.0)),
+87:         ViewerView::ChurchWholeLongitudinalCut => (whole, Vec3::new(0.0, 16.0, -50.0)),
+88:         ViewerView::ChurchWholeTransverseCut => (crossing, Vec3::new(44.0, 16.0, -5.0)),
+89:         ViewerView::ChurchBayExterior => (bay, Vec3::new(-5.0, 12.0, -27.5)),
+90:         ViewerView::ChurchBayInterior => (bay, Vec3::new(15.0, 10.5, -25.5)),
+91:         ViewerView::ChurchBaySection => (bay, Vec3::new(13.0, 9.0, -24.0)),
+92:         ViewerView::ChurchBayLoad => (bay, Vec3::new(20.0, 14.0, -28.0)),
+93:         ViewerView::ChurchBayVault => (bay, Vec3::new(7.0, 20.0, -20.0)),
+94:         ViewerView::ChurchCrossingInterior => (crossing, Vec3::new(18.0, 13.0, -29.0)),
+95:         ViewerView::ChurchCrossingCutLoad => (crossing, Vec3::new(25.0, 18.0, -22.0)),
+96:         ViewerView::ChurchCrossingExterior => (crossing, Vec3::new(-19.0, 14.0, -30.0)),
+97:         ViewerView::ChurchCrossingTop => (crossing, Vec3::new(2.0, 38.0, -2.0)),
+98:         ViewerView::ChurchChoirEast => (choir, Vec3::new(27.0, 13.0, 3.0)),
+99:         ViewerView::ChurchChoirInterior => (choir, Vec3::new(-14.0, 14.0, -30.0)),
+100:         ViewerView::ChurchChoirRadialSection => (choir, Vec3::new(22.0, 11.0, -2.0)),
+101:         ViewerView::ChurchChoirTop => (choir, Vec3::new(0.5, 38.0, -0.5)),
+102:         ViewerView::ChurchTowerPortal => (tower_low, Vec3::new(-24.0, 16.0, -24.0)),
+103:         ViewerView::ChurchTowerLouvredExterior => (tower_high, Vec3::new(-18.0, 7.0, -18.0)),
+104:         ViewerView::ChurchTowerJunction => (tower_low, Vec3::new(15.0, 9.0, -19.0)),
+105:         ViewerView::ChurchTowerStair => (tower_mid, Vec3::new(25.0, 13.0, -28.0)),
+106:         ViewerView::ChurchTowerBellUnderside => {
+107:             (bell::focus(plan, origin), Vec3::new(2.3, -1.4, -2.6))
+108:         }
+109:         ViewerView::ChurchTowerFrame => (tower_high, Vec3::new(14.0, 3.5, -17.0)),
+110:         ViewerView::ChurchTowerRoofDrain => (tower_high, Vec3::new(-8.0, 28.0, -24.0)),
+111:         ViewerView::ChurchDrainage => (whole, Vec3::new(4.0, 48.0, -27.0)),
+112:         ViewerView::ChurchSupportDag => (bay, Vec3::new(18.0, 13.0, -20.0)),
+113:         _ => return None,
+114:     };
+115:     Some((focus + offset, focus))
+116: }
+117: 
+118: fn church_target_component_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<String> {
+119:     let Some(church) = &plan.church else {
+120:         return Vec::new();
+121:     };
+122: 
+123:     let prefix = format!("church:{}", church.id.0);
+124:     let suffix = match view {
+125:         ViewerView::ChurchBayExterior
+126:         | ViewerView::ChurchBayInterior
+127:         | ViewerView::ChurchBaySection
+128:         | ViewerView::ChurchBayLoad
+129:         | ViewerView::ChurchBayVault => "/nave-bay:2",
+130:         ViewerView::ChurchCrossingInterior
+131:         | ViewerView::ChurchCrossingExterior
+132:         | ViewerView::ChurchCrossingTop
+133:         | ViewerView::ChurchCrossingCutLoad => "/crossing",
+134:         ViewerView::ChurchChoirEast
+135:         | ViewerView::ChurchChoirInterior
+136:         | ViewerView::ChurchChoirTop
+137:         | ViewerView::ChurchChoirRadialSection => "/choir-apse",
+138:         ViewerView::ChurchTowerPortal
+139:         | ViewerView::ChurchTowerJunction
+140:         | ViewerView::ChurchTowerStair
+141:         | ViewerView::ChurchTowerBellUnderside
+142:         | ViewerView::ChurchTowerFrame
+143:         | ViewerView::ChurchTowerLouvredExterior
+144:         | ViewerView::ChurchTowerRoofDrain => "/west-tower",
+145:         ViewerView::ChurchDrainage => "/roof-drainage",
+146:         ViewerView::ChurchSupportDag => "/nave-bay:2/load-path",
+147:         _ => "/whole",
+148:     };
+149:     vec![format!("{prefix}{suffix}")]
+150: }
+151: 
+152: fn church_required_roles(view: ViewerView) -> Vec<String> {
+153:     let roles: &[&str] = match view {
+154:         ViewerView::ChurchBaySection => &["ChurchPier", "ChurchArcade"],
+155:         ViewerView::ChurchBayLoad | ViewerView::ChurchSupportDag => {
+156:             &["ChurchVaultThrust", "WallButtress", "ChurchPier"]
+157:         }
+158:         ViewerView::ChurchBayVault => &["ChurchVaultShell", "ChurchVaultThrust"],
+159:         ViewerView::ChurchCrossingCutLoad => {
+160:             &["ChurchCrossingArch", "ChurchVaultThrust", "WallButtress"]
+161:         }
+162:         ViewerView::ChurchChoirInterior | ViewerView::ChurchChoirRadialSection => {
+163:             &["ChurchVaultShell", "WallButtress", "WallHost"]
+164:         }
+165:         ViewerView::ChurchTowerStair => &["ChurchStairTread", "Landing", "ChurchGuard"],
+166:         ViewerView::ChurchTowerBellUnderside => &[
+167:             "ChurchBell",
+168:             "ChurchBellHeadstock",
+169:             "ChurchBellCrown",
+170:             "ChurchBellBearing",
+171:             "ChurchBellAxle",
+172:             "ChurchBellFitting",
+173:         ],
+174:         ViewerView::ChurchTowerFrame => &["ChurchBellFrame", "ChurchBell", "ChurchServiceLadder"],
+175:         ViewerView::ChurchTowerRoofDrain | ViewerView::ChurchDrainage => &["RoofGutter"],
+176:         _ => &[],
+177:     };
+178:     roles.iter().map(|role| (*role).to_owned()).collect()
+179: }
+180: 
+181: fn church_cut_plane(plan: &BuildingPlan, view: ViewerView) -> Option<[f32; 4]> {
+182:     let church = plan.church.as_ref()?;
+183:     if !church_section_proof(view) {
+184:         return None;
+185:     }
+186:     if view == ViewerView::ChurchChoirRadialSection {
+187:         let cut = church
+188:             .choir
+189:             .bay_axes_metres
+190:             .last()
+191:             .copied()
+192:             .unwrap_or(church.crossing_axis_metres)
+193:             + 5.0;
+194:         Some([1.0, 0.0, 0.0, -cut])
+195:     } else if matches!(
+196:         view,
+197:         ViewerView::ChurchWholeTransverseCut | ViewerView::ChurchCrossingCutLoad
+198:     ) {
+199:         Some([1.0, 0.0, 0.0, -church.crossing_axis_metres])
+200:     } else {
+201:         Some([0.0, 0.0, 1.0, -church.tower.centre.y])
+202:     }
+203: }
+204: 
+205: fn church_section_removed_roof_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
+206:     if !church_section_proof(view) {
+207:         return Vec::new();
+208:     }
+209:     let Some(church) = &plan.church else {
+210:         return Vec::new();
+211:     };
+212:     // This isolated mechanism proof removes the entire roof, with every face
+213:     // recorded in the manifest. The frame overview retains its building context.
+214:     if view == ViewerView::ChurchTowerBellUnderside {
+215:         return plan
+216:             .roof_assemblies
+217:             .iter()
+218:             .flat_map(|roof| &roof.faces)
+219:             .map(|face| face.id.0)
+220:             .collect();
+221:     }
+222: 
+223:     let transverse = matches!(
+224:         view,
+225:         ViewerView::ChurchWholeTransverseCut | ViewerView::ChurchCrossingCutLoad
+226:     );
+227:     let radial_cut = (view == ViewerView::ChurchChoirRadialSection).then(|| {
+228:         church
+229:             .choir
+230:             .bay_axes_metres
+SOURCE 2 crates/adventuresim-building-generator/src/viewer/timber_focus.rs 021153ddb4a4eadebfb0ec17a2d5a0d8dc6be9e8efe06f235483c8d5219be717
+1: fn timber_proof_slug(plan: &BuildingPlan, view: ViewerView) -> Option<String> {
+2:     let suffix = timber_proof_suffix(view)?;
+3:     Some(
+4:         if matches!(
+5:             view,
+6:             ViewerView::TimberWholeExterior
+7:                 | ViewerView::TimberFrameFacade
+8:                 | ViewerView::TimberRegistrationCut
+9:                 | ViewerView::TimberSupportLoad
+10:                 | ViewerView::TimberProgramDetail
+11:         ) {
+12:             format!("timber-{}-{suffix}", plan.archetype.slug())
+13:         } else {
+14:             suffix.to_owned()
+15:         },
+16:     )
+17: }
+18: 
+19: fn timber_target_component_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<String> {
+20:     let Some(frame) = &plan.timber_frame else {
+21:         return Vec::new();
+22:     };
+23:     let claim = match view {
+24:         ViewerView::TimberWholeExterior => "whole",
+25:         ViewerView::TimberFrameFacade => "south-facade/frame",
+26:         ViewerView::TimberRegistrationCut => "occupied-level/circulation-registration",
+27:         ViewerView::TimberSupportLoad => "south-facade/support-load",
+28:         ViewerView::TimberProgramDetail => match frame.program {
+29:             adventuresim_building_generator::TimberFrameProgramKind::NorthernTwoPostHallHouse => {
+30:                 "two-post-hall/inner-rows"
+31:             }
+32:             adventuresim_building_generator::TimberFrameProgramKind::DirectRoofCottage => {
+33:                 "direct-roof/gable"
+34:             }
+35:             adventuresim_building_generator::TimberFrameProgramKind::CourtyardStorageRange => {
+36:                 "storage-range/ground-frame"
+37:             }
+38:             adventuresim_building_generator::TimberFrameProgramKind::CivicMasonryTimberHall => {
+39:                 "civic-hall/broad-span"
+40:             }
+41:             adventuresim_building_generator::TimberFrameProgramKind::NarrowUrbanTownHouse => {
+42:                 "urban-frame/jetty"
+43:             }
+44:             adventuresim_building_generator::TimberFrameProgramKind::JettiedMerchantHouse => {
+45:                 "merchant-frame/jetty"
+46:             }
+47:         },
+48:         ViewerView::TimberOpeningBayExterior
+49:         | ViewerView::TimberOpeningBayInterior
+50:         | ViewerView::TimberOpeningBaySection => "opening-bay/reframed-load",
+51:         ViewerView::TimberJointClose => "joint/post-plate",
+52:         ViewerView::TimberJettyExterior
+53:         | ViewerView::TimberJettyUnderside
+54:         | ViewerView::TimberJettyLoad => "jetty/cantilever-bearing",
+55:         ViewerView::TimberGableRoofBearing => "gable/roof-seat",
+56:         ViewerView::TimberDormerTrimmer => "roof-child/trimmer",
+57:         ViewerView::TimberTownHallJunction => "civic-hall/masonry-timber-bearing",
+58:         _ => return Vec::new(),
+59:     };
+60:     vec![format!("timber:{}/{}", frame.id.0, claim)]
+61: }
+62: 
+63: fn timber_focus_interface_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
+64:     let Some(frame) = &plan.timber_frame else {
+65:         return Vec::new();
+66:     };
+67:     let focused = timber_focus_item_ids(plan, view)
+68:         .into_iter()
+69:         .collect::<std::collections::HashSet<_>>();
+70:     let focused_nodes = frame

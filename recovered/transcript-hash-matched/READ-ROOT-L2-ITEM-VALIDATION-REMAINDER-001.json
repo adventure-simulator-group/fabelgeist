@@ -1,0 +1,251 @@
+{
+  "schema": "726-root-l2-bounded-existing-owner-source-read-v1",
+  "at": "2026-11-02T16:10:39.384055+00:00",
+  "author": "/root",
+  "lens": 2,
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L2-ITEM-VALIDATION-REMAINDER-001.json",
+    "sha256": "3d64543e540f8c8b2b1bee84437d53aad368ef460371631167fa9fb410afaf72"
+  },
+  "base_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "b36b1f0bf97a9af07b62f452b9906bcc8ace100151522102d2b4ce04c498df39"
+  },
+  "selected_l2_state": {
+    "path": "segovb/STATE-L2-EXT-CURRENT-015.json",
+    "sha256": "cd3dcd9b27ecd2fa4f108004b85031716389d163b41f28c6f9eb11dc803fefd8"
+  },
+  "rows": [
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-core/src/item_catalog_validation.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+        "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+        "source_object": "adler-continuation-20261030/objects/97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+        "bytes": 72750,
+        "actual_EOF": 2059,
+        "ranges": [
+          [
+            546,
+            1147
+          ],
+          [
+            1494,
+            2059
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 1168,
+        "prior_body_join": "Exact selected L2 state has these two unassessed bodies. Prior assessed1..545/1148..1493 and attribution preserved, bytes equal current337/previouse275; no fresh/population/unique credit claimed or other-lens verdict transferred."
+      },
+      "source_id": "current-337:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+      "assessed_body_ranges": [
+        [
+          546,
+          1147
+        ],
+        [
+          1494,
+          2059
+        ]
+      ],
+      "output_chunks": [
+        "863cd1",
+        "60297e",
+        "2bfdcf",
+        "204fb3",
+        "21130e"
+      ],
+      "untruncated_body_status": true,
+      "fresh_root_personal_lines": 0,
+      "uncredited_body_read_lines": 1168,
+      "production_body_read_lines": 602,
+      "test_module_body_read_lines": 566,
+      "semantic_primitive_inventory": [
+        {
+          "ranges": [
+            [
+              546,
+              635
+            ],
+            [
+              1058,
+              1146
+            ]
+          ],
+          "role": "Carry/handling/attack kind and weapon mode/skill distribution",
+          "assessment": "Raw JSON lexical admission belongs at native catalog boundary; closed carry/handling/preferred attack and compatible skill subset need exact existing schema/core owner comparison. Guarded carry unreachable branch is dominated by two-value validation with immutable source; no ordinary panic asserted. Melee/ranged booleans are actual named predicates at JSON boundary; do not arbitrarily replace them with mutually exclusive enum because both allowed. Weight total tolerance0.0001 and mode-specific positive mass matter; UnitInterval leaf must not silently narrow currently allowed tolerance/precision or erase distribution role."
+        },
+        {
+          "ranges": [
+            [
+              637,
+              728
+            ]
+          ],
+          "role": "Material, physical dimensions, grip reach and signed anchor offset",
+          "assessment": "Material names are procedural PBR selection, not automatically physical material identity. Dimensions exactly3 finite positive metres, grip nonnegative default0 and signed3component offset have different invariants/roles. Existing CuboidDimensions or Length candidates require actual frame/full-vs-half/signed/zero/precision comparison, not shape/name match. Local malformed-value default does not prove document accepted: full typed-schema/build path still necessary."
+        },
+        {
+          "ranges": [
+            [
+              729,
+              868
+            ],
+            [
+              924,
+              998
+            ]
+          ],
+          "role": "Placement, body location/channel/protection, attachment IDs/tags/order/capacity",
+          "assessment": "Copied native lexical vocabularies must compare actual EquipmentLocation/Channel/BodyPart owners and allowed subset policies. Stable placement/domain/tag IDs open authored identities, not an enum of current strings. Capacity1..u16MAX different from inventory quantity; default order0/singleton semantics and guaranteed single-element indexing legitimate current modes. Parent/occupancy/schema validation bodies materially reached and not credited from calls. No unsupported malformed ordinary item or blanket positive-index assertion."
+        },
+        {
+          "ranges": [
+            [
+              878,
+              923
+            ]
+          ],
+          "role": "Protection resistance/padding and flexibility/range-of-motion",
+          "assessment": "Finite ranges0..1 and0..1000000 are unit/policy-specific admission, not one generic float concept. Existing core/schema protection owner/source and actual physical consumers needed before a concrete reusable leaf/role is accepted. Zero/default protection is deliberately exercised by test source, not automatically unavailable or invalid."
+        },
+        {
+          "ranges": [
+            [
+              999,
+              1053
+            ]
+          ],
+          "role": "Paired surface domain/UV and tangent direction",
+          "assessment": "Domain+two finite0..1 UVs and three-component finite tangent are paired authored state, different from free Vec2/Vec3. Squared tangent norm >1e-12 is actual threshold while prose says nonzero; direction/normalization/precision/frame policy requires exact owner before proposing change or ordinary rejected-value defect. Preserve optional paired-none mode and valid fitted non-protective accessories."
+        },
+        {
+          "ranges": [
+            [
+              1494,
+              2059
+            ]
+          ],
+          "role": "Native JSON fixtures and behavioral acceptance source",
+          "assessment": "Read566test-module lines including positive-after-f32 conversion, malformed schema diagnostics, supported kind/quality/occupancy, sided alternatives, accessory UV/tangent pairing, default protection and carry policy. Fixture literals, tuples and unwrap/expect inside tests are actual native fixture boundaries. Assertions and imports are source evidence only: no execution, passing test or full numeric/native runtime proof. Existing tests demonstrate intended rejection/valid modes but must compare actual production definitions/consumers."
+        },
+        {
+          "ranges": [
+            [
+              548,
+              549
+            ],
+            [
+              638,
+              641
+            ],
+            [
+              775,
+              778
+            ],
+            [
+              949,
+              954
+            ],
+            [
+              1026,
+              1029
+            ]
+          ],
+          "role": "Diagnostic source/path/message and native array ordinals",
+          "assessment": "CatalogDiagnostics existing source-bound diagnostic owner and exact JSON field paths recur at admission/output. Earlier own-L2 READ013 path protocol issue retained, no alias merely from same formatter remedy. Native source indices/JSON array ordinals and final human prose do not automatically equal role IDs or target-unit values. Complete existing path/typed-schema source dependencies before asserting canonical diagnostic repair."
+        }
+      ],
+      "existing_owner_fit_complete": false
+    }
+  ],
+  "prior_exact_source": {
+    "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+    "current_bytes_equal": true,
+    "previous_own_l2_assessed_ranges": [
+      [
+        1,
+        545
+      ],
+      [
+        1148,
+        1493
+      ]
+    ],
+    "previous_read": {
+      "path": "root-l2-extension-20261030/READ-ROOT-L2-CURRENT-013.json",
+      "sha256": "94db3cca4ab1240e4a669b16c565fb6ecf540b6454c3db7aca89b7529ca7ea24"
+    },
+    "prior_author_not_relabelled": true
+  },
+  "uncharged_existing_own_l2_header_reread": {
+    "ranges": [
+      [
+        1,
+        32
+      ]
+    ],
+    "output_chunk": "00064f",
+    "purpose": "Identify actual numeric/occupancy/surface/material helpers and source diagnostic owner, no new body credit"
+  },
+  "existing_owner_navigation_only": [
+    {
+      "path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+      "locations": [
+        74,
+        147,
+        293,
+        311,
+        437,
+        467
+      ],
+      "qualification": "Definitions located, not new body evidence/fit verdict."
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "locations": [
+        11
+      ],
+      "qualification": "f32 interval candidate, actual bounds/precision/distribution role not assumed."
+    },
+    {
+      "path": "crates/fabelgeist-geometry/src/cuboid.rs",
+      "locations": [
+        14
+      ],
+      "qualification": "Stored SignedLength fields located, no strict-positive/full-width/frame fit presumed."
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "locations": [
+        43,
+        44,
+        49,
+        50,
+        51,
+        52,
+        261
+      ],
+      "qualification": "Build includes exact schema/validator sources; actual dependency barrier and full compile/typed decoder sequence pending body trace."
+    }
+  ],
+  "remaining_evidence": [
+    "Read actual schema/owner definitions and required producers/consumers/build dependency barrier at exact revision/ranges; compare every inventoried primitive meaning/units/frame/authority/bounds/zero/admission and record exact match/reusable leaf/missing owner/unresolved contract by actual definition/use locations.",
+    "Qualify reached numeric/occupancy/surface/material helper bodies and current typed-schema/compiler/runtime catalog flow. Do not infer malformed accepted item from a permissive local fallback or a passing test from fixture source.",
+    "Then update/adopt selected own-L2 body/disposition record with prior scope/author history and exact current-source comparison, preserving untraced contracts. Current selected state unassessed ranges remain unchanged until qualified disposition; all20/current/global audit and implementation gates open."
+  ],
+  "new_body_population_unique_credit": 0,
+  "new_primary_findings": 0,
+  "source_adoption_performed": false,
+  "selected_l2_state_updated": false,
+  "whole_file_lens_or_current_delta_clearance": false,
+  "product_execution": false,
+  "tests_executed": false,
+  "independent_agent_review": false,
+  "implementation_gate_complete": false
+}

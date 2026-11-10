@@ -1,0 +1,201 @@
+{
+  "schema": "726-root-l13-source-packet-v1",
+  "at": "2026-10-31T14:32:51.568117+00:00",
+  "lens": 13,
+  "author": "/root",
+  "original_before": 1745,
+  "original_after": 1747,
+  "registered_before_read_attestation": true,
+  "connected": [],
+  "prior_same_lens_adoptions": [],
+  "new_root_ordered_lines": 1179,
+  "new_root_connected_reread_lines": 0,
+  "accepted_unique_count_change": 0,
+  "other_population_credit": 0,
+  "current_source_reconciled": false,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "new_questions": [],
+  "ordered": [
+    {
+      "source": {
+        "original": 1745,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/ui.rs",
+        "sha256": "2a2206d4b76e7db409e7cfa2b8e4337d5ea4a6fa606a95de4e8cf04ca85666e6",
+        "actual_eof": 1039,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/2a2206d4b76e7db409e7cfa2b8e4337d5ea4a6fa606a95de4e8cf04ca85666e6",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            1039
+          ]
+        ],
+        "purpose": "Full Lens13 tactical UI selected state, combat/equipment display and native interaction boundary. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1745-001.json",
+        "sha256": "ac371ca8d6b7cd03b384955f2049ad0834a42015e32e105e6bfcda4d70db203b"
+      },
+      "registration_pointer": "/sources/0",
+      "assessed_ranges": [
+        [
+          1,
+          1039
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              107
+            ]
+          ],
+          "assessment": "UiPlugin disablesautomaticprimaryegui cameraadoption, attachesPrimaryEguiContext onlyAdded TacticalGameplayCamera withoutEguiContext, avoidingoffscreenfloatcameraUI pass. StartupHUD persistsunderTacticalUiRoot; clientplayerexistence gatescombat/stat/item/limb/wheel systems,guard/camera/connection independent. Multiple/newcamera/lifetime andstrategicvisibility policy requireactualnative/plugin/session producer, not importedtestproof."
+        },
+        {
+          "ranges": [
+            [
+              109,
+              212
+            ]
+          ],
+          "assessment": "Wheel constants26/8player18/6enemy; visibleamount clampsnonnegativeandremaining, suppresses<.005. Playercanonicalviewer getsWillskill/alllimbs andstate.incapacitation_sources(limbtotaldamage,will); drawonlyincapacitation>0. Enemy onlyEnemy nonlocalPlayer,skipunavailableviewer, usesrighead+.25 orroot+1.1,world_to_viewport andcontentrectexpandedradius. Nativeviewport/DPI mapping andsameentitystate/limb consistency requireactualproducer. No newphysical penalty orpersistenttickstate introduced; fallbackheadheight isdisplayplacement."
+        },
+        {
+          "ranges": [
+            [
+              214,
+              266
+            ]
+          ],
+          "assessment": "Painterusesimmutable combatstate/sources; incapacitatedoutline separatevisual. Forecastsegments returnedby1746, cursorbegins-top,remaining1,eachamountclipstoavailable/stepsceil(amount*96)min2, subtractsdrawnamount andbreaksat0. Preserves100percentcutoff; subpixelomission doesnotchangestate. Actualsourcefinite/nonnegative/total consistency requiredforgeometry, no arbitraryNaNwitness; nativepaintbuffer onlydisplayboundary."
+        },
+        {
+          "ranges": [
+            [
+              268,
+              540
+            ]
+          ],
+          "assessment": "Typedcomponentmarkers addressHUD spans; PlayerSpanOf/PlayerSpan linkedspawnrelationship associatesrosterrowwithPlayerentity. setupcreatespersistentroot/stylesheet/initialhiddenoutcomereticle/attackresult4stimer,explicitcontrolhelp,limb/equipment/inventory/connection/roster. UIcomponents no strategic/tactical persistenceauthority. Actualinputbindinghelp coherence androot-child visibility/lifetime onscenehandoff requireowncontracts, not inferredfromlabeltext."
+        },
+        {
+          "ranges": [
+            [
+              542,
+              637
+            ]
+          ],
+          "assessment": "Guardlabelusesdesiredguard andFIRST ControlledPlayer iterator->viewerok->rangedfalse onmissing; Lowered/Aiming/Blocking semanticdisplay, notauthoritativecombatguard. Actualsinglecontrolledplayer andClientPlayer equivalence neededbeforemultirow/incorrectlabelclaim. CameraAimStateOption controlsreticle andblockedindicator;typedcamera debugfractions/metres/velocities/NDC convertedonlyformatting. Debug toggleschangedonly; combatlabel delegates1746. This consumer retainsnative display values not parallelcamera/combatstate."
+        },
+        {
+          "ranges": [
+            [
+              638,
+              709
+            ]
+          ],
+          "assessment": "TacticalOutcome enum mapsVictory/Defeat text+style thensetsbannerVisibilityVisible. Actualsessionreset/rootinheritance policy requiredforpersistentHUD, no stale-banner/nativevisibility witness assertedwithout lifecycle. Stats useschangedlocalTransform,canonicalCharacterId unuseddisplay; FPS latestsmoothed nativeformat; limbsChanged query formatsnativefractionspercent. ClientPlayerexistence doesnotitselfproveuniquequery orfresh limb state; actualreplication/session cardinalityneeded."
+        },
+        {
+          "ranges": [
+            [
+              711,
+              766
+            ]
+          ],
+          "assessment": "ItemQueryItem formatterusescanonicalquantity.get andslot, itemproperties.id text orunknownempty, prioritizesweapon thenarmor thenshield, formatsnativeattributes. Displayname isnotidentifieradmission. update_items_ui gatedSingle<Option<InventoryItems>,Changed<InventoryItems>>,clearschildren anditer_many membership; missingquerymatches omitted. Itemslot/quantity/attribute-only changes andInventoryItems removal do notexplicitlytriggerthisfunction; actualwriter/relationship changepropagation/removal schedule needed to determine stale/partialHUD. No supported mutationwitness ornewfinding assertedhere, existinggraphobservation findings notautomaticallyaliases."
+        },
+        {
+          "ranges": [
+            [
+              768,
+              903
+            ]
+          ],
+          "assessment": "Connection displaysnativePeerAddr else normalizedserverURL,LocalAddr elsebrowsersession;ClientState exhaustive, RTTseconds*1000/loss*100/rxbpstxbps displayonly actualSDKunitsrequired. Attacktimerprehitremaining whenattackingelseclears. SuccessfulAttackResponse readsfirsthit only; absent/unqueryable firsthit silentlyleavespriorresult;actual eventfirsthit/entitymapping mustjustify intendedmulti-target display. CanonicalAttackResult/DefenderResponse drivefailure reason/damage formatting,4sgameTime timer resets/clears children. No combatmutation,server damage authority remains separate."
+        },
+        {
+          "ranges": [
+            [
+              905,
+              1039
+            ]
+          ],
+          "assessment": "PlayerAddobserver usesArgs.id == CharacterId.0 tostylecontrolled, clonesname andformatsid/color,linksentityforlifetime. ActualClientPlayer/ControlledPlayer/Args rebinding andupdatednames needproducertrace. Unexecutedtests pinonlygameplayprimaryegui,Active/incapacitated labels,Victory/Defeat,9sourceorderedsegmentvalues/colors,darkfatigue,subpixelthreshold,andEnemypositiveonly. Doesnotprove fullnativeUI/runtime/current correctness."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1746,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/ui/combat_state.rs",
+        "sha256": "4a377bed178aa3822eba2e6be0f9b97db5e7b8267ade2b3bdc90924241a074a2",
+        "actual_eof": 140,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/4a377bed178aa3822eba2e6be0f9b97db5e7b8267ade2b3bdc90924241a074a2",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            140
+          ]
+        ],
+        "purpose": "Full Lens13 combat wheel source/forecast segmentation and native display-only composition. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1746-001.json",
+        "sha256": "48b2fcdbcb3eaa544024be7554f5dd4240cef071f5ac03a09cc0fca3f17ca208"
+      },
+      "registration_pointer": "/sources/0",
+      "assessed_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              24
+            ]
+          ],
+          "assessment": "CanonicalTacticalIncapacitationSources consumedbyvalue: nineordereddisplaysegments mergepain+acutetrauma, thenbloodloss,fear,fatigue,hunger,thirst,thermal,imbalance,encumbrance. FatigueRGB32blackish,imbalancewhite,encumbranceRGBA160greyalpha120. No extra oxygen/musclefatigue pool ormovementpenalty inthisdisplayhelper; onlysourcecomposition, actualproducercontributiononce stillrequirescorecontract."
+        },
+        {
+          "ranges": [
+            [
+              26,
+              49
+            ]
+          ],
+          "assessment": "available=clamp(1-current.total,0,1),predicted=max(forecast.total,0),scale=min(available/predicted,1)else0; interleaveeachactualcolorwithmax(increase0)*scaleYELLOW. Underactualnonnegative additivecanonicalsource contract combinedtotal<=1 whencurrent<=1, soforecastcannotdisplacelateractualdespiteinterleaving;current>=1 suppressesforecast. Negativemixedforecast ornonadditivetotal needsactualproducerbeforecounterexample; no inventedinvalidsource state."
+        },
+        {
+          "ranges": [
+            [
+              51,
+              140
+            ]
+          ],
+          "assessment": "Labelreadonlystateincapacitatedstatus andbloodloss/fatigue/imbalancepercent. Unexecutedtests currentfatigue.5+encumbrance.3,forecastpain.4+blood.2 yieldyellow.2 andpreserveactualsum;assertnoactualyellow/translucentdistinctencumbrance;alltenforecastcomponents showyellow andbloodloss1.2currentzeroesforecasts. Displaytests do notestablishsimulationprojectionaccuracy ornativebehavior."
+        }
+      ]
+    }
+  ],
+  "contract_revisits_pending_queue_adoption": [],
+  "remaining_connected_obligations": [
+    "Combatwheel display verifiedreadonly:darkfatigue,translucentgreyencumbrance,yellowforecast scaledremaining,100percentclip. Actualcanonicalsource total/nonnegative projection andcoreencumbranceonce/performance/movement rules needownsource evidence, no fullgameplayclaim.",
+    "InventoryHUD only observesChanged<InventoryItems>;actualitem-onlywriters/removal/changepropagation/nativequery semantics determine if displaycanstale oromitmembers. Do notalias unrelated inventorymedicalquery-result findings without exactsamecontract.",
+    "PersistentHUD root/egui/banner lifecycle, nativeVisibility inheritance/DPI andcontrolledplayer cardinality/Args identity needactualselectedsession consumers; no unsupportedstale/multipleplayer witness.",
+    "SuccessfulAttackResponse firsthitonly andmissingentityearlyreturn requireactualproducer/networkentitymapping andmultitargetdisplaypolicy; remainsdisplaynotdamageauthority. NativeSDKstats units andinputhelp coherence separate.",
+    "All1179 frozen lines read, tests unexecuted, no imported/native/current/other-population credit. All13/all20/extensions/current/aliases/repair gates incomplete."
+  ]
+}

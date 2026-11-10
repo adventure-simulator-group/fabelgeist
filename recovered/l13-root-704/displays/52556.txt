@@ -1,0 +1,249 @@
+SOURCE 2679 report-p17:crates/fabelgeist-geometry/src/measurement.rs
+1: //! Scalar set-out distances and overlap areas retain their units and admission.
+2: 
+3: #[cfg(feature = "reflect")]
+4: use bevy_reflect::Reflect;
+5: use serde::{Deserialize, Serialize};
+6: 
+7: use crate::{CoordinateAxis, GeometryError, GeometryResult as Result, GeometryRole, PositiveLength};
+8: 
+9: /// Finite signed metres, including zero offsets and negative insets.
+10: /// ```compile_fail
+11: /// use fabelgeist_geometry::{SignedLength, PositiveLength};
+12: /// fn wrong_role(inset: SignedLength) -> PositiveLength { inset }
+13: /// ```
+14: #[derive(Clone, Copy, Debug, PartialEq, Serialize, Default)]
+15: #[cfg_attr(feature = "reflect", derive(Reflect))]
+16: #[repr(transparent)]
+17: #[serde(transparent)]
+18: #[cfg_attr(feature = "reflect", reflect(opaque))]
+19: pub struct SignedLength(f32);
+20: 
+21: /// Finite nonnegative square metres. Empty overlap is a valid zero area.
+22: /// ```compile_fail
+23: /// use fabelgeist_geometry::{Area, SignedLength};
+24: /// fn wrong_unit(area: Area) -> SignedLength { area }
+25: /// ```
+26: #[derive(Clone, Copy, Debug, PartialEq, Serialize)]
+27: #[cfg_attr(feature = "reflect", derive(Reflect))]
+28: #[repr(transparent)]
+29: #[serde(transparent)]
+30: #[cfg_attr(feature = "reflect", reflect(opaque))]
+31: pub struct Area(f32);
+32: 
+33: impl SignedLength {
+34:     pub const ZERO: Self = Self(0.0);
+35:     pub const fn from_metres(value: f32) -> Result<Self> {
+36:         if !value.is_finite() {
+37:             return Err(GeometryError::NonFinite {
+38:                 role: GeometryRole::SignedLength,
+39:                 axis: CoordinateAxis::X,
+40:             });
+41:         }
+42:         Ok(Self(value))
+43:     }
+44:     /// Native minimum of two finite admitted lengths, including signed zero.
+45:     pub fn min(self, other: Self) -> Self {
+46:         Self(self.0.min(other.0))
+47:     }
+48: 
+49:     /// Native maximum of two finite admitted lengths, including signed zero.
+50:     pub fn max(self, other: Self) -> Self {
+51:         Self(self.0.max(other.0))
+52:     }
+53: 
+54:     /// A bounded millimetre observation is always finite. Preserve the native
+55:     /// armor conversion's f32 promotion followed by division, without rounding
+56:     /// through an intermediate representation or changing it to multiplication.
+57:     pub fn from_millimetres(value: u16) -> Self {
+58:         Self(f32::from(value) / 1_000.0)
+59:     }
+60: 
+61:     /// Scale a signed offset at its numerical kernel and retain finite admission.
+62:     pub fn scaled_by(self, factor: f32) -> Result<Self> {
+63:         Self::from_metres(self.0 * factor)
+64:     }
+65: 
+66:     pub fn metres(self) -> f32 {
+67:         self.0
+68:     }
+69: }
+70: impl From<PositiveLength> for SignedLength {
+71:     fn from(value: PositiveLength) -> Self {
+72:         Self(value.metres())
+73:     }
+74: }
+75: impl<'de> Deserialize<'de> for SignedLength {
+76:     fn deserialize<D: serde::Deserializer<'de>>(d: D) -> std::result::Result<Self, D::Error> {
+77:         Self::from_metres(f32::deserialize(d)?).map_err(serde::de::Error::custom)
+78:     }
+79: }
+SOURCE 2681 report-p17:crates/adventuresim-tactical-core/src/scene_coordinates.rs
+1: //! Finite scene-local east/north positions, distinct from geographic degrees
+2: //! and architectural building-local coordinates.
+3: use adventuresim_building_generator::plan_geometry::{PlanPolygon, PlanVertex};
+4: use bevy::math::Vec2;
+5: use serde::{Deserialize, Serialize};
+6: 
+7: pub use polygon::{ArchitecturalPlanProjection, ScenePlanPolygon};
+8: pub use spatial::{
+9:     ArchitecturalFloorDatum, ArchitecturalGateDatum, CollisionCentreDatum, CollisionRelative,
+10:     GateDatum, GateRelative, GroundRelative, PlotRelative, Scene, SceneDoorPose,
+11: };
+12: pub use window::SceneWindowPose;
+13: 
+14: mod polygon;
+15: mod spatial;
+16: mod window;
+17: 
+18: #[derive(Clone, Copy, Debug, PartialEq, Serialize, bevy::prelude::Reflect)]
+19: #[reflect(opaque)]
+20: #[serde(transparent)]
+21: pub struct ScenePlanPoint(Vec2);
+22: 
+23: /// Finite scene-local east/north translation in metres; not a point or direction.
+24: #[derive(Clone, Copy, Debug, PartialEq)]
+25: pub struct PlanDisplacement(Vec2);
+26: 
+27: impl ScenePlanPoint {
+28:     pub const ORIGIN: Self = Self(Vec2::ZERO);
+29:     pub const fn from_metres(point: Vec2) -> Option<Self> {
+30:         if point.x.is_finite() && point.y.is_finite() {
+31:             Some(Self(point))
+32:         } else {
+33:             None
+34:         }
+35:     }
+36:     pub fn metres(self) -> Vec2 {
+37:         self.0
+38:     }
+39:     pub fn offset_from_origin(self) -> PlanDisplacement {
+40:         PlanDisplacement(self.0)
+41:     }
+42:     pub fn translated(
+43:         self,
+44:         delta: PlanDisplacement,
+45:     ) -> Result<Self, adventuresim_building_generator::spatial_geometry::GeometryError> {
+46:         Self::try_from(self.0 + delta.metres())
+47:     }
+48: }
+49: impl TryFrom<Vec2> for ScenePlanPoint {
+50:     type Error = adventuresim_building_generator::spatial_geometry::GeometryError;
+51:     fn try_from(metres: Vec2) -> Result<Self, Self::Error> {
+52:         use adventuresim_building_generator::spatial_geometry::{CoordinateAxis, GeometryRole};
+53:         Self::from_metres(metres).ok_or(Self::Error::NonFinite {
+54:             role: GeometryRole::Position,
+55:             axis: if !metres.x.is_finite() {
+56:                 CoordinateAxis::X
+57:             } else {
+58:                 CoordinateAxis::Z
+59:             },
+60:         })
+61:     }
+62: }
+63: impl PlanVertex for ScenePlanPoint {
+64:     fn plan_metres(self) -> Vec2 {
+65:         self.metres()
+66:     }
+67: }
+68: impl PlanDisplacement {
+69:     pub const ZERO: Self = Self(Vec2::ZERO);
+70:     pub fn from_metres(metres: Vec2) -> Option<Self> {
+71:         metres.is_finite().then_some(Self(metres))
+72:     }
+73:     pub fn metres(self) -> Vec2 {
+74:         self.0
+75:     }
+76: }
+77: impl TryFrom<Vec2> for PlanDisplacement {
+78:     type Error = adventuresim_building_generator::spatial_geometry::GeometryError;
+79:     fn try_from(metres: Vec2) -> Result<Self, Self::Error> {
+80:         use adventuresim_building_generator::spatial_geometry::{CoordinateAxis, GeometryRole};
+81:         Self::from_metres(metres).ok_or(Self::Error::NonFinite {
+82:             role: GeometryRole::Displacement,
+83:             axis: if !metres.x.is_finite() {
+84:                 CoordinateAxis::X
+85:             } else {
+86:                 CoordinateAxis::Z
+87:             },
+88:         })
+89:     }
+90: }
+91: impl<'de> Deserialize<'de> for ScenePlanPoint {
+92:     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+93:         Self::from_metres(Vec2::deserialize(deserializer)?)
+94:             .ok_or_else(|| serde::de::Error::custom("scene plan point must be finite"))
+95:     }
+96: }
+97: 
+98: impl From<adventuresim_building_generator::spatial_geometry::Position<Scene>> for ScenePlanPoint {
+99:     fn from(position: adventuresim_building_generator::spatial_geometry::Position<Scene>) -> Self {
+100:         let point = position.metres();
+101:         Self(Vec2::new(point.x, point.z))
+102:     }
+103: }
+104: 
+105: #[cfg(test)]
+106: mod tests {
+107:     use super::*;
+108:     #[test]
+109:     fn scene_coordinates_reject_nonfinite_components_and_roundtrip_signed_positions() {
+110:         assert!(ScenePlanPoint::from_metres(Vec2::new(0.0, f32::NAN)).is_none());
+111:         let point = ScenePlanPoint::from_metres(Vec2::new(-3.0, 2.0)).unwrap();
+112:         let restored: ScenePlanPoint =
+113:             serde_json::from_str(&serde_json::to_string(&point).unwrap()).unwrap();
+114:         assert_eq!(restored, point);
+115:         assert!(serde_json::from_str::<ScenePlanPoint>("[0,null]").is_err());
+116:     }
+117: }
+118: 
+119: #[cfg(test)]
+120: mod spatial_tests;
+SOURCE 2683 report-p17:crates/adventuresim-building-generator/Cargo.toml
+1: [package]
+2: name = "adventuresim-building-generator"
+3: description = "Standalone procedural building-layout and coarse-geometry prototype"
+4: version.workspace = true
+5: edition.workspace = true
+6: repository.workspace = true
+7: license.workspace = true
+8: 
+9: [features]
+10: default = []
+11: sign-render = ["dep:ab_glyph", "bevy/bevy_pbr", "bevy/bevy_render"]
+12: viewer = [
+13:     "sign-render",
+14:     "dep:adventuresim-procedural-textures",
+15:     "bevy/default",
+16:     "bevy/png",
+17:     "dep:bevy_egui",
+18:     "dep:bevy_mod_outline",
+19:     "dep:bevy_panorbit_camera",
+20: ]
+21: 
+22: [dependencies]
+23: fabelgeist-geometry = { workspace = true, features = ["reflect"] }
+24: ab_glyph = { workspace = true, optional = true }
+25: adventuresim-world-schema.workspace = true
+26: adventuresim-procedural-textures = { workspace = true, optional = true }
+27: bevy.workspace = true
+SOURCE 2684 report-p17:crates/fabelgeist-geometry/Cargo.toml
+1: [package]
+2: name = "fabelgeist-geometry"
+3: description = "Checked scalar geometry and portable admission errors"
+4: version.workspace = true
+5: edition.workspace = true
+6: repository.workspace = true
+7: license.workspace = true
+8: 
+9: [features]
+10: default = []
+11: reflect = ["dep:bevy_reflect"]
+12: 
+13: [dependencies]
+14: bevy_reflect = { version = "0.19.0", default-features = false, features = ["std"], optional = true }
+15: serde.workspace = true
+16: thiserror.workspace = true
+17: 
+18: [lints]
+19: workspace = true

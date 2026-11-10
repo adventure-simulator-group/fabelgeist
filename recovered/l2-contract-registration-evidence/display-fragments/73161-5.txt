@@ -1,0 +1,40 @@
+271:             Some(BackendContract {
+272:                 id: row.id,
+273:                 case_id: row.case_id,
+274:                 title: row.title,
+275:                 description: row.description,
+276:                 difficulty: row.difficulty,
+277:                 gold_reward: row.gold_reward,
+278:                 xp_reward: row.xp_reward,
+279:                 settlement_id: row.settlement_id,
+280:                 service_id: row.service_id,
+281:                 issuer_resident_character_id: row.issuer_resident_character_id,
+282:                 status: row.status,
+283:                 accepted_by: row.accepted_by,
+284:                 opposition_wording: row.opposition_wording,
+285:                 opposition_count_wording: row.opposition_count_wording,
+286:                 opposition_count,
+287:                 opposition_combat_power,
+288:                 accepted_at_minute: row.accepted_at_minute,
+289:                 paid_at_minute: row.paid_at_minute,
+290:                 distance_m,
+291:             })
+292:         })
+293:         .collect()
+294: }
+295: 
+296: #[derive(Clone, Debug)]
+297: /// Terminal case result. Finale execution is owned by its immutable receipt,
+298: /// not a second mutable checkpoint on this outcome.
+299: #[table(accessor = case_outcome)]
+300: pub struct CaseOutcome {
+301:     #[primary_key]
+302:     pub case_id: String,
+303:     pub party_id: String,
+304:     pub status: CaseStatus,
+305:     pub winning_path_index: Option<u16>,
+306:     pub resolved_at_minute: StrategicMinute,
+307:     pub selected_finale_id: String,
+308: }
+309: 
+310: #[derive(Clone, Debug)]

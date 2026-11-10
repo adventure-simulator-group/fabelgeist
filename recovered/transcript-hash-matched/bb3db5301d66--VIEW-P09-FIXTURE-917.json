@@ -1,0 +1,26 @@
+{
+  "schema": "726-granular-contract-view-v1",
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-P09-FIXTURE-917.json",
+    "sha256": "1e405095c12efcf544911f025c5700f7b2c9171072ddfdefa25a85d846f1e242"
+  },
+  "connected_source_qualifications": [
+    {
+      "path": "adler-continuation-20261030/QUALIFICATION-P09-SKIN-916.json",
+      "sha256": "4012fd158accb5180157d7eb8963ea93686e319589e9ba56c06b5d1ad366cd4c"
+    }
+  ],
+  "whole_contract_closed": false,
+  "assessment": "The reopened P09 anime fixture owner-set gap persists in selected source: it extracts native words and uses a usize index against the ordinal-indexed RigJointTable. This is a source-level type mismatch, not a compiler result; it is distinct from the MHR producer and numeric skin admission contracts.",
+  "later_repair_acceptance_requirements": [
+    "Retain RigJointOrdinal in the fixture owner set and use it for rig-table selection.",
+    "Project to a numeric slot only where the fixture computes a rotation, preserving existing component ownership and geometry assertions.",
+    "Compile and run the exact fixture and reconcile connected morph records and all P09 receivers."
+  ],
+  "remaining_evidence": [
+    "Actual fixture build and runtime execution, remaining family and aliases."
+  ],
+  "body_or_population_credit": 0,
+  "accepted_unique_count_change": 0,
+  "repair_runtime_passed": false
+}

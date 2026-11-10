@@ -1,0 +1,127 @@
+"""Maintain a latest human report and an immutable snapshot per checkpoint."""
+import argparse
+import hashlib
+import json
+import os
+import re
+import textwrap
+from datetime import datetime, timezone
+from pathlib import Path
+
+BASE=Path(__file__).resolve().parent
+WORKSPACE=next(p for p in BASE.parents if (p/"crates/AGENTS.md").is_file())
+ROOT=BASE.parent
+INTAKE=WORKSPACE/"target/726-intake-20261030"
+CONTEXT=INTAKE/"PROGRESS-CONTEXT.json"
+
+def sha(data): return hashlib.sha256(data).hexdigest()
+def load(path): return json.loads(path.read_bytes())
+def encode(value): return (json.dumps(value,indent=2)+"\n").encode()
+def ref(path): return {"path":path.relative_to(WORKSPACE).as_posix(),"sha256":sha(path.read_bytes())}
+def resolve(value):
+    path=(WORKSPACE if value["path"].startswith("target/") else ROOT)/value["path"]
+    assert path.resolve().is_relative_to((WORKSPACE/"target").resolve())
+    return path
+def check(value):
+    path=resolve(value);assert sha(path.read_bytes())==value["sha256"],path.name
+    return path
+def atomic(path,data):
+    temporary=path.with_name(path.name+".new")
+    with temporary.open("xb") as stream:stream.write(data)
+    os.replace(temporary,path)
+
+def check_context(number):
+    context=load(CONTEXT)
+    assert context["schema"]=="726-human-progress-context-v1"
+    assert context["goal_status"] in {"active","paused","blocked","complete"}
+    assert str(number) in context["checkpoint_summaries"], "Write the human checkpoint summary before publication."
+    assert all(context[key] for key in ["phase_summary","stages","working_on","next_steps","completed_since_handoff","remaining","validation","subagents"])
+    summary=context["checkpoint_summaries"][str(number)]
+    assert summary["summary"] and summary["scope_limit"]
+    return context
+
+def canonical():
+    path=INTAKE/"CURRENT.json";current=load(path)
+    checkpoint_path=check(current["preservation_checkpoint"])
+    number=int(re.fullmatch(r"CHECKPOINT-(\d+)\.json",checkpoint_path.name).group(1))
+    verification_path=check(current["adoption_verification"])
+    verification=load(verification_path)
+    assert verification["status"]=="pass"
+    return current,number,checkpoint_path,verification_path
+
+def render(current,number,context,updated):
+    out=[]
+    def paragraph(value):out.extend([textwrap.fill(value,width=80),""])
+    def bullets(values):
+        for value in values:out.extend([textwrap.fill(value,width=80,initial_indent="- ",subsequent_indent="  "),""])
+    def heading(value):out.extend(["## "+value,""])
+    def link(path):return path.as_posix()
+    out.extend(["# Bespoke type refactor: progress","",f"Updated: {updated}","",f"Latest verified checkpoint: **{number}**. Goal: **{context['goal_status']}**.",""])
+    paragraph(context["phase_summary"])
+    out.extend(["| Phase | Status |","| --- | --- |"])
+    out.extend(f"| {phase} | {status} |" for phase,status in context["stages"].items())
+    out.append("")
+    heading("Latest checkpoint")
+    summary=context["checkpoint_summaries"][str(number)]
+    paragraph(summary["summary"]);paragraph(summary["scope_limit"])
+    heading("Working on now")
+    paragraph(context["working_on"]);bullets(context["next_steps"])
+    heading("Work completed since the handoff")
+    bullets(context["completed_since_handoff"])
+    heading("What remains")
+    bullets(context["remaining"])
+    heading("Coverage and verification limits")
+    source=current["current_source"]
+    paragraph(f"The newest source-revision batch contains {source['new_delta_paths']} changed paths and {source['new_pending_lens_cells']} lens/path checks; {source['new_cells_closed']} of those checks are closed. These are audit coverage obligations, not bug counts. Earlier revision evidence remains separately qualified.")
+    paragraph(f"The canonical queue contains {current['progress']['closure_queue_entries_not_unique_findings']} entries. Entries and views overlap, so this is not a count of unique bugs or a meaningful completion percentage.")
+    paragraph(context["product_changes"]);paragraph(context["validation"]);paragraph(context["subagents"])
+    heading("Evidence and report updates")
+    paragraph(f"Selected source revision: `{source['selected_target']}`.")
+    out.extend([f"- [Checkpoint {number}]({link(INTAKE/f'CHECKPOINT-{number}.json')})",
+        f"- [Checkpoint verification]({link(resolve(current['adoption_verification']))})",
+        f"- [Saved report for checkpoint {number}]({link(INTAKE/f'PROGRESS-{number}.md')})",""])
+    paragraph("PROGRESS.md is the latest working report. It is updated during ongoing work and whenever a new checkpoint is published. PROGRESS-N.md preserves the report saved for checkpoint N; later work updates the latest report without rewriting that snapshot.")
+    data=("\n".join(out).rstrip()+"\n").encode()
+    for line in data.decode().splitlines():
+        assert len(line)<=80 or line.startswith("|") or "](" in line
+    return data
+
+def update():
+    current,number,checkpoint_path,verification_path=canonical()
+    context=check_context(number);updated=datetime.now(timezone.utc).isoformat()
+    data=render(current,number,context,updated)
+    snapshot=INTAKE/f"PROGRESS-{number}.md";metadata_path=INTAKE/f"PROGRESS-{number}.json"
+    if snapshot.exists() or metadata_path.exists():
+        assert snapshot.exists() and metadata_path.exists()
+        metadata=load(metadata_path)
+        check(metadata["report"]);assert metadata["checkpoint"]==ref(checkpoint_path)
+    else:
+        with snapshot.open("xb") as stream:stream.write(data)
+        metadata={"schema":"726-progress-report-snapshot-v1","at":updated,"checkpoint_number":number,
+            "checkpoint":ref(checkpoint_path),"verification":ref(verification_path),"report":ref(snapshot),
+            "context_at_publication":context,"canonical_current_at_publication":ref(INTAKE/"CURRENT.json")}
+        with metadata_path.open("xb") as stream:stream.write(encode(metadata))
+    atomic(INTAKE/"PROGRESS.md",data)
+    state={"schema":"726-latest-progress-report-v1","at":updated,"checkpoint_number":number,
+        "checkpoint":ref(checkpoint_path),"verification":ref(verification_path),"canonical_current":ref(INTAKE/"CURRENT.json"),
+        "context":ref(CONTEXT),"latest_report":ref(INTAKE/"PROGRESS.md"),"snapshot_metadata":ref(metadata_path)}
+    atomic(INTAKE/"PROGRESS-STATE.json",encode(state))
+    verify()
+    return state
+
+def verify():
+    current,number,checkpoint_path,verification_path=canonical();state=load(INTAKE/"PROGRESS-STATE.json")
+    assert state["checkpoint_number"]==number and state["checkpoint"]==ref(checkpoint_path)
+    assert state["canonical_current"]==ref(INTAKE/"CURRENT.json") and state["verification"]==ref(verification_path)
+    check(state["context"]);check(state["latest_report"])
+    snapshot=load(check(state["snapshot_metadata"]))
+    assert snapshot["checkpoint_number"]==number and snapshot["checkpoint"]==ref(checkpoint_path)
+    check(snapshot["report"])
+    return state
+
+if __name__=="__main__":
+    parser=argparse.ArgumentParser();parser.add_argument("mode",choices=["--write","--verify"])
+    # Parse as a positional mode while retaining a readable command spelling.
+    args=parser.parse_args(["--"]+__import__("sys").argv[1:])
+    result=update() if args.mode=="--write" else verify()
+    print(json.dumps({"status":"pass","mode":args.mode,"checkpoint":result["checkpoint_number"],"report":result["latest_report"]}))

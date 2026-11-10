@@ -1,0 +1,117 @@
+{
+  "schema": "726-root-l2-existing-owner-additive-qualification-v1",
+  "at": "2026-11-02T17:11:48.109188+00:00",
+  "author": "/root",
+  "lens": 2,
+  "read": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/READ-ROOT-L2-TACTICAL-ARMOR-009-010.json",
+    "sha256": "2d39b6b66a770e25f524f4715da369bd6c1c186d5a2f11d413755f6ede6e7a0f"
+  },
+  "prior_contact_qualification": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/QUALIFICATION-ROOT-L2-CATALOG-CONTACT-ADDENDUM-001.json",
+    "sha256": "5d8e79df2c89838faa812ba67cb08ead7253139cf8f10a00f4347e66954596ac"
+  },
+  "assessments": [
+    {
+      "role": "existing-tactical-inventory-identity",
+      "source_row": 0,
+      "ranges": [
+        [
+          23,
+          38
+        ]
+      ],
+      "decision": "TacticalInventoryItemId already carries stable strategic inventory identity on the transient tactical projection. ArmorLayerContact distinguishes item definition string identity from optional inventory identity, actual geometry, material and ArmorSurface. ItemQuery reads the existing identity component; armor_layer_chain extracts id.0 into both telemetry record and its ArmorSurface. Reuse the existing identity owner through internal consequence records, then convert at the actual serialization/ABI endpoint. The public u64 owner has no nonzero admission rule; absence is an explicit valid optional state, not ID0.",
+      "acceptance": "Preserve exact engaged item identity and optional fixture/innate absence. Do not substitute definition ID, Bevy Entity, layer ordinal, or a newly duplicated inventory identity wrapper."
+    },
+    {
+      "role": "coverage-geometry-and-layer-order",
+      "source_row": 2,
+      "ranges": [
+        [
+          5,
+          78
+        ]
+      ],
+      "decision": "armor_layer_chain filters covered_parts[body_part_index] and positive scalar coverage, stably sorts descending layer_order, then chooses the first geometry containing the same sample. It enumerates that same retained sequence to mark selected, preserving the ordinal association by construction. InventoryView::armor_surface returns the selected record's surface, not the aggregated layer sum. Equal-order behavior follows retained input order; no inventory-ID tie breaker exists here, so do not import another helper's tie policy without a deliberate design decision.",
+      "acceptance": "Keep outer-layer priority, same-sequence selected marking, one selected intersecting layer or no selection in a gap, and selected surface identity/material/energy association. Preserve aggregate resistance/padding/ROM calculation separately from physical first-hit selection."
+    },
+    {
+      "role": "covered-part-retained-geometry-invariant",
+      "source_row": 2,
+      "ranges": [
+        [
+          14,
+          46
+        ]
+      ],
+      "decision": "ArmorItem stores parallel covered_parts:[bool;7] and coverage_geometry:[Option<AuthoredArmorCoverage>;7]. Selection expects Some geometry for each covered positive-coverage part. Existing AuthoredArmorCoverage and a named per-part record can own this correlation; a wrapper around each independent flag/Option would not eliminate invalid combinations. Production expect calls must be removed under crate rules even if the producer invariant rules out ordinary panic. The real production construction/admission graph has not yet been read, so no ordinary missing-geometry witness is asserted.",
+      "acceptance": "Admit covered-part geometry together, retain legitimate empty/no-protection modes and exactly the existing seven-part mapping. Do not fabricate a fallback surface or ignore a violated required geometry contract."
+    },
+    {
+      "role": "contact-status-and-aggregate-units",
+      "source_row": 2,
+      "ranges": [
+        [
+          33,
+          78
+        ]
+      ],
+      "decision": "ArmorLayerContact's carried selected/intersected statuses are derived from one coordinate and same retained geometry; selected implies intersected. A semantic classification may distinguish missed, intersected behind the selected outer layer, and selected. Reuse the existing contact record and preserve serialized predicate endpoints. fold_armor_layers receives an index produced from BodyPart at its inspected caller; fixed seven-element indexing is established there, not an excuse for a new arbitrary external index API. Resistance/padding are additive nonnegative energy roles; weighted flexibility and minimum ROM use fraction roles already qualified in core.",
+      "acceptance": "Keep meaningful contact states and truthful output, preserve zero resistance handling and valid ROM1 default, and retain shared numerical owners rather than duplicated core/tactical wrappers."
+    },
+    {
+      "role": "existing-runtime-fixtures",
+      "source_row": 2,
+      "ranges": [
+        [
+          80,
+          205
+        ]
+      ],
+      "decision": "Existing source fixture constructs geometry together with covered flags and reads catalog channel order. The behavioral fixture checks mail/plate/cloth selection, removal and reinsertion, and disconnected patches. These fixtures do not prove every production producer or tie-order contract. No test was executed or added.",
+      "acceptance": "Run applicable observable existing acceptance later, retaining selected identity and truthful gaps after actual equipment changes."
+    }
+  ],
+  "inspected_caller_evidence": [
+    {
+      "source_row": 1,
+      "ranges": [
+        [
+          272,
+          289
+        ],
+        [
+          562,
+          599
+        ]
+      ],
+      "trace": "ItemQuery carries optional TacticalInventoryItemId -> InventoryView::armor_surface -> armor_layer_chain -> selected.surface. body_part_index maps exact seven BodyPart variants to fixed array positions."
+    },
+    {
+      "source_row": 3,
+      "ranges": [
+        [
+          357,
+          381
+        ]
+      ],
+      "trace": "armor_materials_for uses the same covered/positive predicate; layered_armor_for passes body_part_index and actual armor records to aggregate fold."
+    }
+  ],
+  "remaining_evidence": [
+    "Actual ArmorItem production constructors/replication admission must prove covered flag/geometry and authored channel-order invariant; iteration/equipment.rs124/134 located only, not assessed here.",
+    "InventoryView::iter and full equal-order producer policy remain unqualified; stable sort alone does not establish deterministic global tie order.",
+    "Upstream sample/gap admission, exact canonical alias identities, remaining catalog owner questions and formal L2 state/ledger adoption remain open."
+  ],
+  "canonical_source_case_closed": false,
+  "current_delta_cells_closed": 0,
+  "new_primary_findings": 0,
+  "new_body_population_unique_credit": 0,
+  "source_adoption_performed": false,
+  "product_edits": false,
+  "product_execution": false,
+  "tests_executed": false,
+  "independent_agent_review": false,
+  "implementation_gate_complete": false
+}

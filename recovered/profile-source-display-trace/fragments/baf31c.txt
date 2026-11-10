@@ -1,0 +1,95 @@
+SOURCE crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs
+1715:     state.results.push(LeafBenchmarkResult {
+1716:         representation: name,
+1717:         triangles_per_leaf,
+1718:         scene_leaf_triangles,
+1719:         mean_ms,
+1720:         median_ms,
+1721:         p95_ms,
+1722:         mean_fps: 1_000.0 / mean_ms,
+1723:     });
+1724:     println!(
+1725:         "LEAF_BENCHMARK representation={name:?} mean_ms={mean_ms:.3} median_ms={median_ms:.3} p95_ms={p95_ms:.3}"
+1726:     );
+1727:     state.mode += 1;
+1728:     state.samples_ms.clear();
+1729:     state.warmup_remaining = LEAF_BENCHMARK_WARMUP_FRAMES;
+1730:     if state.mode < LEAF_BENCHMARK_MODES.len() {
+1731:         return;
+1732:     }
+1733: 
+1734:     let report = LeafBenchmarkReport {
+1735:         pipeline: "tactical_scene_leaf_benchmark_v1",
+1736:         fixture: capture.fixture.clone(),
+1737:         resolution: capture_resolution::physical_pixels(&capture.profile).to_array(),
+1738:         tree_count: capture.expected_trees,
+1739:         warmup_frames_per_mode: LEAF_BENCHMARK_WARMUP_FRAMES,
+1740:         sample_frames_per_mode: state.sample_frames,
+1741:         note: "End-to-end uncapped frame duration; not an isolated GPU timestamp. All leaf modes use identical scene, camera, lighting, wind, and LOD0 wood.",
+1742:         results: core::mem::take(&mut state.results),
+1743:     };
+1744:     write_leaf_benchmark(&capture.output, &report);
+1745:     exit.write(AppExit::Success);
+1820:         self_shadows: mode.shadows_enabled,
+1821:         mean_ms,
+1822:         median_ms,
+1823:         p95_ms,
+1824:         mean_fps: 1_000.0 / mean_ms,
+1825:     });
+1826:     println!(
+1827:         "TREE_LIGHTING_BENCHMARK mode={:?} mean_ms={mean_ms:.3} median_ms={median_ms:.3} p95_ms={p95_ms:.3}",
+1828:         mode.name
+1829:     );
+1830:     state.mode += 1;
+1831:     state.samples_ms.clear();
+1832:     state.warmup_remaining = TREE_LIGHTING_BENCHMARK_WARMUP_FRAMES;
+1833:     if state.mode < TREE_LIGHTING_MODES.len() {
+1834:         return;
+1835:     }
+1836: 
+1837:     let report = TreeLightingBenchmarkReport {
+1838:         pipeline: "tactical_scene_tree_lighting_benchmark_v1",
+1839:         fixture: capture.fixture.clone(),
+1840:         resolution: capture_resolution::physical_pixels(&capture.profile).to_array(),
+1841:         tree_count: capture.expected_trees,
+1842:         warmup_frames_per_mode: TREE_LIGHTING_BENCHMARK_WARMUP_FRAMES,
+1843:         sample_frames_per_mode: state.sample_frames,
+1844:         note: "End-to-end uncapped frame duration; not an isolated GPU timestamp. All modes use identical dense-forest geometry, camera, weather, wind, and forced LOD0 cambered leaves.",
+1845:         results: core::mem::take(&mut state.results),
+1846:     };
+1847:     write_tree_lighting_benchmark(&capture.output, &report);
+1848:     exit.write(AppExit::Success);
+1849: }
+1850: 
+SOURCE crates/adventuresim-tactical-client/src/tactical_scene_viewer/triangle_census.rs
+255:                 vista_spacing.get(&lod.0).copied().unwrap_or_default(),
+256:                 match lod.0.index() {
+257:                     0 => "green",
+258:                     1 => "magenta",
+259:                     _ => "red",
+260:                 },
+261:             )
+262:         } else {
+263:             continue;
+264:         };
+265:         let tier = tiers.entry(name).or_default();
+266:         tier.spacing_metres = spacing_metres;
+267:         tier.color = color;
+268:         tier.resident_meshes += 1;
+269:         tier.resident_triangles += triangles;
+270:         if view_visibility.get() {
+271:             tier.visible_meshes += 1;
+272:             tier.visible_triangles += triangles;
+273:         }
+274:     }
+275:     TerrainWireframeReport {
+276:         pipeline: "tactical_terrain_wireframe_v1",
+277:         fixture: capture.fixture.clone(),
+278:         screenshot: "terrain-wireframe.png",
+279:         resolution: capture_resolution::physical_pixels(&capture.profile).to_array(),
+280:         camera_translation: camera.1.translation.to_array(),
+281:         camera_target: capture.ground_eye_target.metres().to_array(),
+282:         vertical_fov_degrees: 80.0,
+283:         count_semantics: "Triangles in terrain mesh entities whose Bevy ViewVisibility is true. Chunk-level vista culling is reflected; partial triangle clipping within a visible mesh is not.",
+284:         total_visible_triangles: tiers.values().map(|tier| tier.visible_triangles).sum(),
+285:         tiers,

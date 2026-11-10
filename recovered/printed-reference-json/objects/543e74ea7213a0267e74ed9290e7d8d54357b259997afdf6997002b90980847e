@@ -1,0 +1,47 @@
+{
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-BASELINE-OLDER-665.json",
+    "sha256": "9df2cb4c7aff6d82d1661abddd45b483ffc3e37016f3bff7cbf1d7f58c2be47a"
+  },
+  "whole_contract_closed": false,
+  "new_accepted_unique_count": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "at": "2026-11-03T05:43:03.568631+00:00",
+  "schema": "726-scoped-native-git-observation-v1",
+  "source_trace": [
+    "validate_source calls validate_grid with MAX_PLAYABLE_SIDE 601. The grid validator admits 2..601 vertices per side, finite spacing 0.25..=2000 metres, matching height/environment sample counts, bounded finite heights and bounded environment basis points.",
+    "The nominal coarse input extent is at most 600 \u00d7 2000 = 1,200,000 metres per axis. Upsampling caps subdivisions by the 601-side limit and divides spacing by the selected subdivision count; refinement requests 0.5-metre detail through SceneTerrain::refined and can return an error.",
+    "This narrows the selected geographic input path only; no exact f32 per-cell cardinality, resource allocation success or bound for other terrain producers is established."
+  ],
+  "remaining_evidence": [
+    "Qualify floating-point placement/cell arithmetic and refinement failure under admitted inputs before asserting a numerical chunk bound.",
+    "Identify other terrain and chunk producers and reconcile capacity ownership; complete lockfile and baseline lens assessments."
+  ],
+  "source_references": [
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-BASELINE-OLDER-664.json",
+      "sha256": "05eff5cfcacd923b8c968021bed0a7ed55c180db251d7cfd7c83631b517b2f91"
+    },
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-BASELINE-OLDER-662.json",
+      "sha256": "6bb2b5e2f787e66e479f44f22441c79c5d3ad691385f1a4d62c8b988ee4dc925"
+    },
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-BASELINE-OLDER-660.json",
+      "sha256": "5d9ee273437bf9dfc8d7af48a84bbda8e7c17184feb8e8ac87fd0e10f435a419"
+    },
+    {
+      "path": "adler-continuation-20261030/DIFF-METADATA-623-LOCK.patch",
+      "sha256": "90ef2adb9c90c6f469458557c19ec5655b91059e0d37d4372cb3cdf957f14420"
+    }
+  ],
+  "lock_registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-LOCK-DELTA-652.json",
+    "sha256": "9d5c1a0cd144cfc7b6965f6168a040e0e52a92c3b5d45c47661bd7eef331b963"
+  },
+  "native_git_registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-EIDOLON-656.json",
+    "sha256": "1724a826a6f90113b4449bebfb52db565595bc18b70f57ccefebe00472af24b9"
+  }
+}

@@ -1,0 +1,678 @@
+{
+  "schema": "726-recovery-source-locators-v1",
+  "repository": "https://github.com/adventure-simulator-group/fabelgeist.git",
+  "original_handoff": {
+    "branch": "codex/726-audit-handoff-20261030-adler",
+    "commit": "eb407672813424d64ec31f208193969f5a62620c",
+    "path": "handoff/726-audit-20261030-adler"
+  },
+  "public_progress": {
+    "branch": "codex/726-bespoke-type-progress",
+    "commit": "78b1d089cb5ee52df0b01c0bf6a020f049b8a126",
+    "latest_report": "PROGRESS.md",
+    "latest_checkpoint_summary": "CHECKPOINT-INCREMENT-348.json"
+  },
+  "published_implementation_drafts": [
+    {
+      "branch": "codex/726-audio-pitch",
+      "commit": "2d318efbb21d044680070c525554cb04ee286437"
+    },
+    {
+      "branch": "codex/726-landform-outcome",
+      "commit": "c40d70aeceeedfd87d7c9528628bf9c9bf87512b"
+    },
+    {
+      "branch": "codex/726-wedding-atomicity",
+      "commit": "4510a2685ea541dd3963bd22aa7a6df6ea29a2a5"
+    },
+    {
+      "branch": "codex/726-p16-restoration",
+      "commit": "8e63dde856913bbc7bb49c35329dd1d99da692d7"
+    },
+    {
+      "branch": "codex/726-p17-restoration",
+      "commit": "dcd6ea1aaddb0e542a418ae7ebe35c0bf73d4ecc"
+    },
+    {
+      "branch": "codex/726-repeat-sample-tick",
+      "commit": "c87e2b54a6af6a9f2e0dc0ecd37d055ec90fe3e6"
+    },
+    {
+      "branch": "codex/726-jitter-timing",
+      "commit": "96a20906e7e8e78c61dde90260fa16ecc5e47020"
+    },
+    {
+      "branch": "codex/726-jitter-quality",
+      "commit": "8ff11c82fb4430ee17a170c61bea72c3d5173625"
+    }
+  ],
+  "combined_draft_commit": {
+    "commit": "7e169b9766997144f213c03d34bb3d31dad086c1",
+    "reachable_from_published_branch": "codex/726-p16-restoration",
+    "qualification": "Ancestry was checked locally; the latest public incremental report records scenario-specific tests, not full integration acceptance."
+  },
+  "draft_limit": "Published refs are preserved evidence, not a claim of reviewed, integrated or validated implementation.",
+  "supplemental_registration_sources": {
+    "manifest": "recovered/supplemental-registration-sources/MANIFEST.json",
+    "restorer": "recovered/supplemental-registration-sources/restore_sources.py",
+    "verified_identities": 43,
+    "qualification": "Not present in the 373-entry source manifest; may overlap other collections. Source bytes do not establish audit credit or final authority."
+  },
+  "preserved_native_archive_sources": {
+    "manifest": "recovered/native-archive-source-objects/MANIFEST.json",
+    "source_objects": 10,
+    "verified_archives": 8,
+    "qualification": "Archive members are preserved by hash; this does not establish audit credit or final authority."
+  },
+  "raw_output_git_sources": {
+    "manifest": "recovered/raw-output-git-sources/MANIFEST.json",
+    "restorer": "recovered/raw-output-git-sources/restore_sources.py",
+    "verified_identities": 248,
+    "external_source_manifest": "recovered/raw-output-external-sources/MANIFEST.json",
+    "qualification": "Source matches are historical evidence; they may overlap other collections and do not establish final authority."
+  },
+  "alternate_output_git_sources": {
+    "manifest": "recovered/alternate-output-git-sources/MANIFEST.json",
+    "restorer": "recovered/alternate-output-git-sources/restore_sources.py",
+    "verified_identities": 15,
+    "qualification": "Includes binary assets and may overlap other collections; not final authority or audit credit."
+  },
+  "source_count_reconciliation": "SOURCE-COUNTS.json",
+  "draft_git_bundle": {
+    "manifest": "recovered/draft-git-bundle/MANIFEST.json",
+    "restorer": "recovered/draft-git-bundle/restore_drafts.py",
+    "pinned_commits": 8,
+    "requires_base_commit": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+    "qualification": "Restored repository uses the source repository object store as an alternate; these are unreviewed drafts, not accepted implementation."
+  },
+  "selected_lens_440_values": {
+    "manifest": "recovered/selected-lens-440-values/MANIFEST.json",
+    "printed_lenses": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "verified_selected_states": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "qualification": "Historical snapshot bytes hash-verified; final selection and Lens 2, 12 and 13 state bytes remain missing.",
+    "original_snapshot_sha256": "eccc459c300b5faddd10db40aec1bfa7b0f59d91f58e5243760680670f51d232"
+  },
+  "l2_errantry_reuse_qualification": {
+    "manifest": "recovered/l2-errantry-reuse-qualification/MANIFEST.json",
+    "sha256": "c8ac419fd0fe6b38f12eeb8f2338f54331c2589ef46b7f13aa09e31c04904299",
+    "qualification": "Historical 21-row qualification reconstructed from six original receipts; not final state or additional audit credit."
+  },
+  "final_writer_static_trace": {
+    "manifest": "recovered/final-writer-static-trace/MANIFEST.json",
+    "steps": 19,
+    "qualification": "Checkpoint 3802 CURRENT points to snapshot 440; 19 recorded successor runs and derived writers support its retention, but final CURRENT bytes remain unavailable."
+  },
+  "later_dependency_matches": {
+    "manifest": "recovered/hash-matched-dependencies/LATER-MATCHES.json",
+    "matched_distinct": 44,
+    "still_unmatched_distinct": 484,
+    "qualification": "Counts refer to an earlier limited 212-JSON citation inventory and overlap other recovered evidence.",
+    "private_extract_scan": "recovered/hash-matched-dependencies/PRIVATE-EXTRACT-SCAN.json"
+  },
+  "direct_printed_dependencies": {
+    "manifest": "recovered/direct-printed-dependencies/MANIFEST.json",
+    "files": 9,
+    "qualification": "Historical program source matched against cited SHA-256 and kept inert; not final audit authority."
+  },
+  "owned_repair_capture": {
+    "manifest": "recovered/owned-repair-capture/MANIFEST.json",
+    "sha256": "1388d72009fa9d4052878c3c2328afd779ff64be99018808f600deda774171c3",
+    "qualification": "Two historical unimplemented capture repair contract versions; native evidence and final authority remain separately qualified.",
+    "successor_sha256": "a643c4bc1273a98cb678f257e699268cebf4f64161cd607e0a8c3d222ebe7583"
+  },
+  "bevy_asset_event_plan": {
+    "manifest": "recovered/bevy-asset-event-plan/MANIFEST.json",
+    "sha256": "dfaee2bc1a08cadeb48bc0aa3c8e73bc87ffa93b42d4fefe41646b4e01b7842a",
+    "qualification": "Prospective source locator, not audit credit."
+  },
+  "historical_lock_delta": {
+    "manifest": "recovered/historical-lock-delta/MANIFEST.json",
+    "sha256": "90ef2adb9c90c6f469458557c19ec5655b91059e0d37d4372cb3cdf957f14420",
+    "qualification": "Historical Cargo.lock delta, reproduced from pinned revisions without new audit credit."
+  },
+  "embedded_printed_audit_records": {
+    "manifest": "recovered/embedded-printed-audit-records/MANIFEST.json",
+    "files": 4,
+    "qualification": "Historical records, including unimplemented AI-precision plan; no current authority or new credit."
+  },
+  "qualification_linked_registrations": {
+    "manifest": "recovered/qualification-linked-registrations/MANIFEST.json",
+    "registrations": 2,
+    "source_objects": 7,
+    "qualification": "Six source objects overlap prior manifests; the registrations are historical, not current authority or source-read credit."
+  },
+  "l13_state388_lineage": {
+    "manifest": "recovered/l13-state388-lineage/MANIFEST.json",
+    "state_sha256": "ce8ab6fb497efbca3b780d6e57fda02d0aea40c1f8b1ce74eedc5a9f34c29587",
+    "plan_sha256": "735a64dd7b4838cd51fbbbec52f4986a13f3255573239747a106ebfc54cfa25f",
+    "qualification": "Historical lineage; cited predecessor and receipt remain missing."
+  },
+  "l13_historical_state_batch": {
+    "manifest": "recovered/l13-historical-state-batch/MANIFEST.json",
+    "new_states": 6,
+    "already_preserved": 1,
+    "qualification": "Historical state bytes only; predecessors and receipts remain separately qualified."
+  },
+  "l13_output_state_batch": {
+    "manifest": "recovered/l13-output-state-batch/MANIFEST.json",
+    "states": 9,
+    "qualification": "Historical printed-hash states; predecessor and receipt references do not imply their bytes are recovered."
+  },
+  "capture_family_repair_contracts": {
+    "manifest": "recovered/capture-family-repair-contracts/MANIFEST.json",
+    "contracts": 3,
+    "qualification": "Historical unimplemented related contracts; referenced source packets remain separately qualified.",
+    "uncredited_pinned_source_objects": 1
+  },
+  "capture_view_mapping": {
+    "manifest": "recovered/capture-view-mapping/MANIFEST.json",
+    "sha256": "e8298267bb80376589cbc3b3d98e89301655de163dacb32ca1cfa95f85e91ea1",
+    "qualification": "Historical unimplemented contract linked from the animation certification contract."
+  },
+  "capture_owner_outcomes": {
+    "manifest": "recovered/capture-owner-outcomes/MANIFEST.json",
+    "records": 2,
+    "case_facets": 5,
+    "qualification": "Historical unimplemented owner contract and scoped comparison; case verdicts remain independent."
+  },
+  "capture_callers_successor": {
+    "manifest": "recovered/capture-callers-successor/MANIFEST.json",
+    "sha256": "d6f5e95db795892559219697930237b879932a7de5c10a9e4b5ad8632279d7b6",
+    "qualification": "Historical unimplemented successor; source packet is linked separately and resolutions remain separate."
+  },
+  "building_capture_identity": {
+    "manifest": "recovered/building-capture-identity/MANIFEST.json",
+    "sha256": "2e57004055c98bf54ac2ccc800669cf1ea39360ca05e24bf18c84bc04ae15a09",
+    "qualification": "Historical unimplemented building capture identity proposal; predecessor and supporting evidence remain separate."
+  },
+  "building_source_registrations": {
+    "manifest": "recovered/building-source-registrations/MANIFEST.json",
+    "registrations": 3,
+    "source_objects": 20,
+    "qualification": "Prospective uncredited historical scopes; corresponding read packets are linked separately."
+  },
+  "building_source_read_packets": {
+    "manifest": "recovered/building-source-read-packets/MANIFEST.json",
+    "packets": 3,
+    "qualification": "Historical recorded assessments with zero fresh credit; captured source outputs match pinned bytes and were not re-executed."
+  },
+  "capture_fingerprint_proposal": {
+    "manifest": "recovered/capture-fingerprint-proposal/MANIFEST.json",
+    "sha256": "eda722f887e98460e6fe8b72171efdc903cfbc152d6faeda83d6029816ec9d89",
+    "qualification": "Historical unimplemented fingerprint ownership proposal; source packets are linked separately and resolutions remain separate."
+  },
+  "fingerprint_source_evidence": {
+    "manifest": "recovered/fingerprint-source-evidence/MANIFEST.json",
+    "registrations": 2,
+    "read_packets": 2,
+    "source_objects": 6,
+    "qualification": "Historical uncredited assessments; three source hashes overlap other manifests."
+  },
+  "capture_entries_evidence": {
+    "manifest": "recovered/capture-entries-evidence/MANIFEST.json",
+    "registrations": 1,
+    "read_packets": 1,
+    "source_objects": 4,
+    "qualification": "Historical uncredited assessments; some source bytes overlap other collections."
+  },
+  "building_source_display_trace": {
+    "manifest": "recovered/building-source-display-trace/MANIFEST.json",
+    "chunks": 17,
+    "matched_line_occurrences": 4674,
+    "qualification": "Historical filtered outputs matched to pinned bytes; occurrences may overlap and give no new credit."
+  },
+  "capture_source_display_trace": {
+    "manifest": "recovered/capture-source-display-trace/MANIFEST.json",
+    "chunks": 9,
+    "matched_line_occurrences": 2531,
+    "qualification": "Historical filtered outputs matched to pinned bytes; occurrences may overlap and give no new credit."
+  },
+  "additional_owned_repair_records": {
+    "manifest": "recovered/additional-owned-repair-records/MANIFEST.json",
+    "qualification": "Two recorded proposal expressions and literal fields; original JSON bytes and dynamic dependencies are not reconstructed, and no implementation or acceptance is implied."
+  },
+  "additional_source_registrations": {
+    "manifest": "recovered/additional-source-registrations/MANIFEST.json",
+    "qualification": "Five exact registrations including a correction, and five exact read packets with pinned source objects; one further profile registration is recovered separately; no new credit or acceptance."
+  },
+  "profile_source_display_trace": {
+    "manifest": "recovered/profile-source-display-trace/MANIFEST.json",
+    "qualification": "Eight recorded output chunks, verified against source and packet scopes with one replacement-character line qualified; no new credit."
+  },
+  "building_issues_display_trace": {
+    "manifest": "recovered/building-issues-display-trace/MANIFEST.json",
+    "qualification": "Two recorded source displays match the recovered packet and pinned source; no new credit."
+  },
+  "lens2_selected_state_transition_trace": {
+    "manifest": "recovered/l2-selected-state-transition-trace/MANIFEST.json",
+    "qualification": "Six recorded transition expressions; states 023â€“025 match recorded hashes, states 026â€“027 are exact in their linked manifests, and final selected state 028 remains missing."
+  },
+  "lens12_selected_state_transition_trace": {
+    "manifest": "recovered/l12-selected-state-transition-trace/MANIFEST.json",
+    "qualification": "Recorded helper expression and reported checkpoint 502 modes; predecessor and exact selected state remain missing."
+  },
+  "lens13_selected_state_transition_trace": {
+    "manifest": "recovered/l13-selected-state-transition-trace/MANIFEST.json",
+    "qualification": "Recorded final seven source-row observations and reported adoption; exact selected state and predecessor remain missing.",
+    "plan_candidate": "recovered/l13-selected-state-transition-trace/PLAN-CANDIDATE-722-SEARCH.json"
+  },
+  "building_issues_native_source_trace": {
+    "manifest": "recovered/building-issues-native-source-trace/MANIFEST.json",
+    "qualification": "Recorded source displays and Git/native objects; registration and packet bytes missing, eight lines have replacement characters, no new credit."
+  },
+  "lens13_final_inherited_evidence": {
+    "manifest": "recovered/l13-final-inherited-evidence/MANIFEST.json",
+    "qualification": "Seven original handoff objects linked to two historically delegated Lens 13 source rows; no new credit and later qualification remains missing."
+  },
+  "lens13_final_source_display_trace": {
+    "manifest": "recovered/l13-final-source-display-trace/MANIFEST.json",
+    "qualification": "Two recorded displays of 409 historically attributed source lines match frozen source and recovered packet; no new credit."
+  },
+  "current_transition_path_evidence": {
+    "manifest": "recovered/current-transition-path-evidence/MANIFEST.json",
+    "qualification": "Original transition matches its recorded hash; 59 pinned paths and 96 source objects are preserved. Final closure queue remains missing."
+  },
+  "current_cell_checkpoint_trace": {
+    "manifest": "recovered/current-cell-checkpoint-trace/MANIFEST.json",
+    "qualification": "Historical checkpoint 502-509 reports and 25 named checkpoint 509 cells; final queue status remains unverified."
+  },
+  "late_current_cell_count_evidence": {
+    "manifest": "recovered/late-current-cell-count-evidence/MANIFEST.json",
+    "qualification": "Final writer asserts 767 and 403 closed cells and reported modes passed; final queue bytes remain unavailable."
+  },
+  "later_current_transition_path_evidence": {
+    "manifest": "recovered/current-transition-ff9-evidence/MANIFEST.json",
+    "qualification": "Original transition matches its recorded hash; 31 paths and 53 pinned source objects are preserved. Final queue remains missing."
+  },
+  "prior_current_transition_evidence": {
+    "manifest": "recovered/prior-current-transition-evidence/MANIFEST.json",
+    "qualification": "Original handoff transition, 148 target objects and 45 earlier modified source objects verified from pinned Git; connects all three revision transitions."
+  },
+  "lens12_sats_inherited_evidence": {
+    "manifest": "recovered/l12-sats-inherited-evidence/MANIFEST.json",
+    "qualification": "Original handoff receipts, registrations and source objects; later qualification and state remain missing, and no new credit is asserted."
+  },
+  "lens2_journey_registration_evidence": {
+    "manifest": "recovered/l2-journey-source-registrations/MANIFEST.json",
+    "qualification": "Three printed references, two matching source objects; original registration bytes remain missing and all reads are uncredited."
+  },
+  "lens2_native_registration_evidence": {
+    "manifest": "recovered/l2-native-registration-evidence/MANIFEST.json",
+    "qualification": "Three original SDK registrations match references through recovered state 026; two pinned archives and eight source objects plus two printed Git registration references are preserved, without new credit."
+  },
+  "lens2_contract_registration_evidence": {
+    "manifest": "recovered/l2-contract-registration-evidence/MANIFEST.json",
+    "qualification": "Two printed references and five matching source objects; original registration bytes remain missing and historical lines are uncredited."
+  },
+  "lens2_canonical_comparison_evidence": {
+    "manifest": "recovered/l2-canonical-comparison-evidence/MANIFEST.json",
+    "qualification": "First five-record comparison matches its printed original hash; 73 candidate references and all 67 queue first-contract fields are preserved. A partial queue projection derives 67 dispositions from the recorded writer; seven row lenses were directly observed. Six primary records were observed before the comparison; 12 recorded intervening commands are read-only, but ledger equality remains unproven. Later comparison bytes/hash and original index/queue bytes remain missing."
+  },
+  "lens13_nested_source_evidence": {
+    "manifest": "recovered/l13-nested-source-evidence/MANIFEST.json",
+    "qualification": "Six source objects match the original registry; 713 historical fresh display lines and 2,932 prior same-lens reuse lines remain separately attributed. Eight original linked proof objects support three reuse mappings; later registration and packet bytes are missing."
+  },
+  "lens2_native_state_candidate": {
+    "manifest": "recovered/l2-native-state-candidate/MANIFEST.json",
+    "qualification": "State 026, receipt and policy match their original hashes; reconstruction templates and the corrected matched timestamp are preserved."
+  },
+  "lens2_contract_state_candidate": {
+    "manifest": "recovered/l2-contract-state-candidate/MANIFEST.json",
+    "qualification": "State 027, receipt and policy match recorded hashes; direct later queue projection confirms the relevant policy predicate. Original queue files remain missing."
+  },
+  "lens2_reconciliation_state_candidate": {
+    "manifest": "recovered/l2-reconciliation-state-candidate/MANIFEST.json",
+    "qualification": "Four unverified templates for final selected state 028; predecessor is exact but comparison bytes/hash remain missing, so these are not original or authoritative state."
+  },
+  "lens2_publication_continuity_evidence": {
+    "manifest": "recovered/l2-publication-continuity-evidence/MANIFEST.json",
+    "qualification": "Original prior kernel matches a recorded hash; successor derived from the recorded literal replacement and apply/verify outputs report success. Missing queues and unconfirmed wrapper limit this to indirect evidence."
+  },
+  "lens12_final_registration_evidence": {
+    "manifest": "recovered/l12-final-registration-evidence/MANIFEST.json",
+    "qualification": "66 registry scopes and 62 source objects preserved; 5,795 historical fresh display lines, 766 prior role-lines linked to original receipts, and 223 shared role-lines are separately attributed. Seven final-batch registrations and the batch helper match printed hashes. Full state 960 and selected Lens 12 state remain missing."
+  },
+  "frontier_registration_templates": {
+    "path": "recovered/frontier-source-trace/REGISTRATION-TEMPLATES.json",
+    "qualification": "Seven static templates cover twelve historically recorded source rows. Original timestamps, hashes and bytes remain missing; templates provide no authority or new credit.",
+    "timing_metadata": "recovered/frontier-source-trace/REGISTRATION-TIMING.json"
+  },
+  "source_restoration_local_test": {
+    "report": "SOURCE-RESTORATION-TEST.json",
+    "qualification": "Seven restorers passed locally and refused existing destinations; independent-machine and remote availability remain untested."
+  },
+  "lens13_predecessor_discovery": {
+    "manifest": "recovered/l13-predecessor-discovery/MANIFEST.json",
+    "qualification": "Exact ten-row historical discovery, registration, qualification, source packet and helper match printed hashes; ten source objects, six inherited objects and 573 displayed fresh lines are preserved. Selected states remain missing; no new credit or later authority follows.",
+    "earlier_plan_candidate": "recovered/l13-predecessor-discovery/PLAN-CANDIDATE-721-SEARCH.json"
+  },
+  "lens13_earlier_discovery": {
+    "manifest": "recovered/l13-earlier-discovery/MANIFEST.json",
+    "qualification": "Exact later 30-row discovery, 13-row registration and qualification helper match printed hashes. Earlier root 691 discovery, eight-source registration, qualification, packet, plan and adoption receipt and successor state also match their hashes; the state is verified by the exact next plan. Root 563 adoption remains missing. No new credit or later authority follows."
+  },
+  "lens13_root_371": {
+    "manifest": "recovered/l13-root-371/MANIFEST.json",
+    "qualification": "Exact registration, packet, plan, adoption receipt and successor state match printed hashes; native verification matches the exact root 691 qualification reference; nine source objects and nine untruncated historical displays cover 2,178 lines. Packet contains 24 observations, four contract views and one question. One 143-line source and two observations overlap root 691 reuse. No new credit or current authority follows."
+  },
+  "lens13_root_563_clock_reuse": {
+    "manifest": "recovered/l13-root-563-clock/MANIFEST.json",
+    "qualification": "Exact clock-alias qualification, four cited original dependencies and 29-line source match recorded hashes. Later root 563 packet, plan and receipt are missing; no new credit or current authority follows."
+  },
+  "lens13_root_563_fixture": {
+    "manifest": "recovered/l13-root-563-fixture/MANIFEST.json",
+    "qualification": "Exact three-source registration, nine untruncated displays covering 871 lines, and six packet-writer observations for four roles. The fixtureâ€™s 163 displayed lines overlap root 563; the packet, plan and receipt remain missing. No new credit or current authority follows."
+  },
+  "lens13_root_692_fresh": {
+    "manifest": "recovered/l13-root-692-fresh/MANIFEST.json",
+    "qualification": "Exact helper and eight frozen source objects match recorded hashes; the decoder also matches its frozen lock-pinned archive. The packet and adoption receipt are recovered separately. The original qualification and registration remain missing. Historical display covers two source roles; current activation remains unproven."
+  },
+  "lens13_root_576": {
+    "manifest": "recovered/l13-root-576/MANIFEST.json",
+    "qualification": "Exact reuse qualification and fresh registration, four prior dependencies, six source objects, and nine displays covering 887 fresh lines. The 456 inherited lines retain prior attribution. Packet, plan and receipt remain missing; no new credit or current authority follows."
+  },
+  "lens13_root_693": {
+    "manifest": "recovered/l13-root-693/MANIFEST.json",
+    "qualification": "Exact discovery, helper, registration, qualification, packet, plan, adoption receipt and successor state, with eight sources and five displays covering all 1,030 scoped lines. The exact following plan verifies the state. No new credit or current authority follows."
+  },
+  "lens13_root_694": {
+    "manifest": "recovered/l13-root-694/MANIFEST.json",
+    "qualification": "Exact discovery, plan, packet, registration, qualification, helper, adoption receipt and successor state, with eight sources and three displays covering all 666 scoped lines. The next exact plan verifies the receipt and state. No new credit or current authority follows."
+  },
+  "lens13_root_695": {
+    "manifest": "recovered/l13-root-695/MANIFEST.json",
+    "qualification": "Original discovery, helper, registration, qualification and packet match recorded hashes. Seven untruncated historical displays cover all 1,546 registered source lines. The exact following plan verifies the linked receipt and successor state. Archived dependencies retain their historical classification. No new credit or current authority follows."
+  },
+  "lens13_root_696": {
+    "manifest": "recovered/l13-root-696/MANIFEST.json",
+    "qualification": "Original discovery, helper, registration, qualification and packet match recorded hashes; eight historical displays cover all 1,672 scoped lines across eight frozen project sources. The next exact plan verifies the linked adoption receipt and successor state. No current authority or new audit credit follows."
+  },
+  "lens13_root_697": {
+    "manifest": "recovered/l13-root-697/MANIFEST.json",
+    "qualification": "Original discovery, helper, registration, qualification and packet match recorded hashes; three historical displays cover all 834 scoped lines across eight frozen project sources. The next exact plan verifies the linked adoption receipt and successor state. No current authority or new audit credit follows."
+  },
+  "lens13_root_698": {
+    "manifest": "recovered/l13-root-698/MANIFEST.json",
+    "qualification": "Original discovery, helper, registration, qualification and packet match recorded hashes; three historical displays cover 632 production and 73 fixture source lines across eight frozen project sources. No fixture execution is claimed. The next exact plan verifies the linked adoption receipt and successor state. No current authority or new audit credit follows."
+  },
+  "lens13_root_699": {
+    "manifest": "recovered/l13-root-699/MANIFEST.json",
+    "qualification": "Original discovery, helper, registration, qualification and packet match recorded hashes; four historical displays cover 840 production and 167 fixture source lines across eight frozen project sources, including one explicitly escaped redisplay. No fixture execution is claimed. The next exact plan verifies the linked adoption receipt and successor state. No current authority or new audit credit follows."
+  },
+  "lens13_root_700": {
+    "manifest": "recovered/l13-root-700/MANIFEST.json",
+    "qualification": "Original eight-entry discovery, seven-entry narrowed discovery, helper, registration, qualification and packet match recorded hashes. Six historical displays cover 668 production and 4,443 fixture source lines across seven frozen sources; the P16 manifest is an archived namespace, and the separately matched original 2671 is excluded. No fixture execution is claimed. The next exact plan verifies the linked receipt and state, including its separate delegated reuse reference; no current authority or new audit credit follows."
+  },
+  "lens13_root_701": {
+    "manifest": "recovered/l13-root-701/MANIFEST.json",
+    "qualification": "Exact full and narrowed discovery, helper, mixed registration, qualification and packet. Four hash-verified archived source objects and one historical display cover 35 fresh lines; five separately attributed lines refer to a prior delegated read. The next exact plan verifies the linked root 701 receipt and state. Four prior supporting files match recorded hashes; the original prior adoption receipt remains unavailable. The full discovery retains seven prior-hash hits, two future proofs and one prior application. No new credit or current authority follows."
+  },
+  "lens13_root_702": {
+    "manifest": "recovered/l13-root-702/MANIFEST.json",
+    "qualification": "Exact discovery, patched helper, registration, qualification and packet; two archived source objects cover 365 registered lines attributed to two prior delegated reads, with zero fresh lines. The next exact plan verifies the linked receipt and state. Eight prior supporting files match recorded hashes, while the two original prior adoption receipts remain unavailable. No current authority or new audit credit follows."
+  },
+  "lens13_root_703": {
+    "manifest": "recovered/l13-root-703/MANIFEST.json",
+    "qualification": "Exact full and narrowed discovery, helper, registration, qualification and packet; two frozen source objects cover 36 registered delegated lines and zero fresh lines. The next exact plan verifies its linked receipt and state. Seven prior supporting files match, as do the earlier clock qualification and root 009 adoption. The root 212 adoption and old 2056 application receipt bytes remain unavailable. The narrowed discovery preserves four prior hits, two future proofs and the old application. No current authority or new audit credit follows."
+  },
+  "lens13_root_704": {
+    "manifest": "recovered/l13-root-704/MANIFEST.json",
+    "qualification": "Exact discovery, corrected helper, mixed registration, qualification and packet. Six archived report-P17 source objects and one historical display cover 245 fresh scoped lines; 150 lines retain earlier delegated and root attribution. Four delegated supporting files match. Original earlier qualification and adoption files, remain unavailable. The following exact plan verifies the linked root 704 receipt and state. Archive transport is not current authority."
+  },
+  "lens13_root_705": {
+    "manifest": "recovered/l13-root-705/MANIFEST.json",
+    "qualification": "Exact full and narrowed discovery, helper, mixed registration, qualification and packet. Two archived report-P17 source objects and one historical display cover 113 fresh lockfile lines; two manifest lines retain earlier delegated attribution. The prior root 701 alias application is recovered; the older root 023 adoption remains unavailable. The next exact plan verifies the linked root 705 receipt and state. Archive transport is not current authority."
+  },
+  "lens13_root_706": {
+    "manifest": "recovered/l13-root-706/MANIFEST.json",
+    "qualification": "Exact discovery, corrected helper, registration, qualification and packet; two archived report-P17 source objects cover 168 delegated lines with zero fresh lines. Four shared supporting files match; the original earlier root 053 adoption and application receipts remain unavailable. Five prior hits, two future proofs and three earlier applications are preserved. The next exact plan verifies the linked root 706 receipt and state. No current authority follows."
+  },
+  "lens13_root_707": {
+    "manifest": "recovered/l13-root-707/MANIFEST.json",
+    "qualification": "Exact discovery, helper, registration, qualification, packet, adoption, successor state and next plan. Four frozen sources cover 30 fresh displayed and 270 earlier-read material lines. Eleven prior supporting files are preserved; earlier adoption and root 319 packet/state bytes remain unavailable. Root 005 completed the old authority body; this role claims only lines 24â€“43. No current authority follows."
+  },
+  "lens13_root_708": {
+    "manifest": "recovered/l13-root-708/MANIFEST.json",
+    "qualification": "Exact discovery, helper, registration, qualification, packet, adoption, successor state and next plan cover seven frozen sources and 913 fresh displayed lines. One display character in original 2696 line 133 was corrupted in the transcript and independently recovered from the escaped display and source bytes. No current authority follows."
+  },
+  "lens13_root_709": {
+    "manifest": "recovered/l13-root-709/MANIFEST.json",
+    "qualification": "Exact discovery, helper, registration, qualification, packet, adoption, successor state and next plan cover four frozen sources: 340 fresh displayed and 132 earlier root 434 lines. The prior native verification is exact; earlier root 434 adoption, packet and state remain unavailable. No current authority follows."
+  },
+  "lens13_root_710": {
+    "manifest": "recovered/l13-root-710/MANIFEST.json",
+    "qualification": "Exact discovery, helper and registration cover five frozen sources, 769 fresh displayed and 271 prior-read lines. Original 2707 combines six earlier lines with only line 44 fresh. Three prior rows are preserved as transcript extracts; qualification, packet and adoption remain unrecovered. No current authority follows. Two prior self-verification summary hashes are recorded, but verification bodies and native state references remain unavailable."
+  },
+  "lens13_root_711": {
+    "manifest": "recovered/l13-root-711/MANIFEST.json",
+    "qualification": "Exact discovery, helper and registration cover six frozen sources, 335 fresh displayed and 56 earlier-read lines. Two prior source rows are transcript extracts. The 50 fixture-writer lines are source inspection only, not execution or seeding. Qualification, packet and adoption remain unrecovered; no current authority follows."
+  },
+  "lens13_root_712": {
+    "manifest": "recovered/l13-root-712/MANIFEST.json",
+    "qualification": "Exact discovery, corrected helper and registration cover six frozen sources, 200 fresh displayed and 1607 earlier-read lines. Three prior root-personal source rows are preserved as transcript extracts; two delegated partial unions retain their original authorship and remain to be reconstructed. Qualification, packet and adoption remain unrecovered; no current authority follows."
+  },
+  "lens13_root_713": {
+    "manifest": "recovered/l13-root-713/MANIFEST.json",
+    "qualification": "Exact discovery, helper, registration, qualification and packet cover eight frozen sources, 200 fresh displayed and 369 earlier-read lines. Two prior native verification records match exact qualification references; earlier root 692 registration remains missing. P16 design original 2728 differs from frozen PR; generated bindings are source evidence only. Adoption remains unrecovered; no current authority follows."
+  },
+  "lens13_root_714": {
+    "manifest": "recovered/l13-root-714/MANIFEST.json",
+    "qualification": "Exact discovery, helper and registration cover seven frozen sources, 498 fresh displayed and 544 earlier-read lines. SATS test source is not executed; URL production and source scopes are distinct. Qualification, packet and adoption remain unrecovered; no current authority follows."
+  },
+  "lens13_root_715": {
+    "manifest": "recovered/l13-root-715/MANIFEST.json",
+    "qualification": "Exact discovery, helper and registration cover seven frozen sources, 111 fresh displayed and 960 earlier-read lines. The helper preserves original Windows line endings. Original 2742 is a pinned dependency source, with native activation and current behavior unresolved. Qualification, packet and adoption remain unrecovered."
+  },
+  "lens13_root_716": {
+    "manifest": "recovered/l13-root-716/MANIFEST.json",
+    "qualification": "Exact discovery, corrected helper, registration, qualification and packet cover fourteen source objects, 821 fresh displayed and 1,294 delegated prior lines. All 22 cited delegated support files match. Four earlier adoption receipts and root 716 adoption remain unavailable. Helper preserves original Windows line endings. No execution or current activation follows."
+  },
+  "lens13_root_717": {
+    "manifest": "recovered/l13-root-717/MANIFEST.json",
+    "qualification": "Exact discovery, helper, registration, qualification and packet cover fourteen frozen sources, 538 fresh displayed and 581 prior native lines. The original rand archive, seven cited members, two prior registrations, native verification, connected packet and adoption match original hashes. The old stream adoption and packet remain unavailable. Current activation is unproven. Root 717 adoption remains unrecovered."
+  },
+  "lens13_root_718": {
+    "manifest": "recovered/l13-root-718/MANIFEST.json",
+    "qualification": "Exact discovery, corrected helper, registration, qualification and packet cover sixteen frozen sources, 437 fresh displayed and 812 earlier delegated lines. All 27 cited prior support files match; five earlier adoption receipts remain unavailable. The frozen lockfile pins the recovered serde_json archive, whose map source matches original 2785. Missing registry byte fields remain absent; current feature activation remains unproven. Root 718 adoption remains unrecovered."
+  },
+  "lens13_root_719": {
+    "manifest": "recovered/l13-root-719/MANIFEST.json",
+    "qualification": "Exact discovery, corrected helper, registration and frozen lock cover eighteen source identities, 1,282 fresh displayed and 540 earlier-read lines. Fourteen delegated support files match; root 314 verification is preserved as a printed extract. A locally recovered Git bundle contains the lock-pinned bevy_eidolon commit; all eight cited native source objects match its bytes. Earlier adoption records and root 719 qualification, packet and adoption remain unrecovered. Current activation is unproven."
+  },
+  "lens13_root_720": {
+    "manifest": "recovered/l13-root-720/MANIFEST.json",
+    "qualification": "Exact discovery, helper and registration cover eighteen source identities, 713 unique fresh displayed lines, 324 historical reused and 221 same-batch shared lines. Same-body sharing does not collapse distinct source roles. Qualification, packet and adoption remain unrecovered; no current authority follows."
+  },
+  "lens13_root_721": {
+    "manifest": "recovered/l13-root-721/MANIFEST.json",
+    "qualification": "Exact discovery, helper and registration cover thirteen source objects, 425 fresh displayed and 1,965 prior lines. Twelve delegated supporting files and one printed root 563 row are preserved. The root 563 receipt and later qualification, packet and adoption remain unavailable. Discovery entries beyond these thirteen are navigation only. Native original 2827 also matches the lock-pinned Git bundle object."
+  },
+  "lens13_root_722": {
+    "manifest": "recovered/l13-root-722/MANIFEST.json",
+    "qualification": "Exact discovery, helper, registration, qualification and packet cover ten source objects, 573 fresh displayed and 285 earlier delegated lines. Five prior support files match; root 109 adoption remains unavailable. Fixture source inspection is not execution. One earlier connected source omitted an original field, preserved as absent. Plan and adoption remain unrecovered."
+  },
+  "lens13_root_723": {
+    "manifest": "recovered/l13-root-723/MANIFEST.json",
+    "qualification": "Exact discovery, helper, registration, qualification and packet cover final seven source identities, 409 fresh displayed and 47 earlier delegated lines. Four prior support files match; root 042 adoption remains unavailable. Programme role 2846 combines fresh line 216 with inherited 217â€“243; old line 244 is outside the new role. Plan and adoption remain unrecovered; this does not establish final audit completion."
+  },
+  "lens13_root_563_logging": {
+    "manifest": "recovered/l13-root-563-logging/MANIFEST.json",
+    "qualification": "Original registration and three frozen source objects match recorded hashes. Registration proves intended scope, not personal reading, adoption, current authority or runtime behavior. Root 563 packet, plan and adoption remain missing."
+  },
+  "native_bevy_pinned_originals": {
+    "manifest": "recovered/native-bevy-pinned-originals/MANIFEST.json",
+    "qualification": "Frozen Git bytes match historical registry hashes. Derived lengths are not historical scope or audit credit. Current dependency activation, reading, adoption and behavior remain unproven."
+  },
+  "native_serde_pinned_originals": {
+    "manifest": "recovered/native-serde-pinned-originals/MANIFEST.json",
+    "qualification": "Frozen archive bytes match historical registry hashes. Derived lengths do not establish historical audit scope, reading, adoption or current activation."
+  },
+  "original_registry_source_archive": {
+    "manifest": "recovered/original-registry-source-archive/MANIFEST.json",
+    "registry": "recovered/original-registry-source-archive/registry.json.gz",
+    "objects": "recovered/original-registry-source-archive/objects.tar.gz",
+    "deleted_base_manifest": "recovered/deleted-source-base-objects/MANIFEST.json",
+    "qualification": "Original hashed source identities and recorded deleted base versions; not current authority or audit credit."
+  },
+  "recovered_selected_revision_registry_sources": {
+    "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+    "manifest": "recovered/selected-revision-registry-sources/MANIFEST.json",
+    "objects": "recovered/selected-revision-registry-sources/objects.tar.gz",
+    "commit_and_tree_proof": "recovered/selected-revision-registry-sources/trees.tar.gz",
+    "restore": "recovered/selected-revision-registry-sources/restore_objects.py",
+    "qualification": "Historical Git path membership or absence/non-blob proved against selected commit; no audit coverage inferred."
+  },
+  "recovered_draft_change_source_archive": {
+    "manifest": "recovered/draft-change-source-archive/MANIFEST.json",
+    "objects_and_git_trees": "recovered/draft-change-source-archive/objects.tar.gz",
+    "restore": "recovered/draft-change-source-archive/restore_objects.py",
+    "qualification": "Complete before/after changed-path source evidence for eight pinned draft trees; unchanged contents and history omitted; no validation inferred."
+  },
+  "portable_final_frontier_sources": {
+    "trace": "recovered/frontier-source-trace/TRACE.json",
+    "objects": "recovered/frontier-source-trace/sources",
+    "verify": "recovered/frontier-source-trace/verify_portable_frontier.py",
+    "qualification": "Historical displayed source observations, not original registrations or final authority."
+  },
+  "original_transport_manifest": {
+    "compressed_file": "recovered/original-transport-manifest.json.gz",
+    "uncompressed_sha256": "c3e04095a9e4cb3e2da6ee2a4f561c811ebeca445a50461ddb63b2d426ed6858",
+    "entries": 36487,
+    "qualification": "Original transport manifest; exact bytes preserved. It does not contain the full transported evidence."
+  },
+  "l13_root_712_delegated_partial_support": {
+    "manifest": "recovered/l13-root-712/MANIFEST.json",
+    "support_directory": "recovered/l13-root-712/prior-support",
+    "original_transport_files": 11,
+    "qualification": "Historical delegated source support verified against original transport; subsequent adoption and root 712 qualification remain missing."
+  },
+  "l13_root_720_delegated_support": {
+    "manifest": "recovered/l13-root-720/MANIFEST.json",
+    "support_directory": "recovered/l13-root-720/prior-support",
+    "original_transport_files": 14,
+    "qualification": "Historical delegated records verified against original transport; later adoption and root 720 qualification remain missing."
+  },
+  "l13_root_719_connected_original_support": {
+    "manifest": "recovered/l13-root-719/MANIFEST.json",
+    "support_directory": "recovered/l13-root-719/prior-support",
+    "additional_original_transport_files": 4,
+    "qualification": "Prior connected read and supporting records; later adoption and root 719 qualification remain unavailable."
+  },
+  "l13_root_715_prior_source_rows": {
+    "manifest": "recovered/l13-root-715/MANIFEST.json",
+    "extracts": "recovered/l13-root-715/prior-row-extracts.json",
+    "printed_excerpt": "recovered/l13-root-715/prior-row-display-excerpts.txt",
+    "qualification": "Five complete row excerpts from potentially truncated transcript output; original prior receipts and final authority are unavailable."
+  },
+  "l13_root_714_prior_source_rows": {
+    "manifest": "recovered/l13-root-714/MANIFEST.json",
+    "extracts": "recovered/l13-root-714/prior-row-extracts.json",
+    "printed_excerpt": "recovered/l13-root-714/prior-row-display-excerpts.txt",
+    "qualification": "Two printed historical source rows and metadata; original prior receipts and final authority remain unavailable."
+  },
+  "l13_root_720_prior_source_rows": {
+    "manifest": "recovered/l13-root-720/MANIFEST.json",
+    "extracts": "recovered/l13-root-720/prior-row-extracts.json",
+    "printed_excerpt": "recovered/l13-root-720/prior-row-display-excerpts.txt",
+    "qualification": "Four printed source rows, with three matching original delegated records; the fifth row was recovered separately from a later printed queue context. Prior adoptions and final authority remain unavailable.",
+    "fifth_row_later_context": "recovered/l13-root-720/prior-row-2805-complete.json"
+  },
+  "l13_root_719_literal_proposal": {
+    "file": "recovered/l13-root-719/PROPOSED-QUESTION-AND-ASSESSMENTS.json",
+    "manifest": "recovered/l13-root-719/MANIFEST.json",
+    "qualification": "Static historical command literals; no original full packet, plan, adoption or runtime failure claimed."
+  },
+  "l13_root_714_literal_proposal": {
+    "file": "recovered/l13-root-714/PROPOSAL-LITERAL-ASSESSMENTS.json",
+    "manifest": "recovered/l13-root-714/MANIFEST.json",
+    "qualification": "Recorded command literals and printed hashes; no original complete packet, plan, adoption or observed runtime failure claimed."
+  },
+  "l13_root_720_literal_proposal": {
+    "file": "recovered/l13-root-720/PROPOSAL-LITERAL-ASSESSMENTS.json",
+    "manifest": "recovered/l13-root-720/MANIFEST.json",
+    "qualification": "Recorded command literals and printed hashes; no original complete packet, plan, adoption or observed runtime failure claimed."
+  },
+  "l13_root_710_literal_proposal": {
+    "file": "recovered/l13-root-710/PROPOSAL-LITERAL-ASSESSMENTS.json",
+    "assignment_excerpt": "recovered/l13-root-710/ASSESSMENT-ASSIGNMENTS.txt",
+    "printed_refs": "recovered/l13-root-710/PRINTED-PACKET-PLAN.txt",
+    "manifest": "recovered/l13-root-710/MANIFEST.json",
+    "qualification": "Historical command literal and printed references; no adoption, independent review or observed runtime failure claimed."
+  },
+  "l13_root_711_literal_proposal": {
+    "file": "recovered/l13-root-711/PROPOSAL-LITERAL-ASSESSMENTS.json",
+    "assignment_excerpt": "recovered/l13-root-711/ASSESSMENT-ASSIGNMENTS.txt",
+    "printed_refs": "recovered/l13-root-711/PRINTED-PACKET-PLAN.txt",
+    "manifest": "recovered/l13-root-711/MANIFEST.json",
+    "qualification": "Historical command literal and printed references; no adoption, independent review or observed runtime failure claimed."
+  },
+  "l13_root_712_literal_proposal": {
+    "file": "recovered/l13-root-712/PROPOSAL-LITERAL-ASSESSMENTS.json",
+    "assignment_excerpt": "recovered/l13-root-712/ASSESSMENT-ASSIGNMENTS.txt",
+    "printed_refs": "recovered/l13-root-712/PRINTED-PACKET-PLAN.txt",
+    "manifest": "recovered/l13-root-712/MANIFEST.json",
+    "qualification": "Historical command literal and printed references; no adoption, independent review or observed runtime failure claimed."
+  },
+  "l13_root_721_literal_proposal": {
+    "file": "recovered/l13-root-721/PROPOSAL-LITERAL-ASSESSMENTS.json",
+    "assignment_excerpt": "recovered/l13-root-721/ASSESSMENT-ASSIGNMENTS.txt",
+    "printed_refs": "recovered/l13-root-721/PRINTED-PACKET-PLAN.txt",
+    "manifest": "recovered/l13-root-721/MANIFEST.json",
+    "qualification": "Historical command literal and printed references; no adoption, independent review or observed runtime failure claimed."
+  },
+  "l13_root_715_conditional_proposal": {
+    "file": "recovered/l13-root-715/CONDITIONAL-PROPOSAL-ASSESSMENTS.json",
+    "manifest": "recovered/l13-root-715/MANIFEST.json",
+    "qualification": "Two literal fresh assessments and five conditionally reconstructed reused assessments; missing qualification prevents verifying runtime inputs or full packet."
+  },
+  "l13_root_719_prior_source_rows": {
+    "manifest": "recovered/l13-root-719/MANIFEST.json",
+    "extracts": "recovered/l13-root-719/prior-row-extracts.json",
+    "printed_excerpt": "recovered/l13-root-719/prior-row-display-excerpts.txt",
+    "qualification": "Three complete printed source rows match original delegated records; three other rows were truncated and later adoption remains unavailable."
+  },
+  "l13_late_plan_reference_inventory": {
+    "manifest": "recovered/l13-plan-reference-inventory/MANIFEST.json",
+    "qualification": "Fourteen printed packet and plan references; original bytes available only where explicitly marked, no adoption inferred."
+  },
+  "l13_late_post_apply_references": {
+    "manifest": "recovered/l13-late-post-apply-references/MANIFEST.json",
+    "qualification": "Fourteen historical self-reports with earlier state hashes; original authority bytes and final state are not established."
+  },
+  "l13_late_verification_references": {
+    "manifest": "recovered/l13-late-verification-references/MANIFEST.json",
+    "qualification": "Fourteen printed historical self-verification summaries and hashes; original verification bodies and independent review are unavailable."
+  },
+  "l13_late_contract_revisit_references": {
+    "manifest": "recovered/l13-late-revisit-references/MANIFEST.json",
+    "qualification": "Fourteen self-reported historical contract-revisit states; underlying queues and verification bodies remain unavailable."
+  },
+  "l13_final_plan_candidate_crosscheck": {
+    "file": "recovered/l13-selected-state-transition-trace/PLAN-CANDIDATE-722-CROSSCHECK.json",
+    "qualification": "Four candidate references agree with a historical report; state hash and original plan remain missing."
+  }
+}

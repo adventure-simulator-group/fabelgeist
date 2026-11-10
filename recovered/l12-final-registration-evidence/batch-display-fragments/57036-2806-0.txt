@@ -1,0 +1,140 @@
+1707:     pub fn available_strike_family(&self, preferred: StrikeFamily) -> Option<StrikeFamily> {
+1708:         if self.attack_animations.supports_family(preferred) {
+1709:             Some(preferred)
+1710:         } else {
+1711:             let alternate = preferred.alternate();
+1712:             self.attack_animations
+1713:                 .supports_family(alternate)
+1714:                 .then_some(alternate)
+1715:         }
+1716:     }
+1717: 
+1718:     /// Selects a legal authored attack at the current action seam. An ordinary
+1719:     /// attack starts only from recovery-complete idle. A second swing may be
+1720:     /// queued while the initial swing is active when the pack owns a follow
+1721:     /// pose; it still begins only as the first attack reaches its complete
+1722:     /// post-contact backswing.
+1723:     pub fn select_main_attack(&self, family: StrikeFamily) -> Option<AttackSpec> {
+1724:         let animation = AttackAnimation::initial(family);
+1725:         match self.attack_animation() {
+1726:             None => self
+1727:                 .attack_animations
+1728:                 .supports(animation)
+1729:                 .then_some(AttackSpec::main(family, false)),
+1730:             Some(active)
+1731:                 if active == animation
+1732:                     && self.attack_hand() == AttackHand::Main
+1733:                     && !self.attack_is_continuation()
+1734:                     && !matches!(
+1735:                         self.action,
+1736:                         ActionState(ActionKind::Attack {
+1737:                             queued: Some(_),
+1738:                             ..
+1739:                         })
+1740:                     )
+1741:                     && self.attack_animations.supports_continuation(animation) =>
+1742:             {
+1743:                 Some(AttackSpec::main(family, true))
+1744:             }
+1745:             _ => None,
+1746:         }
+1747:     }
+1748: 
+1749:     pub fn select_offhand_attack(&self, family: StrikeFamily) -> Option<AttackSpec> {
+1750:         (self.action_kind() == SkeletonAction::None && self.attack_animations.offhand)
+1751:             .then_some(AttackSpec::offhand(family))
+1752:     }
+1895:     pub fn begin_attack_timed(
+1896:         &mut self,
+1897:         spec: AttackSpec,
+1898:         start_tick: AnimationSampleTick,
+1899:         contact_tick: AnimationSampleTick,
+1900:         end_tick: AnimationSampleTick,
+1901:     ) -> Result<(), ActionTransitionError> {
+1902:         self.action_admission()?;
+1903:         let target_height = if spec.target_height.is_finite() {
+1904:             spec.target_height.clamp(0.0, 1.0)
+1905:         } else {
+1906:             AttackSpec::default().target_height
+1907:         };
+1908:         if let ActionState(ActionKind::Attack {
+1909:             animation,
+1910:             hand: AttackHand::Main,
+1911:             sequence: AttackSequence::Initial,
+1912:             curve,
+1913:             timeline,
+1914:             queued,
+1915:             ..
+1916:         }) = &mut self.action
+1917:         {
+1918:             let recovery_progress = curve.follow_through_fraction.clamp(0.0, 1.0);
+1919:             let transition_tick =
+1920:                 timeline
+1921:                     .contact_tick()
+1922:                     .saturating_add(AnimationSampleSpan::from(
+1923:                         (timeline.recovery_ticks.samples() as f64 * recovery_progress as f64).ceil()
+1924:                             as u64,
+1925:                     ));
+1926:             let may_follow = queued.is_none()
+1927:                 && spec.hand == AttackHand::Main
+1928:                 && spec.continuation
+1929:                 && spec.animation == *animation
+1930:                 && start_tick >= transition_tick;
+1931:             if may_follow {
+1932:                 let queued_timeline =
+1933:                     ActionTimeline::with_recovery(start_tick, contact_tick, end_tick);
+1934:                 let incoming_tangent = curve.overshoot
+1935:                     * queued_timeline.preparation_ticks.samples() as f32
+1936:                     * FOLLOW_READY_PREPARATION_FRACTION
+1937:                     / (curve.follow_through_fraction * timeline.recovery_ticks.samples() as f32);
+1938:                 let transition_phase = 0.5
+1939:                     + 0.5
+1940:                         * transition_tick
+1941:                             .saturating_sub(timeline.contact_tick())
+1942:                             .samples() as f32
+1943:                         / timeline
+1944:                             .recovery_ticks
+1945:                             .max(AnimationSampleSpan::ONE)
+1946:                             .samples() as f32;
+1947:                 *queued = Some(QueuedAttack {
+1948:                     target_height,
+1949:                     animation: spec.animation,
+1950:                     strike_family: spec.strike_family,
+1951:                     hand: spec.hand,
+1952:                     curve: spec.curve.normalized(),
+1953:                     timeline: queued_timeline,
+1954:                     start_coordinate: curve
+1955:                         .queued_recovery_coordinate(
+1956:                             UnitInterval::from_fraction(transition_phase).map_err(|error| {
+1957:                                 ActionTransitionError::InvalidAnimationValue(error.into())
+1958:                             })?,
+1959:                         )
+1960:                         .map_err(ActionTransitionError::InvalidAnimationValue)?
+1961:                         .coordinate(),
+1962:                     incoming_tangent,
+1963:                 });
+1964:                 return Ok(());
+1965:             }
+1966:         }
+1967:         if self.action_kind() != SkeletonAction::None {
+1968:             return Err(ActionTransitionError::ActionBusy);
+1969:         }
+1970:         self.action = ActionState(ActionKind::Attack {
+1971:             target_height,
+1972:             animation: spec.animation,
+1973:             strike_family: spec.strike_family,
+1974:             hand: spec.hand,
+1975:             sequence: if spec.continuation {
+1976:                 AttackSequence::Continuation {
+1977:                     start_coordinate: 1.0 + spec.curve.overshoot,
+1978:                     incoming_tangent: 0.0,
+1979:                 }
+1980:             } else {
+1981:                 AttackSequence::Initial
+1982:             },
+1983:             curve: spec.curve.normalized(),
+1984:             timeline: ActionTimeline::with_recovery(start_tick, contact_tick, end_tick),
+1985:             queued: None,
+1986:         });
+1987:         Ok(())
+1988:     }

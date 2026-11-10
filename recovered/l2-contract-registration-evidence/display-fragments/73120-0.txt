@@ -1,0 +1,195 @@
+1: fn contract_interaction_receipt_id(
+2:     contract_id: &str,
+3:     party_id: &str,
+4:     stage: ContractInteractionStage,
+5: ) -> String {
+6:     format!(
+7:         "interaction:{contract_id}:{party_id}:{}",
+8:         stage.stable_id()
+9:     )
+10: }
+11: 
+12: #[expect(
+13:     clippy::too_many_arguments,
+14:     reason = "the receipt records every immutable contract interaction coordinate"
+15: )]
+16: fn record_contract_issuer_interaction(
+17:     ctx: &ReducerContext,
+18:     character_id: u64,
+19:     contract_id: String,
+20:     stage: ContractInteractionStage,
+21:     dialogue_session_id: String,
+22:     dialogue_action_id: String,
+23:     dialogue_revision: u64,
+24:     location_id: String,
+25: ) -> Result<(), String> {
+26:     let character = crate::character::require_living_character(ctx, character_id)?;
+27:     let party_id = character.party_id.ok_or("Must be in a party")?;
+28:     let party = ctx
+29:         .db
+30:         .party_authority()
+31:         .id()
+32:         .find(&party_id)
+33:         .ok_or("Party not found")?;
+34:     if party.leader_id != character_id {
+35:         return Err("Only the party leader can interact for a contract".into());
+36:     }
+37:     let contract = ctx
+38:         .db
+39:         .contract_authority()
+40:         .id()
+41:         .find(&contract_id)
+42:         .ok_or("Contract not found")?;
+43:     contract.parsed_state().map_err(|error| error.to_string())?;
+44:     let expected = match stage {
+45:         ContractInteractionStage::Accept => ContractStatus::Offered,
+46:         ContractInteractionStage::Report => ContractStatus::ReadyToReport,
+47:     };
+48:     if contract.status != expected
+49:         || (stage == ContractInteractionStage::Report
+50:             && contract.accepted_by.as_deref() != Some(&party_id))
+51:     {
+52:         return Err("Contract is not at the requested interaction stage".into());
+53:     }
+54:     if character.current_settlement_id.as_deref() != Some(&contract.settlement_id) {
+55:         return Err("Contract issuer interaction requires their settlement".into());
+56:     }
+57:     let issuer = ctx
+58:         .db
+59:         .settlement_resident_profile()
+60:         .character_id()
+61:         .find(contract.issuer_resident_character_id)
+62:         .ok_or("Contract issuer is not persistent")?;
+63:     let presence = ctx
+64:         .db
+65:         .settlement_resident_presence()
+66:         .character_id()
+67:         .find(issuer.character_id)
+68:         .ok_or("Contract issuer has no presence")?;
+69:     let minute = ctx
+70:         .db
+71:         .character_time()
+72:         .character_id()
+73:         .find(character_id)
+74:         .map_or(StrategicMinute::new(720), |time| time.minutes);
+75:     if issuer.home_settlement_id != contract.settlement_id
+76:         || issuer.service_id != contract.service_id
+77:         || presence.settlement_id != contract.settlement_id
+78:         || presence.location_id != location_id
+79:         || !crate::settlement_population::npc_is_present(ctx, &presence, minute)
+80:     {
+81:         return Err(adventuresim_core::reducer_error::coded_reducer_error(
+82:             adventuresim_core::reducer_error::ReducerErrorCode::ContractIssuerUnavailable,
+83:             "Contract issuer is not available for interaction",
+84:         ));
+85:     }
+86:     let id = contract_interaction_receipt_id(&contract_id, &party_id, stage);
+87:     let row = ContractIssuerInteractionReceipt {
+88:         id: id.clone(),
+89:         contract_id,
+90:         party_id,
+91:         stage,
+92:         issuer_resident_character_id: issuer.character_id,
+93:         interacting_character_id: character_id,
+94:         interacted_at_minute: crate::time::refresh_clock(ctx)?,
+95:         dialogue_session_id,
+96:         dialogue_action_id,
+97:         dialogue_revision,
+98:         location_id,
+99:         consumed: false,
+100:     };
+101:     if ctx
+102:         .db
+103:         .contract_issuer_interaction_receipt()
+104:         .id()
+105:         .find(&id)
+106:         .is_some()
+107:     {
+108:         ctx.db
+109:             .contract_issuer_interaction_receipt()
+110:             .id()
+111:             .update(row);
+112:     } else {
+113:         ctx.db.contract_issuer_interaction_receipt().insert(row);
+114:     }
+115:     Ok(())
+116: }
+117: 
+118: fn record_dialogue_contract_issuer_interaction(
+119:     ctx: &ReducerContext,
+120:     character_id: u64,
+121:     contract_id: String,
+122:     stage: ContractInteractionStage,
+123:     session: &DialogueSession,
+124:     action_id: &str,
+125:     resulting_revision: u64,
+126: ) -> Result<(), String> {
+127:     if action_id == "start" {
+128:         return Err("Contract interaction requires an explicit dialogue action".into());
+129:     }
+130:     let issuer = require_live_dialogue_presence(ctx, session, character_id)?;
+131:     let contract = ctx
+132:         .db
+133:         .contract_authority()
+134:         .id()
+135:         .find(&contract_id)
+136:         .ok_or("Contract not found")?;
+137:     if issuer.character_id != contract.issuer_resident_character_id
+138:         || issuer.service_id != contract.service_id
+139:         || session.settlement_id != contract.settlement_id
+140:     {
+141:         return Err("This dialogue is not with the contract issuer".into());
+142:     }
+143:     record_contract_issuer_interaction(
+144:         ctx,
+145:         character_id,
+146:         contract_id,
+147:         stage,
+148:         session.id.clone(),
+149:         action_id.to_string(),
+150:         resulting_revision,
+151:         session.location_id.clone(),
+152:     )
+153: }
+154: 
+155: /// Disposable simulations cannot use the gateway-owned dialogue reducers.
+156: /// This is the sole alternate producer and is restricted to the identity that
+157: /// owns the simulation character; ordinary players and the web gateway cannot
+158: /// mint an interaction receipt through it.
+159: #[reducer]
+160: pub fn simulate_contract_issuer_interaction(
+161:     ctx: &ReducerContext,
+162:     character_id: u64,
+163:     contract_id: String,
+164:     stage: ContractInteractionStage,
+165: ) -> Result<(), String> {
+166:     if !crate::simulation::sender_owns_simulation_character(ctx, character_id) {
+167:         return Err("Only an owned disposable simulation may simulate NPC interaction".into());
+168:     }
+169:     let contract = ctx
+170:         .db
+171:         .contract_authority()
+172:         .id()
+173:         .find(&contract_id)
+174:         .ok_or("Contract not found")?;
+175:     let presence = ctx
+176:         .db
+177:         .settlement_resident_presence()
+178:         .character_id()
+179:         .find(contract.issuer_resident_character_id)
+180:         .ok_or("Contract issuer has no presence")?;
+181:     record_contract_issuer_interaction(
+182:         ctx,
+183:         character_id,
+184:         contract_id,
+185:         stage,
+186:         format!("simulation:{character_id}"),
+187:         format!("simulation:{}", stage.stable_id()),
+188:         0,
+189:         presence.location_id,
+190:     )
+191: }
+192: 
+193: fn consume_contract_interaction(
+194:     ctx: &ReducerContext,
+195:     contract_id: &str,

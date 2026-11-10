@@ -1,0 +1,245 @@
+SOURCE 2627 cargo-registry:num_enum_derive-0.7.6/src/parsing.rs
+231:                                                         "Variant with `catch_all` must be a tuple with exactly 1 field matching the repr type"
+232:                                                     );
+233:                                                 }
+234:                                             }
+235:                                         }
+236:                                         NumEnumVariantAttributeItem::Alternatives(alternatives) => {
+237:                                             raw_alternative_values.extend(alternatives.expressions);
+238:                                             alt_attr_ref.push(attribute);
+239:                                         }
+240:                                     }
+241:                                 }
+242:                             }
+243:                             Err(err) => {
+244:                                 if cfg!(not(feature = "complex-expressions")) {
+245:                                     let tokens = attribute.meta.to_token_stream();
+246: 
+247:                                     let attribute_str = format!("{}", tokens);
+248:                                     if attribute_str.contains("alternatives")
+249:                                         && attribute_str.contains("..")
+250:                                     {
+251:                                         // Give a nice error message suggesting how to fix the problem.
+252:                                         die!(attribute => "Ranges are only supported as num_enum alternate values if the `complex-expressions` feature of the crate `num_enum` is enabled".to_string())
+253:                                     }
+254:                                 }
+255:                                 die!(attribute =>
+256:                                     format!("Invalid attribute: {}", err)
+257:                                 );
+258:                             }
+259:                         }
+260:                     }
+261:                 }
+262: 
+263:                 if !is_catch_all {
+264:                     match &variant.fields {
+265:                         Fields::Named(_) | Fields::Unnamed(_) => {
+266:                             die!(variant => format!("`{}` only supports unit variants (with no associated data), but `{}::{}` was not a unit variant.", crate_path_as_string(&get_crate_path(crate_path))?, name, ident));
+267:                         }
+268:                         Fields::Unit => {}
+269:                     }
+270:                 }
+271: 
+272:                 let discriminant_value = parse_discriminant(&discriminant)?;
+273: 
+274:                 // Check for collision.
+275:                 // We can't do const evaluation, or even compare arbitrary Exprs,
+276:                 // so unfortunately we can't check for duplicates.
+277:                 // That's not the end of the world, just we'll end up with compile errors for
+278:                 // matches with duplicate branches in generated code instead of nice friendly error messages.
+279:                 if let DiscriminantValue::Literal(canonical_value_int) = discriminant_value {
+280:                     if discriminant_int_val_set.contains(&canonical_value_int) {
+281:                         die!(ident => format!("The discriminant '{}' collides with a value attributed to a previous variant", canonical_value_int))
+282:                     }
+283:                 }
+284: 
+285:                 // Deal with the alternative values.
+286:                 let mut flattened_alternative_values = Vec::new();
+287:                 let mut flattened_raw_alternative_values = Vec::new();
+288:                 for raw_alternative_value in raw_alternative_values {
+289:                     let expanded_values = parse_alternative_values(&raw_alternative_value)?;
+290:                     for expanded_value in expanded_values {
+291:                         flattened_alternative_values.push(expanded_value);
+292:                         flattened_raw_alternative_values.push(raw_alternative_value.clone())
+293:                     }
+294:                 }
+295: 
+296:                 if !flattened_alternative_values.is_empty() {
+297:                     let alternate_int_values = flattened_alternative_values
+298:                         .into_iter()
+299:                         .map(|v| {
+300:                             match v {
+301:                                 DiscriminantValue::Literal(value) => Ok(value),
+302:                                 DiscriminantValue::Expr(expr) => {
+303:                                     if let Expr::Range(_) = expr {
+304:                                         if cfg!(not(feature = "complex-expressions")) {
+305:                                             // Give a nice error message suggesting how to fix the problem.
+306:                                             die!(expr => "Ranges are only supported as num_enum alternate values if the `complex-expressions` feature of the crate `num_enum` is enabled".to_string())
+307:                                         }
+308:                                     }
+309:                                     // We can't do uniqueness checking on non-literals, so we don't allow them as alternate values.
+310:                                     // We could probably allow them, but there doesn't seem to be much of a use-case,
+311:                                     // and it's easier to give good error messages about duplicate values this way,
+312:                                     // rather than rustc errors on conflicting match branches.
+313:                                     die!(expr => "Only literals are allowed as num_enum alternate values".to_string())
+314:                                 },
+315:                             }
+316:                         })
+317:                         .collect::<Result<Vec<i128>>>()?;
+318:                     let mut sorted_alternate_int_values = alternate_int_values.clone();
+319:                     sorted_alternate_int_values.sort_unstable();
+320:                     let sorted_alternate_int_values = sorted_alternate_int_values;
+321: 
+322:                     // Check if the current discriminant is not in the alternative values.
+323:                     if let DiscriminantValue::Literal(canonical_value_int) = discriminant_value {
+324:                         if let Some(index) = alternate_int_values
+325:                             .iter()
+326:                             .position(|&x| x == canonical_value_int)
+327:                         {
+328:                             die!(&flattened_raw_alternative_values[index] => format!("'{}' in the alternative values is already attributed as the discriminant of this variant", canonical_value_int));
+329:                         }
+330:                     }
+331: 
+332:                     // Search for duplicates, the vec is sorted. Warn about them.
+333:                     if (1..sorted_alternate_int_values.len()).any(|i| {
+334:                         sorted_alternate_int_values[i] == sorted_alternate_int_values[i - 1]
+335:                     }) {
+336:                         let attr = *alt_attr_ref.last().unwrap();
+337:                         die!(attr => "There is duplication in the alternative values");
+338:                     }
+339:                     // Search if those discriminant_int_val_set where already attributed.
+340:                     // (discriminant_int_val_set is BTreeSet, and iter().next_back() is the is the maximum in the set.)
+341:                     if let Some(last_upper_val) = discriminant_int_val_set.iter().next_back() {
+342:                         if sorted_alternate_int_values.first().unwrap() <= last_upper_val {
+343:                             for (index, val) in alternate_int_values.iter().enumerate() {
+344:                                 if discriminant_int_val_set.contains(val) {
+345:                                     die!(&flattened_raw_alternative_values[index] => format!("'{}' in the alternative values is already attributed to a previous variant", val));
+346:                                 }
+347:                             }
+348:                         }
+349:                     }
+350: 
+351:                     // Reconstruct the alternative_values vec of Expr but sorted.
+352:                     flattened_raw_alternative_values = sorted_alternate_int_values
+353:                         .iter()
+354:                         .map(|val| literal(val.to_owned()))
+355:                         .collect();
+356: 
+357:                     // Add the alternative values to the the set to keep track.
+358:                     discriminant_int_val_set.extend(sorted_alternate_int_values);
+359:                 }
+360: 
+361:                 // Add the current discriminant to the the set to keep track.
+362:                 if let DiscriminantValue::Literal(canonical_value_int) = discriminant_value {
+363:                     discriminant_int_val_set.insert(canonical_value_int);
+364:                 }
+365: 
+366:                 variants.push(VariantInfo {
+367:                     ident,
+368:                     is_default,
+369:                     is_catch_all,
+370:                     canonical_value: discriminant,
+371:                     alternative_values: flattened_raw_alternative_values,
+372:                 });
+373: 
+374:                 // Get the next value for the discriminant.
+375:                 next_discriminant = match discriminant_value {
+376:                     DiscriminantValue::Literal(int_value) => literal(int_value.wrapping_add(1)),
+377:                     DiscriminantValue::Expr(expr) => {
+378:                         parse_quote! {
+379:                             #repr::wrapping_add(#expr, 1)
+380:                         }
+381:                     }
+382:                 }
+383:             }
+384: 
+385:             let error_type_info = attributes.error_type.map(Into::into).unwrap_or_else(|| {
+386:                 let crate_name = get_crate_path(crate_path.clone());
+387:                 ErrorType {
+388:                     name: parse_quote! {
+389:                         #crate_name::TryFromPrimitiveError<Self>
+390:                     },
+391:                     constructor: parse_quote! {
+392:                         #crate_name::TryFromPrimitiveError::<Self>::new
+393:                     },
+394:                 }
+395:             });
+396: 
+397:             EnumInfo {
+398:                 name,
+399:                 repr,
+400:                 variants,
+401:                 crate_path,
+402:                 error_type_info,
+403:             }
+404:         })
+405:     }
+406: }
+408: fn literal(i: i128) -> Expr {
+409:     Expr::Lit(ExprLit {
+410:         lit: Lit::Int(LitInt::new(&i.to_string(), Span::call_site())),
+411:         attrs: vec![],
+412:     })
+413: }
+414: 
+415: enum DiscriminantValue {
+416:     Literal(i128),
+417:     Expr(Expr),
+418: }
+419: 
+420: fn parse_discriminant(val_exp: &Expr) -> Result<DiscriminantValue> {
+421:     let mut sign = 1;
+422:     let mut unsigned_expr = val_exp;
+423:     if let Expr::Unary(ExprUnary {
+424:         op: UnOp::Neg(..),
+425:         expr,
+426:         ..
+427:     }) = val_exp
+428:     {
+429:         unsigned_expr = expr;
+430:         sign = -1;
+431:     }
+432:     match unsigned_expr {
+433:         Expr::Lit(ExprLit {
+434:             lit: Lit::Int(lit_int),
+435:             ..
+436:         }) => Ok(DiscriminantValue::Literal(
+437:             sign * lit_int.base10_parse::<i128>()?,
+438:         )),
+439:         Expr::Lit(ExprLit {
+440:             lit: Lit::Byte(lit_byte),
+441:             ..
+442:         }) => Ok(DiscriminantValue::Literal(
+443:             sign * i128::from(lit_byte.value()),
+444:         )),
+445:         _ => Ok(DiscriminantValue::Expr(val_exp.clone())),
+446:     }
+447: }
+506: pub(crate) struct VariantInfo {
+507:     ident: Ident,
+508:     is_default: bool,
+509:     is_catch_all: bool,
+510:     canonical_value: Expr,
+511:     alternative_values: Vec<Expr>,
+512: }
+513: 
+514: impl VariantInfo {
+515:     fn all_values(&self) -> impl Iterator<Item = &Expr> {
+516:         ::core::iter::once(&self.canonical_value).chain(self.alternative_values.iter())
+517:     }
+518: }
+519: 
+520: pub(crate) struct ErrorType {
+521:     pub(crate) name: Path,
+522:     pub(crate) constructor: Path,
+523: }
+524: 
+525: impl From<ErrorTypeAttribute> for ErrorType {
+526:     fn from(attribute: ErrorTypeAttribute) -> Self {
+527:         Self {
+528:             name: attribute.name.path,
+529:             constructor: attribute.constructor.path,
+530:         }
+531:     }
+532: }
+533: 

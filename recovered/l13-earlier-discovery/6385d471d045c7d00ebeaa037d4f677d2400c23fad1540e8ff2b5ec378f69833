@@ -1,0 +1,76 @@
+"""Read-only exact five prior body joins and one fresh P16 admission scope."""
+from pathlib import Path
+import json,hashlib,subprocess
+def build(r,w,a,co,files):
+ def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+ def read(p):return json.loads(p.read_bytes())
+ def ref(p):return {'path':p.relative_to(r).as_posix(),'sha256':sha(p)}
+ def resolve(v):
+  ps={p.resolve()for p in[r/v['path'],w/v['path'],r/'evidence/continuation-segovb'/v['path']]if p.is_file()and sha(p)==v['sha256']};assert len(ps)==1;return ps.pop()
+ def rr(v):return read(resolve(v))
+ def ptr(d,p):
+  for k in p.strip('/').split('/'):d=d[int(k)]if isinstance(d,list)else d[k]
+  return d
+ assert co['next_original']==2592 and len(co['discovery_receipts'])==694
+ dp=w.parent/'726-intake-20261030/DISCOVERY-L13-2592-2599-METADATA-001.json';assert sha(dp)=='be50051d71b8da783bd7066602acfbf8678b2c8f7d380f6895e32fc844602c32';discovery=read(dp);targets={files[n]['sha256']:n for n in range(2592,2600)};hits=[]
+ for v in co['discovery_receipts']:
+  raw=resolve(v).read_bytes()
+  for h,n in targets.items():
+   if h.encode()in raw:hits.append({'original':n,'receipt':v})
+ futures=[v for v in co['future_same_lens_reuse_proofs']if any(h in json.dumps(v)for h in targets)];apps=[v for v in co['future_same_lens_ordered_applications']if any(h in json.dumps(v)for h in targets)]
+ assert hits==discovery['exact_hash_prior_hits']and futures==discovery['future_same_lens_proofs_navigation']and apps==discovery['prior_applications_preserved_navigation']and[v['original']for v in futures]==[2597,2598,2599,2248]
+ assert not any(v.get('original')in range(2592,2600)for v in co['future_same_lens_ordered_applications'])
+ fields=[]
+ def inspect(v,eof,p):
+  if isinstance(v,dict):
+   for k,x in v.items():
+    at=p+'/'+k
+    if(k.endswith('ranges')or k in['read_ranges_as_recorded','material_contract_ranges_as_recorded','requested_range_limits'])and x:
+     assert isinstance(x,list)and all(isinstance(z,list)and len(z)==2 and all(isinstance(y,int)for y in z)and 1<=z[0]<=z[1]for z in x),(at,x,eof);field={'pointer':at,'raw_value':x,'actual_eof':eof}
+     if any(hi>eof for lo,hi in x):
+      assert at in ['/files/2592/admission03_scope_observations/0/original_record/material_ranges','/files/2592/admission03_scope_observations/0/local_qualifications/0/original_requested_ranges']and x==[[1,107]]and eof==106
+      field.update(effective_existing_ranges=[[1,106]],excluded_nonexistent_ranges=[[107,107]],nonexistent_tail_credit=0,historical_metadata_unchanged=True)
+     fields.append(field)
+    inspect(x,eof,at)
+  elif isinstance(v,list):
+   for j,x in enumerate(v):inspect(x,eof,p+'/'+str(j))
+ specs=[(2592,None,None,None,None,106,3786,[[1,106]],'fresh'),(2593,371,'/ordered/5','/sources/5',1482,143,4328,[[1,143]],'root-reuse'),(2594,188,'/connected/1','/sources/1',2248,58,1971,[[1,35]],'delegated-reuse'),(2595,None,None,None,None,83,2350,[[1,83]],'fresh'),(2596,None,None,None,None,75,2192,[[1,75]],'fresh'),(2597,109,'/connected/0','/sources/0',2597,271,8724,[[1,225]],'delegated-reuse'),(2598,126,'/connected/2','/sources/2',2598,137,4418,[[1,137]],'delegated-reuse'),(2599,126,'/connected/3','/sources/3',2599,56,1896,[[1,56]],'delegated-reuse')];entries=[];sources=[]
+ for n,seq,rp,sp,on,eof,size,rs,mode in specs:
+  f=files[n];gp=f['source_id'].split(':',1)[1];snap='physical-p16'if n<=2594 else'pr-working';base='p16'if n<=2594 else'pr-working';assert discovery['entries'][n-2592]=={'original':n,'registry_entry':f}and f['source_id']==snap+':'+gp and f['path']==('SNAPSHOTS/'+base+'/'+gp).replace('/','\\')and f['snapshot']==snap and f['actual_line_count']==eof and f['bytes']==size and f['scope_kind']=='materially_reached_admission_contract'and f['material_ranges']==rs;inspect(f,eof,f'/files/{n}')
+  assert {j for role in f['admission03_scope_observations']for lo,hi in role['effective_material_ranges']for j in range(lo,hi+1)}=={j for lo,hi in rs for j in range(lo,hi+1)}
+  if n==2592:
+   role=f['admission03_scope_observations'][0];assert role['original_record']['material_ranges']==role['local_qualifications'][0]['original_requested_ranges']==[[1,107]]and role['local_qualifications'][0]['actual_ranges']==[[1,106]]and role['effective_material_ranges']==[[1,106]]
+  archive='f82adcabd9d89c4fa2dd7f99253a45297a0681ee'if n<=2594 else'6533e444fa37552927070cc8d8190907fd3b413e';ap='handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/'+f['sha256']if n<=2594 else gp;obj=a/'objects'/f['sha256'];body=obj.read_bytes();assert sha(obj)==f['sha256']and len(body)==size and len(body.splitlines())==eof and body==subprocess.check_output(['git','show',archive+':'+ap])
+  prior=None
+  if mode!='fresh':
+   rootp=r/f'segovb/READ-L13-PARALLEL-{seq:03d}.json';root=read(rootp);assert ref(rootp)in co['discovery_receipts'];assert root['lens']==13
+   if mode=='root-reuse':
+    raw=rr(root['packet']);row=ptr(raw,rp);old=row['source'];preg=rr(row['registration']);plan=rr(root['plan']);vp=r/f'segovb/VERIFY-L13-PARALLEL-{seq:03d}.json';statep=r/f'segovb/STATE-L13-PARALLEL-{seq:03d}.json';v=read(vp)
+    assert root['evidence']==raw and raw['lens']==preg['lens']==v['lens']==13 and raw['author']==row['author']=='/root'and raw['registered_before_read_attestation']is row['untruncated_body_outputs']is True and row['assessed_ranges']==[[1,eof]]and row['registration_pointer']==sp and ptr(preg,sp)==old and preg['authority_changes']==0 and preg['at']<raw['at']<root['at']
+    assert plan['packet']==root['packet']and v['receipt_sha256']==sha(rootp)and v['state_sha256']==sha(statep)and v['exact_registry_Git_hash_EOF_prospective_chronology_scope_and_reuse_checked']is True and v['writer']==root['writer']and sha(r/root['writer']['path'])==root['writer']['sha256']and v['other_lens_credit']==0 and v['product_execution']is v['gate']is False
+    prior={'prior_adoption':ref(rootp),'prior_packet':root['packet'],'prior_plan':root['plan'],'prior_native_verification':ref(vp),'prior_state':ref(statep),'prior_registration':row['registration'],'prior_row_pointer':rp,'prior_registration_pointer':sp,'prior_source_row':row,'historical_attribution':'/root'}
+   else:
+    rd=root['delegated_receipt'];vr=root['delegated_verification'];rd={'path':rd,'sha256':root['delegated_receipt_sha256']}if isinstance(rd,str)else rd;vr={'path':vr,'sha256':root['delegated_verification_sha256']}if isinstance(vr,str)else vr;rawp=resolve(rd);vp=resolve(vr);raw=read(rawp);v=read(vp);old=ptr(raw,rp);regref=raw['connected_registration']if seq==12 else raw['registration'];pregp=resolve(regref);preg=read(pregp)
+    schema_extra={};qualified_raw=dict(raw)
+    if seq==126:
+     qr=root['exact125_128_schema_qualification'];assert qr['sha256']=='0676bd8f6ed8066af9d3956895a5ed9df2cddaf1de2745d934f45ab80c6f6bb3';qs=rr(qr);qe=next(x for x in qs['entries']if x['batch']==128);assert resolve(qe['read'])==rawp and qe['raw_future_key']=='future_same_lens_proofs'and qe['raw_future_proofs']==raw['future_same_lens_proofs']and all(k not in raw for k in qe['missing_fields'])and set(qe['effective_metadata_only'])==set(qe['missing_fields']);qualified_raw.update(qe['effective_metadata_only']);schema_extra={'exact125_128_schema_qualification':qr,'exact128_schema_entry':qe}
+    assert root['evidence']==qualified_raw and raw['lens']==v['lens']==preg['lens']==13 and resolve(v['read'])==rawp and v['product_execution']is False and preg['authority_changes']==0 and all(old[k]==x for k,x in ptr(preg,sp).items())and old['fresh_personal_assessed_ranges']==[[1,eof]]and old['untruncated_body_outputs']is True
+    manifest=rr(root['agent_validation_manifest']);assert manifest['lens']==13 and v['source_hash_eof_range_checks']is v['registered_before_read_attestation']is raw['registered_before_read_attestation']is True and v['authoritative_counts_changed']is raw['authoritative_counts_changed']is raw['product_execution']is False and 'prospect'in preg['status'].lower();sr=next(x for x in root['verified_source_registrations']if x['row_pointer']==rp);assert resolve(sr['registration'])==pregp and sr['original']==on and sr['source_id']==old['source_id']and sr['root_personal_rereads']==[];attribution=sr['attribution'];extra={'prior_validation_manifest':root['agent_validation_manifest'],**schema_extra}
+    if seq==109:
+     cq=root['exact_connected_credit_schema_qualification'];assert cq['source_and_population_credit']==0 and resolve(cq['manifest'])==resolve(root['agent_validation_manifest'])and 'original_credit_now'not in old and raw['original_delta_proposed']==0 and root['original_before']==root['original_after']==807
+     ff=next(x for x in futures if x['original']==2597);assert ff['ordered_credit_now']==0 and ff['assessed_ranges']==[[1,271]];extra.update(exact_connected_credit_schema_qualification=cq,protected_future_proof=ff)
+    prior={'prior_adoption':ref(rootp),'prior_raw_receipt':ref(rawp),'prior_verification':ref(vp),'prior_registration':ref(pregp),'prior_row_pointer':rp,'prior_registration_pointer':sp,'prior_source_read':old,'historical_verification_as_recorded':v,'historical_attribution':attribution,'historical_registration_fields_absent':[k for k in['at','status']if k not in preg],'prior_numeric_inventory':raw['numeric_role_inventory'],'inherited_connected_contracts':raw['connected_contracts'],**extra}
+   assert old['original']==on and old['source_id']==files[on]['source_id']and old['sha256']==files[on]['sha256']==f['sha256']and old['actual_eof']==eof and old['prospective_ranges']==[[1,eof]]and (w/old['object_path']).read_bytes()==body
+   assert old['source_id']=='pr-working:'+gp
+   assert body==subprocess.check_output(['git','show','6533e444fa37552927070cc8d8190907fd3b413e:'+gp])
+  src={'original':n,'source_id':f['source_id'],'sha256':f['sha256'],'actual_eof':eof,'object_path':obj.relative_to(w).as_posix(),'source_revision':archive,'transport_git_path':ap,'prospective_ranges':rs,'revision_qualification':'P16 archivef82adc transport only, semantic P16 product/caller/native/current unresolved. Directprworking identities are frozenGit6533, not current main. Original delegated/root body attribution retained.','purpose':'Eight equipment/determinism/puzzle/garment admission roles860 material, three fresh264 and five reused596. Assets rawrequest107 qualified actual106; no nonexistent/other-lens/current/unique/review/runtime credit.'};sources.append(src)
+  covered={j for lo,hi in rs for j in range(lo,hi+1)};unread=[]
+  for j in range(1,eof+1):
+   if j not in covered:
+    if unread and unread[-1][1]==j-1:unread[-1][1]=j
+    else:unread.append([j,j])
+  e={'original':n,'source':src,'mode':mode,'bytes':size,'assessed_union':rs,'material_line_count':len(covered),'new_root_personal_lines':len(covered)if mode=='fresh'else 0,'registry_entry_sha256':hashlib.sha256((json.dumps(f,indent=2)+'\n').encode()).hexdigest(),'registry_path_as_recorded':f['path'],'semantic_product_revision_unresolved':n<=2594,'source_current_reconciled':False,'unread_ranges':unread,'whole_file_coverage':not unread}
+  if prior:e['prior']=prior
+  entries.append(e)
+ assert sum(e['material_line_count']for e in entries)==860 and sum(e['new_root_personal_lines']for e in entries)==264 and len(fields)==26
+ return {'entries':entries,'sources':sources,'all_nested_range_fields':fields,'exact_hash_prior_hits':hits,'future_proofs_preserved':futures,'old_ordered_applications_preserved':apps,'range_overrun_qualification':{'original':2592,'actual_eof':106,'qualified_fields':discovery['out_of_eof_raw_fields_requiring_exact_qualification'],'raw_value':[[1,107]],'effective_existing_ranges':[[1,106]],'excluded_nonexistent_ranges':[[107,107]],'nonexistent_tail_credit':0,'historical_metadata_unchanged':True},'discovery_metadata_sha256':sha(dp)}

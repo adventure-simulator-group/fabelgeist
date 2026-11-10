@@ -1,0 +1,74 @@
+501:     generated: &GeneratedWeapon,
+502:     focus: &mut Vec<[f32; 3]>,
+503:     principal_head: &mut Vec<[f32; 3]>,
+504: ) {
+505:     let span = generated.bounds.max[1] - generated.bounds.min[1];
+506:     let focus_cutoff = generated.bounds.max[1] - span * 0.2;
+507:     let head_cutoff = generated.bounds.max[1] - SYNTHETIC_HEAD_LENGTH_M.min(span * 0.2);
+508:     for point in generated
+509:         .parts
+510:         .iter()
+511:         .flat_map(|part| part.positions.iter().copied())
+512:         .filter(|point| point[1] >= focus_cutoff)
+513:     {
+514:         focus.push(point);
+515:         focus.push([point[0], focus_cutoff, point[2]]);
+516:         if point[1] >= head_cutoff {
+517:             principal_head.push(point);
+518:             principal_head.push([point[0], head_cutoff, point[2]]);
+519:         }
+520:     }
+521: }
+522: 
+523: #[cfg(test)]
+524: mod tests {
+525:     use super::*;
+526:     use crate::default_design;
+527: 
+528:     fn roles(design: &WeaponDesign) -> HashMap<&str, ComponentRole> {
+529:         design
+530:             .recipe
+531:             .components
+532:             .iter()
+533:             .filter_map(|component| component.id.as_deref().zip(component.role))
+534:             .collect()
+535:     }
+536: 
+537:     fn named(generated: &GeneratedWeapon, name: &str) -> [f32; 3] {
+538:         generated
+539:             .anchors
+540:             .iter()
+541:             .find(|anchor| anchor.name == name)
+542:             .unwrap_or_else(|| panic!("missing anchor {name}"))
+543:             .position
+544:     }
+545: 
+546:     #[test]
+547:     fn semantic_icon_anchors_are_guard_center_and_head_root() {
+548:         let sword = default_design("longsword").unwrap();
+549:         let generated = generate(&sword).unwrap();
+550:         assert_eq!(
+551:             framing_anchor(
+552:                 &sword,
+553:                 &generated,
+554:                 &roles(&sword),
+555:                 WeaponIconLayout::HiltFocus
+556:             )
+557:             .unwrap(),
+558:             named(&generated, "guard.base")
+559:         );
+560: 
+561:         let polearm = default_design("halberd").unwrap();
+562:         let generated = generate(&polearm).unwrap();
+563:         assert_eq!(
+564:             framing_anchor(
+565:                 &polearm,
+566:                 &generated,
+567:                 &roles(&polearm),
+568:                 WeaponIconLayout::HeadFocus
+569:             )
+570:             .unwrap(),
+571:             named(&generated, "socket.top")
+572:         );
+573:     }
+574: }

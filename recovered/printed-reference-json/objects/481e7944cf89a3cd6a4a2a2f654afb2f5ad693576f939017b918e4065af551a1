@@ -1,0 +1,72 @@
+{
+  "schema": "726-exact-root001-velocity1911-ordered-reuse-qualification-v1",
+  "at": "2026-10-31T18:03:24.206034+00:00",
+  "author": "/root",
+  "registry": {
+    "path": "evidence/audit05/original-scope-072.json",
+    "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "original": 1911,
+  "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+  "sha256": "f961ea0bc8da4a4bb23bba732b32f43172c9ab2aaa83bd4ff8319efb4faaf077",
+  "actual_eof": 38,
+  "bytes": 1217,
+  "git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+  "prior_adoption": {
+    "path": "segovb/READ-L13-PARALLEL-001.json",
+    "sha256": "15fc3fc0dbd915ced99010df47af6033b8889ce82d43ecc70e11d163bb984bf0"
+  },
+  "prior_raw_receipt": {
+    "path": "parallel-l13-20261029/READ-PL13-001-003.json",
+    "sha256": "af28d2047f8b4163b18e1578914944e000782680795310927afa41337fcccbed"
+  },
+  "prior_verification": {
+    "path": "parallel-l13-20261029/VERIFY-PL13-001-003.json",
+    "sha256": "d2f7fba7995c2f94d3805fbf05d12088804cf1eb9338b8726bb4a072697feb86"
+  },
+  "prior_registration": {
+    "path": "parallel-l13-20261029/REGISTRATION-PL13-001.json",
+    "sha256": "1e169adbdf84c7a9020e5797a4a4fa8dd1d49a221dadd29366c55dc2b36166ad"
+  },
+  "prior_row_pointer": "/rows/4",
+  "prior_registration_pointer": "/sources/4",
+  "prior_original": 364,
+  "prior_source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+  "historical_author": "/root/lens13_resume",
+  "root_adoption_not_personal_reread": true,
+  "prior_full_ranges": [
+    [
+      1,
+      38
+    ]
+  ],
+  "historical_nonexistent_tail": [
+    [
+      39,
+      44
+    ]
+  ],
+  "historical_tail_credit": 0,
+  "prior_inventory": {
+    "364:1\u201338": "SceneVelocity named east/up/north SignedSpeed fields, ZERO rest andsignedreverse valid. NativeVec3 admissionconstructsall3checkedleaves via ? beforeownedoutput; nativeVec3 exportmapsx/east,y/up,z/north. No new tuningprimitive; defaultfromexistingzeroowners. ActualEOF38; requested39\u201344 nonexistent andexcluded, neverbodycoverage."
+  },
+  "historical_receipts_unchanged": true,
+  "only_ordered_role_credit_at_exact_frontier": true,
+  "new_body_credit": 0,
+  "new_connected_credit": 0,
+  "root_personal_source_lines": 0,
+  "other_population_credit": 0,
+  "authority_changes": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "qualified_against_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "b9ea8290e0be278e6be0e24db6a64bf81cdcf14add04805349d444412c135a58"
+  },
+  "qualified_against_selector": {
+    "path": "CURRENT-ADLER.json",
+    "sha256": "10994a56d9074f258ae67edcc76f81cb7fb723d83fdbb1b79f4177b559b09787"
+  },
+  "disposition": "Exact same byte/hash full same-L13 source review at historical physical-p16 role364 qualifies later pr-working role1911 once at frontier, preserving author and nonexistent-tail exclusions. Not yet applied. No source reread or fresh coverage."
+}

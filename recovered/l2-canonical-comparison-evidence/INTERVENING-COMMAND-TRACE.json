@@ -1,0 +1,92 @@
+{
+  "schema": "726-l2-comparison-intervening-command-trace-v1",
+  "after_observation_ordinal": 73278,
+  "before_comparison_ordinal": 73385,
+  "recorded_command_events": [
+    {
+      "ordinal": 73285,
+      "kind": "rg-file-list",
+      "recorded_exit_code": 0,
+      "command_body": "rg --files --hidden --no-ignore target/726-audit-continuation-20261030 target/726-intake-20261030 -g '*master*ledger*' -g '*MASTER*LEDGER*'\n",
+      "original_command_sha256": "9ca8c03b7ec0af937aba792852791008d0bc08aecfec1d6dce8c3e7aaefe9025"
+    },
+    {
+      "ordinal": 73286,
+      "kind": "python-read-command",
+      "recorded_exit_code": 0,
+      "command_body": "from pathlib import Path\nimport json\nr=Path('target/726-audit-continuation-20261030/target/726-audit-adler-20261027');idx=json.loads((r/'adler-continuation-20261030/INDEX-ROOT-L2-ERRANTRY-ALIASES-001.json').read_bytes());q=json.loads((r/'workflow-20261030/CLOSURE-QUEUE-828.json').read_bytes());rows=[x for x in idx['candidates'] if x['kind']=='queue']\nfor x in rows[:22]:\n e=q['entries'][x['key']];s=json.dumps(e['first_failed_contract_or_unresolved_question']);print(x['key'],e['contract_id'],s if len(s)<1800 else '[LONG '+str(len(s))+']')\n",
+      "original_command_sha256": "d5dadb61efa81014cf207d68a5d0a25ebef62c2ef1a26aa6cc48c1370d6faf09"
+    },
+    {
+      "ordinal": 73293,
+      "kind": "python-read-command",
+      "recorded_exit_code": 0,
+      "command_body": "from pathlib import Path\nimport json,hashlib\nr=Path('target/726-audit-continuation-20261030/target/726-audit-adler-20261027');idx=json.loads((r/'adler-continuation-20261030/INDEX-ROOT-L2-ERRANTRY-ALIASES-001.json').read_bytes());q=json.loads((r/'workflow-20261030/CLOSURE-QUEUE-828.json').read_bytes());rows=[x for x in idx['candidates'] if x['kind']=='queue']\nfor x in rows[22:45]:\n e=q['entries'][x['key']];s=json.dumps(e['first_failed_contract_or_unresolved_question']);print(x['key'],e['contract_id'],s if len(s)<2000 else '[LONG '+str(len(s))+']')\np=r/'evidence/continuation-segovb/inherited-master-ledger.json';print('INHERITED_HASH',hashlib.sha256(p.read_bytes()).hexdigest());d=json.loads(p.read_bytes());print('MASTER_SHAPE',[(k,type(v).__name__,len(v) if isinstance(v,(dict,list)) else len(str(v))) for k,v in d.items()]);f=d['findings'];print('FINDINGS',type(f).__name__)\nfor key,v in (f.items() if isinstance(f,dict) else enumerate(f)):\n terms=[t for t in idx['terms'] if t in json.dumps(v).lower()]\n if terms:print('HISTORICAL_CANDIDATE',key,terms,json.dumps(v)[:400])\n",
+      "original_command_sha256": "f8d5fa11736ed821c4e0bebf6ef11e4bd1768ae0b95a294bd8f8e836adfd0279"
+    },
+    {
+      "ordinal": 73300,
+      "kind": "python-read-command",
+      "recorded_exit_code": 0,
+      "command_body": "from pathlib import Path\nimport json\nr=Path('target/726-audit-continuation-20261030/target/726-audit-adler-20261027');d=json.loads((r/'evidence/continuation-segovb/inherited-master-ledger.json').read_bytes())\nfor n in (55,56):print(json.dumps(d['findings'][n],indent=2))\nidx=json.loads((r/'adler-continuation-20261030/INDEX-ROOT-L2-ERRANTRY-ALIASES-001.json').read_bytes());q=json.loads((r/'workflow-20261030/CLOSURE-QUEUE-828.json').read_bytes());rows=[x for x in idx['candidates'] if x['kind']=='queue']\nfor x in rows[45:]:\n e=q['entries'][x['key']];s=json.dumps(e['first_failed_contract_or_unresolved_question']);print(x['key'],e['contract_id'],s if len(s)<1500 else '[LONG '+str(len(s))+']')\n",
+      "original_command_sha256": "eafd63f12c0865266e3123f5120e90980b21328f10baa6fcdf399aeb834a2080"
+    },
+    {
+      "ordinal": 73307,
+      "kind": "python-read-command",
+      "recorded_exit_code": 0,
+      "command_body": "from pathlib import Path\nimport json\nr=Path('target/726-audit-continuation-20261030/target/726-audit-adler-20261027');d=json.loads((r/'evidence/continuation-segovb/inherited-master-ledger.json').read_bytes());q=json.loads((r/'workflow-20261030/CLOSURE-QUEUE-828.json').read_bytes())\nfor v in d['findings']:\n if v.get('id') in ('M36','M37'):\n  print(json.dumps({k:v[k] for k in ('id','classification','title','locations','contract_trace','repair','dependencies','acceptance') if k in v},indent=2))\nfor n,e in enumerate(q['entries']):\n if e['contract_id'] in ('M36','M37','M40','M41'):print('QUEUE',n,json.dumps(e,indent=2))\nprint('LONG1879',json.dumps(q['entries'][1879]['first_failed_contract_or_unresolved_question'],indent=2))\n",
+      "original_command_sha256": "9e7f9d510155ce3f50b66f1f0835de91b2b1350824e7beb2109acd8827adfad1"
+    },
+    {
+      "ordinal": 73314,
+      "kind": "python-read-command",
+      "recorded_exit_code": 0,
+      "command_body": "from pathlib import Path\nimport json\nr=Path('target/726-audit-continuation-20261030/target/726-audit-adler-20261027');q=json.loads((r/'workflow-20261030/CLOSURE-QUEUE-828.json').read_bytes())\nfor n,e in enumerate(q['entries']):\n if any(x in str(e.get('contract_id','')) for x in ('M36','M37','M40','M41')):print(n,json.dumps(e,indent=2))\nprint('first3',[(x['contract_id'],list(x)) for x in q['entries'][:3]])\n",
+      "original_command_sha256": "82f383c8f031978e073ea9f051b822cb99433f16b820f99c76254bac13232d50"
+    },
+    {
+      "ordinal": 73325,
+      "kind": "python-read-command",
+      "recorded_exit_code": 0,
+      "command_body": "from pathlib import Path\nimport json\nr=Path('target/726-audit-continuation-20261030/target/726-audit-adler-20261027');d=json.loads((r/'evidence/continuation-segovb/inherited-master-ledger.json').read_bytes());print({k:d[k] for k in ('revision','base','pr_head','mode','tree_matches_final_pr_head','scope_note')})\npaths={'crates/adventuresim-core/src/errantry.rs','crates/adventuresim-core/src/strategic_place.rs','crates/adventuresim-stdb-module/src/strategic/challenges.rs','crates/adventuresim-stdb-module/src/strategic/challenge_state.rs'}\nfor v in d['findings']:\n matches=[loc for loc in v.get('locations',[]) if loc.get('file') in paths]\n if matches:print(v['id'],v['title'],json.dumps(matches))\n",
+      "original_command_sha256": "f457d7f9d0648fd0af16dd35bc75bd6b5f05bfb7520385eb07d340b81a69d83b"
+    },
+    {
+      "ordinal": 73332,
+      "kind": "python-read-command",
+      "recorded_exit_code": 0,
+      "command_body": "from pathlib import Path\nimport json\nr=Path('target/726-audit-continuation-20261030/target/726-audit-adler-20261027');d=json.loads((r/'evidence/continuation-segovb/inherited-master-ledger.json').read_bytes())\nfor v in d['findings']:\n if v['id'] in ('F16','M39'):print(json.dumps(v,indent=2))\n",
+      "original_command_sha256": "b4f359ba6736c7aaf86b027fa5bddf84d0142a9f7668f5f2807a47376b593387"
+    },
+    {
+      "ordinal": 73345,
+      "kind": "python-read-command",
+      "recorded_exit_code": 0,
+      "command_body": "from pathlib import Path\nimport json\nr=Path('target/726-audit-continuation-20261030/target/726-audit-adler-20261027');q=json.loads((r/'workflow-20261030/CLOSURE-QUEUE-828.json').read_bytes())\nfor n in (1880,991,2707):\n e=q['entries'][n];print(n,json.dumps({k:e[k] for k in ('contract_id','canonical_owner','historical_receipt','declared_source_identity_navigation','remaining_evidence','dependencies') if k in e},indent=2))\n",
+      "original_command_sha256": "3c233a86e91b2e17193f3ebd5678540fa8ea444c7fdb486a953f6e8254eb0cfc"
+    },
+    {
+      "ordinal": 73352,
+      "kind": "python-read-command",
+      "recorded_exit_code": 0,
+      "command_body": "from pathlib import Path\nimport json\nr=Path('target/726-audit-continuation-20261030/target/726-audit-adler-20261027');q=json.loads((r/'workflow-20261030/CLOSURE-QUEUE-828.json').read_bytes())\nfor n in (1880,991):\n e=q['entries'][n];print(n,[(k,len(str(v))) for k,v in e.items()]);print(json.dumps({k:v for k,v in e.items() if k in ('ledger_pointer','origin','source','receipt','question_origin','provenance','legacy_remaining_ref','exact_source_identities_and_assessed_ranges')},indent=2))\n",
+      "original_command_sha256": "86338ce6b89ec538058457664987e658318538276edb4a0efcf157ea70a613f0"
+    },
+    {
+      "ordinal": 73363,
+      "kind": "python-read-command",
+      "recorded_exit_code": 0,
+      "command_body": "from pathlib import Path\nimport json\nr=Path('target/726-audit-continuation-20261030/target/726-audit-adler-20261027');q=json.loads((r/'workflow-20261030/CLOSURE-QUEUE-828.json').read_bytes())\nfor n in (1880,):\n e=q['entries'][n];print('JOURNAL',e['journal_revisits'])\n for j,v in enumerate(e.get('granular_contract_views',[])):\n  print('VIEW',j,[(k,len(str(z))) for k,z in v.items()])\n  print(json.dumps({k:v[k] for k in ('lens','canonical_owner','first_failed_contract_or_unresolved_question','remaining_evidence','provenance','source_receipt','manifest') if k in v},indent=2))\n",
+      "original_command_sha256": "0973f5eaf75a6dd65e718bd3d23d31871db0fa5a70357c525daf71a205c9750a"
+    },
+    {
+      "ordinal": 73370,
+      "kind": "python-read-command",
+      "recorded_exit_code": 0,
+      "command_body": "from pathlib import Path\nimport json\nr=Path('target/726-audit-continuation-20261030/target/726-audit-adler-20261027');q=json.loads((r/'workflow-20261030/CLOSURE-QUEUE-828.json').read_bytes())\nfor n in (991,1880):\n print(n,'declared',q['entries'][n]['lens'],'journal',q['entries'][n]['journal_revisits'])\n for j,v in enumerate(q['entries'][n].get('granular_contract_views',[])):\n  print('view',j,'lens',v.get('lens'),'first_length',len(str(v.get('first_failed_contract_or_unresolved_question',''))),'proposal',v.get('proposal'),'status',v.get('status'))\n",
+      "original_command_sha256": "9ad0f6c9cac4ad60f1014881c0027a7853403d6e66ebd543b8d3008f4397dc1f"
+    }
+  ],
+  "qualification": "All command executions recorded between observation and comparison are preserved as locally path-trimmed command bodies. They inspect files or list paths. This is evidence about those recorded commands only; transcript completeness, concurrent activity, ledger byte equality and the earlier command failure are not resolved."
+}

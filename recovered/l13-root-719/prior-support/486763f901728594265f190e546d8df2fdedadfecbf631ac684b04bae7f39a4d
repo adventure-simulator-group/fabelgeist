@@ -1,0 +1,2444 @@
+{
+  "schema": "726-proposal-bundle-v1",
+  "lens": 13,
+  "frozen_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "frozen_is_not_current_main": true,
+  "overlays_delta": 0,
+  "merged_delta": 0,
+  "shared_delta": 0,
+  "new_source_identity_delta_inferred": 0,
+  "authoritative_counts_changed": false,
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "global_clearance": false,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "status": "Eight immutable completed source proposals; strict root whole-bundle preflight before any authority mutation",
+  "ordered_frontier_before": 1202,
+  "ordered_frontier_after": 1221,
+  "proposed_next_original": 1221,
+  "original_delta_proposed": 19,
+  "population_deltas_separate": {
+    "original_roles_proposed": 19,
+    "fresh_original_bodies": 15,
+    "qualified_ordered_roles": 4,
+    "connected_source_rows": 2,
+    "overlays": 0,
+    "frozen_merged_paths": 0,
+    "original_shared_scopes": 0,
+    "new_unique_findings": 0,
+    "new_source_identity_count_inferred": 0
+  },
+  "base_authority_snapshot": {
+    "note": "Root sole writer; last reported source authority through294 next1202, queue078 ledger090e792e partial SHA. Dynamic latest authority required."
+  },
+  "batches": [
+    {
+      "batch": 295,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-295.json",
+        "sha256": "77888e392e32fecf5fe1acc118e473a15af3bc36625d2a9ec10b784e7767e456"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-295.json",
+        "sha256": "9c669a89118a530a9a847a4a7892564e0ae3b4e1bd2bb98e54abd9c219677893"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-295-PROPOSAL.json",
+        "sha256": "209c492e2a5c7d5fcf226eaaf399b2fa9b4255f3d1a2eb83df8bf4ef1f227a3e"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-294-PROPOSAL.json",
+        "sha256": "7c88f471a3a82dc17f01faf391fe44664695d60fa51d1acff1c389004ac1cbe5"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-295.json",
+          "sha256": "ad023cc4dd1e4412fedfc7cf5d0cee1d54d7f84fc869b19aa924ef8cf27bacef"
+        }
+      ],
+      "proposed_next_original": 1203
+    },
+    {
+      "batch": 296,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-296.json",
+        "sha256": "29f6a893367cef6ada085f0a6ffacb9fda1a4fac76a0c5ab1afb5ce9cb957d42"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-296.json",
+        "sha256": "29e864bfe45eb8bc1fdd9c8306efaff74c9695f715f86e628c1306648ff3ca7c"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-296-PROPOSAL.json",
+        "sha256": "dbdb3975a8397468a255a2f20b9afafa044c662e26bef1e960707a69ca397fe8"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-295-PROPOSAL.json",
+        "sha256": "209c492e2a5c7d5fcf226eaaf399b2fa9b4255f3d1a2eb83df8bf4ef1f227a3e"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-296.json",
+          "sha256": "fbc074a9f1db0d09085b2eeb9aa7bcf7e26054552ba0395a2fed0107b22f48fe"
+        }
+      ],
+      "proposed_next_original": 1207
+    },
+    {
+      "batch": 297,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-297.json",
+        "sha256": "0a6864398cd26f9614055ddda9b1487522eb5ddade5ecc130a0246e89a8539ab"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-297.json",
+        "sha256": "3be1dea370e1d50dbb5ab3f8198f21e9e2b143eb8f76083bd029eafd1d05e884"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-297-PROPOSAL.json",
+        "sha256": "4d7fb392ad9f5cf91e6582fd8999001ba8658ff55c454b16c7146f9c850e1030"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-296-PROPOSAL.json",
+        "sha256": "dbdb3975a8397468a255a2f20b9afafa044c662e26bef1e960707a69ca397fe8"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-297.json",
+          "sha256": "f49ee80dde50cd333533660b9a69fb21313e26d12432ea9d4930c7f0f2bf99ab"
+        }
+      ],
+      "proposed_next_original": 1208
+    },
+    {
+      "batch": 298,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-298.json",
+        "sha256": "5917eb366d978663d1d2fda7a2ff9d284129876d1ca429a3086a166b18979714"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-298.json",
+        "sha256": "e93ab8a9d786b83a9252d83001134a9e612cfdf21b139b7051274432e7d1f15e"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-298-PROPOSAL.json",
+        "sha256": "2e6f08c6d82d9f92b6bb0d036f373776f7ea20cf4e9ccac8adbc74e680d353ea"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-297-PROPOSAL.json",
+        "sha256": "4d7fb392ad9f5cf91e6582fd8999001ba8658ff55c454b16c7146f9c850e1030"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-298.json",
+          "sha256": "70cbfe31b46164635457e048852c3e6485d354f6914b7dd58dd5fc3358b6487c"
+        }
+      ],
+      "proposed_next_original": 1212
+    },
+    {
+      "batch": 299,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-299.json",
+        "sha256": "33d3f3a9f8615041d9727f8ec60c2f8b5b2c43530047bdaae53fab056d69dd35"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-299.json",
+        "sha256": "8093fefe303e269c0d8368947bd793780474927889e2cfdbad5d1673d8f47acf"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-299-PROPOSAL.json",
+        "sha256": "32dc78801598c38118cbfeeef029954314a86d6e0a10c67a1aeed096c1c7ab18"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-298-PROPOSAL.json",
+        "sha256": "2e6f08c6d82d9f92b6bb0d036f373776f7ea20cf4e9ccac8adbc74e680d353ea"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-299.json",
+          "sha256": "4a5718c76131836e46619fa3d7f358682b0d2b892ebfc462b52ef2ee690ecc96"
+        }
+      ],
+      "proposed_next_original": 1213
+    },
+    {
+      "batch": 300,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-300.json",
+        "sha256": "223110475b19d2eafae5a0b747ba6b6e7f1042f765efe49fa037ff9d57050ee1"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-300.json",
+        "sha256": "9f5a084c2e745787234423cee553682d54e2fe49b53391cd87e4fb1166738aa9"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-300-PROPOSAL.json",
+        "sha256": "8ddb90696da32a776c4626aaad96f622a0c91bc55b08b4119446398ad914fe42"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-299-PROPOSAL.json",
+        "sha256": "32dc78801598c38118cbfeeef029954314a86d6e0a10c67a1aeed096c1c7ab18"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-300.json",
+          "sha256": "652071ea2585b0f89d1bfd7597927dd8fbb1083e4873110b2ece415cf5d413aa"
+        }
+      ],
+      "proposed_next_original": 1215
+    },
+    {
+      "batch": 301,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-301.json",
+        "sha256": "c2dc2751d55b0a11b9192c289119d794d1d7c1b8c9d0d3f73f74970d25d139ce"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-301.json",
+        "sha256": "2f127426335201d6f6ab3e64df406f555ab483155d3bbfe2500287b6785764f7"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-301-PROPOSAL.json",
+        "sha256": "95b9f23c44f8a405dcb840533c593c86d10b3df13aada298441e0f6f9f666662"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-300-PROPOSAL.json",
+        "sha256": "8ddb90696da32a776c4626aaad96f622a0c91bc55b08b4119446398ad914fe42"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-301.json",
+          "sha256": "64cc3d7037af3cd0d7d5bda30c1c06fadaa11a218fe650c9209d5d3f6abb98e6"
+        }
+      ],
+      "proposed_next_original": 1217
+    },
+    {
+      "batch": 302,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-302.json",
+        "sha256": "3625883a6b0bc0dba5ebcf10845f737c04dede906d174ea1be06fe27a98f4398"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-302.json",
+        "sha256": "561d30b6d56e8c3c6bde01dfbf0bc4f74992366364daa547c8bdc05399fbdbe7"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-302-PROPOSAL.json",
+        "sha256": "c3e07de75661f2a93bd57210f0082c226823c85c859bd3b7fd0b28a2e19ecd7c"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-301-PROPOSAL.json",
+        "sha256": "95b9f23c44f8a405dcb840533c593c86d10b3df13aada298441e0f6f9f666662"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-302.json",
+          "sha256": "ceb087a8065ca2e9ac848c954025a8f4282d580d61866df3381dc3b9df5b7c50"
+        }
+      ],
+      "proposed_next_original": 1221
+    }
+  ],
+  "source_records": [
+    {
+      "original": 1202,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social_roles.rs",
+      "sha256": "328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 579,
+      "assessed_ranges": [
+        [
+          1,
+          579
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-295.json",
+        "sha256": "77888e392e32fecf5fe1acc118e473a15af3bc36625d2a9ec10b784e7767e456"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-295.json",
+        "sha256": "ad023cc4dd1e4412fedfc7cf5d0cee1d54d7f84fc869b19aa924ef8cf27bacef"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Exact successful prospective registration persisted and inspected before personal displays; immutable partial checkpoints retain actual source order. No invented timestamps or rereads.",
+      "original_credit_now": 1
+    },
+    {
+      "original": 1220,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 1653,
+      "assessed_ranges": [
+        [
+          1,
+          1653
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-295.json",
+        "sha256": "77888e392e32fecf5fe1acc118e473a15af3bc36625d2a9ec10b784e7767e456"
+      },
+      "read_pointer": "/connected/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-295.json",
+        "sha256": "ad023cc4dd1e4412fedfc7cf5d0cee1d54d7f84fc869b19aa924ef8cf27bacef"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Exact successful prospective registration persisted and inspected before personal displays; immutable partial checkpoints retain actual source order. No invented timestamps or rereads.",
+      "original_credit_now": 0
+    },
+    {
+      "original": 1203,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/approved_action.rs",
+      "sha256": "dc45100de7c1f6bfa836ee8b4634f1b502be0aab07d778f21595785bf2eadca1",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 173,
+      "assessed_ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-296.json",
+        "sha256": "29f6a893367cef6ada085f0a6ffacb9fda1a4fac76a0c5ab1afb5ce9cb957d42"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-296.json",
+        "sha256": "fbc074a9f1db0d09085b2eeb9aa7bcf7e26054552ba0395a2fed0107b22f48fe"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Exact successful prospective registration persisted and inspected before personal displays; immutable partial checkpoints retain actual source order. No invented timestamps or rereads.",
+      "original_credit_now": 1
+    },
+    {
+      "original": 1205,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/autoresolve.rs",
+      "sha256": "b475a0317b7ceda238789e057c6c302ca8ca83924b7cb09b13807a2e70b63782",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 235,
+      "assessed_ranges": [
+        [
+          1,
+          235
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-296.json",
+        "sha256": "29f6a893367cef6ada085f0a6ffacb9fda1a4fac76a0c5ab1afb5ce9cb957d42"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-296.json",
+        "sha256": "fbc074a9f1db0d09085b2eeb9aa7bcf7e26054552ba0395a2fed0107b22f48fe"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Exact successful prospective registration persisted and inspected before personal displays; immutable partial checkpoints retain actual source order. No invented timestamps or rereads.",
+      "original_credit_now": 1
+    },
+    {
+      "original": 1206,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/battle_combatants.rs",
+      "sha256": "85a9cdeb34de89b6b81a65c512747b50771666aae4d1e6616345a617767a6706",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 24,
+      "assessed_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-296.json",
+        "sha256": "29f6a893367cef6ada085f0a6ffacb9fda1a4fac76a0c5ab1afb5ce9cb957d42"
+      },
+      "read_pointer": "/rows/2",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-296.json",
+        "sha256": "fbc074a9f1db0d09085b2eeb9aa7bcf7e26054552ba0395a2fed0107b22f48fe"
+      },
+      "registration_pointer": "/sources/2",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Exact successful prospective registration persisted and inspected before personal displays; immutable partial checkpoints retain actual source order. No invented timestamps or rereads.",
+      "original_credit_now": 1
+    },
+    {
+      "original": 1207,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 2815,
+      "assessed_ranges": [
+        [
+          1,
+          2815
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-297.json",
+        "sha256": "0a6864398cd26f9614055ddda9b1487522eb5ddade5ecc130a0246e89a8539ab"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-297.json",
+        "sha256": "f49ee80dde50cd333533660b9a69fb21313e26d12432ea9d4930c7f0f2bf99ab"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Exact successful prospective registration persisted and inspected before personal displays; immutable partial checkpoints retain actual source order. No invented timestamps or rereads.",
+      "original_credit_now": 1
+    },
+    {
+      "original": 1208,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/combat_error.rs",
+      "sha256": "58e6e2c18b7b24c5ca48112d598be60bec75a889ebfbf494562073baa85b318f",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 29,
+      "assessed_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-298.json",
+        "sha256": "5917eb366d978663d1d2fda7a2ff9d284129876d1ca429a3086a166b18979714"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-298.json",
+        "sha256": "70cbfe31b46164635457e048852c3e6485d354f6914b7dd58dd5fc3358b6487c"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Exact successful prospective registration persisted and inspected before personal displays; immutable partial checkpoints retain actual source order. No invented timestamps or rereads.",
+      "original_credit_now": 1
+    },
+    {
+      "original": 1210,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/development_gallery.rs",
+      "sha256": "95917e848a7696eed59a6878365b3b9171c9257d530a6254819270c59cead7e7",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 312,
+      "assessed_ranges": [
+        [
+          1,
+          312
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-298.json",
+        "sha256": "5917eb366d978663d1d2fda7a2ff9d284129876d1ca429a3086a166b18979714"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-298.json",
+        "sha256": "70cbfe31b46164635457e048852c3e6485d354f6914b7dd58dd5fc3358b6487c"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Exact successful prospective registration persisted and inspected before personal displays; immutable partial checkpoints retain actual source order. No invented timestamps or rereads.",
+      "original_credit_now": 1
+    },
+    {
+      "original": 1211,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/development_scenarios.rs",
+      "sha256": "0a3344aa8f11ea2768169b64f3d7b887260bc7fd53e818c8bfff3b55b01ee394",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 573,
+      "assessed_ranges": [
+        [
+          1,
+          573
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-298.json",
+        "sha256": "5917eb366d978663d1d2fda7a2ff9d284129876d1ca429a3086a166b18979714"
+      },
+      "read_pointer": "/rows/2",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-298.json",
+        "sha256": "70cbfe31b46164635457e048852c3e6485d354f6914b7dd58dd5fc3358b6487c"
+      },
+      "registration_pointer": "/sources/2",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Exact successful prospective registration persisted and inspected before personal displays; immutable partial checkpoints retain actual source order. No invented timestamps or rereads.",
+      "original_credit_now": 1
+    },
+    {
+      "original": 1212,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+      "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 1095,
+      "assessed_ranges": [
+        [
+          1,
+          1095
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-299.json",
+        "sha256": "33d3f3a9f8615041d9727f8ec60c2f8b5b2c43530047bdaae53fab056d69dd35"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-299.json",
+        "sha256": "4a5718c76131836e46619fa3d7f358682b0d2b892ebfc462b52ef2ee690ecc96"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Exact successful prospective registration persisted and inspected before personal displays; immutable partial checkpoints retain actual source order. No invented timestamps or rereads.",
+      "original_credit_now": 1
+    },
+    {
+      "original": null,
+      "source_id": "pr-working:content/encounters/unlawful-bridge-custom.yaml",
+      "sha256": "7e21044f771b95018a173cb3ed21b27f360a14f20c43f7fd8f4e08dd140733fd",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 122,
+      "assessed_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-299.json",
+        "sha256": "33d3f3a9f8615041d9727f8ec60c2f8b5b2c43530047bdaae53fab056d69dd35"
+      },
+      "read_pointer": "/connected/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-299.json",
+        "sha256": "4a5718c76131836e46619fa3d7f358682b0d2b892ebfc462b52ef2ee690ecc96"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Exact successful prospective registration persisted and inspected before personal displays; immutable partial checkpoints retain actual source order. No invented timestamps or rereads.",
+      "original_credit_now": 0
+    },
+    {
+      "original": 1213,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_effects.rs",
+      "sha256": "e86e2ae841e103433b835515ccaa96bca4bdf76b249feda73990195735993201",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 636,
+      "assessed_ranges": [
+        [
+          1,
+          636
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-300.json",
+        "sha256": "223110475b19d2eafae5a0b747ba6b6e7f1042f765efe49fa037ff9d57050ee1"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-300.json",
+        "sha256": "652071ea2585b0f89d1bfd7597927dd8fbb1083e4873110b2ece415cf5d413aa"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Exact successful prospective registration persisted and inspected before personal displays; immutable partial checkpoints retain actual source order. No invented timestamps or rereads.",
+      "original_credit_now": 1
+    },
+    {
+      "original": 1214,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_policy.rs",
+      "sha256": "0b4667798ab18d21ca3e177acf453f643f39fd813f40d9dc55f2bf23fec06c01",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 14,
+      "assessed_ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-300.json",
+        "sha256": "223110475b19d2eafae5a0b747ba6b6e7f1042f765efe49fa037ff9d57050ee1"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-300.json",
+        "sha256": "652071ea2585b0f89d1bfd7597927dd8fbb1083e4873110b2ece415cf5d413aa"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Exact successful prospective registration persisted and inspected before personal displays; immutable partial checkpoints retain actual source order. No invented timestamps or rereads.",
+      "original_credit_now": 1,
+      "source_identity_qualification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/QUALIFICATION-PL13-300-WINDOWS-1214-001.json",
+        "sha256": "520f3fe5ff40eb47215837748d23b6787da7c15fec6308cd5313029f81a3a27a"
+      }
+    },
+    {
+      "original": 1215,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+      "sha256": "ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 616,
+      "assessed_ranges": [
+        [
+          1,
+          616
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-301.json",
+        "sha256": "c2dc2751d55b0a11b9192c289119d794d1d7c1b8c9d0d3f73f74970d25d139ce"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-301.json",
+        "sha256": "64cc3d7037af3cd0d7d5bda30c1c06fadaa11a218fe650c9209d5d3f6abb98e6"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Exact successful prospective registration persisted and inspected before personal displays; immutable partial checkpoints retain actual source order. No invented timestamps or rereads.",
+      "original_credit_now": 1
+    },
+    {
+      "original": 1216,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs",
+      "sha256": "f9a27db833d675b23a449676ecfd6d878c0357f2a5190f6a649341766c5ee33c",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 1408,
+      "assessed_ranges": [
+        [
+          1,
+          1408
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-301.json",
+        "sha256": "c2dc2751d55b0a11b9192c289119d794d1d7c1b8c9d0d3f73f74970d25d139ce"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-301.json",
+        "sha256": "64cc3d7037af3cd0d7d5bda30c1c06fadaa11a218fe650c9209d5d3f6abb98e6"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Exact successful prospective registration persisted and inspected before personal displays; immutable partial checkpoints retain actual source order. No invented timestamps or rereads.",
+      "original_credit_now": 1
+    },
+    {
+      "original": 1217,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+      "sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 781,
+      "assessed_ranges": [
+        [
+          1,
+          781
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-302.json",
+        "sha256": "3625883a6b0bc0dba5ebcf10845f737c04dede906d174ea1be06fe27a98f4398"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-302.json",
+        "sha256": "ceb087a8065ca2e9ac848c954025a8f4282d580d61866df3381dc3b9df5b7c50"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Exact successful prospective registration persisted and inspected before personal displays; immutable partial checkpoints retain actual source order. No invented timestamps or rereads.",
+      "original_credit_now": 1
+    },
+    {
+      "original": 1218,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs",
+      "sha256": "86473c2872a35a61a69775dc2578440eeefe4b620a5414c4aa044ca98bacf412",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 351,
+      "assessed_ranges": [
+        [
+          1,
+          351
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-302.json",
+        "sha256": "3625883a6b0bc0dba5ebcf10845f737c04dede906d174ea1be06fe27a98f4398"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-302.json",
+        "sha256": "ceb087a8065ca2e9ac848c954025a8f4282d580d61866df3381dc3b9df5b7c50"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Exact successful prospective registration persisted and inspected before personal displays; immutable partial checkpoints retain actual source order. No invented timestamps or rereads.",
+      "original_credit_now": 1
+    }
+  ],
+  "exact_source_read_rows": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social_roles.rs",
+      "source_sha256": "328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+      "actual_EOF_or_visual_contract": 579,
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-295.json",
+        "sha256": "77888e392e32fecf5fe1acc118e473a15af3bc36625d2a9ec10b784e7767e456"
+      },
+      "read_pointer": "/rows/0",
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-295.json",
+        "sha256": "ad023cc4dd1e4412fedfc7cf5d0cee1d54d7f84fc869b19aa924ef8cf27bacef"
+      },
+      "requested_ranges": [
+        [
+          1,
+          579
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          579
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          579
+        ]
+      ],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": []
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "source_sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
+      "actual_EOF_or_visual_contract": 1653,
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-295.json",
+        "sha256": "77888e392e32fecf5fe1acc118e473a15af3bc36625d2a9ec10b784e7767e456"
+      },
+      "read_pointer": "/connected/0",
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-295.json",
+        "sha256": "ad023cc4dd1e4412fedfc7cf5d0cee1d54d7f84fc869b19aa924ef8cf27bacef"
+      },
+      "requested_ranges": [
+        [
+          1,
+          1653
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          1653
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          1653
+        ]
+      ],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": []
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/approved_action.rs",
+      "source_sha256": "dc45100de7c1f6bfa836ee8b4634f1b502be0aab07d778f21595785bf2eadca1",
+      "actual_EOF_or_visual_contract": 173,
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-296.json",
+        "sha256": "29f6a893367cef6ada085f0a6ffacb9fda1a4fac76a0c5ab1afb5ce9cb957d42"
+      },
+      "read_pointer": "/rows/0",
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-296.json",
+        "sha256": "fbc074a9f1db0d09085b2eeb9aa7bcf7e26054552ba0395a2fed0107b22f48fe"
+      },
+      "requested_ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": []
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/autoresolve.rs",
+      "source_sha256": "b475a0317b7ceda238789e057c6c302ca8ca83924b7cb09b13807a2e70b63782",
+      "actual_EOF_or_visual_contract": 235,
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-296.json",
+        "sha256": "29f6a893367cef6ada085f0a6ffacb9fda1a4fac76a0c5ab1afb5ce9cb957d42"
+      },
+      "read_pointer": "/rows/1",
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-296.json",
+        "sha256": "fbc074a9f1db0d09085b2eeb9aa7bcf7e26054552ba0395a2fed0107b22f48fe"
+      },
+      "requested_ranges": [
+        [
+          1,
+          235
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          235
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          235
+        ]
+      ],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": []
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/battle_combatants.rs",
+      "source_sha256": "85a9cdeb34de89b6b81a65c512747b50771666aae4d1e6616345a617767a6706",
+      "actual_EOF_or_visual_contract": 24,
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-296.json",
+        "sha256": "29f6a893367cef6ada085f0a6ffacb9fda1a4fac76a0c5ab1afb5ce9cb957d42"
+      },
+      "read_pointer": "/rows/2",
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-296.json",
+        "sha256": "fbc074a9f1db0d09085b2eeb9aa7bcf7e26054552ba0395a2fed0107b22f48fe"
+      },
+      "requested_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": []
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "source_sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "actual_EOF_or_visual_contract": 2815,
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-297.json",
+        "sha256": "0a6864398cd26f9614055ddda9b1487522eb5ddade5ecc130a0246e89a8539ab"
+      },
+      "read_pointer": "/rows/0",
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-297.json",
+        "sha256": "f49ee80dde50cd333533660b9a69fb21313e26d12432ea9d4930c7f0f2bf99ab"
+      },
+      "requested_ranges": [
+        [
+          1,
+          2815
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          2815
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          2815
+        ]
+      ],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": []
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/combat_error.rs",
+      "source_sha256": "58e6e2c18b7b24c5ca48112d598be60bec75a889ebfbf494562073baa85b318f",
+      "actual_EOF_or_visual_contract": 29,
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-298.json",
+        "sha256": "5917eb366d978663d1d2fda7a2ff9d284129876d1ca429a3086a166b18979714"
+      },
+      "read_pointer": "/rows/0",
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-298.json",
+        "sha256": "70cbfe31b46164635457e048852c3e6485d354f6914b7dd58dd5fc3358b6487c"
+      },
+      "requested_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": []
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/development_gallery.rs",
+      "source_sha256": "95917e848a7696eed59a6878365b3b9171c9257d530a6254819270c59cead7e7",
+      "actual_EOF_or_visual_contract": 312,
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-298.json",
+        "sha256": "5917eb366d978663d1d2fda7a2ff9d284129876d1ca429a3086a166b18979714"
+      },
+      "read_pointer": "/rows/1",
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-298.json",
+        "sha256": "70cbfe31b46164635457e048852c3e6485d354f6914b7dd58dd5fc3358b6487c"
+      },
+      "requested_ranges": [
+        [
+          1,
+          312
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          312
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          312
+        ]
+      ],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": []
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/development_scenarios.rs",
+      "source_sha256": "0a3344aa8f11ea2768169b64f3d7b887260bc7fd53e818c8bfff3b55b01ee394",
+      "actual_EOF_or_visual_contract": 573,
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-298.json",
+        "sha256": "5917eb366d978663d1d2fda7a2ff9d284129876d1ca429a3086a166b18979714"
+      },
+      "read_pointer": "/rows/2",
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-298.json",
+        "sha256": "70cbfe31b46164635457e048852c3e6485d354f6914b7dd58dd5fc3358b6487c"
+      },
+      "requested_ranges": [
+        [
+          1,
+          573
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          573
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          573
+        ]
+      ],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": []
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+      "source_sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+      "actual_EOF_or_visual_contract": 1095,
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-299.json",
+        "sha256": "33d3f3a9f8615041d9727f8ec60c2f8b5b2c43530047bdaae53fab056d69dd35"
+      },
+      "read_pointer": "/rows/0",
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-299.json",
+        "sha256": "4a5718c76131836e46619fa3d7f358682b0d2b892ebfc462b52ef2ee690ecc96"
+      },
+      "requested_ranges": [
+        [
+          1,
+          1095
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          1095
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          1095
+        ]
+      ],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": []
+    },
+    {
+      "source_id": "pr-working:content/encounters/unlawful-bridge-custom.yaml",
+      "source_sha256": "7e21044f771b95018a173cb3ed21b27f360a14f20c43f7fd8f4e08dd140733fd",
+      "actual_EOF_or_visual_contract": 122,
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-299.json",
+        "sha256": "33d3f3a9f8615041d9727f8ec60c2f8b5b2c43530047bdaae53fab056d69dd35"
+      },
+      "read_pointer": "/connected/0",
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-299.json",
+        "sha256": "4a5718c76131836e46619fa3d7f358682b0d2b892ebfc462b52ef2ee690ecc96"
+      },
+      "requested_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": []
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_effects.rs",
+      "source_sha256": "e86e2ae841e103433b835515ccaa96bca4bdf76b249feda73990195735993201",
+      "actual_EOF_or_visual_contract": 636,
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-300.json",
+        "sha256": "223110475b19d2eafae5a0b747ba6b6e7f1042f765efe49fa037ff9d57050ee1"
+      },
+      "read_pointer": "/rows/0",
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-300.json",
+        "sha256": "652071ea2585b0f89d1bfd7597927dd8fbb1083e4873110b2ece415cf5d413aa"
+      },
+      "requested_ranges": [
+        [
+          1,
+          636
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          636
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          636
+        ]
+      ],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": []
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_policy.rs",
+      "source_sha256": "0b4667798ab18d21ca3e177acf453f643f39fd813f40d9dc55f2bf23fec06c01",
+      "actual_EOF_or_visual_contract": 14,
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-300.json",
+        "sha256": "223110475b19d2eafae5a0b747ba6b6e7f1042f765efe49fa037ff9d57050ee1"
+      },
+      "read_pointer": "/rows/1",
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-300.json",
+        "sha256": "652071ea2585b0f89d1bfd7597927dd8fbb1083e4873110b2ece415cf5d413aa"
+      },
+      "requested_ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": []
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+      "source_sha256": "ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa",
+      "actual_EOF_or_visual_contract": 616,
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-301.json",
+        "sha256": "c2dc2751d55b0a11b9192c289119d794d1d7c1b8c9d0d3f73f74970d25d139ce"
+      },
+      "read_pointer": "/rows/0",
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-301.json",
+        "sha256": "64cc3d7037af3cd0d7d5bda30c1c06fadaa11a218fe650c9209d5d3f6abb98e6"
+      },
+      "requested_ranges": [
+        [
+          1,
+          616
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          616
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          616
+        ]
+      ],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": []
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs",
+      "source_sha256": "f9a27db833d675b23a449676ecfd6d878c0357f2a5190f6a649341766c5ee33c",
+      "actual_EOF_or_visual_contract": 1408,
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-301.json",
+        "sha256": "c2dc2751d55b0a11b9192c289119d794d1d7c1b8c9d0d3f73f74970d25d139ce"
+      },
+      "read_pointer": "/rows/1",
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-301.json",
+        "sha256": "64cc3d7037af3cd0d7d5bda30c1c06fadaa11a218fe650c9209d5d3f6abb98e6"
+      },
+      "requested_ranges": [
+        [
+          1,
+          1408
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          1408
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          1408
+        ]
+      ],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": []
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+      "source_sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+      "actual_EOF_or_visual_contract": 781,
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-302.json",
+        "sha256": "3625883a6b0bc0dba5ebcf10845f737c04dede906d174ea1be06fe27a98f4398"
+      },
+      "read_pointer": "/rows/0",
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-302.json",
+        "sha256": "ceb087a8065ca2e9ac848c954025a8f4282d580d61866df3381dc3b9df5b7c50"
+      },
+      "requested_ranges": [
+        [
+          1,
+          781
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          781
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          781
+        ]
+      ],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": []
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs",
+      "source_sha256": "86473c2872a35a61a69775dc2578440eeefe4b620a5414c4aa044ca98bacf412",
+      "actual_EOF_or_visual_contract": 351,
+      "read_ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-302.json",
+        "sha256": "3625883a6b0bc0dba5ebcf10845f737c04dede906d174ea1be06fe27a98f4398"
+      },
+      "read_pointer": "/rows/1",
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-302.json",
+        "sha256": "ceb087a8065ca2e9ac848c954025a8f4282d580d61866df3381dc3b9df5b7c50"
+      },
+      "requested_ranges": [
+        [
+          1,
+          351
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          351
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          351
+        ]
+      ],
+      "body_output_truncation_status": "Untruncated outputs; original untruncated_body_outputs:true",
+      "unread_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": []
+    }
+  ],
+  "qualified_same_lens_reuse": [
+    {
+      "original": 1204,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 1586,
+      "assessed_ranges": [
+        [
+          1,
+          1586
+        ]
+      ],
+      "read_pointer": "/connected/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-197.json",
+        "sha256": "634a4672b4ce7ec9fdc21abe9a733417bba2f64762656cdf69a0cba96e7cd2f2"
+      },
+      "registration_pointer": "/sources/0",
+      "same_lens_only": true,
+      "count_once_when_frontier_reaches": true,
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "source_sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-197.json",
+        "sha256": "87ddf168dca6537a437b0575d61365f308f041241e11cc61d35a49065057c297"
+      },
+      "fresh_personal_assessed_ranges": [],
+      "early_original_credit": 0,
+      "ordered_credit_proposed_now": 1,
+      "git_revision_for_exact_body": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "application": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-296.json",
+        "sha256": "29f6a893367cef6ada085f0a6ffacb9fda1a4fac76a0c5ab1afb5ce9cb957d42"
+      }
+    },
+    {
+      "original": 1219,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 1463,
+      "assessed_ranges": [
+        [
+          1,
+          1463
+        ]
+      ],
+      "read_pointer": "/connected/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-161.json",
+        "sha256": "0aa3447e6f4a09df4daa9d9cb4070d836a8c110084195dda83079cb730f5d5ac"
+      },
+      "registration_pointer": "/sources/0",
+      "same_lens_only": true,
+      "count_once_when_frontier_reaches": true,
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "source_sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-161.json",
+        "sha256": "a3dc93fd71eba485b73687e84c35d8472916b97e93de8a2d0a97a0e004a4d98b"
+      },
+      "fresh_personal_assessed_ranges": [],
+      "early_original_credit": 0,
+      "ordered_credit_proposed_now": 1,
+      "git_revision_for_exact_body": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "application": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-302.json",
+        "sha256": "3625883a6b0bc0dba5ebcf10845f737c04dede906d174ea1be06fe27a98f4398"
+      }
+    },
+    {
+      "original": 1220,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 1653,
+      "assessed_ranges": [
+        [
+          1,
+          1653
+        ]
+      ],
+      "read_pointer": "/connected/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-295.json",
+        "sha256": "ad023cc4dd1e4412fedfc7cf5d0cee1d54d7f84fc869b19aa924ef8cf27bacef"
+      },
+      "registration_pointer": "/sources/1",
+      "same_lens_only": true,
+      "count_once_when_frontier_reaches": true,
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "source_sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-295.json",
+        "sha256": "77888e392e32fecf5fe1acc118e473a15af3bc36625d2a9ec10b784e7767e456"
+      },
+      "fresh_personal_assessed_ranges": [],
+      "early_original_credit": 0,
+      "ordered_credit_proposed_now": 1,
+      "git_revision_for_exact_body": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "application": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-302.json",
+        "sha256": "3625883a6b0bc0dba5ebcf10845f737c04dede906d174ea1be06fe27a98f4398"
+      }
+    }
+  ],
+  "qualified_multipart_same_lens_reuse": [
+    {
+      "original": 1209,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/custody_objectives.rs",
+      "source_sha256": "7274d8bedc95fa40cee64bda7b7dda0c32b6d02aa01e44e754f77e1bd171bc5b",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 1677,
+      "assessed_ranges": [
+        [
+          1,
+          1677
+        ]
+      ],
+      "same_lens_only": true,
+      "count_once_when_frontier_reaches": true,
+      "ordered_original_credit_proposed_now": 1,
+      "new_body_reads_claimed": false,
+      "components": [
+        {
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-147.json",
+            "sha256": "f32cbe17cf9b6d4bd2f6bf85d08fddf6594c0b566fe06cccf8cf9bfbc5ddd911"
+          },
+          "read_pointer": "/connected/1",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-147.json",
+            "sha256": "10eb26dd8107525281b3356373cfd00097e46412e195bf9c9c5caa14b7db6774"
+          },
+          "registration_pointer": "/sources/1",
+          "assessed_ranges": [
+            [
+              1,
+              400
+            ]
+          ],
+          "fresh_personal_assessed_ranges": [],
+          "early_original_credit": 0
+        },
+        {
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-147.json",
+            "sha256": "f32cbe17cf9b6d4bd2f6bf85d08fddf6594c0b566fe06cccf8cf9bfbc5ddd911"
+          },
+          "read_pointer": "/connected/2",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-147-SUPPLEMENT-001.json",
+            "sha256": "ae8ba5ad4bff4841e0b56bd1850e63b8a8eb531bf77494cfa6ef9dc971a9cace"
+          },
+          "registration_pointer": "/sources/0",
+          "assessed_ranges": [
+            [
+              401,
+              760
+            ]
+          ],
+          "fresh_personal_assessed_ranges": [],
+          "early_original_credit": 0
+        },
+        {
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-147.json",
+            "sha256": "f32cbe17cf9b6d4bd2f6bf85d08fddf6594c0b566fe06cccf8cf9bfbc5ddd911"
+          },
+          "read_pointer": "/connected/3",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-147-SUPPLEMENT-002.json",
+            "sha256": "c244c838cdec55c27511191afdefa7bf0c9e952d22f63dab401fb3b03d10291d"
+          },
+          "registration_pointer": "/sources/0",
+          "assessed_ranges": [
+            [
+              761,
+              1677
+            ]
+          ],
+          "fresh_personal_assessed_ranges": [],
+          "early_original_credit": 0
+        }
+      ],
+      "qualification": "Three exact own147 prospective registrations/ranges union full1677; all actualroot futureproofs authenticated, one original role total.",
+      "application": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-298.json",
+        "sha256": "5917eb366d978663d1d2fda7a2ff9d284129876d1ca429a3086a166b18979714"
+      }
+    }
+  ],
+  "necessary_extensions": [
+    {
+      "source_id": "pr-working:content/encounters/unlawful-bridge-custom.yaml",
+      "sha256": "7e21044f771b95018a173cb3ed21b27f360a14f20c43f7fd8f4e08dd140733fd",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 122,
+      "required_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-299.json",
+        "sha256": "4a5718c76131836e46619fa3d7f358682b0d2b892ebfc462b52ef2ee690ecc96"
+      },
+      "registration_pointer": "/sources/1",
+      "read_pointer": "/connected/0",
+      "reason": "Necessary actual positiveweight questeligible narrativecombat andallowedmeasureditemcost authored producer",
+      "global_source_identity_novelty": "Root global exactpopulationdedup pending, zero new sourceidentity inferred",
+      "all_other_lenses_pending": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-299.json",
+        "sha256": "33d3f3a9f8615041d9727f8ec60c2f8b5b2c43530047bdaae53fab056d69dd35"
+      }
+    }
+  ],
+  "future_same_lens_reuse_proofs": [
+    {
+      "original": 1220,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 1653,
+      "assessed_ranges": [
+        [
+          1,
+          1653
+        ]
+      ],
+      "read_pointer": "/connected/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-295.json",
+        "sha256": "ad023cc4dd1e4412fedfc7cf5d0cee1d54d7f84fc869b19aa924ef8cf27bacef"
+      },
+      "registration_pointer": "/sources/1",
+      "same_lens_only": true,
+      "count_once_when_frontier_reaches": true,
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-295.json",
+        "sha256": "77888e392e32fecf5fe1acc118e473a15af3bc36625d2a9ec10b784e7767e456"
+      }
+    }
+  ],
+  "source_adoption_components": [],
+  "source_identity_qualifications": [
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/QUALIFICATION-PL13-300-WINDOWS-1214-001.json",
+      "sha256": "520f3fe5ff40eb47215837748d23b6787da7c15fec6308cd5313029f81a3a27a"
+    }
+  ],
+  "contract_updates": [
+    {
+      "contract_id_or_proposed_new_id": "SEGOVB-L1-NARRATIVE-COMBAT-TERMINAL-MAPPING",
+      "lens": 13,
+      "canonical_owner_or_explicit_unresolved_owner_question": "road_encounter_catalog.rs::resolved_combat_outcome220..228 is first rejecting internal API, native encounters.rs::resolve_random_encounter_battle1090..1096 produces missing supported terminal tags",
+      "first_failed_contract_or_unresolved_question": "Native pure battle resolution emits mutual_incapacitation/timeout into String, resolve_strategic_encounter retains local encounter.outcome1195/1218 then followup1250 calls parser220..228 throughchallenges1060; parser accepts victory/defeat/stalemate/avoided/surrendered only. If either terminal is reached for authoredfollowup, it returnsErr before payload/receipt/final encounter state commit. No observed terminal incident; payload/policy mapping for these states must be explicit.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "original": 987,
+          "source_id": "pr-working:crates/adventuresim-core/src/road_encounter_catalog.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+          "actual_EOF": 2689,
+          "assessed_ranges": [
+            [
+              180,
+              237
+            ],
+            [
+              353,
+              376
+            ],
+            [
+              978,
+              1035
+            ]
+          ],
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-200.json",
+            "sha256": "00a22198d9d93739337300125f59fc17e423a2a9ccfa85c529806c831313b7a8"
+          },
+          "read_pointer": "/rows/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-200.json",
+            "sha256": "71004c45bbf0777aeca559844864806ae01402a6b5c14f42a190baca6295b0b9"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Exact prior own full body qualified; actual focused reread now, zero new body/role credit"
+        },
+        {
+          "original": 1219,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+          "actual_EOF": 1463,
+          "assessed_ranges": [
+            [
+              1018,
+              1132
+            ],
+            [
+              1180,
+              1275
+            ]
+          ],
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-161.json",
+            "sha256": "a3dc93fd71eba485b73687e84c35d8472916b97e93de8a2d0a97a0e004a4d98b"
+          },
+          "read_pointer": "/connected/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-161.json",
+            "sha256": "0aa3447e6f4a09df4daa9d9cb4070d836a8c110084195dda83079cb730f5d5ac"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Exact prior own full body qualified; actual focused reread now, zero new body/role credit"
+        },
+        {
+          "original": 1207,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+          "actual_EOF": 2815,
+          "assessed_ranges": [
+            [
+              1024,
+              1137
+            ]
+          ],
+          "read_pointer": "/rows/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-297.json",
+            "sha256": "f49ee80dde50cd333533660b9a69fb21313e26d12432ea9d4930c7f0f2bf99ab"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Own frozen297 full2815 afterprospective, cumulative partial checkpoints"
+        }
+      ],
+      "read_pointer": "/rows/0",
+      "status_proposed": "Existing canonical exact first-contract corroboration, frozen ownLens13 graph complete for mapping; currentown scopes pending, zero newunique count",
+      "remaining_evidence": [
+        "Own selected current source reconciliation or exact same-lens current proof for producer/parser/followup; do not transfer rootL1 currentbody.",
+        "Policy decision for Timeout/Mutual payload category; audit can document unresolved policy without repair/runtimevalidation."
+      ],
+      "dependencies": [
+        "Core BattleResolution fourvariants and actual battle producer own132 full2878; original296 native reporting tags corroborate but are not retainedencounter.outcome producer.",
+        "Native reducerErr rollback law affects commit consequences; first failed source mapping remains established regardless of runtime replay."
+      ],
+      "closure_condition": [
+        "Record source-backed conditional mapping finding with exact canonicalalias, currentdelta status and explicit policy; no implementation or runtimepass needed to close audit discovery."
+      ],
+      "later_repair_acceptance_requirements": [
+        "Every admitted terminal BattleResolution reaches an explicit narrative payload/disposition, including Timeout andMutual; no invented legacy string preservation.",
+        "Terminal encounter/corpses/damage/rewards/receipt have coherent transaction outcome; no rewarddoubleapplication onretry and no rewinding legitimate terminal prefix."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": {
+        "canonical_id": "SEGOVB-L1-NARRATIVE-COMBAT-TERMINAL-MAPPING",
+        "root_metadata_navigation_only": true,
+        "own_actual_frozen_chain_proof": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/PROOF-PL13-297-OWN200-161-FOCUS-001.json",
+          "sha256": "1d2f26967649d56770cea472a244fdae005357046a5b8b31f7fbfd39b7d87fb2"
+        },
+        "identity_basis": "Same actual named producer\u2192retainedoutcome\u2192followup\u2192closed parser and exact omittedtags; not a common remedy alias",
+        "new_unique_count": 0
+      },
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-297.json",
+        "sha256": "0a6864398cd26f9614055ddda9b1487522eb5ddade5ecc130a0246e89a8539ab"
+      }
+    },
+    {
+      "contract_id_or_proposed_new_id": "PL13-299-NARRATIVE-MEASURED-ITEM-COST-ADMISSION",
+      "lens": 13,
+      "canonical_owner_or_explicit_unresolved_owner_question": "strategic/challenges.rs::consume_narrative_party_item172 firstrejects allowedauthored measuredfoodcost; connectedcoreEffect/validate_item_references andcontentcost mustshare exactmeasurement owner",
+      "first_failed_contract_or_unresolved_question": "Nonblocked unlawful_bridge_custom_v1 barter_rations declaresminimum/consume travel_ration4. Requirement UI/reducer count4 canpass, but apply_narrative_effect140 callsconsume_narrative_party_item172 which unconditionallyrejects measureditems. travel_ration isauthoredFood andbothnativeFoodkind/corefoodcatalog predicate resolve measuredtrue. Coreeffectvalidator checkspositivequantity+ID anditemreferencevalidator onlyexistence, so validcontentnativeexecutability contractsdisagree. Sourceproven mismatch, no observed runtime execution; exactcanonicalaliases/currentpending.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "original": null,
+          "source_id": "pr-working:content/encounters/unlawful-bridge-custom.yaml",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "7e21044f771b95018a173cb3ed21b27f360a14f20c43f7fd8f4e08dd140733fd",
+          "actual_EOF": 122,
+          "assessed_ranges": [
+            [
+              1,
+              122
+            ]
+          ],
+          "read_pointer": "/connected/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-299.json",
+            "sha256": "4a5718c76131836e46619fa3d7f358682b0d2b892ebfc462b52ef2ee690ecc96"
+          },
+          "registration_pointer": "/sources/1",
+          "read_attribution": "Own exact qualified Lens13 body; no current/foreign credit"
+        },
+        {
+          "original": 1207,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+          "actual_EOF": 2815,
+          "assessed_ranges": [
+            [
+              114,
+              205
+            ],
+            [
+              449,
+              604
+            ],
+            [
+              1463,
+              1767
+            ]
+          ],
+          "read_pointer": "/rows/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-297.json",
+            "sha256": "f49ee80dde50cd333533660b9a69fb21313e26d12432ea9d4930c7f0f2bf99ab"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Own exact qualified Lens13 body; no current/foreign credit",
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-297.json",
+            "sha256": "0a6864398cd26f9614055ddda9b1487522eb5ddade5ecc130a0246e89a8539ab"
+          }
+        },
+        {
+          "original": 1118,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+          "actual_EOF": 241,
+          "assessed_ranges": [
+            [
+              1,
+              124
+            ]
+          ],
+          "read_pointer": "/rows/2",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-255.json",
+            "sha256": "ea873e6e7ee2ed8ea125cae22720a7e0f43bd5c7ff526beb4bb2c82a0bc5eb52"
+          },
+          "registration_pointer": "/sources/2",
+          "read_attribution": "Own exact qualified Lens13 body; no current/foreign credit",
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-255.json",
+            "sha256": "b6d7ac7a410866d727da317c32ae9f8d0ca023585c528855c8b23120532c329c"
+          }
+        },
+        {
+          "original": 987,
+          "source_id": "pr-working:crates/adventuresim-core/src/road_encounter_catalog.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+          "actual_EOF": 2689,
+          "assessed_ranges": [
+            [
+              850,
+              929
+            ],
+            [
+              994,
+              1005
+            ]
+          ],
+          "read_pointer": "/rows/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-200.json",
+            "sha256": "71004c45bbf0777aeca559844864806ae01402a6b5c14f42a190baca6295b0b9"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Own exact qualified Lens13 body; no current/foreign credit",
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-200.json",
+            "sha256": "00a22198d9d93739337300125f59fc17e423a2a9ccfa85c529806c831313b7a8"
+          }
+        },
+        {
+          "original": 525,
+          "source_id": "pr-working:content/items/catalog.yaml",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object at 6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "87e0f51292d42ab62beeabc9f2624f635c27acf8b28ae3d8c2931eb9297f491b",
+          "actual_EOF": 5632,
+          "assessed_ranges": [
+            [
+              3739,
+              3773
+            ]
+          ],
+          "read_pointer": "/rows/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-030.json",
+            "sha256": "41c8c94819fdc49e0d0f1111eda43073d441502b052635bac1844d2ccde5bdac"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Own exact qualified Lens13 body; no current/foreign credit",
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-030.json",
+            "sha256": "5bd589fe178c27232b512b28166d38c4e433506c045cd8468eeb482868b3c197"
+          }
+        }
+      ],
+      "read_pointer": "/connected/0",
+      "status_proposed": "Source-backed retained finding pendingcanonical alias/current source qualification, zeroacceptedunique count",
+      "remaining_evidence": [
+        "Global exactalias comparison bysameproducer/API/firstfailedcostoperation, not commonquantityremedy.",
+        "Owncurrent selected authored/nativecost/measurement owner delta; source compilation/runtimevalidation notclaimed."
+      ],
+      "dependencies": [
+        "Measureditem/FoodLot/ConsumableFractionMicros authority andordinarypartyinventoryquantities mustretainexactwhole/fraction semantics.",
+        "Declared nonblocked shared-system itemtransfer authoring andnativecapabilityadmission mustagree; intentionallyblocked unrelatedchoices remainlegitimate."
+      ],
+      "closure_condition": [
+        "Document exactretained firstfailure, repair owner/dependencies, alias/currentstatus and any explicit temporaryblocked-choice policy; auditdoesnotrequireimplementing orrunningrepairs."
+      ],
+      "later_repair_acceptance_requirements": [
+        "An allowed rationbarter withfourvalidwholeavailableportions consumesexactlyfour throughcanonicalamount+foodlot authority andappliesoneeffect/receipt; insufficientamount failswithoutpartialcommit.",
+        "Partialfoodrows use measuredremaining ratherthan rawrowcount foravailability; declaredordinary-stack costs continueexactsubtraction, andunsupportedinteraction mustbeexplicitlyunavailable ifnotimplemented.",
+        "Do not preserveobsoleteu32API/errorprose; chooseclean actualmeasurement contract."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": null,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-299.json",
+        "sha256": "33d3f3a9f8615041d9727f8ec60c2f8b5b2c43530047bdaae53fab056d69dd35"
+      }
+    }
+  ],
+  "semantic_dispositions": [
+    {
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-295.json",
+        "sha256": "77888e392e32fecf5fe1acc118e473a15af3bc36625d2a9ec10b784e7767e456"
+      },
+      "numeric_role_inventory": [
+        "1202 social_roles full579: full64characters in assignmentidentity, i16precedence projected from exact same public address-winning role (priority+idtie). Noble/urban bools are explicit family/catalog selection inputs, not individual estate scalar retention. Zero/default precedence is absence fallback; optional literacy legitimate. Family identity independenthousehold policy; membership role join validates catalog/character. No arithmetic narrowing or fabricatedinvalidrole witness.",
+        "1220 governance full1653: rolequantity create1..8, update0..8, GeneralJoinquantity0 deliberate unbounded-mode sentinel. Filledcountusizeasu32 has no ordinary billion-member producer here; do not assert overflowfromarbitrary database injection. Role ath/endurance0..5 and precision finite0..2halfstep validated; party support targets finite whole0..5. Support fields deliberately zeroed in role_requirements1102..1110 rather than silently inferred honored recruitment demand; current authoring/API cleanup policy not backward compatibility defect.",
+        "1220 approval request payload parses typed ApprovedPartyAction and crosschecks kind before execution; idempotent resolvedID full64. Private bool binding fields derived actual life/party/place/presence, not raw external guarantee. Solo bool derived livinglen==1; singleton sole survivor vote preserves authority. Native tableauto-inc IDs0 deliberate.",
+        "Actual merge moves assets/stakes/reserve while retaining full64identities, then reassigns source members and resets familiarity before deleting source party; fallible operations propagate reducerErr. No common mutation-order alias to caught wedding errors; developerfixtureattach is separate guarded-bootstrap producer, not ordinary witness.",
+        "Named familiarity follow-up uses own293native social, own273wait481settle, own290/271 historical presence and new1220 actual join. Equal clocks alone add no duplicate joint minutes; candidate requires supported lagging actor/already-ahead resident and actual company producer. Current target and native runtime remain unassessed, no credit transfer."
+      ],
+      "connected_questions": [
+        {
+          "question": "Resident-chat familiarity accounting: actual governance supports resident-led company join and resets familiarity at min frontier without clock synchronization. Need actual generated-company producer/ordinary advancement scope to establish or reject actor-behind-resident supported overlap; no hypothetical row injection or observed doublecount claim.",
+          "original_credit_now": 0,
+          "own_focus_progress": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/PROGRESS-PL13-295-FAMILIARITY-OWN-FOCUS-001.json",
+            "sha256": "92f018394417bfe26227095d8431e10ca8843241ece52039b5003aff06d34c9f"
+          },
+          "source_read_pointer": "/connected/0",
+          "assessed_ranges": [
+            [
+              1141,
+              1264
+            ],
+            [
+              1267,
+              1632
+            ]
+          ],
+          "remaining_evidence": [
+            "Actual resident-led recruitment_offer/party producer and lifecycle of resident personal clock versus player clock",
+            "Explicit whether manual residentchat should add requested familiarity in addition to already settled shared party time"
+          ],
+          "audit_closure_condition": "Record fully bounded source-supported conditional/policy/rejection once actual upstream producer is qualified; no implementation/runtime dependency for discovery."
+        }
+      ]
+    },
+    {
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-296.json",
+        "sha256": "29f6a893367cef6ada085f0a6ffacb9fda1a4fac76a0c5ab1afb5ce9cb957d42"
+      },
+      "numeric_role_inventory": [
+        "1203full173 ApprovedPartyAction JSON taggedenum owns payloads, full64 native IDs preserved; expected_versionu32 investigationowner distinct from sessionu64. Quantities/checkf32/flagssave_role flowactual native validators, no primitive boundary silently trusted here. Typed action.kind crosscheckactual295 beforeexecute, authorized request uses requester only forinvestigation while leader executes partyactions; no numerictruncationclaim.",
+        "1204 full1586 exact qualifiedown197connected0 reused once atfrontier, no reread; actual rootfutureproof metadata checkedbeforeproposal, same frozen identity/Git/hash/prospective1..1586. Native regenerated manifest/context bounds and nonordinary corpus qualification inherited unchanged, not reclassifying arbitrary unadmitted rawmanifest asordinary witness.",
+        "1205full235 pureauthoredthreat bridge retainsfull64id/i32difficulty/u32basispoints tocore owner; defaultcountermeasureBPS_PER_WHOLE legitimate namedunit. Native ammunitionmin(quantity,stack.quantity) gives safe subtraction; missing companion cleanup cannot beasserted without actualarrowmeasurement/custodyproducer.",
+        "1205 reportroundsusizeasu32 boundedbyactual qualifiedown132 core256loop, no overflow; victor explicitclosed four BattleResolution values intentionallystoredstring. Displaylogsequence+1 needsactualboundedrecorder (boundedrounds/memberpop) beforecounteroverflowfinding; no arbitrarygiantlog witness. Summary/error prose not compatibility contract.",
+        "1206full24 allied combatants loadscondition inc/pain/bloodloss once intoactual capabilityowner; no secondfatigue/movementpenalty introduced inthisbridge. Actualtransient versusstrategicstate boundary remains owner-contract scope, no tacticalstate persistence performed here."
+      ],
+      "connected_questions": [
+        {
+          "question": "Native consume_autoresolve_ammunition155..179 directly mutates arrow inventory row quantities; exact catalogue measured/durable/custody admission and canonical alias comparison determine whether companion authority bypass exists. No defect inferred solely from absent local wrapper.",
+          "original_credit_now": 0,
+          "source_read_pointer": "/rows/1",
+          "assessed_ranges": [
+            [
+              155,
+              179
+            ]
+          ],
+          "qualified_owner_focus": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/PROOF-PL13-296-OWN132-255-FOCUS-001.json",
+            "sha256": "da0b7f0a1b2cfaf122d4848f73b62fd0fdfdbf3d471834a878fd6d5854032085"
+          },
+          "remaining_evidence": [
+            "Own exact authored arrow classification and actual native inventory/object producer/cleanup policy, compare canonical first operation aliases."
+          ],
+          "audit_closure_condition": "Classify bounded source-reasoned rejection, conditional policy or first-failure finding with connected ownership; no runtime required."
+        }
+      ]
+    },
+    {
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-297.json",
+        "sha256": "0a6864398cd26f9614055ddda9b1487522eb5ddade5ecc130a0246e89a8539ab"
+      },
+      "numeric_role_inventory": [
+        "Nativechallengescatalog enum bridgesSkill/Personality preserveclosedsemantic variants; Religionmapping discards noactualvariant (own200onlyRomanCatholic). EffectCurrencyi32 signguards andunsigned_abs avoidMINoverflow; grantquantityu16 widensu32, timetransitionu16\u2192u64. Actualordinarytreatment bypasses alreadyconsumedbandage intentionally.",
+        "Typed Wgs84 encoding guards validcoordinates forchancematerialization; optionalroutefallback legitimate. ActualNormalTravel errantry usesdeclared authoring+0.02degrees anddistance2000m, needsactualmetricconsumer beforeinconsistencyfinding; no blanketdeveloper-only assumption.",
+        "Full64IDs retained; actor/party/case/issuerauthority exactgate. Nativegatewaybucket0u8 ispartition, not missingowner. Authoritativebools open/solved/active projected fromindependent contracts; no automaticsemanticbool defect.",
+        "Chance occurrenceidentity includesfullseed/origin/departure/selectionboundary/movement/elapsed/rollindex; replay validatesparty/catalog/journey/privateorigin. Castcountu16\u2192u32/usize checkedexact1018; no fabricated oversizedcast. Core catalogue positiveweightselection no runtimeRNGexecuted.",
+        "Actualitem requirementu32aggregate482/1626 versuscurrencyu64aggregate explicitlydifferent widths. Ordinarycatalogue/nativeinventorycardinality bound required beforeoverflowfinding; no arbitrarygiantinventory injected.",
+        "Puzzle expectedrevisionu32 saturatingcounter and immutable revisionreceipt permits exactretry; MAXexhaustion edge documentedaspolicy. Roadchallenge closesonfirstchoice, so notsameunboundedcounter. Generatedtrialorder0/1 and threatcount4/difficulty6, zeroquestrewards areauthoredcontract values; optionalpreliminarytrial legitimatelynot required forfinale.",
+        "Narrativecombat exactmissingterminaltags firstfailedparser corroborates existingcanonical; native reportvictorstrings296 are distinctconsumer andnotproof of retainedoutcomeproducer. Receiptguards beforeeffects preserveexactretry; no runtimepassclaim.",
+        "Allchallenge tests/sourceassertions2435..2815 read, neverexecuted. Include_str source references do not grant bodycoverage toreferenced modules."
+      ],
+      "connected_questions": [
+        {
+          "question": "Zero epoch journey binding sentinel: initial challenge journey_departureZERO2295/2315 and bindselectZERO1188/1228 may remainunbound whenactualjourneydepartureZERO. Need actual production departure/admission bound to establish/reject repeated rebind; no injectedclockrow or runtimeincident.",
+          "original_credit_now": 0,
+          "source_read_pointer": "/rows/0",
+          "assessed_ranges": [
+            [
+              1141,
+              1244
+            ],
+            [
+              2288,
+              2336
+            ]
+          ],
+          "remaining_evidence": [
+            "Actual native journey departure producer and supported initial official/personal clock chronology",
+            "Core journeycamp predicate and whether firstbind separate state excludes rebind"
+          ],
+          "audit_closure_condition": "Document actualsupported conditional/policy or rejection after exact connected producer assessment."
+        },
+        {
+          "question": "Normal errantry sharedmaterializer setscourier longitude/latitude0 at2322..2323; bind1232..1241 updates timefields only, and narrativecombat949..960 consumes challengecoordinates. Reachability requires actual authored quest-eligible StartCombat selection; do not assume allcourier choicesstartcombat.",
+          "original_credit_now": 0,
+          "source_read_pointer": "/rows/0",
+          "assessed_ranges": [
+            [
+              895,
+              1022
+            ],
+            [
+              1219,
+              1244
+            ],
+            [
+              2129,
+              2151
+            ],
+            [
+              2306,
+              2336
+            ]
+          ],
+          "remaining_evidence": [
+            "Own exact authored questeligible catalogue definitions/transition includingactualpositiveweight StartCombat, or rejection ifnone",
+            "Actual native encounter coordinate consumer/nativeworldactor ownership"
+          ],
+          "audit_closure_condition": "Classify source-backed supported coordinate loss or scopedrejection, noruntime required."
+        },
+        {
+          "question": "Puzzle retry revision exhaustion policy: public validwronganswer can incrementu32 revision untilMAX, saturating1425 leavesMAX and receiptkey1304..1307 causes newdifferentanswer atMAX toconflict. This is sourcebounded exhaustion after4bwrongattempts, noobservedordinaryincident orsmallcounter alias.",
+          "original_credit_now": 0,
+          "source_read_pointer": "/rows/0",
+          "assessed_ranges": [
+            [
+              1246,
+              1458
+            ]
+          ],
+          "remaining_evidence": [
+            "Decide whether revision exhaustion should be explicitly rejected versus representedwithout saturation; exactcanonical firstcounter ownership comparison."
+          ],
+          "audit_closure_condition": "Fully documented exhaustion policy/conditional can close discovery without billionsofruntime calls or repairs."
+        }
+      ]
+    },
+    {
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-298.json",
+        "sha256": "5917eb366d978663d1d2fda7a2ff9d284129876d1ca429a3086a166b18979714"
+      },
+      "numeric_role_inventory": [
+        "1208full29 errorenum retainsAuthoredThreat/BattleResolution structured variants untilruntime withexplicitOperation(String)fallback; no Boxdowncast/errorprose compatibility preservation. No numericalprimitive arithmetic inerrorowner.",
+        "1209 full1677 exact own147multipartunion1..400/401..760/761..1677 reusedonce, three distinctprospective registrations andactual rootfutureproofs qualified. No reread or3roles counted; priorcustody/objectives contracts/findings/qualifications unchanged.",
+        "1210full312 guarded gallery index0..3static, fivepuzzlekindsindex4..8, roads>=9 exactgetordinal beforeuse; no underflowfromindices1..3 because earlier matcharms capturethem. fixtureIDs high64minusboundedoffset preserveunique perauthoredcatalogue; saturation atabsurdordinal notordinaryproducerwitness.",
+        "1210fixture skills10000, awareness6000BPS, attributes5, bootstrapseeds and hardcodedcharacteridentities are isolateddevelopment authoring. Existingdebugassert SOURCE only; no fixture/reducer/testexecution orordinaryplayer incident inferred.",
+        "1211full573 privatecapability-gatedscenario catalog: revisionu16 fixed1 atregistration, not monotonicallyincrementedentityversion; incidentordinalu16 fromactual localproblemowner. Scanidstablehash isindex notprimaryID, slug remainsprimary andsubjectcompositeIDs preservefullstrings. No assumedhashcollisionidentityloss.",
+        "1211projectioncaps input512/kind256/output256 explicit boundeddevelopmentgatewaypolicy; outputs sortafterboundedinput queries. No publiccompletecataloguecontract assumed ortruncationdefectclaimed. Supportsincident boolderivedrecurring+unresolved+registeredsubject, optionaldevmode legitimate.",
+        "Nativedevprovisions target10rations/4waterskins/1tent, uses saturatingsub onlytopup existingquantities andcheckedinventoryadder; no overflowwitnessfromarbitrarybillions ofstackrows. Coordinates9.75/51.75 sampleddevterrain authoring, not ordinaryworldmetadata. Sourceinclude assertions519..573 grantno referencedfilecoverage."
+      ],
+      "connected_questions": []
+    },
+    {
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-299.json",
+        "sha256": "33d3f3a9f8615041d9727f8ec60c2f8b5b2c43530047bdaae53fab056d69dd35"
+      },
+      "numeric_role_inventory": [
+        "1212full1095 native dialogueclaimsource uses actualgeneratedWitnessBinding drafts and exactheardClaimfragmentlen/order/text alignment; usizeorderasu32 and dialogueeventcountasu32 haveactualboundpolicy/exhaustion questions, no fabricatedbillionsofevents witness. Full64participants/sessionrevisionu64 preserved into exactbindings.",
+        "Nativegenerateddialoguemanifest335..363 validatesgenerationauthority+canonical/publiccase/objectivejson identity; manualemptygeneratedID returnsNone legitimate optionalmode. RetainedcustodyversionOption derivedactualcasecustody beforebinding, semantic actionenum mapsclosednames tostorage, no numericalroundtrip narrowing.",
+        "Bindingactions empty\u2192true, nonleader\u2192false, no matches\u2192false, multimatchedobjectives\u2192Err explicitauthorityconditions; emptystring publiccase forzeroeffects accepted, onecaseuniqueBTreeSet andmulti-caseErr. These areexactcardinality contracts, not primitivebooleans automaticallydefective.",
+        "Revisionbindingprompt uses sessionrevision.saturating_add1, standardresponseissuedrevisionactualcurrent. Actualconsumer effect/sessionbody elsewhere neededbefore counterpolicyassessment; nofalsealias to u16beliefrevision or u32puzzle counter.",
+        "Authoredunlawful bridge full122: weight75>0, questeligible119, allowedshared-system combat count2 with fourtypedpayloads; positive/negativecurrency12/40 and personalitydeltas explicitcontentpolicy. Paytoll/exposecharter Blocked#377/#373 intentional unsupportedmodes, notdefects.",
+        "Allowedbarter4rations is concrete nativeexecutability mismatch: authoringrequirements44/effects45 admittedbycorevalidator850..929 existence/positivequantity, nativecost172 rejectsFood asmeasured despitekind3740..3773/foodowner/nativeprojection. No runtime/invalidrow premise; firstfailedconsumer contract differszeroOption andammo.",
+        "Same positivequesteligible StartCombat source supports297unbounderrantrycoordinate chain: sourcechallengeinitial0,0 persists through bindtime-only, selectedStartCombat uses thosecoords. Actualnativeencounterworldcoordinateconsumer/currentqualification stillopen, no observedGulfincident or arbitrarychoice asserted."
+      ],
+      "connected_questions": [
+        {
+          "question": "PL13-297-ERRANTRY-COORDINATE-BINDING-PENDING refinedactualauthoredreachability: unlawfulpositiveweight75/questeligibility119/startcombat2 assuresselect_quest_eligible canchoose relevantdefinition, notmerehypotheticalimpossiblechoice. Nativechallengebindonlytimes withcoordinates0,0; actualencountercoordinateconsumer/currentstillneeded.",
+          "original_credit_now": 0,
+          "prior_read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-297.json",
+            "sha256": "0a6864398cd26f9614055ddda9b1487522eb5ddade5ecc130a0246e89a8539ab"
+          },
+          "prior_question_pointer": "/connected_contracts/1",
+          "authored_read_pointer": "/connected/0",
+          "authored_ranges": [
+            [
+              1,
+              122
+            ]
+          ],
+          "remaining_evidence": [
+            "Actual native build_strategic_encounter/world_actor coordinate use forroadcast/currentdelta",
+            "Explicitlocationauthoritypolicy if0,0isintendedplaceholderwhichmustnotescapebinding"
+          ],
+          "audit_closure_condition": "Retainactualsource-backed coordinatefailure/policy orrejection; no runtimeprerequisite."
+        }
+      ]
+    },
+    {
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-300.json",
+        "sha256": "223110475b19d2eafae5a0b747ba6b6e7f1042f765efe49fa037ff9d57050ee1"
+      },
+      "numeric_role_inventory": [
+        "1213full636 nativeeffect application keepsfull64character/resultingrevision; actual structuredtestimony emitted eventsequenceOption<u32> requiredbeforewitnessassessment, source_scope/actionbinding validatesexactsession/character/party/action/revisionandunconsumedstate. No direct numericalnarrowing inthisbridge.",
+        "ActualcustodyversionOption comparedto current.version beforeReturn/Release/Exchange; saturatingnextversion thencanonicalrecordhelper, true/falseflags distinguish knownoperation semantics. No observedMAXcustodyversion witness, no commoncounteralias to puzzle/dialogue count.",
+        "Localfaithprofession bool true\u2192settlementreligion false\u2192emptyunset islegitimateoptional professionchoice; explicitNonepromotionrole onlyallowedwhen exactlyoneauthoredpromotiontarget. Missing/differentchapterfailsclosed via canonicalplace+representativefull64ID, notcompatibility fallback.",
+        "NativeNPCconversation dailywindowu16 pair and personalStrategicMinute feed canonicalcontains_daily_window andhistoricalnpcpresence; missingtimefallback720 is explicitnoon policy, existingactualcharacterclockinitializationproof needed beforeclaimingordinarymissingclockincident. No rawinvalidwindowinjection.",
+        "1214full14 persisted promptstring mode/resolution parsedintoPromptMode/ResolutionPolicy atpoliciesboundary usingtyped error; no numericprimitive operations, no missingpolicydefault orsilentunknownmodeadmission. Exactraw Windowsregistrylocator qualifiedbeforebody, sourceidentity/hash unchanged."
+      ],
+      "connected_questions": []
+    },
+    {
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-301.json",
+        "sha256": "c2dc2751d55b0a11b9192c289119d794d1d7c1b8c9d0d3f73f74970d25d139ce"
+      },
+      "numeric_role_inventory": [
+        "Nativeprompt votes preserveusizecounts, strictmajoritycount>respondent_count/2, AllRespondents deterministicIDtie, Unanimous comparesstoredVecorder. Need actualcore/authoredMulti+Unanimous semantics before any set/orderconsensusfinding; notassertedfromrawVecalone.",
+        "Ordinarysessionrevisionu64 incrementsuncheckedtopic/answer butcorpsepathsaturating. Exhaustiononly afterMAXu64 mutations notsamepracticalsmallcountercase; no observedincident.",
+        "Referralreceiptboolpair classifiedclosedauthorityenumLocal/Public/Missing/Conflict; variantproseNone/sameperson/samename keptauthoritativewording intentionalnormalization/optionality, no compatibilitydefect.",
+        "Dialogue join rolecardinality boundedbyauthoredrole.max beforeinsert andfullmembercount checked303..325; ParticipantCountusize\u2192i64 under actualroleadmission notarbitrarypopulationwitness.",
+        "1216 actualfactage thresholds playerrawage0..12/13..17/60+ andNPCresolvedage_band449 arecontextpresentationrules; broadcache/chronologypolicy mayneedconsumerqualification, noautomaticmismatchfromdifferentcategorynames.",
+        "Visibleclothing projection sortsactualoccupancychannel/order thenfullinventoryID; default(0,0) coversnooccupancy, not byitselfwrongnativearmorsurfacealias.",
+        "Languagecompatibility868..890 finite-normalizeshoursandinstinct, capinstinct0..5 and1000hoursperaptitude, namedORAL_FLUENCY_HOURS; .75/.35 bands confirmedsourcefixtureexpectations, deliberatequalitativepolicy not newcombatpenalty.",
+        "Confidence factmaxu16BPS\u2192i64 widenssafely, empty0fallback; knownbelief/lead facts globalgenericfacts, actualcaseeffects separatelyexactbound in1212/1213. No broadprivacy/casealiasinferred.",
+        "Organizationbusiness fee/dues literal1grammar and0nonepolicy, i16precedence fromsamepublicaddress-winningrole consistentwithnative social_roles425, absent0default. No independentderivedestate scalar manufactured.",
+        "Native prompt min/max usize to u32 bridge owns persisted cardinality; selected choices reject duplicates, verify range and mode before ballot mutation. FirstResponse/strict majority/all-respondent deterministic tie are separate supported policies. Unanimous compares ordered Vec ballots; core evidence leaves ordering policy unresolved rather than proving defect.",
+        "Event sequence usize-to-u32 and session revision u64 arithmetic have finite exhaustion limits; actual authored role bounds and small turn production do not establish an ordinary overflow incident. Do not alias these to unrelated practical width failures.",
+        "Native provenance pairwise address indexes first actor after participant nonempty and actor-ID filtering; actual native player join and NPC producer require valid IDs. No unsupported malformed-table panic case retained.",
+        "ParticipantCount usize-to-i64 follows role.max admission and role min/max checking. Daily minute literals300/720/1020/1260 define authored time-period categories; missing clock noon720 is optional fallback policy pending existing actual initialization proof, not observed incident.",
+        "Intimate address familiarity40*60 minutes, courtship and kin rules belong to address policy. Full u64 IDs, fixed ordinal indices after admitted lengths, source count1 grammar and absent0 precedence are assessed in their actual roles.",
+        "Runtime generated witness validates quest authority, exact resident/location and nonempty testimony before binding; source fixtures and tests were read as source only."
+      ],
+      "connected_questions": [
+        {
+          "proposed_id": "PL13-301-MULTI-UNANIMOUS-BALLOT-ORDER-POLICY",
+          "status": "Documented conditional policy question; no confirmed defect or observed incident",
+          "owner": "Dialogue authoring PromptMode/ResolutionPolicy and native answer_dialogue_prompt",
+          "first_failed_contract_or_unresolved_question": "Whether a Multi+Unanimous ballot represents an ordered selection or an unordered set. Native answer_dialogue_prompt487..519 compares Vec order; core schemas do not specify set semantics.",
+          "evidence": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/PROOF-PL13-301-OWN219-221-220-PROMPT-FOCUS-001.json",
+            "sha256": "b4ff8ae3b44c762ce2f1782e242dcc4621ca289d04c0cf89463e6837ab13bd72"
+          },
+          "remaining_evidence": "Actual authored Multi+Unanimous use and intended choice ordering policy if this mode combination is used; current source counterpart for current closure.",
+          "acceptance": "Declare ordering semantics. If unordered consensus is required, equal selections in different order must resolve identically; if ordered, make that contract explicit. No runtime validation performed."
+        }
+      ]
+    },
+    {
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-302.json",
+        "sha256": "3625883a6b0bc0dba5ebcf10845f737c04dede906d174ea1be06fe27a98f4398"
+      },
+      "numeric_role_inventory": [
+        "1217 full781 table schema preserves native u64 IDs/revisions and i64 timestamp microseconds through gateway projections without narrowing. Single gateway bucket0u8 is explicit storage/view partition. Native auto-inc chatID and session taggedID parse are actual boundaries, not gameplay amounts.",
+        "Prompt min/maxu32 and event sequenceu32 correspond exactly to own301 native producers; participant Option<u64> distinguishes player identity from persistent NPC actorID, without treating zero as absent. No independent numeric source of truth invented by backend clones.",
+        "Session parsedID guard160 bytes, no controls, splitn3 and nonempty nonce preserve exact u64 owner; nonce may include colons deliberately. Tests full697..781 are source-only and prove no runtime result.",
+        "require_live_dialogue_presence550..657 requires actual personal StrategicMinute authority; canonical place and co-presence retain actual observer/frontier. Missing personal time rejects here, so own301 optional noon presentation fallback does not by itself establish successful ordinary mutation without clock.",
+        "1218 full351 start_dialogue enforces PairwiseSoft temporal scope, persistent NPC u64 parse, canonical exact place, matching conversation, live presence and catalog digest before session. Initial revision0 then immutable owner identity; optional native actor flags select valid modes.",
+        "NPC role enumerate index0 chooses selected primary, later roles choose unused co-present resident; min>1 explicitly unsupported native cardinality. No authored optional-NPC-role mismatch asserted without actual owning schema/policy and reachable content.",
+        "Session event turn_index usize-to-u32 is native sequence projection of bounded authored greeting, no concrete billions-of-turns witness. All failures in this start reducer propagate Err; no swallowed postwrite-terminal alias inferred.",
+        "1219 exact own161 full1463 retains source-backed narrative timeout/mutual producer already attached to its canonical finding in297; count once at this ordered role, no new witness incident/current credit. 1220 exact own295 full1653 governance role bounds/admission retained unchanged; no physical-P16 hash substitution."
+      ],
+      "connected_questions": []
+    }
+  ],
+  "typed_metadata_components": [
+    {
+      "type": "All nested range metadata and exact Git/hash/EOF",
+      "ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VALIDATION-PL13-295-302-ALL-NESTED-RANGES-001.json",
+        "sha256": "60dc04f760e77435a161030235e0b059a9a27a3de9f4ca9d0e11baf6ae66cfc1"
+      }
+    },
+    {
+      "type": "Six exact absent historical ranges are null, zero body/tail credit",
+      "ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/QUALIFICATION-PL13-295-302-NULL-METADATA-RANGES-001.json",
+        "sha256": "56c93f6ef3fff292f58d9b366395fa272711c351865448975fed139de5a694e0"
+      }
+    },
+    {
+      "type": "Wrong physical identity preparation failed before registration/body",
+      "ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PREPARATION-PL13-295-FAILURE-001.json",
+        "sha256": "a1623f52dd10498bd0e6fdaf77285395a1e0329e2149c401af8eaab60841127e"
+      }
+    },
+    {
+      "type": "Prior own familiarity/clock proof and actual focused rereads",
+      "ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/PROGRESS-PL13-295-FAMILIARITY-OWN-FOCUS-001.json",
+        "sha256": "92f018394417bfe26227095d8431e10ca8843241ece52039b5003aff06d34c9f"
+      }
+    },
+    {
+      "type": "Additive scoped rejection; native morale helper inserts, no sourceID dedup",
+      "ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/QUALIFICATION-PL13-293-CORPSE-MORALE-OWN240-001.json",
+        "sha256": "e87e20388f0b6505e92ee90e276eeed820c204633f583620d906f10057f178f2"
+      }
+    },
+    {
+      "type": "Prior own bounded battle and measured quantity owners",
+      "ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/PROOF-PL13-296-OWN132-255-FOCUS-001.json",
+        "sha256": "da0b7f0a1b2cfaf122d4848f73b62fd0fdfdbf3d471834a878fd6d5854032085"
+      }
+    },
+    {
+      "type": "Exact prior own narrative parser and producer",
+      "ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/PROOF-PL13-297-OWN200-161-FOCUS-001.json",
+        "sha256": "1d2f26967649d56770cea472a244fdae005357046a5b8b31f7fbfd39b7d87fb2"
+      }
+    },
+    {
+      "type": "Exact three qualified components, one ordered role",
+      "ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/PROOF-PL13-298-OWN147-MULTIPART-REUSE-001.json",
+        "sha256": "e54a409723876c6ee8c74607621be69d5ebb25df571be6644e4b501ee390daa3"
+      }
+    },
+    {
+      "type": "Exact legacy030 attestation and additive literal revision correction",
+      "ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/QUALIFICATION-PL13-299-RATION-LEGACY030-FOCUS-002.json",
+        "sha256": "35ca23c0cda0fe1cb70d51947d84baba2be28d39953fb8648e1d369cdd63f9c6"
+      }
+    },
+    {
+      "type": "Food/native item/catalogue cost owner chain",
+      "ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/PROOF-PL13-299-OWN168-160-200-RATION-OWNERS-001.json",
+        "sha256": "3ec1c8e1731cb4ad64f0435411831d8913951064a2140875c22976d064a408d4"
+      }
+    },
+    {
+      "type": "Prior own prompt policy source and actual focused rereads",
+      "ref": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/PROOF-PL13-301-OWN219-221-220-PROMPT-FOCUS-001.json",
+        "sha256": "b4ff8ae3b44c762ce2f1782e242dcc4621ca289d04c0cf89463e6837ab13bd72"
+      }
+    }
+  ],
+  "immutable_proposals": [
+    {
+      "batch": 295,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-295.json",
+        "sha256": "77888e392e32fecf5fe1acc118e473a15af3bc36625d2a9ec10b784e7767e456"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-295.json",
+        "sha256": "9c669a89118a530a9a847a4a7892564e0ae3b4e1bd2bb98e54abd9c219677893"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-295-PROPOSAL.json",
+        "sha256": "209c492e2a5c7d5fcf226eaaf399b2fa9b4255f3d1a2eb83df8bf4ef1f227a3e"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-294-PROPOSAL.json",
+        "sha256": "7c88f471a3a82dc17f01faf391fe44664695d60fa51d1acff1c389004ac1cbe5"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-295.json",
+          "sha256": "ad023cc4dd1e4412fedfc7cf5d0cee1d54d7f84fc869b19aa924ef8cf27bacef"
+        }
+      ],
+      "proposed_next_original": 1203
+    },
+    {
+      "batch": 296,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-296.json",
+        "sha256": "29f6a893367cef6ada085f0a6ffacb9fda1a4fac76a0c5ab1afb5ce9cb957d42"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-296.json",
+        "sha256": "29e864bfe45eb8bc1fdd9c8306efaff74c9695f715f86e628c1306648ff3ca7c"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-296-PROPOSAL.json",
+        "sha256": "dbdb3975a8397468a255a2f20b9afafa044c662e26bef1e960707a69ca397fe8"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-295-PROPOSAL.json",
+        "sha256": "209c492e2a5c7d5fcf226eaaf399b2fa9b4255f3d1a2eb83df8bf4ef1f227a3e"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-296.json",
+          "sha256": "fbc074a9f1db0d09085b2eeb9aa7bcf7e26054552ba0395a2fed0107b22f48fe"
+        }
+      ],
+      "proposed_next_original": 1207
+    },
+    {
+      "batch": 297,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-297.json",
+        "sha256": "0a6864398cd26f9614055ddda9b1487522eb5ddade5ecc130a0246e89a8539ab"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-297.json",
+        "sha256": "3be1dea370e1d50dbb5ab3f8198f21e9e2b143eb8f76083bd029eafd1d05e884"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-297-PROPOSAL.json",
+        "sha256": "4d7fb392ad9f5cf91e6582fd8999001ba8658ff55c454b16c7146f9c850e1030"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-296-PROPOSAL.json",
+        "sha256": "dbdb3975a8397468a255a2f20b9afafa044c662e26bef1e960707a69ca397fe8"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-297.json",
+          "sha256": "f49ee80dde50cd333533660b9a69fb21313e26d12432ea9d4930c7f0f2bf99ab"
+        }
+      ],
+      "proposed_next_original": 1208
+    },
+    {
+      "batch": 298,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-298.json",
+        "sha256": "5917eb366d978663d1d2fda7a2ff9d284129876d1ca429a3086a166b18979714"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-298.json",
+        "sha256": "e93ab8a9d786b83a9252d83001134a9e612cfdf21b139b7051274432e7d1f15e"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-298-PROPOSAL.json",
+        "sha256": "2e6f08c6d82d9f92b6bb0d036f373776f7ea20cf4e9ccac8adbc74e680d353ea"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-297-PROPOSAL.json",
+        "sha256": "4d7fb392ad9f5cf91e6582fd8999001ba8658ff55c454b16c7146f9c850e1030"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-298.json",
+          "sha256": "70cbfe31b46164635457e048852c3e6485d354f6914b7dd58dd5fc3358b6487c"
+        }
+      ],
+      "proposed_next_original": 1212
+    },
+    {
+      "batch": 299,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-299.json",
+        "sha256": "33d3f3a9f8615041d9727f8ec60c2f8b5b2c43530047bdaae53fab056d69dd35"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-299.json",
+        "sha256": "8093fefe303e269c0d8368947bd793780474927889e2cfdbad5d1673d8f47acf"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-299-PROPOSAL.json",
+        "sha256": "32dc78801598c38118cbfeeef029954314a86d6e0a10c67a1aeed096c1c7ab18"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-298-PROPOSAL.json",
+        "sha256": "2e6f08c6d82d9f92b6bb0d036f373776f7ea20cf4e9ccac8adbc74e680d353ea"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-299.json",
+          "sha256": "4a5718c76131836e46619fa3d7f358682b0d2b892ebfc462b52ef2ee690ecc96"
+        }
+      ],
+      "proposed_next_original": 1213
+    },
+    {
+      "batch": 300,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-300.json",
+        "sha256": "223110475b19d2eafae5a0b747ba6b6e7f1042f765efe49fa037ff9d57050ee1"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-300.json",
+        "sha256": "9f5a084c2e745787234423cee553682d54e2fe49b53391cd87e4fb1166738aa9"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-300-PROPOSAL.json",
+        "sha256": "8ddb90696da32a776c4626aaad96f622a0c91bc55b08b4119446398ad914fe42"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-299-PROPOSAL.json",
+        "sha256": "32dc78801598c38118cbfeeef029954314a86d6e0a10c67a1aeed096c1c7ab18"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-300.json",
+          "sha256": "652071ea2585b0f89d1bfd7597927dd8fbb1083e4873110b2ece415cf5d413aa"
+        }
+      ],
+      "proposed_next_original": 1215
+    },
+    {
+      "batch": 301,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-301.json",
+        "sha256": "c2dc2751d55b0a11b9192c289119d794d1d7c1b8c9d0d3f73f74970d25d139ce"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-301.json",
+        "sha256": "2f127426335201d6f6ab3e64df406f555ab483155d3bbfe2500287b6785764f7"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-301-PROPOSAL.json",
+        "sha256": "95b9f23c44f8a405dcb840533c593c86d10b3df13aada298441e0f6f9f666662"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-300-PROPOSAL.json",
+        "sha256": "8ddb90696da32a776c4626aaad96f622a0c91bc55b08b4119446398ad914fe42"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-301.json",
+          "sha256": "64cc3d7037af3cd0d7d5bda30c1c06fadaa11a218fe650c9209d5d3f6abb98e6"
+        }
+      ],
+      "proposed_next_original": 1217
+    },
+    {
+      "batch": 302,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-302.json",
+        "sha256": "3625883a6b0bc0dba5ebcf10845f737c04dede906d174ea1be06fe27a98f4398"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-302.json",
+        "sha256": "561d30b6d56e8c3c6bde01dfbf0bc4f74992366364daa547c8bdc05399fbdbe7"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-302-PROPOSAL.json",
+        "sha256": "c3e07de75661f2a93bd57210f0082c226823c85c859bd3b7fd0b28a2e19ecd7c"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-301-PROPOSAL.json",
+        "sha256": "95b9f23c44f8a405dcb840533c593c86d10b3df13aada298441e0f6f9f666662"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-302.json",
+          "sha256": "ceb087a8065ca2e9ac848c954025a8f4282d580d61866df3381dc3b9df5b7c50"
+        }
+      ],
+      "proposed_next_original": 1221
+    }
+  ],
+  "ordered_contract_update_count": 2,
+  "validation_ruleset": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/ROOT-ADOPTION-287-294-PROPOSAL.py",
+    "sha256": "07dfde7fe909c5818fd23ec73548b4b2ec2e48a8c6aa76faae7d96d9225cba8c"
+  },
+  "new_ruleset_delta": {
+    "proposal_path": "target/726-audit-adler-20261027/parallel-l13-20261029/ROOT-ADOPTION-295-302-PROPOSAL.py",
+    "status": "Unexecuted, root inspect before read-only whole-bundle preflight",
+    "exact_cases": [
+      "1204 prior197 reuse",
+      "1209 three exact147 components, one role",
+      "1219 prior161 reuse",
+      "1220 planned295 future proof at preflight then actual root proof before302apply",
+      "1214 exact Windows metadata qualifier",
+      "299 necessary authored source all-other-lens queue",
+      "legacy030 exact already-adopted missing-attestation qualification; never generic default"
+    ]
+  },
+  "current_delta_updates": []
+}

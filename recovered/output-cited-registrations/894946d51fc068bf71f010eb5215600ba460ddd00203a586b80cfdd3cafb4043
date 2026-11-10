@@ -1,0 +1,49 @@
+{
+  "schema": "726-prospective-current-source-registration-v1",
+  "at": "2026-11-04T21:08:24.707528+00:00",
+  "lenses": [
+    11
+  ],
+  "purpose": "Trace repository reducer rollback evidence and inventory guards.",
+  "rows": [
+    {
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_path": "crates/adventuresim-stdb-module/src/character/authority_tests.rs",
+      "source_sha256": "26d2e3fb9b68e8445ac7f7364922ebd8e06e0bd37bd1060b3830ea6526e50b85",
+      "actual_EOF": 303,
+      "source_object": "adler-continuation-20261030/objects/26d2e3fb9b68e8445ac7f7364922ebd8e06e0bd37bd1060b3830ea6526e50b85",
+      "prospective_ranges": [
+        [
+          1,
+          303
+        ]
+      ]
+    },
+    {
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_path": "crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "source_sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "actual_EOF": 1451,
+      "source_object": "adler-continuation-20261030/objects/1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "prospective_ranges": [
+        [
+          1,
+          1451
+        ]
+      ]
+    },
+    {
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_path": "crates/adventuresim-stdb-module/src/strategic/tests/authority_trade_dialogue.rs",
+      "source_sha256": "32c5e6e23e6687a365a8b7a7920e5a7dc0a6d6cc722250448159318a90f60899",
+      "actual_EOF": 761,
+      "source_object": "adler-continuation-20261030/objects/32c5e6e23e6687a365a8b7a7920e5a7dc0a6d6cc722250448159318a90f60899",
+      "prospective_ranges": [
+        [
+          1,
+          761
+        ]
+      ]
+    }
+  ]
+}

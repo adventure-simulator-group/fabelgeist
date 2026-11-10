@@ -1,0 +1,723 @@
+SOURCE 2806
+1707:     pub fn available_strike_family(&self, preferred: StrikeFamily) -> Option<StrikeFamily> {
+1708:         if self.attack_animations.supports_family(preferred) {
+1709:             Some(preferred)
+1710:         } else {
+1711:             let alternate = preferred.alternate();
+1712:             self.attack_animations
+1713:                 .supports_family(alternate)
+1714:                 .then_some(alternate)
+1715:         }
+1716:     }
+1717: 
+1718:     /// Selects a legal authored attack at the current action seam. An ordinary
+1719:     /// attack starts only from recovery-complete idle. A second swing may be
+1720:     /// queued while the initial swing is active when the pack owns a follow
+1721:     /// pose; it still begins only as the first attack reaches its complete
+1722:     /// post-contact backswing.
+1723:     pub fn select_main_attack(&self, family: StrikeFamily) -> Option<AttackSpec> {
+1724:         let animation = AttackAnimation::initial(family);
+1725:         match self.attack_animation() {
+1726:             None => self
+1727:                 .attack_animations
+1728:                 .supports(animation)
+1729:                 .then_some(AttackSpec::main(family, false)),
+1730:             Some(active)
+1731:                 if active == animation
+1732:                     && self.attack_hand() == AttackHand::Main
+1733:                     && !self.attack_is_continuation()
+1734:                     && !matches!(
+1735:                         self.action,
+1736:                         ActionState(ActionKind::Attack {
+1737:                             queued: Some(_),
+1738:                             ..
+1739:                         })
+1740:                     )
+1741:                     && self.attack_animations.supports_continuation(animation) =>
+1742:             {
+1743:                 Some(AttackSpec::main(family, true))
+1744:             }
+1745:             _ => None,
+1746:         }
+1747:     }
+1748: 
+1749:     pub fn select_offhand_attack(&self, family: StrikeFamily) -> Option<AttackSpec> {
+1750:         (self.action_kind() == SkeletonAction::None && self.attack_animations.offhand)
+1751:             .then_some(AttackSpec::offhand(family))
+1752:     }
+1895:     pub fn begin_attack_timed(
+1896:         &mut self,
+1897:         spec: AttackSpec,
+1898:         start_tick: AnimationSampleTick,
+1899:         contact_tick: AnimationSampleTick,
+1900:         end_tick: AnimationSampleTick,
+1901:     ) -> Result<(), ActionTransitionError> {
+1902:         self.action_admission()?;
+1903:         let target_height = if spec.target_height.is_finite() {
+1904:             spec.target_height.clamp(0.0, 1.0)
+1905:         } else {
+1906:             AttackSpec::default().target_height
+1907:         };
+1908:         if let ActionState(ActionKind::Attack {
+1909:             animation,
+1910:             hand: AttackHand::Main,
+1911:             sequence: AttackSequence::Initial,
+1912:             curve,
+1913:             timeline,
+1914:             queued,
+1915:             ..
+1916:         }) = &mut self.action
+1917:         {
+1918:             let recovery_progress = curve.follow_through_fraction.clamp(0.0, 1.0);
+1919:             let transition_tick =
+1920:                 timeline
+1921:                     .contact_tick()
+1922:                     .saturating_add(AnimationSampleSpan::from(
+1923:                         (timeline.recovery_ticks.samples() as f64 * recovery_progress as f64).ceil()
+1924:                             as u64,
+1925:                     ));
+1926:             let may_follow = queued.is_none()
+1927:                 && spec.hand == AttackHand::Main
+1928:                 && spec.continuation
+1929:                 && spec.animation == *animation
+1930:                 && start_tick >= transition_tick;
+1931:             if may_follow {
+1932:                 let queued_timeline =
+1933:                     ActionTimeline::with_recovery(start_tick, contact_tick, end_tick);
+1934:                 let incoming_tangent = curve.overshoot
+1935:                     * queued_timeline.preparation_ticks.samples() as f32
+1936:                     * FOLLOW_READY_PREPARATION_FRACTION
+1937:                     / (curve.follow_through_fraction * timeline.recovery_ticks.samples() as f32);
+1938:                 let transition_phase = 0.5
+1939:                     + 0.5
+1940:                         * transition_tick
+1941:                             .saturating_sub(timeline.contact_tick())
+1942:                             .samples() as f32
+1943:                         / timeline
+1944:                             .recovery_ticks
+1945:                             .max(AnimationSampleSpan::ONE)
+1946:                             .samples() as f32;
+1947:                 *queued = Some(QueuedAttack {
+1948:                     target_height,
+1949:                     animation: spec.animation,
+1950:                     strike_family: spec.strike_family,
+1951:                     hand: spec.hand,
+1952:                     curve: spec.curve.normalized(),
+1953:                     timeline: queued_timeline,
+1954:                     start_coordinate: curve
+1955:                         .queued_recovery_coordinate(
+1956:                             UnitInterval::from_fraction(transition_phase).map_err(|error| {
+1957:                                 ActionTransitionError::InvalidAnimationValue(error.into())
+1958:                             })?,
+1959:                         )
+1960:                         .map_err(ActionTransitionError::InvalidAnimationValue)?
+1961:                         .coordinate(),
+1962:                     incoming_tangent,
+1963:                 });
+1964:                 return Ok(());
+1965:             }
+1966:         }
+1967:         if self.action_kind() != SkeletonAction::None {
+1968:             return Err(ActionTransitionError::ActionBusy);
+1969:         }
+1970:         self.action = ActionState(ActionKind::Attack {
+1971:             target_height,
+1972:             animation: spec.animation,
+1973:             strike_family: spec.strike_family,
+1974:             hand: spec.hand,
+1975:             sequence: if spec.continuation {
+1976:                 AttackSequence::Continuation {
+1977:                     start_coordinate: 1.0 + spec.curve.overshoot,
+1978:                     incoming_tangent: 0.0,
+1979:                 }
+1980:             } else {
+1981:                 AttackSequence::Initial
+1982:             },
+1983:             curve: spec.curve.normalized(),
+1984:             timeline: ActionTimeline::with_recovery(start_tick, contact_tick, end_tick),
+1985:             queued: None,
+1986:         });
+1987:         Ok(())
+1988:     }
+SOURCE 2808
+249: pub fn authority_test_resident_projection(
+250:     ctx: &ReducerContext,
+251:     bootstrap_token: String,
+252:     id: u64,
+253: ) -> Result<(), String> {
+254:     use crate::settlement_population::{
+255:         resolve_settlement_resident, settlement_resident_seed_explanation,
+256:     };
+257:     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
+258:     let before = ctx
+259:         .db
+260:         .settlement_resident_seed_explanation()
+261:         .character_id()
+262:         .find(id)
+263:         .ok_or("Test resident explanation missing")?;
+264:     let mut character = ctx
+265:         .db
+266:         .character()
+267:         .id()
+268:         .find(id)
+269:         .ok_or("Test resident missing")?;
+270:     character.age_years = 60;
+271:     ctx.db.character().id().update(character);
+272:     let mut personality = ctx
+273:         .db
+274:         .character_personality()
+275:         .character_id()
+276:         .find(id)
+277:         .ok_or("Test resident personality missing")?;
+278:     personality.sex = Sex::Female;
+279:     personality.presentation = crate::personality::Presentation::Woman;
+280:     ctx.db
+281:         .character_personality()
+282:         .character_id()
+283:         .update(personality);
+284:     assign_authored_character_name(ctx, id.into(), "Current Resident".into())
+285:         .map_err(|error| error.to_string())?;
+286:     let current = resolve_settlement_resident(ctx, id).ok_or("Test resident join missing")?;
+287:     let after = ctx
+288:         .db
+289:         .settlement_resident_seed_explanation()
+290:         .character_id()
+291:         .find(id)
+292:         .ok_or("Test resident explanation disappeared")?;
+293:     if current.name != "Current Resident"
+294:         || current.presentation != crate::personality::Presentation::Woman
+295:         || current.sex != Sex::Female
+296:         || current.age_band != adventuresim_core::settlement_population::AgeBand::Elder
+297:         || current.profile.projection_id != id
+298:         || before.relations_json != after.relations_json
+299:     {
+300:         return Err("Resident current projection or historical provenance disagrees".into());
+301:     }
+302:     Ok(())
+303: }
+SOURCE 2810
+1: //! Authenticated carried construction mass, including food and fractional stock.
+2: use super::*;
+3: pub(super) fn dry_inventory_weight(ctx: &ReducerContext, character_id: u64) -> f32 {
+4:     ctx.db
+5:         .inventory_item()
+6:         .character_id()
+7:         .filter(character_id)
+8:         .filter_map(|inventory: InventoryItem| {
+9:             if crate::inventory_container::row_is_fireplace_rooted(
+10:                 ctx,
+11:                 CarriedInventoryScope::Personal,
+12:                 inventory.id,
+13:             ) {
+14:                 return None;
+15:             }
+16:             if let Some(lot) = ctx
+17:                 .db
+18:                 .food_lot()
+19:                 .iter()
+20:                 .find(|lot| lot.inventory_item_id == Some(inventory.id))
+21:             {
+22:                 return Some(lot.mass_kg.max(0.0));
+23:             }
+24:             ctx.db.item().id().find(&inventory.item_id).map(|item| {
+25:                 let effective_quantity =
+26:                     crate::inventory_amount::personal_fraction(ctx, inventory.id)
+27:                         .map_or(inventory.quantity as f32, |fraction| fraction.as_unit_f32());
+28:                 let unit_mass = if adventuresim_weapon_model::default_design(&item.id).is_some() {
+29:                     crate::weapon_instance::combat_geometry(ctx, inventory.id, &item.id)
+30:                         .expect("parametric inventory weapon has valid physical recipe")
+31:                         .mass_kg
+32:                 } else {
+33:                     crate::weapon_instance::fitted_holder_mass(ctx, inventory.id, &item.id)
+34:                         .expect("fitted inventory holder has valid physical recipe")
+35:                         .unwrap_or(item.weight)
+36:                 };
+37:                 unit_mass * effective_quantity
+38:             })
+39:         })
+40:         .sum()
+41: }
+SOURCE 2811
+1: use super::*;
+2: 
+3: pub(super) fn wearable_protection_for_part(
+4:     ctx: &ReducerContext,
+5:     character_id: u64,
+6:     part: BodyPart,
+7: ) -> Vec<adventuresim_core::equipment::WearableProtection> {
+8:     ctx.db
+9:         .character_equipped_item()
+10:         .character_id()
+11:         .filter(character_id)
+12:         .filter_map(|equipped| {
+13:             let inventory = ctx
+14:                 .db
+15:                 .inventory_item()
+16:                 .id()
+17:                 .find(equipped.inventory_item_id)?;
+18:             let item = effective_item_definition(ctx, Some(inventory.id))?;
+19:             let placement = item
+20:                 .equipment_placements
+21:                 .iter()
+22:                 .find(|placement| placement.id == equipped.placement_id)?;
+23:             if !placement
+24:                 .protection
+25:                 .iter()
+26:                 .any(|target| runtime_body_part(*target) == part)
+27:             {
+28:                 return None;
+29:             }
+30:             let (channel, order) = ctx
+31:                 .db
+32:                 .equipment_occupancy()
+33:                 .inventory_item_id()
+34:                 .filter(inventory.id)
+35:                 .max_by_key(|row| (row.channel.order(), row.order))
+36:                 .map_or((EquipmentChannel::Containment, 0), |row| {
+37:                     (row.channel, row.order)
+38:                 });
+39:             Some(adventuresim_core::equipment::WearableProtection {
+40:                 inventory_item_id: inventory.id,
+41:                 body_part: part,
+42:                 channel,
+43:                 order,
+44:                 coverage: item.coverage,
+45:                 resistance: item.resistance,
+46:                 padding: item.padding,
+47:                 flexibility: item.flexibility,
+48:                 range_of_motion: item.range_of_motion,
+49:             })
+50:         })
+51:         .collect()
+52: }
+53: 
+54: pub(super) fn effective_item_definition(
+55:     ctx: &ReducerContext,
+56:     inventory_id: Option<u64>,
+57: ) -> Option<Item> {
+58:     let id = inventory_id?;
+59:     let inventory = ctx.db.inventory_item().id().find(id)?;
+60:     let mut item = ctx.db.item().id().find(&inventory.item_id)?;
+61:     if let Some(condition) = ctx.db.item_condition().inventory_item_id().find(id) {
+62:         let damage = condition.bins();
+63:         item.precision = effective_weapon_stat(item.precision, damage, item.edge_sensitivity);
+64:         item.block = effective_weapon_stat(item.block, damage, item.handling_sensitivity);
+65:         item.range_of_motion =
+66:             effective_handling(item.range_of_motion, damage, item.handling_sensitivity);
+67:         item.resistance = effective_weapon_stat(item.resistance, damage, 0.1);
+68:     }
+69:     Some(item)
+70: }
+71: 
+72: pub(super) fn armor_material(
+73:     ctx: &ReducerContext,
+74:     inventory_item_id: u64,
+75: ) -> Option<adventuresim_core::item_catalog::EquipmentMaterial> {
+76:     ctx.db
+77:         .inventory_item()
+78:         .id()
+79:         .find(inventory_item_id)
+80:         .and_then(|inventory| adventuresim_core::item_catalog::definition(&inventory.item_id))
+81:         .and_then(|definition| definition.equipment.as_ref())
+82:         .and_then(|equipment| equipment.material)
+83: }
+84: 
+85: pub(super) fn equipped_armor_coverage(
+86:     ctx: &ReducerContext,
+87:     inventory_item_id: u64,
+88:     part: BodyPart,
+89: ) -> Option<adventuresim_core::combat::AuthoredArmorCoverage> {
+90:     let inventory = ctx.db.inventory_item().id().find(inventory_item_id)?;
+91:     let equipped = ctx
+92:         .db
+93:         .character_equipped_item()
+94:         .inventory_item_id()
+95:         .find(inventory_item_id)?;
+96:     let definition = adventuresim_core::item_catalog::definition(&inventory.item_id)?;
+97:     let equipment = definition.equipment.as_ref()?;
+98:     let placement = equipment
+99:         .placements
+100:         .iter()
+101:         .find(|placement| placement.id == equipped.placement_id)?;
+102:     Some(adventuresim_core::combat::AuthoredArmorCoverage::from_placement(placement, part))
+103: }
+SOURCE 2812
+1: use super::*;
+2: 
+3: impl InventoryView<'_, '_, '_> {
+4:     pub(crate) fn iter(&self) -> impl Iterator<Item = ItemQueryItem<'_, '_>> + use<'_> {
+5:         let items = self
+6:             .q_inventory
+7:             .get(self.entity)
+8:             .into_iter()
+9:             .flat_map(|inventory| inventory.iter());
+10:         self.q_item.iter_many(items)
+11:     }
+12: 
+13:     pub fn item_at_slot(&self, slot: EquipSlot) -> Option<(&str, Option<u64>)> {
+14:         self.iter().find_map(|item| {
+15:             (item.slot == Some(&slot)).then_some((
+16:                 item.properties.id.as_str(),
+17:                 item.inventory_item_id.map(|id| id.0),
+18:             ))
+19:         })
+20:     }
+21: }
+SOURCE 2813
+1: use adventuresim_core::equipment::LayeredArmor;
+2: 
+3: use crate::inventory::{ArmorItem, ArmorLayerContact, InventoryView, body_part_index};
+4: 
+5: impl InventoryView<'_, '_, '_> {
+6:     pub fn armor_layer_chain(
+7:         &self,
+8:         part: adventuresim_core::body::BodyPart,
+9:         sample: f32,
+10:     ) -> Vec<ArmorLayerContact> {
+11:         let index = body_part_index(part);
+12:         let mut layers = self
+13:             .iter()
+14:             .filter_map(|item| {
+15:                 let armor = item
+16:                     .armor
+17:                     .filter(|armor| armor.covered_parts[index] && armor.coverage > 0.0)?;
+18:                 Some((item, armor))
+19:             })
+20:             .collect::<Vec<_>>();
+21:         layers.sort_by_key(|(_, armor)| std::cmp::Reverse(armor.layer_order));
+22:         let selected = layers.iter().position(|(_, armor)| {
+23:             armor.coverage_geometry[index]
+24:                 .expect("covered armor part has authored surface geometry")
+25:                 .contains(sample)
+26:         });
+27:         layers
+28:             .into_iter()
+29:             .enumerate()
+30:             .map(|(layer_index, (item, armor))| {
+31:                 let geometry = armor.coverage_geometry[index]
+32:                     .expect("covered armor part retains authored geometry");
+33:                 ArmorLayerContact {
+34:                     item_id: item.properties.id.clone(),
+35:                     inventory_item_id: item.inventory_item_id.map(|id| id.0),
+36:                     material: armor.material,
+37:                     geometry,
+38:                     intersected: geometry.contains(sample),
+39:                     selected: selected == Some(layer_index),
+40:                     surface: adventuresim_core::equipment::ArmorSurface {
+41:                         inventory_item_id: item.inventory_item_id.map(|id| id.0),
+42:                         material: Some(armor.material),
+43:                         resistance: armor.resistance,
+44:                         padding: armor.padding,
+45:                         flexibility: armor.flexibility,
+46:                     },
+47:                 }
+48:             })
+49:             .collect()
+50:     }
+51: }
+52: 
+53: pub(super) fn fold_armor_layers<'a>(
+54:     index: usize,
+55:     armor: impl IntoIterator<Item = &'a ArmorItem>,
+56: ) -> LayeredArmor {
+57:     let mut result = LayeredArmor {
+58:         range_of_motion: 1.0,
+59:         ..Default::default()
+60:     };
+61:     let mut weighted_flexibility = 0.0;
+62:     for armor in armor.into_iter().filter(|armor| armor.covered_parts[index]) {
+63:         result.coverage = 1.0 - (1.0 - result.coverage) * (1.0 - armor.coverage.clamp(0.0, 1.0));
+64:         let resistance = armor.resistance.max(0.0);
+65:         result.resistance += resistance;
+66:         result.padding += armor.padding.max(0.0);
+67:         weighted_flexibility += armor.flexibility.clamp(0.0, 1.0) * resistance;
+68:         result.range_of_motion = result
+69:             .range_of_motion
+70:             .min(armor.range_of_motion.clamp(0.0, 1.0));
+71:     }
+72:     result.flexibility = if result.resistance > 0.0 {
+73:         weighted_flexibility / result.resistance
+74:     } else {
+75:         0.0
+76:     };
+77:     result
+78: }
+79: 
+SOURCE 2814
+1: use std::{collections::HashSet, num::NonZeroU32, time::Duration};
+2: 
+3: use adventuresim_tactical_core::prelude::CharacterId;
+4: 
+5: #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+6: pub(crate) enum EnrollmentEffect {
+7:     None,
+8:     Sealed,
+9:     Abandoned,
+10: }
+11: 
+12: #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+13: pub(crate) enum AdmissionResult {
+14:     Admitted,
+15:     RejectedAfterSeal,
+16: }
+17: 
+18: #[derive(Debug)]
+19: pub(crate) enum PartyEnrollment {
+20:     Awaiting {
+21:         expected: NonZeroU32,
+22:     },
+23:     Enrolling {
+24:         expected: NonZeroU32,
+25:         seen: HashSet<CharacterId>,
+26:         empty_for: Duration,
+27:     },
+28:     Sealed {
+29:         expected: NonZeroU32,
+30:         seen: HashSet<CharacterId>,
+31:         empty_for: Duration,
+32:     },
+33: }
+34: 
+35: impl PartyEnrollment {
+36:     pub(crate) fn new(expected: NonZeroU32) -> Self {
+37:         Self::Awaiting { expected }
+38:     }
+39: 
+40:     pub(crate) fn begin(&mut self) {
+41:         if let Self::Awaiting { expected } = *self {
+42:             *self = Self::Enrolling {
+43:                 expected,
+44:                 seen: HashSet::new(),
+45:                 empty_for: Duration::ZERO,
+46:             };
+47:         }
+48:     }
+49: 
+50:     pub(crate) fn observe_loaded(&mut self, character: CharacterId) -> AdmissionResult {
+51:         self.begin();
+52:         match self {
+53:             Self::Enrolling { seen, .. } => {
+54:                 seen.insert(character);
+55:                 AdmissionResult::Admitted
+56:             }
+57:             Self::Sealed { seen, .. } if seen.contains(&character) => AdmissionResult::Admitted,
+58:             Self::Sealed { .. } => AdmissionResult::RejectedAfterSeal,
+59:             Self::Awaiting { .. } => unreachable!("begin transitions awaiting enrollment"),
+60:         }
+61:     }
+62: 
+63:     pub(crate) fn allows_join(&self, character: CharacterId) -> bool {
+64:         match self {
+65:             Self::Awaiting { .. } | Self::Enrolling { .. } => true,
+66:             Self::Sealed { seen, .. } => seen.contains(&character),
+67:         }
+68:     }
+69: 
+70:     pub(crate) fn advance(
+71:         &mut self,
+72:         loaded_party: u32,
+73:         has_loading_player: bool,
+74:         delta: Duration,
+75:         reconnect_grace: Duration,
+76:     ) -> EnrollmentEffect {
+77:         let mut effect = EnrollmentEffect::None;
+78:         if let Self::Enrolling {
+79:             expected,
+80:             seen,
+81:             empty_for,
+82:         } = self
+83:             && seen.len() >= expected.get() as usize
+84:             && !has_loading_player
+85:         {
+86:             let expected = *expected;
+87:             let seen = std::mem::take(seen);
+88:             let empty_for = *empty_for;
+89:             *self = Self::Sealed {
+90:                 expected,
+91:                 seen,
+92:                 empty_for,
+93:             };
+94:             effect = EnrollmentEffect::Sealed;
+95:         }
+96: 
+97:         let empty_for = match self {
+98:             Self::Awaiting { .. } => return effect,
+99:             Self::Enrolling { empty_for, .. } | Self::Sealed { empty_for, .. } => empty_for,
+100:         };
+101:         if loaded_party == 0 && !has_loading_player {
+102:             *empty_for = empty_for.saturating_add(delta);
+103:         } else {
+104:             *empty_for = Duration::ZERO;
+105:         }
+106:         if *empty_for >= reconnect_grace {
+107:             EnrollmentEffect::Abandoned
+108:         } else {
+109:             effect
+110:         }
+111:     }
+112: 
+113:     pub(crate) fn ready_for_outcome(&self, has_loading_player: bool) -> bool {
+114:         matches!(self, Self::Sealed { .. }) && !has_loading_player
+115:     }
+116: 
+117:     pub(crate) fn expected(&self) -> NonZeroU32 {
+118:         match self {
+119:             Self::Awaiting { expected }
+120:             | Self::Enrolling { expected, .. }
+121:             | Self::Sealed { expected, .. } => *expected,
+122:         }
+123:     }
+124: }
+125: 
+SOURCE 2816
+1: //! Mesh geometry and GPU storage, independent of scene instances and rendering.
+2: //!
+3: //! The GPU half (`GpuMesh`, upload, readback, neighborhood and wireframe
+4: //! buffers) is the `gpu` feature, on by default.
+5: mod data;
+6: mod front_face;
+7: #[cfg(feature = "gpu")]
+8: mod gpu;
+9: #[cfg(feature = "gpu")]
+10: pub mod neighborhood;
+11: mod topology;
+12: #[cfg(feature = "gpu")]
+13: pub mod wireframe;
+14: pub use data::MeshData;
+15: pub use front_face::FrontFace;
+16: #[cfg(feature = "gpu")]
+17: pub use gpu::GpuMesh;
+18: #[cfg(feature = "gpu")]
+19: pub use neighborhood::MeshNeighborhood;
+20: pub use topology::PrimitiveTopology;
+21: #[cfg(feature = "gpu")]
+22: pub use wireframe::MeshWireframe;
+SOURCE 2817
+1: #[cfg(feature = "gpu")]
+2: use crate::GpuMesh;
+3: use crate::{FrontFace, PrimitiveTopology};
+4: use anyhow::{Result, ensure};
+5: #[cfg(feature = "gpu")]
+6: use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
+7: #[cfg(feature = "gpu")]
+8: use fabelgeist_gpu::{
+9:     data::gpu::buffer::{Buffer, BufferDefinition},
+10:     globals::WgpuContext,
+11: };
+41: /// CPU mesh attributes. Empty normal/UV arrays mean those attributes are absent.
+42: /// Indices are optional; an unindexed mesh uses consecutive vertices.
+43: #[derive(Clone, Debug, PartialEq)]
+44: pub struct MeshData {
+45:     pub positions: Vec<[f32; 3]>,
+46:     pub normals: Vec<[f32; 3]>,
+47:     pub tex_coords: Vec<[f32; 2]>,
+48:     pub indices: Option<Vec<u32>>,
+49:     pub joints: Option<Vec<[u32; 4]>>,
+50:     pub weights: Option<Vec<[f32; 4]>>,
+51:     pub topology: PrimitiveTopology,
+52:     pub front_face: FrontFace,
+53: }
+54: 
+55: impl Default for MeshData {
+56:     fn default() -> Self {
+57:         Self {
+58:             positions: vec![],
+59:             normals: vec![],
+60:             tex_coords: vec![],
+61:             indices: None,
+62:             joints: None,
+63:             weights: None,
+64:             topology: PrimitiveTopology::TriangleList,
+65:             front_face: FrontFace::Ccw,
+66:         }
+67:     }
+68: }
+SOURCE 2821
+1: //! Bevy wiring for tactical physics: the full simulation for servers and
+2: //! players, a presentation-only solver for client ragdolls, or a read-only
+3: //! collider fixture for tools that never step bodies.
+4: 
+5: use avian3d::{collider_tree::ColliderTreeSystems, prelude::*};
+6: use bevy::prelude::*;
+7: use bevy_ahoy::{AhoyPlugins, AhoySystems, camera::AhoyCameraPlugin};
+8: 
+9: use super::apply_character_motor;
+10: 
+11: pub struct AdventureSimulatorPhysicsPlugin {
+12:     pub enable_simulation: bool,
+13:     /// Runs Avian's solver for explicitly enabled client-only presentation
+14:     /// bodies while keeping every ordinary replicated rigid body disabled.
+15:     pub enable_presentation_simulation: bool,
+16: }
+17: 
+18: #[derive(SystemSet, Debug, Clone, Copy, PartialEq, Eq, Hash)]
+19: pub enum AdventureSimulatorPhysicsSet {
+20:     ApplyCharacterMotor,
+21: }
+22: 
+23: impl Default for AdventureSimulatorPhysicsPlugin {
+24:     fn default() -> Self {
+25:         Self {
+26:             enable_simulation: true,
+27:             enable_presentation_simulation: false,
+28:         }
+29:     }
+30: }
+31: 
+32: impl Plugin for AdventureSimulatorPhysicsPlugin {
+33:     fn build(&self, app: &mut App) {
+34:         app.init_resource::<crate::combat_config::TacticalCombatConfig>();
+35:         if self.enable_simulation {
+36:             app.add_plugins((
+37:                 crate::doors::tactical_physics_plugins(),
+38:                 AhoyPlugins::new(FixedPostUpdate),
+39:             ))
+40:             .add_systems(
+41:                 FixedPostUpdate,
+42:                 apply_character_motor
+43:                     .in_set(AdventureSimulatorPhysicsSet::ApplyCharacterMotor)
+44:                     .before(AhoySystems::MoveCharacters),
+45:             );
+46:         } else if self.enable_presentation_simulation {
+47:             app.add_plugins((PhysicsPlugins::new(FixedPostUpdate), AhoyCameraPlugin))
+48:                 .register_required_components::<RigidBody, RigidBodyDisabled>();
+49:         } else {
+50:             app.add_plugins((
+51:                 PhysicsSchedulePlugin::new(FixedPostUpdate),
+52:                 BroadPhaseCorePlugin,
+53:                 ColliderHierarchyPlugin,
+54:                 ColliderTransformPlugin::new(FixedPostUpdate),
+55:                 PhysicsTransformPlugin::new(FixedPostUpdate),
+56:                 ColliderBackendPlugin::<Collider>::new(FixedPostUpdate),
+57:                 ColliderTreePlugin::<Collider>::default(),
+58:                 AhoyCameraPlugin,
+59:             ))
+60:             // `SolverSystems::Finalize` is normally nested by Avian's solver
+61:             // plugin. This read-only fixture omits the solver, so retain the
+62:             // collider-tree completion step in the equivalent physics phase.
+63:             .configure_sets(
+64:                 PhysicsSchedule,
+65:                 ColliderTreeSystems::EndOptimize.in_set(PhysicsStepSystems::Finalize),
+66:             )
+67:             .register_required_components::<RigidBody, RigidBodyDisabled>();
+68:         }
+69: 
+70:         #[cfg(feature = "avian_debug")]
+71:         app.add_plugins(PhysicsDebugPlugin)
+72:             .insert_gizmo_config(
+73:                 PhysicsGizmos {
+74:                     // Joint gizmos have no per-entity switch, and the only
+75:                     // joints on a client are presentation ragdolls, whose
+76:                     // anchor lines hide the body under review.
+77:                     joint_anchor_color: None,
+78:                     joint_separation_color: None,
+79:                     ..default()
+80:                 },
+81:                 GizmoConfig {
+82:                     depth_bias: -1.0,
+83:                     ..default()
+84:                 },
+85:             )
+86:             .init_resource::<PhysicsLengthUnit>();
+87:     }
+88: }

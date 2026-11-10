@@ -1,0 +1,19 @@
+{
+  "schema": "726-private-extract-dependency-scan-v1",
+  "target_inventory": "recovered/hash-matched-dependencies/LATER-MATCHES.json",
+  "target_distinct_sha256": 484,
+  "private_snapshot_sha256": "d9fe8bef817fea966bf869df3dbde5dd006f350f5aeef58f09f541a296c1c68f",
+  "extracted_files_hashed": 18084,
+  "excluded_names": [
+    "session-snapshot.jsonl",
+    "transcript-index.sqlite"
+  ],
+  "new_hash_matches": 0,
+  "git_manifest_collections_checked": 7,
+  "git_manifest_source_hash_matches": 0,
+  "published_helper_candidates_checked": 2363,
+  "python_literal_writes_checked": 310,
+  "other_literal_writes_checked": 54,
+  "preserved_candidate_hash_matches": 0,
+  "qualification": "Historical search report, not a portable proof of absence. The scan covered current private transcript-extract files except the original snapshot and SQLite index, and compared their file bytes to the 484 unresolved hashes. The separate helper check used recorded candidate hash fields, not an exhaustive search of every embedded string. Private extracts and transcript are not included; transcript completeness, unscanned stores and later availability remain unknown."
+}

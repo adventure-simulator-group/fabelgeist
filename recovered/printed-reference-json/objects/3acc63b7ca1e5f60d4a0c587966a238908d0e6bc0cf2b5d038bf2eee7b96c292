@@ -1,0 +1,385 @@
+{
+  "schema": "726-root-l13-source-packet-v1",
+  "at": "2026-10-31T07:04:07.126201+00:00",
+  "lens": 13,
+  "author": "/root",
+  "original_before": 1357,
+  "original_after": 1361,
+  "registered_before_read_attestation": true,
+  "ordered": [
+    {
+      "source": {
+        "original": 1357,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs",
+        "sha256": "d307ec89363164d57e5762fea3f35d38adf4cb28c64801233bceacaddd9f5727",
+        "actual_eof": 490,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/d307ec89363164d57e5762fea3f35d38adf4cb28c64801233bceacaddd9f5727",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            490
+          ]
+        ],
+        "purpose": "Full Lens13 body-response retained state, target arithmetic, bespoke body values and procedural clock contracts. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1357-1360-001.json",
+        "sha256": "9c9c64b69b9a27ecd1fdaa1cb916dfe7e4345e2a2ed6524fad5e648900ca37f0"
+      },
+      "registration_pointer": "/sources/0",
+      "assessed_ranges": [
+        [
+          1,
+          490
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              9,
+              113
+            ]
+          ],
+          "assessment": "advance_for_presentation takes self by value and returns a complete checked candidate, so intermediate drift/angle assignments cannot partially mutate caller state on Err. Observation tick is skeleton.locomotion_sample_tick; fixed duplicate suppression compares that previous skeleton tick with fixed_step.tick, requiring identity agreement supplied by caller. Realtime delta is capped but fixed delta is directly supplied. Owner-rotation-transformed world velocity/acceleration are finite-admitted before posture/action/guard/discontinuity zeroing. Body observation velocity remains previous when source unchanged, otherwise updates. Tick delta uses wrapping difference within configured max; no prior observation meansZERO."
+        },
+        {
+          "ranges": [
+            [
+              119,
+              193
+            ]
+          ],
+          "assessment": "System copies existing/default state, computes candidate, logs/skips Err, then commits state and response map. Pelvis response uses bind reference frame conjugation and stores per-owner compensation, then both thighs receive inverse inherited response. Transform writes are native and lack local finite/unit admission; uniqueness of pelvis/body roles and exact native parent/rotation guarantees remain rig-owner obligations. Body state staging does not prove later transform arithmetic finite."
+        },
+        {
+          "ranges": [
+            [
+              195,
+              260
+            ]
+          ],
+          "assessment": "Smoothing checks planar squared magnitudes, selects attack/release response and readmits native lerp. Spring returns unchanged on elapsedZERO. Otherwise omega=2/smooth_time, raw numerator/denominator explicitly checked finite, velocity squared checked before length clamp, angles and velocity readmitted. Positive canonical smooth_time yields positive denominator absent overflow; no unchecked nonfinite coefficient retention. Config minimum/rate bounds determine supported errors, especially fixed elapsed bypassing realtime cap."
+        },
+        {
+          "ranges": [
+            [
+              262,
+              490
+            ]
+          ],
+          "assessment": "Native stable pelvis response normalizes conjugated response and leg compensation using authored/bind inverses; ordinary unit tests verify frame-stable response and cancellation. Other tests read cover walking/current-speed braking, acceleration filter attack/release, render-time angular speed cap, preserved response momentum and160-frame finite sprint ramp. They do not test fixed-clock/skeleton-tick mismatch, lifecycle reset, extreme config or invalid native bind. Not executed."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1358,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/body_response/target.rs",
+        "sha256": "81446933b198eac655968dd876b5bdd007e102f4daad11024f3e92242a34bd20",
+        "actual_eof": 140,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/81446933b198eac655968dd876b5bdd007e102f4daad11024f3e92242a34bd20",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            140
+          ]
+        ],
+        "purpose": "Full Lens13 body-response retained state, target arithmetic, bespoke body values and procedural clock contracts. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1357-1360-001.json",
+        "sha256": "9c9c64b69b9a27ecd1fdaa1cb916dfe7e4345e2a2ed6524fad5e648900ca37f0"
+      },
+      "registration_pointer": "/sources/1",
+      "assessed_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              55
+            ]
+          ],
+          "assessment": "Target checks velocity planar squared, combines travel/inertial contributions and subtracts BODY_RESPONSE_DEGREE_REPORT_MARGIN_RADIANS from configured max before nonnegative angular-cap admission. Canonical max must exceed margin for all supported configs. Deceleration requires finite previous-velocity dot acceleration, negative dot and current squared within1e-4 allowance; braking ratio current planar speed/run reference is clamped then UnitInterval-admitted. This owner still depends on admitted positive run profile reference; zero or tiny input not asserted supported."
+        },
+        {
+          "ranges": [
+            [
+              57,
+              140
+            ]
+          ],
+          "assessment": "Travel uses signed component/reference ratios then authored radian scaling BEFORE directional clamp; overflow can reject before cap. Inertial speed ratio explicitly finite-checks before clamp and interpolated gain. Positive acceleration uses typed forward reference, positive cap and gain; braking uses negative cap and braking fraction; lateral uses typed lateral reference and symmetric cap. Comments about60percent are not independently enforced here: actual config value is authoritative. Checked target owner contains native projected arithmetic, no duplicated generic scalar type proposed."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1359,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/body_values.rs",
+        "sha256": "ac32044bdad9c67748eefca7b1b7db59a7eed439e3182af7581833f49076750b",
+        "actual_eof": 211,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/ac32044bdad9c67748eefca7b1b7db59a7eed439e3182af7581833f49076750b",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            211
+          ]
+        ],
+        "purpose": "Full Lens13 body-response retained state, target arithmetic, bespoke body values and procedural clock contracts. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1357-1360-001.json",
+        "sha256": "9c9c64b69b9a27ecd1fdaa1cb916dfe7e4345e2a2ed6524fad5e648900ca37f0"
+      },
+      "registration_pointer": "/sources/2",
+      "assessed_ranges": [
+        [
+          1,
+          211
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              100
+            ]
+          ],
+          "assessment": "Private BodyAngle wraps existing signed Radians, magnitude separately wraps finite nonnegative Radians, BrakingLeanScale wraps UnitInterval. Body angular velocity and local velocity/acceleration have private native vector fields and finite constructors. BodyAngle scales/limits return checked values, reusing canonical unit owners; generic f32 scale is restricted to local numerical kernel."
+        },
+        {
+          "ranges": [
+            [
+              101,
+              180
+            ]
+          ],
+          "assessment": "Local vector constructors admit finite components, and explicit planar_squared methods reject overflow rather than assume squared finiteness. Response sum rejects nonfinite squared length before magnitude cap then readmits components. max*max can overflow if arbitrary enormous finite max; with response squared already finite such max is nonbinding, so not evidence of published nonfinite response. Actual supported config still determines caps."
+        },
+        {
+          "ranges": [
+            [
+              182,
+              211
+            ]
+          ],
+          "assessment": "Angular magnitude constructor rejects negative and nonfinite; braking fraction reuses UnitInterval with quantity-specific error. This establishes retained numeric invariants but not external config relationship to report-margin or all vector magnitude bounds."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1360,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/clock.rs",
+        "sha256": "f71ea0cad3b1311e6b0d29b398a293759f859ee7fc9c2fd2d91b2e09a54c33c0",
+        "actual_eof": 36,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/f71ea0cad3b1311e6b0d29b398a293759f859ee7fc9c2fd2d91b2e09a54c33c0",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            36
+          ]
+        ],
+        "purpose": "Full Lens13 body-response retained state, target arithmetic, bespoke body values and procedural clock contracts. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1357-1360-001.json",
+        "sha256": "9c9c64b69b9a27ecd1fdaa1cb916dfe7e4345e2a2ed6524fad5e648900ca37f0"
+      },
+      "registration_pointer": "/sources/3",
+      "assessed_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              36
+            ]
+          ],
+          "assessment": "ProceduralAnimationClock retains optional FixedAnimationStep with independently typed tick and nonnegative elapsed. set_fixed_step is unconditional and imposes no match to SkeletonState sample tick, monotonicity, session/epoch identity, elapsed cap or coupled elapsed/tick law. pub(crate) fixed_tick can also be mutated by crate owners; actual tools/callers must establish intended synchronized sample identity. Gameplay unset is documented, not demonstrated by this type alone."
+        }
+      ]
+    }
+  ],
+  "connected": [],
+  "prior_same_lens_adoptions": [],
+  "new_root_ordered_lines": 877,
+  "new_root_connected_reread_lines": 0,
+  "accepted_unique_count_change": 0,
+  "other_population_credit": 0,
+  "current_source_reconciled": false,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "new_questions": [],
+  "contract_revisits_pending_queue_adoption": [
+    {
+      "contract_id": "ROOT-L13-1356-FIXED-POSE-CACHE-LIFETIME",
+      "status": "Exact connected source evidence; qualified limits and unresolved native/current obligations retained.",
+      "canonical_owner": "ProceduralAnimationClock fixed sample identity, FixedTickPoseCache and post-procedural MhrBone transform stabilization across repeated renders.",
+      "disposition": "Body response retains skeleton.locomotion_sample_tick but suppresses repeated fixed elapsed by comparing that previous observation tick to fixed_step.tick. The clock API independently accepts tick/elapsed and imposes no equality to skeleton sample or session identity. If actual tools guarantee equality this path suppresses repeat; otherwise cached visuals could hide backing advancement. No actual supported mismatch witness asserted; caller proof now precisely required.",
+      "source_pointers": [
+        {
+          "pointer": "/ordered/0",
+          "ranges": [
+            [
+              9,
+              113
+            ]
+          ]
+        },
+        {
+          "pointer": "/ordered/3",
+          "ranges": [
+            [
+              1,
+              36
+            ]
+          ]
+        }
+      ],
+      "remaining_evidence": [
+        "All fixed clock setters/direct field writes, resets and capture session lifecycle.",
+        "Exact tool sample tick versus PresentedSkeleton/SkeletonState identity and elapsed law.",
+        "Other procedural repeat-state owners, native schedule, current and aliases."
+      ]
+    },
+    {
+      "contract_id": "ROOT-L13-1331-POSE-PUBLICATION-OUTCOME",
+      "status": "Exact connected source evidence; qualified limits and unresolved native/current obligations retained.",
+      "canonical_owner": "PoseBufferRig observation/sample/transition/application state and authored target publication; readiness/capture consumers.",
+      "disposition": "Body response candidate takes retained state by value; system commits only after every checked calculation succeeds, rejecting a local partial-state-failure suspicion. Subsequent pelvis/thigh transform application is native and separate. Fixed-step identity assumption belongs cache/repeat question; do not infer pose-buffer failure from this owner.",
+      "source_pointers": [
+        {
+          "pointer": "/ordered/0",
+          "ranges": [
+            [
+              9,
+              99
+            ],
+            [
+              119,
+              193
+            ],
+            [
+              218,
+              260
+            ]
+          ]
+        }
+      ],
+      "remaining_evidence": [
+        "Native pose application bounds and actual hierarchy/role consistency.",
+        "Earlier height/landing/pose-buffer supported failure contracts and whole pipeline policy.",
+        "Current/alias and scheduling acceptance."
+      ]
+    },
+    {
+      "contract_id": "ROOT-L13-1331-POSE-TERRAIN-NUMERIC-ADMISSION",
+      "status": "Exact connected source evidence; qualified limits and unresolved native/current obligations retained.",
+      "canonical_owner": "Admitted rig bind/proportion/owner transforms and native pose terrain two-bone solve numerical preconditions.",
+      "disposition": "Body-local velocity/acceleration are finite-admitted after current-owner quaternion transform, and squared magnitudes checked separately. Spring numerator/denominator/velocity and output are checked. Stable pelvis/reference/leg compensation still uses native quaternion inverses/normalize and final products without local finite/unit checks, requiring actual bind/authored producer guarantees.",
+      "source_pointers": [
+        {
+          "pointer": "/ordered/0",
+          "ranges": [
+            [
+              28,
+              34
+            ],
+            [
+              167,
+              191
+            ],
+            [
+              199,
+              276
+            ]
+          ]
+        },
+        {
+          "pointer": "/ordered/2",
+          "ranges": [
+            [
+              87,
+              180
+            ]
+          ]
+        }
+      ],
+      "remaining_evidence": [
+        "Actual authored/bind/current owner quaternion validity and pelvis/thigh topology uniqueness.",
+        "Canonical spring/config input ranges and supported native pose bounds.",
+        "Current sources, aliases and final transform observation."
+      ]
+    },
+    {
+      "contract_id": "ADLER-L11-LOCOMOTION-PROFILE-ADMISSION",
+      "status": "Exact connected source evidence; qualified limits and unresolved native/current obligations retained.",
+      "canonical_owner": "Existing PositiveAnimationDuration for positive recovery role and exact existing configured reference-speed owner, with zero-permitting measured speed/elapsed kept separate.",
+      "disposition": "Body target explicitly divides by run_locomotion_profile.reference_speed in travel, inertial-speed and braking paths. Existing bespoke body values admit arithmetic results and planar squares, but the positive reference role must survive profile handoff. Config max response must also cover the subtracted report margin; smooth_time and angular rate define supported spring inputs. These exact consumers narrow owner and acceptance work without assuming config extrema are admitted.",
+      "source_pointers": [
+        {
+          "pointer": "/ordered/0",
+          "ranges": [
+            [
+              195,
+              260
+            ]
+          ]
+        },
+        {
+          "pointer": "/ordered/1",
+          "ranges": [
+            [
+              9,
+              140
+            ]
+          ]
+        },
+        {
+          "pointer": "/ordered/2",
+          "ranges": [
+            [
+              43,
+              85
+            ],
+            [
+              182,
+              211
+            ]
+          ]
+        }
+      ],
+      "remaining_evidence": [
+        "Canonical profile reference-speed type/validator and runtime config binding.",
+        "BodyResponseConfig smooth time/rate/max margin/reference acceleration admission.",
+        "Supported numeric rejection policy, current source and aliases."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "schema": "726-granular-connected-contract-view-v1",
+  "at": "2026-11-03T07:11:03.303456+00:00",
+  "contract_id": "ROOT-L7-CHUNK-VIEW-RETENTION",
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-NATIVE-EXTRACT-726.json",
+    "sha256": "c351171ec79e7f7038dabbb66321a1af3f12f024ad1aa3a5658f284c1aa5b4fb"
+  },
+  "whole_contract_closed": false,
+  "relationship": "Connects native extract callback and deferred command application to project queue scheduling.",
+  "current_trace": [
+    "The locked extract plugin sets the render sub-app extraction callback to synchronize entities and run ExtractSchedule.",
+    "ExtractSchedule defers commands; the render schedule applies them in ExtractCommands, ordered before Queue and its QueueMeshes subset.",
+    "Together with the project queue and native phase registrations, this supports extraction and deferred camera component application before queue processing for the corresponding render update. It does not establish actual visible chunks or a runtime outcome."
+  ],
+  "evidence": [
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-NATIVE-RENDER-ORDER-725.json",
+      "sha256": "d1dac8cd8444060f8ba15dc6be25da3410afc3a157685ad52e3c2292f2ca25c1"
+    },
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-CAMERA-EXTRACTION-722.json",
+      "sha256": "d8607a201afd750d1c7331225d8dd81728590b1d9c9c0ae7be1b98b015273b68"
+    }
+  ],
+  "remaining": [
+    "Qualify actual camera and chunk visibility, destruction and resource lifetime before deciding the retained map policy.",
+    "Retain exact alias reconciliation and later acceptance for the remaining audit."
+  ],
+  "later_acceptance": [
+    "Exercise active and inactive cameras with visible chunks after audit gate."
+  ]
+}

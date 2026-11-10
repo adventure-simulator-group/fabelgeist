@@ -1,0 +1,270 @@
+271:                 ("recipe", json!({"Array":{"U8":[]}})),
+272:                 ("mass_grams", json!({"U32":[]})),
+273:                 ("length_mm", json!({"U32":[]})),
+274:                 ("grip_to_tip_mm", json!({"U32":[]})),
+275:             ],
+276:             json!([170, 9, "00".repeat(32), "007bff80", 1175, 1225, 1060]),
+277:         );
+278:         let weapons =
+279:             decode_sats_query_response::<adventuresim_stdb_client::WeaponInstance>(&fixture)
+280:                 .unwrap();
+281:         let holders =
+282:             decode_sats_query_response::<adventuresim_stdb_client::WeaponHolderInstance>(&fixture)
+283:                 .unwrap();
+284:         assert_eq!(weapons[0].recipe, vec![0, 123, 255, 128]);
+285:         assert_eq!(weapons[0].design_hash, vec![0; 32]);
+286:         assert_eq!(weapons[0].physical_object_id, 170);
+287:         assert_eq!(holders[0].recipe, weapons[0].recipe);
+288:         assert_eq!(holders[0].design_hash, weapons[0].design_hash);
+289:     }
+290:     #[test]
+291:     fn sats_sql_byte_arrays_require_complete_hexadecimal_octets() {
+292:         let ty = AlgebraicType::Value(json!({"Array":{"U8":[]}}));
+293:         for value in [
+294:             json!("0"),
+295:             json!("0g"),
+296:             json!("0x01"),
+297:             json!([0, 1]),
+298:             json!(null),
+299:         ] {
+300:             assert!(convert_spacetime_value_sats(&value, &ty).is_err());
+301:         }
+302:         for bytes in ["", "00", "01aBff"] {
+303:             let converted = convert_spacetime_value_sats(&json!(bytes), &ty).unwrap();
+304:             let decoded = serde_json::from_value::<SerdeWrapper<Vec<u8>>>(converted)
+305:                 .unwrap()
+306:                 .0;
+307:             assert_eq!(decoded.len(), bytes.len() / 2);
+308:         }
+309:     }
+310:     use adventuresim_stdb_client::{
+311:         BackendForageReceipt, CaseStatus, InvestigationActionAvailability,
+312:         InvestigationActionUnavailableReason, SettlementAlias, StrategicGatewayAuthority,
+313:     };
+314: 
+315:     fn query_fixture(columns: &[(&str, Value)], row: Value) -> QueryResponse {
+316:         vec![crate::spacetimedb::types::QueryResult {
+317:             schema: crate::spacetimedb::types::QuerySchema {
+318:                 elements: columns
+319:                     .iter()
+320:                     .map(
+321:                         |(name, algebraic_type)| crate::spacetimedb::types::SchemaElement {
+322:                             name: Some(crate::spacetimedb::types::AlgebraicTypeRef {
+323:                                 some: (*name).to_owned(),
+324:                             }),
+325:                             algebraic_type: AlgebraicType::Value(algebraic_type.clone()),
+326:                         },
+327:                     )
+328:                     .collect(),
+329:             },
+330:             rows: vec![row],
+331:         }]
+332:     }
+333: 
+334:     #[test]
+335:     fn sats_conversion_preserves_named_products_options_and_one_key_sums() {
+336:         let option_string = json!({ "Sum": { "variants": [
+337:             {
+338:                 "name": { "some": "some" },
+339:                 "algebraic_type": { "String": [] }
+340:             },
+341:             {
+342:                 "name": { "some": "none" },
+343:                 "algebraic_type": { "Product": { "elements": [] } }
+344:             }
+345:         ] } });
+346:         let ty = AlgebraicType::Value(json!({
+347:             "Product": { "elements": [
+348:                 { "name": { "some": "id" }, "algebraic_type": { "String": [] } },
+349:                 { "name": { "some": "settlement_id" }, "algebraic_type": { "String": [] } },
+350:                 { "name": { "some": "name" }, "algebraic_type": { "String": [] } },
+351:                 { "name": { "some": "prefix" }, "algebraic_type": option_string },
+352:                 { "name": { "some": "language" }, "algebraic_type": option_string }
+353:             ] }
+354:         }));
+355:         let converted = convert_spacetime_value_sats(
+356:             &json!(["alias-1", "settlement-1", "Harbour", [0, "Old"], [1, []]]),
+357:             &ty,
+358:         )
+359:         .unwrap();
+360:         assert_eq!(
+361:             converted,
+362:             json!({
+363:                 "id": "alias-1",
+364:                 "settlement_id": "settlement-1",
+365:                 "name": "Harbour",
+366:                 "prefix": { "some": "Old" },
+367:                 "language": { "none": [] }
+368:             })
+369:         );
+370:         let decoded = serde_json::from_value::<SerdeWrapper<SettlementAlias>>(converted)
+371:             .unwrap()
+372:             .0;
+373:         assert_eq!(decoded.prefix.as_deref(), Some("Old"));
+374:         assert_eq!(decoded.language, None);
+375: 
+376:         let sum = AlgebraicType::Value(json!({ "Sum": { "variants": [
+377:             {
+378:                 "name": { "some": "Open" },
+379:                 "algebraic_type": { "Product": { "elements": [] } }
+380:             },
+381:             {
+382:                 "name": { "some": "Resolved" },
+383:                 "algebraic_type": { "Product": { "elements": [] } }
+384:             },
+385:             {
+386:                 "name": { "some": "Failed" },
+387:                 "algebraic_type": { "Product": { "elements": [] } }
+388:             }
+389:         ] } }));
+390:         let converted = convert_spacetime_value_sats(&json!([1, []]), &sum).unwrap();
+391:         assert_eq!(converted, json!({ "Resolved": [] }));
+392:         assert_eq!(
+393:             serde_json::from_value::<SerdeWrapper<CaseStatus>>(converted)
+394:                 .unwrap()
+395:                 .0,
+396:             CaseStatus::Resolved
+397:         );
+398:     }
+399: 
+400:     #[test]
+401:     fn sats_generated_products_reject_missing_and_unknown_fields() {
+402:         let complete = json!({
+403:             "id": "alias-1",
+404:             "settlement_id": "settlement-1",
+405:             "name": "Harbour",
+406:             "prefix": { "none": [] },
+407:             "language": { "none": [] }
+408:         });
+409:         let mut missing = complete.clone();
+410:         missing.as_object_mut().unwrap().remove("name");
+411:         assert!(serde_json::from_value::<SerdeWrapper<SettlementAlias>>(missing).is_err());
+412: 
+413:         let mut unknown = complete;
+414:         unknown["display_name"] = json!("Harbour");
+415:         assert!(serde_json::from_value::<SerdeWrapper<SettlementAlias>>(unknown).is_err());
+416:     }
+417: 
+418:     #[test]
+419:     fn sats_sql_fixture_decodes_generated_identity_row() {
+420:         let option_string = json!({ "Sum": { "variants": [
+421:             {
+422:                 "name": { "some": "some" },
+423:                 "algebraic_type": { "String": [] }
+424:             },
+425:             {
+426:                 "name": { "some": "none" },
+427:                 "algebraic_type": { "Product": { "elements": [] } }
+428:             }
+429:         ] } });
+430:         let identity = json!({ "Product": { "elements": [{
+431:             "name": { "some": "__identity__" },
+432:             "algebraic_type": { "U256": [] }
+433:         }] } });
+434:         let response = query_fixture(
+435:             &[
+436:                 ("id", json!({ "U8": [] })),
+437:                 ("identity", identity),
+438:                 ("terrain_package_digest", option_string),
+439:                 ("terrain_schema", json!({ "U32": [] })),
+440:             ],
+441:             json!([
+442:                 1,
+443:                 ["0000000000000000000000000000000000000000000000000000000000000000"],
+444:                 [1, []],
+445:                 3
+446:             ]),
+447:         );
+448:         let decoded = decode_sats_query_response::<StrategicGatewayAuthority>(&response).unwrap();
+449:         assert_eq!(decoded.len(), 1);
+450:         assert_eq!(
+451:             decoded[0].identity,
+452:             adventuresim_stdb_client::spacetimedb_sdk::Identity::ZERO
+453:         );
+454:         assert_eq!(decoded[0].terrain_package_digest, None);
+455:     }
+456: 
+457:     #[test]
+458:     fn sats_sql_fixture_decodes_generated_array_row() {
+459:         let response = query_fixture(
+460:             &[
+461:                 ("character_id", json!({ "U64": [] })),
+462:                 ("request_id", json!({ "String": [] })),
+463:                 ("elapsed_minutes", json!({ "U64": [] })),
+464:                 ("yielded_item_ids", json!({ "Array": { "String": [] } })),
+465:                 ("yielded_quantities", json!({ "Array": { "U16": [] } })),
+466:                 ("interrupted", json!({ "Bool": [] })),
+467:                 ("legal_outcome", json!({ "String": [] })),
+468:             ],
+469:             json!([
+470:                 7,
+471:                 "forage:7:1",
+472:                 45,
+473:                 ["yarrow", "nettle"],
+474:                 [2, 1],
+475:                 false,
+476:                 "lawful"
+477:             ]),
+478:         );
+479:         let decoded = decode_sats_query_response::<BackendForageReceipt>(&response).unwrap();
+480:         assert_eq!(decoded[0].yielded_item_ids, ["yarrow", "nettle"]);
+481:         assert_eq!(decoded[0].yielded_quantities, [2, 1]);
+482:     }
+483: 
+484:     #[test]
+485:     fn sats_fixture_decodes_generated_data_carrying_sum() {
+486:         let reason = json!({ "Sum": { "variants": [
+487:             { "name": { "some": "PartyNotReady" }, "algebraic_type": { "Product": { "elements": [] } } },
+488:             { "name": { "some": "TravelRequired" }, "algebraic_type": { "Product": { "elements": [] } } },
+489:             { "name": { "some": "NightWindow" }, "algebraic_type": { "Product": { "elements": [] } } },
+490:             { "name": { "some": "TargetChanged" }, "algebraic_type": { "Product": { "elements": [] } } },
+491:             { "name": { "some": "ContactScheduleWindow" }, "algebraic_type": { "Product": { "elements": [] } } },
+492:             { "name": { "some": "ContactNotPresent" }, "algebraic_type": { "Product": { "elements": [] } } },
+493:             { "name": { "some": "CharacterUnavailable" }, "algebraic_type": { "Product": { "elements": [] } } },
+494:             { "name": { "some": "PartyRequired" }, "algebraic_type": { "Product": { "elements": [] } } }
+495:         ] } });
+496:         let unavailable = json!({ "Product": { "elements": [
+497:             { "name": { "some": "reason" }, "algebraic_type": reason },
+498:             { "name": { "some": "can_travel_to_required_site" }, "algebraic_type": { "Bool": [] } },
+499:             { "name": { "some": "wait_minutes" }, "algebraic_type": { "U32": [] } }
+500:         ] } });
+501:         let availability = AlgebraicType::Value(json!({ "Sum": { "variants": [
+502:             { "name": { "some": "Available" }, "algebraic_type": { "Product": { "elements": [] } } },
+503:             { "name": { "some": "Unavailable" }, "algebraic_type": unavailable }
+504:         ] } }));
+505:         let converted =
+506:             convert_spacetime_value_sats(&json!([1, [[1, []], true, 45]]), &availability).unwrap();
+507:         let decoded =
+508:             serde_json::from_value::<SerdeWrapper<InvestigationActionAvailability>>(converted)
+509:                 .unwrap()
+510:                 .0;
+511:         let InvestigationActionAvailability::Unavailable(details) = decoded else {
+512:             panic!("expected data-carrying unavailable variant");
+513:         };
+514:         assert_eq!(
+515:             details.reason,
+516:             InvestigationActionUnavailableReason::TravelRequired
+517:         );
+518:         assert!(details.can_travel_to_required_site);
+519:         assert_eq!(details.wait_minutes, 45);
+520:     }
+521: 
+522:     #[test]
+523:     fn sats_conversion_rejects_malformed_products_and_variants() {
+524:         let product = AlgebraicType::Value(json!({
+525:             "Product": { "elements": [
+526:                 { "name": { "some": "value" }, "algebraic_type": { "U64": [] } }
+527:             ] }
+528:         }));
+529:         assert!(convert_spacetime_value_sats(&json!([]), &product).is_err());
+530: 
+531:         let sum = AlgebraicType::Value(json!({ "Sum": { "variants": [
+532:             {
+533:                 "name": { "some": "Only" },
+534:                 "algebraic_type": { "Product": { "elements": [] } }
+535:             }
+536:         ] } }));
+537:         assert!(convert_spacetime_value_sats(&json!([1, []]), &sum).is_err());
+538:         assert!(convert_spacetime_value_sats(&json!([0]), &sum).is_err());
+539:     }
+540: }

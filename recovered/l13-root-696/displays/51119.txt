@@ -1,0 +1,201 @@
+SOURCE 2634 pr-working:crates/fabelgeist-cloth/src/triangulate/mod.rs
+211:     }
+212: 
+213:     (vertices, chains)
+214: }
+215: 
+216: /// A triangular lattice clipped to the interior.
+217: ///
+218: /// Rows are offset by half a spacing and spaced by `sqrt(3)/2` of it, which is
+219: /// the packing that makes every lattice triangle equilateral -- the best
+220: /// starting point for a uniform mesh.
+221: fn interior_points(outline: &[Vec2], target_edge: f32) -> Vec<Vec2> {
+222:     let mut minimum = outline[0];
+223:     let mut maximum = outline[0];
+224:     for point in outline {
+225:         minimum = Vec2::new(minimum.x.min(point.x), minimum.y.min(point.y));
+226:         maximum = Vec2::new(maximum.x.max(point.x), maximum.y.max(point.y));
+227:     }
+228: 
+229:     let row_height = target_edge * 0.866_025_4;
+230:     let rows = (((maximum.y - minimum.y) / row_height).ceil() as usize).max(1);
+231:     let columns = (((maximum.x - minimum.x) / target_edge).ceil() as usize).max(1);
+232: 
+233:     // A lattice point closer to the boundary than this would sit almost on top
+234:     // of a resampled boundary vertex and produce a sliver.
+235:     let clearance = target_edge * 0.65;
+236: 
+237:     let mut points = Vec::new();
+238:     for row in 0..=rows {
+239:         let y = minimum.y + row as f32 * row_height;
+240:         let offset = if row % 2 == 1 { target_edge * 0.5 } else { 0.0 };
+241:         for column in 0..=columns {
+242:             let lattice = Vec2::new(minimum.x + offset + column as f32 * target_edge, y);
+243:             // A perfect lattice puts four points on a common circle over and
+244:             // over, and the in-circle test cannot break those ties
+245:             // consistently -- which leaves the Delaunay hole non-star-shaped
+246:             // and the retriangulation overlapping itself. A small deterministic
+247:             // nudge removes the ties. It also makes a slightly better cloth:
+248:             // a perfectly regular mesh has its stretch constraints aligned to
+249:             // two axes, and folds along them in preference to any other
+250:             // direction.
+251:             let point = lattice + jitter(row, column) * (target_edge * 0.12);
+252:             if contains(outline, point) && distance_to_outline(outline, point) > clearance {
+253:                 points.push(point);
+254:             }
+255:         }
+256:     }
+257:     points
+258: }
+259: 
+260: /// A repeatable offset in `[-1, 1]^2` from a lattice coordinate. Deterministic,
+261: /// so the same panel always meshes the same way.
+262: fn jitter(row: usize, column: usize) -> Vec2 {
+263:     let mut hash =
+264:         (row as u32).wrapping_mul(0x9E37_79B9) ^ (column as u32).wrapping_mul(0x85EB_CA6B);
+265:     hash ^= hash >> 15;
+266:     hash = hash.wrapping_mul(0xC2B2_AE35);
+267:     hash ^= hash >> 13;
+268:     let x = (hash & 0xFFFF) as f32 / 32768.0 - 1.0;
+269:     let y = ((hash >> 16) & 0xFFFF) as f32 / 32768.0 - 1.0;
+270:     Vec2::new(x, y)
+271: }
+272: 
+273: /// Bowyer-Watson Delaunay triangulation.
+274: ///
+275: /// Quadratic in the point count, which is fine here: a panel is thousands of
+276: /// points at most, and this runs once when the garment is built rather than
+277: /// per frame.
+278: pub fn delaunay(points: &[Vec2]) -> Vec<[u32; 3]> {
+279:     if points.len() < 3 {
+280:         return Vec::new();
+281:     }
+282: 
+283:     // A triangle big enough to contain everything, whose vertices are appended
+284:     // past the real points and removed at the end.
+285:     let mut minimum = points[0];
+286:     let mut maximum = points[0];
+287:     for point in points {
+288:         minimum = Vec2::new(minimum.x.min(point.x), minimum.y.min(point.y));
+289:         maximum = Vec2::new(maximum.x.max(point.x), maximum.y.max(point.y));
+290:     }
+291:     let center = (minimum + maximum) * 0.5;
+292:     let span = (maximum - minimum).length().max(1e-6);
+293:     let far = span * 10.0;
+294: 
+295:     let mut working: Vec<Vec2> = points.to_vec();
+296:     let base = working.len() as u32;
+297:     working.push(center + Vec2::new(-far, -far));
+298:     working.push(center + Vec2::new(far, -far));
+299:     working.push(center + Vec2::new(0.0, far));
+300: 
+301:     let mut triangles: Vec<[u32; 3]> = vec![[base, base + 1, base + 2]];
+302: 
+303:     for index in 0..points.len() as u32 {
+304:         let point = working[index as usize];
+305: 
+306:         // Every triangle whose circumcircle contains the point loses its claim
+307:         // to the region; together they form a star-shaped hole.
+308:         let mut bad = Vec::new();
+309:         let mut kept = Vec::with_capacity(triangles.len());
+310:         for triangle in triangles.drain(..) {
+311:             if in_circumcircle(&working, triangle, point) {
+312:                 bad.push(triangle);
+313:             } else {
+314:                 kept.push(triangle);
+315:             }
+316:         }
+317:         triangles = kept;
+318: 
+319:         // The hole's boundary is the edges belonging to exactly one bad
+320:         // triangle; the shared ones are interior and go away with it.
+321:         let mut edges: Vec<([u32; 2], bool)> = Vec::new();
+322:         for triangle in &bad {
+323:             for pair in [
+324:                 [triangle[0], triangle[1]],
+325:                 [triangle[1], triangle[2]],
+326:                 [triangle[2], triangle[0]],
+327:             ] {
+328:                 let key = if pair[0] < pair[1] {
+329:                     [pair[0], pair[1]]
+330:                 } else {
+331:                     [pair[1], pair[0]]
+332:                 };
+333:                 if let Some(entry) = edges.iter_mut().find(|(e, _)| *e == key) {
+334:                     entry.1 = false;
+335:                 } else {
+336:                     edges.push((key, true));
+337:                 }
+338:             }
+339:         }
+340: 
+341:         for (edge, unique) in edges {
+342:             if unique {
+343:                 triangles.push([edge[0], edge[1], index]);
+344:             }
+345:         }
+346:     }
+347: 
+348:     triangles
+349:         .into_iter()
+350:         .filter(|triangle| triangle.iter().all(|&v| v < base))
+351:         .map(|triangle| orient(&working, triangle))
+352:         .collect()
+353: }
+354: 
+355: /// Counter-clockwise, so that every triangle in the output winds the same way.
+356: fn orient(points: &[Vec2], triangle: [u32; 3]) -> [u32; 3] {
+357:     let a = points[triangle[0] as usize];
+358:     let b = points[triangle[1] as usize];
+359:     let c = points[triangle[2] as usize];
+360:     let cross = (b - a).x * (c - a).y - (b - a).y * (c - a).x;
+361:     if cross < 0.0 {
+362:         [triangle[0], triangle[2], triangle[1]]
+363:     } else {
+364:         triangle
+365:     }
+366: }
+367: 
+368: fn in_circumcircle(points: &[Vec2], triangle: [u32; 3], point: Vec2) -> bool {
+369:     let a = points[triangle[0] as usize];
+370:     let b = points[triangle[1] as usize];
+371:     let c = points[triangle[2] as usize];
+372: 
+373:     // The standard determinant test, which needs a known orientation; the
+374:     // sign of the triangle's own area supplies it.
+375:     let area = (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
+376:     if area.abs() < 1e-20 {
+377:         // Degenerate triangle: no circumcircle to be inside of.
+378:         return false;
+379:     }
+380: 
+381:     let ax = a.x - point.x;
+382:     let ay = a.y - point.y;
+383:     let bx = b.x - point.x;
+384:     let by = b.y - point.y;
+385:     let cx = c.x - point.x;
+386:     let cy = c.y - point.y;
+387: 
+388:     let determinant = (ax * ax + ay * ay) * (bx * cy - by * cx)
+389:         - (bx * bx + by * by) * (ax * cy - ay * cx)
+390:         + (cx * cx + cy * cy) * (ax * by - ay * bx);
+391: 
+392:     // A point exactly on the circle is a tie, and answering it inconsistently
+393:     // for the several triangles that share it is what breaks the star shape of
+394:     // the hole. Scale the tolerance by the triangle so it means the same thing
+395:     // at any size, and always answer "outside" -- that keeps the existing
+396:     // triangle rather than opening a hole nothing closes.
+397:     let scale = (ax * ax + ay * ay)
+398:         .max(bx * bx + by * by)
+399:         .max(cx * cx + cy * cy);
+400:     let epsilon = 1e-6 * scale * area.abs();
+401:     if determinant.abs() <= epsilon {
+402:         return false;
+403:     }
+404: 
+405:     if area > 0.0 {
+406:         determinant > 0.0
+407:     } else {
+408:         determinant < 0.0
+409:     }
+410: }

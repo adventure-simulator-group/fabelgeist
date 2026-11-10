@@ -1,0 +1,10 @@
+500:             crate::location_urls::encode_component(&form.challenge_id.to_string())
+501:         ))
+502:         .into_response(),
+503:         Err(error) => (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
+504:     }
+505: }
+506: 
+507: fn direct_demo_challenge_redirect(
+508:     challenges: &[BackendChallenge],
+509:     road_challenges: &[BackendRoadChallenge],

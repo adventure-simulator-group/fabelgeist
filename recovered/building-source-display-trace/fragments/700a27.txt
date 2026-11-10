@@ -1,0 +1,256 @@
+SOURCE crates/adventuresim-building-generator/src/viewer/timber_suite.rs a11aed2b511925d16c9f0701ea463c34777e3e4c55586acdad30b7d0f912d8cf
+1: 
+2: fn timber_proof_specs() -> Vec<(String, BuildingArchetype, ViewerView)> {
+3:     let mut specs = Vec::new();
+4:     for archetype in TIMBER_ARCHETYPES {
+5:         for view in [
+6:             ViewerView::TimberWholeExterior,
+7:             ViewerView::TimberFrameFacade,
+8:             ViewerView::TimberRegistrationCut,
+9:             ViewerView::TimberSupportLoad,
+10:             ViewerView::TimberProgramDetail,
+11:         ] {
+12:             let suffix = timber_proof_suffix(view).expect("timber view suffix");
+13:             specs.push((
+14:                 format!("timber-{}-{suffix}", archetype.slug()),
+15:                 archetype,
+16:                 view,
+17:             ));
+18:         }
+19:     }
+20:     specs.extend([
+21:         (
+22:             "timber-opening-bay-exterior".to_owned(),
+23:             BuildingArchetype::FachwerkMerchantHouse,
+24:             ViewerView::TimberOpeningBayExterior,
+25:         ),
+26:         (
+27:             "timber-opening-bay-interior".to_owned(),
+28:             BuildingArchetype::FachwerkMerchantHouse,
+29:             ViewerView::TimberOpeningBayInterior,
+30:         ),
+31:         (
+32:             "timber-opening-bay-section".to_owned(),
+33:             BuildingArchetype::FachwerkMerchantHouse,
+34:             ViewerView::TimberOpeningBaySection,
+35:         ),
+36:         (
+37:             "timber-joint-close".to_owned(),
+38:             BuildingArchetype::TownHouse,
+39:             ViewerView::TimberJointClose,
+40:         ),
+41:         (
+42:             "timber-jetty-exterior".to_owned(),
+43:             BuildingArchetype::FachwerkMerchantHouse,
+44:             ViewerView::TimberJettyExterior,
+45:         ),
+46:         (
+47:             "timber-jetty-underside".to_owned(),
+48:             BuildingArchetype::FachwerkMerchantHouse,
+49:             ViewerView::TimberJettyUnderside,
+50:         ),
+51:         (
+52:             "timber-jetty-load".to_owned(),
+53:             BuildingArchetype::FachwerkMerchantHouse,
+54:             ViewerView::TimberJettyLoad,
+55:         ),
+56:         (
+57:             "timber-gable-roof-bearing".to_owned(),
+58:             BuildingArchetype::FachwerkCottage,
+59:             ViewerView::TimberGableRoofBearing,
+60:         ),
+61:         (
+62:             "timber-dormer-trimmer".to_owned(),
+63:             BuildingArchetype::FachwerkMerchantHouse,
+64:             ViewerView::TimberDormerTrimmer,
+65:         ),
+66:         (
+67:             "timber-townhall-masonry-junction".to_owned(),
+68:             BuildingArchetype::RenaissanceTownHall,
+69:             ViewerView::TimberTownHallJunction,
+70:         ),
+71:     ]);
+72:     specs
+73: }
+74: 
+75: #[derive(Clone, Debug, Default, Deserialize)]
+76: struct TimberSuiteManifest {
+77:     fixture: String,
+78:     view: String,
+79:     seed: Seed,
+80:     resolver_schema_version: u16,
+81:     source_revision: String,
+82:     source_dirty_fingerprint: String,
+83:     plan_hash: String,
+84:     resolved_geometry_hash: String,
+85:     timber_program_hash: String,
+86:     timber_program: Option<String>,
+87:     timber_assembly_id: Option<u64>,
+88:     timber_member_ids: Vec<u64>,
+89:     timber_joint_ids: Vec<u64>,
+90:     timber_node_ids: Vec<u64>,
+91:     timber_focused_roles: Vec<String>,
+92:     timber_role_item_ids: std::collections::BTreeMap<String, Vec<u64>>,
+93:     timber_role_bounds_fraction: std::collections::BTreeMap<String, [f32; 4]>,
+94:     timber_target_component_ids: Vec<String>,
+95:     timber_focus_interface_ids: Vec<u64>,
+96:     timber_required_roles: Vec<String>,
+97:     timber_cut_plane: Option<[f32; 4]>,
+98:     timber_removed_target_item_ids: Vec<u64>,
+99:     timber_legend_visible: bool,
+100:     focused_resolved_item_ids: Vec<u64>,
+101:     focused_resolved_void_ids: Vec<u64>,
+102:     focused_roof_item_ids: Vec<u64>,
+103:     section_removed_item_ids: Vec<u64>,
+104:     visible_focused_resolved_item_count: usize,
+105:     focused_bounds_fraction: [f32; 4],
+106:     section_cut_applied: bool,
+107:     section_annotation_visible: bool,
+108:     pixel_hash: String,
+109:     plan_audit_issue_count: usize,
+110:     validation_passed: bool,
+111: }
+112: 
+113: pub(crate) fn validate_timber_suite(directory: &std::path::Path) -> Result<(), String> {
+114:     let specs = timber_proof_specs();
+115:     let actual_count = fs::read_dir(directory)
+116:         .map_err(|error| format!("read {}: {error}", directory.display()))?
+117:         .filter_map(Result::ok)
+118:         .filter(|entry| {
+119:             entry
+120:                 .file_name()
+121:                 .to_string_lossy()
+122:                 .ends_with(".capture.json")
+123:         })
+124:         .count();
+125:     if actual_count != specs.len() {
+126:         return Err(format!(
+127:             "expected exactly {} timber manifests, found {actual_count}",
+128:             specs.len()
+129:         ));
+130:     }
+131:     let mut records = Vec::new();
+132:     for (slug, archetype, view) in specs {
+133:         let path = directory.join(format!("{slug}.capture.json"));
+134:         let manifest: TimberSuiteManifest = serde_json::from_slice(
+135:             &fs::read(&path).map_err(|error| format!("read {}: {error}", path.display()))?,
+136:         )
+137:         .map_err(|error| format!("parse {}: {error}", path.display()))?;
+138:         records.push((slug, archetype, view, manifest));
+139:     }
+140:     validate_timber_suite_records(&records)
+141: }
+142: 
+143: pub(crate) fn validate_artillery_suite(directory: &std::path::Path) -> Result<(), String> {
+144:     const VIEWS: [&str; 20] = [
+145:         "artillery-whole-exterior",
+146:         "artillery-whole-courtyard",
+147:         "artillery-whole-top",
+148:         "artillery-whole-longitudinal-cut",
+149:         "artillery-whole-transverse-cut",
+150:         "artillery-trace-plan",
+151:         "artillery-curtain-section",
+152:         "artillery-curtain-terreplein",
+153:         "artillery-rondel-exterior",
+154:         "artillery-rondel-casemate",
+155:         "artillery-rondel-cutaway",
+156:         "artillery-rondel-top",
+157:         "artillery-gate-approach",
+158:         "artillery-gate-interior",
+159:         "artillery-bridge-deployed",
+160:         "artillery-bridge-denied",
+161:         "artillery-circulation",
+162:         "artillery-drainage",
+163:         "artillery-support-dag",
+164:         "artillery-fire-plan",
+165:     ];
+166:     validate_compact_evidence_suite(
+167:         directory,
+168:         &VIEWS
+169:             .iter()
+170:             .map(|name| (*name, "artillery-rondel-castle"))
+171:             .collect::<Vec<_>>(),
+172:         true,
+173:     )
+174: }
+175: 
+176: pub(crate) fn validate_final_building_suite(directory: &std::path::Path) -> Result<(), String> {
+177:     const SPECS: [(&str, &str); 10] = [
+178:         ("final-town-house-regression", "town-house"),
+179:         ("final-hall-house-regression", "hall-house"),
+180:         ("final-fachwerk-cottage-regression", "fachwerk-cottage"),
+181:         (
+182:             "final-fachwerk-merchant-regression",
+183:             "fachwerk-merchant-house",
+184:         ),
+185:         (
+186:             "final-renaissance-town-hall-regression",
+187:             "renaissance-town-hall",
+188:         ),
+189:         ("final-cathedral-regression", "cathedral"),
+190:         ("final-castle-gatehouse-regression", "castle-gatehouse"),
+191:         ("final-courtyard-castle-regression", "courtyard-castle"),
+192:         ("final-walled-keep-regression", "walled-keep"),
+193:         (
+194:             "final-artillery-rondel-castle-regression",
+195:             "artillery-rondel-castle",
+196:         ),
+197:     ];
+198:     validate_compact_evidence_suite(directory, &SPECS, false)
+199: }
+200: 
+201: fn validate_compact_evidence_suite(
+202:     directory: &std::path::Path,
+203:     specs: &[(&str, &str)],
+204:     artillery: bool,
+205: ) -> Result<(), String> {
+206:     let mut revision = None::<String>;
+207:     let mut dirty = None::<String>;
+208:     let mut pixels = std::collections::HashSet::new();
+209:     let mut ordinary_plan = None::<String>;
+210:     for (stem, fixture) in specs {
+211:         let capture_path = directory.join(format!("{stem}.capture.json"));
+212:         let png = directory.join(format!("{stem}.png"));
+213:         let plan = directory.join(format!("{stem}.plan.json"));
+214:         if !png.is_file() || !plan.is_file() {
+215:             return Err(format!("{stem} lacks PNG or plan evidence"));
+216:         }
+217:         let value: serde_json::Value = serde_json::from_slice(
+218:             &fs::read(&capture_path)
+219:                 .map_err(|error| format!("{}: {error}", capture_path.display()))?,
+220:         )
+221:         .map_err(|error| format!("{}: {error}", capture_path.display()))?;
+222:         let string = |key: &str| {
+223:             value
+224:                 .get(key)
+225:                 .and_then(serde_json::Value::as_str)
+226:                 .unwrap_or("")
+227:                 .to_owned()
+228:         };
+229:         let section = value
+230:             .get("section_cut_applied")
+231:             .and_then(serde_json::Value::as_bool)
+232:             == Some(true);
+233:         let section_correspondence = section
+234:             && value
+235:                 .get("section_removed_item_ids")
+236:                 .and_then(serde_json::Value::as_array)
+237:                 .is_some_and(|ids| !ids.is_empty());
+238:         if string("fixture") != *fixture
+239:             || value
+240:                 .get("plan_audit_issue_count")
+241:                 .and_then(serde_json::Value::as_u64)
+242:                 != Some(0)
+243:             || value
+244:                 .get("mesh_integrity_issue_count")
+245:                 .and_then(serde_json::Value::as_u64)
+246:                 != Some(0)
+247:             || value
+248:                 .get("resolver_schema_version")
+249:                 .and_then(serde_json::Value::as_u64)
+250:                 != Some(2)
+251:             || (!section_correspondence
+252:                 && string("resolved_solid_multiset_hash") != string("rendered_geometry_hash"))
+253:         {
+254:             return Err(format!(
+255:                 "{stem} fails fixture/audit/schema/render correspondence"

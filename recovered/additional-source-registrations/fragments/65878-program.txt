@@ -1,0 +1,8 @@
+from pathlib import Path
+from datetime import datetime,timezone
+import json,hashlib
+r=Path('target/726-audit-continuation-20261030/target/726-audit-adler-20261027').resolve();a=r/'adler-continuation-20261030';bad=a/'REGISTRATION-ROOT-L12-BUILDING-AUDIT-ISSUES-003.json';v=json.loads(bad.read_bytes());s=v['sources'][0];s.update(ranges=[[301,311]],uncredited_assessment_lines_registered=11);assert s['actual_EOF']==311
+v.update(registered_at=datetime.now(timezone.utc).isoformat(),uncredited_total_source_lines_registered=11,superseded_invalid_registration=dict(path=bad.relative_to(r).as_posix(),sha256=hashlib.sha256(bad.read_bytes()).hexdigest(),reason='003 registered301..314 beyond actualEOF311; body output22bfc7 ended IndexError. Not adopted and no credit.004 prospectively bounds exact301..311 before reread.'))
+p=a/'REGISTRATION-ROOT-L12-BUILDING-AUDIT-ISSUES-004.json'
+with p.open('x',encoding='utf-8',newline='\n')as f:f.write(json.dumps(v,indent=2)+'\n')
+print(p.name,hashlib.sha256(p.read_bytes()).hexdigest())

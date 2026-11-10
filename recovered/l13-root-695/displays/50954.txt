@@ -1,0 +1,190 @@
+SOURCE 2629 pr-working:crates/fabelgeist-garment-code/src/pattern/spec.rs
+1: //! The sewing-pattern specification -- the JSON format shared with the
+2: //! GarmentCodeData dataset.
+3: //!
+4: //! Ports the data model of `pygarment.pattern.core`.
+5: 
+6: use crate::math::{V2, V3};
+7: 
+8: /// Edge curvature, in the edge's own local frame.
+9: #[derive(Debug, Clone, PartialEq)]
+10: pub enum Curvature {
+11:     /// SVG-style circular arc.
+12:     Circle {
+13:         radius: f64,
+14:         large_arc: bool,
+15:         right: bool,
+16:     },
+17:     /// One control point.
+18:     Quadratic { params: Vec<V2> },
+19:     /// Two control points.
+20:     Cubic { params: Vec<V2> },
+21: }
+22: 
+23: impl Curvature {
+24:     /// Flip the local Y of every control point -- used when a panel is mirrored
+25:     /// during edge-loop normalisation.
+26:     pub fn flip_y(&mut self) {
+27:         match self {
+28:             Curvature::Circle { right, .. } => *right = !*right,
+29:             Curvature::Quadratic { params } | Curvature::Cubic { params } => {
+30:                 for p in params.iter_mut() {
+31:                     p[1] = -p[1];
+32:                 }
+33:             }
+34:         }
+35:     }
+36: }
+37: 
+38: #[derive(Debug, Clone, PartialEq)]
+39: pub struct EdgeSpec {
+40:     pub endpoints: [usize; 2],
+41:     pub label: Option<String>,
+42:     pub curvature: Option<Curvature>,
+43: }
+44: 
+45: #[derive(Debug, Clone, PartialEq)]
+46: pub struct PanelSpec {
+47:     pub translation: V3,
+48:     /// Euler angles in degrees.
+49:     pub rotation: V3,
+50:     pub vertices: Vec<V2>,
+51:     pub edges: Vec<EdgeSpec>,
+52:     pub label: Option<String>,
+53: }
+54: 
+55: #[derive(Debug, Clone, PartialEq)]
+56: pub struct StitchSide {
+57:     pub panel: String,
+58:     pub edge: usize,
+59: }
+60: 
+61: #[derive(Debug, Clone, PartialEq)]
+62: pub struct Stitch {
+63:     pub sides: [StitchSide; 2],
+64:     /// Stitch this side's right face to the other's wrong face.
+65:     pub right_wrong: bool,
+66: }
+67: 
+68: #[derive(Debug, Clone, PartialEq)]
+69: pub struct Properties {
+70:     pub curvature_coords: String,
+71:     pub normalize_panel_translation: bool,
+72:     pub normalized_edge_loops: bool,
+73:     pub units_in_meter: i64,
+74: }
+75: 
+76: impl Default for Properties {
+77:     fn default() -> Self {
+78:         Self {
+79:             curvature_coords: "relative".into(),
+80:             normalize_panel_translation: false,
+81:             normalized_edge_loops: true,
+82:             units_in_meter: 100,
+83:         }
+84:     }
+85: }
+86: 
+87: /// A whole pattern: named panels plus the stitches joining them.
+88: #[derive(Debug, Clone, PartialEq)]
+89: pub struct PatternSpec {
+90:     pub name: String,
+91:     /// Panels in insertion order.
+92:     pub panels: Vec<(String, PanelSpec)>,
+93:     pub stitches: Vec<Stitch>,
+94:     pub panel_order: Option<Vec<String>>,
+95:     pub properties: Properties,
+96: }
+97: 
+98: impl PatternSpec {
+99:     pub fn empty() -> Self {
+100:         Self {
+101:             name: String::new(),
+102:             panels: Vec::new(),
+103:             stitches: Vec::new(),
+104:             panel_order: None,
+105:             properties: Properties::default(),
+106:         }
+107:     }
+108: 
+109:     pub fn panel(&self, name: &str) -> Option<&PanelSpec> {
+110:         self.panels.iter().find(|(n, _)| n == name).map(|(_, p)| p)
+111:     }
+112: 
+113:     pub fn panel_mut(&mut self, name: &str) -> Option<&mut PanelSpec> {
+114:         self.panels
+115:             .iter_mut()
+116:             .find(|(n, _)| n == name)
+117:             .map(|(_, p)| p)
+118:     }
+119: 
+120:     pub fn panel_names(&self) -> Vec<String> {
+121:         self.panels.iter().map(|(n, _)| n.clone()).collect()
+122:     }
+123: 
+124:     /// Merge another pattern's panels and stitches into this one.
+125:     pub fn merge(&mut self, other: PatternSpec) {
+126:         for (name, panel) in other.panels {
+127:             match self.panel_mut(&name) {
+128:                 Some(slot) => *slot = panel,
+129:                 None => self.panels.push((name, panel)),
+130:             }
+131:         }
+132:         self.stitches.extend(other.stitches);
+133:     }
+134: }
+135: 
+136: // ----- JSON output -----
+137: //
+138: // Hand-rolled rather than via `serde_json`, so that key order matches the
+139: // reference byte for byte (Python dicts preserve insertion order) without
+140: // forcing a `preserve_order` feature on the rest of the workspace.
+141: 
+SOURCE 2630 pr-working:crates/fabelgeist-garment-code/src/pattern/core.rs
+1: //! Operations on whole patterns: panel ordering, edge-loop normalisation and
+2: //! serialisation.
+3: //!
+4: //! Ports the behavioural half of `pygarment.pattern.core.BasicPattern`.
+5: 
+6: use std::path::{Path, PathBuf};
+7: 
+8: use anyhow::{Context, Result};
+9: 
+10: use crate::curve::Curve;
+11: use crate::math::*;
+12: 
+13: use super::spec::{Curvature, EdgeSpec, PanelSpec, PatternSpec};
+14: 
+67: pub fn edge_as_curve(vertices: &[V2], edge: &EdgeSpec, flip_y: bool) -> Curve {
+68:     let start = vertices[edge.endpoints[0]];
+69:     let end = vertices[edge.endpoints[1]];
+70:     let sign = if flip_y { -1.0 } else { 1.0 };
+71: 
+72:     match &edge.curvature {
+73:         None => Curve::line(start, end),
+74:         Some(Curvature::Quadratic { params }) => {
+75:             let c = rel_to_abs_2d(start, end, [params[0][0], sign * params[0][1]]);
+76:             Curve::quad(start, c, end)
+77:         }
+78:         Some(Curvature::Cubic { params }) => {
+79:             let c1 = rel_to_abs_2d(start, end, [params[0][0], sign * params[0][1]]);
+80:             let c2 = rel_to_abs_2d(start, end, [params[1][0], sign * params[1][1]]);
+81:             Curve::cubic(start, c1, c2, end)
+82:         }
+83:         Some(Curvature::Circle {
+84:             radius,
+85:             large_arc,
+86:             right,
+87:         }) => {
+88:             let sweep = if flip_y { !*right } else { *right };
+89:             Curve::Arc(crate::curve::Arc::new(
+90:                 start,
+91:                 [*radius, *radius],
+92:                 0.0,
+93:                 *large_arc,
+94:                 sweep,
+95:                 end,
+96:             ))
+97:         }
+98:     }
+99: }

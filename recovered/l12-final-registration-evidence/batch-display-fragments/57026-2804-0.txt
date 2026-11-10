@@ -1,0 +1,80 @@
+1: //! Private challenge records and their resolution-derived lifecycle.
+2: 
+3: use super::{ChallengePresenterCatalogId, NarrativeEncounterTrigger};
+4: use adventuresim_core::strategic_place::CaseSiteId;
+5: use adventuresim_world_schema::calendar::StrategicMinute;
+6: use spacetimedb::table;
+7: 
+8: #[cfg(feature = "authority-tests")]
+9: mod authority_tests;
+10: 
+11: /// A chat-native, non-puzzle interruption that becomes available only after
+12: /// resting at its bound road camp. Choice presence owns resolution; openness
+13: /// is derived. Ignoring it grants nothing but may carry a
+14: /// bounded travel delay; choosing another response may affect the finale.
+15: #[derive(Clone, Debug)]
+16: #[table(accessor = road_challenge_authority)]
+17: pub struct RoadChallengeAuthority {
+18:     #[primary_key]
+19:     pub id: String,
+20:     #[index(btree)]
+21:     pub gateway_bucket: u8,
+22:     #[index(btree)]
+23:     pub party_id: String,
+24:     pub case_id: String,
+25:     pub finale_case_site_id: Option<CaseSiteId>,
+26:     pub finale_hostile_group_id: String,
+27:     pub journey_departure_minute: StrategicMinute,
+28:     pub camp_movement_minute: u64,
+29:     pub available_at_elapsed_minute: u64,
+30:     pub catalog_id: String,
+31:     pub catalog_revision: u32,
+32:     pub catalog_digest: String,
+33:     pub absolute_minute: StrategicMinute,
+34:     pub longitude_e7: i32,
+35:     pub latitude_e7: i32,
+36:     pub trigger: NarrativeEncounterTrigger,
+37:     pub revision: u32,
+38:     pub resolved_choice: Option<String>,
+39:     pub resolved_deed: Option<String>,
+40:     pub virtue_exemplified: Option<crate::personality::ChivalricVirtue>,
+41:     pub result_transcript: Option<String>,
+42: }
+43: 
+44: /// Private deterministic challenge authority. `puzzle_json` contains the seed
+45: /// and canonical ordering and must never appear in a public table or view.
+46: /// The solve timestamp owns completion; wrong attempts only advance revision.
+47: #[derive(Clone, Debug)]
+48: #[table(accessor = challenge_authority)]
+49: pub struct ChallengeAuthority {
+50:     #[primary_key]
+51:     pub id: String,
+52:     #[index(btree)]
+53:     pub gateway_bucket: u8,
+54:     #[index(btree)]
+55:     pub case_id: String,
+56:     #[index(btree)]
+57:     pub party_id: String,
+58:     pub finale_case_site_id: CaseSiteId,
+59:     pub finale_hostile_group_id: String,
+60:     pub journey_departure_minute: StrategicMinute,
+61:     pub camp_movement_minute: u64,
+62:     pub camp_elapsed_minute: u64,
+63:     pub errantry_frame_json: String,
+64:     pub puzzle_json: String,
+65:     pub presenter_catalog_id: ChallengePresenterCatalogId,
+66:     pub revision: u32,
+67:     pub solved_at_minute: Option<StrategicMinute>,
+68: }
+69: 
+70: impl ChallengeAuthority {
+71:     pub(crate) fn is_open(&self) -> bool {
+72:         self.solved_at_minute.is_none()
+73:     }
+74: }
+75: 
+76: impl RoadChallengeAuthority {
+77:     pub(crate) fn is_open(&self) -> bool {
+78:         self.resolved_choice.is_none()
+79:     }
+80: }

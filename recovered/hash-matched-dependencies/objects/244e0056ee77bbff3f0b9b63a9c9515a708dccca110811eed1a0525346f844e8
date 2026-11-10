@@ -1,0 +1,49 @@
+{
+  "at": "2026-10-31T07:50:24.892367+00:00",
+  "author": "/root",
+  "result": "passed",
+  "independent_agent_review": false,
+  "original_before": 1393,
+  "original_after": 1399,
+  "fresh_root_ordered_lines": 1875,
+  "new_questions": [],
+  "revisited_contracts": [
+    "ADLER-L11-RAGDOLL-SEED-PREFLIGHT",
+    "ROOT-L13-1331-POSE-PUBLICATION-OUTCOME",
+    "ROOT-L13-1331-POSE-TERRAIN-NUMERIC-ADMISSION",
+    "ROOT-L13-1356-FIXED-POSE-CACHE-LIFETIME"
+  ],
+  "ledger": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/evidence/continuation-segovb/ledger.json",
+    "sha256": "4ff89efeaeac351531deeedc2a6d42bd160ed5d2658781675d48b5cde9c6bde1"
+  },
+  "selector": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/CURRENT-ADLER.json",
+    "sha256": "e825d0e065fbe1c3c382badd028a0ce43df6b2f7841233a42b28f177d8a35348"
+  },
+  "closure_queue": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/workflow-20261030/CLOSURE-QUEUE-186.json",
+    "sha256": "b423d4e4608f1cb926b939d5ba83f209bb92f20481ac2b44010aa5e9fc94a686"
+  },
+  "selected_lenses": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/SELECTED-LENSES-CONTINUATION-045.json",
+    "sha256": "7a0729dea167a6201b9d060c7b1ec18d23292cdb4f6241641e115fd7c9fe3361"
+  },
+  "receipt": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/segovb/READ-L13-PARALLEL-353.json",
+    "sha256": "2153836f0dc817b16314591ad24b6f326ddf530c0f6a567bf563bec6974d4ec4"
+  },
+  "state": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/segovb/STATE-L13-PARALLEL-353.json",
+    "sha256": "09fd859806e77e885960831ecdd70f196094019f666c115d830b0f084cb1f662"
+  },
+  "checks": [
+    "Exact raw authority archives preserved.",
+    "Other 12 lens selections, populations, future reuse proofs and connected receipts unchanged.",
+    "Six originals and 1875 lines fully read under two prospective registrations; four additive views, no new questions.",
+    "Prior acceptance and closure requirements preserved.",
+    "Strict v10 receipt binds exact source, registration and plan checks; no new qualifications."
+  ],
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

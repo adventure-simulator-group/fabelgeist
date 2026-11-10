@@ -1,0 +1,113 @@
+SOURCE 2741
+1: use super::*;
+2: 
+3: pub(in crate::autoresolve) fn melee_assignment(
+4:     attacker_index: usize,
+5:     attackers: &[Combatant],
+6:     defenders: &[Combatant],
+7:     parameters: crate::combat::AutoresolveParameters,
+8: ) -> (usize, f32) {
+9:     let mut ordered = active_melee_indices(defenders);
+10:     ordered.extend(active_ranged_indices(defenders));
+11:     for index in active_indices(defenders) {
+12:         if !ordered.contains(&index) {
+13:             ordered.push(index);
+14:         }
+15:     }
+16:     debug_assert!(!ordered.is_empty());
+17:     let rank = attackers[..=attacker_index]
+18:         .iter()
+19:         .filter(|combatant| {
+20:             !combatant.is_defeated()
+21:                 && combatant.can_attack_melee()
+22:                 && preferred_attack_mode(combatant) == BattleAttackKind::Melee
+23:         })
+24:         .count()
+25:         .saturating_sub(1);
+26:     let target = ordered[rank % ordered.len()];
+27:     (
+28:         target,
+29:         if rank >= ordered.len() {
+30:             parameters.outnumbered_flanking
+31:         } else {
+32:             0.0
+33:         },
+34:     )
+35: }
+36: 
+37: pub(in crate::autoresolve) fn active_indices(side: &[Combatant]) -> Vec<usize> {
+38:     side.iter()
+39:         .enumerate()
+40:         .filter_map(|(index, combatant)| (!combatant.is_defeated()).then_some(index))
+41:         .collect()
+42: }
+43: 
+44: pub(in crate::autoresolve) fn active_melee_indices(side: &[Combatant]) -> Vec<usize> {
+45:     side.iter()
+46:         .enumerate()
+47:         .filter_map(|(index, combatant)| {
+48:             (!combatant.is_defeated()
+49:                 && combatant.can_attack_melee()
+50:                 && preferred_attack_mode(combatant) == BattleAttackKind::Melee)
+51:                 .then_some(index)
+52:         })
+53:         .collect()
+54: }
+55: 
+56: pub(in crate::autoresolve) fn active_ranged_indices(side: &[Combatant]) -> Vec<usize> {
+57:     side.iter()
+58:         .enumerate()
+59:         .filter_map(|(index, combatant)| {
+60:             (!combatant.is_defeated() && combatant.can_attack_ranged()).then_some(index)
+61:         })
+62:         .collect()
+63: }
+64: 
+65: pub(in crate::autoresolve) fn prioritized_ranged_targets(side: &[Combatant]) -> Vec<usize> {
+66:     let ranged = active_ranged_indices(side);
+67:     if ranged.is_empty() {
+68:         active_indices(side)
+69:     } else {
+70:         ranged
+71:     }
+72: }
+SOURCE 2742
+1: #![doc = include_str!("../README.md")]
+2: // ^ if you are working on docs, go read the top comment of README.md please.
+3: 
+4: use core::cell::{Cell, LazyCell, OnceCell, RefCell};
+5: use core::ops::Deref;
+6: use spacetimedb_lib::bsatn;
+7: use std::rc::Rc;
+8: 
+9: #[cfg(feature = "unstable")]
+10: mod client_visibility_filter;
+11: pub mod http;
+12: pub mod log_stopwatch;
+13: mod logger;
+14: #[cfg(feature = "rand08")]
+15: mod rng;
+16: #[doc(hidden)]
+17: pub mod rt;
+18: #[doc(hidden)]
+19: pub mod table;
+20: 
+21: #[doc(hidden)]
+22: pub use spacetimedb_query_builder as query_builder;
+23: 
+24: #[cfg(feature = "unstable")]
+25: pub use client_visibility_filter::Filter;
+26: pub use log;
+27: #[cfg(feature = "rand")]
+28: pub use rand08 as rand;
+29: #[cfg(feature = "rand")]
+30: use rand08::RngCore;
+31: #[cfg(feature = "rand08")]
+32: pub use rng::StdbRng;
+33: pub use sats::SpacetimeType;
+34: #[doc(hidden)]
+37: pub use spacetimedb_lib;
+38: pub use spacetimedb_lib::db::raw_def::v10::CaseConversionPolicy;
+39: pub use spacetimedb_lib::de::{Deserialize, DeserializeOwned};
+40: pub use spacetimedb_lib::sats;
+41: pub use spacetimedb_lib::ser::Serialize;

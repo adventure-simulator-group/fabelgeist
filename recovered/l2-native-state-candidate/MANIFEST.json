@@ -1,0 +1,47 @@
+{
+  "schema": "726-l2-native-state-candidate-v1",
+  "source_write_ordinal": 73050,
+  "target_state_sha256": "d16c39775477164d99d6fd78aff7231465301bdfecf398a0b50b3c9e83c20299",
+  "predecessor_sha256": "e0945cab01ecd08b259aca5cb769e84644b71a18fc296ab3a6c0d97ef4027374",
+  "search_window_utc": "2026-11-02T19:00:11.711Z through 2026-11-02T19:00:21.401Z",
+  "searched_through_utc": "2026-11-02T19:00:12.422442+00:00",
+  "files": [
+    {
+      "file": "READ-TEMPLATE.json",
+      "sha256": "55bef710d41377d62064abfa28eebfc32de6bfd978ab4ef179d180b04165bf11"
+    },
+    {
+      "file": "POLICY-TEMPLATE.json",
+      "sha256": "ce9b22ea1a74cc71e0be6b068b684b0f2336a6b29c5ff7da0665ae90f28d22e7"
+    },
+    {
+      "file": "STATE-TEMPLATE.json",
+      "sha256": "51e7e37004124eb4233f59fa89dc28f56f70ca40ea0790a699b8534b0eb34814"
+    }
+  ],
+  "placeholders": {
+    "STAMP": "original write timestamp",
+    "READHASH": "SHA-256 of substituted receipt template",
+    "POLICYHASH": "SHA-256 of substituted policy template"
+  },
+  "candidate_sdk_registration_refs": "../l2-native-registration-evidence/MANIFEST.json",
+  "qualification": "Original state matches the independently printed state reference; receipt and policy match references inside that state. SDK registration 002 and 003 bytes match receipt references, and rejected 001 matches registration 002 predecessor. Historical uncredited scope and open implementation gates remain unchanged.",
+  "hash_matched": true,
+  "matched_timestamp": "2026-11-02T19:00:12.422442+00:00",
+  "read_sha256": "78797ac962c6a865ec6b8ad1b50aa04846ac0a3815a2c612b403c981ad0c1857",
+  "policy_sha256": "bf04199ca61c4c867fe609f3e925aabea82c2c69b9a03e18aad3e8dacc56c5bf",
+  "originals": [
+    {
+      "file": "d16c39775477164d99d6fd78aff7231465301bdfecf398a0b50b3c9e83c20299",
+      "sha256": "d16c39775477164d99d6fd78aff7231465301bdfecf398a0b50b3c9e83c20299"
+    },
+    {
+      "file": "78797ac962c6a865ec6b8ad1b50aa04846ac0a3815a2c612b403c981ad0c1857",
+      "sha256": "78797ac962c6a865ec6b8ad1b50aa04846ac0a3815a2c612b403c981ad0c1857"
+    },
+    {
+      "file": "bf04199ca61c4c867fe609f3e925aabea82c2c69b9a03e18aad3e8dacc56c5bf",
+      "sha256": "bf04199ca61c4c867fe609f3e925aabea82c2c69b9a03e18aad3e8dacc56c5bf"
+    }
+  ]
+}

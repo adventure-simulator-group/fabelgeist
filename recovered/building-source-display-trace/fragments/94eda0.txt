@@ -1,0 +1,221 @@
+SOURCE crates/adventuresim-building-generator/src/viewer/fortification_rendering.rs
+441:         0.28,
+442:         upper_height,
+443:         upper_base + upper_height * 0.5,
+444:         "gate guard chamber observation lintel",
+445:     );
+446:     spawn_wall_local_box(
+447:         world,
+448:         &palette.void,
+449:         centre,
+450:         tangent,
+451:         outward,
+452:         observation_along,
+453:         half_depth + 0.02,
+454:         observation_width * 0.9,
+455:         0.05,
+456:         observation_height * 0.9,
+457:         observation_sill + observation_height * 0.5,
+458:         "gate guard chamber outward firing opening",
+459:     );
+460: 
+461:     for sign in [-1.0, 1.0] {
+462:         if view == ViewerView::GateDetailInterior && sign > 0.0 {
+463:             continue;
+464:         }
+465:         spawn_wall_local_box(
+466:             world,
+467:             &palette.stone,
+468:             centre,
+469:             tangent,
+470:             outward,
+471:             sign * (half_along - 0.14),
+472:             0.0,
+473:             0.28,
+474:             depth_size,
+475:             chamber.clear_height_metres,
+476:             wall_mid_y,
+477:             "gate guard chamber side wall",
+478:         );
+479:     }
+480:     {
+481:         let door = chamber.access.door;
+482:         let top_opening = chamber.access.top_walk_opening;
+483:         let door_along = (door.position - chamber.centre).dot(tangent);
+484:         let top_along = (top_opening.position - chamber.centre).dot(tangent);
+485:         let top_left = top_along - top_opening.width_metres * 0.5;
+486:         let top_right = top_along + top_opening.width_metres * 0.5;
+487:         let door_left = door_along - door.width_metres * 0.5;
+488:         let door_right = door_along + door.width_metres * 0.5;
+489:         for (wall_section, (start, end)) in [
+490:             (-half_along, top_left),
+491:             (top_right, door_left),
+492:             (door_right, half_along),
+493:         ]
+494:         .into_iter()
+495:         .enumerate()
+496:         {
+497:             if view == ViewerView::GateDetailInterior && wall_section == 1 {
+498:                 continue;
+499:             }
+500:             let width = end - start;
+501:             let along = (start + end) * 0.5;
+502:             if width > 0.05 {
+503:                 spawn_wall_local_box(
+504:                     world,
+505:                     &palette.stone,
+506:                     centre,
+507:                     tangent,
+508:                     outward,
+509:                     along,
+510:                     -half_depth,
+511:                     width,
+512:                     0.28,
+513:                     chamber.clear_height_metres,
+514:                     wall_mid_y,
+515:                     "gate guard chamber access wall",
+516:                 );
+517:             }
+518:         }
+519:         let below_top = top_opening.threshold_elevation_metres - floor_y;
+520:         if below_top > 0.02 {
+521:             spawn_wall_local_box(
+522:                 world,
+523:                 &palette.stone,
+524:                 centre,
+525:                 tangent,
+526:                 outward,
+527:                 top_along,
+528:                 -half_depth,
+529:                 top_opening.width_metres,
+530:                 0.28,
+531:                 below_top,
+532:                 floor_y + below_top * 0.5,
+533:                 "masonry below wall-walk access opening",
+534:             );
+535:         }
+536:         let above_door = floor_y + chamber.clear_height_metres
+537:             - (door.threshold_elevation_metres + door.clear_height_metres);
+538:         if above_door > 0.02 {
+539:             spawn_wall_local_box(
+540:                 world,
+541:                 &palette.stone,
+542:                 centre,
+543:                 tangent,
+544:                 outward,
+545:                 door_along,
+546:                 -half_depth,
+547:                 door.width_metres,
+548:                 0.28,
+549:                 above_door,
+550:                 door.threshold_elevation_metres + door.clear_height_metres + above_door * 0.5,
+551:                 "gate guard chamber access lintel",
+552:             );
+553:         }
+554:         if view == ViewerView::GateDetailInterior {
+555:             let hinge = door.position + origin + tangent * (door.width_metres * 0.5);
+556:             let leaf_centre = hinge + outward * (door.width_metres * 0.5);
+557:             spawn_wall_local_box(
+558:                 world,
+559:                 &palette.door,
+560:                 leaf_centre,
+561:                 tangent,
+562:                 outward,
+563:                 0.0,
+564:                 0.0,
+565:                 0.08,
+566:                 door.width_metres,
+567:                 door.clear_height_metres * 0.96,
+568:                 door.threshold_elevation_metres + door.clear_height_metres * 0.48,
+569:                 "open floor-level guard chamber door",
+570:             );
+571:         } else {
+572:             spawn_wall_local_box(
+573:                 world,
+574:                 &palette.door,
+575:                 centre,
+576:                 tangent,
+577:                 outward,
+578:                 door_along,
+579:                 -half_depth - 0.02,
+580:                 door.width_metres * 0.92,
+581:                 0.08,
+582:                 door.clear_height_metres * 0.96,
+583:                 door.threshold_elevation_metres + door.clear_height_metres * 0.48,
+584:                 "floor-level guard chamber door",
+585:             );
+586:         }
+587: 
+588:         let cut = chamber.access.roof_clearance_opening;
+589:         let cut_along = (cut.centre - chamber.centre).dot(tangent);
+590:         let cut_depth = (cut.centre - chamber.centre).dot(outward);
+591:         let cut_along_size = cut.size.dot(tangent.abs());
+592:         let cut_depth_size = cut.size.dot(outward.abs());
+593:         let left_roof = cut_along - cut_along_size * 0.5 + half_along;
+594:         let right_roof = half_along - cut_along - cut_along_size * 0.5;
+595:         for (roof_index, (width, along)) in [
+596:             (left_roof, -half_along + left_roof * 0.5),
+597:             (right_roof, half_along - right_roof * 0.5),
+598:         ]
+599:         .into_iter()
+600:         .enumerate()
+601:         {
+602:             if view == ViewerView::GateDetailInterior && roof_index == 1 {
+603:                 continue;
+604:             }
+605:             if width > 0.02 {
+606:                 spawn_wall_local_box(
+607:                     world,
+608:                     &palette.roof_secondary,
+609:                     centre,
+610:                     tangent,
+611:                     outward,
+612:                     along,
+613:                     0.0,
+614:                     width,
+615:                     depth_size,
+616:                     0.22,
+617:                     floor_y + chamber.clear_height_metres + 0.11,
+618:                     "gate guard chamber roof slab",
+619:                 );
+620:             }
+621:         }
+622:         let inner_depth = cut_depth - cut_depth_size * 0.5 + half_depth;
+623:         let outer_depth = half_depth - cut_depth - cut_depth_size * 0.5;
+624:         for (depth, offset) in [
+625:             (inner_depth, -half_depth + inner_depth * 0.5),
+626:             (outer_depth, half_depth - outer_depth * 0.5),
+627:         ] {
+628:             if depth > 0.02 {
+629:                 spawn_wall_local_box(
+630:                     world,
+631:                     &palette.roof_secondary,
+632:                     centre,
+633:                     tangent,
+634:                     outward,
+635:                     cut_along,
+636:                     offset,
+637:                     cut_along_size,
+638:                     depth,
+639:                     0.22,
+640:                     floor_y + chamber.clear_height_metres + 0.11,
+641:                     "gate guard chamber roof around access cut",
+642:                 );
+643:             }
+644:         }
+645:     }
+646: 
+647:     let access = &chamber.access;
+648:     for (landing, name) in [
+649:         (access.top_landing, "gate access top landing"),
+650:         (access.bottom_landing, "gate access bottom landing"),
+651:     ] {
+652:         spawn_box(
+653:             world,
+654:             &palette.stair,
+655:             Vec3::new(landing.size.x, 0.16, landing.size.y),
+656:             Vec3::new(
+657:                 landing.centre.x + origin.x,
+658:                 landing.elevation_metres,
+659:                 landing.centre.y + origin.y,
+660:             ),

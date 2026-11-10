@@ -1,0 +1,33 @@
+1: //! Catalog membership and compiled profile consistency.
+2: use super::*;
+3: 
+4: #[test]
+5: fn every_authored_threat_reaches_identity_profiles_and_loot_projection() {
+6:     for authored in crate::quest_catalog::catalog().monsters() {
+7:         let id = authored.id.parse::<ThreatId>().unwrap();
+8:         assert!(catalog_threats().contains(&id));
+9:         let compiled = profile(id);
+10:         assert_eq!(compiled.id, id);
+11:         assert_eq!(compiled.display_name, authored.name);
+12:         assert_eq!(
+13:             compiled.combat.loot_item_id,
+14:             authored.combat.loot_item_id.as_deref()
+15:         );
+16:     }
+17: }
+18: 
+19: #[test]
+20: fn added_authored_threat_profiles_need_no_named_constant() {
+21:     let mut authored = crate::quest_catalog::catalog()
+22:         .monster("bandit")
+23:         .unwrap()
+24:         .clone();
+25:     authored.id = "authority_added_threat".into();
+26:     authored.name = "Added threat".into();
+27:     authored.combat.loot_item_id = Some("knife".into());
+28:     let id = ThreatId::try_new(&authored.id).unwrap();
+29:     let compiled = compile_profile(id, Box::leak(Box::new(authored)));
+30:     assert_eq!(compiled.id.as_str(), "authority_added_threat");
+31:     assert_eq!(compiled.display_name, "Added threat");
+32:     assert_eq!(compiled.combat.loot_item_id, Some("knife"));
+33: }

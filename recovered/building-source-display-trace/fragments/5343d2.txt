@@ -1,0 +1,193 @@
+SOURCE crates/adventuresim-building-generator/src/viewer/openings_suite.rs
+211:     OpeningsProofExpectation {
+212:         basename: "openings-cathedral-regression",
+213:         fixture: "cathedral",
+214:         view: "exterior",
+215:         opening_profile: None,
+216:         wall_section_kind: None,
+217:         section: false,
+218:     },
+219:     OpeningsProofExpectation {
+220:         basename: "openings-courtyard-castle-regression",
+221:         fixture: "courtyard-castle",
+222:         view: "exterior",
+223:         opening_profile: None,
+224:         wall_section_kind: None,
+225:         section: false,
+226:     },
+227:     OpeningsProofExpectation {
+228:         basename: "openings-walled-keep-regression",
+229:         fixture: "walled-keep",
+230:         view: "exterior",
+231:         opening_profile: None,
+232:         wall_section_kind: None,
+233:         section: false,
+234:     },
+235: ];
+236: 
+237: pub(crate) fn validate_openings_suite(directory: &std::path::Path) -> Result<(), String> {
+238:     let actual_count = fs::read_dir(directory)
+239:         .map_err(|error| format!("read {}: {error}", directory.display()))?
+240:         .filter_map(Result::ok)
+241:         .filter(|entry| {
+242:             entry
+243:                 .file_name()
+244:                 .to_string_lossy()
+245:                 .ends_with(".capture.json")
+246:         })
+247:         .count();
+248:     if actual_count != OPENINGS_PROOF_SUITE.len() {
+249:         return Err(format!(
+250:             "expected exactly 24 proof manifests, found {actual_count}"
+251:         ));
+252:     }
+253:     let mut records = Vec::new();
+254:     for expected in OPENINGS_PROOF_SUITE {
+255:         let path = directory.join(format!("{}.capture.json", expected.basename));
+256:         let bytes = fs::read(&path).map_err(|error| format!("read {}: {error}", path.display()))?;
+257:         let manifest: OpeningsSuiteManifest = serde_json::from_slice(&bytes)
+258:             .map_err(|error| format!("parse {}: {error}", path.display()))?;
+259:         records.push((expected, manifest));
+260:     }
+261:     validate_openings_suite_records(&records)
+262: }
+263: 
+264: fn validate_openings_suite_records(
+265:     records: &[(OpeningsProofExpectation, OpeningsSuiteManifest)],
+266: ) -> Result<(), String> {
+267:     if records.len() != OPENINGS_PROOF_SUITE.len() {
+268:         return Err(format!(
+269:             "expected exactly 24 proof records, found {}",
+270:             records.len()
+271:         ));
+272:     }
+273:     let first = &records[0].1;
+274:     let mut fixture_hashes = std::collections::HashMap::new();
+275:     let mut opening_focuses = std::collections::HashMap::new();
+276:     for (expected, manifest) in records {
+277:         if manifest.fixture != expected.fixture
+278:             || manifest.view != expected.view
+279:             || manifest.seed != fabelgeist_determinism::Seed::from_u64(42)
+280:             || manifest.opening_profile.as_deref() != expected.opening_profile
+281:             || manifest.wall_section_kind.as_deref() != expected.wall_section_kind
+282:             || manifest.resolver_schema_version != 2
+283:             || !manifest.validation_passed
+284:         {
+285:             return Err(format!(
+286:                 "proof {} violates its expectation",
+287:                 expected.basename
+288:             ));
+289:         }
+290:         if manifest.source_revision != first.source_revision
+291:             || manifest.source_dirty_fingerprint != first.source_dirty_fingerprint
+292:         {
+293:             return Err(format!(
+294:                 "proof {} comes from a mixed source build",
+295:                 expected.basename
+296:             ));
+297:         }
+298:         if let Some((plan_hash, geometry_hash)) = fixture_hashes.get(expected.fixture) {
+299:             if plan_hash != &manifest.plan_hash || geometry_hash != &manifest.resolved_geometry_hash
+300:             {
+301:                 return Err(format!(
+302:                     "proof {} has stale fixture hashes",
+303:                     expected.basename
+304:                 ));
+305:             }
+306:         } else {
+307:             fixture_hashes.insert(
+308:                 expected.fixture,
+309:                 (
+310:                     manifest.plan_hash.clone(),
+311:                     manifest.resolved_geometry_hash.clone(),
+312:                 ),
+313:             );
+314:         }
+315:         let focused = expected.opening_profile.is_some() || expected.wall_section_kind.is_some();
+316:         if focused
+317:             && (manifest.focused_assembly_owner_id.is_none()
+318:                 || manifest.focused_resolved_item_ids.is_empty()
+319:                 || manifest.focused_resolved_geometry_hash.is_none()
+320:                 || (expected.opening_profile.is_some()
+321:                     && manifest.focused_resolved_void_ids.is_empty()))
+322:         {
+323:             return Err(format!(
+324:                 "proof {} lacks exact focused geometry",
+325:                 expected.basename
+326:             ));
+327:         }
+328:         if let Some(profile) = expected.opening_profile {
+329:             let state = (
+330:                 manifest.focused_assembly_owner_id,
+331:                 manifest.focused_resolved_item_ids.clone(),
+332:                 manifest.focused_resolved_void_ids.clone(),
+333:                 manifest.focused_resolved_geometry_hash.clone(),
+334:             );
+335:             if let Some(previous) = opening_focuses.get(profile) {
+336:                 if previous != &state {
+337:                     return Err(format!(
+338:                         "proof {} drifts from its opening triple",
+339:                         expected.basename
+340:                     ));
+341:                 }
+342:             } else {
+343:                 opening_focuses.insert(profile, state);
+344:             }
+345:         } else if !focused
+346:             && (manifest.focused_assembly_owner_id.is_some()
+347:                 || !manifest.focused_resolved_item_ids.is_empty()
+348:                 || !manifest.focused_resolved_void_ids.is_empty()
+349:                 || manifest.focused_resolved_geometry_hash.is_some())
+350:         {
+351:             return Err(format!(
+352:                 "regression {} contains stale focused proof state",
+353:                 expected.basename
+354:             ));
+355:         }
+356:         if expected.section
+357:             && (!manifest.section_cut_applied
+358:                 || !manifest.inside_label_visible
+359:                 || !manifest.outside_label_visible
+360:                 || manifest
+361:                     .wall_thickness_metres
+362:                     .is_none_or(|value| value <= 0.0)
+363:                 || manifest.scale_figure_height_metres != Some(1.75)
+364:                 || !manifest.scale_figure_visible
+365:                 || !manifest.section_annotation_visible
+366:                 || !manifest.section_annotation.contains("wall=")
+367:                 || !manifest.section_annotation.contains("opening=")
+368:                 || !manifest.section_annotation.contains("profile=")
+369:                 || !manifest.section_annotation.contains("thickness=")
+370:                 || (expected.wall_section_kind != Some("round_tower_radial")
+371:                     && manifest.section_removed_item_ids.is_empty())
+372:                 || manifest
+373:                     .section_removed_item_ids
+374:                     .iter()
+375:                     .any(|id| !manifest.focused_resolved_item_ids.contains(id)))
+376:         {
+377:             return Err(format!(
+378:                 "proof {} is not a genuine labeled section",
+379:                 expected.basename
+380:             ));
+381:         }
+382:         if matches!(expected.opening_profile, Some("arrow_loop" | "gun_loop")) {
+383:             let valid_bounds = |bounds: [f32; 4]| {
+384:                 bounds[0] >= 0.0
+385:                     && bounds[1] >= 0.0
+386:                     && bounds[2] > bounds[0]
+387:                     && bounds[3] > bounds[1]
+388:                     && bounds[2] <= 1.0
+389:                     && bounds[3] <= 1.0
+390:             };
+391:             if !valid_bounds(manifest.exterior_throat_bounds_fraction)
+392:                 || !valid_bounds(manifest.interior_mouth_bounds_fraction)
+393:             {
+394:                 return Err(format!(
+395:                     "proof {} does not project both military throat and mouth",
+396:                     expected.basename
+397:                 ));
+398:             }
+399:         }
+400:     }
+401:     Ok(())
+402: }

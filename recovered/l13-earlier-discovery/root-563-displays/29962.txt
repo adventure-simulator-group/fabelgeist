@@ -1,0 +1,110 @@
+1: use fabelgeist_determinism::Seed;
+2: use std::collections::HashMap;
+3: 
+4: use adventuresim_tactical_core::{
+5:     animation::NonnegativeLength, inventory::ArmorLayerContact, prelude::*,
+6: };
+7: use bevy::prelude::*;
+8: use serde::Serialize;
+9: 
+10: use super::TacticalElapsed;
+11: use crate::combat::MeleeAttackResolved;
+12: 
+13: mod decisions;
+14: pub(super) use decisions::*;
+15: mod resolution;
+16: use resolution::*;
+17: 
+18: #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
+19: #[serde(rename_all = "snake_case")]
+20: pub enum TacticalDecision {
+21:     Attack,
+22:     Block,
+23:     Parry,
+24:     Dodge,
+25:     Withdraw,
+26:     Yield,
+27:     NoDefense,
+28: }
+29: 
+30: #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
+31: #[serde(rename_all = "snake_case")]
+32: pub enum TacticalDecisionStatus {
+33:     Started,
+34:     Attempted,
+35:     Accepted,
+36:     Rejected,
+37:     CanceledForDefense,
+38:     TransformedByDefense,
+39: }
+40: 
+41: #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
+42: #[serde(rename_all = "snake_case")]
+43: pub enum TacticalContactOutcome {
+44:     Hit,
+45:     Defended,
+46:     Avoided,
+47: }
+48: 
+49: #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
+50: #[serde(rename_all = "snake_case")]
+51: pub enum TacticalCoverageContact {
+52:     None,
+53:     ArmorSurface,
+54:     Gap,
+55: }
+56: 
+57: #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
+58: #[serde(rename_all = "snake_case")]
+59: pub enum TacticalDefenseImplement {
+60:     Shield,
+61:     Weapon,
+62:     Other,
+63: }
+64: 
+65: #[derive(Clone, Debug, Serialize)]
+66: pub struct TacticalIncapacitationLog {
+67:     pub pain: f32,
+68:     pub acute_trauma: f32,
+69:     pub blood_loss_fraction: f32,
+70:     pub blood_loss_incapacitation: f32,
+71:     pub imbalance: f32,
+72:     pub fatigue: f32,
+73:     pub encumbrance: f32,
+74:     pub total: f32,
+75: }
+76: 
+77: #[derive(Clone, Debug, Serialize)]
+78: pub struct TacticalMeleeLogEntry {
+79:     pub sequence: u32,
+80:     pub tick: u64,
+81:     pub elapsed_seconds: TacticalElapsed,
+82:     pub attacker: String,
+83:     pub defender: String,
+84:     pub center_separation_metres: f32,
+85:     pub attacker_decision: TacticalDecision,
+86:     pub defender_decision: TacticalDecision,
+87:     pub defensive_implement: Option<String>,
+88:     pub defensive_implement_kind: Option<TacticalDefenseImplement>,
+89:     pub defensive_item_id: Option<u64>,
+90:     pub defense_success_probability: Option<f32>,
+91:     pub defense_alignment_sample: Option<f32>,
+92:     pub defense_engagement: Option<f32>,
+93:     pub body_part: String,
+94:     pub anatomical_subregion: String,
+95:     pub contact_surface_coordinate: f32,
+96:     pub armor_layer_chain: Vec<ArmorLayerContact>,
+97:     pub scheduled_contact_measure_metres: f32,
+98:     pub ideal_contact_measure_metres: f32,
+99:     pub actual_contact_measure_metres: f32,
+100:     pub contact_classification: adventuresim_core::combat::MeleeContactClassification,
+101:     pub contact_lever_arm_metres: f32,
+102:     pub contact_energy_fraction: f32,
+103:     pub measure_accuracy_multiplier: f32,
+104:     pub contact_invalidation_cause:
+105:         Option<adventuresim_core::combat::MeleeContactInvalidationCause>,
+106:     pub contact_material: Option<adventuresim_core::item_catalog_schema::EquipmentMaterial>,
+107:     pub outcome: TacticalContactOutcome,
+108:     pub coverage_contact: TacticalCoverageContact,
+109:     pub armor_item_id: Option<u64>,
+110:     pub armor_material: Option<adventuresim_core::item_catalog_schema::EquipmentMaterial>,

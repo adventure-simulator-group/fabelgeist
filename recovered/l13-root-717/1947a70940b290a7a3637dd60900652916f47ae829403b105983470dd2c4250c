@@ -1,0 +1,2365 @@
+{
+  "schema": "726-exact2757-2770-admission-mixed-material-v1",
+  "at": "2026-11-01T21:16:23.520979+00:00",
+  "author": "/root",
+  "lens": 13,
+  "proof_builder": {
+    "path": "adler-continuation-20261030/qualify_admission2757_v1.py",
+    "sha256": "e083ea8ef39a997b71575baf7c6fe8c7a3aee182993c0660a0259c01b5e8b1f0"
+  },
+  "registry": {
+    "path": "evidence/audit05/original-scope-072.json",
+    "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2757-2770-001.json",
+    "sha256": "c112cbb94b87a95667b63372e569e80abc781371d82ba6c06ebd0f8b28d23be5"
+  },
+  "qualified_against_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "daf6dfc8008e6dedd96de48933621b62a4533e52f72f671fbcf443669518d097"
+  },
+  "qualified_against_selector": {
+    "path": "CURRENT-ADLER.json",
+    "sha256": "e65ff900a27d6d0e072dd161486a657e9ce62087677c5351608e76e2456e523a"
+  },
+  "entries": [
+    {
+      "original": 2757,
+      "source": {
+        "original": 2757,
+        "source_id": "native-rand0.9.5:src/distr/weighted/weighted_index.rs",
+        "sha256": "b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003",
+        "actual_eof": 631,
+        "bytes": 21498,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003",
+        "source_revision": "Exact rand0.9.5 registry archive from frozen Git6533 Cargo.lock checksum",
+        "native_package_archive": {
+          "path": "adler-continuation-20261030/objects/b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+          "sha256": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41"
+        },
+        "archive_member": "rand-0.9.5/src/distr/weighted/weighted_index.rs",
+        "prospective_ranges": [
+          [
+            1,
+            145
+          ],
+          [
+            358,
+            369
+          ]
+        ],
+        "original_credit_now": 0,
+        "other_population_credit": 0,
+        "purpose": "Exact ordered frontier native material reuse581 total from root004, zero new body credit; canonical union preserves raw duplicate/ordering metadata. No current semantic transfer."
+      },
+      "mode": "root-reuse",
+      "bytes": 21498,
+      "assessed_union": [
+        [
+          1,
+          145
+        ],
+        [
+          358,
+          369
+        ]
+      ],
+      "registry_material_ranges_raw": [
+        [
+          1,
+          145
+        ],
+        [
+          358,
+          369
+        ]
+      ],
+      "material_line_count": 157,
+      "new_root_personal_lines": 0,
+      "registry_entry_sha256": "da442f2a02c64a6cd707add256f1af492366ad05d7a62af4cac3ef10bcdc4b84",
+      "registry_path_as_recorded": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rand-0.9.5\\src\\distr\\weighted\\weighted_index.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          146,
+          357
+        ],
+        [
+          370,
+          631
+        ]
+      ],
+      "whole_file_coverage": false,
+      "prior": {
+        "prior_adoption": {
+          "path": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+          "sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a"
+        },
+        "prior_packet": {
+          "path": "adler-continuation-20261030/READ-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "15b0da2eddd6207a2ee30416277e4fa38fec9964bca27bce79258bc40ce40d37"
+        },
+        "prior_registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+        },
+        "prior_native_verification": {
+          "path": "segovb/VERIFY-L13-CONNECTED-ROOT-004.json",
+          "sha256": "df2988f65b69eca35678b6e4fd9920a234975aab79f5f961830a2b8d67c9bf02"
+        },
+        "prior_writer": {
+          "path": "adler-continuation-20261030/adopt_l13_name_sampler_native.py",
+          "sha256": "d7d139c9cf8d895e77ab8b8574a114eb857ad9e665db6e48008ad027939d3630"
+        },
+        "prior_row_pointer": "/sources/0",
+        "prior_registration_pointer": "/sources/0",
+        "prior_source_row": {
+          "source": {
+            "original": 2757,
+            "source_id": "native-rand0.9.5:src/distr/weighted/weighted_index.rs",
+            "sha256": "b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003",
+            "actual_eof": 631,
+            "bytes": 21498,
+            "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003",
+            "source_revision": "Exact rand0.9.5 registry archive from frozen Git6533 Cargo.lock checksum",
+            "native_package_archive": {
+              "path": "adler-continuation-20261030/objects/b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+              "sha256": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41"
+            },
+            "archive_member": "rand-0.9.5/src/distr/weighted/weighted_index.rs",
+            "prospective_ranges": [
+              [
+                1,
+                145
+              ],
+              [
+                358,
+                369
+              ]
+            ],
+            "original_credit_now": 0,
+            "other_population_credit": 0,
+            "purpose": "Necessary native u64 WeightedIndex new/sample and uniform integer construction/sample kernel only, exact original material scopes; no updates/float/test/unrelated graphs or execution."
+          },
+          "registration": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+            "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+          },
+          "registration_pointer": "/sources/0",
+          "assessed_ranges": [
+            [
+              1,
+              145
+            ],
+            [
+              358,
+              369
+            ]
+          ],
+          "author": "/root",
+          "untruncated_body_outputs": true,
+          "observations": [
+            {
+              "ranges": [
+                [
+                  1,
+                  145
+                ],
+                [
+                  358,
+                  369
+                ]
+              ],
+              "assessment": "ExactnativeRand0.9.5 WeightedIndex new constructs private cumulative vector ofN-1 prior totals plus total and native sampler; emptyiterator InvalidInput106, negative/NaN generic InvalidWeight109/117, Weight::checked_add_assign122 overflowError123, totalzero InsufficientNonZero127. Foru64 zero<=weight unconditional and checkedprimitiveWeight impl is read in weightedmod25..60. Successful construction total>0, so new UniformInt(0,total) at130 cannot fail EmptyRange; this expect is guarded native construction, not an initialized first-party panic finding. Distribution sample358..367 uses native chosenweight and partition_point, returning0..=cumulative.len() =0..N-1; no out-of-bounds successindex on unchanged weight vector. Docs/examples source-only. update_weights/body146..357 and369+ helpers/tests unassessed; nowhole631claim."
+            }
+          ]
+        },
+        "historical_attribution": "/root",
+        "qualified_future_proof": {
+          "receipt": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+          "receipt_sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a",
+          "reference_base": "evidence root",
+          "row_pointer": "/evidence/sources/0",
+          "registration": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+            "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+          },
+          "source_id": "native-rand0.9.5:src/distr/weighted/weighted_index.rs",
+          "source_sha256": "b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003",
+          "actual_EOF": 631,
+          "assessed_ranges": [
+            [
+              1,
+              145
+            ],
+            [
+              358,
+              369
+            ]
+          ],
+          "attribution": "Root personally assessed exact original material scope; no full-file or other-lens transfer",
+          "ordered_credit_now": 0,
+          "original": 2757,
+          "material_scope_complete": true,
+          "whole_file_coverage": false,
+          "native_package_provenance": {
+            "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+            "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+          },
+          "future_rule": "Qualify exact native archive/member/lock/source identity and requested material scope at ordered frontier; no rereads or population credit before that frontier."
+        },
+        "native_package_provenance": {
+          "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+        }
+      }
+    },
+    {
+      "original": 2758,
+      "source": {
+        "original": 2758,
+        "source_id": "native-rand0.9.5:src/distr/uniform.rs",
+        "sha256": "04efcc061e1904b824e3feb68541c4e8259a46ecd2c118af6fb383b3ad37f73c",
+        "actual_eof": 622,
+        "bytes": 21611,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/04efcc061e1904b824e3feb68541c4e8259a46ecd2c118af6fb383b3ad37f73c",
+        "source_revision": "Exact rand0.9.5 registry archive from frozen Git6533 Cargo.lock checksum",
+        "native_package_archive": {
+          "path": "adler-continuation-20261030/objects/b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+          "sha256": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41"
+        },
+        "archive_member": "rand-0.9.5/src/distr/uniform.rs",
+        "prospective_ranges": [
+          [
+            190,
+            260
+          ],
+          [
+            268,
+            312
+          ],
+          [
+            399,
+            415
+          ]
+        ],
+        "original_credit_now": 0,
+        "other_population_credit": 0,
+        "purpose": "Exact ordered frontier native material reuse581 total from root004, zero new body credit; canonical union preserves raw duplicate/ordering metadata. No current semantic transfer."
+      },
+      "mode": "root-reuse",
+      "bytes": 21611,
+      "assessed_union": [
+        [
+          190,
+          260
+        ],
+        [
+          268,
+          312
+        ],
+        [
+          399,
+          415
+        ]
+      ],
+      "registry_material_ranges_raw": [
+        [
+          219,
+          260
+        ],
+        [
+          268,
+          312
+        ],
+        [
+          399,
+          415
+        ],
+        [
+          190,
+          219
+        ]
+      ],
+      "material_line_count": 133,
+      "new_root_personal_lines": 0,
+      "registry_entry_sha256": "cdfbd4999413ac8672df7de917d3ca37f5ee0c9a1e16c623e4eda19cf8146e93",
+      "registry_path_as_recorded": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rand-0.9.5\\src\\distr\\uniform.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          1,
+          189
+        ],
+        [
+          261,
+          267
+        ],
+        [
+          313,
+          398
+        ],
+        [
+          416,
+          622
+        ]
+      ],
+      "whole_file_coverage": false,
+      "prior": {
+        "prior_adoption": {
+          "path": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+          "sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a"
+        },
+        "prior_packet": {
+          "path": "adler-continuation-20261030/READ-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "15b0da2eddd6207a2ee30416277e4fa38fec9964bca27bce79258bc40ce40d37"
+        },
+        "prior_registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+        },
+        "prior_native_verification": {
+          "path": "segovb/VERIFY-L13-CONNECTED-ROOT-004.json",
+          "sha256": "df2988f65b69eca35678b6e4fd9920a234975aab79f5f961830a2b8d67c9bf02"
+        },
+        "prior_writer": {
+          "path": "adler-continuation-20261030/adopt_l13_name_sampler_native.py",
+          "sha256": "d7d139c9cf8d895e77ab8b8574a114eb857ad9e665db6e48008ad027939d3630"
+        },
+        "prior_row_pointer": "/sources/1",
+        "prior_registration_pointer": "/sources/1",
+        "prior_source_row": {
+          "source": {
+            "original": 2758,
+            "source_id": "native-rand0.9.5:src/distr/uniform.rs",
+            "sha256": "04efcc061e1904b824e3feb68541c4e8259a46ecd2c118af6fb383b3ad37f73c",
+            "actual_eof": 622,
+            "bytes": 21611,
+            "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/04efcc061e1904b824e3feb68541c4e8259a46ecd2c118af6fb383b3ad37f73c",
+            "source_revision": "Exact rand0.9.5 registry archive from frozen Git6533 Cargo.lock checksum",
+            "native_package_archive": {
+              "path": "adler-continuation-20261030/objects/b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+              "sha256": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41"
+            },
+            "archive_member": "rand-0.9.5/src/distr/uniform.rs",
+            "prospective_ranges": [
+              [
+                190,
+                260
+              ],
+              [
+                268,
+                312
+              ],
+              [
+                399,
+                415
+              ]
+            ],
+            "original_credit_now": 0,
+            "other_population_credit": 0,
+            "purpose": "Necessary native u64 WeightedIndex new/sample and uniform integer construction/sample kernel only, exact original material scopes; no updates/float/test/unrelated graphs or execution."
+          },
+          "registration": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+            "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+          },
+          "registration_pointer": "/sources/1",
+          "assessed_ranges": [
+            [
+              190,
+              260
+            ],
+            [
+              268,
+              312
+            ],
+            [
+              399,
+              415
+            ]
+          ],
+          "author": "/root",
+          "untruncated_body_outputs": true,
+          "observations": [
+            {
+              "ranges": [
+                [
+                  190,
+                  260
+                ],
+                [
+                  268,
+                  312
+                ],
+                [
+                  399,
+                  415
+                ]
+              ],
+              "assessment": "Uniform wrapper delegates construction/sample to SampleUniform::Sampler, whose integer halfopenbound is explicit at287..299; this is actual u64 backend dispatch, not body coverage from docs alone. SampleBorrow owned/ref implementations pass same originalu64 bounds, no transform or precisionloss. Selectedranges133unique lines; original ranges190..219 and219..260 overlap219 so countedonce in union190..260. OtherUniformfloat/custom/single-sample/Serde graphs unassessed. Relevant SampleBorrow functionbody complete through415, outerimpl closing416 not credited."
+            }
+          ]
+        },
+        "historical_attribution": "/root",
+        "qualified_future_proof": {
+          "receipt": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+          "receipt_sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a",
+          "reference_base": "evidence root",
+          "row_pointer": "/evidence/sources/1",
+          "registration": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+            "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+          },
+          "source_id": "native-rand0.9.5:src/distr/uniform.rs",
+          "source_sha256": "04efcc061e1904b824e3feb68541c4e8259a46ecd2c118af6fb383b3ad37f73c",
+          "actual_EOF": 622,
+          "assessed_ranges": [
+            [
+              190,
+              260
+            ],
+            [
+              268,
+              312
+            ],
+            [
+              399,
+              415
+            ]
+          ],
+          "attribution": "Root personally assessed exact original material scope; no full-file or other-lens transfer",
+          "ordered_credit_now": 0,
+          "original": 2758,
+          "material_scope_complete": true,
+          "whole_file_coverage": false,
+          "native_package_provenance": {
+            "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+            "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+          },
+          "future_rule": "Qualify exact native archive/member/lock/source identity and requested material scope at ordered frontier; no rereads or population credit before that frontier."
+        },
+        "native_package_provenance": {
+          "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+        }
+      }
+    },
+    {
+      "original": 2759,
+      "source": {
+        "original": 2759,
+        "source_id": "native-rand0.9.5:src/distr/uniform_int.rs",
+        "sha256": "30c620bc9d74263162de2e0755ae4b323abce1d6aa22c00d1b9de378480f22c0",
+        "actual_eof": 914,
+        "bytes": 34184,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/30c620bc9d74263162de2e0755ae4b323abce1d6aa22c00d1b9de378480f22c0",
+        "source_revision": "Exact rand0.9.5 registry archive from frozen Git6533 Cargo.lock checksum",
+        "native_package_archive": {
+          "path": "adler-continuation-20261030/objects/b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+          "sha256": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41"
+        },
+        "archive_member": "rand-0.9.5/src/distr/uniform_int.rs",
+        "prospective_ranges": [
+          [
+            1,
+            160
+          ],
+          [
+            280,
+            280
+          ]
+        ],
+        "original_credit_now": 0,
+        "other_population_credit": 0,
+        "purpose": "Exact ordered frontier native material reuse581 total from root004, zero new body credit; canonical union preserves raw duplicate/ordering metadata. No current semantic transfer."
+      },
+      "mode": "root-reuse",
+      "bytes": 34184,
+      "assessed_union": [
+        [
+          1,
+          160
+        ],
+        [
+          280,
+          280
+        ]
+      ],
+      "registry_material_ranges_raw": [
+        [
+          71,
+          160
+        ],
+        [
+          280,
+          280
+        ],
+        [
+          1,
+          70
+        ]
+      ],
+      "material_line_count": 161,
+      "new_root_personal_lines": 0,
+      "registry_entry_sha256": "e44b39d440246470131a0bfdbaddc6c32680e348fac735d5e0ca9cd2e667d253",
+      "registry_path_as_recorded": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rand-0.9.5\\src\\distr\\uniform_int.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          161,
+          279
+        ],
+        [
+          281,
+          914
+        ]
+      ],
+      "whole_file_coverage": false,
+      "prior": {
+        "prior_adoption": {
+          "path": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+          "sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a"
+        },
+        "prior_packet": {
+          "path": "adler-continuation-20261030/READ-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "15b0da2eddd6207a2ee30416277e4fa38fec9964bca27bce79258bc40ce40d37"
+        },
+        "prior_registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+        },
+        "prior_native_verification": {
+          "path": "segovb/VERIFY-L13-CONNECTED-ROOT-004.json",
+          "sha256": "df2988f65b69eca35678b6e4fd9920a234975aab79f5f961830a2b8d67c9bf02"
+        },
+        "prior_writer": {
+          "path": "adler-continuation-20261030/adopt_l13_name_sampler_native.py",
+          "sha256": "d7d139c9cf8d895e77ab8b8574a114eb857ad9e665db6e48008ad027939d3630"
+        },
+        "prior_row_pointer": "/sources/2",
+        "prior_registration_pointer": "/sources/2",
+        "prior_source_row": {
+          "source": {
+            "original": 2759,
+            "source_id": "native-rand0.9.5:src/distr/uniform_int.rs",
+            "sha256": "30c620bc9d74263162de2e0755ae4b323abce1d6aa22c00d1b9de378480f22c0",
+            "actual_eof": 914,
+            "bytes": 34184,
+            "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/30c620bc9d74263162de2e0755ae4b323abce1d6aa22c00d1b9de378480f22c0",
+            "source_revision": "Exact rand0.9.5 registry archive from frozen Git6533 Cargo.lock checksum",
+            "native_package_archive": {
+              "path": "adler-continuation-20261030/objects/b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+              "sha256": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41"
+            },
+            "archive_member": "rand-0.9.5/src/distr/uniform_int.rs",
+            "prospective_ranges": [
+              [
+                1,
+                160
+              ],
+              [
+                280,
+                280
+              ]
+            ],
+            "original_credit_now": 0,
+            "other_population_credit": 0,
+            "purpose": "Necessary native u64 WeightedIndex new/sample and uniform integer construction/sample kernel only, exact original material scopes; no updates/float/test/unrelated graphs or execution."
+          },
+          "registration": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+            "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+          },
+          "registration_pointer": "/sources/2",
+          "assessed_ranges": [
+            [
+              1,
+              160
+            ],
+            [
+              280,
+              280
+            ]
+          ],
+          "author": "/root",
+          "untruncated_body_outputs": true,
+          "observations": [
+            {
+              "ranges": [
+                [
+                  1,
+                  160
+                ],
+                [
+                  280,
+                  280
+                ]
+              ],
+              "assessment": "UniformInt<u64> instantiated at280. new checks low<high109 then new_inclusive(low,high-1); for0<total<=u64MAX this subtraction safe. Inclusive computes wrappingrange(high-low+1), threshold wrappingsub/mod onlyrange>0; range0 means fullnativeword, deliberatelyencoded nativealgorithm. Weightedpath low0/high_exclusiveT yieldsrangeT nonzero includingT=u64MAX. sample145..159 multiplies arbitraryu64word byrange in exactwideu128 viawmul, rejects lowword<threshold then returnslow+highword. Forlow0/rangeT, highword<=T-1, hence chosenweight<T; nofiniteinterval float reasoning imported. Loops mayrejectsamples but no runtime/performanceobservation. Single-sample/SIMD/otherinteger graphs and160+ except280 excluded; not full914."
+            }
+          ]
+        },
+        "historical_attribution": "/root",
+        "qualified_future_proof": {
+          "receipt": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+          "receipt_sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a",
+          "reference_base": "evidence root",
+          "row_pointer": "/evidence/sources/2",
+          "registration": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+            "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+          },
+          "source_id": "native-rand0.9.5:src/distr/uniform_int.rs",
+          "source_sha256": "30c620bc9d74263162de2e0755ae4b323abce1d6aa22c00d1b9de378480f22c0",
+          "actual_EOF": 914,
+          "assessed_ranges": [
+            [
+              1,
+              160
+            ],
+            [
+              280,
+              280
+            ]
+          ],
+          "attribution": "Root personally assessed exact original material scope; no full-file or other-lens transfer",
+          "ordered_credit_now": 0,
+          "original": 2759,
+          "material_scope_complete": true,
+          "whole_file_coverage": false,
+          "native_package_provenance": {
+            "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+            "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+          },
+          "future_rule": "Qualify exact native archive/member/lock/source identity and requested material scope at ordered frontier; no rereads or population credit before that frontier."
+        },
+        "native_package_provenance": {
+          "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+        }
+      }
+    },
+    {
+      "original": 2760,
+      "source": {
+        "original": 2760,
+        "source_id": "native-rand0.9.5:src/distr/weighted/mod.rs",
+        "sha256": "52379f09ea06c8ac54bdb4ecaed93fd7fc08f85866b5e3fcb4e40d0f1576bdfe",
+        "actual_eof": 115,
+        "bytes": 3775,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/52379f09ea06c8ac54bdb4ecaed93fd7fc08f85866b5e3fcb4e40d0f1576bdfe",
+        "source_revision": "Exact rand0.9.5 registry archive from frozen Git6533 Cargo.lock checksum",
+        "native_package_archive": {
+          "path": "adler-continuation-20261030/objects/b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+          "sha256": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41"
+        },
+        "archive_member": "rand-0.9.5/src/distr/weighted/mod.rs",
+        "prospective_ranges": [
+          [
+            25,
+            60
+          ],
+          [
+            85,
+            115
+          ]
+        ],
+        "original_credit_now": 0,
+        "other_population_credit": 0,
+        "purpose": "Exact ordered frontier native material reuse581 total from root004, zero new body credit; canonical union preserves raw duplicate/ordering metadata. No current semantic transfer."
+      },
+      "mode": "root-reuse",
+      "bytes": 3775,
+      "assessed_union": [
+        [
+          25,
+          60
+        ],
+        [
+          85,
+          115
+        ]
+      ],
+      "registry_material_ranges_raw": [
+        [
+          25,
+          60
+        ],
+        [
+          85,
+          115
+        ]
+      ],
+      "material_line_count": 67,
+      "new_root_personal_lines": 0,
+      "registry_entry_sha256": "2ff1b360ab7e5bbbaf547bcd7ce9a8e3949b4ad2f9c138a0cbe9028f57b17c3d",
+      "registry_path_as_recorded": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rand-0.9.5\\src\\distr\\weighted\\mod.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          1,
+          24
+        ],
+        [
+          61,
+          84
+        ]
+      ],
+      "whole_file_coverage": false,
+      "prior": {
+        "prior_adoption": {
+          "path": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+          "sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a"
+        },
+        "prior_packet": {
+          "path": "adler-continuation-20261030/READ-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "15b0da2eddd6207a2ee30416277e4fa38fec9964bca27bce79258bc40ce40d37"
+        },
+        "prior_registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+        },
+        "prior_native_verification": {
+          "path": "segovb/VERIFY-L13-CONNECTED-ROOT-004.json",
+          "sha256": "df2988f65b69eca35678b6e4fd9920a234975aab79f5f961830a2b8d67c9bf02"
+        },
+        "prior_writer": {
+          "path": "adler-continuation-20261030/adopt_l13_name_sampler_native.py",
+          "sha256": "d7d139c9cf8d895e77ab8b8574a114eb857ad9e665db6e48008ad027939d3630"
+        },
+        "prior_row_pointer": "/sources/3",
+        "prior_registration_pointer": "/sources/3",
+        "prior_source_row": {
+          "source": {
+            "original": 2760,
+            "source_id": "native-rand0.9.5:src/distr/weighted/mod.rs",
+            "sha256": "52379f09ea06c8ac54bdb4ecaed93fd7fc08f85866b5e3fcb4e40d0f1576bdfe",
+            "actual_eof": 115,
+            "bytes": 3775,
+            "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/52379f09ea06c8ac54bdb4ecaed93fd7fc08f85866b5e3fcb4e40d0f1576bdfe",
+            "source_revision": "Exact rand0.9.5 registry archive from frozen Git6533 Cargo.lock checksum",
+            "native_package_archive": {
+              "path": "adler-continuation-20261030/objects/b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+              "sha256": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41"
+            },
+            "archive_member": "rand-0.9.5/src/distr/weighted/mod.rs",
+            "prospective_ranges": [
+              [
+                25,
+                60
+              ],
+              [
+                85,
+                115
+              ]
+            ],
+            "original_credit_now": 0,
+            "other_population_credit": 0,
+            "purpose": "Necessary native u64 WeightedIndex new/sample and uniform integer construction/sample kernel only, exact original material scopes; no updates/float/test/unrelated graphs or execution."
+          },
+          "registration": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+            "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+          },
+          "registration_pointer": "/sources/3",
+          "assessed_ranges": [
+            [
+              25,
+              60
+            ],
+            [
+              85,
+              115
+            ]
+          ],
+          "author": "/root",
+          "untruncated_body_outputs": true,
+          "observations": [
+            {
+              "ranges": [
+                [
+                  25,
+                  60
+                ],
+                [
+                  85,
+                  115
+                ]
+              ],
+              "assessment": "Weight integer macro checked_add43..49 returnsErr before changingtotal on overflow; explicitu64impl60, so u64MAX+1 producesError::Overflow and u64MAXtotal itself admitted. Error enum distinguishes InvalidInput/InvalidWeight/InsufficientNonZero/Overflow; Display terminalnativeformatter. Floating/customWeight impls61..84 unassessed and not needed fornameu64weights. No compatibility classification solelyfrom nativeenum/formatter."
+            }
+          ]
+        },
+        "historical_attribution": "/root",
+        "qualified_future_proof": {
+          "receipt": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+          "receipt_sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a",
+          "reference_base": "evidence root",
+          "row_pointer": "/evidence/sources/3",
+          "registration": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+            "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+          },
+          "source_id": "native-rand0.9.5:src/distr/weighted/mod.rs",
+          "source_sha256": "52379f09ea06c8ac54bdb4ecaed93fd7fc08f85866b5e3fcb4e40d0f1576bdfe",
+          "actual_EOF": 115,
+          "assessed_ranges": [
+            [
+              25,
+              60
+            ],
+            [
+              85,
+              115
+            ]
+          ],
+          "attribution": "Root personally assessed exact original material scope; no full-file or other-lens transfer",
+          "ordered_credit_now": 0,
+          "original": 2760,
+          "material_scope_complete": true,
+          "whole_file_coverage": false,
+          "native_package_provenance": {
+            "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+            "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+          },
+          "future_rule": "Qualify exact native archive/member/lock/source identity and requested material scope at ordered frontier; no rereads or population credit before that frontier."
+        },
+        "native_package_provenance": {
+          "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+        }
+      }
+    },
+    {
+      "original": 2761,
+      "source": {
+        "original": 2761,
+        "source_id": "native-rand0.9.5:src/distr/utils.rs",
+        "sha256": "a631940e728257c9b0cb753bc64fa631958c92ce52d5b2265c7ed06a46567b8f",
+        "actual_eof": 408,
+        "bytes": 12603,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/a631940e728257c9b0cb753bc64fa631958c92ce52d5b2265c7ed06a46567b8f",
+        "source_revision": "Exact rand0.9.5 registry archive from frozen Git6533 Cargo.lock checksum",
+        "native_package_archive": {
+          "path": "adler-continuation-20261030/objects/b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+          "sha256": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41"
+        },
+        "archive_member": "rand-0.9.5/src/distr/utils.rs",
+        "prospective_ranges": [
+          [
+            16,
+            61
+          ]
+        ],
+        "original_credit_now": 0,
+        "other_population_credit": 0,
+        "purpose": "Exact ordered frontier native material reuse581 total from root004, zero new body credit; canonical union preserves raw duplicate/ordering metadata. No current semantic transfer."
+      },
+      "mode": "root-reuse",
+      "bytes": 12603,
+      "assessed_union": [
+        [
+          16,
+          61
+        ]
+      ],
+      "registry_material_ranges_raw": [
+        [
+          16,
+          61
+        ]
+      ],
+      "material_line_count": 46,
+      "new_root_personal_lines": 0,
+      "registry_entry_sha256": "84630ea27c1e763e7df77a06533fa83ff0b639eb56536a7edc6c260ef9c81c5f",
+      "registry_path_as_recorded": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rand-0.9.5\\src\\distr\\utils.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          1,
+          15
+        ],
+        [
+          62,
+          408
+        ]
+      ],
+      "whole_file_coverage": false,
+      "prior": {
+        "prior_adoption": {
+          "path": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+          "sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a"
+        },
+        "prior_packet": {
+          "path": "adler-continuation-20261030/READ-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "15b0da2eddd6207a2ee30416277e4fa38fec9964bca27bce79258bc40ce40d37"
+        },
+        "prior_registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+        },
+        "prior_native_verification": {
+          "path": "segovb/VERIFY-L13-CONNECTED-ROOT-004.json",
+          "sha256": "df2988f65b69eca35678b6e4fd9920a234975aab79f5f961830a2b8d67c9bf02"
+        },
+        "prior_writer": {
+          "path": "adler-continuation-20261030/adopt_l13_name_sampler_native.py",
+          "sha256": "d7d139c9cf8d895e77ab8b8574a114eb857ad9e665db6e48008ad027939d3630"
+        },
+        "prior_row_pointer": "/sources/4",
+        "prior_registration_pointer": "/sources/4",
+        "prior_source_row": {
+          "source": {
+            "original": 2761,
+            "source_id": "native-rand0.9.5:src/distr/utils.rs",
+            "sha256": "a631940e728257c9b0cb753bc64fa631958c92ce52d5b2265c7ed06a46567b8f",
+            "actual_eof": 408,
+            "bytes": 12603,
+            "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/a631940e728257c9b0cb753bc64fa631958c92ce52d5b2265c7ed06a46567b8f",
+            "source_revision": "Exact rand0.9.5 registry archive from frozen Git6533 Cargo.lock checksum",
+            "native_package_archive": {
+              "path": "adler-continuation-20261030/objects/b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+              "sha256": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41"
+            },
+            "archive_member": "rand-0.9.5/src/distr/utils.rs",
+            "prospective_ranges": [
+              [
+                16,
+                61
+              ]
+            ],
+            "original_credit_now": 0,
+            "other_population_credit": 0,
+            "purpose": "Necessary native u64 WeightedIndex new/sample and uniform integer construction/sample kernel only, exact original material scopes; no updates/float/test/unrelated graphs or execution."
+          },
+          "registration": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+            "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+          },
+          "registration_pointer": "/sources/4",
+          "assessed_ranges": [
+            [
+              16,
+              61
+            ]
+          ],
+          "author": "/root",
+          "untruncated_body_outputs": true,
+          "observations": [
+            {
+              "ranges": [
+                [
+                  16,
+                  61
+                ]
+              ],
+              "assessment": "u64 widening multiply instantiated61 withu128 andshift64. Product ofanytwo u64 words fitsu128 exactly, high/low extracted byshift/cast. Rawfixedword casts/remainder/multiplication are native arithmetic representation endpoints, not firstparty semanticweight erasure or unitduplicate. SIMD macro text present35..56 but no SIMDcaller/bodyclosure implied."
+            }
+          ]
+        },
+        "historical_attribution": "/root",
+        "qualified_future_proof": {
+          "receipt": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+          "receipt_sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a",
+          "reference_base": "evidence root",
+          "row_pointer": "/evidence/sources/4",
+          "registration": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+            "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+          },
+          "source_id": "native-rand0.9.5:src/distr/utils.rs",
+          "source_sha256": "a631940e728257c9b0cb753bc64fa631958c92ce52d5b2265c7ed06a46567b8f",
+          "actual_EOF": 408,
+          "assessed_ranges": [
+            [
+              16,
+              61
+            ]
+          ],
+          "attribution": "Root personally assessed exact original material scope; no full-file or other-lens transfer",
+          "ordered_credit_now": 0,
+          "original": 2761,
+          "material_scope_complete": true,
+          "whole_file_coverage": false,
+          "native_package_provenance": {
+            "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+            "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+          },
+          "future_rule": "Qualify exact native archive/member/lock/source identity and requested material scope at ordered frontier; no rereads or population credit before that frontier."
+        },
+        "native_package_provenance": {
+          "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+        }
+      }
+    },
+    {
+      "original": 2762,
+      "source": {
+        "original": 2762,
+        "source_id": "native-rand0.9.5:src/distr/integer.rs",
+        "sha256": "69ac205b6fed57ae09e2f8f1b15ae3d2049b85874bc4da3f246a18188b42d8ea",
+        "actual_eof": 307,
+        "bytes": 9993,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/69ac205b6fed57ae09e2f8f1b15ae3d2049b85874bc4da3f246a18188b42d8ea",
+        "source_revision": "Exact rand0.9.5 registry archive from frozen Git6533 Cargo.lock checksum",
+        "native_package_archive": {
+          "path": "adler-continuation-20261030/objects/b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+          "sha256": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41"
+        },
+        "archive_member": "rand-0.9.5/src/distr/integer.rs",
+        "prospective_ranges": [
+          [
+            49,
+            54
+          ]
+        ],
+        "original_credit_now": 0,
+        "other_population_credit": 0,
+        "purpose": "Exact ordered frontier native material reuse581 total from root004, zero new body credit; canonical union preserves raw duplicate/ordering metadata. No current semantic transfer."
+      },
+      "mode": "root-reuse",
+      "bytes": 9993,
+      "assessed_union": [
+        [
+          49,
+          54
+        ]
+      ],
+      "registry_material_ranges_raw": [
+        [
+          49,
+          54
+        ]
+      ],
+      "material_line_count": 6,
+      "new_root_personal_lines": 0,
+      "registry_entry_sha256": "94511a9eec7955ab4908a087860845597a5919e6ce7ff82431fd9e9345e285e8",
+      "registry_path_as_recorded": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rand-0.9.5\\src\\distr\\integer.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          1,
+          48
+        ],
+        [
+          55,
+          307
+        ]
+      ],
+      "whole_file_coverage": false,
+      "prior": {
+        "prior_adoption": {
+          "path": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+          "sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a"
+        },
+        "prior_packet": {
+          "path": "adler-continuation-20261030/READ-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "15b0da2eddd6207a2ee30416277e4fa38fec9964bca27bce79258bc40ce40d37"
+        },
+        "prior_registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+        },
+        "prior_native_verification": {
+          "path": "segovb/VERIFY-L13-CONNECTED-ROOT-004.json",
+          "sha256": "df2988f65b69eca35678b6e4fd9920a234975aab79f5f961830a2b8d67c9bf02"
+        },
+        "prior_writer": {
+          "path": "adler-continuation-20261030/adopt_l13_name_sampler_native.py",
+          "sha256": "d7d139c9cf8d895e77ab8b8574a114eb857ad9e665db6e48008ad027939d3630"
+        },
+        "prior_row_pointer": "/sources/5",
+        "prior_registration_pointer": "/sources/5",
+        "prior_source_row": {
+          "source": {
+            "original": 2762,
+            "source_id": "native-rand0.9.5:src/distr/integer.rs",
+            "sha256": "69ac205b6fed57ae09e2f8f1b15ae3d2049b85874bc4da3f246a18188b42d8ea",
+            "actual_eof": 307,
+            "bytes": 9993,
+            "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/69ac205b6fed57ae09e2f8f1b15ae3d2049b85874bc4da3f246a18188b42d8ea",
+            "source_revision": "Exact rand0.9.5 registry archive from frozen Git6533 Cargo.lock checksum",
+            "native_package_archive": {
+              "path": "adler-continuation-20261030/objects/b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+              "sha256": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41"
+            },
+            "archive_member": "rand-0.9.5/src/distr/integer.rs",
+            "prospective_ranges": [
+              [
+                49,
+                54
+              ]
+            ],
+            "original_credit_now": 0,
+            "other_population_credit": 0,
+            "purpose": "Necessary native u64 WeightedIndex new/sample and uniform integer construction/sample kernel only, exact original material scopes; no updates/float/test/unrelated graphs or execution."
+          },
+          "registration": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+            "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+          },
+          "registration_pointer": "/sources/5",
+          "assessed_ranges": [
+            [
+              49,
+              54
+            ]
+          ],
+          "author": "/root",
+          "untruncated_body_outputs": true,
+          "observations": [
+            {
+              "ranges": [
+                [
+                  49,
+                  54
+                ]
+              ],
+              "assessment": "StandardUniform Distribution<u64> reads rng.next_u64 directly. Rangeproof works for everypossibleu64word, so noRNG engine statistical/seed/outputcompatibility proof required to establish successfulindexbound. NativeRngCore implementation/entropy quality remains separate and unassessed here."
+            }
+          ]
+        },
+        "historical_attribution": "/root",
+        "qualified_future_proof": {
+          "receipt": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+          "receipt_sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a",
+          "reference_base": "evidence root",
+          "row_pointer": "/evidence/sources/5",
+          "registration": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+            "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+          },
+          "source_id": "native-rand0.9.5:src/distr/integer.rs",
+          "source_sha256": "69ac205b6fed57ae09e2f8f1b15ae3d2049b85874bc4da3f246a18188b42d8ea",
+          "actual_EOF": 307,
+          "assessed_ranges": [
+            [
+              49,
+              54
+            ]
+          ],
+          "attribution": "Root personally assessed exact original material scope; no full-file or other-lens transfer",
+          "ordered_credit_now": 0,
+          "original": 2762,
+          "material_scope_complete": true,
+          "whole_file_coverage": false,
+          "native_package_provenance": {
+            "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+            "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+          },
+          "future_rule": "Qualify exact native archive/member/lock/source identity and requested material scope at ordered frontier; no rereads or population credit before that frontier."
+        },
+        "native_package_provenance": {
+          "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+        }
+      }
+    },
+    {
+      "original": 2763,
+      "source": {
+        "original": 2763,
+        "source_id": "native-rand0.9.5:src/rng.rs",
+        "sha256": "19a29d58ea169c50ae7fea0a941c405e4a8f3a9b2ac0dc0edd9f7a55e9431703",
+        "actual_eof": 657,
+        "bytes": 20807,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/19a29d58ea169c50ae7fea0a941c405e4a8f3a9b2ac0dc0edd9f7a55e9431703",
+        "source_revision": "Exact rand0.9.5 registry archive from frozen Git6533 Cargo.lock checksum",
+        "native_package_archive": {
+          "path": "adler-continuation-20261030/objects/b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+          "sha256": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41"
+        },
+        "archive_member": "rand-0.9.5/src/rng.rs",
+        "prospective_ranges": [
+          [
+            58,
+            58
+          ],
+          [
+            95,
+            103
+          ],
+          [
+            357,
+            357
+          ]
+        ],
+        "original_credit_now": 0,
+        "other_population_credit": 0,
+        "purpose": "Exact ordered frontier native material reuse581 total from root004, zero new body credit; canonical union preserves raw duplicate/ordering metadata. No current semantic transfer."
+      },
+      "mode": "root-reuse",
+      "bytes": 20807,
+      "assessed_union": [
+        [
+          58,
+          58
+        ],
+        [
+          95,
+          103
+        ],
+        [
+          357,
+          357
+        ]
+      ],
+      "registry_material_ranges_raw": [
+        [
+          58,
+          58
+        ],
+        [
+          95,
+          103
+        ],
+        [
+          357,
+          357
+        ]
+      ],
+      "material_line_count": 11,
+      "new_root_personal_lines": 0,
+      "registry_entry_sha256": "485e002b63b1288cc35131bd20f232d7a707173d73f00b0ec32675236f5acdd9",
+      "registry_path_as_recorded": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rand-0.9.5\\src\\rng.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          1,
+          57
+        ],
+        [
+          59,
+          94
+        ],
+        [
+          104,
+          356
+        ],
+        [
+          358,
+          657
+        ]
+      ],
+      "whole_file_coverage": false,
+      "prior": {
+        "prior_adoption": {
+          "path": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+          "sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a"
+        },
+        "prior_packet": {
+          "path": "adler-continuation-20261030/READ-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "15b0da2eddd6207a2ee30416277e4fa38fec9964bca27bce79258bc40ce40d37"
+        },
+        "prior_registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+        },
+        "prior_native_verification": {
+          "path": "segovb/VERIFY-L13-CONNECTED-ROOT-004.json",
+          "sha256": "df2988f65b69eca35678b6e4fd9920a234975aab79f5f961830a2b8d67c9bf02"
+        },
+        "prior_writer": {
+          "path": "adler-continuation-20261030/adopt_l13_name_sampler_native.py",
+          "sha256": "d7d139c9cf8d895e77ab8b8574a114eb857ad9e665db6e48008ad027939d3630"
+        },
+        "prior_row_pointer": "/sources/6",
+        "prior_registration_pointer": "/sources/6",
+        "prior_source_row": {
+          "source": {
+            "original": 2763,
+            "source_id": "native-rand0.9.5:src/rng.rs",
+            "sha256": "19a29d58ea169c50ae7fea0a941c405e4a8f3a9b2ac0dc0edd9f7a55e9431703",
+            "actual_eof": 657,
+            "bytes": 20807,
+            "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/19a29d58ea169c50ae7fea0a941c405e4a8f3a9b2ac0dc0edd9f7a55e9431703",
+            "source_revision": "Exact rand0.9.5 registry archive from frozen Git6533 Cargo.lock checksum",
+            "native_package_archive": {
+              "path": "adler-continuation-20261030/objects/b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+              "sha256": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41"
+            },
+            "archive_member": "rand-0.9.5/src/rng.rs",
+            "prospective_ranges": [
+              [
+                58,
+                58
+              ],
+              [
+                95,
+                103
+              ],
+              [
+                357,
+                357
+              ]
+            ],
+            "original_credit_now": 0,
+            "other_population_credit": 0,
+            "purpose": "Necessary native u64 WeightedIndex new/sample and uniform integer construction/sample kernel only, exact original material scopes; no updates/float/test/unrelated graphs or execution."
+          },
+          "registration": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+            "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+          },
+          "registration_pointer": "/sources/6",
+          "assessed_ranges": [
+            [
+              58,
+              58
+            ],
+            [
+              95,
+              103
+            ],
+            [
+              357,
+              357
+            ]
+          ],
+          "author": "/root",
+          "untruncated_body_outputs": true,
+          "observations": [
+            {
+              "ranges": [
+                [
+                  58,
+                  58
+                ],
+                [
+                  95,
+                  103
+                ],
+                [
+                  357,
+                  357
+                ]
+              ],
+              "assessment": "Rng extendsRngCore58 and blanketimplements forRngCore357. random<u64>95..100 delegates StandardUniform.sample, actualinteger49..54 read. Methodfunctioncomplete through100; docs102..103 incidental sourceonly. RemainingRng/sample_single/currentfeatures/rawengine bodies excluded, not full657."
+            }
+          ]
+        },
+        "historical_attribution": "/root",
+        "qualified_future_proof": {
+          "receipt": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+          "receipt_sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a",
+          "reference_base": "evidence root",
+          "row_pointer": "/evidence/sources/6",
+          "registration": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+            "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+          },
+          "source_id": "native-rand0.9.5:src/rng.rs",
+          "source_sha256": "19a29d58ea169c50ae7fea0a941c405e4a8f3a9b2ac0dc0edd9f7a55e9431703",
+          "actual_EOF": 657,
+          "assessed_ranges": [
+            [
+              58,
+              58
+            ],
+            [
+              95,
+              103
+            ],
+            [
+              357,
+              357
+            ]
+          ],
+          "attribution": "Root personally assessed exact original material scope; no full-file or other-lens transfer",
+          "ordered_credit_now": 0,
+          "original": 2763,
+          "material_scope_complete": true,
+          "whole_file_coverage": false,
+          "native_package_provenance": {
+            "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+            "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+          },
+          "future_rule": "Qualify exact native archive/member/lock/source identity and requested material scope at ordered frontier; no rereads or population credit before that frontier."
+        },
+        "native_package_provenance": {
+          "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+        }
+      }
+    },
+    {
+      "original": 2764,
+      "source": {
+        "original": 2764,
+        "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/codes.rs",
+        "sha256": "0b8a7c542323af91d7989eb07067b61c68e2ffe46254a1d10477293591c3cb13",
+        "actual_eof": 171,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/0b8a7c542323af91d7989eb07067b61c68e2ffe46254a1d10477293591c3cb13",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/0b8a7c542323af91d7989eb07067b61c68e2ffe46254a1d10477293591c3cb13",
+        "prospective_ranges": [
+          [
+            1,
+            171
+          ]
+        ],
+        "revision_qualification": "Exact frozenPR6533 body/archivef82 transport; no current semantic transfer.",
+        "purpose": "Seven fresh armour/native code/coverage source roles538 after prospective registration; no execution."
+      },
+      "mode": "fresh",
+      "bytes": 4618,
+      "assessed_union": [
+        [
+          1,
+          171
+        ]
+      ],
+      "registry_material_ranges_raw": [
+        [
+          1,
+          171
+        ]
+      ],
+      "material_line_count": 171,
+      "new_root_personal_lines": 171,
+      "registry_entry_sha256": "f0d60b922197f66358748170dfb2a9d43f651f085fa2d7b0ce8ee626ec8e014f",
+      "registry_path_as_recorded": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\gpu\\helmet\\codes.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [],
+      "whole_file_coverage": true
+    },
+    {
+      "original": 2765,
+      "source": {
+        "original": 2765,
+        "source_id": "pr-working:crates/fabelgeist-armor/src/puff_and_slash.rs",
+        "sha256": "d17c799bb303030a857deb25d4f1b93c144147bafa6ef4a1a2760b3528ea1717",
+        "actual_eof": 100,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/d17c799bb303030a857deb25d4f1b93c144147bafa6ef4a1a2760b3528ea1717",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/d17c799bb303030a857deb25d4f1b93c144147bafa6ef4a1a2760b3528ea1717",
+        "prospective_ranges": [
+          [
+            11,
+            28
+          ]
+        ],
+        "revision_qualification": "Exact frozenPR6533 body/archivef82 transport; no current semantic transfer.",
+        "purpose": "Seven fresh armour/native code/coverage source roles538 after prospective registration; no execution."
+      },
+      "mode": "fresh",
+      "bytes": 3578,
+      "assessed_union": [
+        [
+          11,
+          28
+        ]
+      ],
+      "registry_material_ranges_raw": [
+        [
+          11,
+          28
+        ]
+      ],
+      "material_line_count": 18,
+      "new_root_personal_lines": 18,
+      "registry_entry_sha256": "a66a10a1ceabdc2059bdea51aafe1a08fdb44fc16cd04b23deec6e58babcea21",
+      "registry_path_as_recorded": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\puff_and_slash.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          1,
+          10
+        ],
+        [
+          29,
+          100
+        ]
+      ],
+      "whole_file_coverage": false
+    },
+    {
+      "original": 2766,
+      "source": {
+        "original": 2766,
+        "source_id": "pr-working:crates/adventuresim-core/src/combat/coverage.rs",
+        "sha256": "8bebf038e281f0b1529dd8008a42379c43eac3e0c2f9767d9a29606eb69ddced",
+        "actual_eof": 347,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/8bebf038e281f0b1529dd8008a42379c43eac3e0c2f9767d9a29606eb69ddced",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/8bebf038e281f0b1529dd8008a42379c43eac3e0c2f9767d9a29606eb69ddced",
+        "prospective_ranges": [
+          [
+            1,
+            142
+          ]
+        ],
+        "revision_qualification": "Exact frozenPR6533 body/archivef82 transport; no current semantic transfer.",
+        "purpose": "Seven fresh armour/native code/coverage source roles538 after prospective registration; no execution."
+      },
+      "mode": "fresh",
+      "bytes": 13928,
+      "assessed_union": [
+        [
+          1,
+          142
+        ]
+      ],
+      "registry_material_ranges_raw": [
+        [
+          1,
+          142
+        ]
+      ],
+      "material_line_count": 142,
+      "new_root_personal_lines": 142,
+      "registry_entry_sha256": "ce22b9fcfad5938d902065aa01f4c28d6b5a4f886d24bfc03ae83a906c6dea17",
+      "registry_path_as_recorded": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\combat\\coverage.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          143,
+          347
+        ]
+      ],
+      "whole_file_coverage": false
+    },
+    {
+      "original": 2767,
+      "source": {
+        "original": 2767,
+        "source_id": "pr-working:crates/fabelgeist-armor/src/components.rs",
+        "sha256": "0d82f83e694489be2b70f9208306217b283d1a8f11a5e174d80c8838b98109cd",
+        "actual_eof": 87,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/0d82f83e694489be2b70f9208306217b283d1a8f11a5e174d80c8838b98109cd",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/0d82f83e694489be2b70f9208306217b283d1a8f11a5e174d80c8838b98109cd",
+        "prospective_ranges": [
+          [
+            1,
+            87
+          ]
+        ],
+        "revision_qualification": "Exact frozenPR6533 body/archivef82 transport; no current semantic transfer.",
+        "purpose": "Seven fresh armour/native code/coverage source roles538 after prospective registration; no execution."
+      },
+      "mode": "fresh",
+      "bytes": 2685,
+      "assessed_union": [
+        [
+          1,
+          87
+        ]
+      ],
+      "registry_material_ranges_raw": [
+        [
+          1,
+          87
+        ]
+      ],
+      "material_line_count": 87,
+      "new_root_personal_lines": 87,
+      "registry_entry_sha256": "bca022226cafa81b8c11a45fa5f91704dc7ae6a1a8711162d2168ab7e9644497",
+      "registry_path_as_recorded": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\components.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [],
+      "whole_file_coverage": true
+    },
+    {
+      "original": 2768,
+      "source": {
+        "original": 2768,
+        "source_id": "pr-working:crates/fabelgeist-armor/src/plate_face.rs",
+        "sha256": "7c7d222066ebe81219e45b4ac4086acc9de7da36c7633f662027be299d93ba71",
+        "actual_eof": 16,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/7c7d222066ebe81219e45b4ac4086acc9de7da36c7633f662027be299d93ba71",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/7c7d222066ebe81219e45b4ac4086acc9de7da36c7633f662027be299d93ba71",
+        "prospective_ranges": [
+          [
+            1,
+            16
+          ]
+        ],
+        "revision_qualification": "Exact frozenPR6533 body/archivef82 transport; no current semantic transfer.",
+        "purpose": "Seven fresh armour/native code/coverage source roles538 after prospective registration; no execution."
+      },
+      "mode": "fresh",
+      "bytes": 631,
+      "assessed_union": [
+        [
+          1,
+          16
+        ]
+      ],
+      "registry_material_ranges_raw": [
+        [
+          1,
+          16
+        ]
+      ],
+      "material_line_count": 16,
+      "new_root_personal_lines": 16,
+      "registry_entry_sha256": "c1437aee1f5f9ad83b558a385bf3444fdf9d009f536a9dd383762884d3aad070",
+      "registry_path_as_recorded": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\plate_face.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [],
+      "whole_file_coverage": true
+    },
+    {
+      "original": 2769,
+      "source": {
+        "original": 2769,
+        "source_id": "pr-working:crates/fabelgeist-armor/src/plate_mount.rs",
+        "sha256": "6b0650a1f0aa61c043d101edb7ed5f577b7291820201c1e5c4583559ab52f3f9",
+        "actual_eof": 58,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/6b0650a1f0aa61c043d101edb7ed5f577b7291820201c1e5c4583559ab52f3f9",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/6b0650a1f0aa61c043d101edb7ed5f577b7291820201c1e5c4583559ab52f3f9",
+        "prospective_ranges": [
+          [
+            1,
+            58
+          ]
+        ],
+        "revision_qualification": "Exact frozenPR6533 body/archivef82 transport; no current semantic transfer.",
+        "purpose": "Seven fresh armour/native code/coverage source roles538 after prospective registration; no execution."
+      },
+      "mode": "fresh",
+      "bytes": 1855,
+      "assessed_union": [
+        [
+          1,
+          58
+        ]
+      ],
+      "registry_material_ranges_raw": [
+        [
+          1,
+          58
+        ]
+      ],
+      "material_line_count": 58,
+      "new_root_personal_lines": 58,
+      "registry_entry_sha256": "95fb87cec25334c563696f5cbf4f9d971a461024f9a397c1fde143bbeb9c27ba",
+      "registry_path_as_recorded": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\plate_mount.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [],
+      "whole_file_coverage": true
+    },
+    {
+      "original": 2770,
+      "source": {
+        "original": 2770,
+        "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/limb_build.rs",
+        "sha256": "3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+        "actual_eof": 46,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+        "prospective_ranges": [
+          [
+            1,
+            46
+          ]
+        ],
+        "revision_qualification": "Exact frozenPR6533 body/archivef82 transport; no current semantic transfer.",
+        "purpose": "Seven fresh armour/native code/coverage source roles538 after prospective registration; no execution."
+      },
+      "mode": "fresh",
+      "bytes": 1800,
+      "assessed_union": [
+        [
+          1,
+          46
+        ]
+      ],
+      "registry_material_ranges_raw": [
+        [
+          1,
+          46
+        ]
+      ],
+      "material_line_count": 46,
+      "new_root_personal_lines": 46,
+      "registry_entry_sha256": "1848da7952d091ccd19d5bd363db01e5b4e7cd98f59ba5992e0e18d328ff5c05",
+      "registry_path_as_recorded": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\gpu\\limb_build.rs",
+      "source_current_reconciled": false,
+      "unread_ranges": [],
+      "whole_file_coverage": true
+    }
+  ],
+  "all_nested_range_fields": [
+    {
+      "pointer": "/files/2757/material_ranges",
+      "raw_value": [
+        [
+          1,
+          145
+        ],
+        [
+          358,
+          369
+        ]
+      ],
+      "actual_eof": 631
+    },
+    {
+      "pointer": "/files/2757/parallel_reached_registrations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          145
+        ],
+        [
+          358,
+          369
+        ]
+      ],
+      "actual_eof": 631
+    },
+    {
+      "pointer": "/files/2758/material_ranges",
+      "raw_value": [
+        [
+          219,
+          260
+        ],
+        [
+          268,
+          312
+        ],
+        [
+          399,
+          415
+        ],
+        [
+          190,
+          219
+        ]
+      ],
+      "actual_eof": 622
+    },
+    {
+      "pointer": "/files/2758/parallel_reached_registrations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          219,
+          260
+        ],
+        [
+          268,
+          312
+        ],
+        [
+          399,
+          415
+        ]
+      ],
+      "actual_eof": 622
+    },
+    {
+      "pointer": "/files/2758/parallel_reached_registrations/1/original_record/material_ranges",
+      "raw_value": [
+        [
+          190,
+          219
+        ]
+      ],
+      "actual_eof": 622
+    },
+    {
+      "pointer": "/files/2759/material_ranges",
+      "raw_value": [
+        [
+          71,
+          160
+        ],
+        [
+          280,
+          280
+        ],
+        [
+          1,
+          70
+        ]
+      ],
+      "actual_eof": 914
+    },
+    {
+      "pointer": "/files/2759/parallel_reached_registrations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          71,
+          160
+        ],
+        [
+          280,
+          280
+        ]
+      ],
+      "actual_eof": 914
+    },
+    {
+      "pointer": "/files/2759/parallel_reached_registrations/1/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          70
+        ]
+      ],
+      "actual_eof": 914
+    },
+    {
+      "pointer": "/files/2760/material_ranges",
+      "raw_value": [
+        [
+          25,
+          60
+        ],
+        [
+          85,
+          115
+        ]
+      ],
+      "actual_eof": 115
+    },
+    {
+      "pointer": "/files/2760/parallel_reached_registrations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          25,
+          60
+        ],
+        [
+          85,
+          115
+        ]
+      ],
+      "actual_eof": 115
+    },
+    {
+      "pointer": "/files/2761/material_ranges",
+      "raw_value": [
+        [
+          16,
+          61
+        ]
+      ],
+      "actual_eof": 408
+    },
+    {
+      "pointer": "/files/2761/parallel_reached_registrations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          16,
+          61
+        ]
+      ],
+      "actual_eof": 408
+    },
+    {
+      "pointer": "/files/2762/material_ranges",
+      "raw_value": [
+        [
+          49,
+          54
+        ]
+      ],
+      "actual_eof": 307
+    },
+    {
+      "pointer": "/files/2762/parallel_reached_registrations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          49,
+          54
+        ]
+      ],
+      "actual_eof": 307
+    },
+    {
+      "pointer": "/files/2763/material_ranges",
+      "raw_value": [
+        [
+          58,
+          58
+        ],
+        [
+          95,
+          103
+        ],
+        [
+          357,
+          357
+        ]
+      ],
+      "actual_eof": 657
+    },
+    {
+      "pointer": "/files/2763/parallel_reached_registrations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          58,
+          58
+        ],
+        [
+          95,
+          103
+        ],
+        [
+          357,
+          357
+        ]
+      ],
+      "actual_eof": 657
+    },
+    {
+      "pointer": "/files/2764/material_ranges",
+      "raw_value": [
+        [
+          1,
+          171
+        ]
+      ],
+      "actual_eof": 171
+    },
+    {
+      "pointer": "/files/2764/parallel_reached_registrations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          171
+        ]
+      ],
+      "actual_eof": 171
+    },
+    {
+      "pointer": "/files/2765/material_ranges",
+      "raw_value": [
+        [
+          11,
+          28
+        ]
+      ],
+      "actual_eof": 100
+    },
+    {
+      "pointer": "/files/2765/parallel_reached_registrations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          11,
+          28
+        ]
+      ],
+      "actual_eof": 100
+    },
+    {
+      "pointer": "/files/2766/material_ranges",
+      "raw_value": [
+        [
+          1,
+          142
+        ]
+      ],
+      "actual_eof": 347
+    },
+    {
+      "pointer": "/files/2766/parallel_reached_registrations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          142
+        ]
+      ],
+      "actual_eof": 347
+    },
+    {
+      "pointer": "/files/2767/material_ranges",
+      "raw_value": [
+        [
+          1,
+          87
+        ]
+      ],
+      "actual_eof": 87
+    },
+    {
+      "pointer": "/files/2767/parallel_reached_registrations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          87
+        ]
+      ],
+      "actual_eof": 87
+    },
+    {
+      "pointer": "/files/2768/material_ranges",
+      "raw_value": [
+        [
+          1,
+          16
+        ]
+      ],
+      "actual_eof": 16
+    },
+    {
+      "pointer": "/files/2768/parallel_reached_registrations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          16
+        ]
+      ],
+      "actual_eof": 16
+    },
+    {
+      "pointer": "/files/2769/material_ranges",
+      "raw_value": [
+        [
+          1,
+          58
+        ]
+      ],
+      "actual_eof": 58
+    },
+    {
+      "pointer": "/files/2769/parallel_reached_registrations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          58
+        ]
+      ],
+      "actual_eof": 58
+    },
+    {
+      "pointer": "/files/2770/material_ranges",
+      "raw_value": [
+        [
+          1,
+          46
+        ]
+      ],
+      "actual_eof": 46
+    },
+    {
+      "pointer": "/files/2770/parallel_reached_registrations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          46
+        ]
+      ],
+      "actual_eof": 46
+    }
+  ],
+  "exact_hash_prior_hits": [
+    {
+      "original": 2757,
+      "receipt": {
+        "path": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+        "sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a"
+      }
+    },
+    {
+      "original": 2758,
+      "receipt": {
+        "path": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+        "sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a"
+      }
+    },
+    {
+      "original": 2759,
+      "receipt": {
+        "path": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+        "sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a"
+      }
+    },
+    {
+      "original": 2760,
+      "receipt": {
+        "path": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+        "sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a"
+      }
+    },
+    {
+      "original": 2761,
+      "receipt": {
+        "path": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+        "sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a"
+      }
+    },
+    {
+      "original": 2762,
+      "receipt": {
+        "path": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+        "sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a"
+      }
+    },
+    {
+      "original": 2763,
+      "receipt": {
+        "path": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+        "sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a"
+      }
+    }
+  ],
+  "future_proofs_preserved": [
+    {
+      "receipt": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+      "receipt_sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a",
+      "reference_base": "evidence root",
+      "row_pointer": "/evidence/sources/0",
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+      },
+      "source_id": "native-rand0.9.5:src/distr/weighted/weighted_index.rs",
+      "source_sha256": "b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003",
+      "actual_EOF": 631,
+      "assessed_ranges": [
+        [
+          1,
+          145
+        ],
+        [
+          358,
+          369
+        ]
+      ],
+      "attribution": "Root personally assessed exact original material scope; no full-file or other-lens transfer",
+      "ordered_credit_now": 0,
+      "original": 2757,
+      "material_scope_complete": true,
+      "whole_file_coverage": false,
+      "native_package_provenance": {
+        "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+      },
+      "future_rule": "Qualify exact native archive/member/lock/source identity and requested material scope at ordered frontier; no rereads or population credit before that frontier."
+    },
+    {
+      "receipt": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+      "receipt_sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a",
+      "reference_base": "evidence root",
+      "row_pointer": "/evidence/sources/1",
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+      },
+      "source_id": "native-rand0.9.5:src/distr/uniform.rs",
+      "source_sha256": "04efcc061e1904b824e3feb68541c4e8259a46ecd2c118af6fb383b3ad37f73c",
+      "actual_EOF": 622,
+      "assessed_ranges": [
+        [
+          190,
+          260
+        ],
+        [
+          268,
+          312
+        ],
+        [
+          399,
+          415
+        ]
+      ],
+      "attribution": "Root personally assessed exact original material scope; no full-file or other-lens transfer",
+      "ordered_credit_now": 0,
+      "original": 2758,
+      "material_scope_complete": true,
+      "whole_file_coverage": false,
+      "native_package_provenance": {
+        "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+      },
+      "future_rule": "Qualify exact native archive/member/lock/source identity and requested material scope at ordered frontier; no rereads or population credit before that frontier."
+    },
+    {
+      "receipt": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+      "receipt_sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a",
+      "reference_base": "evidence root",
+      "row_pointer": "/evidence/sources/2",
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+      },
+      "source_id": "native-rand0.9.5:src/distr/uniform_int.rs",
+      "source_sha256": "30c620bc9d74263162de2e0755ae4b323abce1d6aa22c00d1b9de378480f22c0",
+      "actual_EOF": 914,
+      "assessed_ranges": [
+        [
+          1,
+          160
+        ],
+        [
+          280,
+          280
+        ]
+      ],
+      "attribution": "Root personally assessed exact original material scope; no full-file or other-lens transfer",
+      "ordered_credit_now": 0,
+      "original": 2759,
+      "material_scope_complete": true,
+      "whole_file_coverage": false,
+      "native_package_provenance": {
+        "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+      },
+      "future_rule": "Qualify exact native archive/member/lock/source identity and requested material scope at ordered frontier; no rereads or population credit before that frontier."
+    },
+    {
+      "receipt": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+      "receipt_sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a",
+      "reference_base": "evidence root",
+      "row_pointer": "/evidence/sources/3",
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+      },
+      "source_id": "native-rand0.9.5:src/distr/weighted/mod.rs",
+      "source_sha256": "52379f09ea06c8ac54bdb4ecaed93fd7fc08f85866b5e3fcb4e40d0f1576bdfe",
+      "actual_EOF": 115,
+      "assessed_ranges": [
+        [
+          25,
+          60
+        ],
+        [
+          85,
+          115
+        ]
+      ],
+      "attribution": "Root personally assessed exact original material scope; no full-file or other-lens transfer",
+      "ordered_credit_now": 0,
+      "original": 2760,
+      "material_scope_complete": true,
+      "whole_file_coverage": false,
+      "native_package_provenance": {
+        "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+      },
+      "future_rule": "Qualify exact native archive/member/lock/source identity and requested material scope at ordered frontier; no rereads or population credit before that frontier."
+    },
+    {
+      "receipt": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+      "receipt_sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a",
+      "reference_base": "evidence root",
+      "row_pointer": "/evidence/sources/4",
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+      },
+      "source_id": "native-rand0.9.5:src/distr/utils.rs",
+      "source_sha256": "a631940e728257c9b0cb753bc64fa631958c92ce52d5b2265c7ed06a46567b8f",
+      "actual_EOF": 408,
+      "assessed_ranges": [
+        [
+          16,
+          61
+        ]
+      ],
+      "attribution": "Root personally assessed exact original material scope; no full-file or other-lens transfer",
+      "ordered_credit_now": 0,
+      "original": 2761,
+      "material_scope_complete": true,
+      "whole_file_coverage": false,
+      "native_package_provenance": {
+        "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+      },
+      "future_rule": "Qualify exact native archive/member/lock/source identity and requested material scope at ordered frontier; no rereads or population credit before that frontier."
+    },
+    {
+      "receipt": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+      "receipt_sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a",
+      "reference_base": "evidence root",
+      "row_pointer": "/evidence/sources/5",
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+      },
+      "source_id": "native-rand0.9.5:src/distr/integer.rs",
+      "source_sha256": "69ac205b6fed57ae09e2f8f1b15ae3d2049b85874bc4da3f246a18188b42d8ea",
+      "actual_EOF": 307,
+      "assessed_ranges": [
+        [
+          49,
+          54
+        ]
+      ],
+      "attribution": "Root personally assessed exact original material scope; no full-file or other-lens transfer",
+      "ordered_credit_now": 0,
+      "original": 2762,
+      "material_scope_complete": true,
+      "whole_file_coverage": false,
+      "native_package_provenance": {
+        "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+      },
+      "future_rule": "Qualify exact native archive/member/lock/source identity and requested material scope at ordered frontier; no rereads or population credit before that frontier."
+    },
+    {
+      "receipt": "segovb/READ-L13-CONNECTED-ROOT-004.json",
+      "receipt_sha256": "ad3fb5978d211b757973d947dc3638011f2e10d49feb7ecf74b6b77be8250e3a",
+      "reference_base": "evidence root",
+      "row_pointer": "/evidence/sources/6",
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+      },
+      "source_id": "native-rand0.9.5:src/rng.rs",
+      "source_sha256": "19a29d58ea169c50ae7fea0a941c405e4a8f3a9b2ac0dc0edd9f7a55e9431703",
+      "actual_EOF": 657,
+      "assessed_ranges": [
+        [
+          58,
+          58
+        ],
+        [
+          95,
+          103
+        ],
+        [
+          357,
+          357
+        ]
+      ],
+      "attribution": "Root personally assessed exact original material scope; no full-file or other-lens transfer",
+      "ordered_credit_now": 0,
+      "original": 2763,
+      "material_scope_complete": true,
+      "whole_file_coverage": false,
+      "native_package_provenance": {
+        "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+        "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+      },
+      "future_rule": "Qualify exact native archive/member/lock/source identity and requested material scope at ordered frontier; no rereads or population credit before that frontier."
+    }
+  ],
+  "old_ordered_applications_preserved": [],
+  "discovery_metadata_sha256": "426f381a4c1e3273a81a3bf5543c5f3adc21ac7adccd1ceab6f6911b5fb68725",
+  "production_source_lines": 1119,
+  "fixture_source_lines": 0,
+  "fixture_execution": false,
+  "exact_partial_scopes_preserved": true,
+  "native_archive_lock_member_and_prior_future_proofs_qualified": true,
+  "raw_overlapping_unordered_ranges_preserved_canonical_union_once": true,
+  "all_nested_range_fields_inspected": true,
+  "historical_receipts_unchanged": true,
+  "transport_only_not_current_source": true,
+  "material_lines": 1119,
+  "fresh_lines": 538,
+  "reused_material_lines": 581,
+  "body_credit": 0,
+  "authority_changes": 0,
+  "other_population_credit": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "limits": [
+    "Seven fresh armour/coverage source roles538 need prospective bounded display. Native581 exact prior root004 read reused without new body credit.",
+    "Exact rand0.9.5 frozen lock checksum/archive/member hashes/EOF/scopes/registered read and future proofs authenticated; no current activation/native runtime execution.",
+    "Raw unordered2759 and overlapping2758 metadata preserved, canonical union only counts each line once. All30 nested fields inspected.",
+    "Full13/extensions/current/all20/exact aliases/later acceptance/repair ledger/implementation/review/runtime incomplete; no product edits/builds/tests/native execution."
+  ]
+}

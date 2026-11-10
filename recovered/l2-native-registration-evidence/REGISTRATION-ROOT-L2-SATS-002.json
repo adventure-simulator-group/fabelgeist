@@ -1,0 +1,69 @@
+{
+  "schema": "726-prospective-l2-sdk-registration-v1",
+  "lens": 2,
+  "source_revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+  "lock_sha256": "b36b6a88eebfff2628c4626c1f890f1589f7e06d324aab6d22a998475daa97d1",
+  "package": {
+    "name": "spacetimedb-bindings-macro",
+    "version": "2.6.1",
+    "source": "registry+https://github.com/rust-lang/crates.io-index",
+    "checksum": "fce86c7657dcb42a33ce55f0100f98964dc15b64e79f06803a478676b74d6c82",
+    "dependencies": [
+      "heck 0.4.1",
+      "humantime",
+      "proc-macro2",
+      "quote",
+      "spacetimedb-primitives",
+      "syn 2.0.119"
+    ]
+  },
+  "rows": [
+    {
+      "package": "spacetimedb-bindings-macro",
+      "version": "2.6.1",
+      "archive_checksum": "fce86c7657dcb42a33ce55f0100f98964dc15b64e79f06803a478676b74d6c82",
+      "archive_member": "spacetimedb-bindings-macro-2.6.1/src/lib.rs",
+      "source_sha256": "4ddcdb3edbf28ff93e4d013fa71135ce98698acc219481abaadf9a27005193ff",
+      "actual_EOF": 372,
+      "source_object": "adler-continuation-20261030/objects/4ddcdb3edbf28ff93e4d013fa71135ce98698acc219481abaadf9a27005193ff",
+      "prospective_ranges": [
+        [
+          244,
+          295
+        ]
+      ],
+      "new_body_credit": 0
+    },
+    {
+      "package": "spacetimedb-bindings-macro",
+      "version": "2.6.1",
+      "archive_checksum": "fce86c7657dcb42a33ce55f0100f98964dc15b64e79f06803a478676b74d6c82",
+      "archive_member": "spacetimedb-bindings-macro-2.6.1/src/sats.rs",
+      "source_sha256": "bf26e6331c7cf9a560ecec507b5e06b11bc77460dec17ac0d553cff5278a5bc4",
+      "actual_EOF": 752,
+      "source_object": "adler-continuation-20261030/objects/bf26e6331c7cf9a560ecec507b5e06b11bc77460dec17ac0d553cff5278a5bc4",
+      "prospective_ranges": [
+        [
+          1,
+          190
+        ],
+        [
+          331,
+          480
+        ],
+        [
+          700,
+          752
+        ]
+      ],
+      "new_body_credit": 0
+    }
+  ],
+  "scope": "SpacetimeType composition and SATS named-product decoding/checked conversion selection; no full macro/SDK coverage. Archive exactly matches selected Cargo.lock checksum; source cache equals archive.",
+  "predecessor_rejected": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L2-SATS-001-REJECTED.json",
+    "sha256": "ccf73d0040b7401da74c520c871c16c876bb77844c1d1dc6e14c94c1382e61dd"
+  },
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

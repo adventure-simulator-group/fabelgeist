@@ -1,0 +1,105 @@
+{
+  "template": {
+    "packet": {
+      "path": "adler-continuation-20261030/READ-ROOT-L13-2836-2845-001.json",
+      "sha256": "6e30bc3515a4ee8d2504e780da0c96017c2e719fffa8123f16dfb0d26dbd29eb"
+    },
+    "ledger": {
+      "path": "evidence/continuation-segovb/ledger.json",
+      "sha256": "53ae8ac4268cbbe060ab4c470e0a38f7170b741bc1dd20a1f12fcba062413b73"
+    },
+    "selector": {
+      "path": "CURRENT-ADLER.json",
+      "sha256": "3b3bfdf68898124ada58a3a9f30ff33957387175625cbb2d8566cc922ade372b"
+    },
+    "queue": {
+      "path": "workflow-20261030/CLOSURE-QUEUE-764.json",
+      "sha256": "0a03a831d5aeca5941ce2f12628cf757b05e10c2211a78d0211ec7bbb5635548"
+    },
+    "selected_lenses": {
+      "path": "adler-continuation-20261030/SELECTED-LENSES-CONTINUATION-413.json",
+      "sha256": "c5050b8f8514a174457dadd988cd7c76ff97f144c32cf05141064f5e985d8eac"
+    },
+    "previous_state": {
+      "path": "segovb/STATE-L13-PARALLEL-721.json",
+      "sha256": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    "root_sequence": 722,
+    "queue_sequence": 765,
+    "next_selected_lenses_filename": "SELECTED-LENSES-CONTINUATION-414.json",
+    "prior_reuses": [
+      {
+        "kind": "exact_admission_2836_2845_material",
+        "original": 2844,
+        "adoption": {
+          "path": "segovb/READ-L13-PARALLEL-109.json",
+          "sha256": "e0871ab6712bbfffc3442b90c3e4e1af80e5759b8a018758d8c566eabcc7f83a"
+        },
+        "qualification": {
+          "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2836-2845-ADMISSION-MIXED-001.json",
+          "sha256": "12bd59861e3c57be9dce4b4efe6b824e00eb58e74b655effe2fc3d494d9bd0fc"
+        }
+      },
+      {
+        "kind": "exact_admission_2836_2845_material",
+        "original": 2845,
+        "adoption": {
+          "path": "segovb/READ-L13-PARALLEL-109.json",
+          "sha256": "e0871ab6712bbfffc3442b90c3e4e1af80e5759b8a018758d8c566eabcc7f83a"
+        },
+        "qualification": {
+          "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2836-2845-ADMISSION-MIXED-001.json",
+          "sha256": "12bd59861e3c57be9dce4b4efe6b824e00eb58e74b655effe2fc3d494d9bd0fc"
+        }
+      }
+    ],
+    "admission_2836_2845_material_qualification": {
+      "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2836-2845-ADMISSION-MIXED-001.json",
+      "sha256": "12bd59861e3c57be9dce4b4efe6b824e00eb58e74b655effe2fc3d494d9bd0fc"
+    }
+  },
+  "searched_distinct_tokens": 16973,
+  "matched_state_hashes": [],
+  "plan_sha256": "dfb531b0d74bd516e2b04da56c7cc48e30fd39b3e94326c3e052ebd647c6ab39",
+  "qualification": "Static plan candidate uses exact packet and qualification plus prior printed ledger, selector, queue and selected-lens references. State 721 hash is unknown. Testing 16,973 distinct SHA-shaped tokens in the available private transcript found no match; unobserved changes or unprinted hashes remain possible. This is not the original plan or current authority.",
+  "printed_predecessor_evidence": [
+    {
+      "ordinal": 55913,
+      "ledger": {
+        "path": "evidence/continuation-segovb/ledger.json",
+        "sha256": "c723eb9db0ef8d13646cab5933f6ea15633ee61c5bdbc2e9f498b0c4ba9029e5"
+      },
+      "selector": {
+        "path": "CURRENT-ADLER.json",
+        "sha256": "fd99a659e18d345c25512963f052512d8eb2d38b8470dc2b2c0ecdbc286afdff"
+      },
+      "queue": {
+        "path": "workflow-20261030/CLOSURE-QUEUE-763.json",
+        "sha256": "754456f70720f0490460541fc311ee2f8b40305a85c981d77d31d7a32387a781"
+      },
+      "selected_lenses": {
+        "path": "adler-continuation-20261030/SELECTED-LENSES-CONTINUATION-413.json",
+        "sha256": "c5050b8f8514a174457dadd988cd7c76ff97f144c32cf05141064f5e985d8eac"
+      }
+    },
+    {
+      "ordinal": 55937,
+      "ledger": {
+        "path": "evidence/continuation-segovb/ledger.json",
+        "sha256": "53ae8ac4268cbbe060ab4c470e0a38f7170b741bc1dd20a1f12fcba062413b73"
+      },
+      "selector": {
+        "path": "CURRENT-ADLER.json",
+        "sha256": "3b3bfdf68898124ada58a3a9f30ff33957387175625cbb2d8566cc922ade372b"
+      },
+      "queue": {
+        "path": "workflow-20261030/CLOSURE-QUEUE-764.json",
+        "sha256": "0a03a831d5aeca5941ce2f12628cf757b05e10c2211a78d0211ec7bbb5635548"
+      },
+      "selected_lenses": {
+        "path": "adler-continuation-20261030/SELECTED-LENSES-CONTINUATION-413.json",
+        "sha256": "c5050b8f8514a174457dadd988cd7c76ff97f144c32cf05141064f5e985d8eac"
+      }
+    }
+  ]
+}

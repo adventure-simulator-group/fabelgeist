@@ -1,0 +1,394 @@
+{
+  "schema": "726-current-transition-ff9-evidence-v1",
+  "transition_reference": {
+    "path": "adler-continuation-20261030/CURRENT-TARGET-TRANSITION-FF9C-001.json",
+    "sha256": "10a422e473cd1c96005cee37aa1836a09669997f2dec94488121d26cbe684692"
+  },
+  "original_bytes_recovered": true,
+  "recorded_output_ordinal": 78738,
+  "recorded_diff_ordinal": 78654,
+  "before_revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+  "after_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "paths": [
+    {
+      "path": "crates/adventuresim-procedural-textures/src/runtime.rs",
+      "status": "M",
+      "before": {
+        "sha256": "4351bf685bda2d29433f4b23698ef5377f466b51528b0e3400af6147b7d63931",
+        "bytes": 4956
+      },
+      "after": {
+        "sha256": "26cf50d8ebbd69f45bf05b257a168c6255227b83e0da994068b46c6173584ddb",
+        "bytes": 5184
+      }
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/static/tactical.html",
+      "status": "M",
+      "before": {
+        "sha256": "cf70daafeace3bf7ae21134a2197efb23c6ac0df60da40840eb13a24aca54867",
+        "bytes": 8811
+      },
+      "after": {
+        "sha256": "8489c98bbe1d1efc2b930825656c631cc409f5900eb5f827942c201de7f83e1e",
+        "bytes": 8934
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/README.md",
+      "status": "M",
+      "before": {
+        "sha256": "30270168e678308ca707dc47f7d2ddbf747abfb69ad2f0b689fa01a85ea59a85",
+        "bytes": 44563
+      },
+      "after": {
+        "sha256": "a17150cce08b95e7bcd158e123915a4d6ac54969695522954b85a28dc4563304",
+        "bytes": 46326
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/browser_runtime.rs",
+      "status": "M",
+      "before": {
+        "sha256": "afb6d3b0ff97037051e1fae2f1c9340a31fe07a1b34a6bc244d0110010c429d3",
+        "bytes": 16566
+      },
+      "after": {
+        "sha256": "9b980ac252ca478c383b3a0b5ad1fc1f166b8b64c75fc483ecd75abc12e4955f",
+        "bytes": 17364
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment.rs",
+      "status": "M",
+      "before": {
+        "sha256": "189c2e7491ed6395765d58dcd3ed3b115bc06895e114e26cb7a9954ed14464a5",
+        "bytes": 67798
+      },
+      "after": {
+        "sha256": "d494c8b8bf83d0f36462004fc2faff3b5a2e4a0686723ee6f78b075609b36f55",
+        "bytes": 68070
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/settlement.rs",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "3b3490f73820500a7bab979c4c067e2b5c0a68b0bda0b590e022fbe6316cde51",
+        "bytes": 1258
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/loading_screen.rs",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "73bd40b9d9639139f22513d62c61ca3c9a0bff4562a4d3782adadb85503dc845",
+        "bytes": 6708
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/loading_screen/progress.rs",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "20cfc0fb38ee506515ee8b19bed969ed01bc9844e7966f5c66fb7607483731fa",
+        "bytes": 5823
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/loading_screen/sources.rs",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "de4ba0c8aa83c3a8041c41b6fdb1075171221c106f3fba15a701c844dca304b8",
+        "bytes": 3860
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/loading_screen/view.rs",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "334615913f77df0287edc5b25d1a6c1f20c70122e49ea65f8d80abab8170899f",
+        "bytes": 8846
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/main.rs",
+      "status": "M",
+      "before": {
+        "sha256": "11642eae7fcc7b877302b99cb6eb0cb62ee45c7fe0df07541fb06607c159f875",
+        "bytes": 21811
+      },
+      "after": {
+        "sha256": "8c83bfeb2a04ab8f69286edd2d984228a43dfe336d957b138bccaa6f52513e40",
+        "bytes": 21972
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/canvas_view.rs",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "a60a60698fc8aa2bc5da2abc34a8887443180db7dff00a436901511a1fd6c474",
+        "bytes": 2242
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs",
+      "status": "M",
+      "before": {
+        "sha256": "56f5a0285d872607f4f03c969e6620557a8fd15fe250779a55c42d0c75662b93",
+        "bytes": 21981
+      },
+      "after": {
+        "sha256": "183b62660fadacb8f9bfe9a7051edcdc191c695358a95f4d75054095e52fd999",
+        "bytes": 21998
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/mod.rs",
+      "status": "M",
+      "before": {
+        "sha256": "b41880d16760f40827b9d45b1d94e4f6b545b2cfc57f79ebb4f25ad4c8717af9",
+        "bytes": 17689
+      },
+      "after": {
+        "sha256": "5f83a143e6297cd52a2f51f141ee4fd53a84c2d4f093959e5d5f5c87e09089dc",
+        "bytes": 17746
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/mod.rs",
+      "status": "M",
+      "before": {
+        "sha256": "c9c199effe7b9c75f9e593694d2def8ce235cc10107b4f45f2b67f2ae0f0490a",
+        "bytes": 16206
+      },
+      "after": {
+        "sha256": "91114d781658e20bf295055c9eaf815a5b0e7fddf0ca56caa0a8723904c19a0d",
+        "bytes": 16400
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/pipeline_readiness.rs",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "60ce45cc8a4f42746bb97a3fa98f0ed21bebe03279ea65682d30abea07d11af1",
+        "bytes": 915
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/city.rs",
+      "status": "M",
+      "before": {
+        "sha256": "2ecbbe4cf5f193f1cdc1e59d911e07aab57fc6122177d50e82b38c0b988ae972",
+        "bytes": 10186
+      },
+      "after": {
+        "sha256": "37acad3e1e8aa1d83943c1167447b4dc783f070fd86bedc55741dc7f43674910",
+        "bytes": 10195
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/mod.rs",
+      "status": "M",
+      "before": {
+        "sha256": "365b296fd751df7d5a2a463d6c2ea22c5885f0a3b55d1c836004bb2617b38363",
+        "bytes": 7436
+      },
+      "after": {
+        "sha256": "30ec1a75ea378ea1528986b6ba6fcd4a7f28985befe6dea1bb9b2b2d3f50ba1c",
+        "bytes": 7446
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/protocol.rs",
+      "status": "M",
+      "before": {
+        "sha256": "b38278c0ba58dc3340ed19e4e21d06e2fde33846e95cc58b804421f73366f024",
+        "bytes": 4052
+      },
+      "after": {
+        "sha256": "f7bfc1bc60d26d853309fc3da5400290674ec644cea45b54fd2ef3f5dd80b543",
+        "bytes": 4052
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/status.rs",
+      "status": "M",
+      "before": {
+        "sha256": "4ed19181ab78cf91d879f183d56d313397141bcefd0c3139ebd1263c1c3163ff",
+        "bytes": 7215
+      },
+      "after": {
+        "sha256": "e4d41b00ab0fa12d2a25debabca551b7981b1d47f25067d788f473f125a490e2",
+        "bytes": 7224
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/scene_readiness.rs",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "c313fd5f62712709fed8845ca3e2d0dbe36c3a79adf250ad29e47a34f9177b2c",
+        "bytes": 2070
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/mod.rs",
+      "status": "M",
+      "before": {
+        "sha256": "22bb9e14d430e2d820e9f1b489065461324a0cc48cfd1dbc1fe2c81f0a622628",
+        "bytes": 9439
+      },
+      "after": {
+        "sha256": "49176cc32bfcf3cba960c0262b217961f1074f6ac6168da7e98b81258f5d02ee",
+        "bytes": 9369
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/protocol.rs",
+      "status": "M",
+      "before": {
+        "sha256": "a336c40ca633f682bc6f03794f3d049316b2c1578ff0817d186b926ac4d2e93e",
+        "bytes": 3981
+      },
+      "after": {
+        "sha256": "9270aa713a8d01fcde27fa616751c3f9df87b8abe76227ff86f66d288b6d67de",
+        "bytes": 2085
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/status.rs",
+      "status": "M",
+      "before": {
+        "sha256": "1ac60dfc9e48db2d8717ff144d5b340d9f5cf2f9a158a8a7dcb1c966f17afdb4",
+        "bytes": 7842
+      },
+      "after": {
+        "sha256": "3a17db60e7f3371d1040442ac335fa84371b8ab9eee2eba20ea36ae2397b686a",
+        "bytes": 7109
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/views.rs",
+      "status": "M",
+      "before": {
+        "sha256": "4bbc1929ef5a2b7b59aa29f7513940adb88c8804fa243ada08430f3c057540a0",
+        "bytes": 13688
+      },
+      "after": {
+        "sha256": "166888938d9f2e7a9445782c7b576d0d2506d963ee67a76c594bffbfb959de01",
+        "bytes": 13697
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/ui.rs",
+      "status": "M",
+      "before": {
+        "sha256": "2a2206d4b76e7db409e7cfa2b8e4337d5ea4a6fa606a95de4e8cf04ca85666e6",
+        "bytes": 34896
+      },
+      "after": {
+        "sha256": "b448d55a1c925be5ff7173ee105bbec590c7f5268eaede86caa41f316caa0d2f",
+        "bytes": 34470
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/ui/gameplay_camera.rs",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "084217c3266574bcfe1d79e9964fd544d415c33f4083f6a6bd12fee0ca5b3f82",
+        "bytes": 852
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/lib.rs",
+      "status": "M",
+      "before": {
+        "sha256": "81b65a58f7ea1449d570ad5d18ead386e28179e307299964d530790974a818d7",
+        "bytes": 1680
+      },
+      "after": {
+        "sha256": "b753b7f46133494d0731661c97a54439c6a147f8445a8a7852b182e0c8e0f613",
+        "bytes": 1782
+      }
+    },
+    {
+      "path": "crates/strategic-web/src/templates/layout/shell.rs",
+      "status": "M",
+      "before": {
+        "sha256": "f32130d3436df9a143d9be24ee09dba99ad5a9d4fbe01fb5663970119186ce6f",
+        "bytes": 7500
+      },
+      "after": {
+        "sha256": "422bfaca900fe6f34eb93b57c1ccfa57adcd450ef0977010f4e991b92d03f7db",
+        "bytes": 7497
+      }
+    },
+    {
+      "path": "crates/strategic-web/static/strategic-renderer.js",
+      "status": "M",
+      "before": {
+        "sha256": "37325cf5d7929ee9c30e7443412975c9f522fbc48fb147dd754d77f8bda24f00",
+        "bytes": 11360
+      },
+      "after": {
+        "sha256": "b332b5d16d8ce35e4205f0a33d53ac70c0c314b7877cb0d7fc24ec6617abfd2e",
+        "bytes": 11426
+      }
+    },
+    {
+      "path": "flake.nix",
+      "status": "M",
+      "before": {
+        "sha256": "eee7d6d788b555f4cbbaec78cdd5fda3c0efb935c2debdba4cba1c21681cd633",
+        "bytes": 2682
+      },
+      "after": {
+        "sha256": "1d627d10bb2e4c231653ef56841463c936bf2ee166b958b520f38157fc698672",
+        "bytes": 2701
+      }
+    }
+  ],
+  "overlap": [
+    "crates/adventuresim-stdb-module/static/tactical.html",
+    "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs",
+    "crates/adventuresim-tactical-client/src/presentation/ground_scatter/mod.rs",
+    "crates/adventuresim-tactical-client/src/presentation/mod.rs"
+  ],
+  "source_object_count": 53,
+  "reported_path_count": 31,
+  "reported_cells": 403,
+  "qualification": "Original transition matches its recorded hash; 31 paths and 53 source objects are preserved. Later closure is separate and no new audit credit is asserted.",
+  "recorded_diff_sha256": "860be5bc4511d0a87f7517081dc8b277f98244d629ce545b673e47664fef8cb4",
+  "candidate_template": {
+    "file": "CANDIDATE-TEMPLATE.txt",
+    "sha256": "69e2896e41c1efd54e976432854ac7f82b5834c861a090c952ea5f72042a2288",
+    "attempted_window": [
+      "2026-11-02T22:22:25.900000+00:00",
+      "2026-11-02T22:22:26.345976+00:00"
+    ],
+    "matched_timestamp": "2026-11-02T22:22:26.345976+00:00",
+    "qualification": "The candidate matches the recorded original hash at the recorded timestamp; historical output and attribution remain unchanged.",
+    "independent_printed_row_checks": [
+      {
+        "transcript_ordinal": 83351,
+        "path_index": 0
+      },
+      {
+        "transcript_ordinal": 86940,
+        "path_index": 22
+      },
+      {
+        "transcript_ordinal": 87014,
+        "path_index": 18
+      }
+    ]
+  }
+}

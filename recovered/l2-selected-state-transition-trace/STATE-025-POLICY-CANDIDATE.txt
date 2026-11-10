@@ -1,0 +1,67 @@
+{
+  "schema": "726-l2-errantry-identity-owner-policy-v1",
+  "at": "STAMP",
+  "lens": 2,
+  "parent_contract": "L2-EXT-ERRANTRY-FRAME-ID-OWNER-FIT",
+  "parent_first_contract": "Frame/trial/challenge/site String fields carry distinct identity roles; actual namespace/admission/producers/native consumers must establish an existing owner match. Similar names or the same representation are insufficient.",
+  "evidence": {
+    "path": "adler-continuation-20261030/READ-ROOT-L2-ERRANTRY-IDENTITY-REUSE-001.json",
+    "sha256": "READHASH"
+  },
+  "opaque_role_owners": {
+    "frame": "ErrantryFrameId(StrategicIdentityComponent)",
+    "trial": "ErrantryTrialId(StrategicIdentityComponent)",
+    "challenge": "ChallengeId(StrategicIdentityComponent)"
+  },
+  "owner_law": "Distinct referents retain distinct checked opaque key owners using the existing validated component leaf. Keys do not acquire case-site semantics. Keep generic key admission separate from decoding a particular errantry family; do not require every core frame or trial key to use one native factory prefix.",
+  "checked_component_admission": "Existing nonempty ASCII alphanumeric/colon/underscore/hyphen/period component, at most256 bytes. Use checked construction/decoding at actual boundaries, not unchecked From<String> or a Serde/native derive that bypasses admission.",
+  "errantry_decoded_identity_fields": [
+    "kind",
+    "namespace",
+    "character_id",
+    "ordinal"
+  ],
+  "errantry_kind_variants": [
+    "Puzzle(PuzzleKind)",
+    "RoadEncounter"
+  ],
+  "namespaces": [
+    "Demo",
+    "Order"
+  ],
+  "decoded_identity_law": "For actual errantry challenge identifiers, preserve the whole semantic identity in the shared decoder: family/kind, launch namespace, character and ordinal. Derive demo/character/puzzle filters from this value; retain ordinal even when one filter does not inspect it. Ordinary opaque challenge keys need not be reinterpreted as errantry. Do not add a permissive legacy parser, prefix fallback, or duplicate encoder.",
+  "source_trace": [
+    "Core ErrantryFrame22..27 and TrialBinding30..36 retain String identities; charge is prose, order is ordering, optional challenge is legitimate.",
+    "Native materialize_order_errantry2134..2155 produces both puzzle and road-encounter keys using actual namespace/character/ordinal suffixes. Full key values are retained in frame and native challenge rows2267..2320.",
+    "Native binder1197..1212 decodes/re-encodes the frame; submit1397..1410 joins full challenge keys and checks bound camp after existing authority guards.",
+    "Native ErrantryChallengeId1812..1839 drops ordinal after parsing, so is a partial borrowed view. active_puzzle_demo1769..1804 and factory2134..2146 intentionally filter by selected fields.",
+    "Web DirectDemoChallengeId106..127 omits puzzle kind and retains character/ordinal. Its predicate531..534 intentionally checks character for demo readiness and redirect; DirectDemoContractId82..103 is a separate contract-family view.",
+    "Web redirect507..529 additionally requires character, active/open/unsolved and exactly one playable candidate, and refuses when an active/open road challenge is present. No wrong-match incident is claimed."
+  ],
+  "repair_requirements": [
+    "Carry the distinct checked frame/trial/challenge key owners through core retained state and actual producer/binder/submit joins; use existing checked component validation rather than CaseSiteId or unrelated numeric IDs.",
+    "Define one shared errantry challenge family decoder/constructor retaining all four identity fields, including puzzle and road-encounter distinction. Remove independent private string parsers in the connected native/web path and derive their needed selection predicates from the shared owner.",
+    "Keep generic frame/trial keys opaque; native factory format is not an all-producer grammar. Do not force non-puzzle trials to have a challenge or erase valid Social challenge bindings.",
+    "Keep optional challenge identity separate from unbound/bound camp state selected at489. Trial order remains ordering, not identity; charge remains display prose.",
+    "Keep actual party/case/accepted-contract/destination/revision and immutable idempotent retry guards. Shared identity types do not substitute for authorization.",
+    "Encode/decode only at actual native wire/storage/URL boundaries and generate bindings after schema changes. Native SATS and Serde must perform real checked admission.",
+    "Direct-demo contract parsing belongs with the canonical contract owner reconciliation; do not relabel contracts as challenges or invent a local compatibility bridge."
+  ],
+  "later_acceptance_requirements": [
+    "Verify complete identity round trips preserve namespace, character, ordinal and puzzle/road kind; typed opaque key equality and joins retain every byte of admitted keys.",
+    "Verify native ordinary-order filtering preserves puzzle kind while demo ordinal counting retains its existing cross-puzzle scope. A shared type must not silently narrow demo counting to one kind.",
+    "Verify demo readiness/redirect retain exact character and active/open/solved/unique-playable/road-blocker behavior through the actual web and native integration.",
+    "Verify arbitrary valid opaque core frame/trial keys, optional challenges and existing bound/unbound camp state, without imposing a factory-only key grammar.",
+    "Verify invalid component input cannot bypass checked construction through Serde/SATS/native adapters. No obsolete public raw-string APIs, independent family parser or compatibility path remains in connected scope."
+  ],
+  "remaining_evidence": [
+    "Exact first-operation global aliases and migration-family/current reconciliation are incomplete; no new unique finding or other-lens closure is claimed.",
+    "Native SDK/feature admission and every relevant external producer/view/URL adapter still require their own source qualification and eventual acceptance; locator searches do not close them.",
+    "Canonical contract-key owner and other challenge families must be reconciled before final shared API placement/admission is declared complete."
+  ],
+  "global_alias_complete": false,
+  "all_identity_producer_admission_complete": false,
+  "new_accepted_unique_count": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

@@ -1,0 +1,240 @@
+1: //! Deduplicate wearer fits and keep GPU waits outside the frame update.
+2: use super::*;
+3: use crate::animation::skeletal_proportions::CharacterSkeletalProportions;
+4: use adventuresim_core::character_proportions::CharacterProportions;
+5: use bevy::tasks::{AsyncComputeTaskPool, Task, block_on, futures_lite::future};
+6: 
+7: /// Recently fitted variants retained across travel; live entities own their mesh
+8: /// handles independently, so evicting a cache entry never removes visible armor.
+9: const CACHED_FIT_LIMIT: usize = 128;
+10: 
+11: #[cfg(test)]
+12: #[path = "generation_tests.rs"]
+13: mod tests;
+14: 
+15: #[derive(Component, Clone, Debug, PartialEq, Eq, Hash)]
+16: pub(in crate::equipment) struct FitKey {
+17:     pub(super) shape: BodyShapeKey,
+18:     pub(super) selection: layers::LayerSelection,
+19:     pub(super) layers: Vec<layers::LayerSelection>,
+20: }
+21: 
+22: impl FitKey {
+23:     fn for_presentation(
+24:         canonical: &body::CanonicalBody,
+25:         presentation: &RuntimeEquipmentPresentation,
+26:         previous: Option<&Self>,
+27:         owner: Option<&ItemOf>,
+28:         fitted_to_owner: bool,
+29:         characters: &Query<(&CharacterId, Option<&CharacterSkeletalProportions>)>,
+30:     ) -> anyhow::Result<Option<Self>> {
+31:         let shape = if let Some(previous) = previous.filter(|_| !fitted_to_owner) {
+32:             previous.shape.clone()
+33:         } else if let Some(owner) = owner.filter(|_| fitted_to_owner) {
+34:             let Ok((id, explicit)) = characters.get(owner.0) else {
+35:                 return Ok(None);
+36:             };
+37:             BodyShapeKey::new(
+38:                 &canonical.names,
+39:                 Some(id.0),
+40:                 explicit.map(|p| p.0).unwrap_or_else(|| {
+41:                     CharacterProportions::from_seed(fabelgeist_determinism::Seed::from_u64(id.0))
+42:                 }),
+43:                 canonical.rig.reference,
+44:             )
+45:         } else {
+46:             BodyShapeKey::new(
+47:                 &canonical.names,
+48:                 None,
+49:                 canonical.rig.reference,
+50:                 canonical.rig.reference,
+51:             )
+52:         };
+53:         let selection = Self::selection_for_presentation(presentation, previous, fitted_to_owner)?;
+54:         Ok(Some(Self {
+55:             shape,
+56:             selection,
+57:             layers: previous
+58:                 .filter(|_| !fitted_to_owner)
+59:                 .map(|key| key.layers.clone())
+60:                 .unwrap_or_default(),
+61:         }))
+62:     }
+63: 
+64:     fn selection_for_presentation(
+65:         presentation: &RuntimeEquipmentPresentation,
+66:         previous: Option<&Self>,
+67:         fitted_to_owner: bool,
+68:     ) -> anyhow::Result<layers::LayerSelection> {
+69:         if !fitted_to_owner && let Some(previous) = previous {
+70:             return Ok(previous.selection);
+71:         }
+72:         if fitted_to_owner {
+73:             return layers::LayerSelection::admit(
+74:                 &presentation.item_id,
+75:                 &presentation.placement_id,
+76:             );
+77:         }
+78:         // An unworn display uses the first authored anatomical fit placement.
+79:         let item = adventuresim_core::equipment_assets::CatalogItem::find(
+80:             adventuresim_core::item_catalog::catalog(),
+81:             &presentation.item_id,
+82:         )
+83:         .with_context(|| format!("unknown equipment item {}", presentation.item_id))?;
+84:         let selection = item
+85:             .placements()
+86:             .next()
+87:             .or_else(|| item.placement(&presentation.placement_id))
+88:             .with_context(|| {
+89:                 format!(
+90:                     "no equipment placement {} {}",
+91:                     presentation.item_id, presentation.placement_id
+92:                 )
+93:             })?;
+94:         Ok(selection.into())
+95:     }
+96: }
+97: 
+98: /// Item-owned so placeholder rebuilds on drop do not lose the fitted shape.
+99: #[derive(Component, Clone)]
+100: pub(in crate::equipment) struct LastFit(FitKey);
+101: 
+102: pub(super) struct FittedBody {
+103:     body: Arc<RuntimeBody>,
+104:     inverse_bindposes: Handle<SkinnedMeshInverseBindposes>,
+105: }
+106: 
+107: pub(super) struct PendingFit {
+108:     key: FitKey,
+109:     task: Task<anyhow::Result<GeneratedArmor>>,
+110: }
+111: 
+112: impl RuntimeEquipmentBodyCache {
+113:     fn trim(&mut self) {
+114:         while self.models.len() > CACHED_FIT_LIMIT {
+115:             let Some(key) = self
+116:                 .models
+117:                 .keys()
+118:                 .min_by_key(|key| self.last_used.get(*key).copied().unwrap_or(0))
+119:                 .cloned()
+120:             else {
+121:                 break;
+122:             };
+123:             self.models.remove(&key);
+124:             self.last_used.remove(&key);
+125:         }
+126:         self.bodies.retain(|shape, _| {
+127:             self.models.keys().any(|key| &key.shape == shape)
+128:                 || self
+129:                     .pending
+130:                     .as_ref()
+131:                     .is_some_and(|pending| &pending.key.shape == shape)
+132:         });
+133:         self.last_used.retain(|key, _| {
+134:             self.models.contains_key(key)
+135:                 || self
+136:                     .pending
+137:                     .as_ref()
+138:                     .is_some_and(|pending| &pending.key == key)
+139:         });
+140:     }
+141:     fn prepare_shape(
+142:         &mut self,
+143:         key: &BodyShapeKey,
+144:         bindposes: &mut Assets<SkinnedMeshInverseBindposes>,
+145:     ) -> anyhow::Result<()> {
+146:         if self.bodies.contains_key(key) {
+147:             return Ok(());
+148:         }
+149:         let canonical = self.body.as_ref().context("canonical body not ready")?;
+150:         let mut body = canonical.body.clone();
+151:         key.apply(&mut body, &canonical.targets)?;
+152:         let fitted_bindposes = canonical.rig.fit(&mut body, key.proportions())?;
+153:         self.bodies.insert(
+154:             key.clone(),
+155:             FittedBody {
+156:                 body: Arc::new(body),
+157:                 inverse_bindposes: bindposes.add(fitted_bindposes),
+158:             },
+159:         );
+160:         Ok(())
+161:     }
+162: 
+163:     fn start(&mut self, key: FitKey) -> anyhow::Result<()> {
+164:         let body = self
+165:             .bodies
+166:             .get(&key.shape)
+167:             .context("fitted body not prepared")?
+168:             .body
+169:             .clone();
+170:         let bracer = self
+171:             .bracer_design
+172:             .clone()
+173:             .context("bracer design not prepared")?;
+174:         let breastplate = self
+175:             .breastplate_design
+176:             .clone()
+177:             .context("breastplate design not prepared")?;
+178:         let request = key.clone();
+179:         let supports = key
+180:             .support_keys()?
+181:             .iter()
+182:             .map(|key| -> anyhow::Result<_> {
+183:                 Ok(self
+184:                     .models
+185:                     .get(key)
+186:                     .context("support fit not prepared")?
+187:                     .as_ref()
+188:                     .map_err(|error| anyhow::anyhow!("{error}"))?
+189:                     .generated
+190:                     .clone())
+191:             })
+192:             .collect::<anyhow::Result<Vec<_>>>()?;
+193:         self.pending = Some(PendingFit {
+194:             key,
+195:             task: AsyncComputeTaskPool::get().spawn(async move {
+196:                 let started = web_time::Instant::now();
+197:                 let result = adventuresim_character_creator::runtime_equipment::generate(
+198:                     &body,
+199:                     request.selection.selection,
+200:                     &bracer,
+201:                     &breastplate,
+202:                     &supports.iter().map(Arc::as_ref).collect::<Vec<_>>(),
+203:                 )
+204:                 .await;
+205:                 info!(
+206:                     item = request.selection.selection.item().id,
+207:                     elapsed_ms = started.elapsed().as_secs_f64() * 1000.0,
+208:                     vertices = result.as_ref().map_or(0, |armor| armor.positions.len()),
+209:                     "runtime wearer fit"
+210:                 );
+211:                 result
+212:             }),
+213:         });
+214:         Ok(())
+215:     }
+216: 
+217:     fn finish(&mut self, meshes: &mut Assets<Mesh>, materials: &mut Assets<StandardMaterial>) {
+218:         let Some(pending) = self.pending.as_mut() else {
+219:             return;
+220:         };
+221:         let Some(result) = block_on(future::poll_once(&mut pending.task)) else {
+222:             return;
+223:         };
+224:         let Some(PendingFit { key, .. }) = self.pending.take() else {
+225:             return;
+226:         };
+227:         let result = result
+228:             .and_then(|generated| {
+229:                 Ok(CachedEquipment {
+230:                     sockets: sockets::garment_sockets(
+231:                         &self.bodies[&key.shape].body,
+232:                         &generated,
+233:                         key.selection.selection.item(),
+234:                     ),
+235:                     parts: equipment_parts(
+236:                         &generated,
+237:                         key.selection.selection.item(),
+238:                         meshes,
+239:                         materials,
+240:                     )?,

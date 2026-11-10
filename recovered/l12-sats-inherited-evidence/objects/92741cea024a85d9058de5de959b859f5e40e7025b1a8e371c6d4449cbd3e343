@@ -1,0 +1,334 @@
+{
+  "kind": "Prospective ordered original L12 exactfrozen source registration",
+  "lens": 12,
+  "original_index": 2385,
+  "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+  "source_sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+  "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "git_path": "crates/strategic-web/src/spacetimedb/client.rs",
+  "actual_EOF": 273,
+  "ranges": [
+    [
+      1,
+      273
+    ]
+  ],
+  "registered_at": "2026-10-29T22:21:50.523560+00:00",
+  "attribution": "Subagent lens12_frontier fresh personal body read only after registration",
+  "metadata_nested_range_shape_preflight": "Allnestedrangefieldschecked; noflat/beyondEOF",
+  "scope_kind": "affected_unchanged_reached_contract",
+  "original_registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+  "original_record": {
+    "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+    "snapshot": "pr-working",
+    "path": "crates/strategic-web/src/spacetimedb/client.rs",
+    "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+    "bytes": 8664,
+    "already_in_frozen_variants": false,
+    "evidence": [
+      {
+        "shard": "camera",
+        "record": "wave-01/audit-producer-propagation/camera/native-endpoint-sources.json",
+        "ranges": [
+          [
+            1,
+            273
+          ]
+        ],
+        "source_read_status": null,
+        "trace_refs": [
+          "CAM-PROP-CORPSE-WEB-PORT-001"
+        ]
+      },
+      {
+        "shard": "camera",
+        "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+        "ranges": [
+          [
+            1,
+            273
+          ]
+        ],
+        "source_read_status": null,
+        "trace_refs": [
+          "CAM-PROP-CORPSE-WEB-PORT-001"
+        ]
+      },
+      {
+        "shard": "rig",
+        "record": "wave-01/audit-producer-propagation/rig/supplemental-digest-sources.json",
+        "ranges": [
+          [
+            180,
+            235
+          ]
+        ],
+        "source_read_status": null,
+        "trace_refs": [
+          "RIG-SUPP-DIGEST-001"
+        ]
+      }
+    ],
+    "audit_owner": "camera",
+    "scope_kind": "affected_unchanged_reached_contract",
+    "owner_contract_proofs": [
+      {
+        "supplier": "camera",
+        "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+        "row": 424,
+        "read_ranges": [
+          [
+            1,
+            273
+          ]
+        ],
+        "contract_refs": [
+          "CAM-OWN-ROUTE-SOURCE-054",
+          "CAM-OWN-WEB-CLIENT-110"
+        ],
+        "read_status": null,
+        "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/spacetimedb/client.rs"
+      },
+      {
+        "supplier": "camera",
+        "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+        "row": 387,
+        "read_ranges": [
+          [
+            185,
+            222
+          ]
+        ],
+        "contract_refs": [
+          "CAM-OWN-ROUTE-SOURCE-054"
+        ],
+        "read_status": "scoped_complete_actual_HTTP_call",
+        "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/spacetimedb/client.rs"
+      },
+      {
+        "supplier": "camera",
+        "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+        "row": 668,
+        "read_ranges": [
+          [
+            1,
+            273
+          ]
+        ],
+        "contract_refs": [
+          "CAM-OWN-WEB-CLIENT-110"
+        ],
+        "read_status": "complete",
+        "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/spacetimedb/client.rs"
+      }
+    ],
+    "current_owner_suppliers": [
+      "camera"
+    ],
+    "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+    "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+    "producer_reached_contract_observations": [
+      {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-DIALOGUE-040",
+        "json_pointer": "/related_current_sources/15",
+        "source_id_as_recorded": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+        "read_ranges_as_recorded": [
+          [
+            1,
+            110
+          ],
+          [
+            190,
+            230
+          ]
+        ],
+        "source_context": {
+          "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/spacetimedb/client.rs",
+          "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+          "actual_lines": 273,
+          "read_ranges": [
+            [
+              1,
+              110
+            ],
+            [
+              190,
+              230
+            ]
+          ],
+          "proof_mode": "fresh actual current supplement bounded material source body, no execution",
+          "role": "Actual SpacetimeError native HTTP/JSON causes, reducer-code text-envelope parse and actual call JSON/status/body port; camera canonical aggregate owner retained"
+        },
+        "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+      },
+      {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+        "receipt": "RIG-PPS-021",
+        "json_pointer": "/additional_actual_source_proofs/0",
+        "source_id_as_recorded": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+        "read_ranges_as_recorded": [
+          [
+            1,
+            60
+          ],
+          [
+            80,
+            235
+          ]
+        ],
+        "source_context": {
+          "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+          "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+          "read_ranges": [
+            [
+              1,
+              60
+            ],
+            [
+              80,
+              235
+            ]
+          ],
+          "trace": "query_response actual reqwest SQL/body and response.text\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122serde_json; query_sats_into155\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153171/query_one_sats_into175\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153189 require Display then manufacture Spacetime(String) from concrete U::Error; actual call193\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153220 sends native JSON and retains opaque remote text error."
+        },
+        "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+      },
+      {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+        "receipt": "RIG-PPS-033",
+        "json_pointer": "/fresh_current_additional_source_reads/15",
+        "source_id_as_recorded": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+        "read_ranges_as_recorded": [
+          [
+            1,
+            110
+          ],
+          [
+            190,
+            230
+          ]
+        ],
+        "source_context": {
+          "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/spacetimedb/client.rs",
+          "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+          "actual_lines": 273,
+          "read_ranges": [
+            [
+              1,
+              110
+            ],
+            [
+              190,
+              230
+            ]
+          ],
+          "proof_mode": "fresh actual current supplement bounded material source body, no execution",
+          "role": "Actual SpacetimeError native HTTP/JSON causes, reducer-code text-envelope parse and actual call JSON/status/body port; camera canonical aggregate owner retained"
+        },
+        "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+      },
+      {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+        "receipt": "RIG-PPS-038",
+        "json_pointer": "/fresh_current_source_reads/1",
+        "source_id_as_recorded": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+        "read_ranges_as_recorded": [
+          [
+            1,
+            273
+          ]
+        ],
+        "source_context": {
+          "camera_assigned_index": 398,
+          "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/spacetimedb/client.rs",
+          "expected_sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+          "observed_sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+          "read_ranges": [
+            [
+              1,
+              273
+            ]
+          ],
+          "proof_mode": "Fresh full material source/fixtures read; identical-hash PR/P16 variants explicitly reconciled after byte fingerprints, preserving downstream role distinctions. Source only; no project execution.",
+          "read_status": "full-source-read-receiver-reconciliation-in-progress"
+        },
+        "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+      },
+      {
+        "record": "continuation/camera/traces.jsonl",
+        "receipt": "CONT-CAMERA-PP-008",
+        "json_pointer": "/exact_source_proofs/1",
+        "source_id_as_recorded": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+        "read_ranges_as_recorded": [
+          [
+            1,
+            273
+          ]
+        ],
+        "source_context": {
+          "camera_assigned_index": 398,
+          "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\spacetimedb\\client.rs",
+          "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+          "read_ranges": [
+            [
+              1,
+              273
+            ]
+          ],
+          "actual_line_count": 273,
+          "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+          "material_disposition": "Actual HTTP reqwest/JSON/SATS decode -> generic query conversion -> internal recipients. U::Error -> Spacetime(String) is CAM-OWNER-F015; primitive SQL/HTTP leaves justified only at actual call.",
+          "disposition": "accounted-with-findings"
+        },
+        "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+      },
+      {
+        "record": "continuation/rig/web-request-reconciliation-039.json",
+        "receipt": "RIG-CONT-PPS-WEB-REQUEST-RECONCILIATION-039",
+        "json_pointer": "/source_dispositions/1",
+        "source_id_as_recorded": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+        "read_ranges_as_recorded": [
+          [
+            1,
+            273
+          ]
+        ],
+        "source_context": {
+          "camera_assigned_index": 398,
+          "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\spacetimedb\\client.rs",
+          "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+          "read_ranges": [
+            [
+              1,
+              273
+            ]
+          ],
+          "actual_line_count": 273,
+          "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+          "material_disposition": "Actual HTTP reqwest/JSON/SATS decode -> generic query conversion -> internal recipients. U::Error -> Spacetime(String) is CAM-OWNER-F015; primitive SQL/HTTP leaves justified only at actual call.",
+          "disposition": "accounted-with-findings"
+        },
+        "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+      }
+    ],
+    "producer_inventory_accounting": {
+      "initial946_cell": false,
+      "frozen1650_supplement_index": 992,
+      "new158_material_role_packet": false,
+      "expanded36_context_variant": false,
+      "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+      "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+    },
+    "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+  },
+  "identity_specific_windows_qualification": {
+    "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-378-WINDOWS-ORIGINAL2385.json",
+    "sha256": "1cc8062876e578ffed2d43b7c7ad6916fdf467678d3da5e65a423c032f39268e"
+  }
+}

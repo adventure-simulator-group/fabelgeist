@@ -1,0 +1,102 @@
+169: impl ContractAuthority {
+170:     /// Parse the flattened row before lifecycle-sensitive reducer logic uses it.
+171:     pub fn parsed_state(
+172:         &self,
+173:     ) -> Result<
+174:         adventuresim_core::strategic_state::ContractState,
+175:         adventuresim_core::strategic_state::StateParseError,
+176:     > {
+177:         adventuresim_core::strategic_state::ContractState::parse(
+178:             self.status,
+179:             self.accepted_by.clone(),
+180:             self.accepted_at_minute,
+181:             self.paid_at_minute,
+182:         )
+183:     }
+184: }
+185: 
+186: /// Trusted-gateway projection. This is not a direct player subscription; web
+187: /// handlers still select only locally surfaced or party-accepted contracts.
+188: #[derive(Clone, Debug, SpacetimeType)]
+189: pub struct BackendContract {
+190:     pub id: String,
+191:     pub case_id: String,
+192:     pub title: String,
+193:     pub description: String,
+194:     pub difficulty: i32,
+195:     pub gold_reward: i32,
+196:     pub xp_reward: i32,
+197:     pub settlement_id: String,
+198:     pub service_id: String,
+199:     pub issuer_resident_character_id: u64,
+200:     pub status: ContractStatus,
+201:     pub accepted_by: Option<String>,
+202:     pub opposition_wording: String,
+203:     pub opposition_count_wording: String,
+204:     /// Observer-safe exact total from the hostile groups that also feed the
+205:     /// aggregate combat assessment. Wording is presentation only.
+206:     pub opposition_count: u32,
+207:     /// Observer-safe aggregate built from the exact enemy Combatants that
+208:     /// autoresolve will construct: authored profile, base difficulty, incident
+209:     /// scale, equipment, training, and current enemy count.
+210:     pub opposition_combat_power: u64,
+211:     pub accepted_at_minute: Option<StrategicMinute>,
+212:     pub paid_at_minute: Option<StrategicMinute>,
+213:     /// Conservative public one-way preflight distance: the greatest distance
+214:     /// among this contract's possible case destinations. Site identity stays
+215:     /// private until ordinary exact disclosure.
+216:     pub distance_m: u64,
+217: }
+218: 
+219: #[view(accessor = backend_contracts, public)]
+220: pub fn backend_contracts(ctx: &ViewContext) -> Vec<BackendContract> {
+221:     if !strategic_view_is_gateway(ctx) {
+222:         return Vec::new();
+223:     }
+224:     ctx.db
+225:         .contract_authority()
+226:         .gateway_bucket()
+227:         .filter(0u8)
+228:         .filter_map(|row| {
+229:             let sites = ctx
+230:                 .db
+231:                 .case_site_authority()
+232:                 .case_id()
+233:                 .filter(&row.case_id)
+234:                 .collect::<Vec<_>>();
+235:             let distance_m = sites.iter().map(|site| site.distance_m).max()?;
+236:             let hostile_groups = sites
+237:                 .iter()
+238:                 .filter_map(|site| {
+239:                     ctx.db
+240:                         .hostile_group_authority()
+241:                         .case_site_id_key()
+242:                         .find(site.id.to_string())
+243:                         .filter(|group| {
+244:                             crate::investigation::canonical_case_site_place(&group.case_site_id_key)
+245:                                 .map(|key_place| (key_place, group.case_site_id.to_place()))
+246:                                 .is_some_and(|(key_place, typed_place)| key_place == typed_place)
+247:                                 && group.case_site_id == site.id
+248:                         })
+249:                 })
+250:                 .collect::<Vec<_>>();
+251:             let (opposition_count, opposition_combat_power) = hostile_groups
+252:                 .into_iter()
+253:                 .map(|group| {
+254:                     autoresolve_enemy(
+255:                         u64::MAX,
+256:                         &group.enemy_type,
+257:                         group.base_difficulty,
+258:                         group.combat_scale_bps,
+259:                     )
+260:                     .ok()
+261:                     .and_then(|enemy| {
+262:                         adventuresim_core::autoresolve::autoresolve_combat_power(&enemy)
+263:                             .checked_mul(u64::from(group.enemy_count))
+264:                     })
+265:                     .map(|power| (group.enemy_count, power))
+266:                 })
+267:                 .try_fold((0u32, 0u64), |(count, total), group| {
+268:                     let (group_count, power) = group?;
+269:                     Some((count.checked_add(group_count)?, total.checked_add(power)?))
+270:                 })?;

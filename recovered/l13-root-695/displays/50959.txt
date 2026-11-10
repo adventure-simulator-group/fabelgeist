@@ -1,0 +1,231 @@
+SOURCE 2631 pr-working:crates/fabelgeist-cloth/src/garment/mod.rs
+1: //! Panels, seams, and the build that turns them into a simulable garment.
+2: //!
+3: //! This is the shape a sewing pattern actually has: flat pieces, each placed
+4: //! somewhere around the body, and a list of which edge is sewn to which. The
+5: //! build meshes each panel, moves it to its place, and turns the seam list
+6: //! into constraints that pull the panels together.
+7: //!
+8: //! Nothing here knows about any particular pattern library. A caller converts
+9: //! its own pattern format into [`Panel`]s and [`Seam`]s, which is a small
+10: //! adapter rather than a dependency in either direction.
+11: 
+12: use anyhow::anyhow;
+13: use fabelgeist_math::{Vec2, Vec3};
+14: use fabelgeist_shell::{ParticleArealDensity, ParticleInverseMass, ParticleMass};
+15: 
+16: use crate::topology::{self, BendQuad};
+17: use crate::triangulate::{PanelMesh, triangulate_with_segments};
+18: 
+19: /// Where a flat panel sits in space.
+20: ///
+21: /// Rotation is XYZ Euler angles in degrees, applied X then Y then Z, which is
+22: /// the convention sewing-pattern formats tend to use. The panel's own plane is
+23: /// XY, so an unrotated panel faces +Z.
+24: #[derive(Clone, Copy, Debug, Default, PartialEq)]
+25: pub struct Placement {
+26:     pub translation: Vec3,
+27:     pub rotation: Vec3,
+28: }
+29: 
+30: impl Placement {
+31:     /// Lift a point from the panel's plane into world space.
+32:     pub fn apply(&self, point: Vec2) -> Vec3 {
+33:         let local = Vec3::new(point.x, point.y, 0.0);
+34:         rotate_xyz(local, self.rotation) + self.translation
+35:     }
+36: }
+37: 
+38: /// XYZ Euler rotation, in degrees.
+39: pub fn rotate_xyz(point: Vec3, degrees: Vec3) -> Vec3 {
+40:     let (x, y, z) = (
+41:         degrees.x.to_radians(),
+42:         degrees.y.to_radians(),
+43:         degrees.z.to_radians(),
+44:     );
+45: 
+46:     let (sx, cx) = x.sin_cos();
+47:     let after_x = Vec3::new(
+48:         point.x,
+49:         point.y * cx - point.z * sx,
+50:         point.y * sx + point.z * cx,
+51:     );
+52: 
+53:     let (sy, cy) = y.sin_cos();
+54:     let after_y = Vec3::new(
+55:         after_x.x * cy + after_x.z * sy,
+56:         after_x.y,
+57:         -after_x.x * sy + after_x.z * cy,
+58:     );
+59: 
+60:     let (sz, cz) = z.sin_cos();
+61:     Vec3::new(
+62:         after_y.x * cz - after_y.y * sz,
+63:         after_y.x * sz + after_y.y * cz,
+64:         after_y.z,
+65:     )
+66: }
+67: 
+68: /// One flat piece of a pattern.
+69: #[derive(Clone, Debug)]
+70: pub struct Panel {
+71:     pub name: String,
+72:     /// A simple closed polygon, in the panel's own plane. No repeated final
+73:     /// point.
+74:     pub outline: Vec<Vec2>,
+75:     pub placement: Placement,
+76: }
+77: 
+78: impl Panel {
+79:     pub fn new(name: impl Into<String>, outline: Vec<Vec2>) -> Self {
+80:         Self {
+81:             name: name.into(),
+82:             outline,
+83:             placement: Placement::default(),
+84:         }
+85:     }
+86: 
+87:     pub fn placed(mut self, placement: Placement) -> Self {
+88:         self.placement = placement;
+89:         self
+90:     }
+91: }
+92: 
+93: /// One side of a seam: an edge of a panel.
+94: #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+95: pub struct SeamSide {
+96:     pub panel: usize,
+97:     /// Index into that panel's outline edges: edge `i` runs from vertex `i` to
+98:     /// vertex `i + 1`.
+99:     pub edge: usize,
+100: }
+101: 
+102: /// Two edges sewn together.
+103: #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+104: pub struct Seam {
+105:     pub a: SeamSide,
+106:     pub b: SeamSide,
+107:     /// Sew the edges head-to-tail rather than head-to-head. Which one is right
+108:     /// depends on how the two panels are wound and which way they face; a
+109:     /// pattern format usually says.
+110:     pub reversed: bool,
+111: }
+112: 
+113: impl Seam {
+114:     pub fn new(a: SeamSide, b: SeamSide) -> Self {
+115:         Self {
+116:             a,
+117:             b,
+118:             reversed: false,
+119:         }
+120:     }
+121: 
+122:     pub fn reversed(mut self, reversed: bool) -> Self {
+123:         self.reversed = reversed;
+124:         self
+125:     }
+126: }
+127: 
+128: /// A meshed garment: everything the solver needs, still on the host.
+129: #[derive(Clone, Debug, Default)]
+130: pub struct GarmentMesh {
+131:     /// Initial particle positions, in world space.
+132:     pub positions: Vec<Vec3>,
+133:     /// The same particles in material space: where each one sits in the flat
+134:     /// plane of the panel it was cut from, before that panel was placed.
+135:     ///
+136:     /// This is the fabric's rest shape, which is what every stretch and
+137:     /// bending rest value below was measured from -- and it is the only
+138:     /// record of it, because [`positions`](Self::positions) has already been
+139:     /// rotated and translated into place. Kept so that a caller can draw the
+140:     /// garment flat, the way it would be cut.
+141:     ///
+142:     /// Each panel is in its *own* plane, so panels overlap here; laying them
+143:     /// out side by side is the caller's business, and its bounds are what a
+144:     /// layout needs.
+145:     pub material: Vec<Vec2>,
+146:     /// Triangles, indexing `positions`. Also the render mesh.
+147:     pub triangles: Vec<[u32; 3]>,
+148:     /// Stretch constraints, with the rest length each was built at.
+149:     pub edges: Vec<[u32; 2]>,
+150:     pub rest_lengths: Vec<f32>,
+151:     /// Bending constraints, and eight floats each: the four affine weights,
+152:     /// the rest value, and three of padding so the kernel can index by a
+153:     /// power of two.
+154:     pub bends: Vec<BendQuad>,
+155:     pub bend_weights: Vec<[f32; 8]>,
+156:     /// Seam constraints: particle pairs to be pulled together.
+157:     pub seams: Vec<[u32; 2]>,
+158:     /// Per-particle mass, from the area it carries and the fabric density.
+159:     pub masses: Vec<ParticleMass>,
+160:     /// Where each panel's vertices start, plus a final total.
+161:     pub panel_offsets: Vec<u32>,
+162:     pub panel_names: Vec<String>,
+163: }
+164: 
+165: impl GarmentMesh {
+166:     pub fn particle_count(&self) -> usize {
+167:         self.positions.len()
+168:     }
+169: 
+170:     pub fn panel_count(&self) -> usize {
+171:         self.panel_names.len()
+172:     }
+173: 
+174:     /// The particles belonging to one panel, as a range into the vertex
+175:     /// arrays. Panels are contiguous, which is what makes this a range rather
+176:     /// than a list.
+177:     pub fn panel_range(&self, panel: usize) -> std::ops::Range<usize> {
+178:         let start = self.panel_offsets[panel] as usize;
+179:         let end = self.panel_offsets[panel + 1] as usize;
+180:         start..end
+181:     }
+182: 
+183:     /// Which panel a particle belongs to.
+184:     pub fn panel_of(&self, particle: u32) -> usize {
+185:         match self.panel_offsets.binary_search(&particle) {
+186:             Ok(index) => index,
+187:             Err(index) => index - 1,
+188:         }
+189:     }
+190: 
+191:     pub fn inverse_masses(&self) -> Vec<ParticleInverseMass> {
+192:         topology::inverse_masses(&self.masses)
+193:     }
+194: 
+195:     /// The mesh's edge adjacency, for the self-collision pass to skip.
+196:     pub fn adjacency(&self) -> Vec<Vec<u32>> {
+197:         let mut adjacency = crate::SelfCollision::adjacency(self.positions.len(), &self.edges);
+198:         // Seam partners are held together by a constraint too, and a
+199:         // self-collision pass fighting a seam is what keeps a garment from
+200:         // ever closing.
+201:         for &[a, b] in &self.seams {
+202:             adjacency[a as usize].push(b);
+203:             adjacency[b as usize].push(a);
+204:         }
+205:         for list in &mut adjacency {
+206:             list.sort_unstable();
+207:             list.dedup();
+208:         }
+209:         adjacency
+210:     }
+211: }
+212: 
+213: /// Mesh a set of panels and their seams.
+214: ///
+215: /// `target_edge` sets the resolution: it is the edge length the mesher aims
+216: /// for, and so it decides both the particle count and the finest fold the
+217: /// fabric can make.
+218: pub fn build(
+219:     panels: &[Panel],
+220:     seams: &[Seam],
+221:     target_edge: f32,
+222:     density: ParticleArealDensity,
+223: ) -> anyhow::Result<GarmentMesh> {
+224:     if panels.is_empty() {
+225:         return Ok(GarmentMesh::default());
+226:     }
+227:     if target_edge <= 0.0 || target_edge.is_nan() {
+228:         return Err(anyhow!("target edge must be positive, got {target_edge}"));
+229:     }
+230: 

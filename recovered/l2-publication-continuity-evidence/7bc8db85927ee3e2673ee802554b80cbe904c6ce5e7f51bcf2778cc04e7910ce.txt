@@ -1,0 +1,41 @@
+"""Contract key and lifecycle ownership dependency; retain existing relation finding."""
+import json
+from pathlib import Path
+import sys
+from audit_l2_publication_v3 import Publication
+from audit_l2_publication_v1 import load
+from audit_sdk_evidence_v1 import validate
+
+base=Path(__file__).resolve().parent
+bundle_path=base/'PROPOSAL-BUNDLE-ROOT-L2-CONTRACT-IDENTITY-001.json'
+bundle=load(bundle_path)
+ctx=Publication(base,sys.argv[1] if len(sys.argv)>1 else '--preflight','L2-CONTRACT-IDENTITY-ADOPTION-001',bundle)
+assert bundle['validation_ruleset']==ctx.ref(Path(__file__))
+read=load(ctx.check(bundle['source_receipts'][0]));facts=validate(ctx,read)
+assert facts=={'registered_rows_verified':7,'uncredited_excerpt_lines':928}
+policy=load(ctx.check(bundle['semantic_dispositions'][0]))
+assert policy['selected_key_candidate']=='ContractId(StrategicIdentityComponent)'
+assert policy['existing_lifecycle_owner']=='ContractState and ContractAcceptance'
+assert policy['lifecycle_owner_is_key_owner'] is False
+assert policy['typed_key_alone_proves_active_relation'] is False
+assert policy['all_contract_producer_admission_complete'] is policy['runtime_witness_executed'] is False
+queue=load(ctx.check(ctx.old['current']['closure_queue']));entry=queue['entries'][2342]
+assert policy['parent_first_contract']==entry['first_failed_contract_or_unresolved_question']
+for match in policy['existing_canonical_relationships']:
+    other=queue['entries'][match['entry_index']]
+    assert match['contract_id']==other['contract_id']
+    assert match['first_contract']==other['first_failed_contract_or_unresolved_question']
+    assert match['canonical_alias_applied'] is match['other_lens_verdict_transferred'] is False
+state_data=ctx.check(bundle['proposed_state']).read_bytes();state=json.loads(state_data)
+old=load(ctx.check(state['predecessor']))
+assert set(state)-set(old)=={'contract_identity_source_disposition'}
+assert all(state[k]==v for k,v in old.items() if k not in {'at','predecessor','current_receipt'})
+view=state['contract_identity_source_disposition']
+assert view['repair_requirements']==policy['repair_requirements']
+assert view['later_acceptance_requirements']==policy['later_acceptance_requirements']
+ctx.publish(bundle_path=bundle_path,state_data=state_data,view=view,entry_index=2342,
+    checkpoint=493,queue_number=828,selected_number=431,marker='contract_identity_source_disposition',
+    scope_text='Named contract identity dependency traced through native lifecycle, gateway view and web adapter. Existing lifecycle owner retained; full key owner and active relation remain distinct repair contracts. Global gates stay open.',
+    verification_name='VERIFICATION-L2-CONTRACT-IDENTITY-ADOPTION-001.json',
+    facts={**facts,'existing_contract_state_retained':True,'existing_active_relation_record_linked':True,
+           'new_accepted_unique_count':0,'runtime_witness_executed':False,'source_ruleset':ctx.ref(Path(__file__))})

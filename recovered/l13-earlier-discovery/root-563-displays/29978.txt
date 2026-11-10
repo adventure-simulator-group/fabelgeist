@@ -1,0 +1,97 @@
+331:     defender: &Player,
+332:     target: Entity,
+333:     wounds: &Query<&crate::combat::TacticalWounds>,
+334:     log: &mut IterationLog,
+335: ) {
+336:     if let Ok(wounds) = wounds.get(target) {
+337:         let already_logged = log
+338:             .logged_wound_counts
+339:             .get(&target)
+340:             .copied()
+341:             .unwrap_or(0)
+342:             .min(wounds.0.len());
+343:         for wound in &wounds.0[already_logged..] {
+344:             log.wound_events.push(TacticalWoundLogEntry {
+345:                 tick: clock.tick,
+346:                 elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
+347:                 combatant: defender.name.clone(),
+348:                 body_part: format!("{:?}", wound.body_part).to_lowercase(),
+349:                 kind: wound.kind,
+350:                 blood_fraction_per_second: wound.blood_fraction_per_second,
+351:             });
+352:         }
+353:         log.logged_wound_counts.insert(target, wounds.0.len());
+354:     }
+355: }
+356: 
+357: fn incapacitation_log(
+358:     viewer: &TacticalPlayerViewer<'_, '_>,
+359:     states: &Query<(&TacticalCombatState, &Limbs)>,
+360:     entity: Entity,
+361: ) -> TacticalIncapacitationLog {
+362:     let view = viewer
+363:         .get(entity)
+364:         .expect("logged combatant remains projected");
+365:     let (state, limbs) = states
+366:         .get(entity)
+367:         .expect("logged combatant has condition state");
+368:     let sources = state.incapacitation_sources(
+369:         limbs.total_damage(),
+370:         view.skill_check(Skill::Will, LimbWeights::all_equal()),
+371:     );
+372:     TacticalIncapacitationLog {
+373:         pain: sources.pain,
+374:         acute_trauma: state.acute_trauma,
+375:         blood_loss_fraction: state.blood_loss_fraction,
+376:         blood_loss_incapacitation: sources.blood_loss,
+377:         imbalance: sources.imbalance,
+378:         fatigue: state.fatigue,
+379:         encumbrance: state.encumbrance,
+380:         total: state.incapacitation,
+381:     }
+382: }
+383: 
+384: pub(super) fn record_condition_changes(
+385:     clock: Res<IterationClock>,
+386:     players: Query<(Entity, &Player)>,
+387:     states: Query<(&TacticalCombatState, &Limbs)>,
+388:     viewer: TacticalPlayerViewer,
+389:     mut log: ResMut<IterationLog>,
+390: ) {
+391:     for (entity, player) in &players {
+392:         let current = incapacitation_log(&viewer, &states, entity);
+393:         if let Some(previous) = log.last_conditions.get(&entity).cloned() {
+394:             for (cause, before, after) in [
+395:                 ("pain", previous.pain, current.pain),
+396:                 ("acute_trauma", previous.acute_trauma, current.acute_trauma),
+397:                 (
+398:                     "blood_loss_fraction",
+399:                     previous.blood_loss_fraction,
+400:                     current.blood_loss_fraction,
+401:                 ),
+402:                 (
+403:                     "blood_loss_incapacitation",
+404:                     previous.blood_loss_incapacitation,
+405:                     current.blood_loss_incapacitation,
+406:                 ),
+407:                 ("imbalance", previous.imbalance, current.imbalance),
+408:                 ("fatigue", previous.fatigue, current.fatigue),
+409:                 ("encumbrance", previous.encumbrance, current.encumbrance),
+410:                 ("total", previous.total, current.total),
+411:             ] {
+412:                 if (after - before).abs() > 1.0e-6 {
+413:                     log.condition_events.push(TacticalConditionLogEntry {
+414:                         tick: clock.tick,
+415:                         elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
+416:                         combatant: player.name.clone(),
+417:                         cause: cause.into(),
+418:                         previous: before,
+419:                         current: after,
+420:                         delta: after - before,
+421:                     });
+422:                 }
+423:             }
+424:         }
+425:         log.last_conditions.insert(entity, current);
+426:     }
+427: }

@@ -1,0 +1,178 @@
+{
+  "schema": "726-root-l13-source-packet-v1",
+  "at": "2026-10-31T16:30:35.329812+00:00",
+  "lens": 13,
+  "author": "/root",
+  "original_before": 1846,
+  "original_after": 1849,
+  "registered_before_read_attestation": true,
+  "connected": [],
+  "prior_same_lens_adoptions": [],
+  "new_root_ordered_lines": 399,
+  "new_root_connected_reread_lines": 0,
+  "accepted_unique_count_change": 0,
+  "other_population_credit": 0,
+  "current_source_reconciled": false,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "new_questions": [],
+  "ordered": [
+    {
+      "source": {
+        "original": 1846,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface.rs",
+        "sha256": "dd84d03806822c09a5bd0e299647d2b4454050ad009a1add640a462320bafd20",
+        "actual_eof": 177,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/dd84d03806822c09a5bd0e299647d2b4454050ad009a1add640a462320bafd20",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            177
+          ]
+        ],
+        "purpose": "Full Lens13 support-surface API, floor acceptance-test source and SurfaceHit checked native conversion review. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1846-1848-001.json",
+        "sha256": "2b29d39bc439678361f0a36f296c0d9cfd8ad6a5cea427ab9695d80415ad8b8b"
+      },
+      "registration_pointer": "/sources/0",
+      "assessed_ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              68
+            ]
+          ],
+          "assessment": "PropertySupportSurface stores mesh/floor records/regions/outlines/limits/treatment privately within grounding. Custom wire conversion and admit_generated both call validate_encoded; generated rejection preserves the Surface issue as structured construction_failure with owner/member/treatment/location context. This proves the shared admission edge, not the separately located validator body. Zero diagnostic location is used only if no region exists on a rejected candidate, not as replacement accepted geometry."
+        },
+        {
+          "ranges": [
+            [
+              70,
+              130
+            ]
+          ],
+          "assessment": "Public getters expose immutable data. doorway_approaches slices regions[1..] only for single-building treatment, relying on admitted first-bearing shape; contains uses convex half-plane tests over outlines and intersects_disc uses native distance_outside with raw centre/radius. Actual validate_encoded cardinality/shape and disc caller/native radius domains remain Q-L12-526d08f49c4c2715556f and related ownership scope. Empty-outline vacuous truth or empty-region slicing is not a proven reachable defect without admission evidence. Foundation/source-control methods delegate to previously inspected compile/validate implementations."
+        },
+        {
+          "ranges": [
+            [
+              132,
+              177
+            ]
+          ],
+          "assessment": "rejection builds typed diagnostic location and unit-selected comparison, preserving property/members/treatment. Compound support_surface builds mesh, fallible floor records, regions and source outlines into a local candidate, retains Floor construction errors, then admits generated geometry. This completes the actual selected-path join to final validation without granting source coverage or correctness for validate_encoded/FloorBearing providers."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1847,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/tests.rs",
+        "sha256": "418f05f73a7de5b68da774e1b2ae4ab2fd20f011803ed19fb013b2e5cf7379b7",
+        "actual_eof": 185,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/418f05f73a7de5b68da774e1b2ae4ab2fd20f011803ed19fb013b2e5cf7379b7",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            185
+          ]
+        ],
+        "purpose": "Full Lens13 support-surface API, floor acceptance-test source and SurfaceHit checked native conversion review. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1846-1848-001.json",
+        "sha256": "2b29d39bc439678361f0a36f296c0d9cfd8ad6a5cea427ab9695d80415ad8b8b"
+      },
+      "registration_pointer": "/sources/1",
+      "assessed_ranges": [
+        [
+          1,
+          185
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              89
+            ]
+          ],
+          "assessment": "Unexecuted tests require signed-zero shared edges to cancel while stored vertex bits remain unchanged, reject empty/zero-building/tiny duplicate/partial-shared-edge floor partitions, accept a four-cell partition with correct exterior perimeter, roundtrip postcard and reject empty regions via JSON. These are exact test intents for floor partition/transport admission; owner implementations remain separate unread bodies."
+        },
+        {
+          "ranges": [
+            [
+              91,
+              185
+            ]
+          ],
+          "assessment": "Rounded architectural fixture deliberately produces a region accepted by FloorRegion::from_architectural whose vertices fail strict ScenePlanPolygon reparsing after f32 rotation/translation. Tests then admit bearing, validate floor coverage, roundtrip whole surface via JSON/postcard, remove one support triangle and duplicate another, and require Floor Coverage failure. Existing Q-L12-cbdcfb63dbf2192bbce3 remains a distinct representation/projection policy question: rounded projection is not evidence of historical schema compatibility or invalid accepted geometry by itself. Actual tolerant owner/coverage algorithm/native/current needed."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1848,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface_hit.rs",
+        "sha256": "27d50aec52ef52b5d464e0e14d56fd1099e965784ab7db2198744ec9de96e558",
+        "actual_eof": 37,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/27d50aec52ef52b5d464e0e14d56fd1099e965784ab7db2198744ec9de96e558",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            37
+          ]
+        ],
+        "purpose": "Full Lens13 support-surface API, floor acceptance-test source and SurfaceHit checked native conversion review. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1846-1848-001.json",
+        "sha256": "2b29d39bc439678361f0a36f296c0d9cfd8ad6a5cea427ab9695d80415ad8b8b"
+      },
+      "registration_pointer": "/sources/2",
+      "assessed_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              37
+            ]
+          ],
+          "assessment": "SurfaceHit pairs checked SupportElevation and native Dir3. from_geometry checks finite elevation and delegates normal admission to Dir3::new, returning None on either rejection. Authored tests reject NaN elevation/zero/infinite normal and expect normalized positiveY from length3; none executed. Optional leaf None is legitimate here. CONT08-SAMPLED-SUPPORT-FAILURE-CLASSIFICATION and Q-L12-b470885c93741632da1a still require actual admitted sampled producer, native Dir3, required-height consumer and current trace before classifying numeric failure as missing support. This source alone does not establish a new error policy or alias."
+        }
+      ]
+    }
+  ],
+  "contract_revisits_pending_queue_adoption": [],
+  "remaining_connected_obligations": [
+    "Q-L12-526d08f49c4c2715556f actual validate_encoded2695 and canonical FloorRegion/FloorBearing projection/coverage/transport/native/current required. Shared decode/generated admission edge proven, no empty accepted outline/region or new grade failure claim.",
+    "Q-L12-cbdcfb63dbf2192bbce3 projection-rounded floor region intentionally differs from strict polygon reparse in authored fixture; actual owner and native tolerance/coverage policy required before classification.",
+    "Q-L12-292f8402e4b164fa2d19 actual SurfaceHit admission now inspected in addition to support-surface/query APIs; nativeDir3/source normal/caller/current and final region/outline cardinality remain. CONT08 sampled-support failure classification/Q-L12-b470885c93741632da1a remains actual producer-to-required-consumer obligation; leaf None is not alone failure.",
+    "All399 lines inspected, no tests/native runtime or product edits. No new unique finding or queue-view change. All13/all20/extensions/current/aliases/repair gates incomplete."
+  ]
+}

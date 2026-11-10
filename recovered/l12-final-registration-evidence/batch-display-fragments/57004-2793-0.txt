@@ -1,0 +1,118 @@
+1: use crate::allocator::{batch_buffer::BatchData, id_allocator::IdAllocator};
+2: use crate::prelude::*;
+3: use crate::render::prepare::core::BatchInput;
+4: 
+5: use bevy_ecs::entity::{Entity, EntityHashMap};
+6: 
+7: use bevy_render::{
+8:     mesh::{RenderMesh, RenderMeshBufferInfo, allocator::MeshAllocator},
+9:     render_asset::RenderAssets,
+10:     render_resource::DrawIndexedIndirectArgs,
+11: };
+12: 
+13: pub(super) struct Batcher<'a> {
+14:     pub(super) page_id: usize,
+15:     pub(super) mesh_allocator: &'a MeshAllocator,
+16:     pub(super) meshes: &'a RenderAssets<RenderMesh>,
+17:     pub(super) source_allocator: &'a InstanceAllocatorBackend,
+18:     pub(super) batch_ranges: &'a mut BatchRanges,
+19: }
+20: 
+21: impl Batcher<'_> {
+22:     pub fn batch(
+23:         &mut self,
+24:         buffer: &mut crate::allocator::batch_buffer::BatchBuffer,
+25:         page_entities: &[Entity],
+26:         input_map: &EntityHashMap<BatchInput>,
+27:         batch_allocator: &IdAllocator,
+28:     ) {
+29:         let max_batch = batch_allocator.watermark as usize;
+30: 
+31:         buffer.ensure_capacity(max_batch);
+32: 
+33:         for (input, index, index_count) in page_entities.iter().filter_map(|entity| {
+34:             let input = input_map.get(entity)?;
+35:             let index = batch_allocator.allocations.get(entity)?;
+36:             let mesh = self.meshes.get(input.mesh_id)?;
+37: 
+38:             let RenderMeshBufferInfo::Indexed {
+39:                 count: index_count, ..
+40:             } = mesh.buffer_info
+41:             else {
+42:                 return None;
+43:             };
+44: 
+45:             Some((input, *index, index_count))
+46:         }) {
+47:             let offset = self
+48:                 .source_allocator
+49:                 .get(input.entity)
+50:                 .map(|l| l.offset)
+51:                 .unwrap_or(0);
+52: 
+53:             let first_index = self
+54:                 .mesh_allocator
+55:                 .mesh_index_slice(&input.mesh_id)
+56:                 .map(|s| s.range.start)
+57:                 .unwrap_or(0);
+58: 
+59:             let base_vertex = self
+60:                 .mesh_allocator
+61:                 .mesh_vertex_slice(&input.mesh_id)
+62:                 .map(|s| s.range.start)
+63:                 .unwrap_or(0) as i32;
+64: 
+65:             self.register(input, index, offset);
+66: 
+67:             let instance_count = if input.gpu_cull {
+68:                 0
+69:             } else {
+70:                 input.instances.len() as u32
+71:             };
+72: 
+73:             // WebGPU forbids a non-zero `first_instance` in indirect draws (the
+74:             // `INDIRECT_FIRST_INSTANCE` wgpu feature is native-only). WASM draw
+75:             // path applies `offset` via a slot-1 vertex-buffer offset in
+76:             // `SetInstanceBindGroup` instead, so bake 0 here on wasm.
+77:             #[cfg(target_family = "wasm")]
+78:             let first_instance = 0;
+79:             #[cfg(not(target_family = "wasm"))]
+80:             let first_instance = offset;
+81: 
+82:             let data = BatchData {
+83:                 indirect: DrawIndexedIndirectArgs {
+84:                     index_count,
+85:                     instance_count,
+86:                     first_index,
+87:                     base_vertex,
+88:                     first_instance,
+89:                 },
+90:                 uniform: input.batch,
+91:                 metadata: BatchMetadata {
+92:                     batch_id: index,
+93:                     start_index: offset,
+94:                     end_index: offset + input.instances.len() as u32,
+95:                 },
+96:             };
+97: 
+98:             buffer.update(index as usize, data);
+99:         }
+100:     }
+101: 
+102:     #[allow(unused_variables)]
+103:     fn register(&mut self, input: &BatchInput, batch: u32, instance_offset: u32) {
+104:         let range = batch..(batch + 1);
+105:         self.batch_ranges.batches.push(BatchInfo {
+106:             page: self.page_id,
+107:             range,
+108:             #[cfg(target_family = "wasm")]
+109:             instance_offset,
+110:         });
+111: 
+112:         let index = (self.batch_ranges.batches.len() - 1) as u32;
+113:         self.batch_ranges.batch_lookup.insert(input.entity, index);
+114:         self.batch_ranges
+115:             .entities
+116:             .push((input.entity, input.main_entity));
+117:     }
+118: }

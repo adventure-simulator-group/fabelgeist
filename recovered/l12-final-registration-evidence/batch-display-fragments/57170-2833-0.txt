@@ -1,0 +1,200 @@
+601:     pub gate_count: u8,
+602:     pub route_length: u8,
+603:     pub examples_per_gate: u8,
+604:     pub minimum_single_example_candidates: u8,
+605:     pub allow_repeated_operations: bool,
+606:     pub allow_repeated_route_gates: bool,
+607: }
+608: 
+609: impl Default for RuneTransformationSpec {
+610:     fn default() -> Self {
+611:         Self {
+612:             gate_count: 3,
+613:             route_length: 3,
+614:             examples_per_gate: 2,
+615:             minimum_single_example_candidates: 2,
+616:             allow_repeated_operations: true,
+617:             allow_repeated_route_gates: false,
+618:         }
+619:     }
+620: }
+621: 
+622: impl RuneTransformationSpec {
+623:     pub fn validate(self) -> Result<Self, &'static str> {
+624:         if !(1..=RuneGate::ALL.len() as u8).contains(&self.gate_count) {
+625:             return Err("rune gate count must be between one and three");
+626:         }
+627:         if !(1..=8).contains(&self.route_length) {
+628:             return Err("rune route length must be between one and eight");
+629:         }
+630:         if !self.allow_repeated_route_gates && self.route_length > self.gate_count {
+631:             return Err("non-repeating rune route cannot exceed the gate count");
+632:         }
+633:         if !(1..=2).contains(&self.examples_per_gate) {
+634:             return Err("rune examples per gate must be one or two");
+635:         }
+636:         if !(1..=RuneOperation::ALL.len() as u8).contains(&self.minimum_single_example_candidates) {
+637:             return Err("rune single-example candidate minimum is out of bounds");
+638:         }
+639:         if self.examples_per_gate == 1 && self.minimum_single_example_candidates > 1 {
+640:             return Err("one rune example cannot both stay ambiguous and prove its gate law");
+641:         }
+642:         Ok(self)
+643:     }
+644: }
+645: 
+646: impl RuneGate {
+647:     pub const ALL: [Self; 3] = [Self::Ash, Self::Briar, Self::Glass];
+648: 
+649:     pub const fn label(self) -> &'static str {
+650:         match self {
+651:             Self::Ash => "Gate of Ash",
+652:             Self::Briar => "Gate of Briar",
+653:             Self::Glass => "Gate of Glass",
+654:         }
+655:     }
+656: }
+657: 
+658: impl RuneOperation {
+659:     pub const ALL: [Self; 5] = [
+660:         Self::ExchangeCrownHart,
+661:         Self::ExchangeHartMoon,
+662:         Self::ExchangeMoonRose,
+663:         Self::ExchangeRoseSword,
+664:         Self::ExchangeSwordCrown,
+665:     ];
+666: 
+667:     pub const fn rule_text(self) -> &'static str {
+668:         match self {
+669:             Self::ExchangeCrownHart => {
+670:                 "Exchange Crown with Hart; leave every other sigil unchanged."
+671:             }
+672:             Self::ExchangeHartMoon => "Exchange Hart with Moon; leave every other sigil unchanged.",
+673:             Self::ExchangeMoonRose => "Exchange Moon with Rose; leave every other sigil unchanged.",
+674:             Self::ExchangeRoseSword => {
+675:                 "Exchange Rose with Sword; leave every other sigil unchanged."
+676:             }
+677:             Self::ExchangeSwordCrown => {
+678:                 "Exchange Sword with Crown; leave every other sigil unchanged."
+679:             }
+680:         }
+681:     }
+682: 
+683:     pub fn apply(self, input: Sigil) -> Sigil {
+684:         let pair = match self {
+685:             Self::ExchangeCrownHart => (Sigil::Crown, Sigil::Hart),
+686:             Self::ExchangeHartMoon => (Sigil::Hart, Sigil::Moon),
+687:             Self::ExchangeMoonRose => (Sigil::Moon, Sigil::Rose),
+688:             Self::ExchangeRoseSword => (Sigil::Rose, Sigil::Sword),
+689:             Self::ExchangeSwordCrown => (Sigil::Sword, Sigil::Crown),
+690:         };
+691:         if input == pair.0 {
+692:             pair.1
+693:         } else if input == pair.1 {
+694:             pair.0
+695:         } else {
+696:             input
+697:         }
+698:     }
+699: }
+700: 
+701: #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+702: pub struct RuneExample {
+703:     pub gate: RuneGate,
+704:     pub input: Sigil,
+705:     pub output: Sigil,
+706: }
+707: 
+708: #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+709: pub struct RuneGateLaw {
+710:     pub gate: RuneGate,
+711:     pub operation: RuneOperation,
+712: }
+713: 
+714: impl RuneExample {
+715:     pub fn text(self) -> String {
+716:         format!(
+717:             "At the {}, when the {} enters, the {} emerges.",
+718:             self.gate.label(),
+719:             self.input.label(),
+720:             self.output.label()
+721:         )
+722:     }
+723: }
+724: 
+725: #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+726: pub struct RuneTransformationPuzzle {
+727:     pub rules_version: u16,
+728:     pub seed: Seed,
+729:     pub spec: RuneTransformationSpec,
+730:     pub gate_laws: Vec<RuneGateLaw>,
+731:     pub examples: Vec<RuneExample>,
+732:     pub route: Vec<RuneGate>,
+733:     pub query: Sigil,
+734:     pub solution: Sigil,
+735: }
+736: 
+737: #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+738: pub struct RuneTransformationProjection {
+739:     pub rules_version: u16,
+740:     pub sigils: [Sigil; 5],
+741:     pub candidate_rules: [RuneOperation; 5],
+742:     pub examples: Vec<RuneExample>,
+743:     pub route: Vec<RuneGate>,
+744:     pub query: Sigil,
+745: }
+746: 
+747: impl RuneTransformationPuzzle {
+748:     pub fn generate(seed: Seed) -> Self {
+749:         Self::generate_with_spec(seed, RuneTransformationSpec::default())
+750:             .expect("current rune-transformation rules are supported")
+751:     }
+752: 
+753:     pub fn generate_versioned(rules_version: u16, seed: Seed) -> Result<Self, &'static str> {
+754:         if rules_version != RUNE_TRANSFORMATION_RULES_VERSION {
+755:             return Err("unsupported rune-transformation rules version");
+756:         }
+757:         Self::generate_with_spec(seed, RuneTransformationSpec::default())
+758:     }
+759: 
+760:     pub fn generate_with_spec(
+761:         seed: Seed,
+762:         spec: RuneTransformationSpec,
+763:     ) -> Result<Self, &'static str> {
+764:         let spec = spec.validate()?;
+765:         const RUNE_TRANSFORMATION_GENERATION_DOMAIN: fabelgeist_determinism::StreamId =
+766:             fabelgeist_determinism::StreamId::new("puzzle.rune_transformation");
+767:         let mut rng = RUNE_TRANSFORMATION_GENERATION_DOMAIN.rng(seed, &[]);
+768:         let active_gates = RuneGate::ALL[..usize::from(spec.gate_count)].to_vec();
+769:         let mut available_operations = RuneOperation::ALL.to_vec();
+770:         shuffle(&mut available_operations, &mut rng);
+771:         let gate_laws = active_gates
+772:             .iter()
+773:             .copied()
+774:             .enumerate()
+775:             .map(|(index, gate)| RuneGateLaw {
+776:                 gate,
+777:                 operation: if spec.allow_repeated_operations {
+778:                     RuneOperation::ALL[rng.index(RuneOperation::ALL.len())]
+779:                 } else {
+780:                     available_operations[index]
+781:                 },
+782:             })
+783:             .collect::<Vec<_>>();
+784:         let query = Sigil::ALL[rng.index(Sigil::ALL.len())];
+785:         let mut route = Vec::with_capacity(usize::from(spec.route_length));
+786:         if spec.allow_repeated_route_gates {
+787:             for _ in 0..spec.route_length {
+788:                 route.push(active_gates[rng.index(active_gates.len())]);
+789:             }
+790:         } else {
+791:             let mut shuffled = active_gates.clone();
+792:             shuffle(&mut shuffled, &mut rng);
+793:             route.extend(shuffled.into_iter().take(usize::from(spec.route_length)));
+794:         }
+795:         let mut examples =
+796:             Vec::with_capacity(usize::from(spec.gate_count) * usize::from(spec.examples_per_gate));
+797:         for law in &gate_laws {
+798:             let gate = law.gate;
+799:             let operation = law.operation;
+800:             let mut inputs = Sigil::ALL;

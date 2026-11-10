@@ -1,0 +1,66 @@
+{
+  "schema": "726-embedded-printed-audit-records-v1",
+  "qualification": "Values printed completely in historical command output, serialized with recorded-compatible line endings and independently matched to cited SHA-256 hashes. Historical evidence only; plans are unimplemented and no final authority or audit credit is implied.",
+  "files": [
+    {
+      "sha256": "cd40c931cc96b99d1af199187f7b599fcdcaa703c4df24f95d8622936a794005",
+      "historical_filename": "VERIFICATION-L13-1564-1567.json",
+      "transcript_ordinal": 11569,
+      "object": "objects/cd40c931cc96b99d1af199187f7b599fcdcaa703c4df24f95d8622936a794005",
+      "fragment": "fragments/cd40c931cc96b99d1af199187f7b599fcdcaa703c4df24f95d8622936a794005",
+      "fragment_sha256": "cd40c931cc96b99d1af199187f7b599fcdcaa703c4df24f95d8622936a794005",
+      "references": [
+        {
+          "cited_path": "target/726-intake-20261030/VERIFICATION-L13-1564-1567.json",
+          "from_file": "0e6dc1e026ca--CURRENT.json",
+          "json_pointer": "/prior_adoption_verifications/77"
+        }
+      ]
+    },
+    {
+      "sha256": "b12a963b6ce6d1027648827730c645ae432f5b3bf738f6149cecb2414c761f5e",
+      "historical_filename": "QUALIFICATION-BASELINE-OLDER-675.json",
+      "transcript_ordinal": 99434,
+      "object": "objects/b12a963b6ce6d1027648827730c645ae432f5b3bf738f6149cecb2414c761f5e",
+      "fragment": "fragments/b12a963b6ce6d1027648827730c645ae432f5b3bf738f6149cecb2414c761f5e",
+      "fragment_sha256": "b12a963b6ce6d1027648827730c645ae432f5b3bf738f6149cecb2414c761f5e",
+      "references": [
+        {
+          "cited_path": "adler-continuation-20261030/QUALIFICATION-BASELINE-OLDER-675.json",
+          "from_file": "ecaab0e06404--VIEW-GRASS-WITNESS-675.json",
+          "json_pointer": "/source_qualification"
+        }
+      ]
+    },
+    {
+      "sha256": "831d63435823b3201d0f7b8f8d45caac0c96acc0bf5aeed11ba83b570af73d8d",
+      "historical_filename": "QUALIFICATION-AI-PRECISION-L12-1481.json",
+      "transcript_ordinal": 231890,
+      "object": "objects/831d63435823b3201d0f7b8f8d45caac0c96acc0bf5aeed11ba83b570af73d8d",
+      "fragment": "fragments/831d63435823b3201d0f7b8f8d45caac0c96acc0bf5aeed11ba83b570af73d8d",
+      "fragment_sha256": "e789665865c52cf99bcd9875873071b01bde7c274cddc867f8b47c669ee58288",
+      "references": [
+        {
+          "cited_path": "adler-continuation-20261030/QUALIFICATION-AI-PRECISION-L12-1481.json",
+          "from_file": "DECISION-AI-PRECISION-1481.json",
+          "json_pointer": "/evidence/0"
+        }
+      ]
+    },
+    {
+      "sha256": "f463bb6ec405791461853e00c96e68cda5f4ba98723900e6d933aced97ed1682",
+      "historical_filename": "REPAIR-PLAN-AI-PRECISION-1481.json",
+      "transcript_ordinal": 231890,
+      "object": "objects/f463bb6ec405791461853e00c96e68cda5f4ba98723900e6d933aced97ed1682",
+      "fragment": "fragments/f463bb6ec405791461853e00c96e68cda5f4ba98723900e6d933aced97ed1682",
+      "fragment_sha256": "3801c82a9d156eeabe33f904fe4c425d1241ba4eb7194b17d32263ae8394bec9",
+      "references": [
+        {
+          "cited_path": "adler-continuation-20261030/REPAIR-PLAN-AI-PRECISION-1481.json",
+          "from_file": "DECISION-AI-PRECISION-1481.json",
+          "json_pointer": "/owned_repair"
+        }
+      ]
+    }
+  ]
+}

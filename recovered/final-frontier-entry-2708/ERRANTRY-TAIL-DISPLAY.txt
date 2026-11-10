@@ -1,0 +1,382 @@
+446: #[cfg(test)]
+447: mod tests {
+448:     use super::*;
+449: 
+450:     #[test]
+451:     fn tactical_insight_reports_consumed_physical_mechanics_without_modifying_them() {
+452:         let threat = crate::bestiary::ThreatId::ArmedRetainer;
+453:         let before = threat.profile().combat;
+454:         let insight = tactical_insight_for(threat).expect("retainers must close to melee");
+455:         let after = threat.profile().combat;
+456: 
+457:         assert_eq!(insight.kind, TacticalInsightKind::MustCloseToMelee);
+458:         assert!(insight.finding.contains("no missile weapons"));
+459:         assert!(insight.preparation.contains("bows and arrows"));
+460:         assert_eq!(format!("{before:?}"), format!("{after:?}"));
+461:     }
+462: 
+463:     #[test]
+464:     fn camp_identity_survives_rest_but_not_movement_or_a_new_journey() {
+465:         let stops = [60, 120];
+466:         assert!(journey_camp_identity_matches(
+467:             StrategicMinute::new(40),
+468:             60,
+469:             &stops,
+470:             StrategicMinute::new(40),
+471:             60
+472:         ));
+473:         // Rest is not an input: only stable journey and movement coordinates
+474:         // identify the persisted camp.
+475:         assert!(!journey_camp_identity_matches(
+476:             StrategicMinute::new(40),
+477:             120,
+478:             &stops,
+479:             StrategicMinute::new(40),
+480:             60
+481:         ));
+482:         assert!(!journey_camp_identity_matches(
+483:             StrategicMinute::new(41),
+484:             60,
+485:             &stops,
+486:             StrategicMinute::new(40),
+487:             60
+488:         ));
+489:         assert!(!journey_camp_identity_matches(
+490:             StrategicMinute::new(40),
+491:             60,
+492:             &[120],
+493:             StrategicMinute::new(40),
+494:             60
+495:         ));
+496:     }
+497: 
+498:     #[test]
+499:     fn road_trial_interrupts_rest_only_at_its_bound_camp() {
+500:         let stops = [60, 120];
+501:         assert!(!rested_road_trial_camp_matches(
+502:             StrategicMinute::new(40),
+503:             60,
+504:             119,
+505:             &stops,
+506:             StrategicMinute::new(40),
+507:             60,
+508:             120
+509:         ));
+510:         assert!(rested_road_trial_camp_matches(
+511:             StrategicMinute::new(40),
+512:             60,
+513:             120,
+514:             &stops,
+515:             StrategicMinute::new(40),
+516:             60,
+517:             120
+518:         ));
+519:         assert!(!rested_road_trial_camp_matches(
+520:             StrategicMinute::new(40),
+521:             120,
+522:             180,
+523:             &stops,
+524:             StrategicMinute::new(40),
+525:             60,
+526:             120
+527:         ));
+528:         assert!(!rested_road_trial_camp_matches(
+529:             StrategicMinute::new(41),
+530:             60,
+531:             180,
+532:             &stops,
+533:             StrategicMinute::new(40),
+534:             60,
+535:             120
+536:         ));
+537:     }
+538: 
+539:     #[test]
+540:     fn every_solution_gets_a_globally_minimum_bounded_necessary_clue_set() {
+541:         for solution in all_orderings() {
+542:             let (clues, evaluated) = minimum_clues(&solution, OrderedSigilSpec::default()).unwrap();
+543:             assert!(clues.len() <= 4);
+544:             assert!(evaluated <= MAX_MINIMIZATION_SUBSETS);
+545:             assert_eq!(solutions(&clues, 2), vec![solution]);
+546: 
+547:             for removed in 0..clues.len() {
+548:                 let mut reduced = clues.clone();
+549:                 reduced.remove(removed);
+550:                 assert_ne!(solutions(&reduced, 2), vec![solution]);
+551:             }
+552: 
+553:             let pool = true_clue_pool(&solution);
+554:             for cardinality in 1..clues.len() {
+555:                 assert!(
+556:                     best_unique_subset(&pool, &solution, cardinality).is_none(),
+557:                     "found a smaller clue set for {solution:?}"
+558:                 );
+559:             }
+560:         }
+561:     }
+562: 
+563:     #[test]
+564:     fn replay_is_versioned_and_deterministic() {
+565:         let first = OrderedSigilPuzzle::generate_versioned(
+566:             ORDERED_SIGIL_RULES_VERSION,
+567:             fabelgeist_determinism::Seed::from_u64(41),
+568:         )
+569:         .unwrap();
+570:         assert_eq!(
+571:             first.solution,
+572:             [
+573:                 Sigil::Moon,
+574:                 Sigil::Crown,
+575:                 Sigil::Hart,
+576:                 Sigil::Sword,
+577:                 Sigil::Rose
+578:             ]
+579:         );
+580:         assert_eq!(
+581:             first.clues,
+582:             vec![
+583:                 OrderedSigilClue::Before {
+584:                     first: Sigil::Moon,
+585:                     second: Sigil::Crown
+586:                 },
+587:                 OrderedSigilClue::Before {
+588:                     first: Sigil::Crown,
+589:                     second: Sigil::Hart
+590:                 },
+591:                 OrderedSigilClue::Before {
+592:                     first: Sigil::Hart,
+593:                     second: Sigil::Sword
+594:                 },
+595:                 OrderedSigilClue::Before {
+596:                     first: Sigil::Sword,
+597:                     second: Sigil::Rose
+598:                 },
+599:             ]
+600:         );
+601:         assert_eq!(
+602:             first,
+603:             OrderedSigilPuzzle::generate_versioned(
+604:                 ORDERED_SIGIL_RULES_VERSION,
+605:                 fabelgeist_determinism::Seed::from_u64(41)
+606:             )
+607:             .unwrap()
+608:         );
+609:         assert!(
+610:             OrderedSigilPuzzle::generate_versioned(1, fabelgeist_determinism::Seed::from_u64(41))
+611:                 .is_err()
+612:         );
+613:     }
+614: 
+615:     #[test]
+616:     fn tie_break_prefers_relations_then_not_at_then_exact() {
+617:         for solution in all_orderings() {
+618:             let (chosen, _) = minimum_clues(&solution, OrderedSigilSpec::default()).unwrap();
+619:             let pool = true_clue_pool(&solution);
+620:             let chosen_indices = chosen
+621:                 .iter()
+622:                 .map(|clue| pool.iter().position(|candidate| candidate == clue).unwrap())
+623:                 .collect::<Vec<_>>();
+624:             let chosen_score = subset_style_score(&pool, &chosen_indices);
+625:             assert_eq!(
+626:                 Some(chosen_score),
+627:                 best_unique_subset(&pool, &solution, chosen.len())
+628:             );
+629:         }
+630:     }
+631: 
+632:     #[test]
+633:     fn projection_is_safe() {
+634:         let puzzle = OrderedSigilPuzzle::generate(fabelgeist_determinism::Seed::from_u64(9));
+635:         let projection = puzzle.projection();
+636:         let json = serde_json::to_string(&projection).unwrap();
+637:         assert!(!json.contains("solution"));
+638:         assert!(!json.contains("seed"));
+639:         assert_eq!(projection.clues, puzzle.clues);
+640:     }
+641: 
+642:     #[test]
+643:     fn only_the_solution_is_accepted() {
+644:         let puzzle = OrderedSigilPuzzle::generate(fabelgeist_determinism::Seed::from_u64(77));
+645:         for candidate in solutions(&[], usize::MAX) {
+646:             let submission = OrderedSigilSubmission {
+647:                 expected_revision: 0,
+648:                 ordering: candidate,
+649:             };
+650:             assert_eq!(
+651:                 puzzle.check(&submission).unwrap(),
+652:                 candidate == puzzle.solution
+653:             );
+654:         }
+655:         let malformed = OrderedSigilSubmission {
+656:             expected_revision: 0,
+657:             ordering: [Sigil::Crown; ORDERED_SIGIL_COUNT],
+658:         };
+659:         assert_eq!(
+660:             puzzle.check(&malformed),
+661:             Err(SubmissionError::DuplicateSigil)
+662:         );
+663:     }
+664: 
+665:     #[test]
+666:     fn supernatural_speech_comes_only_from_the_closed_verse_catalog() {
+667:         let catalog = FeyPresenterCatalogId::LadyBeneathThornV1;
+668:         let all = [
+669:             FeySpeechPart::Introduction,
+670:             FeySpeechPart::Instruction,
+671:             FeySpeechPart::Wrong,
+672:             FeySpeechPart::Correct,
+673:         ]
+674:         .into_iter()
+675:         .flat_map(|part| fey_speech(catalog, part))
+676:         .collect::<Vec<_>>();
+677:         assert_eq!(all.len(), 8);
+678:         assert!(
+679:             all.iter()
+680:                 .all(|line| line.ends_with('.') && !line.contains('{'))
+681:         );
+682:         for kind in PuzzleKind::ALL {
+683:             let lines = [
+684:                 FeySpeechPart::Introduction,
+685:                 FeySpeechPart::Instruction,
+686:                 FeySpeechPart::Wrong,
+687:                 FeySpeechPart::Correct,
+688:             ]
+689:             .into_iter()
+690:             .flat_map(|part| fey_puzzle_speech(catalog, kind, part))
+691:             .collect::<Vec<_>>();
+692:             assert_eq!(lines.len(), 8);
+693:             assert!(lines.iter().all(|line| {
+694:                 line.ends_with('.') && !line.contains('{') && !line.contains("{}")
+695:             }));
+696:         }
+697: 
+698:         let mut clue_lines = Vec::new();
+699:         for sigil in Sigil::ALL {
+700:             for position in 0..ORDERED_SIGIL_COUNT as u8 {
+701:                 clue_lines.push(fey_clue_text(
+702:                     catalog,
+703:                     &OrderedSigilClue::Exact { sigil, position },
+704:                 ));
+705:                 clue_lines.push(fey_clue_text(
+706:                     catalog,
+707:                     &OrderedSigilClue::NotAt { sigil, position },
+708:                 ));
+709:             }
+710:             for other in Sigil::ALL {
+711:                 if sigil != other {
+712:                     clue_lines.push(fey_clue_text(
+713:                         catalog,
+714:                         &OrderedSigilClue::Before {
+715:                             first: sigil,
+716:                             second: other,
+717:                         },
+718:                     ));
+719:                     clue_lines.push(fey_clue_text(
+720:                         catalog,
+721:                         &OrderedSigilClue::Adjacent {
+722:                             first: sigil,
+723:                             second: other,
+724:                         },
+725:                     ));
+726:                 }
+727:             }
+728:         }
+729:         assert_eq!(clue_lines.len(), 90);
+730:         assert!(clue_lines.iter().all(|line| {
+731:             !line.is_empty()
+732:                 && line.ends_with('.')
+733:                 && !line.contains('{')
+734:                 && !line.contains("position {}")
+735:         }));
+736:     }
+737: 
+738:     fn subset_style_score(
+739:         pool: &[OrderedSigilClue],
+740:         indices: &[usize],
+741:     ) -> (usize, usize, Vec<usize>) {
+742:         let exact = indices
+743:             .iter()
+744:             .filter(|index| matches!(pool[**index], OrderedSigilClue::Exact { .. }))
+745:             .count();
+746:         let not_at = indices
+747:             .iter()
+748:             .filter(|index| matches!(pool[**index], OrderedSigilClue::NotAt { .. }))
+749:             .count();
+750:         (exact, not_at, indices.to_vec())
+751:     }
+752: 
+753:     fn best_unique_subset(
+754:         pool: &[OrderedSigilClue],
+755:         solution: &[Sigil; ORDERED_SIGIL_COUNT],
+756:         cardinality: usize,
+757:     ) -> Option<(usize, usize, Vec<usize>)> {
+758:         let orderings = all_orderings();
+759:         let target = 1_u128
+760:             << orderings
+761:                 .iter()
+762:                 .position(|candidate| candidate == solution)
+763:                 .unwrap();
+764:         let masks = pool
+765:             .iter()
+766:             .map(|clue| {
+767:                 orderings
+768:                     .iter()
+769:                     .enumerate()
+770:                     .fold(0_u128, |mask, (index, ordering)| {
+771:                         mask | (u128::from(clue_holds(clue, ordering)) << index)
+772:                     })
+773:             })
+774:             .collect::<Vec<_>>();
+775:         let mut best = None;
+776:         visit_mask_subsets(
+777:             pool,
+778:             &masks,
+779:             cardinality,
+780:             0,
+781:             (1_u128 << orderings.len()) - 1,
+782:             target,
+783:             &mut Vec::new(),
+784:             &mut best,
+785:         );
+786:         best
+787:     }
+788: 
+789:     #[expect(
+790:         clippy::too_many_arguments,
+791:         reason = "this domain boundary names each independent input explicitly"
+792:     )]
+793:     fn visit_mask_subsets(
+794:         pool: &[OrderedSigilClue],
+795:         masks: &[u128],
+796:         remaining: usize,
+797:         start: usize,
+798:         intersection: u128,
+799:         target: u128,
+800:         chosen: &mut Vec<usize>,
+801:         best: &mut Option<(usize, usize, Vec<usize>)>,
+802:     ) {
+803:         if remaining == 0 {
+804:             if intersection == target {
+805:                 let candidate = subset_style_score(pool, chosen);
+806:                 if best.as_ref().is_none_or(|current| candidate < *current) {
+807:                     *best = Some(candidate);
+808:                 }
+809:             }
+810:             return;
+811:         }
+812:         for index in start..=pool.len() - remaining {
+813:             chosen.push(index);
+814:             visit_mask_subsets(
+815:                 pool,
+816:                 masks,
+817:                 remaining - 1,
+818:                 index + 1,
+819:                 intersection & masks[index],
+820:                 target,
+821:                 chosen,
+822:                 best,
+823:             );
+824:             chosen.pop();
+825:         }
+826:     }
+827: }

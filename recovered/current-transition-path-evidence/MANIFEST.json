@@ -1,0 +1,666 @@
+{
+  "schema": "726-current-transition-path-evidence-v1",
+  "transition_sha256": "8b723e58afad6c01e10967209c6f6d6de8e7499035d35a69cd4a020e63d2033a",
+  "transition_original_bytes_recovered": true,
+  "recorded_output_ordinal": 74817,
+  "before_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "after_revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+  "paths": [
+    {
+      "path": ".cargo/config.toml",
+      "status": "M",
+      "before": {
+        "sha256": "e5b38e1ff0a60af583be1fbfccc81235c01803af7e0b8445c7ef3841ecf1f790",
+        "bytes": 2051
+      },
+      "after": {
+        "sha256": "a48c510fac044c2122bce5f5c56e311cfc1ae670ea03b0e3d19d2f58f933613c",
+        "bytes": 2412
+      }
+    },
+    {
+      "path": "Cargo.lock",
+      "status": "M",
+      "before": {
+        "sha256": "58118b1b138af4f9feea993ea990dc334f63d30c4aa66f8b5597a0f1dfecfcf6",
+        "bytes": 306205
+      },
+      "after": {
+        "sha256": "b36b6a88eebfff2628c4626c1f890f1589f7e06d324aab6d22a998475daa97d1",
+        "bytes": 305636
+      }
+    },
+    {
+      "path": "Cargo.toml",
+      "status": "M",
+      "before": {
+        "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+        "bytes": 8395
+      },
+      "after": {
+        "sha256": "f1fe1a1539e5d091112577726ac5723769c9a2bb098c149684e6810efe895881",
+        "bytes": 7569
+      }
+    },
+    {
+      "path": "assets/config/tactical-graphics.yaml",
+      "status": "M",
+      "before": {
+        "sha256": "b922faa3643a9e55508cbf50304273912d9be0b7e0282d271f1b243c75c40307",
+        "bytes": 2244
+      },
+      "after": {
+        "sha256": "ef88013b1a81f49e88c66271de95bd21136c29c8bdd0db0b73fdf036c0d11249",
+        "bytes": 2151
+      }
+    },
+    {
+      "path": "assets/shaders/tactical_grass_cull.wgsl",
+      "status": "D",
+      "before": {
+        "sha256": "a6f23cd340f962c7323c929b1f552324b50bad4034471c6c871b3585b8dff9ad",
+        "bytes": 2072
+      },
+      "after": null
+    },
+    {
+      "path": "assets/shaders/tactical_grass_instanced.wgsl",
+      "status": "M",
+      "before": {
+        "sha256": "2d88c9d6787c5806e7c1bf6fde37f397e532773a16915e847af0ee5e12b07adc",
+        "bytes": 13663
+      },
+      "after": {
+        "sha256": "5a36ad0ba47fdd18d71e59e9898a83c74a9dcea55d8f4beae223c691aa3a4c2e",
+        "bytes": 13328
+      }
+    },
+    {
+      "path": "assets/shaders/tactical_pebble.wgsl",
+      "status": "D",
+      "before": {
+        "sha256": "5a55c52e1b2950b498e8d1679e7983bd84b6da069dc6fe5698a4b22d0646353e",
+        "bytes": 3285
+      },
+      "after": null
+    },
+    {
+      "path": "assets/shaders/tactical_pebble_billboard.wgsl",
+      "status": "D",
+      "before": {
+        "sha256": "c4644f87c9162b39d2fc1225d9912d8e7a0580cd7556d1333181defd62752b93",
+        "bytes": 3812
+      },
+      "after": null
+    },
+    {
+      "path": "assets/shaders/tactical_pebble_billboard_instanced.wgsl",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "45f74a6e6a49f559eff2d5f44773dc5d455c85bd29898f726eb4224b5cde758c",
+        "bytes": 4785
+      }
+    },
+    {
+      "path": "assets/shaders/tactical_pebble_instanced.wgsl",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "fef598bc8d25ea8c024fbe9f1264c7b836406a220c6feca3e034a5043f245d27",
+        "bytes": 3989
+      }
+    },
+    {
+      "path": "assets/shaders/tactical_shrub_bark_instanced.wgsl",
+      "status": "M",
+      "before": {
+        "sha256": "696467dcd07aed5f94b0dfb6d9605560daf85fd74e780da49e2449c840e15844",
+        "bytes": 4397
+      },
+      "after": {
+        "sha256": "52f395629a98d699e0c0824910d13544b192d02b57a955503324939f27934ae7",
+        "bytes": 4253
+      }
+    },
+    {
+      "path": "assets/shaders/tactical_shrub_leaf_instanced.wgsl",
+      "status": "M",
+      "before": {
+        "sha256": "0f80c3f51e71056d7249e91d9dda6b82980138f76358602cf5aa887976e8aa52",
+        "bytes": 7894
+      },
+      "after": {
+        "sha256": "4c2b65ddcf48109c4ed659d4f8d8ebbdf500a4de4e5ce80213756bbaf16c48f4",
+        "bytes": 7750
+      }
+    },
+    {
+      "path": "assets/shaders/tactical_vista_tree_instanced.wgsl",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "d6e118cef16a309ac5c1d5cb21d7f85769d2a8457517650b6f24cd59aa2e7439",
+        "bytes": 6253
+      }
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/static/tactical.html",
+      "status": "M",
+      "before": {
+        "sha256": "b265fe9d34d1bc8e3bbb923fb5f15e02634f62a948e5c8e91dac1bb9a42d6197",
+        "bytes": 8121
+      },
+      "after": {
+        "sha256": "cf70daafeace3bf7ae21134a2197efb23c6ac0df60da40840eb13a24aca54867",
+        "bytes": 8811
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/Cargo.toml",
+      "status": "M",
+      "before": {
+        "sha256": "736240a91cfc44359688a19535bd9984824264c4c2d9f5637ef5e477c17924a1",
+        "bytes": 4193
+      },
+      "after": {
+        "sha256": "c39360e6d15abbb62a6ad11effb50a89f79796973498f87fd5dee1ee8770b8b2",
+        "bytes": 3950
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+      "status": "M",
+      "before": {
+        "sha256": "4544835a041e7c35f25b60d0b13e06ff22ea4ecc0efc90efdda1cd6963fb9638",
+        "bytes": 73844
+      },
+      "after": {
+        "sha256": "4b41d158f102b67dd8ec40b40179456bbb348084165de92c33cf57fd8981b5da",
+        "bytes": 73988
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer/pose_cull.rs",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "c86b700372c2622f894cbf960eabd7a616326360d8ab561ee4932012b7188540",
+        "bytes": 1270
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+      "status": "M",
+      "before": {
+        "sha256": "678af470ebedb38a874258f1f27264052978d78d58b438469bc24e25ef4d0b78",
+        "bytes": 5051
+      },
+      "after": {
+        "sha256": "754a5ea02732df10071edad99a78c5fc1524236ac1232401129c06da611834ee",
+        "bytes": 5565
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "status": "M",
+      "before": {
+        "sha256": "815bfd27404840b0d69f337719c882adf65fea894e48a769670a582eb42faf1b",
+        "bytes": 68660
+      },
+      "after": {
+        "sha256": "cff2ba2b0c2f60c6141f86f031ef8470e981c81a5a901febd350a24fcfdc69d3",
+        "bytes": 68840
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "status": "M",
+      "before": {
+        "sha256": "b1645110395d62b1dab020f6328f9b3d3fde6cd3f64b88101d6c66d5e7d8b0e6",
+        "bytes": 139562
+      },
+      "after": {
+        "sha256": "1316d55883c31826dcf78b1c36f80116faf40dee3aa3cf8a4bc82646030d19e3",
+        "bytes": 139647
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/skin.rs",
+      "status": "M",
+      "before": {
+        "sha256": "7d3de24eaaf295e510aeb41c6bd8e6f5d5204beea0b976cbc16cb617d862c7a4",
+        "bytes": 4028
+      },
+      "after": {
+        "sha256": "5f95d50f17638ad95c8d7848914f632321d38347685187be1dc0a7c6ea573874",
+        "bytes": 4231
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/celestial_materials.rs",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "90b35990a745b6684e3f733c9a2b69a0c143e802ac968fdd594ac0d61e6bff06",
+        "bytes": 3241
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing.rs",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "dd3f753b18f0a5cded3e1ca32d8b29e77544d81f5c82f425d47a1908ad12d92d",
+        "bytes": 3716
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/chunk_instancing.wgsl",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "60c8e5c5834d130987b0a37fd09ffee945b4908a863589b8db5bcee69f86a57a",
+        "bytes": 2571
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/draw.rs",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "fbf96c0e6ddbe1f00e12b1e74da3fb6cb129075a860617e548b95871ed8f5dba",
+        "bytes": 6973
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/instance.rs",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "e57c77ecdf7c28448ded39296a49ae590ed4c612021b0ae39736d8345dae8e3c",
+        "bytes": 3636
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/material.rs",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "ba64b44296e4a3d2b837c0e4cd45829df6e9441d4647049f6e76cbe6b9c54961",
+        "bytes": 3765
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/pipeline.rs",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "91bf014c938918e186cb9bfc5d5d563f6f9718c3afa85db2d8c1e9b45fdabdbd",
+        "bytes": 5315
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/queue.rs",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "e171e3975a749c9ff6e528d1af5daf3c3b1eabac43e8c9b71807b5dc8c6cbc18",
+        "bytes": 6924
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/spawn.rs",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "dceb4f65084d06e5c58c2e7b00a86e4968b5ca6a3fa22598be3bfb280fa15a99",
+        "bytes": 4577
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/config.rs",
+      "status": "M",
+      "before": {
+        "sha256": "e2ec96c28d8458610bba86df77c1adceae1cdfe0e71ab972e227c362f72f0fe1",
+        "bytes": 12591
+      },
+      "after": {
+        "sha256": "4b39a948e24517a32a421b021307c7d1d7dad7a152be348ac952a3c88384f961",
+        "bytes": 12365
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs",
+      "status": "M",
+      "before": {
+        "sha256": "4ebc106478d263a859403c114c4711598dd570927f2706abf5e7123bc37a9c91",
+        "bytes": 24861
+      },
+      "after": {
+        "sha256": "56f5a0285d872607f4f03c969e6620557a8fd15fe250779a55c42d0c75662b93",
+        "bytes": 21981
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/batches.rs",
+      "status": "M",
+      "before": {
+        "sha256": "55a8f28f05846eea9e2cd7460a1a1aaecb83c64af31573ed82a2bb2f5bdaf196",
+        "bytes": 3288
+      },
+      "after": {
+        "sha256": "5c2a8b6a4e7d110c4aa81157d6df12213b70a7b2c18be7b500ac202500f2971e",
+        "bytes": 2765
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/culling.rs",
+      "status": "D",
+      "before": {
+        "sha256": "965ddf1af38c60ebc28657a7b9261fb5384998a97d57606ea70e49bbf2a6f5a2",
+        "bytes": 2345
+      },
+      "after": null
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/diagnostics.rs",
+      "status": "M",
+      "before": {
+        "sha256": "137a4589cc0b7945de4fb4d552dd9dab6a3e4f0d42f426b4d5d439881a0f7bb9",
+        "bytes": 1443
+      },
+      "after": {
+        "sha256": "dc974667febacd592df441d70ddd03394c8afc93ec7d59ae54f7730b6dd1dcff",
+        "bytes": 1044
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/material.rs",
+      "status": "M",
+      "before": {
+        "sha256": "254f470bded28494465ba373831b3e8c80ce627e4480f65c9a5b49e05988b459",
+        "bytes": 3033
+      },
+      "after": {
+        "sha256": "d1f1c82a4c8c3eca722ce058bb927c7987024e10e237fb54f96d931b6c0954dd",
+        "bytes": 2520
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/view_culling.rs",
+      "status": "D",
+      "before": {
+        "sha256": "6411bfc2ee44c3d991461d3817be5580974b682de88df4337e4beb492766407c",
+        "bytes": 5568
+      },
+      "after": null
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_understory.rs",
+      "status": "M",
+      "before": {
+        "sha256": "99e5f51d7e539f2618ce3e0fa233173442b3f4bbefffb3df4fc0203ad2f22fd3",
+        "bytes": 11838
+      },
+      "after": {
+        "sha256": "5ae6e7a5fa707715d1ea9c3f763b5a939a95a0a1949d1ce7516a8dd227dff137",
+        "bytes": 11480
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone.rs",
+      "status": "M",
+      "before": {
+        "sha256": "91ff28710a9a14a819f4922ea771cfe62fa7d385fb63f2b561f10444600c057d",
+        "bytes": 26113
+      },
+      "after": {
+        "sha256": "861043134ece4eae292bbafb2256b0ed9b15d29cdd3cd781cc07201453f822eb",
+        "bytes": 25898
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone/batches.rs",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "9243489da94c5b4f2e1b93b9471ce63697c7028c2238db02c4b3be52658edb97",
+        "bytes": 4658
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone/spawn.rs",
+      "status": "M",
+      "before": {
+        "sha256": "8ae3f85f7348aa4417fecbfc8408f36dda93ea3e4c707f0e79bc673e0cac3ef7",
+        "bytes": 9338
+      },
+      "after": {
+        "sha256": "7e645b10101090a55bcc33a026a3e87757fffe8dccc33c9fb6937a035eb3c742",
+        "bytes": 8315
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone/streams.rs",
+      "status": "M",
+      "before": {
+        "sha256": "80fc6b2fc6f287ef9c214f4492651b73006484371550db1c0ee58649f492d7ee",
+        "bytes": 1415
+      },
+      "after": {
+        "sha256": "d8c1c566fb65775da2c33aa56270061155a58d41f89532862c09feaa1b90238b",
+        "bytes": 1514
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/mod.rs",
+      "status": "M",
+      "before": {
+        "sha256": "1577f17b44515d9e38cd44b010e81127ddace5a721dfc82688cc46be04c341fa",
+        "bytes": 19860
+      },
+      "after": {
+        "sha256": "b41880d16760f40827b9d45b1d94e4f6b545b2cfc57f79ebb4f25ad4c8717af9",
+        "bytes": 17689
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/materials.rs",
+      "status": "M",
+      "before": {
+        "sha256": "ccff04d8f8288d9f670097d34527841e9a8f2f91472692b25e5dd53b85c5aba8",
+        "bytes": 1666
+      },
+      "after": {
+        "sha256": "e12ef47cca13c862efbcd2db69dbde2408609cdf34a3afd48842d377fc3aa6a0",
+        "bytes": 2037
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/mod.rs",
+      "status": "M",
+      "before": {
+        "sha256": "b58d3d8f463d7d25674303fdbdb9b18440c23c6b955359d0e7921f7027ce6133",
+        "bytes": 16259
+      },
+      "after": {
+        "sha256": "c9c199effe7b9c75f9e593694d2def8ce235cc10107b4f45f2b67f2ae0f0490a",
+        "bytes": 16206
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/materials.rs",
+      "status": "M",
+      "before": {
+        "sha256": "0192dab25cb95d860570744ba5eaff8ec996f712d40b539657152d8b61e02b16",
+        "bytes": 24907
+      },
+      "after": {
+        "sha256": "a173d1f8f335f2e288ba87409185a85d4f8eba9813e1811cedf9fc293570a40c",
+        "bytes": 24941
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/mod.rs",
+      "status": "M",
+      "before": {
+        "sha256": "15c3310527fa6f81f06a55cae074349f73c630863816f90a4c810484bb0ed704",
+        "bytes": 2978
+      },
+      "after": {
+        "sha256": "9eec5b5f6cdb8ce24d5eae09b6b4e4a28f99a632cd43046962763147324fe49f",
+        "bytes": 3053
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/root_cull.rs",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "02b9a140a13635c52e5f3edce6a412e5c3b2eec90d931d66b2010928d75259b7",
+        "bytes": 2279
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista.rs",
+      "status": "M",
+      "before": {
+        "sha256": "b571c37d64c20535df90dc5b14ebddd2cc22010885764fbeae66c78ad6970d6c",
+        "bytes": 42575
+      },
+      "after": {
+        "sha256": "6565abca3f4e2a7a36922f6819ebdf547bc12143170be1d6ba5ced75aa7d10ed",
+        "bytes": 42588
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/details.rs",
+      "status": "M",
+      "before": {
+        "sha256": "15095204e03f1e13f74d77b1afbd17e33489f798b7732c59acfbacdfcc219307",
+        "bytes": 13450
+      },
+      "after": {
+        "sha256": "a660783b19504ceda614f69993a3ce39e1eb934621e1f0b8f6ca16c18eac3ac4",
+        "bytes": 12554
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/grass.rs",
+      "status": "M",
+      "before": {
+        "sha256": "d6c99d033f27462e88a6c1dbafd194a210933ababf7450d35111f18e155ad01e",
+        "bytes": 9625
+      },
+      "after": {
+        "sha256": "288dc1f2d4b40237a71cf21b0e7a71226bf26d83ccbb5a0b181a56ad2174b9d4",
+        "bytes": 9421
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/tree_cards.rs",
+      "status": "A",
+      "before": null,
+      "after": {
+        "sha256": "ffbc0ab600ba90cb799f7748cb718bf533a06cd133f6edeedea48c1e4d886465",
+        "bytes": 6457
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/triangle_census.rs",
+      "status": "M",
+      "before": {
+        "sha256": "7f564603c19a4d7f46601c6c56251a3d2177c3cf8854811bac529e6f3228c8ad",
+        "bytes": 16991
+      },
+      "after": {
+        "sha256": "9f32fafdb5d230e4220d8fef7f9dee75b369f8f55d282708b73d55524f2bc7a5",
+        "bytes": 16667
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "status": "M",
+      "before": {
+        "sha256": "3f91b54ab8bd4fe74fac9c3cf7201814bec695dbb145b4a0f06cf2fc88f6b11c",
+        "bytes": 31792
+      },
+      "after": {
+        "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+        "bytes": 31826
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "status": "M",
+      "before": {
+        "sha256": "5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970",
+        "bytes": 2245
+      },
+      "after": {
+        "sha256": "39a9e16f5913535b637c6b4fd26ef5d4d2f900fc7ea5ae4f1f2eb790d6dff28f",
+        "bytes": 3309
+      }
+    },
+    {
+      "path": "crates/strategic-web/UNIFIED_RENDERER.md",
+      "status": "M",
+      "before": {
+        "sha256": "ce0efb2ddd5752bc031c3ad92d3f32f0f6ee21fc2ec5bf9c2f6696730c9b76f7",
+        "bytes": 38186
+      },
+      "after": {
+        "sha256": "3f1c343841eb86272e5a38fb94ffde742ad46b1c55e4ed582b907ed1e9a965f3",
+        "bytes": 38318
+      }
+    },
+    {
+      "path": "crates/strategic-web/tests/grass-cull.browser.cjs",
+      "status": "D",
+      "before": {
+        "sha256": "91bf637dfb54f743bb661948150c9c6fe5f028f26d6b3648c2798299280768cf",
+        "bytes": 5743
+      },
+      "after": null
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "status": "M",
+      "before": {
+        "sha256": "4b5be77ae24e14888a30200538b95510c12baa05efdcddb9169fc67debf0b531",
+        "bytes": 331627
+      },
+      "after": {
+        "sha256": "39823d5b7007600468c5b2964005dd309b033c465a5d32d04ea8e36539231287",
+        "bytes": 331627
+      }
+    },
+    {
+      "path": "scripts/build_wasm.py",
+      "status": "M",
+      "before": {
+        "sha256": "2b45fea5f64c89476878b3e74e8974678bf423f7464e8524865b63bcde829fc6",
+        "bytes": 5954
+      },
+      "after": {
+        "sha256": "79b6e8341c5b6174c666f61eb85b50f474a63f4e281d62aa96bb63c6cf563cc7",
+        "bytes": 6186
+      }
+    }
+  ],
+  "distinct_object_count": 96,
+  "qualification": "Original transition matches its recorded hash; path list matches pinned Git diff without renames. Source objects are reconstructed from pinned Git; the final closure queue remains missing. No current audit credit is added.",
+  "transition_reconstruction": {
+    "sha256": "8b723e58afad6c01e10967209c6f6d6de8e7499035d35a69cd4a020e63d2033a",
+    "printed_full_rows_matched": [
+      ".cargo/config.toml",
+      "Cargo.lock",
+      "Cargo.toml",
+      "crates/strategic-web/tests/grass-cull.browser.cjs",
+      "rust-quality-baseline.toml",
+      "scripts/build_wasm.py"
+    ],
+    "qualification": "Original transition bytes reconstructed from recorded JSON fragments and pinned Git bytes; describes the historical selected delta, not later per-lens closure."
+  }
+}

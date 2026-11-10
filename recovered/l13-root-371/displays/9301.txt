@@ -1,0 +1,227 @@
+241:                     rigid_center: referenced_center(&generated),
+242:                     generated: Arc::new(generated),
+243:                 })
+244:             })
+245:             .map_err(|error| format!("{error:#}"));
+246:         if let Err(error) = &result {
+247:             error!(
+248:                 item = key.selection.selection.item().id,
+249:                 "runtime wearer fit failed: {error}"
+250:             );
+251:         }
+252:         self.models.insert(key, result);
+253:     }
+254: }
+255: 
+256: impl CachedEquipment {
+257:     fn attach(
+258:         &self,
+259:         commands: &mut Commands,
+260:         entity: Entity,
+261:         presentation: &RuntimeEquipmentPresentation,
+262:         body: &FittedBody,
+263:     ) {
+264:         if !self.sockets.is_empty() {
+265:             commands
+266:                 .entity(presentation.item)
+267:                 .insert(EquipmentAttachmentSockets(self.sockets.clone()));
+268:         }
+269:         for (index, mesh_part) in self.parts.iter().enumerate() {
+270:             let part = ProceduralEquipmentPart::new(
+271:                 presentation.item,
+272:                 body.inverse_bindposes.clone(),
+273:                 body.body.joint_names.clone(),
+274:                 self.rigid_center,
+275:             );
+276:             commands.entity(entity).with_child(part.render_bundle(
+277:                 format!("Runtime equipment {} part {index}", presentation.item_id),
+278:                 mesh_part.mesh.clone(),
+279:                 mesh_part.material.clone(),
+280:             ));
+281:         }
+282:         commands
+283:             .entity(entity)
+284:             .insert((ProceduralEquipmentResolved, Visibility::Inherited));
+285:     }
+286: }
+287: 
+288: #[expect(
+289:     clippy::too_many_arguments,
+290:     clippy::type_complexity,
+291:     reason = "equipment job integration and wearer-owned fitting inputs"
+292: )]
+293: pub(in crate::equipment) fn generate_runtime_equipment_models(
+294:     mut commands: Commands,
+295:     mut meshes: ResMut<Assets<Mesh>>,
+296:     mut materials: ResMut<Assets<StandardMaterial>>,
+297:     mut bindposes: ResMut<Assets<SkinnedMeshInverseBindposes>>,
+298:     mut cache: ResMut<RuntimeEquipmentBodyCache>,
+299:     presentations: Query<(
+300:         Entity,
+301:         &RuntimeEquipmentPresentation,
+302:         Option<&FitKey>,
+303:         Has<ProceduralEquipmentResolved>,
+304:         Option<&Children>,
+305:     )>,
+306:     parts: Query<(), With<ProceduralEquipmentPart>>,
+307:     items: Query<(
+308:         Option<&ItemOf>,
+309:         Has<TacticalSceneItem>,
+310:         Option<&LastFit>,
+311:         Option<&EquipSlot>,
+312:     )>,
+313:     characters: Query<(&CharacterId, Option<&CharacterSkeletalProportions>)>,
+314: ) {
+315:     cache.finish(&mut meshes, &mut materials);
+316:     let outfits = layers::outfits(presentations.iter().filter_map(|(_, presentation, ..)| {
+317:         let (owner, scene, _, slot) = items.get(presentation.item).ok()?;
+318:         let owner = owner.filter(|_| !scene && holding_side(slot).is_none())?;
+319:         Some((
+320:             owner.0,
+321:             layers::LayerSelection::admit(&presentation.item_id, &presentation.placement_id),
+322:         ))
+323:     }));
+324:     for (entity, presentation, current, resolved, children) in &presentations {
+325:         if cache.failed {
+326:             commands
+327:                 .entity(entity)
+328:                 .insert((ProceduralEquipmentFailed, ProceduralEquipmentResolved));
+329:             continue;
+330:         }
+331:         let Some(canonical) = cache.body.as_ref() else {
+332:             return;
+333:         };
+334:         if cache.bracer_design.is_none() || cache.breastplate_design.is_none() {
+335:             return;
+336:         }
+337:         let Ok((owner, scene, last_fit, slot)) = items.get(presentation.item) else {
+338:             continue;
+339:         };
+340:         let fitted_to_owner = !scene && holding_side(slot).is_none() && owner.is_some();
+341:         let previous = last_fit.map(|fit| &fit.0).or(current);
+342:         let key = FitKey::for_presentation(
+343:             canonical,
+344:             presentation,
+345:             previous,
+346:             owner,
+347:             fitted_to_owner,
+348:             &characters,
+349:         );
+350:         let mut key = match key {
+351:             Ok(Some(key)) => key,
+352:             Ok(None) => continue,
+353:             Err(error) => {
+354:                 presentation.fail_fit(entity, resolved, &error, &mut commands);
+355:                 continue;
+356:             }
+357:         };
+358:         if fitted_to_owner {
+359:             let Some(owner) = owner else {
+360:                 continue;
+361:             };
+362:             let outfit = &outfits[&owner.0];
+363:             match outfit
+364:                 .as_ref()
+365:                 .map_err(|error| anyhow::anyhow!("{error}"))
+366:                 .and_then(|outfit| outfit.ancestors(&key.selection))
+367:             {
+368:                 Ok(layers) => key.layers = layers,
+369:                 Err(error) => {
+370:                     presentation.fail_fit(entity, resolved, &error, &mut commands);
+371:                     continue;
+372:                 }
+373:             }
+374:         }
+375:         cache.use_clock = cache.use_clock.wrapping_add(1);
+376:         let clock = cache.use_clock;
+377:         cache.last_used.insert(key.clone(), clock);
+378:         if current == Some(&key) && resolved {
+379:             continue;
+380:         }
+381:         if current != Some(&key) {
+382:             key.install(&mut commands, entity, presentation, children, &parts);
+383:         }
+384:         cache.resolve(key, entity, presentation, &mut commands, &mut bindposes);
+385:     }
+386:     cache.trim();
+387: }
+388: 
+389: impl RuntimeEquipmentPresentation {
+390:     /// A rejected selection cannot retain a resolved mesh or a previous fit key.
+391:     fn fail_fit(
+392:         &self,
+393:         entity: Entity,
+394:         resolved: bool,
+395:         error: &anyhow::Error,
+396:         commands: &mut Commands,
+397:     ) {
+398:         if !resolved {
+399:             error!(item = self.item_id, "invalid equipment fit: {error:#}");
+400:         }
+401:         commands.entity(entity).remove::<FitKey>().insert((
+402:             ProceduralEquipmentFailed,
+403:             ProceduralEquipmentResolved,
+404:             Visibility::Hidden,
+405:         ));
+406:     }
+407: }
+408: 
+409: impl RuntimeEquipmentBodyCache {
+410:     fn resolve(
+411:         &mut self,
+412:         key: FitKey,
+413:         entity: Entity,
+414:         presentation: &RuntimeEquipmentPresentation,
+415:         commands: &mut Commands,
+416:         bindposes: &mut Assets<SkinnedMeshInverseBindposes>,
+417:     ) {
+418:         if let Some(result) = self.models.get(&key) {
+419:             let Ok(model) = result else {
+420:                 commands
+421:                     .entity(entity)
+422:                     .insert((ProceduralEquipmentResolved, ProceduralEquipmentFailed));
+423:                 return;
+424:             };
+425:             let body = &self.bodies[&key.shape];
+426:             model.attach(commands, entity, presentation, body);
+427:         } else if !self.is_preparing() {
+428:             let result = self.next_fit(&key).and_then(|next| {
+429:                 self.prepare_shape(&next.shape, bindposes)?;
+430:                 self.start(next)
+431:             });
+432:             match result {
+433:                 Ok(()) => {}
+434:                 Err(error) => {
+435:                     self.models.insert(key, Err(format!("{error:#}")));
+436:                 }
+437:             }
+438:         }
+439:     }
+440: }
+441: 
+442: impl FitKey {
+443:     fn install(
+444:         &self,
+445:         commands: &mut Commands,
+446:         entity: Entity,
+447:         presentation: &RuntimeEquipmentPresentation,
+448:         children: Option<&Children>,
+449:         parts: &Query<(), With<ProceduralEquipmentPart>>,
+450:     ) {
+451:         if let Some(children) = children {
+452:             for child in children.iter() {
+453:                 if parts.contains(child) {
+454:                     commands.entity(child).despawn();
+455:                 }
+456:             }
+457:         }
+458:         commands
+459:             .entity(entity)
+460:             .insert(self.clone())
+461:             .remove::<(ProceduralEquipmentResolved, ProceduralEquipmentFailed)>();
+462:         commands
+463:             .entity(presentation.item)
+464:             .insert(LastFit(self.clone()))
+465:             .remove::<EquipmentAttachmentSockets>();
+466:     }
+467: }

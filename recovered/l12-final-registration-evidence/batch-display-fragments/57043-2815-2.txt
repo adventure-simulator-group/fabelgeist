@@ -1,0 +1,76 @@
+1: use adventuresim_stdb_client::{
+2:     TacticalCharacterConsequence, TacticalConsequenceReceipt, TacticalEquipmentContact,
+3:     TacticalEquipmentContactRole, TacticalHitInjury, TacticalReceiptBodyPart,
+4: };
+5: use adventuresim_tactical_core::prelude::BodyPart;
+6: 
+7: use crate::combat::TacticalConsequenceAccumulator;
+8: 
+9: fn receipt_body_part(body_part: BodyPart) -> TacticalReceiptBodyPart {
+10:     match body_part {
+11:         BodyPart::LeftArm => TacticalReceiptBodyPart::LeftArm,
+12:         BodyPart::RightArm => TacticalReceiptBodyPart::RightArm,
+13:         BodyPart::LeftLeg => TacticalReceiptBodyPart::LeftLeg,
+14:         BodyPart::RightLeg => TacticalReceiptBodyPart::RightLeg,
+15:         BodyPart::Chest => TacticalReceiptBodyPart::Chest,
+16:         BodyPart::Stomach => TacticalReceiptBodyPart::Stomach,
+17:         BodyPart::Head => TacticalReceiptBodyPart::Head,
+18:     }
+19: }
+20: 
+21: pub(super) fn tactical_consequence_receipt(
+22:     accumulated: &TacticalConsequenceAccumulator,
+23: ) -> TacticalConsequenceReceipt {
+24:     let mut party: Vec<_> = accumulated
+25:         .party
+26:         .iter()
+27:         .map(|(character_id, consequence)| TacticalCharacterConsequence {
+28:             character_id: character_id.0,
+29:             injuries: consequence
+30:                 .injuries
+31:                 .iter()
+32:                 .map(|injury| TacticalHitInjury {
+33:                     body_part: receipt_body_part(injury.body_part),
+34:                     cut_damage: injury.cut_damage,
+35:                     blunt_damage: injury.blunt_damage,
+36:                     max_single_hit_blunt_damage: injury.max_single_hit_blunt_damage,
+37:                 })
+38:                 .collect(),
+39:             blood_loss_fraction: consequence.blood_loss_fraction,
+40:             ammunition_used: consequence.ammunition_used,
+41:         })
+42:         .collect();
+43:     for contact in &accumulated.equipment_contacts {
+44:         if !party
+45:             .iter()
+46:             .any(|consequence| consequence.character_id == contact.character_id.0)
+47:         {
+48:             party.push(TacticalCharacterConsequence {
+49:                 character_id: contact.character_id.0,
+50:                 injuries: Vec::new(),
+51:                 blood_loss_fraction: 0.0,
+52:                 ammunition_used: 0,
+53:             });
+54:         }
+55:     }
+56:     party.sort_by_key(|consequence| consequence.character_id);
+57:     party.truncate(adventuresim_core::mission::MAX_TACTICAL_RECEIPT_PARTICIPANTS);
+58:     TacticalConsequenceReceipt {
+59:         party,
+60:         equipment_contacts: accumulated
+61:             .equipment_contacts
+62:             .iter()
+63:             .map(|contact| TacticalEquipmentContact {
+64:                 character_id: contact.character_id.0,
+65:                 inventory_item_id: contact.inventory_item_id,
+66:                 contact_stress: contact.contact_stress,
+67:                 role: if contact.defender_equipment {
+68:                     TacticalEquipmentContactRole::DefenderEquipment
+69:                 } else {
+70:                     TacticalEquipmentContactRole::AttackerWeapon
+71:                 },
+72:             })
+73:             .collect(),
+74:     }
+75: }
+76: 

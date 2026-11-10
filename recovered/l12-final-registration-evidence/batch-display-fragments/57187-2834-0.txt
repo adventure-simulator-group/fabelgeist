@@ -1,0 +1,182 @@
+201:             return Err("unsupported logic-grid rules version");
+202:         }
+203:         validate_grid_assignments(self.spec.size, &self.solution)?;
+204:         if self.clues.is_empty() || self.clues.len() > usize::from(self.spec.max_clues) {
+205:             return Err("logic-grid clue count violates its generation spec");
+206:         }
+207:         if self.clues.iter().any(|clue| {
+208:             clue.left >= self.spec.size
+209:                 || clue.right >= self.spec.size
+210:                 || (clue.matches && !self.spec.allow_positive_clues)
+211:                 || (!clue.matches && !self.spec.allow_negative_clues)
+212:                 || !grid_clue_holds(clue, &self.solution)
+213:         }) {
+214:             return Err("logic-grid clue contradicts private authority");
+215:         }
+216:         let solutions = grid_solutions(self.spec.size, &self.clues, 2);
+217:         if solutions != vec![self.solution.clone()] {
+218:             return Err("logic-grid clues do not prove the private solution");
+219:         }
+220:         if (0..self.clues.len()).any(|removed| {
+221:             let reduced = self
+222:                 .clues
+223:                 .iter()
+224:                 .copied()
+225:                 .enumerate()
+226:                 .filter_map(|(index, clue)| (index != removed).then_some(clue))
+227:                 .collect::<Vec<_>>();
+228:             grid_solutions(self.spec.size, &reduced, 2).len() == 1
+229:         }) {
+230:             return Err("logic-grid puzzle contains a redundant clue");
+231:         }
+232:         Ok(())
+233:     }
+234: 
+235:     pub fn check(&self, assignments: &[LogicGridAssignment]) -> Result<bool, &'static str> {
+236:         validate_grid_assignments(self.spec.size, assignments)?;
+237:         Ok(assignments == self.solution)
+238:     }
+239: }
+240: 
+241: pub fn grid_solutions(
+242:     size: u8,
+243:     clues: &[LogicGridClue],
+244:     limit: usize,
+245: ) -> Vec<Vec<LogicGridAssignment>> {
+246:     all_grid_solutions(size)
+247:         .into_iter()
+248:         .filter(|candidate| clues.iter().all(|clue| grid_clue_holds(clue, candidate)))
+249:         .take(limit)
+250:         .collect()
+251: }
+252: 
+253: pub fn all_grid_solutions(size: u8) -> Vec<Vec<LogicGridAssignment>> {
+254:     let permutations = permutations(size);
+255:     let mut solutions = Vec::with_capacity(permutations.len() * permutations.len());
+256:     for tokens in &permutations {
+257:         for roads in &permutations {
+258:             solutions.push(
+259:                 (0..size)
+260:                     .map(|traveler| LogicGridAssignment {
+261:                         traveler,
+262:                         token: tokens[usize::from(traveler)],
+263:                         road: roads[usize::from(traveler)],
+264:                     })
+265:                     .collect(),
+266:             );
+267:         }
+268:     }
+269:     solutions
+270: }
+271: 
+272: pub fn grid_clue_holds(clue: &LogicGridClue, candidate: &[LogicGridAssignment]) -> bool {
+273:     let assignment = |traveler: u8| candidate.iter().find(|item| item.traveler == traveler);
+274:     let actual = match clue.relation {
+275:         GridRelation::TravelerToken => {
+276:             assignment(clue.left).is_some_and(|item| item.token == clue.right)
+277:         }
+278:         GridRelation::TravelerRoad => {
+279:             assignment(clue.left).is_some_and(|item| item.road == clue.right)
+280:         }
+281:         GridRelation::TokenRoad => candidate
+282:             .iter()
+283:             .find(|item| item.token == clue.left)
+284:             .is_some_and(|item| item.road == clue.right),
+285:     };
+286:     actual == clue.matches
+287: }
+288: 
+289: fn true_grid_clues(solution: &[LogicGridAssignment], spec: LogicGridSpec) -> Vec<LogicGridClue> {
+290:     let mut clues = Vec::new();
+291:     for relation in [
+292:         GridRelation::TravelerToken,
+293:         GridRelation::TravelerRoad,
+294:         GridRelation::TokenRoad,
+295:     ] {
+296:         for left in 0..spec.size {
+297:             for right in 0..spec.size {
+298:                 let positive = LogicGridClue {
+299:                     relation,
+300:                     left,
+301:                     right,
+302:                     matches: true,
+303:                 };
+304:                 let matches = grid_clue_holds(&positive, solution);
+305:                 if matches && spec.allow_positive_clues {
+306:                     clues.push(positive);
+307:                 } else if !matches && spec.allow_negative_clues {
+308:                     clues.push(LogicGridClue {
+309:                         matches: false,
+310:                         ..positive
+311:                     });
+312:                 }
+313:             }
+314:         }
+315:     }
+316:     clues
+317: }
+318: 
+319: fn validate_grid_assignments(
+320:     size: u8,
+321:     assignments: &[LogicGridAssignment],
+322: ) -> Result<(), &'static str> {
+323:     if assignments.len() != usize::from(size) {
+324:         return Err("logic-grid answer has the wrong number of travelers");
+325:     }
+326:     for field in [
+327:         assignments
+328:             .iter()
+329:             .map(|item| item.traveler)
+330:             .collect::<Vec<_>>(),
+331:         assignments
+332:             .iter()
+333:             .map(|item| item.token)
+334:             .collect::<Vec<_>>(),
+335:         assignments.iter().map(|item| item.road).collect::<Vec<_>>(),
+336:     ] {
+337:         let mut sorted = field;
+338:         sorted.sort_unstable();
+339:         if sorted != (0..size).collect::<Vec<_>>() {
+340:             return Err("logic-grid answer must use every value exactly once");
+341:         }
+342:     }
+343:     if assignments
+344:         .iter()
+345:         .enumerate()
+346:         .any(|(index, item)| usize::from(item.traveler) != index)
+347:     {
+348:         return Err("logic-grid assignments must be ordered by traveler");
+349:     }
+350:     Ok(())
+351: }
+352: 
+353: fn permutations(size: u8) -> Vec<Vec<u8>> {
+354:     fn visit(prefix: &mut Vec<u8>, remaining: &mut Vec<u8>, output: &mut Vec<Vec<u8>>) {
+355:         if remaining.is_empty() {
+356:             output.push(prefix.clone());
+357:             return;
+358:         }
+359:         for index in 0..remaining.len() {
+360:             let value = remaining.remove(index);
+361:             prefix.push(value);
+362:             visit(prefix, remaining, output);
+363:             prefix.pop();
+364:             remaining.insert(index, value);
+365:         }
+366:     }
+367:     let mut output = Vec::new();
+368:     visit(&mut Vec::new(), &mut (0..size).collect(), &mut output);
+369:     output
+370: }
+371: 
+372: fn traveler(index: u8) -> &'static str {
+373:     TRAVELERS[usize::from(index)]
+374: }
+375: 
+376: fn token(index: u8) -> &'static str {
+377:     TOKENS[usize::from(index)]
+378: }
+379: 
+380: fn road(index: u8) -> &'static str {
+381:     ROADS[usize::from(index)]
+382: }

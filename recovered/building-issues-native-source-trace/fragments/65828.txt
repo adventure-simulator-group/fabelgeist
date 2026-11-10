@@ -1,0 +1,217 @@
+SOURCE current-337:crates/adventuresim-building-generator/src/generator/core.rs
+1: use fabelgeist_determinism::Seed;
+2: 
+3: const STRAIGHT_STAIR_RUN_METRES: f32 = 3.2;
+4: 
+5: #[derive(Clone, Debug)]
+6: struct StraightStairCore {
+7:     lowest_storey: u16,
+8:     highest_storey: u16,
+9:     landing_room: RoomKind,
+10:     origin: Vec2,
+11:     direction: Direction,
+12:     reserved_cells: Vec<Cell>,
+13: }
+14: 
+15: impl StraightStairCore {
+16:     fn serves(&self, level: u16) -> bool {
+17:         (self.lowest_storey..=self.highest_storey).contains(&level)
+18:     }
+19: }
+20: 
+21: fn grid_point(position: Vec2) -> GridPoint {
+22:     let x = (position.x / GRID_UNIT_METRES).round() as i32;
+23:     let z = (position.y / GRID_UNIT_METRES).round() as i32;
+24:     debug_assert!((x as f32 * GRID_UNIT_METRES - position.x).abs() < 0.001);
+25:     debug_assert!((z as f32 * GRID_UNIT_METRES - position.y).abs() < 0.001);
+26:     GridPoint::new(x, z)
+27: }
+28: 
+29: /// Building generation operations share one construction error.
+30: pub type GenerationResult<T> = std::result::Result<T, GenerationError>;
+31: 
+32: #[derive(Clone, Debug, Error, Eq, PartialEq)]
+33: pub enum GenerationError {
+34:     #[error("crown {owner:?} has invalid channel set-out: {cause}")]
+35:     CrownDrainageConstruction {
+36:         owner: GeometryOwnerId,
+37:         #[source]
+38:         cause: crate::spatial_geometry::GeometryError,
+39:     },
+40:     #[error("physical wall source {wall_source:?} is absent")]
+41:     MissingWallSource { wall_source: crate::WallSourceId },
+42:     #[error("crown {owner:?} has no physical drainage route")]
+43:     MissingCrownDrainage { owner: GeometryOwnerId },
+44:     #[error("resolved drainage void has no crown owner {owner:?}")]
+45:     MissingCrown { owner: GeometryOwnerId },
+46:     #[error("generated assembly refers to absent solid {solid:?}")]
+47:     MissingSolid { solid: ResolvedItemId },
+48:     #[error("generated assembly refers to absent support interface {interface:?}")]
+49:     MissingInterface { interface: ResolvedItemId },
+50:     #[error("generated assembly refers to absent surface {surface:?}")]
+51:     MissingSurface { surface: ResolvedItemId },
+52:     #[error("generated assembly refers to absent void {void:?}")]
+53:     MissingVoid { void: ResolvedItemId },
+54:     #[error("generated assembly refers to absent node {node:?}")]
+55:     MissingNode { node: StructuralNodeId },
+56:     #[error("storey {storey} has no {role:?} for its straight stair landing")]
+57:     MissingLandingRoom { storey: StoreyIndex, role: RoomKind },
+58:     #[error("storey {storey} refers to absent room requirement {room}")]
+59:     MissingRoomRequirement {
+60:         storey: StoreyIndex,
+61:         room: RoomIndex,
+62:     },
+63:     #[error("owner {owner:?} has no {kind:?} bearing")]
+64:     MissingBearing {
+65:         owner: GeometryOwnerId,
+66:         kind: StructuralNodeKind,
+67:     },
+68:     #[error("wall {wall:?} has no radial frame for its opening")]
+69:     MissingRadialFrame { wall: crate::WallAssemblyId },
+70:     #[error("wall source {wall_source:?} has no resolved opening")]
+71:     MissingSourceOpening { wall_source: crate::WallSourceId },
+72:     #[error("roof face {face:?} has no polygon vertices")]
+73:     EmptyRoofFace { face: ResolvedItemId },
+74:     #[error("roof face {face:?} needs at least three vertices, found {vertices}")]
+75:     InvalidRoofFace {
+76:         face: ResolvedItemId,
+77:         vertices: usize,
+78:     },
+79:     #[error("roof face {face:?} has invalid geometry: {cause}")]
+80:     RoofFaceConstruction {
+81:         face: ResolvedItemId,
+82:         #[source]
+83:         cause: crate::spatial_geometry::GeometryError,
+84:     },
+85:     #[error("roof face catchment {catchment:?} has no outlet route")]
+86:     MissingRoofOutlet { catchment: ResolvedItemId },
+87:     #[error("jetty storey frame {storey:?} has no lower bearing")]
+88:     MissingJettyBearing { storey: crate::TimberStoreyFrameId },
+89:     #[error("projected defense owner {owner:?} has no occupied source wall")]
+90:     MissingDefenseHost { owner: GeometryOwnerId },
+91:     #[error("artillery curtain {curtain:?} is absent")]
+92:     MissingArtilleryCurtain { curtain: crate::ArtilleryCurtainId },
+93:     #[error("{archetype:?} has no spiral flight for its occupied keep reservation")]
+94:     MissingKeepFlight { archetype: BuildingArchetype },
+95:     #[error("artillery owner {owner:?} requires a positive grid length, found {units} units")]
+96:     InvalidArtilleryGridLength { owner: GeometryOwnerId, units: i32 },
+97:     #[error("artillery rondel {rondel:?} has no return {return_index}")]
+98:     MissingRondelReturn {
+99:         rondel: crate::ArtilleryRondelId,
+100:         return_index: usize,
+101:     },
+102:     #[error("artillery rondel {rondel:?} has no shell solid")]
+103:     MissingRondelShell { rondel: crate::ArtilleryRondelId },
+104:     #[error("physical opening {opening:?} is absent")]
+105:     MissingOpening { opening: crate::OpeningAssemblyId },
+106:     #[error("artillery defense target {target:?} is absent")]
+107:     MissingArtilleryTarget { target: crate::ArtilleryTargetId },
+108:     #[error("artillery route node {node:?} is absent")]
+109:     MissingArtilleryRouteNode { node: crate::ArtilleryRouteNodeId },
+110:     #[error("artillery curtains {curtains:?} have no joining rondel")]
+111:     MissingCurtainRondel {
+112:         curtains: [crate::ArtilleryCurtainId; 2],
+113:     },
+114:     #[error(transparent)]
+115:     StructuralNode(#[from] crate::StructuralNodeError),
+116:     #[error(transparent)]
+117:     Ordinal(#[from] crate::OrdinalError),
+118:     #[error("heating reservation on storey {storey}, room {room} at {cell:?}: {reason:?}")]
+119:     HeatingReservation {
+120:         storey: StoreyIndex,
+121:         room: RoomIndex,
+122:         cell: Cell,
+123:         reason: ReservationFailure,
+124:     },
+125:     #[error("heating rear offset must be a positive cell count, found {cells}")]
+126:     HeatingAnchor { cells: i16 },
+127:     #[error("room allocation failed: {0:?}")]
+128:     RoomAllocation(AllocationFailure),
+129:     #[error(transparent)]
+130:     Workplace(#[from] crate::workplace::WorkplaceConstructionError),
+131:     #[error(transparent)]
+132:     HeatingConstruction(#[from] crate::HeatingConstructionError),
+133:     #[error(transparent)]
+134:     Geometry(#[from] crate::spatial_geometry::GeometryError),
+135:     #[error(transparent)]
+136:     Collision(#[from] crate::CollisionError),
+137:     #[error(transparent)]
+138:     Door(#[from] crate::DoorError),
+139:     #[error(transparent)]
+140:     Window(#[from] crate::WindowError),
+141:     #[error(transparent)]
+142:     Entrance(#[from] crate::EntranceError),
+143:     #[error("domestic heating obstructs occupied-room circulation: {0}")]
+144:     BlockedDomesticCirculation(crate::interior::InteriorLayoutError),
+145:     #[error("shed dormer cannot meet its parent roof within the available slope")]
+146:     InvalidRoofDormer,
+147:     #[error("domestic heating requires a clear grounded kitchen/Stube and roof route")]
+148:     InvalidDomesticHeating,
+149:     #[error("church use and physical programme are inconsistent or unsupported")]
+150:     InvalidChurchProgram,
+151:     #[error("working building requires a supported use and physical size")]
+152:     InvalidWorkplaceProgram,
+153:     #[error("building footprint is empty or invalid")]
+154:     InvalidFootprint,
+155:     #[error("storey {level} has no requested rooms")]
+156:     EmptyStorey { level: StoreyIndex },
+157:     #[error("storey {level} requests {rooms} rooms for only {cells} usable cells")]
+158:     TooManyRooms {
+159:         level: StoreyIndex,
+160:         rooms: usize,
+161:         cells: usize,
+162:     },
+163:     #[error("storey {level} produced a disconnected room {room}")]
+164:     DisconnectedRoom { level: StoreyIndex, room: RoomIndex },
+165:     #[error("storey {level} does not have enough shared boundaries to connect its rooms")]
+166:     DisconnectedStorey { level: StoreyIndex },
+167:     #[error("vertical circulation requirement {connection} cannot be satisfied: {reason}")]
+168:     UnsatisfiedVerticalCirculation { connection: usize, reason: String },
+169:     #[error("generated building failed the structural contract with {issues_count} audit issue(s)")]
+170:     StructuralContract {
+171:         issues_count: usize,
+172:         issues: Vec<AuditIssue>,
+173:     },
+174:     #[error("building document schema {found} is unsupported; expected {expected}")]
+175:     UnsupportedDocumentSchema { found: u32, expected: u32 },
+176:     #[error("building edit target was not found: {0}")]
+177:     EditTargetNotFound(String),
+178:     #[error("building edit conflicts with existing authority: {0}")]
+179:     EditConflict(String),
+180:     #[error("building edit is not supported for this program: {0}")]
+181:     UnsupportedEdit(String),
+182: }
+183: 
+184: /// Dedicated projected-defense study tags change only the defense assembly,
+185: /// not the host castle's room/circulation randomization. This keeps isolated
+186: /// proofs comparable to the accepted seed-42 host instead of accidentally
+187: /// introducing an unrelated disconnected layout.
+188: fn layout_seed(program: &BuildingProgram) -> Seed {
+189:     if program.archetype == BuildingArchetype::CastleGatehouse
+190:         && matches!(program.seed.to_u64() % 1_000, 201..=203)
+191:     {
+192:         Seed::from_u64(42)
+193:     } else {
+194:         program.seed
+195:     }
+196: }
+197: 
+198: /// Generates a building, rejecting unsupported inputs and construction failures.
+199: ///
+SOURCE current-337:crates/adventuresim-building-generator/src/audit/shared_helpers.rs
+90: fn direction_vector(direction: Direction) -> Vec2 {
+91:     match direction {
+92:         Direction::North => Vec2::Y,
+93:         Direction::East => Vec2::X,
+94:         Direction::South => -Vec2::Y,
+95:         Direction::West => -Vec2::X,
+96:     }
+97: }
+98: 
+99: fn issue(code: &'static str, message: String) -> AuditIssue {
+100:     AuditIssue { code, message }
+101: }
+102: 
+103: fn point_in_polygon_2d(polygon: &[Vec2], point: Vec2) -> bool {
+104:     let mut inside = false;
+105:     for index in 0..polygon.len() {

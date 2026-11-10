@@ -1,0 +1,168 @@
+{
+  "schema": "726-root-l2-prospective-source-registration-v1",
+  "registered_at": "2026-11-02T16:21:38.957172+00:00",
+  "author": "/root",
+  "lens": 2,
+  "prospective": true,
+  "base_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "b36b1f0bf97a9af07b62f452b9906bcc8ace100151522102d2b4ce04c498df39"
+  },
+  "selected_l2_state": {
+    "path": "segovb/STATE-L2-EXT-CURRENT-015.json",
+    "sha256": "cd3dcd9b27ecd2fa4f108004b85031716389d163b41f28c6f9eb11dc803fefd8"
+  },
+  "prior_scoped_read": {
+    "path": "adler-continuation-20261030/READ-ROOT-L2-ITEM-VALIDATION-REMAINDER-001.json",
+    "sha256": "e3f3fb10a0338dd14685888b0c877780386dac93f86971c10299f18658a40e4a"
+  },
+  "sources": [
+    {
+      "source_id": "current-337:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+      "source_sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+      "source_object": "adler-continuation-20261030/objects/a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+      "bytes": 1298,
+      "actual_EOF": 49,
+      "ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 49
+    },
+    {
+      "source_id": "current-337:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "source_sha256": "8cd31fc81b31e43b70677a2fe4cd2826f9afabb27f172c1681a74f9951d542d5",
+      "source_object": "adler-continuation-20261030/objects/8cd31fc81b31e43b70677a2fe4cd2826f9afabb27f172c1681a74f9951d542d5",
+      "bytes": 6050,
+      "actual_EOF": 183,
+      "ranges": [
+        [
+          1,
+          183
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 183
+    },
+    {
+      "source_id": "current-337:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+      "source_sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+      "source_object": "adler-continuation-20261030/objects/1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+      "bytes": 7023,
+      "actual_EOF": 219,
+      "ranges": [
+        [
+          1,
+          219
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 219
+    },
+    {
+      "source_id": "current-337:crates/adventuresim-core/src/item_catalog_validation_material.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-core/src/item_catalog_validation_material.rs",
+      "source_sha256": "823eb461e0534843b71a2b8199e6428fd9a558cf9bc1387beedf87500bf71f8a",
+      "source_object": "adler-continuation-20261030/objects/823eb461e0534843b71a2b8199e6428fd9a558cf9bc1387beedf87500bf71f8a",
+      "bytes": 473,
+      "actual_EOF": 17,
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 17
+    },
+    {
+      "source_id": "current-337:crates/adventuresim-core/src/item_catalog_surface.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-core/src/item_catalog_surface.rs",
+      "source_sha256": "9f49d61c21b245ad0793daea4f28f1f74769c76680ef383553454b688c9f6cbd",
+      "source_object": "adler-continuation-20261030/objects/9f49d61c21b245ad0793daea4f28f1f74769c76680ef383553454b688c9f6cbd",
+      "bytes": 1388,
+      "actual_EOF": 47,
+      "ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 47
+    },
+    {
+      "source_id": "current-337:crates/adventuresim-core/src/item_catalog_fit.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-core/src/item_catalog_fit.rs",
+      "source_sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "source_object": "adler-continuation-20261030/objects/a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "bytes": 1510,
+      "actual_EOF": 46,
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 46
+    },
+    {
+      "source_id": "current-337:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+      "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+      "source_object": "adler-continuation-20261030/objects/97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+      "bytes": 72750,
+      "actual_EOF": 2059,
+      "ranges": [
+        [
+          1,
+          240
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 240
+    },
+    {
+      "source_id": "current-337:crates/fabelgeist-geometry/src/cuboid.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/fabelgeist-geometry/src/cuboid.rs",
+      "source_sha256": "1fe1e6483da91ee1bd681df6ff788ec97d680ac453c450069a30111c66dc40ed",
+      "source_object": "adler-continuation-20261030/objects/1fe1e6483da91ee1bd681df6ff788ec97d680ac453c450069a30111c66dc40ed",
+      "bytes": 4298,
+      "actual_EOF": 126,
+      "ranges": [
+        [
+          102,
+          126
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 25
+    }
+  ],
+  "fresh_lines_registered": 0,
+  "uncredited_total_source_lines_registered": 826,
+  "purpose": "Bounded own-L2 catalog validation helper, existing-owner and producer/consumer qualification. All lines uncredited; no full-family/global/current-delta closure, no inherited-author relabelling or other-lens verdict transfer."
+}

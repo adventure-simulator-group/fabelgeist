@@ -1,0 +1,135 @@
+{
+  "lens": 13,
+  "namespace": "PL13-006",
+  "status": "380 scoped-full actualbody proposal plus382 connected partial; authority unchanged",
+  "registration": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-006.json",
+    "sha256": "a3faa557553c4fada764afe7cb8ffa61e66f66ce8b8271d5fc9276adbe87c7d4"
+  },
+  "rows": [
+    {
+      "original": 380,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/tactics.rs",
+      "sha256": "b65059c1af131b6b98f426067c5bf495ade564c4f8538987bbdce63dcc42a54d",
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/b65059c1af131b6b98f426067c5bf495ade564c4f8538987bbdce63dcc42a54d",
+      "actual_eof": 48,
+      "prospective_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "source_revision": "physical-p16 f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact",
+      "purpose": "380 ordered full actualbody with exactEOF qualification;382 connected ReportedPrecision canonicalowner constructor and import/error record, zero ordered382 credit",
+      "ordered_credit_proposed": 1,
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "body_outputs_untruncated": true
+    },
+    {
+      "original": 382,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/authority.rs",
+      "sha256": "115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+      "actual_eof": 672,
+      "prospective_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "source_revision": "physical-p16 f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact",
+      "purpose": "380 ordered full actualbody with exactEOF qualification;382 connected ReportedPrecision canonicalowner constructor and import/error record, zero ordered382 credit",
+      "ordered_credit_proposed": 0,
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "body_outputs_untruncated": true
+    }
+  ],
+  "eof_qualification": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/QUALIFICATION-PL13-006-380-EOF.json",
+    "sha256": "f1c0f739a0a95380afdb00a5342c79f0a9f193340e7aeb96defbd7a236ad75af"
+  },
+  "numeric_role_inventory": {
+    "380:1\u201348": "initiative_delay_seconds native RNG configured interval then factor (3/instinct.max(.5)).clamp(.6,2); raw Instinct/ratio/reference/time tuning requires canonical AI policy owner. Delay checked AnimationElapsed beforeactualTimer recipient378/376; invalid elapsed error handled. committed_threat_recognition_probability typedUnitInterval phase butrawInstinct\u2192phase.clamp(0,.5)*2 sqrt\u2192instinct.max0/5\u2192clamp0..1; normalization legitimate, half-windup factor2 mathematical mapping if actualhalf-contact policy confirmed, 3/5 references attribute policies not native units. Return rawf32 probability carriedtoapplicationRNGcomparison378205, existingprobabilityownerfitneeded. below_preferred_long_weapon_measure typedSignedLength args then actualnativeadd preferred+canonicalminimumcenterseparation and rawcomparison; finiteoverflow/currentactualboundsqualified, no ordinarypanicclaim. Longweapon threshold and negativeYmovement semantic adapters toactualinputframework; validNone ifno retreat. ExactEOF48,raw49\u201368absent,zero bodycredit.",
+    "382:1\u201370": "Connected actualcanonicalReportedPrecision owner, privatef32storage andfinite-onlynew36\u201338 preservingallfinite clientreports inclnegative/>1 as documented; no0\u20131restriction. get40\u201342 rawnativeprojection, exactuse/nativekernelstillpending. TransformedMeleeAttack.retained_power rawf32 semanticfraction beforeauthorityconsumer bodyunread; queueownerfit. ValidatedMeleeAttack retainscheckedReportedPrecision+Position<Scene> butrawyaws; exactconstructor/validation/allconsumer bodies remainunread71\u2013672. Getterdeclaration70 only, no completedgetterbodyclaim."
+  },
+  "finding_connections": [
+    {
+      "id": "PL13-AI-PRECISION-CONNECTION",
+      "qualification": "Completes exactowner admission scope from PL13-005: source382new36\u201338 isfinite-only, get40\u201342. Prior config351/352 omission+actualphase378expects nowhasactualcanonicalownedrangeproof; no otherlensborrow. No nonnegative/normalized restriction imposed.",
+      "first_failed_contract": "ActualAI hit_precision notvalidatedfinite before configpublication, then factoryexpect in37873/358",
+      "canonical_owner": "ExistingReportedPrecision, dependencyneutralsharedplacementforactualconfig/serverconsumer",
+      "function_ownership": [
+        "ReportedPrecision::new/get",
+        "AiOffenseConfig::has_valid_intervals",
+        "TacticalCombatConfig::validate",
+        "MeleePursuit::start",
+        "complete_windup"
+      ],
+      "repair_scope": "Admitandcarryprecisiononcefromactualconfigproducer throughruntimeAIphase/intents/nativegeometrykernel; typedconfigerr atorigin",
+      "dependencies": [
+        "Actualnativeconfigload+publication body ownprior353 scope qualified",
+        "Allcurrent-source/twentyfamily/exactaliases",
+        "Actualauthorityintentsconsumer/nativehitkernel"
+      ],
+      "acceptance": [
+        "Rejectnonfinitebeforepublication",
+        "Preserveeveryfinitelegitprecisionvalue includingnegative/largevalue",
+        "No productionexpect for internalrawreadmission"
+      ],
+      "accepted_unique_change": 0,
+      "runtime_proof": false
+    },
+    {
+      "id": "PL13-AI-POLICY-TUNING",
+      "qualification": "Addsactual380initiative3/.5/.6/2 andrecognitionInstinct5/referencephasepolicy toexistingtuningfamily; commonYAMLremedydoesnotbyitselfestablishfindingalias",
+      "canonical_owner": "CanonicalAIauthoredpolicyandsharedcheckedInstinct/probability/elapsedowners",
+      "acceptance": [
+        "Singletypedpolicyforreferenceattributes/delayfactors",
+        "Preservelegitnormalization/validzero/supportedAlwaysDodge",
+        "NativeRNGintervalcontractqualifiedbeforeinvalidintervalclaims"
+      ],
+      "accepted_unique_change": 0
+    }
+  ],
+  "future_same_lens_reuse_proofs": [
+    {
+      "original": 382,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/authority.rs",
+      "sha256": "115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+      "actual_eof": 672,
+      "qualified_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "ordered_original_credit": 0,
+      "receipt_row_pointer": "/rows/1",
+      "require_at_ordered_frontier": "Recheck exactregistration+receipt hash/revision/identity/scope/attribution; register andassess71\u2013672 complement. Do notcountfull672frompartial1\u201370;70onlygetterdeclaration."
+    }
+  ],
+  "proposed_original_count_delta": 1,
+  "proposed_next_original": 381,
+  "connected382_original_credit": 0,
+  "authoritative_count_changes": 0,
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "runtime_validation_run": false,
+  "audit_complete": false,
+  "qualifications": [
+    "Exact380EOFqualificationadditive,rawmetadataunchanged,notgenericclipping",
+    "382 only1\u201370of672;getter70bodytailunread",
+    "AllpriorAdler/history/partials/mandatoryextensionsandpopulationsseparate",
+    "No productedits/execution orruntime validation"
+  ]
+}

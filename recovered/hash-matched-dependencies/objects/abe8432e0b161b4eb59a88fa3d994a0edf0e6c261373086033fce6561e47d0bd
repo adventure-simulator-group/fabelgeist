@@ -1,0 +1,178 @@
+"""Close one source configuration question with zero new source/finding credit."""
+from pathlib import Path
+from datetime import datetime, timezone
+import argparse
+import copy
+import hashlib
+import json
+import runpy
+
+A = Path(__file__).resolve().parent
+R = A.parent
+LP = R / 'evidence/continuation-segovb/ledger.json'
+CP = R / 'CURRENT-ADLER.json'
+
+def pack(v):
+    return (json.dumps(v, indent=2) + '\n').encode()
+
+def sha(p):
+    with p.open('rb') as stream:
+        return hashlib.file_digest(stream, 'sha256').hexdigest()
+
+def read(p):
+    return json.loads(p.read_bytes())
+
+def ref(p):
+    return {'path': p.relative_to(R).as_posix(), 'sha256': sha(p)}
+
+def checked(value):
+    p = R / value['path']
+    assert p.resolve().is_relative_to(R) and sha(p) == value['sha256']
+    return read(p)
+
+ap = argparse.ArgumentParser()
+ap.add_argument('plan')
+ap.add_argument('--plan-sha', required=True)
+ap.add_argument('--apply', action='store_true')
+args = ap.parse_args()
+mp = Path(args.plan).resolve()
+assert mp.parent == A and sha(mp) == args.plan_sha
+m = read(mp)
+assert m['schema'] == '726-root-l12-feature-contract-source-closure-plan-v1'
+assert m['queue_sequence'] == 777 and m['queue_index'] == 2246
+assert ref(LP) == m['ledger'] and ref(CP) == m['selector']
+L, C, Q = checked(m['ledger']), checked(m['selector']), checked(m['queue'])
+oldL, oldC, oldQ = map(copy.deepcopy, (L, C, Q))
+assert C['ledger_sha256'] == m['ledger']['sha256']
+assert L['audit_workflow']['closure_queue'] == C['audit_workflow']['closure_queue'] == m['queue']
+qualification = checked(m['qualification'])
+assert qualification['qualified_against_ledger'] == m['ledger']
+hp = R / qualification['proof_builder']['path']
+assert sha(hp) == qualification['proof_builder']['sha256'] == '7eb986dab7cdefc92597a91a898126af4e95f93e19fc4bfc295934261b734c98'
+proof = runpy.run_path(str(hp))['build'](L)
+assert proof == qualification['proof']
+assert proof['historical_static_feature_route_established'] is proof['current_static_route_established'] is True
+assert proof['new_body_credit'] == proof['new_original_role_credit'] == proof['new_unique_finding_credit'] == 0
+selected = checked(m['selected_lenses'])
+assert len(selected['lenses']) == 13
+for lens in selected['lenses']:
+    checked(lens['selected_state'])
+entry = Q['entries'][2246]
+assert entry['contract_id'] == m['contract_id'] and entry['status'] == 'open-granular-reconciliation'
+assert len(entry['granular_contract_views']) == 2
+for key in ['closure_condition', 'later_repair_acceptance_requirements', 'audit_discovery_closed', 'current_reconciled', 'source_configuration_resolution']:
+    assert key not in entry
+now = datetime.now(timezone.utc).isoformat()
+planned = {}
+
+def save_plan(p, value):
+    assert p.resolve().is_relative_to(R)
+    raw = pack(value)
+    if p.exists():
+        assert p == R / 'checkpoint-history' / (m['ledger']['sha256'] + '.json') and p.read_bytes() == raw
+    else:
+        planned[p] = raw
+    return {'path': p.relative_to(R).as_posix(), 'sha256': hashlib.sha256(raw).hexdigest()}
+
+history = R / 'checkpoint-history' / (m['ledger']['sha256'] + '.json')
+save_plan(history, {'ledger': oldL, 'current': oldC})
+resolution = {
+    'kind': 'Exact Lens12 tangent feature-activation source contract closure', 'at': now, 'author': '/root',
+    'plan': ref(mp), 'writer': ref(Path(__file__)), 'qualification': m['qualification'],
+    'contract_id': m['contract_id'],
+    'source_scope': proof['scope'],
+    'disposition': 'The required optional Mikk feature is statically enabled in the registered physical-P16 desktop/browser configurations and selected current337 configurations. Lock presence alone was insufficient; firstparty declarations, exact facade/internal tables and optional dependency ownership now establish the actual route.',
+    'physical_manifest_identity_basis': proof['physical_snapshot_authority'],
+    'source_body_credit': 0, 'original_population_credit': 0, 'new_unique_findings': 0,
+    'alias_applications': [], 'aggregate_contracts_closed': [],
+    'separate_contracts_unchanged': ['L12-CLOSURE-BEVY-TANGENT-EXACT-PACKAGE-PIN',
+                                    'L12-CLOSURE-BEVY-DEGENERATE-UV-RETURNED-ERROR',
+                                    'L12-CLOSURE-BEVY-FRESH-MESH-FORMAT-CPU-STATE',
+                                    'L12-CLOSURE-BEVY-TANGENT-INDEX-AGGREGATE',
+                                    'L12-CLOSURE-BEVY-TANGENT-ALGORITHM-FINITE-QUALITY'],
+    'compiled_feature_set_observed': False, 'repair_or_runtime_passed': False,
+    'independent_agent_review': False, 'product_execution': False, 'implementation_gate_complete': False,
+}
+rr = save_plan(R / 'segovb/RESOLUTION-ROOT-L12-TANGENT-FEATURE-CONTRACT-001.json', resolution)
+view = {'author': '/root', 'lens': 12, 'qualification': m['qualification'], 'resolution': rr,
+        'disposition': resolution['disposition'],
+        'exact_prior_view_obligations_resolved': ['/entries/2246/granular_contract_views/0/remaining_evidence',
+                                                 '/entries/2246/granular_contract_views/1: historical physical firstparty route only'],
+        'canonical_owner_and_first_predicate_unchanged': True,
+        'canonical_closure_and_acceptance_fields_remain_absent': True,
+        'audit_discovery_closed': True, 'current_reconciled': True,
+        'closure_scope': proof['scope'], 'new_body_population_unique_credit': 0,
+        'compiled_feature_set_observed': False, 'repair_or_runtime_passed': False,
+        'other_view_predicates_and_aggregate_obligations_remain_open': True}
+entry['granular_contract_views'].append(view)
+entry.update(status='closed-source-configuration-qualified', remaining_evidence=[],
+             audit_discovery_closed=True, current_reconciled=True, source_configuration_resolution=rr)
+Q.update(at=now, predecessor=m['queue'], latest_contract_updates=[m['contract_id']])
+qr = save_plan(R / 'workflow-20261030/CLOSURE-QUEUE-777.json', Q)
+ur = save_plan(R / 'workflow-20261030/QUEUE-UPDATE-777.json', {
+    'at': now, 'kind': 'One exact native feature source contract closed, no repair/runtime/aggregate closure',
+    'previous_queue': m['queue'], 'queue': qr, 'resolution': rr,
+    'ordered_adoptions': [], 'connected_adoptions': [], 'new_body_or_unique_credit_from_queue': 0,
+    'implementation_gate_complete': False})
+co = L['segovb_continuation']['lens12']
+co['exact_source_qualifications'].append(m['qualification'])
+resolution_ref = {'resolution': rr, 'qualification': m['qualification'], 'contract_id': m['contract_id'],
+                  'source_configuration_closed': True, 'source_body_credit': 0,
+                  'compiled_feature_set_observed': False, 'repair_or_runtime_passed': False}
+co['connected_contract_resolutions'].append(resolution_ref)
+co['last_connected_checkpoint_at'] = now
+L['segovb_continuation']['last_checkpoint_at'] = now
+L['audit_workflow']['closure_queue'] = qr
+L['audit_workflow']['queue_updates'].append(ur)
+C['audit_workflow']['closure_queue'] = qr
+C.update(at=now, ledger_sha256=hashlib.sha256(pack(L)).hexdigest(), previous_checkpoint_archive=history.relative_to(R).as_posix())
+
+def preserved(l, c, q):
+    nl, nc, nq = map(copy.deepcopy, (l, c, q))
+    nco, oco = nl['segovb_continuation']['lens12'], oldL['segovb_continuation']['lens12']
+    assert nco['exact_source_qualifications'].pop() == m['qualification']
+    assert nco['connected_contract_resolutions'].pop() == resolution_ref
+    nco['last_connected_checkpoint_at'] = oco['last_connected_checkpoint_at']
+    nl['segovb_continuation']['last_checkpoint_at'] = oldL['segovb_continuation']['last_checkpoint_at']
+    assert nl['audit_workflow']['queue_updates'].pop() == ur
+    nl['audit_workflow']['closure_queue'] = oldL['audit_workflow']['closure_queue']
+    assert nl == oldL
+    nc['audit_workflow']['closure_queue'] = oldC['audit_workflow']['closure_queue']
+    for key in ['at', 'ledger_sha256', 'previous_checkpoint_archive']:
+        nc[key] = oldC[key]
+    assert nc == oldC
+    target = nq['entries'][2246]
+    assert target['granular_contract_views'].pop() == view
+    for key in ['status', 'remaining_evidence']:
+        target[key] = oldQ['entries'][2246][key]
+    for key in ['audit_discovery_closed', 'current_reconciled', 'source_configuration_resolution']:
+        target.pop(key)
+    for key in ['at', 'predecessor', 'latest_contract_updates']:
+        nq[key] = oldQ[key]
+    assert nq == oldQ
+
+preserved(L, C, Q)
+vr = save_plan(R / 'segovb/VERIFY-ROOT-L12-TANGENT-FEATURE-CONTRACT-001.json', {
+    'at': now, 'plan': ref(mp), 'writer': ref(Path(__file__)), 'resolution': rr,
+    'qualification': m['qualification'], 'queue': qr,
+    'ledger_sha256': hashlib.sha256(pack(L)).hexdigest(), 'selector_sha256': hashlib.sha256(pack(C)).hexdigest(),
+    'whole_prior_authorities_restored': True, 'source_counts_unchanged': True,
+    'exact_source_contracts_closed': 1, 'new_unique_findings': 0,
+    'independent_agent_review': False, 'product_execution': False, 'implementation_gate_complete': False})
+assert ref(LP) == m['ledger'] and ref(CP) == m['selector']
+report = {'result': 'passed', 'authority_writes': 0, 'exact_source_contracts_closed': 1,
+          'new_body_credit': 0, 'whole_prior_authorities_preserved': True, 'gate': False}
+if args.apply:
+    for path, raw in planned.items():
+        with path.open('xb') as stream:
+            stream.write(raw)
+    for path, value in [(LP, L), (CP, C)]:
+        temp = path.with_name(path.name + '.tangent-feature-close.tmp')
+        with temp.open('xb') as stream:
+            stream.write(pack(value))
+        temp.replace(path)
+    preserved(read(LP), read(CP), checked(qr))
+    assert sha(LP) == read(CP)['ledger_sha256']
+    report.update(authority_writes=2, ledger=ref(LP), selector=ref(CP), queue=qr,
+                  resolution=rr, verification=vr, selected_lenses_unchanged=m['selected_lenses'])
+print(json.dumps(report))

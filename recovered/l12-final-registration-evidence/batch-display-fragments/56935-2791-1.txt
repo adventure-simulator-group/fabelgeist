@@ -1,0 +1,85 @@
+1: //! Defines the types and protocol for the module.
+2: 
+3: use crate::material::InstancedMaterial;
+4: 
+5: use bevy_asset::{Asset, AssetId};
+6: use bevy_ecs::entity::{Entity, EntityHashMap};
+7: use bevy_mesh::Mesh;
+8: use bevy_render::{render_resource::ShaderType, sync_world::MainEntity};
+9: 
+10: use std::hash::{Hash, Hasher};
+11: use std::ops::Range;
+12: 
+13: use bytemuck::{Pod, Zeroable};
+14: 
+15: /// A range of instances allocated within a page.
+16: #[derive(Debug, Clone, Copy)]
+17: pub struct InstanceAllocation {
+18:     /// The index of the page (buffer) where this allocation resides.
+19:     pub page: usize,
+20:     /// The start index within the page.
+21:     pub offset: u32,
+22: }
+23: 
+24: impl From<(usize, u32)> for InstanceAllocation {
+25:     fn from((page, offset): (usize, u32)) -> Self {
+26:         Self { page, offset }
+27:     }
+28: }
+29: 
+30: /// Interface for managing GPU instance indices.
+31: pub trait InstanceAllocator: Send + Sync + 'static {
+32:     /// Reserves a contiguous block of `count` indices for the given `entity`.
+33:     ///
+34:     /// Returns the [`InstanceAllocation`] if successful, or `None` if allocation failed.
+35:     fn alloc(&mut self, entity: Entity, count: u32) -> Option<InstanceAllocation>;
+36: 
+37:     /// Releases the indices associated with `entity`, making them available for reuse.
+38:     fn free(&mut self, entity: Entity);
+39: 
+40:     /// Returns the active "watermark" (the highest used index) for a specific page.
+41:     ///
+42:     /// Used to determine the required size of the GPU buffer.
+43:     fn size(&self, page_id: usize) -> u32;
+44: 
+45:     /// Returns ranges freed this frame to be written as "tombstones" (zeros) to the GPU.
+46:     fn drain(&mut self, page_id: usize) -> Vec<Range<u32>>;
+47: 
+48:     /// Clears all pages and allocations.
+49:     fn reset(&mut self);
+50: 
+51:     /// Retrieves the [`InstanceAllocation`] for an entity if it exists.
+52:     fn get(&self, entity: Entity) -> Option<InstanceAllocation>;
+53: 
+54:     /// Returns the number of active pages.
+55:     fn page_count(&self) -> usize;
+56: }
+84: pub struct BatchInfo {
+85:     pub page: usize,
+86:     pub range: Range<u32>,
+87:     #[cfg(target_family = "wasm")]
+88:     pub instance_offset: u32,
+89: }
+90: 
+91: #[derive(Default)]
+92: pub struct BatchRanges {
+93:     pub batches: Vec<BatchInfo>,
+94:     pub entities: Vec<(Entity, MainEntity)>,
+95:     pub batch_lookup: EntityHashMap<u32>,
+96: }
+97: 
+98: impl BatchRanges {
+99:     pub fn clear(&mut self) {
+100:         self.batches.clear();
+101:         self.entities.clear();
+102:         self.batch_lookup.clear();
+103:     }
+104: }
+105: 
+106: #[derive(Clone, Copy, Pod, Zeroable, Default, ShaderType, Debug)]
+107: #[repr(C)]
+108: pub struct BatchMetadata {
+109:     pub batch_id: u32,
+110:     pub start_index: u32,
+111:     pub end_index: u32,
+112: }

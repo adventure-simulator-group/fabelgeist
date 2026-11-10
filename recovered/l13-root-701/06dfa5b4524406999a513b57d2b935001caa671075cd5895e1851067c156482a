@@ -1,0 +1,622 @@
+{
+  "lens": 13,
+  "kind": "Root full-source assessment adoption",
+  "at": "2026-11-01T18:54:29.625109+00:00",
+  "packet": {
+    "path": "adler-continuation-20261030/READ-ROOT-L13-2671-2674-001.json",
+    "sha256": "8206c9aa0e7cc7de79dd4ac9d0e43512e96543d8422f5d9be2fce3a1c1a73d23"
+  },
+  "evidence": {
+    "schema": "726-root-l13-source-packet-v1",
+    "at": "2026-11-01T18:53:51.425163+00:00",
+    "author": "/root",
+    "lens": 13,
+    "original_before": 2671,
+    "original_after": 2675,
+    "registered_before_read_attestation": true,
+    "ordered": [
+      {
+        "source": {
+          "original": 2671,
+          "source_id": "physical-p16:Cargo.toml",
+          "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+          "actual_eof": 221,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+          "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+          "prospective_ranges": [
+            [
+              178,
+              182
+            ]
+          ],
+          "revision_qualification": "Archivef82 recoveredobjects transport only. PhysicalP16workspace literalbyte subset ofpriorPR498; native pinned2.6.1 reexports exactsource only, no current/feature/wholeSDK transfer.",
+          "purpose": "Four P16dependency/native reexport roles40material:5delegatedpriorlines reused and35fresh root lines, no macro/build/runtime execution."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2671-2674-001.json",
+          "sha256": "cb2b38bf24a8a832973e4462cb4b82e78d698de20318fcb4bf2e9d4766d4dfa9"
+        },
+        "registration_pointer": "/sources/0",
+        "assessed_ranges": [
+          [
+            178,
+            182
+          ]
+        ],
+        "untruncated_body_outputs": true,
+        "author": "Inherited independent Lens13 reader",
+        "read_kind": "qualified_admission_2671_2674_reuse",
+        "root_personal_source_lines": 0,
+        "whole_file_coverage": false,
+        "unread_ranges": [
+          [
+            1,
+            177
+          ],
+          [
+            183,
+            221
+          ]
+        ],
+        "observations": [
+          {
+            "ranges": [
+              [
+                178,
+                182
+              ]
+            ],
+            "assessment": "Exact physicalP16 rootCargo178..182 materialrole five lines uses qualifiedprior delegatedfull221read PRoriginal498/root023/PL025, not personallyreread. Samewhole221bytes checkedagainst frozenPRGit6533 andphysicalP16archiveobject, no namespace/feature/currentsemantic equivalence impliedfromSHA. Historicalnumericinventory498 explicitlyrecords SDK/SATS2.6.1 pins andfullworkspace entries, so literaldependencyedge is priorbody evidence; actualresolvedP16package/features/reexport/native boundedvalue receiver still131. Preserve original delegated lens13_resume attribution, oldraw missingat/registered_before_read_attestation andoldregistrationmissingat remainABSENT. Exact verifiercheck498 andvalidationmanifestsource498 attest prospective1..221/untruncated, rawregistration/sourcerow/object/nativeGit corroborated; verifier doesnot manufacturebodycoverage. Materialroleonly178..182, other216lines uncreditedhere, zero repeat/rootbody/runtime/current/independentreview credit."
+          }
+        ],
+        "reuse": {
+          "kind": "exact_admission_2671_2674_material",
+          "original": 2671,
+          "adoption": {
+            "path": "segovb/READ-L13-PARALLEL-023.json",
+            "sha256": "46ff7eccfcf1fda9ca02cdbc76f115db63246e2882f228b83101896ca9bee4cb"
+          },
+          "qualification": {
+            "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2671-2674-ADMISSION-MIXED-001.json",
+            "sha256": "45689d000cfd935d3121188534243f935525480459f1a24699aa87c1c86fc4f2"
+          }
+        },
+        "authoritative_future_proof": {
+          "qualification": {
+            "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2671-2674-ADMISSION-MIXED-001.json",
+            "sha256": "45689d000cfd935d3121188534243f935525480459f1a24699aa87c1c86fc4f2"
+          },
+          "prior_original": 498,
+          "prior_row_pointer": "/rows/0",
+          "prior_source_id": "pr-working:Cargo.toml",
+          "source_sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+          "actual_EOF": 221,
+          "assessed_ranges": [
+            [
+              178,
+              182
+            ]
+          ],
+          "historical_author": "Delegated lens13_resume independent personal body/nontext assessment; no root or other-lens read credit.",
+          "new_body_credit": 0
+        },
+        "repeat_body_credit": 0,
+        "historical_prior_preserved": {
+          "prior_adoption": {
+            "path": "segovb/READ-L13-PARALLEL-023.json",
+            "sha256": "46ff7eccfcf1fda9ca02cdbc76f115db63246e2882f228b83101896ca9bee4cb"
+          },
+          "prior_raw_receipt": {
+            "path": "parallel-l13-20261029/READ-PL13-025.json",
+            "sha256": "d28e01a01f18152b66e3e9be463ed57661ac010796921367bd14f4db4284e4f3"
+          },
+          "prior_verification": {
+            "path": "parallel-l13-20261029/VERIFY-PL13-025.json",
+            "sha256": "5206e98ceaa3add8ea933fb45841e5a7c332c4b918e0082da2c0571c0ba02198"
+          },
+          "prior_registration": {
+            "path": "parallel-l13-20261029/REGISTRATION-PL13-025.json",
+            "sha256": "5b2abbdcb8be2cdfbd9a6d3019888e8fa32b68e0a5ab7891f8b43239913b33e5"
+          },
+          "prior_validation_manifest": {
+            "path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-025-032.json",
+            "sha256": "db36f2b12ee71aa0370253bf2ec74cd1d0fadc0396d2efaf9d13570f8b43af63"
+          },
+          "prior_row_pointer": "/rows/0",
+          "prior_registration_pointer": "/sources/0",
+          "prior_source_read": {
+            "original": 498,
+            "source_id": "pr-working:Cargo.toml",
+            "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+            "scope_kind": "frozen_requested_change",
+            "source_revision": "pr-working exact frozen original",
+            "purpose": "Ordered L13 manifest/config and actual visual/deleted asset contracts; no empty text range coverage for PNG.",
+            "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+            "material_kind": "text",
+            "actual_eof": 221,
+            "prospective_ranges": [
+              [
+                1,
+                221
+              ]
+            ],
+            "fresh_personal_assessed_ranges": [
+              [
+                1,
+                221
+              ]
+            ],
+            "untruncated_body_outputs": true
+          },
+          "historical_verification_as_recorded": {
+            "lens": 13,
+            "status": "Evidence bookkeeping passed; root adoption required",
+            "read": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-025.json",
+              "sha256": "d28e01a01f18152b66e3e9be463ed57661ac010796921367bd14f4db4284e4f3"
+            },
+            "checks": [
+              {
+                "original": 498,
+                "exact_hash_eof_prospective_scope": true,
+                "ranges": [
+                  [
+                    1,
+                    221
+                  ]
+                ],
+                "ordered_credit": 1
+              },
+              {
+                "original": 499,
+                "exact_hash_eof_prospective_scope": true,
+                "ranges": [
+                  [
+                    1,
+                    96
+                  ]
+                ],
+                "ordered_credit": 1
+              },
+              {
+                "original": 500,
+                "actual_visual_read": true,
+                "png_header_verified": {
+                  "width": 128,
+                  "height": 128,
+                  "bit_depth": 8,
+                  "color_type": 6,
+                  "compression": 0,
+                  "filter": 0,
+                  "interlace": 0
+                },
+                "ordered_credit": 1,
+                "text_ranges_counted": 0
+              },
+              {
+                "original": 501,
+                "actual_deleted_contract_read": true,
+                "base_visual_read_at_exact_sha256": "5b4ab9883c3153a5f2aaff6dc07d118e75eb7f8b1f17e99a562c9186f2fa438c",
+                "ordered_credit": 1,
+                "text_ranges_counted": 0
+              },
+              {
+                "original": 502,
+                "exact_hash_eof_prospective_scope": true,
+                "ranges": [
+                  [
+                    1,
+                    694
+                  ]
+                ],
+                "ordered_credit": 1
+              },
+              {
+                "source_id": "pr-working:scripts/bake_equipment_icons.py",
+                "exact_hash_eof_prospective_scope": true,
+                "ranges": [
+                  [
+                    1,
+                    30
+                  ]
+                ],
+                "ordered_credit": 0
+              },
+              {
+                "source_id": "pr-working:scripts/render_equipment_icons.py",
+                "exact_hash_eof_prospective_scope": true,
+                "ranges": [
+                  [
+                    1,
+                    102
+                  ]
+                ],
+                "ordered_credit": 0
+              },
+              {
+                "source_id": "pr-working:crates/strategic-web/src/templates/equipment_icons.rs",
+                "exact_hash_eof_prospective_scope": true,
+                "ranges": [
+                  [
+                    1,
+                    56
+                  ]
+                ],
+                "ordered_credit": 0
+              },
+              {
+                "source_id": "pr-working:content/items/catalog.yaml",
+                "exact_hash_eof_prospective_scope": true,
+                "ranges": [
+                  [
+                    4582,
+                    4611
+                  ]
+                ],
+                "ordered_credit": 0
+              },
+              {
+                "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_export.rs",
+                "exact_hash_eof_prospective_scope": true,
+                "ranges": [
+                  [
+                    1,
+                    343
+                  ]
+                ],
+                "ordered_credit": 0
+              },
+              {
+                "source_id": "pr-working:crates/adventuresim-core/src/equipment_assets.rs",
+                "exact_hash_eof_prospective_scope": true,
+                "ranges": [
+                  [
+                    1,
+                    107
+                  ]
+                ],
+                "ordered_credit": 0
+              }
+            ],
+            "authority_count_changes": 0,
+            "product_execution": false,
+            "current_reconciled": false
+          },
+          "historical_attribution": "Delegated lens13_resume independent personal body/nontext assessment; no root or other-lens read credit.",
+          "prior_numeric_inventory": {
+            "498:1\u2013221": "Actual full frozen workspace manifest. Native Cargo package/dependency versions, resolver/edition/features/paths and profile booleans are native configuration. Clippy priority-1, opt-level3/1, codegen-units1 are explicit tooling policy; no gameplay numeric owner. Workspace Avian107\u2013114 explicitly requests3d/f32/parry-f32/parallel/default-collider/xpbd_joints and disables defaults, connecting022 actual scalar chain for crates inheriting this workspace entry; actual crate additional features may unify and require independent inspection. Bevy default-featuresfalse withserialize, Repliconclient/server, SDK/SATS2.6.1 pins, postcardalloc and nativeWeb features are actual entries. Presence of frozen patch comments is not proof fixes pass or actual current graph. No dependency resolution/build/generator run."
+          },
+          "exact_old_source_record": {
+            "proposal": 25,
+            "read_json_pointer": "/rows/0",
+            "source_id": "pr-working:Cargo.toml",
+            "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+            "original": 498,
+            "declared_revision": "pr-working exact frozen original",
+            "scope_kind": "frozen_requested_change",
+            "material_kind": "text",
+            "actual_eof": 221,
+            "prospective_ranges": [
+              [
+                1,
+                221
+              ]
+            ],
+            "fresh_personal_assessed_ranges": [
+              [
+                1,
+                221
+              ]
+            ],
+            "registered_before_read_attestation": true,
+            "body_read_attestation_only": "Verification checks identities and range arithmetic; it does not newly attest body reading.",
+            "registry_index_verified": true,
+            "frozen_git_verification": {
+              "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+              "path": "Cargo.toml",
+              "exists": true,
+              "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+              "matches_exact_object": true
+            },
+            "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+            "object_sha_verified": true,
+            "actual_eof_and_range_bounds_verified": true,
+            "body_outputs_untruncated_attestation": true
+          },
+          "historical_registration_fields_absent": [
+            "at"
+          ],
+          "historical_raw_fields_absent": [
+            "at",
+            "registered_before_read_attestation"
+          ],
+          "absence_qualification": "No timestamps or missing raw attestation invented; exact old verifier498 and manifestsource498 carry prospective/untruncated attestation, pinned rawregistration and adoption evidence preserved.",
+          "semantic_alias_qualification": "PhysicalP16 role subset178..182 samebytes as alreadyread PRworkspace498; only literaldependencyedge use, actualresolvedP16namespace/features/current are independent."
+        }
+      },
+      {
+        "source": {
+          "original": 2672,
+          "source_id": "native-dependency:spacetimedb-lib-2.6.1/src/lib.rs",
+          "sha256": "a7aa9b25f2c271998679ab0c79c861d0e44647bc42d6dc7d94d0c9f979b18b57",
+          "actual_eof": 337,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/a7aa9b25f2c271998679ab0c79c861d0e44647bc42d6dc7d94d0c9f979b18b57",
+          "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/a7aa9b25f2c271998679ab0c79c861d0e44647bc42d6dc7d94d0c9f979b18b57",
+          "prospective_ranges": [
+            [
+              39,
+              49
+            ]
+          ],
+          "revision_qualification": "Archivef82 recoveredobjects transport only. PhysicalP16workspace literalbyte subset ofpriorPR498; native pinned2.6.1 reexports exactsource only, no current/feature/wholeSDK transfer.",
+          "purpose": "Four P16dependency/native reexport roles40material:5delegatedpriorlines reused and35fresh root lines, no macro/build/runtime execution."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2671-2674-001.json",
+          "sha256": "cb2b38bf24a8a832973e4462cb4b82e78d698de20318fcb4bf2e9d4766d4dfa9"
+        },
+        "registration_pointer": "/sources/1",
+        "assessed_ranges": [
+          [
+            39,
+            49
+          ]
+        ],
+        "untruncated_body_outputs": true,
+        "author": "/root",
+        "read_kind": "qualified_root2671_2674_material_scope",
+        "root_personal_source_lines": 11,
+        "whole_file_coverage": false,
+        "unread_ranges": [
+          [
+            1,
+            38
+          ],
+          [
+            50,
+            337
+          ]
+        ],
+        "observations": [
+          {
+            "ranges": [
+              [
+                39,
+                49
+              ]
+            ],
+            "assessment": "Fresh pinned spacetimedb-lib2.6.1 lib39..49 eleven lines personallyreaduntruncated,1..38/50..337 unread. Directpublicreexports Identity/ScheduleAt/nativehash/timeDuration/timestamp/UUID, SATS SpacetimeType and __make_register_reftype, satsalias/bsatn/buffer/de/ser andnativeAlgebraic/Product/Sumtype/value names. This is actualnamespaceedge spacetimedb_lib->spacetimedb_sats, no derivedimplementation/decoder/header/valueadmission/nativeversionresolution or runtimeregistration proof. Exactdependency2.6.1source identity not currentselectedCargo features byitself. No macroexpansion/build/nativeexecution."
+          }
+        ]
+      },
+      {
+        "source": {
+          "original": 2673,
+          "source_id": "native-dependency:spacetimedb-sats-2.6.1/src/lib.rs",
+          "sha256": "402f09813045df7a27d95ceceac65b2191e570b9284371cd4bd948e1b1e79620",
+          "actual_eof": 307,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/402f09813045df7a27d95ceceac65b2191e570b9284371cd4bd948e1b1e79620",
+          "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/402f09813045df7a27d95ceceac65b2191e570b9284371cd4bd948e1b1e79620",
+          "prospective_ranges": [
+            [
+              74,
+              96
+            ]
+          ],
+          "revision_qualification": "Archivef82 recoveredobjects transport only. PhysicalP16workspace literalbyte subset ofpriorPR498; native pinned2.6.1 reexports exactsource only, no current/feature/wholeSDK transfer.",
+          "purpose": "Four P16dependency/native reexport roles40material:5delegatedpriorlines reused and35fresh root lines, no macro/build/runtime execution."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2671-2674-001.json",
+          "sha256": "cb2b38bf24a8a832973e4462cb4b82e78d698de20318fcb4bf2e9d4766d4dfa9"
+        },
+        "registration_pointer": "/sources/2",
+        "assessed_ranges": [
+          [
+            74,
+            96
+          ]
+        ],
+        "untruncated_body_outputs": true,
+        "author": "/root",
+        "read_kind": "qualified_root2671_2674_material_scope",
+        "root_personal_source_lines": 23,
+        "whole_file_coverage": false,
+        "unread_ranges": [
+          [
+            1,
+            73
+          ],
+          [
+            97,
+            307
+          ]
+        ],
+        "observations": [
+          {
+            "ranges": [
+              [
+                74,
+                96
+              ]
+            ],
+            "assessment": "Fresh pinned spacetimedb-sats2.6.1 lib74..96 twentythree lines personallyreaduntruncated,1..73/97..307 unread. Doc74..75 explicitlysupports macro crate=spacetimedb_sats emitting krate::sats; pubusecrateassats77 is macro namespacebridge, not deprecated compatibilityalias. NativeAlgebraic/ref/value/F32/F64/array/product/sum imports and typespace GroundSpacetimeType/SpacetimeType/Typespace92, de::Deserialize94/ser::Serialize95 reexports exactroute. Trait/type/macro namespaces can share a spelling, actualdefinition/derive/tokenization/serialization admission remainsseparate; no proof boundedbasispoint check fromnames/import. No fullSDK/nativecodec/current/runtime credit."
+          }
+        ]
+      },
+      {
+        "source": {
+          "original": 2674,
+          "source_id": "native-dependency:spacetimedb-sats-2.6.1/src/typespace.rs",
+          "sha256": "2ff9ac1123584afecdb55ac04bc118f75d05afd96d3149ce46638a8f21ac3243",
+          "actual_eof": 496,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/2ff9ac1123584afecdb55ac04bc118f75d05afd96d3149ce46638a8f21ac3243",
+          "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/2ff9ac1123584afecdb55ac04bc118f75d05afd96d3149ce46638a8f21ac3243",
+          "prospective_ranges": [
+            [
+              320,
+              320
+            ]
+          ],
+          "revision_qualification": "Archivef82 recoveredobjects transport only. PhysicalP16workspace literalbyte subset ofpriorPR498; native pinned2.6.1 reexports exactsource only, no current/feature/wholeSDK transfer.",
+          "purpose": "Four P16dependency/native reexport roles40material:5delegatedpriorlines reused and35fresh root lines, no macro/build/runtime execution."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2671-2674-001.json",
+          "sha256": "cb2b38bf24a8a832973e4462cb4b82e78d698de20318fcb4bf2e9d4766d4dfa9"
+        },
+        "registration_pointer": "/sources/3",
+        "assessed_ranges": [
+          [
+            320,
+            320
+          ]
+        ],
+        "untruncated_body_outputs": true,
+        "author": "/root",
+        "read_kind": "qualified_root2671_2674_material_scope",
+        "root_personal_source_lines": 1,
+        "whole_file_coverage": false,
+        "unread_ranges": [
+          [
+            1,
+            319
+          ],
+          [
+            321,
+            496
+          ]
+        ],
+        "observations": [
+          {
+            "ranges": [
+              [
+                320,
+                320
+              ]
+            ],
+            "assessment": "Fresh pinned spacetimedb-sats2.6.1 typespace320 singleline personallyreaduntruncated: pubuse spacetimedb_bindings_macro::SpacetimeType. Rawhistoricallocalqualification says singletraitmethoddeclaration, but literalbody is macronamereexport; retainrawnote unchanged and qualifyits inaccurate descriptionhere. Only1line exactmacroexportedge, no traitbody/implementation/genericSATSgraph or selectednamedproductmacrobody read. Nativebindingsmacro2.6.1 selectedbody/features/P16derive/reexportnamespace andwireboundedvalue actualreceiver/current remain131; no genericfinite/rangeadmission inferred fromSpacetimeType spelling. No macroexpansion/decoder/build/runtime execution."
+          }
+        ]
+      }
+    ],
+    "connected": [],
+    "prior_same_lens_adoptions": [
+      {
+        "path": "segovb/READ-L13-PARALLEL-023.json",
+        "sha256": "46ff7eccfcf1fda9ca02cdbc76f115db63246e2882f228b83101896ca9bee4cb"
+      }
+    ],
+    "new_root_ordered_lines": 35,
+    "source_line_roles": {
+      "fresh_production": 35,
+      "reused_production": 5,
+      "declared_fixture_source": 0,
+      "fixture_execution": false
+    },
+    "tests_executed": false,
+    "new_root_connected_reread_lines": 0,
+    "accepted_unique_count_change": 0,
+    "other_population_credit": 0,
+    "current_source_reconciled": false,
+    "product_execution": false,
+    "implementation_gate_complete": false,
+    "new_questions": [],
+    "contract_revisits_pending_queue_adoption": [
+      {
+        "entry_index": 131,
+        "contract_id": "ADLER-L11-BASIS-POINTS-WIRE-ADMISSION",
+        "scope": "FourexactP16dependency/native reexports40material,5qualifieddelegatedprior/35freshroot; no execution."
+      }
+    ],
+    "dedup_navigation": {
+      "queue_records_checked": 3821,
+      "existing_contracts": [
+        131
+      ],
+      "new_questions_not_unique_findings": 0,
+      "qualification": "Actualbasispoint131namespace/dependencyedge only, no newfinding or wholeSDK/decoder/current proof. Macroliteralreexport role correctedagainstrawnote, no compatibilityalias allegation."
+    },
+    "remaining_connected_obligations": [
+      "ExactP16worldschema manifest2670/physicalrootworkspace2671/nativeLib->SATS->bindingsmacro reexports2672..2674 nowqualifiedonlytheirboundedsources. Actualresolved2.6.1/features/deriveattributes/selectednative macrobody andownedboundedbasispoint Serde/SATSconstructor/decoder/consumer/current/all20 remain131, no namespaceimport impliesrangevalidation.",
+      "Native2674rawqualification describestraitmethod butactual320is pubusemacro; rawmetadataunchanged, exactliteralrolecorrection scopedhere. No whole337/307/496nativefilecoverage or current/otherlens credit.",
+      "Next2675allocation364 haspriorroot208 hashmatch,2676Activityconstant prior127,2677clockfuture/root009 andordered2056 application must preservebodyattribution andeachoriginalonce.2678threatlimits future214/root212 separate. Requalifylatest705ownreceipt/native/EOF/roles/scopes beforebody/reuse; no body display fromhashnavigation.",
+      "Full13/extensions/current/all20/exactaliases/concrete lateracceptance/repairledger/implementation/independentreview/runtime incomplete;2511visibilityhelper/native546..557/connected524 separate. No newsubagents/productedits/builds/tests/macro/codec/runtime/qualityscanners."
+    ]
+  },
+  "original_before": 2671,
+  "original_after": 2675,
+  "new_original_roles": 4,
+  "root_personal_ordered_lines": 35,
+  "root_personal_connected_reread_lines": 0,
+  "prior_same_lens_reuses": [
+    {
+      "kind": "exact_admission_2671_2674_material",
+      "original": 2671,
+      "adoption": {
+        "path": "segovb/READ-L13-PARALLEL-023.json",
+        "sha256": "46ff7eccfcf1fda9ca02cdbc76f115db63246e2882f228b83101896ca9bee4cb"
+      },
+      "qualification": {
+        "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2671-2674-ADMISSION-MIXED-001.json",
+        "sha256": "45689d000cfd935d3121188534243f935525480459f1a24699aa87c1c86fc4f2"
+      }
+    }
+  ],
+  "prior_authorship_retained": true,
+  "future_original_credit": 0,
+  "qualified_ordered_reuses": [
+    {
+      "original": 2671,
+      "reuse": {
+        "kind": "exact_admission_2671_2674_material",
+        "original": 2671,
+        "adoption": {
+          "path": "segovb/READ-L13-PARALLEL-023.json",
+          "sha256": "46ff7eccfcf1fda9ca02cdbc76f115db63246e2882f228b83101896ca9bee4cb"
+        },
+        "qualification": {
+          "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2671-2674-ADMISSION-MIXED-001.json",
+          "sha256": "45689d000cfd935d3121188534243f935525480459f1a24699aa87c1c86fc4f2"
+        }
+      },
+      "proof": {
+        "qualification": {
+          "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2671-2674-ADMISSION-MIXED-001.json",
+          "sha256": "45689d000cfd935d3121188534243f935525480459f1a24699aa87c1c86fc4f2"
+        },
+        "prior_original": 498,
+        "prior_row_pointer": "/rows/0",
+        "prior_source_id": "pr-working:Cargo.toml",
+        "source_sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+        "actual_EOF": 221,
+        "assessed_ranges": [
+          [
+            178,
+            182
+          ]
+        ],
+        "historical_author": "Delegated lens13_resume independent personal body/nontext assessment; no root or other-lens read credit.",
+        "new_body_credit": 0
+      }
+    }
+  ],
+  "new_original_roles_from_prior_connected_reads": 1,
+  "other_population_credit": 0,
+  "accepted_unique_count_change": 0,
+  "current_source_reconciled": false,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "writer": {
+    "path": "adler-continuation-20261030/adopt_root_l13_packet_v144.py",
+    "sha256": "acc1daf252f92cb2ef9feb69a93375ed79383a0c486c87ecc90ec2c6ffcd523d"
+  },
+  "plan": {
+    "path": "adler-continuation-20261030/PLAN-ROOT-L13-2671-2674-001.json",
+    "sha256": "ab2da21208f9ae042198ea9b156d0b0eaec197ddab9da8e462bb75aee84e0221"
+  }
+}

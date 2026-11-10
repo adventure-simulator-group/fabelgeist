@@ -1,0 +1,310 @@
+{
+  "lens": 13,
+  "status": "Additive exact125\u2013128 schema qualification; raw receipts and manifest unchanged",
+  "manifest": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-125-128.json",
+    "sha256": "c8a87e094005a019d08c93d7b1233dc784311bc39df69092d8ee17ff6047f275"
+  },
+  "entries": [
+    {
+      "batch": 125,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-125.json",
+        "sha256": "4f30cd1176532c13f04e26065e44183d7009805e30c0038f62adf279fc654bf7"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-125-PROPOSAL.json",
+        "sha256": "5f9bd28c2888fe1c9c9c7b4294e6a143465255f0f67c206f44081ba1aaf8a25c"
+      },
+      "missing_fields": [
+        "original_delta_proposed",
+        "proposed_next_original",
+        "current_reconciled",
+        "global_clearance",
+        "future_same_lens_reuse_proofs"
+      ],
+      "raw_future_key": "future_same_lens_proofs",
+      "raw_future_proofs": [],
+      "effective_metadata_only": {
+        "original_delta_proposed": 4,
+        "proposed_next_original": 839,
+        "current_reconciled": false,
+        "global_clearance": false,
+        "future_same_lens_reuse_proofs": []
+      },
+      "qualification": "Exact immutable receipt only. Delta/frontier from exact prior immutable state and ordered source rows; current/global remain false as whole audit incomplete. Future proof naming/explicit same-lens count-once metadata qualified additively from existing exact source identity/revision/ranges and zero-early-credit scope, no new body read or identity."
+    },
+    {
+      "batch": 126,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-126.json",
+        "sha256": "a9f6c1eed3bd4e24c893b20b01883ae7c0fdb767682546a4b04201eb9fb10149"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-126-PROPOSAL.json",
+        "sha256": "307d10bbe5f37537af05fc7c2c21d61fbccef04353b44231f280ceb8c38f9000"
+      },
+      "missing_fields": [
+        "original_delta_proposed",
+        "proposed_next_original",
+        "current_reconciled",
+        "global_clearance",
+        "future_same_lens_reuse_proofs"
+      ],
+      "raw_future_key": "future_same_lens_proofs",
+      "raw_future_proofs": [],
+      "effective_metadata_only": {
+        "original_delta_proposed": 5,
+        "proposed_next_original": 844,
+        "current_reconciled": false,
+        "global_clearance": false,
+        "future_same_lens_reuse_proofs": []
+      },
+      "qualification": "Exact immutable receipt only. Delta/frontier from exact prior immutable state and ordered source rows; current/global remain false as whole audit incomplete. Future proof naming/explicit same-lens count-once metadata qualified additively from existing exact source identity/revision/ranges and zero-early-credit scope, no new body read or identity."
+    },
+    {
+      "batch": 127,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-127.json",
+        "sha256": "2c2178d925f8402444e37e258c16060dd20e9176c29f5826adcf1ed42d0a71d8"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-127-PROPOSAL.json",
+        "sha256": "5ea5d96f9641d84a98c5e4526f742a0d6dea84478c98ba860ecc4c15a77d72a5"
+      },
+      "missing_fields": [
+        "original_delta_proposed",
+        "proposed_next_original",
+        "current_reconciled",
+        "global_clearance",
+        "future_same_lens_reuse_proofs"
+      ],
+      "raw_future_key": "future_same_lens_proofs",
+      "raw_future_proofs": [],
+      "effective_metadata_only": {
+        "original_delta_proposed": 6,
+        "proposed_next_original": 850,
+        "current_reconciled": false,
+        "global_clearance": false,
+        "future_same_lens_reuse_proofs": []
+      },
+      "qualification": "Exact immutable receipt only. Delta/frontier from exact prior immutable state and ordered source rows; current/global remain false as whole audit incomplete. Future proof naming/explicit same-lens count-once metadata qualified additively from existing exact source identity/revision/ranges and zero-early-credit scope, no new body read or identity."
+    },
+    {
+      "batch": 128,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-128.json",
+        "sha256": "3c695babf454ea7330b998788f97866bbd3a5128e6c584b48c6ebe9cefc8a6d5"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-128-PROPOSAL.json",
+        "sha256": "16ed15f10ebc112df1c3171f6dfb720c02dd019b9e7527fb54913874b35398b8"
+      },
+      "missing_fields": [
+        "original_delta_proposed",
+        "proposed_next_original",
+        "current_reconciled",
+        "global_clearance",
+        "future_same_lens_reuse_proofs"
+      ],
+      "raw_future_key": "future_same_lens_proofs",
+      "raw_future_proofs": [
+        {
+          "original": 943,
+          "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+          "sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+          "actual_eof": 49,
+          "assessed_ranges": [
+            [
+              1,
+              49
+            ]
+          ],
+          "read_pointer": "/connected/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+            "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+          },
+          "registration_pointer": "/sources/0",
+          "original_credit_now": 0,
+          "original_role_credit_now": 0,
+          "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer."
+        },
+        {
+          "original": 945,
+          "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+          "sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+          "actual_eof": 219,
+          "assessed_ranges": [
+            [
+              1,
+              219
+            ]
+          ],
+          "read_pointer": "/connected/1",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+            "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+          },
+          "registration_pointer": "/sources/1",
+          "original_credit_now": 0,
+          "original_role_credit_now": 0,
+          "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer."
+        },
+        {
+          "original": 2598,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer.rs",
+          "sha256": "9726131d4d0508a8b77b56bd2723a18c1f5e45d0be3e468ccc797d39a12a1f2a",
+          "actual_eof": 137,
+          "assessed_ranges": [
+            [
+              1,
+              137
+            ]
+          ],
+          "read_pointer": "/connected/2",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+            "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+          },
+          "registration_pointer": "/sources/2",
+          "original_credit_now": 0,
+          "original_role_credit_now": 0,
+          "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer."
+        },
+        {
+          "original": 2599,
+          "source_id": "pr-working:crates/fabelgeist-armor/src/trunk_hose.rs",
+          "sha256": "ead698d9816a1f7549be4753d738ff8ab43d6f4eaf18f528b6b994d1248b48d9",
+          "actual_eof": 56,
+          "assessed_ranges": [
+            [
+              1,
+              56
+            ]
+          ],
+          "read_pointer": "/connected/3",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+            "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+          },
+          "registration_pointer": "/sources/3",
+          "original_credit_now": 0,
+          "original_role_credit_now": 0,
+          "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer."
+        }
+      ],
+      "effective_metadata_only": {
+        "original_delta_proposed": 0,
+        "proposed_next_original": 850,
+        "current_reconciled": false,
+        "global_clearance": false,
+        "future_same_lens_reuse_proofs": [
+          {
+            "original": 943,
+            "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+            "sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+            "actual_eof": 49,
+            "assessed_ranges": [
+              [
+                1,
+                49
+              ]
+            ],
+            "read_pointer": "/connected/0",
+            "registration": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+              "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+            },
+            "registration_pointer": "/sources/0",
+            "original_credit_now": 0,
+            "original_role_credit_now": 0,
+            "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer.",
+            "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+            "same_lens_only": true,
+            "count_once_when_frontier_reaches": true
+          },
+          {
+            "original": 945,
+            "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+            "sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+            "actual_eof": 219,
+            "assessed_ranges": [
+              [
+                1,
+                219
+              ]
+            ],
+            "read_pointer": "/connected/1",
+            "registration": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+              "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+            },
+            "registration_pointer": "/sources/1",
+            "original_credit_now": 0,
+            "original_role_credit_now": 0,
+            "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer.",
+            "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+            "same_lens_only": true,
+            "count_once_when_frontier_reaches": true
+          },
+          {
+            "original": 2598,
+            "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer.rs",
+            "sha256": "9726131d4d0508a8b77b56bd2723a18c1f5e45d0be3e468ccc797d39a12a1f2a",
+            "actual_eof": 137,
+            "assessed_ranges": [
+              [
+                1,
+                137
+              ]
+            ],
+            "read_pointer": "/connected/2",
+            "registration": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+              "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+            },
+            "registration_pointer": "/sources/2",
+            "original_credit_now": 0,
+            "original_role_credit_now": 0,
+            "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer.",
+            "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+            "same_lens_only": true,
+            "count_once_when_frontier_reaches": true
+          },
+          {
+            "original": 2599,
+            "source_id": "pr-working:crates/fabelgeist-armor/src/trunk_hose.rs",
+            "sha256": "ead698d9816a1f7549be4753d738ff8ab43d6f4eaf18f528b6b994d1248b48d9",
+            "actual_eof": 56,
+            "assessed_ranges": [
+              [
+                1,
+                56
+              ]
+            ],
+            "read_pointer": "/connected/3",
+            "registration": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+              "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+            },
+            "registration_pointer": "/sources/3",
+            "original_credit_now": 0,
+            "original_role_credit_now": 0,
+            "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer.",
+            "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+            "same_lens_only": true,
+            "count_once_when_frontier_reaches": true
+          }
+        ]
+      },
+      "qualification": "Exact immutable receipt only. Delta/frontier from exact prior immutable state and ordered source rows; current/global remain false as whole audit incomplete. Future proof naming/explicit same-lens count-once metadata qualified additively from existing exact source identity/revision/ranges and zero-early-credit scope, no new body read or identity."
+    }
+  ],
+  "limits": [
+    "No generic missing-field defaults. No source body/range/admission/chronology expansion. No qualification of unrelated receipts. Exact original role delta total15 only after root adoption; all connected proofs remain zero early credit. No current/main or other-lens transfer."
+  ],
+  "authoritative_counts_changed": false,
+  "product_execution": false,
+  "accepted_unique_count_change": 0
+}

@@ -1,0 +1,9 @@
+import hashlib,json
+from pathlib import Path
+import numpy as np
+root=Path('target/726-intake-20261030');src=root/'mhr-release-v1.0.1/assets/corrective_activation.npz';dst=root/'mhr-release-v1.0.1/float_index_activation_1083.npz'
+with np.load(src,allow_pickle=False) as z:arrays={key:z[key] for key in z.files}
+index=arrays['0.sparse_indices'].astype(np.float64);assert index[0,100]==2 and index[1,100]==70
+index[0,100]=np.nan;arrays['0.sparse_indices']=index;np.savez_compressed(dst,**arrays)
+receipt={'source_sha256':hashlib.sha256(src.read_bytes()).hexdigest(),'fixture_sha256':hashlib.sha256(dst.read_bytes()).hexdigest(),'index_dtype':index.dtype.str,'altered_coordinate':[0,100],'old_value':2,'new_value':'NaN','scope':'derived malformed activation archive; original unchanged'}
+(root/'float_index_1083-receipt.json').write_text(json.dumps(receipt,indent=2)+'\n',encoding='utf-8');print(json.dumps(receipt,indent=2))

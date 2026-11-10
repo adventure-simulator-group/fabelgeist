@@ -1,0 +1,635 @@
+{
+  "lens": 13,
+  "status": "Immutable exact source/deletion/own-lens-reuse validation064\u2013065; no authoritative mutation",
+  "frozen_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "frozen_is_not_current_main": true,
+  "batches": [
+    {
+      "batch": 64,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-064.json",
+        "sha256": "ef132b0c77673a6331380961fe4972251d728ed4f677a4dd397505fdf582c843"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-064.json",
+        "sha256": "e25ec2f2859256f2d3c33ad9491cd550e72a41c691fcccac477e06b0b02d6260"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-064-PROPOSAL.json",
+        "sha256": "0daa37ed5d17525dbf50ac220915622cba4dcac6db1b9bb2ebf68cfb47694722"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-063-PROPOSAL.json",
+        "sha256": "da4a8251842da29fe55c0b2525e77545e0cb578ed215ee0923eef4cadca6cb33"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-064.json",
+          "sha256": "330dde9a22c63970b53144ec35fb6c7f3a3439ce8e80c30661c1d7630b576b87"
+        }
+      ],
+      "proposed_next_original": 669
+    },
+    {
+      "batch": 65,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-065.json",
+        "sha256": "8f9e26dcf19225397be59e76b99a0cf2c2cdbf4ed7b462411a38e7d20fe387fe"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-065.json",
+        "sha256": "86a383bf92c2f0057d4b84b4c06dd04d18f1d7e7417c1643717f925d61758f91"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-065-PROPOSAL.json",
+        "sha256": "db7624055ef901eb045f9fdefe4b9435e28abca814e36aa36ed109d6fdbf9e85"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-064-PROPOSAL.json",
+        "sha256": "0daa37ed5d17525dbf50ac220915622cba4dcac6db1b9bb2ebf68cfb47694722"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-065.json",
+          "sha256": "10d5d81b41bb9d5e9cfcca38524b6c989cddabf9ee1fbac20193714237ce3e49"
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-065-CONNECTED-CANONICAL.json",
+          "sha256": "24906fd97bbaefb48b5f1ded440512ea56a4f4290e461bf9bbd0b956153398cb"
+        }
+      ],
+      "proposed_next_original": 673
+    }
+  ],
+  "source_records": [
+    {
+      "original": 661,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/solid_overlap.rs",
+      "sha256": "e61d932304ccb07e313798a4bd6cafd3c7003cf995bb29550db5cfcdf3558d24",
+      "actual_eof": 118,
+      "assessed_ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-064.json",
+        "sha256": "ef132b0c77673a6331380961fe4972251d728ed4f677a4dd397505fdf582c843"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-064.json",
+        "sha256": "330dde9a22c63970b53144ec35fb6c7f3a3439ce8e80c30661c1d7630b576b87"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: registration persisted before numbered body display; no file time inference."
+    },
+    {
+      "original": 663,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/admission_tests.rs",
+      "sha256": "5268a1443a2d6b73539f31a9a5f081be3016051fbca1926bf308882de6c22776",
+      "actual_eof": 104,
+      "assessed_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-064.json",
+        "sha256": "ef132b0c77673a6331380961fe4972251d728ed4f677a4dd397505fdf582c843"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-064.json",
+        "sha256": "330dde9a22c63970b53144ec35fb6c7f3a3439ce8e80c30661c1d7630b576b87"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: registration persisted before numbered body display; no file time inference."
+    },
+    {
+      "original": 665,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/clearance.rs",
+      "sha256": "f80012cc2b501a1972d07633692af386c5cf7997f9862ec94fc113006ee44f5a",
+      "actual_eof": 48,
+      "assessed_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-064.json",
+        "sha256": "ef132b0c77673a6331380961fe4972251d728ed4f677a4dd397505fdf582c843"
+      },
+      "read_pointer": "/rows/2",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-064.json",
+        "sha256": "330dde9a22c63970b53144ec35fb6c7f3a3439ce8e80c30661c1d7630b576b87"
+      },
+      "registration_pointer": "/sources/2",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: registration persisted before numbered body display; no file time inference."
+    },
+    {
+      "original": 671,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "actual_eof": 142,
+      "assessed_ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-065.json",
+        "sha256": "8f9e26dcf19225397be59e76b99a0cf2c2cdbf4ed7b462411a38e7d20fe387fe"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-065.json",
+        "sha256": "10d5d81b41bb9d5e9cfcca38524b6c989cddabf9ee1fbac20193714237ce3e49"
+      },
+      "registration_pointer": "/sources/2",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: registration persisted before numbered body display; no file time inference."
+    },
+    {
+      "original": 672,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/tests.rs",
+      "sha256": "4d0e7f06245f70e6d3ae6904a2870cfea7f6a052fa5da512e1dd5a8768e1cbfc",
+      "actual_eof": 99,
+      "assessed_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-065.json",
+        "sha256": "8f9e26dcf19225397be59e76b99a0cf2c2cdbf4ed7b462411a38e7d20fe387fe"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-065.json",
+        "sha256": "10d5d81b41bb9d5e9cfcca38524b6c989cddabf9ee1fbac20193714237ce3e49"
+      },
+      "registration_pointer": "/sources/3",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: registration persisted before numbered body display; no file time inference."
+    },
+    {
+      "original": 2269,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/error.rs",
+      "sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+      "actual_eof": 95,
+      "assessed_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-065.json",
+        "sha256": "8f9e26dcf19225397be59e76b99a0cf2c2cdbf4ed7b462411a38e7d20fe387fe"
+      },
+      "read_pointer": "/connected_source_reads/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-065-CONNECTED-CANONICAL.json",
+        "sha256": "24906fd97bbaefb48b5f1ded440512ea56a4f4290e461bf9bbd0b956153398cb"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: registration persisted before numbered body display; no file time inference."
+    },
+    {
+      "original": 2270,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/length.rs",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "actual_eof": 40,
+      "assessed_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-065.json",
+        "sha256": "8f9e26dcf19225397be59e76b99a0cf2c2cdbf4ed7b462411a38e7d20fe387fe"
+      },
+      "read_pointer": "/connected_source_reads/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-065-CONNECTED-CANONICAL.json",
+        "sha256": "24906fd97bbaefb48b5f1ded440512ea56a4f4290e461bf9bbd0b956153398cb"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: registration persisted before numbered body display; no file time inference."
+    },
+    {
+      "original": 2272,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/measurement.rs",
+      "sha256": "72ee58eb8ae01af4b7f17ef81f007dfa63c7dc818a1ed71ce5bbba0707236e70",
+      "actual_eof": 104,
+      "assessed_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-065.json",
+        "sha256": "8f9e26dcf19225397be59e76b99a0cf2c2cdbf4ed7b462411a38e7d20fe387fe"
+      },
+      "read_pointer": "/connected_source_reads/2",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-065-CONNECTED-CANONICAL.json",
+        "sha256": "24906fd97bbaefb48b5f1ded440512ea56a4f4290e461bf9bbd0b956153398cb"
+      },
+      "registration_pointer": "/sources/2",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: registration persisted before numbered body display; no file time inference."
+    }
+  ],
+  "deleted_role_records": [
+    {
+      "original": 669,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/length.rs",
+      "sha256": null,
+      "base_sha256": "85b9e28a95b866246fdc9e3c87fbf6c59f3c8ab02b87d623ef1bdaeb3110411a",
+      "actual_eof": null,
+      "assessed_body_ranges": [],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-065.json",
+        "sha256": "8f9e26dcf19225397be59e76b99a0cf2c2cdbf4ed7b462411a38e7d20fe387fe"
+      },
+      "read_pointer": "/deleted_source_contracts/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-065.json",
+        "sha256": "10d5d81b41bb9d5e9cfcca38524b6c989cddabf9ee1fbac20193714237ce3e49"
+      },
+      "registration_pointer": "/sources/0",
+      "git_ls_tree_exact_path_empty_at_verified_commit": true,
+      "registered_before_deletion_contract_assessment_attestation": true,
+      "canonical_replacement_owners": [
+        {
+          "original": 2270,
+          "source_id": "pr-working:crates/fabelgeist-geometry/src/length.rs",
+          "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e"
+        }
+      ],
+      "historical_body_credit": 0,
+      "nonexistent_deleted_body_credit": 0
+    },
+    {
+      "original": 670,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/measurement.rs",
+      "sha256": null,
+      "base_sha256": "1c74872f4983d3d79a526dff9b345c9d8dfbbf1178e1caccdbcdd897f9fb3b28",
+      "actual_eof": null,
+      "assessed_body_ranges": [],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-065.json",
+        "sha256": "8f9e26dcf19225397be59e76b99a0cf2c2cdbf4ed7b462411a38e7d20fe387fe"
+      },
+      "read_pointer": "/deleted_source_contracts/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-065.json",
+        "sha256": "10d5d81b41bb9d5e9cfcca38524b6c989cddabf9ee1fbac20193714237ce3e49"
+      },
+      "registration_pointer": "/sources/1",
+      "git_ls_tree_exact_path_empty_at_verified_commit": true,
+      "registered_before_deletion_contract_assessment_attestation": true,
+      "canonical_replacement_owners": [
+        {
+          "original": 2272,
+          "source_id": "pr-working:crates/fabelgeist-geometry/src/measurement.rs",
+          "sha256": "72ee58eb8ae01af4b7f17ef81f007dfa63c7dc818a1ed71ce5bbba0707236e70"
+        }
+      ],
+      "historical_body_credit": 0,
+      "nonexistent_deleted_body_credit": 0
+    }
+  ],
+  "qualified_same_lens_reuse_records": [
+    {
+      "current_read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-064.json",
+        "sha256": "ef132b0c77673a6331380961fe4972251d728ed4f677a4dd397505fdf582c843"
+      },
+      "reuse_pointer": "/qualified_same_lens_reuse/0",
+      "qualified_reuse": {
+        "original": 662,
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+        "source_sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+        "actual_eof": 29,
+        "read": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-035.json",
+          "sha256": "16200fe6a26d41129e7445dac66bf464a26e323b8836134219d796454f3db6b2"
+        },
+        "read_pointer": "/connected_source_reads/3",
+        "reused_personal_assessed_ranges": [
+          [
+            1,
+            29
+          ]
+        ],
+        "fresh_personal_assessed_ranges": [],
+        "early_original_credit": 0,
+        "count_once_at_ordered_role": true
+      },
+      "prior_exact_personal_identity_and_range_verified": true,
+      "new_body_credit": 0
+    },
+    {
+      "current_read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-064.json",
+        "sha256": "ef132b0c77673a6331380961fe4972251d728ed4f677a4dd397505fdf582c843"
+      },
+      "reuse_pointer": "/qualified_same_lens_reuse/1",
+      "qualified_reuse": {
+        "original": 664,
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/bounds.rs",
+        "source_sha256": "7760db42bc6a6c39f285ff6b2fdacbf6ff98b481d2385630e6bfbbb56a18a786",
+        "actual_eof": 98,
+        "read": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-050.json",
+          "sha256": "5eccf01a83ddeb93d0391647ce24af4f5ad9cb488a2e664a9e2be0df4ea68631"
+        },
+        "read_pointer": "/connected_source_reads/3",
+        "reused_personal_assessed_ranges": [
+          [
+            1,
+            98
+          ]
+        ],
+        "fresh_personal_assessed_ranges": [],
+        "early_original_credit": 0,
+        "count_once_at_ordered_role": true
+      },
+      "prior_exact_personal_identity_and_range_verified": true,
+      "new_body_credit": 0
+    },
+    {
+      "current_read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-064.json",
+        "sha256": "ef132b0c77673a6331380961fe4972251d728ed4f677a4dd397505fdf582c843"
+      },
+      "reuse_pointer": "/qualified_same_lens_reuse/2",
+      "qualified_reuse": {
+        "original": 666,
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+        "source_sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+        "actual_eof": 140,
+        "read": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-055.json",
+          "sha256": "70a0acec64a672b92f2d30ff764dbd718c84fab12d34ea9318cea3dd56a3a01e"
+        },
+        "read_pointer": "/connected_source_reads/1",
+        "reused_personal_assessed_ranges": [
+          [
+            1,
+            140
+          ]
+        ],
+        "fresh_personal_assessed_ranges": [],
+        "early_original_credit": 0,
+        "count_once_at_ordered_role": true
+      },
+      "prior_exact_personal_identity_and_range_verified": true,
+      "new_body_credit": 0
+    },
+    {
+      "current_read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-064.json",
+        "sha256": "ef132b0c77673a6331380961fe4972251d728ed4f677a4dd397505fdf582c843"
+      },
+      "reuse_pointer": "/qualified_same_lens_reuse/3",
+      "qualified_reuse": {
+        "original": 667,
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+        "source_sha256": "4ccc1188de7d5f8bdbf63b71160b8557f76fb524ae47f924381325da11198ee8",
+        "actual_eof": 105,
+        "read": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-035.json",
+          "sha256": "16200fe6a26d41129e7445dac66bf464a26e323b8836134219d796454f3db6b2"
+        },
+        "read_pointer": "/connected_source_reads/2",
+        "reused_personal_assessed_ranges": [
+          [
+            1,
+            105
+          ]
+        ],
+        "fresh_personal_assessed_ranges": [],
+        "early_original_credit": 0,
+        "count_once_at_ordered_role": true
+      },
+      "prior_exact_personal_identity_and_range_verified": true,
+      "new_body_credit": 0
+    },
+    {
+      "current_read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-064.json",
+        "sha256": "ef132b0c77673a6331380961fe4972251d728ed4f677a4dd397505fdf582c843"
+      },
+      "reuse_pointer": "/qualified_same_lens_reuse/4",
+      "qualified_reuse": {
+        "original": 668,
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+        "source_sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+        "actual_eof": 28,
+        "read": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-055.json",
+          "sha256": "70a0acec64a672b92f2d30ff764dbd718c84fab12d34ea9318cea3dd56a3a01e"
+        },
+        "read_pointer": "/connected_source_reads/2",
+        "reused_personal_assessed_ranges": [
+          [
+            1,
+            28
+          ]
+        ],
+        "fresh_personal_assessed_ranges": [],
+        "early_original_credit": 0,
+        "count_once_at_ordered_role": true
+      },
+      "prior_exact_personal_identity_and_range_verified": true,
+      "new_body_credit": 0
+    },
+    {
+      "current_read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-065.json",
+        "sha256": "8f9e26dcf19225397be59e76b99a0cf2c2cdbf4ed7b462411a38e7d20fe387fe"
+      },
+      "reuse_pointer": "/qualified_prior_owner_reuse/0",
+      "qualified_reuse": {
+        "original": 662,
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+        "source_sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+        "read": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-035.json",
+          "sha256": "16200fe6a26d41129e7445dac66bf464a26e323b8836134219d796454f3db6b2"
+        },
+        "read_pointer": "/connected_source_reads/3",
+        "reused_personal_assessed_ranges": [
+          [
+            1,
+            29
+          ]
+        ],
+        "new_body_credit": 0,
+        "new_original_credit": 0
+      },
+      "prior_exact_personal_identity_and_range_verified": true,
+      "new_body_credit": 0
+    },
+    {
+      "current_read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-065.json",
+        "sha256": "8f9e26dcf19225397be59e76b99a0cf2c2cdbf4ed7b462411a38e7d20fe387fe"
+      },
+      "reuse_pointer": "/qualified_prior_owner_reuse/1",
+      "qualified_reuse": {
+        "original": 2271,
+        "source_id": "pr-working:crates/fabelgeist-geometry/src/lib.rs",
+        "source_sha256": "4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+        "read": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-035.json",
+          "sha256": "16200fe6a26d41129e7445dac66bf464a26e323b8836134219d796454f3db6b2"
+        },
+        "read_pointer": "/connected_source_reads/4",
+        "reused_personal_assessed_ranges": [
+          [
+            1,
+            16
+          ]
+        ],
+        "new_body_credit": 0,
+        "new_original_credit": 0
+      },
+      "prior_exact_personal_identity_and_range_verified": true,
+      "new_body_credit": 0
+    }
+  ],
+  "proposed_ordered_roles": [
+    661,
+    662,
+    663,
+    664,
+    665,
+    666,
+    667,
+    668,
+    669,
+    670,
+    671,
+    672
+  ],
+  "future_proofs": [
+    {
+      "original": 2269,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/error.rs",
+      "sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+      "actual_eof": 95,
+      "assessed_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-065.json",
+        "sha256": "8f9e26dcf19225397be59e76b99a0cf2c2cdbf4ed7b462411a38e7d20fe387fe"
+      },
+      "read_pointer": "/connected_source_reads/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-065-CONNECTED-CANONICAL.json",
+        "sha256": "24906fd97bbaefb48b5f1ded440512ea56a4f4290e461bf9bbd0b956153398cb"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: registration persisted before numbered body display; no file time inference."
+    },
+    {
+      "original": 2270,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/length.rs",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "actual_eof": 40,
+      "assessed_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-065.json",
+        "sha256": "8f9e26dcf19225397be59e76b99a0cf2c2cdbf4ed7b462411a38e7d20fe387fe"
+      },
+      "read_pointer": "/connected_source_reads/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-065-CONNECTED-CANONICAL.json",
+        "sha256": "24906fd97bbaefb48b5f1ded440512ea56a4f4290e461bf9bbd0b956153398cb"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: registration persisted before numbered body display; no file time inference."
+    },
+    {
+      "original": 2272,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/measurement.rs",
+      "sha256": "72ee58eb8ae01af4b7f17ef81f007dfa63c7dc818a1ed71ce5bbba0707236e70",
+      "actual_eof": 104,
+      "assessed_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-065.json",
+        "sha256": "8f9e26dcf19225397be59e76b99a0cf2c2cdbf4ed7b462411a38e7d20fe387fe"
+      },
+      "read_pointer": "/connected_source_reads/2",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-065-CONNECTED-CANONICAL.json",
+        "sha256": "24906fd97bbaefb48b5f1ded440512ea56a4f4290e461bf9bbd0b956153398cb"
+      },
+      "registration_pointer": "/sources/2",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: registration persisted before numbered body display; no file time inference."
+    }
+  ],
+  "zero_future_original_credit": true,
+  "necessary_extensions": [],
+  "new_source_ids": 0,
+  "new_original_extra_roles": 0,
+  "qualifications": [
+    "064 fresh661/663/665 plusfiveexactfullreusedroles662/664/666/667/668. All priorfuturecreditzero, orderedcreditproposedonce.",
+    "065 twoactualdeletedroles669/670 haveSHA/EOFnull andbodyrangesempty, assessed through exactGitabsence+canonicalreplacementowners. Theyare not textbodycoverage ornewEOFqualification.",
+    "065671/672 fresh; canonical2269/2270/2272 connectedfresh withfuturecreditzero.662/2271 reexportpriorproof reuse grantszeroadditionaloriginalcredit.",
+    "Historicalbasehash/readranges preserved asmetadata; no personalreadclaimofolddeletedbody.",
+    "Source66359\u201365 corroborates055intendedchecked displacement overflow contract; existingtestnotrun.",
+    "All registrations persisted before corresponding freshbody or deletioncontractassessments, noinventedtimestamps."
+  ],
+  "authoritative_counts_changed": false,
+  "accepted_unique_count_change": 0,
+  "product_execution": false,
+  "current_reconciled": false,
+  "global_clearance": false
+}

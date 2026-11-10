@@ -1,0 +1,103 @@
+1: use super::*;
+2: 
+3: pub(super) fn wearable_protection_for_part(
+4:     ctx: &ReducerContext,
+5:     character_id: u64,
+6:     part: BodyPart,
+7: ) -> Vec<adventuresim_core::equipment::WearableProtection> {
+8:     ctx.db
+9:         .character_equipped_item()
+10:         .character_id()
+11:         .filter(character_id)
+12:         .filter_map(|equipped| {
+13:             let inventory = ctx
+14:                 .db
+15:                 .inventory_item()
+16:                 .id()
+17:                 .find(equipped.inventory_item_id)?;
+18:             let item = effective_item_definition(ctx, Some(inventory.id))?;
+19:             let placement = item
+20:                 .equipment_placements
+21:                 .iter()
+22:                 .find(|placement| placement.id == equipped.placement_id)?;
+23:             if !placement
+24:                 .protection
+25:                 .iter()
+26:                 .any(|target| runtime_body_part(*target) == part)
+27:             {
+28:                 return None;
+29:             }
+30:             let (channel, order) = ctx
+31:                 .db
+32:                 .equipment_occupancy()
+33:                 .inventory_item_id()
+34:                 .filter(inventory.id)
+35:                 .max_by_key(|row| (row.channel.order(), row.order))
+36:                 .map_or((EquipmentChannel::Containment, 0), |row| {
+37:                     (row.channel, row.order)
+38:                 });
+39:             Some(adventuresim_core::equipment::WearableProtection {
+40:                 inventory_item_id: inventory.id,
+41:                 body_part: part,
+42:                 channel,
+43:                 order,
+44:                 coverage: item.coverage,
+45:                 resistance: item.resistance,
+46:                 padding: item.padding,
+47:                 flexibility: item.flexibility,
+48:                 range_of_motion: item.range_of_motion,
+49:             })
+50:         })
+51:         .collect()
+52: }
+53: 
+54: pub(super) fn effective_item_definition(
+55:     ctx: &ReducerContext,
+56:     inventory_id: Option<u64>,
+57: ) -> Option<Item> {
+58:     let id = inventory_id?;
+59:     let inventory = ctx.db.inventory_item().id().find(id)?;
+60:     let mut item = ctx.db.item().id().find(&inventory.item_id)?;
+61:     if let Some(condition) = ctx.db.item_condition().inventory_item_id().find(id) {
+62:         let damage = condition.bins();
+63:         item.precision = effective_weapon_stat(item.precision, damage, item.edge_sensitivity);
+64:         item.block = effective_weapon_stat(item.block, damage, item.handling_sensitivity);
+65:         item.range_of_motion =
+66:             effective_handling(item.range_of_motion, damage, item.handling_sensitivity);
+67:         item.resistance = effective_weapon_stat(item.resistance, damage, 0.1);
+68:     }
+69:     Some(item)
+70: }
+71: 
+72: pub(super) fn armor_material(
+73:     ctx: &ReducerContext,
+74:     inventory_item_id: u64,
+75: ) -> Option<adventuresim_core::item_catalog::EquipmentMaterial> {
+76:     ctx.db
+77:         .inventory_item()
+78:         .id()
+79:         .find(inventory_item_id)
+80:         .and_then(|inventory| adventuresim_core::item_catalog::definition(&inventory.item_id))
+81:         .and_then(|definition| definition.equipment.as_ref())
+82:         .and_then(|equipment| equipment.material)
+83: }
+84: 
+85: pub(super) fn equipped_armor_coverage(
+86:     ctx: &ReducerContext,
+87:     inventory_item_id: u64,
+88:     part: BodyPart,
+89: ) -> Option<adventuresim_core::combat::AuthoredArmorCoverage> {
+90:     let inventory = ctx.db.inventory_item().id().find(inventory_item_id)?;
+91:     let equipped = ctx
+92:         .db
+93:         .character_equipped_item()
+94:         .inventory_item_id()
+95:         .find(inventory_item_id)?;
+96:     let definition = adventuresim_core::item_catalog::definition(&inventory.item_id)?;
+97:     let equipment = definition.equipment.as_ref()?;
+98:     let placement = equipment
+99:         .placements
+100:         .iter()
+101:         .find(|placement| placement.id == equipped.placement_id)?;
+102:     Some(adventuresim_core::combat::AuthoredArmorCoverage::from_placement(placement, part))
+103: }

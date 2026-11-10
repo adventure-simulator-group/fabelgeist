@@ -1,0 +1,21 @@
+from pathlib import Path
+from datetime import datetime,timezone
+import json,hashlib
+i=Path.cwd()/'target/726-intake-20261030';w=Path.cwd()/'target/726-audit-continuation-20261030';r=w/'target/726-audit-adler-20261027'
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def read(p):return json.loads(p.read_bytes())
+assert sha(i/'CURRENT.json')=='bbac6302ee3b300812ee427191324147cfc4436b8b2a4dab6f5e4def0f967aab'
+co=read(r/'evidence/continuation-segovb/ledger.json')['segovb_continuation']['lens13'];assert co['next_original']==2805 and len(co['discovery_receipts'])==723
+registry=r/'evidence/audit05/original-scope-072.json';assert sha(registry)=='d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f';files=read(registry)['files'];targets={files[n]['sha256']:n for n in range(2805,2823)};hits=[]
+for v in co['discovery_receipts']:
+ ps={p.resolve()for p in[r/v['path'],w/v['path'],r/'evidence/continuation-segovb'/v['path']]if p.is_file()and sha(p)==v['sha256']};assert len(ps)==1
+ raw=ps.pop().read_bytes()
+ for h,n in targets.items():
+  if h.encode()in raw:hits.append({'original':n,'receipt':v})
+futures=[v for v in co['future_same_lens_reuse_proofs']if any(h in json.dumps(v)for h in targets)];apps=[v for v in co['future_same_lens_ordered_applications']if any(h in json.dumps(v)for h in targets)]
+d={'at':datetime.now(timezone.utc).isoformat(),'author':'/root','kind':'Metadata-only exact source/hash prior navigation before any fresh body display or new reuse claim','frontier':2805,'prior_same_lens_receipts_authenticated':723,'entries':[{'original':n,'registry_entry':files[n]}for n in range(2805,2823)],'exact_hash_prior_hits':hits,'future_same_lens_proofs_navigation':futures,'prior_applications_preserved_navigation':apps,'body_credit':0,'authority_changes':0}
+p=i/'DISCOVERY-L13-2805-2822-METADATA-001.json'
+with p.open('x',encoding='utf-8',newline='\n')as f:json.dump(d,f,indent=2);f.write('\n')
+print(json.dumps({'sha256':sha(p),'hits':hits,'futures':futures,'apps':apps}))
+for e in d['entries']:
+ f=e['registry_entry'];print(json.dumps({'original':e['original'],'source':f['source_id'],'sha':f['sha256'],'EOF':f['actual_line_count'],'bytes_field_present':'bytes'in f,'bytes':f.get('bytes'),'ranges':f.get('material_ranges'),'scope_kind':f['scope_kind'],'observation_sets':{k:len(v)for k,v in f.items()if k.endswith('observations')}},ensure_ascii=True))

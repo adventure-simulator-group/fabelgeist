@@ -1,0 +1,110 @@
+1: use adventuresim_core::autoresolve::{MeleeIterationBuild, body_part_index};
+2: use adventuresim_tactical_core::prelude::*;
+3: use bevy::prelude::*;
+4: 
+5: pub(super) fn spawn_equipment(world: &mut World, owner: Entity, build: &MeleeIterationBuild) {
+6:     spawn_weapon(world, owner, build);
+7:     spawn_shield(world, owner, build);
+8:     spawn_armor(world, owner, build);
+9: }
+10: 
+11: fn spawn_weapon(world: &mut World, owner: Entity, build: &MeleeIterationBuild) {
+12:     if let Some(weapon) = build.combatant.equipment.melee_weapon {
+13:         let definition = adventuresim_core::item_catalog::definition(build.weapon_id)
+14:             .expect("iteration roster validates its weapon");
+15:         let authored = definition
+16:             .equipment
+17:             .as_ref()
+18:             .expect("weapon equipment metadata");
+19:         let skills = weapon.skills;
+20:         world.spawn((
+21:             ItemOf(owner),
+22:             ItemProperties {
+23:                 id: build.weapon_id.into(),
+24:                 weight: definition.weight_kg,
+25:             },
+26:             TacticalEquipmentPhysical {
+27:                 dimensions_m: Vec3::from_array(authored.physical.dimensions_m),
+28:                 grip_to_tip_m: authored.physical.grip_to_tip_m,
+29:                 striking_head_length_m: weapon.striking_head_length_m,
+30:                 anchor_offset_m: Vec3::from_array(authored.physical.anchor_offset_m),
+31:             },
+32:             TacticalInventoryItemId(1),
+33:             EquipSlot::HoldingRight,
+34:             WeaponItem {
+35:                 striking_material: authored
+36:                     .striking_material
+37:                     .expect("weapon striking material"),
+38:                 skill_weights: [
+39:                     skills.polearm,
+40:                     skills.axe,
+41:                     skills.bludgeon,
+42:                     skills.sword,
+43:                     skills.knife,
+44:                     0.0,
+45:                     0.0,
+46:                     0.0,
+47:                     skills.throw,
+48:                 ],
+49: 
+50:                 prefers_stab: matches!(
+51:                     weapon.preferred_melee_style,
+52:                     adventuresim_core::combat_style::MeleeAttackStyle::Stab
+53:                 ),
+54:                 precision: weapon.precision,
+55:                 reach: weapon.melee_reach,
+56:                 grip_to_tip_m: authored.physical.grip_to_tip_m,
+57:                 moment_of_inertia_kg_m2: match definition.kind {
+58:                     adventuresim_core::item_catalog::ItemKind::Weapon {
+59:                         moment_of_inertia_kg_m2,
+60:                         ..
+61:                     } => moment_of_inertia_kg_m2,
+62:                     _ => unreachable!(),
+63:                 },
+64: 
+65:                 melee: true,
+66:                 ranged: false,
+67:             },
+68:         ));
+69:     }
+70: }
+71: 
+72: fn spawn_shield(world: &mut World, owner: Entity, build: &MeleeIterationBuild) {
+73:     if let Some(shield_id) = build.shield_id {
+74:         let definition = adventuresim_core::item_catalog::definition(shield_id)
+75:             .expect("iteration roster validates its shield");
+76:         world.spawn((
+77:             ItemOf(owner),
+78:             ItemProperties {
+79:                 id: shield_id.into(),
+80:                 weight: definition.weight_kg,
+81:             },
+82:             TacticalInventoryItemId(2),
+83:             EquipSlot::HoldingLeft,
+84:             ShieldItem {
+85:                 block: build.combatant.equipment.shield_block_bonus,
+86:             },
+87:         ));
+88:     }
+89: }
+90: 
+91: fn spawn_armor(world: &mut World, owner: Entity, build: &MeleeIterationBuild) {
+92:     for (item_index, armor_id) in build.armor_ids.iter().enumerate() {
+93:         let definition = adventuresim_core::item_catalog::definition(armor_id)
+94:             .expect("iteration roster validates its armor");
+95:         let authored = definition
+96:             .equipment
+97:             .as_ref()
+98:             .expect("iteration armor has equipment metadata");
+99:         let occurrence = build.armor_ids[..item_index]
+100:             .iter()
+101:             .filter(|prior| *prior == armor_id)
+102:             .count();
+103:         let placement = authored
+104:             .placements
+105:             .get(occurrence % authored.placements.len().max(1))
+106:             .expect("iteration armor has an authored placement");
+107:         let part = placement
+108:             .protection
+109:             .first()
+110:             .copied()

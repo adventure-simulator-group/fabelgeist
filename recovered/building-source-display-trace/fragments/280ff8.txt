@@ -1,0 +1,327 @@
+SOURCE 0 crates/adventuresim-building-generator/src/viewer/run.rs 12133c8b9ec176a6aaba627152c252cec7c616682e8c54ed342aed0107787a63
+150:                         | adventuresim_building_generator::StructuralNodeKind::ChurchButtress
+151:                         | adventuresim_building_generator::StructuralNodeKind::ChurchTowerStage
+152:                         | adventuresim_building_generator::StructuralNodeKind::ChurchBellFrame
+153:                 )
+154:             })
+155:             .map(|node| node.id.0)
+156:             .collect()
+157:     });
+158:     let church_opening_ids = plan.church.as_ref().map_or_else(Vec::new, |_| {
+159:         plan.opening_assemblies
+160:             .iter()
+161:             .filter(|opening| {
+162:                 matches!(
+163:                     opening.host_source,
+164:                     adventuresim_building_generator::WallSourceId::ChurchExterior { .. }
+165:                         | adventuresim_building_generator::WallSourceId::ChurchArcade { .. }
+166:                         | adventuresim_building_generator::WallSourceId::ChurchApse { .. }
+167:                         | adventuresim_building_generator::WallSourceId::ChurchTowerFace { .. }
+168:                         | adventuresim_building_generator::WallSourceId::SquareTowerFace { .. }
+169:                 )
+170:             })
+171:             .map(|opening| opening.id.0)
+172:             .collect()
+173:     });
+174:     let church_focus_ids = church_focus_item_ids(&plan, view);
+175:     let church_focus_set = church_focus_ids
+176:         .iter()
+177:         .copied()
+178:         .collect::<std::collections::BTreeSet<_>>();
+179:     let church_focused_roles = plan
+180:         .resolved_geometry
+181:         .solids
+182:         .iter()
+183:         .filter(|solid| church_focus_set.contains(&solid.id.0))
+184:         .map(|solid| format!("{:?}", solid.role))
+185:         .collect::<std::collections::BTreeSet<_>>()
+186:         .into_iter()
+187:         .collect::<Vec<_>>();
+188:     let church_target_component_ids = church_target_component_ids(&plan, view);
+189:     let church_required_roles = church_required_roles(view);
+190:     let church_cut_plane = church_cut_plane(&plan, view);
+900:                         .throat_voids
+901:                         .iter()
+902:                         .copied()
+903:                         .chain(defense.access_portal)
+904:                         .chain(defense.firing_apertures.iter().copied())
+905:                         .map(|id| id.0)
+906:                         .collect()
+907:                 })
+908:                 .unwrap_or_default()
+909:         },
+910:         focused_roof_item_ids,
+911:         section_removed_roof_item_ids,
+912:         visible_focused_roof_item_count: 0,
+913:         focused_projected_ray_count: projected_focus
+914:             .map(|defense| {
+915:                 plan.resolved_geometry
+916:                     .projected_defense_rays
+917:                     .iter()
+918:                     .filter(|ray| ray.owner == defense.owner)
+919:                     .count()
+920:             })
+921:             .unwrap_or(0),
+922:         projected_defense_kind: projected_focus.map(|_| projected_kind_slug(projected_kind)),
+923:         projected_defense_deployment: projected_focus
+924:             .map(|defense| projected_deployment_slug(defense.deployment)),
+925:         projected_tactical_target: projected_focus
+926:             .map(|defense| projected_target_slug(defense.tactical_target)),
+927:         visible_focused_resolved_item_count: 0,
+928:         focused_bounds_fraction: [0.0; 4],
+929:         camera_position: [0.0; 3],
+930:         camera_target: [0.0; 3],
+931:         required_focus_object_count: if roof_proof.is_some() {
+932:             focused_roof_indices.len().max(1)
+933:         } else if timber_proof_suffix(view).is_some() {
+934:             timber_focus_ids
+935:                 .len()
+SOURCE 3 crates/adventuresim-building-generator/src/model/resolved_networks.rs f6935151a38ae59a0722eb9ffec6584b50ba1b3c89356185b7b9cdc2eb60dfe9
+200: }
+201: 
+202: #[derive(Clone, Copy, Debug, Serialize, Deserialize)]
+203: pub struct JunctionBond {
+204:     pub id: ResolvedItemId,
+205:     pub owners: [GeometryOwnerId; 2],
+206:     pub bounds: SpatialBounds<Architectural>,
+207:     pub minimum_interface_area_square_metres: f32,
+208:     pub maximum_penetration_metres: f32,
+209: }
+210: 
+211: #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+212: #[serde(rename_all = "snake_case")]
+213: pub enum ProjectedDefenseKind {
+214:     Machicolation,
+215:     Breteche,
+216:     Hoarding,
+217:     Bartizan,
+218: }
+219: 
+220: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+221: #[serde(rename_all = "snake_case")]
+222: pub enum ProjectedDefenseMaterial {
+223:     Masonry,
+224:     Timber,
+225: }
+226: 
+227: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+228: #[serde(rename_all = "snake_case")]
+229: pub enum ProjectedDefensePhase {
+230:     PermanentMainWork,
+231:     TemporaryCampaignWork,
+232: }
+233: 
+234: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+235: #[serde(rename_all = "snake_case")]
+236: pub enum ProjectedDefenseDeployment {
+237:     Permanent,
+238:     SocketsOnly,
+239:     Deployed,
+240: }
+241: 
+242: /// Tactical reason for installing a projected defense. These labels keep
+243: /// curated full-building fixtures from becoming an ahistorical catalogue of
+244: /// unrelated devices merely because the resolver can construct them.
+245: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+246: #[serde(rename_all = "snake_case")]
+247: pub enum ProjectedDefenseTarget {
+248:     GateApproach,
+249:     ThreatenedWallFoot,
+250:     ThreatenedCorner,
+251:     CampaignSiegeFront,
+252: }
+253: 
+254: #[derive(Clone, Copy, Debug, Serialize, Deserialize)]
+255: #[serde(rename_all = "snake_case", tag = "kind")]
+256: pub enum ProjectedDefensePath {
+257:     Linear {
+258:         start: Vec2,
+259:         end: Vec2,
+260:         outward: Direction,
+261:     },
+262:     Round {
+263:         centre: Vec2,
+264:         radius_metres: f32,
+265:         outward: Direction,
+266:     },
+267: }
+268: 
+269: #[derive(Clone, Copy, Debug, Serialize, Deserialize)]
+270: pub struct ProjectedDefenseRay {
+271:     pub owner: GeometryOwnerId,
+272:     pub throat: ResolvedItemId,
+273:     pub stance: Vec3,
+274:     pub origin: Vec3,
+275:     pub target: Vec3,
+276:     pub range: ProjectedDefenseRange,
+277: }
+278: 
+279: #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+280: #[serde(rename_all = "snake_case")]
+281: pub enum ProjectedDefenseRange {
+282:     Near,
+283:     Middle,
+284:     Far,
+285: }
+286: 
+287: #[derive(Clone, Copy, Debug, Serialize, Deserialize)]
+288: pub struct ProjectedDefenseWorkingPoint {
+289:     pub owner: GeometryOwnerId,
+290:     pub aperture: ResolvedItemId,
+291:     pub stance: Vec3,
+292:     pub eye: Vec3,
+293:     pub support_solid: ResolvedItemId,
+294: }
+295: 
+296: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+297: #[serde(rename_all = "snake_case")]
+298: pub enum ProjectedDefenseHostTopology {
+299:     LinearFace,
+300:     CornerFaces,
+301:     Buttress,
+302: }
+303: 
+304: /// Exact source-wall identity replaced by the resolved host masonry.
+305: ///
+306: /// The renderer suppresses these legacy wall cells and draws the resolved,
+307: /// opening-aware replacement instead. This prevents a projected defense from
+308: /// manufacturing an additive witness wall unrelated to the building model.
+309: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+310: pub struct ProjectedDefenseHostWallSource {
+311:     pub storey_level: u16,
+312:     pub wall_index: usize,
+313: }
+314: 
+315: #[derive(Clone, Debug, Serialize, Deserialize)]
+316: pub struct ProjectedDefenseAssembly {
+317:     pub owner: GeometryOwnerId,
+318:     /// Authoritative resolved masonry host. It is deliberately a distinct
+319:     /// owner so junction bonds and void subtraction cannot be satisfied by
+320:     /// projection-owned witness geometry.
+321:     pub host_owner: GeometryOwnerId,
+322:     pub host_wall_solids: Vec<ResolvedItemId>,
+323:     pub host_buttress_solids: Vec<ResolvedItemId>,
+324:     pub host_source_walls: Vec<ProjectedDefenseHostWallSource>,
+325:     pub host_top_elevation_metres: f32,
+326:     pub host_topology: ProjectedDefenseHostTopology,
+327:     pub host_walk_solid: ResolvedItemId,
+328:     pub host_portal_void: Option<ResolvedItemId>,
+329:     pub host_bond: Option<ResolvedItemId>,
+330:     pub beam_socket_voids: Vec<ResolvedItemId>,
+331:     pub socket_joists: Vec<(ResolvedItemId, ResolvedItemId)>,
+332:     pub kind: ProjectedDefenseKind,
+333:     pub material: ProjectedDefenseMaterial,
+334:     pub phase: ProjectedDefensePhase,
+335:     pub deployment: ProjectedDefenseDeployment,
+336:     pub tactical_target: ProjectedDefenseTarget,
+337:     pub path: ProjectedDefensePath,
+338:     pub floor_elevation_metres: f32,
+339:     pub clear_width_metres: f32,
+340:     pub clear_height_metres: f32,
+341:     pub projection_metres: f32,
+342:     pub breastwork_height_metres: f32,
+343:     pub roofed: bool,
+344:     pub floor_solids: Vec<ResolvedItemId>,
+345:     pub throat_voids: Vec<ResolvedItemId>,
+346:     pub access_portal: Option<ResolvedItemId>,
+347:     pub access_landing: Option<ResolvedItemId>,
+348:     pub firing_apertures: Vec<ResolvedItemId>,
+349:     pub support_nodes: Vec<StructuralNodeId>,
+350:     pub drain_route: Option<ResolvedItemId>,
+SOURCE 4 crates/adventuresim-building-generator/src/model/artillery.rs 420aa73df08a4cac0fc9b35d3ca1827d4e023ae66ec003a15cd51d9254e7872c
+140:     pub station_ids: Vec<ArtilleryStationId>,
+141:     pub support_nodes: Vec<StructuralNodeId>,
+142: }
+143: 
+144: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+145: #[serde(rename_all = "snake_case")]
+146: pub enum BridgeState {
+147:     Deployed,
+148:     Denied,
+149: }
+150: 
+151: #[derive(Clone, Debug, Serialize, Deserialize)]
+152: pub struct ArtilleryBridgeAssembly {
+153:     pub state: BridgeState,
+154:     pub clear_width_metres: f32,
+155:     pub inner_abutment: ResolvedItemId,
+156:     pub outer_abutment: ResolvedItemId,
+157:     pub fixed_solids: Vec<ResolvedItemId>,
+158:     pub removable_solids: Vec<ResolvedItemId>,
+159:     pub denied_gap_void: Option<ResolvedItemId>,
+160:     pub route_surface: Option<ResolvedItemId>,
+161:     pub control_surfaces: [ResolvedItemId; 2],
+162: }
+163: 
+164: #[derive(Clone, Debug, Serialize, Deserialize)]
+165: pub struct ArtilleryDitchAssembly {
+166:     pub width_metres: f32,
+167:     pub depth_metres: f32,
+168:     pub void_id: ResolvedItemId,
+169:     pub scarp_solids: Vec<ResolvedItemId>,
+170:     pub counterscarp_solids: Vec<ResolvedItemId>,
+171:     pub floor_solids: Vec<ResolvedItemId>,
+172:     pub drainage_routes: Vec<ResolvedItemId>,
+173:     pub outlet_surface: ResolvedItemId,
+174: }
+175: 
+SOURCE 5 crates/adventuresim-building-generator/src/viewer/focus_helpers.rs a0b977f93b1c8a862dc61c2adccdc8ec10fae73f1b796584203ee50588b9420c
+565: const fn projected_kind_slug(kind: ProjectedProofKind) -> &'static str {
+566:     match kind {
+567:         ProjectedProofKind::Machicolation => "machicolation",
+568:         ProjectedProofKind::Breteche => "breteche",
+569:         ProjectedProofKind::Hoarding => "hoarding",
+570:         ProjectedProofKind::Bartizan => "bartizan",
+571:     }
+572: }
+573: 
+574: const fn projected_deployment_slug(deployment: ProjectedDefenseDeployment) -> &'static str {
+575:     match deployment {
+576:         ProjectedDefenseDeployment::Permanent => "permanent",
+577:         ProjectedDefenseDeployment::SocketsOnly => "sockets_only",
+578:         ProjectedDefenseDeployment::Deployed => "deployed",
+579:     }
+580: }
+581: 
+582: const fn projected_target_slug(target: ProjectedDefenseTarget) -> &'static str {
+583:     match target {
+584:         ProjectedDefenseTarget::GateApproach => "gate_approach",
+585:         ProjectedDefenseTarget::ThreatenedWallFoot => "threatened_wall_foot",
+586:         ProjectedDefenseTarget::ThreatenedCorner => "threatened_corner",
+587:         ProjectedDefenseTarget::CampaignSiegeFront => "campaign_siege_front",
+588:     }
+589: }
+590: 
+591: fn focused_projected_defense(
+592:     plan: &BuildingPlan,
+593:     view: ViewerView,
+594:     kind: ProjectedProofKind,
+595: ) -> Option<&adventuresim_building_generator::ProjectedDefenseAssembly> {
+596:     use adventuresim_building_generator::ProjectedDefenseDeployment;
+597:     plan.projected_defenses.iter().find(|defense| {
+598:         projected_kind_matches(defense, kind)
+599:             && if view == ViewerView::ProjectedSockets {
+600:                 defense.deployment == ProjectedDefenseDeployment::SocketsOnly
+601:             } else if kind == ProjectedProofKind::Hoarding {
+602:                 defense.deployment == ProjectedDefenseDeployment::Deployed
+603:             } else {
+604:                 true
+605:             }
+606:     })
+607: }
+608: 
+609: fn focused_projected_item_ids(
+610:     plan: &BuildingPlan,
+611:     view: ViewerView,
+612:     kind: ProjectedProofKind,
+613: ) -> Vec<u64> {
+614:     let Some(defense) = focused_projected_defense(plan, view, kind) else {
+615:         return Vec::new();
+616:     };
+617:     plan.resolved_geometry
+618:         .solids
+619:         .iter()
+620:         .filter(|solid| solid.owner == defense.owner || solid.owner == defense.host_owner)
+621:         .map(|solid| solid.id.0)
+622:         .collect()
+623: }

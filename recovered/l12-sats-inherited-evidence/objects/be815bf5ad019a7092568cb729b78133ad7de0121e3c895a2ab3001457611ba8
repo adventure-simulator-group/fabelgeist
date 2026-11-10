@@ -1,0 +1,399 @@
+{
+  "kind": "Isolatedordered L12 prospectiveassessmentproposal; rootadoptionrequired",
+  "lens": 12,
+  "proposed_batch": 795,
+  "proposed_original_before": 2384,
+  "proposed_original_after": 2386,
+  "predecessor_proposal": "parallel-l12-20261029/PROPOSAL-L12-794.json",
+  "predecessor_proposal_sha256": "85c584b9bbfda27a94d49b88a5b8dcfb53a342f6a38349948103956ce2731db2",
+  "rows": [
+    {
+      "original_index": 2384,
+      "source_id": "pr-working:crates/strategic-web/src/session.rs",
+      "source_sha256": "6be4223e4e49787ef289a75602ec8a113d2c0b7220292db0ed9de21eee34e50d",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/strategic-web/src/session.rs",
+      "actual_EOF": 355,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-377.json",
+      "registration_sha256": "162077fed059c6da4294ede595f762a69d8f0bdde194c64ffada1b363b0332bf",
+      "assessed_ranges": [
+        [
+          1,
+          355
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          355
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "Allnestedrangefieldschecked; noflat/beyondEOF",
+      "function_contract": {
+        "exact_function_ownership": [
+          "SessionCodecError39/from_secret53/issue66/issue_at73/verify85/verify_at89/sign114/setcookie121; unix130/ownerkey137; GrantedCharacterId148; Session163/accessors171..189; FromRequestParts204..254; redirectcookie256/clear272; tests276..355"
+        ],
+        "string_inventory": [
+          "Nativecookie constant23/version24/cryptoowner-domain26 aredistinctnativeprotocol namespaces, no versionaliasjustsamewordv1/v2. NativeSignedtoken String78/IssuedSession48/Session165 nativecookie/header role; sourceopaqueformatonly, validatedHMAC beforeownerauthority220. OwnerKey hashString137->Issued49/Session164/internalAPI183/nativeSQL228 issemanticbrowsergrantidentity; exactsharednativeproducer/currentowner neededbeforefinalcrateplacement.",
+          "Header/cookieformat124 andAuthorizationwirecookie extraction215 nativeports. No dynamicprivilegedbranch byhumanerrorprose. SessionUnavailable loggedtypedcause231->HTTP503194 typedavailabilitymode, notautomaticlostErrorfinding. SecretInvalidSecret56/59 structuralnativeadmissionclass deliberatelycoversinvalidbase64/length; no demandedsecretvaluecontext."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Secretbase64nativeconfig -> exact32bytes53..63 -> getrandom32id68 -> HMACsignedopaqueencodedtoken78 + owner_keySHA137 -> IssuedSession48/49 -> nativecookieheader263 -> browsercookie -> HMACverify89/105/timebound106 -> rawOwnerKey111 -> nativeDBbrowsergrants query227 -> exactownercheck235 -> GrantedCharacterId242/245 -> retainedSession248 -> internalowner_key/token APIs183/187 -> nativeDB/cookieports.",
+          "NativeDBgrantqueryfailure logs232 -> typedSessionUnavailable233 -> nativeHTTP503194; malformed/expired/forgedcookie220 -> anonymousSessiondefault222 explicitfailclosedmode, no oldv1/tokenfallback."
+        ],
+        "conditional_cases": [
+          "Nativebase64/HMAC/getrandom/CookieJar/HeaderValue bodies mustbeexactlyregistered/readwhere semantics require; comment83 isnotconstant-time proof. sign116 expect fixed32byteSecretfromconstructor, noordinaryinvalidkeypanicproved withoutactualnativeHMACcontract.",
+          "CookieJarerror213 -> defaultanonymous; verifybadsyntax/signature/timefailureNone -> anonymous intentionalfailclosed publicmode. HeaderValue263 invalidformattedcookie omitted, no actualnormalIssuedtokenfailure/injectionwitness; actualnativebrowserencodingcontract pending.",
+          "Securecookiefalse intendedconfiguredmode; no automaticsecurityrecommendation orbackcompatdefect. Owner-domainv1 andsessionwirev2 distinctpurposes; clearingselectionkeepsopaquebrowsergrantsperactualclear270..274 doc, do notrestoreobsoletecookie-clearingbehavior.",
+          "PublicIssuedSession/DebugSessiontoken areopaquecredentialtransport; actualloggingconsumer neededbeforeclaimedcredentialdisclosure, noneclaimed. No actualusersecretsread, onlysourcefixtures.",
+          "GrantedCharacterIdprivateconstruct242/245 afterverifiedowner/nativegrants; numericgetter171/175 discardsproof atAPI boundary forotherlenses/current, no L12crosslensverdictcredit. Exactnativebackendbrowsergrantproducer/sharedOwnerKey definition/current/all20 remainopen."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2385,
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+      "source_sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/strategic-web/src/spacetimedb/client.rs",
+      "actual_EOF": 273,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-378.json",
+      "registration_sha256": "92741cea024a85d9058de5de959b859f5e40e7025b1a8e371c6d4449cbd3e343",
+      "assessed_ranges": [
+        [
+          1,
+          273
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          273
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "Allnestedrangefieldschecked; noflat/beyondEOF",
+      "function_contract": {
+        "exact_function_ownership": [
+          "SpacetimeError22/reducer_code32; QueryMetrics45/delta51; Client67/new77/token91; query_response107..132/query_sats136/query_one142/query_into155/query_one_into175/call193..219; tests222..273"
+        ],
+        "string_inventory": [
+          "ErrorHttp24/Json26 retainconcrete nativecauses; Spacetime(String)28 overloadsnativeHTTPtext127/215 withclosedcardinality145 andUprojectionerror166/186. NativeopaqueHTTPbodyString alonelegitimatenativepayload; droppedstatus/bodyreadcause andinternalclosedproducerclassification separatefirstcontracts.",
+          "BaseURL/database/token retainedString69..71 + reducerstr193/nativeSQLstr107 actualHTTPprotocol boundary; actualnativeURLidentifierformat/config admission/credential producer/current owner needsbodyproof before newcanonicalowner finding. NativeAuthorization112/202 finalnativewirekey/Bearer encoding.",
+          "reducer_code38 nativeprotocolparser coreReducerErrorCode, doesnotprovehumanproseclassification. Actualcoreparser983/decoder2386/types2389 necessary bodyqueue; no errorprose/backwardsAPI preservation imposed."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "NativeHTTPconfig/dbtoken -> retainedClient -> SQL/reducernativeURL/body110/199 -> reqwest.send116/206 -> typedHttpError24 orResponse -> non-successstatus125/213 thenconsume.text126/214 dropsstatus, optionalbodyreadError -> retainedSpacetimeString127/215 -> appquery/reducerResult -> actualHTTP/log/nativeconsumer.",
+          "SuccessfulHTTP response.text130 -> typedHttpError onbodyfailure orserde_json.parse131 -> typedJson26 -> QueryResponse nativewiretype -> decode_sats_query_response138 -> nativegeneratedrowT -> optionalcardinalitycheck144 -> typedU::try_from165/183 -> formattedSpacetimeString166/186 -> retainedU -> caller. ActualnativeSATS/type/Uerrorbodyproof pending.",
+          "Downstreamquery.to_string/nativecausefindings remainactualforHttp/Json; forUprojection/Cardinality/nativebody branch earliercut maybehereorSATSdecoder, needpervariant firstcontract reconciliation, notaliasallStringfindings."
+        ],
+        "conditional_cases": [
+          "NativeErrorbodytextHTTPunknownforeignmessage mayremainopaque; statuscode andbodyReadError typedcontextshouldnotsilentlydisappear126/214. No productnetworkcall/probe occurred. NativeHTTP/Reqwest/TryFrom/errorcodecactualcontracts neededbeforeacceptance.",
+          "U::Error Displayonly159/179 can beInfallible forsomeactualprojections; instantiatedproductionfallibleUproof types2389needed. PublicgenericfallibleAPI caneraseownedUError166/186 conditionally; no fabricatednormalprojectionfailurewitness.",
+          "queryone145 closedcardinalityerror concretecount/sql currentlyprose; actualmultiplequeryrownativeproducer mustreconcile, invariantqueryoneconsumer legitimatevalid0/1 modes.",
+          "QueryMetrics independentAtomicAcquire vsRelaxed snapshot maybemixedconcurrent-observation: doc96..99 callsmonotoniccounters notatomicpair; no assumedreset/single-requestattributionguarantee. u128elapsedasu64120/wrap counters conditionalnumericcontracts otherlensespending.",
+          "SlowSQLlog122/nativeerrorcardinality146 includesquerycontext; actualsensitivedata/logpolicyrequirescallerproof, no claimedsecretleak. No runtime/testresultsfromfixtures222..273."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false,
+      "identity_specific_windows_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-378-WINDOWS-ORIGINAL2385.json",
+        "sha256": "1cc8062876e578ffed2d43b7c7ad6916fdf467678d3da5e65a423c032f39268e"
+      }
+    }
+  ],
+  "new_original_roles_proposed": 2,
+  "new_overlay_merged_shared_extension_credit": 0,
+  "new_findings": [
+    {
+      "id": "PAR-L12-SESSION-OWNER-KEY-INTERNAL-IDENTITY",
+      "primary_original_index": 2384,
+      "primary_source_sha256": "6be4223e4e49787ef289a75602ec8a113d2c0b7220292db0ed9de21eee34e50d",
+      "classification": "Conditionalowner-placement/migrationcandidate; actualgraphsource-proven, current/nativecanonicalowner closureopen",
+      "first_failed_contract": "SHA256owneridentity137 -> rawhexString144 -> publicIssuedSession.owner_key49/verifiedOwnerKey111 -> retainedSession.owner_key164 andinternalAPI183 -> nativegrantlookup228",
+      "canonical_owner": "Browser session owneridentity ownedbyverifiedissuance/grantboundary; exactsharedcrateplacement pendingnativebackend/currenttypeinventory",
+      "exact_function_ownership": [
+        "owner_key137..145/issue_at73/verify_at89/Session164/owner_key183/grantlookup227"
+      ],
+      "producer_api_state_consumer_native_boundary": [
+        "Secretbase64nativeconfig -> exact32bytes53..63 -> getrandom32id68 -> HMACsignedopaqueencodedtoken78 + owner_keySHA137 -> IssuedSession48/49 -> nativecookieheader263 -> browsercookie -> HMACverify89/105/timebound106 -> rawOwnerKey111 -> nativeDBbrowsergrants query227 -> exactownercheck235 -> GrantedCharacterId242/245 -> retainedSession248 -> internalowner_key/token APIs183/187 -> nativeDB/cookieports.",
+        "NativeDBgrantqueryfailure logs232 -> typedSessionUnavailable233 -> nativeHTTP503194; malformed/expired/forgedcookie220 -> anonymousSessiondefault222 explicitfailclosedmode, no oldv1/tokenfallback."
+      ],
+      "connected_repair_scope": [
+        "Actualnativehash+browserverification -> owneridentityAPI/state/equality/nativeDBgrantboundary; canonicalowner distinctfromcookieToken/sourcepackageDigest despitehexshape"
+      ],
+      "dependencies": [
+        "Actualnativeforeign/SDK/Uprojection/browsergrantproducer/currentowner/all20/exactaliases; nootherlenscredit; source-only notruntimevalidation"
+      ],
+      "acceptance_requirements": [
+        "Carrycanonicalbrowser-owneridentity throughverifiedissuance/sessionstate/API untilnativeDBencoding. Inspectnativebackend/sharedactualownerbefore choosingcrate/typeplacement; do notaliasSourcePackageDigest byhexshape or preserveoldStringAPI."
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-SESSION-RANDOM-NATIVE-CAUSE-ERASURE",
+      "primary_original_index": 2384,
+      "primary_source_sha256": "6be4223e4e49787ef289a75602ec8a113d2c0b7220292db0ed9de21eee34e50d",
+      "classification": "Conditionalnative-diagnosticpolicy finding; concreteerrorvaluecut source-proven, foreignnativebodyunread",
+      "first_failed_contract": "getrandom::fill68 nativefailurevalue discardedintoSessionCodecError::Random unit43 beforepublicissueResult",
+      "canonical_owner": "Session codec issuanceerror retaining actualnativeentropyfailure/context wherediagnosticcontractrequires",
+      "exact_function_ownership": [
+        "SessionCodec::issue66..71 / map68"
+      ],
+      "producer_api_state_consumer_native_boundary": [
+        "Secretbase64nativeconfig -> exact32bytes53..63 -> getrandom32id68 -> HMACsignedopaqueencodedtoken78 + owner_keySHA137 -> IssuedSession48/49 -> nativecookieheader263 -> browsercookie -> HMACverify89/105/timebound106 -> rawOwnerKey111 -> nativeDBbrowsergrants query227 -> exactownercheck235 -> GrantedCharacterId242/245 -> retainedSession248 -> internalowner_key/token APIs183/187 -> nativeDB/cookieports.",
+        "NativeDBgrantqueryfailure logs232 -> typedSessionUnavailable233 -> nativeHTTP503194; malformed/expired/forgedcookie220 -> anonymousSessiondefault222 explicitfailclosedmode, no oldv1/tokenfallback."
+      ],
+      "connected_repair_scope": [
+        "Nativeentropyprovider -> getrandomfill -> SessionCodecError::Random -> issuecaller/config/sessionnativeHTTPfailure; actualforeignerror/bodycallerneeded"
+      ],
+      "dependencies": [
+        "Actualnativeforeign/SDK/Uprojection/browsergrantproducer/currentowner/all20/exactaliases; nootherlenscredit; source-only notruntimevalidation"
+      ],
+      "acceptance_requirements": [
+        "Retainconcretenativeerrororownedstructuralnativecode/context supportedbyactualgetrandomcontract untilfinaldiagnostic; no Box/downcast/oldprose requirement. Nativeerrorpolicy stilldecision, no actualentropyfailureclaim."
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-SPACETIME-QUERY-ONE-SATS-QUERYCARDINALITY",
+      "primary_original_index": 2385,
+      "primary_source_sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+      "classification": "Conditionalpublicgeneric/closed-reason firstcontract; actualinstantiatedfallibleU/current/nativeclosureopen",
+      "first_failed_contract": "query_one_sats: rows.len()>1 -> closedprose145/146 losesstructuredexpected/actual/sqlcontext",
+      "canonical_owner": "Database rowprojection/cardinality error retaining actualsemanticreason andownedUError/context",
+      "exact_function_ownership": [
+        "SpacetimeClient::query_one_sats / firstcut145"
+      ],
+      "producer_api_state_consumer_native_boundary": [
+        "NativeHTTPconfig/dbtoken -> retainedClient -> SQL/reducernativeURL/body110/199 -> reqwest.send116/206 -> typedHttpError24 orResponse -> non-successstatus125/213 thenconsume.text126/214 dropsstatus, optionalbodyreadError -> retainedSpacetimeString127/215 -> appquery/reducerResult -> actualHTTP/log/nativeconsumer.",
+        "SuccessfulHTTP response.text130 -> typedHttpError onbodyfailure orserde_json.parse131 -> typedJson26 -> QueryResponse nativewiretype -> decode_sats_query_response138 -> nativegeneratedrowT -> optionalcardinalitycheck144 -> typedU::try_from165/183 -> formattedSpacetimeString166/186 -> retainedU -> caller. ActualnativeSATS/type/Uerrorbodyproof pending.",
+        "Downstreamquery.to_string/nativecausefindings remainactualforHttp/Json; forUprojection/Cardinality/nativebody branch earliercut maybehereorSATSdecoder, needpervariant firstcontract reconciliation, notaliasallStringfindings."
+      ],
+      "connected_repair_scope": [
+        "NativeHTTP/SATSgeneratedrow -> exactmethod -> retainedSpacetimeString -> applicationconsumer -> nativeHTML/log; two projectionmethods distinctfirstcontracts untilactualaliasproof"
+      ],
+      "dependencies": [
+        "Actualnativeforeign/SDK/Uprojection/browsergrantproducer/currentowner/all20/exactaliases; nootherlenscredit; source-only notruntimevalidation"
+      ],
+      "acceptance_requirements": [
+        "Retainexactcardinalityreason/count oractualfallibleUError/context untilfinalboundary. Validzero/onequery andInfallibleprojection modes remainlegitimate; no requirement preserveDisplay-onlygenericAPI/Boxdowncasts/errorprose."
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-SPACETIME-QUERY-SATS-INTO-PROJECTIONERROR",
+      "primary_original_index": 2385,
+      "primary_source_sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+      "classification": "Conditionalpublicgeneric/closed-reason firstcontract; actualinstantiatedfallibleU/current/nativeclosureopen",
+      "first_failed_contract": "query_sats_into: ActualgenericU::try_from Err -> format166 / Displayonlybound dropsconcreteUError beforeinternalResultSpacetimeString",
+      "canonical_owner": "Database rowprojection/cardinality error retaining actualsemanticreason andownedUError/context",
+      "exact_function_ownership": [
+        "SpacetimeClient::query_sats_into / firstcut166"
+      ],
+      "producer_api_state_consumer_native_boundary": [
+        "NativeHTTPconfig/dbtoken -> retainedClient -> SQL/reducernativeURL/body110/199 -> reqwest.send116/206 -> typedHttpError24 orResponse -> non-successstatus125/213 thenconsume.text126/214 dropsstatus, optionalbodyreadError -> retainedSpacetimeString127/215 -> appquery/reducerResult -> actualHTTP/log/nativeconsumer.",
+        "SuccessfulHTTP response.text130 -> typedHttpError onbodyfailure orserde_json.parse131 -> typedJson26 -> QueryResponse nativewiretype -> decode_sats_query_response138 -> nativegeneratedrowT -> optionalcardinalitycheck144 -> typedU::try_from165/183 -> formattedSpacetimeString166/186 -> retainedU -> caller. ActualnativeSATS/type/Uerrorbodyproof pending.",
+        "Downstreamquery.to_string/nativecausefindings remainactualforHttp/Json; forUprojection/Cardinality/nativebody branch earliercut maybehereorSATSdecoder, needpervariant firstcontract reconciliation, notaliasallStringfindings."
+      ],
+      "connected_repair_scope": [
+        "NativeHTTP/SATSgeneratedrow -> exactmethod -> retainedSpacetimeString -> applicationconsumer -> nativeHTML/log; two projectionmethods distinctfirstcontracts untilactualaliasproof"
+      ],
+      "dependencies": [
+        "Actualnativeforeign/SDK/Uprojection/browsergrantproducer/currentowner/all20/exactaliases; nootherlenscredit; source-only notruntimevalidation"
+      ],
+      "acceptance_requirements": [
+        "Retainexactcardinalityreason/count oractualfallibleUError/context untilfinalboundary. Validzero/onequery andInfallibleprojection modes remainlegitimate; no requirement preserveDisplay-onlygenericAPI/Boxdowncasts/errorprose."
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-SPACETIME-QUERY-ONE-SATS-INTO-PROJECTIONERROR",
+      "primary_original_index": 2385,
+      "primary_source_sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+      "classification": "Conditionalpublicgeneric/closed-reason firstcontract; actualinstantiatedfallibleU/current/nativeclosureopen",
+      "first_failed_contract": "query_one_sats_into: ActualgenericU::try_from Err -> format186 / Displayonlybound dropsconcreteUError beforeinternalResultSpacetimeString",
+      "canonical_owner": "Database rowprojection/cardinality error retaining actualsemanticreason andownedUError/context",
+      "exact_function_ownership": [
+        "SpacetimeClient::query_one_sats_into / firstcut186"
+      ],
+      "producer_api_state_consumer_native_boundary": [
+        "NativeHTTPconfig/dbtoken -> retainedClient -> SQL/reducernativeURL/body110/199 -> reqwest.send116/206 -> typedHttpError24 orResponse -> non-successstatus125/213 thenconsume.text126/214 dropsstatus, optionalbodyreadError -> retainedSpacetimeString127/215 -> appquery/reducerResult -> actualHTTP/log/nativeconsumer.",
+        "SuccessfulHTTP response.text130 -> typedHttpError onbodyfailure orserde_json.parse131 -> typedJson26 -> QueryResponse nativewiretype -> decode_sats_query_response138 -> nativegeneratedrowT -> optionalcardinalitycheck144 -> typedU::try_from165/183 -> formattedSpacetimeString166/186 -> retainedU -> caller. ActualnativeSATS/type/Uerrorbodyproof pending.",
+        "Downstreamquery.to_string/nativecausefindings remainactualforHttp/Json; forUprojection/Cardinality/nativebody branch earliercut maybehereorSATSdecoder, needpervariant firstcontract reconciliation, notaliasallStringfindings."
+      ],
+      "connected_repair_scope": [
+        "NativeHTTP/SATSgeneratedrow -> exactmethod -> retainedSpacetimeString -> applicationconsumer -> nativeHTML/log; two projectionmethods distinctfirstcontracts untilactualaliasproof"
+      ],
+      "dependencies": [
+        "Actualnativeforeign/SDK/Uprojection/browsergrantproducer/currentowner/all20/exactaliases; nootherlenscredit; source-only notruntimevalidation"
+      ],
+      "acceptance_requirements": [
+        "Retainexactcardinalityreason/count oractualfallibleUError/context untilfinalboundary. Validzero/onequery andInfallibleprojection modes remainlegitimate; no requirement preserveDisplay-onlygenericAPI/Boxdowncasts/errorprose."
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-SPACETIME-QUERY-RESPONSE-FAILED-HTTP-STATUS",
+      "primary_original_index": 2385,
+      "primary_source_sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+      "classification": "L12 actualnative-status erasure contract; nativewire/runtime/currentclosureopen",
+      "first_failed_contract": "Non-successResponse status checked thenconsumedastext126; onlybodyStringretained at127, actualnativeHTTPStatusCode lost",
+      "canonical_owner": "Failed databaseHTTP response envelope retaining nativeStatusCode/operation andopaqueorstructuredbody",
+      "exact_function_ownership": [
+        "SpacetimeClient::query_response / non-success125..127"
+      ],
+      "producer_api_state_consumer_native_boundary": [
+        "NativeHTTPconfig/dbtoken -> retainedClient -> SQL/reducernativeURL/body110/199 -> reqwest.send116/206 -> typedHttpError24 orResponse -> non-successstatus125/213 thenconsume.text126/214 dropsstatus, optionalbodyreadError -> retainedSpacetimeString127/215 -> appquery/reducerResult -> actualHTTP/log/nativeconsumer.",
+        "SuccessfulHTTP response.text130 -> typedHttpError onbodyfailure orserde_json.parse131 -> typedJson26 -> QueryResponse nativewiretype -> decode_sats_query_response138 -> nativegeneratedrowT -> optionalcardinalitycheck144 -> typedU::try_from165/183 -> formattedSpacetimeString166/186 -> retainedU -> caller. ActualnativeSATS/type/Uerrorbodyproof pending.",
+        "Downstreamquery.to_string/nativecausefindings remainactualforHttp/Json; forUprojection/Cardinality/nativebody branch earliercut maybehereorSATSdecoder, needpervariant firstcontract reconciliation, notaliasallStringfindings."
+      ],
+      "connected_repair_scope": [
+        "NativeHTTPResponse -> status.is_successfalse -> textconsumesresponse -> SpacetimeString -> internalResult -> nativeconsumer"
+      ],
+      "dependencies": [
+        "Actualnativeforeign/SDK/Uprojection/browsergrantproducer/currentowner/all20/exactaliases; nootherlenscredit; source-only notruntimevalidation"
+      ],
+      "acceptance_requirements": [
+        "Keep actualstatus/operation andtypedbody-read result throughinternalerrorenvelope untilfinalnativeboundary. NativeopaquehumanbodymayremainString; closedquery/projectioncases separate."
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-SPACETIME-QUERY-RESPONSE-FAILED-HTTP-BODY-READ-CAUSE",
+      "primary_original_index": 2385,
+      "primary_source_sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+      "classification": "Conditionalnativebody-readfailure firstcontract; source-provenloss, no injectedfailurewitness",
+      "first_failed_contract": "Non-successResponse.text Err(reqwest::Error) -> unwrap_or_default126 collapsesactualbodyreadfailure intovalidemptybodyString",
+      "canonical_owner": "Failed databaseHTTP body-read error context underactualfailedResponse status/operation",
+      "exact_function_ownership": [
+        "SpacetimeClient::query_response / bodyread126"
+      ],
+      "producer_api_state_consumer_native_boundary": [
+        "NativeHTTPconfig/dbtoken -> retainedClient -> SQL/reducernativeURL/body110/199 -> reqwest.send116/206 -> typedHttpError24 orResponse -> non-successstatus125/213 thenconsume.text126/214 dropsstatus, optionalbodyreadError -> retainedSpacetimeString127/215 -> appquery/reducerResult -> actualHTTP/log/nativeconsumer.",
+        "SuccessfulHTTP response.text130 -> typedHttpError onbodyfailure orserde_json.parse131 -> typedJson26 -> QueryResponse nativewiretype -> decode_sats_query_response138 -> nativegeneratedrowT -> optionalcardinalitycheck144 -> typedU::try_from165/183 -> formattedSpacetimeString166/186 -> retainedU -> caller. ActualnativeSATS/type/Uerrorbodyproof pending.",
+        "Downstreamquery.to_string/nativecausefindings remainactualforHttp/Json; forUprojection/Cardinality/nativebody branch earliercut maybehereorSATSdecoder, needpervariant firstcontract reconciliation, notaliasallStringfindings."
+      ],
+      "connected_repair_scope": [
+        "NativefailedResponse -> typedReqwestbodyreadError -> defaultemptyString -> SpacetimeString -> consumer; distinguishnativebodywasactuallyempty"
+      ],
+      "dependencies": [
+        "Actualnativeforeign/SDK/Uprojection/browsergrantproducer/currentowner/all20/exactaliases; nootherlenscredit; source-only notruntimevalidation"
+      ],
+      "acceptance_requirements": [
+        "Keep actualbodyreadcause distinctfromvalidemptybody/status underchosenresponsepolicy; no actualnetworkfailureprobe or errorprose/backwardsAPI preservation."
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-SPACETIME-CALL-FAILED-HTTP-STATUS",
+      "primary_original_index": 2385,
+      "primary_source_sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+      "classification": "L12 actualnative-status erasure contract; nativewire/runtime/currentclosureopen",
+      "first_failed_contract": "Non-successResponse status checked thenconsumedastext214; onlybodyStringretained at215, actualnativeHTTPStatusCode lost",
+      "canonical_owner": "Failed databaseHTTP response envelope retaining nativeStatusCode/operation andopaqueorstructuredbody",
+      "exact_function_ownership": [
+        "SpacetimeClient::call / non-success213..215"
+      ],
+      "producer_api_state_consumer_native_boundary": [
+        "NativeHTTPconfig/dbtoken -> retainedClient -> SQL/reducernativeURL/body110/199 -> reqwest.send116/206 -> typedHttpError24 orResponse -> non-successstatus125/213 thenconsume.text126/214 dropsstatus, optionalbodyreadError -> retainedSpacetimeString127/215 -> appquery/reducerResult -> actualHTTP/log/nativeconsumer.",
+        "SuccessfulHTTP response.text130 -> typedHttpError onbodyfailure orserde_json.parse131 -> typedJson26 -> QueryResponse nativewiretype -> decode_sats_query_response138 -> nativegeneratedrowT -> optionalcardinalitycheck144 -> typedU::try_from165/183 -> formattedSpacetimeString166/186 -> retainedU -> caller. ActualnativeSATS/type/Uerrorbodyproof pending.",
+        "Downstreamquery.to_string/nativecausefindings remainactualforHttp/Json; forUprojection/Cardinality/nativebody branch earliercut maybehereorSATSdecoder, needpervariant firstcontract reconciliation, notaliasallStringfindings."
+      ],
+      "connected_repair_scope": [
+        "NativeHTTPResponse -> status.is_successfalse -> textconsumesresponse -> SpacetimeString -> internalResult -> nativeconsumer"
+      ],
+      "dependencies": [
+        "Actualnativeforeign/SDK/Uprojection/browsergrantproducer/currentowner/all20/exactaliases; nootherlenscredit; source-only notruntimevalidation"
+      ],
+      "acceptance_requirements": [
+        "Keep actualstatus/operation andtypedbody-read result throughinternalerrorenvelope untilfinalnativeboundary. NativeopaquehumanbodymayremainString; closedquery/projectioncases separate."
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-SPACETIME-CALL-FAILED-HTTP-BODY-READ-CAUSE",
+      "primary_original_index": 2385,
+      "primary_source_sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+      "classification": "Conditionalnativebody-readfailure firstcontract; source-provenloss, no injectedfailurewitness",
+      "first_failed_contract": "Non-successResponse.text Err(reqwest::Error) -> unwrap_or_default214 collapsesactualbodyreadfailure intovalidemptybodyString",
+      "canonical_owner": "Failed databaseHTTP body-read error context underactualfailedResponse status/operation",
+      "exact_function_ownership": [
+        "SpacetimeClient::call / bodyread214"
+      ],
+      "producer_api_state_consumer_native_boundary": [
+        "NativeHTTPconfig/dbtoken -> retainedClient -> SQL/reducernativeURL/body110/199 -> reqwest.send116/206 -> typedHttpError24 orResponse -> non-successstatus125/213 thenconsume.text126/214 dropsstatus, optionalbodyreadError -> retainedSpacetimeString127/215 -> appquery/reducerResult -> actualHTTP/log/nativeconsumer.",
+        "SuccessfulHTTP response.text130 -> typedHttpError onbodyfailure orserde_json.parse131 -> typedJson26 -> QueryResponse nativewiretype -> decode_sats_query_response138 -> nativegeneratedrowT -> optionalcardinalitycheck144 -> typedU::try_from165/183 -> formattedSpacetimeString166/186 -> retainedU -> caller. ActualnativeSATS/type/Uerrorbodyproof pending.",
+        "Downstreamquery.to_string/nativecausefindings remainactualforHttp/Json; forUprojection/Cardinality/nativebody branch earliercut maybehereorSATSdecoder, needpervariant firstcontract reconciliation, notaliasallStringfindings."
+      ],
+      "connected_repair_scope": [
+        "NativefailedResponse -> typedReqwestbodyreadError -> defaultemptyString -> SpacetimeString -> consumer; distinguishnativebodywasactuallyempty"
+      ],
+      "dependencies": [
+        "Actualnativeforeign/SDK/Uprojection/browsergrantproducer/currentowner/all20/exactaliases; nootherlenscredit; source-only notruntimevalidation"
+      ],
+      "acceptance_requirements": [
+        "Keep actualbodyreadcause distinctfromvalidemptybody/status underchosenresponsepolicy; no actualnetworkfailureprobe or errorprose/backwardsAPI preservation."
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    }
+  ],
+  "accepted_unique_count_change": 0,
+  "pending_connected_contracts": [
+    "Nativebase64/HMAC/getrandom/CookieJar/HeaderValue bodies mustbeexactlyregistered/readwhere semantics require; comment83 isnotconstant-time proof. sign116 expect fixed32byteSecretfromconstructor, noordinaryinvalidkeypanicproved withoutactualnativeHMACcontract.",
+    "CookieJarerror213 -> defaultanonymous; verifybadsyntax/signature/timefailureNone -> anonymous intentionalfailclosed publicmode. HeaderValue263 invalidformattedcookie omitted, no actualnormalIssuedtokenfailure/injectionwitness; actualnativebrowserencodingcontract pending.",
+    "Securecookiefalse intendedconfiguredmode; no automaticsecurityrecommendation orbackcompatdefect. Owner-domainv1 andsessionwirev2 distinctpurposes; clearingselectionkeepsopaquebrowsergrantsperactualclear270..274 doc, do notrestoreobsoletecookie-clearingbehavior.",
+    "PublicIssuedSession/DebugSessiontoken areopaquecredentialtransport; actualloggingconsumer neededbeforeclaimedcredentialdisclosure, noneclaimed. No actualusersecretsread, onlysourcefixtures.",
+    "GrantedCharacterIdprivateconstruct242/245 afterverifiedowner/nativegrants; numericgetter171/175 discardsproof atAPI boundary forotherlenses/current, no L12crosslensverdictcredit. Exactnativebackendbrowsergrantproducer/sharedOwnerKey definition/current/all20 remainopen.",
+    "NativeErrorbodytextHTTPunknownforeignmessage mayremainopaque; statuscode andbodyReadError typedcontextshouldnotsilentlydisappear126/214. No productnetworkcall/probe occurred. NativeHTTP/Reqwest/TryFrom/errorcodecactualcontracts neededbeforeacceptance.",
+    "U::Error Displayonly159/179 can beInfallible forsomeactualprojections; instantiatedproductionfallibleUproof types2389needed. PublicgenericfallibleAPI caneraseownedUError166/186 conditionally; no fabricatednormalprojectionfailurewitness.",
+    "queryone145 closedcardinalityerror concretecount/sql currentlyprose; actualmultiplequeryrownativeproducer mustreconcile, invariantqueryoneconsumer legitimatevalid0/1 modes.",
+    "QueryMetrics independentAtomicAcquire vsRelaxed snapshot maybemixedconcurrent-observation: doc96..99 callsmonotoniccounters notatomicpair; no assumedreset/single-requestattributionguarantee. u128elapsedasu64120/wrap counters conditionalnumericcontracts otherlensespending.",
+    "SlowSQLlog122/nativeerrorcardinality146 includesquerycontext; actualsensitivedata/logpolicyrequirescallerproof, no claimedsecretleak. No runtime/testresultsfromfixtures222..273."
+  ],
+  "necessary_all_other_lens_queue": [
+    {
+      "original_index": 2384,
+      "source_sha256": "6be4223e4e49787ef289a75602ec8a113d2c0b7220292db0ed9de21eee34e50d",
+      "ranges": [
+        [
+          1,
+          355
+        ]
+      ],
+      "credit": 0,
+      "reason": "Actualsession/browsergrant/nativeHTTP/error/SATSprojectioncontracts"
+    },
+    {
+      "original_index": 2385,
+      "source_sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+      "ranges": [
+        [
+          1,
+          273
+        ]
+      ],
+      "credit": 0,
+      "reason": "Actualsession/browsergrant/nativeHTTP/error/SATSprojectioncontracts"
+    }
+  ],
+  "authoritative_ledger_written": false,
+  "current_source_reconciled": false,
+  "implementation_gate_complete": false,
+  "product_execution": false,
+  "runtime_validation": "Notrun; source/evidenceonly",
+  "at": "2026-10-29T22:25:53.721398+00:00"
+}

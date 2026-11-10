@@ -1,0 +1,270 @@
+1: //! Strict conversion of SQL wire values into generated SATS rows.
+2: use super::{Result, SpacetimeError};
+3: use crate::spacetimedb::types::{AlgebraicType, QueryResponse};
+4: use serde_json::Value;
+5: use spacetimedb_sats::{de::DeserializeOwned as SatsDeserializeOwned, serde::SerdeWrapper};
+6: fn sum_variants(algebraic_type: &AlgebraicType) -> Option<&Vec<Value>> {
+7:     let AlgebraicType::Value(ty) = algebraic_type;
+8:     ty.get("Sum")?.get("variants")?.as_array()
+9: }
+10: 
+11: fn variant_name(variant: &Value) -> Option<&str> {
+12:     variant.get("name")?.get("some")?.as_str()
+13: }
+14: 
+15: fn is_option_sum(variants: &[Value]) -> bool {
+16:     if variants.len() != 2 {
+17:         return false;
+18:     }
+19: 
+20:     let names: Vec<_> = variants
+21:         .iter()
+22:         .filter_map(variant_name)
+23:         .map(|s| s.to_ascii_lowercase())
+24:         .collect();
+25: 
+26:     names.iter().any(|n| n == "some") && names.iter().any(|n| n == "none")
+27: }
+28: 
+29: fn product_elements(algebraic_type: &AlgebraicType) -> Option<&Vec<Value>> {
+30:     let AlgebraicType::Value(ty) = algebraic_type;
+31:     ty.get("Product")?.get("elements")?.as_array()
+32: }
+33: 
+34: fn array_element_type(algebraic_type: &AlgebraicType) -> Option<&Value> {
+35:     let AlgebraicType::Value(ty) = algebraic_type;
+36:     ty.get("Array")
+37: }
+38: 
+39: fn serde_variant_name(variant: &Value) -> String {
+40:     let name = variant_name(variant).unwrap_or("Unknown");
+41:     let mut chars = name.chars();
+42:     match chars.next() {
+43:         Some(first) => first.to_uppercase().chain(chars).collect(),
+44:         None => "Unknown".into(),
+45:     }
+46: }
+47: 
+48: fn is_identity_product(elements: &[Value]) -> bool {
+49:     elements.len() == 1
+50:         && elements[0]
+51:             .get("name")
+52:             .and_then(|name| name.get("some"))
+53:             .and_then(Value::as_str)
+54:             == Some("__identity__")
+55: }
+56: 
+57: fn malformed_sats_value(message: impl Into<String>) -> SpacetimeError {
+58:     SpacetimeError::Spacetime(format!(
+59:         "malformed SpacetimeDB SQL value: {}",
+60:         message.into()
+61:     ))
+62: }
+63: 
+64: /// Convert the SQL endpoint's positional wire values to the human-readable
+65: /// representation accepted by SATS' serde bridge. Unlike the presentation
+66: /// conversion above, sums remain explicit one-key objects so their tags never
+67: /// depend on serde enum conventions.
+68: fn convert_spacetime_value_sats(value: &Value, algebraic_type: &AlgebraicType) -> Result<Value> {
+69:     if let Some(element_type) = array_element_type(algebraic_type) {
+70:         // SATS serializes byte arrays as an unprefixed hexadecimal string.
+71:         // Other arrays retain their positional JSON array representation.
+72:         if element_type.get("U8").is_some() {
+73:             let bytes = value
+74:                 .as_str()
+75:                 .ok_or_else(|| malformed_sats_value("expected hexadecimal bytes"))?;
+76:             if bytes.len() % 2 != 0 || !bytes.bytes().all(|byte| byte.is_ascii_hexdigit()) {
+77:                 return Err(malformed_sats_value("invalid hexadecimal bytes"));
+78:             }
+79:             return Ok(value.clone());
+80:         }
+81:         let values = value
+82:             .as_array()
+83:             .ok_or_else(|| malformed_sats_value("expected an array"))?;
+84:         let element_type = AlgebraicType::Value(element_type.clone());
+85:         return values
+86:             .iter()
+87:             .map(|value| convert_spacetime_value_sats(value, &element_type))
+88:             .collect::<Result<Vec<_>>>()
+89:             .map(Value::Array);
+90:     }
+91: 
+92:     if let Some(elements) = product_elements(algebraic_type) {
+93:         return convert_product_sats(value, elements);
+94:     }
+95: 
+96:     let Some(variants) = sum_variants(algebraic_type) else {
+97:         return Ok(value.clone());
+98:     };
+99:     let encoded = value
+100:         .as_array()
+101:         .ok_or_else(|| malformed_sats_value("expected a tagged sum array"))?;
+102:     if encoded.len() != 2 {
+103:         return Err(malformed_sats_value(format!(
+104:             "sum expected a tag and payload but received {} values",
+105:             encoded.len()
+106:         )));
+107:     }
+108:     let tag = encoded[0]
+109:         .as_u64()
+110:         .ok_or_else(|| malformed_sats_value("sum tag was not an unsigned integer"))?;
+111:     let variant = variants
+112:         .get(tag as usize)
+113:         .ok_or_else(|| malformed_sats_value(format!("unknown sum tag {tag}")))?;
+114:     let name = if is_option_sum(variants) {
+115:         variant_name(variant)
+116:             .map(str::to_ascii_lowercase)
+117:             .ok_or_else(|| malformed_sats_value("option variant had no name"))?
+118:     } else {
+119:         serde_variant_name(variant)
+120:     };
+121:     let payload_type = AlgebraicType::Value(
+122:         variant
+123:             .get("algebraic_type")
+124:             .cloned()
+125:             .unwrap_or(Value::Null),
+126:     );
+127:     let payload = convert_spacetime_value_sats(&encoded[1], &payload_type)?;
+128:     Ok(Value::Object([(name, payload)].into_iter().collect()))
+129: }
+130: 
+131: pub(super) fn decode_sats_query_response<T: SatsDeserializeOwned>(
+132:     query_response: &QueryResponse,
+133: ) -> Result<Vec<T>> {
+134:     let Some(first) = query_response.first() else {
+135:         return Ok(Vec::new());
+136:     };
+137:     if first
+138:         .schema
+139:         .elements
+140:         .iter()
+141:         .any(|element| element.name.is_none())
+142:     {
+143:         return Err(malformed_sats_value(
+144:             "generated-row query returned an unnamed column",
+145:         ));
+146:     }
+147: 
+148:     first
+149:         .rows
+150:         .iter()
+151:         .map(|row| {
+152:             let values = row
+153:                 .as_array()
+154:                 .ok_or_else(|| malformed_sats_value("SpacetimeDB returned a non-array SQL row"))?;
+155:             if values.len() != first.schema.elements.len() {
+156:                 return Err(malformed_sats_value(format!(
+157:                     "row expected {} columns but received {}",
+158:                     first.schema.elements.len(),
+159:                     values.len()
+160:                 )));
+161:             }
+162:             let mut object = serde_json::Map::new();
+163:             for (element, value) in first.schema.elements.iter().zip(values) {
+164:                 let name = element
+165:                     .name
+166:                     .as_ref()
+167:                     .expect("all SQL columns were checked as named");
+168:                 object.insert(
+169:                     name.some.clone(),
+170:                     convert_spacetime_value_sats(value, &element.algebraic_type)?,
+171:                 );
+172:             }
+173:             serde_json::from_value::<SerdeWrapper<T>>(Value::Object(object))
+174:                 .map(|wrapped| wrapped.0)
+175:                 .map_err(Into::into)
+176:         })
+177:         .collect()
+178: }
+179: 
+180: fn convert_product_sats(value: &Value, elements: &[Value]) -> Result<Value> {
+181:     let values = value
+182:         .as_array()
+183:         .ok_or_else(|| malformed_sats_value("expected a product array"))?;
+184:     if values.len() != elements.len() {
+185:         return Err(malformed_sats_value(format!(
+186:             "product expected {} fields but received {}",
+187:             elements.len(),
+188:             values.len()
+189:         )));
+190:     }
+191: 
+192:     if is_identity_product(elements) {
+193:         let raw = values
+194:             .first()
+195:             .and_then(Value::as_str)
+196:             .ok_or_else(|| malformed_sats_value("identity was not a hexadecimal string"))?;
+197:         let digits = raw.strip_prefix("0x").unwrap_or(raw);
+198:         if digits.is_empty() || !digits.bytes().all(|byte| byte.is_ascii_hexdigit()) {
+199:             return Err(malformed_sats_value(
+200:                 "identity contained invalid hexadecimal digits",
+201:             ));
+202:         }
+203:         let significant = digits.trim_start_matches('0');
+204:         let quantity = if significant.is_empty() {
+205:             "0x0".to_owned()
+206:         } else {
+207:             format!("0x{significant}")
+208:         };
+209:         return Ok(Value::Array(vec![Value::String(quantity)]));
+210:     }
+211: 
+212:     if elements.is_empty() {
+213:         return Ok(Value::Array(Vec::new()));
+214:     }
+215: 
+216:     if elements.iter().all(|element| {
+217:         element
+218:             .get("name")
+219:             .and_then(|name| name.get("some"))
+220:             .and_then(Value::as_str)
+221:             .is_some()
+222:     }) {
+223:         let mut object = serde_json::Map::new();
+224:         for (element, value) in elements.iter().zip(values) {
+225:             let name = element
+226:                 .get("name")
+227:                 .and_then(|name| name.get("some"))
+228:                 .and_then(Value::as_str)
+229:                 .expect("all product elements were checked as named");
+230:             let nested_type = AlgebraicType::Value(
+231:                 element
+232:                     .get("algebraic_type")
+233:                     .cloned()
+234:                     .unwrap_or(Value::Null),
+235:             );
+236:             object.insert(
+237:                 name.to_owned(),
+238:                 convert_spacetime_value_sats(value, &nested_type)?,
+239:             );
+240:         }
+241:         return Ok(Value::Object(object));
+242:     }
+243: 
+244:     let values = elements
+245:         .iter()
+246:         .zip(values)
+247:         .map(|(element, value)| {
+248:             let nested_type = AlgebraicType::Value(
+249:                 element
+250:                     .get("algebraic_type")
+251:                     .cloned()
+252:                     .unwrap_or(Value::Null),
+253:             );
+254:             convert_spacetime_value_sats(value, &nested_type)
+255:         })
+256:         .collect::<Result<Vec<_>>>()?;
+257:     Ok(Value::Array(values))
+258: }
+259: 
+260: #[cfg(test)]
+261: mod tests {
+262:     use super::*;
+263:     use serde_json::json;
+264:     #[test]
+265:     fn sats_sql_hex_bytes_decode_generated_weapon_and_holder_rows() {
+266:         let fixture = query_fixture(
+267:             &[
+268:                 ("physical_object_id", json!({"U64":[]})),
+269:                 ("generator_version", json!({"U16":[]})),
+270:                 ("design_hash", json!({"Array":{"U8":[]}})),

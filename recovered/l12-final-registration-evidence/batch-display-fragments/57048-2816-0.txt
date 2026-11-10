@@ -1,0 +1,22 @@
+1: //! Mesh geometry and GPU storage, independent of scene instances and rendering.
+2: //!
+3: //! The GPU half (`GpuMesh`, upload, readback, neighborhood and wireframe
+4: //! buffers) is the `gpu` feature, on by default.
+5: mod data;
+6: mod front_face;
+7: #[cfg(feature = "gpu")]
+8: mod gpu;
+9: #[cfg(feature = "gpu")]
+10: pub mod neighborhood;
+11: mod topology;
+12: #[cfg(feature = "gpu")]
+13: pub mod wireframe;
+14: pub use data::MeshData;
+15: pub use front_face::FrontFace;
+16: #[cfg(feature = "gpu")]
+17: pub use gpu::GpuMesh;
+18: #[cfg(feature = "gpu")]
+19: pub use neighborhood::MeshNeighborhood;
+20: pub use topology::PrimitiveTopology;
+21: #[cfg(feature = "gpu")]
+22: pub use wireframe::MeshWireframe;

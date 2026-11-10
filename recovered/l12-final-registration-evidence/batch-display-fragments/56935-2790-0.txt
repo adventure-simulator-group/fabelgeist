@@ -1,0 +1,182 @@
+1: use crate::allocator::utils;
+2: use crate::allocator::{batch_buffer::BatchBuffer, core::BatchRanges, id_allocator::IdAllocator};
+3: use crate::prelude::*;
+4: 
+5: use bevy_derive::{Deref, DerefMut};
+6: use bevy_ecs::prelude::*;
+7: use bevy_render::{
+8:     render_resource::{
+9:         BindGroup, BindGroupEntry, BindGroupLayoutDescriptor, Buffer, BufferUsages, PipelineCache,
+10:     },
+11:     renderer::{RenderDevice, RenderQueue},
+12: };
+13: 
+14: use std::marker::PhantomData;
+15: use std::mem::size_of;
+16: 
+17: #[derive(Resource, Deref, DerefMut)]
+18: pub struct MaterialBatchRanges<M>(#[deref] pub BatchRanges, PhantomData<M>);
+19: 
+20: impl<M: InstancedMaterial> Default for MaterialBatchRanges<M> {
+21:     fn default() -> Self {
+22:         Self(BatchRanges::default(), PhantomData)
+23:     }
+24: }
+25: 
+26: impl<T: InstancedMaterial> MaterialBatchRanges<T> {
+27:     pub fn clear(&mut self) {
+28:         (**self).clear();
+29:     }
+30: }
+31: 
+32: #[derive(Default)]
+33: pub struct InstancePage {
+34:     pub source_buffer: Option<Buffer>,
+35:     pub output_buffer: Option<Buffer>,
+36:     pub indirect_buffer: Option<Buffer>,
+37:     pub metadata_buffer: Option<Buffer>,
+38:     pub batch_buffer: Option<Buffer>,
+39: 
+40:     pub compute_bind_group: Option<BindGroup>,
+41:     pub common_bind_group: Option<BindGroup>,
+42: 
+43:     pub compute_capacity: u32,
+44: 
+45:     pub batcher: BatchBuffer,
+46:     pub id_allocator: IdAllocator,
+47: }
+48: 
+49: impl InstancePage {
+50:     /// Allocates a batch ID for the given entity.
+51:     pub fn alloc(&mut self, entity: Entity) -> u32 {
+52:         self.id_allocator.alloc(entity)
+53:     }
+54: 
+55:     /// Frees the batch ID for the given entity and clears the associated batch data.
+56:     pub fn free(&mut self, entity: Entity) {
+57:         if let Some(id) = self.id_allocator.allocations.get(&entity).copied() {
+58:             self.id_allocator.free(entity);
+59:             self.batcher.clear(id as usize);
+60:         }
+61:     }
+62: 
+63:     /// Flushes the internal batcher to the GPU buffers, resizing if necessary.
+64:     pub fn flush(&mut self, device: &RenderDevice, queue: &RenderQueue, page_id: usize) {
+65:         let batch_capacity = self.batcher.capacity() as u64;
+66: 
+67:         let mut resized = false;
+68:         let mut check_resize = |buffer: &mut Option<Buffer>, size: u64, usage, label: String| {
+69:             let old_size = buffer.as_ref().map(|b| b.size()).unwrap_or(0);
+70:             let aligned = (size + 3) & !3;
+71:             if aligned > old_size {
+72:                 utils::ensure_buffer_capacity(device, queue, buffer, size, usage, &label, false);
+73:                 resized = true;
+74:             }
+75:         };
+76: 
+77:         check_resize(
+78:             &mut self.batch_buffer,
+79:             batch_capacity * size_of::<InstanceUniforms>() as u64,
+80:             BufferUsages::STORAGE | BufferUsages::COPY_DST,
+81:             format!("page_{}_batch", page_id),
+82:         );
+83: 
+84:         check_resize(
+85:             &mut self.indirect_buffer,
+86:             batch_capacity
+87:                 * size_of::<bevy_render::render_resource::DrawIndexedIndirectArgs>() as u64,
+88:             BufferUsages::STORAGE | BufferUsages::INDIRECT | BufferUsages::COPY_DST,
+89:             format!("page_{}_indirect", page_id),
+90:         );
+91: 
+92:         check_resize(
+93:             &mut self.metadata_buffer,
+94:             batch_capacity * size_of::<BatchMetadata>() as u64,
+95:             BufferUsages::STORAGE | BufferUsages::COPY_DST,
+96:             format!("page_{}_metadata", page_id),
+97:         );
+98: 
+99:         if resized {
+100:             self.batcher.mark_dirty();
+101:         }
+102: 
+103:         if let (Some(ind), Some(batch), Some(meta)) = (
+104:             &self.indirect_buffer,
+105:             &self.batch_buffer,
+106:             &self.metadata_buffer,
+107:         ) {
+108:             self.batcher.flush(queue, ind, batch, meta);
+109:         }
+110:     }
+111: 
+112:     /// Recreates bind groups if capacity or buffers have changed.
+113:     pub fn update(
+114:         &mut self,
+115:         device: &RenderDevice,
+116:         pipeline_cache: &PipelineCache,
+117:         page_id: usize,
+118:         common_layout: &BindGroupLayoutDescriptor,
+119:         compute_layout: Option<&BindGroupLayoutDescriptor>,
+120:         capacity: u32,
+121:     ) {
+122:         self.compute_capacity = capacity;
+123: 
+124:         if let Some(layout) = compute_layout
+125:             && self.source_buffer.is_some()
+126:             && self.metadata_buffer.is_some()
+127:         {
+128:             self.compute_bind_group = Some(device.create_bind_group(
+129:                 Some(format!("page_{}_compute_bind_group", page_id).as_str()),
+130:                 &pipeline_cache.get_bind_group_layout(layout),
+131:                 &[
+132:                     BindGroupEntry {
+133:                         binding: 0,
+134:                         resource: self.source_buffer.as_ref().unwrap().as_entire_binding(),
+135:                     },
+136:                     BindGroupEntry {
+137:                         binding: 1,
+138:                         resource: self.output_buffer.as_ref().unwrap().as_entire_binding(),
+139:                     },
+140:                     BindGroupEntry {
+141:                         binding: 2,
+142:                         resource: self.indirect_buffer.as_ref().unwrap().as_entire_binding(),
+143:                     },
+144:                     BindGroupEntry {
+145:                         binding: 3,
+146:                         resource: self.metadata_buffer.as_ref().unwrap().as_entire_binding(),
+147:                     },
+148:                 ],
+149:             ));
+150:         }
+151: 
+152:         let Some(batch_buffer) = &self.batch_buffer else {
+153:             return;
+154:         };
+155: 
+156:         self.common_bind_group = Some(device.create_bind_group(
+157:             Some(format!("page_{}_common_bind_group", page_id).as_str()),
+158:             &pipeline_cache.get_bind_group_layout(common_layout),
+159:             &[BindGroupEntry {
+160:                 binding: 0,
+161:                 resource: batch_buffer.as_entire_binding(),
+162:             }],
+163:         ));
+164:     }
+165: }
+166: 
+167: #[derive(Resource)]
+168: pub struct GlobalInstanceAllocator<M> {
+169:     pub pages: Vec<InstancePage>,
+170:     pub backend: InstanceAllocatorBackend,
+171:     pub _marker: PhantomData<M>,
+172: }
+173: 
+174: impl<M: InstancedMaterial> Default for GlobalInstanceAllocator<M> {
+175:     fn default() -> Self {
+176:         Self {
+177:             pages: Vec::new(),
+178:             backend: InstanceAllocatorBackend::default(),
+179:             _marker: PhantomData,
+180:         }
+181:     }
+182: }

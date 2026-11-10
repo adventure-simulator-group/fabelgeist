@@ -1,0 +1,88 @@
+{
+  "lens": 13,
+  "namespace": "PL13-185",
+  "status": "Exact cumulative own Lens13 partial; zero ordered credit",
+  "registration": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-185.json",
+    "sha256": "3c0383f6b9d8f9ee0c2a80383217b4d43d4ffe57c685f52fdc1e733d349f86fe"
+  },
+  "registered_before_read_attestation": true,
+  "rows": [
+    {
+      "original": 965,
+      "source_id": "pr-working:crates/adventuresim-core/src/provisioning.rs",
+      "sha256": "438b45a44c51026e751788a6ef9da9c40ee88ae53eac79a64ca0845d5170cd68",
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/438b45a44c51026e751788a6ef9da9c40ee88ae53eac79a64ca0845d5170cd68",
+      "actual_eof": 118,
+      "prospective_ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "purpose": "Ordered own Lens13 provisioning / quest catalogue raw numeric and typed propagation contracts; source only.",
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "untruncated_body_outputs": true
+    },
+    {
+      "original": 966,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog.rs",
+      "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "actual_eof": 1630,
+      "prospective_ranges": [
+        [
+          1,
+          1630
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "purpose": "Ordered own Lens13 provisioning / quest catalogue raw numeric and typed propagation contracts; source only.",
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          920
+        ]
+      ],
+      "untruncated_body_outputs": true
+    }
+  ],
+  "partial_original": 966,
+  "next_unread_range": [
+    921,
+    1630
+  ],
+  "original_credit_now": 0,
+  "original_delta_proposed": 0,
+  "proposed_next_original_still": 965,
+  "authoritative_counts_changed": false,
+  "product_execution": false,
+  "observations": [
+    "966 actualruntime catalog() first validates raw JSON through967 thenstrictdeserializes thenCatalog.compile; generatedsource-map index access usescheckedget/parse andoptionalfixtures. Runtime checks consequencebps<=10000, evidence difficulty<=10000/lore<=5000/support<=10000. Fullraw967bodystillpending. Tail921..1630 unread."
+  ],
+  "predecessor": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-185-PARTIAL-001.json",
+    "sha256": "4d0f35b22999e84419ffd21768d0e02964ded62455db1b74e8a52e9c542be69a"
+  },
+  "previous_personal_ranges": [
+    [
+      1,
+      460
+    ]
+  ],
+  "new_personal_ranges": [
+    [
+      461,
+      920
+    ]
+  ],
+  "reread_claimed": false
+}

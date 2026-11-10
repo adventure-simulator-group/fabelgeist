@@ -1,0 +1,545 @@
+SOURCE 2764
+1: //! Names the host and the helmet kernel share: the design float slots and
+2: //! the kinds of carrier vertex. Each is declared once here, and the WGSL
+3: //! constants are generated from the declaration.
+4: 
+5: /// Declares a fieldless enum and the WGSL `u32` constants naming its
+6: /// variants' discriminants, in `SCREAMING_SNAKE_CASE` with a prefix.
+7: macro_rules! shared_codes {
+8:     ($(#[$meta:meta])* $name:ident { $($(#[$variant_meta:meta])* $variant:ident),* $(,)? }) => {
+9:         $(#[$meta])*
+10:         #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+11:         pub(super) enum $name {
+12:             $($(#[$variant_meta])* $variant),*
+13:         }
+14: 
+15:         impl $name {
+16:             #[allow(dead_code, reason = "not every code set is counted")]
+17:             pub(super) const COUNT: usize = [$(stringify!($variant)),*].len();
+18: 
+19:             /// WGSL constants for every variant.
+20:             pub(super) fn wgsl(prefix: &str) -> String {
+21:                 [$((stringify!($variant), $name::$variant as u32)),*]
+22:                     .iter()
+23:                     .map(|(variant, code)| {
+24:                         format!("const {prefix}{}: u32 = {code}u;\n", screaming(variant))
+25:                     })
+26:                     .collect()
+27:             }
+28:         }
+29:     };
+30: }
+31: 
+32: fn screaming(camel: &str) -> String {
+33:     let mut name = String::new();
+34:     for (i, c) in camel.chars().enumerate() {
+35:         if c.is_ascii_uppercase() && i > 0 {
+36:             name.push('_');
+37:         }
+38:         name.push(c.to_ascii_uppercase());
+39:     }
+40:     name
+41: }
+42: 
+43: shared_codes! {
+44:     /// A helmet's design floats, by slot. The bowl remap table follows them.
+45:     Slot {
+46:         /// Lining clearance plus wall: from the bare head to the carrier.
+47:         Gap,
+48:         CrownHeight,
+49:         /// The brow's rise above the frame's brow line, per unit head height.
+50:         BrowRise,
+51:         /// Added to the skull's fore-aft radius.
+52:         ZExtension,
+53:         /// The dome's latitude exponent.
+54:         Fullness,
+55:         Crest,
+56:         Ridge,
+57:         /// Which angular remap follows the dome: a [`PostMap`] code.
+58:         PostMap,
+59:         Fluted,
+60:         FluteCount,
+61:         FluteWidth,
+62:         FluteDepth,
+63:         FluteSpread,
+64:         FluteLowerSpread,
+65:         FluteStart,
+66:         FluteEnd,
+67:         FluteFade,
+68:         BrimWidth,
+69:         BrimSweep,
+70:         BrimDrop,
+71:         FrontReach,
+72:         BackReach,
+73:         BackSweep,
+74:         EyeOpening,
+75:         MouthOpening,
+76:         EyeHeight,
+77:         OpeningRoundness,
+78:         RearEdgeLift,
+79:         NapeFlare,
+80:         ChinTaper,
+81:         CheekDepth,
+82:         Gauge,
+83:         NapeDepth,
+84:         NapeTaper,
+85:         NapeRecession,
+86:         NeckFlare,
+87:         PeakLength,
+88:         PeakDrop,
+89:         PeakRise,
+90:         ChinTab,
+91:         BuffeSightGap,
+92:         BuffeProjection,
+93:         BuffeChinWidth,
+94:         BuffeThroatDepth,
+95:         BuffeNeckDrop,
+96:         BuffeSideWrap,
+97:         BuffeRidge,
+98:         BuffeRidgeSharpness,
+99:         BuffeChinPoint,
+100:         BuffeCourses,
+101:         BuffeLower,
+102:         BuffeUpper,
+103:         BuffeOverlap,
+104:         BuffeLapClearance,
+105:         BuffeBoundaryDrop,
+106:         CheekWidth,
+107:         CheekTaper,
+108:         OpeningWidth,
+109:         TailWidth,
+110:         TailLength,
+111:         TailDrop,
+112:         SightGap,
+113:         PivotRise,
+114:         VisorHeight,
+115:         SidePanel,
+116:         VisorProjection,
+117:         VisorSpacing,
+118:     }
+119: }
+120: 
+121: shared_codes! {
+122:     /// What a carrier vertex is, as its first coordinate tells the kernel.
+123:     VertexKind {
+124:         DomePole,
+125:         /// Latitude, meridian angle.
+126:         DomeRing,
+127:         /// Meridian angle.
+128:         FanRim,
+129:         /// Latitude, across-crown coordinate.
+130:         FanPoint,
+131:         /// Side of the meridian, whether the crest base, across-crown
+132:         /// coordinate.
+133:         FanCrest,
+134:         /// Brim fraction, meridian angle.
+135:         Brim,
+136:         /// Row selector, row step, meridian angle.
+137:         BarbuteCheek,
+138:         /// Nape fraction, skirt fraction, meridian angle.
+139:         Nape,
+140:         /// Peak fraction, meridian angle.
+141:         Peak,
+142:         /// Nape fraction, meridian angle.
+143:         Guard,
+144:         /// Skirt fraction, meridian angle.
+145:         SalletSkirt,
+146:         /// Visor fraction, meridian angle.
+147:         Visor,
+148:         /// Across the face, up it or its course, the course.
+149:         Buffe,
+150:     }
+151: }
+152: 
+153: shared_codes! {
+154:     /// The angular remap a helmet applies to its dome.
+155:     PostMap {
+156:         None,
+157:         /// The barbute's bowl, resampled through its angle table.
+158:         BowlTable,
+159:         /// The sallet's front arc, stretched to its opening.
+160:         FrontArc,
+161:     }
+162: }
+163: 
+164: shared_codes! {
+165:     /// Rows of a barbute's cheeks.
+166:     CheekRow {
+167:         Shelf,
+168:         Corner,
+169:         Lower,
+170:     }
+171: }
+SOURCE 2765
+11: /// Serialized sRGB textile color.
+12: #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+13: pub struct TextileColor(pub [u8; 3]);
+14: 
+15: impl TextileColor {
+16:     pub fn material(self) -> ArmorComponentMaterial {
+17:         ArmorComponentMaterial {
+18:             base_color: [
+19:                 f32::from(self.0[0]) / 255.0,
+20:                 f32::from(self.0[1]) / 255.0,
+21:                 f32::from(self.0[2]) / 255.0,
+22:                 1.0,
+23:             ],
+24:             metallic: 0.0,
+25:             roughness: 0.92,
+26:         }
+27:     }
+28: }
+SOURCE 2766
+1: //! Anatomical coverage unions for one item, independent of its material.
+2: 
+3: use serde::{Deserialize, Serialize};
+4: 
+5: use crate::body::{BodyPart, BodySide};
+6: use crate::item_catalog_schema::{
+7:     EquipmentAnatomicalRegion, EquipmentPlacement, MAX_EQUIPMENT_SURFACE_SEGMENTS, SurfaceAnchor,
+8: };
+9: 
+10: #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+11: pub struct ArmorCoverageSpan {
+12:     pub start: f32,
+13:     pub end: f32,
+14: }
+15: 
+16: impl ArmorCoverageSpan {
+17:     pub fn centered(coverage: f32) -> Self {
+18:         let coverage = coverage.clamp(0.0, 1.0);
+19:         Self {
+20:             start: (1.0 - coverage) * 0.5,
+21:             end: (1.0 + coverage) * 0.5,
+22:         }
+23:     }
+24: 
+25:     pub fn contains(self, coordinate: f32) -> bool {
+26:         let coordinate = coordinate.clamp(0.0, 1.0_f32.next_down());
+27:         coordinate >= self.start && coordinate < self.end
+28:     }
+29: }
+30: 
+31: /// One region's retained interval. Overlap never creates an additional layer.
+32: #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+33: pub struct ArmorCoverageSegment {
+34:     pub span: ArmorCoverageSpan,
+35:     pub region: Option<EquipmentAnatomicalRegion>,
+36:     pub anchor: SurfaceAnchor,
+37:     pub laterality: Option<BodySide>,
+38:     pub surface_index: Option<usize>,
+39: }
+40: 
+41: /// All disconnected coverage of one item over one coarse combat body part.
+42: /// Serialization emits only occupied entries and rejects oversized input.
+43: #[derive(Debug, Clone, Copy, Default, PartialEq, Serialize, Deserialize)]
+44: #[serde(
+45:     try_from = "Vec<ArmorCoverageSegment>",
+46:     into = "Vec<ArmorCoverageSegment>"
+47: )]
+48: pub struct AuthoredArmorCoverage {
+49:     segments: [Option<ArmorCoverageSegment>; MAX_EQUIPMENT_SURFACE_SEGMENTS],
+50: }
+51: 
+52: impl AuthoredArmorCoverage {
+53:     /// Explicit interval for innate protection or a synthetic combat fixture.
+54:     pub fn from_span(span: ArmorCoverageSpan) -> Self {
+55:         let mut result = Self::default();
+56:         result.segments[0] = Some(ArmorCoverageSegment {
+57:             span,
+58:             region: None,
+59:             anchor: SurfaceAnchor::Center,
+60:             laterality: None,
+61:             surface_index: None,
+62:         });
+63:         result
+64:     }
+65: 
+66:     /// Projects every authored region; absent regions give no protection.
+67:     pub fn from_placement(placement: &EquipmentPlacement, part: BodyPart) -> Self {
+68:         let mut segments = Vec::new();
+69:         for (surface_index, surface) in placement.surface.iter().enumerate() {
+70:             let count = surface.regions.len().max(1) as f32;
+71:             let coverage = surface.coverage.clamp(0.0, 1.0);
+72:             let retained = match surface.anchor {
+73:                 SurfaceAnchor::Proximal => (0.0, coverage),
+74:                 SurfaceAnchor::Distal => (1.0 - coverage, 1.0),
+75:                 SurfaceAnchor::Center => ((1.0 - coverage) * 0.5, (1.0 + coverage) * 0.5),
+76:             };
+77:             for (index, region) in surface.regions.iter().copied().enumerate() {
+78:                 let (region_part, body_start, body_end, laterality) = region_body_interval(region);
+79:                 if region_part != part {
+80:                     continue;
+81:                 }
+82:                 let start = retained.0.max(index as f32 / count);
+83:                 let end = retained.1.min((index as f32 + 1.0) / count);
+84:                 if start >= end {
+85:                     continue;
+86:                 }
+87:                 let local_start = start * count - index as f32;
+88:                 let local_end = end * count - index as f32;
+89:                 segments.push(ArmorCoverageSegment {
+90:                     span: ArmorCoverageSpan {
+91:                         start: body_start + (body_end - body_start) * local_start,
+92:                         end: body_start + (body_end - body_start) * local_end,
+93:                     },
+94:                     region: Some(region),
+95:                     anchor: surface.anchor,
+96:                     laterality,
+97:                     surface_index: Some(surface_index),
+98:                 });
+99:             }
+100:         }
+101:         Self::try_from(segments).expect("catalog validates anatomical segment capacity")
+102:     }
+103: 
+104:     pub fn segments(&self) -> impl Iterator<Item = &ArmorCoverageSegment> {
+105:         self.segments.iter().flatten()
+106:     }
+107: 
+108:     pub fn contains(self, coordinate: f32) -> bool {
+109:         self.segments()
+110:             .any(|segment| segment.span.contains(coordinate))
+111:     }
+112: }
+113: 
+114: impl TryFrom<Vec<ArmorCoverageSegment>> for AuthoredArmorCoverage {
+115:     type Error = &'static str;
+116: 
+117:     fn try_from(segments: Vec<ArmorCoverageSegment>) -> Result<Self, Self::Error> {
+118:         if segments.len() > MAX_EQUIPMENT_SURFACE_SEGMENTS {
+119:             return Err("too many anatomical coverage segments");
+120:         }
+121:         if segments.iter().any(|segment| {
+122:             !segment.span.start.is_finite()
+123:                 || !segment.span.end.is_finite()
+124:                 || segment.span.start < 0.0
+125:                 || segment.span.end > 1.0
+126:                 || segment.span.start > segment.span.end
+127:         }) {
+128:             return Err("invalid anatomical coverage interval");
+129:         }
+130:         let mut result = Self::default();
+131:         for (entry, segment) in result.segments.iter_mut().zip(segments) {
+132:             *entry = Some(segment);
+133:         }
+134:         Ok(result)
+135:     }
+136: }
+137: 
+138: impl From<AuthoredArmorCoverage> for Vec<ArmorCoverageSegment> {
+139:     fn from(coverage: AuthoredArmorCoverage) -> Self {
+140:         coverage.segments().copied().collect()
+141:     }
+142: }
+SOURCE 2767
+1: //! Authored plate identities retained through fitting and export.
+2: use std::ops::Range;
+3: 
+4: use serde::{Deserialize, Serialize};
+5: 
+6: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+7: #[serde(rename_all = "snake_case")]
+8: pub enum ArmorComponentRole {
+9:     Plate,
+10:     LeatherStraps,
+11:     Buckles,
+12:     Fauld,
+13:     Tassets,
+14:     Skull,
+15:     Bevor,
+16:     Visor,
+17:     Buffe,
+18:     Besagew,
+19:     JointExtension,
+20:     OuterFabric,
+21:     Undercloth,
+22: }
+23: 
+24: impl ArmorComponentRole {
+25:     pub const fn name(self) -> &'static str {
+26:         match self {
+27:             Self::Plate => "plate",
+28:             Self::LeatherStraps => "leather_straps",
+29:             Self::Buckles => "buckles",
+30:             Self::Fauld => "fauld",
+31:             Self::Tassets => "tassets",
+32:             Self::Skull => "skull",
+33:             Self::Bevor => "bevor",
+34:             Self::Visor => "visor",
+35:             Self::Buffe => "buffe",
+36:             Self::Besagew => "besagew",
+37:             Self::JointExtension => "joint_extension",
+38:             Self::OuterFabric => "outer_fabric",
+39:             Self::Undercloth => "undercloth",
+40:         }
+41:     }
+42: 
+43:     /// The name of the component's trim band.
+44:     pub const fn trim_name(self) -> &'static str {
+45:         match self {
+46:             Self::Plate => "plate.trim",
+47:             Self::LeatherStraps => "leather_straps.trim",
+48:             Self::Buckles => "buckles.trim",
+49:             Self::Fauld => "fauld.trim",
+50:             Self::Tassets => "tassets.trim",
+51:             Self::Skull => "skull.trim",
+52:             Self::Bevor => "bevor.trim",
+53:             Self::Visor => "visor.trim",
+54:             Self::Buffe => "buffe.trim",
+55:             Self::Besagew => "besagew.trim",
+56:             Self::JointExtension => "joint_extension.trim",
+57:             Self::OuterFabric => "outer_fabric.trim",
+58:             Self::Undercloth => "undercloth.trim",
+59:         }
+60:     }
+61: }
+62: 
+63: /// Reference-pose hinge in the same metre coordinate space as the mesh.
+64: /// Descriptive only: this does not introduce an animated joint.
+65: #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+66: pub struct ArmorHinge {
+67:     pub origin: [f32; 3],
+68:     pub axis: [f32; 3],
+69: }
+70: 
+71: #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+72: pub struct ArmorComponent {
+73:     pub role: ArmorComponentRole,
+74:     pub vertices: Range<usize>,
+75:     pub indices: Range<usize>,
+76:     pub hinge: Option<ArmorHinge>,
+77:     pub mount: Option<crate::PlateMount>,
+78:     pub material: Option<ArmorComponentMaterial>,
+79: }
+80: 
+81: /// Unlit surface parameters; generated textures supply normal and AO detail.
+82: #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+83: pub struct ArmorComponentMaterial {
+84:     pub base_color: [f32; 4],
+85:     pub metallic: f32,
+86:     pub roughness: f32,
+87: }
+SOURCE 2768
+1: //! Which face of a thickened plate a triangle lies on.
+2: use serde::{Deserialize, Serialize};
+3: 
+4: /// The face of a plate a triangle belongs to. Every generator that thickens
+5: /// a carrier knows this from its topology alone; decoration that follows the
+6: /// plate's edges, such as a trim band, is found from it.
+7: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+8: #[serde(rename_all = "snake_case")]
+9: pub enum PlateFace {
+10:     /// The visible, outward face: the carrier itself.
+11:     Outer,
+12:     /// The face against the wearer.
+13:     Inner,
+14:     /// The narrow wall closing the plate's thickness along a cut edge.
+15:     Edge,
+16: }
+SOURCE 2769
+1: //! Mechanical course identities authored while the generator divides a carrier.
+2: use crate::Permille;
+3: use serde::{Deserialize, Serialize};
+4: 
+5: /// Topological order within one assembly: a parent precedes its children.
+6: /// Paired front and back plates share a course so their side closure is owned
+7: /// by one rigid joint.
+8: #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Serialize, Deserialize)]
+9: pub struct PlateCourse(pub u16);
+10: 
+11: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+12: pub enum PlateGridEnd {
+13:     First,
+14:     Last,
+15: }
+16: 
+17: impl PlateGridEnd {
+18:     pub const fn row(self, rows: u32) -> u32 {
+19:         match self {
+20:             Self::First => 0,
+21:             Self::Last => rows - 1,
+22:         }
+23:     }
+24: 
+25:     pub const fn opposite(self) -> Self {
+26:         match self {
+27:             Self::First => Self::Last,
+28:             Self::Last => Self::First,
+29:         }
+30:     }
+31: }
+32: 
+33: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+34: pub enum PlateJointMotion {
+35:     Hinge,
+36:     Flexible,
+37: }
+38: 
+39: /// Coordinates refer to the exported outer surface grid, so wearer fitting
+40: /// moves the attachment with the actual plate. No anatomical owner is inferred
+41: /// from a component's display role or skin weights.
+42: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+43: pub struct PlateParent {
+44:     pub course: PlateCourse,
+45:     pub edge: PlateGridEnd,
+46: }
+47: 
+48: /// An authored connection and body-following fraction for one rigid course.
+49: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+50: pub struct PlateMount {
+51:     pub course: PlateCourse,
+52:     pub parent: Option<PlateParent>,
+53:     pub incoming: PlateGridEnd,
+54:     pub motion: PlateJointMotion,
+55:     /// Exactly one leaf per assembly follows the distal body target fully;
+56:     /// this selects the driven endpoint independently of course ordering.
+57:     pub follow: Permille,
+58: }
+SOURCE 2770
+1: //! Entry points for plain limb charts and shared fitted shoulder carriers.
+2: use super::limb::{LimbShape, shape};
+3: use super::{ArmorGpu, BuiltPart};
+4: use crate::{GenerateError, LimbArmorDesign, PartFrame};
+5: use fabelgeist_gpu::prelude::BufferUpload;
+6: 
+7: /// Record a limb design's charts, placed by the part frame at the start of
+8: /// `frame`, into a new device part.
+9: pub fn record_limb_armor(
+10:     gpu: &ArmorGpu,
+11:     batch: &mut fabelgeist_compute::KernelBatch,
+12:     design: &LimbArmorDesign,
+13:     frame: &fabelgeist_gpu::prelude::Buffer,
+14: ) -> Result<super::DevicePart, GenerateError> {
+15:     if let LimbArmorDesign::Pauldron(d) = design {
+16:         return super::pauldron::DevicePauldronCarrier::record(gpu, batch, d, frame)?
+17:             .record_plates(gpu, batch, d);
+18:     }
+19:     let LimbShape { part, design } = shape(gpu, design)?;
+20:     part.record(gpu, batch, &design, &[frame])
+21: }
+22: 
+23: /// Generate a limb plate on the device, placed by `fit`.
+24: pub fn generate_limb_armor_on(
+25:     gpu: &ArmorGpu,
+26:     design: &LimbArmorDesign,
+27:     fit: &PartFrame,
+28: ) -> Result<BuiltPart, GenerateError> {
+29:     if let LimbArmorDesign::Pauldron(d) = design {
+30:         fit.validate()?;
+31:         let frame = gpu.upload(BufferUpload::from_elements(&super::recipe::frame_words(
+32:             fit,
+33:         )))?;
+34:         let mut batch = gpu.batch("pauldron");
+35:         let carrier = super::pauldron::DevicePauldronCarrier::record(gpu, &mut batch, d, &frame)?;
+36:         let mut part = carrier.record_plates(gpu, &mut batch, d)?;
+37:         part.record_shells(gpu, &mut batch)?;
+38:         batch.submit();
+39:         if gpu.read::<u32>(&carrier.status)?[0] != 0 {
+40:             return Err(GenerateError::InvalidSurface);
+41:         }
+42:         return part.read(gpu);
+43:     }
+44:     let LimbShape { part, design } = shape(gpu, design)?;
+45:     part.build(gpu, &design, fit)
+46: }

@@ -1,0 +1,75 @@
+1: //! Admitted replicated window geometry; mutable controller state belongs to the server.
+2: use adventuresim_building_generator::spatial_geometry::GeometryResult as Result;
+3: use bevy::prelude::Component;
+4: use serde::{Deserialize, Serialize};
+5: 
+6: #[derive(Clone, Debug, thiserror::Error, Eq, PartialEq)]
+7: #[error("building {building_id}, window {opening_id}: {cause}")]
+8: pub struct SceneWindowError {
+9:     pub building_id: super::SceneBuildingId,
+10:     pub opening_id: adventuresim_building_generator::OpeningAssemblyId,
+11:     #[source]
+12:     pub cause: adventuresim_building_generator::spatial_geometry::GeometryError,
+13: }
+14: 
+15: /// Compact identity and dimensions for one server-authoritative window casement.
+16: #[derive(Clone, Copy, Debug, PartialEq, Component, Serialize)]
+17: #[component(immutable)]
+18: pub struct SceneWindow {
+19:     pub leaf: adventuresim_building_generator::WindowLeafKind,
+20:     pub building_id: super::SceneBuildingId,
+21:     pub opening_id: adventuresim_building_generator::OpeningAssemblyId,
+22:     pub size_metres: adventuresim_building_generator::spatial_geometry::LeafDimensions,
+23:     pub opening_centre_metres: adventuresim_building_generator::spatial_geometry::Position<
+24:         crate::scene_coordinates::Scene,
+25:     >,
+26:     pub tangent: adventuresim_building_generator::spatial_geometry::SpatialDirection<
+27:         crate::scene_coordinates::Scene,
+28:     >,
+29:     pub outward: adventuresim_building_generator::spatial_geometry::SpatialDirection<
+30:         crate::scene_coordinates::Scene,
+31:     >,
+32:     pub bars: adventuresim_building_generator::WindowBarPresence,
+33: }
+34: 
+35: impl<'de> Deserialize<'de> for SceneWindow {
+36:     fn deserialize<D: serde::Deserializer<'de>>(d: D) -> std::result::Result<Self, D::Error> {
+37:         use adventuresim_building_generator::spatial_geometry::{
+38:             LeafDimensions, Position, SpatialDirection,
+39:         };
+40:         // Scene-frame positions are metres; dimensions are leaf-local width,
+41:         // height and thickness. Directions are normalized scene XYZ vectors.
+42:         // Decode native leaves together to attach IDs to admission failures.
+43:         #[derive(Deserialize)]
+44:         struct NativeWindow {
+45:             leaf: adventuresim_building_generator::WindowLeafKind,
+46:             building_id: crate::scene_input::SceneBuildingId,
+47:             opening_id: u64,
+48:             size_metres: bevy::math::Vec3,
+49:             opening_centre_metres: bevy::math::Vec3,
+50:             tangent: bevy::math::Vec3,
+51:             outward: bevy::math::Vec3,
+52:             bars: adventuresim_building_generator::WindowBarPresence,
+53:         }
+54:         let v = NativeWindow::deserialize(d)?;
+55:         let admit = || -> Result<Self> {
+56:             Ok(Self {
+57:                 leaf: v.leaf,
+58:                 building_id: v.building_id,
+59:                 opening_id: adventuresim_building_generator::OpeningAssemblyId(v.opening_id),
+60:                 size_metres: LeafDimensions::from_metres(v.size_metres)?,
+61:                 opening_centre_metres: Position::from_metres(v.opening_centre_metres)?,
+62:                 tangent: SpatialDirection::from_normalized(v.tangent)?,
+63:                 outward: SpatialDirection::from_normalized(v.outward)?,
+64:                 bars: v.bars,
+65:             })
+66:         };
+67:         admit().map_err(|cause| {
+68:             serde::de::Error::custom(SceneWindowError {
+69:                 building_id: v.building_id,
+70:                 opening_id: adventuresim_building_generator::OpeningAssemblyId(v.opening_id),
+71:                 cause,
+72:             })
+73:         })
+74:     }
+75: }

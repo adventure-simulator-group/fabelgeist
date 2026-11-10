@@ -1,0 +1,18 @@
+325:             h3 class="sidebar-header" { "Join requests" }
+326:             @if panel.requests.is_empty() {
+327:                 p class="small-copy text-muted" { "No pending requests for this role." }
+328:             } @else {
+329:                 div class="role-request-detail-list" {
+330:                     @for applicant in &panel.requests {
+331:                         article class=(if applicant.request.meets_requirements { "role-request-detail" } else { "role-request-detail role-applicant-warning" }) {
+332:                             button type="button" class="role-applicant-portrait" data-select-role-applicant
+333:                                 aria-label=(format!("Inspect {}", applicant.character.name)) {
+334:                                 span class="party-portrait-initial" {
+335:                                     span class="party-portrait-face" data-bevy-character=(applicant.character.id) { (applicant.character.name.chars().next().unwrap_or('?')) }
+336:                                     span class="party-portrait-name" { (&applicant.character.name) }
+337:                                 }
+338:                             }
+339:                             p class="small-copy" {
+340:                                 @if applicant.request.meets_requirements { "Meets every individual recommendation" }
+341:                                 @else { "Below one or more recommendations" }
+342:                             }

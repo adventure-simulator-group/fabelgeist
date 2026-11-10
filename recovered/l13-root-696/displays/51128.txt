@@ -1,0 +1,284 @@
+SOURCE 2637 pr-working:crates/fabelgeist-hair/src/head.rs
+1: //! A head to grow hair on: a mannequin bust as a signed distance field.
+2: //!
+3: //! DiffLocks grows every hairstyle on the scalp of the mean SMPL-X body and
+4: //! keeps it off the body with shrinkwrap modifiers and a cloth simulation.
+5: //! SMPL-X is not ours to ship, so the bust here is a handful of smoothly
+6: //! united ellipsoids and capsules of an adult's proportions: cranium, jaw,
+7: //! nose, ears, neck, shoulders and chest. Being a distance field it is its
+8: //! own collider -- exact distance and outward direction anywhere, for the
+9: //! shrinkwrap and the drape -- and [`Head::mesh`] extracts it as triangles
+10: //! (surface nets) for drawing and for the scalp.
+11: //!
+12: //! The scalp is the part of that mesh above the hairline: a curve around the
+13: //! head, high on the forehead, over the ears and down to the nape. Its UV map
+14: //! is a polar projection from the cranium's centre -- the crown in the
+15: //! middle, the hairline near the rim -- one chart, as the paper's ARAP
+16: //! unwrap of the SMPL-X scalp is. Any other scalp with a UV map can stand in
+17: //! for it ([`Surface::from_ply`]); only the styles' guide placement reads the
+18: //! head's own frame.
+19: //!
+20: //! Units are metres. The head looks down `+z`, `+y` is up, and the origin is
+21: //! between the ears.
+22: 
+23: use fabelgeist_math::Vec3;
+24: use rayon::prelude::*;
+25: 
+26: use crate::collider::Collider;
+27: use crate::surface::Surface;
+28: 
+29: /// An ellipsoid by centre and semi-axes.
+30: #[derive(Clone, Copy, Debug)]
+31: pub struct Ellipsoid {
+32:     pub center: Vec3,
+33:     pub radii: Vec3,
+34: }
+35: 
+36: impl Ellipsoid {
+37:     /// Inigo Quilez's bound for an ellipsoid's distance: exact on the
+38:     /// surface, close near it.
+39:     fn distance(&self, p: Vec3) -> f32 {
+40:         let q = p - self.center;
+41:         let k0 = (q / self.radii).length();
+42:         let k1 = (q / (self.radii * self.radii)).length();
+43:         if k1 < 1e-12 {
+44:             return -self.radii.min_component();
+45:         }
+46:         k0 * (k0 - 1.0) / k1
+47:     }
+48: }
+49: 
+50: /// A capsule: the points within `radius` of a segment.
+51: #[derive(Clone, Copy, Debug)]
+52: pub struct Capsule {
+53:     pub a: Vec3,
+54:     pub b: Vec3,
+55:     pub radius: f32,
+56: }
+57: 
+58: impl Capsule {
+59:     fn distance(&self, p: Vec3) -> f32 {
+60:         let ab = self.b - self.a;
+61:         let t = ((p - self.a).dot(ab) / ab.length_squared()).clamp(0.0, 1.0);
+62:         (p - (self.a + ab * t)).length() - self.radius
+63:     }
+64: }
+65: 
+66: /// Polynomial smooth minimum: the union of two fields, filleted over `k`.
+67: fn smooth_min(a: f32, b: f32, k: f32) -> f32 {
+68:     let h = (k - (a - b).abs()).max(0.0) / k;
+69:     a.min(b) - h * h * k * 0.25
+70: }
+71: 
+72: /// A mannequin bust.
+73: #[derive(Clone, Debug)]
+74: pub struct Head {
+75:     pub cranium: Ellipsoid,
+76:     pub jaw: Ellipsoid,
+77:     pub nose: Ellipsoid,
+78:     pub ears: [Ellipsoid; 2],
+79:     pub neck: Capsule,
+80:     pub shoulders: Ellipsoid,
+81:     pub chest: Ellipsoid,
+82:     /// Where the bust is cut off below.
+83:     pub base: f32,
+84:     /// The hairline's height at the front, over the ears and at the nape.
+85:     pub hairline: [f32; 3],
+86:     /// How far the hairline recedes at the temples, metres (an M-shaped
+87:     /// hairline), and how far it dips in the middle of the forehead (a
+88:     /// widow's peak).
+89:     pub recession: f32,
+90:     pub peak: f32,
+91: }
+92: 
+93: impl Default for Head {
+94:     fn default() -> Self {
+95:         Self::mannequin()
+96:     }
+97: }
+98: 
+99: impl Head {
+100:     /// An adult head of average proportions: 15 cm wide, 20 cm long, 23 cm
+101:     /// from crown to chin, on a neck and shoulders.
+102:     pub fn mannequin() -> Self {
+103:         Self {
+104:             cranium: Ellipsoid {
+105:                 center: Vec3::new(0.0, 0.025, -0.012),
+106:                 radii: Vec3::new(0.076, 0.09, 0.1),
+107:             },
+108:             jaw: Ellipsoid {
+109:                 center: Vec3::new(0.0, -0.045, 0.028),
+110:                 radii: Vec3::new(0.058, 0.075, 0.068),
+111:             },
+112:             nose: Ellipsoid {
+113:                 center: Vec3::new(0.0, -0.022, 0.094),
+114:                 radii: Vec3::new(0.013, 0.024, 0.02),
+115:             },
+116:             ears: [-1.0, 1.0].map(|side| Ellipsoid {
+117:                 center: Vec3::new(0.074 * side, -0.004, -0.008),
+118:                 radii: Vec3::new(0.011, 0.03, 0.019),
+119:             }),
+120:             neck: Capsule {
+121:                 a: Vec3::new(0.0, -0.05, -0.022),
+122:                 b: Vec3::new(0.0, -0.24, -0.02),
+123:                 radius: 0.054,
+124:             },
+125:             shoulders: Ellipsoid {
+126:                 center: Vec3::new(0.0, -0.3, -0.02),
+127:                 radii: Vec3::new(0.2, 0.085, 0.1),
+128:             },
+129:             chest: Ellipsoid {
+130:                 center: Vec3::new(0.0, -0.42, -0.015),
+131:                 radii: Vec3::new(0.175, 0.13, 0.11),
+132:             },
+133:             base: -0.5,
+134:             hairline: [0.062, 0.03, -0.075],
+135:             recession: 0.0,
+136:             peak: 0.0,
+137:         }
+138:     }
+139: 
+140:     /// The top of the head.
+141:     pub fn crown(&self) -> Vec3 {
+142:         self.cranium.center + Vec3::new(0.0, self.cranium.radii.y, 0.0)
+143:     }
+144: 
+145:     /// Signed distance: negative inside the bust.
+146:     pub fn distance(&self, p: Vec3) -> f32 {
+147:         let head = smooth_min(self.cranium.distance(p), self.jaw.distance(p), 0.04);
+148:         let head = smooth_min(head, self.nose.distance(p), 0.012);
+149:         let ears = self.ears[0].distance(p).min(self.ears[1].distance(p));
+150:         let head = smooth_min(head, ears, 0.006);
+151:         let neck = smooth_min(head, self.neck.distance(p), 0.03);
+152:         let torso = smooth_min(self.shoulders.distance(p), self.chest.distance(p), 0.08);
+153:         let body = smooth_min(neck, torso, 0.06);
+154:         body.max(self.base - p.y)
+155:     }
+156: 
+157:     /// The field's gradient by central differences: the outward normal.
+158:     pub fn gradient(&self, p: Vec3) -> Vec3 {
+159:         let e = 2e-4;
+160:         let d = |o: Vec3| self.distance(p + o) - self.distance(p - o);
+161:         Vec3::new(
+162:             d(Vec3::new(e, 0.0, 0.0)),
+163:             d(Vec3::new(0.0, e, 0.0)),
+164:             d(Vec3::new(0.0, 0.0, e)),
+165:         )
+166:         .normalize()
+167:     }
+168: 
+169:     /// Azimuth around the vertical, from the front (`+z`) towards `+x`.
+170:     pub fn azimuth(&self, p: Vec3) -> f32 {
+171:         let q = p - self.cranium.center;
+172:         q.x.atan2(q.z)
+173:     }
+174: 
+175:     /// The hairline's height at an azimuth: a cosine series through its
+176:     /// height at the front, over the ears and at the nape, raised at the
+177:     /// temples as far as it recedes and lowered in the middle for a peak.
+178:     pub fn hairline_height(&self, azimuth: f32) -> f32 {
+179:         let [front, side, back] = self.hairline;
+180:         let temples = (-((azimuth.abs() - 0.62) / 0.3).powi(2)).exp();
+181:         let middle = (-(azimuth / 0.13).powi(2)).exp();
+182:         around(front, side, back, azimuth) + self.recession * temples - self.peak * middle
+183:     }
+184: 
+185:     /// How far above the hairline a point is (negative below it).
+186:     pub fn above_hairline(&self, p: Vec3) -> f32 {
+187:         p.y - self.hairline_height(self.azimuth(p))
+188:     }
+189: 
+190:     /// Polar angle from straight up at the cranium's centre.
+191:     pub fn polar(&self, p: Vec3) -> f32 {
+192:         let offset = p - self.cranium.center;
+193:         // Keep the small horizontal component near the crown: normalizing
+194:         // first rounds the vertical component to one and loses that angle.
+195:         Vec3::new(offset.x, 0.0, offset.z).length().atan2(offset.y)
+196:     }
+197: 
+198:     /// Where on the scalp a point is: 1 at the crown, 0 at the hairline
+199:     /// below it (by polar angle from the cranium's centre).
+200:     pub fn elevation(&self, p: Vec3) -> f32 {
+201:         let a = self.azimuth(p);
+202:         let h = self.hairline_height(a);
+203:         let edge = self.cranium.center
+204:             + Vec3::new(a.sin() * 0.09, h - self.cranium.center.y, a.cos() * 0.09);
+205:         let hairline = self.polar(edge).clamp(0.1, SCALP_POLAR_MAX);
+206:         (1.0 - self.polar(p) / hairline).clamp(0.0, 1.0)
+207:     }
+208: 
+209:     /// The scalp's UV map: a polar projection about the crown, radius
+210:     /// proportional to the angle from straight up, `v` towards the face.
+211:     pub fn scalp_uv(&self, p: Vec3) -> [f32; 2] {
+212:         let r = self.polar(p) / SCALP_POLAR_MAX;
+213:         let a = self.azimuth(p);
+214:         [0.5 + 0.5 * r * a.sin(), 0.5 + 0.5 * r * a.cos()]
+215:     }
+216: 
+217:     /// The bust's surface as triangles, from a grid of `cell` metres.
+218:     pub fn mesh(&self, cell: f32) -> Surface {
+219:         let lo = Vec3::new(-0.24, self.base - 0.01, -0.16);
+220:         let hi = Vec3::new(0.24, 0.14, 0.14);
+221:         let (positions, triangles) = surface_nets(|p| self.distance(p), lo, hi, cell);
+222:         let normals = positions.iter().map(|&p| self.gradient(p)).collect();
+223:         let uvs = positions.iter().map(|&p| self.scalp_uv(p)).collect();
+224:         Surface::new(positions, Some(normals), Some(uvs), triangles)
+225:     }
+226: 
+227:     /// The part of the mesh above the hairline, with the scalp UV map.
+228:     pub fn scalp(&self, cell: f32) -> Surface {
+229:         let full = self.mesh(cell);
+230:         let keep: Vec<bool> = full
+231:             .positions
+232:             .iter()
+233:             .map(|&p| self.above_hairline(p) > 0.0 && p.y > self.neck.a.y - 0.04)
+234:             .collect();
+235:         let mut remap = vec![u32::MAX; full.positions.len()];
+236:         let (mut positions, mut normals, mut uvs) = (Vec::new(), Vec::new(), Vec::new());
+237:         let mut triangles = Vec::new();
+238:         for t in &full.triangles {
+239:             if !t.iter().all(|&i| keep[i as usize]) {
+240:                 continue;
+241:             }
+242:             triangles.push(t.map(|i| {
+243:                 let i = i as usize;
+244:                 if remap[i] == u32::MAX {
+245:                     remap[i] = positions.len() as u32;
+246:                     positions.push(full.positions[i]);
+247:                     normals.push(full.normals[i]);
+248:                     uvs.push(full.uvs[i]);
+249:                 }
+250:                 remap[i]
+251:             }));
+252:         }
+253:         Surface::new(positions, Some(normals), Some(uvs), triangles)
+254:     }
+255: }
+256: 
+257: /// The polar angle the scalp UV map's rim stands for: past the nape.
+258: pub const SCALP_POLAR_MAX: f32 = 2.6;
+259: 
+260: /// A value round the head from its value at the front, at either side and
+261: /// at the back: the cosine series `a0 + a1 cos(a) + a2 cos(2a)` through the
+262: /// three.
+263: pub fn around(front: f32, side: f32, back: f32, azimuth: f32) -> f32 {
+264:     let a1 = (front - back) * 0.5;
+265:     let a0_plus_a2 = (front + back) * 0.5;
+266:     let a0 = (a0_plus_a2 + side) * 0.5;
+267:     let a2 = a0_plus_a2 - a0;
+268:     a0 + a1 * azimuth.cos() + a2 * (2.0 * azimuth).cos()
+269: }
+270: 
+271: impl Collider for Head {
+272:     fn query(&self, p: Vec3) -> (f32, Vec3) {
+273:         (Head::distance(self, p), self.gradient(p))
+274:     }
+275: 
+276:     fn distance(&self, p: Vec3) -> f32 {
+277:         Head::distance(self, p)
+278:     }
+279: }
+280: 
+281: /// Naive surface nets over a field sampled on a grid: a vertex in every cell
+282: /// the surface crosses, at the mean of its edges' crossings pulled onto the
+283: /// surface, and a quad across every grid edge the surface cuts, facing out.

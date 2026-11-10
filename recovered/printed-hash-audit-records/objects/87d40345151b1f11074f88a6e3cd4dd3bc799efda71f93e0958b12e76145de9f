@@ -1,0 +1,71 @@
+{
+  "schema": "726-root-l2-existing-owner-additive-qualification-v1",
+  "at": "2026-11-02T17:14:44.448141+00:00",
+  "author": "/root",
+  "lens": 2,
+  "read": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/READ-ROOT-L2-CONNECTED-PROTECTION-013-014.json",
+    "sha256": "7861832358932d5d0c738b8965a38f8911a4892a04390abdb64b2129a304a437"
+  },
+  "prior_qualification": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/QUALIFICATION-ROOT-L2-ARMOR-PRODUCERS-ADDENDUM-001.json",
+    "sha256": "bd21af3837a47dabe4ee3dcf05c4aeae0b4cf62109c2621975e40f2ab2dd6935"
+  },
+  "same_lens_dependencies": [
+    {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+      "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+    },
+    {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/READ-ROOT-L2-ARMOR-PRODUCERS-011-012.json",
+      "sha256": "1f6875055a8f894b5b7d7b94ca7bd98ec7c8d0c90032f2b819daae97b03cbbb5"
+    }
+  ],
+  "source_dispositions": [
+    {
+      "role": "connected-protection-production",
+      "source_rows": [
+        0,
+        2
+      ],
+      "decision": "connected_player_items loads the persistent Item for each actor inventory row, obtains its worn row, resolves that placement inside item.equipment_placements, and clones placement.protection into protected_body_parts. selected_placement_id is the same worn row's placement_id. Missing worn row or unresolved placement yields an empty protection list; the latter can still retain Some selected ID. This is not independent arbitrary authored protection data on the ordinary producer path. Existing project_definition copies each authored placement ID/protection into persistence, and init_items populates that projection from the embedded catalog.",
+      "acceptance": "Retain inventory identity, owning item and admitted selected placement as one projection. Keep legitimate unworn/no-protection states and distinguish an unresolved selected placement when its contract requires resolution; do not fabricate an armor surface."
+    },
+    {
+      "role": "covered-geometry-correspondence",
+      "source_rows": [
+        0,
+        1,
+        3,
+        4
+      ],
+      "decision": "tactical_covered_parts maps the exact seven EquipmentBodyPart variants to fixed flags. projected_armor (prior own-L2 read) generates geometry from the matching authored placement; spawn inserts its returned ArmorItem. The strategic protected set therefore agrees with local authored placement when persistence and tactical authored catalogs represent the same admitted definitions. This shared-catalog assumption is explicit; no contradictory ordinary message or cross-deployment catalog equivalence is proved by source snapshots. Local projection still admits parallel inputs rather than an owned checked relationship.",
+      "acceptance": "Establish matching catalog/placement provenance at the true native admission boundary, then retain covered geometry as a checked per-part collection. Reject a mismatched required projection with an owned error; no fallback catalogs, compatibility shims or silently substituted geometry. Preserve the same seven-part mapping and valid empty no-armor mode."
+    },
+    {
+      "role": "connected-topology-variant-correlation",
+      "source_rows": [
+        0,
+        1
+      ],
+      "decision": "ConnectedEquipmentOccupancy carries an EquipmentAnchorKind plus independent location/parent/point Options. Strategic projection copies native occupancy fields; tactical adapter branches on anchor kind and expects required fields, indexing the parent item map. Existing closed anchor kind is reusable, but named record alone does not prove correlation or referenced-parent presence. This adjacent reached contract remains separate from the now-qualified protection producer; no ordinary malformed occupancy witness is established here.",
+      "acceptance": "Carry existing anchor roles in variants with their required fields and retain parent/point identities to the actual native adapter. Prove native construction/map presence or return an owned admission error; remove production expects under crate rules without inventing missing-element errors for guaranteed entries."
+    }
+  ],
+  "bounded_question_disposition": "The suspected independent protected-parts mismatch is conditional on catalog/projection admission, not an established ordinary producer bug. Preserve the concrete checked-projection repair and native acceptance requirement.",
+  "remaining_evidence": [
+    "Formal own-L2 source-state/ledger adoption and exact canonical alias reconciliation remain open.",
+    "Equal-order native query/relationship policy, generated weapon owner admission and the other catalog owner questions remain distinct obligations.",
+    "Connected topology anchor producer/map invariants and actual catalog revision admission must be qualified if retained in the final repair; no verdict transfer from other lenses."
+  ],
+  "canonical_source_case_closed": false,
+  "source_adoption_performed": false,
+  "current_delta_cells_closed": 0,
+  "new_primary_findings": 0,
+  "new_body_population_unique_credit": 0,
+  "product_edits": false,
+  "product_execution": false,
+  "tests_executed": false,
+  "independent_agent_review": false,
+  "implementation_gate_complete": false
+}

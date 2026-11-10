@@ -1,0 +1,251 @@
+{
+  "schema": "726-root-l2-existing-owner-additive-qualification-v1",
+  "at": "2026-11-02T17:08:31.437954+00:00",
+  "author": "/root",
+  "lens": 2,
+  "prior_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L2-CATALOG-OWNER-FITS-001.json",
+    "sha256": "0b7af7f5b2b95daad5cf555145358c25a530977cbb582c9e0787718dcffd8b2d"
+  },
+  "supporting_read": {
+    "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+    "sha256": "6d439c64efa05889d5354c36527a4b5c3f7c5d2177d5ad367c9cd0bba1fcbfd0"
+  },
+  "immutable_prior_record_retained": true,
+  "role_updates": [
+    {
+      "local_role": "protection-padding-and-resistance",
+      "new_evidence": [
+        {
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+            "sha256": "6d439c64efa05889d5354c36527a4b5c3f7c5d2177d5ad367c9cd0bba1fcbfd0"
+          },
+          "row_pointer": "/rows/0",
+          "git_path": "crates/adventuresim-core/src/combat/armor.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "3aeb6961c084a063132b1d1302d006c8cbf59cacaf960081e799b7ce46d37930",
+          "ranges": [
+            [
+              13,
+              88
+            ]
+          ]
+        },
+        {
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+            "sha256": "6d439c64efa05889d5354c36527a4b5c3f7c5d2177d5ad367c9cd0bba1fcbfd0"
+          },
+          "row_pointer": "/rows/2",
+          "git_path": "crates/adventuresim-core/src/autoresolve/model.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+          "ranges": [
+            [
+              49,
+              58
+            ]
+          ]
+        },
+        {
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+            "sha256": "6d439c64efa05889d5354c36527a4b5c3f7c5d2177d5ad367c9cd0bba1fcbfd0"
+          },
+          "row_pointer": "/rows/2",
+          "git_path": "crates/adventuresim-core/src/autoresolve/model.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+          "ranges": [
+            [
+              206,
+              219
+            ]
+          ]
+        },
+        {
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+            "sha256": "6d439c64efa05889d5354c36527a4b5c3f7c5d2177d5ad367c9cd0bba1fcbfd0"
+          },
+          "row_pointer": "/rows/2",
+          "git_path": "crates/adventuresim-core/src/autoresolve/model.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+          "ranges": [
+            [
+              347,
+              358
+            ]
+          ]
+        },
+        {
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+            "sha256": "6d439c64efa05889d5354c36527a4b5c3f7c5d2177d5ad367c9cd0bba1fcbfd0"
+          },
+          "row_pointer": "/rows/3",
+          "git_path": "crates/adventuresim-core/src/autoresolve/power.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "76922a00bc1d4bf13c6d972aaba83258551ce853fff438f2edc3f0d295ae025a",
+          "ranges": [
+            [
+              49,
+              61
+            ]
+          ]
+        },
+        {
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+            "sha256": "6d439c64efa05889d5354c36527a4b5c3f7c5d2177d5ad367c9cd0bba1fcbfd0"
+          },
+          "row_pointer": "/rows/4",
+          "git_path": "crates/adventuresim-core/src/combat.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "7d00629a7da937cf41b5bc49a86df7119cc7054743dce1f70ac2507a7aba59b0",
+          "ranges": [
+            [
+              408,
+              471
+            ]
+          ]
+        },
+        {
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+            "sha256": "6d439c64efa05889d5354c36527a4b5c3f7c5d2177d5ad367c9cd0bba1fcbfd0"
+          },
+          "row_pointer": "/rows/5",
+          "git_path": "crates/adventuresim-core/src/autoresolve/threat.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "58a5e53d2fdf5283f4e7ba8a58f1335f894bb6b4ab4524f3684f92bbca8dc106",
+          "ranges": [
+            [
+              56,
+              65
+            ]
+          ]
+        }
+      ],
+      "resolved_question": "Actual armor calculations establish energy dimensions: incident_energy_joules is partitioned into cut/blunt channels; effective resistance is subtracted from edge energy after division by dimensionless ContactPrecision, and padding consumes the transmission energy budget once. Resisted/transmitted/penetrated outputs are explicitly joules. Innate protection's resistance_joules/padding_joules feed the same CombatArmor -> ArmorSurface path. Both catalog coefficients therefore have an energy unit but retain different edge-versus-transmission roles.",
+      "owner_fit": "Existing ArmorSurface/CombatArmor/ArmorImpact/ContactEnergyResolution records and ContactPrecision methods own the roles and arithmetic; fields remain primitive. The actual definitions/use sites do not establish a checked shared energy leaf. A bounded declaration search produced no matching public Energy/Joules type, which is not proof that no owner exists elsewhere or through another representation.",
+      "required_repair": "Resolve the shared finite nonnegative energy leaf once, using existing ownership where proved, then carry it through per-layer protection, innate protection, contact partition and true numeric/ABI endpoints. Keep resistance and padding as named distinct fields/roles; retain authored per-layer ceiling separately from aggregate/incident energy policy. Do not duplicate an energy wrapper per module.",
+      "remaining_evidence": [
+        "Exact canonical existing energy owner/alias and full producer admission reconciliation remain open; this addendum resolves the unit question only."
+      ],
+      "later_acceptance": [
+        "Keep zero protection and uncovered surface valid, separate stopped-edge/transmission budgets, and preserve conservation of incident energy across resisted/transmitted/penetrated channels with a quantity-owned tolerance.",
+        "Source fixtures were read but not executed; no new object unit test was written. Existing native acceptance must run after the full gate."
+      ]
+    },
+    {
+      "local_role": "protection-coefficients-and-derived-coverage",
+      "new_evidence": [
+        {
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+            "sha256": "6d439c64efa05889d5354c36527a4b5c3f7c5d2177d5ad367c9cd0bba1fcbfd0"
+          },
+          "row_pointer": "/rows/1",
+          "git_path": "crates/adventuresim-core/src/combat/coverage.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "8bebf038e281f0b1529dd8008a42379c43eac3e0c2f9767d9a29606eb69ddced",
+          "ranges": [
+            [
+              10,
+              141
+            ]
+          ]
+        },
+        {
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+            "sha256": "6d439c64efa05889d5354c36527a4b5c3f7c5d2177d5ad367c9cd0bba1fcbfd0"
+          },
+          "row_pointer": "/rows/1",
+          "git_path": "crates/adventuresim-core/src/combat/coverage.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "8bebf038e281f0b1529dd8008a42379c43eac3e0c2f9767d9a29606eb69ddced",
+          "ranges": [
+            [
+              144,
+              177
+            ]
+          ]
+        },
+        {
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+            "sha256": "6d439c64efa05889d5354c36527a4b5c3f7c5d2177d5ad367c9cd0bba1fcbfd0"
+          },
+          "row_pointer": "/rows/2",
+          "git_path": "crates/adventuresim-core/src/autoresolve/model.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+          "ranges": [
+            [
+              49,
+              58
+            ]
+          ]
+        },
+        {
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+            "sha256": "6d439c64efa05889d5354c36527a4b5c3f7c5d2177d5ad367c9cd0bba1fcbfd0"
+          },
+          "row_pointer": "/rows/2",
+          "git_path": "crates/adventuresim-core/src/autoresolve/model.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+          "ranges": [
+            [
+              206,
+              219
+            ]
+          ]
+        },
+        {
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+            "sha256": "6d439c64efa05889d5354c36527a4b5c3f7c5d2177d5ad367c9cd0bba1fcbfd0"
+          },
+          "row_pointer": "/rows/2",
+          "git_path": "crates/adventuresim-core/src/autoresolve/model.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+          "ranges": [
+            [
+              347,
+              358
+            ]
+          ]
+        }
+      ],
+      "resolved_question": "AuthoredArmorCoverage already owns the bounded collection of disconnected coverage segments for one coarse combat body part, and ArmorCoverageSpan owns named interval endpoints. from_placement projects authored region chains/anchors into per-region normalized body intervals; missing/nonretained regions produce no protection. TryFrom bounds count16 and finite ordered endpoints inside[0,1]. Empty collection and zero-length intervals are valid. The innate from_span path deliberately has no region/laterality/source ordinal and is not an authored garment chain.",
+      "owner_fit": "Reuse AuthoredArmorCoverage and ArmorCoverageSpan in their actual combat projection/retained interval roles; neither is interchangeable with a positive authored chain-length fraction or atlas UV coordinate. UnitInterval is a reusable numeric leaf for normalized interval endpoints but does not establish endpoint order or the bounded collection. Existing from_span and public raw span construction do not themselves prove general checked admission.",
+      "required_repair": "Strengthen/move existing owners as necessary rather than adding a second coverage union. Preserve start<=end, half-open contains semantics and endpoint clamping, explicit region/laterality/source ordinal metadata, valid empty/no-protection and innate/synthetic modes. Remove the production expect in from_placement under the crate rule, preserving the catalog segment-capacity construction proof rather than inventing an ordinary missing-element error.",
+      "remaining_evidence": [
+        "layered_armor_contact_index body starts after the registered1..179 coverage scope and is not assessed here; actual contact selection/current canonical alias qualification remains required.",
+        "Core targeting interval constants imported by region_body_interval are referenced, not newly body-qualified here. Their owner/policy proof remains separate if needed for a retained repair."
+      ],
+      "later_acceptance": [
+        "Preserve disconnected regions without double-counting a layer, intentional innate whole-part coverage, anatomical laterality, surface ordinals, gaps and maximum16 capacity; no loss from substituting scalar averaged coverage for actual geometry."
+      ]
+    }
+  ],
+  "source_or_queue_case_closed": false,
+  "canonical_aliases_reconciled": false,
+  "selected_l2_state_updated": false,
+  "source_adoption_performed": false,
+  "current_delta_cells_closed": 0,
+  "new_primary_findings": 0,
+  "new_body_population_unique_credit": 0,
+  "implementation_gate_complete": false,
+  "product_edits": false,
+  "product_execution": false,
+  "tests_executed": false,
+  "independent_agent_review": false
+}

@@ -1,0 +1,2111 @@
+{
+  "schema": "726-root-l2-existing-owner-definition-use-qualification-v1",
+  "at": "2026-11-02T17:02:14.677763+00:00",
+  "author": "/root",
+  "lens": 2,
+  "selected_revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+  "base_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "b36b1f0bf97a9af07b62f452b9906bcc8ace100151522102d2b4ce04c498df39"
+  },
+  "selected_l2_state": {
+    "path": "segovb/STATE-L2-EXT-CURRENT-015.json",
+    "sha256": "cd3dcd9b27ecd2fa4f108004b85031716389d163b41f28c6f9eb11dc803fefd8"
+  },
+  "new_support_read": {
+    "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+    "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+  },
+  "prior_item_body_read": {
+    "path": "adler-continuation-20261030/READ-ROOT-L2-ITEM-VALIDATION-REMAINDER-001.json",
+    "sha256": "e3f3fb10a0338dd14685888b0c877780386dac93f86971c10299f18658a40e4a"
+  },
+  "prior_assessed_item_body_read": {
+    "path": "root-l2-extension-20261030/READ-ROOT-L2-CURRENT-013.json",
+    "sha256": "94db3cca4ab1240e4a669b16c565fb6ecf540b6454c3db7aca89b7529ca7ea24"
+  },
+  "contracts": [
+    {
+      "local_role": "weapon-carry-and-handling",
+      "lens": 2,
+      "owner_fit_classification": "exact-existing-closed-role-owners",
+      "definition_producer_consumer_evidence": [
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+          "ranges": [
+            [
+              546,
+              635
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-ITEM-VALIDATION-REMAINDER-001.json",
+            "sha256": "e3f3fb10a0338dd14685888b0c877780386dac93f86971c10299f18658a40e4a"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+          "ranges": [
+            [
+              1058,
+              1080
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-ITEM-VALIDATION-REMAINDER-001.json",
+            "sha256": "e3f3fb10a0338dd14685888b0c877780386dac93f86971c10299f18658a40e4a"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+          "ranges": [
+            [
+              428,
+              440
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+          "ranges": [
+            [
+              402,
+              424
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+          "ranges": [
+            [
+              131,
+              143
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/5"
+        }
+      ],
+      "decision_and_trace": "WeaponCarry and WeaponHandling already own the exact two-value snake_case vocabularies. JSON admission feeds shared ItemKind::Weapon, then typed runtime accessors. Reuse their admitted values for policy checks, including sheath containment and root-held hand-only placement. The carry unreachable branch is dominated by an immutable two-value guard; no ordinary panic witness is established.",
+      "later_repair_acceptance": "Preserve both carry modes and both handling modes, singleton containment/root-held restrictions, tag semantics and order-zero policy. Remove redundant internal raw-string dispatch without fabricating an impossible missing-element error.",
+      "remaining_evidence": [],
+      "canonical_alias_reconciliation_complete": false,
+      "canonical_source_case_closed": false,
+      "repair_implemented": false,
+      "new_accepted_unique_count": 0
+    },
+    {
+      "local_role": "preferred-melee-style",
+      "lens": 2,
+      "owner_fit_classification": "exact-existing-closed-role-owner",
+      "definition_producer_consumer_evidence": [
+        {
+          "git_path": "crates/adventuresim-core/src/combat_style.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "061ad83361e2177d953bb8c9b3246f1c654156078edd65e63926ed4dd62c9d77",
+          "ranges": [
+            [
+              1,
+              18
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/19"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+          "ranges": [
+            [
+              413,
+              414
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+          "ranges": [
+            [
+              1077,
+              1100
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-ITEM-VALIDATION-REMAINDER-001.json",
+            "sha256": "e3f3fb10a0338dd14685888b0c877780386dac93f86971c10299f18658a40e4a"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/autoresolve/authored_weapon.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "446d7c751bfec9680b1aaf74efb82a38f44b145076a521b5bd5c0ea14844003c",
+          "ranges": [
+            [
+              33,
+              58
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/20"
+        }
+      ],
+      "decision_and_trace": "MeleeAttackStyle already owns Swing/Stab and the default Swing. Authored schema retains it and authored combat projection passes it to timing; decode at the JSON boundary instead of a second semantic string vocabulary.",
+      "later_repair_acceptance": "Preserve optional/default authored style and each distinct timing path; no forced correspondence between style and material or weapon ID.",
+      "remaining_evidence": [],
+      "canonical_alias_reconciliation_complete": false,
+      "canonical_source_case_closed": false,
+      "repair_implemented": false,
+      "new_accepted_unique_count": 0
+    },
+    {
+      "local_role": "animation-pack-identity",
+      "lens": 2,
+      "owner_fit_classification": "existing-open-identity-with-separate-admission-policy",
+      "definition_producer_consumer_evidence": [
+        {
+          "git_path": "crates/adventuresim-core/src/animation_pack_id.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "f5933a0bf3fad1149d1f10c1e16ae4883fa626338fc6aa29723816dc8ae4e317",
+          "ranges": [
+            [
+              1,
+              43
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/23"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+          "ranges": [
+            [
+              406,
+              409
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+          "ranges": [
+            [
+              1058,
+              1076
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-ITEM-VALIDATION-REMAINDER-001.json",
+            "sha256": "e3f3fb10a0338dd14685888b0c877780386dac93f86971c10299f18658a40e4a"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+          "ranges": [
+            [
+              152,
+              159
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/5"
+        }
+      ],
+      "decision_and_trace": "AnimationPackId is an open Cow-backed identity, not a registry enum or a checked safe-ID constructor. The schema and runtime accessor already retain it. Catalog valid_id checks are extra admission policy; current From/Deserialize do not prove that policy.",
+      "later_repair_acceptance": "Retain the existing open owner through internal use and optional absence; preserve safe authored-ID admission at its owning boundary rather than enumerating current packs.",
+      "remaining_evidence": [],
+      "canonical_alias_reconciliation_complete": false,
+      "canonical_source_case_closed": false,
+      "repair_implemented": false,
+      "new_accepted_unique_count": 0
+    },
+    {
+      "local_role": "equipment-material",
+      "lens": 2,
+      "owner_fit_classification": "exact-existing-closed-role-owner",
+      "definition_producer_consumer_evidence": [
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation_material.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "823eb461e0534843b71a2b8199e6428fd9a558cf9bc1387beedf87500bf71f8a",
+          "ranges": [
+            [
+              1,
+              17
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/9"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+          "ranges": [
+            [
+              126,
+              139
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+          "ranges": [
+            [
+              637,
+              685
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-ITEM-VALIDATION-REMAINDER-001.json",
+            "sha256": "e3f3fb10a0338dd14685888b0c877780386dac93f86971c10299f18658a40e4a"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/autoresolve/authored_weapon.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "446d7c751bfec9680b1aaf74efb82a38f44b145076a521b5bd5c0ea14844003c",
+          "ranges": [
+            [
+              92,
+              111
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/20"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/equipment_assets.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "0c7bd7e45c9a145954daf97ac6f0c2caa23bda96e9731a5ff033a2a3ce4a9365",
+          "ranges": [
+            [
+              21,
+              35
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/29"
+        }
+      ],
+      "decision_and_trace": "The helper's ten names match EquipmentMaterial's snake_case variants. Material and striking_material share this vocabulary but have distinct field roles: procedural body presentation and damaging contact. Typed values already reach combat projection and procedural asset records. This is not proof that an arbitrary recipe physical-material identity is interchangeable.",
+      "later_repair_acceptance": "Use the existing enum at lexical admission, keep weapon-only striking-material policy, and preserve the two distinct material fields.",
+      "remaining_evidence": [],
+      "canonical_alias_reconciliation_complete": false,
+      "canonical_source_case_closed": false,
+      "repair_implemented": false,
+      "new_accepted_unique_count": 0
+    },
+    {
+      "local_role": "equipment-channel-location-and-body-part",
+      "lens": 2,
+      "owner_fit_classification": "exact-existing-role-owners-with-distinct-projections",
+      "definition_producer_consumer_evidence": [
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+          "ranges": [
+            [
+              141,
+              181
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+          "ranges": [
+            [
+              287,
+              368
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+          "ranges": [
+            [
+              729,
+              868
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-ITEM-VALIDATION-REMAINDER-001.json",
+            "sha256": "e3f3fb10a0338dd14685888b0c877780386dac93f86971c10299f18658a40e4a"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "8cd31fc81b31e43b70677a2fe4cd2826f9afabb27f172c1681a74f9951d542d5",
+          "ranges": [
+            [
+              58,
+              140
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/7"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/equipment/armor.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "1eb52192b9ef4b1d23b4a696a3f4b370baf3076b3184e4b576ec681f426e47f1",
+          "ranges": [
+            [
+              40,
+              49
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/32"
+        }
+      ],
+      "decision_and_trace": "The validator's 24 location names and nine channel names match EquipmentLocation and EquipmentChannel; the seven protection targets match EquipmentBodyPart. The earlier inventory's count23 was a counting error, not a missing variant. Fine-grained location and seven-part protection are distinct, with an explicit EquipmentBodyPart-to-BodyPart mapping. Reuse actual owners; do not collapse them by name similarity.",
+      "later_repair_acceptance": "All existing location/channel/body-part tags stay admitted. Retain singleton channel policy and the explicit combat-body-part adapter.",
+      "remaining_evidence": [],
+      "canonical_alias_reconciliation_complete": false,
+      "canonical_source_case_closed": false,
+      "repair_implemented": false,
+      "new_accepted_unique_count": 0
+    },
+    {
+      "local_role": "occupancy-parent-layer-and-fit",
+      "lens": 2,
+      "owner_fit_classification": "existing-typed-records-with-unchecked-order-leaf",
+      "definition_producer_consumer_evidence": [
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+          "ranges": [
+            [
+              183,
+              225
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_fit.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+          "ranges": [
+            [
+              1,
+              46
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/11"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "8cd31fc81b31e43b70677a2fe4cd2826f9afabb27f172c1681a74f9951d542d5",
+          "ranges": [
+            [
+              14,
+              140
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/7"
+        },
+        {
+          "git_path": "crates/adventuresim-stdb-module/src/item.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+          "ranges": [
+            [
+              60,
+              75
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/25"
+        },
+        {
+          "git_path": "crates/adventuresim-stdb-module/src/character.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+          "ranges": [
+            [
+              2983,
+              3025
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/26"
+        }
+      ],
+      "decision_and_trace": "OccupancyRequirement, ParentRequirement, EquipmentLayerPrecedence and EquipmentFitZone are already decoded by helpers. None fit_zone reserves the whole location; disjoint compatible zones may coexist, singleton channel/order conflicts remain policy. order is a zero-valid authored within-channel ordinal, not an arbitrary array index or positive quantity. Typed records alone do not strengthen the carried u16 leaf.",
+      "later_repair_acceptance": "Preserve whole-location versus specific-zone reservations, side constraints, default order0, singleton order0, and checked external parent requirement indexing. Scope any new order leaf to this semantic ordering, keeping decoder/native u16 projections at actual endpoints.",
+      "remaining_evidence": [],
+      "canonical_alias_reconciliation_complete": false,
+      "canonical_source_case_closed": false,
+      "repair_implemented": false,
+      "new_accepted_unique_count": 0
+    },
+    {
+      "local_role": "placement-identity",
+      "lens": 2,
+      "owner_fit_classification": "existing-admitted-item-placement-record-owner",
+      "definition_producer_consumer_evidence": [
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+          "ranges": [
+            [
+              88,
+              113
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+          "ranges": [
+            [
+              775,
+              810
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-ITEM-VALIDATION-REMAINDER-001.json",
+            "sha256": "e3f3fb10a0338dd14685888b0c877780386dac93f86971c10299f18658a40e4a"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/equipment_assets/selection.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "162b898d78feeae3507d19844b4b11c999c50edd7609680e5ef7c2fac89486d6",
+          "ranges": [
+            [
+              8,
+              75
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/30"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/equipment_assets.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "0c7bd7e45c9a145954daf97ac6f0c2caa23bda96e9731a5ff033a2a3ce4a9365",
+          "ranges": [
+            [
+              48,
+              85
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/29"
+        },
+        {
+          "git_path": "crates/adventuresim-stdb-module/src/item.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+          "ranges": [
+            [
+              151,
+              162
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/25"
+        }
+      ],
+      "decision_and_trace": "EquipmentPlacement.id is stable within its item and is persisted as such. CatalogItem and CatalogPlacement prove actual record membership and the owning-item relationship; raw ID equality is admitted once in find/placement. Reuse these existing owners for in-memory selections, leaving authored/persisted strings at the actual endpoint. A flat placement-name enum or global placement identity would lose the item scope.",
+      "later_repair_acceptance": "Reject unknown item/placement combinations at admission; retain authored order versus deliberate lexical default selection and existing borrowed/retained ownership, without an equivalent replacement wrapper.",
+      "remaining_evidence": [
+        "Exact canonical queue identity/alias reconciliation for the reached selection contracts is still required; this comparison does not close their existing L12/L13 views."
+      ],
+      "canonical_alias_reconciliation_complete": false,
+      "canonical_source_case_closed": false,
+      "repair_implemented": false,
+      "new_accepted_unique_count": 0
+    },
+    {
+      "local_role": "attachment-point-identity-tags-and-slot-capacity",
+      "lens": 2,
+      "owner_fit_classification": "distinct-missing-or-unqualified-scalar-roles-with-existing-state-owner",
+      "definition_producer_consumer_evidence": [
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+          "ranges": [
+            [
+              229,
+              252
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+          "ranges": [
+            [
+              924,
+              998
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-ITEM-VALIDATION-REMAINDER-001.json",
+            "sha256": "e3f3fb10a0338dd14685888b0c877780386dac93f86971c10299f18658a40e4a"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-stdb-module/src/item.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+          "ranges": [
+            [
+              163,
+              173
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/25"
+        },
+        {
+          "git_path": "crates/adventuresim-stdb-module/src/character.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+          "ranges": [
+            [
+              2997,
+              3079
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/26"
+        },
+        {
+          "git_path": "crates/adventuresim-stdb-module/src/character/attachment_capacity.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "528e863cc96ef83ca94805bca5f7616b49bdce9bba32760bfc0e86be2244cd57",
+          "ranges": [
+            [
+              1,
+              21
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/36"
+        }
+      ],
+      "decision_and_trace": "Attachment point IDs are open identities scoped to the parent item; accepts_tags and attachment_tags are open matching labels. capacity is a positive u16 slot count, and selected capacity_index is a zero-based slot bounded by that count. AttachmentCapacity already owns Free/Reserved/Occupied transaction state, not the count. Native selection scans0..capacity, preserves self occupancy and distinguishes a reservation from every u64 inventory ID. No inventory material-quantity owner is an exact count/index replacement.",
+      "later_repair_acceptance": "Carry point identity with parent scope, separate count from selected slot, retain empty-tag wildcard matching and Free/Reserved/Occupied. Reuse AttachmentCapacity; qualify a shared count/index/tag identity owner without duplicate wrappers or invented nonzero inventory-ID policy.",
+      "remaining_evidence": [
+        "Existing exact canonical count/index/tag owners and all producer paths remain to reconcile; bounded searches found no proved matching checked leaf, which is not a repository-wide absence proof."
+      ],
+      "canonical_alias_reconciliation_complete": false,
+      "canonical_source_case_closed": false,
+      "repair_implemented": false,
+      "new_accepted_unique_count": 0
+    },
+    {
+      "local_role": "equipment-dimensions",
+      "lens": 2,
+      "owner_fit_classification": "reusable-positive-length-leaf-and-broader-cuboid-owner",
+      "definition_producer_consumer_evidence": [
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+          "ranges": [
+            [
+              72,
+              86
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+          "ranges": [
+            [
+              686,
+              724
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-ITEM-VALIDATION-REMAINDER-001.json",
+            "sha256": "e3f3fb10a0338dd14685888b0c877780386dac93f86971c10299f18658a40e4a"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/fabelgeist-geometry/src/length.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+          "ranges": [
+            [
+              9,
+              40
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/14"
+        },
+        {
+          "git_path": "crates/fabelgeist-geometry/src/cuboid.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "1fe1e6483da91ee1bd681df6ff788ec97d680ac453c450069a30111c66dc40ed",
+          "ranges": [
+            [
+              9,
+              79
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/2"
+        },
+        {
+          "git_path": "crates/adventuresim-tactical-core/src/inventory.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+          "ranges": [
+            [
+              199,
+              208
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/33"
+        },
+        {
+          "git_path": "crates/adventuresim-tactical-client/src/strategic_scene/equipment.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "bcfd6571ac4b5c7fb271cfb50e5ef79c08b7110bc649364f23abd31c44799bdf",
+          "ranges": [
+            [
+              69,
+              85
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/34"
+        },
+        {
+          "git_path": "crates/adventuresim-tactical-client/src/equipment/placeholder_visual.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "43be98d339543f652eed674fbce2d8ceb5f22f1720fcd5758219f0535e494510",
+          "ranges": [
+            [
+              39,
+              54
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/35"
+        }
+      ],
+      "decision_and_trace": "Equipment uses full box X-width/Y-length/Z-thickness in local metres. PositiveLength admits finite positive f32 including nonzero subnormals; CuboidDimensions stores full nonnegative X/Y/Z extents and intentionally permits points/lines. Reuse the existing numerical leaves/geometry owner with equipment's stricter positive-axis policy; do not globally prohibit valid degenerate cuboids. Authored raw f64 positivity and stored f32 positivity need an explicit join. TacticalEquipmentPhysical checks strict positive axes; the scene adapter copies arrays into Vec3 and the renderer projects full dimensions into Cuboid::new.",
+      "later_repair_acceptance": "Equipment admission must preserve positive finite stored axes, axis order and full-size meaning, while generic CuboidDimensions retains zero-capable clients. Include a tiny-positive/overflow conversion acceptance at the real catalog boundary; do not claim it executed.",
+      "remaining_evidence": [
+        "Qualify the exact f64-to-f32 admission behavior against the pinned decoder and decide the canonical positive equipment aggregate/leaf placement before final repair design."
+      ],
+      "canonical_alias_reconciliation_complete": false,
+      "canonical_source_case_closed": false,
+      "repair_implemented": false,
+      "new_accepted_unique_count": 0
+    },
+    {
+      "local_role": "grip-distance-and-anchor-offset",
+      "lens": 2,
+      "owner_fit_classification": "reusable-unit-leaves-with-distinct-bound-and-frame-roles",
+      "definition_producer_consumer_evidence": [
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+          "ranges": [
+            [
+              74,
+              85
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+          "ranges": [
+            [
+              704,
+              726
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-ITEM-VALIDATION-REMAINDER-001.json",
+            "sha256": "e3f3fb10a0338dd14685888b0c877780386dac93f86971c10299f18658a40e4a"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/fabelgeist-geometry/src/measurement.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "72ee58eb8ae01af4b7f17ef81f007dfa63c7dc818a1ed71ce5bbba0707236e70",
+          "ranges": [
+            [
+              11,
+              79
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/15"
+        },
+        {
+          "git_path": "crates/fabelgeist-math/src/units.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+          "ranges": [
+            [
+              10,
+              14
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/16"
+        },
+        {
+          "git_path": "crates/fabelgeist-math/src/units.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+          "ranges": [
+            [
+              52,
+              60
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/16"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/autoresolve/authored_weapon.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "446d7c751bfec9680b1aaf74efb82a38f44b145076a521b5bd5c0ea14844003c",
+          "ranges": [
+            [
+              59,
+              67
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/20"
+        },
+        {
+          "git_path": "crates/adventuresim-tactical-client/src/strategic_scene/equipment.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "bcfd6571ac4b5c7fb271cfb50e5ef79c08b7110bc649364f23abd31c44799bdf",
+          "ranges": [
+            [
+              69,
+              85
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/34"
+        },
+        {
+          "git_path": "crates/adventuresim-tactical-client/src/equipment/placeholder_visual.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "43be98d339543f652eed674fbce2d8ceb5f22f1720fcd5758219f0535e494510",
+          "ranges": [
+            [
+              52,
+              54
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/35"
+        },
+        {
+          "git_path": "crates/adventuresim-tactical-core/src/inventory.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+          "ranges": [
+            [
+              199,
+              208
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/33"
+        }
+      ],
+      "decision_and_trace": "Grip-to-tip is nonnegative local+Y distance, zero-valid for nonweapons. Anchor offset is a signed three-axis local displacement relative to box centre; the render root is the grip and native translation uses its negation. SignedLength is a reusable finite metre leaf, while PositiveLength cannot represent valid zero grip/offset and unchecked math Metres adds only a unit. Neither scalar proves the equipment-local aggregate frame. Tactical validation already allows zero grip and signed finite offsets.",
+      "later_repair_acceptance": "Retain nonnegative zero-valid grip, signed finite offsets, default zero vector and the local frame/centre-to-grip relation. Reuse checked lengths in the appropriate owned aggregate and project to Vec3 only at the native kernel.",
+      "remaining_evidence": [
+        "Final shared zero-capable nonnegative distance and equipment-local offset owner placement remains to reconcile with canonical geometry repair records; no claim of a universal missing vector type."
+      ],
+      "canonical_alias_reconciliation_complete": false,
+      "canonical_source_case_closed": false,
+      "repair_implemented": false,
+      "new_accepted_unique_count": 0
+    },
+    {
+      "local_role": "weapon-reach-and-rotational-inertia",
+      "lens": 2,
+      "owner_fit_classification": "different-units-despite-shared-native-bounds",
+      "definition_producer_consumer_evidence": [
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+          "ranges": [
+            [
+              415,
+              423
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+          "ranges": [
+            [
+              1070,
+              1082
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-ITEM-VALIDATION-REMAINDER-001.json",
+            "sha256": "e3f3fb10a0338dd14685888b0c877780386dac93f86971c10299f18658a40e4a"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/equipment.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+          "ranges": [
+            [
+              435,
+              453
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/17"
+        },
+        {
+          "git_path": "crates/adventuresim-stdb-module/src/item.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+          "ranges": [
+            [
+              221,
+              251
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/25"
+        },
+        {
+          "git_path": "crates/adventuresim-stdb-module/src/capability/equipment_projection.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "f8b4732bf544887996ecaf8ffba647c00a6a7f4c4d88728b7b5ac094a689c6af",
+          "ranges": [
+            [
+              20,
+              44
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/21"
+        }
+      ],
+      "decision_and_trace": "reach_m and moment_of_inertia_kg_m2 both admit0..10000 in catalog validation but have different units. Inertia feeds timing and the radius-of-gyration balance calculation with mass and grip length; reach feeds melee/ranged geometry. Numeric bound equality does not establish owner equivalence. Zero remains admitted at catalog boundary; generated melee geometry later overwrites these authored values.",
+      "later_repair_acceptance": "Retain separate metre and kg*m^2 quantities through catalog, persistence and combat projection, with field-specific authored bounds and generated-owner admission. No generic UnitInterval/length substitution for inertia.",
+      "remaining_evidence": [
+        "The exact checked inertia/mass owner and generated-property producer contract remain separate required evidence; these bounded consumers establish unit roles, not global owner absence."
+      ],
+      "canonical_alias_reconciliation_complete": false,
+      "canonical_source_case_closed": false,
+      "repair_implemented": false,
+      "new_accepted_unique_count": 0
+    },
+    {
+      "local_role": "weapon-contact-precision",
+      "lens": 2,
+      "owner_fit_classification": "existing-checked-owner-requires-lightweight-shared-location",
+      "definition_producer_consumer_evidence": [
+        {
+          "git_path": "crates/adventuresim-core/src/combat/weapon_contact.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "287ef23a8837049c44a05b856bcef61d536c382a5e3602b6755f434f02c177d5",
+          "ranges": [
+            [
+              8,
+              72
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/18"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/combat/weapon_contact.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "287ef23a8837049c44a05b856bcef61d536c382a5e3602b6755f434f02c177d5",
+          "ranges": [
+            [
+              84,
+              113
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/18"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+          "ranges": [
+            [
+              36,
+              59
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/5"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+          "ranges": [
+            [
+              145,
+              149
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/5"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+          "ranges": [
+            [
+              1077,
+              1105
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-ITEM-VALIDATION-REMAINDER-001.json",
+            "sha256": "e3f3fb10a0338dd14685888b0c877780386dac93f86971c10299f18658a40e4a"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-stdb-module/src/item.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+          "ranges": [
+            [
+              234,
+              251
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/25"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/autoresolve/authored_weapon.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "446d7c751bfec9680b1aaf74efb82a38f44b145076a521b5bd5c0ea14844003c",
+          "ranges": [
+            [
+              79,
+              90
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/20"
+        },
+        {
+          "git_path": "crates/adventuresim-core/build.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+          "ranges": [
+            [
+              35,
+              50
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/3"
+        },
+        {
+          "git_path": "crates/adventuresim-core/Cargo.toml",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "e5e9c6ed987838be5b7fef72e25ba3e6b6e848bc84105c42f396fcdfd7d65f53",
+          "ranges": [
+            [
+              13,
+              39
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/4"
+        }
+      ],
+      "decision_and_trace": "ContactPrecision already owns finite nonnegative dimensionless contact concentration. Its current constructor asserts and its module depends on runtime PlayerEquipment and weapon-model logic. Catalog loading calculates melee precision with that owner, then extracts value into an f32 field and accessor. Ranged authored precision has a separate upper bound10000; derived melee precision is not proved to share that upper bound. Reuse/move the lightweight owner, rather than a copied local wrapper or importing the whole runtime graph into build.",
+      "later_repair_acceptance": "Carry ContactPrecision through internal producer/schema/consumer where appropriate, keep ranged authored upper-bound admission distinct, and handle external invalid input with owned errors. Retain zero and the existing concentrated-fraction/resistance meaning.",
+      "remaining_evidence": [],
+      "canonical_alias_reconciliation_complete": false,
+      "canonical_source_case_closed": false,
+      "repair_implemented": false,
+      "new_accepted_unique_count": 0
+    },
+    {
+      "local_role": "weapon-skill-weights-and-capabilities",
+      "lens": 2,
+      "owner_fit_classification": "existing-broader-distribution-owner-not-equivalent-to-authored-policy",
+      "definition_producer_consumer_evidence": [
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+          "ranges": [
+            [
+              465,
+              486
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+          "ranges": [
+            [
+              1083,
+              1146
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-ITEM-VALIDATION-REMAINDER-001.json",
+            "sha256": "e3f3fb10a0338dd14685888b0c877780386dac93f86971c10299f18658a40e4a"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/equipment.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+          "ranges": [
+            [
+              320,
+              432
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/17"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+          "ranges": [
+            [
+              182,
+              186
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/5"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/autoresolve/authored_weapon.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "446d7c751bfec9680b1aaf74efb82a38f44b145076a521b5bd5c0ea14844003c",
+          "ranges": [
+            [
+              79,
+              83
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/20"
+        },
+        {
+          "git_path": "crates/adventuresim-stdb-module/src/item.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+          "ranges": [
+            [
+              249,
+              251
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/25"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/unit_interval.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "06bd726fb8282af0ad5c1f54f64b1bfe383842e284e948a6226240178de4b6bb",
+          "ranges": [
+            [
+              23,
+              34
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/1"
+        }
+      ],
+      "decision_and_trace": "WeaponSkills is copied leaf-for-leaf into WeaponSkillDistribution. The runtime owner is a broader relative-weight record: validate checks finite nonnegative values and positive selected families, weighted_check normalizes, and an empty default deliberately represents unknown/nonweapon. Catalog policy requires a total within0.0001 of1 and positive enabled families; one entry slightly above1 can therefore be admitted. UnitInterval would narrow that authored tolerance. melee and ranged are independent predicates and both true is admitted; a mutually exclusive mode enum would be wrong.",
+      "later_repair_acceptance": "Reuse the nine-skill owner from a lightweight shared module with explicit relative/runtime versus authored normalized admission. Preserve empty nonweapon mode, mixed melee+ranged, family checks and normalization; preserve authored tolerance deliberately or record an approved changed contract. No unproved per-entry upper bound.",
+      "remaining_evidence": [
+        "Final shared owning location and exact authored-to-runtime normalization/admission contract must be reconciled with existing weight repair records and generated producers."
+      ],
+      "canonical_alias_reconciliation_complete": false,
+      "canonical_source_case_closed": false,
+      "repair_implemented": false,
+      "new_accepted_unique_count": 0
+    },
+    {
+      "local_role": "protection-coefficients-and-derived-coverage",
+      "lens": 2,
+      "owner_fit_classification": "reusable-unit-interval-leaf-with-distinct-derived-state",
+      "definition_producer_consumer_evidence": [
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+          "ranges": [
+            [
+              264,
+              284
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+          "ranges": [
+            [
+              878,
+              923
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-ITEM-VALIDATION-REMAINDER-001.json",
+            "sha256": "e3f3fb10a0338dd14685888b0c877780386dac93f86971c10299f18658a40e4a"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/unit_interval.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "06bd726fb8282af0ad5c1f54f64b1bfe383842e284e948a6226240178de4b6bb",
+          "ranges": [
+            [
+              9,
+              34
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/1"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_surface.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "9f49d61c21b245ad0793daea4f28f1f74769c76680ef383553454b688c9f6cbd",
+          "ranges": [
+            [
+              5,
+              19
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/10"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+          "ranges": [
+            [
+              120,
+              129
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/8"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+          "ranges": [
+            [
+              64,
+              101
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/5"
+        },
+        {
+          "git_path": "crates/adventuresim-stdb-module/src/item.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+          "ranges": [
+            [
+              174,
+              179
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/25"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/equipment/armor.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "1eb52192b9ef4b1d23b4a696a3f4b370baf3076b3184e4b576ec681f426e47f1",
+          "ranges": [
+            [
+              52,
+              81
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/32"
+        }
+      ],
+      "decision_and_trace": "Flexibility and range_of_motion admit0..1 and default1, matching UnitInterval's finite closed numerical leaf. Surface span coverage is a retained chain-length fraction and must remain positive after f32 conversion; UnitInterval alone allows its forbidden0. Effective protection coverage is computed from spans by catalog loading, not independently authored. Aggregation combines coverage, resistance-weighted flexibility and minimum range_of_motion; these are distinct roles despite reusable fraction leaves.",
+      "later_repair_acceptance": "Use existing UnitInterval leaves in meaning-specific records; preserve zero flexibility/ROM, default1, positive span coverage and derived effective coverage. Do not replace an absent derived value with a second independently authored field, or impose per-span positivity on an aggregate coverage gap.",
+      "remaining_evidence": [],
+      "canonical_alias_reconciliation_complete": false,
+      "canonical_source_case_closed": false,
+      "repair_implemented": false,
+      "new_accepted_unique_count": 0
+    },
+    {
+      "local_role": "protection-padding-and-resistance",
+      "lens": 2,
+      "owner_fit_classification": "existing-records-with-unqualified-physical-scalar-owners",
+      "definition_producer_consumer_evidence": [
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+          "ranges": [
+            [
+              266,
+              276
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+          "ranges": [
+            [
+              896,
+              923
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-ITEM-VALIDATION-REMAINDER-001.json",
+            "sha256": "e3f3fb10a0338dd14685888b0c877780386dac93f86971c10299f18658a40e4a"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-stdb-module/src/item.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+          "ranges": [
+            [
+              174,
+              179
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/25"
+        },
+        {
+          "git_path": "crates/adventuresim-stdb-module/src/item.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+          "ranges": [
+            [
+              205,
+              219
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/25"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/equipment/armor.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "1eb52192b9ef4b1d23b4a696a3f4b370baf3076b3184e4b576ec681f426e47f1",
+          "ranges": [
+            [
+              6,
+              38
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/32"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/equipment/armor.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "1eb52192b9ef4b1d23b4a696a3f4b370baf3076b3184e4b576ec681f426e47f1",
+          "ranges": [
+            [
+              64,
+              80
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/32"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/combat/weapon_contact.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "287ef23a8837049c44a05b856bcef61d536c382a5e3602b6755f434f02c177d5",
+          "ranges": [
+            [
+              106,
+              112
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/18"
+        }
+      ],
+      "decision_and_trace": "Padding and resistance admit distinct nonnegative authored values with upper bound1000000. They are copied into persistent Item and existing WearableProtection/ArmorSurface records. Layer aggregation adds both while resistance also weights flexibility; contact precision scales resistance. Existing record names do not prove checked leaf admission or identical physical units. Individual-layer catalog bounds cannot automatically become bounds on an aggregate sum.",
+      "later_repair_acceptance": "Retain distinct protection meanings and valid0, qualify physical units and existing shared scalar owners, and carry those through producer and consumer. Preserve aggregate sums and field-specific authoring bounds.",
+      "remaining_evidence": [
+        "Physical-unit and canonical numerical-owner evidence from the actual armor-impact producer/consumer remains required; no invented Joules owner or proof of unit equivalence from the common bound."
+      ],
+      "canonical_alias_reconciliation_complete": false,
+      "canonical_source_case_closed": false,
+      "repair_implemented": false,
+      "new_accepted_unique_count": 0
+    },
+    {
+      "local_role": "surface-region-chain-and-anchor",
+      "lens": 2,
+      "owner_fit_classification": "existing-enums-with-chain-collection-invariant",
+      "definition_producer_consumer_evidence": [
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_surface.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "9f49d61c21b245ad0793daea4f28f1f74769c76680ef383553454b688c9f6cbd",
+          "ranges": [
+            [
+              1,
+              47
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/10"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+          "ranges": [
+            [
+              8,
+              158
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/8"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+          "ranges": [
+            [
+              105,
+              112
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+          "ranges": [
+            [
+              64,
+              87
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/5"
+        }
+      ],
+      "decision_and_trace": "EquipmentAnatomicalRegion and SurfaceAnchor own the exact closed vocabularies. The validator converts region strings again for protection mapping and matches string pairs for contiguity; existing enum values can carry that policy. A span's regions are a nonempty ordered valid chain and the total placement segments are bounded16. Vec<enum> alone does not prove chain/collection admission. Nonprotective fitted accessories with surface remain valid, and has_material is a named existence predicate at the decoder, not automatically a missing two-state role.",
+      "later_repair_acceptance": "Retain existing enum owners, actual chain order, segment limit and protection-subset checks. Admit chain collections once without forcing protection on accessories or enumerating numeric segment positions.",
+      "remaining_evidence": [],
+      "canonical_alias_reconciliation_complete": false,
+      "canonical_source_case_closed": false,
+      "repair_implemented": false,
+      "new_accepted_unique_count": 0
+    },
+    {
+      "local_role": "surface-uv-tangent-and-domain",
+      "lens": 2,
+      "owner_fit_classification": "existing-semantic-record-with-unqualified-leaves-and-paired-state",
+      "definition_producer_consumer_evidence": [
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+          "ranges": [
+            [
+              243,
+              261
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+          "ranges": [
+            [
+              999,
+              1053
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-ITEM-VALIDATION-REMAINDER-001.json",
+            "sha256": "e3f3fb10a0338dd14685888b0c877780386dac93f86971c10299f18658a40e4a"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/unit_interval.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "06bd726fb8282af0ad5c1f54f64b1bfe383842e284e948a6226240178de4b6bb",
+          "ranges": [
+            [
+              23,
+              34
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/1"
+        },
+        {
+          "git_path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "4e65cd862aff1f268f9fedc0a953073acb93c57b0578a9f8e2c8a08ed6b8acce",
+          "ranges": [
+            [
+              185,
+              256
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/27"
+        },
+        {
+          "git_path": "crates/adventuresim-character-creator/src/device_underlayer.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "b42e82c29ce8e08f7e378abc16f0f9823aea7c2580456c37cbaa4084ea781591",
+          "ranges": [
+            [
+              53,
+              59
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/28"
+        },
+        {
+          "git_path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/sockets.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "a45cb5eedc27be4cfec5bdd354ffbd7db75dc898d4a3f5dd1e06044c3fe47936",
+          "ranges": [
+            [
+              44,
+              62
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/22"
+        }
+      ],
+      "decision_and_trace": "SurfaceUvCoordinate already names atlas domain+UV. Its open domain string must not be replaced by SurfaceDomain<'a>, which is borrowed triangle/texcoord storage, or by an enum of the one currently supported export layout. UV leaves are finite[0,1]; tangent is finite3D direction with squared norm>1e-12 in validator. Authored UV and tangent appear together or are both absent. Export checks actual layout domain and uses UV+tangent for fitting; tactical sockets normalize the tangent at the native Vec3 boundary. These consumers do not establish that an arbitrary smaller nonzero direction is accepted by the catalog.",
+      "later_repair_acceptance": "Retain a named atlas-scoped coordinate, reuse bounded fraction leaves, represent optional paired attachment state explicitly, and retain anatomical tangent frame. Own the threshold's quantity/error budget; no silent normalization or loss of UV/domain association.",
+      "remaining_evidence": [
+        "Exact supported domain identity and tangent-threshold policy/checked-normalization join remain to reconcile with existing export/fitting owner records. No ordinary rejected-vector defect or full runtime equivalence is claimed."
+      ],
+      "canonical_alias_reconciliation_complete": false,
+      "canonical_source_case_closed": false,
+      "repair_implemented": false,
+      "new_accepted_unique_count": 0
+    },
+    {
+      "local_role": "build-runtime-dependency-and-numeric-boundary",
+      "lens": 2,
+      "owner_fit_classification": "proved-shared-schema-flow-with-real-build-dependency-barrier",
+      "definition_producer_consumer_evidence": [
+        {
+          "git_path": "crates/adventuresim-core/build.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+          "ranges": [
+            [
+              25,
+              52
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/3"
+        },
+        {
+          "git_path": "crates/adventuresim-core/build.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+          "ranges": [
+            [
+              222,
+              286
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/3"
+        },
+        {
+          "git_path": "crates/adventuresim-core/Cargo.toml",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "e5e9c6ed987838be5b7fef72e25ba3e6b6e848bc84105c42f396fcdfd7d65f53",
+          "ranges": [
+            [
+              13,
+              39
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/4"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+          "ranges": [
+            [
+              133,
+              203
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/12"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+          "ranges": [
+            [
+              249,
+              310
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/24"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+          "ranges": [
+            [
+              1,
+              49
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/6"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+          "ranges": [
+            [
+              27,
+              59
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/5"
+        }
+      ],
+      "decision_and_trace": "Build parses strict JSON-compatible content into Value, runs custom checks and typed ItemCatalogDocument decoding, then embeds serialized Values; runtime deserializes the same schema and derives melee properties/coverage. A permissive local unwrap_or default therefore does not prove malformed input is accepted overall. Numeric helper field/path strings and scalar min/max operate at a real serialized admission boundary. Normal core dependencies include geometry and weapon-model; build dependencies include math but neither geometry nor weapon-model. UnitInterval is already directly shared into build. This is an actual owner-placement/dependency constraint, not evidence to duplicate owners.",
+      "later_repair_acceptance": "Move/reuse lightweight checked owners at the lowest shared location and add only necessary build dependency edges. Preserve full typed decoding, custom field admission and source diagnostics; keep raw numbers only at actual decoding/numeric kernels. Apply the crate no-production-unwrap/expect rule during implementation even where data was validated.",
+      "remaining_evidence": [],
+      "canonical_alias_reconciliation_complete": false,
+      "canonical_source_case_closed": false,
+      "repair_implemented": false,
+      "new_accepted_unique_count": 0
+    },
+    {
+      "local_role": "source-diagnostics-and-fixture-boundaries",
+      "lens": 2,
+      "owner_fit_classification": "preserved-prior-own-lens-contract-and-native-fixtures",
+      "definition_producer_consumer_evidence": [
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+          "ranges": [
+            [
+              28,
+              130
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/12"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+          "ranges": [
+            [
+              1494,
+              2059
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-ITEM-VALIDATION-REMAINDER-001.json",
+            "sha256": "e3f3fb10a0338dd14685888b0c877780386dac93f86971c10299f18658a40e4a"
+          },
+          "row_pointer": "/rows/0"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "8cd31fc81b31e43b70677a2fe4cd2826f9afabb27f172c1681a74f9951d542d5",
+          "ranges": [
+            [
+              143,
+              183
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/7"
+        },
+        {
+          "git_path": "crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+          "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+          "ranges": [
+            [
+              160,
+              219
+            ]
+          ],
+          "receipt": {
+            "path": "adler-continuation-20261030/READ-ROOT-L2-CATALOG-OWNERS-SUPPORT-002-006.json",
+            "sha256": "1d7c502d6e344c5f0602ae470f25c8e794ae9e1607c41106500a110b5f901df2"
+          },
+          "row_pointer": "/rows/8"
+        }
+      ],
+      "decision_and_trace": "CatalogDiagnostic already binds source_index/path/message, but source_coordinates reparses semantic path strings; retain the prior own-L2 diagnostic-path issue and exact source identity. Native source indices, JSON ordinals, field names and test fixture literals are boundary primitives. Source assertions/fixtures are not passing tests, and no body ownership is transferred from L12/L13.",
+      "later_repair_acceptance": "Preserve exact file/line/column diagnostics and apply the existing canonical path repair after alias qualification; no new object unit tests or test-pass claims.",
+      "remaining_evidence": [],
+      "canonical_alias_reconciliation_complete": false,
+      "canonical_source_case_closed": false,
+      "repair_implemented": false,
+      "new_accepted_unique_count": 0
+    }
+  ],
+  "bounded_source_assessment_complete": true,
+  "all_existing_owner_fit_and_connected_contracts_complete": false,
+  "remaining_owner_contracts": [
+    "placement-identity",
+    "attachment-point-identity-tags-and-slot-capacity",
+    "equipment-dimensions",
+    "grip-distance-and-anchor-offset",
+    "weapon-reach-and-rotational-inertia",
+    "weapon-skill-weights-and-capabilities",
+    "protection-padding-and-resistance",
+    "surface-uv-tangent-and-domain"
+  ],
+  "canonical_queue_identity_and_alias_review_complete": false,
+  "new_primary_findings": 0,
+  "new_body_population_unique_credit": 0,
+  "global_all_lens_or_all_family_clearance": false,
+  "current_delta_cells_closed": 0,
+  "selected_l2_state_updated": false,
+  "source_adoption_performed": false,
+  "product_edits": false,
+  "product_execution": false,
+  "tests_executed": false,
+  "independent_agent_review": false,
+  "implementation_gate_complete": false
+}

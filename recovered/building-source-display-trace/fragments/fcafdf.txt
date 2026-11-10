@@ -1,0 +1,248 @@
+SOURCE crates/adventuresim-building-generator/src/viewer/timber_suite.rs
+256:             ));
+257:         }
+258:         for (slot, current) in [
+259:             (&mut revision, string("source_revision")),
+260:             (&mut dirty, string("source_dirty_fingerprint")),
+261:         ] {
+262:             if slot.as_ref().is_some_and(|expected| expected != &current) {
+263:                 return Err(format!("{stem} came from a mixed source build"));
+264:             }
+265:             *slot = Some(current);
+266:         }
+267:         if !pixels.insert(string("pixel_hash")) {
+268:             return Err(format!("{stem} duplicates another proof image"));
+269:         }
+270:         if artillery && *stem != "artillery-bridge-denied" {
+271:             let hash = string("plan_hash");
+272:             if ordinary_plan
+273:                 .as_ref()
+274:                 .is_some_and(|expected| expected != &hash)
+275:             {
+276:                 return Err(format!("{stem} has a mixed artillery plan hash"));
+277:             }
+278:             ordinary_plan = Some(hash);
+279:             if value
+280:                 .get("focused_resolved_item_ids")
+281:                 .and_then(serde_json::Value::as_array)
+282:                 .is_none_or(|ids| ids.is_empty())
+283:             {
+284:                 return Err(format!("{stem} lacks exact focused artillery IDs"));
+285:             }
+286:             let bounds = value
+287:                 .get("focused_bounds_fraction")
+288:                 .and_then(serde_json::Value::as_array)
+289:                 .ok_or_else(|| format!("{stem} lacks focused bounds"))?;
+290:             if bounds.len() != 4
+291:                 || bounds[2].as_f64().unwrap_or(0.0) - bounds[0].as_f64().unwrap_or(1.0) < 0.12
+292:                 || bounds[3].as_f64().unwrap_or(0.0) - bounds[1].as_f64().unwrap_or(1.0) < 0.12
+293:             {
+294:                 return Err(format!("{stem} focused authority is too small to inspect"));
+295:             }
+296:             let roles = value
+297:                 .get("artillery_focused_roles")
+298:                 .and_then(serde_json::Value::as_array)
+299:                 .map(|items| {
+300:                     items
+301:                         .iter()
+302:                         .filter_map(serde_json::Value::as_str)
+303:                         .collect::<std::collections::HashSet<_>>()
+304:                 })
+305:                 .unwrap_or_default();
+306:             let required: &[&str] = match *stem {
+307:                 "artillery-curtain-section" => &[
+308:                     "ArtilleryRevetment",
+309:                     "ArtilleryEarthCore",
+310:                     "ArtilleryRetainingWall",
+311:                     "ArtilleryTerreplein",
+312:                 ],
+313:                 "artillery-rondel-casemate" | "artillery-rondel-cutaway" => &[
+314:                     "ArtilleryEarthCore",
+315:                     "ArtilleryCasemateFloor",
+316:                     "ArtilleryCasemateRoof",
+317:                     "WeaponMount",
+318:                 ],
+319:                 "artillery-gate-interior" => &[
+320:                     "ArtilleryGateMechanism",
+321:                     "ArtilleryCasemateFloor",
+322:                     "ArtilleryCasemateRoof",
+323:                     "OpeningClosure",
+324:                 ],
+325:                 _ => &[],
+326:             };
+327:             if required.iter().any(|role| !roles.contains(role)) {
+328:                 return Err(format!("{stem} does not focus all required physical roles"));
+329:             }
+330:             let role_bounds = value
+331:                 .get("artillery_role_bounds_fraction")
+332:                 .and_then(serde_json::Value::as_object)
+333:                 .ok_or_else(|| format!("{stem} lacks per-role projected bounds"))?;
+334:             for role in required {
+335:                 let bounds = role_bounds
+336:                     .get(*role)
+337:                     .and_then(serde_json::Value::as_array)
+338:                     .ok_or_else(|| format!("{stem} does not visibly project {role}"))?;
+339:                 if bounds.len() != 4
+340:                     || bounds[2].as_f64().unwrap_or(0.0) - bounds[0].as_f64().unwrap_or(1.0) < 0.01
+341:                     || bounds[3].as_f64().unwrap_or(0.0) - bounds[1].as_f64().unwrap_or(1.0) < 0.01
+342:                     || bounds[0].as_f64().unwrap_or(-1.0) < -0.05
+343:                     || bounds[1].as_f64().unwrap_or(-1.0) < -0.05
+344:                     || bounds[2].as_f64().unwrap_or(2.0) > 1.05
+345:                     || bounds[3].as_f64().unwrap_or(2.0) > 1.05
+346:                 {
+347:                     return Err(format!(
+348:                         "{stem} projects {role} outside a readable proof area"
+349:                     ));
+350:                 }
+351:             }
+352:         }
+353:     }
+354:     Ok(())
+355: }
+356: 
+357: fn validate_timber_suite_records(
+358:     records: &[(String, BuildingArchetype, ViewerView, TimberSuiteManifest)],
+359: ) -> Result<(), String> {
+360:     if records.len() != 35 {
+361:         return Err(format!(
+362:             "expected 35 timber proofs, found {}",
+363:             records.len()
+364:         ));
+365:     }
+366:     let first = &records[0].3;
+367:     let mut fixture_hashes = std::collections::HashMap::<String, (String, String, String)>::new();
+368:     let mut pixels = std::collections::HashSet::new();
+369:     for (slug, archetype, view, manifest) in records {
+370:         let expected_view = timber_proof_suffix(*view).expect("timber proof suffix");
+371:         if manifest.fixture != archetype.slug()
+372:             || manifest.view != expected_view
+373:             || manifest.seed != fabelgeist_determinism::Seed::from_u64(47)
+374:             || manifest.resolver_schema_version != 2
+375:             || manifest.plan_audit_issue_count != 0
+376:             || !manifest.validation_passed
+377:         {
+378:             return Err(format!(
+379:                 "{slug} violates its fixture/view validation contract"
+380:             ));
+381:         }
+382:         if manifest.source_revision != first.source_revision
+383:             || manifest.source_dirty_fingerprint != first.source_dirty_fingerprint
+384:         {
+385:             return Err(format!("{slug} comes from mixed or stale source authority"));
+386:         }
+387:         if let Some((plan_hash, geometry_hash, frame_hash)) = fixture_hashes.get(&manifest.fixture)
+388:         {
+389:             if plan_hash != &manifest.plan_hash
+390:                 || geometry_hash != &manifest.resolved_geometry_hash
+391:                 || frame_hash != &manifest.timber_program_hash
+392:             {
+393:                 return Err(format!("{slug} is fixture-inconsistent"));
+394:             }
+395:         } else {
+396:             fixture_hashes.insert(
+397:                 manifest.fixture.clone(),
+398:                 (
+399:                     manifest.plan_hash.clone(),
+400:                     manifest.resolved_geometry_hash.clone(),
+401:                     manifest.timber_program_hash.clone(),
+402:                 ),
+403:             );
+404:         }
+405:         if manifest.timber_program.is_none()
+406:             || manifest.timber_assembly_id.is_none()
+407:             || manifest.timber_member_ids.len() < 20
+408:             || manifest.timber_joint_ids.len() < 12
+409:             || manifest.timber_node_ids.len() < 12
+410:             || manifest.focused_resolved_item_ids.is_empty()
+411:             || manifest.visible_focused_resolved_item_count
+412:                 + manifest.timber_removed_target_item_ids.len()
+413:                 != manifest.focused_resolved_item_ids.len()
+414:             || manifest.timber_target_component_ids.len() != 1
+415:             || !manifest.timber_target_component_ids[0].starts_with("timber:")
+416:             || !manifest.timber_target_component_ids[0].contains('/')
+417:             || manifest.timber_focus_interface_ids.is_empty()
+418:             || !manifest
+419:                 .timber_removed_target_item_ids
+420:                 .iter()
+421:                 .all(|id| manifest.section_removed_item_ids.contains(id))
+422:             || !manifest.timber_legend_visible
+423:             || manifest.timber_required_roles.is_empty()
+424:             || manifest.timber_focused_roles.is_empty()
+425:             || !manifest.section_annotation_visible
+426:             || manifest.timber_required_roles.iter().any(|role| {
+427:                 !manifest
+428:                     .timber_focused_roles
+429:                     .iter()
+430:                     .any(|found| found == role)
+431:                     || manifest
+432:                         .timber_role_item_ids
+433:                         .get(role)
+434:                         .is_none_or(Vec::is_empty)
+435:                     || manifest
+436:                         .timber_role_bounds_fraction
+437:                         .get(role)
+438:                         .is_none_or(|bounds| {
+439:                             bounds[0] < 0.0
+440:                                 || bounds[1] < 0.0
+441:                                 || bounds[2] > 1.0
+442:                                 || bounds[3] > 1.0
+443:                                 || (bounds[2] - bounds[0]) * (bounds[3] - bounds[1]) < 0.0004
+444:                         })
+445:             })
+446:         {
+447:             return Err(format!(
+448:                 "{slug} lacks exact frame IDs, roles, focus, or legend"
+449:             ));
+450:         }
+451:         if matches!(
+452:             view,
+453:             ViewerView::TimberOpeningBayExterior
+454:                 | ViewerView::TimberOpeningBayInterior
+455:                 | ViewerView::TimberOpeningBaySection
+456:         ) && (manifest.focused_resolved_void_ids.len() != 1
+457:             || manifest
+458:                 .timber_role_item_ids
+459:                 .get("WallHost")
+460:                 .is_none_or(Vec::is_empty))
+461:         {
+462:             return Err(format!(
+463:                 "{slug} does not prove both exact opening void and Gefach cells"
+464:             ));
+465:         }
+466:         if *view == ViewerView::TimberJointClose
+467:             && (manifest
+468:                 .timber_focused_roles
+469:                 .iter()
+470:                 .any(|role| role == "WallHost")
+471:                 || manifest.timber_focus_interface_ids.len() < 2)
+472:         {
+473:             return Err(format!(
+474:                 "{slug} hides its participant contact behind enclosure geometry"
+475:             ));
+476:         }
+477:         if *view == ViewerView::TimberGableRoofBearing && manifest.focused_roof_item_ids.is_empty()
+478:         {
+479:             return Err(format!("{slug} omits the exact Stage 4 roof face"));
+480:         }
+481:         let expects_cut = timber_section_proof(*view);
+482:         if expects_cut != manifest.section_cut_applied
+483:             || expects_cut != manifest.timber_cut_plane.is_some()
+484:         {
+485:             return Err(format!("{slug} lacks its exact declared cut state"));
+486:         }
+487:         let bounds = manifest.focused_bounds_fraction;
+488:         if bounds[0] < 0.0
+489:             || bounds[1] < 0.0
+490:             || bounds[2] > 1.0
+491:             || bounds[3] > 1.0
+492:             || bounds[2] - bounds[0] < 0.12
+493:             || bounds[3] - bounds[1] < 0.20
+494:         {
+495:             return Err(format!("{slug} target is clipped or too small"));
+496:         }
+497:         if manifest.pixel_hash.is_empty() || !pixels.insert(manifest.pixel_hash.clone()) {
+498:             return Err(format!("{slug} lacks unique pixel evidence"));
+499:         }
+500:     }
+501:     Ok(())
+502: }

@@ -1,0 +1,10 @@
+import hashlib,json
+from pathlib import Path
+p=Path('target/726-intake-20261030'); old=json.loads((p/'mhr_nan_probe_1048-result.json').read_text()); root=p/'mhr-module-probe'; result={'revision':old['revision'],'scope':old['scope'],'module_hashes_match_previous_selected_revision_receipt':True,'assets':{},'test_sha256':hashlib.sha256((root/'tests/pinned_skin_1078.rs').read_bytes()).hexdigest()}
+for f in old['files']:
+ actual=hashlib.sha256((root/'src'/f['source']).read_bytes()).hexdigest();assert actual==f['sha256'],f['source']
+for lod in (4,5,6):
+ file=p/f'mhr-release-v1.0.1/assets/lod{lod}.fbx';result['assets'][f'lod{lod}']=hashlib.sha256(file.read_bytes()).hexdigest()
+for label,file in [('manifest','Cargo.toml'),('lock','Cargo.lock')]:
+ actual=hashlib.sha256((root/file).read_bytes()).hexdigest();assert actual==old[label+'_sha256'];result[label+'_sha256']=actual
+(p/'pinned_skin_1078-receipt.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8');print(json.dumps(result,indent=2))

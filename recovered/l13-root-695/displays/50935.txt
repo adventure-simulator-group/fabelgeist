@@ -1,0 +1,190 @@
+SOURCE 2627 cargo-registry:num_enum_derive-0.7.6/src/parsing.rs
+1: use crate::enum_attributes::ErrorTypeAttribute;
+2: use crate::utils::die;
+3: use crate::variant_attributes::{NumEnumVariantAttributeItem, NumEnumVariantAttributes};
+4: use proc_macro2::Span;
+5: use quote::{format_ident, ToTokens};
+6: use std::collections::BTreeSet;
+7: use syn::{
+8:     parse::{Parse, ParseStream},
+9:     parse_quote, Attribute, Data, DeriveInput, Expr, ExprLit, ExprUnary, Fields, Ident, Lit,
+10:     LitInt, Meta, Path, Result, UnOp,
+11: };
+12: 
+13: pub(crate) struct EnumInfo {
+14:     pub(crate) name: Ident,
+15:     pub(crate) repr: Ident,
+16:     pub(crate) crate_path: Option<syn::Path>,
+17:     pub(crate) variants: Vec<VariantInfo>,
+18:     pub(crate) error_type_info: ErrorType,
+19: }
+20: 
+62:     pub(crate) fn variant_idents(&self) -> Vec<Ident> {
+63:         self.variants
+64:             .iter()
+65:             .filter(|variant| !variant.is_catch_all)
+66:             .map(|variant| variant.ident.clone())
+67:             .collect()
+68:     }
+69: 
+70:     pub(crate) fn expression_idents(&self) -> Vec<Vec<Ident>> {
+71:         self.variants
+72:             .iter()
+73:             .filter(|variant| !variant.is_catch_all)
+74:             .map(|info| {
+75:                 let indices = 0..(info.alternative_values.len() + 1);
+76:                 indices
+77:                     .map(|index| format_ident!("{}__num_enum_{}__", info.ident, index))
+78:                     .collect()
+79:             })
+80:             .collect()
+81:     }
+82: 
+83:     pub(crate) fn variant_expressions(&self) -> Vec<Vec<Expr>> {
+84:         self.variants
+85:             .iter()
+86:             .filter(|variant| !variant.is_catch_all)
+87:             .map(|variant| variant.all_values().cloned().collect())
+88:             .collect()
+89:     }
+90: 
+91:     fn parse_attrs<Attrs: Iterator<Item = Attribute>>(
+92:         attrs: Attrs,
+93:     ) -> Result<(Ident, crate::enum_attributes::Attributes)> {
+94:         let mut maybe_repr = None;
+95:         let mut attributes = crate::enum_attributes::Attributes::default();
+96:         for attr in attrs {
+97:             if let Meta::List(meta_list) = &attr.meta {
+98:                 if let Some(ident) = meta_list.path.get_ident() {
+99:                     if ident == "repr" {
+100:                         let mut nested = meta_list.tokens.clone().into_iter();
+101:                         let repr_tree = match (nested.next(), nested.next()) {
+102:                             (Some(repr_tree), None) => repr_tree,
+103:                             _ => die!(attr =>
+104:                                 "Expected exactly one `repr` argument"
+105:                             ),
+106:                         };
+107:                         let repr_ident: Ident = parse_quote! {
+108:                             #repr_tree
+109:                         };
+110:                         if repr_ident == "C" {
+111:                             die!(repr_ident =>
+112:                                 "repr(C) doesn't have a well defined size"
+113:                             );
+114:                         } else {
+115:                             maybe_repr = Some(repr_ident);
+116:                         }
+117:                     } else if ident == "num_enum" {
+118:                         let new_attributes =
+119:                             attr.parse_args_with(crate::enum_attributes::Attributes::parse)?;
+120:                         attributes.exclusive_union(new_attributes)?;
+121:                     }
+122:                 }
+123:             }
+124:         }
+125:         if maybe_repr.is_none() {
+126:             die!("Missing `#[repr({Integer})]` attribute");
+127:         }
+128:         Ok((maybe_repr.unwrap(), attributes))
+129:     }
+130: }
+131: 
+132: impl Parse for EnumInfo {
+133:     fn parse(input: ParseStream) -> Result<Self> {
+134:         Ok({
+135:             let input: DeriveInput = input.parse()?;
+136:             let name = input.ident;
+137:             let data = match input.data {
+138:                 Data::Enum(data) => data,
+139:                 Data::Union(data) => die!(data.union_token => "Expected enum but found union"),
+140:                 Data::Struct(data) => die!(data.struct_token => "Expected enum but found struct"),
+141:             };
+142: 
+143:             let (repr, attributes) = Self::parse_attrs(input.attrs.into_iter())?;
+144:             let crate_path = attributes.crate_path.clone().map(|k| k.path);
+145: 
+146:             let mut variants: Vec<VariantInfo> = vec![];
+147:             let mut has_default_variant: bool = false;
+148:             let mut has_catch_all_variant: bool = false;
+149: 
+150:             // Vec to keep track of the used discriminants and alt values.
+151:             let mut discriminant_int_val_set = BTreeSet::new();
+152: 
+153:             let mut next_discriminant = literal(0);
+154:             for variant in data.variants.into_iter() {
+155:                 let ident = variant.ident.clone();
+156: 
+157:                 let discriminant = match &variant.discriminant {
+158:                     Some(d) => d.1.clone(),
+159:                     None => next_discriminant.clone(),
+160:                 };
+161: 
+162:                 let mut raw_alternative_values: Vec<Expr> = vec![];
+163:                 // Keep the attribute around for better error reporting.
+164:                 let mut alt_attr_ref: Vec<&Attribute> = vec![];
+165: 
+166:                 // `#[num_enum(default)]` is required by `#[derive(FromPrimitive)]`
+167:                 // and forbidden by `#[derive(UnsafeFromPrimitive)]`, so we need to
+168:                 // keep track of whether we encountered such an attribute:
+169:                 let mut is_default: bool = false;
+170:                 let mut is_catch_all: bool = false;
+171: 
+172:                 for attribute in &variant.attrs {
+173:                     if attribute.path().is_ident("default") {
+174:                         if has_default_variant {
+175:                             die!(attribute =>
+176:                                 "Multiple variants marked `#[default]` or `#[num_enum(default)]` found"
+177:                             );
+178:                         } else if has_catch_all_variant {
+179:                             die!(attribute =>
+180:                                 "Attribute `default` is mutually exclusive with `catch_all`"
+181:                             );
+182:                         }
+183:                         is_default = true;
+184:                         has_default_variant = true;
+185:                     }
+186: 
+187:                     if attribute.path().is_ident("num_enum") {
+188:                         match attribute.parse_args_with(NumEnumVariantAttributes::parse) {
+189:                             Ok(variant_attributes) => {
+190:                                 for variant_attribute in variant_attributes.items {
+191:                                     match variant_attribute {
+192:                                         NumEnumVariantAttributeItem::Default(default) => {
+193:                                             if has_default_variant {
+194:                                                 die!(default.keyword =>
+195:                                                     "Multiple variants marked `#[default]` or `#[num_enum(default)]` found"
+196:                                                 );
+197:                                             } else if has_catch_all_variant {
+198:                                                 die!(default.keyword =>
+199:                                                     "Attribute `default` is mutually exclusive with `catch_all`"
+200:                                                 );
+201:                                             }
+202:                                             is_default = true;
+203:                                             has_default_variant = true;
+204:                                         }
+205:                                         NumEnumVariantAttributeItem::CatchAll(catch_all) => {
+206:                                             if has_catch_all_variant {
+207:                                                 die!(catch_all.keyword =>
+208:                                                     "Multiple variants marked with `#[num_enum(catch_all)]`"
+209:                                                 );
+210:                                             } else if has_default_variant {
+211:                                                 die!(catch_all.keyword =>
+212:                                                     "Attribute `catch_all` is mutually exclusive with `default`"
+213:                                                 );
+214:                                             }
+215: 
+216:                                             match variant
+217:                                                 .fields
+218:                                                 .iter()
+219:                                                 .collect::<Vec<_>>()
+220:                                                 .as_slice()
+221:                                             {
+222:                                                 [syn::Field {
+223:                                                     ty: syn::Type::Path(syn::TypePath { path, .. }),
+224:                                                     ..
+225:                                                 }] if path.is_ident(&repr) => {
+226:                                                     is_catch_all = true;
+227:                                                     has_catch_all_variant = true;
+228:                                                 }
+229:                                                 _ => {
+230:                                                     die!(catch_all.keyword =>

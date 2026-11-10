@@ -1,0 +1,157 @@
+{
+  "schema": "726-root-l12-prospective-source-registration-v1",
+  "registered_at": "2026-11-02T08:47:00.618411+00:00",
+  "author": "/root",
+  "lens": 12,
+  "prospective": true,
+  "base_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "6d1d0ac64658e3d09e0845f8b03f542ccc0c69f2cf346cd8ef86198f56fa1fb5"
+  },
+  "prior_adopted_source_resolution": {
+    "path": "segovb/RESOLUTION-ROOT-L12-BUILDING-CAPTURE-IDENTITY-001.json",
+    "sha256": "7f779d3d444a9883be81bc24ef28448af3c12db2686e3d7d2aaf19bdda98d4e6"
+  },
+  "sources": [
+    {
+      "source_id": "current-337:crates/adventuresim-building-generator/src/model/walls.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-building-generator/src/model/walls.rs",
+      "source_sha256": "0ccc94972996dae71d762e7019f9814a02a26ff12a2eabe8709f7c791c8b9930",
+      "source_object": "adler-continuation-20261030/objects/0ccc94972996dae71d762e7019f9814a02a26ff12a2eabe8709f7c791c8b9930",
+      "bytes": 9766,
+      "actual_EOF": 353,
+      "ranges": [
+        [
+          1,
+          353
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 353,
+      "prior_body_join": "Not asserted; no fresh, population or unique credit requested."
+    },
+    {
+      "source_id": "current-337:crates/adventuresim-building-generator/src/viewer/focus_helpers.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-building-generator/src/viewer/focus_helpers.rs",
+      "source_sha256": "a0b977f93b1c8a862dc61c2adccdc8ec10fae73f1b796584203ee50588b9420c",
+      "source_object": "adler-continuation-20261030/objects/a0b977f93b1c8a862dc61c2adccdc8ec10fae73f1b796584203ee50588b9420c",
+      "bytes": 25767,
+      "actual_EOF": 623,
+      "ranges": [
+        [
+          365,
+          395
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 31,
+      "prior_body_join": "Not asserted; no fresh, population or unique credit requested."
+    },
+    {
+      "source_id": "current-337:crates/adventuresim-building-generator/src/viewer/setup.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-building-generator/src/viewer/setup.rs",
+      "source_sha256": "94ef06021dff7c2ebedf573ef64d8e23dd275f9520baebd4e419ff110a6bb13e",
+      "source_object": "adler-continuation-20261030/objects/94ef06021dff7c2ebedf573ef64d8e23dd275f9520baebd4e419ff110a6bb13e",
+      "bytes": 76668,
+      "actual_EOF": 1797,
+      "ranges": [
+        [
+          640,
+          820
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 181,
+      "prior_body_join": "Not asserted; no fresh, population or unique credit requested."
+    },
+    {
+      "source_id": "current-337:crates/adventuresim-building-generator/src/viewer/battlement_rendering.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-building-generator/src/viewer/battlement_rendering.rs",
+      "source_sha256": "772914a6c507eb0089c517a80e197af35ce5c5ecbd662e5e380d2b6e8446489a",
+      "source_object": "adler-continuation-20261030/objects/772914a6c507eb0089c517a80e197af35ce5c5ecbd662e5e380d2b6e8446489a",
+      "bytes": 8918,
+      "actual_EOF": 258,
+      "ranges": [
+        [
+          204,
+          258
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 55,
+      "prior_body_join": "Not asserted; no fresh, population or unique credit requested."
+    },
+    {
+      "source_id": "current-337:crates/adventuresim-building-generator/src/viewer/architectural_rendering.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-building-generator/src/viewer/architectural_rendering.rs",
+      "source_sha256": "2c1b73c981d93a537ccc39ac377be7dbe2a0ae15462b4703898bb574f1306f3a",
+      "source_object": "adler-continuation-20261030/objects/2c1b73c981d93a537ccc39ac377be7dbe2a0ae15462b4703898bb574f1306f3a",
+      "bytes": 22264,
+      "actual_EOF": 596,
+      "ranges": [
+        [
+          190,
+          290
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 101,
+      "prior_body_join": "Not asserted; no fresh, population or unique credit requested."
+    },
+    {
+      "source_id": "current-337:crates/adventuresim-building-generator/src/viewer/run.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-building-generator/src/viewer/run.rs",
+      "source_sha256": "12133c8b9ec176a6aaba627152c252cec7c616682e8c54ed342aed0107787a63",
+      "source_object": "adler-continuation-20261030/objects/12133c8b9ec176a6aaba627152c252cec7c616682e8c54ed342aed0107787a63",
+      "bytes": 58071,
+      "actual_EOF": 1401,
+      "ranges": [
+        [
+          245,
+          305
+        ],
+        [
+          1255,
+          1304
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 111,
+      "prior_body_join": "Not asserted; no fresh, population or unique credit requested."
+    },
+    {
+      "source_id": "current-337:crates/adventuresim-building-generator/src/viewer/fortification_rendering.rs",
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-building-generator/src/viewer/fortification_rendering.rs",
+      "source_sha256": "66f62b0e1bb038d1da8cebc618a201b0e78af78aa4049c4a2863fa80775c56c2",
+      "source_object": "adler-continuation-20261030/objects/66f62b0e1bb038d1da8cebc618a201b0e78af78aa4049c4a2863fa80775c56c2",
+      "bytes": 29146,
+      "actual_EOF": 838,
+      "ranges": [
+        [
+          1,
+          838
+        ]
+      ],
+      "fresh_personal_body_reads_registered": [],
+      "fresh_personal_lines_registered": 0,
+      "uncredited_assessment_lines_registered": 838,
+      "prior_body_join": "Not asserted; no fresh, population or unique credit requested."
+    }
+  ],
+  "fresh_lines_registered": 0,
+  "uncredited_total_source_lines_registered": 1670,
+  "purpose": "Actual payload-bearing opening profile, complete shape label adapter, renderer annotation and gate/tower/primitive name producers, remaining surface and artillery role maps for existing open building identity contract. No source novelty, other-lens verdict or closure inferred."
+}

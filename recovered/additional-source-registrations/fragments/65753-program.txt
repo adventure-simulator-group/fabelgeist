@@ -1,0 +1,14 @@
+import json,hashlib,subprocess
+from pathlib import Path
+from datetime import datetime,timezone
+r=Path('target/726-audit-continuation-20261030/target/726-audit-adler-20261027').resolve();a=r/'adler-continuation-20261030';w=r.parent.parent;sources=[]
+items=[('crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs',None),('crates/adventuresim-building-generator/src/audit/core.rs',[[1,112]]),('crates/adventuresim-building-generator/src/audit.rs',None),('crates/adventuresim-building-generator/src/lib.rs',None),('crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs',[[920,975],[1230,1340]])]
+for path,ranges in items:
+ raw=subprocess.check_output(['git','show','33714256b6313ce86fdfbb534c54d92d024d7726:'+path],cwd=w);digest=hashlib.sha256(raw).hexdigest();o=a/'objects'/digest;eof=len(raw.splitlines());ranges=ranges or [[1,eof]];assert all(0<lo<=hi<=eof for lo,hi in ranges)
+ if o.exists():assert o.read_bytes()==raw
+ else:
+  with o.open('xb') as f:f.write(raw)
+ sources.append(dict(source_id='current-337:'+path,revision='33714256b6313ce86fdfbb534c54d92d024d7726',git_path=path,source_sha256=digest,source_object=o.relative_to(r).as_posix(),bytes=len(raw),actual_EOF=eof,ranges=ranges,fresh_personal_body_reads_registered=[],fresh_personal_lines_registered=0,uncredited_assessment_lines_registered=sum(hi-lo+1 for lo,hi in ranges),prior_body_join='No new freshness/reuse/population/unique credit asserted. Preserve historical original/authors and other-lens views.'))
+p=a/'REGISTRATION-ROOT-L12-BUILDING-AUDIT-ISSUES-001.json';v=dict(schema='726-root-l12-prospective-source-registration-v1',registered_at=datetime.now(timezone.utc).isoformat(),author='/root',lens=12,prospective=True,base_ledger=dict(path='evidence/continuation-segovb/ledger.json',sha256='d60bcf6d10b4ad7830e8d4b675a45d2e306ef6d515e2e33abc048a4f33865d87'),sources=sources,fresh_lines_registered=0,uncredited_total_source_lines_registered=sum(s['uncredited_assessment_lines_registered']for s in sources),purpose='Q3715 exact audit_plan producer/issue payload, review admission and actual startup consumer; assertions remain source observations, no runtime witness.')
+with p.open('x',encoding='utf-8',newline='\n') as f:f.write(json.dumps(v,indent=2)+'\n')
+print(json.dumps(dict(registration=p.name,sha256=hashlib.sha256(p.read_bytes()).hexdigest(),total=v['uncredited_total_source_lines_registered'])))

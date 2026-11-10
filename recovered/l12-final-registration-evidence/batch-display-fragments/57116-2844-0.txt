@@ -1,0 +1,147 @@
+1: //! Where on the scalp's texture each point of the scalp lies.
+2: //!
+3: //! The hair crate maps its scalp by the angle from the crown, out to past
+4: //! the nape, onto a disk inside the square texture: a texel near the crown
+5: //! covers a few times the skin one near the hairline does, a fifth of the
+6: //! square is the corners outside the disk, and much of the disk lies below
+7: //! the hairline. The scalp's texture is mapped afresh, fitted to the scalp:
+8: //!
+9: //! * by Lambert's equal-area projection about the scalp's middle -- the
+10: //!   axis of the narrowest cone from the cranium's centre that holds the
+11: //!   whole scalp, leaning back from straight up, as the scalp reaches lower
+12: //!   at the nape than at the brow -- out to its edge, so every texel covers
+13: //!   about as much skin: the crown, where partings and whorls lie, as
+14: //!   finely as anywhere;
+15: //! * the disk spread over the whole square by Shirley and Chiu's concentric
+16: //!   mapping, which keeps areas too, so no texel is wasted on the corners.
+17: //!
+18: //! Both are continuous: the texture has no seam.
+19: 
+20: use std::f32::consts::{FRAC_PI_2, FRAC_PI_4, PI, TAU};
+21: 
+22: use fabelgeist_hair::{Head, Surface};
+23: use fabelgeist_math::Vec3;
+24: 
+25: /// How far past the scalp's edge the map reaches, radians from its axis:
+26: /// so the scalp's edge lies inside the texture, not on its rim.
+27: const RIM_MARGIN: f32 = 0.02;
+28: /// Steps taken leaning the axis towards the scalp's furthest point, each a
+29: /// smaller share of the way: the narrowest cone holding the scalp, near
+30: /// enough.
+31: const AXIS_STEPS: usize = 64;
+32: 
+33: /// The scalp's texture map, fitted to one bust's scalp.
+34: #[derive(Clone, Copy, Debug)]
+35: pub(super) struct ScalpMap {
+36:     /// The point the map is projected about: the cranium's centre.
+37:     pub(crate) center: Vec3,
+38:     /// The map's axis, and the directions square to it the texture's sides
+39:     /// run along: towards the face, and towards the head's side.
+40:     pub(crate) axis: Vec3,
+41:     pub(crate) forward: Vec3,
+42:     pub(crate) side: Vec3,
+43:     /// The sine of half the angle from the axis the map reaches.
+44:     pub(crate) rim: f32,
+45:     /// About how much skin a texel's side covers, metres, at `size` texels
+46:     /// a side.
+47:     texel_per_side: f32,
+48: }
+49: 
+50: impl ScalpMap {
+51:     /// The map for `head`'s `scalp`.
+52:     pub(super) fn fit(head: &Head, scalp: &Surface) -> Self {
+53:         let center = head.cranium.center;
+54:         let directions: Vec<Vec3> = scalp
+55:             .positions
+56:             .iter()
+57:             .filter_map(|&p| unit(p - center))
+58:             .collect();
+59:         let up = Vec3::new(0.0, 1.0, 0.0);
+60:         let mean = directions
+61:             .iter()
+62:             .fold(Vec3::new(0.0, 0.0, 0.0), |sum, &d| sum + d);
+63:         let mut axis = unit(mean).unwrap_or(up);
+64:         for step in 1..=AXIS_STEPS {
+65:             let furthest = directions
+66:                 .iter()
+67:                 .copied()
+68:                 .min_by(|a, b| a.dot(axis).total_cmp(&b.dot(axis)));
+69:             let Some(furthest) = furthest else {
+70:                 break;
+71:             };
+72:             axis = unit(axis + (furthest - axis) * (1.0 / (step + 1) as f32)).unwrap_or(axis);
+73:         }
+74:         let widest = directions
+75:             .iter()
+76:             .map(|d| angle(*d, axis))
+77:             .fold(0.0f32, f32::max);
+78:         let face = Vec3::new(0.0, 0.0, 1.0);
+79:         let forward = unit(face - axis * face.dot(axis)).unwrap_or(face);
+80:         let side = axis.cross(forward);
+81:         let radius = scalp
+82:             .positions
+83:             .iter()
+84:             .map(|&p| (p - center).length())
+85:             .sum::<f32>()
+86:             / scalp.positions.len().max(1) as f32;
+87:         let rim = ((widest + RIM_MARGIN).min(PI) * 0.5).sin();
+88:         // A sphere's cap out to the rim, the area the square spans.
+89:         let area = 4.0 * PI * radius * radius * rim * rim;
+90:         Self {
+91:             center,
+92:             axis,
+93:             forward,
+94:             side,
+95:             rim,
+96:             texel_per_side: area.sqrt(),
+97:         }
+98:     }
+99: 
+100:     /// About how much skin a texel's side covers, metres, in a texture
+101:     /// `size` texels a side.
+102:     pub(super) fn texel(&self, size: usize) -> f32 {
+103:         self.texel_per_side / size as f32
+104:     }
+105: 
+106:     /// Where `p`, in the bust's frame, lies in the texture, 0 to 1 each way,
+107:     /// if within the map.
+108:     pub(super) fn uv(&self, p: Vec3) -> Option<[f32; 2]> {
+109:         let direction = unit(p - self.center)?;
+110:         let reach = (angle(direction, self.axis) * 0.5).sin() / self.rim;
+111:         if reach > 1.0 {
+112:             return None;
+113:         }
+114:         let azimuth = direction.dot(self.side).atan2(direction.dot(self.forward));
+115:         let [a, b] = square(reach, azimuth);
+116:         Some([(a + 1.0) * 0.5, (b + 1.0) * 0.5])
+117:     }
+118: }
+119: 
+120: /// `v` at unit length, if it has a direction.
+121: fn unit(v: Vec3) -> Option<Vec3> {
+122:     let length = v.length();
+123:     (length > 0.0 && length.is_finite()).then(|| v * (1.0 / length))
+124: }
+125: 
+126: /// The angle between unit directions `a` and `b`, radians.
+127: fn angle(a: Vec3, b: Vec3) -> f32 {
+128:     a.dot(b).clamp(-1.0, 1.0).acos()
+129: }
+130: 
+131: /// A point of the unit disk, `reach` from its centre at `azimuth` radians,
+132: /// on the square from -1 to 1 each way: Shirley and Chiu's concentric
+133: /// mapping, inverted.
+134: fn square(reach: f32, azimuth: f32) -> [f32; 2] {
+135:     // Into the quarter-turn the square's first side starts at.
+136:     let azimuth = (azimuth + FRAC_PI_4).rem_euclid(TAU) - FRAC_PI_4;
+137:     let along = |from: f32| (azimuth - from) / FRAC_PI_4 * reach;
+138:     if azimuth < FRAC_PI_4 {
+139:         [reach, along(0.0)]
+140:     } else if azimuth < 3.0 * FRAC_PI_4 {
+141:         [-along(FRAC_PI_2), reach]
+142:     } else if azimuth < 5.0 * FRAC_PI_4 {
+143:         [-reach, -along(PI)]
+144:     } else {
+145:         [along(3.0 * FRAC_PI_2), -reach]
+146:     }
+147: }

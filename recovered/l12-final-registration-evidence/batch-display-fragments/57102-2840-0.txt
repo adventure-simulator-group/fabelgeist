@@ -1,0 +1,36 @@
+1: //! One reserved keep stair hall owns both the authored flight and its occupied approaches.
+2: use super::*;
+3: use crate::{BuildingProgram, CELL_SIZE_METRES, Cell};
+4: 
+5: const KEEP_INNER_RADIUS_METRES: f32 = 0.25;
+6: const KEEP_OUTER_RADIUS_METRES: f32 = 1.25;
+7: const KEEP_BASE_HEIGHT_METRES: f32 = 0.15;
+8: const KEEP_FLIGHT_TURNS: f32 = 2.8;
+9: const LANDING_WALL_CLEARANCE_METRES: f32 = 0.45;
+10: const STAIR_AISLE_WIDTH_METRES: f32 = 0.75;
+11: 
+12: pub(super) fn owns_occupied_storeys(archetype: BuildingArchetype) -> bool {
+13:     matches!(
+14:         archetype,
+15:         BuildingArchetype::WalledKeep | BuildingArchetype::ArtilleryRondelCastle
+16:     )
+17: }
+18: 
+19: pub(crate) fn stair(program: &BuildingProgram) -> Option<Stair> {
+20:     if !owns_occupied_storeys(program.archetype) || program.storeys.len() < 2 {
+21:         return None;
+22:     }
+23:     let (width, depth) = program.footprint.dimensions();
+24:     let rise =
+25:         program.storeys.len() as f32 * program.storey_height_metres - KEEP_BASE_HEIGHT_METRES;
+26:     Some(Stair::Spiral {
+27:         centre: Vec2::new(f32::from(width), f32::from(depth)) * CELL_SIZE_METRES * 0.5,
+28:         base_height_metres: KEEP_BASE_HEIGHT_METRES,
+29:         rise_metres: rise,
+30:         inner_radius_metres: KEEP_INNER_RADIUS_METRES,
+31:         outer_radius_metres: KEEP_OUTER_RADIUS_METRES,
+32:         turns: KEEP_FLIGHT_TURNS,
+33:         clockwise: true,
+34:         tread_count: required_treads(KEEP_BASE_HEIGHT_METRES, rise, program.storey_height_metres),
+35:     })
+36: }

@@ -1,0 +1,725 @@
+{
+  "schema": "726-proposal-bundle-v1",
+  "lens": 2,
+  "created_at": "2026-11-02T18:29:27.925336+00:00",
+  "base_authority_snapshot": [
+    {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/evidence/continuation-segovb/ledger.json",
+      "sha256": "8426137d415fc7e69ed22a591ad337e1fef19f6b1d27ebe42f1eb4402dd1153c"
+    },
+    {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/CURRENT-ADLER.json",
+      "sha256": "f9734801d58b982919b9acd0ecc739d9d268545a059d64ed151a2d1816183805"
+    },
+    {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/workflow-20261030/CLOSURE-QUEUE-822.json",
+      "sha256": "803f5f4efbeeea1e3327d1ca7019aac0609226d0beeec5a0dddc6c6d205d6b96"
+    },
+    {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/SELECTED-LENSES-CONTINUATION-425.json",
+      "sha256": "27f00c733a878d67d753a9233d5a93f10506dc6f2cfabffd92a5ac7f60405af3"
+    },
+    {
+      "path": "target/726-intake-20261030/CURRENT.json",
+      "sha256": "a8799ea479f05610ca86b201d9a0105cfa597ce7d71ed46a3ac1dfc5c130281e"
+    },
+    {
+      "path": "segovb/STATE-L2-EXT-CURRENT-021.json",
+      "sha256": "f9ebe5880df907cbf11887b28a42a542bfda8138a9c9012bcb0c0ed5e0ca8390"
+    }
+  ],
+  "ordered_frontier_before": "Unchanged; named connected profession projection question.",
+  "ordered_frontier_after": "Unchanged; one conditional source-discovery view proposed complete.",
+  "population_deltas_separate": {
+    "original": 0,
+    "overlay": 0,
+    "merged": 0,
+    "shared": 0,
+    "current_cells_closed": 0,
+    "accepted_unique": 0,
+    "uncredited_excerpt_lines": 629
+  },
+  "immutable_proposals": [
+    {
+      "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L2-PROFESSION-FAME-PARITY-001.json",
+      "sha256": "d497871cfb77abfac9471c82e96e57a74f94230eb4e08b1bbb6df9bed01d2234"
+    }
+  ],
+  "prospective_registration_proofs": [
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-ROOT-L2-CATALOG-SUPPORT-036.json",
+      "sha256": "3d4ea9f31fbf24fe63a132c1edf4d556c2ae473832327e8bbc095ffbaa70eb5d"
+    },
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-ROOT-L2-CATALOG-SUPPORT-037.json",
+      "sha256": "28abd27dbe0b853101f66dc1b7b2a90e0117645a6edb3e931fc685264d8e8c88"
+    },
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-ROOT-L2-CATALOG-SUPPORT-038.json",
+      "sha256": "6515bff1f1eca7e8eb72726bdd35985d1ede2fb5579a7b5aad807b7e3fc4a2be"
+    }
+  ],
+  "exact_source_read_rows": [
+    {
+      "source_id": "current-337:crates/adventuresim-stdb-module/src/time/activities.rs",
+      "source": {
+        "source_id": "current-337:crates/adventuresim-stdb-module/src/time/activities.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-stdb-module/src/time/activities.rs",
+        "source_sha256": "a47b028b15d0e416ae19b84b18f616bff39ea8f7a951526e32996cc70ed48915",
+        "source_object": "adler-continuation-20261030/objects/a47b028b15d0e416ae19b84b18f616bff39ea8f7a951526e32996cc70ed48915",
+        "bytes": 16424,
+        "actual_EOF": 445,
+        "ranges": [
+          [
+            1,
+            177
+          ],
+          [
+            372,
+            445
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 251
+      },
+      "revision_or_explicit_transport_qualification": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "source_sha256": "a47b028b15d0e416ae19b84b18f616bff39ea8f7a951526e32996cc70ed48915",
+      "actual_EOF_or_visual_contract": 445,
+      "registration_ref_and_sha256": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L2-CATALOG-SUPPORT-036.json",
+        "sha256": "3d4ea9f31fbf24fe63a132c1edf4d556c2ae473832327e8bbc095ffbaa70eb5d"
+      },
+      "requested_ranges": [
+        [
+          1,
+          177
+        ],
+        [
+          372,
+          445
+        ]
+      ],
+      "fresh_personal_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          1,
+          177
+        ],
+        [
+          372,
+          445
+        ]
+      ],
+      "read_attribution": "Root own-L2 registered bounded personal assessment. All lines uncredited; source import/reward/event code only, no import/reducer/database/runtime operation executed.",
+      "unread_ranges": {
+        "outside_registered_scope": true
+      },
+      "complete_relevant_functions_and_dependencies": {
+        "read": {
+          "path": "adler-continuation-20261030/READ-ROOT-L2-FAME-PARITY-036-038.json",
+          "sha256": "ef3fc358807bf8add209819086d790adb374017096885a55a633a1f61261dcc1"
+        },
+        "row_pointer": "/rows/0",
+        "qualifications": [
+          {
+            "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L2-PROFESSION-FAME-PARITY-001.json",
+            "sha256": "d497871cfb77abfac9471c82e96e57a74f94230eb4e08b1bbb6df9bed01d2234"
+          }
+        ]
+      },
+      "body_output_truncation_status": false,
+      "new_body_population_unique_credit": 0
+    },
+    {
+      "source_id": "current-337:crates/adventuresim-stdb-module/src/reputation.rs",
+      "source": {
+        "source_id": "current-337:crates/adventuresim-stdb-module/src/reputation.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-stdb-module/src/reputation.rs",
+        "source_sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+        "source_object": "adler-continuation-20261030/objects/054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+        "bytes": 13386,
+        "actual_EOF": 440,
+        "ranges": [
+          [
+            258,
+            348
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 91
+      },
+      "revision_or_explicit_transport_qualification": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "source_sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "actual_EOF_or_visual_contract": 440,
+      "registration_ref_and_sha256": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L2-CATALOG-SUPPORT-037.json",
+        "sha256": "28abd27dbe0b853101f66dc1b7b2a90e0117645a6edb3e931fc685264d8e8c88"
+      },
+      "requested_ranges": [
+        [
+          258,
+          348
+        ]
+      ],
+      "fresh_personal_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          258,
+          348
+        ]
+      ],
+      "read_attribution": "Root own-L2 registered bounded personal assessment. All lines uncredited; source import/reward/event code only, no import/reducer/database/runtime operation executed.",
+      "unread_ranges": {
+        "outside_registered_scope": true
+      },
+      "complete_relevant_functions_and_dependencies": {
+        "read": {
+          "path": "adler-continuation-20261030/READ-ROOT-L2-FAME-PARITY-036-038.json",
+          "sha256": "ef3fc358807bf8add209819086d790adb374017096885a55a633a1f61261dcc1"
+        },
+        "row_pointer": "/rows/1",
+        "qualifications": [
+          {
+            "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L2-PROFESSION-FAME-PARITY-001.json",
+            "sha256": "d497871cfb77abfac9471c82e96e57a74f94230eb4e08b1bbb6df9bed01d2234"
+          }
+        ]
+      },
+      "body_output_truncation_status": false,
+      "new_body_population_unique_credit": 0
+    },
+    {
+      "source_id": "current-337:crates/adventuresim-stdb-module/src/strategic/world_import.rs",
+      "source": {
+        "source_id": "current-337:crates/adventuresim-stdb-module/src/strategic/world_import.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-stdb-module/src/strategic/world_import.rs",
+        "source_sha256": "cc83d5f3e3c415a12dc0ced11a5e9271a2b115d3ed5ac9703d1a8b8ae9728d22",
+        "source_object": "adler-continuation-20261030/objects/cc83d5f3e3c415a12dc0ced11a5e9271a2b115d3ed5ac9703d1a8b8ae9728d22",
+        "bytes": 41257,
+        "actual_EOF": 1159,
+        "ranges": [
+          [
+            110,
+            166
+          ],
+          [
+            523,
+            720
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 255
+      },
+      "revision_or_explicit_transport_qualification": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "source_sha256": "cc83d5f3e3c415a12dc0ced11a5e9271a2b115d3ed5ac9703d1a8b8ae9728d22",
+      "actual_EOF_or_visual_contract": 1159,
+      "registration_ref_and_sha256": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L2-CATALOG-SUPPORT-037.json",
+        "sha256": "28abd27dbe0b853101f66dc1b7b2a90e0117645a6edb3e931fc685264d8e8c88"
+      },
+      "requested_ranges": [
+        [
+          110,
+          166
+        ],
+        [
+          523,
+          720
+        ]
+      ],
+      "fresh_personal_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          110,
+          166
+        ],
+        [
+          523,
+          720
+        ]
+      ],
+      "read_attribution": "Root own-L2 registered bounded personal assessment. All lines uncredited; source import/reward/event code only, no import/reducer/database/runtime operation executed.",
+      "unread_ranges": {
+        "outside_registered_scope": true
+      },
+      "complete_relevant_functions_and_dependencies": {
+        "read": {
+          "path": "adler-continuation-20261030/READ-ROOT-L2-FAME-PARITY-036-038.json",
+          "sha256": "ef3fc358807bf8add209819086d790adb374017096885a55a633a1f61261dcc1"
+        },
+        "row_pointer": "/rows/2",
+        "qualifications": [
+          {
+            "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L2-PROFESSION-FAME-PARITY-001.json",
+            "sha256": "d497871cfb77abfac9471c82e96e57a74f94230eb4e08b1bbb6df9bed01d2234"
+          }
+        ]
+      },
+      "body_output_truncation_status": false,
+      "new_body_population_unique_credit": 0
+    },
+    {
+      "source_id": "current-337:crates/adventuresim-world-schema/src/lib.rs",
+      "source": {
+        "source_id": "current-337:crates/adventuresim-world-schema/src/lib.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-world-schema/src/lib.rs",
+        "source_sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+        "source_object": "adler-continuation-20261030/objects/a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+        "bytes": 172137,
+        "actual_EOF": 4796,
+        "ranges": [
+          [
+            3870,
+            3901
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 32
+      },
+      "revision_or_explicit_transport_qualification": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "source_sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "actual_EOF_or_visual_contract": 4796,
+      "registration_ref_and_sha256": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L2-CATALOG-SUPPORT-038.json",
+        "sha256": "6515bff1f1eca7e8eb72726bdd35985d1ede2fb5579a7b5aad807b7e3fc4a2be"
+      },
+      "requested_ranges": [
+        [
+          3870,
+          3901
+        ]
+      ],
+      "fresh_personal_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          3870,
+          3901
+        ]
+      ],
+      "read_attribution": "Root own-L2 registered bounded personal assessment. All lines uncredited; source import/reward/event code only, no import/reducer/database/runtime operation executed.",
+      "unread_ranges": {
+        "outside_registered_scope": true
+      },
+      "complete_relevant_functions_and_dependencies": {
+        "read": {
+          "path": "adler-continuation-20261030/READ-ROOT-L2-FAME-PARITY-036-038.json",
+          "sha256": "ef3fc358807bf8add209819086d790adb374017096885a55a633a1f61261dcc1"
+        },
+        "row_pointer": "/rows/3",
+        "qualifications": [
+          {
+            "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L2-PROFESSION-FAME-PARITY-001.json",
+            "sha256": "d497871cfb77abfac9471c82e96e57a74f94230eb4e08b1bbb6df9bed01d2234"
+          }
+        ]
+      },
+      "body_output_truncation_status": false,
+      "new_body_population_unique_credit": 0
+    }
+  ],
+  "semantic_dispositions": [
+    {
+      "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L2-PROFESSION-FAME-PARITY-001.json",
+      "sha256": "d497871cfb77abfac9471c82e96e57a74f94230eb4e08b1bbb6df9bed01d2234"
+    }
+  ],
+  "contract_updates": [
+    {
+      "contract_id_or_proposed_new_id": "L2-PROFESSION-FAME-PREVIEW-MULTIPLIER-PARITY-QUESTION",
+      "lens": 2,
+      "canonical_owner_or_explicit_unresolved_owner_question": "Native profession preview projection and core reputation multiplier",
+      "first_failed_contract_or_unresolved_question": "Separate unresolved first native projection: Rust reward_delta567 multiplies Fame by reputation_multiplier while JS professionReward21 returns raw delta; emitted form2322..2326 lacks multiplier. Nonunit supported producer/admission/current proof still required; not alias to enum erasure834.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_id": "current-337:crates/adventuresim-stdb-module/src/time/activities.rs",
+          "source": {
+            "source_id": "current-337:crates/adventuresim-stdb-module/src/time/activities.rs",
+            "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+            "git_path": "crates/adventuresim-stdb-module/src/time/activities.rs",
+            "source_sha256": "a47b028b15d0e416ae19b84b18f616bff39ea8f7a951526e32996cc70ed48915",
+            "source_object": "adler-continuation-20261030/objects/a47b028b15d0e416ae19b84b18f616bff39ea8f7a951526e32996cc70ed48915",
+            "bytes": 16424,
+            "actual_EOF": 445,
+            "ranges": [
+              [
+                1,
+                177
+              ],
+              [
+                372,
+                445
+              ]
+            ],
+            "fresh_personal_body_reads_registered": [],
+            "fresh_personal_lines_registered": 0,
+            "uncredited_assessment_lines_registered": 251
+          },
+          "revision_or_explicit_transport_qualification": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "a47b028b15d0e416ae19b84b18f616bff39ea8f7a951526e32996cc70ed48915",
+          "actual_EOF_or_visual_contract": 445,
+          "registration_ref_and_sha256": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L2-CATALOG-SUPPORT-036.json",
+            "sha256": "3d4ea9f31fbf24fe63a132c1edf4d556c2ae473832327e8bbc095ffbaa70eb5d"
+          },
+          "requested_ranges": [
+            [
+              1,
+              177
+            ],
+            [
+              372,
+              445
+            ]
+          ],
+          "fresh_personal_ranges": [],
+          "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+          "assessed_ranges": [
+            [
+              1,
+              177
+            ],
+            [
+              372,
+              445
+            ]
+          ],
+          "read_attribution": "Root own-L2 registered bounded personal assessment. All lines uncredited; source import/reward/event code only, no import/reducer/database/runtime operation executed.",
+          "unread_ranges": {
+            "outside_registered_scope": true
+          },
+          "complete_relevant_functions_and_dependencies": {
+            "read": {
+              "path": "adler-continuation-20261030/READ-ROOT-L2-FAME-PARITY-036-038.json",
+              "sha256": "ef3fc358807bf8add209819086d790adb374017096885a55a633a1f61261dcc1"
+            },
+            "row_pointer": "/rows/0",
+            "qualifications": [
+              {
+                "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L2-PROFESSION-FAME-PARITY-001.json",
+                "sha256": "d497871cfb77abfac9471c82e96e57a74f94230eb4e08b1bbb6df9bed01d2234"
+              }
+            ]
+          },
+          "body_output_truncation_status": false,
+          "new_body_population_unique_credit": 0
+        },
+        {
+          "source_id": "current-337:crates/adventuresim-stdb-module/src/reputation.rs",
+          "source": {
+            "source_id": "current-337:crates/adventuresim-stdb-module/src/reputation.rs",
+            "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+            "git_path": "crates/adventuresim-stdb-module/src/reputation.rs",
+            "source_sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+            "source_object": "adler-continuation-20261030/objects/054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+            "bytes": 13386,
+            "actual_EOF": 440,
+            "ranges": [
+              [
+                258,
+                348
+              ]
+            ],
+            "fresh_personal_body_reads_registered": [],
+            "fresh_personal_lines_registered": 0,
+            "uncredited_assessment_lines_registered": 91
+          },
+          "revision_or_explicit_transport_qualification": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+          "actual_EOF_or_visual_contract": 440,
+          "registration_ref_and_sha256": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L2-CATALOG-SUPPORT-037.json",
+            "sha256": "28abd27dbe0b853101f66dc1b7b2a90e0117645a6edb3e931fc685264d8e8c88"
+          },
+          "requested_ranges": [
+            [
+              258,
+              348
+            ]
+          ],
+          "fresh_personal_ranges": [],
+          "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+          "assessed_ranges": [
+            [
+              258,
+              348
+            ]
+          ],
+          "read_attribution": "Root own-L2 registered bounded personal assessment. All lines uncredited; source import/reward/event code only, no import/reducer/database/runtime operation executed.",
+          "unread_ranges": {
+            "outside_registered_scope": true
+          },
+          "complete_relevant_functions_and_dependencies": {
+            "read": {
+              "path": "adler-continuation-20261030/READ-ROOT-L2-FAME-PARITY-036-038.json",
+              "sha256": "ef3fc358807bf8add209819086d790adb374017096885a55a633a1f61261dcc1"
+            },
+            "row_pointer": "/rows/1",
+            "qualifications": [
+              {
+                "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L2-PROFESSION-FAME-PARITY-001.json",
+                "sha256": "d497871cfb77abfac9471c82e96e57a74f94230eb4e08b1bbb6df9bed01d2234"
+              }
+            ]
+          },
+          "body_output_truncation_status": false,
+          "new_body_population_unique_credit": 0
+        },
+        {
+          "source_id": "current-337:crates/adventuresim-stdb-module/src/strategic/world_import.rs",
+          "source": {
+            "source_id": "current-337:crates/adventuresim-stdb-module/src/strategic/world_import.rs",
+            "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+            "git_path": "crates/adventuresim-stdb-module/src/strategic/world_import.rs",
+            "source_sha256": "cc83d5f3e3c415a12dc0ced11a5e9271a2b115d3ed5ac9703d1a8b8ae9728d22",
+            "source_object": "adler-continuation-20261030/objects/cc83d5f3e3c415a12dc0ced11a5e9271a2b115d3ed5ac9703d1a8b8ae9728d22",
+            "bytes": 41257,
+            "actual_EOF": 1159,
+            "ranges": [
+              [
+                110,
+                166
+              ],
+              [
+                523,
+                720
+              ]
+            ],
+            "fresh_personal_body_reads_registered": [],
+            "fresh_personal_lines_registered": 0,
+            "uncredited_assessment_lines_registered": 255
+          },
+          "revision_or_explicit_transport_qualification": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "cc83d5f3e3c415a12dc0ced11a5e9271a2b115d3ed5ac9703d1a8b8ae9728d22",
+          "actual_EOF_or_visual_contract": 1159,
+          "registration_ref_and_sha256": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L2-CATALOG-SUPPORT-037.json",
+            "sha256": "28abd27dbe0b853101f66dc1b7b2a90e0117645a6edb3e931fc685264d8e8c88"
+          },
+          "requested_ranges": [
+            [
+              110,
+              166
+            ],
+            [
+              523,
+              720
+            ]
+          ],
+          "fresh_personal_ranges": [],
+          "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+          "assessed_ranges": [
+            [
+              110,
+              166
+            ],
+            [
+              523,
+              720
+            ]
+          ],
+          "read_attribution": "Root own-L2 registered bounded personal assessment. All lines uncredited; source import/reward/event code only, no import/reducer/database/runtime operation executed.",
+          "unread_ranges": {
+            "outside_registered_scope": true
+          },
+          "complete_relevant_functions_and_dependencies": {
+            "read": {
+              "path": "adler-continuation-20261030/READ-ROOT-L2-FAME-PARITY-036-038.json",
+              "sha256": "ef3fc358807bf8add209819086d790adb374017096885a55a633a1f61261dcc1"
+            },
+            "row_pointer": "/rows/2",
+            "qualifications": [
+              {
+                "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L2-PROFESSION-FAME-PARITY-001.json",
+                "sha256": "d497871cfb77abfac9471c82e96e57a74f94230eb4e08b1bbb6df9bed01d2234"
+              }
+            ]
+          },
+          "body_output_truncation_status": false,
+          "new_body_population_unique_credit": 0
+        },
+        {
+          "source_id": "current-337:crates/adventuresim-world-schema/src/lib.rs",
+          "source": {
+            "source_id": "current-337:crates/adventuresim-world-schema/src/lib.rs",
+            "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+            "git_path": "crates/adventuresim-world-schema/src/lib.rs",
+            "source_sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+            "source_object": "adler-continuation-20261030/objects/a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+            "bytes": 172137,
+            "actual_EOF": 4796,
+            "ranges": [
+              [
+                3870,
+                3901
+              ]
+            ],
+            "fresh_personal_body_reads_registered": [],
+            "fresh_personal_lines_registered": 0,
+            "uncredited_assessment_lines_registered": 32
+          },
+          "revision_or_explicit_transport_qualification": "33714256b6313ce86fdfbb534c54d92d024d7726",
+          "source_sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+          "actual_EOF_or_visual_contract": 4796,
+          "registration_ref_and_sha256": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L2-CATALOG-SUPPORT-038.json",
+            "sha256": "6515bff1f1eca7e8eb72726bdd35985d1ede2fb5579a7b5aad807b7e3fc4a2be"
+          },
+          "requested_ranges": [
+            [
+              3870,
+              3901
+            ]
+          ],
+          "fresh_personal_ranges": [],
+          "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+          "assessed_ranges": [
+            [
+              3870,
+              3901
+            ]
+          ],
+          "read_attribution": "Root own-L2 registered bounded personal assessment. All lines uncredited; source import/reward/event code only, no import/reducer/database/runtime operation executed.",
+          "unread_ranges": {
+            "outside_registered_scope": true
+          },
+          "complete_relevant_functions_and_dependencies": {
+            "read": {
+              "path": "adler-continuation-20261030/READ-ROOT-L2-FAME-PARITY-036-038.json",
+              "sha256": "ef3fc358807bf8add209819086d790adb374017096885a55a633a1f61261dcc1"
+            },
+            "row_pointer": "/rows/3",
+            "qualifications": [
+              {
+                "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L2-PROFESSION-FAME-PARITY-001.json",
+                "sha256": "d497871cfb77abfac9471c82e96e57a74f94230eb4e08b1bbb6df9bed01d2234"
+              }
+            ]
+          },
+          "body_output_truncation_status": false,
+          "new_body_population_unique_credit": 0
+        }
+      ],
+      "remaining_evidence": [
+        "No complete world artifact admission, actual eligible current Fame membership, live nonunit settlement or observed UI run is claimed. Actual end-to-end witness/acceptance is a later isolated validation requirement; this source disposition remains explicitly conditional on an eligible Fame role and nonunit population.",
+        "Exact final shared multiplier/amount/accrual owner placement and native integer encoding must join canonical repair records. Whole import finalization/profile/SettlementView fetching, event identity/idempotency and other numerical/admission scopes are not cleared by this packet.",
+        "All other lens, source/current delta, global alias/all20 and implementation/review gates remain incomplete."
+      ],
+      "dependencies": [
+        {
+          "path": "adler-continuation-20261030/READ-ROOT-L2-FAME-PARITY-036-038.json",
+          "sha256": "ef3fc358807bf8add209819086d790adb374017096885a55a633a1f61261dcc1"
+        },
+        {
+          "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L2-PROFESSION-FAME-PARITY-001.json",
+          "sha256": "d497871cfb77abfac9471c82e96e57a74f94230eb4e08b1bbb6df9bed01d2234"
+        }
+      ],
+      "closure_condition": "Complete this exact named L2 projection discovery as an explicit source-supported conditional finding. No live/ordinary world incident, repair/runtime, other-lens or global closure.",
+      "existing_contract_revisit_identity_proof_if_any": {
+        "queue": {
+          "path": "workflow-20261030/CLOSURE-QUEUE-822.json",
+          "sha256": "803f5f4efbeeea1e3327d1ca7019aac0609226d0beeec5a0dddc6c6d205d6b96"
+        },
+        "entry_pointer": "/entries/2491",
+        "first_contract": "Separate unresolved first native projection: Rust reward_delta567 multiplies Fame by reputation_multiplier while JS professionReward21 returns raw delta; emitted form2322..2326 lacks multiplier. Nonunit supported producer/admission/current proof still required; not alias to enum erasure834.",
+        "operation": "Same profession practice reward preview before native DOM projection and client duration recomputation, now connected to native raw fame recording and population-scaled contribution.",
+        "unchanged_web_and_js_definitions": [
+          {
+            "git_path": "crates/strategic-web/static/immediate-activity.js",
+            "source_sha256": "dc1c81c7bb8a93b95f740071f78d4d1cbc09c1d7c8b3e9b2da52309683d248b4",
+            "qualified_ranges_used": [
+              [
+                1,
+                157
+              ]
+            ]
+          },
+          {
+            "git_path": "crates/strategic-web/src/templates/settlement/character_skills.rs",
+            "source_sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+            "qualified_ranges_used": [
+              [
+                1,
+                2355
+              ]
+            ]
+          }
+        ],
+        "canonical_alias_applied": false,
+        "new_accepted_unique_count": 0
+      },
+      "scoped_l2_source_views_closed": 1,
+      "whole_canonical_cases_closed": 0,
+      "new_accepted_unique_count": 0
+    }
+  ],
+  "current_delta_updates": [],
+  "qualifications": {
+    "pending": [
+      "No complete world artifact admission, actual eligible current Fame membership, live nonunit settlement or observed UI run is claimed. Actual end-to-end witness/acceptance is a later isolated validation requirement; this source disposition remains explicitly conditional on an eligible Fame role and nonunit population.",
+      "Exact final shared multiplier/amount/accrual owner placement and native integer encoding must join canonical repair records. Whole import finalization/profile/SettlementView fetching, event identity/idempotency and other numerical/admission scopes are not cleared by this packet.",
+      "All other lens, source/current delta, global alias/all20 and implementation/review gates remain incomplete."
+    ],
+    "conditional_witness": {
+      "population_example": {
+        "population_level": 2,
+        "population_estimate": 0
+      },
+      "source_reason": "The public import/retained representations permit this pair; effective_population explicitly maps it to3000, for which the local factor is below1. With an eligible Fame role and a positive completed interval, server preview scales the reward while JS reports the unscaled interval count. This is a source-level conditional witness, not an executed importer, accepted complete world artifact, queried live row or observed browser incident.",
+      "runtime_or_database_witness_claimed": false,
+      "native_formula_executed": false
+    },
+    "alias_applications": 0,
+    "recovery_boundary": "Complete named conditional source question; no ordinary live-world witness claimed."
+  },
+  "recovery_checkpoint": {
+    "path": "target/726-intake-20261030/NEXT-L2-PROGRESS-CP487-002.json",
+    "sha256": "2af0043c4b1727f34293adeda6cbe0c2c3dd888a4199557d326e2f33f9050106"
+  },
+  "validation_ruleset": {
+    "path": "workflow-20261030/PROPOSAL-PROTOCOL-001.json",
+    "sha256": "8fa2ba016a32b9e4b9624cdd0c1ae02d61a956f7dda4948f30fd89d8387b34ed"
+  },
+  "new_ruleset_delta": "Use reusable exact Git/registration/prior same-L2 checks, then inspect Fame-specific conditional witness, native event scaling and missing DOM payload. Preserve distinct L12 enum-erasure entry540 and every prior view; append only one named L2 view at entry2491. No world-import execution or actual data witness inferred.",
+  "source_receipts": [
+    {
+      "path": "adler-continuation-20261030/READ-ROOT-L2-FAME-PARITY-036-038.json",
+      "sha256": "ef3fc358807bf8add209819086d790adb374017096885a55a633a1f61261dcc1"
+    }
+  ],
+  "registration_refs": [
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-ROOT-L2-CATALOG-SUPPORT-036.json",
+      "sha256": "3d4ea9f31fbf24fe63a132c1edf4d556c2ae473832327e8bbc095ffbaa70eb5d"
+    },
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-ROOT-L2-CATALOG-SUPPORT-037.json",
+      "sha256": "28abd27dbe0b853101f66dc1b7b2a90e0117645a6edb3e931fc685264d8e8c88"
+    },
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-ROOT-L2-CATALOG-SUPPORT-038.json",
+      "sha256": "6515bff1f1eca7e8eb72726bdd35985d1ede2fb5579a7b5aad807b7e3fc4a2be"
+    }
+  ],
+  "proposed_state": {
+    "path": "adler-continuation-20261030/PROPOSED-STATE-L2-EXT-CURRENT-022.json",
+    "sha256": "c13841f9c16ac9189b8aad7ef79c8e8822a57e107de07df0b27e1300a7c98320"
+  },
+  "intended_state_destination": "segovb/STATE-L2-EXT-CURRENT-022.json",
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "source_adoption_performed": false,
+  "independent_agent_review": false
+}

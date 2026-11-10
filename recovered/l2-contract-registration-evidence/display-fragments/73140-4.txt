@@ -1,0 +1,93 @@
+150: pub struct CaseBattleView {
+151:     pub gateway_bucket: u8,
+152:     pub owner_character_id: u64,
+153:     pub public_case_id: String,
+154:     pub party_id: String,
+155:     pub battle_id: String,
+156:     pub mission_id: String,
+157:     pub case_site_id: CaseSiteId,
+158: }
+159: 
+160: #[derive(Debug, Clone, PartialEq)]
+161: pub struct PartyView {
+162:     pub id: String,
+163:     pub gateway_bucket: u8,
+164:     pub name: String,
+165:     pub leader_id: u64,
+166:     pub current_settlement_id: Option<String>,
+167:     pub current_case_site_id: Option<CaseSiteId>,
+168:     pub active_contract_id: Option<String>,
+169:     pub is_solo: bool,
+170:     pub camp_fatigue_percent: u8,
+171:     pub walking_minutes_per_day: u16,
+172:     pub travel_at_night: bool,
+173:     pub journey_start_minute_of_day: u16,
+174:     pub wilderness_canonical_anchor_minute:
+175:         Option<adventuresim_world_schema::calendar::StrategicMinute>,
+176:     pub wilderness_elapsed_minutes: u64,
+177:     pub camp_destination: Option<JourneyEndpoint>,
+178:     pub camp_remaining_minutes: u64,
+179:     pub physiology_target: f32,
+180:     pub command_target: f32,
+181:     pub religion_target: f32,
+182: }
+183: 
+568:             public_case_id,
+569:             party_id,
+570:             battle_id,
+571:             mission_id,
+572:             case_site_id: CaseSiteId::try_new(case_site_id.value)?,
+573:         })
+574:     }
+575: }
+576: 
+577: impl TryFrom<sats::Party> for PartyView {
+578:     type Error = adventuresim_core::strategic_place::PlaceIdentityError;
+579: 
+580:     fn try_from(row: sats::Party) -> Result<Self, Self::Error> {
+581:         let sats::Party {
+582:             id,
+583:             gateway_bucket,
+584:             name,
+585:             leader_id,
+586:             current_settlement_id,
+587:             current_case_site_id,
+588:             active_contract_id,
+589:             is_solo,
+590:             camp_fatigue_percent,
+591:             walking_minutes_per_day,
+592:             travel_at_night,
+593:             journey_start_minute_of_day,
+594:             wilderness_canonical_anchor_minute,
+595:             wilderness_elapsed_minutes,
+596:             camp_destination,
+597:             camp_remaining_minutes,
+598:             physiology_target,
+599:             command_target,
+600:             religion_target,
+601:         } = row;
+602:         Ok(Self {
+603:             id,
+604:             gateway_bucket,
+605:             name,
+606:             leader_id,
+607:             current_settlement_id,
+608:             current_case_site_id: current_case_site_id
+609:                 .map(|site| CaseSiteId::try_new(site.value))
+610:                 .transpose()?,
+611:             active_contract_id,
+612:             is_solo,
+613:             camp_fatigue_percent,
+614:             walking_minutes_per_day,
+615:             travel_at_night,
+616:             journey_start_minute_of_day,
+617:             wilderness_canonical_anchor_minute: wilderness_canonical_anchor_minute.map(|minute| {
+618:                 adventuresim_world_schema::calendar::StrategicMinute::new(minute.minutes)
+619:             }),
+620:             wilderness_elapsed_minutes,
+621:             camp_destination,
+622:             camp_remaining_minutes,
+623:             physiology_target,
+624:             command_target,
+625:             religion_target,
+626:         })

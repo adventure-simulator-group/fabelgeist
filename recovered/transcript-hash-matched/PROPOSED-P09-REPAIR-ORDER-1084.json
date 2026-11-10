@@ -1,0 +1,84 @@
+{
+  "schema": "726-provisional-ordered-repair-ledger-v1",
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-P09-REPAIR-1084.json",
+    "sha256": "a7dd5daed14ebc2650231a20256da6d9781bca37ef2ab4adc91f861cc244e337"
+  },
+  "connected_evidence": [
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-MHR-NAN-PROBE-1048.json",
+      "sha256": "735c71703984163993d72655603c9c646cc583606e42afe53d1d0776d5baaf93"
+    },
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-PINNED-SKIN-1078.json",
+      "sha256": "74a5613f27a693dd289ed64be667350dd4aed743e17f2c48dc6484f8971b8db4"
+    },
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-GLB-FIXTURE-PROBE-1066.json",
+      "sha256": "33b4ba40878dcf004b6434df5f6f699791b2856fddcbab085cd8f8f8d282ebfe"
+    },
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-DRAPE-OUTCOME-1071.json",
+      "sha256": "a4f5fdae350a700ffdfd684b8823fcb5e14862b948395be0f1e095588af78ffa"
+    },
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-CORRECTIVE-ERROR-1081.json",
+      "sha256": "21dcb0db8c7adf0180398faf5cf6d00af102fa4735e5e0dd52ef3a4031926f65"
+    },
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-FLOAT-COORDINATE-1083.json",
+      "sha256": "2e2b1ded3174885c05f3be0afddc02285f86226ab4635e02104756fe668dac85"
+    }
+  ],
+  "implementation_authorized": false,
+  "family_discovery_complete": false,
+  "ordered_proposal": [
+    {
+      "step": 1,
+      "owner": "MHR FBX skin admission",
+      "contracts": [
+        167,
+        393,
+        394,
+        395,
+        396
+      ],
+      "work": "Define finite influence and cluster/vertex failure roles at the owning importer, retaining original input and context through loader presentation.",
+      "acceptance": "Reject constructed nonfinite inputs and preserve typed reasons; retain the verified LOD4-6 skin rows and normalization."
+    },
+    {
+      "step": 2,
+      "owner": "shared rig influence reduction",
+      "contracts": [
+        175,
+        3771
+      ],
+      "work": "Determine and encode an explicit empty or zero-total influence policy, then carry it through GLB fixture admission and export without manufacturing NaN.",
+      "acceptance": "Exercise weighted and unweighted cases and the canonical fixture; do not claim arbitrary GLB support from the synthetic probe."
+    },
+    {
+      "step": 3,
+      "owner": "MHR corrective archive and layout admission",
+      "contracts": [
+        172,
+        400,
+        401
+      ],
+      "work": "Resolve permitted sparse coordinate dtype and numeric values before lossy conversion; preserve existing distinct structured shape, cardinality and layout causes.",
+      "acceptance": "Reject or explicitly resolve constructed NaN and fractional coordinates; retain the verified pinned i64 archive, signed coefficients and neutral forward baseline."
+    },
+    {
+      "step": 4,
+      "owner": "garment and equipment preview consumers",
+      "contracts": [
+        3793
+      ],
+      "work": "Reconcile weighted and unweighted binding, admission timing and renderer/native boundaries with producer-owned roles.",
+      "acceptance": "Preserve staged previews, completed garment prefix and cancellation semantics; test actual failure and cancellation behavior."
+    }
+  ],
+  "open_dependencies": [
+    "Exact aliases and consumers outside these scoped entries; all 13 lenses and 20 families; supported-data policies and independent review.",
+    "No step authorizes product edits before the complete audit and repair ledger gate."
+  ]
+}

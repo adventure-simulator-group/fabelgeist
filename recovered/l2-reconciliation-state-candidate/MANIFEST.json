@@ -1,0 +1,31 @@
+{
+  "schema": "726-l2-reconciliation-state-candidate-v1",
+  "source_write_ordinal": 73399,
+  "target_state_sha256": "199a4a9479b5ed3491ccc6df6d5f667cf41db2f9745c26bff939348c9a2f4158",
+  "required_predecessor_sha256": "7ae4cacab8b115accdf246a682527648e995a0acd86838cdfd3e1544cb4cd62e",
+  "files": [
+    {
+      "file": "READ-TEMPLATE.json",
+      "sha256": "055e3122aea751370920a40f0e25b798fd82518a9062e5e49405bc45331e241d"
+    },
+    {
+      "file": "POLICY-TEMPLATE.json",
+      "sha256": "e3aa7f787f86d0629d01a6b5133929efec31b02dcdda8b83e2569e452e053b7a"
+    },
+    {
+      "file": "VIEW-TEMPLATE.json",
+      "sha256": "64266da13f783dd20e3d15256e066d1cd9bdac2a658cea5480f3d17d6cc9538f"
+    },
+    {
+      "file": "STATE-TEMPLATE.json",
+      "sha256": "92e621d759620b0890219c3b3fe50c9117e814c212a567af3d711fef88bfcd59"
+    }
+  ],
+  "missing_comparison": "adler-continuation-20261030/COMPARISON-ROOT-L2-ERRANTRY-ALIASES-002.json",
+  "placeholders": {
+    "STAMP": "original write timestamp",
+    "COMPARISONHASH": "original comparison SHA-256, not recovered",
+    "READHASH": "SHA-256 of substituted receipt template"
+  },
+  "qualification": "Four static state, receipt, policy and view candidates reconstruct recorded literals, exact predecessor state and original qualification rows. The comparison original bytes and hash remain unavailable; therefore original final selected state cannot currently be reconstructed or validated. These are not adopted evidence and grant no credit, alias or runtime result."
+}

@@ -1,0 +1,109 @@
+use super::*;
+
+/// A presentation-only character sharing the tactical rig without player controls.
+#[derive(Component)]
+#[require(SkeletonState)]
+pub(crate) struct StrategicModel;
+
+pub(crate) type AnimatedActors = Or<(With<Player>, With<StrategicModel>)>;
+
+impl Plugin for TacticalAnimationPlugin {
+    fn build(&self, app: &mut App) {
+        install_requests(app);
+        app.init_resource::<AnimationPackCatalog>()
+            .init_resource::<pose_buffer::PoseBufferMetrics>()
+            .init_resource::<pose_buffer::RigDefinitions>()
+            .init_resource::<pose_buffer::BakedClipBank>()
+            .init_resource::<AuthoredLocomotionStrides>()
+            .init_resource::<AnimationRuntime>()
+            .init_resource::<semantic_route::SemanticRouteTelemetry>()
+            .init_resource::<TerrainIkMode>()
+            .init_resource::<ProceduralAnimationClock>()
+            .init_resource::<procedural::FixedTickPoseCache>()
+            .init_resource::<bouncy_bones::BouncyBonesTelemetry>()
+            .register_required_components::<procedural::HumanoidRig, bouncy_bones::BouncyBones>()
+            .add_message::<LocomotionPresentationEvent>()
+            .add_message::<bouncy_bones::BoneKick>()
+            .add_systems(
+                Update,
+                (
+                    super::super::skeletal_proportions::load_skeletal_bases,
+                    super::super::skeletal_proportions::sync_skeletal_proportions,
+                )
+                    .chain()
+                    .after(capture_authored_bind_transforms)
+                    .before(pose_buffer::update_pose_buffers),
+            )
+            .add_observer(on_successful_attack)
+            .add_systems(
+                Update,
+                (
+                    super::super::clip_revision::refresh_animation_revisions,
+                    collect_loaded_packs,
+                    attach_loaded_rig_scenes,
+                    super::super::identity_morphs::sync_character_morphs,
+                    update_presented_skeletons,
+                    establish_animation_targets,
+                    procedural::bind_humanoid_bones,
+                    procedural::cache_humanoid_rigs,
+                    ragdoll::sync_ragdolls,
+                    ragdoll::resolve_ragdoll_terrain_contacts,
+                    capture_authored_bind_transforms,
+                    procedural::capture_humanoid_rig_axes,
+                    semantic_route::evaluate_semantic_route_paths,
+                    evaluate_skeletons,
+                    pose_buffer::update_pose_buffers,
+                    pose_buffer::calibrate_authored_locomotion_strides,
+                    pose_buffer::calibrate_character_strides,
+                    update_rig_visibility,
+                    emit_locomotion_presentation_events,
+                    trace_locomotion_presentation_events,
+                )
+                    .chain(),
+            )
+            // Muscles and joint damping step once per physics tick, before
+            // the solver integrates in `FixedPostUpdate`.
+            .add_systems(
+                FixedUpdate,
+                (ragdoll::apply_muscles, ragdoll::damp_joints).chain(),
+            )
+            .add_systems(
+                PostUpdate,
+                (
+                    ragdoll::drive_ragdoll_pose_buffers,
+                    procedural::restore_procedural_look_base,
+                    pose_buffer::apply_pose_buffers,
+                    restore_authored_bind_pose,
+                    procedural::apply_pose_mirroring,
+                    procedural::apply_procedural_dive_lower_body,
+                    procedural::apply_locomotion_height,
+                    procedural::orient_guarded_run_lower_body,
+                    procedural::apply_landing_leg_compression,
+                    procedural::apply_locomotion_body_response,
+                    procedural::apply_jump_anticipation,
+                    procedural::apply_head_and_torso_look,
+                    bouncy_bones::kick_bones,
+                    bouncy_bones::apply_bouncy_bones,
+                    procedural::apply_terrain_leg_ik,
+                    procedural::enforce_anatomical_knee_yaw,
+                    procedural::apply_arm_and_weapon_constraints,
+                    ragdoll::apply_ragdoll_poses,
+                    procedural::stabilize_repeated_fixed_tick_pose,
+                )
+                    .chain()
+                    .before(TransformSystems::Propagate),
+            )
+            .add_systems(
+                PostUpdate,
+                (
+                    procedural::refresh_raised_support_after_propagation,
+                    // Diagnostics must observe the final global transforms
+                    // that the renderer receives, including procedural IK.
+                    log_animation_diagnostics,
+                )
+                    .chain()
+                    .after(TransformSystems::Propagate),
+            )
+            .add_systems(Update, super::super::diagnostics::report_system_spikes);
+    }
+}

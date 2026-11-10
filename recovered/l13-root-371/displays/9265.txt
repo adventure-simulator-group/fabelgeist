@@ -1,0 +1,204 @@
+SOURCE a424e97712e998e237be73411cbc824e915ea7e23cdecbaf14c7cdf7e47a13ad EOF 139
+1: //! Presentation attachment and visibility for worn, held, and dropped items.
+2: use super::*;
+3: 
+4: #[expect(
+5:     clippy::type_complexity,
+6:     reason = "the Bevy queries describe equipment ownership, topology, rig bindings, and placeholder state exactly"
+7: )]
+8: pub(super) fn update_item_placeholders(
+9:     mut commands: Commands,
+10:     items: Query<
+11:         (
+12:             &Transform,
+13:             Option<&ItemOf>,
+14:             Option<&EquipSlot>,
+15:             &EquipmentTopology,
+16:             Has<TacticalSceneItem>,
+17:         ),
+18:         Without<ItemPlaceholder>,
+19:     >,
+20:     topologies: Query<
+21:         (&EquipmentTopology, Option<&EquipmentAttachmentSockets>),
+22:         Without<ItemPlaceholder>,
+23:     >,
+24:     rigs: Query<&HumanoidRig, crate::animation::AnimatedActors>,
+25:     bind_nodes: Query<(&AuthoredBindTransform, Option<&ChildOf>)>,
+26:     mut placeholders: Query<(
+27:         Entity,
+28:         &ItemPlaceholder,
+29:         &mut Transform,
+30:         &mut Visibility,
+31:         Option<&ChildOf>,
+32:         Has<ProceduralEquipmentResolved>,
+33:         Has<ProceduralEquipmentFailed>,
+34:     )>,
+35: ) {
+36:     for (entity, placeholder, mut transform, mut visibility, parent, procedural, failed) in
+37:         &mut placeholders
+38:     {
+39:         let Ok((item_transform, owner, slot, topology, scene)) = items.get(placeholder.0) else {
+40:             commands.entity(entity).despawn();
+41:             continue;
+42:         };
+43:         if failed {
+44:             *visibility = Visibility::Hidden;
+45:             commands.entity(entity).remove::<HeldWeaponConstraint>();
+46:             continue;
+47:         }
+48:         if scene {
+49:             if parent.is_some() {
+50:                 commands.entity(entity).remove::<ChildOf>();
+51:             }
+52:             *transform = *item_transform;
+53:             *visibility = Visibility::Inherited;
+54:             commands.entity(entity).remove::<HeldWeaponConstraint>();
+55:         } else if procedural && holding_side(slot).is_none() {
+56:             let rig_scene = resolve_character_location(topology, &topologies)
+57:                 .and(owner)
+58:                 .and_then(|owner| rigs.get(owner.0).ok())
+59:                 .and_then(HumanoidRig::rig_scene);
+60:             if let Some(rig_scene) = rig_scene {
+61:                 if parent.is_none_or(|parent| parent.parent() != rig_scene) {
+62:                     commands.entity(entity).insert(ChildOf(rig_scene));
+63:                 }
+64:                 *transform = Transform::IDENTITY;
+65:                 *visibility = Visibility::Inherited;
+66:             } else {
+67:                 *visibility = Visibility::Hidden;
+68:             }
+69:             commands.entity(entity).remove::<HeldWeaponConstraint>();
+70:         } else if let (Some(owner), Some(primary_hand)) = (owner, holding_side(slot)) {
+71:             if parent.is_some() {
+72:                 commands.entity(entity).remove::<ChildOf>();
+73:             }
+74:             let constraint = rigs
+75:                 .get(owner.0)
+76:                 .ok()
+77:                 .and_then(|rig| held_constraint(rig, owner.0, primary_hand));
+78:             if let Some(constraint) = constraint {
+79:                 *visibility = Visibility::Inherited;
+80:                 commands.entity(entity).insert(constraint);
+81:             } else {
+82:                 *visibility = Visibility::Hidden;
+83:                 commands.entity(entity).remove::<HeldWeaponConstraint>();
+84:             }
+85:         } else if let Some((bone, correction)) = owner.and_then(|owner| {
+86:             let rig = rigs.get(owner.0).ok()?;
+87:             worn_attachment(topology, &topologies, rig, &bind_nodes)
+88:         }) {
+89:             if parent.is_none_or(|parent| parent.parent() != bone) {
+90:                 commands.entity(entity).insert(ChildOf(bone));
+91:             }
+92:             *transform = correction;
+93:             *visibility = Visibility::Inherited;
+94:             commands.entity(entity).remove::<HeldWeaponConstraint>();
+95:         } else {
+96:             *visibility = Visibility::Hidden;
+97:             commands.entity(entity).remove::<HeldWeaponConstraint>();
+98:         }
+99:     }
+100: }
+101: 
+102: fn held_constraint(
+103:     rig: &HumanoidRig,
+104:     owner: Entity,
+105:     primary_hand: HandSide,
+106: ) -> Option<HeldWeaponConstraint> {
+107:     let role = match primary_hand {
+108:         HandSide::Left => BoneRole::WeaponLeft,
+109:         HandSide::Right => BoneRole::WeaponRight,
+110:     };
+111:     rig.get(&role)?;
+112:     Some(HeldWeaponConstraint {
+113:         owner,
+114:         primary_hand,
+115:         secondary_grip_local: None,
+116:     })
+117: }
+118: 
+119: fn worn_attachment(
+120:     topology: &EquipmentTopology,
+121:     topologies: &Query<
+122:         (&EquipmentTopology, Option<&EquipmentAttachmentSockets>),
+123:         Without<ItemPlaceholder>,
+124:     >,
+125:     rig: &HumanoidRig,
+126:     bind_nodes: &Query<(&AuthoredBindTransform, Option<&ChildOf>)>,
+127: ) -> Option<(Entity, Transform)> {
+128:     let role = equipment_location_bone(resolve_character_location(topology, topologies)?);
+129:     let bone = rig.get(&role).copied()?;
+130:     let correction = if let Some(socket) = resolve_equipment_attachment_socket(topology, topologies)
+131:     {
+132:         // Generated attachment sockets are authored pelvis-local, so
+133:         // they can be consumed directly as children of the pelvis.
+134:         socket
+135:     } else {
+136:         equipment_bind_correction(role, rig, bind_nodes)?
+137:     };
+138:     Some((bone, correction))
+139: }
+SOURCE 43be98d339543f652eed674fbce2d8ceb5f22f1720fcd5758219f0535e494510 EOF 63
+1: //! Renderable children for tactical item placeholders.
+2: 
+3: use super::*;
+4: 
+5: pub(super) fn spawn_generated(
+6:     commands: &mut Commands,
+7:     root: Entity,
+8:     item: Entity,
+9:     generated: CachedWeapon,
+10:     part_name: &'static str,
+11: ) {
+12:     commands.entity(root).with_children(|parent| {
+13:         for part in generated.parts {
+14:             parent.spawn((
+15:                 Name::new(part_name),
+16:                 Mesh3d(part.mesh),
+17:                 MeshMaterial3d(part.material),
+18:                 Transform::from_translation(-generated.grip),
+19:                 GrabTargetOutline(item),
+20:                 OutlineVolume {
+21:                     visible: false,
+22:                     colour: Color::WHITE,
+23:                     width: 4.0,
+24:                 },
+25:                 OutlineMode::FloodFlat,
+26:             ));
+27:         }
+28:     });
+29: }
+30: 
+31: pub(super) fn spawn_fallback(
+32:     commands: &mut Commands,
+33:     root: Entity,
+34:     item: Entity,
+35:     physical: &TacticalEquipmentPhysical,
+36:     meshes: &mut Assets<Mesh>,
+37:     materials: &mut Assets<StandardMaterial>,
+38: ) {
+39:     commands.entity(root).with_child((
+40:         Name::new("Tactical item fallback"),
+41:         ItemFallback,
+42:         Mesh3d(meshes.add(Cuboid::new(
+43:             physical.dimensions_m.x,
+44:             physical.dimensions_m.y,
+45:             physical.dimensions_m.z,
+46:         ))),
+47:         MeshMaterial3d(materials.add(StandardMaterial {
+48:             base_color: Color::srgb(0.48, 0.34, 0.18),
+49:             perceptual_roughness: 0.8,
+50:             ..default()
+51:         })),
+52:         // The root is the authored grip. Box centre is offset from it;
+53:         // local +Y remains the weapon-tip direction.
+54:         Transform::from_translation(-physical.anchor_offset_m),
+55:         GrabTargetOutline(item),
+56:         OutlineVolume {
+57:             visible: false,
+58:             colour: Color::WHITE,
+59:             width: 4.0,
+60:         },
+61:         OutlineMode::FloodFlat,
+62:     ));
+63: }

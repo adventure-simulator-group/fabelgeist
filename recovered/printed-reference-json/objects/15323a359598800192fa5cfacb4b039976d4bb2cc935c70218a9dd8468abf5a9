@@ -1,0 +1,323 @@
+{
+  "schema": "726-root-l13-source-packet-v1",
+  "at": "2026-10-31T13:03:57.232196+00:00",
+  "lens": 13,
+  "author": "/root",
+  "original_before": 1670,
+  "original_after": 1675,
+  "registered_before_read_attestation": true,
+  "connected": [],
+  "prior_same_lens_adoptions": [],
+  "new_root_ordered_lines": 1007,
+  "new_root_connected_reread_lines": 0,
+  "accepted_unique_count_change": 0,
+  "other_population_credit": 0,
+  "current_source_reconciled": false,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "new_questions": [],
+  "ordered": [
+    {
+      "source": {
+        "original": 1670,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic.rs",
+        "sha256": "3195a4f45a963f88a33777e7b530ca7f8804383461ac655219685b184c2f428f",
+        "actual_eof": 127,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/3195a4f45a963f88a33777e7b530ca7f8804383461ac655219685b184c2f428f",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            127
+          ]
+        ],
+        "purpose": "Full Lens13 traffic paths and raster mask provenance, fixture acceptance and active vista support state. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1670-1674-001.json",
+        "sha256": "0db5fb556bce803399d6a14868db02efa7cef0dd0835fbd44043b6163e288a25"
+      },
+      "registration_pointer": "/sources/0",
+      "assessed_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              53
+            ]
+          ],
+          "assessment": "TrafficTile private serialized i32 pair represents64m cells; floor scene point/64, inclusive covering and f32 cell-origin conversion. Fixed4texels/m,256 interior+one gutter each=258square native texture. Actual source coordinate span and serialized tile admission must preserve cell identity/precision; no arbitrary extreme input witness."
+        },
+        {
+          "ranges": [
+            [
+              55,
+              127
+            ]
+          ],
+          "assessment": "Private Road stores source endpoints/halfwidth and derived normalized direction/length; admitted nonzero corridors required. Clearance is rectangular support including end planes. quad_clearance uses oriented normalized edges, union_support checks16 sampled envelope directions near edge, not exact continuous disk containment. Smooth band authored endpoints rely positive widths. Decorative static traffic history, not authoritative motion/support."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1671,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic/mask.rs",
+        "sha256": "fad483542b55d8c03320f7821e731f040ab8d531131f55fce69bb448321463ef",
+        "actual_eof": 175,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/fad483542b55d8c03320f7821e731f040ab8d531131f55fce69bb448321463ef",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            175
+          ]
+        ],
+        "purpose": "Full Lens13 traffic paths and raster mask provenance, fixture acceptance and active vista support state. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1670-1674-001.json",
+        "sha256": "0db5fb556bce803399d6a14868db02efa7cef0dd0835fbd44043b6163e288a25"
+      },
+      "registration_pointer": "/sources/1",
+      "assessed_ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              61
+            ]
+          ],
+          "assessment": "TrafficMask neutral allocates1x1 RGBA8Unorm[0,0,0,255] with zero transform; bake allocates258square RENDER_WORLD linear texture and origin minus.25m gutter, scale4/258. Each bake owns new image handle, transform paired with same construction; actual asset/native lifetime and shader UV contract remain required."
+        },
+        {
+          "ranges": [
+            [
+              63,
+              151
+            ]
+          ],
+          "assessment": "pixels filters overlapping road/market AABBs for full gutter extent, fills fixed266256bytes from pixel-center world coordinates. R=mud broad carriageway, G=wheel strokes later, B=interior/shoulder union coverage, A255. Shoulder probes radii.3/.6/.9/1.2m through16direction union_support. Stroke tile index includes padded gutter from network. Actual nearby-network selection/influence and shader channels need owner proof; local allocations fixed bounded."
+        },
+        {
+          "ranges": [
+            [
+              153,
+              175
+            ]
+          ],
+          "assessment": "Raster stroke projected bounds floor/ceil clamp onto texture, empty/outside inverted range naturally emits none. Nearest segment parameter divides delta.length_squared; prior wheels rejects short source segments but final shifted endpoints/canonical float bounds still matter. G=max feathered strength, not additive runaway. Fixed pixel indexing within bounded ranges; no generic hostile scalar failure claimed."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1672,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic/paths.rs",
+        "sha256": "325f130f750218a5c1d23de280add6f1f8e101a349427bc68e47f306d4a0bfc8",
+        "actual_eof": 325,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/325f130f750218a5c1d23de280add6f1f8e101a349427bc68e47f306d4a0bfc8",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            325
+          ]
+        ],
+        "purpose": "Full Lens13 traffic paths and raster mask provenance, fixture acceptance and active vista support state. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1670-1674-001.json",
+        "sha256": "0db5fb556bce803399d6a14868db02efa7cef0dd0835fbd44043b6163e288a25"
+      },
+      "registration_pointer": "/sources/2",
+      "assessed_ranges": [
+        [
+          1,
+          325
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              114
+            ]
+          ],
+          "assessment": "Network canonicalizes corridor direction by millimeter rounded node keys, merges same endpoint keys using maximum halfwidth while retaining first stored actual coordinates, retains market list. BTreeMap yields deterministic ordering for exact duplicates; near-distinct snapped endpoints could have order-sensitive retained geometry only if canonical source admits them, requiring actual snap policy. Roads/markets indexed by tile; strokes padded halfwidth+feather+.25gutter. All indexing private source positions."
+        },
+        {
+          "ranges": [
+            [
+              120,
+              178
+            ]
+          ],
+          "assessment": "Junctions start from rounded endpoints, add pairwise interior line intersections with cross threshold.001, then gather nontrivial arms and merge near-parallel direction dot>1-.001. Last endpoint insertion/first intersection representative policies require canonical supported alias semantics. Pairwise scanning and node/all-road arms need bounded actual city inputs, not invented quota."
+        },
+        {
+          "ranges": [
+            [
+              180,
+              242
+            ]
+          ],
+          "assessment": "Seven straight passes use .6m steps, width-scaled gauge and sinusoidal wander; positive road length must make steps>=1 before wheels indexes first two points. Turns skip nearly same/opposite heading, reach=min(width*2.5,.45each arm), cubic controls .45reach and>=4steps, normalized tangents. Extend incoming/outgoing by ceil(4/.6)=7steps then process both directions and both axles. Actual supported nondegenerate road/turn float output required; named constants describe visual simulation not gameplay state."
+        },
+        {
+          "ranges": [
+            [
+              244,
+              325
+            ]
+          ],
+          "assessment": "Rear path follows2m wheelbase. Reject source axle segments length_squared<.001, create two wheel sides with .13+pass*.013 halfwidth and fixed strengths. Start/end/midpoint feather envelope probes must pass road/market union; both-axle failure rejects whole candidate pass, front-only rejects individual stroke. Thus sampled containment not exact continuous physical motion. node_key is rounded point*1000 to i32; canonical scale/snap bounds remain required. Native private vectors and pass indices bounded by fixed7caller."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1673,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic/tests.rs",
+        "sha256": "1c244b9eb9aefab83effd806c86bd999b7f56495eea1d48ebf72495b181187db",
+        "actual_eof": 212,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/1c244b9eb9aefab83effd806c86bd999b7f56495eea1d48ebf72495b181187db",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            212
+          ]
+        ],
+        "purpose": "Full Lens13 traffic paths and raster mask provenance, fixture acceptance and active vista support state. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1670-1674-001.json",
+        "sha256": "0db5fb556bce803399d6a14868db02efa7cef0dd0835fbd44043b6163e288a25"
+      },
+      "registration_pointer": "/sources/3",
+      "assessed_ranges": [
+        [
+          1,
+          212
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              96
+            ]
+          ],
+          "assessment": "Unexecuted tests compare indexed/brute nonnegative support and exact interior clearance on bounded grid, require curved marks at crossing, verify each stroke start/mid/end inside union, T junction turns and parallel disconnected roads no turns. Samples do not prove all continuous envelopes or admitted canonical geometry."
+        },
+        {
+          "ranges": [
+            [
+              98,
+              164
+            ]
+          ],
+          "assessment": "Exact endpoint/order reversal fixture compares full pixel buffers and shared two gutter columns across adjacent tiles. Mud broad fill and>=8 approximate lateral lanes, narrow width1m finite nonempty strokes tested. Near-but-distinct snapped alias inputs not covered. Source assertions not runtime/native shader proof."
+        },
+        {
+          "ranges": [
+            [
+              166,
+              212
+            ]
+          ],
+          "assessment": "Shared endpoint fixture requires B255/no artificial internal shoulders and R>180 mud around center, plus marks nearby. Angled exactduplicate-width order fixture requires identical pixels and heading transition. These prove intended source oracles only; no execution."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1674,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/surface.rs",
+        "sha256": "b487f7c3b762586f17bebd06fd0a7cae7d415743566df637800b4056cc3441ac",
+        "actual_eof": 168,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/b487f7c3b762586f17bebd06fd0a7cae7d415743566df637800b4056cc3441ac",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            168
+          ]
+        ],
+        "purpose": "Full Lens13 traffic paths and raster mask provenance, fixture acceptance and active vista support state. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1670-1674-001.json",
+        "sha256": "0db5fb556bce803399d6a14868db02efa7cef0dd0835fbd44043b6163e288a25"
+      },
+      "registration_pointer": "/sources/4",
+      "assessed_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              57
+            ]
+          ],
+          "assessment": "ActiveVistaSurface retains revisionu64/digestString/native halfextent, firstTWO original bundle LOD clones, urban flag based streets OR yards, and GroundSupport reset per update. Revision wrapping counter is local change token, not elapsed time; supported lifecycle/native reuse semantics needed before wrap issue. retain_playable only when urban, adds canonical urban mesh but no explicit Patch here; actual outer caller/landform sequence required."
+        },
+        {
+          "ranges": [
+            [
+              59,
+              91
+            ]
+          ],
+          "assessment": "present_chunk adds exact mesh with LOD origin to GroundSupport when urban BEFORE Assets.add, then same origin Transform plus VistaTerrain and VistaTerrainMesh typed level markers. This binds retained support to displayed CPU triangles; actual Bevy world/renderer not executed. GroundSupport can include every presented selected chunk although height LOD clones limited2; do not conflate populations."
+        },
+        {
+          "ranges": [
+            [
+              93,
+              168
+            ]
+          ],
+          "assessment": "presented_height_at first trusts passed SceneTerrain support, then checks retained digest only for outside fallback. Converts local ScenePlanPoint offset through first LOD scene_point and stitches first/second height result to playable edge. Actual callers must pair terrain/digest and frame; original two retained LODs versus graphics maximum/empty ring preparation policy remains existing question. Unexecuted zero-origin test expects edge10/outside15 and wrong-digest outsideNone; no wrong-terrain inside/frame/current proof."
+        }
+      ]
+    }
+  ],
+  "contract_revisits_pending_queue_adoption": [],
+  "remaining_connected_obligations": [
+    "Existing Q-L12-64979a4fc616f461d507/ce3672dd2af98d3371f7/4f0a9f06b1185d0c1f37/1ab181f7ef873e3d519d/bb21faf212a5967d1c56 unresolved owners/no acceptance retained; no duplicate/cross-lens closure.",
+    "Canonical street finite nonzero/winding/span and millimeter node alias semantics, actual nearby-network influence and native tile/image/shader lifetime; sampled envelope checks are visual policy not exact vehicle support.",
+    "ActiveVistaSurface originalfirst2 height LODs versus selected rendered chunks, actual maximum_lods/emptyring/frame/digest caller admission, urban landform support sequence and revision lifecycle remain required.",
+    "Mask fixedRGBA/gutters and CPU support/native origin connection established locally; no runtime/GPU/current proof. All13/current/aliases/extensions/populations/repair gates incomplete."
+  ]
+}

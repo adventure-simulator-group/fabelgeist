@@ -1,0 +1,67 @@
+"""Qualify exact final-inventory report/puzzle/native scopes without new reuse credit."""
+from pathlib import Path
+import hashlib,json,subprocess,tomllib
+
+def build(r,w,a,co,files):
+ r,w,a=[p.resolve()for p in(r,w,a)]
+ def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+ def bh(b):return hashlib.sha256(b).hexdigest()
+ def read(p):return json.loads(p.read_bytes())
+ def ref(p):return {'path':p.relative_to(r).as_posix(),'sha256':sha(p)}
+ def resolve(v):
+  ps={p.resolve()for p in[r/v['path'],w/v['path'],r/'evidence/continuation-segovb'/v['path']]if p.is_file()and sha(p)==v['sha256']};assert len(ps)==1;return ps.pop()
+ def pts(rs):return{j for lo,hi in rs for j in range(lo,hi+1)}
+ def ranges(ps):
+  out=[]
+  for k in sorted(ps):
+   if out and out[-1][1]==k-1:out[-1][1]=k
+   else:out.append([k,k])
+  return out
+ assert co['next_original']==2846 and len(co['discovery_receipts'])==726
+ dp=w.parent/'726-intake-20261030/DISCOVERY-L13-2846-2852-METADATA-001.json';assert sha(dp)=='3dfc0d3d341f1dab4cef098697b1dc35a977347e7fd12e9bd552ab2a9907aeb0';d=read(dp)
+ targets={files[n]['sha256']:n for n in range(2846,2853)};assert len(targets)==7
+ hits=[]
+ for v in co['discovery_receipts']:
+  raw=resolve(v).read_bytes()
+  for h,n in targets.items():
+   if h.encode()in raw:hits.append({'original':n,'receipt':v})
+ assert hits==d['exact_hash_prior_hits']and len(hits)==2
+ futures=[v for v in co['future_same_lens_reuse_proofs']if any(h in json.dumps(v)for h in targets)];apps=[v for v in co['future_same_lens_ordered_applications']if any(h in json.dumps(v)for h in targets)];assert futures==d['future_same_lens_proofs_navigation']and len(futures)==2 and [x['original']for x in futures]==[2846,2847] and apps==[]
+ fields=[]
+ def inspect(z,eof,p):
+  if isinstance(z,dict):
+   for k,x in z.items():
+    at=p+'/'+k
+    if(k.endswith('ranges')or k in['read_ranges_as_recorded','material_contract_ranges_as_recorded','requested_range_limits','context_excluded','context_or_blank_no_material_credit','context_or_excluded_within_registration','excluded_context'])and isinstance(x,list)and x:
+     assert all(isinstance(t,list)and len(t)==2 and all(isinstance(y,int)for y in t)and 1<=t[0]<=t[1]<=eof for t in x),(at,x,eof);fields.append({'pointer':at,'raw_value':x,'actual_eof':eof})
+    inspect(x,eof,at)
+  elif isinstance(z,list):
+   for j,x in enumerate(z):inspect(x,eof,p+'/'+str(j))
+ entries=[];sources=[]
+ for n in range(2846,2853):
+  f=files[n];eof=f['actual_line_count'];rs=f['material_ranges'];covered=pts(rs);prefix,gp=f['source_id'].split(':',1)
+  assert d['entries'][n-2846]=={'original':n,'registry_entry':f}and 'bytes'not in f and f['scope_kind']=='materially_reached_initial_audit_contract'
+  assert prefix==f['snapshot']=='pr-working'and f['path']==('SNAPSHOTS/pr-working/'+gp).replace('/','\\')
+  inspect(f,eof,f'/files/{n}');assert covered.issubset({j for role in f['scope_registration']for lo,hi in role['original_record']['material_ranges']for j in range(lo,hi+1)})
+  git='f82adcabd9d89c4fa2dd7f99253a45297a0681ee';ap='handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/'+f['sha256'];body=subprocess.check_output(['git','show',git+':'+ap]);assert bh(body)==f['sha256']and len(body.splitlines())==eof
+  native=subprocess.check_output(['git','show','6533e444fa37552927070cc8d8190907fd3b413e:'+gp]);assert native==body;comparison={'revision':'6533e444fa37552927070cc8d8190907fd3b413e','path':gp,'sha256':bh(native),'actual_eof':len(native.splitlines()),'literal_bytes_equal':True,'semantic_or_current_credit':False}
+  obj=a/'objects'/f['sha256']
+  if obj.is_file():assert obj.read_bytes()==body
+  else:
+   with obj.open('xb')as out:out.write(body)
+  src={'original':n,'source_id':f['source_id'],'sha256':f['sha256'],'actual_eof':eof,'object_path':obj.relative_to(w).as_posix(),'source_revision':git,'transport_git_path':ap,'prospective_ranges':rs,'revision_qualification':'Exact archived snapshot bytes; archive is transport only. Native PR or pinned dependency comparison does not supply current semantic credit.','purpose':'Final seven church/partition/weapon/trade roles456material:409fresh and47historical; exactpartial programme1fresh/27prior, no execution.'};sources.append(src);prior=None;partial_prior=None;mode='fresh'
+  if n in(2846,2847):
+   ix=n-2845;rp=resolve(next(x['receipt']for x in hits if x['original']==n));root=read(rp);rawp=resolve(root['delegated_receipt']);vp=resolve(root['delegated_verification']);mp=resolve(root['agent_validation_manifest']);raw=read(rawp);v=read(vp);manifest=read(mp);old=raw['connected_source_reads'][ix];pregp=resolve(old['registration']);preg=read(pregp);mr=next(x for x in manifest['source_records']if x['sha256']==f['sha256']);assert raw==root['evidence']and raw['lens']==preg['lens']==v['lens']==manifest['lens']==13 and old['original']==mr['original']==n and old['sha256']==f['sha256']and old['actual_eof']==eof and old['source_id']=='pr-working:'+gp and old['fresh_personal_assessed_ranges']==old['prospective_ranges']and(w/old['object_path']).read_bytes()==body
+   assert all(old[k]==value for k,value in preg['sources'][ix].items())and preg['authority_changes']==0 and resolve(v['read'])==rawp and v['product_execution']is False and v['hash_eof_prospective_ranges_verified']is v['body_outputs_untruncated']is True and v['future_original_credit_now']==v['authority_changes']==0
+   assert old['untruncated_body_outputs']is mr['frozen_git_bytes_equal']is mr['registered_before_read_attestation']is True and resolve(mr['read'])==rawp and resolve(mr['registration'])==pregp and mr['read_pointer']==f'/connected_source_reads/{ix}'and mr['registration_pointer']==f'/sources/{ix}'and mr['assessed_ranges']==old['prospective_ranges']and resolve(root['prospective_chronology_attestation'])==mp
+   fp=next(x for x in futures if x['original']==n);assert fp['source_sha256']==f['sha256']and fp['assessed_ranges']==old['prospective_ranges']
+   evidence={'prior_adoption':ref(rp),'prior_raw_receipt':ref(rawp),'prior_verification':ref(vp),'prior_registration':ref(pregp),'prior_validation_manifest':ref(mp),'prior_row_pointer':f'/connected_source_reads/{ix}','prior_registration_pointer':f'/sources/{ix}','prior_source_read':old,'exact_old_source_record':mr,'historical_attribution':'Inherited independent Lens13 reader','prior_numeric_inventory':raw['numeric_role_inventory'],'future_proof_preserved':fp}
+   if n==2846:
+    assert rs==[[216,243]]and old['prospective_ranges']==[[217,244]];partial_prior=evidence
+   else:assert pts(rs).issubset(pts(old['prospective_ranges']));prior=evidence;mode='delegated-reuse'
+  e={'original':n,'source':src,'mode':mode,'bytes':len(body),'assessed_union':rs,'material_line_count':len(covered),'new_root_personal_lines':0 if prior else len(covered),'registry_entry_sha256':bh((json.dumps(f,indent=2)+'\n').encode()),'registry_bytes_field_present':False,'source_current_reconciled':False,'unread_ranges':ranges(set(range(1,eof+1))-covered),'whole_file_coverage':len(covered)==eof,'native_pr_comparison':comparison}
+  if prior:e['prior']=prior
+  if partial_prior:e.update(partial_prior=partial_prior,fresh_personal_assessed_ranges=[[216,216]],qualified_prior_material_ranges=[[217,243]],prior_material_lines_reused=27,new_root_personal_lines=1)
+  entries.append(e)
+ assert sum(e['material_line_count']for e in entries)==456 and sum(e['new_root_personal_lines']for e in entries)==409 and len(fields)==14
+ return {'entries':entries,'sources':sources,'all_nested_range_fields':fields,'exact_hash_prior_hits':hits,'future_proofs_preserved':futures,'old_ordered_applications_preserved':apps,'discovery_metadata_sha256':sha(dp),'production_source_lines':456,'fixture_source_lines':0,'fixture_execution':False,'exact_partial_scopes_preserved':True,'connected_future_and_exact_partial_history_preserved':True,'native_pr_identity_and_missing_byte_fields_preserved':True}

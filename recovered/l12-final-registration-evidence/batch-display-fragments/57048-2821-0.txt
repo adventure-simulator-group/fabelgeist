@@ -1,0 +1,88 @@
+1: //! Bevy wiring for tactical physics: the full simulation for servers and
+2: //! players, a presentation-only solver for client ragdolls, or a read-only
+3: //! collider fixture for tools that never step bodies.
+4: 
+5: use avian3d::{collider_tree::ColliderTreeSystems, prelude::*};
+6: use bevy::prelude::*;
+7: use bevy_ahoy::{AhoyPlugins, AhoySystems, camera::AhoyCameraPlugin};
+8: 
+9: use super::apply_character_motor;
+10: 
+11: pub struct AdventureSimulatorPhysicsPlugin {
+12:     pub enable_simulation: bool,
+13:     /// Runs Avian's solver for explicitly enabled client-only presentation
+14:     /// bodies while keeping every ordinary replicated rigid body disabled.
+15:     pub enable_presentation_simulation: bool,
+16: }
+17: 
+18: #[derive(SystemSet, Debug, Clone, Copy, PartialEq, Eq, Hash)]
+19: pub enum AdventureSimulatorPhysicsSet {
+20:     ApplyCharacterMotor,
+21: }
+22: 
+23: impl Default for AdventureSimulatorPhysicsPlugin {
+24:     fn default() -> Self {
+25:         Self {
+26:             enable_simulation: true,
+27:             enable_presentation_simulation: false,
+28:         }
+29:     }
+30: }
+31: 
+32: impl Plugin for AdventureSimulatorPhysicsPlugin {
+33:     fn build(&self, app: &mut App) {
+34:         app.init_resource::<crate::combat_config::TacticalCombatConfig>();
+35:         if self.enable_simulation {
+36:             app.add_plugins((
+37:                 crate::doors::tactical_physics_plugins(),
+38:                 AhoyPlugins::new(FixedPostUpdate),
+39:             ))
+40:             .add_systems(
+41:                 FixedPostUpdate,
+42:                 apply_character_motor
+43:                     .in_set(AdventureSimulatorPhysicsSet::ApplyCharacterMotor)
+44:                     .before(AhoySystems::MoveCharacters),
+45:             );
+46:         } else if self.enable_presentation_simulation {
+47:             app.add_plugins((PhysicsPlugins::new(FixedPostUpdate), AhoyCameraPlugin))
+48:                 .register_required_components::<RigidBody, RigidBodyDisabled>();
+49:         } else {
+50:             app.add_plugins((
+51:                 PhysicsSchedulePlugin::new(FixedPostUpdate),
+52:                 BroadPhaseCorePlugin,
+53:                 ColliderHierarchyPlugin,
+54:                 ColliderTransformPlugin::new(FixedPostUpdate),
+55:                 PhysicsTransformPlugin::new(FixedPostUpdate),
+56:                 ColliderBackendPlugin::<Collider>::new(FixedPostUpdate),
+57:                 ColliderTreePlugin::<Collider>::default(),
+58:                 AhoyCameraPlugin,
+59:             ))
+60:             // `SolverSystems::Finalize` is normally nested by Avian's solver
+61:             // plugin. This read-only fixture omits the solver, so retain the
+62:             // collider-tree completion step in the equivalent physics phase.
+63:             .configure_sets(
+64:                 PhysicsSchedule,
+65:                 ColliderTreeSystems::EndOptimize.in_set(PhysicsStepSystems::Finalize),
+66:             )
+67:             .register_required_components::<RigidBody, RigidBodyDisabled>();
+68:         }
+69: 
+70:         #[cfg(feature = "avian_debug")]
+71:         app.add_plugins(PhysicsDebugPlugin)
+72:             .insert_gizmo_config(
+73:                 PhysicsGizmos {
+74:                     // Joint gizmos have no per-entity switch, and the only
+75:                     // joints on a client are presentation ragdolls, whose
+76:                     // anchor lines hide the body under review.
+77:                     joint_anchor_color: None,
+78:                     joint_separation_color: None,
+79:                     ..default()
+80:                 },
+81:                 GizmoConfig {
+82:                     depth_bias: -1.0,
+83:                     ..default()
+84:                 },
+85:             )
+86:             .init_resource::<PhysicsLengthUnit>();
+87:     }
+88: }

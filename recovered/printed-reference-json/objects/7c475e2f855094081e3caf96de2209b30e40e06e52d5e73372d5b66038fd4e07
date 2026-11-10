@@ -1,0 +1,19 @@
+{
+  "schema": "726-provisional-connected-repair-plan-v1",
+  "at": "2026-11-04T06:10:49.966110+00:00",
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-TERRAIN-STAGE-L12-1473.json",
+    "sha256": "6b5c65af1993e6e239d5353111a36ae6c694ad3a3185a8597ccc693a9d9c316b"
+  },
+  "status": "required after complete audit",
+  "problem": "Terrain stage lookup uses expect outside tests despite a collection type that does not enforce role completeness.",
+  "constraints": [
+    "Represent complete stage roles structurally or propagate a meaningful missing-stage error.",
+    "Preserve all four geometric comparisons and output names.",
+    "Do not claim a current missing-stage runtime incident from the fixed caller."
+  ],
+  "acceptance": [
+    "After audit cover all stage roles and incomplete/duplicate construction policy."
+  ],
+  "implementation_gate_complete": false
+}

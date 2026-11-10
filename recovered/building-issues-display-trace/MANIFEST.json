@@ -1,0 +1,83 @@
+{
+  "schema": "726-building-issues-display-trace-v1",
+  "packet_sha256": "926d115376aa460d6b45952eda509388ac71ee1a6645fd661360503719c44aeb",
+  "qualification": "Filtered recorded source displays compared against pinned bytes. Occurrences can overlap; no new credit or runtime acceptance.",
+  "chunks": [
+    {
+      "chunk_id": "39d3b5",
+      "recorded_at": "2026-11-02T10:20:07.603Z",
+      "fragment": "fragments/39d3b5.txt",
+      "sha256": "915f80b597fc5ee1e1b4c007a2ecb88023cf46db88785a1fece8fdab00f4aa87",
+      "scopes": [
+        {
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+          "source_sha256": "3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+          "ranges": [
+            [
+              1,
+              186
+            ]
+          ]
+        },
+        {
+          "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+          "source_sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+          "ranges": [
+            [
+              920,
+              975
+            ],
+            [
+              1230,
+              1340
+            ]
+          ]
+        }
+      ],
+      "line_occurrences": 353,
+      "display_differences": []
+    },
+    {
+      "chunk_id": "fa4501",
+      "recorded_at": "2026-11-02T10:20:01.164Z",
+      "fragment": "fragments/fa4501.txt",
+      "sha256": "20ae0f71a90284f119b2b0927ea63e52346b99d2f46e60ec3d52241f285e21d5",
+      "scopes": [
+        {
+          "git_path": "crates/adventuresim-building-generator/src/audit/core.rs",
+          "source_sha256": "41d8e020a989ec629feaf38d215346450568e2f942ced8fec3440bf91b66e557",
+          "ranges": [
+            [
+              1,
+              112
+            ]
+          ]
+        },
+        {
+          "git_path": "crates/adventuresim-building-generator/src/audit.rs",
+          "source_sha256": "aff233410d3aa23607fd4124f078c29ea13f1e7bdf0f43a02ced2c665c2133a5",
+          "ranges": [
+            [
+              1,
+              73
+            ]
+          ]
+        },
+        {
+          "git_path": "crates/adventuresim-building-generator/src/lib.rs",
+          "source_sha256": "ef8b3008250e9d2647e6d465f9b3c8bd2a2eb9642e61cb89a9e26590db1f70ac",
+          "ranges": [
+            [
+              1,
+              87
+            ]
+          ]
+        }
+      ],
+      "line_occurrences": 272,
+      "display_differences": []
+    }
+  ],
+  "line_occurrences": 625,
+  "replacement_character_lines": 0
+}

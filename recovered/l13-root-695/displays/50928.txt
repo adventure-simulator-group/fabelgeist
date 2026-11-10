@@ -1,0 +1,265 @@
+SOURCE 2624 pr-working:crates/fabelgeist-armor/src/garment_plate_design.rs
+1: //! Shape controls specific to exposed neck and waist plate constructions.
+2: use crate::{DesignError, GarmentArmorKind, Millimeters, Permille};
+3: use serde::{Deserialize, Serialize};
+4: 
+5: #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+6: pub enum GarmentPlateShape {
+7:     None,
+8:     WrappedTassets(crate::WrappedTassetDesign),
+9:     Fauld {
+10:         waist_rise: Millimeters,
+11:         front_arch: Permille,
+12:         /// Half-width of the groin opening relative to the skirt half-width.
+13:         front_arch_width: Permille,
+14:         /// Rise per metre away from the front medial hem.
+15:         chevron_slope: Permille,
+16:     },
+17:     Tassets {
+18:         inner_cutaway: Permille,
+19:         hem_point: Permille,
+20:         width: Permille,
+21:         gap: Permille,
+22:         hem_roundness: Permille,
+23:     },
+24:     Gorget {
+25:         neck_clearance: Millimeters,
+26:         collar_slope: Permille,
+27:         collar_height: Permille,
+28:         hem_flatness: Permille,
+29:         rear_hem_flatness: Permille,
+30:         rear_sweep: Permille,
+31:         front_depth: Permille,
+32:         back_depth: Permille,
+33:         front_width: Permille,
+34:         back_width: Permille,
+35:     },
+36: }
+37: 
+38: impl GarmentPlateShape {
+39:     pub fn for_kind(kind: GarmentArmorKind) -> Self {
+40:         match kind {
+41:             GarmentArmorKind::Fauld => Self::Fauld {
+42:                 waist_rise: Millimeters(50),
+43:                 front_arch: Permille(0),
+44:                 front_arch_width: Permille(500),
+45:                 chevron_slope: Permille(0),
+46:             },
+47:             GarmentArmorKind::Tassets => Self::Tassets {
+48:                 inner_cutaway: Permille(0),
+49:                 hem_point: Permille(0),
+50:                 width: Permille(1000),
+51:                 gap: Permille(160),
+52:                 hem_roundness: Permille(80),
+53:             },
+54:             GarmentArmorKind::Gorget => Self::Gorget {
+55:                 neck_clearance: Millimeters(6),
+56:                 collar_slope: Permille(1000),
+57:                 collar_height: Permille(1000),
+58:                 hem_flatness: Permille(0),
+59:                 rear_hem_flatness: Permille(0),
+60:                 rear_sweep: Permille(0),
+61:                 front_depth: Permille(1000),
+62:                 back_depth: Permille(1000),
+63:                 front_width: Permille(1000),
+64:                 back_width: Permille(1000),
+65:             },
+66:             _ => Self::None,
+67:         }
+68:     }
+69: 
+70:     pub(crate) fn validate(self, kind: GarmentArmorKind) -> Result<(), DesignError> {
+71:         let valid = match self {
+72:             Self::WrappedTassets(shape) => {
+73:                 shape.validate()?;
+74:                 kind == GarmentArmorKind::Tassets
+75:             }
+76:             Self::Fauld {
+77:                 waist_rise,
+78:                 front_arch,
+79:                 front_arch_width,
+80:                 chevron_slope,
+81:             } => {
+82:                 kind == GarmentArmorKind::Fauld
+83:                     && waist_rise.0 <= 120
+84:                     && front_arch.0 <= 1200
+85:                     && (250..=800).contains(&front_arch_width.0)
+86:                     && chevron_slope.0 <= 500
+87:             }
+88:             Self::Tassets {
+89:                 inner_cutaway,
+90:                 hem_point,
+91:                 width,
+92:                 gap,
+93:                 hem_roundness,
+94:             } => {
+95:                 kind == GarmentArmorKind::Tassets
+96:                     && inner_cutaway.0 <= 400
+97:                     && hem_point.0 <= 200
+98:                     && (700..=1150).contains(&width.0)
+99:                     && (100..=400).contains(&gap.0)
+100:                     && hem_roundness.0 <= 300
+101:             }
+102:             Self::Gorget {
+103:                 neck_clearance,
+104:                 collar_slope,
+105:                 collar_height,
+106:                 hem_flatness,
+107:                 rear_hem_flatness,
+108:                 rear_sweep,
+109:                 front_depth,
+110:                 back_depth,
+111:                 front_width,
+112:                 back_width,
+113:             } => {
+114:                 kind == GarmentArmorKind::Gorget
+115:                     && (2..=15).contains(&neck_clearance.0)
+116:                     && collar_slope.0 <= 1000
+117:                     && (500..=2000).contains(&collar_height.0)
+118:                     && hem_flatness.0 <= 1000
+119:                     && rear_hem_flatness.0 <= 1000
+120:                     && rear_sweep.0 <= 1000
+121:                     && (600..=1500).contains(&front_depth.0)
+122:                     && (600..=1500).contains(&back_depth.0)
+123:                     && (500..=1300).contains(&front_width.0)
+124:                     && (500..=1300).contains(&back_width.0)
+125:             }
+126:             Self::None => !matches!(
+127:                 kind,
+128:                 GarmentArmorKind::Fauld | GarmentArmorKind::Tassets | GarmentArmorKind::Gorget
+129:             ),
+130:         };
+131:         if valid {
+132:             Ok(())
+133:         } else {
+134:             Err(DesignError::ParametricParameters)
+135:         }
+136:     }
+137: }
+SOURCE 2625 pr-working:crates/fabelgeist-armor/src/wrapped_tassets.rs
+1: //! Long lamed thigh defenses suspended at the waist, with an open rear.
+2: use crate::{DesignError, Millimeters, Permille};
+3: use serde::{Deserialize, Serialize};
+4: 
+5: #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+6: #[serde(deny_unknown_fields)]
+7: pub struct WrappedTassetDesign {
+8:     /// Inner and outer returns, each as a fraction of a half circumference.
+9:     pub inner_wrap: Permille,
+10:     pub outer_wrap: Permille,
+11:     /// Minimum distance of either inner edge from the body's medial plane.
+12:     pub inner_gap: Millimeters,
+13:     /// Rise of the upper suspension edge per metre from the medial plane.
+14:     pub upper_edge_slope: Permille,
+15:     /// Fraction of hip-to-knee distance reached by the lower hem.
+16:     pub knee_reach: Permille,
+17:     pub inner_cutaway: Millimeters,
+18:     pub hem_rounding: Millimeters,
+19:     /// Course at which a removable lower section begins; zero is unsplit.
+20:     pub section_break: u8,
+21:     pub section_gap: Millimeters,
+22: }
+23: 
+24: impl Default for WrappedTassetDesign {
+25:     fn default() -> Self {
+26:         Self {
+27:             inner_wrap: Permille(280),
+28:             outer_wrap: Permille(620),
+29:             inner_gap: Millimeters(10),
+30:             upper_edge_slope: Permille(0),
+31:             knee_reach: Permille(880),
+32:             inner_cutaway: Millimeters(18),
+33:             hem_rounding: Millimeters(18),
+34:             section_break: 6,
+35:             section_gap: Millimeters(3),
+36:         }
+37:     }
+38: }
+39: 
+40: impl WrappedTassetDesign {
+41:     pub(crate) fn validate(&self) -> Result<(), DesignError> {
+42:         if !(150..=450).contains(&self.inner_wrap.0)
+43:             || !(450..=750).contains(&self.outer_wrap.0)
+44:             || !(650..=1100).contains(&self.knee_reach.0)
+45:             || self.upper_edge_slope.0 > 500
+46:             || self.inner_gap.0 > 80
+47:             || self.inner_cutaway.0 > 50
+48:             || self.hem_rounding.0 > 35
+49:             || self.section_gap.0 > 8
+50:             || self.section_break > 11
+51:         {
+52:             return Err(DesignError::ParametricParameters);
+53:         }
+54:         Ok(())
+SOURCE 2626 cargo-registry:num_enum_derive-0.7.6/src/lib.rs
+190: #[proc_macro_derive(TryFromPrimitive, attributes(num_enum))]
+191: pub fn derive_try_from_primitive(input: TokenStream) -> TokenStream {
+192:     let enum_info: EnumInfo = parse_macro_input!(input);
+193:     let krate = get_crate_path(enum_info.crate_path.clone());
+194:     let EnumInfo {
+195:         ref name,
+196:         ref repr,
+197:         ref error_type_info,
+198:         ..
+199:     } = enum_info;
+200: 
+201:     let variant_idents: Vec<Ident> = enum_info.variant_idents();
+202:     let expression_idents: Vec<Vec<Ident>> = enum_info.expression_idents();
+203:     let variant_expressions: Vec<Vec<Expr>> = enum_info.variant_expressions();
+204: 
+205:     debug_assert_eq!(variant_idents.len(), variant_expressions.len());
+206: 
+207:     let error_type = &error_type_info.name;
+208:     let error_constructor = &error_type_info.constructor;
+209: 
+210:     TokenStream::from(quote! {
+211:         impl #krate::TryFromPrimitive for #name {
+212:             type Primitive = #repr;
+213:             type Error = #error_type;
+214: 
+215:             const NAME: &'static str = stringify!(#name);
+216: 
+217:             fn try_from_primitive (
+218:                 number: Self::Primitive,
+219:             ) -> ::core::result::Result<
+220:                 Self,
+221:                 #error_type
+222:             > {
+223:                 // Use intermediate const(s) so that enums defined like
+224:                 // `Two = ONE + 1u8` work properly.
+225:                 #![allow(non_upper_case_globals)]
+226:                 #(
+227:                     #(
+228:                         const #expression_idents: #repr = #variant_expressions;
+229:                     )*
+230:                 )*
+231:                 #[deny(unreachable_patterns)]
+232:                 match number {
+233:                     #(
+234:                         #( #expression_idents )|*
+235:                         => ::core::result::Result::Ok(Self::#variant_idents),
+236:                     )*
+237:                     #[allow(unreachable_patterns)]
+238:                     _ => ::core::result::Result::Err(
+239:                         #error_constructor ( number )
+240:                     ),
+241:                 }
+242:             }
+243:         }
+244: 
+245:         impl ::core::convert::TryFrom<#repr> for #name {
+246:             type Error = #error_type;
+247: 
+248:             #[inline]
+249:             fn try_from (
+250:                 number: #repr,
+251:             ) -> ::core::result::Result<Self, #error_type>
+252:             {
+253:                 #krate::TryFromPrimitive::try_from_primitive(number)
+254:             }
+255:         }
+256: 
+257:         #[doc(hidden)]
+258:         impl #krate::CannotDeriveBothFromPrimitiveAndTryFromPrimitive for #name {}
+259:     })
+260: }

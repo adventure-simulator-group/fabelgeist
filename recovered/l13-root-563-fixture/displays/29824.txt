@@ -1,0 +1,78 @@
+571:                 .iter()
+572:                 .flat_map(|outcome| &outcome.events)
+573:                 .any(|event| {
+574:                     event.attacker == veteran.name
+575:                         && event.contact_classification
+576:                             == MeleeContactClassification::IntendedSurface
+577:                         && event.contact_material == Some(EquipmentMaterial::RoughSteel)
+578:                         && event.contact_energy_fraction <= 1.0
+579:                 })
+580:         );
+581:         assert!(
+582:             outcomes
+583:                 .iter()
+584:                 .flat_map(|outcome| &outcome.events)
+585:                 .any(|event| {
+586:                     event.attacker == veteran.name
+587:                         && event.contact_classification == MeleeContactClassification::Haft
+588:                 }),
+589:             "a pressured polearm user should attack while retreating instead of waiting forever for ideal head measure"
+590:         );
+591:     }
+592: 
+593:     #[test]
+594:     fn pursued_melee_bot_with_disabled_weapon_arm_withdraws_then_yields() {
+595:         let (mut john, opponents) = melee_iteration_roster().unwrap();
+596:         john.combatant.body.health.fill(10.0);
+597:         john.combatant.body.health[body_part_index(BodyPart::RightArm)] = 0.0;
+598:         let outcome = resolve_tactical_server_melee_duel(
+599:             &john,
+600:             &opponents[0],
+601:             fabelgeist_determinism::Seed::from_u64(3),
+602:         )
+603:         .unwrap();
+604:         let decisions = outcome
+605:             .decision_events
+606:             .iter()
+607:             .filter(|event| event.combatant == john.name)
+608:             .map(|event| event.decision)
+609:             .collect::<Vec<_>>();
+610:         let withdraw = decisions
+611:             .iter()
+612:             .position(|decision| *decision == TacticalDecision::Withdraw)
+613:             .expect("disabled bot withdraws");
+614:         let yielded = decisions
+615:             .iter()
+616:             .position(|decision| *decision == TacticalDecision::Yield)
+617:             .expect("continued pursuit causes yield");
+618:         assert!(withdraw < yielded);
+619:         assert_eq!(
+620:             outcome.resolution,
+621:             TacticalDuelResolution::Victory {
+622:                 victor: opponents[0].name.to_owned(),
+623:             }
+624:         );
+625:         assert!(
+626:             outcome
+627:                 .events
+628:                 .iter()
+629:                 .all(|event| event.attacker != john.name)
+630:         );
+631:     }
+632: 
+633:     #[test]
+634:     fn simultaneous_terminal_state_is_a_mutual_incapacitation_not_a_timeout() {
+635:         assert_eq!(
+636:             tactical_duel_resolution(true, true, "left", "right"),
+637:             TacticalDuelResolution::MutualIncapacitation
+638:         );
+639:     }
+640: 
+641:     #[test]
+642:     fn unresolved_healthy_combatants_at_the_tick_limit_are_a_timeout() {
+643:         assert_eq!(
+644:             tactical_duel_resolution(false, false, "left", "right"),
+645:             TacticalDuelResolution::Timeout
+646:         );
+647:     }
+648: }

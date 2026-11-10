@@ -1,0 +1,66 @@
+{
+  "schema": "726-source-restoration-test-v1",
+  "handoff_commit_tested": "510701a5011239fe2cafba547e91bee6af3a8dd9",
+  "environment": "same-machine local project Git repository; seven new destination directories",
+  "results": [
+    {
+      "collection": "registered-source-objects",
+      "manifest_sha256": "ce7316b32122412ddf205dffe5c057c154b2fc6652c2fd1cf7706cf3713d7d3e",
+      "identities_listed": 373,
+      "distinct_blobs": 352,
+      "restoration_passed": true,
+      "existing_destination_refused": true
+    },
+    {
+      "collection": "printed-source-identities",
+      "manifest_sha256": "7d75a1641dae001755137b911280347f21f0468f1c1816ae68ccf91596e1dc88",
+      "identities_listed": 118,
+      "distinct_blobs": 114,
+      "restoration_passed": true,
+      "existing_destination_refused": true
+    },
+    {
+      "collection": "supplemental-registration-sources",
+      "manifest_sha256": "f890698c01510d2463bd7fdef96163b435583984310d0dfcc506222950c84f9a",
+      "identities_listed": 43,
+      "distinct_blobs": 43,
+      "restoration_passed": true,
+      "existing_destination_refused": true
+    },
+    {
+      "collection": "frontier-source-trace",
+      "manifest_sha256": "fa88d22916ea73fe5339472ccce06755ebbc45b6ca39d5b01bb374e0916a7165",
+      "identities_listed": 12,
+      "distinct_blobs": 7,
+      "restoration_passed": true,
+      "existing_destination_refused": true
+    },
+    {
+      "collection": "terminal-source-trace",
+      "manifest_sha256": "022a8ca89ea918bdbebae68f157a90c6efad03de258787d8a2fbd15a4d63a1a3",
+      "identities_listed": 3,
+      "distinct_blobs": 2,
+      "restoration_passed": true,
+      "existing_destination_refused": true
+    },
+    {
+      "collection": "raw-output-git-sources",
+      "manifest_sha256": "80f86209f434c012ea3f699798dcf7253171402ab6ee3cd73091b8f6e72dd726",
+      "identities_listed": 248,
+      "distinct_blobs": 231,
+      "restoration_passed": true,
+      "existing_destination_refused": true
+    },
+    {
+      "collection": "alternate-output-git-sources",
+      "manifest_sha256": "9af26fa33970e5c46d45e3e4d786215feeb428b5b9fa40f6d657eb459d16ea74",
+      "identities_listed": 15,
+      "distinct_blobs": 15,
+      "restoration_passed": true,
+      "existing_destination_refused": true
+    }
+  ],
+  "summed_rows": 812,
+  "distinct_blobs_across_collections": 691,
+  "qualification": "Historical local test report. All seven restorers returned success, produced the exact content-addressed inventories and verified every output hash; repeat invocations refused existing directories. The source repository and restored outputs were on the same machine, and cross-machine availability and remote object retention were not tested. Overlapping collection rows are not unique identities or audit credit."
+}

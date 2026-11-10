@@ -1,0 +1,174 @@
+SOURCE 2639 pr-working:crates/fabelgeist-hair/src/hairstyle.rs
+1: //! Hairstyles: what is done with the hair once it is cut -- which way it is
+2: //! combed, how full and how lifted, how firmly it holds, and whether it is
+3: //! tied.
+4: //!
+5: //! [`Arrangement`] names the ways; [`Hairstyle`] is one with its numbers.
+6: //! The cut ([`crate::Haircut`]) says how long the hair is, the follicles
+7: //! ([`crate::Follicles`]) which way it grows; a style combs over both, so
+8: //! any style goes with any cut and any growth.
+9: 
+10: use serde::{Deserialize, Serialize};
+11: 
+12: /// Which way a style arranges the hair.
+13: #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+14: #[serde(rename_all = "snake_case")]
+15: pub enum Arrangement {
+16:     /// As it grows: the follicles' pattern, then gravity.
+17:     Natural,
+18:     /// Away from a part either side.
+19:     Parted,
+20:     /// Over to one side from a deep part.
+21:     Swept,
+22:     /// Combed straight back.
+23:     Back,
+24:     /// Combed forward.
+25:     Forward,
+26:     /// Down all round, no part.
+27:     Down,
+28:     /// Stood up and out from the head.
+29:     Up,
+30:     /// Over the scalp to a tie, then a tail.
+31:     Ponytail,
+32:     /// Over the scalp to a tie, then coiled round it.
+33:     Bun,
+34:     /// Over the scalp to a tie, then three lanes plaited.
+35:     Braid,
+36: }
+37: 
+38: impl Arrangement {
+39:     pub const ALL: [Arrangement; 10] = [
+40:         Arrangement::Natural,
+41:         Arrangement::Parted,
+42:         Arrangement::Swept,
+43:         Arrangement::Back,
+44:         Arrangement::Forward,
+45:         Arrangement::Down,
+46:         Arrangement::Up,
+47:         Arrangement::Ponytail,
+48:         Arrangement::Bun,
+49:         Arrangement::Braid,
+50:     ];
+51: 
+52:     pub const fn name(self) -> &'static str {
+53:         match self {
+54:             Arrangement::Natural => "Natural",
+55:             Arrangement::Parted => "Parted",
+56:             Arrangement::Swept => "Side swept",
+57:             Arrangement::Back => "Slicked back",
+58:             Arrangement::Forward => "Combed forward",
+59:             Arrangement::Down => "Down, no part",
+60:             Arrangement::Up => "Stood up",
+61:             Arrangement::Ponytail => "Ponytail",
+62:             Arrangement::Bun => "Bun",
+63:             Arrangement::Braid => "Braid",
+64:         }
+65:     }
+66: 
+67:     /// Whether the hair is gathered to a tie.
+68:     pub fn tied(self) -> bool {
+69:         matches!(
+70:             self,
+71:             Arrangement::Ponytail | Arrangement::Bun | Arrangement::Braid
+72:         )
+73:     }
+74: }
+75: 
+76: /// A hairstyle.
+77: #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+78: pub struct Hairstyle {
+79:     pub arrangement: Arrangement,
+80:     /// The part, metres towards `+x` from the middle: where a parted style
+81:     /// parts, and what a swept one sweeps away from.
+82:     pub part: f32,
+83:     /// How far the hair stands off the head at the crown, metres: the hair
+84:     /// beneath lifts what lies over it.
+85:     pub volume: f32,
+86:     /// Added to the angle the follicles give, radians: product and blow
+87:     /// drying lift the roots.
+88:     pub lift: f32,
+89:     /// How firmly the hair holds its shape: its gravity length, metres
+90:     /// (about 5 cm for a loose strand, more for a styled or curly lock).
+91:     pub hold: f32,
+92:     /// How far off the head hair may be and still lie on it, metres: long
+93:     /// hair leaves the head where it curves away, short or styled hair
+94:     /// keeps to it.
+95:     pub cling: f32,
+96:     /// How far the last few centimetres turn under, radians.
+97:     pub tuck: f32,
+98:     /// How high the tie is, radians up the back of the head from level
+99:     /// with its centre.
+100:     pub tie: f32,
+101: }
+102: 
+103: impl Hairstyle {
+104:     pub fn new(arrangement: Arrangement) -> Self {
+105:         let base = Self {
+106:             arrangement,
+107:             part: 0.0,
+108:             volume: 0.012,
+109:             lift: 0.0,
+110:             hold: 0.05,
+111:             cling: 0.004,
+112:             tuck: 0.0,
+113:             tie: 0.25,
+114:         };
+115:         match arrangement {
+116:             Arrangement::Natural | Arrangement::Parted | Arrangement::Down => base,
+117:             Arrangement::Swept => Self {
+118:                 part: -0.045,
+119:                 volume: 0.016,
+120:                 ..base
+121:             },
+122:             Arrangement::Back => Self {
+123:                 volume: 0.007,
+124:                 lift: -0.1,
+125:                 hold: 0.07,
+126:                 cling: 0.03,
+127:                 ..base
+128:             },
+129:             Arrangement::Forward => Self {
+130:                 volume: 0.006,
+131:                 hold: 0.06,
+132:                 cling: 0.03,
+133:                 ..base
+134:             },
+135:             Arrangement::Up => Self {
+136:                 volume: 0.0,
+137:                 lift: 0.85,
+138:                 hold: 0.25,
+139:                 cling: 0.03,
+140:                 ..base
+141:             },
+142:             Arrangement::Ponytail => Self {
+143:                 volume: 0.004,
+144:                 lift: -0.15,
+145:                 hold: 0.06,
+146:                 ..base
+147:             },
+148:             Arrangement::Bun => Self {
+149:                 volume: 0.004,
+150:                 lift: -0.15,
+151:                 tie: 0.8,
+152:                 ..base
+153:             },
+154:             Arrangement::Braid => Self {
+155:                 volume: 0.004,
+156:                 lift: -0.15,
+157:                 hold: 0.08,
+158:                 tie: -0.48,
+159:                 ..base
+160:             },
+161:         }
+162:     }
+163: 
+164:     /// Whether the hair stands out from the head rather than lying on it.
+165:     pub fn stands(&self) -> bool {
+166:         self.arrangement == Arrangement::Up
+167:     }
+168: 
+169:     /// Which way a swept style goes: away from its part.
+170:     pub fn sweep(&self) -> f32 {
+171:         if self.part > 0.0 { -1.0 } else { 1.0 }
+172:     }
+173: }

@@ -1,0 +1,192 @@
+{
+  "schema": "726-l2-native-registration-evidence-v1",
+  "source_revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+  "lock_sha256": "b36b6a88eebfff2628c4626c1f890f1589f7e06d324aab6d22a998475daa97d1",
+  "archives": [
+    {
+      "file": "spacetimedb-sats-2.6.1.crate",
+      "sha256": "6cefb87b7d5e760d43cb65855591e25af772bdcca19562e5796ae797240d1998"
+    },
+    {
+      "file": "spacetimedb-bindings-macro-2.6.1.crate",
+      "sha256": "fce86c7657dcb42a33ce55f0100f98964dc15b64e79f06803a478676b74d6c82"
+    }
+  ],
+  "sdk_registration_candidates": [
+    {
+      "file": "REGISTRATION-ROOT-L2-SATS-001-REJECTED.json",
+      "sha256": "ccf73d0040b7401da74c520c871c16c876bb77844c1d1dc6e14c94c1382e61dd"
+    },
+    {
+      "file": "REGISTRATION-ROOT-L2-SATS-002.json",
+      "sha256": "d86af5e3f1a23b61fbb32ac4a633387f9ff1ceec5d09972e83da36663b65dd86"
+    },
+    {
+      "file": "REGISTRATION-ROOT-L2-SATS-003.json",
+      "sha256": "e9bb2b4801d4aebff01e1dc616c083239687063d74c24a35540b97dfbb6c4248"
+    }
+  ],
+  "printed_git_registrations": [
+    {
+      "ordinal": 72989,
+      "file": "REGISTRATION-043-PRINTED.json",
+      "sha256": "bc2f6dc6ded45b641fc1dc184f1eec6ae13cc930ff1908df2c50092f446df2c3",
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L2-CATALOG-SUPPORT-043.json",
+        "sha256": "a13ffd2b006c7caf59605fdad5ef16b596a8ff0065bec7fe5a4c861e8ec56665"
+      }
+    },
+    {
+      "ordinal": 73032,
+      "file": "REGISTRATION-044-PRINTED.json",
+      "sha256": "e1a805602ca2b46e86f55fab2a8d0cbc8a15d06e3d90dcaf4766c45d2b003615",
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L2-CATALOG-SUPPORT-044.json",
+        "sha256": "e6112210978d2861590cc46bd7f08effae953937c34b9934009d16f1224223b9"
+      }
+    }
+  ],
+  "qualification": "SDK registrations 002 and 003 match references inside the exact recovered state 026 receipt; rejected 001 matches registration 002 predecessor. Their archive members match pinned Cargo.lock checksums. Git registration references are printed historical values, not recovered registration files. All reads are uncredited, with no new closure or execution.",
+  "sdk_source_displays": {
+    "fragments": [
+      {
+        "ordinal": 72967,
+        "file": "72967-0.txt",
+        "sha256": "af074c5dd5c8d12289746305b5ef13e0a1fe45502911f961961d66a57ef42887",
+        "source_sha256": "4ddcdb3edbf28ff93e4d013fa71135ce98698acc219481abaadf9a27005193ff",
+        "ranges": [
+          [
+            244,
+            295
+          ]
+        ],
+        "lines": 52
+      },
+      {
+        "ordinal": 72967,
+        "file": "72967-1.txt",
+        "sha256": "7569345a28352bcea139aa8f6ac826b4d6f7e56b1d2683f0b140c5673d8d2613",
+        "source_sha256": "bf26e6331c7cf9a560ecec507b5e06b11bc77460dec17ac0d553cff5278a5bc4",
+        "ranges": [
+          [
+            1,
+            190
+          ]
+        ],
+        "lines": 190
+      },
+      {
+        "ordinal": 72972,
+        "file": "72972-2.txt",
+        "sha256": "1ae8dc7fc3eea78572d160345ef386fe679d71bcbb020fc6d945429dfeb98b5d",
+        "source_sha256": "bf26e6331c7cf9a560ecec507b5e06b11bc77460dec17ac0d553cff5278a5bc4",
+        "ranges": [
+          [
+            331,
+            480
+          ],
+          [
+            700,
+            752
+          ]
+        ],
+        "lines": 203
+      },
+      {
+        "ordinal": 73010,
+        "file": "73010-3.txt",
+        "sha256": "689ece3925c92247c115530705f965a9bd3beda214317424d3bce58a20174427",
+        "source_sha256": "c5b97e748643a3321da1fecd3a77298660affb27f2640002f4ca9b4a9f76588b",
+        "ranges": [
+          [
+            208,
+            230
+          ],
+          [
+            682,
+            724
+          ]
+        ],
+        "lines": 66
+      }
+    ],
+    "matched_historical_line_occurrences": 511,
+    "qualification": "Numbered output lines match pinned archive members; this preserves the recorded display and grants no new body credit."
+  },
+  "git_source_displays": {
+    "fragments": [
+      {
+        "ordinal": 72989,
+        "file": "72989-git-0.txt",
+        "sha256": "cc085d932dc9688a855fdeda40dc6cc0d3708eaaf7441216f93195ac28a89087",
+        "source_sha256": "717288409edb3210de986fef4dcf838525461956d2e686f59a78a781b5e354e2",
+        "ranges": [
+          [
+            1,
+            167
+          ]
+        ],
+        "lines": 167
+      },
+      {
+        "ordinal": 72989,
+        "file": "72989-git-1.txt",
+        "sha256": "0ea1c97f0244d1fb2d03c90d90ab1628e3244bd471320b2538d0ff3dd4d52508",
+        "source_sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+        "ranges": [
+          [
+            135,
+            177
+          ],
+          [
+            530,
+            554
+          ]
+        ],
+        "lines": 68
+      },
+      {
+        "ordinal": 73032,
+        "file": "73032-git-0.txt",
+        "sha256": "9f5d37be388c88f864f24450d0c6fd4678b4ef932e570a18d5ce164629fff42b",
+        "source_sha256": "ff33eb4a42abbfa737b312019fdfc7c457688d66bd84fb81af2364ed30fa9cfe",
+        "ranges": [
+          [
+            1,
+            28
+          ]
+        ],
+        "lines": 28
+      },
+      {
+        "ordinal": 73032,
+        "file": "73032-git-1.txt",
+        "sha256": "a1ec2272c285d11834754308656e3e2896c730450abe004e8a5921687a0d2d46",
+        "source_sha256": "e5e9c6ed987838be5b7fef72e25ba3e6b6e848bc84105c42f396fcdfd7d65f53",
+        "ranges": [
+          [
+            1,
+            45
+          ]
+        ],
+        "lines": 45
+      },
+      {
+        "ordinal": 73032,
+        "file": "73032-git-2.txt",
+        "sha256": "07d420d13704dff18db98aa72a7ac2ccd7d77b4d463fabbac76eb84623a50ca4",
+        "source_sha256": "88120e04c42c2e3a0dfa5100055838100a09da1e60fb3193f2aa8ab2a8867113",
+        "ranges": [
+          [
+            1,
+            31
+          ]
+        ],
+        "lines": 31
+      }
+    ],
+    "matched_historical_line_occurrences": 339,
+    "qualification": "Numbered output lines match pinned Git source objects; historical scope only, no new body credit."
+  },
+  "sdk_registration_original_bytes_verified": true
+}

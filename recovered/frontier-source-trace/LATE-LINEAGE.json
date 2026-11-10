@@ -1,0 +1,251 @@
+{
+  "schema": "726-late-errantry-lineage-v1",
+  "qualification": "Static extraction from recorded commands and outputs. Notes and reported passes are historical evidence, not reproduced execution or reconstructed checkpoint authority. Counts do not imply audit completion.",
+  "prior_authority": "Checkpoint 3816 state is prerequisite for the 3817 derivation; the final 3821 ledger, queue, selection and checkpoint bytes remain unavailable.",
+  "scope": "Five sequential reported checkpoint preparations and reported preflight/apply/verify outputs; original output authority files were not recovered.",
+  "entries": [
+    {
+      "checkpoint": 3817,
+      "queue_before": "CLOSURE-QUEUE-4151.json",
+      "queue_after": "CLOSURE-QUEUE-4152.json",
+      "preparation_ordinal": 419026,
+      "recorded_preparation_command_sha256": "68cde0c683d3fc0a3dca6320c0c54010b7c40e3a7ac86c01a95afc9f85c93880",
+      "reported_execution_ordinal": 419033,
+      "reported_execution_output_sha256": "afdc5ae939b0552d537f37a90fb9ca72c6b6ceb27234bec8c13c9651b92f6c8b",
+      "reported_modes": [
+        {
+          "status": "pass",
+          "mode": "--preflight",
+          "writes": 0
+        },
+        {
+          "status": "pass",
+          "mode": "--apply",
+          "checkpoint": 3817,
+          "new_cells_closed": 0,
+          "implementation_gate_complete": false
+        },
+        {
+          "status": "pass",
+          "mode": "--verify",
+          "checkpoint": 3817,
+          "new_cells_closed": 0,
+          "implementation_gate_complete": false
+        }
+      ],
+      "notes_ordinal": 418978,
+      "preserved_note": "recovered/transcript-notes/ERRANTRY-L4-3817-NOTES.md",
+      "preserved_note_sha256": "511e6e3c1f2fc9c61a6fcf33f94977c92a4c691058eef1e59245fe4bb3ca51e8",
+      "preparation_literal_updates": {
+        "p.status": "Lens 4 exact file range qualified; connected obligations open",
+        "p.observed_behavior": "Historical own-lens receipt covers 1-445; newly registered test-tail read covers 446-827 of byte-identical selected source.",
+        "d.contract_id": "OBLIGATION-ROOT-L3-EXT-0001-LENS-04",
+        "d.source_discovery_scope": "Lens 4 exact errantry file range 1-827",
+        "d.disposition": "Same-lens historical 1-445 and newly read 446-827 cover exact file; connected admission and consumer obligations remain open.",
+        "d.explicit_alias_comparison": [],
+        "v.assessment": "Lens 4 exact file range qualified by historical receipt and new tail read; connected contract remains open."
+      },
+      "preparation_literal_remaining": [
+        "Qualify connected producer, API, state, consumer and native admission contracts while retaining ROOT-INITIAL04-F049.",
+        "Reconcile exact aliases and validate supported behavior after the audit gate."
+      ],
+      "named_registrations": [],
+      "original_authority_bytes_recovered": false
+    },
+    {
+      "checkpoint": 3818,
+      "queue_before": "CLOSURE-QUEUE-4152.json",
+      "queue_after": "CLOSURE-QUEUE-4153.json",
+      "preparation_ordinal": 419184,
+      "recorded_preparation_command_sha256": "a21311e3f441633d8b59baf64afd5562e0de7fa06fa56d45d57bbae883a4a9a2",
+      "reported_execution_ordinal": 419191,
+      "reported_execution_output_sha256": "d9caece5b41e3acb97d8c386330c80ee2c0285553d350b48e6f23915f0e6dff8",
+      "reported_modes": [
+        {
+          "status": "pass",
+          "mode": "--preflight",
+          "writes": 0
+        },
+        {
+          "status": "pass",
+          "mode": "--apply",
+          "checkpoint": 3818,
+          "new_cells_closed": 0,
+          "implementation_gate_complete": false
+        },
+        {
+          "status": "pass",
+          "mode": "--verify",
+          "checkpoint": 3818,
+          "new_cells_closed": 0,
+          "implementation_gate_complete": false
+        }
+      ],
+      "notes_ordinal": 419154,
+      "preserved_note": "recovered/transcript-notes/ERRANTRY-L4-3818-NOTES.md",
+      "preserved_note_sha256": "d095209c48fc81b9d44463ba7009fc683e4b80be52ddb82bbfbc1c480eaa3895",
+      "preparation_literal_updates": {
+        "p.status": "Selected ordered sigil admission and projection trace",
+        "p.observed_behavior": "Backend authority validates clue coordinates before projection; public clue type and speech function accept raw positions.",
+        "d.source_discovery_scope": "Selected ordered sigil admission, native projection and web speech consumption",
+        "d.disposition": "Inspected backend path validates coordinates; standalone API remains unbounded and other producers remain unproved.",
+        "v.assessment": "Selected backend projection validates clue coordinates; standalone type and other producer contracts remain open."
+      },
+      "preparation_literal_remaining": [
+        "Qualify other projection producers and consumers, error visibility and native acceptance while retaining ROOT-INITIAL04-F049.",
+        "Reconcile exact cross-lens aliases and validate supported behavior after the audit gate."
+      ],
+      "named_registrations": [
+        "REGISTRATION-ERRANTRY-CLUE-L4-3818.json",
+        "REGISTRATION-ERRANTRY-PROJECTION-L4-3818.json",
+        "REGISTRATION-ERRANTRY-AUTHORITY-L4-3818.json"
+      ],
+      "original_authority_bytes_recovered": false
+    },
+    {
+      "checkpoint": 3819,
+      "queue_before": "CLOSURE-QUEUE-4153.json",
+      "queue_after": "CLOSURE-QUEUE-4154.json",
+      "preparation_ordinal": 419288,
+      "recorded_preparation_command_sha256": "8a386c64960f10aa0938240166e321db3dcde509716096b25d6964d8b72b26d0",
+      "reported_execution_ordinal": 419295,
+      "reported_execution_output_sha256": "e934c0b433606aa3dea8e767aa389d881108781cc3fe57cd2e25b082f0cc3f9f",
+      "reported_modes": [
+        {
+          "status": "pass",
+          "mode": "--preflight",
+          "writes": 0
+        },
+        {
+          "status": "pass",
+          "mode": "--apply",
+          "checkpoint": 3819,
+          "new_cells_closed": 0,
+          "implementation_gate_complete": false
+        },
+        {
+          "status": "pass",
+          "mode": "--verify",
+          "checkpoint": 3819,
+          "new_cells_closed": 0,
+          "implementation_gate_complete": false
+        }
+      ],
+      "notes_ordinal": 419260,
+      "preserved_note": "recovered/transcript-notes/ERRANTRY-L4-3819-NOTES.md",
+      "preserved_note_sha256": "b1e6c220ef27cbe9a4b4ffacceb413b713d8b66532ef7664eb6e3f911714645b",
+      "preparation_literal_updates": {
+        "p.status": "Selected cross-lens clue contract comparison",
+        "p.observed_behavior": "Lens 3 entry 2697 and Lens 4 historical finding share clue position admission; minimizer and permutation preconditions are distinct.",
+        "d.source_discovery_scope": "Selected clue position and neighboring puzzle contract comparison",
+        "d.disposition": "Existing Lens 3 and Lens 4 evidence share the first coordinate boundary; distinct preconditions remain independent.",
+        "v.assessment": "Selected clue-related contracts compared without new unique finding; global aliases remain open."
+      },
+      "preparation_literal_remaining": [
+        "Qualify other projection producers, error visibility, native acceptance and broader coordinate type ownership.",
+        "Reconcile global aliases and validate supported behavior after the audit gate."
+      ],
+      "named_registrations": [],
+      "original_authority_bytes_recovered": false
+    },
+    {
+      "checkpoint": 3820,
+      "queue_before": "CLOSURE-QUEUE-4154.json",
+      "queue_after": "CLOSURE-QUEUE-4155.json",
+      "preparation_ordinal": 419395,
+      "recorded_preparation_command_sha256": "dae7f16813c9aff02bbd2521c0651a64050d0a359cde6e6997b2924435b130d0",
+      "reported_execution_ordinal": 419402,
+      "reported_execution_output_sha256": "19a6c123eca59de8d5de25b54792712a78ace8555ed743b036a3ad4be502a2d6",
+      "reported_modes": [
+        {
+          "status": "pass",
+          "mode": "--preflight",
+          "writes": 0
+        },
+        {
+          "status": "pass",
+          "mode": "--apply",
+          "checkpoint": 3820,
+          "new_cells_closed": 0,
+          "implementation_gate_complete": false
+        },
+        {
+          "status": "pass",
+          "mode": "--verify",
+          "checkpoint": 3820,
+          "new_cells_closed": 0,
+          "implementation_gate_complete": false
+        }
+      ],
+      "notes_ordinal": 419367,
+      "preserved_note": "recovered/transcript-notes/ERRANTRY-L4-3820-NOTES.md",
+      "preserved_note_sha256": "7e42ad10337ed92078b67fea7d90d26fde49b66564e7ebaf8573cac1cfecc4d7",
+      "preparation_literal_updates": {
+        "p.status": "Selected additional ordered-sigil clue consumers",
+        "p.observed_behavior": "Puzzle-lab replay validates authority before rendering; web logic-grid clue formatter is a distinct type.",
+        "d.source_discovery_scope": "Selected puzzle-lab replay and web clue consumers",
+        "d.disposition": "Replay path is validated; other renderer callers and production reachability remain open.",
+        "v.assessment": "Selected replay and web consumers qualified; other producer paths remain open."
+      },
+      "preparation_literal_remaining": [
+        "Qualify remaining puzzle-lab render callers, other projection producers and native acceptance.",
+        "Reconcile global aliases and validate supported behavior after the audit gate."
+      ],
+      "named_registrations": [
+        "REGISTRATION-ERRANTRY-CONSUMERS-L4-3820.json",
+        "REGISTRATION-ERRANTRY-LAB-L4-3820.json"
+      ],
+      "original_authority_bytes_recovered": false
+    },
+    {
+      "checkpoint": 3821,
+      "queue_before": "CLOSURE-QUEUE-4155.json",
+      "queue_after": "CLOSURE-QUEUE-4156.json",
+      "preparation_ordinal": 419492,
+      "recorded_preparation_command_sha256": "fc8e99a935a168b4630c09593389fe696e3e416423dbbd4b832925f93156f9b6",
+      "reported_execution_ordinal": 419499,
+      "reported_execution_output_sha256": "95faaea5166f5b8f25d308cf0b5b8c2ec57e4d29551bc305f23bfe00f392ad7a",
+      "reported_modes": [
+        {
+          "status": "pass",
+          "mode": "--preflight",
+          "writes": 0
+        },
+        {
+          "status": "pass",
+          "mode": "--apply",
+          "checkpoint": 3821,
+          "new_cells_closed": 0,
+          "implementation_gate_complete": false
+        },
+        {
+          "status": "pass",
+          "mode": "--verify",
+          "checkpoint": 3821,
+          "new_cells_closed": 0,
+          "implementation_gate_complete": false
+        }
+      ],
+      "notes_ordinal": 419464,
+      "preserved_note": "recovered/transcript-notes/ERRANTRY-L4-3821-NOTES.md",
+      "preserved_note_sha256": "f5b5841ff714f59a6130ee9fa141890d715e6f00e33eb4fca6ca1ed15b450ca4",
+      "preparation_literal_updates": {
+        "p.status": "Selected puzzle-lab renderer callers",
+        "p.observed_behavior": "Generated ordered-sigil authorities are validated before rendering; replay separately validates its authority.",
+        "d.source_discovery_scope": "Selected puzzle-lab renderer entry points and ordered-sigil generator dispatch",
+        "d.disposition": "All four identified binary renderer call sites use generated or validated authorities; standalone API and other sources remain open.",
+        "v.assessment": "Four identified puzzle-lab renderer call sites use generated or validated authority; broader contract remains open."
+      },
+      "preparation_literal_remaining": [
+        "Qualify other production projection sources, type owner and native acceptance.",
+        "Reconcile global aliases and validate supported behavior after the audit gate."
+      ],
+      "named_registrations": [
+        "REGISTRATION-ERRANTRY-LAB-CALLERS-L4-3821.json",
+        "REGISTRATION-ERRANTRY-GENERATOR-L4-3821.json",
+        "REGISTRATION-ERRANTRY-CLUE-L4-3818.json"
+      ],
+      "original_authority_bytes_recovered": false
+    }
+  ]
+}

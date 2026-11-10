@@ -1,0 +1,121 @@
+{
+  "schema": "726-exact-root009-clock2056-alias-reuse-qualification-v1",
+  "at": "2026-10-31T21:03:12.449868+00:00",
+  "author": "/root",
+  "original": 2056,
+  "batch_original_before": 2056,
+  "batch_original_after": 2061,
+  "registry": {
+    "path": "evidence/audit05/original-scope-072.json",
+    "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "source": {
+    "original": 2056,
+    "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/clock.rs",
+    "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+    "actual_eof": 29,
+    "object_path": "target/726-audit-adler-20261027/parallel-l13-20261029/objects/049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+    "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "prospective_ranges": [
+      [
+        1,
+        29
+      ]
+    ],
+    "purpose": "Exact prior root009/PL13-011 connected physical2677 clock full29 read reused at alias role2056 only; physical2677 future ordered credit remains0 and no new body credit."
+  },
+  "prior_adoption": {
+    "path": "segovb/READ-L13-PARALLEL-009.json",
+    "sha256": "64b1c80d8a8743a27e7466e91244a17046e1c9d5b7750d47411ca63c15948dec"
+  },
+  "prior_raw_receipt": {
+    "path": "parallel-l13-20261029/READ-PL13-011.json",
+    "sha256": "0005ad670edd0eb3df3bf09ad79e9415344f59211f66c971ea8c8f3389c94c9d"
+  },
+  "prior_registration": {
+    "path": "parallel-l13-20261029/REGISTRATION-PL13-011-CONNECTED2677.json",
+    "sha256": "ffea3c0d06cb92a0b3e218ed38abc1a9beed6f109250b0471d7f463f83f52cbd"
+  },
+  "prior_verification": {
+    "path": "parallel-l13-20261029/VERIFY-PL13-011.json",
+    "sha256": "7fa6afea07ed86cdedf49871b3756170445257f87b908575161a1e23ab21b812"
+  },
+  "prior_original": 2677,
+  "prior_source_read": {
+    "original": 2677,
+    "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/clock.rs",
+    "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+    "object_path": "target/726-audit-adler-20261027/parallel-l13-20261029/objects/049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+    "actual_eof": 29,
+    "prospective_ranges": [
+      [
+        1,
+        29
+      ]
+    ],
+    "source_git_spec": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+    "purpose": "Actual406TacticalElapsed.from_tick_count andloggingclock unitconversion;futureoriginalcredit0",
+    "ordered_credit_proposed": 0,
+    "fresh_personal_assessed_ranges": [
+      [
+        1,
+        29
+      ]
+    ],
+    "untruncated_body_outputs": true,
+    "future_same_lens_reuse_requirement": "At ordered2677 use this receipt /connected_source_reads/0 with exact registration/hash/Git identity/EOF/full1..29, preserve fresh attribution here, count original ONCE then; now0"
+  },
+  "prior_row_pointer": "/connected_source_reads/0",
+  "prior_registration_pointer": "/sources/0",
+  "historical_attribution_as_recorded": "Agent lens13_resume exact prospective personal read; no other-lens/current/root reread transfer",
+  "historical_root_attribution_as_recorded": "Exact agent personal reads and qualified inherited/prior same-lens reuse remain separately attributed; root adoption is zero personal rereads.",
+  "prior_inventory": {
+    "2677:1..29 connected": "TacticalElapsed privatef32 native serde representation. from_tick_count15..17 castsu64tof32 times1/64; largestu64 staysfinite/nonnegative; reportsseconds rawf32 getter20. elapsed_since26 computesdifference\u2192checkedAnimationElapsed. Clockrole/secondrole distinct; nonmonotonic callwouldreject viaowner, actualsame-tick elapsed policy must follow consumers. Full29 prospective fresh personal, futureoriginal orderedcredit0."
+  },
+  "unchanged_future2677_proof": {
+    "receipt": "parallel-l13-20261029/READ-PL13-011.json",
+    "receipt_sha256": "0005ad670edd0eb3df3bf09ad79e9415344f59211f66c971ea8c8f3389c94c9d",
+    "row_pointer": "/connected_source_reads/0",
+    "registration": {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-011-CONNECTED2677.json",
+      "sha256": "ffea3c0d06cb92a0b3e218ed38abc1a9beed6f109250b0471d7f463f83f52cbd"
+    },
+    "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/clock.rs",
+    "source_sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+    "actual_EOF": 29,
+    "assessed_ranges": [
+      [
+        1,
+        29
+      ]
+    ],
+    "attribution": "Agent lens13_resume exact prospective personal read; no other-lens/current/root reread transfer",
+    "ordered_credit_now": 0,
+    "original": 2677,
+    "future_rule": "At ordered2677 use this receipt /connected_source_reads/0 with exact registration/hash/Git identity/EOF/full1..29, preserve fresh attribution here, count original ONCE then; now0"
+  },
+  "physical2677_ordered_credit_now": 0,
+  "historical_registration_has_no_timestamp": true,
+  "historical_receipts_unchanged": true,
+  "historical_zero_credit_field": "ordered_credit_proposed",
+  "absent_later_fields": [
+    "original_credit_now",
+    "original_role_credit_now",
+    "source_revision"
+  ],
+  "qualified_against_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "fdbd48f15046f056728dcdfbf6cb092b8a029ff29b6e07765e07ea1874e1fe01"
+  },
+  "qualified_against_selector": {
+    "path": "CURRENT-ADLER.json",
+    "sha256": "90ee1182fd43077aefdea7f5a0285884e6fdac4a12b2242d6cffda9b0d7bdc80"
+  },
+  "root_personal_source_lines": 0,
+  "new_body_credit": 0,
+  "new_connected_credit": 0,
+  "other_population_credit": 0,
+  "authority_changes": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

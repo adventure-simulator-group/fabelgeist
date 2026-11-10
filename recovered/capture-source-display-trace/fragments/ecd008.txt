@@ -1,0 +1,216 @@
+SOURCE crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1
+762: pub(crate) fn run(
+763:     fixture: Option<String>,
+764:     scene_input: Option<PathBuf>,
+765:     output: Option<PathBuf>,
+766:     settle_frames: u32,
+767:     canopy_bps: Option<u16>,
+768:     absolute_minute: Option<u64>,
+769:     leaf_benchmark_frames: Option<u32>,
+770:     tree_lighting_benchmark_frames: Option<u32>,
+771:     scene_performance_benchmark_frames: Option<u32>,
+772:     scene_performance_render_diagnostics: bool,
+773:     terrain_wireframe: bool,
+774:     triangle_census: bool,
+775:     tree_review_azimuth_degrees: f32,
+776:     profile: &'static str,
+777:     requested_views: Vec<String>,
+778:     city_cameras: Option<PathBuf>,
+779: ) {
+780:     let tree_review_azimuth_degrees =
+781:         match adventuresim_tactical_core::animation::SignedAngleDegrees::from_degrees(
+782:             tree_review_azimuth_degrees,
+783:         ) {
+784:             Ok(angle) => angle,
+785:             Err(error) => {
+786:                 eprintln!("invalid capture camera azimuth: {error}");
+787:                 std::process::exit(1);
+788:             }
+789:         };
+790:     let repository_root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+791:     let (fixture, input_path) = match (fixture, scene_input) {
+792:         (Some(fixture), None) => {
+793:             let path = repository_root
+794:                 .join("assets/tactical-scenes")
+795:                 .join(format!("{fixture}.json"));
+796:             (fixture, path)
+797:         }
+798:         (None, Some(path)) => {
+799:             let path = absolute_from_current(path);
+800:             let fixture = path
+801:                 .file_stem()
+802:                 .and_then(|value| value.to_str())
+803:                 .unwrap_or("custom-scene")
+804:                 .to_owned();
+805:             (fixture, path)
+806:         }
+807:         _ => unreachable!("argument parser enforces one scene input"),
+808:     };
+809:     let camera_contract = fixed_city_cameras::Contract::load(city_cameras, profile);
+810:     let input = TacticalSceneInput::load(&input_path)
+811:         .unwrap_or_else(|error| panic!("failed to load {}: {error}", input_path.display()));
+812:     let generated = camera_contract
+813:         .generate(&input)
+814:         .unwrap_or_else(|error| panic!("failed to generate tactical scene: {error}"));
+815:     let mut environment = input.environment_snapshot(generated.digest.clone());
+816:     if let Some(canopy_bps) = canopy_bps {
+817:         environment.canopy_bps = canopy_bps;
+818:     }
+819:     if let Some(absolute_minute) = absolute_minute {
+820:         environment.absolute_minute =
+821:             adventuresim_world_schema::calendar::StrategicMinute::new(absolute_minute);
+822:     }
+823:     let output = output.map_or_else(
+824:         || default_output(&repository_root, &fixture, &generated.digest),
+825:         absolute_from_current,
+826:     );
+827:     prepare_fresh_output(&output);
+828:     fs::copy(&input_path, output.join("source-input.json"))
+829:         .unwrap_or_else(|error| panic!("failed to copy capture input: {error}"));
+830:     fs::write(
+831:         output.join("input.json"),
+832:         serde_json::to_vec_pretty(&input).unwrap(),
+833:     )
+834:     .expect("retain exact capture projection");
+835:     println!("CAPTURE_OUTPUT={}", output.display());
+836:     let wireframe_output = output.clone();
+837: 
+838:     let views = selected_capture_views(profile, &requested_views)
+839:         .unwrap_or_else(|error| panic!("invalid capture selection: {error}"));
+840: 
+841:     let asset_root = repository_root.join("assets");
+842:     let setup = SceneSetupData {
+843:         input,
+844:         input_path,
+845:         fixture,
+846:         output,
+847:         generated,
+848:         environment,
+849:         settle_frames,
+850:         leaf_benchmark_frames,
+851:         tree_lighting_benchmark_frames,
+852:         scene_performance_benchmark_frames,
+853:         tree_review_azimuth_degrees,
+854:         profile: profile.to_owned(),
+855:         requested_views: views
+856:             .iter()
+857:             .filter(|view| view.slug != "warmup")
+858:             .map(|view| view.slug.to_owned())
+859:             .collect(),
+860:         views,
+861:     };
+862:     let leaf_benchmarking = leaf_benchmark_frames.is_some();
+863:     let tree_lighting_benchmarking = tree_lighting_benchmark_frames.is_some();
+864:     let scene_performance_benchmarking = scene_performance_benchmark_frames.is_some();
+865:     let scene_performance_render_diagnostics = scene_performance_render_diagnostics
+866:         || std::env::var_os("TACTICAL_BENCH_RENDER_DIAGNOSTICS").is_some();
+867:     let mut app = App::new();
+868:     let default_plugins = DefaultPlugins
+869:         .set(AssetPlugin {
+870:             file_path: asset_root.to_string_lossy().into_owned(),
+871:             ..default()
+872:         })
+873:         .set(WindowPlugin {
+874:             primary_window: (!scene_performance_benchmarking).then(|| Window {
+875:                 visible: false,
+876:                 resolution: capture_resolution::window_resolution(profile),
+877:                 present_mode: PresentMode::AutoNoVsync,
+878:                 resizable: false,
+879:                 decorations: false,
+880:                 ..default()
+881:             }),
+882:             exit_condition: if scene_performance_benchmarking {
+883:                 ExitCondition::DontExit
+884:             } else {
+885:                 ExitCondition::OnAllClosed
+886:             },
+887:             ..default()
+888:         });
+889:     if scene_performance_benchmarking {
+890:         // Eliminate both swapchain presentation and the desktop event-loop
+891:         // floor. The normal RenderPlugin still renders the production camera
+892:         // to the offscreen texture; only frame scheduling becomes unpaced.
+893:         app.add_plugins(default_plugins.disable::<WinitPlugin>())
+894:             .add_plugins(ScheduleRunnerPlugin::run_loop(Duration::ZERO));
+895:     } else {
+896:         app.add_plugins(default_plugins)
+897:             .insert_resource(bevy::winit::WinitSettings::continuous());
+898:     }
+899:     app.add_plugins(AdventureSimulatorPhysicsPlugin {
+900:         enable_simulation: false,
+901:         enable_presentation_simulation: false,
+902:     })
+903:     // Visual-review plates use the exact production presentation defaults.
+904:     // Diagnostics may hide named occluder layers, but never substitute a
+905:     // cheaper lighting or post-processing pipeline.
+906:     .add_plugins(capture_presentation_plugin())
+907:     .insert_resource(ClearColor(Color::srgb_u8(158, 181, 195)))
+908:     .insert_resource(SceneSetup(Some(setup)));
+909:     app.insert_resource(camera_contract);
+910:     app.add_systems(PostStartup, capture_resolution::apply.after(setup_scene));
+911:     furniture_readiness::install(&mut app, profile);
+912:     if terrain_wireframe {
+913:         app.add_plugins(WireframePlugin::default())
+914:             .insert_resource(TerrainWireframeCaptureState::new(wireframe_output));
+915:     }
+916:     if triangle_census {
+917:         app.init_resource::<TriangleCensusState>();
+918:     }
+919:     app.insert_gizmo_config(
+920:         PhysicsGizmos::default(),
+921:         GizmoConfig {
+922:             enabled: false,
+923:             ..default()
+924:         },
+925:     );
+926:     if scene_performance_benchmarking {
+927:         app.add_systems(
+928:             PostStartup,
+929:             (
+930:                 setup_scene,
+931:                 fixed_city_cameras::apply,
+932:                 redirect_performance_camera_offscreen,
+933:                 freeze_capture_clock,
+934:             )
+935:                 .chain(),
+936:         );
+937:     } else {
+938:         app.add_systems(
+939:             PostStartup,
+940:             (setup_scene, fixed_city_cameras::apply, freeze_capture_clock).chain(),
+941:         );
+942:     }
+943:     if scene_performance_benchmarking && scene_performance_render_diagnostics {
+944:         app.add_plugins(bevy::render::diagnostic::RenderDiagnosticsPlugin);
+945:     }
+946:     if terrain_wireframe {
+947:         app.add_systems(Last, capture_terrain_wireframe);
+948:     } else if triangle_census {
+949:         app.add_systems(Last, capture_triangle_census);
+950:     } else if leaf_benchmarking {
+951:         app.add_systems(Last, benchmark_leaf_representations);
+952:     } else if tree_lighting_benchmarking {
+953:         app.add_systems(Last, benchmark_tree_lighting);
+954:     } else if scene_performance_benchmarking {
+955:         app.add_systems(
+956:             Last,
+957:             (benchmark_scene_performance, benchmark_progress::report),
+958:         );
+959:     } else {
+960:         app.add_systems(
+961:             Last,
+962:             capture_views
+963:                 .run_if(building_review::ready)
+964:                 .run_if(furniture_readiness::ready),
+965:         );
+966:     }
+967:     let exit = app.run();
+968:     if exit != AppExit::Success {
+969:         std::process::exit(1);
+970:     }
+971: }
+972: 
+973: /// Render performance captures into a texture so Windows compositor pacing
+974: /// cannot masquerade as renderer work on sub-refresh-rate frame budgets.
+975: fn redirect_performance_camera_offscreen(
+976:     mut commands: Commands,

@@ -1,0 +1,110 @@
+461:             .map(|seed| resolve_tactical_server_melee_duel(&john, &opponents[0], seed).unwrap())
+462:             .find(|outcome| {
+463:                 outcome
+464:                     .decision_events
+465:                     .iter()
+466:                     .any(|event| event.status == TacticalDecisionStatus::CanceledForDefense)
+467:             })
+468:             .expect("the bounded fixed-seed set includes a reciprocal parry");
+469:         let canceled = outcome
+470:             .decision_events
+471:             .iter()
+472:             .find(|event| event.status == TacticalDecisionStatus::CanceledForDefense)
+473:             .expect("the fixed duel includes a reciprocal parry");
+474:         let next_start = outcome
+475:             .decision_events
+476:             .iter()
+477:             .filter(|event| {
+478:                 event.combatant == canceled.combatant
+479:                     && event.status == TacticalDecisionStatus::Started
+480:                     && event.tick > canceled.tick
+481:             })
+482:             .map(|event| event.tick)
+483:             .min()
+484:             .unwrap_or(u64::MAX);
+485:         assert!(outcome.events.iter().all(|event| {
+486:             event.attacker != canceled.combatant
+487:                 || event.tick <= canceled.tick
+488:                 || event.tick >= next_start
+489:         }));
+490:         assert!(outcome.condition_events.iter().any(|event| {
+491:             event.combatant == canceled.combatant && event.cause == "fatigue" && event.delta > 0.0
+492:         }));
+493:     }
+494: 
+495:     #[test]
+496:     fn committed_sword_uses_buckler_and_is_transformed_before_contact() {
+497:         let (john, opponents) = melee_iteration_roster().unwrap();
+498:         let outcome = resolve_tactical_server_melee_duel(
+499:             &john,
+500:             &opponents[0],
+501:             fabelgeist_determinism::Seed::from_u64(2),
+502:         )
+503:         .unwrap();
+504:         assert!(outcome.events.iter().any(|event| {
+505:             event.defender == "Shield Militiaman"
+506:                 && event.defensive_implement.as_deref() == Some("buckler")
+507:                 && event.defender_decision == TacticalDecision::Block
+508:         }));
+509:         let transformed = outcome
+510:             .decision_events
+511:             .iter()
+512:             .find(|event| event.status == TacticalDecisionStatus::TransformedByDefense)
+513:             .expect("the fixed overlap uses the offhand buckler");
+514:         assert_eq!(transformed.combatant, "Shield Militiaman");
+515:         assert_eq!(
+516:             transformed.cause,
+517:             Some("offhand_block_reduced_attack_power")
+518:         );
+519:         assert!(!outcome.decision_events.iter().any(|event| {
+520:             event.attack_key == transformed.attack_key
+521:                 && event.status == TacticalDecisionStatus::CanceledForDefense
+522:         }));
+523:         assert!(outcome.events.iter().any(|event| {
+524:             event.attacker == transformed.combatant && event.tick > transformed.tick
+525:         }));
+526:     }
+527: 
+528:     #[test]
+529:     fn production_polearm_seeks_authored_head_band_and_uses_live_contact_revalidation() {
+530:         let (john, opponents) = melee_iteration_roster().unwrap();
+531:         let veteran = &opponents[2];
+532:         let weapon = veteran.combatant.equipment.melee_weapon.unwrap();
+533:         let expected_preferred = adventuresim_core::combat::preferred_melee_striking_measure(
+534:             adventuresim_core::combat::HUMANOID_REFERENCE_ARM_REACH_METRES + weapon.melee_reach,
+535:             weapon.grip_to_tip_m,
+536:             weapon.striking_head_length_m,
+537:             weapon.distal_headed,
+538:             adventuresim_core::combat::EMBEDDED_AUTORESOLVE_PARAMETERS.melee_measure_reach_fraction,
+539:         );
+540:         let outcomes = (1..=8)
+541:             .map(Seed::from_u64)
+542:             .map(|seed| resolve_tactical_server_melee_duel(&john, veteran, seed).unwrap())
+543:             .collect::<Vec<_>>();
+544:         assert!(
+545:             outcomes
+546:                 .iter()
+547:                 .all(|outcome| { !matches!(outcome.resolution, TacticalDuelResolution::Timeout) })
+548:         );
+549:         let preferred_measures = outcomes
+550:             .iter()
+551:             .flat_map(|outcome| &outcome.decision_events)
+552:             .filter(|decision| decision.combatant == veteran.name)
+553:             .filter_map(|decision| decision.preferred_melee_measure_metres)
+554:             .collect::<Vec<_>>();
+555:         assert!(
+556:             outcomes
+557:                 .iter()
+558:                 .flat_map(|outcome| &outcome.decision_events)
+559:                 .any(|decision| {
+560:                     decision.combatant == veteran.name
+561:                         && decision.decision == TacticalDecision::Attack
+562:                         && decision.status == TacticalDecisionStatus::Started
+563:                         && decision
+564:                             .preferred_melee_measure_metres
+565:                             .is_some_and(|measure| (measure - expected_preferred).abs() < 0.01)
+566:                 }),
+567:             "{preferred_measures:?}"
+568:         );
+569:         assert!(
+570:             outcomes

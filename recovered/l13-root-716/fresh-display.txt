@@ -1,0 +1,831 @@
+SOURCE 2745
+1: use super::*;
+2: use crate::character::CharacterId;
+3: use fabelgeist_determinism::Seed;
+4: 
+5: /// Stable entropy purpose for persisted character personality generation.
+6: pub(super) const PERSONALITY_GENERATION_DOMAIN: fabelgeist_determinism::StreamId =
+7:     fabelgeist_determinism::StreamId::new("character.personality");
+8: 
+9: const BEHAVIOR: fabelgeist_determinism::StreamId =
+10:     fabelgeist_determinism::StreamId::new("character.personality.behavior");
+11: const SEX: fabelgeist_determinism::StreamId =
+12:     fabelgeist_determinism::StreamId::new("character.personality.sex");
+13: const PRESENTATION: fabelgeist_determinism::StreamId =
+14:     fabelgeist_determinism::StreamId::new("character.personality.presentation");
+15: const INCLINATION: fabelgeist_determinism::StreamId =
+16:     fabelgeist_determinism::StreamId::new("character.personality.inclination");
+17: 
+18: pub(crate) fn personality_from_stable_seed(
+19:     character_id: CharacterId,
+20:     stable_seed: Seed,
+21: ) -> CharacterPersonality {
+22:     let sex = *SEX
+23:         .rng(stable_seed, &[character_id.get()])
+24:         .choose(Sex::VARIANTS);
+25:     let presentation = match (
+26:         sex,
+27:         PRESENTATION
+28:             .rng(stable_seed, &[character_id.get()])
+29:             .index(100),
+30:     ) {
+31:         (_, 0..=3) => Presentation::Ambiguous,
+32:         (Sex::Female, 4) => Presentation::Man,
+33:         (Sex::Male, 4) => Presentation::Woman,
+34:         (Sex::Female, _) => Presentation::Woman,
+35:         (Sex::Male, _) => Presentation::Man,
+36:     };
+37:     personality_from_stable_seed_with_demographics(character_id, stable_seed, sex, presentation)
+38: }
+39: 
+40: pub(crate) fn personality_from_stable_seed_with_demographics(
+41:     character_id: CharacterId,
+42:     stable_seed: Seed,
+43:     sex: Sex,
+44:     presentation: Presentation,
+45: ) -> CharacterPersonality {
+46:     let mut behavior = BEHAVIOR.rng(stable_seed, &[character_id.get()]);
+47:     let mut result = random_personality(character_id, &mut behavior);
+48:     result.sex = sex;
+49:     result.presentation = presentation;
+50:     result.inclination = match INCLINATION
+51:         .rng(stable_seed, &[character_id.get()])
+52:         .index(100)
+53:     {
+54:         0 => Inclination::Neither,
+55:         1..=4 => Inclination::Either,
+56:         5..=9 => match sex {
+57:             Sex::Female => Inclination::Women,
+58:             Sex::Male => Inclination::Men,
+59:         },
+60:         _ => match sex {
+61:             Sex::Female => Inclination::Men,
+62:             Sex::Male => Inclination::Women,
+63:         },
+64:     };
+65:     result
+66: }
+67: 
+68: /// Generate a sparse profile with exactly two through four distinct axes.
+69: pub(crate) fn random_personality(
+70:     character_id: CharacterId,
+71:     random: &mut DeterministicRng,
+72: ) -> CharacterPersonality {
+73:     let mut result = CharacterPersonality::neutral(character_id.get());
+74:     let mut axes = [0_u8, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+75:     random.shuffle(&mut axes);
+76:     let count = 2 + random.index(3);
+77:     for axis in axes.into_iter().take(count) {
+78:         apply_axis(&mut result, axis, random);
+79:     }
+80:     assign_demographics(&mut result, random);
+81:     result
+82: }
+83: 
+84: fn assign_demographics(result: &mut CharacterPersonality, random: &mut DeterministicRng) {
+85:     result.sex = *random.choose(Sex::VARIANTS);
+86:     let presentation_roll = random.index(100);
+87:     result.presentation = match (result.sex, presentation_roll) {
+88:         (_, 0..=3) => Presentation::Ambiguous,
+89:         (Sex::Female, 4) => Presentation::Man,
+90:         (Sex::Male, 4) => Presentation::Woman,
+91:         (Sex::Female, _) => Presentation::Woman,
+92:         (Sex::Male, _) => Presentation::Man,
+93:     };
+94:     // Direction is generated from demographic sex rather than the public
+95:     // presentation signal. The signal is the only field attraction consumes.
+96:     result.inclination = match random.index(100) {
+97:         0 => Inclination::Neither,
+98:         1..=4 => Inclination::Either,
+99:         5..=9 => match result.sex {
+100:             Sex::Female => Inclination::Women,
+101:             Sex::Male => Inclination::Men,
+102:         },
+103:         _ => match result.sex {
+104:             Sex::Female => Inclination::Men,
+105:             Sex::Male => Inclination::Women,
+106:         },
+107:     };
+108: }
+109: 
+110: fn apply_axis(result: &mut CharacterPersonality, axis: u8, random: &mut DeterministicRng) {
+111:     match axis {
+112:         0 => {
+113:             result.nerve = if random.boolean() {
+114:                 Nerve::Brave
+115:             } else {
+116:                 Nerve::Fearful
+117:             }
+118:         }
+119:         1 => {
+120:             result.drive = if random.boolean() {
+121:                 Drive::Ambitious
+122:             } else {
+123:                 Drive::Content
+124:             }
+125:         }
+126:         2 => {
+127:             result.outlook = if random.boolean() {
+128:                 Outlook::Sanguine
+129:             } else {
+130:                 Outlook::Brooding
+131:             }
+132:         }
+133:         3 => {
+134:             result.sociability = if random.boolean() {
+135:                 Sociability::Gregarious
+136:             } else {
+137:                 Sociability::Solitary
+138:             }
+139:         }
+140:         4 => {
+141:             result.conscience = match random.index(3) {
+142:                 0 => Conscience::Compassionate,
+143:                 1 => Conscience::Callous,
+144:                 _ => Conscience::Cruel,
+145:             }
+146:         }
+147:         5 => {
+148:             result.self_regard = if random.boolean() {
+149:                 SelfRegard::Proud
+150:             } else {
+151:                 SelfRegard::Humble
+152:             }
+153:         }
+154:         6 => {
+155:             result.conviction = if random.boolean() {
+156:                 Conviction::Zealous
+157:             } else {
+158:                 Conviction::Irreverent
+159:             }
+160:         }
+161:         7 => {
+162:             result.hygiene = if random.boolean() {
+163:                 Hygiene::Slovenly
+164:             } else {
+165:                 Hygiene::Cleanly
+166:             }
+167:         }
+168:         8 => {
+169:             result.temperance = if random.boolean() {
+170:                 Temperance::Temperate
+171:             } else {
+172:                 Temperance::Drunkard
+173:             }
+174:         }
+175:         9 => {
+176:             result.mirth = if random.boolean() {
+177:                 Mirth::Merry
+178:             } else {
+179:                 Mirth::Grave
+180:             }
+181:         }
+182:         10 => {
+183:             result.courtship = if random.boolean() {
+184:                 Courtship::Amorous
+185:             } else {
+186:                 Courtship::Proper
+187:             }
+188:         }
+189:         11 => {
+190:             result.transparency = if random.boolean() {
+191:                 Transparency::Open
+192:             } else {
+193:                 Transparency::Guarded
+194:             }
+195:         }
+196:         _ => {
+197:             result.self_knowledge = if random.boolean() {
+198:                 SelfKnowledge::Introspective
+199:             } else {
+200:                 SelfKnowledge::SelfDeceiving
+201:             }
+202:         }
+203:     }
+204: }
+SOURCE 2748
+1: //! Gameplay equipment rendering shared by the live client and native captures.
+2: use super::*;
+3: 
+4: pub(crate) struct EquipmentVisualPlugin;
+5: 
+6: #[derive(SystemSet, Debug, Clone, Copy, PartialEq, Eq, Hash)]
+7: pub(crate) struct EquipmentVisualSystems;
+8: 
+9: impl Plugin for EquipmentVisualPlugin {
+10:     fn build(&self, app: &mut App) {
+11:         app.add_plugins(OutlinePlugin::JUMP_FLOOD)
+12:             .init_resource::<WeaponMeshCache>()
+13:             .add_systems(
+14:                 Update,
+15:                 (
+16:                     remove_orphan_equipment,
+17:                     spawn_item_placeholders,
+18:                     sync_procedural_equipment_skins,
+19:                     render_binding::sync_render_bindings,
+20:                     update_item_placeholders,
+21:                 )
+22:                     .chain()
+23:                     .in_set(EquipmentVisualSystems),
+24:             );
+25:         app.init_resource::<RuntimeEquipmentBodyCache>()
+26:             .add_systems(
+27:                 Update,
+28:                 (
+29:                     runtime_equipment::prepare_runtime_equipment_body,
+30:                     generate_runtime_equipment_models,
+31:                 )
+32:                     .chain()
+33:                     .in_set(EquipmentVisualSystems)
+34:                     .after(spawn_item_placeholders)
+35:                     .before(sync_procedural_equipment_skins),
+36:             );
+37:     }
+38: }
+39: 
+40: fn remove_orphan_equipment(
+41:     mut commands: Commands,
+42:     roots: Query<(Entity, &ItemPlaceholder)>,
+43:     items: Query<(), With<TacticalEquipmentPhysical>>,
+44: ) {
+45:     for (entity, item) in &roots {
+46:         if !items.contains(item.0) {
+47:             commands.entity(entity).despawn();
+48:         }
+49:     }
+50: }
+SOURCE 2749
+1: //! Per-character morph weights for asynchronously loaded body scenes.
+2: 
+3: use super::skeletal_proportions::{CharacterSkeletalProportions, SkeletalProportionReference};
+4: use adventuresim_core::character_morph::CharacterMorphWeights;
+5: use adventuresim_core::character_proportions::CharacterProportions;
+6: use adventuresim_core::skeletal_fit::SkeletalFitMorph;
+7: use bevy::mesh::morph::MorphWeights;
+8: 
+9: use super::*;
+10: 
+11: #[expect(
+12:     clippy::type_complexity,
+13:     reason = "change-aware appearance inputs and disjoint read/write access to morph weights"
+14: )]
+15: pub(super) fn sync_character_morphs(
+16:     roots: Query<(Entity, &AnimationRigScene)>,
+17:     characters: Query<(
+18:         Ref<CharacterId>,
+19:         Option<Ref<CharacterSkeletalProportions>>,
+20:         Option<Ref<SkeletalProportionReference>>,
+21:     )>,
+22:     children: Query<&Children>,
+23:     meshes: Res<Assets<Mesh>>,
+24:     mut morph_queries: ParamSet<(Query<&mut MorphWeights>, Query<(), Added<MorphWeights>>)>,
+25:     mut removed_proportions: RemovedComponents<CharacterSkeletalProportions>,
+26:     mut removed_references: RemovedComponents<SkeletalProportionReference>,
+27: ) {
+28:     let removed: HashSet<_> = removed_proportions
+29:         .read()
+30:         .chain(removed_references.read())
+31:         .collect();
+32:     let new_morphs = !morph_queries.p1().is_empty();
+33:     let mut morphs = morph_queries.p0();
+34:     for (root, owner) in &roots {
+35:         let Ok((character_id, explicit, reference)) = characters.get(owner.0) else {
+36:             continue;
+37:         };
+38:         if !new_morphs
+39:             && !removed.contains(&owner.0)
+40:             && !character_id.is_changed()
+41:             && !explicit.as_ref().is_some_and(|value| value.is_changed())
+42:             && !reference.as_ref().is_some_and(|value| value.is_changed())
+43:         {
+44:             continue;
+45:         }
+46:         let identity = CharacterMorphWeights::from_character_id(character_id.0);
+47:         let proportions = explicit.map(|p| p.0).unwrap_or_else(|| {
+48:             CharacterProportions::from_seed(fabelgeist_determinism::Seed::from_u64(character_id.0))
+49:         });
+50:         let reference = reference.map(|p| p.0).unwrap_or_default();
+51:         for entity in descendants_including(root, &children) {
+52:             let Ok(mut weights) = morphs.get_mut(entity) else {
+53:                 continue;
+54:             };
+55:             let Some(names) = weights
+56:                 .first_mesh()
+57:                 .and_then(|mesh| meshes.get(mesh))
+58:                 .and_then(Mesh::morph_target_names)
+59:             else {
+60:                 continue;
+61:             };
+62:             for (index, name) in names.iter().enumerate() {
+63:                 if let Some(value) = identity.named_weight(name).or_else(|| {
+64:                     SkeletalFitMorph::from_name(name).map(|m| m.weight(proportions, reference))
+65:                 }) && weights
+66:                     .weights()
+67:                     .get(index)
+68:                     .is_some_and(|current| *current != value)
+69:                 {
+70:                     weights.weights_mut()[index] = value;
+71:                 }
+72:             }
+73:         }
+74:     }
+75: }
+76: 
+SOURCE 2750
+31: pub mod correctives;
+32: pub mod math;
+33: pub mod model;
+34: pub mod model_def;
+35: pub mod skel_state;
+36: 
+37: pub use character::{BlendShapes, Character, Mesh, Skeleton, SkinWeights};
+38: pub use correctives::PoseCorrectives;
+39: pub use model::{
+40:     MAX_LOD, MIN_LOD, Mhr, MhrConfig, MhrOutput, NUM_BLEND_SHAPES,
+41:     NUM_FACE_EXPRESSION_BLEND_SHAPES, NUM_IDENTITY_BLEND_SHAPES,
+42: };
+43: pub use model_def::{ParameterTransform, parse_model_definition};
+SOURCE 2751
+1: use crate::matrix::Mat4;
+2: use crate::vector::Vec3;
+3: use serde::{Deserialize, Serialize};
+4: 
+5: #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+6: pub struct Transform {
+7:     pub position: Vec3,
+8:     pub rotation: Vec3, // Euler angles in degrees
+9:     pub scale: Vec3,
+10: }
+11: 
+12: impl Default for Transform {
+13:     fn default() -> Self {
+14:         Self {
+15:             position: Vec3::new(0.0, 0.0, 0.0),
+16:             rotation: Vec3::new(0.0, 0.0, 0.0),
+17:             scale: Vec3::new(1.0, 1.0, 1.0),
+18:         }
+19:     }
+20: }
+21: 
+22: impl Transform {
+23:     pub fn identity() -> Self {
+24:         Self::default()
+25:     }
+26: 
+27:     pub fn new(position: Vec3, rotation: Vec3, scale: Vec3) -> Self {
+28:         Self {
+29:             position,
+30:             rotation,
+31:             scale,
+32:         }
+33:     }
+34: 
+35:     pub fn from_position(position: Vec3) -> Self {
+36:         Self {
+37:             position,
+38:             ..Default::default()
+39:         }
+40:     }
+41: 
+42:     pub fn from_rotation(rotation: Vec3) -> Self {
+43:         Self {
+44:             rotation,
+45:             ..Default::default()
+46:         }
+47:     }
+48: 
+49:     pub fn from_scale(scale: Vec3) -> Self {
+50:         Self {
+51:             scale,
+52:             ..Default::default()
+53:         }
+54:     }
+55: 
+56:     pub fn look_at(eye: Vec3, target: Vec3, up: Vec3) -> Self {
+57:         let view_mat = Mat4::look_at(eye, target, up);
+58:         let world_mat = view_mat.inverse().unwrap_or_default();
+59:         Self::from_mat4(world_mat)
+60:     }
+61: 
+62:     pub fn to_mat4(&self) -> Mat4 {
+63:         let rad_x = self.rotation.x.to_radians();
+64:         let rad_y = self.rotation.y.to_radians();
+65:         let rad_z = self.rotation.z.to_radians();
+66: 
+67:         let cx = rad_x.cos();
+68:         let sx = rad_x.sin();
+69:         let cy = rad_y.cos();
+70:         let sy = rad_y.sin();
+71:         let cz = rad_z.cos();
+72:         let sz = rad_z.sin();
+73: 
+74:         // Rotation matrix R = Rz * Ry * Rx
+75:         let r00 = cy * cz;
+76:         let r01 = sx * sy * cz - cx * sz;
+77:         let r02 = cx * sy * cz + sx * sz;
+78: 
+79:         let r10 = cy * sz;
+80:         let r11 = sx * sy * sz + cx * cz;
+81:         let r12 = cx * sy * sz - sx * cz;
+82: 
+83:         let r20 = -sy;
+84:         let r21 = sx * cy;
+85:         let r22 = cx * cy;
+86: 
+87:         Mat4 {
+88:             columns: [
+89:                 [
+90:                     r00 * self.scale.x,
+91:                     r10 * self.scale.x,
+92:                     r20 * self.scale.x,
+93:                     0.0,
+94:                 ],
+95:                 [
+96:                     r01 * self.scale.y,
+97:                     r11 * self.scale.y,
+98:                     r21 * self.scale.y,
+99:                     0.0,
+100:                 ],
+101:                 [
+102:                     r02 * self.scale.z,
+103:                     r12 * self.scale.z,
+104:                     r22 * self.scale.z,
+105:                     0.0,
+106:                 ],
+107:                 [self.position.x, self.position.y, self.position.z, 1.0],
+108:             ],
+109:         }
+110:     }
+SOURCE 2752
+1: //! Roof windows and timber framing resolve against the same roof assembly.
+2: use super::*;
+3: pub(super) fn resolve(
+4:     program: &BuildingProgram,
+5:     edits: &[BuildingEdit],
+6:     roofs: &[RoofPiece],
+7:     roof_dormers: &[RoofDormer],
+8:     towers: &[RoundTower],
+9:     square_towers: &[SquareTower],
+10:     stairs: &mut [Stair],
+11:     wall_assemblies: &mut Vec<crate::WallAssembly>,
+12:     opening_assemblies: &mut Vec<crate::OpeningAssembly>,
+13:     resolved_geometry: &mut ResolvedGeometry,
+14: ) -> Result<(Vec<RoofAssembly>, Option<crate::TimberFrameAssembly>), GenerationError> {
+15:     let mut roof_assemblies = resolve_roof_assemblies(
+16:         program,
+17:         roofs,
+18:         roof_dormers,
+19:         towers,
+20:         square_towers,
+21:         stairs,
+22:         wall_assemblies,
+23:         opening_assemblies,
+24:         resolved_geometry,
+25:     )?;
+26:     resolve_roof_child_front_openings(
+27:         program,
+28:         roof_dormers,
+29:         &mut roof_assemblies,
+30:         wall_assemblies,
+31:         opening_assemblies,
+32:         resolved_geometry,
+33:     )?;
+34:     let timber_frame = resolve_timber_frame_assembly(
+35:         program,
+36:         edits,
+37:         wall_assemblies,
+38:         opening_assemblies,
+39:         roofs,
+40:         roof_dormers,
+41:         stairs,
+42:         &mut roof_assemblies,
+43:         resolved_geometry,
+44:     )?;
+45:     Ok((roof_assemblies, timber_frame))
+46: }
+SOURCE 2753
+1: /// Recomputes an existing roof graph under its declared pivot policy.
+2: /// Changing pitch on roofs with child, parent, inset-wall or heating attachments
+3: /// requires a topology change and is rejected. Unchanged-pitch requests are no-ops.
+4: /// Any error leaves the plan unchanged.
+5: pub fn set_roof_pitch(
+6:     plan: &mut BuildingPlan,
+7:     id: RoofAssemblyId,
+8:     pitch_degrees: f32,
+9: ) -> Result<(), RoofEditError> {
+10:     if !(15.0..=75.0).contains(&pitch_degrees) {
+11:         return Err(RoofEditError::PitchOutsideProjectRange);
+12:     }
+13:     let assembly_index = plan
+14:         .roof_assemblies
+15:         .iter()
+16:         .position(|roof| roof.id == id)
+17:         .ok_or(RoofEditError::MissingAssembly)?;
+18:     let assembly = &plan.roof_assemblies[assembly_index];
+19:     let old_pitch = assembly
+20:         .faces
+21:         .first()
+22:         .map_or(pitch_degrees, |face| face.pitch_degrees);
+23:     if (old_pitch - pitch_degrees).abs() < 0.0001 {
+24:         return Ok(());
+25:     }
+26:     if !assembly.children.is_empty()
+27:         || assembly.parent.is_some()
+28:         || assembly
+29:             .enclosure_faces
+30:             .iter()
+31:             .any(|face| !face.inset_walls.is_empty())
+32:         || plan
+33:             .domestic_heating
+34:             .as_ref()
+35:             .is_some_and(|h| h.roof.roof == id)
+36:     {
+37:         return Err(RoofEditError::TopologyEvent);
+38:     }
+39:     let old_tan = old_pitch.to_radians().tan();
+40:     if old_tan.abs() <= 0.0001 {
+41:         return Err(RoofEditError::TopologyEvent);
+42:     }
+43:     let factor = pitch_degrees.to_radians().tan() / old_tan;
+44:     let min_y = assembly
+45:         .faces
+46:         .iter()
+47:         .flat_map(|face| face.polygon.iter().map(|point| point.y))
+48:         .fold(f32::INFINITY, f32::min);
+49:     let max_y = assembly
+50:         .faces
+51:         .iter()
+52:         .flat_map(|face| face.polygon.iter().map(|point| point.y))
+53:         .fold(f32::NEG_INFINITY, f32::max);
+54:     let pivot_policy = assembly.pivot_policy;
+55:     let scale_y = |y: f32| match pivot_policy {
+56:         RoofPivotPolicy::KeepEave | RoofPivotPolicy::KeepChildAttachment => {
+57:             min_y + (y - min_y) * factor
+58:         }
+59:         RoofPivotPolicy::KeepRidge => max_y - (max_y - y) * factor,
+60:     };
+61:     let mut reconstructed = assembly.clone();
+62:     let mut geometry = plan.resolved_geometry.clone();
+63:     reconstruct_roof_pitch(
+64:         &mut reconstructed,
+65:         &mut geometry,
+66:         plan,
+67:         pitch_degrees,
+68:         min_y,
+69:         scale_y,
+70:     )
+71:     .map_err(|cause| RoofEditError::Construction {
+72:         roof: id,
+73:         cause: Box::new(cause),
+74:     })?;
+75:     plan.roof_assemblies[assembly_index] = reconstructed;
+76:     plan.resolved_geometry = geometry;
+77:     Ok(())
+78: }
+79: 
+80: fn reconstruct_roof_pitch(
+81:     assembly: &mut RoofAssembly,
+82:     geometry: &mut ResolvedGeometry,
+83:     plan: &BuildingPlan,
+84:     pitch_degrees: f32,
+85:     min_y: f32,
+86:     scale_y: impl Fn(f32) -> f32,
+87: ) -> Result<(), GenerationError> {
+88:     for face in &mut assembly.faces {
+89:         for point in &mut face.polygon {
+90:             point.y = scale_y(point.y);
+91:         }
+92:         let bounds = roof_polygon_bounds(face.id, &face.polygon)?;
+93:         face.plane = roof_plane(&face.polygon);
+94:         face.pitch_degrees = pitch_degrees;
+95:         if let Some(surface) = geometry
+96:             .surfaces
+97:             .iter_mut()
+98:             .find(|surface| surface.id == face.drainage_catchment)
+99:         {
+100:             surface.bounds = bounds;
+101:         }
+102:         if let Some(catchment) = geometry
+103:             .drainage_catchments
+104:             .iter_mut()
+105:             .find(|catchment| catchment.id == face.drainage_catchment)
+106:         {
+107:             let centre = face.polygon.iter().copied().sum::<Vec3>() / face.polygon.len() as f32;
+108:             let low = face
+109:                 .polygon
+110:                 .iter()
+111:                 .min_by(|a, b| a.y.total_cmp(&b.y))
+112:                 .copied()
+113:                 .ok_or(GenerationError::EmptyRoofFace { face: face.id })?;
+114:             catchment.centre = centre;
+115:             catchment.inner_elevation_metres = face
+116:                 .polygon
+117:                 .iter()
+118:                 .map(|point| point.y)
+119:                 .fold(f32::NEG_INFINITY, f32::max);
+120:             catchment.outer_elevation_metres = low.y;
+121:             if let Some(route) = geometry
+122:                 .drainage_routes
+123:                 .iter_mut()
+124:                 .find(|route| route.id == catchment.outlet_route)
+125:             {
+126:                 route.inlet = centre;
+127:                 route.outlet = low;
+128:             }
+129:         }
+130:     }
+131:     gable_enclosure::update_pitch(
+132:         &mut assembly.enclosure_faces,
+133:         &assembly.faces,
+134:         assembly
+135:             .source_piece_index
+136:             .filter(|_| assembly.kind == RoofKind::Gable)
+137:             .map(|index| plan.roofs[index]),
+138:         &plan.wall_assemblies,
+139:         min_y,
+140:         &scale_y,
+141:     );
+142:     for edge in &mut assembly.edges {
+143:         edge.start.y = scale_y(edge.start.y);
+144:         edge.end.y = scale_y(edge.end.y);
+145:     }
+146:     refresh_edge_weathering(assembly, geometry)?;
+147:     Ok(())
+148: }
+149: 
+150: fn refresh_edge_weathering(
+151:     assembly: &RoofAssembly,
+152:     geometry: &mut ResolvedGeometry,
+153: ) -> Result<(), GenerationError> {
+154:     for (edge_index, edge) in assembly.edges.iter().enumerate() {
+155:         let delta = edge.end - edge.start;
+156:         let plan_length = Vec2::new(delta.x, delta.z).length().max(0.05);
+157:         let edge_pitch = delta.y.atan2(plan_length);
+158:         let weather_id =
+159:             ResolvedItemId((0x8_u64 << 60) | (assembly.id.0 << 16) | 0x5000 | edge_index as u64);
+160:         if let Some(solid) = geometry
+161:             .solids
+162:             .iter_mut()
+163:             .find(|solid| solid.id == weather_id)
+164:         {
+165:             let treated_plan_length = if edge.kind == RoofEdgeKind::Eave {
+166:                 (plan_length - 0.36_f32.min(plan_length * 0.5)).max(0.05)
+167:             } else {
+168:                 plan_length
+169:             };
+170:             solid.centre = Position::<Architectural>::from_metres(
+171:                 (edge.start + edge.end) * 0.5
+172:                     + if edge.kind == RoofEdgeKind::Eave {
+173:                         Vec3::NEG_Y * 0.06
+174:                     } else {
+175:                         Vec3::Y * 0.035
+176:                     },
+177:             )?;
+178:             {
+179:                 let mut native_geometry = solid.size.metres();
+180:                 native_geometry.x = if edge.kind == RoofEdgeKind::Eave {
+181:                     treated_plan_length
+182:                 } else {
+183:                     treated_plan_length / edge_pitch.cos().abs().max(0.01)
+184:                 };
+185:                 solid.size = CuboidDimensions::from_metres(native_geometry).map_err(|cause| {
+186:                     crate::CollisionError {
+187:                         source_id: solid.id,
+188:                         cause,
+189:                     }
+190:                 })?;
+191:             };
+192:             solid.yaw_radians = Radians::new(delta.z.atan2(delta.x))?;
+193:             solid.longfall_radians = Radians::new(if edge.kind == RoofEdgeKind::Eave {
+194:                 0.012
+195:             } else {
+196:                 edge_pitch
+197:             })?;
+198:         }
+199:         if let Some(flashing_id) = edge.flashing
+200:             && let Some(flashing) = geometry
+201:                 .solids
+202:                 .iter_mut()
+203:                 .find(|solid| solid.id == flashing_id)
+204:         {
+205:             flashing.centre = Position::<Architectural>::from_metres(
+206:                 (edge.start + edge.end) * 0.5 + Vec3::Y * (flashing.size.metres().y * 0.5),
+207:             )?;
+208:             {
+209:                 let mut native_geometry = flashing.size.metres();
+210:                 native_geometry.x = delta.length().max(0.05);
+211:                 flashing.size =
+212:                     CuboidDimensions::from_metres(native_geometry).map_err(|cause| {
+213:                         crate::CollisionError {
+214:                             source_id: flashing.id,
+215:                             cause,
+216:                         }
+217:                     })?;
+218:             };
+219:             flashing.yaw_radians = Radians::new(delta.z.atan2(delta.x))?;
+220:             flashing.longfall_radians = Radians::new(if edge.kind == RoofEdgeKind::Valley {
+221:                 edge_pitch
+222:             } else {
+223:                 0.0
+224:             })?;
+225:         }
+226:     }
+227:     Ok(())
+228: }
+229: 
+SOURCE 2754
+1: //! Physical support interfaces must overlap their owning solid, including its full rotation.
+2: use crate::{AuditIssue, ResolvedSolid, SolidRole, SupportInterface};
+3: 
+4: use super::{bounds_overlap_3d, issue, resolved_solid_bounds, resolved_solid_overlaps_bounds};
+5: 
+6: const MINIMUM_BEARING_OVERLAP_METRES: f32 = 0.001;
+7: 
+8: pub(super) fn audit_positive_bearing(
+9:     solid: &ResolvedSolid,
+10:     interfaces: &[SupportInterface],
+11:     issues: &mut Vec<AuditIssue>,
+12: ) {
+13:     let oriented_cuboid_member = matches!(
+14:         solid.role,
+15:         SolidRole::FrameSill
+16:             | SolidRole::FramePost
+17:             | SolidRole::FramePlate
+18:             | SolidRole::FrameRail
+19:             | SolidRole::FrameJoist
+20:             | SolidRole::FrameGirder
+21:             | SolidRole::FrameTie
+22:             | SolidRole::FrameBrace
+23:             | SolidRole::FrameJettyBeam
+24:             | SolidRole::FrameKnagge
+25:             | SolidRole::FrameGableMember
+26:             | SolidRole::FrameDormerTrimmer
+27:             | SolidRole::FrameOrnament
+28:             | SolidRole::DomesticHeating
+29:             | SolidRole::WorkplacePart
+30:     );
+31:     let has_bearing = interfaces.iter().any(|bearing| {
+32:         bearing.owner == solid.owner
+33:             && solid.supported_by.contains(&bearing.node)
+34:             && if oriented_cuboid_member {
+35:                 resolved_solid_overlaps_bounds(
+36:                     solid,
+37:                     (bearing.bounds.min().metres(), bearing.bounds.max().metres()),
+38:                     MINIMUM_BEARING_OVERLAP_METRES,
+39:                 )
+40:             } else {
+41:                 bounds_overlap_3d(
+42:                     resolved_solid_bounds(solid),
+43:                     (bearing.bounds.min().metres(), bearing.bounds.max().metres()),
+44:                     MINIMUM_BEARING_OVERLAP_METRES,
+45:                 )
+46:             }
+47:     });
+48:     if !has_bearing {
+49:         issues.push(issue(
+50:             "missing_positive_bearing",
+51:             format!(
+52:                 "resolved solid {} has no positive bearing interface",
+53:                 solid.id.0
+54:             ),
+55:         ));
+56:     }
+57: }
+58: 
+SOURCE 2755
+1: //! Exact diagnostic spelling for a native buffer allocation.
+2: 
+3: /// Diagnostic identity is distinct from a shader parameter lookup key.
+4: ///
+5: /// ```compile_fail
+6: /// use crate::prelude::{BufferDefinition, BufferByteLength};
+7: /// BufferDefinition::new().with_label(BufferByteLength::from(4u64));
+8: /// ```
+9: #[derive(Clone, Debug, PartialEq, Eq)]
+10: pub struct BufferLabel(String);
+11: 
+12: impl From<String> for BufferLabel {
+13:     fn from(label: String) -> Self {
+14:         Self(label)
+15:     }
+16: }
+17: 
+18: impl From<&str> for BufferLabel {
+19:     fn from(label: &str) -> Self {
+20:         Self(label.to_owned())
+21:     }
+22: }
+23: 
+24: impl<'a> From<&'a BufferLabel> for &'a str {
+25:     fn from(label: &'a BufferLabel) -> Self {
+26:         &label.0
+27:     }
+28: }
+SOURCE 2756
+7: pub use fabelgeist_math::{math, matrix, transform, vector};
+8: 
+9: pub use gpu::*;
+10: pub use math::*;
+11: pub use matrix::*;
+12: pub use transform::*;
+13: pub use vector::*;

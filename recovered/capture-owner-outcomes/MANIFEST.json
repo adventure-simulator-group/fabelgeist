@@ -1,0 +1,24 @@
+{
+  "schema": "726-capture-owner-outcomes-recovery-v1",
+  "transcript_ordinal": 63031,
+  "output_sha256": "0a484eb8963aadf3d25e62505de4c646d1a6c18ef4bd16988f0c2ae018a0155c",
+  "objects": [
+    {
+      "kind": "relations",
+      "sha256": "146cebbce5ace9b8befb1fb649155fe6bc96611d1ce15cd72d9dc24289720746",
+      "historical_path": "adler-continuation-20261030/FACET-COMPARISON-ROOT-L12-CAPTURE-OWNERS-001.json",
+      "timestamp": "2026-11-02T06:16:50.163668+00:00",
+      "expression": "relations-expression.txt",
+      "expression_sha256": "7a99d39f50af3f45ba8efea12c1c90f42febbe1ff1b2d129901d692caf212e4a"
+    },
+    {
+      "kind": "repair",
+      "sha256": "ed5793fce1e70ad4af1541bdfd63382f3d424ce169a32b72fe93bf43fc362210",
+      "historical_path": "adler-continuation-20261030/OWNED-REPAIR-ROOT-L12-CAPTURE-OWNER-OUTCOMES-001.json",
+      "timestamp": "2026-11-02T06:16:50.199203+00:00",
+      "expression": "repair-expression.txt",
+      "expression_sha256": "c660a42b6aef38aa4e269817613e37610014a21cf8e9ac7e01190b7e8b6e5111"
+    }
+  ],
+  "qualification": "Historical five-case facet comparison and unimplemented owner repair reconstructed from recorded expressions, cited hashes and bounded timestamp searches. Distinct case verdicts remain independent. Referenced source packets and queue bytes are not thereby recovered; no new audit credit or runtime acceptance follows."
+}

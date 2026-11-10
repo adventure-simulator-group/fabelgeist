@@ -1,0 +1,115 @@
+116:         },
+117:         (true, false) => TacticalDuelResolution::Victory {
+118:             victor: right_name.to_owned(),
+119:         },
+120:         (true, true) => TacticalDuelResolution::MutualIncapacitation,
+121:         (false, false) => TacticalDuelResolution::Timeout,
+122:     }
+123: }
+124: 
+125: fn combatant_defeated(world: &World, entity: Entity) -> bool {
+126:     world
+127:         .get::<TacticalCombatState>(entity)
+128:         .is_some_and(TacticalCombatState::is_incapacitated)
+129:         || world.get::<crate::bot::CombatantYielded>(entity).is_some()
+130: }
+131: 
+132: fn tactical_iteration_app(seed: Seed) -> App {
+133:     let mut app = App::new();
+134:     app.add_plugins((
+135:         MinimalPlugins,
+136:         bevy::transform::TransformPlugin,
+137:         AdventureSimulatorReplicationPlugin,
+138:         AdventureSimulatorPhysicsPlugin {
+139:             enable_simulation: true,
+140:             enable_presentation_simulation: false,
+141:         },
+142:         CombatPlugin,
+143:         TacticalEquipmentPlugin,
+144:         BotPlugin,
+145:     ))
+146:     .insert_resource(TimeUpdateStrategy::ManualDuration(Duration::from_secs_f32(
+147:         TACTICAL_TICK_SECONDS,
+148:     )))
+149:     .insert_resource(Time::<()>::default())
+150:     .insert_resource(IterationClock { tick: 0 })
+151:     .insert_resource(IterationLog::default())
+152:     .insert_resource(crate::bot::CombatRandom::seeded(seed))
+153:     .add_observer(crate::player_projection::on_player_added)
+154:     .add_observer(record_attack_start)
+155:     .add_observer(record_attack_committed_to_defense)
+156:     .add_observer(record_attack_transformed_by_defense)
+157:     .add_observer(record_continuation_decision)
+158:     .add_observer(record_defense_resolution)
+159:     .add_observer(record_resolved_attack)
+160:     .add_systems(
+161:         FixedPostUpdate,
+162:         (
+163:             restore_authoritative_movement_intent
+164:                 .before(AdventureSimulatorPhysicsSet::ApplyCharacterMotor),
+165:             (
+166:                 trace_authoritative_quickstep_after_collision,
+167:                 update_attack_facing_targets,
+168:                 update_skeleton_locomotion,
+169:                 update_character_motion_snapshots,
+170:             )
+171:                 .chain()
+172:                 .after(AhoySystems::MoveCharacters),
+173:         ),
+174:     )
+175:     .add_systems(
+176:         Update,
+177:         record_condition_changes.after(crate::combat::CombatSet::Condition),
+178:     );
+179:     app.finish();
+180:     app.cleanup();
+181:     app.world_mut().spawn((
+182:         Name::new("Melee iteration ground"),
+183:         RigidBody::Static,
+184:         Collider::cuboid(40.0, 0.5, 40.0),
+185:         Transform::from_xyz(0.0, -0.25, 0.0),
+186:     ));
+187:     app
+188: }
+189: 
+190: fn spawn_combatant(
+191:     world: &mut World,
+192:     build: &MeleeIterationBuild,
+193:     side: TacticalCombatSide,
+194:     position: Vec3,
+195: ) -> Entity {
+196:     let source = &build.combatant;
+197:     let entity = world
+198:         .spawn((
+199:             Player {
+200:                 name: build.name.to_owned(),
+201:             },
+202:             CharacterId(source.id),
+203:             tactical_skills(source),
+204:             tactical_limbs(source),
+205:             TacticalAttributes(source.attributes.clone()),
+206:             Stats {
+207:                 calories_used: source.essentials.calories_used_today,
+208:                 focus: source.essentials.focus_level,
+209:             },
+210:             TacticalCombatState {
+211:                 starting_incapacitation: source.starting_incapacitation,
+212:                 fatigue: source.fatigue,
+213:                 encumbrance: combat_encumbrance_incapacitation(
+214:                     &source.attributes,
+215:                     &source.body,
+216:                     &source.equipment,
+217:                 ),
+218:                 incapacitation: source.incapacitation(),
+219:                 starting_blood_fraction: source.starting_blood_fraction,
+220:                 ..default()
+221:             },
+222:             crate::combat::TacticalWounds::default(),
+223:             side,
+224:             Transform::from_translation(position),
+225:             CharacterLook::default(),
+226:             input::AccumulatedInput::default(),
+227:             SkeletonState::default(),
+228:             CharacterDimensions::default(),
+229:         ))
+230:         .id();

@@ -1,0 +1,316 @@
+SOURCE 2645 pr-working:crates/fabelgeist-hair/src/collider.rs
+1: //! What strands must stay outside of.
+2: //!
+3: //! The pipeline keeps hair out of the body twice: shrinkwrap pushes points
+4: //! that sank below the surface back onto it, and the drape collides every
+5: //! point it moves. Both need the same query -- how far a point is from the
+6: //! body, signed, and which way is out -- which a distance field answers
+7: //! directly ([`crate::Head`]) and a mesh answers through its closest
+8: //! triangle ([`MeshCollider`]).
+9: 
+10: use fabelgeist_bvh::TriangleBvh;
+11: use fabelgeist_math::Vec3;
+12: 
+13: use crate::surface::vertex_normals;
+14: 
+15: pub trait Collider: Sync {
+16:     /// Signed distance to the surface (negative inside) and the outward
+17:     /// direction at the closest point.
+18:     fn query(&self, p: Vec3) -> (f32, Vec3);
+19: 
+20:     /// Signed distance alone, where that is cheaper.
+21:     fn distance(&self, p: Vec3) -> f32 {
+22:         self.query(p).0
+23:     }
+24: }
+25: 
+26: /// Move `p` until it is at least `offset` outside, stepping along the
+27: /// outward direction. A distance field built from smooth unions is only a
+28: /// bound inside, and where two parts meet (an ear on the head) its gradient
+29: /// can point into the other part, so a single step is not always enough.
+30: pub fn push_out(collider: &(impl Collider + ?Sized), mut p: Vec3, offset: f32) -> Vec3 {
+31:     for _ in 0..6 {
+32:         if collider.distance(p) >= offset {
+33:             break;
+34:         }
+35:         let (distance, out) = collider.query(p);
+36:         p += out * (offset - distance + 1e-5);
+37:     }
+38:     p
+39: }
+40: 
+41: /// Keep a coarse polyline -- a strand drawn with a few points, a card's
+42: /// spine -- off the body. Its points lie on the fine strand, which is off
+43: /// the body, but the straight segments between them cut the corners of a
+44: /// strand wrapping a curved scalp and sink into it: at a distance the hair
+45: /// there disappears, and the head looks bald. Wherever a segment comes
+46: /// nearer than `clearance`, its ends are pushed out until it does not; the
+47: /// root stays where it is, so a first segment is cleared by lifting its far
+48: /// end.
+49: pub fn keep_clear(
+50:     collider: &(impl Collider + ?Sized),
+51:     polyline: &mut [Vec3],
+52:     clearance: f32,
+53:     passes: usize,
+54: ) {
+55:     let n = polyline.len();
+56:     if n < 2 {
+57:         return;
+58:     }
+59:     let mut push = vec![Vec3::default(); n];
+60:     let longer = |a: Vec3, b: Vec3| {
+61:         if b.length_squared() > a.length_squared() {
+62:             b
+63:         } else {
+64:             a
+65:         }
+66:     };
+67:     for _ in 0..passes {
+68:         push.iter_mut().for_each(|p| *p = Vec3::default());
+69:         let mut any = false;
+70:         let mut near = collider.distance(polyline[0]);
+71:         for i in 0..n - 1 {
+72:             let (a, b) = (polyline[i], polyline[i + 1]);
+73:             let far = collider.distance(b);
+74:             let reach = 0.5 * (b - a).length();
+75:             // A distance field changes no faster than distance: a segment
+76:             // whose ends are well clear cannot come near in between.
+77:             let closest = near.min(far);
+78:             near = far;
+79:             if closest - reach >= clearance {
+80:                 continue;
+81:             }
+82:             for t in [0.25, 0.5, 0.75] {
+83:                 let q = a.lerp(b, t);
+84:                 let d = collider.distance(q);
+85:                 if d >= clearance {
+86:                     continue;
+87:                 }
+88:                 any = true;
+89:                 let (_, out) = collider.query(q);
+90:                 let need = clearance - d;
+91:                 if i == 0 {
+92:                     push[1] = longer(push[1], out * (need / t).min(0.01));
+93:                 } else {
+94:                     push[i] = longer(push[i], out * need);
+95:                     push[i + 1] = longer(push[i + 1], out * need);
+96:                 }
+97:             }
+98:         }
+99:         if !any {
+100:             break;
+101:         }
+102:         for (p, d) in polyline.iter_mut().zip(&push).skip(1) {
+103:             *p += *d;
+104:         }
+105:     }
+106: }
+107: 
+108: /// A closed triangle mesh as a collider: distance to its closest triangle,
+109: /// signed by the side of that triangle the point is on (by the
+110: /// angle-weighted pseudo-normal of its closest feature, approximated by the
+111: /// interpolated vertex normals).
+165: pub struct NoCollider;
+166: 
+167: impl Collider for NoCollider {
+168:     fn query(&self, _: Vec3) -> (f32, Vec3) {
+169:         (f32::INFINITY, Vec3::up())
+170:     }
+171: }
+SOURCE 2646 pr-working:crates/fabelgeist-shell/src/mesh.rs
+1: use crate::{
+2:     ArealDensityValidity, MassValidity, ParticleArealDensity, ParticleInverseMass, ParticleMass,
+3: };
+4: use crate::{BendQuad, SelfCollision, topology};
+5: use anyhow::{Result, ensure};
+6: use fabelgeist_math::Vec3;
+7: 
+8: /// Rest geometry and constraints, independent of any garment or material model.
+9: #[derive(Clone, Debug, Default)]
+10: pub struct ShellMesh {
+11:     pub positions: Vec<Vec3>,
+12:     pub triangles: Vec<[u32; 3]>,
+13:     pub edges: Vec<[u32; 2]>,
+14:     pub rest_lengths: Vec<f32>,
+15:     pub bends: Vec<BendQuad>,
+16:     pub bend_weights: Vec<[f32; 8]>,
+17:     pub seams: Vec<[u32; 2]>,
+18:     pub masses: Vec<ParticleMass>,
+19: }
+20: impl ShellMesh {
+21:     pub fn from_mesh(
+22:         mesh: &fabelgeist_mesh::MeshData,
+23:         areal_density: ParticleArealDensity,
+24:     ) -> Result<Self> {
+25:         let triangles = mesh.triangles()?;
+26:         let positions = mesh
+27:             .positions
+28:             .iter()
+29:             .map(|p| Vec3::new(p[0], p[1], p[2]))
+30:             .collect();
+31:         Self::new(positions, triangles, areal_density)
+32:     }
+33:     pub fn new(
+34:         positions: Vec<Vec3>,
+35:         triangles: Vec<[u32; 3]>,
+36:         areal_density: ParticleArealDensity,
+37:     ) -> Result<Self> {
+38:         ensure!(
+39:             areal_density.validity() == ArealDensityValidity::PositiveFinite,
+40:             "areal density must be positive"
+41:         );
+42:         ensure!(
+43:             positions.iter().all(|p| p.is_finite()),
+44:             "non-finite shell position"
+45:         );
+46:         ensure!(
+47:             triangles
+48:                 .iter()
+49:                 .flatten()
+50:                 .all(|i| (*i as usize) < positions.len()),
+51:             "shell triangle index out of bounds"
+52:         );
+53:         let topology = topology::build(&triangles);
+54:         let rest_lengths = topology
+55:             .edges
+56:             .iter()
+57:             .map(|[a, b]| (positions[*a as usize] - positions[*b as usize]).length())
+58:             .collect();
+59:         let mut bends = Vec::new();
+60:         let mut bend_weights = Vec::new();
+61:         for bend in topology.bends {
+62:             let points = bend.particles().map(|i| positions[i as usize]);
+63:             if let Some(k) = topology::bending_weights(points) {
+64:                 let rest = points
+65:                     .iter()
+66:                     .zip(k)
+67:                     .fold(Vec3::default(), |s, (p, w)| s + *p * w)
+68:                     .length();
+69:                 bends.push(bend);
+70:                 bend_weights.push([k[0], k[1], k[2], k[3], rest, 0.0, 0.0, 0.0]);
+71:             }
+72:         }
+73:         let masses = topology::vertex_masses(&positions, &triangles, areal_density);
+74:         Ok(Self {
+75:             positions,
+76:             triangles,
+77:             edges: topology.edges,
+78:             rest_lengths,
+79:             bends,
+80:             bend_weights,
+81:             seams: vec![],
+82:             masses,
+83:         })
+84:     }
+85:     pub fn validate(&self) -> Result<()> {
+86:         let n = self.positions.len();
+87:         ensure!(
+88:             n > 0 && n <= u32::MAX as usize,
+89:             "invalid shell particle count"
+90:         );
+91:         ensure!(
+92:             self.positions.iter().all(|p| p.is_finite()),
+93:             "non-finite shell position"
+94:         );
+95:         ensure!(
+96:             self.masses.len() == n
+97:                 && self
+98:                     .masses
+99:                     .iter()
+100:                     .all(|m| m.validity() == MassValidity::FiniteNonnegative),
+101:             "invalid shell masses"
+102:         );
+103:         ensure!(
+104:             self.edges.len() == self.rest_lengths.len()
+105:                 && self.bends.len() == self.bend_weights.len(),
+106:             "constraint data length mismatch"
+107:         );
+108:         ensure!(
+109:             self.triangles
+110:                 .iter()
+111:                 .flatten()
+112:                 .chain(self.edges.iter().flatten())
+113:                 .chain(self.seams.iter().flatten())
+114:                 .all(|i| (*i as usize) < n),
+115:             "shell index out of bounds"
+116:         );
+117:         ensure!(
+118:             self.bends
+119:                 .iter()
+120:                 .flat_map(|b| b.particles())
+121:                 .all(|i| (i as usize) < n),
+122:             "bend index out of bounds"
+123:         );
+124:         ensure!(
+125:             self.rest_lengths.iter().all(|v| v.is_finite() && *v >= 0.0)
+126:                 && self.bend_weights.iter().flatten().all(|v| v.is_finite()),
+127:             "invalid shell rest data"
+128:         );
+129:         Ok(())
+130:     }
+131:     pub fn inverse_masses(&self) -> Vec<ParticleInverseMass> {
+132:         topology::inverse_masses(&self.masses)
+133:     }
+134:     pub fn adjacency(&self) -> Vec<Vec<u32>> {
+135:         let mut edges = self.edges.clone();
+136:         edges.extend_from_slice(&self.seams);
+137:         SelfCollision::adjacency(self.positions.len(), &edges)
+138:     }
+139: }
+SOURCE 2647 pr-working:crates/fabelgeist-shell/src/lib.rs
+1: //! Shared thin-shell mechanics on XPBD: stretch, bending, attachments and contact.
+2: //! Cloth adds garment construction; metal adds sheet material parameters.
+3: mod ccd;
+4: mod mesh;
+5: pub mod outer_layer;
+6: pub mod selfcollision;
+7: mod shell;
+8: pub mod surface_contact;
+9: pub mod topology;
+10: pub mod wgsl;
+11: pub use fabelgeist_physics::Collisions;
+12: pub use fabelgeist_xpbd::{Solver, SolverSettings};
+13: pub use mesh::ShellMesh;
+14: pub use selfcollision::SelfCollision;
+15: pub use shell::{HostContactSchedule, Shell};
+16: pub use topology::{BendQuad, Topology};
+17: 
+18: #[derive(Clone, Copy, Debug, PartialEq)]
+19: pub struct ShellMaterial {
+20:     pub stretch_compliance: f32,
+21:     pub bend_compliance: f32,
+22:     /// Compliance of zero-length attachment constraints (including cloth seams).
+23:     pub seam_compliance: f32,
+24:     pub thickness: f32,
+25:     /// Suggested world-contact coefficient; configure it on physics colliders.
+26:     pub friction: f32,
+27:     pub damping: f32,
+28: }
+29: impl ShellMaterial {
+30:     pub fn particle_radius(&self) -> f32 {
+31:         self.thickness * 0.5
+32:     }
+33:     pub fn validate(&self) -> anyhow::Result<()> {
+34:         anyhow::ensure!(
+35:             [
+36:                 self.stretch_compliance,
+37:                 self.bend_compliance,
+38:                 self.seam_compliance,
+39:                 self.thickness,
+40:                 self.friction,
+41:                 self.damping
+42:             ]
+43:             .iter()
+44:             .all(|v| v.is_finite() && *v >= 0.0),
+45:             "invalid shell material"
+46:         );
+47:         anyhow::ensure!(self.thickness > 0.0, "shell thickness must be positive");
+48:         Ok(())
+49:     }
+50: }
+51: 
+52: pub use fabelgeist_xpbd::{
+53:     ArealDensityValidity, MassValidity, ParticleArealDensity, ParticleInverseMass, ParticleMass,
+54:     ParticleMobility,
+55: };
+56: 

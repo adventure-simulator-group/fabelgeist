@@ -1,0 +1,31 @@
+1: [package]
+2: name = "adventuresim-stdb-module"
+3: version.workspace = true
+4: edition.workspace = true
+5: 
+6: [lib]
+7: crate-type = ["cdylib", "rlib"]
+8: test = false
+9: doctest = false
+10: 
+11: [features]
+12: # Guarded fault injection for the disposable persistence acceptance runner.
+13: authority-tests = []
+14: 
+15: [dependencies]
+16: adventuresim-core = { workspace = true, features = ["spacetimedb"] }
+17: adventuresim-dialogue.workspace = true
+18: adventuresim-puzzles.workspace = true
+19: adventuresim-world-schema = { workspace = true, features = ["spacetimedb"] }
+20: adventuresim-weapon-model.workspace = true
+21: fabelgeist-determinism = { workspace = true, features = ["spacetimedb"] }
+22: log = "0.4"
+23: spacetimedb.workspace = true
+24: petname = { version = "2.0.2", default-features = false, features = ["default-words"] }
+25: serde.workspace = true
+26: serde_json.workspace = true
+27: sha2.workspace = true
+28: thiserror.workspace = true
+29: 
+30: [lints]
+31: workspace = true

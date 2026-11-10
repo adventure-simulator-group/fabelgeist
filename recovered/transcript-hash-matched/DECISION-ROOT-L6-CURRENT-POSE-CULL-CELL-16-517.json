@@ -1,0 +1,29 @@
+{
+  "schema": "726-independent-own-lens-current-cell-decision-v1",
+  "lens": 6,
+  "delta_id": "CURRENT-E275-TO-3371425",
+  "delta_index": 1,
+  "path_index": 16,
+  "git_path": "crates/adventuresim-tactical-client/src/animation/pose_buffer/pose_cull.rs",
+  "source_receipt": {
+    "path": "adler-continuation-20261030/READ-ROOT-L6-CURRENT-POSE-CULL-CELL-16-517.json",
+    "sha256": "3b796365a2d026283548517acfcdb871d735da4fdc04332f813c0e28d37a9165"
+  },
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L6-CURRENT-POSE-CULL-SMALL-001.json",
+    "sha256": "04d471ee1edfc12ccb9aab5e87c9ab10d040829e1272335092d71d0f9e02913c"
+  },
+  "effective_disposition": "Culling state, pose metrics and rig buffers belong to transient presentation. PoseCulled lives on the same rig owner as the canonical visibility decision; schedule resources/components retain their current owners. Equipment borrows rig-name keys only within the local immutable query pass and publishes owned native handles/entity vectors. No borrowed names escape into deferred state or tactical tick data into strategic persistence. Added private cull helper and PoseCulled component; complete37linebody observed. Existingvisibility remainscanonical, metricscount increments perculledrig. Resume andphysics exemption traced inactualcaller, but allwriter/lifecycle/runtime proof notclaimed.",
+  "exact_current_path_complete": true,
+  "remaining_documented_policy_links": [
+    {
+      "path": "adler-continuation-20261030/QUALIFICATION-CURRENT-POSE-CULL-PIPELINE-001.json",
+      "sha256": "93fc75821513ca900ee5ec6ab0b156745c54829b585cf45f765a77cbbee8c13e"
+    }
+  ],
+  "scope_limit": "Own type-owner/ownership/enum/native-string source-discovery only. Actualadmission/allwriter lifecycle/retention/behavior/pose/native/visual andglobalexactaliases remainindependent. No wholecase/native/runtime pass.",
+  "other_lens_or_global_closure": false,
+  "runtime_validation": "Not run; separate later acceptance",
+  "body_or_population_credit": 0,
+  "implementation_gate_complete": false
+}

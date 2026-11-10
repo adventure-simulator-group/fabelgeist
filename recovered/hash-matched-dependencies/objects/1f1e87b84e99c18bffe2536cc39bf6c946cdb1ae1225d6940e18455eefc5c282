@@ -1,0 +1,52 @@
+{
+  "at": "2026-10-31T05:12:53.291520+00:00",
+  "registry": {
+    "path": "evidence/audit05/original-scope-072.json",
+    "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "original": 1280,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/fixture_policy.rs",
+  "sha256": "c692472c82e278cfd719eb457b7554561bc30117577225ca0c68c8eec6a8801b",
+  "actual_eof": 133,
+  "git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "qualified_fields": [
+    "/producer_reached_contract_observations/1/read_ranges_as_recorded",
+    "/producer_reached_contract_observations/1/source_context/read_ranges"
+  ],
+  "raw_value": [
+    [
+      96,
+      137
+    ]
+  ],
+  "effective_existing_ranges": [
+    [
+      96,
+      133
+    ]
+  ],
+  "nonexistent_tail": [
+    [
+      134,
+      137
+    ]
+  ],
+  "nonexistent_tail_credit": 0,
+  "body_credit": 0,
+  "authority_changes": 0,
+  "inherited_metadata_unchanged": true,
+  "all_nested_range_fields_inspected": true,
+  "other_invalid_range_fields": [],
+  "fresh_root_read": {
+    "path": "adler-continuation-20261030/READ-ROOT-L13-1278-1280-001.json",
+    "sha256": "ac05e1fd6ee6e189faa7b4cad89818f00a502f33faebde3383328740ab77404f"
+  },
+  "fresh_root_read_pointer": "/ordered/2",
+  "fresh_root_full_scope": [
+    [
+      1,
+      133
+    ]
+  ],
+  "reason": "Two exact inherited producer metadata fields exceed actual EOF. Preserve raw references; only existing96..133 describes source. Fresh prospective full1..133 Lens13 read is independent; no credit for nonexistent134..137 or other lenses."
+}

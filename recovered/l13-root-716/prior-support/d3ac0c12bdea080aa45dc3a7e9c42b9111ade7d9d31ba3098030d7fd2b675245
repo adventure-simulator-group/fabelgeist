@@ -1,0 +1,111 @@
+{
+  "lens": 13,
+  "namespace": "PL13-170",
+  "status": "Ordered actual ingredient preparation and physical containment numeric contracts",
+  "registration": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-170.json",
+    "sha256": "e5e06ba0c5cfc30fcc77ff19d1c86737c8229dafa61ff4cd497ebd2651e23d00"
+  },
+  "registered_before_read_attestation": true,
+  "rows": [
+    {
+      "original": 930,
+      "source_id": "pr-working:crates/adventuresim-core/src/herbalism.rs",
+      "sha256": "501c6cf8ba05522213c175784f28e6ddecd14aaab72a490fcb4bfa846eccb203",
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/501c6cf8ba05522213c175784f28e6ddecd14aaab72a490fcb4bfa846eccb203",
+      "actual_eof": 405,
+      "prospective_ranges": [
+        [
+          1,
+          405
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "purpose": "Ordered own Lens13 herbal potency/preparation process quantities and inventory containment numeric contract chain; source only.",
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          405
+        ]
+      ],
+      "untruncated_body_outputs": true
+    },
+    {
+      "original": 931,
+      "source_id": "pr-working:crates/adventuresim-core/src/ingredient_preparation.rs",
+      "sha256": "ae086fd226814d3e6a5085e053f4e16a02c4a46ecbfbe9e0c2bf7063e6edf170",
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/ae086fd226814d3e6a5085e053f4e16a02c4a46ecbfbe9e0c2bf7063e6edf170",
+      "actual_eof": 72,
+      "prospective_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "purpose": "Ordered own Lens13 herbal potency/preparation process quantities and inventory containment numeric contract chain; source only.",
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "untruncated_body_outputs": true
+    },
+    {
+      "original": 932,
+      "source_id": "pr-working:crates/adventuresim-core/src/inventory_containers.rs",
+      "sha256": "4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+      "actual_eof": 256,
+      "prospective_ranges": [
+        [
+          1,
+          256
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "purpose": "Ordered own Lens13 herbal potency/preparation process quantities and inventory containment numeric contract chain; source only.",
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          256
+        ]
+      ],
+      "untruncated_body_outputs": true
+    }
+  ],
+  "connected": [],
+  "numeric_role_inventory": [
+    "930 physical_preparation_minutes288..312 usesclosedCut10/Grind20 bases, skillfiniteclamp0..5 andoptionalgrindtool.5, ceilminimum1. Thus realprocessdurationssmall; rawpublicPlanAuthority.duration maylarger andpreviewminu32MAX explicitprojection, actualnativeadapterneeded tobindrequestedtime tocomputedprocessduration.",
+    "930 profileversionu16,expectedrevisionu64, tinctureherb50grams/spirit150ml/maturation60480minutes sharedconstants propagateasnumericroles; actualmaterialcomponents/dose/batch/retainedreceipts/nativeconsumers pending. build_preparation_plan214..286 usesrights.kindAllowed only plusseparatebooleancustody/revision etc andtypedsharedtime permitscompletion. Actualadapter bindquestiondigest/rightsrevision/object/place/action neededbefore cross-authorityfinding; contrast928 explicitdigestbindingisnotautomaticalias.",
+    "931 closed2IngredientPreparationAction stable_code1/2 isdiscreteversionedframecode, notgameplaymagnitude. Exactstabletokens/definitionIDs parsecase-sensitive. Sourcefixturesnotexecuted, no compatibilityprose requirement.",
+    "932 ContainmentGraph::new admitsnonzeroexterior/measured<=exterior/uniquePhysicalObjectId; allobjects andparentmapprivate. used_volume onlyimmediatechildren measuredvolumeorexteriordisplacement withMilliliters.checked_add, grandchildrennotcountedtwice. insertchecksparentcapacity/cycle/ancestordepth+descendantdepth<=16 andcheckedused+childvolume beforecommit. Existingadmittedgraphsum remains<=u64parentcapacity, so aftertemporaryremove used_volumeoverflow cannotarise throughtheseprivatevalidpaths; rejected rollback-error suspicionfromarbitrarycorruptedgraph.",
+    "932 sameparentreinsert removesoldedge beforecapacitycalculation, restoresoldparent oncapacityfailure; graphownsdepthandcyclechecks. subtree deterministicBTreeMaptraversal andcycle detection; nativeobjectlocation/capacityvolumeprojection/graphreload andactualMilliliters/PhysicalObjectIdowners remainconnected. Equipment attachmenttopology intentionallyseparatefrominventoryphysicalcontainment. Fixtures185..256 sourceonly."
+  ],
+  "proposed_findings": [],
+  "connected_contracts": [
+    {
+      "proposed_id": "PL13-170-MATERIAL-PREPARATION-CONTAINMENT-NATIVE-PENDING",
+      "status": "Connected native numeric admission/authority obligations; scoped rollback suspicion rejected",
+      "scope": "Actualnativepreparation duration vsrequestedtime and rightsdigest/revision/objectbinding; tincturematerialquantities/potency/profiles; containmentobjectvolume/capacity/locationprojection andgraphreload. Existingprivatevalidgraphcheckedinvariantsrejectused_volumeoverflowrollbackhypothesis, noglobalnativeclearance.",
+      "accepted_unique_count_change": 0,
+      "current_reconciled": false
+    }
+  ],
+  "necessary_extensions": [],
+  "future_same_lens_reuse_proofs": [],
+  "original_delta_proposed": 3,
+  "proposed_next_original": 933,
+  "authoritative_counts_changed": false,
+  "accepted_unique_count_change": 0,
+  "product_execution": false,
+  "current_reconciled": false,
+  "global_clearance": false,
+  "qualifications": [
+    "Fresh930full405read1..230/231..405,931full72,932full2561..230/231..256 after REG170; alluntruncated. No productexecution/current/foreigntransfer."
+  ]
+}

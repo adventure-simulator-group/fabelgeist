@@ -1,0 +1,63 @@
+{
+  "kind": "Exact reached demographic function body union; root prefix adoption required before ledger selection",
+  "lens": 12,
+  "at": "2026-10-30T05:40:05.865761+00:00",
+  "source_id": "physical-p16:crates/adventuresim-world-schema/src/demographics.rs",
+  "source_sha256": "396148642d664ea3084057fd95d0f9ca430f445ca1ff2d98c8d028ab573c7b92",
+  "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/396148642d664ea3084057fd95d0f9ca430f445ca1ff2d98c8d028ab573c7b92",
+  "actual_EOF": 93,
+  "prefix_proposal": {
+    "path": "parallel-l12-20261029/PROPOSAL-L12-938.json",
+    "sha256": "2e815e28e731bfeeeba5edeca542be73f88cc2fa15a66ced1f7f1cc1266ea238"
+  },
+  "prefix_row_pointer": "/rows/0",
+  "prefix_registration": {
+    "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-765.json",
+    "sha256": "cf58b6fa017eae00c289c0fb6ea3b281f8e73b46cb42ea87dab2789eb8387c49"
+  },
+  "prefix_ranges": [
+    [
+      1,
+      41
+    ]
+  ],
+  "prefix_root_adoption_requirement": {
+    "path": "segovb/READ-L12-938.json",
+    "row_pointer": "/rows/0",
+    "comparison": "Root-selected exactreceipt/hash must reproduce immutable prefixproposal row; no invented rootreceipt hash before adoption."
+  },
+  "fresh_closing_partial": {
+    "path": "parallel-l12-20261029/PARTIAL-PAR-L12-TEAM025-001.json",
+    "sha256": "fbac86989ab88353dc8eb5d8aa8a05e3653975efe776bbfb4b40ac8027959a46"
+  },
+  "fresh_closing_registration": {
+    "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-771.json",
+    "sha256": "71698b5f29b07124af0c76ef03dd2029a554e97e2249ad49c11e77cd331f1ecd"
+  },
+  "fresh_closing_ranges": [
+    [
+      42,
+      43
+    ]
+  ],
+  "qualified_function_body": {
+    "function": "Sex::stable_variant_id37..43",
+    "assessed_union": [
+      [
+        1,
+        43
+      ]
+    ],
+    "unread_source_ranges": [
+      [
+        44,
+        93
+      ]
+    ]
+  },
+  "qualification": "Earlier actually read41 contains function37..41 partial match; exact new closing42/43 completes body through43. Metadata only adds no reread/role/current proof. Native seed label output is explicit enum projection, no obsolete spelling/behavior preservation mandate.",
+  "new_personal_body_reads_from_metadata": [],
+  "new_original_credit": 0,
+  "product_execution": false
+}

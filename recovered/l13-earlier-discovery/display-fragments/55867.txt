@@ -1,0 +1,120 @@
+SOURCE 2827 native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/node.rs
+1: use bevy_ecs::prelude::*;
+2: use bevy_render::{
+3:     render_resource::{ComputePassDescriptor, PipelineCache},
+4:     renderer::RenderContext,
+5: };
+6: 
+7: use super::resources::GlobalCullBuffer;
+8: use crate::{
+9:     allocator::resources::GlobalInstanceAllocator, cull::pipeline::InstancedComputePipeline,
+10:     material::InstancedMaterial,
+11: };
+12: 
+13: #[cfg(feature = "trace")]
+14: use tracing::*;
+15: 
+16: pub fn instanced_compute_node<M: InstancedMaterial>(
+17:     mut render_context: RenderContext,
+18:     pipeline: Option<Res<InstancedComputePipeline<M>>>,
+19:     pipeline_cache: Option<Res<PipelineCache>>,
+20:     allocator: Option<Res<GlobalInstanceAllocator<M>>>,
+21:     cull_buffer: Option<Res<GlobalCullBuffer>>,
+22: ) {
+23:     let Some(pipeline) = pipeline else {
+24:         return;
+25:     };
+26: 
+27:     let Some(pipeline_cache) = pipeline_cache else {
+28:         return;
+29:     };
+30: 
+31:     let Some(pipeline_id) = pipeline.pipeline_id else {
+32:         return;
+33:     };
+34: 
+35:     let Some(compute_pipeline) = pipeline_cache.get_compute_pipeline(pipeline_id) else {
+36:         return;
+37:     };
+38: 
+39:     let Some(allocator) = allocator else {
+40:         return;
+41:     };
+42: 
+43:     if allocator.pages.is_empty() {
+44:         return;
+45:     }
+46: 
+47:     let Some(cull_buffer) = cull_buffer else {
+48:         return;
+49:     };
+50: 
+51:     let mut pass = render_context
+52:         .command_encoder()
+53:         .begin_compute_pass(&ComputePassDescriptor {
+54:             label: Some("instanced_gpu_cull_pass"),
+55:             timestamp_writes: None,
+56:         });
+57: 
+58:     pass.set_pipeline(compute_pipeline);
+59:     pass.set_bind_group(2, &cull_buffer.bind_group, &[]);
+60: 
+61:     let mut dispatched = 0;
+62: 
+63:     for (i, page) in allocator.pages.iter().enumerate() {
+64:         if page.compute_capacity == 0 {
+65:             continue;
+66:         }
+67: 
+68:         let Some(compute_bg) = &page.compute_bind_group else {
+69:             #[cfg(feature = "trace")]
+70:             warn!(
+71:                 "Page {} has capacity {} but no compute_bind_group!",
+72:                 i, page.compute_capacity
+73:             );
+74:             continue;
+75:         };
+76: 
+77:         let Some(common_bg) = &page.common_bind_group else {
+78:             #[cfg(feature = "trace")]
+79:             warn!(
+80:                 "Page {} has capacity {} but no common_bind_group!",
+81:                 i, page.compute_capacity
+82:             );
+83:             continue;
+84:         };
+85: 
+86:         pass.set_bind_group(0, compute_bg, &[]);
+87:         pass.set_bind_group(1, common_bg, &[]);
+88: 
+89:         let instances = page.compute_capacity;
+90:         let workgroup_size = 64;
+91: 
+92:         let workgroups = (instances as f32 / workgroup_size as f32).ceil() as u32;
+93:         if workgroups > 0 {
+94:             #[cfg(feature = "trace")]
+95:             trace!(
+96:                 "Dispatching Page {}: {} instances, {} workgroups",
+97:                 i, instances, workgroups
+98:             );
+99: 
+100:             let max_workgroups = 65535;
+101:             if workgroups > max_workgroups {
+102:                 let x = max_workgroups;
+103:                 let y = (workgroups as f32 / max_workgroups as f32).ceil() as u32;
+104:                 pass.dispatch_workgroups(x, y, 1);
+105:             } else {
+106:                 pass.dispatch_workgroups(workgroups, 1, 1);
+107:             }
+108:             dispatched += 1;
+109:         }
+110:     }
+111: 
+112:     #[cfg(feature = "trace")]
+113:     if dispatched > 0 {
+114:         trace!(
+115:             "Finished Instanced Cull Pass: {} pages dispatched",
+116:             dispatched
+117:         );
+118:     }
+119: }

@@ -1,0 +1,192 @@
+SOURCE 2608 pr-working:crates/fabelgeist-armor/src/plate_fluting.rs
+1: //! Shared relief dimensions; each armor construction supplies its own surface chart.
+2: use crate::{DesignError, Millimeters, Permille};
+3: use serde::{Deserialize, Serialize};
+4: use std::ops::RangeInclusive;
+5: 
+6: /// Raised, rounded flutes separated by smooth lands on an authored plate chart.
+7: /// Width is a fraction of flute pitch, independent of count. Dimensions are
+8: /// in the authored carrier chart; physical widths scale with the wearer.
+9: #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+10: #[serde(deny_unknown_fields)]
+11: pub struct PlateFluting {
+12:     pub count: FluteCount,
+13:     pub width: Permille,
+14:     pub depth: Millimeters,
+15:     /// Fraction of chart width occupied by the pattern at its top.
+16:     pub spread: Permille,
+17:     /// Lower pattern width relative to its top; 1000 adds no fan in the carrier chart.
+18:     pub lower_spread: Permille,
+19:     pub start: Permille,
+20:     pub end: Permille,
+21:     /// Fade length at each end, as a fraction of plate height.
+22:     pub fade: Permille,
+23: }
+24: 
+25: #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+26: pub struct FluteCount(pub u16);
+27: 
+28: impl Default for PlateFluting {
+29:     fn default() -> Self {
+30:         Self {
+31:             count: FluteCount(16),
+32:             width: Permille(850),
+33:             depth: Millimeters(2),
+34:             spread: Permille(850),
+35:             lower_spread: Permille(900),
+36:             start: Permille(150),
+37:             end: Permille(800),
+38:             fade: Permille(100),
+39:         }
+40:     }
+41: }
+42: 
+43: impl PlateFluting {
+44:     pub const COUNT_RANGE: RangeInclusive<u16> = 2..=64;
+45:     pub const WIDTH_RANGE: RangeInclusive<u16> = 350..=850;
+46:     pub const DEPTH_RANGE: RangeInclusive<u16> = 1..=4;
+47:     pub const SPREAD_RANGE: RangeInclusive<u16> = 400..=850;
+48:     pub const LOWER_SPREAD_RANGE: RangeInclusive<u16> = 500..=1000;
+49:     pub const FADE_RANGE: RangeInclusive<u16> = 100..=250;
+50:     pub const MIN_START: u16 = 50;
+51:     pub const MAX_END: u16 = 950;
+52: 
+53:     pub(crate) fn validate(&self) -> Result<(), DesignError> {
+54:         if !Self::COUNT_RANGE.contains(&self.count.0)
+55:             || !Self::WIDTH_RANGE.contains(&self.width.0)
+56:             || !Self::DEPTH_RANGE.contains(&self.depth.0)
+57:             || !Self::SPREAD_RANGE.contains(&self.spread.0)
+58:             || !Self::LOWER_SPREAD_RANGE.contains(&self.lower_spread.0)
+59:             || self.start.0 < Self::MIN_START
+60:             || self.end.0 > Self::MAX_END
+61:             || self.end.0 <= self.start.0
+62:             || !Self::FADE_RANGE.contains(&self.fade.0)
+63:             || self.end.0 - self.start.0 < self.fade.0 * 2
+64:         {
+65:             return Err(DesignError::PlateFluting);
+66:         }
+67:         Ok(())
+68:     }
+69: 
+70:     /// Across-chart samples include every flute crest, slope and land edge.
+71:     pub fn columns(&self, base_segments: usize) -> Vec<f32> {
+72:         const PROFILE_SEGMENTS: usize = 8;
+73:         const MERGE_TOLERANCE: f32 = 1e-5;
+74:         let pitch = self.spread.unit() / f32::from(self.count.0);
+75:         let left = (1.0 - self.spread.unit()) * 0.5;
+76:         let right = 1.0 - left;
+77:         let minimum_land = pitch * (1.0 - self.width.unit()) * 0.5;
+78:         // The feature grid owns the fluted field. Interleaving an unrelated
+79:         // regular grid creates tiny strips whose offset walls can reverse.
+80:         let mut samples = (0..=base_segments)
+81:             .map(|i| i as f32 / base_segments as f32)
+82:             .filter(|u| *u < left - minimum_land || *u > right + minimum_land)
+83:             .collect::<Vec<_>>();
+84:         samples.extend([left, right]);
+85:         for flute in 0..self.count.0 {
+86:             let center = (1.0 - self.spread.unit()) * 0.5 + (f32::from(flute) + 0.5) * pitch;
+87:             for sample in 0..=PROFILE_SEGMENTS {
+88:                 samples.push(
+89:                     center
+90:                         + (sample as f32 / PROFILE_SEGMENTS as f32 - 0.5)
+91:                             * pitch
+92:                             * self.width.unit(),
+93:                 );
+94:             }
+95:         }
+96:         samples.sort_by(f32::total_cmp);
+97:         samples.dedup_by(|a, b| (*a - *b).abs() < MERGE_TOLERANCE);
+98:         samples
+99:     }
+100: 
+102:     pub fn fan_coordinate(&self, u: f32, v: f32) -> f32 {
+103:         let lateral = 2.0 * u - 1.0;
+104:         let span = self.spread.unit();
+105:         let fan = self.lower_spread.unit() + (1.0 - self.lower_spread.unit()) * smooth(v);
+106:         let absolute = lateral.abs();
+107:         let mapped = if absolute <= span {
+108:             absolute * fan
+109:         } else {
+110:             span * fan + (absolute - span) * (1.0 - span * fan) / (1.0 - span)
+111:         };
+112:         (1.0 + lateral.signum() * mapped) * 0.5
+113:     }
+114: 
+115:     pub fn relief(&self, u: f32, v: f32) -> f32 {
+116:         let pitch = self.spread.unit() / f32::from(self.count.0);
+117:         let start = (1.0 - self.spread.unit()) * 0.5;
+118:         let slot = ((u - start) / pitch).floor();
+119:         if slot < 0.0 || slot >= f32::from(self.count.0) {
+120:             return 0.0;
+121:         }
+122:         let center = start + (slot + 0.5) * pitch;
+123:         let distance = (u - center).abs() / (pitch * self.width.unit() * 0.5);
+124:         if distance >= 1.0 {
+125:             return 0.0;
+126:         }
+127:         let fade = smooth((v - self.start.unit()) / self.fade.unit())
+128:             * smooth((self.end.unit() - v) / self.fade.unit());
+129:         self.depth.metres() * fade * (1.0 + (std::f32::consts::PI * distance).cos()) * 0.5
+130:     }
+131: 
+147: fn smooth(t: f32) -> f32 {
+148:     let t = t.clamp(0.0, 1.0);
+149:     t * t * (3.0 - 2.0 * t)
+150: }
+SOURCE 2609 pr-working:crates/fabelgeist-armor/src/anime_design.rs
+1: //! Overlapping horizontal torso courses, distinct from decorative fluting.
+2: use crate::{DesignError, Millimeters, Permille};
+3: use serde::{Deserialize, Serialize};
+4: use std::ops::RangeInclusive;
+5: 
+6: #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+7: pub enum BreastplateConstruction {
+8:     Solid,
+9:     Anime(AnimeDesign),
+10: }
+11: 
+12: #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+13: #[serde(deny_unknown_fields)]
+14: pub struct AnimeDesign {
+15:     /// Number of lower courses beneath the larger upper plate.
+16:     pub lame_count: u8,
+17:     /// Fraction of the shortest torso column occupied by the lower courses.
+18:     pub articulated_height: Permille,
+19:     pub overlap: Millimeters,
+20:     /// Rise of the front course edges per metre from the medial line.
+21:     pub chevron_slope: Permille,
+22:     pub rear_chevron_slope: Permille,
+23:     /// Outward lift at each upper plate's lower overlapping edge.
+24:     pub lap_lift: Millimeters,
+25: }
+26: 
+27: impl Default for AnimeDesign {
+28:     fn default() -> Self {
+29:         Self {
+30:             lame_count: 6,
+31:             articulated_height: Permille(800),
+32:             overlap: Millimeters(8),
+33:             chevron_slope: Permille(300),
+34:             rear_chevron_slope: Permille(120),
+35:             lap_lift: Millimeters(7),
+36:         }
+37:     }
+38: }
+39: 
+40: impl AnimeDesign {
+41:     pub const OVERLAP_RANGE: RangeInclusive<u16> = 4..=60;
+42: 
+43:     pub(crate) fn validate(&self, gauge: Millimeters) -> Result<(), DesignError> {
+44:         if !(3..=10).contains(&self.lame_count)
+45:             || !(450..=950).contains(&self.articulated_height.0)
+46:             || !Self::OVERLAP_RANGE.contains(&self.overlap.0)
+47:             || self.chevron_slope.0 > 500
+48:             || self.rear_chevron_slope.0 > 500
+49:             || !(4..=12).contains(&self.lap_lift.0)
+50:             || self.lap_lift.0 < gauge.0 * 2
+51:         {
+52:             return Err(DesignError::BreastplateShape);
+53:         }
+54:         Ok(())
+55:     }
+56: }

@@ -1,0 +1,241 @@
+SOURCE crates/adventuresim-building-generator/src/bin/building-lod-viewer.rs b3298d4f786000953198fbc93c37c6351922ce42797fb63ae8faeb4caf122a0b
+1: use adventuresim_building_generator::{
+2:     BuildingArchetype, BuildingLodLevel, BuildingLodMaterial, BuildingProgram, LodMesh,
+3:     WallMaterialClass, compile_building_lod, generate,
+4: };
+5: #[cfg(not(target_family = "wasm"))]
+6: use adventuresim_procedural_textures::{CRENELLATION_ALPHA_CUTOFF, generate_crenellation_mask};
+7: #[cfg(not(target_family = "wasm"))]
+8: use bevy::{
+9:     asset::RenderAssetUsages,
+10:     image::{ImageAddressMode, ImageSampler, ImageSamplerDescriptor},
+11:     mesh::{Indices, PrimitiveTopology},
+12:     prelude::*,
+13:     render::render_resource::{Extent3d, Face, TextureDimension, TextureFormat},
+14:     window::{PresentMode, WindowResolution},
+15: };
+16: #[cfg(not(target_family = "wasm"))]
+17: use bevy_panorbit_camera::{PanOrbitCamera, PanOrbitCameraPlugin};
+18: #[cfg(not(target_family = "wasm"))]
+19: use clap::{Parser, ValueEnum};
+20: #[cfg(not(target_family = "wasm"))]
+21: use fabelgeist_determinism::Seed;
+22: #[cfg(not(target_family = "wasm"))]
+23: use std::path::PathBuf;
+24: 
+25: #[cfg(not(target_family = "wasm"))]
+26: #[path = "building-lod-viewer/capture.rs"]
+27: mod capture;
+28: 
+29: #[cfg(not(target_family = "wasm"))]
+30: #[derive(Clone, Copy, Debug, Eq, PartialEq, ValueEnum)]
+31: enum LodChoice {
+32:     Facade,
+33:     Shell,
+34: }
+35: 
+36: #[cfg(not(target_family = "wasm"))]
+37: impl From<LodChoice> for BuildingLodLevel {
+38:     fn from(value: LodChoice) -> Self {
+39:         match value {
+40:             LodChoice::Facade => Self::Facade,
+41:             LodChoice::Shell => Self::Shell,
+42:         }
+43:     }
+44: }
+45: 
+46: #[cfg(not(target_family = "wasm"))]
+47: #[derive(Debug, Parser)]
+48: #[command(version, about = "Inspect joined procedural-building LOD meshes")]
+49: struct Args {
+50:     #[arg(long, value_enum, default_value_t = BuildingArchetype::FachwerkMerchantHouse)]
+51:     fixture: BuildingArchetype,
+52:     #[arg(long, value_enum, default_value_t = LodChoice::Facade)]
+53:     lod: LodChoice,
+54:     #[arg(long, default_value_t = fabelgeist_determinism::Seed::from_u64(42))]
+55:     seed: Seed,
+56:     /// Fresh directory for a deterministic moving Shell-LOD GPU capture.
+57:     #[arg(long)]
+58:     capture_output: Option<PathBuf>,
+59:     #[arg(long, default_value_t = 12)]
+60:     capture_settle_frames: u32,
+61: }
+62: 
+63: #[cfg(not(target_family = "wasm"))]
+64: fn main() -> Result<(), Box<dyn std::error::Error>> {
+65:     let args = Args::parse();
+66:     if args.capture_output.is_some() && args.lod != LodChoice::Shell {
+67:         eprintln!("--capture-output requires --lod shell");
+68:         std::process::exit(2);
+69:     }
+70:     let plan = generate(&BuildingProgram::fixture(args.fixture, args.seed))?;
+71:     let lod = compile_building_lod(&plan, args.lod.into())?;
+72:     let dimensions = plan.dimensions_metres();
+73:     let maximum_height = lod
+74:         .meshes
+75:         .iter()
+76:         .flat_map(|mesh| mesh.vertices.iter())
+77:         .map(|vertex| vertex.position.y)
+78:         .fold(1.0_f32, f32::max);
+79:     let title = format!("Fabelgeist building LOD: {:?} {:?}", args.fixture, args.lod);
+80:     let capture_output = args.capture_output.clone();
+81:     let capture_enabled = capture_output.is_some();
+82:     let mut app = App::new();
+83:     app.add_plugins((
+84:         DefaultPlugins.set(WindowPlugin {
+85:             primary_window: Some(Window {
+86:                 title,
+87:                 resolution: WindowResolution::new(1440, 900),
+88:                 present_mode: PresentMode::AutoNoVsync,
+89:                 ..default()
+90:             }),
+91:             ..default()
+92:         }),
+93:         PanOrbitCameraPlugin,
+94:     ))
+95:     .insert_resource(ClearColor(Color::srgb(0.72, 0.80, 0.86)))
+96:     .add_systems(Startup, move |world: &mut World| {
+97:         setup_lod_scene(world, &lod.meshes, dimensions, capture_enabled)
+98:     })
+99:     .add_systems(Update, capture::drive_shell_capture);
+100:     if let Some(output) = capture_output {
+101:         let config = capture::ShellCaptureConfig::new(
+102:             output,
+103:             args.capture_settle_frames,
+104:             args.fixture.slug().to_owned(),
+105:             args.seed,
+106:             dimensions,
+107:             maximum_height,
+108:         )
+109:         .unwrap_or_else(|error| {
+110:             eprintln!("failed to initialize Shell capture: {error}");
+111:             std::process::exit(2);
+112:         });
+113:         app.insert_resource(config);
+114:     }
+115:     let exit = app.run();
+116:     if exit != AppExit::Success {
+117:         std::process::exit(1);
+118:     }
+119:     Ok(())
+120: }
+121: 
+122: #[cfg(not(target_family = "wasm"))]
+123: fn setup_lod_scene(
+124:     world: &mut World,
+125:     batches: &[LodMesh],
+126:     dimensions: Vec2,
+127:     capture_enabled: bool,
+128: ) {
+129:     let textures = create_lod_textures(world);
+130:     let translation = Vec3::new(-dimensions.x * 0.5, 0.0, -dimensions.y * 0.5);
+131:     let mut maximum_height = 1.0_f32;
+132:     for batch in batches {
+133:         maximum_height = maximum_height.max(
+134:             batch
+135:                 .vertices
+136:                 .iter()
+137:                 .map(|vertex| vertex.position.y)
+138:                 .fold(0.0, f32::max),
+139:         );
+140:         let mesh = world.resource_mut::<Assets<Mesh>>().add(bevy_mesh(batch));
+141:         if capture_enabled && batch.material == BuildingLodMaterial::CrownMask {
+142:             capture::spawn_crown_diagnostic(
+143:                 world,
+144:                 mesh.clone(),
+145:                 textures.crown_mask.clone(),
+146:                 Transform::from_translation(translation),
+147:             );
+148:         }
+149:         let material = lod_material(world, batch.material, &textures);
+150:         world.spawn((
+151:             Name::new(format!("building LOD {:?}", batch.material)),
+152:             Mesh3d(mesh),
+153:             MeshMaterial3d(material),
+154:             Transform::from_translation(translation),
+155:         ));
+156:     }
+157: 
+158:     let ground_mesh = world
+159:         .resource_mut::<Assets<Mesh>>()
+160:         .add(Plane3d::default().mesh().size(100.0, 100.0));
+161:     let ground_material = world
+162:         .resource_mut::<Assets<StandardMaterial>>()
+163:         .add(StandardMaterial {
+164:             base_color: Color::srgb(0.25, 0.30, 0.21),
+165:             perceptual_roughness: 1.0,
+166:             ..default()
+167:         });
+168:     world.spawn((
+169:         Name::new("LOD viewer ground"),
+170:         Mesh3d(ground_mesh),
+171:         MeshMaterial3d(ground_material),
+172:     ));
+173: 
+174:     let focus = Vec3::new(0.0, maximum_height * 0.45, 0.0);
+175:     let radius = dimensions.length().max(maximum_height) * 1.15;
+176:     let camera_position = focus + Vec3::new(radius * 0.72, radius * 0.52, radius * 0.82);
+177:     let mut camera = world.spawn((
+178:         Camera3d::default(),
+179:         Transform::from_translation(camera_position).looking_at(focus, Vec3::Y),
+180:     ));
+181:     if capture_enabled {
+182:         camera.insert(capture::ShellCaptureCamera);
+183:     } else {
+184:         camera.insert(PanOrbitCamera {
+185:             focus,
+186:             radius: Some(camera_position.distance(focus)),
+187:             ..default()
+188:         });
+189:     }
+190:     world.spawn((
+191:         DirectionalLight {
+192:             illuminance: 18_000.0,
+193:             shadow_maps_enabled: true,
+194:             ..default()
+195:         },
+196:         Transform::from_rotation(Quat::from_euler(EulerRot::XYZ, -0.85, -0.65, 0.0)),
+197:     ));
+198:     world.spawn((
+199:         PointLight {
+200:             intensity: 500_000.0,
+201:             range: radius * 2.0,
+202:             shadow_maps_enabled: false,
+203:             ..default()
+204:         },
+205:         Transform::from_translation(camera_position.lerp(focus, 0.25)),
+206:     ));
+207: }
+208: 
+209: #[cfg(not(target_family = "wasm"))]
+210: fn bevy_mesh(batch: &LodMesh) -> Mesh {
+211:     let mut mesh = Mesh::new(
+212:         PrimitiveTopology::TriangleList,
+213:         RenderAssetUsages::RENDER_WORLD | RenderAssetUsages::MAIN_WORLD,
+214:     );
+215:     mesh.insert_attribute(
+216:         Mesh::ATTRIBUTE_POSITION,
+217:         batch
+218:             .vertices
+219:             .iter()
+220:             .map(|vertex| vertex.position.to_array())
+221:             .collect::<Vec<_>>(),
+222:     );
+223:     mesh.insert_attribute(
+224:         Mesh::ATTRIBUTE_NORMAL,
+225:         batch
+226:             .vertices
+227:             .iter()
+228:             .map(|vertex| vertex.normal.to_array())
+229:             .collect::<Vec<_>>(),
+230:     );
+231:     mesh.insert_attribute(
+232:         Mesh::ATTRIBUTE_UV_0,
+233:         batch
+234:             .vertices
+235:             .iter()
+236:             .map(|vertex| vertex.uv.to_array())
+237:             .collect::<Vec<_>>(),
+238:     );
+239:     mesh.insert_indices(Indices::U32(batch.indices.clone()));
+240:     mesh

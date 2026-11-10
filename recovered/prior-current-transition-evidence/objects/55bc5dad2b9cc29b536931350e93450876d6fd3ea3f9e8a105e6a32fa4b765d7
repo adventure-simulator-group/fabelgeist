@@ -1,0 +1,25 @@
+[package]
+name = "fabelgeist-mhr"
+version = "0.1.0"
+edition = "2024"
+repository = "https://github.com/adventure-simulator-group/fabelgeist"
+license = "AGPL-3.0"
+
+[dependencies]
+fabelgeist-rig = { path = "../fabelgeist-rig" }
+anyhow = "1"
+burn = { git = "https://github.com/tracel-ai/burn", rev = "b1502de8b396e7c575981d8df9fc84099619f458", default-features = false, features = [
+    "std",
+    "wgpu",
+] }
+fabelgeist-fbx = { path = "../fabelgeist-fbx" }
+fabelgeist-numpy-storage = { path = "../fabelgeist-numpy-storage" }
+fabelgeist-fs = { path = "../fabelgeist-fs" }
+
+[workspace]
+
+[patch.crates-io]
+pliron = { git = "https://github.com/pliron-org/pliron.git", rev = "2610651306ea3ba670f68d5d8b1e1159bcd521ed" }
+
+[lints.clippy]
+all = { level = "warn", priority = -1 }

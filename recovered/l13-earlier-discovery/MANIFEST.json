@@ -1,0 +1,774 @@
+{
+  "schema": "726-l13-earlier-discovery-v1",
+  "helper_sha256": "9b2cd6cb78b6635b567e3d0e7aeaa2f089eaa1e17571d0e45e500bf5379e5d9d",
+  "helper_write_ordinal": 55850,
+  "printed_result_ordinal": 55861,
+  "registration_sha256": "332b04804f99922023363e7a1d651a4902329912f3c8ddf06ecb03143abf6b68",
+  "qualification_sha256": "81905ad23477eacc20164243e6f49e0090f062019e649a77ee621447c16b1e3d",
+  "files": [
+    {
+      "file": "HELPER-WRITE-COMMAND.txt",
+      "sha256": "18efdbc2737d42c2856c13304d8bb69f0fbb36934db6af28fe2aaa44cd7ccfe5"
+    },
+    {
+      "file": "PRINTED-HELPER-RESULT.json",
+      "sha256": "4686e269ca62e15752f9c4203511db690471c4ce61a51d94fe2615981994a0f1"
+    },
+    {
+      "file": "PRINTED-DISCOVERY-RESULT.json",
+      "sha256": "a52a123a675defc523c59ed3e23c3f168418f3cd5922ea7e61d8fa7b4cce6b76"
+    },
+    {
+      "file": "DISCOVERY-DERIVATION.txt",
+      "sha256": "b14e1514acd8939a8c1e69c529469567968b0ea662f7e33d085deae2c8efc79a"
+    },
+    {
+      "file": "PRINTED-ROOT-REUSE-ROWS.json",
+      "sha256": "624e01325a198096f43772b6fa5fdbea805437d98ee5cd3233b9aaf03bdfddcf"
+    },
+    {
+      "file": "PRINTED-ROOT-OBSERVATIONS.json",
+      "sha256": "a1d0ab6f8db40b1172bf97448d54b37d76333a159a737e65cca437a30fd7d312"
+    },
+    {
+      "file": "PRINTED-ROOT-563-REGISTRATION.json",
+      "sha256": "f09707d89c4c9ee2791442e8fb238bbf630554fc801b7e627fbbbdbb44fab1d3"
+    },
+    {
+      "file": "ROOT-563-REGISTRATION-WRITER.txt",
+      "sha256": "dcfa2db6d789f29ba4d0df1af033479e65f78ea2cdd3c3e351372f1be4c2892e"
+    },
+    {
+      "file": "PRINTED-ROOT-563-ADOPTION.json",
+      "sha256": "442ad48106fd6aae60c96ce01dcdd2db5f1ffcf01b4e265cc89c67ab70423f4b"
+    },
+    {
+      "file": "ROOT-691-DISPLAY-COMMAND.txt",
+      "sha256": "f7a89cdabe8586642b937ce91dcbd149fc4671324f291559115cf7f1474f93f0"
+    }
+  ],
+  "qualification": "Exact historical later discovery, registration and helper match printed hashes. Source objects, 425 historical fresh lines, 15 inherited evidence objects and three root assessments are preserved. Root 691 adoption is now exact; root 563 adoption, later qualification and later authority remain unavailable. No new credit or historical program execution is inferred.",
+  "exact_discovery": {
+    "sha256": "e1fd1a9064206d80865201cadedde7917f7c3737a71236a07e1fa815a43e44a3",
+    "matched_timestamp": "2026-11-01T22:08:16.009025+00:00",
+    "source_registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "registry_rows": 30,
+    "recorded_result_ordinal": 55805,
+    "bounded_search_start_us": 1793570894835000,
+    "bounded_search_end_us": 1793570896134999,
+    "qualification": "Original discovery bytes match the printed hash; metadata navigation does not grant body credit or current authority."
+  },
+  "exact_registration": {
+    "sha256": "332b04804f99922023363e7a1d651a4902329912f3c8ddf06ecb03143abf6b68",
+    "matched_timestamp": "2026-11-01T22:09:59.908346+00:00",
+    "bounded_search_start_us": 1793570998028000,
+    "bounded_search_end_us": 1793571000027999,
+    "source_records": [
+      {
+        "original": 2823,
+        "sha256": "732565c70b576d74ef982a5902e2268a5bd2611b296b9319f242562dd26571be",
+        "bytes": 11937
+      },
+      {
+        "original": 2824,
+        "sha256": "1e132304f3127343f18a77a99b9d18205c3057788ce99700525a0d16e27a8768",
+        "bytes": 3174
+      },
+      {
+        "original": 2825,
+        "sha256": "cc83d5f3e3c415a12dc0ced11a5e9271a2b115d3ed5ac9703d1a8b8ae9728d22",
+        "bytes": 41257
+      },
+      {
+        "original": 2826,
+        "sha256": "663ef1d62d85a2b952a6be5d496949ae0b71d293110c14d6d7d123319559ee6b",
+        "bytes": 12999
+      },
+      {
+        "original": 2827,
+        "sha256": "b6f664a13608f6fe8013f3e3af8f98d3335e96daeef806a11040958b87297974",
+        "bytes": 3283
+      },
+      {
+        "original": 2828,
+        "sha256": "776ef3b34040bd18cba056db05a10463f6838cbaef84a75f4d669ffe3966683f",
+        "bytes": 298
+      },
+      {
+        "original": 2829,
+        "sha256": "710b7464b874f4a7d13e47772786ff780a13d4b4689a613d6f7fbc0efa2b5f28",
+        "bytes": 463
+      },
+      {
+        "original": 2830,
+        "sha256": "903776fd76d202ee0e8047523cff9ae9812cfa700bdfa466a68e066c19a69f0d",
+        "bytes": 193
+      },
+      {
+        "original": 2831,
+        "sha256": "938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+        "bytes": 2350
+      },
+      {
+        "original": 2832,
+        "sha256": "363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+        "bytes": 2192
+      },
+      {
+        "original": 2833,
+        "sha256": "e3eb46b050e02df31df84a6d18ded142d748383d0e9611c55bc720d086bbbfbe",
+        "bytes": 41726
+      },
+      {
+        "original": 2834,
+        "sha256": "c40ef50453ea8397ae1ea890892eb142f77ce9b6f8d58f5d8e2158afd75de2c4",
+        "bytes": 13637
+      },
+      {
+        "original": 2835,
+        "sha256": "d2ec402f714f075538152f588064e8025bd2436fac765d8168e09980f4fa911b",
+        "bytes": 12178
+      }
+    ],
+    "qualification": "Original registration bytes match printed hash; source blobs match the registered SHA-256. Historical registration is not current authority or new audit credit."
+  },
+  "inherited_evidence": {
+    "groups": [
+      {
+        "root": {
+          "path": "segovb/READ-L13-PARALLEL-228.json",
+          "sha256": "7f2580453b87d828b7b141dfb98ccf4d8e2e50ccab8290c7421cb3ab94579fe0"
+        },
+        "delegated_receipt": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-230.json",
+          "sha256": "5fd39347a2e8f91053b33149cc19e35b8dc7930510af7f7881993ed5692f1d77"
+        },
+        "delegated_verification": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-230.json",
+          "sha256": "12268aac6f87ddd8a8ee4bc5888ff6dcfa0c71fa7eec5bf34a88b39c1ec1fa4d"
+        },
+        "agent_validation_manifest": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-230-232.json",
+          "sha256": "3e8d3730a5dc871a92c714943abad40a15871e12f34648f05d5894f990eb4442"
+        },
+        "registration": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-230.json",
+          "sha256": "e50c9c4647220ef95069ae403c448f6d82d3a7f1a9d264f5d6d4fa55374d7b3b"
+        },
+        "partials": [],
+        "mappings": [
+          {
+            "original": 2828,
+            "receipt_row": 0,
+            "prior_original": 1058,
+            "material_lines": 15
+          },
+          {
+            "original": 2829,
+            "receipt_row": 2,
+            "prior_original": 1060,
+            "material_lines": 19
+          },
+          {
+            "original": 2830,
+            "receipt_row": 1,
+            "prior_original": 1059,
+            "material_lines": 6
+          }
+        ]
+      },
+      {
+        "root": {
+          "path": "segovb/READ-L13-PARALLEL-229.json",
+          "sha256": "c89e99122df6d00601d61ee15b73adeb876be960263b13def8d8a9dab8e57c44"
+        },
+        "delegated_receipt": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-231.json",
+          "sha256": "f8abfffb66918bc7060767f6676b8d2d8f5300842cca096838a74e2b6a2292d6"
+        },
+        "delegated_verification": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-231.json",
+          "sha256": "039d0fb343b866052704fb15ac486aae42b079ec4490d721f78b21a3c997b28b"
+        },
+        "agent_validation_manifest": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-230-232.json",
+          "sha256": "3e8d3730a5dc871a92c714943abad40a15871e12f34648f05d5894f990eb4442"
+        },
+        "registration": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-231.json",
+          "sha256": "5a05b8b9ca6c9afcfab02c33c35225a31ca0e21624ad15923c32d423501e1cea"
+        },
+        "partials": [
+          {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-231-PARTIAL-001.json",
+            "sha256": "0f8be43def9b3aeac07a028b3486d9d19187722f13683476b4299064a1362cc7"
+          },
+          {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-231-PARTIAL-002.json",
+            "sha256": "affbdb4e183c941f235d4213f9629664a9d0e3f769712d68496d3010e0dc6870"
+          }
+        ],
+        "mappings": [
+          {
+            "original": 2826,
+            "receipt_row": 1,
+            "prior_original": 1062,
+            "material_lines": 38
+          },
+          {
+            "original": 2833,
+            "receipt_row": 2,
+            "prior_original": 1063,
+            "material_lines": 944
+          },
+          {
+            "original": 2834,
+            "receipt_row": 0,
+            "prior_original": 1061,
+            "material_lines": 382
+          }
+        ]
+      },
+      {
+        "root": {
+          "path": "segovb/READ-L13-PARALLEL-230.json",
+          "sha256": "98efcb564e0c7437f1d38eacf2f21640c2c9685189e81d105213e809260d8ff7"
+        },
+        "delegated_receipt": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-232.json",
+          "sha256": "a52e3872749d121a31c5920ecb70c8c8040d1af0af8b0bb317d02118a49deafa"
+        },
+        "delegated_verification": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-232.json",
+          "sha256": "d97d654e054ac4cf122eed2beaee5eec4fce9e40e250b9b493ee3160b876b26d"
+        },
+        "agent_validation_manifest": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-230-232.json",
+          "sha256": "3e8d3730a5dc871a92c714943abad40a15871e12f34648f05d5894f990eb4442"
+        },
+        "registration": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-232.json",
+          "sha256": "cb2178e704b4c8960e6228055b2842027ad3d6a792f5b3381a23963804ca8385"
+        },
+        "partials": [],
+        "mappings": [
+          {
+            "original": 2835,
+            "receipt_row": 0,
+            "prior_original": 1064,
+            "material_lines": 358
+          }
+        ]
+      }
+    ],
+    "objects": [
+      {
+        "path": "segovb/READ-L13-PARALLEL-228.json",
+        "sha256": "7f2580453b87d828b7b141dfb98ccf4d8e2e50ccab8290c7421cb3ab94579fe0"
+      },
+      {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-230.json",
+        "sha256": "5fd39347a2e8f91053b33149cc19e35b8dc7930510af7f7881993ed5692f1d77"
+      },
+      {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-230.json",
+        "sha256": "12268aac6f87ddd8a8ee4bc5888ff6dcfa0c71fa7eec5bf34a88b39c1ec1fa4d"
+      },
+      {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-230-232.json",
+        "sha256": "3e8d3730a5dc871a92c714943abad40a15871e12f34648f05d5894f990eb4442"
+      },
+      {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-230.json",
+        "sha256": "e50c9c4647220ef95069ae403c448f6d82d3a7f1a9d264f5d6d4fa55374d7b3b"
+      },
+      {
+        "path": "segovb/READ-L13-PARALLEL-229.json",
+        "sha256": "c89e99122df6d00601d61ee15b73adeb876be960263b13def8d8a9dab8e57c44"
+      },
+      {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-231.json",
+        "sha256": "f8abfffb66918bc7060767f6676b8d2d8f5300842cca096838a74e2b6a2292d6"
+      },
+      {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-231.json",
+        "sha256": "039d0fb343b866052704fb15ac486aae42b079ec4490d721f78b21a3c997b28b"
+      },
+      {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-231.json",
+        "sha256": "5a05b8b9ca6c9afcfab02c33c35225a31ca0e21624ad15923c32d423501e1cea"
+      },
+      {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-231-PARTIAL-001.json",
+        "sha256": "0f8be43def9b3aeac07a028b3486d9d19187722f13683476b4299064a1362cc7"
+      },
+      {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-231-PARTIAL-002.json",
+        "sha256": "affbdb4e183c941f235d4213f9629664a9d0e3f769712d68496d3010e0dc6870"
+      },
+      {
+        "path": "segovb/READ-L13-PARALLEL-230.json",
+        "sha256": "98efcb564e0c7437f1d38eacf2f21640c2c9685189e81d105213e809260d8ff7"
+      },
+      {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-232.json",
+        "sha256": "a52e3872749d121a31c5920ecb70c8c8040d1af0af8b0bb317d02118a49deafa"
+      },
+      {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-232.json",
+        "sha256": "d97d654e054ac4cf122eed2beaee5eec4fce9e40e250b9b493ee3160b876b26d"
+      },
+      {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-232.json",
+        "sha256": "cb2178e704b4c8960e6228055b2842027ad3d6a792f5b3381a23963804ca8385"
+      }
+    ],
+    "delegated_roles": 7,
+    "delegated_material_lines": 1762,
+    "root_rows_printed": 3,
+    "root_rows_complete": 2,
+    "qualification": "Original delegated receipts, validations, registrations and partials are preserved and linked. Root rows are separate historical printed projections; no new credit, final authority or complete qualification is inferred.",
+    "root_assessment_projections_complete": 3
+  },
+  "fresh_source_displays": {
+    "fragments": [
+      {
+        "ordinal": 55866,
+        "file": "display-fragments/55866.txt",
+        "sha256": "44026663bd9983a49347971a02ee09410d896962f629a363a59da0994c6cccb8",
+        "line_occurrences": 306
+      },
+      {
+        "ordinal": 55867,
+        "file": "display-fragments/55867.txt",
+        "sha256": "51f4e0f3f5d58e54e18e147b705bda2d83b0ae370d99d61ff659ad423d1e330c",
+        "line_occurrences": 119
+      }
+    ],
+    "originals": [
+      2823,
+      2825,
+      2827
+    ],
+    "historical_fresh_line_occurrences": 425,
+    "qualification": "Two recorded untruncated source displays match the three registered fresh source scopes. These are historical read evidence and grant no new credit, final authority or runtime validation."
+  },
+  "root_563_registration": {
+    "sha256": "a4b577c907d340efb88f72340d5e1d4ec907bb54e13927871ba04dee00cfe7db",
+    "matched_timestamp": "2026-10-31T21:00:59.948099+00:00",
+    "printed_result_ordinal": 29951,
+    "writer_print_ordinal": 30128,
+    "bounded_search_start_us": 1793480458853000,
+    "bounded_search_end_us": 1793480460052999,
+    "source_records": [
+      {
+        "original": 2058,
+        "sha256": "9b544bf84edcca32609b26242d2794c3800a45618c40cef1aa5f4d6965225b88",
+        "bytes": 14020
+      },
+      {
+        "original": 2059,
+        "sha256": "1e132304f3127343f18a77a99b9d18205c3057788ce99700525a0d16e27a8768",
+        "bytes": 3174
+      },
+      {
+        "original": 2060,
+        "sha256": "a61ef59cb4da06988229325123ef72662197b3c568ea9822b2d27ee6cb1d7616",
+        "bytes": 6727
+      }
+    ],
+    "qualification": "Exact original registration matches printed hash; source bytes are preserved. Adoption receipt remains missing and this historical evidence grants no new credit.",
+    "adoption_reference_ordinal": 30245,
+    "historical_source_displays": {
+      "fragments": [
+        {
+          "ordinal": 29960,
+          "original": 2059,
+          "sha256": "6415dafddb3776ba9d3fb6f74abbe6d7afe1f5d5fb243e684de1d75ca572580d",
+          "first_line": 1,
+          "last_line": 89
+        },
+        {
+          "ordinal": 29961,
+          "original": 2060,
+          "sha256": "822f782a590541fed28f45b6b4a4385c4454787dd468d710671a8c7421b9cf76",
+          "first_line": 1,
+          "last_line": 110
+        },
+        {
+          "ordinal": 29962,
+          "original": 2058,
+          "sha256": "b74fc077fa7d24c569c06e38e01207e7a2cd059e8c379792450aee5b81395b81",
+          "first_line": 1,
+          "last_line": 110
+        },
+        {
+          "ordinal": 29971,
+          "original": 2060,
+          "sha256": "482d8ef0d06606418440af544f503ddfba1ae80e75e267065738949cfdac5bc8",
+          "first_line": 111,
+          "last_line": 167
+        },
+        {
+          "ordinal": 29972,
+          "original": 2058,
+          "sha256": "365cebc8a1bf309df641eb397fe7d862dd4ea013e4b0efbf457694a0a9dbafdd",
+          "first_line": 111,
+          "last_line": 220
+        },
+        {
+          "ordinal": 29977,
+          "original": 2058,
+          "sha256": "f0e9e04ce2b6414c33210ffb6f635b3ed2b2fbae168a2b973c50519f6e65e729",
+          "first_line": 221,
+          "last_line": 330
+        },
+        {
+          "ordinal": 29978,
+          "original": 2058,
+          "sha256": "58282b86fa95900be2fde293f04e7304eb34dd8064aaa4b3727fc1141dda5dfe",
+          "first_line": 331,
+          "last_line": 427
+        }
+      ],
+      "fresh_historical_lines": 683,
+      "roles": 3,
+      "qualification": "Seven recorded untruncated source displays match the three original registration objects. This is historical personal read evidence; the root adoption receipt remains unavailable and no new credit or current authority follows."
+    }
+  },
+  "root_691_fresh_display": {
+    "source_output_ordinal": 50176,
+    "sha256": "e37f9c07f164b58f3b1036825a7bbe686c6097ff5932ad3c0b4366ecaff53803",
+    "qualification_sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72",
+    "registration_sha256": "d6a4d2ba55cf53e493451cf9c88c7a707589f624f61b40b2ea755667e787f365",
+    "source_records": [
+      {
+        "original": 2592,
+        "source_id": "physical-p16:crates/adventuresim-core/src/equipment_assets.rs",
+        "sha256": "87080367349c3f2a7ea23430359df7cdcd25aecdfc5da77bf4c39859c2619ab6",
+        "bytes": 3786,
+        "ranges": [
+          [
+            1,
+            106
+          ]
+        ]
+      },
+      {
+        "original": 2595,
+        "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/sigil.rs",
+        "sha256": "938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+        "bytes": 2350,
+        "ranges": [
+          [
+            1,
+            83
+          ]
+        ]
+      },
+      {
+        "original": 2596,
+        "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/witness_path.rs",
+        "sha256": "363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+        "bytes": 2192,
+        "ranges": [
+          [
+            1,
+            75
+          ]
+        ]
+      }
+    ],
+    "historical_lines": 264,
+    "qualification": "Recorded display and exact original qualification, registration and adoption match pinned sources. No new audit credit, current authority or runtime result follows."
+  },
+  "root_691_reuse_display": {
+    "source_output_ordinal": 50176,
+    "file": "ROOT-691-REUSE-DISPLAY.txt",
+    "sha256": "473d264924ab2d6f58c77bf13efc7b2189a74dfd7572cac019e6041e85eff0b8",
+    "qualification_sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72",
+    "originals": [
+      2593,
+      2594,
+      2597,
+      2598,
+      2599
+    ],
+    "unique_receipts": 4,
+    "printed_root_observation_sets": 1,
+    "printed_delegated_inventory_sets": 3,
+    "printed_delegated_contract_sets": 3,
+    "qualification": "Extracted complete reuse sections from the historical display following a qualification hash assertion. The last two rows share a receipt, so the command printed its inventory and contracts only once. This does not reconstruct the qualification or adoption receipt or establish current audit credit."
+  },
+  "root_691_discovery_navigation": {
+    "output_ordinal": 50109,
+    "command_file": "ROOT-691-DISCOVERY-COMMAND.txt",
+    "command_sha256": "5006ff029a3e9f44a8ac101d63dcb52053fbf86b72840e930fb18c9a737c64f5",
+    "printed_result_file": "ROOT-691-PRINTED-DISCOVERY.json",
+    "printed_result_sha256": "5bc69f74c8fb5152c649c0a3c98949c2c024a2e8859c2f83ba8b27ca888c6d06",
+    "original_discovery_sha256": "be50051d71b8da783bd7066602acfbf8678b2c8f7d380f6895e32fc844602c32",
+    "exact_prior_hit_rows": 10,
+    "unique_prior_receipts": 7,
+    "additional_receipt_hash_observations": [
+      {
+        "receipt": 609,
+        "sha256": "f8dd1634243250df411cf80ba36ec5b16783bb02472ed13e4c9fa62717d55b43",
+        "output_ordinal": 48158
+      },
+      {
+        "receipt": 689,
+        "sha256": "081d4f71ce5caa54b245b59d58c9001cb8ea9ba26fc93eafd1ce17afbf151ec5",
+        "output_ordinal": 53733
+      },
+      {
+        "receipt": 690,
+        "sha256": "95345d138b46cd5859270b7e951b05db704834dce4f187113287e1de3ba511a7",
+        "output_ordinal": 54519
+      }
+    ],
+    "candidate_search": "One candidate used the previously printed ledger hash 363bfd27042cd9700b85719d7751ca2b26fed01e3847e0bab4d2f73655351d63, seven observed receipt hashes, four base-ledger future proofs and zero base-ledger matching applications. Seven million explicitly fractional timestamps from 17:05:39 through 17:05:45 UTC did not match. These inputs and timestamp format are assumptions, not proof that the original is unrecoverable.",
+    "qualification": "Exact original discovery reconstructed using the previously missing original-2248 ordered application and matched to its printed hash. Navigation only: no new audit credit or authority.",
+    "original_recovered": true,
+    "matched_timestamp": "2026-11-01T17:05:45.244249+00:00"
+  },
+  "root_691_prior_source_metadata": {
+    "output_ordinal": 50130,
+    "metadata_file": "ROOT-691-PRIOR-SOURCE-METADATA.json",
+    "metadata_sha256": "95828dc6587d39a00ace01dcc38878940c1a8607356b095dcf5606228127a4b9",
+    "command_file": "ROOT-691-PRIOR-SOURCE-COMMAND.txt",
+    "command_sha256": "688de96178305d11434caa80f66be71a737c76e4545e35111d0bdd6599ad79a8",
+    "printed_receipts": [
+      109,
+      188,
+      371
+    ],
+    "receipt_objects": [
+      {
+        "receipt": 109,
+        "sha256": "e0871ab6712bbfffc3442b90c3e4e1af80e5759b8a018758d8c566eabcc7f83a",
+        "bytes": 18196,
+        "file": "prior-receipts/e0871ab6712bbfffc3442b90c3e4e1af80e5759b8a018758d8c566eabcc7f83a"
+      },
+      {
+        "receipt": 188,
+        "sha256": "46c07471cbe565050b808c9037babfe4a3c82bc3b30b02f499ec086f16c4fbc1",
+        "bytes": 39467,
+        "file": "prior-receipts/46c07471cbe565050b808c9037babfe4a3c82bc3b30b02f499ec086f16c4fbc1"
+      }
+    ],
+    "qualification": "Three source metadata rows and references were printed historically. Rows 109 and 188 match exact restored base receipts, and row 371 matches the independently recovered root receipt. The historical display command did not hash-assert receipt files."
+  },
+  "root_691_qualification_helpers": {
+    "intermediate": {
+      "file": "8ec5f1d203dc577ba44669354a313c6f921ef02cd7f463213c9afabbb084f776",
+      "sha256": "8ec5f1d203dc577ba44669354a313c6f921ef02cd7f463213c9afabbb084f776",
+      "bytes": 11076
+    },
+    "final": {
+      "file": "6385d471d045c7d00ebeaa037d4f677d2400c23fad1540e8ff2b5ec378f69833",
+      "sha256": "6385d471d045c7d00ebeaa037d4f677d2400c23fad1540e8ff2b5ec378f69833",
+      "bytes": 11699
+    },
+    "intermediate_printed_hash_ordinal": 49777,
+    "final_printed_hash_ordinal": 50167,
+    "base_candidate_filechange_ordinal": 49747,
+    "intermediate_transform_ordinal": 49776,
+    "final_transform_writer_filechange_ordinal": 50159,
+    "qualification": "Exact historical helper bytes reconstructed through static string substitutions and independently matched to both printed original hashes. They are inert evidence. No historical helper was run.",
+    "printed_result_file": "ROOT-691-PRINTED-REGISTRATION-RESULT.json",
+    "printed_result_sha256": "276f6ad13681f80dc5de73c7571faca82975411c9f71e0cdbf5ffc3f4f91b266"
+  },
+  "root_691_registered_source_objects": {
+    "sources": [
+      {
+        "original": 2592,
+        "source_id": "physical-p16:crates/adventuresim-core/src/equipment_assets.rs",
+        "sha256": "87080367349c3f2a7ea23430359df7cdcd25aecdfc5da77bf4c39859c2619ab6",
+        "bytes": 3786,
+        "actual_eof": 106,
+        "material_ranges": [
+          [
+            1,
+            106
+          ]
+        ],
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/87080367349c3f2a7ea23430359df7cdcd25aecdfc5da77bf4c39859c2619ab6",
+        "file": "root-691-sources/87080367349c3f2a7ea23430359df7cdcd25aecdfc5da77bf4c39859c2619ab6"
+      },
+      {
+        "original": 2593,
+        "source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment/runtime_equipment.rs",
+        "sha256": "6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c",
+        "bytes": 4328,
+        "actual_eof": 143,
+        "material_ranges": [
+          [
+            1,
+            143
+          ]
+        ],
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c",
+        "file": "root-691-sources/6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c"
+      },
+      {
+        "original": 2594,
+        "source_id": "physical-p16:crates/fabelgeist-determinism/src/lib.rs",
+        "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+        "bytes": 1971,
+        "actual_eof": 58,
+        "material_ranges": [
+          [
+            1,
+            35
+          ]
+        ],
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+        "file": "root-691-sources/85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb"
+      },
+      {
+        "original": 2595,
+        "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/sigil.rs",
+        "sha256": "938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+        "bytes": 2350,
+        "actual_eof": 83,
+        "material_ranges": [
+          [
+            1,
+            83
+          ]
+        ],
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "transport_git_path": "crates/adventuresim-puzzles/src/choices/sigil.rs",
+        "file": "root-691-sources/938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5"
+      },
+      {
+        "original": 2596,
+        "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/witness_path.rs",
+        "sha256": "363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+        "bytes": 2192,
+        "actual_eof": 75,
+        "material_ranges": [
+          [
+            1,
+            75
+          ]
+        ],
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "transport_git_path": "crates/adventuresim-puzzles/src/choices/witness_path.rs",
+        "file": "root-691-sources/363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f"
+      },
+      {
+        "original": 2597,
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/selection.rs",
+        "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+        "bytes": 8724,
+        "actual_eof": 271,
+        "material_ranges": [
+          [
+            1,
+            225
+          ]
+        ],
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "transport_git_path": "crates/adventuresim-character-creator/src/garment/selection.rs",
+        "file": "root-691-sources/887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7"
+      },
+      {
+        "original": 2598,
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer.rs",
+        "sha256": "9726131d4d0508a8b77b56bd2723a18c1f5e45d0be3e468ccc797d39a12a1f2a",
+        "bytes": 4418,
+        "actual_eof": 137,
+        "material_ranges": [
+          [
+            1,
+            137
+          ]
+        ],
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "transport_git_path": "crates/adventuresim-character-creator/src/underlayer.rs",
+        "file": "root-691-sources/9726131d4d0508a8b77b56bd2723a18c1f5e45d0be3e468ccc797d39a12a1f2a"
+      },
+      {
+        "original": 2599,
+        "source_id": "pr-working:crates/fabelgeist-armor/src/trunk_hose.rs",
+        "sha256": "ead698d9816a1f7549be4753d738ff8ab43d6f4eaf18f528b6b994d1248b48d9",
+        "bytes": 1896,
+        "actual_eof": 56,
+        "material_ranges": [
+          [
+            1,
+            56
+          ]
+        ],
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "transport_git_path": "crates/fabelgeist-armor/src/trunk_hose.rs",
+        "file": "root-691-sources/ead698d9816a1f7549be4753d738ff8ab43d6f4eaf18f528b6b994d1248b48d9"
+      }
+    ],
+    "newly_packaged_objects": 5,
+    "qualification": "Eight exact source objects match the original registration, registry hashes, byte counts, line counts and frozen Git revisions. No new credit follows.",
+    "additional_prior_receipt": {
+      "receipt": 126,
+      "sha256": "3f5f759ae773741ba26754e95f6283ebfad5243b1f2be16f3ef72afc4cf158a1",
+      "bytes": 29180,
+      "file": "prior-receipts/3f5f759ae773741ba26754e95f6283ebfad5243b1f2be16f3ef72afc4cf158a1",
+      "connected_rows": [
+        2,
+        3
+      ],
+      "originals": [
+        2598,
+        2599
+      ],
+      "qualification": "Exact base receipt matches the printed reuse reference for both roles; its evidence source rows match the preserved source hashes. Original raw receipt schema qualification remains separately required."
+    }
+  },
+  "root_691_registration_writer_candidate": {
+    "file": "ROOT-691-REGISTRATION-WRITER-CANDIDATE.txt",
+    "sha256": "0dcf8e9ae1137520fa286395320ec490bcb706c6724692716a86d99332254b20",
+    "base_filechange_ordinal": 49747,
+    "transformation_ordinals": [
+      49776,
+      49948,
+      50167
+    ],
+    "qualification": "The original registration now matches its printed hash after reconstructing the prior 2248 application. The separately reconstructed writer remains a candidate without an independently known writer hash; do not execute it.",
+    "registration_hash_search": "One registration candidate used the source fields and range handling of the exact helper, the ten printed prior hits with observed receipt hashes, four matching base-ledger future proofs, and zero matching base-ledger ordered applications. Ten million explicitly fractional timestamps over 17:09:58 through 17:10:07 UTC did not match d6a4d2ba55cf53e493451cf9c88c7a707589f624f61b40b2ea755667e787f365. Ledger content and candidate writer remain assumptions; this is not proof of irrecoverability.",
+    "registration_original_recovered": true,
+    "registration_sha256": "d6a4d2ba55cf53e493451cf9c88c7a707589f624f61b40b2ea755667e787f365",
+    "matched_timestamp": "2026-11-01T17:10:07.789011+00:00"
+  },
+  "root_691_qualification": {
+    "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72",
+    "matched_timestamp": "2026-11-01T17:10:07.789971+00:00",
+    "printed_result_ordinal": 50167,
+    "root_verification_sha256": "5fcda9d490d86adf55e6389072204c1624978dc612ab77a2509609ecbdebeb1e",
+    "entry_count": 8,
+    "fresh_lines": 264,
+    "reused_material_lines": 596,
+    "qualification": "Exact original qualification, packet, plan and root 691 adoption receipt match printed hashes. Root 371 native verification matches a hash embedded in this qualification. No new credit or current authority follows."
+  },
+  "root_691_packet": {
+    "sha256": "6a8f37bc31cb70242165619c102ddb19e4f65875123533679ffe6f9f51ef60e1",
+    "plan_sha256": "9a098d171f0de2f41b6e0839d5923393f440f0ed10489bb3f6f546d6249675e5",
+    "packet_writer_candidate_sha256": "e52527cca33cf159b41b87899808751d7e75c7b5cc95ce6c1cfdaf16398e2715",
+    "matched_timestamp": "2026-11-01T17:16:54.035323+00:00",
+    "printed_result_ordinal": 50234,
+    "source_roles": 8,
+    "prior_reuses": 5,
+    "queue_views": 7,
+    "new_questions": 1,
+    "qualification": "Exact packet, plan, adoption receipt and successor state match hashes; the state hash is independently embedded in the exact next plan. Historical source assessments are preserved, but current authority is not recovered and no new credit follows.",
+    "adoption_receipt_sha256": "80960e5eb8281018a4087dbe007a17c451974e7cc7021ef4963e54688b6e37e9",
+    "adoption_receipt_recovered": true,
+    "adoption_timestamp": "2026-11-01T17:17:28.211988+00:00",
+    "state_sha256": "e4cc900a56beda840c4e65c6057b6416a42ee178e65f8f23a84d23f0d2ae0b63",
+    "state_recovered": true,
+    "successor_plan_sha256": "ef600e41824c786289f6b184e3d6d90dd11371d3c7bb51777e243f56b4bbdbaa",
+    "successor_plan_recovered": true
+  }
+}

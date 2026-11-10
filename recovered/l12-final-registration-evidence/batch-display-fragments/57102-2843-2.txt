@@ -1,0 +1,12 @@
+1: //! The drape a mail coif hangs by: the fit words the device measures on the
+2: //! wearer, and a typed form of them for callers that author one.
+3: 
+4: use super::close_helmet::FIT_PROFILE_WORD;
+5: use super::recipe::own_frame_words;
+6: 
+7: /// Horizontal body sections each flap's drape is measured at.
+8: pub const COIF_DRAPE_SECTIONS: usize = 5;
+9: 
+10: /// Floats of a coif drape in a fit buffer: the neck boundary's seven, then
+11: /// each flap's sections as height, centre and edge depth, front flap first.
+12: pub const COIF_DRAPE_WORDS: usize = 7 + 2 * 3 * COIF_DRAPE_SECTIONS;

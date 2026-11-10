@@ -1,0 +1,15 @@
+from pathlib import Path
+import json,hashlib,sys
+sys.stdout.reconfigure(encoding='utf-8');w=Path('target/726-audit-continuation-20261030');a=w/'target/726-audit-adler-20261027/adler-continuation-20261030';qp=a/'QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json';assert hashlib.sha256(qp.read_bytes()).hexdigest()=='86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72';q=json.loads(qp.read_bytes());seen=set()
+for e in q['entries']:
+ src=e['source']
+ if e['mode']=='fresh':
+  b=(w/src['object_path']).read_bytes();assert hashlib.sha256(b).hexdigest()==src['sha256'];ls=b.decode('utf-8').splitlines();print('FRESH',src['original'],src['source_id'],'SCOPE',src['prospective_ranges'])
+  for lo,hi in src['prospective_ranges']:
+   for n in range(lo,hi+1):print(f'{n:04d} {ls[n-1]}')
+ else:
+  pr=e['prior'];key=pr['prior_adoption']['sha256'];print('REUSE',src['original'],pr['prior_adoption'],pr['prior_row_pointer'])
+  if key in seen:continue
+  seen.add(key)
+  if e['mode']=='root-reuse':print('OBS',json.dumps(pr['prior_source_row']['observations'],indent=2))
+  else:print('INVENTORY',json.dumps(pr['prior_numeric_inventory'],indent=2));print('CONTRACTS',json.dumps(pr['inherited_connected_contracts'],indent=2))

@@ -1,0 +1,217 @@
+SOURCE crates/adventuresim-tactical-client/src/tactical_scene_viewer/manifest.rs
+215:     pub(super) source_input: String,
+216:     pub(super) scene_digest: String,
+217:     pub(super) seed: Seed,
+218:     pub(super) absolute_minute: u64,
+219:     pub(super) canopy_bps: u16,
+220:     pub(super) generation_version: u16,
+221:     pub(super) scene_source: SceneSource,
+222:     pub(super) capture_profile: String,
+223:     pub(super) capture_profile_version: u16,
+224:     pub(super) camera_version: u16,
+225:     pub(super) requested_views: Vec<String>,
+226:     pub(super) settle_frames: u32,
+227:     pub(super) resolution: [u32; 2],
+228:     pub(super) review_azimuth_degrees: f32,
+229:     pub(super) capture_clock_strategy: &'static str,
+230:     pub(super) capture_clock_phase_seconds: f32,
+231:     pub(super) renderer: &'static str,
+232:     pub(super) executable_version: &'static str,
+233:     pub(super) revision: String,
+234:     pub(super) source_identity: String,
+235:     pub(super) celestial: CelestialProvenance,
+236:     pub(super) presentation_features: PresentationFeatures,
+237:     pub(super) weather: WeatherSnapshot,
+238:     pub(super) repairs: RepairSummary,
+239:     pub(super) terrain: TerrainSummary,
+240:     pub(super) obstacles: ObstacleSummary,
+241:     pub(super) foliage: FoliageSummary,
+242:     pub(super) tree_impostor_bakes: Vec<TreeBakeSummary>,
+243:     pub(super) recursive_tree_lod: RecursiveTreeLodSummary,
+244:     pub(super) vista: VistaSummary,
+245:     pub(super) weather_particle_count: usize,
+246:     pub(super) captures: Vec<CaptureRecord>,
+247:     pub(super) validation: ValidationSummary,
+248: }
+249: 
+250: pub(super) struct PendingSceneCaptureManifest {
+251:     manifest: SceneCaptureManifest,
+252: }
+253: 
+254: impl PendingSceneCaptureManifest {
+255:     pub(super) fn new(manifest: SceneCaptureManifest) -> Self {
+256:         Self { manifest }
+257:     }
+258: 
+259:     pub(super) fn finalize_after_screenshot(
+260:         mut self,
+261:         captures: &[CaptureRecord],
+262:         views: &[CaptureViewSpec],
+263:     ) -> (SceneCaptureManifest, bool) {
+264:         self.manifest.captures.clone_from_slice(captures);
+265:         finalize_screenshot_validation(
+266:             &self.manifest.fixture,
+267:             &self.manifest.capture_profile,
+268:             &self.manifest.requested_views,
+269:             &mut self.manifest.validation,
+270:             &self.manifest.captures,
+271:             views,
+272:         );
+273:         let valid = self.manifest.validation.passed;
+274:         (self.manifest, valid)
+275:     }
+276: }
+277: 
+278: fn finalize_screenshot_validation(
+279:     fixture: &str,
+280:     capture_profile: &str,
+281:     requested_views: &[String],
+282:     validation: &mut ValidationSummary,
+283:     captures: &[CaptureRecord],
+284:     views: &[CaptureViewSpec],
+285: ) {
+286:     validation.all_views_render_content = captures.iter().all(|capture| {
+287:         views
+288:             .iter()
+289:             .find(|view| view.slug == capture.view)
+290:             .is_some_and(|view| capture.foreground_pixel_bps >= view.minimum_foreground_bps)
+291:     });
+292:     let requested_motion = requested_views
+293:         .iter()
+294:         .filter(|view| view.starts_with("understory-blackthorn-motion-"))
+295:         .map(String::as_str)
+296:         .collect::<Vec<_>>();
+297:     validation.understory_motion_sequence_complete = requested_motion.is_empty()
+298:         || requested_motion
+299:             == [
+300:                 "understory-blackthorn-motion-01",
+301:                 "understory-blackthorn-motion-02",
+302:                 "understory-blackthorn-motion-03",
+303:             ];
+304:     let expected_beech_motion = (1..=16)
+305:         .map(|frame| format!("beech-leaf-motion-{frame:02}"))
+306:         .collect::<Vec<_>>();
+307:     validation.beech_leaf_motion_sequence_complete = capture_profile != "beech-leaf-motion"
+308:         || fixture == "dense-woodland"
+309:             && requested_views == expected_beech_motion
+310:             && captures.len() == expected_beech_motion.len()
+311:             && captures.iter().all(|capture| {
+312:                 capture.temporal_motion_frame
+313:                     && capture.focused_tree_species == Some(TreePresentationSpecies::CommonBeech)
+314:             });
+315:     validation.settled_readback_pairs_identical = requested_views.iter().all(|requested| {
+316:         let requires_pair = views
+317:             .iter()
+318:             .find(|view| view.slug == requested)
+319:             .is_some_and(|view| view.verify_settled_readbacks);
+320:         !requires_pair
+321:             || captures
+322:                 .iter()
+323:                 .find(|capture| capture.view == *requested)
+324:                 .is_some_and(|capture| capture.settled_readbacks_identical == Some(true))
+325:     });
+326:     validation.camera_obstruction_resolved = requested_views.iter().all(|requested| {
+327:         let Some(view) = views.iter().find(|view| view.slug == requested) else {
+328:             return false;
+329:         };
+330:         if !matches!(
+331:             view.pose,
+332:             super::view_specs::CapturePose::AnimationPlayObstruction { .. }
+333:         ) {
+334:             return true;
+335:         }
+336:         captures
+337:             .iter()
+338:             .find(|capture| capture.view == *requested)
+339:             .is_some_and(|capture| {
+340:                 capture.camera_obstruction_hit == Some(true)
+341:                     && capture
+342:                         .camera_boom_desired_metres
+343:                         .is_some_and(|desired| desired > 0.0)
+344:                     && capture
+345:                         .camera_boom_resolved_metres
+346:                         .zip(capture.camera_boom_desired_metres)
+347:                         .is_some_and(|(resolved, desired)| resolved + 0.05 < desired)
+348:             })
+349:     });
+350:     let boundary_views = requested_views
+351:         .iter()
+352:         .filter(|view| view.starts_with("animation-play-boundary-"))
+353:         .count();
+354:     validation.vista_tree_near_field_bounded = capture_profile != "animation-play"
+355:         || boundary_views == 8
+356:             && captures
+357:                 .iter()
+358:                 .filter(|capture| capture.view.starts_with("animation-play-boundary-"))
+359:                 .count()
+360:                 == 8
+361:             && captures
+362:                 .iter()
+363:                 .filter(|capture| capture.view.starts_with("animation-play-boundary-"))
+364:                 .all(|capture| {
+365:                     capture
+366:                         .largest_visible_vista_tree_angular_height_degrees
+367:                         .is_some_and(|degrees| degrees <= 16.1)
+368:                         && capture.largest_visible_vista_tree_has_collider == Some(false)
+369:                 });
+370:     let complete_tree_traversal = TREE_COLD_TRAVERSAL_VIEWS
+371:         .iter()
+372:         .filter(|view| !view.warmup)
+373:         .all(|view| {
+374:             requested_views
+375:                 .iter()
+376:                 .any(|requested| requested == view.slug)
+377:         });
+378:     validation.tree_cold_traversal_canopy_continuous = capture_profile != "tree-cold-traversal"
+379:         || complete_tree_traversal
+380:             && requested_views.len() == TREE_COLD_TRAVERSAL_VIEWS.len() - 1
+381:             && requested_views
+382:                 .iter()
+383:                 .filter_map(|view| view.strip_prefix("tree-cold-first-"))
+384:                 .all(|suffix| {
+385:                     let cold = captures
+386:                         .iter()
+387:                         .find(|capture| capture.view == format!("tree-cold-first-{suffix}"));
+388:                     let warm = captures
+389:                         .iter()
+390:                         .find(|capture| capture.view == format!("tree-warm-second-{suffix}"));
+391:                     cold.zip(warm).is_some_and(|(cold, warm)| {
+392:                         // The 90 m crown is only five basis points after the
+393:                         // leaf-card A2C conversion. Keep that observed crown
+394:                         // as the absolute floor while the paired 80% rule
+395:                         // remains the temporal-disappearance gate.
+396:                         cold.canopy_pixel_bps >= 5
+397:                             && warm.canopy_pixel_bps >= 5
+398:                             && u32::from(cold.canopy_pixel_bps) * 5
+399:                                 >= u32::from(warm.canopy_pixel_bps) * 4
+400:                     })
+401:                 })
+402:             && requested_views
+403:                 .iter()
+404:                 .filter(|view| view.starts_with("tree-cold-first-"))
+405:                 .count()
+406:                 == 16;
+407:     if requested_views
+408:         .iter()
+409:         .any(|view| view == "forest-floor-debris-detail")
+410:     {
+411:         validation.requested_detail_targets_available &= captures
+412:             .iter()
+413:             .find(|capture| capture.view == "forest-floor-debris-detail")
+414:             .is_some_and(|capture| capture.detail_pixel_bps >= 60);
+415:     }
+416:     validation.foliage_detail_present = capture_profile != "semantic"
+417:         || fixture != "flat-dry-grassland"
+418:         || captures
+419:             .iter()
+420:             .find(|capture| capture.view == "beauty-overhead")
+421:             .is_some_and(|capture| capture.detail_pixel_bps >= 100);
+422:     if fixture == "narrow-peak-lod-boundary" {
+423:         validation.fixture_feature_expectation_met &= captures
+424:             .iter()
+425:             .find(|capture| capture.view == "horizon")
+426:             .is_some_and(|capture| capture.foreground_pixel_bps >= 200);
+427:     }
+428:     validation.passed = validation_passes(validation);
+429: }
+430: 

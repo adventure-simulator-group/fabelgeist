@@ -1,0 +1,256 @@
+SOURCE crates/adventuresim-building-generator/src/viewer/church_suite.rs 60b05cef490bbaf2181e26c818423380c3f027c453cf734bb900e422b2e3e97e
+1: 
+2: const CHURCH_PROOF_SLUGS: [&str; 30] = [
+3:     "church-whole-west",
+4:     "church-whole-east",
+5:     "church-whole-north",
+6:     "church-whole-south",
+7:     "church-whole-top",
+8:     "church-whole-longitudinal-cut",
+9:     "church-whole-transverse-cut",
+10:     "church-whole-regression",
+11:     "church-bay-exterior",
+12:     "church-bay-interior",
+13:     "church-bay-section",
+14:     "church-bay-load",
+15:     "church-bay-vault",
+16:     "church-crossing-interior",
+17:     "church-crossing-exterior",
+18:     "church-crossing-top",
+19:     "church-crossing-cut-load",
+20:     "church-choir-east",
+21:     "church-choir-interior",
+22:     "church-choir-top",
+23:     "church-choir-radial-section",
+24:     "church-tower-portal",
+25:     "church-tower-junction",
+26:     "church-tower-stair",
+27:     "church-tower-bell-underside",
+28:     "church-tower-frame",
+29:     "church-tower-louvred-exterior",
+30:     "church-tower-roof-drain",
+31:     "church-drainage",
+32:     "church-support-dag",
+33: ];
+34: 
+35: #[derive(Clone, Debug, Deserialize)]
+36: struct ChurchSuiteManifest {
+37:     fixture: String,
+38:     view: String,
+39:     seed: Seed,
+40:     resolver_schema_version: u16,
+41:     source_revision: String,
+42:     source_dirty_fingerprint: String,
+43:     plan_hash: String,
+44:     resolved_geometry_hash: String,
+45:     church_program_hash: String,
+46:     church_bay_labels: Vec<String>,
+47:     church_support_node_ids: Vec<u64>,
+48:     church_opening_ids: Vec<u64>,
+49:     church_focused_roles: Vec<String>,
+50:     church_target_component_ids: Vec<String>,
+51:     church_target_item_ids: Vec<u64>,
+52:     church_required_roles: Vec<String>,
+53:     church_cut_plane: Option<[f32; 4]>,
+54:     church_removed_target_item_ids: Vec<u64>,
+55:     church_legend_visible: bool,
+56:     focused_bounds_fraction: [f32; 4],
+57:     pixel_hash: String,
+58:     focused_resolved_item_ids: Vec<u64>,
+59:     section_removed_item_ids: Vec<u64>,
+60:     visible_focused_resolved_item_count: usize,
+61:     section_cut_applied: bool,
+62:     section_annotation_visible: bool,
+63:     plan_audit_issue_count: usize,
+64:     validation_passed: bool,
+65: }
+66: 
+67: pub(crate) fn validate_church_suite(directory: &std::path::Path) -> Result<(), String> {
+68:     let actual_count = fs::read_dir(directory)
+69:         .map_err(|error| format!("read {}: {error}", directory.display()))?
+70:         .filter_map(Result::ok)
+71:         .filter(|entry| {
+72:             entry
+73:                 .file_name()
+74:                 .to_string_lossy()
+75:                 .ends_with(".capture.json")
+76:         })
+77:         .count();
+78:     if actual_count != CHURCH_PROOF_SLUGS.len() {
+79:         return Err(format!(
+80:             "expected exactly {} church manifests, found {actual_count}",
+81:             CHURCH_PROOF_SLUGS.len()
+82:         ));
+83:     }
+84:     let mut records = Vec::new();
+85:     for slug in CHURCH_PROOF_SLUGS {
+86:         let path = directory.join(format!("{slug}.capture.json"));
+87:         let manifest: ChurchSuiteManifest = serde_json::from_slice(
+88:             &fs::read(&path).map_err(|error| format!("read {}: {error}", path.display()))?,
+89:         )
+90:         .map_err(|error| format!("parse {}: {error}", path.display()))?;
+91:         records.push((slug, manifest));
+92:     }
+93:     validate_church_suite_records(&records)
+94: }
+95: 
+96: fn validate_church_suite_records(records: &[(&str, ChurchSuiteManifest)]) -> Result<(), String> {
+97:     if records.len() != CHURCH_PROOF_SLUGS.len() {
+98:         return Err(format!(
+99:             "expected 30 church proofs, found {}",
+100:             records.len()
+101:         ));
+102:     }
+103:     let first = &records[0].1;
+104:     let mut pixel_hashes = std::collections::HashMap::<&str, &str>::new();
+105:     for ((expected, manifest), slug) in records.iter().zip(CHURCH_PROOF_SLUGS) {
+106:         if *expected != slug
+107:             || manifest.fixture != "cathedral"
+108:             || manifest.view != slug
+109:             || manifest.seed != fabelgeist_determinism::Seed::from_u64(47)
+110:             || manifest.resolver_schema_version != 2
+111:             || !manifest.validation_passed
+112:             || manifest.plan_audit_issue_count != 0
+113:         {
+114:             return Err(format!(
+115:                 "church proof {slug} violates its fixed fixture contract"
+116:             ));
+117:         }
+118:         if manifest.source_revision != first.source_revision
+119:             || manifest.source_dirty_fingerprint != first.source_dirty_fingerprint
+120:             || manifest.plan_hash != first.plan_hash
+121:             || manifest.resolved_geometry_hash != first.resolved_geometry_hash
+122:             || manifest.church_program_hash != first.church_program_hash
+123:         {
+124:             return Err(format!(
+125:                 "church proof {slug} comes from mixed or stale authority"
+126:             ));
+127:         }
+128:         if manifest.church_bay_labels.len() != 8
+129:             || manifest.church_support_node_ids.is_empty()
+130:             || manifest.church_opening_ids.len() < 30
+131:             || manifest.focused_resolved_item_ids.is_empty()
+132:             || manifest.visible_focused_resolved_item_count == 0
+133:         {
+134:             return Err(format!(
+135:                 "church proof {slug} lacks exact bay/support/opening focus IDs"
+136:             ));
+137:         }
+138:         if manifest.church_target_component_ids.len() != 1
+139:             || manifest.church_target_item_ids != manifest.focused_resolved_item_ids
+140:             || manifest.church_target_item_ids.is_empty()
+141:             || !manifest
+142:                 .church_removed_target_item_ids
+143:                 .iter()
+144:                 .all(|id| manifest.church_target_item_ids.contains(id))
+145:             || manifest.church_removed_target_item_ids
+146:                 != manifest
+147:                     .section_removed_item_ids
+148:                     .iter()
+149:                     .filter(|id| manifest.church_target_item_ids.contains(id))
+150:                     .copied()
+151:                     .collect::<Vec<_>>()
+152:             || !manifest.church_legend_visible
+153:         {
+154:             return Err(format!(
+155:                 "church proof {slug} is not bound to its exact target/cut authority"
+156:             ));
+157:         }
+158:         if manifest.pixel_hash.is_empty() {
+159:             return Err(format!("church proof {slug} lacks a captured pixel hash"));
+160:         }
+161:         if let Some(previous) = pixel_hashes.insert(&manifest.pixel_hash, slug) {
+162:             return Err(format!(
+163:                 "church proofs {previous} and {slug} are pixel-identical instead of proving distinct contracts"
+164:             ));
+165:         }
+166:         let has_role = |role: &str| {
+167:             manifest
+168:                 .church_focused_roles
+169:                 .iter()
+170:                 .any(|item| item == role)
+171:         };
+172:         let kind_roles_valid = match slug {
+173:             "church-bay-section" => has_role("ChurchPier") && has_role("ChurchArcade"),
+174:             "church-bay-load" | "church-support-dag" => {
+175:                 has_role("ChurchVaultThrust") && has_role("WallButtress")
+176:             }
+177:             "church-bay-vault" => has_role("ChurchVaultShell"),
+178:             "church-tower-stair" => has_role("ChurchStairTread") && has_role("Landing"),
+179:             "church-tower-bell-underside" => has_role("ChurchBell"),
+180:             "church-tower-frame" => has_role("ChurchBellFrame") && has_role("ChurchServiceLadder"),
+181:             "church-tower-roof-drain" | "church-drainage" => {
+182:                 has_role("RoofGutter") || has_role("RoofEdgeTreatment")
+183:             }
+184:             _ => true,
+185:         };
+186:         if !kind_roles_valid
+187:             || manifest
+188:                 .church_required_roles
+189:                 .iter()
+190:                 .any(|role| !has_role(role))
+191:         {
+192:             return Err(format!(
+193:                 "church proof {slug} lacks its kind-specific resolved roles"
+194:             ));
+195:         }
+196:         let expects_section = slug.contains("cut")
+197:             || slug.ends_with("-interior")
+198:             || slug.ends_with("-section")
+199:             || slug.ends_with("-load")
+200:             || slug.ends_with("-vault")
+201:             || matches!(
+202:                 slug,
+203:                 "church-tower-junction"
+204:                     | "church-tower-stair"
+205:                     | "church-tower-bell-underside"
+206:                     | "church-tower-frame"
+207:                     | "church-support-dag"
+208:             );
+209:         if expects_section
+210:             && (!manifest.section_cut_applied
+211:                 || !manifest.section_annotation_visible
+212:                 || manifest.church_cut_plane.is_none())
+213:         {
+214:             return Err(format!(
+215:                 "church proof {slug} lacks its genuine cut/authority annotation"
+216:             ));
+217:         }
+218:         if !expects_section && (manifest.section_cut_applied || manifest.church_cut_plane.is_some())
+219:         {
+220:             return Err(format!(
+221:                 "church proof {slug} applies a section cut outside its proof contract"
+222:             ));
+223:         }
+224:         let target = &manifest.church_target_component_ids[0];
+225:         let suffix_valid = if slug.starts_with("church-bay-") {
+226:             target.ends_with("/nave-bay:2")
+227:         } else if slug.starts_with("church-crossing-") {
+228:             target.ends_with("/crossing")
+229:         } else if slug.starts_with("church-choir-") {
+230:             target.ends_with("/choir-apse")
+231:         } else if slug.starts_with("church-tower-") {
+232:             target.ends_with("/west-tower")
+233:         } else if slug == "church-drainage" {
+234:             target.ends_with("/roof-drainage")
+235:         } else if slug == "church-support-dag" {
+236:             target.ends_with("/nave-bay:2/load-path")
+237:         } else {
+238:             target.ends_with("/whole")
+239:         };
+240:         let bounds = manifest.focused_bounds_fraction;
+241:         let target_area = (bounds[2] - bounds[0]).max(0.0) * (bounds[3] - bounds[1]).max(0.0);
+242:         if !suffix_valid
+243:             || bounds[0] < 0.0
+244:             || bounds[1] < 0.0
+245:             || bounds[2] > 1.0
+246:             || bounds[3] > 1.0
+247:             || target_area < 0.025
+248:         {
+249:             return Err(format!(
+250:                 "church proof {slug} is off-target or projects too little target area"
+251:             ));
+252:         }
+253:     }
+254:     Ok(())
+255: }

@@ -1,0 +1,321 @@
+SOURCE 0 crates/adventuresim-building-generator/src/viewer/crown_suite.rs 39a691fcb7bcda828002dd565a0ebc7b170b86c1231fc527bb78a40a667d2e09
+1: #[derive(Clone, Debug, Deserialize)]
+2: struct CrownSuiteManifest {
+3:     fixture: String,
+4:     view: String,
+5:     resolver_schema_version: u16,
+6:     resolved_geometry_hash: String,
+7:     source_revision: String,
+8:     source_dirty_fingerprint: String,
+9:     plan_hash: String,
+10:     validation_passed: bool,
+11: }
+12: 
+13: const CROWN_PROOF_SUITE: [(&str, &str, &str); 9] = [
+14:     (
+15:         "crown-straight-exterior",
+16:         "courtyard-castle",
+17:         "crown-straight-exterior",
+18:     ),
+19:     (
+20:         "crown-straight-interior",
+21:         "courtyard-castle",
+22:         "crown-straight-interior",
+23:     ),
+24:     (
+25:         "crown-corner-exterior",
+26:         "walled-keep",
+27:         "crown-corner-exterior",
+28:     ),
+29:     (
+30:         "crown-corner-interior",
+31:         "walled-keep",
+32:         "crown-corner-interior",
+33:     ),
+34:     (
+35:         "crown-gate-tower-exterior",
+36:         "walled-keep",
+37:         "crown-tower-exterior",
+38:     ),
+39:     ("crown-gate-tower-top", "walled-keep", "crown-tower-top"),
+40:     (
+41:         "crown-gate-tower-cutaway",
+42:         "walled-keep",
+43:         "crown-tower-cutaway",
+44:     ),
+45:     ("crown-courtyard-regression", "courtyard-castle", "exterior"),
+46:     ("crown-walled-keep-regression", "walled-keep", "exterior"),
+47: ];
+48: 
+49: fn validate_crown_suite_records(records: &[(&str, CrownSuiteManifest)]) -> Result<(), String> {
+50:     if records.len() != CROWN_PROOF_SUITE.len() {
+51:         return Err(format!(
+52:             "expected {} crown proof manifests, found {}",
+53:             CROWN_PROOF_SUITE.len(),
+54:             records.len()
+55:         ));
+56:     }
+57:     let first = &records[0].1;
+58:     let mut fixtures = std::collections::HashMap::<&str, (&str, &str)>::new();
+59:     for ((actual_name, manifest), (expected_name, expected_fixture, expected_view)) in
+60:         records.iter().zip(CROWN_PROOF_SUITE)
+61:     {
+62:         if *actual_name != expected_name
+63:             || manifest.fixture != expected_fixture
+64:             || manifest.view != expected_view
+65:         {
+66:             return Err(format!(
+67:                 "proof {actual_name} does not match expected {expected_name}/{expected_fixture}/{expected_view}"
+68:             ));
+69:         }
+70:         if !manifest.validation_passed || manifest.resolver_schema_version != 2 {
+71:             return Err(format!(
+72:                 "proof {actual_name} is invalid or not resolver schema 2"
+73:             ));
+74:         }
+75:         if manifest.source_revision != first.source_revision
+76:             || manifest.source_dirty_fingerprint != first.source_dirty_fingerprint
+77:         {
+78:             return Err(format!(
+79:                 "proof {actual_name} comes from a mixed source build"
+80:             ));
+81:         }
+82:         if let Some((plan_hash, resolved_hash)) = fixtures.get(expected_fixture) {
+83:             if *plan_hash != manifest.plan_hash || *resolved_hash != manifest.resolved_geometry_hash
+84:             {
+85:                 return Err(format!(
+86:                     "proof {actual_name} disagrees with its fixture plan/resolved hash"
+87:                 ));
+88:             }
+89:         } else {
+90:             fixtures.insert(
+91:                 expected_fixture,
+92:                 (&manifest.plan_hash, &manifest.resolved_geometry_hash),
+93:             );
+94:         }
+95:     }
+96:     Ok(())
+97: }
+98: 
+99: pub(crate) fn validate_crown_suite(directory: &std::path::Path) -> Result<(), String> {
+100:     let mut owned = Vec::with_capacity(CROWN_PROOF_SUITE.len());
+101:     for (basename, _, _) in CROWN_PROOF_SUITE {
+102:         let path = directory.join(format!("{basename}.capture.json"));
+103:         let bytes = fs::read(&path).map_err(|error| format!("read {}: {error}", path.display()))?;
+104:         let manifest = serde_json::from_slice::<CrownSuiteManifest>(&bytes)
+105:             .map_err(|error| format!("parse {}: {error}", path.display()))?;
+106:         owned.push((basename, manifest));
+107:     }
+108:     validate_crown_suite_records(&owned)
+109: }
+SOURCE 3 crates/adventuresim-building-generator/src/viewer/roof_suite.rs ddf09a4be1b8e80fa17930b39c25b03a0685b7a87f316323fd3f825eae620a08
+1: #[derive(Clone, Debug, Deserialize)]
+2: struct RoofSuiteManifest {
+3:     fixture: String,
+4:     view: String,
+5:     resolver_schema_version: u16,
+6:     source_revision: String,
+7:     source_dirty_fingerprint: String,
+8:     plan_hash: String,
+9:     roof_graph_hash: String,
+10:     roof_render_item_count: usize,
+11:     roof_render_multiset_hash: String,
+12:     rendered_roof_item_count: usize,
+13:     rendered_roof_hash: String,
+14:     focused_roof_item_ids: Vec<u64>,
+15:     visible_focused_roof_item_count: usize,
+16:     section_removed_roof_item_ids: Vec<u64>,
+17:     section_annotation_visible: bool,
+18:     roof_drainage_network_ids: Vec<u64>,
+19:     roof_drainage_channel_ids: Vec<u64>,
+20:     roof_drainage_outlet_ids: Vec<u64>,
+21:     roof_drainage_route_ids: Vec<u64>,
+22:     focused_resolved_void_ids: Vec<u64>,
+23:     validation_passed: bool,
+24: }
+25: 
+26: const ROOF_PROOF_SLUGS: [&str; 50] = [
+27:     "roof-gable-exterior",
+28:     "roof-gable-interior",
+29:     "roof-gable-top",
+30:     "roof-gable-cutaway",
+31:     "roof-gable-drainage",
+32:     "roof-gable-low-pitch",
+33:     "roof-gable-mid-pitch",
+34:     "roof-gable-high-pitch",
+35:     "roof-hip-halfhip-exterior",
+36:     "roof-hip-halfhip-top",
+37:     "roof-hip-halfhip-underside",
+38:     "roof-l-valley-exterior",
+39:     "roof-l-valley-top",
+40:     "roof-l-valley-underside",
+41:     "roof-l-valley-drainage",
+42:     "roof-courtyard-valleys-top",
+43:     "roof-dormer-gabled-exterior",
+44:     "roof-dormer-gabled-interior",
+45:     "roof-dormer-gabled-top",
+46:     "roof-dormer-gabled-cutaway",
+47:     "roof-dormer-gabled-drainage",
+48:     "roof-dormer-shed-exterior",
+49:     "roof-dormer-shed-interior",
+50:     "roof-dormer-shed-top",
+51:     "roof-dormer-shed-cutaway",
+52:     "roof-dormer-shed-drainage",
+53:     "roof-cross-gable-exterior",
+54:     "roof-cross-gable-top",
+55:     "roof-cross-gable-underside",
+56:     "roof-cross-gable-drainage",
+57:     "roof-abutment-wall-exterior",
+58:     "roof-abutment-wall-top",
+59:     "roof-abutment-wall-cutaway",
+60:     "roof-abutment-wall-drainage",
+61:     "roof-abutment-tower-exterior",
+62:     "roof-abutment-tower-top",
+63:     "roof-abutment-tower-cutaway",
+64:     "roof-abutment-tower-drainage",
+65:     "roof-round-tower-exterior",
+66:     "roof-round-tower-top",
+67:     "roof-round-tower-cutaway",
+68:     "roof-round-tower-drainage",
+69:     "roof-pavilion-exterior",
+70:     "roof-pavilion-top",
+71:     "roof-pavilion-cutaway",
+72:     "roof-pavilion-drainage",
+73:     "roof-cathedral-exterior",
+74:     "roof-cathedral-top",
+75:     "roof-cathedral-cutaway",
+76:     "roof-cathedral-drainage",
+77: ];
+78: 
+79: const ROOF_REGRESSION_FIXTURES: [&str; 9] = [
+80:     "town-house",
+81:     "hall-house",
+82:     "fachwerk-cottage",
+83:     "fachwerk-merchant-house",
+84:     "renaissance-town-hall",
+85:     "cathedral",
+86:     "castle-gatehouse",
+87:     "courtyard-castle",
+88:     "walled-keep",
+89: ];
+90: 
+91: pub(crate) fn validate_roof_suite(directory: &std::path::Path) -> Result<(), String> {
+92:     let mut expected = ROOF_PROOF_SLUGS
+93:         .iter()
+94:         .map(|slug| (*slug, *slug))
+95:         .collect::<Vec<_>>();
+96:     let regression_names = ROOF_REGRESSION_FIXTURES
+97:         .iter()
+98:         .map(|fixture| (format!("roof-{fixture}-regression"), "exterior".to_owned()))
+99:         .collect::<Vec<_>>();
+100:     let actual_count = fs::read_dir(directory)
+101:         .map_err(|error| format!("read {}: {error}", directory.display()))?
+102:         .filter_map(Result::ok)
+103:         .filter(|entry| {
+104:             entry
+105:                 .file_name()
+106:                 .to_string_lossy()
+107:                 .ends_with(".capture.json")
+108:         })
+109:         .count();
+110:     if actual_count != expected.len() + regression_names.len() {
+111:         return Err(format!(
+112:             "expected exactly 59 roof manifests, found {actual_count}"
+113:         ));
+114:     }
+115:     let mut records = Vec::new();
+116:     for (basename, view) in expected.drain(..) {
+117:         let path = directory.join(format!("{basename}.capture.json"));
+118:         let manifest: RoofSuiteManifest = serde_json::from_slice(
+119:             &fs::read(&path).map_err(|error| format!("read {}: {error}", path.display()))?,
+120:         )
+121:         .map_err(|error| format!("parse {}: {error}", path.display()))?;
+122:         records.push((basename.to_owned(), view.to_owned(), true, manifest));
+123:     }
+124:     for (basename, view) in regression_names {
+125:         let path = directory.join(format!("{basename}.capture.json"));
+126:         let manifest: RoofSuiteManifest = serde_json::from_slice(
+127:             &fs::read(&path).map_err(|error| format!("read {}: {error}", path.display()))?,
+128:         )
+129:         .map_err(|error| format!("parse {}: {error}", path.display()))?;
+130:         records.push((basename, view, false, manifest));
+131:     }
+132:     validate_roof_suite_records(&records)
+133: }
+134: 
+135: fn validate_roof_suite_records(
+136:     records: &[(String, String, bool, RoofSuiteManifest)],
+137: ) -> Result<(), String> {
+138:     if records.len() != 59 {
+139:         return Err(format!("expected 59 roof records, found {}", records.len()));
+140:     }
+141:     let first = &records[0].3;
+142:     let mut fixture_hashes = std::collections::HashMap::new();
+143:     let mut pitch_state_hashes = std::collections::HashSet::new();
+144:     for (basename, expected_view, focused, manifest) in records {
+145:         if manifest.view != *expected_view || !manifest.validation_passed {
+146:             return Err(format!("{basename} has invalid view or failed capture QA"));
+147:         }
+148:         if manifest.resolver_schema_version != first.resolver_schema_version
+149:             || manifest.source_revision != first.source_revision
+150:             || manifest.source_dirty_fingerprint != first.source_dirty_fingerprint
+151:         {
+152:             return Err(format!("{basename} comes from a mixed source build"));
+153:         }
+154:         if manifest.roof_render_item_count != manifest.rendered_roof_item_count
+155:             || manifest.roof_render_multiset_hash != manifest.rendered_roof_hash
+156:         {
+157:             return Err(format!("{basename} has roof renderer correspondence drift"));
+158:         }
+159:         if *focused
+160:             && (manifest.focused_roof_item_ids.is_empty()
+161:                 || manifest.visible_focused_roof_item_count
+162:                     + manifest.section_removed_roof_item_ids.len()
+163:                     != manifest.focused_roof_item_ids.len()
+164:                 || !manifest.section_annotation_visible)
+165:         {
+166:             return Err(format!(
+167:                 "{basename} lacks exact visible focused roof authority"
+168:             ));
+169:         }
+170:         if manifest.roof_graph_hash.is_empty() {
+171:             return Err(format!("{basename} lacks roof graph hash"));
+172:         }
+173:         if basename.ends_with("-drainage")
+174:             && (manifest.roof_drainage_network_ids.is_empty()
+175:                 || manifest.roof_drainage_channel_ids.is_empty()
+176:                 || manifest.roof_drainage_outlet_ids.is_empty()
+177:                 || manifest.roof_drainage_route_ids.is_empty()
+178:                 || manifest.focused_resolved_void_ids.is_empty())
+179:         {
+180:             return Err(format!(
+181:                 "{basename} lacks exact focused face-channel-outlet drainage authority"
+182:             ));
+183:         }
+184:         let pitch_state = basename.contains("-low-pitch")
+185:             || basename.contains("-mid-pitch")
+186:             || basename.contains("-high-pitch");
+187:         let demonstrator_state = pitch_state || basename.contains("roof-round-tower-");
+188:         if pitch_state {
+189:             pitch_state_hashes.insert(manifest.roof_graph_hash.clone());
+190:         }
+191:         if demonstrator_state {
+192:             continue;
+193:         } else if let Some((plan_hash, roof_hash)) = fixture_hashes.get(&manifest.fixture) {
+194:             if plan_hash != &manifest.plan_hash || roof_hash != &manifest.roof_graph_hash {
+195:                 return Err(format!(
+196:                     "{basename} has fixture-inconsistent plan/roof hash"
+197:                 ));
+198:             }
+199:         } else {
+200:             fixture_hashes.insert(
+201:                 manifest.fixture.clone(),
+202:                 (manifest.plan_hash.clone(), manifest.roof_graph_hash.clone()),
+203:             );
+204:         }
+205:     }
+206:     if pitch_state_hashes.len() != 3 {
+207:         return Err("low/mid/high pitch handles did not produce three roof graphs".to_owned());
+208:     }
+209:     Ok(())
+210: }

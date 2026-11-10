@@ -1,0 +1,1899 @@
+{
+  "lens": 13,
+  "kind": "Root full-source assessment adoption",
+  "at": "2026-11-01T17:17:28.211988+00:00",
+  "packet": {
+    "path": "adler-continuation-20261030/READ-ROOT-L13-2592-2599-001.json",
+    "sha256": "6a8f37bc31cb70242165619c102ddb19e4f65875123533679ffe6f9f51ef60e1"
+  },
+  "evidence": {
+    "schema": "726-root-l13-source-packet-v1",
+    "at": "2026-11-01T17:16:54.035323+00:00",
+    "author": "/root",
+    "lens": 13,
+    "original_before": 2592,
+    "original_after": 2600,
+    "registered_before_read_attestation": true,
+    "ordered": [
+      {
+        "source": {
+          "original": 2592,
+          "source_id": "physical-p16:crates/adventuresim-core/src/equipment_assets.rs",
+          "sha256": "87080367349c3f2a7ea23430359df7cdcd25aecdfc5da77bf4c39859c2619ab6",
+          "actual_eof": 106,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/87080367349c3f2a7ea23430359df7cdcd25aecdfc5da77bf4c39859c2619ab6",
+          "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/87080367349c3f2a7ea23430359df7cdcd25aecdfc5da77bf4c39859c2619ab6",
+          "prospective_ranges": [
+            [
+              1,
+              106
+            ]
+          ],
+          "revision_qualification": "P16 archivef82adc transport only, semantic P16 product/caller/native/current unresolved. Directprworking identities are frozenGit6533, not current main. Original delegated/root body attribution retained.",
+          "purpose": "Eight equipment/determinism/puzzle/garment admission roles860 material, three fresh264 and five reused596. Assets rawrequest107 qualified actual106; no nonexistent/other-lens/current/unique/review/runtime credit."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2592-2599-001.json",
+          "sha256": "d6a4d2ba55cf53e493451cf9c88c7a707589f624f61b40b2ea755667e787f365"
+        },
+        "registration_pointer": "/sources/0",
+        "assessed_ranges": [
+          [
+            1,
+            106
+          ]
+        ],
+        "untruncated_body_outputs": true,
+        "author": "/root",
+        "observations": [
+          {
+            "ranges": [
+              [
+                1,
+                106
+              ]
+            ],
+            "assessment": "Fresh exact P16 equipment_assets full106 personally read untruncated, original two raw1..107 requests preserved with explicit effective1..106/excluded107/zero nonexistent credit. Public Serde manifest carries assets,lod,MHR release,schema and asset metadata; EquipmentAssets privately retains canonical static ItemDefinition/EquipmentPlacement references plus file. from_json decodes then resolves item membership and matching placement, rejects duplicate resolved pointer pair, builds local entries and sorts by item/placement IDs before publishing Self. file_for requires samecanonical pointer identity and optional exact placement, None chooses first sorted matching entry. Metadata coverage/LOD/schema/release/morph/triangles are decoded but not retained/checked by these lookup bodies; actual producer/render/file schema contract/policy needed, no failure from discarded metadata alone. Three first-party unknownitem/unknownplacement/duplicate predicates50..76 become serde_json::Error::custom prose. Actual loader/native JSON error and final diagnostic boundary needed to decide structured owned reason versus terminal text; new open question, not accepted unique finding/runtime incident. File strings are native asset names until actual consumer/producer contract, no filename vulnerability or semantic enum assumption."
+          }
+        ],
+        "read_kind": "qualified_root2592_2599_material_scope",
+        "root_personal_source_lines": 106,
+        "whole_file_coverage": true,
+        "unread_ranges": []
+      },
+      {
+        "source": {
+          "original": 2593,
+          "source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment/runtime_equipment.rs",
+          "sha256": "6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c",
+          "actual_eof": 143,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c",
+          "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c",
+          "prospective_ranges": [
+            [
+              1,
+              143
+            ]
+          ],
+          "revision_qualification": "P16 archivef82adc transport only, semantic P16 product/caller/native/current unresolved. Directprworking identities are frozenGit6533, not current main. Original delegated/root body attribution retained.",
+          "purpose": "Eight equipment/determinism/puzzle/garment admission roles860 material, three fresh264 and five reused596. Assets rawrequest107 qualified actual106; no nonexistent/other-lens/current/unique/review/runtime credit."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2592-2599-001.json",
+          "sha256": "d6a4d2ba55cf53e493451cf9c88c7a707589f624f61b40b2ea755667e787f365"
+        },
+        "registration_pointer": "/sources/1",
+        "assessed_ranges": [
+          [
+            1,
+            143
+          ]
+        ],
+        "untruncated_body_outputs": true,
+        "author": "/root",
+        "observations": [
+          {
+            "ranges": [
+              [
+                1,
+                143
+              ]
+            ],
+            "assessment": "Prior root ROOT371 original1482 full143 reused exact P16runtime143 with original root attribution andzero reread. Actual earlier assessment: runtime presentation stores item/placement raw strings/entity, filters supported runtime item ID and defaults missing topology to worn; canonical selection admission happens in later fit generation. Global body cache keeps optionalcanonical body/designs, stickyfailed bool, perfit Result<CachedEquipment,String>, shape bodies, one pending task/LRU; canonical preparation waits for required assets, logs owned anyhow error then loses retained cause to sticky bool. No requested-base revision key once loaded in this scope. Existing61/2482failure-readiness/identity questions persist; actual P16later fit/asset references/body revision/async readiness/render/native-current must connect before global admission or alias closure. Native centre/socketString retain actual frame/namespace questions, no generic input clone failure."
+          }
+        ],
+        "read_kind": "qualified_admission_2592_2599_reuse",
+        "reuse": {
+          "kind": "exact_admission_2592_2599_material",
+          "original": 2593,
+          "adoption": {
+            "path": "segovb/READ-L13-PARALLEL-371.json",
+            "sha256": "ba32f276addc7064922a2f7c2c56766c453f1d109fb6e26d6c92d850554e7553"
+          },
+          "qualification": {
+            "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+            "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+          }
+        },
+        "authoritative_future_proof": {
+          "qualification": {
+            "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+            "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+          },
+          "prior_original": 1482,
+          "prior_row_pointer": "/ordered/5",
+          "prior_source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment.rs",
+          "source_sha256": "6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c",
+          "actual_EOF": 143,
+          "assessed_ranges": [
+            [
+              1,
+              143
+            ]
+          ],
+          "historical_author": "/root",
+          "new_body_credit": 0
+        },
+        "root_personal_source_lines": 0,
+        "repeat_body_credit": 0,
+        "historical_prior_preserved": {
+          "prior_adoption": {
+            "path": "segovb/READ-L13-PARALLEL-371.json",
+            "sha256": "ba32f276addc7064922a2f7c2c56766c453f1d109fb6e26d6c92d850554e7553"
+          },
+          "prior_packet": {
+            "path": "adler-continuation-20261030/READ-ROOT-L13-1477-1485-001.json",
+            "sha256": "cf67f3c1eb1990f6cb14be75c5b59006ba1ad6014cf5c8eb7ba53cc20187ca2c"
+          },
+          "prior_plan": {
+            "path": "adler-continuation-20261030/PLAN-ROOT-L13-1477-1485-001.json",
+            "sha256": "b8e829f1a920026d1d9f46a3d927fcc63610be95cc51cde26e885e797bb9f36c"
+          },
+          "prior_native_verification": {
+            "path": "segovb/VERIFY-L13-PARALLEL-371.json",
+            "sha256": "5fcda9d490d86adf55e6389072204c1624978dc612ab77a2509609ecbdebeb1e"
+          },
+          "prior_state": {
+            "path": "segovb/STATE-L13-PARALLEL-371.json",
+            "sha256": "6820171553ccce322eea61a1b2a52c201c7b290650fdf78f6f3abed080825034"
+          },
+          "prior_registration": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1477-1485-001.json",
+            "sha256": "b528062675b11c2e94b9a5dbe81a34234992791199bf6c759e759a05c192fe09"
+          },
+          "prior_row_pointer": "/ordered/5",
+          "prior_registration_pointer": "/sources/5",
+          "prior_source_row": {
+            "source": {
+              "original": 1482,
+              "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment.rs",
+              "sha256": "6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c",
+              "actual_eof": 143,
+              "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c",
+              "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+              "prospective_ranges": [
+                [
+                  1,
+                  143
+                ]
+              ],
+              "purpose": "Full Lens13 equipment attachment, preview, render binding/readiness and runtime body/fit generation evidence. Source inspection only."
+            },
+            "registration": {
+              "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1477-1485-001.json",
+              "sha256": "b528062675b11c2e94b9a5dbe81a34234992791199bf6c759e759a05c192fe09"
+            },
+            "registration_pointer": "/sources/5",
+            "assessed_ranges": [
+              [
+                1,
+                143
+              ]
+            ],
+            "author": "/root",
+            "untruncated_body_outputs": true,
+            "observations": [
+              {
+                "ranges": [
+                  [
+                    1,
+                    53
+                  ]
+                ],
+                "assessment": "Runtime presentation stores raw item/placement strings and entity. Global body cache separates optional canonical body/designs, failed bool, shape bodies, per-fit Result<CachedEquipment,String>, one pending task and LRU clock. is_preparing explicitly reports async work so capture budgets may exclude wait; actual consumer still connected."
+              },
+              {
+                "ranges": [
+                  [
+                    55,
+                    143
+                  ]
+                ],
+                "assessment": "Canonical preparation waits for base/dependent assets; body/design errors log owned anyhow context then collapse to sticky global failed bool. No requested-base revision key here once body loaded. presentation filters supported runtime item ID then copies item/placement, defaults absent topology to worn. Cached geometry retains native center and String socket map. Canonical selection admission occurs in later fit generation, so raw ingress alone is not blanket unchecked catalogue use."
+              }
+            ]
+          },
+          "historical_attribution": "/root"
+        }
+      },
+      {
+        "source": {
+          "original": 2594,
+          "source_id": "physical-p16:crates/fabelgeist-determinism/src/lib.rs",
+          "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+          "actual_eof": 58,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+          "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+          "prospective_ranges": [
+            [
+              1,
+              35
+            ]
+          ],
+          "revision_qualification": "P16 archivef82adc transport only, semantic P16 product/caller/native/current unresolved. Directprworking identities are frozenGit6533, not current main. Original delegated/root body attribution retained.",
+          "purpose": "Eight equipment/determinism/puzzle/garment admission roles860 material, three fresh264 and five reused596. Assets rawrequest107 qualified actual106; no nonexistent/other-lens/current/unique/review/runtime credit."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2592-2599-001.json",
+          "sha256": "d6a4d2ba55cf53e493451cf9c88c7a707589f624f61b40b2ea755667e787f365"
+        },
+        "registration_pointer": "/sources/2",
+        "assessed_ranges": [
+          [
+            1,
+            35
+          ]
+        ],
+        "untruncated_body_outputs": true,
+        "author": "Inherited independent Lens13 reader",
+        "observations": [
+          {
+            "ranges": [
+              [
+                1,
+                35
+              ]
+            ],
+            "assessment": "Prior delegated ROOT188/PL13-190 connected1 original2248 full58 reused only P16 deterministic unit conversion1..35. Earlier actualbody inventory: high24bit f32/high53bit f64 integer numerators exactly representable, division byunit power-of-two supplies halfopen outputs; inclusive adapters have separate endpoint contract. Complete native input word space is not an invalid float population. Actual P16 Seed/Rng callers/unit-interval consumer and current/package mapping required, no integer-weight sampler or range_f32 endpoint-difference claim from these adapters. Old2248 future/ROOT609orderedapplication remains, P16newrole counts once; tail36..58 including any fixtures notnewcredit."
+          }
+        ],
+        "read_kind": "qualified_admission_2592_2599_reuse",
+        "reuse": {
+          "kind": "exact_admission_2592_2599_material",
+          "original": 2594,
+          "adoption": {
+            "path": "segovb/READ-L13-PARALLEL-188.json",
+            "sha256": "46c07471cbe565050b808c9037babfe4a3c82bc3b30b02f499ec086f16c4fbc1"
+          },
+          "qualification": {
+            "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+            "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+          }
+        },
+        "authoritative_future_proof": {
+          "qualification": {
+            "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+            "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+          },
+          "prior_original": 2248,
+          "prior_row_pointer": "/connected/1",
+          "prior_source_id": "pr-working:crates/fabelgeist-determinism/src/lib.rs",
+          "source_sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+          "actual_EOF": 58,
+          "assessed_ranges": [
+            [
+              1,
+              35
+            ]
+          ],
+          "historical_author": "Delegated independent Lens13 personal body assessment; no root/other-lens/current transfer.",
+          "new_body_credit": 0
+        },
+        "root_personal_source_lines": 0,
+        "repeat_body_credit": 0,
+        "historical_prior_preserved": {
+          "prior_adoption": {
+            "path": "segovb/READ-L13-PARALLEL-188.json",
+            "sha256": "46c07471cbe565050b808c9037babfe4a3c82bc3b30b02f499ec086f16c4fbc1"
+          },
+          "prior_raw_receipt": {
+            "path": "parallel-l13-20261029/READ-PL13-190.json",
+            "sha256": "b9f286ca894cf7866818c74024f62c4b7518e3fe7b690c4bb91795f4b235e948"
+          },
+          "prior_verification": {
+            "path": "parallel-l13-20261029/VERIFY-PL13-190.json",
+            "sha256": "3beef32bb1b1f8c3f8f0d0b6a9c863bd5f36feae6f7e26cc64541a29499a5ae9"
+          },
+          "prior_registration": {
+            "path": "parallel-l13-20261029/REGISTRATION-PL13-190.json",
+            "sha256": "f8fe02fd09a6af617caa5a584e0336dfe4637e660082cdf3be6ee0ebf011fdeb"
+          },
+          "prior_row_pointer": "/connected/1",
+          "prior_registration_pointer": "/sources/1",
+          "prior_source_read": {
+            "original": 2248,
+            "source_id": "pr-working:crates/fabelgeist-determinism/src/lib.rs",
+            "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+            "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+            "actual_eof": 58,
+            "prospective_ranges": [
+              [
+                1,
+                58
+              ]
+            ],
+            "scope_kind": "connected_existing_original_role",
+            "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+            "purpose": "Necessary own Lens13 actual follow-up evidence native producer/caller and shared integer sampler numeric total contract; future original credit zero until ordered exact reuse.",
+            "original_credit_now": 0,
+            "original_role_credit_now": 0,
+            "fresh_personal_assessed_ranges": [
+              [
+                1,
+                58
+              ]
+            ],
+            "untruncated_body_outputs": true
+          },
+          "historical_verification_as_recorded": {
+            "lens": 13,
+            "status": "Bookkeeping only",
+            "read": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-190.json",
+              "sha256": "b9f286ca894cf7866818c74024f62c4b7518e3fe7b690c4bb91795f4b235e948"
+            },
+            "registration": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-190.json",
+              "sha256": "f8fe02fd09a6af617caa5a584e0336dfe4637e660082cdf3be6ee0ebf011fdeb"
+            },
+            "source_hash_eof_range_checks": true,
+            "registered_before_read_attestation": true,
+            "proposed_next_original": 975,
+            "authoritative_counts_changed": false,
+            "product_execution": false
+          },
+          "historical_attribution": "Delegated independent Lens13 personal body assessment; no root/other-lens/current transfer.",
+          "historical_registration_fields_absent": [
+            "at"
+          ],
+          "prior_numeric_inventory": [
+            "1139 materialize_generated_problem stores exactcaseconsequence, fullu64IDs, officialstart and30dayend orMAXrecurring; positiveincidentcount1 andzeroawareness/mitigation actualproducerinitialstate. ensure_generated_incidents_inner validates generationauthority/settlement/case/problem beforeselecting witness/site/circumstance, actualcall973select_follow_up_evidence592..597 precedes event/evidence/incidentDB inserts. Samplingpanic conditional chain nowreachesnative transaction; actualvalidate_quest_generation_authority implementation/corpus/current andinitialgenerationreachability remain required, no observednativefailure.",
+            "1139 due configuredmax=u16MAX onlyrecurringhostile, othermanifestu16; catchupmin(totaldue, incidentcount.saturating_add16), ordinalbounded1..65535 then DBincidentcount=due. AtterminalMAX manualtrigger returnsMAXwithoutnewordinal; policy ofsupportedmaximum/manualreceipt needsactualcallers, notinfinitecountercompatibility obligation. Scheduledtime useswideordinal*saturatingcadence plusstart. Existingincident retries compareordinal/case/problem beforecontinue; exactremainingpayload replaylaw/nativeauthoritative producer uniqueness stillconnected.",
+            "1139 nativeLP settlement_effects andgatewaybackendtradeview callown953 aggregate withsame numericunits, raw rowadmissioncomesfromvalidatedcaseorboundedlegacygenerator. Legacyensure_settlement_problems atmostoneactive ordinaryrandomscope; separate generatedmaterializer caninsertadditionalcases, so mixedsignedaggregatepolicy notgloballyrejected. routefrequency capsmax3rows, eachscaled<=u16MAX thenu32sumfits, finalcap2000; helpereffects.rs include unassessedhere.",
+            "1139 apply_outcome validates sourceID1..160, mitigation<=10000, exactpayloadretry fingerprint and officialminute equality; maxmitigation/earliestresolvedmonotonic, nativeDBreceipt. Existingretry intentionally checkedbeforeclockequality. Validatedproblem lookup dedups canonical/publicindexcandidates toexact1 andbindscanonicalcase/problem/contextsettlement/name/scopekey; actual validatorbody stillunread.",
+            "1139 hearinggraph nodes4096/edges16384/distance450000m, widened/saturatingedgeaddition andtwo-state Dijkstra sortedneighbororder. Allneighborrowscollected/sortedbeforeedgebudget andallsettlements scanned; advertised inspectedbound isnot universalallocationbound. Actualworlddegree/scopescale/policy remainsconditional, no arbitraryhugeworldwitness. Publicreferral validatesauthoredcapability/currentmembership andexactcanonicaltriple; numericalcountbands/sharedescalationbody stillneeded.",
+            "1139 rumor/publicdisclosure owns fullresidentIDs, exactsessioncase/site refs, eligibilitybeforecap andobserverlearnedtime vs officialactivewindow deliberatechronology. Followupunknownlead hasconfidence5000/location0withUnknownstage legitimateabsentcoordinates. Tests contain includedsource-string assertions which grant no includedfilebodycredit; neverexecuted.",
+            "2248 actual high24bitf32/high53bitf64 conversions useexactrepresentable integernumerators andunitpower-of-two denominator, halfopen/inclusive distinctcontracts.2249 Seed preservesfullu64/8byte framing of root/stream/context, lengthu64safe supported32/64targets, wrappingoffset/xor ownedseedarithmetic legitimate. Hash/display/parse/Serde operations preserve semanticword; no mandatoryobsoleteRandoutput/backwardscompatibility.",
+            "2250 actual DeterministicRng weighted_index maps RandWeightedIndex InvalidInput/InsufficientNonZero/Overflow totyped Empty/Zero/WeightOverflow, weighted_orderzeroesdistinctselectedweights andpropagateserrors. Empty/allzero modes explicitlyerrors, quest974maps/handlesempty separately. Fixedwidthbelow usesNonZeroU64/unbiasedUniform; indexusize->u64 safeonsupported32/64targets. range_f32 assertsfiniteorderedendpoints but max-min canoverflowforoppositeextremefinite values; no supportednativecallerwitnessyet, preserveindependentconditionaloperationcase withoutaliasfromgenericfloatremedy. No RNG/test/product code executed."
+          ],
+          "inherited_connected_contracts": [
+            {
+              "proposed_id": "PL13-189-FOLLOWUP-WEIGHT-TOTAL-NATIVE-PENDING",
+              "status": "Native caller and shared error behavior now personally connected; authored/current reachability still pending",
+              "first_failed_function": "quest_generation::projection::select_follow_up_evidence",
+              "primary_original": 973,
+              "primary_source_sha256": "2ef4a66455b4f4fb0790abfcc0e0ca9ff70e312d140170fbf47b9f880e79fb87",
+              "primary_read": {
+                "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-189.json",
+                "sha256": "c860cbc81bed83dcb37baacf2f7227a1c55e5d1921be1c14b07df69789a708a9"
+              },
+              "primary_read_pointer": "/rows/0",
+              "primary_assessed_range": [
+                327,
+                344
+              ],
+              "producer": "quest_catalog_validation::validate_documents admits individual plausibility/curation0..u32MAX; exact967 READ186/rows0",
+              "internal_api": "Weight::combined exact972 READ188/rows0 widens productu64; evidence_candidates selectscontextual authoredrelation in973",
+              "retained_state": "Compiled Catalog WeightedCandidate individualu32 fields, staticOnceLock; native validated generationauthority/context retained separately",
+              "consumer": "select_follow_up_evidence weighted_index.expect assumes nonoverflow total; normal974 choose/weighted_order preserveSamplingError instead",
+              "native_boundary": "1139 ensure_generated_incidents_inner592..597 invokesselector beforenativeDBevent/evidence/incident inserts; ownREAD190/connected0",
+              "canonical_owner_pending": "Exact finding alias and current supported catalogue/reachability must be reconciled before canonicalization; primary function remains973, not1139 discovery packet",
+              "dependencies": [
+                "Actual shared dependency Rand weighted sampler body/pin if proof beyond own typed error mapping is required",
+                "Actual authored contextual evidence relations and initial-generation versusfollowupsite reachability",
+                "Native validate_quest_generation_authority body andcurrentmain mappings",
+                "Policy: reject excessive aggregateweight atadmission or returntypedgeneration error atallconsumers"
+              ],
+              "acceptance_requirements": [
+                "Every admitted applicable evidence weight vector must have positive checkedtotal representableu64 or explicit typederror path",
+                "Followup native transaction must propagate checkederror withoutpanic and withoutpartialcommit",
+                "Preserve stable identity ordering and explicit allzero optionalNone semantics",
+                "Concrete source-based acceptedcontextualweight/native reachability plus currentrevision/exactalias proof; runtimeacceptance remains future repairwork"
+              ],
+              "ordinary_native_failure_claimed": false,
+              "accepted_unique_count_change": 0,
+              "current_reconciled": false
+            },
+            {
+              "proposed_id": "PL13-190-RANGE-F32-INTERMEDIATE-PENDING",
+              "status": "Independent conditional arithmetic contract, no native witness",
+              "scope": "DeterministicRng::range_f32 endpoints finite+ordered do not guarantee finite max-min/result at extreme oppositebounds. Trace all actual callers andsupported API interval contract/current exactfirstfunctionaliases; ordinarynativeinputs unproved.",
+              "primary_original": 2250,
+              "primary_function": "DeterministicRng::range_f32",
+              "accepted_unique_count_change": 0,
+              "current_reconciled": false
+            }
+          ],
+          "prior_validation_manifest": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-188-190.json",
+            "sha256": "8c5d5eae95cc498e65167c75a906a39c0bdc162d4b2884d12df7abc62622bb3f"
+          }
+        }
+      },
+      {
+        "source": {
+          "original": 2595,
+          "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/sigil.rs",
+          "sha256": "938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+          "actual_eof": 83,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+          "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "transport_git_path": "crates/adventuresim-puzzles/src/choices/sigil.rs",
+          "prospective_ranges": [
+            [
+              1,
+              83
+            ]
+          ],
+          "revision_qualification": "P16 archivef82adc transport only, semantic P16 product/caller/native/current unresolved. Directprworking identities are frozenGit6533, not current main. Original delegated/root body attribution retained.",
+          "purpose": "Eight equipment/determinism/puzzle/garment admission roles860 material, three fresh264 and five reused596. Assets rawrequest107 qualified actual106; no nonexistent/other-lens/current/unique/review/runtime credit."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2592-2599-001.json",
+          "sha256": "d6a4d2ba55cf53e493451cf9c88c7a707589f624f61b40b2ea755667e787f365"
+        },
+        "registration_pointer": "/sources/3",
+        "assessed_ranges": [
+          [
+            1,
+            83
+          ]
+        ],
+        "untruncated_body_outputs": true,
+        "author": "/root",
+        "observations": [
+          {
+            "ranges": [
+              [
+                1,
+                83
+              ]
+            ],
+            "assessment": "Fresh exact pr-working Sigil full83 personally read untruncated. Closed five-variant enum derives typed equality/order and Serde; ALL lists eachvariant using imported ORDERED_SIGIL_COUNT. stable_id and visible label separately map same five canonical case-sensitive keys; FromStr feeds StrDeserializer to same enum Deserialize then maps invalid vocabulary to specific unit ParseSigilError with own final display. This exact string/native submission port is a declared closed vocabulary, not arbitrary enum from user-prose classification. Typed Sigil alone does not establish that array[Sigil;5] is a permutation, so existing2699 aggregate candidate check remains. Imported count definition/Serde derive/native authority/submission validation/current require ownbindings, no whole puzzle graph proof. Source tests63..83 assert roundtrips/malformed inputs but were never executed."
+          }
+        ],
+        "read_kind": "qualified_root2592_2599_material_scope",
+        "root_personal_source_lines": 83,
+        "whole_file_coverage": true,
+        "unread_ranges": []
+      },
+      {
+        "source": {
+          "original": 2596,
+          "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/witness_path.rs",
+          "sha256": "363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+          "actual_eof": 75,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+          "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "transport_git_path": "crates/adventuresim-puzzles/src/choices/witness_path.rs",
+          "prospective_ranges": [
+            [
+              1,
+              75
+            ]
+          ],
+          "revision_qualification": "P16 archivef82adc transport only, semantic P16 product/caller/native/current unresolved. Directprworking identities are frozenGit6533, not current main. Original delegated/root body attribution retained.",
+          "purpose": "Eight equipment/determinism/puzzle/garment admission roles860 material, three fresh264 and five reused596. Assets rawrequest107 qualified actual106; no nonexistent/other-lens/current/unique/review/runtime credit."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2592-2599-001.json",
+          "sha256": "d6a4d2ba55cf53e493451cf9c88c7a707589f624f61b40b2ea755667e787f365"
+        },
+        "registration_pointer": "/sources/4",
+        "assessed_ranges": [
+          [
+            1,
+            75
+          ]
+        ],
+        "untruncated_body_outputs": true,
+        "author": "/root",
+        "observations": [
+          {
+            "ranges": [
+              [
+                1,
+                75
+              ]
+            ],
+            "assessment": "Fresh exact pr-working WitnessPath full75 personally read untruncated. Closed Ash/Moon/Thorn enum and ALL3 with Serde; stable_id emits bare keys while label adds path suffix, explicitly distinguishing canonical submissions from presentation. FromStr uses enum Deserialize over native StrDeserializer and projects failed vocabulary to unit ParseWitnessPathError. Matching Moon spelling in Sigil does not make these types interchangeable. Actual request/retained authority/choice validators/UI/native codec/current graph remains; no revision/concurrency clearance by closed value admission. Source tests55..75 read as policy only, not executed."
+          }
+        ],
+        "read_kind": "qualified_root2592_2599_material_scope",
+        "root_personal_source_lines": 75,
+        "whole_file_coverage": true,
+        "unread_ranges": []
+      },
+      {
+        "source": {
+          "original": 2597,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/selection.rs",
+          "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+          "actual_eof": 271,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+          "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "transport_git_path": "crates/adventuresim-character-creator/src/garment/selection.rs",
+          "prospective_ranges": [
+            [
+              1,
+              225
+            ]
+          ],
+          "revision_qualification": "P16 archivef82adc transport only, semantic P16 product/caller/native/current unresolved. Directprworking identities are frozenGit6533, not current main. Original delegated/root body attribution retained.",
+          "purpose": "Eight equipment/determinism/puzzle/garment admission roles860 material, three fresh264 and five reused596. Assets rawrequest107 qualified actual106; no nonexistent/other-lens/current/unique/review/runtime credit."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2592-2599-001.json",
+          "sha256": "d6a4d2ba55cf53e493451cf9c88c7a707589f624f61b40b2ea755667e787f365"
+        },
+        "registration_pointer": "/sources/5",
+        "assessed_ranges": [
+          [
+            1,
+            225
+          ]
+        ],
+        "untruncated_body_outputs": true,
+        "author": "Inherited independent Lens13 reader",
+        "observations": [
+          {
+            "ranges": [
+              [
+                1,
+                225
+              ]
+            ],
+            "assessment": "Prior delegated ROOT109/PL13-111 connected0 full271 reused only GarmentSelection1..225. Earlier actual selection validation requires finite resolution_cm2.5..6, actual construction pattern validator or Coif HelmetDesign validator, then drape and mail validate. With earlier actual drape selection.validate beforeuse, narrows preview_interval modulozero/body_fit out-of-range suspicions only for that path. same_simulation deliberately compares construction/fabric/resolution/drape and ignores name/layer/mail appearance, actual cache policy not automatically compatibility defect. Public retained resolution semanticlength and native Fit conversion/other direct consumers/Serde/callers still need exact owner and all producer/current admission; existingCoif Debug typedcause and resolutionreason remain separate. Raw prior source omits original_credit_now; exact old111qualification/zero delta/807frontier/protected future preserves absence rather than injecting default. New2597 role nowonce, tests226..271 excluded."
+          }
+        ],
+        "read_kind": "qualified_admission_2592_2599_reuse",
+        "reuse": {
+          "kind": "exact_admission_2592_2599_material",
+          "original": 2597,
+          "adoption": {
+            "path": "segovb/READ-L13-PARALLEL-109.json",
+            "sha256": "e0871ab6712bbfffc3442b90c3e4e1af80e5759b8a018758d8c566eabcc7f83a"
+          },
+          "qualification": {
+            "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+            "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+          }
+        },
+        "authoritative_future_proof": {
+          "qualification": {
+            "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+            "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+          },
+          "prior_original": 2597,
+          "prior_row_pointer": "/connected/0",
+          "prior_source_id": "pr-working:crates/adventuresim-character-creator/src/garment/selection.rs",
+          "source_sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+          "actual_EOF": 271,
+          "assessed_ranges": [
+            [
+              1,
+              225
+            ]
+          ],
+          "historical_author": "Delegated independent Lens13 personal body assessment; no root/other-lens/current transfer.",
+          "new_body_credit": 0
+        },
+        "root_personal_source_lines": 0,
+        "repeat_body_credit": 0,
+        "historical_prior_preserved": {
+          "prior_adoption": {
+            "path": "segovb/READ-L13-PARALLEL-109.json",
+            "sha256": "e0871ab6712bbfffc3442b90c3e4e1af80e5759b8a018758d8c566eabcc7f83a"
+          },
+          "prior_raw_receipt": {
+            "path": "parallel-l13-20261029/READ-PL13-111.json",
+            "sha256": "5580ce0d1ae0b75b7f927abf39f549b6e0ea6ac3e02757a435a478258505573a"
+          },
+          "prior_verification": {
+            "path": "parallel-l13-20261029/VERIFY-PL13-111.json",
+            "sha256": "690005fccb5e1eb49eda241d09709e413b8beee0b9b6843c4b42e1df8008d453"
+          },
+          "prior_registration": {
+            "path": "parallel-l13-20261029/REGISTRATION-PL13-111-CONNECTED.json",
+            "sha256": "f2679596d339659542362be05433a5b75945447042f41ffe531e9214f2b12c99"
+          },
+          "prior_row_pointer": "/connected/0",
+          "prior_registration_pointer": "/sources/0",
+          "prior_source_read": {
+            "original": 2597,
+            "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/selection.rs",
+            "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+            "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+            "actual_eof": 271,
+            "prospective_ranges": [
+              [
+                1,
+                271
+              ]
+            ],
+            "scope_kind": "materially_reached_admission_contract",
+            "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+            "purpose": "Materially reached actual selection stage validation and map geometry admission; zero early original credit.",
+            "fresh_personal_assessed_ranges": [
+              [
+                1,
+                271
+              ]
+            ],
+            "untruncated_body_outputs": true
+          },
+          "historical_verification_as_recorded": {
+            "lens": 13,
+            "status": "Bookkeeping only",
+            "read": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-111.json",
+              "sha256": "5580ce0d1ae0b75b7f927abf39f549b6e0ea6ac3e02757a435a478258505573a"
+            },
+            "registration": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-111-CONNECTED.json",
+              "sha256": "f2679596d339659542362be05433a5b75945447042f41ffe531e9214f2b12c99"
+            },
+            "source_hash_eof_range_checks": true,
+            "registered_before_read_attestation": true,
+            "proposed_next_original": 807,
+            "authoritative_counts_changed": false,
+            "product_execution": false
+          },
+          "historical_attribution": "Delegated independent Lens13 personal body assessment; no root/other-lens/current transfer.",
+          "historical_registration_fields_absent": [
+            "at"
+          ],
+          "prior_numeric_inventory": [
+            "2597 GarmentSelection::validate207..223 requires finite resolution_cm2.5..6, actual construction pattern.validate or HelmetDesign::MailCoif.validate, then drape.validate and mail.validate. Together with792 actual validators and782 drape selection.validate first, this closes scoped modulo-zero preview_interval and body_fit out-of-range suspicions for that actual drape path. It does not grant coverage to other programmatic stage consumers.",
+            "2597 resolution_cm public raw retained semantic length before pattern conversion/native Fit; same_simulation compares construction/fabric/resolution/drape, intentionally ignores name/layer/mail appearance. Semantic layers/channel enums map explicitly. Need actual exact owner/reuse policy before a retained length finding; not a compatibility defect that display/name changes avoid rerunning simulation.",
+            "2844 ScalpMap::fit computes valid finite nonzero directions via unit predicate and uses fallbackup for empty mean. AXIS_STEPS64 shrink cone, RIM_MARGIN.02rad produces sinrim, finite unit directions angle clamps dot beforeacos. radius averages every original scalp position distance, including inputs excluded from valid directions; finite positive radius/nonempty actual generated scalp remains upstream native source admission, not established by direction filter. texel uses requested size; actual798size2048 positive. Actual empty scalp may make texelside0; no ordinary canonical empty-scalp incident claimed.",
+            "2844 equal-area disk/square projection intentionally uses numeric angle constants and inverse mapping, native799 follows same formula. Forward fallbackface may not be orthogonal if degenerate axis parallelface; actual scalp/Head geometry policy needed to establish supported axis domain. Source map is private constructed only throughfit, so native source generation is the canonical proof dependency.",
+            "New necessary hair/gpu/mod.rs explicitly makes storage nonempty bytes.max16 and upload empty data -> four default elements. Resolves empty native buffer allocation suspicion for these helpers; padding does not itself make a zero semantic strand/source row valid for shader. KernelSource caches exact code on context and HairGpu serializes GpuGroomer scratch ownership by Mutex. Poison recovery is documented reset-per-groom policy, not an obsolete compatibility fallback. Underlying Buffer/Kernel/GpuGroomer actual contracts remain unread; wrappers alone give no finite/count guarantee."
+          ],
+          "inherited_connected_contracts": [
+            {
+              "contract": "Canonical native hair producer geometry and supported map domain",
+              "status": "Actual wrapper/map/selection bodies assessed; native Head/Look/GpuGroomer source admission and HeadSkin canonical callers pending",
+              "dependencies": [
+                "Actual native generated scalp has finite positive radius and supported axis, row and face indices",
+                "Actual GpuGroomer count/points/attributes/field and Native Buffer admission budgets",
+                "Actual canonical HeadPlacement and HeadSkin producer inputs"
+              ],
+              "acceptance_requirements": [
+                "Establish actual supported geometry before map division and native field packing",
+                "Preserve deliberate empty allocation padding and optional no-body/no-form modes",
+                "Do not infer native producer invariants from imported types or wrapper signatures"
+              ]
+            }
+          ],
+          "prior_validation_manifest": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-109-111.json",
+            "sha256": "dd03a922fcf435619c587c7d708ccdcaedb91df4440b8604db77ff999d8a1f3e"
+          },
+          "exact_connected_credit_schema_qualification": {
+            "manifest": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-109-111.json",
+              "sha256": "dd03a922fcf435619c587c7d708ccdcaedb91df4440b8604db77ff999d8a1f3e"
+            },
+            "scope": "Exact111 source_records omit original_credit_now; explicit future proof/necessary extension original_role_credit_now=0 and connected-only unchanged807 frontier independently establish zero credit. Raw records unchanged; no generic missing-field default.",
+            "source_and_population_credit": 0
+          },
+          "protected_future_proof": {
+            "receipt": "parallel-l13-20261029/READ-PL13-111.json",
+            "receipt_sha256": "5580ce0d1ae0b75b7f927abf39f549b6e0ea6ac3e02757a435a478258505573a",
+            "row_pointer": "/connected/0",
+            "registration": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-111-CONNECTED.json",
+              "sha256": "f2679596d339659542362be05433a5b75945447042f41ffe531e9214f2b12c99"
+            },
+            "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/selection.rs",
+            "source_sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+            "actual_EOF": 271,
+            "assessed_ranges": [
+              [
+                1,
+                271
+              ]
+            ],
+            "attribution": "Delegated independent L13 personal read; no root/other-lens/current transfer",
+            "ordered_credit_now": 0,
+            "original": 2597,
+            "future_rule": "Exact identity/revision/hash/Git/EOF/prospective/range/attribution qualification, then count once at ordered frontier."
+          }
+        }
+      },
+      {
+        "source": {
+          "original": 2598,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer.rs",
+          "sha256": "9726131d4d0508a8b77b56bd2723a18c1f5e45d0be3e468ccc797d39a12a1f2a",
+          "actual_eof": 137,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/9726131d4d0508a8b77b56bd2723a18c1f5e45d0be3e468ccc797d39a12a1f2a",
+          "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "transport_git_path": "crates/adventuresim-character-creator/src/underlayer.rs",
+          "prospective_ranges": [
+            [
+              1,
+              137
+            ]
+          ],
+          "revision_qualification": "P16 archivef82adc transport only, semantic P16 product/caller/native/current unresolved. Directprworking identities are frozenGit6533, not current main. Original delegated/root body attribution retained.",
+          "purpose": "Eight equipment/determinism/puzzle/garment admission roles860 material, three fresh264 and five reused596. Assets rawrequest107 qualified actual106; no nonexistent/other-lens/current/unique/review/runtime credit."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2592-2599-001.json",
+          "sha256": "d6a4d2ba55cf53e493451cf9c88c7a707589f624f61b40b2ea755667e787f365"
+        },
+        "registration_pointer": "/sources/6",
+        "assessed_ranges": [
+          [
+            1,
+            137
+          ]
+        ],
+        "untruncated_body_outputs": true,
+        "author": "Inherited independent Lens13 reader",
+        "observations": [
+          {
+            "ranges": [
+              [
+                1,
+                137
+              ]
+            ],
+            "assessment": "Prior delegated ROOT126/PL13-128 connected2 full137 reused exact pr-working UnderlayerDesign137. Actual earlier validator admits clearance1..10mm/thickness1..8, doublet length700..1200permille/hose700..1000/brayette900..1200/sleeve500..1000, patch35..100mm and finite strictly ordered subtraction boxes. Actual patch minimum35 exceeds24gap, narrowing prior small-patch inversion only when validate called. Public struct/ordinary Serde and device fit invocation/native fitted mesh counts/finite positions remain separate construction/consumer paths. Exact existing125..128 schema qualification preserves original raw/readers and future2598 now countedonce; no childmodule source or native fitting execution."
+          }
+        ],
+        "read_kind": "qualified_admission_2592_2599_reuse",
+        "reuse": {
+          "kind": "exact_admission_2592_2599_material",
+          "original": 2598,
+          "adoption": {
+            "path": "segovb/READ-L13-PARALLEL-126.json",
+            "sha256": "3f5f759ae773741ba26754e95f6283ebfad5243b1f2be16f3ef72afc4cf158a1"
+          },
+          "qualification": {
+            "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+            "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+          }
+        },
+        "authoritative_future_proof": {
+          "qualification": {
+            "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+            "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+          },
+          "prior_original": 2598,
+          "prior_row_pointer": "/connected/2",
+          "prior_source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer.rs",
+          "source_sha256": "9726131d4d0508a8b77b56bd2723a18c1f5e45d0be3e468ccc797d39a12a1f2a",
+          "actual_EOF": 137,
+          "assessed_ranges": [
+            [
+              1,
+              137
+            ]
+          ],
+          "historical_author": "Delegated independent Lens13 personal body assessment; no root/other-lens/current transfer.",
+          "new_body_credit": 0
+        },
+        "root_personal_source_lines": 0,
+        "repeat_body_credit": 0,
+        "historical_prior_preserved": {
+          "prior_adoption": {
+            "path": "segovb/READ-L13-PARALLEL-126.json",
+            "sha256": "3f5f759ae773741ba26754e95f6283ebfad5243b1f2be16f3ef72afc4cf158a1"
+          },
+          "prior_raw_receipt": {
+            "path": "parallel-l13-20261029/READ-PL13-128.json",
+            "sha256": "3c695babf454ea7330b998788f97866bbd3a5128e6c584b48c6ebe9cefc8a6d5"
+          },
+          "prior_verification": {
+            "path": "parallel-l13-20261029/VERIFY-PL13-128.json",
+            "sha256": "424ea50636c43f95af987816ce0676320ce54c175e9bff763e15c7b738eb1b6a"
+          },
+          "prior_registration": {
+            "path": "parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+            "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+          },
+          "prior_row_pointer": "/connected/2",
+          "prior_registration_pointer": "/sources/2",
+          "prior_source_read": {
+            "original": 2598,
+            "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer.rs",
+            "sha256": "9726131d4d0508a8b77b56bd2723a18c1f5e45d0be3e468ccc797d39a12a1f2a",
+            "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/9726131d4d0508a8b77b56bd2723a18c1f5e45d0be3e468ccc797d39a12a1f2a",
+            "actual_eof": 137,
+            "prospective_ranges": [
+              [
+                1,
+                137
+              ]
+            ],
+            "scope_kind": "materially_reached_admission_contract",
+            "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+            "purpose": "Necessary connected numeric/design/surface admission materially reached by124/125/126; zero early original-role credit.",
+            "original_credit_now": 0,
+            "fresh_personal_assessed_ranges": [
+              [
+                1,
+                137
+              ]
+            ],
+            "untruncated_body_outputs": true
+          },
+          "historical_verification_as_recorded": {
+            "lens": 13,
+            "status": "Bookkeeping only",
+            "read": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-128.json",
+              "sha256": "3c695babf454ea7330b998788f97866bbd3a5128e6c584b48c6ebe9cefc8a6d5"
+            },
+            "registration": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+              "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+            },
+            "source_hash_eof_range_checks": true,
+            "registered_before_read_attestation": true,
+            "proposed_next_original": 850,
+            "authoritative_counts_changed": false,
+            "product_execution": false
+          },
+          "historical_attribution": "Delegated independent Lens13 personal body assessment; no root/other-lens/current transfer.",
+          "historical_registration_fields_absent": [
+            "at"
+          ],
+          "prior_numeric_inventory": [
+            "943 finite_in directly rejects missing/non-numeric/nonfinite f64 and values outside inclusive f64 bounds. positive_f32_in explicitly casts to stored f32 and rejects !finite or <=0 plus original f64>maximum. This rejects underflow-to-zero and overflow for its actual callers (shield/ranged positive fields and945 coverage); scoped suspicion of missing f32 positivity at these call sites is rejected by actual source, not fixtures or helper names. 941 physical dims/tangents use separate direct f64 checks, so exact final f32 Serde narrowing remains a separate connected contract there.",
+            "945 surface admission requires nonempty spans for armor/clothing and actual material, caps summed region segments at shared MAX_EQUIPMENT_SURFACE_SEGMENTS, validates15-name canonical enum-compatible regions and proximal-to-distal adjacency. Protection regions constrain span body parts when nonempty; empty protection remains allowed. Anchor parsed into SurfaceAnchor and coverage uses943positive_f32_in <=1, so actual positive f32 coverage retained. Native consumer segment budget and canonical type reuse remain actual connected comparisons; no arbitrary overlap or common-remedy alias inferred.",
+            "2598 UnderlayerDesign::validate directly bounds clearance1..10mm/thickness1..8mm, doublet length700..1200permille/hose700..1000/brayette900..1200,sleeve500..1000,patch35..100mm and finite strictly ordered subtraction boxes. Therefore125 knee region patch35mm minimum exceeds24mm gap, rejecting that scoped small-patch inversion suspicion when validate is actually called. Actual device fit invocation/admission path still must be personally read before granting producer-wide coverage; public structs and ordinary Serde remain separate admission paths.",
+            "2599 TrunkHoseDesign::validate bounds clearance/thickness/length exactly carrier-compatible and requires even panel_count4..16.839 calls it before fit_trunk_hose_async arithmetic, so TAU/panel_count and modulo panel_count have actual nonzero bounded even denominator. Reject scoped zero-panel suspicion for that validated path; fitted mesh nonempty/cardinality/finite positions still depends on actual device fit. Color channels remain TextileColor owner. Source fixtures read, never executed."
+          ],
+          "inherited_connected_contracts": [
+            {
+              "status": "Connected unread producer/native contracts remain open",
+              "source_originals": [
+                839,
+                943,
+                945,
+                2598,
+                2599
+              ],
+              "needed": "Actual device-underlayer validation/mesh output guarantees; direct physical f64-to-f32 Serde admission and native geometry consumers; canonical owners and segment projection identity."
+            }
+          ],
+          "prior_validation_manifest": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-125-128.json",
+            "sha256": "c8a87e094005a019d08c93d7b1233dc784311bc39df69092d8ee17ff6047f275"
+          },
+          "exact125_128_schema_qualification": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/QUALIFICATION-PL13-125-128-SCHEMA-001.json",
+            "sha256": "0676bd8f6ed8066af9d3956895a5ed9df2cddaf1de2745d934f45ab80c6f6bb3"
+          },
+          "exact128_schema_entry": {
+            "batch": 128,
+            "read": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-128.json",
+              "sha256": "3c695babf454ea7330b998788f97866bbd3a5128e6c584b48c6ebe9cefc8a6d5"
+            },
+            "state": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-128-PROPOSAL.json",
+              "sha256": "16ed15f10ebc112df1c3171f6dfb720c02dd019b9e7527fb54913874b35398b8"
+            },
+            "missing_fields": [
+              "original_delta_proposed",
+              "proposed_next_original",
+              "current_reconciled",
+              "global_clearance",
+              "future_same_lens_reuse_proofs"
+            ],
+            "raw_future_key": "future_same_lens_proofs",
+            "raw_future_proofs": [
+              {
+                "original": 943,
+                "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+                "sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+                "actual_eof": 49,
+                "assessed_ranges": [
+                  [
+                    1,
+                    49
+                  ]
+                ],
+                "read_pointer": "/connected/0",
+                "registration": {
+                  "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+                  "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+                },
+                "registration_pointer": "/sources/0",
+                "original_credit_now": 0,
+                "original_role_credit_now": 0,
+                "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer."
+              },
+              {
+                "original": 945,
+                "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+                "sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+                "actual_eof": 219,
+                "assessed_ranges": [
+                  [
+                    1,
+                    219
+                  ]
+                ],
+                "read_pointer": "/connected/1",
+                "registration": {
+                  "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+                  "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+                },
+                "registration_pointer": "/sources/1",
+                "original_credit_now": 0,
+                "original_role_credit_now": 0,
+                "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer."
+              },
+              {
+                "original": 2598,
+                "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer.rs",
+                "sha256": "9726131d4d0508a8b77b56bd2723a18c1f5e45d0be3e468ccc797d39a12a1f2a",
+                "actual_eof": 137,
+                "assessed_ranges": [
+                  [
+                    1,
+                    137
+                  ]
+                ],
+                "read_pointer": "/connected/2",
+                "registration": {
+                  "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+                  "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+                },
+                "registration_pointer": "/sources/2",
+                "original_credit_now": 0,
+                "original_role_credit_now": 0,
+                "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer."
+              },
+              {
+                "original": 2599,
+                "source_id": "pr-working:crates/fabelgeist-armor/src/trunk_hose.rs",
+                "sha256": "ead698d9816a1f7549be4753d738ff8ab43d6f4eaf18f528b6b994d1248b48d9",
+                "actual_eof": 56,
+                "assessed_ranges": [
+                  [
+                    1,
+                    56
+                  ]
+                ],
+                "read_pointer": "/connected/3",
+                "registration": {
+                  "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+                  "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+                },
+                "registration_pointer": "/sources/3",
+                "original_credit_now": 0,
+                "original_role_credit_now": 0,
+                "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer."
+              }
+            ],
+            "effective_metadata_only": {
+              "original_delta_proposed": 0,
+              "proposed_next_original": 850,
+              "current_reconciled": false,
+              "global_clearance": false,
+              "future_same_lens_reuse_proofs": [
+                {
+                  "original": 943,
+                  "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+                  "sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+                  "actual_eof": 49,
+                  "assessed_ranges": [
+                    [
+                      1,
+                      49
+                    ]
+                  ],
+                  "read_pointer": "/connected/0",
+                  "registration": {
+                    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+                    "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+                  },
+                  "registration_pointer": "/sources/0",
+                  "original_credit_now": 0,
+                  "original_role_credit_now": 0,
+                  "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer.",
+                  "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+                  "same_lens_only": true,
+                  "count_once_when_frontier_reaches": true
+                },
+                {
+                  "original": 945,
+                  "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+                  "sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+                  "actual_eof": 219,
+                  "assessed_ranges": [
+                    [
+                      1,
+                      219
+                    ]
+                  ],
+                  "read_pointer": "/connected/1",
+                  "registration": {
+                    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+                    "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+                  },
+                  "registration_pointer": "/sources/1",
+                  "original_credit_now": 0,
+                  "original_role_credit_now": 0,
+                  "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer.",
+                  "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+                  "same_lens_only": true,
+                  "count_once_when_frontier_reaches": true
+                },
+                {
+                  "original": 2598,
+                  "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer.rs",
+                  "sha256": "9726131d4d0508a8b77b56bd2723a18c1f5e45d0be3e468ccc797d39a12a1f2a",
+                  "actual_eof": 137,
+                  "assessed_ranges": [
+                    [
+                      1,
+                      137
+                    ]
+                  ],
+                  "read_pointer": "/connected/2",
+                  "registration": {
+                    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+                    "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+                  },
+                  "registration_pointer": "/sources/2",
+                  "original_credit_now": 0,
+                  "original_role_credit_now": 0,
+                  "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer.",
+                  "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+                  "same_lens_only": true,
+                  "count_once_when_frontier_reaches": true
+                },
+                {
+                  "original": 2599,
+                  "source_id": "pr-working:crates/fabelgeist-armor/src/trunk_hose.rs",
+                  "sha256": "ead698d9816a1f7549be4753d738ff8ab43d6f4eaf18f528b6b994d1248b48d9",
+                  "actual_eof": 56,
+                  "assessed_ranges": [
+                    [
+                      1,
+                      56
+                    ]
+                  ],
+                  "read_pointer": "/connected/3",
+                  "registration": {
+                    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+                    "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+                  },
+                  "registration_pointer": "/sources/3",
+                  "original_credit_now": 0,
+                  "original_role_credit_now": 0,
+                  "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer.",
+                  "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+                  "same_lens_only": true,
+                  "count_once_when_frontier_reaches": true
+                }
+              ]
+            },
+            "qualification": "Exact immutable receipt only. Delta/frontier from exact prior immutable state and ordered source rows; current/global remain false as whole audit incomplete. Future proof naming/explicit same-lens count-once metadata qualified additively from existing exact source identity/revision/ranges and zero-early-credit scope, no new body read or identity."
+          }
+        }
+      },
+      {
+        "source": {
+          "original": 2599,
+          "source_id": "pr-working:crates/fabelgeist-armor/src/trunk_hose.rs",
+          "sha256": "ead698d9816a1f7549be4753d738ff8ab43d6f4eaf18f528b6b994d1248b48d9",
+          "actual_eof": 56,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/ead698d9816a1f7549be4753d738ff8ab43d6f4eaf18f528b6b994d1248b48d9",
+          "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "transport_git_path": "crates/fabelgeist-armor/src/trunk_hose.rs",
+          "prospective_ranges": [
+            [
+              1,
+              56
+            ]
+          ],
+          "revision_qualification": "P16 archivef82adc transport only, semantic P16 product/caller/native/current unresolved. Directprworking identities are frozenGit6533, not current main. Original delegated/root body attribution retained.",
+          "purpose": "Eight equipment/determinism/puzzle/garment admission roles860 material, three fresh264 and five reused596. Assets rawrequest107 qualified actual106; no nonexistent/other-lens/current/unique/review/runtime credit."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2592-2599-001.json",
+          "sha256": "d6a4d2ba55cf53e493451cf9c88c7a707589f624f61b40b2ea755667e787f365"
+        },
+        "registration_pointer": "/sources/7",
+        "assessed_ranges": [
+          [
+            1,
+            56
+          ]
+        ],
+        "untruncated_body_outputs": true,
+        "author": "Inherited independent Lens13 reader",
+        "observations": [
+          {
+            "ranges": [
+              [
+                1,
+                56
+              ]
+            ],
+            "assessment": "Prior delegated ROOT126/PL13-128 connected3 full56 reused exact pr-working TrunkHoseDesign56. Actual earlier validator bounds clearance/thickness/length and even panel_count4..16; prior source839 validates before fit_trunk_hose_async arithmetic, providing nonzero even bounded denominator for TAU/panel_count and modulo on that actual path. No zero-panel finding for validated producer; other API paths/fitted mesh native nonempty/cardinality/finite output/current require source. TextileColor remains canonical owner for colors. Original2599 future nowcounted once, exactbody/author retained; no renderer/device/tests execution."
+          }
+        ],
+        "read_kind": "qualified_admission_2592_2599_reuse",
+        "reuse": {
+          "kind": "exact_admission_2592_2599_material",
+          "original": 2599,
+          "adoption": {
+            "path": "segovb/READ-L13-PARALLEL-126.json",
+            "sha256": "3f5f759ae773741ba26754e95f6283ebfad5243b1f2be16f3ef72afc4cf158a1"
+          },
+          "qualification": {
+            "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+            "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+          }
+        },
+        "authoritative_future_proof": {
+          "qualification": {
+            "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+            "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+          },
+          "prior_original": 2599,
+          "prior_row_pointer": "/connected/3",
+          "prior_source_id": "pr-working:crates/fabelgeist-armor/src/trunk_hose.rs",
+          "source_sha256": "ead698d9816a1f7549be4753d738ff8ab43d6f4eaf18f528b6b994d1248b48d9",
+          "actual_EOF": 56,
+          "assessed_ranges": [
+            [
+              1,
+              56
+            ]
+          ],
+          "historical_author": "Delegated independent Lens13 personal body assessment; no root/other-lens/current transfer.",
+          "new_body_credit": 0
+        },
+        "root_personal_source_lines": 0,
+        "repeat_body_credit": 0,
+        "historical_prior_preserved": {
+          "prior_adoption": {
+            "path": "segovb/READ-L13-PARALLEL-126.json",
+            "sha256": "3f5f759ae773741ba26754e95f6283ebfad5243b1f2be16f3ef72afc4cf158a1"
+          },
+          "prior_raw_receipt": {
+            "path": "parallel-l13-20261029/READ-PL13-128.json",
+            "sha256": "3c695babf454ea7330b998788f97866bbd3a5128e6c584b48c6ebe9cefc8a6d5"
+          },
+          "prior_verification": {
+            "path": "parallel-l13-20261029/VERIFY-PL13-128.json",
+            "sha256": "424ea50636c43f95af987816ce0676320ce54c175e9bff763e15c7b738eb1b6a"
+          },
+          "prior_registration": {
+            "path": "parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+            "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+          },
+          "prior_row_pointer": "/connected/3",
+          "prior_registration_pointer": "/sources/3",
+          "prior_source_read": {
+            "original": 2599,
+            "source_id": "pr-working:crates/fabelgeist-armor/src/trunk_hose.rs",
+            "sha256": "ead698d9816a1f7549be4753d738ff8ab43d6f4eaf18f528b6b994d1248b48d9",
+            "object_path": "target/726-audit-adler-20261027/parallel-l13-20261029/objects/ead698d9816a1f7549be4753d738ff8ab43d6f4eaf18f528b6b994d1248b48d9",
+            "actual_eof": 56,
+            "prospective_ranges": [
+              [
+                1,
+                56
+              ]
+            ],
+            "scope_kind": "materially_reached_admission_contract",
+            "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+            "purpose": "Necessary connected numeric/design/surface admission materially reached by124/125/126; zero early original-role credit.",
+            "original_credit_now": 0,
+            "fresh_personal_assessed_ranges": [
+              [
+                1,
+                56
+              ]
+            ],
+            "untruncated_body_outputs": true
+          },
+          "historical_verification_as_recorded": {
+            "lens": 13,
+            "status": "Bookkeeping only",
+            "read": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-128.json",
+              "sha256": "3c695babf454ea7330b998788f97866bbd3a5128e6c584b48c6ebe9cefc8a6d5"
+            },
+            "registration": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+              "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+            },
+            "source_hash_eof_range_checks": true,
+            "registered_before_read_attestation": true,
+            "proposed_next_original": 850,
+            "authoritative_counts_changed": false,
+            "product_execution": false
+          },
+          "historical_attribution": "Delegated independent Lens13 personal body assessment; no root/other-lens/current transfer.",
+          "historical_registration_fields_absent": [
+            "at"
+          ],
+          "prior_numeric_inventory": [
+            "943 finite_in directly rejects missing/non-numeric/nonfinite f64 and values outside inclusive f64 bounds. positive_f32_in explicitly casts to stored f32 and rejects !finite or <=0 plus original f64>maximum. This rejects underflow-to-zero and overflow for its actual callers (shield/ranged positive fields and945 coverage); scoped suspicion of missing f32 positivity at these call sites is rejected by actual source, not fixtures or helper names. 941 physical dims/tangents use separate direct f64 checks, so exact final f32 Serde narrowing remains a separate connected contract there.",
+            "945 surface admission requires nonempty spans for armor/clothing and actual material, caps summed region segments at shared MAX_EQUIPMENT_SURFACE_SEGMENTS, validates15-name canonical enum-compatible regions and proximal-to-distal adjacency. Protection regions constrain span body parts when nonempty; empty protection remains allowed. Anchor parsed into SurfaceAnchor and coverage uses943positive_f32_in <=1, so actual positive f32 coverage retained. Native consumer segment budget and canonical type reuse remain actual connected comparisons; no arbitrary overlap or common-remedy alias inferred.",
+            "2598 UnderlayerDesign::validate directly bounds clearance1..10mm/thickness1..8mm, doublet length700..1200permille/hose700..1000/brayette900..1200,sleeve500..1000,patch35..100mm and finite strictly ordered subtraction boxes. Therefore125 knee region patch35mm minimum exceeds24mm gap, rejecting that scoped small-patch inversion suspicion when validate is actually called. Actual device fit invocation/admission path still must be personally read before granting producer-wide coverage; public structs and ordinary Serde remain separate admission paths.",
+            "2599 TrunkHoseDesign::validate bounds clearance/thickness/length exactly carrier-compatible and requires even panel_count4..16.839 calls it before fit_trunk_hose_async arithmetic, so TAU/panel_count and modulo panel_count have actual nonzero bounded even denominator. Reject scoped zero-panel suspicion for that validated path; fitted mesh nonempty/cardinality/finite positions still depends on actual device fit. Color channels remain TextileColor owner. Source fixtures read, never executed."
+          ],
+          "inherited_connected_contracts": [
+            {
+              "status": "Connected unread producer/native contracts remain open",
+              "source_originals": [
+                839,
+                943,
+                945,
+                2598,
+                2599
+              ],
+              "needed": "Actual device-underlayer validation/mesh output guarantees; direct physical f64-to-f32 Serde admission and native geometry consumers; canonical owners and segment projection identity."
+            }
+          ],
+          "prior_validation_manifest": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-125-128.json",
+            "sha256": "c8a87e094005a019d08c93d7b1233dc784311bc39df69092d8ee17ff6047f275"
+          },
+          "exact125_128_schema_qualification": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/QUALIFICATION-PL13-125-128-SCHEMA-001.json",
+            "sha256": "0676bd8f6ed8066af9d3956895a5ed9df2cddaf1de2745d934f45ab80c6f6bb3"
+          },
+          "exact128_schema_entry": {
+            "batch": 128,
+            "read": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-128.json",
+              "sha256": "3c695babf454ea7330b998788f97866bbd3a5128e6c584b48c6ebe9cefc8a6d5"
+            },
+            "state": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-128-PROPOSAL.json",
+              "sha256": "16ed15f10ebc112df1c3171f6dfb720c02dd019b9e7527fb54913874b35398b8"
+            },
+            "missing_fields": [
+              "original_delta_proposed",
+              "proposed_next_original",
+              "current_reconciled",
+              "global_clearance",
+              "future_same_lens_reuse_proofs"
+            ],
+            "raw_future_key": "future_same_lens_proofs",
+            "raw_future_proofs": [
+              {
+                "original": 943,
+                "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+                "sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+                "actual_eof": 49,
+                "assessed_ranges": [
+                  [
+                    1,
+                    49
+                  ]
+                ],
+                "read_pointer": "/connected/0",
+                "registration": {
+                  "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+                  "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+                },
+                "registration_pointer": "/sources/0",
+                "original_credit_now": 0,
+                "original_role_credit_now": 0,
+                "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer."
+              },
+              {
+                "original": 945,
+                "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+                "sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+                "actual_eof": 219,
+                "assessed_ranges": [
+                  [
+                    1,
+                    219
+                  ]
+                ],
+                "read_pointer": "/connected/1",
+                "registration": {
+                  "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+                  "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+                },
+                "registration_pointer": "/sources/1",
+                "original_credit_now": 0,
+                "original_role_credit_now": 0,
+                "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer."
+              },
+              {
+                "original": 2598,
+                "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer.rs",
+                "sha256": "9726131d4d0508a8b77b56bd2723a18c1f5e45d0be3e468ccc797d39a12a1f2a",
+                "actual_eof": 137,
+                "assessed_ranges": [
+                  [
+                    1,
+                    137
+                  ]
+                ],
+                "read_pointer": "/connected/2",
+                "registration": {
+                  "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+                  "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+                },
+                "registration_pointer": "/sources/2",
+                "original_credit_now": 0,
+                "original_role_credit_now": 0,
+                "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer."
+              },
+              {
+                "original": 2599,
+                "source_id": "pr-working:crates/fabelgeist-armor/src/trunk_hose.rs",
+                "sha256": "ead698d9816a1f7549be4753d738ff8ab43d6f4eaf18f528b6b994d1248b48d9",
+                "actual_eof": 56,
+                "assessed_ranges": [
+                  [
+                    1,
+                    56
+                  ]
+                ],
+                "read_pointer": "/connected/3",
+                "registration": {
+                  "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+                  "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+                },
+                "registration_pointer": "/sources/3",
+                "original_credit_now": 0,
+                "original_role_credit_now": 0,
+                "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer."
+              }
+            ],
+            "effective_metadata_only": {
+              "original_delta_proposed": 0,
+              "proposed_next_original": 850,
+              "current_reconciled": false,
+              "global_clearance": false,
+              "future_same_lens_reuse_proofs": [
+                {
+                  "original": 943,
+                  "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+                  "sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+                  "actual_eof": 49,
+                  "assessed_ranges": [
+                    [
+                      1,
+                      49
+                    ]
+                  ],
+                  "read_pointer": "/connected/0",
+                  "registration": {
+                    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+                    "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+                  },
+                  "registration_pointer": "/sources/0",
+                  "original_credit_now": 0,
+                  "original_role_credit_now": 0,
+                  "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer.",
+                  "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+                  "same_lens_only": true,
+                  "count_once_when_frontier_reaches": true
+                },
+                {
+                  "original": 945,
+                  "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+                  "sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+                  "actual_eof": 219,
+                  "assessed_ranges": [
+                    [
+                      1,
+                      219
+                    ]
+                  ],
+                  "read_pointer": "/connected/1",
+                  "registration": {
+                    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+                    "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+                  },
+                  "registration_pointer": "/sources/1",
+                  "original_credit_now": 0,
+                  "original_role_credit_now": 0,
+                  "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer.",
+                  "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+                  "same_lens_only": true,
+                  "count_once_when_frontier_reaches": true
+                },
+                {
+                  "original": 2598,
+                  "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer.rs",
+                  "sha256": "9726131d4d0508a8b77b56bd2723a18c1f5e45d0be3e468ccc797d39a12a1f2a",
+                  "actual_eof": 137,
+                  "assessed_ranges": [
+                    [
+                      1,
+                      137
+                    ]
+                  ],
+                  "read_pointer": "/connected/2",
+                  "registration": {
+                    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+                    "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+                  },
+                  "registration_pointer": "/sources/2",
+                  "original_credit_now": 0,
+                  "original_role_credit_now": 0,
+                  "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer.",
+                  "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+                  "same_lens_only": true,
+                  "count_once_when_frontier_reaches": true
+                },
+                {
+                  "original": 2599,
+                  "source_id": "pr-working:crates/fabelgeist-armor/src/trunk_hose.rs",
+                  "sha256": "ead698d9816a1f7549be4753d738ff8ab43d6f4eaf18f528b6b994d1248b48d9",
+                  "actual_eof": 56,
+                  "assessed_ranges": [
+                    [
+                      1,
+                      56
+                    ]
+                  ],
+                  "read_pointer": "/connected/3",
+                  "registration": {
+                    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-128-CONNECTED.json",
+                    "sha256": "37e623725b82c0f66f9095caabbe26fa4196f50aa78e94448816e6fee3da9323"
+                  },
+                  "registration_pointer": "/sources/3",
+                  "original_credit_now": 0,
+                  "original_role_credit_now": 0,
+                  "scope": "Exact same-lens identity/hash/revision/ranges only; count once when ordered original frontier reaches this source. No other-lens/current transfer.",
+                  "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+                  "same_lens_only": true,
+                  "count_once_when_frontier_reaches": true
+                }
+              ]
+            },
+            "qualification": "Exact immutable receipt only. Delta/frontier from exact prior immutable state and ordered source rows; current/global remain false as whole audit incomplete. Future proof naming/explicit same-lens count-once metadata qualified additively from existing exact source identity/revision/ranges and zero-early-credit scope, no new body read or identity."
+          }
+        }
+      }
+    ],
+    "connected": [],
+    "prior_same_lens_adoptions": [
+      {
+        "path": "segovb/READ-L13-PARALLEL-371.json",
+        "sha256": "ba32f276addc7064922a2f7c2c56766c453f1d109fb6e26d6c92d850554e7553"
+      },
+      {
+        "path": "segovb/READ-L13-PARALLEL-188.json",
+        "sha256": "46c07471cbe565050b808c9037babfe4a3c82bc3b30b02f499ec086f16c4fbc1"
+      },
+      {
+        "path": "segovb/READ-L13-PARALLEL-109.json",
+        "sha256": "e0871ab6712bbfffc3442b90c3e4e1af80e5759b8a018758d8c566eabcc7f83a"
+      },
+      {
+        "path": "segovb/READ-L13-PARALLEL-126.json",
+        "sha256": "3f5f759ae773741ba26754e95f6283ebfad5243b1f2be16f3ef72afc4cf158a1"
+      },
+      {
+        "path": "segovb/READ-L13-PARALLEL-126.json",
+        "sha256": "3f5f759ae773741ba26754e95f6283ebfad5243b1f2be16f3ef72afc4cf158a1"
+      }
+    ],
+    "new_root_ordered_lines": 264,
+    "new_root_connected_reread_lines": 0,
+    "accepted_unique_count_change": 0,
+    "other_population_credit": 0,
+    "current_source_reconciled": false,
+    "product_execution": false,
+    "implementation_gate_complete": false,
+    "new_questions": [
+      {
+        "contract_id": "ROOT-L13-2592-EQUIPMENT-MANIFEST-ADMISSION-REASONS",
+        "status": "open-reconciliation",
+        "accepted_unique_count_change": 0,
+        "source_originals": [
+          2592
+        ],
+        "runtime_failure_observed": false,
+        "all20_reconciliation": {
+          "families": [
+            "P01",
+            "P02",
+            "P03",
+            "P04",
+            "P05",
+            "P06",
+            "P07",
+            "P08",
+            "P09",
+            "P10",
+            "P11",
+            "P12",
+            "P13",
+            "P14",
+            "P15",
+            "P16",
+            "P17",
+            "P18",
+            "P19",
+            "P20"
+          ],
+          "complete": false,
+          "navigation_only": true
+        },
+        "canonical_owner": {
+          "unresolved_question": "Equipment manifest admission owns unknown item, unknown placement and duplicate canonical key predicates plus relevant native IDs; determine whether from_json/native error return is a final diagnostic port or loses first-party reasons before application handling."
+        },
+        "first_failed_contract_or_unresolved_question": "EquipmentAssets::from_json recognizes unknown item50..55, unknown placement56..70 and duplicate resolved pointer key71..76, then formats each into serde_json::Error::custom prose. Actual caller/final diagnostic/native Error/current/all20/canonical alias evidence is required before deciding a structured-reason failure or terminal boundary disposition.",
+        "static_source_condition": {
+          "public_api": "EquipmentAssets::from_json -> Result<Self,serde_json::Error>",
+          "first_party_branches": [
+            [
+              50,
+              55
+            ],
+            [
+              56,
+              70
+            ],
+            [
+              71,
+              76
+            ]
+          ],
+          "projection": "Each recognized own admission failure is formatted into native serde::de::Error::custom before Result returns; actual final diagnostic/consumer semantics unresolved",
+          "product_execution": false
+        },
+        "remaining_evidence": [
+          "Actual P16 from_json call/LazyLock/native manifest decoder/error reporting and renderer asset lookup consumers, syntax-error source retention and final diagnostic policy.",
+          "Existing PR/current variants and all20/exact first-contract aliases, canonical manifest item/placement/error owners and native serde_json::Error::custom source.",
+          "Schema/LOD/release/geometry metadata admission policy and file/asset native boundary separate from classified membership errors; no invalid supplied-manifest runtime incident."
+        ],
+        "dependencies": [
+          "Exact catalogue ItemDefinition/EquipmentPlacement membership/asset publication",
+          "Native Serde JSON error source/consumer and final diagnostic",
+          "Current source/all13/all20/exact canonical aliases"
+        ],
+        "closure_condition": "Trace first-party predicate/context through actual native error return and concrete caller to final diagnostic, then record exact owned structural-reason finding or source-qualified terminal native diagnostic/policy/rejected disposition. Repairs/runtime are separate, no old prose/API compatibility.",
+        "later_repair_acceptance_requirements": [
+          "If first-party reasons survive beyond a terminal diagnostic, preserve unknown-item/placement/duplicate distinction and the relevant item/placement/key context structurally until the final decision.",
+          "Retain foreign syntax/decoding cause and valid membership/static canonical pointer behavior; empty/optional placement and sorted default selection follow actual declared policy.",
+          "Build complete local entries before publication; no obsolete serde-error/prose/API compatibility path or arbitrary new numeric/file cap.",
+          "Concrete source/caller/current/alias and later runtime acceptance remain required; no execution claim from these observations."
+        ]
+      }
+    ],
+    "contract_revisits_pending_queue_adoption": [
+      {
+        "entry_index": 61,
+        "contract_id": "ADLER-L11-RUNTIME-EQUIPMENT-FAILURE-OWNERSHIP",
+        "scope": "Mixed equipment/canonical choices/garment admission860 material,264fresh/596reused; exact own/native/current/source admission distinctions retained; one additional open firstparty manifest reason question."
+      },
+      {
+        "entry_index": 2482,
+        "contract_id": "L12-CLOSURE-RUNTIME-EQUIPMENT-PRESENTATION-IDENTITY",
+        "scope": "Mixed equipment/canonical choices/garment admission860 material,264fresh/596reused; exact own/native/current/source admission distinctions retained; one additional open firstparty manifest reason question."
+      },
+      {
+        "entry_index": 2478,
+        "contract_id": "SEGOVB-L12-GARMENT-COIF-DESIGN-ERROR-ERASURE",
+        "scope": "Mixed equipment/canonical choices/garment admission860 material,264fresh/596reused; exact own/native/current/source admission distinctions retained; one additional open firstparty manifest reason question."
+      },
+      {
+        "entry_index": 2480,
+        "contract_id": "L12-CLOSURE-GARMENT-RESOLUTION-REASON",
+        "scope": "Mixed equipment/canonical choices/garment admission860 material,264fresh/596reused; exact own/native/current/source admission distinctions retained; one additional open firstparty manifest reason question."
+      },
+      {
+        "entry_index": 3793,
+        "contract_id": "ROOT-L13-1489-GENERATED-EQUIPMENT-NATIVE-ADMISSION",
+        "scope": "Mixed equipment/canonical choices/garment admission860 material,264fresh/596reused; exact own/native/current/source admission distinctions retained; one additional open firstparty manifest reason question."
+      },
+      {
+        "entry_index": 2699,
+        "contract_id": "REVIEW-L3-ORDERED-CANDIDATE-PERMUTATION-ADMISSION",
+        "scope": "Mixed equipment/canonical choices/garment admission860 material,264fresh/596reused; exact own/native/current/source admission distinctions retained; one additional open firstparty manifest reason question."
+      },
+      {
+        "entry_index": 977,
+        "contract_id": "Q-L12-b29e5642ee16750db644",
+        "scope": "Mixed equipment/canonical choices/garment admission860 material,264fresh/596reused; exact own/native/current/source admission distinctions retained; one additional open firstparty manifest reason question."
+      }
+    ],
+    "dedup_navigation": {
+      "queue_records_checked": 3820,
+      "existing_contracts": [
+        61,
+        2482,
+        2478,
+        2480,
+        3793,
+        2699,
+        977
+      ],
+      "new_questions_not_unique_findings": 1,
+      "qualification": "Manifest reason3predicates differ from2482 presentation identity and61 async failure retention; no alias inferred. Canonical typed choices not aggregate permutation/revision, validators only bound actual called drape/fit path."
+    },
+    "remaining_connected_obligations": [
+      "Actual P16 manifest loader/caller/native errors/current: new source2592 reason ownership question staysopen; field metadata schema/LOD/release/files admission policy and canonical pointer membership distinct.",
+      "Actual runtime preparation stickyfailure/bodyrevision/selection/async capture/render/native sources and current; no broad numeric/ID admission guarantee merely from presentation supported-type filter.",
+      "P16 deterministic unit adapter exact caller/core unit/native/current and2248 priorproof/application preserved; no RNG weighted/range_f32 otherrole clearance.",
+      "Closed Sigil/WitnessPath source exact codec/display adapters only; actual aggregate Sigil candidate permutation, authority/submission/revision and UI/native source/current all20/exactaliases remain, no interchangeable Moon namespaces.",
+      "Garment selection/drape/nativeHelmetDesign typedcause/physical resolution owner, actual Underlayer/TrunkHose validation invocation/devicefit/finalmesh/native consuming graph/current required; public/Serde paths independent.",
+      "All13/extensions/current/all20/exactaliases/concrete lateracceptance/finalrepairledger/implementation/review/runtime incomplete; fresh2511visibilityhelper/native546..557/connected524 separate adoption. Next2600requireslatest695ownproof/native/EOF/nested/prospective qualification before body/reuse; no newsubagents/productedits/builds/tests/runtime/qualityscanners."
+    ]
+  },
+  "original_before": 2592,
+  "original_after": 2600,
+  "new_original_roles": 8,
+  "root_personal_ordered_lines": 264,
+  "root_personal_connected_reread_lines": 0,
+  "prior_same_lens_reuses": [
+    {
+      "kind": "exact_admission_2592_2599_material",
+      "original": 2593,
+      "adoption": {
+        "path": "segovb/READ-L13-PARALLEL-371.json",
+        "sha256": "ba32f276addc7064922a2f7c2c56766c453f1d109fb6e26d6c92d850554e7553"
+      },
+      "qualification": {
+        "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+        "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+      }
+    },
+    {
+      "kind": "exact_admission_2592_2599_material",
+      "original": 2594,
+      "adoption": {
+        "path": "segovb/READ-L13-PARALLEL-188.json",
+        "sha256": "46c07471cbe565050b808c9037babfe4a3c82bc3b30b02f499ec086f16c4fbc1"
+      },
+      "qualification": {
+        "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+        "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+      }
+    },
+    {
+      "kind": "exact_admission_2592_2599_material",
+      "original": 2597,
+      "adoption": {
+        "path": "segovb/READ-L13-PARALLEL-109.json",
+        "sha256": "e0871ab6712bbfffc3442b90c3e4e1af80e5759b8a018758d8c566eabcc7f83a"
+      },
+      "qualification": {
+        "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+        "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+      }
+    },
+    {
+      "kind": "exact_admission_2592_2599_material",
+      "original": 2598,
+      "adoption": {
+        "path": "segovb/READ-L13-PARALLEL-126.json",
+        "sha256": "3f5f759ae773741ba26754e95f6283ebfad5243b1f2be16f3ef72afc4cf158a1"
+      },
+      "qualification": {
+        "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+        "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+      }
+    },
+    {
+      "kind": "exact_admission_2592_2599_material",
+      "original": 2599,
+      "adoption": {
+        "path": "segovb/READ-L13-PARALLEL-126.json",
+        "sha256": "3f5f759ae773741ba26754e95f6283ebfad5243b1f2be16f3ef72afc4cf158a1"
+      },
+      "qualification": {
+        "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+        "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+      }
+    }
+  ],
+  "prior_authorship_retained": true,
+  "future_original_credit": 0,
+  "qualified_ordered_reuses": [
+    {
+      "original": 2593,
+      "reuse": {
+        "kind": "exact_admission_2592_2599_material",
+        "original": 2593,
+        "adoption": {
+          "path": "segovb/READ-L13-PARALLEL-371.json",
+          "sha256": "ba32f276addc7064922a2f7c2c56766c453f1d109fb6e26d6c92d850554e7553"
+        },
+        "qualification": {
+          "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+          "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+        }
+      },
+      "proof": {
+        "qualification": {
+          "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+          "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+        },
+        "prior_original": 1482,
+        "prior_row_pointer": "/ordered/5",
+        "prior_source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment.rs",
+        "source_sha256": "6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c",
+        "actual_EOF": 143,
+        "assessed_ranges": [
+          [
+            1,
+            143
+          ]
+        ],
+        "historical_author": "/root",
+        "new_body_credit": 0
+      }
+    },
+    {
+      "original": 2594,
+      "reuse": {
+        "kind": "exact_admission_2592_2599_material",
+        "original": 2594,
+        "adoption": {
+          "path": "segovb/READ-L13-PARALLEL-188.json",
+          "sha256": "46c07471cbe565050b808c9037babfe4a3c82bc3b30b02f499ec086f16c4fbc1"
+        },
+        "qualification": {
+          "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+          "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+        }
+      },
+      "proof": {
+        "qualification": {
+          "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+          "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+        },
+        "prior_original": 2248,
+        "prior_row_pointer": "/connected/1",
+        "prior_source_id": "pr-working:crates/fabelgeist-determinism/src/lib.rs",
+        "source_sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+        "actual_EOF": 58,
+        "assessed_ranges": [
+          [
+            1,
+            35
+          ]
+        ],
+        "historical_author": "Delegated independent Lens13 personal body assessment; no root/other-lens/current transfer.",
+        "new_body_credit": 0
+      }
+    },
+    {
+      "original": 2597,
+      "reuse": {
+        "kind": "exact_admission_2592_2599_material",
+        "original": 2597,
+        "adoption": {
+          "path": "segovb/READ-L13-PARALLEL-109.json",
+          "sha256": "e0871ab6712bbfffc3442b90c3e4e1af80e5759b8a018758d8c566eabcc7f83a"
+        },
+        "qualification": {
+          "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+          "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+        }
+      },
+      "proof": {
+        "qualification": {
+          "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+          "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+        },
+        "prior_original": 2597,
+        "prior_row_pointer": "/connected/0",
+        "prior_source_id": "pr-working:crates/adventuresim-character-creator/src/garment/selection.rs",
+        "source_sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+        "actual_EOF": 271,
+        "assessed_ranges": [
+          [
+            1,
+            225
+          ]
+        ],
+        "historical_author": "Delegated independent Lens13 personal body assessment; no root/other-lens/current transfer.",
+        "new_body_credit": 0
+      }
+    },
+    {
+      "original": 2598,
+      "reuse": {
+        "kind": "exact_admission_2592_2599_material",
+        "original": 2598,
+        "adoption": {
+          "path": "segovb/READ-L13-PARALLEL-126.json",
+          "sha256": "3f5f759ae773741ba26754e95f6283ebfad5243b1f2be16f3ef72afc4cf158a1"
+        },
+        "qualification": {
+          "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+          "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+        }
+      },
+      "proof": {
+        "qualification": {
+          "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+          "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+        },
+        "prior_original": 2598,
+        "prior_row_pointer": "/connected/2",
+        "prior_source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer.rs",
+        "source_sha256": "9726131d4d0508a8b77b56bd2723a18c1f5e45d0be3e468ccc797d39a12a1f2a",
+        "actual_EOF": 137,
+        "assessed_ranges": [
+          [
+            1,
+            137
+          ]
+        ],
+        "historical_author": "Delegated independent Lens13 personal body assessment; no root/other-lens/current transfer.",
+        "new_body_credit": 0
+      }
+    },
+    {
+      "original": 2599,
+      "reuse": {
+        "kind": "exact_admission_2592_2599_material",
+        "original": 2599,
+        "adoption": {
+          "path": "segovb/READ-L13-PARALLEL-126.json",
+          "sha256": "3f5f759ae773741ba26754e95f6283ebfad5243b1f2be16f3ef72afc4cf158a1"
+        },
+        "qualification": {
+          "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+          "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+        }
+      },
+      "proof": {
+        "qualification": {
+          "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2592-2599-ADMISSION-MIXED-001.json",
+          "sha256": "86498a32b09ed3a5c2cb415365b9d2714026e60caf79a5072227b29c12013d72"
+        },
+        "prior_original": 2599,
+        "prior_row_pointer": "/connected/3",
+        "prior_source_id": "pr-working:crates/fabelgeist-armor/src/trunk_hose.rs",
+        "source_sha256": "ead698d9816a1f7549be4753d738ff8ab43d6f4eaf18f528b6b994d1248b48d9",
+        "actual_EOF": 56,
+        "assessed_ranges": [
+          [
+            1,
+            56
+          ]
+        ],
+        "historical_author": "Delegated independent Lens13 personal body assessment; no root/other-lens/current transfer.",
+        "new_body_credit": 0
+      }
+    }
+  ],
+  "new_original_roles_from_prior_connected_reads": 5,
+  "other_population_credit": 0,
+  "accepted_unique_count_change": 0,
+  "current_source_reconciled": false,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "writer": {
+    "path": "adler-continuation-20261030/adopt_root_l13_packet_v130.py",
+    "sha256": "21ea795a57475e05fd18f3a565c7a1cc2d341be6436744ff25908887fb564a09"
+  },
+  "plan": {
+    "path": "adler-continuation-20261030/PLAN-ROOT-L13-2592-2599-001.json",
+    "sha256": "9a098d171f0de2f41b6e0839d5923393f440f0ed10489bb3f6f546d6249675e5"
+  }
+}

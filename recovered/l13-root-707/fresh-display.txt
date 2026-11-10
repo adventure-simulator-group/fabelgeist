@@ -1,0 +1,30 @@
+49: 
+50: /// Assisted contact outcome. A non-arriving lunge leaves ordinary attacks valid.
+51: #[derive(Clone, Copy, Debug, PartialEq)]
+52: pub enum MeleeLungeArrival {
+53:     NotNeeded,
+54:     ArrivesIn(AnimationElapsed),
+55:     CannotArrive,
+56: }
+57: 
+88: impl MeleeLungeArrival {
+89:     /// Client/server unassisted swings keep their authored contact timing.
+90:     pub fn contact_timing(
+91:         self,
+92:         authored_windup: AnimationElapsed,
+93:     ) -> AnimationValueResult<MeleeContactTiming> {
+94:         // This is the original contact/delay kernel, including its zero-sign
+95:         // normalization. The outcome itself remains explicit at every caller.
+96:         let predicted = match self {
+97:             Self::ArrivesIn(arrival) => arrival.seconds(),
+98:             Self::NotNeeded | Self::CannotArrive => 0.0,
+99:         };
+100:         let authored = authored_windup.seconds();
+101:         let contact = authored.max(predicted).max(0.0);
+102:         let delay = (contact - authored.max(0.0)).max(0.0);
+103:         Ok(MeleeContactTiming {
+104:             delay: AnimationElapsed::from_seconds(delay)?,
+105:             contact: AnimationElapsed::from_seconds(contact)?,
+106:         })
+107:     }
+108: }

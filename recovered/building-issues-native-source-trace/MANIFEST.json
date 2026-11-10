@@ -1,0 +1,233 @@
+{
+  "schema": "726-building-issues-native-source-trace-v1",
+  "registration_reference": {
+    "name": "REGISTRATION-ROOT-L12-BUILDING-AUDIT-ISSUES-002.json",
+    "sha256": "beb91fbbe88f3a2c1ca0d3b70ad911329d7ade4eec2b71d9eeee6f1a29b5add3",
+    "original_bytes_recovered": false
+  },
+  "selected_revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+  "lock_sha256": "b36b6a88eebfff2628c4626c1f890f1589f7e06d324aab6d22a998475daa97d1",
+  "native_archive_checksum": "a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354",
+  "sources": [
+    {
+      "index": 0,
+      "source_id": "current-337:crates/adventuresim-building-generator/src/generator/core.rs",
+      "sha256": "f9cad0ec57715ef451e89d64fc3b833ffba8beb778e82d9a286f269d71849e4d",
+      "ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "bytes": 13231,
+      "eof": 311,
+      "origin": {
+        "kind": "git",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "path": "crates/adventuresim-building-generator/src/generator/core.rs"
+      }
+    },
+    {
+      "index": 1,
+      "source_id": "current-337:crates/adventuresim-building-generator/src/audit/shared_helpers.rs",
+      "sha256": "76e7f6c63abfedfdacaf9045369ed282f14c8eb113b868127679ab236368ee36",
+      "ranges": [
+        [
+          90,
+          105
+        ]
+      ],
+      "bytes": 5559,
+      "eof": 171,
+      "origin": {
+        "kind": "git",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "path": "crates/adventuresim-building-generator/src/audit/shared_helpers.rs"
+      }
+    },
+    {
+      "index": 2,
+      "source_id": "current-337:crates/adventuresim-tactical-client/Cargo.toml",
+      "sha256": "c39360e6d15abbb62a6ad11effb50a89f79796973498f87fd5dee1ee8770b8b2",
+      "ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "bytes": 3950,
+      "eof": 129,
+      "origin": {
+        "kind": "git",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "path": "crates/adventuresim-tactical-client/Cargo.toml"
+      }
+    },
+    {
+      "index": 3,
+      "source_id": "current-337:Cargo.toml",
+      "sha256": "f1fe1a1539e5d091112577726ac5723769c9a2bb098c149684e6810efe895881",
+      "ranges": [
+        [
+          90,
+          100
+        ]
+      ],
+      "bytes": 7569,
+      "eof": 210,
+      "origin": {
+        "kind": "git",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "path": "Cargo.toml"
+      }
+    },
+    {
+      "index": 4,
+      "source_id": "current-337:Cargo.lock",
+      "sha256": "b36b6a88eebfff2628c4626c1f890f1589f7e06d324aab6d22a998475daa97d1",
+      "ranges": [
+        [
+          1804,
+          1832
+        ]
+      ],
+      "bytes": 305636,
+      "eof": 13077,
+      "origin": {
+        "kind": "git",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "path": "Cargo.lock"
+      }
+    },
+    {
+      "index": 5,
+      "source_id": "native:crates.io/bevy_ecs@0.19.1/src/error/handler.rs",
+      "sha256": "800c43a7bcf3956170973151045546484c9546e3bb50635f9fab8cba7fed353d",
+      "ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "bytes": 5503,
+      "eof": 187,
+      "origin": {
+        "kind": "crate",
+        "package": "bevy_ecs",
+        "version": "0.19.1",
+        "archive_checksum": "a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354",
+        "member": "bevy_ecs-0.19.1/src/error/handler.rs"
+      }
+    },
+    {
+      "index": 6,
+      "source_id": "native:crates.io/bevy_ecs@0.19.1/src/error/bevy_error.rs",
+      "sha256": "ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "ranges": [
+        [
+          1,
+          286
+        ],
+        [
+          383,
+          461
+        ]
+      ],
+      "bytes": 20851,
+      "eof": 567,
+      "origin": {
+        "kind": "crate",
+        "package": "bevy_ecs",
+        "version": "0.19.1",
+        "archive_checksum": "a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354",
+        "member": "bevy_ecs-0.19.1/src/error/bevy_error.rs"
+      }
+    },
+    {
+      "index": 7,
+      "source_id": "native:crates.io/bevy_ecs@0.19.1/src/error/mod.rs",
+      "sha256": "1647c35091db53ccde7cfd43e7b106f40942404b814f599015db776308ddfd3d",
+      "ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "bytes": 3503,
+      "eof": 82,
+      "origin": {
+        "kind": "crate",
+        "package": "bevy_ecs",
+        "version": "0.19.1",
+        "archive_checksum": "a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354",
+        "member": "bevy_ecs-0.19.1/src/error/mod.rs"
+      }
+    }
+  ],
+  "fragments": [
+    {
+      "event_ordinal": 65828,
+      "file": "fragments/65828.txt",
+      "sha256": "34c8f6fb355221201c7eae9f8b2fd19e5070fbe7bedbe9d21fa0931d51a0b372"
+    },
+    {
+      "event_ordinal": 65835,
+      "file": "fragments/65835.txt",
+      "sha256": "93c85cc4cee73ed649ea622f6e0278abb7611b2deafdb73bbc2035dde4529316"
+    },
+    {
+      "event_ordinal": 65842,
+      "file": "fragments/65842.txt",
+      "sha256": "7bd5bb2c4a3d21d45355890d56e0795c195fd6fb4b6b3ae060fb3ea5ab4b944d"
+    },
+    {
+      "event_ordinal": 65847,
+      "file": "fragments/65847.txt",
+      "sha256": "df8014452828f5412193577873245c91713a1b00627f9c6d3ecd0805fa0ad271"
+    }
+  ],
+  "line_occurrences": 1017,
+  "display_differences": [
+    {
+      "event_ordinal": 65835,
+      "source_id": "native:crates.io/bevy_ecs@0.19.1/src/error/mod.rs",
+      "line": 19
+    },
+    {
+      "event_ordinal": 65835,
+      "source_id": "native:crates.io/bevy_ecs@0.19.1/src/error/mod.rs",
+      "line": 20
+    },
+    {
+      "event_ordinal": 65835,
+      "source_id": "native:crates.io/bevy_ecs@0.19.1/src/error/mod.rs",
+      "line": 21
+    },
+    {
+      "event_ordinal": 65835,
+      "source_id": "native:crates.io/bevy_ecs@0.19.1/src/error/mod.rs",
+      "line": 22
+    },
+    {
+      "event_ordinal": 65835,
+      "source_id": "native:crates.io/bevy_ecs@0.19.1/src/error/mod.rs",
+      "line": 23
+    },
+    {
+      "event_ordinal": 65835,
+      "source_id": "native:crates.io/bevy_ecs@0.19.1/src/error/mod.rs",
+      "line": 24
+    },
+    {
+      "event_ordinal": 65835,
+      "source_id": "native:crates.io/bevy_ecs@0.19.1/src/error/mod.rs",
+      "line": 25
+    },
+    {
+      "event_ordinal": 65835,
+      "source_id": "native:crates.io/bevy_ecs@0.19.1/src/error/mod.rs",
+      "line": 36
+    }
+  ],
+  "qualification": "Recorded displays checked against pinned Git and checksum-verified native archive bytes; original registration and read packet remain missing. Historical assessments grant no new credit or runtime acceptance."
+}

@@ -1,0 +1,134 @@
+{
+  "lens": 13,
+  "status": "Evidence bookkeeping passed; root adoption required",
+  "read": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-025.json",
+    "sha256": "d28e01a01f18152b66e3e9be463ed57661ac010796921367bd14f4db4284e4f3"
+  },
+  "checks": [
+    {
+      "original": 498,
+      "exact_hash_eof_prospective_scope": true,
+      "ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "ordered_credit": 1
+    },
+    {
+      "original": 499,
+      "exact_hash_eof_prospective_scope": true,
+      "ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "ordered_credit": 1
+    },
+    {
+      "original": 500,
+      "actual_visual_read": true,
+      "png_header_verified": {
+        "width": 128,
+        "height": 128,
+        "bit_depth": 8,
+        "color_type": 6,
+        "compression": 0,
+        "filter": 0,
+        "interlace": 0
+      },
+      "ordered_credit": 1,
+      "text_ranges_counted": 0
+    },
+    {
+      "original": 501,
+      "actual_deleted_contract_read": true,
+      "base_visual_read_at_exact_sha256": "5b4ab9883c3153a5f2aaff6dc07d118e75eb7f8b1f17e99a562c9186f2fa438c",
+      "ordered_credit": 1,
+      "text_ranges_counted": 0
+    },
+    {
+      "original": 502,
+      "exact_hash_eof_prospective_scope": true,
+      "ranges": [
+        [
+          1,
+          694
+        ]
+      ],
+      "ordered_credit": 1
+    },
+    {
+      "source_id": "pr-working:scripts/bake_equipment_icons.py",
+      "exact_hash_eof_prospective_scope": true,
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "ordered_credit": 0
+    },
+    {
+      "source_id": "pr-working:scripts/render_equipment_icons.py",
+      "exact_hash_eof_prospective_scope": true,
+      "ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "ordered_credit": 0
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/equipment_icons.rs",
+      "exact_hash_eof_prospective_scope": true,
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "ordered_credit": 0
+    },
+    {
+      "source_id": "pr-working:content/items/catalog.yaml",
+      "exact_hash_eof_prospective_scope": true,
+      "ranges": [
+        [
+          4582,
+          4611
+        ]
+      ],
+      "ordered_credit": 0
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_export.rs",
+      "exact_hash_eof_prospective_scope": true,
+      "ranges": [
+        [
+          1,
+          343
+        ]
+      ],
+      "ordered_credit": 0
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment_assets.rs",
+      "exact_hash_eof_prospective_scope": true,
+      "ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "ordered_credit": 0
+    }
+  ],
+  "authority_count_changes": 0,
+  "product_execution": false,
+  "current_reconciled": false
+}

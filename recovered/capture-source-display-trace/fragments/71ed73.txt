@@ -1,0 +1,118 @@
+SOURCE crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2
+151:         .and_then(|value| value.checked_div(pixels))
+152:         .unwrap_or(0)
+153:         .min(10_000) as u16
+154: }
+155: 
+156: pub(super) fn mean_luminance(data: Option<&[u8]>) -> f32 {
+157:     let Some(data) = data else { return f32::NAN };
+158:     let pixels = data.as_chunks::<4>().0;
+159:     if pixels.is_empty() {
+160:         return f32::NAN;
+161:     }
+162:     let total = pixels
+163:         .iter()
+164:         .map(|pixel| {
+165:             f64::from(pixel[0]) * 0.2126
+166:                 + f64::from(pixel[1]) * 0.7152
+167:                 + f64::from(pixel[2]) * 0.0722
+168:         })
+169:         .sum::<f64>();
+170:     (total / pixels.len() as f64) as f32
+171: }
+172: 
+173: pub(super) fn deterministic_readback_hash(data: Option<&[u8]>) -> Option<u64> {
+174:     let data = data?;
+175:     // FNV-1a is sufficient here: the gate compares two retained readbacks
+176:     // byte-for-byte through a deterministic compact witness; it is not a
+177:     // content-addressing or adversarial-integrity boundary.
+178:     Some(data.iter().fold(0xcbf2_9ce4_8422_2325_u64, |hash, byte| {
+179:         (hash ^ u64::from(*byte)).wrapping_mul(0x0000_0100_0000_01b3)
+180:     }))
+181: }
+182: 
+183: pub(super) fn luminance_delta(samples: &[f32]) -> f32 {
+184:     samples
+185:         .windows(2)
+186:         .map(|pair| (pair[1] - pair[0]).abs())
+187:         .fold(0.0, f32::max)
+188: }
+189: 
+190: pub(super) fn lighting_samples_stable(samples: &[f32]) -> bool {
+191:     if samples.len() < 2 || samples.iter().any(|sample| !sample.is_finite()) {
+192:         return false;
+193:     }
+194:     let mean = samples.iter().sum::<f32>() / samples.len() as f32;
+195:     luminance_delta(samples) <= (mean * 0.02).max(1.5)
+196: }
+197: 
+198: /// Preserve the full diagnostic trace while testing the latest consecutive pair.
+199: pub(super) fn settled_luminance_samples(samples: &[f32]) -> &[f32] {
+200:     &samples[samples.len().saturating_sub(2)..]
+201: }
+202: 
+203: pub(super) fn lighting_convergence(samples: &[f32]) -> LightingConvergence {
+204:     if lighting_samples_stable(settled_luminance_samples(samples)) {
+205:         LightingConvergence::Ready
+315:     fn foliage_metric_rejects_zero_sized_images() {
+316:         assert_eq!(foliage_detail_pixel_bps(Some(&[]), 0, 1), 0);
+317:         assert_eq!(foliage_detail_pixel_bps(Some(&[]), 1, 0), 0);
+318:     }
+319: 
+320:     #[test]
+321:     fn deterministic_readback_hash_detects_any_byte_change() {
+322:         let original = [1_u8, 2, 3, 4, 5];
+323:         let changed = [1_u8, 2, 3, 4, 6];
+324:         assert_eq!(
+325:             deterministic_readback_hash(Some(&original)),
+326:             deterministic_readback_hash(Some(&original))
+327:         );
+328:         assert_ne!(
+329:             deterministic_readback_hash(Some(&original)),
+330:             deterministic_readback_hash(Some(&changed))
+331:         );
+332:         assert_eq!(deterministic_readback_hash(None), None);
+333:     }
+334: 
+335:     #[test]
+336:     fn canopy_metric_requires_upper_centre_render_content() {
+337:         let mut image = [100_u8, 140, 180, 255].repeat(16);
+338:         assert_eq!(tree_canopy_pixel_bps(Some(&image), 4, 4), 0);
+339:         let pixel = 4;
+340:         image[pixel..pixel + 4].copy_from_slice(&[20, 60, 25, 255]);
+SOURCE crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1
+3376:                         .collect();
+3377:                     record.settled_readbacks_identical = Some(
+3378:                         settled_reference_hash
+3379:                             .zip(final_readback_hash)
+3380:                             .is_some_and(|(reference, final_hash)| reference == final_hash),
+3381:                     );
+3382:                 }
+3383:             }
+3384:             state.view += 1;
+3385:             state.lighting_luminance_samples.clear();
+3386:             state.phase = CapturePhase::Configure;
+3387:             if let Some(pending) = final_data.take() {
+3388:                 let (manifest, valid) =
+3389:                     pending.finalize_after_screenshot(&state.captures, &state.views);
+3390:                 finish_capture(&state.output, &manifest, valid, &mut exit);
+3391:             }
+3392:         },
+3393:     );
+3394: }
+3395: 
+3396: fn focused_tree_lod_queued(
+3397:     focused_tree: Option<Entity>,
+3398:     forced_lod: u8,
+3399:     tree_lods: &Query<(&TreeLod, &ViewVisibility, Option<&ChildOf>)>,
+3400: ) -> bool {
+3401:     let Some(focused_tree) = focused_tree else {
+3402:         return false;
+3403:     };
+3404:     tree_lods.iter().any(|(lod, view_visibility, parent)| {
+3405:         lod.0 == forced_lod
+3406:             && view_visibility.get()
+3407:             && parent.is_some_and(|parent| parent.parent() == focused_tree)
+3408:     })
+3409: }
+3410: 

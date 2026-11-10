@@ -1,0 +1,132 @@
+{
+  "schema": "726-adler-environment-checkpoint-v1",
+  "at": "2026-11-02T04:31:59.883890+00:00",
+  "authoritative_writer": "/root",
+  "handoff_commit": "eb407672813424d64ec31f208193969f5a62620c",
+  "continuation_root": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027",
+  "ledger": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/evidence/continuation-segovb/ledger.json",
+    "sha256": "b56e380ea5ac7a785fe9d829bbc4cbad066347dea5a41c6d9f1d26f7ee81d2cc",
+    "bytes": 10772998
+  },
+  "selector": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/CURRENT-ADLER.json",
+    "sha256": "81743be5ed596fe877f6c5464ecfa098f60a9c0e80ffb899a391e77b2ec640f3",
+    "bytes": 12090
+  },
+  "closure_queue": {
+    "path": "workflow-20261030/CLOSURE-QUEUE-789.json",
+    "sha256": "e14575b1d3f45840a01de3a00cf668db2d359ff9cbd003c4e1620f9c7e2f35b0"
+  },
+  "original_inventory_frontiers": [
+    {
+      "lens": 11,
+      "name": "type-granularity",
+      "original_accounted": 2853,
+      "next_original": 2853,
+      "state": "segovb/STATE-L11-733.json",
+      "next_action": "Continue delegated registered unread bodies and e2755a7 delta/current all20/exact aliases;7a9d92a scoped receipts historical current snapshot only. No implementation.",
+      "state_sha256": "6866a59e6158090421fd350b20c970dd552768e1989423902cb778cf5e1d7004",
+      "original_total": 2853,
+      "latest_receipt": "segovb/READ-L11-733.json",
+      "partial_receipt": null,
+      "latest_qualification": {
+        "path": "segovb/QUALIFICATION-L11-511-001.json",
+        "sha256": "2ea34a42de765d8d7ed4f9f93b1d7abfb07fd5b05261073ec18d4e4bf7d83c3d"
+      }
+    },
+    {
+      "lens": 12,
+      "name": "magic-strings",
+      "original_accounted": 2853,
+      "next_original": 2853,
+      "state": "segovb/STATE-L12-960.json",
+      "latest_receipt": "segovb/READ-L12-960.json",
+      "qualification": "Disease1093 combines inherited1..1200 persisted roles, checkpoint attestation1201..1800 and new personal1801..2950. Raw predecessor tool outputs1201..1800 not separately transported; not invented personal evidence.",
+      "next_action": "Original Lens12 inventory2853/2853 after adoption is source accounting only. Resolve all connected/native/current scope, all20 migration families, exact first predicates/canonical owners/aliases and concrete later repair acceptance before full audit/implementation. Six new source questions and four existing views remain open, acceptedunique0; all older obligations and current59paths767pending0closed preserved. Future2813 ordered application once; distinct2818 role shares the old body with zero duplicate fresh credit. Preserve historical authors, all66 absent bytes fields, 132 raw range qualifications and other-lens/population distinctions. Fresh2511 visibility/native546..557/connected524 and every earlier unread connected helper still required. No product execution, tests, runtime or independent review.",
+      "state_sha256": "3d78ed9e6405a8741f30d190cf6fe6e93d490d2b0ab6938d09504407188b5ceb",
+      "original_total": 2853,
+      "partial_receipt": null,
+      "partial_receipt_sha256": null,
+      "partial_next_line": null,
+      "partial_closed_by": "segovb/READ-L12-564.json",
+      "latest_connected_qualification": {
+        "path": "segovb/SUPPORT-READ-L12-466-001.json",
+        "sha256": "13a114294d4a776911a6ebda5a1b0ef432c82662bb59df2e4ceacd6722b9ee57",
+        "scope": "Frozen art-demo !finished guard, no original counter/current/native closure"
+      },
+      "latest_native_receipt": "segovb/READ-NATIVE-L12-634-003.json",
+      "latest_connected_shared_receipt": "segovb/READ-SHARED-L12-562-014.json",
+      "latest_connected_receipt": "segovb/READ-EXT-L12-672-001.json",
+      "latest_connected_body_receipt": "segovb/READ-L12-CONNECTED-TEAM-025.json",
+      "latest_connected_body_receipt_sha256": "bd24893b3fe6b2a8001ba65433c6ae37a226ce5f91da21cdfad3fa52286975de"
+    },
+    {
+      "lens": 13,
+      "name": "magic-numbers",
+      "original_accounted": 2853,
+      "next_original": 2853,
+      "state": "segovb/STATE-L13-PARALLEL-723.json",
+      "partial_receipt": null,
+      "next_action": "Continue every ordered/connected/extension/current/all20/exact-alias contract; no repairs.",
+      "state_sha256": "e177a5f553ffb2e438702ac6e547c40475f42a0ffdbe014fe88283cfd38137e2",
+      "original_total": 2853,
+      "latest_receipt": "segovb/READ-L13-PARALLEL-723.json",
+      "partial_receipt_closed_by": "segovb/READ-L13-PARALLEL-001.json"
+    }
+  ],
+  "original_product_checkout": {
+    "head": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "clean": true,
+    "stashes": [
+      "37425931d1bd5c5fa104900d2f5f6a3a40e06afd",
+      "5f6624e22fc5b56132a3396dd4fa936d65c09d0d",
+      "bc59ca7bf0aa017ae5cad7d65bd4a4b52834ffbd"
+    ]
+  },
+  "old_continuation": {
+    "preserved": true,
+    "selector": {
+      "path": "target/726-audit-adler-20261027/CURRENT-ADLER.json",
+      "sha256": "a9f23ec047013ee599f87907dedc4d689dcd64d52528b26002d46fafbd6ae271",
+      "bytes": 4855
+    },
+    "ledger": {
+      "path": "target/726-audit-adler-20261027/evidence/continuation-segovb/ledger.json",
+      "sha256": "0425f4ba22a7068d26073e1349a01b29f874f6333a2c33dcc5c0cece8017039a",
+      "bytes": 1172060
+    }
+  },
+  "transport": {
+    "logical_files_verified_and_restored": 36487,
+    "logical_bytes": 12136674821,
+    "restoration_log": {
+      "path": "target/726-intake-20261030/restoration-case-sensitive.log",
+      "sha256": "e34744491e159360cca8c39099614d12474bb4383441127e8f1bff3316e9e784",
+      "bytes": 989
+    },
+    "adapter": {
+      "path": "target/726-intake-20261030/restore_windows.py",
+      "sha256": "ace7848642cb59d8ddeda87ba7f835cbdcefed0ab2469a3bff5d958f7289fd25",
+      "bytes": 1095
+    },
+    "root_equality_uses_canonical_paths": true,
+    "case_sensitive_output_directory": true,
+    "failed_partial_preserved": "target/726-audit-continuation-20261030/target-partial-windows001/RESTORATION-PARTIAL-WINDOWS-001",
+    "coverage_credit": 0
+  },
+  "new_current_delta_proposal": {
+    "path": "target/726-intake-20261030/CURRENT-E275-TO-3371425-PROPOSAL.json",
+    "sha256": "87700b7bdfab9451e227eb5a8cfd0a1119c5e772ef4eefa7c89434267ad451a4",
+    "bytes": 527571
+  },
+  "body_read_attribution": "CP454/QUEUE789: exact old physical2511/current building_closures helper/test tail53..150 now read/adopted; prior own-L12 READ853 row1 covers1..52, disjoint union full150. Only one exact af2 hash hit among1077 eligible own-L12 receipts, original registry files[2511] same hash/EOF150, current337 Git bytes same; no frozen/current identity substitution or new original population credit. Fresh98 own-root lines and450 uncredited observer/scene/fixture/plugin lines consumed in three complete outputs. Tests61..150 source only, not executed; no rendered/no-gap acceptance or compiler/runtime claim. Q1938 old view0 unread-tail/helper clause superseded by a structured scoped status view; historical text/other predicates/canonical fields preserved. Actual sync iterates every material-batch closure mesh by typed building/opening pair and writes facade/range only, no Transform access. visibility54..59 zeroes start margin and inherits Lod1 other fields; no stronger numeric/visual claim without actual callee/margins/activation evidence. Prior exact bevy_camera0.19.1 visibility1..284 and bevy_render0.19.1 visibility1..265 source549 adoption/qualification reused as dependency, not new native/source credit or full app/native contract closure. Window observer gets fallible mesh cache and matching primary material before queued visual components/identity children; cache/assets/lifetime and independent server/fixture behavior not proved. Actual BuildingPresentationPlugin signs1..23 registers SceneBuilding/Vista observers, resolving earlier metadata-only client registration. Ordinary strategic spawn initially queues building and then fallible door/window/pose loops before final paired PreparedBuildingGeometry+SceneBuilding insertion; review fixture spawn similarly interleaves fallible conversions and queued entities. No local rollback shown and no supported error/partial-publication failure asserted. Strategic leaves attach to supplied root despite converted Scene poses; actual root transform/domain still needed before extending server-root frame conclusion. Review select_pose indexes actual SceneCaptureState views/current and fixture views/camera; producer/index bounds remain necessary before reachable panic or safe-domain claim. Next actual ClosureMeshes::window cache/preparation/material code, building_lod_visibility callee, strategic root producers and capture-state/fixture selector contracts; own typed preparation/publication/error policy rather than assumptions about native default handler. Source search found no named DefaultErrorHandler/set_error_handler/GLOBAL_ERROR_HANDLER override, which is not native rollback proof. Existing Q2249index002/Q2250finite-tangent001/InteriorField grid-opening001 required repairs retained, not reopened. Fresh98 firstparty scopes queued under other lenses with no transferred verdict. Separate root verifier whole-inverse preserves ledger/selector/queue/all13 selections and earlier authorship; not independent agent review. Counts: originals2853 each, ordered376680/reread1194 unchanged, freshconnected5556/personal383430; connectedbody148/native7, primary551/queue3834 not unique defects. Current33759paths767pending0closed and earlier reconciliation preserved. No product edits/builds/tests/scanners/subagents. Full audit/implementation/review/runtime incomplete; goal active; previous/current turns progress.",
+  "prior_attribution_checkpoint": {
+    "path": "target/726-intake-20261030/CHECKPOINT-453.json",
+    "sha256": "828d4536a4b58a26762a52d7ab519421d3d7741338d404919928800910e8d44a"
+  },
+  "product_execution": false,
+  "product_edits": false,
+  "audit_complete": false,
+  "implementation_gate_complete": false
+}

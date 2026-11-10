@@ -1,0 +1,63 @@
+"""Exact four material roles: delegated manifest five lines and fresh native35."""
+from pathlib import Path
+import hashlib,json,subprocess
+def build(r,w,a,co,files):
+ r,w,a=[p.resolve()for p in(r,w,a)]
+ def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+ def read(p):return json.loads(p.read_bytes())
+ def ref(p):return {'path':p.relative_to(r).as_posix(),'sha256':sha(p)}
+ def resolve(v):
+  ps={p.resolve()for p in[r/v['path'],w/v['path'],r/'evidence/continuation-segovb'/v['path']]if p.is_file()and sha(p)==v['sha256']};assert len(ps)==1;return ps.pop()
+ def rr(v):return read(resolve(v))
+ assert co['next_original']==2685 and len(co['discovery_receipts'])==708
+ dp=w.parent/'726-intake-20261030/DISCOVERY-L13-2685-2686-METADATA-001.json';assert sha(dp)=='8f76dce9ba21db1e6708681631d6817a4c8ed619ccefda3c49d71d109c5338d6';d=read(dp);targets={files[n]['sha256']:n for n in range(2685,2687)};hits=[]
+ for v in co['discovery_receipts']:
+  raw=resolve(v).read_bytes()
+  for h,n in targets.items():
+   if h.encode()in raw:hits.append({'original':n,'receipt':v})
+ futures=[v for v in co['future_same_lens_reuse_proofs']if any(h in json.dumps(v)for h in targets)];apps=[v for v in co['future_same_lens_ordered_applications']if any(h in json.dumps(v)for h in targets)]
+ assert hits==d['exact_hash_prior_hits']and [(x['original'],x['receipt']['path'])for x in hits]==[(2685,'segovb/READ-L13-PARALLEL-023.json'),(2685,'segovb/READ-L13-PARALLEL-701.json')]and futures==d['future_same_lens_proofs_navigation']==[]and apps==d['prior_applications_preserved_navigation']and [x['original']for x in apps]==[2671]and d['body_credit']==d['authority_changes']==0 and d['prior_same_lens_receipts_authenticated']==708 and not any(x.get('original')in(2685,2686)for x in co['future_same_lens_ordered_applications'])
+ fields=[]
+ def inspect(v,eof,p):
+  if isinstance(v,dict):
+   for k,x in v.items():
+    at=p+'/'+k
+    if(k.endswith('ranges')or k in['read_ranges_as_recorded','material_contract_ranges_as_recorded','requested_range_limits'])and x:
+     assert isinstance(x,list)and all(isinstance(z,list)and len(z)==2 and all(isinstance(y,int)for y in z)and 1<=z[0]<=z[1]<=eof for z in x),(at,x,eof);fields.append({'pointer':at,'raw_value':x,'actual_eof':eof})
+    inspect(x,eof,at)
+  elif isinstance(v,list):
+   for j,x in enumerate(v):inspect(x,eof,p+'/'+str(j))
+ specs=[(2685,221,8395,[[85,85],[95,95]]),(2686,13101,306111,[[1434,1443],[2307,2366],[2660,2702]])];sources=[];entries=[]
+ for n,eof,size,rs in specs:
+  f=files[n];assert d['entries'][n-2685]=={'original':n,'registry_entry':f}and f['actual_line_count']==eof and f['bytes']==size and f['scope_kind']=='materially_reached_admission_contract'and f['material_ranges']==rs;inspect(f,eof,f'/files/{n}')
+  leaf='Cargo.toml'if n==2685 else'Cargo.lock';assert f['source_id']=='report-p17:'+leaf and f['snapshot']=='report-p17'and f['path']=='SNAPSHOTS\\p17\\'+leaf
+  assert {j for role in f['admission03_scope_observations']for lo,hi in role['effective_material_ranges']for j in range(lo,hi+1)}=={j for lo,hi in rs for j in range(lo,hi+1)}
+  git='f82adcabd9d89c4fa2dd7f99253a45297a0681ee';gp='handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/'+f['sha256'];body=subprocess.check_output(['git','show',git+':'+gp]);assert hashlib.sha256(body).hexdigest()==f['sha256']and len(body)==size and len(body.splitlines())==eof;obj=a/'objects'/f['sha256']
+  if obj.is_file():assert obj.read_bytes()==body
+  else:
+   with obj.open('xb')as out:out.write(body)
+  prior=None
+  if n==2685:
+   rp=resolve(hits[0]['receipt']);root=read(rp);assert ref(rp)in co['discovery_receipts']and root['lens']==13 and root['root_personal_rereads']==[]and root['original_before']==498 and root['original_after']==503 and root['current_source_reconciled']is root['implementation_gate_complete']is False
+   rawp=resolve(root['delegated_receipt']);vp=resolve(root['delegated_verification']);raw=read(rawp);v=read(vp);pregp=resolve(raw['registration']);preg=read(pregp);mp=resolve(root['agent_validation_manifest']);manifest=read(mp);old=raw['rows'][0]
+   assert root['evidence']==raw and raw['lens']==v['lens']==preg['lens']==manifest['lens']==13 and resolve(v['read'])==rawp and raw['authoritative_counts_changed']is raw['product_execution']is v['product_execution']is False and preg['authority_changes']==v['authority_count_changes']==manifest['authority_changes']==manifest['body_coverage_generated_by_verification']==0 and manifest['ledger_selector_mutations']is manifest['product_execution']is manifest['current_reconciled']is manifest['global_clearance']is False
+   assert preg['status']=='Prospective literal and actual nontext contracts'and all(old[k]==value for k,value in preg['sources'][0].items())and old['original']==498 and old['source_id']==files[498]['source_id']=='pr-working:Cargo.toml'and old['sha256']==files[498]['sha256']==f['sha256']and old['actual_eof']==221 and old['prospective_ranges']==old['fresh_personal_assessed_ranges']==[[1,221]]and old['untruncated_body_outputs']is True and (w/old['object_path']).read_bytes()==body
+   check=next(x for x in v['checks']if x.get('original')==498);assert check=={'original':498,'exact_hash_eof_prospective_scope':True,'ranges':[[1,221]],'ordered_credit':1}
+   sr=next(x for x in root['verified_source_registrations']if x['row_pointer']=='/rows/0');assert resolve(sr['registration'])==pregp and sr['original']==498 and sr['source_id']==old['source_id']and sr['root_personal_rereads']==[]
+   mr=next(x for x in manifest['source_records']if x.get('original')==498);assert mr['read_json_pointer']=='/rows/0'and mr['source_id']==old['source_id']and mr['sha256']==f['sha256']and mr['actual_eof']==221 and mr['prospective_ranges']==mr['fresh_personal_assessed_ranges']==[[1,221]]and mr['registered_before_read_attestation']is mr['registry_index_verified']is mr['object_sha_verified']is mr['actual_eof_and_range_bounds_verified']is mr['body_outputs_untruncated_attestation']is True and mr['frozen_git_verification']=={'revision':'6533e444fa37552927070cc8d8190907fd3b413e','path':'Cargo.toml','exists':True,'sha256':f['sha256'],'matches_exact_object':True}
+   assert body==subprocess.check_output(['git','show','6533e444fa37552927070cc8d8190907fd3b413e:Cargo.toml'])
+   assert 'at'not in raw and 'registered_before_read_attestation'not in raw and 'at'not in preg
+   numeric={k:value for k,value in raw['numeric_role_inventory'].items()if k.startswith('498:')};assert len(numeric)==1 and 'SDK/SATS2.6.1' in next(iter(numeric.values()))
+   app=apps[0];ar=rr({'path':app['receipt'],'sha256':app['receipt_sha256']});assert {'path':app['receipt'],'sha256':app['receipt_sha256']}in co['discovery_receipts']and app['exact_reuses'][0]['original']==2671 and app['exact_reuses'][0]['proof']['prior_original']==498 and app['exact_reuses'][0]['proof']['source_sha256']==f['sha256']and app['exact_reuses'][0]['proof']['new_body_credit']==0 and ar['qualified_ordered_reuses']==app['exact_reuses']
+   prior={'prior_adoption':ref(rp),'prior_raw_receipt':ref(rawp),'prior_verification':ref(vp),'prior_registration':ref(pregp),'prior_validation_manifest':ref(mp),'prior_row_pointer':'/rows/0','prior_registration_pointer':'/sources/0','prior_source_read':old,'historical_verification_as_recorded':v,'historical_attribution':sr['attribution'],'prior_numeric_inventory':numeric,'prior_alias_application_preserved':app,'old2671_material_subset_not_full_prior_body':[[178,182]],'exact_old_source_record':mr,'historical_registration_fields_absent':['at'],'historical_raw_fields_absent':['at','registered_before_read_attestation'],'absence_qualification':'No timestamps or missing raw attestation invented; exact old verifier498 and manifestsource498 carry prospective/untruncated attestation, pinned rawregistration and adoption evidence preserved.','semantic_alias_qualification':'ReportP17 role lines85/95 samebytes as alreadyread full221 PRworkspace498; old2671 material178..182 notusedasproof new2lines. Onlyliteraldependencyedge use, currentfeatures/nativeimplementation independent.'}
+  src={'original':n,'source_id':f['source_id'],'sha256':f['sha256'],'actual_eof':eof,'object_path':obj.relative_to(w).as_posix(),'source_revision':git,'transport_git_path':gp,'prospective_ranges':rs,'revision_qualification':'Archivef82 reportP17 recoveredobjects transport only; oldworkspacefull221 read supplies2newmateriallines, lock113fresh, no current/feature/wholeSDK transfer.','purpose':'Two reportP17workspace/resolveddependency roles115material:2delegatedpriorlines reused and113fresh root lines, no macro/build/runtime execution.'};sources.append(src)
+  covered={j for lo,hi in rs for j in range(lo,hi+1)};unread=[]
+  for j in range(1,eof+1):
+   if j not in covered:
+    if unread and unread[-1][1]==j-1:unread[-1][1]=j
+    else:unread.append([j,j])
+  e={'original':n,'source':src,'mode':'delegated-reuse'if prior else'fresh','bytes':size,'assessed_union':rs,'material_line_count':len(covered),'new_root_personal_lines':0 if prior else len(covered),'registry_entry_sha256':hashlib.sha256((json.dumps(f,indent=2)+'\n').encode()).hexdigest(),'registry_path_as_recorded':f['path'],'source_current_reconciled':False,'unread_ranges':unread,'whole_file_coverage':False}
+  if prior:e['prior']=prior
+  entries.append(e)
+ assert len(fields)==17 and sum(e['material_line_count']for e in entries)==115 and sum(e['new_root_personal_lines']for e in entries)==113
+ return {'entries':entries,'sources':sources,'all_nested_range_fields':fields,'exact_hash_prior_hits':hits,'future_proofs_preserved':futures,'old_ordered_applications_preserved':apps,'discovery_metadata_sha256':sha(dp),'production_source_lines':115,'fixture_source_lines':0,'fixture_execution':False,'exact_partial_scopes_preserved':True}

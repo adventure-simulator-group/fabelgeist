@@ -1,0 +1,458 @@
+SOURCE crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_resolution.rs
+1: //! Capture dimensions are physical pixels, independent of desktop scaling.
+2: use bevy::{
+3:     prelude::*,
+4:     window::{PrimaryWindow, WindowResolution},
+5: };
+6: 
+7: const STANDARD_CAPTURE_PIXELS: UVec2 = UVec2::new(1280, 720);
+8: pub(super) const CAPTURE_ASPECT_RATIO: f32 =
+9:     STANDARD_CAPTURE_PIXELS.x as f32 / STANDARD_CAPTURE_PIXELS.y as f32;
+10: // Match the frozen terrain comparison images. This is a capture setting, not
+11: // a geographic measurement or a production gameplay resolution constraint.
+12: const TERRAIN_COMPARISON_PIXELS: UVec2 = UVec2::new(2240, 1260);
+13: 
+14: pub(super) fn physical_pixels(profile: &str) -> UVec2 {
+15:     if profile == super::fixed_city_cameras::PROFILE {
+16:         TERRAIN_COMPARISON_PIXELS
+17:     } else {
+18:         STANDARD_CAPTURE_PIXELS
+19:     }
+20: }
+21: 
+22: /// Start with the requested physical dimensions before native window creation.
+23: pub(super) fn window_resolution(profile: &str) -> WindowResolution {
+24:     let pixels = physical_pixels(profile);
+25:     WindowResolution::new(pixels.x, pixels.y).with_scale_factor_override(1.0)
+26: }
+27: 
+28: fn restore_resolution(profile: &str, resolution: &mut WindowResolution) {
+29:     let pixels = physical_pixels(profile);
+30:     resolution.set_physical_resolution(pixels.x, pixels.y);
+31: }
+32: 
+33: /// Native window creation applies the host scale to physical dimensions even
+34: /// with an override. Restore the capture size after creation, before readbacks.
+35: pub(super) fn apply(
+36:     state: Res<super::capture_state::SceneCaptureState>,
+37:     mut window: Single<&mut Window, With<PrimaryWindow>>,
+38: ) {
+39:     restore_resolution(&state.profile, &mut window.resolution);
+40: }
+41: 
+42: #[cfg(test)]
+43: mod tests {
+44:     use super::*;
+45: 
+46:     #[test]
+47:     fn capture_restores_physical_dimensions_after_native_host_scaling() {
+48:         for profile in [super::super::fixed_city_cameras::PROFILE, "city-review"] {
+49:             for host_scale in [1.0, 1.75, 2.0] {
+50:                 let expected = physical_pixels(profile);
+51:                 let mut resolution = window_resolution(profile);
+52:                 resolution.set_scale_factor_and_apply_to_physical_size(host_scale);
+53:                 if host_scale != 1.0 {
+54:                     assert_ne!(resolution.physical_width(), expected.x);
+55:                 }
+56:                 restore_resolution(profile, &mut resolution);
+57:                 assert_eq!(resolution.physical_width(), expected.x);
+58:                 assert_eq!(resolution.physical_height(), expected.y);
+59:                 assert_eq!(resolution.scale_factor_override(), Some(1.0));
+60:             }
+61:         }
+62:     }
+63: }
+SOURCE crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_readiness.rs
+1: //! Verify production recipe/material bindings and GPU residency before review readbacks.
+2: use adventuresim_tactical_core::prelude::SceneFurniture;
+3: use bevy::{ecs::system::SystemParam, prelude::*, render::renderer::RenderAdapterInfo};
+4: 
+5: use super::{
+6:     capture_state::{CapturePhase, SceneCaptureState},
+7:     gpu_readiness::GpuReadiness,
+8: };
+9: use crate::presentation::{CityGroundMaterial, PresentedFurnitureMesh, TacticalBuildingMaterials};
+10: 
+11: const MAX_ASSET_WAIT_SECONDS: f64 = 120.0;
+12: 
+13: pub(super) fn install(app: &mut App, profile: &str) {
+14:     let requires_buildings = super::building_review::is_profile(profile)
+15:         || profile == super::interior_furniture_capture::ROOMS_PROFILE
+16:         || profile == super::fixed_city_cameras::PROFILE;
+17:     if requires_buildings {
+18:         app.add_plugins(super::building_review::BuildingReviewPlugin);
+19:     }
+20:     if profile == super::furniture_capture::PROFILE
+21:         || super::interior_furniture_capture::is_profile(profile)
+22:     {
+23:         if !requires_buildings {
+24:             GpuReadiness::install(app);
+25:         }
+26:         app.init_resource::<Readiness>()
+27:             .add_systems(Last, observe.before(super::capture_views));
+28:     }
+29: }
+30: 
+31: #[derive(Resource)]
+32: pub(super) struct ExpectedFurniture {
+33:     pub(super) instances: usize,
+34:     pub(super) batches: usize,
+35: }
+36: 
+37: #[derive(Default, Resource)]
+38: pub(super) struct Readiness {
+39:     ready: bool,
+40:     pending_since: Option<f64>,
+41:     recorded: std::collections::BTreeSet<usize>,
+42: }
+43: 
+44: pub(super) fn ready(
+45:     state: Option<Res<SceneCaptureState>>,
+46:     readiness: Option<Res<Readiness>>,
+47: ) -> bool {
+48:     readiness.is_none_or(|readiness| readiness.ready)
+49:         || state.is_none_or(|state| state.phase == CapturePhase::Configure)
+50: }
+51: 
+52: #[derive(SystemParam)]
+53: struct Observation<'w, 's> {
+54:     furniture: Query<'w, 's, &'static SceneFurniture>,
+55:     batches: Query<
+56:         'w,
+57:         's,
+58:         (
+59:             &'static PresentedFurnitureMesh,
+60:             &'static ChildOf,
+61:             &'static Mesh3d,
+62:             &'static crate::presentation::interior_lighting::InteriorMaterialSource,
+63:         ),
+64:     >,
+65:     materials: Res<'w, Assets<StandardMaterial>>,
+66:     ground: Query<'w, 's, (&'static Mesh3d, &'static MeshMaterial3d<CityGroundMaterial>)>,
+67:     ground_materials: Res<'w, Assets<CityGroundMaterial>>,
+68:     palette: Res<'w, TacticalBuildingMaterials>,
+69:     gpu: Res<'w, GpuReadiness>,
+70:     adapter: Res<'w, RenderAdapterInfo>,
+71: }
+72: 
+73: impl Observation<'_, '_> {
+74:     fn check(&self, expected: &ExpectedFurniture) -> bool {
+75:         !self.ground.is_empty()
+76:             && self.ground.iter().all(|(mesh, handle)| {
+77:                 self.ground_materials
+78:                     .get(&handle.0)
+79:                     .is_some_and(|material| {
+80:                         self.gpu.contains(&mesh.0, material.extension.texture_ids())
+81:                     })
+82:             })
+83:             && self.furniture.iter().count() == expected.instances
+84:             && self.batches.iter().count() == expected.batches
+85:             && self.batches.iter().all(|(batch, parent, mesh, handle)| {
+86:                 let Ok(instance) = self.furniture.get(parent.parent()) else {
+87:                     return false;
+88:                 };
+89:                 if handle.0 != self.palette.for_building(instance.id.0).get(batch.material) {
+90:                     return false;
+91:                 }
+92:                 self.materials.get(&handle.0).is_some_and(|material| {
+93:                     self.gpu.contains(
+94:                         &mesh.0,
+95:                         [
+96:                             &material.base_color_texture,
+97:                             &material.normal_map_texture,
+98:                             &material.metallic_roughness_texture,
+99:                         ]
+100:                         .into_iter()
+101:                         .flatten()
+102:                         .map(Handle::id),
+103:                     )
+104:                 })
+105:             })
+106:     }
+107: }
+108: 
+109: fn observe(
+110:     mut readiness: ResMut<Readiness>,
+111:     expected: Option<Res<ExpectedFurniture>>,
+112:     state: Option<Res<SceneCaptureState>>,
+113:     time: Res<Time<Real>>,
+114:     observation: Observation,
+115: ) {
+116:     let (Some(expected), Some(state)) = (expected, state) else {
+117:         return;
+118:     };
+119:     if state.phase == CapturePhase::Configure {
+120:         readiness.ready = false;
+121:         readiness.pending_since = None;
+122:         return;
+123:     }
+124:     readiness.ready = observation.check(&expected);
+125:     if !readiness.ready {
+126:         let since = *readiness
+127:             .pending_since
+128:             .get_or_insert(time.elapsed_secs_f64());
+129:         assert!(
+130:             time.elapsed_secs_f64() - since < MAX_ASSET_WAIT_SECONDS,
+131:             "furniture production meshes or textures did not become GPU resident"
+132:         );
+133:         return;
+134:     }
+135:     if readiness.recorded.insert(state.view) {
+136:         let evidence = serde_json::json!({
+137:             "renderer": "TacticalPresentationPlugin", "backend": format!("{:?}", observation.adapter.backend),
+138:             "adapter": observation.adapter.name, "instances": expected.instances, "batches": expected.batches,
+139:             "material_bindings_verified": true, "ground_traffic_masks_gpu_resident": true, "captured_views_ready": readiness.recorded,
+140:         });
+141:         std::fs::write(
+142:             state.output.join("furniture-presentation.json"),
+143:             serde_json::to_vec_pretty(&evidence).unwrap(),
+144:         )
+145:         .expect("write production furniture evidence");
+146:     }
+147: }
+148: 
+149: #[cfg(test)]
+150: mod tests {
+151:     use super::*;
+152: 
+153:     #[test]
+154:     fn terrain_grounding_profile_installs_production_building_lod_review() {
+155:         let mut app = App::new();
+156:         app.insert_sub_app(bevy::render::RenderApp, bevy::app::SubApp::new());
+157:         install(&mut app, super::super::fixed_city_cameras::PROFILE);
+158:         assert!(app.is_plugin_added::<super::super::building_review::BuildingReviewPlugin>());
+159:     }
+160: }
+SOURCE crates/adventuresim-tactical-client/src/tactical_scene_viewer/fixed_city_cameras.rs
+1: //! Frozen poses and presentation selection retain accepted geographic support.
+2: use super::{capture_state::BuildingReviewCamera, capture_state::SceneCaptureState};
+3: use adventuresim_building_generator::spatial_geometry::Position;
+4: use bevy::prelude::*;
+5: use serde::{Deserialize, Serialize};
+6: use std::path::PathBuf;
+7: 
+8: pub(crate) const PROFILE: &str = "terrain-grounding";
+9: const CONTRACT_VERSION: u16 = 2;
+10: 
+11: mod promotion;
+12: 
+13: #[derive(Clone, Deserialize, Serialize)]
+14: #[serde(deny_unknown_fields)]
+15: struct Camera {
+16:     position_metres: [f32; 3],
+17:     target_metres: [f32; 3],
+18: }
+19: 
+20: impl Camera {
+21:     fn validate(&self) -> bool {
+22:         let position = Vec3::from_array(self.position_metres);
+23:         let target = Vec3::from_array(self.target_metres);
+24:         position.is_finite()
+25:             && target.is_finite()
+26:             && (target - position).cross(Vec3::Y).length_squared() > 0.0
+27:     }
+28: 
+29:     fn review(&self) -> Result<BuildingReviewCamera> {
+30:         Ok(BuildingReviewCamera {
+31:             position: Position::from_metres(Vec3::from_array(self.position_metres))?,
+32:             target: Position::from_metres(Vec3::from_array(self.target_metres))?,
+33:             plaster_raking_light: None,
+34:         })
+35:     }
+36: }
+37: 
+38: #[derive(Deserialize, Serialize)]
+39: #[serde(deny_unknown_fields)]
+40: struct Document {
+41:     version: u16,
+42:     /// Scene-relative metres, with the same seven indexes as city-review.
+43:     exterior: Vec<Camera>,
+44:     /// Frozen eye-height pose; scene-performance uses its established 80� FOV.
+45:     benchmark: Option<Camera>,
+46:     /// Explicit physical members to inspect with the production playable LODs.
+47:     playable_building_ids: Vec<adventuresim_tactical_core::scene_input::SceneBuildingId>,
+48: }
+49: 
+50: #[derive(Resource)]
+51: pub(super) struct Contract(Option<Document>);
+52: 
+53: impl Contract {
+54:     pub(super) fn load(path: Option<PathBuf>, profile: &str) -> Self {
+55:         assert!(
+56:             path.is_some() || profile != PROFILE,
+57:             "terrain-grounding requires --city-cameras"
+58:         );
+59:         let document = path.map(|path| {
+60:             let bytes = std::fs::read(&path).expect("read explicit camera contract");
+61:             let document: Document =
+62:                 serde_json::from_slice(&bytes).expect("decode camera contract");
+63:             assert_eq!(
+64:                 document.version, CONTRACT_VERSION,
+65:                 "camera contract version"
+66:             );
+67:             assert!(
+68:                 document.exterior.len() == 7,
+69:                 "camera contract requires all seven fixed city poses"
+70:             );
+71:             assert!(document.exterior.iter().all(Camera::validate));
+72:             assert!(document.benchmark.as_ref().is_none_or(Camera::validate));
+73:             document
+74:         });
+75:         Self(document)
+76:     }
+77: }
+78: 
+79: pub(super) fn apply(contract: Res<Contract>, mut state: ResMut<SceneCaptureState>) -> Result {
+80:     let Some(document) = &contract.0 else {
+81:         return Ok(());
+82:     };
+83:     let exterior = document
+84:         .exterior
+85:         .iter()
+86:         .map(Camera::review)
+87:         .collect::<Result<Vec<_>>>()?;
+88:     let benchmark = document
+89:         .benchmark
+90:         .as_ref()
+91:         .map(Camera::review)
+92:         .transpose()?;
+93:     state.city_exterior_cameras = exterior;
+94:     if let Some(camera) = benchmark {
+95:         state.ground_eye_position = camera.position;
+96:         state.ground_eye_target = camera.target;
+97:     }
+98:     std::fs::write(
+99:         state.output.join("fixed-camera-contract.json"),
+100:         serde_json::to_vec_pretty(document)?,
+101:     )?;
+102:     Ok(())
+103: }
+104: 
+105: use super::{
+106:     building_review::ReviewLod,
+107:     view_specs::{CapturePose, CaptureViewSpec},
+108: };
+109: 
+110: // Indices match the established city-review profile. Foundation LOD views use
+111: // one identical pose, FOV and lighting; only the production LOD range changes.
+112: pub(super) const VIEWS: [CaptureViewSpec; 9] = [
+113:     CaptureViewSpec::new(
+114:         "warmup",
+115:         "Production pipeline warmup",
+116:         CapturePose::CityExterior { camera: 0 },
+117:         58.0,
+118:         100,
+119:     )
+120:     .warmup()
+121:     .vista(),
+122:     CaptureViewSpec::new(
+123:         "foundation-detail",
+124:         "Foundation and threshold: detail",
+125:         CapturePose::CityExterior { camera: 0 },
+126:         58.0,
+127:         100,
+128:     )
+129:     .building_lod(ReviewLod::Detail)
+130:     .vista(),
+131:     CaptureViewSpec::new(
+132:         "foundation-facade",
+133:         "Foundation and threshold: facade",
+134:         CapturePose::CityExterior { camera: 0 },
+135:         58.0,
+136:         100,
+137:     )
+138:     .building_lod(ReviewLod::Facade)
+139:     .vista(),
+140:     CaptureViewSpec::new(
+141:         "foundation-shell",
+142:         "Foundation and threshold: shell",
+143:         CapturePose::CityExterior { camera: 0 },
+144:         58.0,
+145:         100,
+146:     )
+147:     .building_lod(ReviewLod::Shell)
+148:     .vista(),
+149:     CaptureViewSpec::new(
+150:         "street",
+151:         "Street access and local relief",
+152:         CapturePose::CityExterior { camera: 1 },
+153:         72.0,
+154:         100,
+155:     )
+156:     .vista(),
+157:     CaptureViewSpec::new(
+158:         "property-oblique",
+159:         "Whole property grading boundary",
+160:         CapturePose::CityExterior { camera: 2 },
+161:         60.0,
+162:         100,
+163:     )
+164:     .vista(),
+165:     CaptureViewSpec::new(
+166:         "city-oblique",
+167:         "Settlement and geographic relief",
+168:         CapturePose::CityExterior { camera: 4 },
+169:         58.0,
+170:         100,
+171:     )
+172:     .vista(),
+173:     CaptureViewSpec::new(
+174:         "overhead",
+175:         "Development and bounded grading",
+176:         CapturePose::CityExterior { camera: 5 },
+177:         62.0,
+178:         100,
+179:     )
+180:     .vista(),
+181:     CaptureViewSpec::new(
+182:         "horizon",
+183:         "Geographic horizon",
+184:         CapturePose::CityExterior { camera: 6 },
+185:         50.0,
+186:         100,
+187:     )
+188:     .vista(),
+189: ];
+190: 
+191: #[cfg(test)]
+192: mod tests {
+193:     use super::*;
+194: 
+195:     #[test]
+196:     fn camera_contract_rejects_degenerate_and_nonfinite_poses() {
+197:         assert!(
+198:             !Camera {
+199:                 position_metres: [0., 10., 0.],
+200:                 target_metres: [0.; 3]
+201:             }
+202:             .validate()
+203:         );
+204:         assert!(
+205:             !Camera {
+206:                 position_metres: [f32::NAN, 2., 4.],
+207:                 target_metres: [0.; 3]
+208:             }
+209:             .validate()
+210:         );
+211:         assert!(
+212:             Camera {
+213:                 position_metres: [0., 10., 0.01],
+214:                 target_metres: [0.; 3]
+215:             }
+216:             .validate()
+217:         );
+218:     }
+219: 
+220:     #[test]
+221:     fn forced_foundation_levels_have_identical_pose_fov_and_lighting() {
+222:         let reference = VIEWS[1];
+223:         for view in &VIEWS[2..=3] {
+224:             assert_eq!(view.pose, reference.pose);
+225:             assert_eq!(view.fov_degrees, reference.fov_degrees);
+226:             assert_eq!(view.lighting_mode, reference.lighting_mode);
+227:         }
+228:         assert_eq!(VIEWS[1].building_lod_override, Some(ReviewLod::Detail));
+229:         assert_eq!(VIEWS[2].building_lod_override, Some(ReviewLod::Facade));
+230:         assert_eq!(VIEWS[3].building_lod_override, Some(ReviewLod::Shell));
+231:     }
+232: }

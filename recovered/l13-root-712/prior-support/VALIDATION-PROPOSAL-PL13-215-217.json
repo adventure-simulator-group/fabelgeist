@@ -1,0 +1,279 @@
+{
+  "lens": 13,
+  "status": "Immutable exact ordered validation215..217; no authority writes",
+  "frozen_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "frozen_is_not_current_main": true,
+  "necessary_extensions": [],
+  "proposed_next_original": 1029,
+  "original_delta_proposed": 6,
+  "overlays_delta": 0,
+  "merged_delta": 0,
+  "shared_delta": 0,
+  "new_source_identity_delta_inferred": 0,
+  "authoritative_counts_changed": false,
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "global_clearance": false,
+  "product_execution": false,
+  "future_same_lens_reuse_proofs": [],
+  "proposed_finding_provenance": [],
+  "qualifications": [
+    "Six personally assessed original roles1023..1028, exact saved cumulative partials and fresh tails; no source novelty/current/execution/root or foreign-lens transfer. State217 raw cloned delta3/old qualification was bookkeeping error; additive exact v2 state records correct delta2 and own217 qualification; raw preserved."
+  ],
+  "batches": [
+    {
+      "batch": 215,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-215.json",
+        "sha256": "46127505f3a196f175098bfe997f010a5a02145119a802b09c1ba65937194562"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-215.json",
+        "sha256": "ca45e0c5e68ab44259142b4c7f32eec265da6cec14eeea4eb67cc8f8d03812e0"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-215-PROPOSAL.json",
+        "sha256": "16e79429d903378a61f67c35e2787dab5abb51f810b8eea488e3ab1b8d4383b0"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-214-PROPOSAL.json",
+        "sha256": "377786f28d0517246deff9f1e0259a083d2dea1cfb153c711502778257ba3939"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-215.json",
+          "sha256": "458f1ea21cf401242dea1067b8a962b577d4b0cc35775fee8c4bb2110912426d"
+        }
+      ],
+      "proposed_next_original": 1024
+    },
+    {
+      "batch": 216,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-216.json",
+        "sha256": "f3e83c0a192235b3ac938895f3b923e7454da73228b5b1a6eb92dda9d5345b19"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-216.json",
+        "sha256": "9b62dbef92d727dab031c8a3be20ae9a5b0471820821dea9eea741e61fa8cd2f"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-216-PROPOSAL.json",
+        "sha256": "a09ef64b7b7e6cad97ef5cdf25d5dae37c1c6632d41fdcfe9e25880444ce517f"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-215-PROPOSAL.json",
+        "sha256": "16e79429d903378a61f67c35e2787dab5abb51f810b8eea488e3ab1b8d4383b0"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-216.json",
+          "sha256": "d815b51586e9a28c227c526f4a24f60d0a608b65c45dffc25d6b39d6b75d5ee2"
+        }
+      ],
+      "proposed_next_original": 1027
+    },
+    {
+      "batch": 217,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-217.json",
+        "sha256": "3b1789ef699513d5c33c2f718b978340350a9b7fb46471e971fb0040272fa82b"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-217.json",
+        "sha256": "a499e97becc636dad7344e736dfde9d8969a50d2df116b8a885775e26e1bc2a8"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-217-v2-PROPOSAL.json",
+        "sha256": "b4e1162a364089b6733e763b655344fd187a2d5ffed8e7932c3f0a15e0ccb831"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-216-PROPOSAL.json",
+        "sha256": "a09ef64b7b7e6cad97ef5cdf25d5dae37c1c6632d41fdcfe9e25880444ce517f"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-217.json",
+          "sha256": "5e635b0d61358fb21d3ab57291422a76cfc02145db256c36758d2fef568dcdc4"
+        }
+      ],
+      "proposed_next_original": 1029
+    }
+  ],
+  "source_records": [
+    {
+      "original": 1023,
+      "source_id": "pr-working:crates/adventuresim-core/src/water_source.rs",
+      "sha256": "2892720bfed0f3280e91d03da01cf985b234731e8f08d449a76bf97f7cfdb556",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 500,
+      "assessed_ranges": [
+        [
+          1,
+          500
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-215.json",
+        "sha256": "46127505f3a196f175098bfe997f010a5a02145119a802b09c1ba65937194562"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-215.json",
+        "sha256": "458f1ea21cf401242dea1067b8a962b577d4b0cc35775fee8c4bb2110912426d"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Successful prospective registration persisted and output inspected in a separate call before dependent body displays. Exact partial unions; no rereads invented."
+    },
+    {
+      "original": 1024,
+      "source_id": "pr-working:crates/adventuresim-core/src/weather.rs",
+      "sha256": "62c3d0b44fa30ce15dab8e231cc5ef90e631e633d9ef4ea34091c5c8c3f3fde9",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 958,
+      "assessed_ranges": [
+        [
+          1,
+          958
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-216.json",
+        "sha256": "f3e83c0a192235b3ac938895f3b923e7454da73228b5b1a6eb92dda9d5345b19"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-216.json",
+        "sha256": "d815b51586e9a28c227c526f4a24f60d0a608b65c45dffc25d6b39d6b75d5ee2"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Successful prospective registration persisted and output inspected in a separate call before dependent body displays. Exact partial unions; no rereads invented."
+    },
+    {
+      "original": 1025,
+      "source_id": "pr-working:crates/adventuresim-core/src/weather/field.rs",
+      "sha256": "8f11cdffeb39e9e0ca929c9cf3ac853b89c6d926c5bdd4d42c0ec9208e36cede",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 61,
+      "assessed_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-216.json",
+        "sha256": "f3e83c0a192235b3ac938895f3b923e7454da73228b5b1a6eb92dda9d5345b19"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-216.json",
+        "sha256": "d815b51586e9a28c227c526f4a24f60d0a608b65c45dffc25d6b39d6b75d5ee2"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Successful prospective registration persisted and output inspected in a separate call before dependent body displays. Exact partial unions; no rereads invented."
+    },
+    {
+      "original": 1026,
+      "source_id": "pr-working:crates/adventuresim-core/src/weather/streams.rs",
+      "sha256": "441a11bfce5d076e3dc78875c0f4bfbe8622178c5c1a4cba2c7e0077f5ea2ea8",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 11,
+      "assessed_ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-216.json",
+        "sha256": "f3e83c0a192235b3ac938895f3b923e7454da73228b5b1a6eb92dda9d5345b19"
+      },
+      "read_pointer": "/rows/2",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-216.json",
+        "sha256": "d815b51586e9a28c227c526f4a24f60d0a608b65c45dffc25d6b39d6b75d5ee2"
+      },
+      "registration_pointer": "/sources/2",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Successful prospective registration persisted and output inspected in a separate call before dependent body displays. Exact partial unions; no rereads invented."
+    },
+    {
+      "original": 1027,
+      "source_id": "pr-working:crates/adventuresim-core/src/world_event.rs",
+      "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 620,
+      "assessed_ranges": [
+        [
+          1,
+          620
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-217.json",
+        "sha256": "3b1789ef699513d5c33c2f718b978340350a9b7fb46471e971fb0040272fa82b"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-217.json",
+        "sha256": "5e635b0d61358fb21d3ab57291422a76cfc02145db256c36758d2fef568dcdc4"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Successful prospective registration persisted and output inspected in a separate call before dependent body displays. Exact partial unions; no rereads invented."
+    },
+    {
+      "original": 1028,
+      "source_id": "pr-working:crates/adventuresim-core/tests/armor_harness.rs",
+      "sha256": "264aac03ab4bce2ffa47c2532cb1f092ed5717c1e5abac65af784125b1a90e0d",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 170,
+      "assessed_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-217.json",
+        "sha256": "3b1789ef699513d5c33c2f718b978340350a9b7fb46471e971fb0040272fa82b"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-217.json",
+        "sha256": "5e635b0d61358fb21d3ab57291422a76cfc02145db256c36758d2fef568dcdc4"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Successful prospective registration persisted and output inspected in a separate call before dependent body displays. Exact partial unions; no rereads invented."
+    }
+  ],
+  "partial_checkpoints": [
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-215-PARTIAL-001.json",
+      "sha256": "82e07e56c8bd31b0677129d11204814e678a0477a884f4997d1e23298f6e93b8"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-216-PARTIAL-001.json",
+      "sha256": "3ea4e2672d74542ad9dce817b5e07b0923794b3715dfcf9a48c28da672f78e5b"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-216-PARTIAL-002.json",
+      "sha256": "be6eacae1648f055dc9b6530942fb979f7a194e672b8b1ac5e935c3b04de7405"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-217-PARTIAL-001.json",
+      "sha256": "fe6441839be95eaf4aad27575da5df9c17a5d2fc236407320de4cf0f59291217"
+    }
+  ]
+}

@@ -1,0 +1,397 @@
+{
+  "primary": [
+    {
+      "contract_id": "ADLER-L11-DIALOGUE-ANSWER-RECEIPT",
+      "first_contract": "Committed receipt proves prompt-scoped action identity, not equality of retried selected choices.",
+      "canonical_owner": "DialogueAction request receipt and admitted ballot at choose_dialogue_topic/answer_dialogue_prompt; reuse canonical prompt/choice/mode/policy owners."
+    },
+    {
+      "contract_id": "SEGOVB-L11-CONTRACT-ABANDON-PARTY-ACTIVE-RELATION",
+      "first_contract": "Authority admission at abandon_contract must bind requested accepted contract to current active Party before any linked-state transition. Historical accepted_by alone is insufficient.",
+      "canonical_owner": "abandon_contract ContractAuthority/Party lifecycle relation; same failed contract across direct/queued/HTTP routes is one connected repair scope, not new aliases from common remedy"
+    },
+    {
+      "contract_id": "SEGOVB-L11-CONTRACT-ABANDON-HTTP-RESULT",
+      "first_contract": "abandon_quest345..352 discards Result from execute_or_request_party_action, so rejected native/queued request is followed by ordinary settlement redirect without retaining causal outcome in this function.",
+      "canonical_owner": "quests::abandon_quest action outcome and user-visible recovery handoff"
+    },
+    {
+      "contract_id": "SEGOVB-L12-HOSTILE-THREAT-DROP-PRIVATE-READMISSION",
+      "first_contract": "hostile_group_authority_row already admits canonical ThreatId but separate private autoresolve_drop API151 accepts the raw string and reparses152 rather than consuming the admitted identity/profile. Actual private readmission confirmed across own full READ283/284, final native storage is later.",
+      "canonical_owner": "Existing adventuresim_core::bestiary::ThreatId and its canonical profile combat escalation/loot data; no new duplicate threat enum."
+    },
+    {
+      "contract_id": "SEGOVB-L12-COND-OPTIONAL-ROAD-TRIAL-CONTINUE",
+      "first_contract": "When anopenErrantry RoadChallenge is admitted at exactboundcamp, continue_camp_travel884 invokes guardREG133873..892 which rejectsanyopenboundchallenge before any localignore; documented optionalcourtesy contract REG1141460..1462 says simplycontinuing ignores it. Coreboundcampadmission and currentpolicy neededbeforepromotion.",
+      "canonical_owner": "Actual RoadChallengeAuthority/NarrativeEncounterPrivateAuthority origin, coreerrantry campmatching and explicitoptional narrative continuation policy."
+    },
+    {
+      "contract_id": "SEGOVB-L1-NARRATIVE-COMBAT-TERMINAL-MAPPING",
+      "first_contract": "Current resolve_random_encounter_battle1090..1096 emits timeout/mutual_incapacitation for admitted BattleResolution terminals; before native encounter update, resolve_narrative_combat_followup1060 calls resolved_combat_outcome220..228 which rejects both. Narrative followup consumer does not admit all actual battle producer terminals.",
+      "canonical_owner": "Canonical relationship between core BattleResolution, broader strategic encounter outcome and road_encounter_catalog::CombatOutcomeKind, with deliberate narrative terminal mapping; no duplicate enum or obsolete stalemate preservation mandated."
+    }
+  ],
+  "queue": [
+    {
+      "ordinal": 73286,
+      "entry_index": 180,
+      "contract_id": "ADLER-L11-DIALOGUE-PAYLOAD-ADMISSION",
+      "first_contract": "Authoritative dialogue payloads must decode and satisfy their shape before publishing a successful event or prompt view.",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73286,
+      "entry_index": 188,
+      "contract_id": "ADLER-L11-LOOT-PAIR-ADMISSION",
+      "first_contract": "Loot selection must validate complete item/quantity pairs without independently dropping malformed fields.",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73286,
+      "entry_index": 189,
+      "contract_id": "ADLER-L11-QUEST-SITE-READ-ERROR-AS-ABSENCE",
+      "first_contract": "An unavailable authoritative lookup must remain distinct from an absent or unauthorized case-site identity.",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73286,
+      "entry_index": 190,
+      "contract_id": "ADLER-L11-QUEST-REWARD-PROJECTION",
+      "first_contract": "Successful quest reward feedback must derive its amount from an authoritative successful outcome or preserve the amount as unavailable.",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73286,
+      "entry_index": 194,
+      "contract_id": "ADLER-L11-TERRAIN-CACHE-ADMISSION-PARITY",
+      "first_contract": "Input admission must precede a cache hit when a cache key can collapse invalid and valid inputs.",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73286,
+      "entry_index": 195,
+      "contract_id": "ADLER-L11-STRATEGIC-DB-ERROR-OWNERSHIP",
+      "first_contract": "A database boundary must retain the failed operation stage, HTTP outcome and owned decoding/body-read cause needed by its consumers.",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73286,
+      "entry_index": 204,
+      "contract_id": "SEGOVB-L11-CONTRACT-ABANDON-PARTY-ACTIVE-RELATION",
+      "first_contract": "Authority admission at abandon_contract must bind requested accepted contract to current active Party before any linked-state transition. Historical accepted_by alone is insufficient.",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73286,
+      "entry_index": 205,
+      "contract_id": "SEGOVB-L11-CONTRACT-ABANDON-HTTP-RESULT",
+      "first_contract": "abandon_quest345..352 discards Result from execute_or_request_party_action, so rejected native/queued request is followed by ordinary settlement redirect without retaining causal outcome in this function.",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73286,
+      "entry_index": 213,
+      "contract_id": "SEGOVB-L12-CASE-SITE-GETTER-READMISSION",
+      "first_contract": "character_case_site_id erases already admitted CaseSiteId from native typed occupancy into an internal Option<String>, causing actual foraging location consumer to re-admit the same CaseSiteId role.",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73286,
+      "entry_index": 217,
+      "contract_id": "SEGOVB-L12-CASE-SITE-PRESENCE-PRIVATE-READMISSION",
+      "first_contract": "Private exact_case_site_for_observer_at requires raw &str for a case-site identity already typed by its occupancy caller, forcing re-admission inside the presence application flow.",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73286,
+      "entry_index": 245,
+      "contract_id": "SEGOVB-L12-COND-OPTIONAL-ROAD-TRIAL-CONTINUE",
+      "first_contract": "When anopenErrantry RoadChallenge is admitted at exactboundcamp, continue_camp_travel884 invokes guardREG133873..892 which rejectsanyopenboundchallenge before any localignore; documented optionalcourtesy contract REG1141460..1462 says simplycontinuing ignores it. Coreboundcampadmission and currentpolicy neededbeforepromotion.",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73286,
+      "entry_index": 458,
+      "contract_id": "SEGOVB-L12-STRATEGIC-CASE-SITE-CAUSE-ERASURE",
+      "first_contract": "ActualCaseSiteId.try_new83 returnscorePlaceIdentityErrorInvalidComponent -> format86/87 discardsstructuredcorecause",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73286,
+      "entry_index": 461,
+      "contract_id": "SEGOVB-L12-DIALOGUE-EVENT-FRAGMENTS-JSON-CAUSE-ERASURE",
+      "first_contract": "from_str1388 Err -> Vec::default()",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73286,
+      "entry_index": 462,
+      "contract_id": "SEGOVB-L12-DIALOGUE-EVENT-SOURCE-REFS-JSON-CAUSE-ERASURE",
+      "first_contract": "from_str1390 Err -> Vec::default()",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73286,
+      "entry_index": 463,
+      "contract_id": "SEGOVB-L12-DIALOGUE-TOPIC-SOURCE-REF-JSON-CAUSE-ERASURE",
+      "first_contract": "from_str1443 Err -> None through ok1446/flatten1447",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73286,
+      "entry_index": 464,
+      "contract_id": "SEGOVB-L12-DIALOGUE-PROMPT-CHOICES-JSON-CAUSE-ERASURE",
+      "first_contract": "from_str1463 Err -> Vec::default()",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73286,
+      "entry_index": 465,
+      "contract_id": "SEGOVB-L12-DIALOGUE-PROMPT-SOURCE-REFS-JSON-CAUSE-ERASURE",
+      "first_contract": "from_str1465 Err -> Vec::default()",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73286,
+      "entry_index": 496,
+      "contract_id": "SEGOVB-L12-QUEST-LOOT-ITEM-IDS-PARSE-CAUSE-ERASURE",
+      "first_contract": "NativeCSV token item_ids -> parse::u64 -> ok/filter_map465 discardsactualParseIntError andposition beforeVecnativeprotocol",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73286,
+      "entry_index": 497,
+      "contract_id": "SEGOVB-L12-QUEST-LOOT-QUANTITIES-PARSE-CAUSE-ERASURE",
+      "first_contract": "NativeCSV token quantities -> parse::u32 -> ok/filter_map471 discardsactualParseIntError andposition beforeVecnativeprotocol",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73286,
+      "entry_index": 498,
+      "contract_id": "SEGOVB-L12-QUEST-RECOVERY-RESOURCE-CLASSIFICATION-VIA-PROSE",
+      "first_contract": "Typed hunger/thirst -> presentationlabels661/664 -> contains hunger/thirst678 drivesresource_blocked",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73286,
+      "entry_index": 499,
+      "contract_id": "SEGOVB-L12-QUEST-QUESTTITLE-OBSERVATION-ERROR-DISCARD",
+      "first_contract": "ActualnativeBackendContractquery -> unwrap_or_default243 collapsesunavailable andvalidempty before questtitlemetadata",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73286,
+      "entry_index": 500,
+      "contract_id": "SEGOVB-L12-QUEST-QUESTREWARD-OBSERVATION-ERROR-DISCARD",
+      "first_contract": "ActualnativeBackendContractquery -> unwrap_or_default304 collapsesunavailable andvalidempty before questrewardmetadata",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73293,
+      "entry_index": 518,
+      "contract_id": "SEGOVB-L12-TERRAIN-PLANNER-FORAGE-TERRAIN-ERROR",
+      "first_contract": "ActualTerrainPack.cell Error Io/Json/Validation -> to_string176",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73293,
+      "entry_index": 519,
+      "contract_id": "SEGOVB-L12-TERRAIN-PLANNER-FORAGE-OUTSIDE-PACKAGE-REASON",
+      "first_contract": "ActualcenterOkNone -> closedString177 before internalResultString",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73293,
+      "entry_index": 520,
+      "contract_id": "SEGOVB-L12-TERRAIN-PLANNER-CACHE-LOOKUP-POISON-REASON",
+      "first_contract": "Nativecachelock poison -> fixedprose217 beforeinternalResult",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73293,
+      "entry_index": 521,
+      "contract_id": "SEGOVB-L12-TERRAIN-PLANNER-QUEUE-TIMEOUT-REASON",
+      "first_contract": "NativeElapsed queuewait -> fixedprose227 beforeinternalResult",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73293,
+      "entry_index": 522,
+      "contract_id": "SEGOVB-L12-TERRAIN-PLANNER-PERMIT-CLOSED-REASON",
+      "first_contract": "Nativeacquire_owned AcquireError -> fixedprose228 beforeinternalResult",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73293,
+      "entry_index": 523,
+      "contract_id": "SEGOVB-L12-TERRAIN-PLANNER-PLANNING-WAIT-TIMEOUT-REASON",
+      "first_contract": "NativeElapsed workerawait -> fixedprose251 beforeinternalResult",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73293,
+      "entry_index": 524,
+      "contract_id": "SEGOVB-L12-TERRAIN-PLANNER-WORKER-JOIN-CAUSE-ERASURE",
+      "first_contract": "ActualTokio JoinError -> format252 erasespanic/cancel typedclassification/context",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73293,
+      "entry_index": 525,
+      "contract_id": "SEGOVB-L12-TERRAIN-PLANNER-PLANNING-TERRAIN-ERROR",
+      "first_contract": "ActualTerrainPack.plan Error NoRoute/Deadline/Io/Json/Validation -> to_string253 erasesenum/nativecause",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73293,
+      "entry_index": 526,
+      "contract_id": "SEGOVB-L12-TERRAIN-PLANNER-CACHE-COMMIT-POISON-REASON",
+      "first_contract": "Nativecachelock poison oncompletedplan -> fixedprose257 beforeinternalResult",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73293,
+      "entry_index": 531,
+      "contract_id": "SEGOVB-L12-SPACETIME-QUERY-ONE-SATS-QUERYCARDINALITY",
+      "first_contract": "query_one_sats: rows.len()>1 -> closedprose145/146 losesstructuredexpected/actual/sqlcontext",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73293,
+      "entry_index": 532,
+      "contract_id": "SEGOVB-L12-SPACETIME-QUERY-SATS-INTO-PROJECTIONERROR",
+      "first_contract": "query_sats_into: ActualgenericU::try_from Err -> format166 / Displayonlybound dropsconcreteUError beforeinternalResultSpacetimeString",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73293,
+      "entry_index": 533,
+      "contract_id": "SEGOVB-L12-SPACETIME-QUERY-ONE-SATS-INTO-PROJECTIONERROR",
+      "first_contract": "query_one_sats_into: ActualgenericU::try_from Err -> format186 / Displayonlybound dropsconcreteUError beforeinternalResultSpacetimeString",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73293,
+      "entry_index": 534,
+      "contract_id": "SEGOVB-L12-SPACETIME-QUERY-RESPONSE-FAILED-HTTP-STATUS",
+      "first_contract": "Non-successResponse status checked thenconsumedastext126; onlybodyStringretained at127, actualnativeHTTPStatusCode lost",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73293,
+      "entry_index": 535,
+      "contract_id": "SEGOVB-L12-SPACETIME-QUERY-RESPONSE-FAILED-HTTP-BODY-READ-CAUSE",
+      "first_contract": "Non-successResponse.text Err(reqwest::Error) -> unwrap_or_default126 collapsesactualbodyreadfailure intovalidemptybodyString",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73293,
+      "entry_index": 536,
+      "contract_id": "SEGOVB-L12-SPACETIME-CALL-FAILED-HTTP-STATUS",
+      "first_contract": "Non-successResponse status checked thenconsumedastext214; onlybodyStringretained at215, actualnativeHTTPStatusCode lost",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73293,
+      "entry_index": 537,
+      "contract_id": "SEGOVB-L12-SPACETIME-CALL-FAILED-HTTP-BODY-READ-CAUSE",
+      "first_contract": "Non-successResponse.text Err(reqwest::Error) -> unwrap_or_default214 collapsesactualbodyreadfailure intovalidemptybodyString",
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73293,
+      "entry_index": 900,
+      "contract_id": "Q-L12-12489147dcbbb1638acc",
+      "first_contract": {
+        "original": 1104,
+        "contract": "Fixture/station native identity and custody key authority",
+        "next_sources": [
+          "StrategicFixtureId parser/Display and native FireplaceStation/FireplaceDish",
+          "object_custody and inventory_container object/subtree callers"
+        ],
+        "status": "Exact codec/admission/native mutation and current-source reconciliation pending; no collision or rollback claim"
+      },
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73293,
+      "entry_index": 991,
+      "contract_id": "Q-L12-b8bf793d5357d4292bb4",
+      "first_contract": {
+        "source_originals": [
+          1226
+        ],
+        "contracts": [
+          "ActualcontinueTravel optionaltrialclose/ignore sequence+corecatalog/nativeUI/current",
+          "CanonicalglobalCampPlace vsframeTrialBinding localreference semantics/allexactconsumers",
+          "Actualcoretime/diseaseplan/fatigue/encumbrance/nativecurrent/all20family and routegeographicadmission",
+          "Resolvedstopcamp promotion versusbetweenCamp comment exactcurrentintent; auditcode notdocumentationrepair"
+        ]
+      },
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73293,
+      "entry_index": 1864,
+      "contract_id": "Q-L12-be36ca36c994ccb4e58d",
+      "first_contract": [
+        "Actual backend JSON producers/schema, prompt state/mode/speaker/role/session/choice/action identities and browser consumers",
+        "available_social_npc/social_npc_in_scope and relationship snapshot coherence unread; no authorization/race claim invented",
+        "claims/http_tests.rs declaration grants no body coverage; no tests run",
+        "Exact representative/catalog producer and native service identity chain remain open"
+      ],
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73293,
+      "entry_index": 1869,
+      "contract_id": "Q-L12-977fb7f4a5177921f0be",
+      "first_contract": [
+        "Safe travelerror413 intentionally hidesprivateprose; preservegenericactionablemessage, do notrestoresecretproseclassifier. AutoresolveErr1495loggedthenredirect1548 knownexplicitmode; Requested1552separate.",
+        "party_readiness refreshErr1429 -> false, missing/queryErr1446 ->false failclosed unavailablemode; actualreason/diagnosticpolicyopen. Deceasedmembersfiltered1420 deliberate. No inferred newincapacitation orhiddenfatigue penalty.",
+        "Loader .ok/unwrap_or_default failures discardactualcauses at exact inventory below. Actual unavailable versus validempty andpublicprivacy/feedback requirements needpolicy; no claim everyemptyinvalid. Abandon actionresult345 discarded; corpse818/loot478 logged thenredirect; diagnostic/publicfeedback policyopen.",
+        "Generatedsite contract-free combatflag584 andmanualaccepted-activecontract587 legitimate modes. Geographic1561 usesWGS84, nongeographic1565 usesUnboundedCoordinateE7 deliberate; noforceonecoordinateinterpretation.",
+        "Corpus location rawString scene1329 andmedical query surgery1340/physiology1343 -> retainedwindow1351 -> template1406; examination discipline722/stage723 -> nativeargs808/809. Earlier nativeprojection/admission/canonicalmedicalowner bodiesneeded before newfirstcutfinding; defaultmedicalwindow deliberate normalization.",
+        "Knownsite/character/party/battleowner/context filters actualbodies read; no unauthorizeddisclosure claim. Tests1595..2102 readas source only. includestrassertions do notgrant additionalbodycoverage/runtime results.",
+        "ActualCSVproducer/backend parallelvector association needed before supported misassociationclaim; parseerror erasure itself sourceproven."
+      ],
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73293,
+      "entry_index": 1878,
+      "contract_id": "Q-L12-9eb4c86e63a6a73f90cf",
+      "first_contract": [
+        "Typedterrain Error::Validation(String) firstreasonloss at2082 already700; web176/253 erasesremainingenum/nativeIoJson andplanNoRoute/Deadline classification. Exactpervariant firstcuts remainseparate fromupstreamValidationProse; no commonremedyalias oracceptedcount.",
+        "Mutex poisoning217/257 needsownedstructuralstage/context, notborrowedPoisonError<MutexGuard> retention/Boxdowncast. Samepoisonprose atbothstages doesnotestablishalias automatically.",
+        "SubmetrecoordinatesquantizedKey137..140 explicitlyintentionaltest661; actualcachedPlan/nativegridsnap/invariance/equivalence policy needed beforewrongrouteclaim. WeatherkeyNonevsSomezero derivesactualRoutingWeather232/234..236; no automaticcollidingNone defect.",
+        "Twoownedpermits157/225+nativeplan deadline230 remainbounded whenouterawaittimeoutdropsJoinHandle; detachedCPUworkstillownspermit240. No falseunboundedtask/implicitcancelclaim; actualnativepackdeadline enforcement sourcequalified2082, no runtimeproof.",
+        "No terrain365/returnplanErr374/forwardErr398 -> explicitlymarkedstraight-lineestimate, legitimateoptionalnormalmode notcompatdefect. Priorretainedroutefields ifreusingmutatedDestination afterfailedreplan mayneedaggregation/currentconsumerpolicy, normalcallernewDestination323 initialrouteNone.",
+        "ExactknowledgeStageonlyExactBelieved/Visited273..280 getsnativepresentation; approximate/reportedunsupportedstagesNone intentional privacy/knowledge mode. Roundtripreturnestimation293 separatelegitimatefeature.",
+        "Foragecentermissing177 typedclosedreason, neighborscellErr185 discarded into nonwatercoastsample; availability/samplingpolicy open, notalloutside-package optionalNoneerrors. Actualwetlandcenter authoritative467 bodyread; no claimroadsoverwetlanddry.",
+        "CurrentSource/all20/canonicalaliases/nativefinalHTML/topology/selected_terrain/nativecachequantization proofstillopen. Source tests491..696 readassourceonly, no productexecution."
+      ],
+      "printed_length_notice": null
+    },
+    {
+      "ordinal": 73293,
+      "entry_index": 1879,
+      "contract_id": "Q-L12-b20c483ed43f4bb0dd61",
+      "first_contract": null,
+      "printed_length_notice": "[LONG 2397]"
+    },
+    {
+      "ordinal": 73293,
+      "entry_index": 1880,
+      "contract_id": "Q-L12-b01e5712196abbeea3d3",
+      "first_contract": [
+        "Actual native SQL/SATS serde bridge contracts pending; legitimate normalization not compatibility defect",
+        "New malformed-wire finding remains exactly in prior connected receipt, adoption separate; no duplicate finding/count from ordered reuse",
+        "983 full100 and2389 partial source support retains personal attribution; connected receipt authoritatively unadopted until root checks",
+        "Currentmain/all20/exactaliases/nativeclosure remain open"
+      ],
+      "printed_length_notice": null
+    }
+  ],
+  "qualification": "Historical bounded output; one queue first-contract value was length-suppressed. No canonical alias or audit credit is inferred."
+}

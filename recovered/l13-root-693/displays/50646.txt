@@ -1,0 +1,238 @@
+SOURCE 2610 pr-working:crates/fabelgeist-armor/src/helmets.rs
+249: 
+250: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+251: pub enum HelmetKind {
+252:     Morion,
+253:     KettleHat,
+254:     Barbute,
+255:     Burgonet,
+256:     Sallet,
+257:     VisoredSallet,
+258:     CloseHelmet,
+259:     ArmingCap,
+260:     MailCoif,
+261: }
+262: 
+263: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+264: pub enum HelmetDesign {
+265:     Morion(MorionDesign),
+266:     KettleHat(KettleHatDesign),
+267:     Barbute(BarbuteDesign),
+268:     Burgonet(BurgonetDesign),
+269:     Sallet(SalletDesign),
+270:     VisoredSallet(VisoredSalletDesign),
+271:     CloseHelmet(CloseHelmetDesign),
+272:     ArmingCap(HelmetFit),
+273:     MailCoif(CoifDesign),
+274: }
+275: 
+295:     pub fn fit(&self) -> HelmetFit {
+296:         match self {
+297:             Self::Morion(d) => d.fit,
+298:             Self::KettleHat(d) => d.fit,
+299:             Self::Barbute(d) => d.fit,
+300:             Self::Burgonet(d) => d.fit,
+301:             Self::Sallet(d) => d.fit,
+302:             Self::VisoredSallet(d) => d.skull.fit,
+303:             Self::CloseHelmet(d) => d.fit,
+304:             Self::ArmingCap(d) => *d,
+305:             Self::MailCoif(d) => d.fit,
+306:         }
+307:     }
+308: 
+309:     pub fn crown(&self) -> Option<&crate::HelmetCrown> {
+310:         match self {
+311:             Self::Morion(d) => Some(&d.crown),
+312:             Self::KettleHat(d) => Some(&d.crown),
+313:             Self::Barbute(d) => Some(&d.crown),
+314:             Self::Burgonet(d) => Some(&d.crown),
+315:             Self::Sallet(d) => Some(&d.crown),
+316:             Self::VisoredSallet(d) => Some(&d.skull.crown),
+317:             Self::CloseHelmet(d) => Some(&d.crown),
+318:             Self::ArmingCap(_) | Self::MailCoif(_) => None,
+319:         }
+320:     }
+321: 
+322:     pub fn validate(&self) -> Result<(), DesignError> {
+323:         if let Some(crown) = self.crown() {
+324:             crown.validate()?;
+325:         }
+326:         let fit = self.fit();
+327:         let valid_fit = (3..=30).contains(&fit.clearance.0)
+328:             && (1..=8).contains(&fit.wall_thickness.0)
+329:             && (900..=1300).contains(&fit.crown_height.0);
+330:         let valid_shape = match self {
+331:             Self::Morion(d) => {
+332:                 (800..=2000).contains(&d.front_reach.0)
+333:                     && (800..=2000).contains(&d.back_reach.0)
+334:                     && (500..=1500).contains(&d.back_sweep.0)
+335:                     && (20..=65).contains(&d.brim_width.0)
+336:                     && (15..=60).contains(&d.brim_sweep.0)
+337:                     && (15..=85).contains(&d.comb_height.0)
+338:             }
+339:             Self::KettleHat(d) => {
+340:                 (30..=85).contains(&d.brim_width.0) && (5..=45).contains(&d.brim_drop.0)
+341:             }
+342:             Self::Barbute(d) => {
+343:                 (14..=45).contains(&d.eye_height.0)
+344:                     && d.opening_roundness.0 <= 1000
+345:                     && (750..=1000).contains(&d.chin_taper.0)
+346:                     && d.nape_flare.0 <= 12
+347:                     && (500..=850).contains(&d.eye_opening.0)
+348:                     && (120..=400).contains(&d.mouth_opening.0)
+349:                     && d.rear_edge_lift.0 <= 60
+350:                     && (750..=1400).contains(&d.cheek_depth.0)
+351:             }
+352:             Self::Burgonet(d) => {
+353:                 if let Some(buffe) = &d.buffe {
+354:                     buffe.validate()?;
+355:                 }
+356:                 if let Some(pattern) = &d.cheek_fluting {
+357:                     pattern.validate()?;
+358:                 }
+359:                 (650..=1400).contains(&d.nape_depth.0)
+360:                     && d.chin_tab.0 <= 35
+361:                     && d.nape_recession.0 <= 30
+362:                     && (550..=1000).contains(&d.nape_taper.0)
+363:                     && (750..=1250).contains(&d.cheek_width.0)
+364:                     && (800..=1050).contains(&d.cheek_taper.0)
+365:                     && d.peak_drop.0 <= 20
+366:                     && d.peak_rise.0 <= 20
+367:                     && (20..=65).contains(&d.peak_length.0)
+368:                     && (0..=60).contains(&d.comb_height.0)
+369:                     && (750..=1150).contains(&d.cheek_depth.0)
+370:                     && (200..=550).contains(&d.neck_guard_fraction.0)
+371:                     && (5..=40).contains(&d.neck_flare.0)
+372:             }
+373:             Self::Sallet(d) => valid_sallet(d),
+374:             Self::VisoredSallet(d) => {
+375:                 (35..=75).contains(&d.visor_height.0)
+376:                     && (300..=1000).contains(&d.side_panel.0)
+377:                     && (25..=60).contains(&d.pivot_rise.0)
+378:                     && valid_sallet(&d.skull)
+379:                     && valid_visor(d.visor_projection, d.sight_gap)
+380:             }
+385:             Self::ArmingCap(_) => true,
+392:         };
+393:         if valid_fit && valid_shape {
+394:             Ok(())
+395:         } else {
+396:             Err(DesignError::ParametricParameters)
+397:         }
+398:     }
+399: }
+400: 
+401: fn valid_sallet(d: &SalletDesign) -> bool {
+402:     (550..=1250).contains(&d.opening_width.0)
+403:         && d.opening_sweep.0 <= 2000
+404:         && d.rear_edge_lift.0 <= 60
+405:         && (350..=1400).contains(&d.cheek_depth.0)
+406:         && (650..=1400).contains(&d.tail_width.0)
+407:         && (35..=110).contains(&d.tail_length.0)
+408:         && (10..=45).contains(&d.tail_drop.0)
+409:         && d.brow_projection.0 <= 20
+410: }
+411: 
+412: fn valid_visor(projection: Millimeters, gap: Millimeters) -> bool {
+413:     (12..=50).contains(&projection.0) && (5..=15).contains(&gap.0)
+414: }
+SOURCE 2611 pr-working:crates/fabelgeist-armor/src/helmet_crown.rs
+1: //! Skull shape and temple-centered fan fluting, independent of lining clearance.
+2: use crate::{DesignError, Millimeters, Permille, PlateFluting};
+3: use serde::{Deserialize, Serialize};
+4: 
+5: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+6: pub struct HelmetCrown {
+7:     /// Lower values retain more width toward the top of the bowl.
+8:     pub fullness: Permille,
+9:     /// A ridge formed into the bowl rather than an attached comb.
+10:     pub ridge_height: Millimeters,
+11:     pub fluting: Option<PlateFluting>,
+12: }
+13: 
+14: impl Default for HelmetCrown {
+15:     fn default() -> Self {
+16:         Self {
+17:             fullness: Permille(1000),
+18:             ridge_height: Millimeters(0),
+19:             fluting: None,
+20:         }
+21:     }
+22: }
+23: 
+24: impl HelmetCrown {
+25:     pub(crate) fn validate(&self) -> Result<(), DesignError> {
+26:         if !(700..=1150).contains(&self.fullness.0) || self.ridge_height.0 > 18 {
+27:             return Err(DesignError::ParametricParameters);
+28:         }
+29:         if let Some(pattern) = &self.fluting {
+30:             pattern.validate()?;
+31:         }
+32:         Ok(())
+33:     }
+34: }
+SOURCE 2612 pr-working:crates/fabelgeist-armor/src/helmets_buffe.rs
+1: //! A removable face defense under a burgonet's peak, separate from its skull.
+2: use crate::{DesignError, Millimeters, Milliradians, Permille, VisorBreaths};
+3: use serde::{Deserialize, Serialize};
+4: #[path = "helmets_buffe_courses.rs"]
+5: mod courses;
+6: pub use courses::BuffeCourses;
+7: 
+8: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+9: #[serde(deny_unknown_fields)]
+10: pub struct BuffeDesign {
+11:     pub breaths: Option<VisorBreaths>,
+12:     pub courses: Option<BuffeCourses>,
+13:     pub sight_gap: Millimeters,
+14:     pub face_projection: Millimeters,
+15:     pub chin_width: Permille,
+16:     pub throat_depth: Permille,
+17:     pub neck_drop: Millimeters,
+18:     pub side_wrap: Milliradians,
+19:     pub medial_ridge: Millimeters,
+20:     pub ridge_sharpness: Permille,
+21:     pub chin_point: Millimeters,
+22: }
+23: 
+24: impl Default for BuffeDesign {
+25:     fn default() -> Self {
+26:         Self {
+27:             breaths: None,
+28:             courses: None,
+29:             sight_gap: Millimeters(8),
+30:             face_projection: Millimeters(18),
+31:             chin_width: Permille(850),
+32:             throat_depth: Permille(650),
+33:             neck_drop: Millimeters(12),
+34:             side_wrap: Milliradians(1800),
+35:             medial_ridge: Millimeters(10),
+36:             ridge_sharpness: Permille(0),
+37:             chin_point: Millimeters(35),
+38:         }
+39:     }
+40: }
+41: 
+42: impl BuffeDesign {
+43:     pub(crate) fn validate(&self) -> Result<(), DesignError> {
+44:         if !(5..=20).contains(&self.sight_gap.0)
+45:             || self.face_projection.0 > 40
+46:             || !(500..=1100).contains(&self.chin_width.0)
+47:             || !(550..=1000).contains(&self.throat_depth.0)
+48:             || self.neck_drop.0 > 35
+49:             || !(1500..=1950).contains(&self.side_wrap.0)
+50:             || self.medial_ridge.0 > 25
+51:             || self.chin_point.0 > 60
+52:             || self.ridge_sharpness.0 > 1000
+53:         {
+54:             return Err(DesignError::ParametricParameters);
+55:         }
+56:         if let Some(courses) = &self.courses {
+57:             courses.validate()?;
+58:         }
+59:         if let Some(breaths) = &self.breaths {
+60:             breaths.validate(50..=950)?;
+61:         }
+62:         Ok(())
+63:     }
+64: }

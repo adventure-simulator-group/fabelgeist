@@ -1,0 +1,45 @@
+1: #[derive(Clone, Debug, Eq, PartialEq)]
+2: pub(crate) struct SqlQuery(String);
+3: 
+4: impl SqlQuery {
+5:     /// Select the immutable road topology at the native SQL boundary.
+6:     pub(crate) fn travel_edges() -> Self {
+7:         Self::new("SELECT * FROM travel_edge".to_owned())
+8:     }
+9: 
+10:     fn new(query: String) -> Self {
+11:         Self(query)
+12:     }
+13: 
+14:     pub(crate) fn as_str(&self) -> &str {
+15:         &self.0
+16:     }
+17: }
+18: 
+19: impl std::ops::Deref for SqlQuery {
+20:     type Target = str;
+21: 
+22:     fn deref(&self) -> &Self::Target {
+23:         self.as_str()
+24:     }
+25: }
+26: 
+27: pub(crate) fn sql_string_literal(value: &str) -> String {
+28:     format!("'{}'", value.replace('\'', "''"))
+29: }
+30: 
+31: macro_rules! string_key_query {
+32:     ($name:ident, $prefix:literal) => {
+33:         pub(crate) fn $name(value: &str) -> SqlQuery {
+34:             SqlQuery::new(format!(concat!($prefix, "{}"), sql_string_literal(value)))
+35:         }
+36:     };
+37: }
+38: 
+39: macro_rules! u64_key_query {
+40:     ($name:ident, $prefix:literal) => {
+41:         pub(crate) fn $name(value: u64) -> SqlQuery {
+42:             SqlQuery::new(format!(concat!($prefix, "{}"), value))
+43:         }
+44:     };
+45: }

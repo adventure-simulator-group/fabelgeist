@@ -1,0 +1,173 @@
+{
+  "schema": "726-prospective-independent-current-source-registration-v1",
+  "lens": 12,
+  "lens_name": "magic-strings",
+  "author": "/root",
+  "at": "2026-11-02T20:31:15.898536+00:00",
+  "purpose": "Complete current chunk-instancing module, CPU/GPU layout, shader, material/pipeline/queue/draw/spawn sources independently under magic-strings. Called external/native APIs and foliage producers remain separate dependencies; no body inferred from imports.",
+  "rows": [
+    {
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing.rs",
+      "source_sha256": "dd3f753b18f0a5cded3e1ca32d8b29e77544d81f5c82f425d47a1908ad12d92d",
+      "actual_EOF": 98,
+      "source_object": "adler-continuation-20261030/objects/dd3f753b18f0a5cded3e1ca32d8b29e77544d81f5c82f425d47a1908ad12d92d",
+      "prospective_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "before_absence": {
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "git_path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing.rs",
+        "git_ls_tree_output_empty": true,
+        "qualification": "Actual added-path absence, not a zero-line body read or successor implementation equivalence."
+      },
+      "new_body_credit": 0
+    },
+    {
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/chunk_instancing.wgsl",
+      "source_sha256": "60c8e5c5834d130987b0a37fd09ffee945b4908a863589b8db5bcee69f86a57a",
+      "actual_EOF": 68,
+      "source_object": "adler-continuation-20261030/objects/60c8e5c5834d130987b0a37fd09ffee945b4908a863589b8db5bcee69f86a57a",
+      "prospective_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "before_absence": {
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "git_path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/chunk_instancing.wgsl",
+        "git_ls_tree_output_empty": true,
+        "qualification": "Actual added-path absence, not a zero-line body read or successor implementation equivalence."
+      },
+      "new_body_credit": 0
+    },
+    {
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/draw.rs",
+      "source_sha256": "fbf96c0e6ddbe1f00e12b1e74da3fb6cb129075a860617e548b95871ed8f5dba",
+      "actual_EOF": 211,
+      "source_object": "adler-continuation-20261030/objects/fbf96c0e6ddbe1f00e12b1e74da3fb6cb129075a860617e548b95871ed8f5dba",
+      "prospective_ranges": [
+        [
+          1,
+          211
+        ]
+      ],
+      "before_absence": {
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "git_path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/draw.rs",
+        "git_ls_tree_output_empty": true,
+        "qualification": "Actual added-path absence, not a zero-line body read or successor implementation equivalence."
+      },
+      "new_body_credit": 0
+    },
+    {
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/instance.rs",
+      "source_sha256": "e57c77ecdf7c28448ded39296a49ae590ed4c612021b0ae39736d8345dae8e3c",
+      "actual_EOF": 116,
+      "source_object": "adler-continuation-20261030/objects/e57c77ecdf7c28448ded39296a49ae590ed4c612021b0ae39736d8345dae8e3c",
+      "prospective_ranges": [
+        [
+          1,
+          116
+        ]
+      ],
+      "before_absence": {
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "git_path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/instance.rs",
+        "git_ls_tree_output_empty": true,
+        "qualification": "Actual added-path absence, not a zero-line body read or successor implementation equivalence."
+      },
+      "new_body_credit": 0
+    },
+    {
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/material.rs",
+      "source_sha256": "ba64b44296e4a3d2b837c0e4cd45829df6e9441d4647049f6e76cbe6b9c54961",
+      "actual_EOF": 103,
+      "source_object": "adler-continuation-20261030/objects/ba64b44296e4a3d2b837c0e4cd45829df6e9441d4647049f6e76cbe6b9c54961",
+      "prospective_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "before_absence": {
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "git_path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/material.rs",
+        "git_ls_tree_output_empty": true,
+        "qualification": "Actual added-path absence, not a zero-line body read or successor implementation equivalence."
+      },
+      "new_body_credit": 0
+    },
+    {
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/pipeline.rs",
+      "source_sha256": "91bf014c938918e186cb9bfc5d5d563f6f9718c3afa85db2d8c1e9b45fdabdbd",
+      "actual_EOF": 152,
+      "source_object": "adler-continuation-20261030/objects/91bf014c938918e186cb9bfc5d5d563f6f9718c3afa85db2d8c1e9b45fdabdbd",
+      "prospective_ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "before_absence": {
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "git_path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/pipeline.rs",
+        "git_ls_tree_output_empty": true,
+        "qualification": "Actual added-path absence, not a zero-line body read or successor implementation equivalence."
+      },
+      "new_body_credit": 0
+    },
+    {
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/queue.rs",
+      "source_sha256": "e171e3975a749c9ff6e528d1af5daf3c3b1eabac43e8c9b71807b5dc8c6cbc18",
+      "actual_EOF": 201,
+      "source_object": "adler-continuation-20261030/objects/e171e3975a749c9ff6e528d1af5daf3c3b1eabac43e8c9b71807b5dc8c6cbc18",
+      "prospective_ranges": [
+        [
+          1,
+          201
+        ]
+      ],
+      "before_absence": {
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "git_path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/queue.rs",
+        "git_ls_tree_output_empty": true,
+        "qualification": "Actual added-path absence, not a zero-line body read or successor implementation equivalence."
+      },
+      "new_body_credit": 0
+    },
+    {
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/spawn.rs",
+      "source_sha256": "dceb4f65084d06e5c58c2e7b00a86e4968b5ca6a3fa22598be3bfb280fa15a99",
+      "actual_EOF": 127,
+      "source_object": "adler-continuation-20261030/objects/dceb4f65084d06e5c58c2e7b00a86e4968b5ca6a3fa22598be3bfb280fa15a99",
+      "prospective_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "before_absence": {
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "git_path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/spawn.rs",
+        "git_ls_tree_output_empty": true,
+        "qualification": "Actual added-path absence, not a zero-line body read or successor implementation equivalence."
+      },
+      "new_body_credit": 0
+    }
+  ],
+  "new_body_credit": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

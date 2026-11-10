@@ -1,0 +1,47 @@
+{
+  "packet": {
+    "path": "adler-continuation-20261030/READ-ROOT-L13-2671-2674-001.json",
+    "sha256": "8206c9aa0e7cc7de79dd4ac9d0e43512e96543d8422f5d9be2fce3a1c1a73d23"
+  },
+  "ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "a1fe823c32e7214f7535ec0627bfc21f34807a3741cd13344bceeac4930061a2"
+  },
+  "selector": {
+    "path": "CURRENT-ADLER.json",
+    "sha256": "4889e25e146e7f6887e95fee9cb0475e4e3163649223a2325bce6d058c86678f"
+  },
+  "queue": {
+    "path": "workflow-20261030/CLOSURE-QUEUE-722.json",
+    "sha256": "9f7b85bde3333c72cf9e7345df9f63c014f6656771174c891b9026949573b5aa"
+  },
+  "selected_lenses": {
+    "path": "adler-continuation-20261030/SELECTED-LENSES-CONTINUATION-392.json",
+    "sha256": "a272c1490a637b36274bb4c44ebff6d4753bead11f19b24605dd421b40277327"
+  },
+  "previous_state": {
+    "path": "segovb/STATE-L13-PARALLEL-700.json",
+    "sha256": "848baad7ce2c75d2b1a493d49a9470662768be8f32c8c740e34227639cd3790a"
+  },
+  "root_sequence": 701,
+  "queue_sequence": 723,
+  "next_selected_lenses_filename": "SELECTED-LENSES-CONTINUATION-393.json",
+  "prior_reuses": [
+    {
+      "kind": "exact_admission_2671_2674_material",
+      "original": 2671,
+      "adoption": {
+        "path": "segovb/READ-L13-PARALLEL-023.json",
+        "sha256": "46ff7eccfcf1fda9ca02cdbc76f115db63246e2882f228b83101896ca9bee4cb"
+      },
+      "qualification": {
+        "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2671-2674-ADMISSION-MIXED-001.json",
+        "sha256": "45689d000cfd935d3121188534243f935525480459f1a24699aa87c1c86fc4f2"
+      }
+    }
+  ],
+  "admission_2671_2674_material_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2671-2674-ADMISSION-MIXED-001.json",
+    "sha256": "45689d000cfd935d3121188534243f935525480459f1a24699aa87c1c86fc4f2"
+  }
+}

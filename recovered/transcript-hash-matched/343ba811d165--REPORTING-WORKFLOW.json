@@ -1,0 +1,27 @@
+{
+  "schema": "726-required-human-progress-report-workflow-v1",
+  "at": "2026-11-02T18:37:22.867385+00:00",
+  "user_requested": true,
+  "latest_report": "target/726-intake-20261030/PROGRESS.md",
+  "checkpoint_snapshot_pattern": "target/726-intake-20261030/PROGRESS-N.md",
+  "context": "target/726-intake-20261030/PROGRESS-CONTEXT.json",
+  "report_state": "target/726-intake-20261030/PROGRESS-STATE.json",
+  "report_writer": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/audit_progress_report_v1.py",
+    "sha256": "419f9ca3b504c96dc4c1a4fc360705ff944860033c03e8ba568d33cc3ecc004e"
+  },
+  "new_l2_publication_backend": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/audit_l2_publication_v2.py",
+    "sha256": "9d055293b7feb51d0f305940796806319779268c78933f4b688fe08ca6aa7cac"
+  },
+  "workflow": [
+    "Update working_on, next_steps, completed/remaining work, stages, validation and goal status in PROGRESS-CONTEXT.json after meaningful work changes; run the report writer with --write to refresh the latest report between checkpoints.",
+    "Before each new checkpoint, add its human-readable summary and precise scope limit under checkpoint_summaries. New L2 adoption rules import Publication from audit_l2_publication_v2, preserving the historical v1 backend and old replay verifiers unchanged.",
+    "The v2 backend checks report context during read-only preflight, renders the prospective report without writes, then writes/verifies PROGRESS.md and its checkpoint snapshot as part of successful publication.",
+    "For any other checkpoint helper that does not use the reporting backend, run the report writer --write immediately after checkpoint publication and --verify before reporting success. The Markdown companion is required for every future CHECKPOINT-N.json.",
+    "Preserve immutable PROGRESS-N.md snapshots and their metadata. Between-checkpoint updates modify only PROGRESS.md, PROGRESS-STATE.json and reporting context. Do not edit canonical audit evidence just to change report prose.",
+    "Keep the user report readable: completed work, current work, remaining scope, actual implementation/review/test status and material limits. Do not convert overlapping queue/line counts into bug counts or an invented completion percentage."
+  ],
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

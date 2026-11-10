@@ -1,0 +1,415 @@
+SOURCE 2846
+216: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+SOURCE 2848
+7: const TIMBER_UPPER_FLOOR_SURFACE_OFFSET_METRES: f32 = 0.08;
+8: const TIMBER_CEILING_JOIST_ZONE_METRES: f32 = 0.50;
+9: 
+10: fn resolved_wall_vertical_span(
+11:     material: crate::WallMaterialClass,
+12:     level: u16,
+13:     base: f32,
+14:     height: f32,
+15: ) -> (f32, f32) {
+16:     if material != crate::WallMaterialClass::InternalTimber {
+17:         return (base, height);
+18:     }
+19:     let floor_offset = if level > 0 {
+20:         TIMBER_UPPER_FLOOR_SURFACE_OFFSET_METRES
+21:     } else {
+22:         0.0
+23:     };
+24:     (
+25:         base + floor_offset,
+26:         height - floor_offset - TIMBER_CEILING_JOIST_ZONE_METRES,
+27:     )
+28: }
+SOURCE 2849
+19: impl Shape {
+20:     /// Assembly attachments use their declared node; other shapes use axial seats.
+21:     pub(super) fn attachment_anchor(
+22:         &self,
+23:         at: AttachmentAnchor,
+24:         range: [f64; 2],
+25:     ) -> Result<Point, String> {
+26:         if at == AttachmentAnchor::HeelCenter {
+27:             return match self {
+28:                 Self::Blade(p) => Ok(p.heel_center()),
+29:                 _ => Err("heel-center requires a generic blade".into()),
+30:             };
+31:         }
+32:         if let Self::GuardAssembly(p) = self {
+33:             return p
+34:                 .nodes
+35:                 .get(
+36:                     p.anchor_node
+37:                         .as_ref()
+38:                         .ok_or("guard assembly needs anchorNode")?,
+39:                 )
+40:                 .ok_or_else(|| "missing guard anchor node".to_owned())
+41:                 .map(|point| point.map(Metres::get));
+42:         }
+43:         let y = match at {
+44:             AttachmentAnchor::Base => range[0],
+45:             AttachmentAnchor::Center => (range[0] + range[1]) / 2.0,
+46:             AttachmentAnchor::Top => range[1],
+47:             AttachmentAnchor::Origin => 0.0,
+48:             AttachmentAnchor::HeelCenter => unreachable!(),
+49:         };
+50:         Ok([0.0, y, 0.0])
+51:     }
+52: 
+53:     pub(super) fn range(&self) -> Result<[f64; 2], String> {
+54:         Ok(match self {
+55:             Self::ContouredPlate(p) => [0.0, p.length.get()],
+56:             Self::WheelPommel(p) => [-p.diameter.get() / 2.0, p.seat_height.get()],
+57:             Self::MortisedGuard(p) => [0.0, p.height.get()],
+58:             Self::BentBar(p) => match p.centerline {
+59:                 BarCenterline::Opposed { sweep, .. } => [-sweep.get().abs(), sweep.get().abs()],
+60:                 BarCenterline::Arch { length, .. } => [0.0, length.get()],
+61:             },
+62:             Self::SpatialTube(p) => {
+63:                 if p.points.is_empty() {
+64:                     return Err("spatial member needs points".into());
+65:                 }
+66:                 [
+67:                     p.points
+68:                         .iter()
+69:                         .map(|p| p[1].get())
+70:                         .fold(f64::INFINITY, f64::min),
+71:                     p.points
+72:                         .iter()
+73:                         .map(|p| p[1].get())
+74:                         .fold(f64::NEG_INFINITY, f64::max),
+75:                 ]
+76:             }
+77:             Self::LoftedBlade(p) => [0.0, p.length.get()],
+78:             Self::Shaft(p) => [0.0, p.length.get()],
+79:             Self::Crossbow(p) => [0.0, p.length.get()],
+80:             Self::CrossbowBolt(p) => [0.0, p.length.get()],
+81:             Self::BoltQuiver(p) => [0.0, p.length.get()],
+82:             Self::Firearm(p) => [0.0, p.length.get()],
+83:             Self::BallPouch(p) => [0.0, p.height.get()],
+84:             Self::LeadBall(p) => [-p.radius.get(), p.radius.get()],
+85:             Self::ArcheryBow(p) => [
+86:                 -p.length.get() * (1.0 - p.upper_ratio.get()),
+87:                 p.length.get() * p.upper_ratio.get(),
+88:             ],
+89:             Self::Arrow(p) => [0.0, p.length.get()],
+90:             Self::ArrowQuiver(p) => [0.0, p.length.get()],
+91:             Self::RoundShield(p) => [-p.radius.get(), p.radius.get()],
+92:             Self::ShapedShield(p) => [
+93:                 -p.height.get() / 2.0 - p.bottom_depth.get(),
+94:                 p.height.get() / 2.0 + p.top_depth.get(),
+95:             ],
+96:             Self::Grip(p) => [0.0, p.length.get()],
+97:             Self::OvalGrip(p) => [0.0, p.length.get()],
+98:             Self::ProfileGrip(p) | Self::ProfileBody(p) => [0.0, p.length.get()],
+99:             Self::SlabGrip(p) => [0.0, p.length.get()],
+100:             Self::Blade(p) => [0.0, p.length.get()],
+101:             Self::SectionBlade(p) => [0.0, p.length.get()],
+102:             Self::DiamondBlade(p) => [0.0, p.length.get()],
+103:             Self::Spear(p) => [
+104:                 -p.socket.as_ref().map_or(0.0, |s| s.length.get()),
+105:                 p.length.get(),
+106:             ],
+107:             Self::Fork(p) => [0.0, p.length.get()],
+108:             Self::Partisan(p) => [0.0, p.length.get()],
+109:             Self::Glaive(p) => [0.0, p.length.get()],
+110:             Self::Bill(p) => [0.0, p.length.get()],
+111:             Self::Sleeve(p) => [0.0, p.length.get()],
+112:             Self::Guard(p) => [-p.height.get() / 2.0, p.height.get() / 2.0],
+113:             Self::RingGuard(p) => [-p.radius.get(), p.radius.get()],
+114:             Self::FigureEight(p) => {
+115:                 let h = p.height.map_or(p.width.get() * 0.15, Metres::get);
+116:                 [-h, h]
+117:             }
+118:             Self::KnuckleBow(p) => [0.0, p.length.get()],
+119:             Self::Tube(p) => [0.0, p.points.last().ok_or("tube needs points")?[1].get()],
+120:             Self::Pommel(p) => pommel_range(p)?,
+121:             Self::GuardAssembly(p) => {
+122:                 if p.nodes.is_empty() {
+123:                     return Err("guard assembly needs nodes".into());
+124:                 }
+125:                 [
+126:                     p.nodes
+127:                         .values()
+128:                         .map(|p| p[1].get())
+129:                         .fold(f64::INFINITY, f64::min),
+130:                     p.nodes
+131:                         .values()
+132:                         .map(|p| p[1].get())
+133:                         .fold(f64::NEG_INFINITY, f64::max),
+134:                 ]
+135:             }
+136:             Self::Socket(p) => profile_range(&p.profile)?,
+137:             Self::Mace(p) => [
+138:                 -p.length.get() / 2.0,
+139:                 p.length.get() / 2.0 + p.crown_length.map_or(0.0, Metres::get),
+140:             ],
+141:             Self::Collar(p) => [-p.width.get() / 2.0, p.width.get() / 2.0],
+142:             Self::Box(p) => [-p.size[1].get() / 2.0, p.size[1].get() / 2.0],
+143:             Self::Axe(_)
+144:             | Self::FacetedBeak(_)
+145:             | Self::Pick(_)
+146:             | Self::Beak(_)
+147:             | Self::Hammer(_) => [0.0, 0.0],
+148:         })
+149:     }
+150: }
+SOURCE 2850
+1: //! Longitudinal blade lofts with a ricasso and an authored transverse section.
+2: use super::*;
+3: #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+4: #[serde(rename_all = "camelCase")]
+5: pub enum BladePlan {
+6:     Straight,
+7:     Leaf,
+8:     Cleaver,
+9: }
+10: #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+11: #[serde(rename_all = "camelCase")]
+12: pub enum BladeCrossSection {
+13:     Diamond,
+14:     Fullered,
+15:     Hexagonal,
+16:     Lenticular,
+17:     Recessed,
+18: }
+31: #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+32: #[serde(rename_all = "camelCase", deny_unknown_fields)]
+33: pub struct LoftedBladeParameters {
+34:     #[serde(
+35:         default,
+36:         skip_serializing_if = "Option::is_none",
+37:         deserialize_with = "super::deserialize_present"
+38:     )]
+39:     pub fuller: Option<FullerParameters>,
+40:     #[serde(
+41:         default,
+42:         skip_serializing_if = "Option::is_none",
+43:         deserialize_with = "super::deserialize_present"
+44:     )]
+45:     pub point: Option<BladePoint>,
+46:     pub length: Metres,
+47:     pub width: Metres,
+48:     pub thickness: Metres,
+49:     pub curvature: Metres,
+50:     pub plan: BladePlan,
+51:     pub section: BladeCrossSection,
+52:     pub samples: Count,
+53:     pub taper: Ratio,
+54:     pub single_edge: Ratio,
+55:     pub belly: Ratio,
+56:     pub ricasso: Metres,
+57: }
+58: 
+59: /// A round member along an arbitrary spatial path, with an explicit section.
+SOURCE 2851
+1: //! Receiving-shaft constraints for the explicit shaft mount constructions.
+2: use super::*;
+3: 
+4: pub(super) fn socket_fit(
+5:     component: &Component,
+6:     shaft: Option<&Shaft>,
+7:     parents: &[ResolvedComponent],
+8:     offset: Point,
+9:     rotation: Point,
+10: ) -> Result<(), String> {
+11:     let Shape::Spear(p) = &component.shape else {
+12:         return Ok(());
+13:     };
+14:     let Some(socket) = &p.socket else {
+15:         return Ok(());
+16:     };
+17:     let receiver = if let Some(attachment) = &component.attach {
+18:         let owner = attachment.to.rsplit_once('.').map(|p| p.0).unwrap_or("");
+19:         if let Some(parent) = parents.iter().find(|p| p.id == owner) {
+20:             if let Shape::Shaft(shaft) = &parent.component.shape {
+21:                 Some((shaft, parent.offset, parent.rotation))
+22:             } else {
+23:                 None
+24:             }
+25:         } else if matches!(owner, "shaft" | "weapon") {
+26:             shaft.map(|p| (p, [0.0; 3], [0.0; 3]))
+27:         } else {
+28:             None
+29:         }
+30:     } else if component.mount.is_some() {
+31:         shaft.map(|p| (p, [0.0; 3], [0.0; 3]))
+32:     } else {
+33:         None
+34:     };
+35:     let Some((shaft, parent_offset, parent_rotation)) = receiver else {
+36:         return Ok(());
+37:     };
+38:     let offset = inverse_rotate(sub(offset, parent_offset), parent_rotation);
+39:     let axis = inverse_rotate(rotate([0.0, 1.0, 0.0], rotation), parent_rotation);
+40:     if offset[0].abs() > 1e-8
+41:         || offset[2].abs() > 1e-8
+42:         || magnitude(sub(axis, [0.0, 1.0, 0.0])) > 1e-8
+43:     {
+44:         return Err("receiving socket must align with its shaft".into());
+45:     }
+46:     let rim = offset[1] - socket.length.get();
+47:     if shaft
+48:         .wrappings
+49:         .iter()
+50:         .flatten()
+51:         .any(|w| w.start.get() + w.length.get() > rim)
+52:     {
+53:         return Err("receiving socket must seat over an unwrapped shaft tenon".into());
+54:     }
+55:     let penetration = shaft.length.get() - rim;
+56:     if (penetration - socket.insertion_depth.get()).abs() > 1e-8 || rim < 0.0 {
+57:         return Err("socket placement does not match its declared shaft insertion".into());
+58:     }
+59:     // Both profiles are piecewise linear: endpoints and every shaft breakpoint
+60:     // prove clearance throughout the full inserted length, not only at the tip.
+61:     let mut heights = vec![rim, shaft.length.get()];
+62:     heights.extend(
+63:         shaft
+64:             .profile()
+65:             .iter()
+66:             .map(|p| p[0])
+67:             .filter(|y| *y > rim && *y < shaft.length.get()),
+68:     );
+69:     // The coarsest permitted circular section supplies the conservative bore
+70:     // apothem. Finer display levels therefore retain the same accepted fit.
+71:     let radial = Detail::Low.radial(socket.base_radius.get(), 24).div_ceil(4) * 4;
+72:     let apothem = (std::f64::consts::PI / radial as f64).cos();
+73:     for height in heights {
+74:         if shaft.radius_at(height) > socket.bore_radius(height - rim) * apothem + 1e-9 {
+75:             return Err("socket bore cannot clear the complete receiving shaft".into());
+76:         }
+77:     }
+78:     Ok(())
+79: }
+133: pub(super) fn attachment_contact(
+134:     child: &ResolvedComponent,
+135:     parents: &[ResolvedComponent],
+136:     shaft: Option<&Shaft>,
+137: ) -> Result<(), String> {
+138:     let Some(attachment) = &child.component.attach else {
+139:         return Ok(());
+140:     };
+141:     let Some((owner, _)) = attachment.to.rsplit_once('.') else {
+142:         return Ok(());
+143:     };
+144:     let implicit = shaft
+145:         .filter(|_| matches!(owner, "shaft" | "weapon"))
+146:         .map(|shaft| {
+147:             let mut component = child.component.clone();
+148:             component.shape = Shape::Shaft(shaft.clone());
+149:             ResolvedComponent {
+150:                 component,
+151:                 id: "shaft".into(),
+152:                 label: "shaft".into(),
+153:                 offset: [0.0; 3],
+154:                 rotation: [0.0; 3],
+155:                 shaft_contact: None,
+156:                 grip_width: None,
+157:                 grip_seat_radius: None,
+158:             }
+159:         });
+160:     let Some(parent) = parents.iter().find(|p| p.id == owner).or(implicit.as_ref()) else {
+161:         return Ok(());
+162:     };
+163:     mortised_guard::check_mating(child, parent)?;
+164:     if implicit.is_some() && is_axial(&child.component.shape) {
+165:         let mut receiving = child.component.clone();
+166:         receiving.offset = Some([
+167:             Metres::new(child.offset[0])?,
+168:             Metres::new(0.0)?,
+169:             Metres::new(child.offset[2])?,
+170:         ]);
+171:         check(&receiving, shaft.unwrap())?;
+172:     }
+173:     let parent_bounds = bounds(shapes::construct(parent, Detail::High)?, &|p| p);
+174:     let child_bounds = bounds(shapes::construct(child, Detail::High)?, &|p| {
+175:         inverse_rotate(
+176:             sub(add(rotate(p, child.rotation), child.offset), parent.offset),
+177:             parent.rotation,
+178:         )
+179:     });
+180:     let at = attachment.at.unwrap_or_default();
+181:     if at != AttachmentAnchor::Origin {
+182:         let range = child.component.shape.range()?;
+183:         let local_anchor = child.component.shape.attachment_anchor(at, range)?;
+184:         let anchor = inverse_rotate(
+185:             sub(
+186:                 add(rotate(local_anchor, child.rotation), child.offset),
+187:                 parent.offset,
+188:             ),
+189:             parent.rotation,
+190:         );
+191:         let seating_radius = ((child_bounds.1[0] - child_bounds.0[0])
+192:             .min(child_bounds.1[2] - child_bounds.0[2]))
+193:             / 2.0;
+194:         if anchor[1] < parent_bounds.0[1] - seating_radius - 1e-8
+195:             || anchor[1] > parent_bounds.1[1] + seating_radius + 1e-8
+196:         {
+197:             return Err(format!(
+198:                 "declared contact lies outside parent axial geometry {}",
+199:                 attachment.to
+200:             ));
+201:         }
+202:     }
+203:     let separated = |axis| {
+204:         child_bounds.0[axis] > parent_bounds.1[axis] + 1e-8
+205:             || child_bounds.1[axis] < parent_bounds.0[axis] - 1e-8
+206:     };
+207:     if (separated(0) || separated(1) || separated(2))
+208:         && connected_through_assembly(child, parent, parents, implicit.as_ref())?
+209:     {
+210:         return Ok(());
+211:     }
+212:     if separated(1) {
+213:         return Err(format!(
+214:             "{} attachment lies outside parent axial geometry {}",
+215:             child.id, attachment.to
+216:         ));
+217:     }
+218:     if separated(0) || separated(2) {
+219:         return Err(format!(
+220:             "{} attachment lies outside parent footprint {}",
+221:             child.id, attachment.to
+222:         ));
+223:     }
+224:     Ok(())
+225: }
+226: 
+227: /// A coordinate parent may be joined through another explicitly constructed
+228: /// fitting, such as a rear beak carried by a socketed axe head. Require a
+SOURCE 2852
+1: //! Settlement trade coordination and stable facade exports.
+2: 
+3: use adventuresim_core::{
+4:     equipment::{EncumbranceSummary, INPUT_ADDRESS_MAPPINGS, InputAddressMapping},
+5:     item_catalog_schema::{
+6:         EquipmentChannel as CoreEquipmentChannel, EquipmentLocation as CoreEquipmentLocation,
+7:     },
+8: };
+9: use adventuresim_stdb_client::{
+10:     EquipmentChannel as SatsEquipmentChannel, IngredientPreparationAction,
+11: };
+12: use maud::{Markup, html};
+13: 
+14: use super::{
+15:     character_health::stat_icon,
+16:     character_skills::{SkillRankBarOptions, skill_rank_bar},
+17:     chrome::{VisualStageKind, party_portrait_overlay, visual_stage},
+18:     context::LocationView,
+19:     rest::{RestServiceKind, SoapRestPreview, rest_service_menu},
+20:     social::{
+21:         forge_description_stage, npc_description_stage, npc_location_id, npc_portrait_strip,
+22:         player_chat_area, settlement_chat_area, settlement_resident_chat_area,
+23:     },
+24: };
+25: use crate::spacetimedb::{
+26:     BackendIngredientPreparationPlan, CharacterEquipmentGraph, CharacterView, EquipmentBodyPart,
+27:     EquipmentLocation, FoodLot, InventoryItem, InventoryItemAmount, InventoryQuantityTarget,
+28:     ItemConditionExt, PartyInventoryItem, SettlementView,
+29: };
+30: use crate::templates::inventory_browser::{InventoryBrowser, InventoryColumnSet};
+31: use crate::templates::{
+32:     decorative_game_icon, empty_state, game_icon, item_display_name, item_icon_name,

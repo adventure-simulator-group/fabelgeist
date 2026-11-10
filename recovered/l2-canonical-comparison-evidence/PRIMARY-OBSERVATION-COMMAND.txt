@@ -1,0 +1,10 @@
+from pathlib import Path
+import json,hashlib
+r=Path('target/726-audit-continuation-20261030/target/726-audit-adler-20261027');d=json.loads((r/'evidence/continuation-segovb/ledger.json').read_bytes());idx=json.loads((r/'adler-continuation-20261030/INDEX-ROOT-L2-ERRANTRY-ALIASES-001.json').read_bytes())
+for row in idx['candidates']:
+ if row['kind']=='primary':
+  v=d['discovery_findings_and_dependencies'][row['key']];print(row['key']);print('FIRST',v.get('first_failed_contract'));print('OWNER',v.get('canonical_owner'))
+p=r/d['inherited_master']['path'];assert hashlib.sha256(p.read_bytes()).hexdigest()==d['inherited_master']['sha256'];old=json.loads(p.read_bytes());print('MASTER_SHAPE',[(k,type(v).__name__,len(v) if isinstance(v,(dict,list)) else len(str(v))) for k,v in old.items()]);findings=old['findings'];print('FINDINGS_TYPE',type(findings).__name__)
+for key,v in (findings.items() if isinstance(findings,dict) else enumerate(findings)):
+ terms=[t for t in idx['terms'] if t in json.dumps(v).lower()]
+ if terms:print('HISTORICAL_CANDIDATE',key,terms,json.dumps(v)[:500])

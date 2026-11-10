@@ -1,0 +1,308 @@
+SOURCE 81632fbe7f7562ccfcfbdbeda4eb587bfcbb4fb62d60ad8c9e550837a1c968bb EOF 72
+1: //! Readiness covers generated geometry and wearer bindings, not just the body rig.
+2: use crate::equipment::{
+3:     ItemPlaceholder, ProceduralEquipmentFailed, ProceduralEquipmentPart,
+4:     ProceduralEquipmentResolved, runtime_equipment::RuntimeEquipmentPresentation,
+5: };
+6: use bevy::ecs::system::SystemParam;
+7: use bevy::prelude::*;
+8: 
+9: type EquipmentRootState = (
+10:     &'static ItemPlaceholder,
+11:     &'static Visibility,
+12:     Has<RuntimeEquipmentPresentation>,
+13:     Has<ProceduralEquipmentResolved>,
+14:     Has<ProceduralEquipmentFailed>,
+15: );
+16: 
+17: #[derive(SystemParam)]
+18: pub(crate) struct EquipmentReadiness<'w, 's> {
+19:     roots: Query<'w, 's, EquipmentRootState>,
+20:     parts: Query<'w, 's, (&'static ProceduralEquipmentPart, &'static Visibility)>,
+21: }
+22: 
+23: impl EquipmentReadiness<'_, '_> {
+24:     pub(crate) fn pending_summary(&self, items: impl Iterator<Item = Entity>) -> String {
+25:         let items: std::collections::HashSet<_> = items.collect();
+26:         let roots = self
+27:             .roots
+28:             .iter()
+29:             .filter(|(root, ..)| items.contains(&root.0))
+30:             .collect::<Vec<_>>();
+31:         let hidden = roots
+32:             .iter()
+33:             .filter(|(_, visibility, ..)| **visibility == Visibility::Hidden)
+34:             .count();
+35:         let unresolved = roots
+36:             .iter()
+37:             .filter(|(_, _, runtime, resolved, _)| *runtime && !*resolved)
+38:             .count();
+39:         let unbound = self
+40:             .parts
+41:             .iter()
+42:             .filter(|(part, visibility)| {
+43:                 items.contains(&part.item) && **visibility == Visibility::Hidden
+44:             })
+45:             .count();
+46:         format!(
+47:             "{} items, {} roots, {hidden} hidden, {unresolved} awaiting geometry, {unbound} awaiting presentation",
+48:             items.len(),
+49:             roots.len()
+50:         )
+51:     }
+52: 
+53:     pub(crate) fn check(&self, items: impl Iterator<Item = Entity>) -> Result<bool, &'static str> {
+54:         let items: std::collections::HashSet<_> = items.collect();
+55:         let mut ready = 0;
+56:         for (placeholder, visibility, runtime, resolved, failed) in &self.roots {
+57:             if !items.contains(&placeholder.0) {
+58:                 continue;
+59:             }
+60:             if failed {
+61:                 return Err("Could not generate character equipment");
+62:             }
+63:             if *visibility != Visibility::Hidden && (!runtime || resolved) {
+64:                 ready += 1;
+65:             }
+66:         }
+67:         Ok(ready == items.len()
+68:             && self.parts.iter().all(|(part, visibility)| {
+69:                 !items.contains(&part.item) || *visibility != Visibility::Hidden
+70:             }))
+71:     }
+72: }
+SOURCE 278723baa84e424a5faff89f4ed396c8f5591f507165e11ae62842cafe37c974 EOF 234
+1: //! Render layouts must match the presence of a complete wearer skin binding.
+2: use super::*;
+3: use fabelgeist_rig::RigJointName;
+4: 
+5: #[derive(Component)]
+6: pub(crate) struct ProceduralEquipmentPart {
+7:     pub(crate) item: Entity,
+8:     pub(super) inverse_bindposes: Handle<SkinnedMeshInverseBindposes>,
+9:     pub(crate) joint_names: fabelgeist_rig::RigJointTable<RigJointName>,
+10:     pub(super) rigid_center: Vec3,
+11: }
+12: 
+13: impl ProceduralEquipmentPart {
+14:     pub(crate) fn new(
+15:         item: Entity,
+16:         inverse_bindposes: Handle<SkinnedMeshInverseBindposes>,
+17:         joint_names: fabelgeist_rig::RigJointTable<RigJointName>,
+18:         rigid_center: Vec3,
+19:     ) -> Self {
+20:         Self {
+21:             item,
+22:             inverse_bindposes,
+23:             joint_names,
+24:             rigid_center,
+25:         }
+26:     }
+27: 
+28:     /// A loaded asset remains hidden until its wearer binding is renderable.
+29:     pub(super) fn render_bundle(
+30:         self,
+31:         name: String,
+32:         mesh: Handle<Mesh>,
+33:         material: Handle<StandardMaterial>,
+34:     ) -> impl Bundle {
+35:         (
+36:             Name::new(name),
+37:             Visibility::Hidden,
+38:             Mesh3d(mesh),
+39:             MeshMaterial3d(material),
+40:             Transform::IDENTITY,
+41:             NoFrustumCulling,
+42:             GrabTargetOutline(self.item),
+43:             OutlineVolume {
+44:                 visible: false,
+45:                 colour: Color::WHITE,
+46:                 width: 4.0,
+47:             },
+48:             OutlineMode::FloodFlat,
+49:             self,
+50:         )
+51:     }
+52: }
+53: 
+54: #[derive(Component, Clone)]
+55: pub(super) struct EquipmentMeshSources {
+56:     bound: Handle<Mesh>,
+57:     unbound: Option<Handle<Mesh>>,
+58: }
+59: 
+60: type EquipmentRenderState = (
+61:     Entity,
+62:     &'static ProceduralEquipmentPart,
+63:     &'static Mesh3d,
+64:     Option<&'static SkinnedMesh>,
+65:     Option<&'static EquipmentMeshSources>,
+66:     &'static mut Visibility,
+67: );
+68: 
+69: /// Joint attributes select Bevy's skinned pipeline even without `SkinnedMesh`.
+70: /// Await wearer binding while hidden, and use a joint-free mesh when dropped.
+71: pub(super) fn sync_render_bindings(
+72:     mut commands: Commands,
+73:     mut meshes: ResMut<Assets<Mesh>>,
+74:     mut parts: Query<EquipmentRenderState>,
+75:     items: Query<(Option<&ItemOf>, Option<&EquipSlot>, Has<TacticalSceneItem>)>,
+76: ) {
+77:     for (entity, part, current_mesh, skin, current_sources, mut visibility) in &mut parts {
+78:         let worn = items.get(part.item).is_ok_and(|(owner, slot, scene)| {
+79:             owner.is_some() && !scene && holding_side(slot).is_none()
+80:         });
+81:         if worn && skin.is_none() {
+82:             visibility.set_if_neq(Visibility::Hidden);
+83:             continue;
+84:         }
+85:         let mut sources = current_sources
+86:             .cloned()
+87:             .unwrap_or_else(|| EquipmentMeshSources {
+88:                 bound: current_mesh.0.clone(),
+89:                 unbound: None,
+90:             });
+91:         let mut sources_changed = current_sources.is_none();
+92:         let desired = if skin.is_some() {
+93:             sources.bound.clone()
+94:         } else {
+95:             if sources.unbound.is_none() {
+96:                 let Some(source) = meshes.get(&sources.bound) else {
+97:                     visibility.set_if_neq(Visibility::Hidden);
+98:                     continue;
+99:                 };
+100:                 let mut unbound = source.clone();
+101:                 unbound.remove_attribute(Mesh::ATTRIBUTE_JOINT_INDEX);
+102:                 unbound.remove_attribute(Mesh::ATTRIBUTE_JOINT_WEIGHT);
+103:                 center_unbound_mesh(&mut unbound, part.rigid_center);
+104:                 sources.unbound = Some(meshes.add(unbound));
+105:                 sources_changed = true;
+106:             }
+107:             sources
+108:                 .unbound
+109:                 .as_ref()
+110:                 .expect("joint-free mesh prepared")
+111:                 .clone()
+112:         };
+113:         if current_mesh.0 != desired {
+114:             commands.entity(entity).insert(Mesh3d(desired));
+115:         }
+116:         if sources_changed {
+117:             commands.entity(entity).insert(sources);
+118:         }
+119:         visibility.set_if_neq(Visibility::Inherited);
+120:     }
+121: }
+122: 
+123: /// Fitted geometry uses body coordinates. Rigid carried/world geometry uses
+124: /// its own center, excluding unused body vertices left by clothing cutouts.
+125: fn center_unbound_mesh(mesh: &mut Mesh, center: Vec3) {
+126:     let Some(positions) = mesh
+127:         .attribute(Mesh::ATTRIBUTE_POSITION)
+128:         .and_then(bevy::mesh::VertexAttributeValues::as_float3)
+129:     else {
+130:         return;
+131:     };
+132:     if !center.is_finite() {
+133:         return;
+134:     }
+135:     let centered: Vec<_> = positions
+136:         .iter()
+137:         .map(|position| (Vec3::from_array(*position) - center).to_array())
+138:         .collect();
+139:     mesh.insert_attribute(Mesh::ATTRIBUTE_POSITION, centered);
+140: }
+141: 
+142: #[cfg(test)]
+143: mod tests {
+144:     use super::*;
+145:     use bevy::mesh::VertexAttributeValues;
+146: 
+147:     #[test]
+148:     fn loading_drop_and_reequip_keep_skin_and_vertex_layout_coherent() {
+149:         let mut app = App::new();
+150:         app.init_resource::<Assets<Mesh>>()
+151:             .add_systems(Update, sync_render_bindings);
+152:         let wearer = app.world_mut().spawn_empty().id();
+153:         let item = app.world_mut().spawn(ItemOf(wearer)).id();
+154:         let mut mesh = Mesh::new(PrimitiveTopology::TriangleList, default());
+155:         mesh.insert_attribute(Mesh::ATTRIBUTE_POSITION, vec![[0.0, 0.0, 0.0]]);
+156:         mesh.insert_attribute(
+157:             Mesh::ATTRIBUTE_JOINT_INDEX,
+158:             VertexAttributeValues::Uint16x4(vec![[0; 4]]),
+159:         );
+160:         mesh.insert_attribute(Mesh::ATTRIBUTE_JOINT_WEIGHT, vec![[1.0, 0.0, 0.0, 0.0]]);
+161:         mesh.set_morph_target_names(vec!["body-fit".into()]);
+162:         let original = app.world_mut().resource_mut::<Assets<Mesh>>().add(mesh);
+163:         let part = app
+164:             .world_mut()
+165:             .spawn((
+166:                 ProceduralEquipmentPart {
+167:                     item,
+168:                     inverse_bindposes: default(),
+169:                     joint_names: vec!["pelvis".into()].into(),
+170:                     rigid_center: Vec3::ZERO,
+171:                 },
+172:                 Mesh3d(original.clone()),
+173:                 Visibility::Hidden,
+174:             ))
+175:             .id();
+176:         app.update();
+177:         assert_eq!(
+178:             app.world().get::<Visibility>(part),
+179:             Some(&Visibility::Hidden)
+180:         );
+181:         app.world_mut().entity_mut(part).insert(SkinnedMesh {
+182:             inverse_bindposes: default(),
+183:             joints: vec![wearer],
+184:         });
+185:         app.update();
+186:         assert_eq!(
+187:             app.world().get::<Visibility>(part),
+188:             Some(&Visibility::Inherited)
+189:         );
+190:         assert_eq!(app.world().get::<Mesh3d>(part).unwrap().0, original);
+191: 
+192:         app.world_mut().entity_mut(item).insert(TacticalSceneItem);
+193:         app.world_mut().entity_mut(part).remove::<SkinnedMesh>();
+194:         app.update();
+195:         let dropped = app.world().get::<Mesh3d>(part).unwrap().0.clone();
+196:         let assets = app.world().resource::<Assets<Mesh>>();
+197:         let dropped_mesh = assets.get(&dropped).unwrap();
+198:         assert!(!dropped_mesh.contains_attribute(Mesh::ATTRIBUTE_JOINT_INDEX));
+199:         assert!(!dropped_mesh.contains_attribute(Mesh::ATTRIBUTE_JOINT_WEIGHT));
+200:         assert_eq!(
+201:             dropped_mesh.morph_target_names(),
+202:             assets.get(&original).unwrap().morph_target_names()
+203:         );
+204:         assert!(
+205:             assets
+206:                 .get(&original)
+207:                 .unwrap()
+208:                 .contains_attribute(Mesh::ATTRIBUTE_JOINT_INDEX)
+209:         );
+210: 
+211:         app.world_mut()
+212:             .entity_mut(item)
+213:             .remove::<TacticalSceneItem>();
+214:         app.update();
+215:         assert_eq!(
+216:             app.world().get::<Visibility>(part),
+217:             Some(&Visibility::Hidden)
+218:         );
+219:         app.world_mut().entity_mut(part).insert(SkinnedMesh {
+220:             inverse_bindposes: default(),
+221:             joints: vec![wearer],
+222:         });
+223:         app.update();
+224:         assert_eq!(app.world().get::<Mesh3d>(part).unwrap().0, original);
+225:         assert_eq!(
+226:             app.world().get::<Visibility>(part),
+227:             Some(&Visibility::Inherited)
+228:         );
+229:         app.world_mut().entity_mut(item).insert(TacticalSceneItem);
+230:         app.world_mut().entity_mut(part).remove::<SkinnedMesh>();
+231:         app.update();
+232:         assert_eq!(app.world().get::<Mesh3d>(part).unwrap().0, dropped);
+233:     }
+234: }

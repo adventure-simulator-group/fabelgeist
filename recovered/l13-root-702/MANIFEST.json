@@ -1,0 +1,67 @@
+{
+  "schema": "726-l13-root-702-evidence-v1",
+  "plan_sha256": "dd082ef2e661b81a8f63c8d6df1b4c8e786dcde246eda05b2164bd2cf187366f",
+  "discovery_sha256": "3669f5847901e36e9bfe094df0e186f6a47f7dc24dff9bd26fd6cafba596d62a",
+  "helper_sha256": "d98db67266d4198cda27c7a51bd1feba396b4133e3ee09d421c7eff5ccdd3e29",
+  "registration_sha256": "a6b4aad7431c25bac3b8cc110d07514f05bc7fd9e66bca8027155f3daf868c6f",
+  "source_objects": [
+    {
+      "original": 2675,
+      "sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+      "bytes": 12334
+    },
+    {
+      "original": 2676,
+      "sha256": "d8ee276214a67b09ca6571d03b1adce2dc200e6201284a9a8e25b6053aa72a15",
+      "bytes": 9114
+    }
+  ],
+  "qualification": "Exact discovery, patched helper, registration, qualification and packet; two archived source objects cover 365 registered lines attributed to two prior delegated reads, with zero fresh lines. The next exact plan verifies the linked receipt and state. Eight prior supporting files match recorded hashes, while the two original prior adoption receipts remain unavailable. No current authority or new audit credit follows.",
+  "qualification_sha256": "23dcaf86fcbb5892727ec4dd44ba56280b57ee99f3201a342d67e4294d19dedf",
+  "packet_sha256": "623f806cb9f64ce9d5ae2a3dc05268978c325ead3543ccad7be6e2b06e8c42cc",
+  "prior_files": [
+    {
+      "original": 2675,
+      "role": "prior_raw_receipt",
+      "sha256": "ded6ad6315445887b6cda16407a83a6d13a9d821aefd8dd01e7c1ecce1d87a31"
+    },
+    {
+      "original": 2675,
+      "role": "prior_verification",
+      "sha256": "412434ba3fe172aad9f373218dfeb1c80cd8bd9e2ff57c6c097ae649803846d2"
+    },
+    {
+      "original": 2675,
+      "role": "prior_registration",
+      "sha256": "64eadd98aa8e2fa064c084d709bb1c42bab60168a46cde70403b38345398dab7"
+    },
+    {
+      "original": 2675,
+      "role": "prior_validation_manifest",
+      "sha256": "1f4b5cccab2fe987f3bc549ff9ba937089857caf4589bc0ae09654944a402d7a"
+    },
+    {
+      "original": 2676,
+      "role": "prior_raw_receipt",
+      "sha256": "11c21b0595bdab312150c21708f07c317ed6809efd7a6a505c197439e305c8e1"
+    },
+    {
+      "original": 2676,
+      "role": "prior_verification",
+      "sha256": "49ac28ec518ccfd95401172ddb260f74086a6d952534e6fb3e08d5894d846a66"
+    },
+    {
+      "original": 2676,
+      "role": "prior_registration",
+      "sha256": "3ccad9fe023af70e5eebaec19155749e8b230ba197a01e04c8edd1a72fc3520a"
+    },
+    {
+      "original": 2676,
+      "role": "prior_validation_manifest",
+      "sha256": "691c2ee9dad116037ed37e50fa51af21d40c7034e7c830f0b4c626f88341e7e3"
+    }
+  ],
+  "receipt_sha256": "6c35ba2d5a47975c336cf394ef28c1de4c5ed8ed3f6642a27a29ded0ef4fbf3f",
+  "state_sha256": "e86b2e2ee611eebaa15968207b1dd321f8c659163d91c21852461938831d9cd2",
+  "successor_plan_sha256": "b79f5d1acdd60e8a689161756743926442bc0ebefabe81e9ef2f56eec6c64835"
+}

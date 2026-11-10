@@ -1,0 +1,48 @@
+{
+  "schema": "726-own-lens-current-cell-disposition-v1",
+  "lens": 1,
+  "delta_index": 1,
+  "path_index": 43,
+  "git_path": "crates/adventuresim-tactical-client/src/presentation/materials.rs",
+  "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "at": "2026-11-03T02:08:57.880512+00:00",
+  "assessed_rows": [
+    {
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-MATERIAL-PLUGIN-586.json",
+        "sha256": "30b383cf044d3a75aa38e2326200afbe089ad53ab00c2650e794be3de420e91b"
+      },
+      "row_index": 0,
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ]
+    },
+    {
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-MATERIAL-PLUGIN-586.json",
+        "sha256": "30b383cf044d3a75aa38e2326200afbe089ad53ab00c2650e794be3de420e91b"
+      },
+      "row_index": 1,
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ]
+    }
+  ],
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-MATERIAL-PLUGIN-586.json",
+    "sha256": "300a591441753663c2b439106bf652fd8492be72f6c46ce127c32d29a42f1b1a"
+  },
+  "disposition": "Producer and consumer: The old plugin registers ordinary Bevy material plugins for solid and billboard pebbles. The successor instead registers chunk-material plugins for those two types and a new vista tree card type, while other listed materials remain on ordinary plugins. The chunk plugin installs shared extraction and buffer preparation once and prepares each material type separately; pebble and vista types select instanced shaders. The vista card parameter x now carries card height rather than representation level.",
+  "exact_current_path_complete": true,
+  "other_lens_or_global_closure": false,
+  "new_body_credit": 0,
+  "new_accepted_unique_count": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

@@ -1,0 +1,222 @@
+SOURCE crates/adventuresim-building-generator/src/bin/building-lod-viewer.rs
+241: }
+242: 
+243: #[cfg(not(target_family = "wasm"))]
+244: struct LodTextures {
+245:     plaster: Handle<Image>,
+246:     brick: Handle<Image>,
+247:     stone: Handle<Image>,
+248:     roof: Handle<Image>,
+249:     details: Handle<Image>,
+250:     crown_mask: Handle<Image>,
+251: }
+252: 
+253: #[cfg(not(target_family = "wasm"))]
+254: fn create_lod_textures(world: &mut World) -> LodTextures {
+255:     let mut images = world.resource_mut::<Assets<Image>>();
+256:     LodTextures {
+257:         plaster: images.add(checker_texture([202, 187, 151, 255], [184, 168, 134, 255])),
+258:         brick: images.add(checker_texture([137, 63, 43, 255], [102, 43, 31, 255])),
+259:         stone: images.add(checker_texture([121, 122, 111, 255], [88, 91, 84, 255])),
+260:         roof: images.add(checker_texture([102, 39, 29, 255], [66, 27, 24, 255])),
+261:         details: images.add(facade_atlas()),
+262:         crown_mask: generate_crenellation_mask(
+263:             &adventuresim_procedural_textures::TextureParameters::default(),
+264:             &mut images,
+265:         ),
+266:     }
+267: }
+268: 
+269: #[cfg(not(target_family = "wasm"))]
+270: fn lod_material(
+271:     world: &mut World,
+272:     material: BuildingLodMaterial,
+273:     textures: &LodTextures,
+274: ) -> Handle<StandardMaterial> {
+275:     let texture = match material {
+276:         BuildingLodMaterial::Wall(WallMaterialClass::TimberInfill) => &textures.plaster,
+277:         BuildingLodMaterial::Wall(WallMaterialClass::CivilianMasonry) => &textures.brick,
+278:         BuildingLodMaterial::Wall(_)
+279:         | BuildingLodMaterial::CrownMasonry
+280:         | BuildingLodMaterial::DressedStone => &textures.stone,
+281:         BuildingLodMaterial::Roof(_) => &textures.roof,
+282:         BuildingLodMaterial::Timber | BuildingLodMaterial::Floor => &textures.roof,
+283:         BuildingLodMaterial::InteriorTimber => &textures.roof,
+284:         BuildingLodMaterial::InteriorPlaster => &textures.plaster,
+285:         BuildingLodMaterial::Iron | BuildingLodMaterial::Glass => &textures.details,
+286:         BuildingLodMaterial::CarvedSandstone
+287:         | BuildingLodMaterial::LeadAlloy
+288:         | BuildingLodMaterial::Bronze
+289:         | BuildingLodMaterial::CandleWax
+290:         | BuildingLodMaterial::Earthenware
+291:         | BuildingLodMaterial::GlazedTile
+292:         | BuildingLodMaterial::Millstone
+293:         | BuildingLodMaterial::TimberEndGrain
+294:         | BuildingLodMaterial::FurnitureWood(_)
+295:         | BuildingLodMaterial::Grain
+296:         | BuildingLodMaterial::DyedCloth
+297:         | BuildingLodMaterial::UndyedCloth
+298:         | BuildingLodMaterial::Hide
+299:         | BuildingLodMaterial::ProcessLiquid
+300:         | BuildingLodMaterial::HempRope => {
+301:             let surface = material
+302:                 .workplace_surface()
+303:                 .expect("workplace surface role");
+304:             return world
+305:                 .resource_mut::<Assets<StandardMaterial>>()
+306:                 .add(StandardMaterial {
+307:                     base_color: Color::srgb(surface.srgb[0], surface.srgb[1], surface.srgb[2]),
+308:                     perceptual_roughness: surface.perceptual_roughness,
+309:                     metallic: surface.metallic,
+310:                     ..default()
+311:                 });
+312:         }
+313:         BuildingLodMaterial::FacadeDetails => &textures.details,
+314:         BuildingLodMaterial::CrownMask => &textures.crown_mask,
+315:     };
+316:     world
+317:         .resource_mut::<Assets<StandardMaterial>>()
+318:         .add(StandardMaterial {
+319:             base_color_texture: Some(texture.clone()),
+320:             perceptual_roughness: if material == BuildingLodMaterial::CrownMask {
+321:                 0.95
+322:             } else {
+323:                 0.9
+324:             },
+325:             alpha_mode: if material == BuildingLodMaterial::CrownMask {
+326:                 AlphaMode::Mask(CRENELLATION_ALPHA_CUTOFF)
+327:             } else {
+328:                 AlphaMode::Opaque
+329:             },
+330:             cull_mode: if matches!(
+331:                 material,
+332:                 BuildingLodMaterial::FacadeDetails | BuildingLodMaterial::CrownMask
+333:             ) {
+334:                 None
+335:             } else {
+336:                 Some(Face::Back)
+337:             },
+338:             ..default()
+339:         })
+340: }
+341: 
+342: #[cfg(not(target_family = "wasm"))]
+343: fn checker_texture(first: [u8; 4], second: [u8; 4]) -> Image {
+344:     let size = 64_u32;
+345:     let mut pixels = Vec::with_capacity((size * size * 4) as usize);
+346:     for y in 0..size {
+347:         for x in 0..size {
+348:             pixels.extend_from_slice(if (x / 8 + y / 8) % 2 == 0 {
+349:                 &first
+350:             } else {
+351:                 &second
+352:             });
+353:         }
+354:     }
+355:     repeat_image(size, size, pixels)
+356: }
+357: 
+358: #[cfg(not(target_family = "wasm"))]
+359: fn facade_atlas() -> Image {
+360:     let width = 256_u32;
+361:     let height = 64_u32;
+362:     let mut pixels = Vec::with_capacity((width * height * 4) as usize);
+363:     for y in 0..height {
+364:         for x in 0..width {
+365:             let color = match x {
+366:                 0..=63 => {
+367:                     if (x + y / 2) % 13 < 3 {
+368:                         [45, 24, 13, 255]
+369:                     } else {
+370:                         [91, 50, 25, 255]
+371:                     }
+372:                 }
+373:                 64..=95 => [53, 102, 123, 255],
+374:                 96..=127 => [94, 48, 23, 255],
+375:                 128..=159 => [70, 38, 22, 255],
+376:                 160..=191 => [30, 28, 24, 255],
+377:                 192..=223 => [24, 22, 20, 255],
+378:                 _ => [64, 50, 35, 255],
+379:             };
+380:             pixels.extend_from_slice(&color);
+381:         }
+382:     }
+383:     clamp_image(width, height, pixels)
+384: }
+385: 
+386: #[cfg(not(target_family = "wasm"))]
+387: fn repeat_image(width: u32, height: u32, pixels: Vec<u8>) -> Image {
+388:     image_with_sampler(width, height, pixels, ImageAddressMode::Repeat)
+389: }
+390: 
+391: #[cfg(not(target_family = "wasm"))]
+392: fn clamp_image(width: u32, height: u32, pixels: Vec<u8>) -> Image {
+393:     image_with_sampler(width, height, pixels, ImageAddressMode::ClampToEdge)
+394: }
+395: 
+396: #[cfg(not(target_family = "wasm"))]
+397: fn image_with_sampler(
+398:     width: u32,
+399:     height: u32,
+400:     pixels: Vec<u8>,
+401:     address_mode: ImageAddressMode,
+402: ) -> Image {
+403:     let mut image = Image::new(
+404:         Extent3d {
+405:             width,
+406:             height,
+407:             depth_or_array_layers: 1,
+408:         },
+409:         TextureDimension::D2,
+410:         pixels,
+411:         TextureFormat::Rgba8UnormSrgb,
+412:         RenderAssetUsages::RENDER_WORLD,
+413:     );
+414:     image.sampler = ImageSampler::Descriptor(ImageSamplerDescriptor {
+415:         address_mode_u: address_mode,
+416:         address_mode_v: address_mode,
+417:         address_mode_w: address_mode,
+418:         ..ImageSamplerDescriptor::linear()
+419:     });
+420:     image
+421: }
+422: 
+423: #[cfg(all(test, not(target_family = "wasm")))]
+424: mod tests {
+425:     use super::*;
+426: 
+427:     #[test]
+428:     fn capture_cli_requires_explicit_output_and_accepts_shell_profile() {
+429:         let args = Args::try_parse_from([
+430:             "building-lod-viewer",
+431:             "--fixture",
+432:             "courtyard-castle",
+433:             "--lod",
+434:             "shell",
+435:             "--capture-output",
+436:             "target/test-shell-capture",
+437:             "--capture-settle-frames",
+438:             "7",
+439:         ])
+440:         .unwrap();
+441:         assert_eq!(args.fixture, BuildingArchetype::CourtyardCastle);
+442:         assert_eq!(args.lod, LodChoice::Shell);
+443:         assert_eq!(args.capture_settle_frames, 7);
+444:         assert_eq!(
+445:             args.capture_output,
+446:             Some(PathBuf::from("target/test-shell-capture"))
+447:         );
+448:     }
+449: 
+450:     #[test]
+451:     fn ordinary_interactive_viewer_does_not_enable_capture() {
+452:         let args = Args::try_parse_from(["building-lod-viewer"]).unwrap();
+453:         assert!(args.capture_output.is_none());
+454:         assert_eq!(args.lod, LodChoice::Facade);
+455:     }
+456: }
+457: 
+458: #[cfg(target_family = "wasm")]
+459: fn main() {
+460:     panic!("building LOD viewer is a native-only prototype");
+461: }

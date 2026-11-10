@@ -1,0 +1,367 @@
+SOURCE crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs
+1600:         lods: input.vista.lods.clone(),
+1601:     });
+1602:     commands.insert_resource(SceneCaptureState {
+1603:         fixture,
+1604:         input_path,
+1605:         output,
+1606:         digest,
+1607:         seed: input.seed,
+1608:         absolute_minute,
+1609:         latitude_microdegrees: latitude_microdegrees.get(),
+1610:         longitude_microdegrees: longitude_microdegrees.get(),
+1611:         canopy_bps,
+1612:         generation_version: input.generation_version,
+1613:         scene_source: input.source,
+1614:         weather: input.weather,
+1615:         repairs: repairs.into(),
+1616:         terrain: terrain_summary,
+1617:         expected_trees,
+1618:         expected_rocks,
+1619:         expects_grass,
+1620:         vista_contract: vista_validation::VistaCaptureContract::from_source(&input.vista),
+1621:         vista_geometry,
+1622:         city_half_extent_metres,
+1623:         obstacle_focus: Position::from_metres(obstacle_focus)?,
+1624:         tree_focus,
+1625:         rock_focus,
+1626:         debris_focus,
+1627:         plant_focus: None,
+1628:         debris_camera: None,
+1629:         debris_leaf_distance_metres: None,
+1630:         debris_twig_distance_metres: None,
+1631:         tree_leaf_focus,
+1632:         tree_leaf_camera,
+1633:         tree_focus_entity,
+1634:         tree_review_entities,
+1635:         tree_review_leaf_entities,
+1636:         ground_eye_position,
+1637:         ground_eye_target,
+1638:         animation_play_focus,
+1639:         building_interior_cameras,
+1640:         city_exterior_cameras,
+1641:         settle_frames,
+1642:         tree_review_azimuth_degrees,
+1643:         profile,
+1644:         requested_views,
+1645:         views,
+1646:         view: 0,
+1647:         phase: CapturePhase::Configure,
+1648:         lighting_luminance_samples: Vec::new(),
+1649:         last_prime_readback_hash: None,
+1650:         captures: Vec::new(),
+1651:         recursive_lods_observed: BTreeSet::new(),
+1652:         recursive_aggregate_lods_observed: BTreeSet::new(),
+1653:     });
+1654:     if let Some(sample_frames) = leaf_benchmark_frames {
+1655:         commands.insert_resource(LeafBenchmarkState::new(sample_frames));
+1656:     }
+1657:     if let Some(sample_frames) = tree_lighting_benchmark_frames {
+1658:         commands.insert_resource(TreeLightingBenchmarkState::new(sample_frames));
+1659:     }
+1660:     if let Some(sample_frames) = scene_performance_benchmark_frames {
+1661:         commands.insert_resource(ScenePerformanceBenchmarkState::new(sample_frames));
+1662:     }
+1663:     Ok(())
+1664: }
+1665: 
+2420:                     "-detailLevel",
+2421:                     "mini",
+2422:                 ])
+2423:                 .output()
+2424:                 .ok()
+2425:                 .filter(|output| output.status.success())
+2426:                 .and_then(|output| String::from_utf8(output.stdout).ok())
+2427:         })
+2428:         .flatten();
+2429:     BenchmarkHost {
+2430:         os: std::env::consts::OS,
+2431:         architecture: std::env::consts::ARCH,
+2432:         chip_or_cpu: profiler
+2433:             .as_deref()
+2434:             .and_then(|profile| profiler_value(profile, "Chip"))
+2435:             .or_else(|| std::env::var("PROCESSOR_IDENTIFIER").ok()),
+2436:         gpu: profiler
+2437:             .as_deref()
+2438:             .and_then(|profile| profiler_value(profile, "Chipset Model")),
+2439:         memory: profiler
+2440:             .as_deref()
+2441:             .and_then(|profile| profiler_value(profile, "Memory")),
+2442:         release_build: !cfg!(debug_assertions),
+2443:     }
+2444: }
+2445: 
+2446: fn benchmark_host_matches_target(host: &BenchmarkHost) -> bool {
+2447:     host.os == "macos"
+2448:         && host.architecture == "aarch64"
+2449:         && host
+2450:             .chip_or_cpu
+2451:             .as_deref()
+2452:             .is_some_and(|chip| chip.contains("Apple M5"))
+2453:         && host
+2454:             .gpu
+2455:             .as_deref()
+2456:             .is_some_and(|gpu| gpu.contains("Apple M5"))
+2457:         && host
+2458:             .memory
+2459:             .as_deref()
+2460:             .and_then(|memory| memory.split_whitespace().next())
+2461:             .and_then(|amount| amount.parse::<u16>().ok())
+2462:             .is_some_and(|gib| gib >= 16)
+2463: }
+2464: 
+2465: fn profiler_value(profile: &str, key: &str) -> Option<String> {
+2466:     profile.lines().find_map(|line| {
+2467:         let (candidate, value) = line.trim().split_once(':')?;
+2468:         (candidate == key).then(|| value.trim().to_owned())
+2469:     })
+2470: }
+2471: 
+2472: fn write_leaf_benchmark(output: &Path, report: &LeafBenchmarkReport) {
+2473:     let json = serde_json::to_string_pretty(report).expect("benchmark report serializes");
+2474:     fs::write(output.join("leaf-benchmark.json"), format!("{json}\n"))
+2475:         .expect("benchmark JSON writes");
+2476:     let fastest = report
+2477:         .results
+2478:         .iter()
+2479:         .map(|result| result.mean_ms)
+2480:         .fold(f64::INFINITY, f64::min);
+3130:                     .flatten(),
+3131:                 lighting_luminance_samples: Vec::new(),
+3132:                 lighting_luminance_delta: f32::INFINITY,
+3133:                 lighting_ready: false,
+3134:                 temporal_motion_frame: view.temporal_motion,
+3135:                 settled_readback_hashes: Vec::new(),
+3136:                 settled_readbacks_identical: None,
+3137:             });
+3138:         }
+3139:         state.last_prime_readback_hash = None;
+3140:         return;
+3141:     }
+3142:     // Custom terrain and foliage pipelines compile asynchronously. Give the
+3143:     // warmup view a wider budget so the first review frame cannot race a new
+3144:     // shader permutation while ordinary camera transitions stay quick.
+3145:     let temporal_tree_traversal = state.profile == "tree-cold-traversal" && !view.warmup;
+3146:     let temporal_motion = temporal_tree_traversal || view.temporal_motion;
+3147:     let settle_target = if temporal_motion {
+3148:         0
+3149:     } else if state.view == 0 {
+3150:         state.settle_frames.saturating_mul(4)
+3151:     } else {
+3152:         state.settle_frames
+3153:     };
+3154:     let Some((settled, prime_readbacks)) = state.phase.settling() else {
+3155:         return;
+3156:     };
+3157:     if settled < settle_target {
+3158:         state.phase = CapturePhase::Settling {
+3159:             frames: settled + 1,
+3160:             prime_readbacks,
+3655:     ];
+3656:     let understory_motion_sequence_complete = requested_understory_motion.is_empty()
+3657:         || requested_understory_motion == expected_understory_motion;
+3658:     let expected_beech_motion = (1..=16)
+3659:         .map(|frame| format!("beech-leaf-motion-{frame:02}"))
+3660:         .collect::<Vec<_>>();
+3661:     let beech_leaf_motion_sequence_complete = state.profile != BEECH_LEAF_MOTION_PROFILE
+3662:         || state.fixture == "dense-woodland"
+3663:             && state.requested_views == expected_beech_motion
+3664:             && state.captures.len() == expected_beech_motion.len()
+3665:             && state.captures.iter().all(|capture| {
+3666:                 capture.temporal_motion_frame
+3667:                     && capture.focused_tree_species == Some(TreePresentationSpecies::CommonBeech)
+3668:             });
+3669:     let settled_readback_pairs_identical = state.requested_views.iter().all(|requested| {
+3670:         let requires_pair = state
+3671:             .views
+3672:             .iter()
+3673:             .find(|view| view.slug == requested)
+3674:             .is_some_and(|view| view.verify_settled_readbacks);
+3675:         !requires_pair
+3676:             || state
+3677:                 .captures
+3678:                 .iter()
+3679:                 .find(|capture| &capture.view == requested)
+3680:                 .is_some_and(|capture| capture.settled_readbacks_identical == Some(true))
+3681:     });
+3682:     let mut validation = ValidationSummary {
+3683:         all_views_captured: state.captures.len() == state.views.len() - 1,
+3684:         requested_views_captured_exactly_once: state.requested_views.iter().all(|view| {
+3685:             state
+3686:                 .captures
+3687:                 .iter()
+3688:                 .filter(|capture| &capture.view == view)
+3689:                 .count()
+3690:                 == 1
+3691:         }) && state.captures.len()
+3692:             == state.requested_views.len(),
+3693:         requested_detail_targets_available: state.requested_views.iter().all(|view| {
+3694:             let record = state.captures.iter().find(|capture| &capture.view == view);
+3695:             let requirement = state
+3696:                 .views
+3697:                 .iter()
+3698:                 .find(|spec| spec.slug == view)
+3699:                 .map_or(DetailRequirement::None, |spec| spec.detail_requirement);
+3700:             match requirement {
+3701:                 DetailRequirement::TreeFocus => state.tree_focus.is_some(),
+3702:                 DetailRequirement::BranchFocusWithLeafSuppression => {
+3703:                     state.tree_focus.is_some()
+3704:                         && record.is_some_and(|capture| capture.diagnostic_leaf_suppression)
+3705:                 }
+3706:                 DetailRequirement::RockFocus => state.rock_focus.is_some(),
+3707:                 DetailRequirement::GrassSuppressed => {
+3708:                     record.is_some_and(|capture| capture.diagnostic_grass_suppression)
+3709:                 }
+3710:                 DetailRequirement::GrassPresent => state.expects_grass && grass_clumps > 0,
+3711:                 DetailRequirement::DebrisPair => {
+3712:                     state.debris_focus.is_some()
+3713:                         && state.debris_leaf_distance_metres.is_some_and(|distance| {
+3714:                             distance <= GroundLitterCapturePair::MAXIMUM_SEPARATION.half()
+3715:                         })
+3716:                         && state.debris_twig_distance_metres.is_some_and(|distance| {
+3717:                             distance <= GroundLitterCapturePair::MAXIMUM_SEPARATION.half()
+3718:                         })
+3719:                         && dry_leaf_patches > 0
+3720:                         && twig_patches > 0
+3721:                 }
+3722:                 DetailRequirement::UnderstoryFocus => record
+3723:                     .and_then(|capture| capture.focused_understory_species.as_deref())
+3724:                     .is_some(),
+3725:                 DetailRequirement::None => true,
+3726:             }
+3727:         }),
+3728:         camera_obstruction_resolved: state.requested_views.iter().all(|view| {
+3729:             let Some(spec) = state.views.iter().find(|spec| spec.slug == view) else {
+3730:                 return false;
+3731:             };
+3732:             if !matches!(spec.pose, CapturePose::AnimationPlayObstruction { .. }) {
+3733:                 return true;
+3734:             }
+3735:             state
+3736:                 .captures
+3737:                 .iter()
+3738:                 .find(|capture| &capture.view == view)
+3739:                 .is_some_and(|capture| {
+3740:                     capture.camera_obstruction_hit == Some(true)
+3741:                         && capture
+3742:                             .camera_boom_resolved_metres
+3743:                             .zip(capture.camera_boom_desired_metres)
+3744:                             .is_some_and(|(resolved, desired)| resolved + 0.05 < desired)
+3745:                 })
+3746:         }),
+3747:         vista_tree_near_field_bounded: true,
+3748:         tree_cold_traversal_canopy_continuous: true,
+3749:         understory_motion_sequence_complete,
+3750:         beech_leaf_motion_sequence_complete,
+3751:         settled_readback_pairs_identical,
+3752:         production_lighting_parity: presentation_features.requested_matches_observed,
+3753:         lighting_readiness: state.captures.iter().all(|capture| capture.lighting_ready),
+3754:         all_views_render_content: false,
+3755:         foliage_detail_present: false,
+3756:         all_obstacles_presented: presented_trees == state.expected_trees
+3757:             && presented_rocks == state.expected_rocks,
+3758:         all_obstacles_collidable: collider_trees == state.expected_trees
+3759:             && collider_rocks == state.expected_rocks,
+3760:         procedural_rocks_fit_colliders: rock_meshes_inside_colliders,
+3761:         trees_have_five_lods: presented_trees == state.expected_trees,
+3762:         tree_detail_captured_when_expected: state.expected_trees == 0
+3763:             || state.captures.iter().all(|capture| {
+3764:                 state
+3765:                     .views
+3766:                     .iter()
+3767:                     .find(|spec| spec.slug == capture.view)
+3768:                     .is_some_and(|spec| {
+3769:                         spec.validated_forced_lod.is_none_or(|expected| {
+3770:                             capture.forced_tree_lod == Some(expected)
+3771:                                 && capture.focused_tree_lod_queued == Some(true)
+3772:                         })
+3773:                     })
+3774:             }),
+3775:         recursive_tree_lod_observed: state.profile != "semantic"
+3776:             || state.expected_trees == 0
+3777:             || !state
+3778:                 .requested_views
+3779:                 .iter()
+3780:                 .any(|view| view == "tree-recursive-lod")
+3781:             || (recursive_tree_lod.primary_cluster_count >= 2
+3782:                 && recursive_tree_lod.mixed_lods_observed),
+3783:         terrain_material_present: terrain_materials.iter().count() == 1,
+3784:         coarse_source_terrain_upsampled: state.terrain.source_spacing_metres <= 2.0
+3785:             || (state.terrain.spacing_metres <= 2.0
+3786:                 && state.terrain.generated_samples > state.terrain.source_samples),
+3787:         microrelief_present: state.repairs.microrelief_adjusted_samples > 0,
+3788:         grass_present_when_expected: !state.expects_grass || grass_clumps > 0,
+3789:         forest_floor_scatter_present_when_trees: state.expected_trees == 0
+3790:             || (dry_leaf_patches > 0 && twig_patches > 0),
+3791:         understory_present_when_expected: !expects_understory || understory_clumps > 0,
+3792:         loose_stone_scatter_present_when_expected: state.fixture != "steep-open-hillside"
+3793:             || loose_stone_patches > 0,
+3794:         vista_matches_declared_rings: vista_observation.matches_source,
+3795:         vista_has_no_colliders: vista_observation.colliders == 0,
+3796:         precipitation_particles_present_when_expected: !expects_precipitation
+3797:             || weather_particle_count > 0,
+3798:         fixture_feature_expectation_met,
+3799:         passed: false,
+3800:         note: "Semantic gates are automatic; beauty, scale, composition, and visual artifacts require image inspection.",
+3801:     };
+3802:     validation.passed = validation_passes(&validation);
+3803:     PendingSceneCaptureManifest::new(SceneCaptureManifest {
+3804:         pipeline: "tactical_scene_native_capture_v6",
+3805:         fixture: state.fixture.clone(),
+3806:         source_input: state.input_path.display().to_string(),
+3807:         scene_digest: state.digest.clone(),
+3808:         seed: state.seed,
+3809:         absolute_minute: state.absolute_minute.get(),
+3810:         canopy_bps: state.canopy_bps,
+3811:         generation_version: state.generation_version,
+3812:         scene_source: state.scene_source.clone(),
+3813:         capture_profile: state.profile.clone(),
+3814:         capture_profile_version: CAPTURE_PROFILE_VERSION,
+3815:         camera_version: CAMERA_VERSION,
+3816:         requested_views: state.requested_views.clone(),
+3817:         settle_frames: state.settle_frames,
+3818:         resolution: capture_resolution::physical_pixels(&state.profile).to_array(),
+3819:         review_azimuth_degrees: state.tree_review_azimuth_degrees.degrees(),
+3820:         capture_clock_strategy: "Bevy virtual clock advanced to a fixed phase after startup, then paused through settling and GPU readback",
+3821:         capture_clock_phase_seconds: CAPTURE_CLOCK_PHASE_SECONDS,
+3822:         renderer: "Bevy/wgpu production tactical presentation",
+3823:         executable_version: env!("CARGO_PKG_VERSION"),
+3824:         revision: capture_revision(),
+3825:         source_identity: std::env::var("CAPTURE_SOURCE_IDENTITY")
+3826:             .unwrap_or_else(|_| "standalone-unlabelled".into()),
+3827:         celestial: capture_celestial(
+3828:             state.absolute_minute,
+3829:             state.latitude_microdegrees,
+3830:             state.longitude_microdegrees,
+3831:         ),
+3832:         presentation_features,
+3833:         weather: state.weather,
+3834:         repairs: state.repairs,
+3835:         terrain: state.terrain,
+4100:         assert_eq!(views[1].slug, "beech-leaf-motion-01");
+4101:         assert_eq!(views[16].slug, "beech-leaf-motion-16");
+4102:     }
+4103: 
+4104:     #[test]
+4105:     fn capture_profiles_have_one_implicit_leading_warmup() {
+4106:         for profile in [
+4107:             "semantic",
+4108:             "environment-review",
+4109:             "landform-review",
+4110:             furniture_capture::PROFILE,
+4111:             interior_furniture_capture::PROFILE,
+4112:             interior_furniture_capture::ROOMS_PROFILE,
+4113:             "animation-play",
+4114:             "tree-cold-traversal",
+4115:             "beech-leaf-motion",
+4116:         ] {
+4117:             let views = selected_capture_views(profile, &[]).unwrap();
+4118:             assert_eq!(views.first().map(|view| view.slug), Some("warmup"));
+4119:             assert_eq!(views.iter().filter(|view| view.slug == "warmup").count(), 1);
+4120:             assert!(selected_capture_views(profile, &["warmup".into()]).is_err());
+4121:         }
+4122:     }
+4123: 
+4124:     #[test]
+4125:     fn landform_profile_has_only_geological_review_views_and_stable_pairs() {
+4126:         let views = selected_capture_views("landform-review", &[]).unwrap();

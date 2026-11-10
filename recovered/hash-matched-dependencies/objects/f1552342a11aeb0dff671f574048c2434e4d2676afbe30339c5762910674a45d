@@ -1,0 +1,20 @@
+# Terminal crossing structural boundary trace
+
+Selected revision: ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04.
+Registrations: REGISTRATION-TERMINAL-BOUNDARY-L13-3802.json and
+REGISTRATION-TERMINAL-INTERPOLATION-L13-3802.json.
+
+- The shared crossing search skips an interval when its right endpoint is not
+  terminal, and otherwise binary-searches the terminal predicate. Its
+  documented exactness assumes each meter is linear between supplied points.
+- Native structural points include disease curve/events and intervention
+  start, stop and profile end. Selected intervention effects are constant
+  during their active interval; disease curves interpolate between points.
+  Combining sources, however, clamps after each addition to [-1, 2], which
+  can introduce internal slope changes not explicitly listed by that native
+  structural producer. Opposing slopes can in principle create an interior
+  peak, but an admitted disease/intervention combination producing a missed
+  terminal crossing has not been established.
+- Exact prior same-lens physiology evidence, source identity, native profile
+  bounds, ordering, reachable mixed slopes and alias reconciliation still need
+  qualification. No runtime failure or new unique finding is claimed.

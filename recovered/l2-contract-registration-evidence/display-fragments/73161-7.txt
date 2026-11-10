@@ -1,0 +1,166 @@
+1: //! Closed set of party commands that can be queued for leader approval.
+2: 
+3: use serde::{Deserialize, Serialize};
+4: use serde_json::{Value, json};
+5: 
+6: use crate::spacetimedb::RoleRequirements;
+7: 
+8: #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+9: #[serde(tag = "action", rename_all = "snake_case")]
+10: pub(crate) enum PartyAction {
+11:     TravelToSettlement {
+12:         settlement_id: String,
+13:     },
+14:     TravelToCaseSite {
+15:         case_site_id: String,
+16:     },
+17:     RemovePartyMember {
+18:         character_id: u64,
+19:     },
+20:     CreateRecruitmentRole {
+21:         name: String,
+22:         quantity: u32,
+23:         requirements: RoleRequirements,
+24:         save_role: bool,
+25:     },
+26:     UpdateRecruitmentRole {
+27:         role_id: u64,
+28:         name: String,
+29:         quantity: u32,
+30:         requirements: RoleRequirements,
+31:     },
+32:     DeleteRecruitmentRole {
+33:         role_id: u64,
+34:     },
+35:     AcceptJoinRequest {
+36:         request_id: u64,
+37:     },
+38:     RejectJoinRequest {
+39:         request_id: u64,
+40:     },
+41:     AcceptContract {
+42:         contract_id: String,
+43:     },
+44:     AbandonContract {
+45:         contract_id: String,
+46:     },
+47:     ReportContract {
+48:         contract_id: String,
+49:     },
+50:     AutoresolveMission {
+51:         mission_id: String,
+52:     },
+53:     UpdatePartyCheckTargets {
+54:         physiology: f32,
+55:         command: f32,
+56:         religion: f32,
+57:     },
+58:     SetInventoryQuantityTarget {
+59:         item_id: String,
+60:         quantity: u32,
+61:     },
+62:     DisbandParty {
+63:         party_id: String,
+64:     },
+65:     RequestTacticalServer {
+66:         mission_id: String,
+67:         scene_key: String,
+68:     },
+69:     CancelMission {
+70:         mission_id: String,
+71:     },
+72:     PerformInvestigation {
+73:         action_id: String,
+74:         method: String,
+75:         expected_version: u32,
+76:     },
+77: }
+78: 
+79: impl PartyAction {
+80:     pub(super) fn requires_ready_party(&self) -> bool {
+140:                 format!("Perform investigation action: {}", method.replace('_', " "))
+141:             }
+142:         }
+143:     }
+144: 
+145:     pub(super) fn reducer_call(&self, actor_id: u64) -> (&'static str, Vec<Value>) {
+146:         match self {
+147:             Self::TravelToSettlement { settlement_id } => (
+148:                 "travel_to_settlement",
+149:                 vec![json!(actor_id), json!(settlement_id)],
+150:             ),
+151:             Self::TravelToCaseSite { case_site_id } => (
+152:                 "travel_to_case_site",
+153:                 vec![json!(actor_id), json!({ "value": case_site_id })],
+154:             ),
+155:             Self::RemovePartyMember { character_id } => (
+156:                 "remove_party_member",
+157:                 vec![json!(actor_id), json!(character_id)],
+158:             ),
+159:             Self::CreateRecruitmentRole {
+160:                 name,
+161:                 quantity,
+162:                 requirements,
+163:                 save_role,
+164:             } => (
+165:                 "create_recruitment_role",
+166:                 vec![
+167:                     json!(actor_id),
+168:                     json!(name),
+169:                     json!(quantity),
+170:                     json!(requirements),
+171:                     json!(save_role),
+172:                 ],
+173:             ),
+174:             Self::UpdateRecruitmentRole {
+175:                 role_id,
+176:                 name,
+177:                 quantity,
+178:                 requirements,
+179:             } => (
+180:                 "update_recruitment_role",
+181:                 vec![
+182:                     json!(actor_id),
+183:                     json!(role_id),
+184:                     json!(name),
+185:                     json!(quantity),
+186:                     json!(requirements),
+187:                 ],
+188:             ),
+189:             Self::DeleteRecruitmentRole { role_id } => (
+190:                 "delete_recruitment_role",
+191:                 vec![json!(actor_id), json!(role_id)],
+192:             ),
+193:             Self::AcceptJoinRequest { request_id } => (
+194:                 "accept_party_join_request",
+195:                 vec![json!(actor_id), json!(request_id)],
+196:             ),
+197:             Self::RejectJoinRequest { request_id } => (
+198:                 "reject_party_join_request",
+199:                 vec![json!(actor_id), json!(request_id)],
+200:             ),
+201:             Self::AcceptContract { contract_id } => {
+202:                 ("accept_contract", vec![json!(actor_id), json!(contract_id)])
+203:             }
+204:             Self::AbandonContract { contract_id } => (
+205:                 "abandon_contract",
+206:                 vec![json!(actor_id), json!(contract_id)],
+207:             ),
+208:             Self::ReportContract { contract_id } => {
+209:                 ("report_contract", vec![json!(actor_id), json!(contract_id)])
+210:             }
+211:             Self::AutoresolveMission { mission_id } => (
+212:                 "autoresolve_mission",
+213:                 vec![json!(actor_id), json!(mission_id)],
+214:             ),
+215:             Self::UpdatePartyCheckTargets {
+216:                 physiology,
+217:                 command,
+218:                 religion,
+219:             } => (
+220:                 "update_party_check_targets",
+221:                 vec![
+222:                     json!(actor_id),
+223:                     json!(physiology),
+224:                     json!(command),
+225:                     json!(religion),

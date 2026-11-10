@@ -1,0 +1,192 @@
+SOURCE 2640 pr-working:crates/fabelgeist-hair/src/hairdo/tied.rs
+1: //! Geometry of tails, buns and braids. Native vectors are metres in the head frame.
+2: use super::{Flow, Hairdo, Tie, cantilever, safe_normalize, smoothstep, tangent};
+3: use crate::head::Head;
+4: use fabelgeist_math::Vec3;
+5: 
+6: /// Where a tied style's strands meet, and the path the tie hangs along.
+7: pub(crate) struct Tied {
+8:     kind: Tie,
+9:     /// The tie, off the scalp.
+10:     pub(crate) point: Vec3,
+11:     /// Out of the head at the tie.
+12:     pub(crate) out: Vec3,
+13:     /// The tail's axis from the tie, a polyline two millimetres a step.
+14:     pub(crate) axis: Vec<Vec3>,
+15: }
+16: 
+17: impl Tied {
+18:     pub(crate) fn new(head: &Head, hairdo: &Hairdo) -> Option<Self> {
+19:         let Flow::Tie(kind) = hairdo.flow() else {
+20:             return None;
+21:         };
+22:         let c = head.cranium.center;
+23:         let r = head.cranium.radii;
+24:         // Up the back of the head: high for a tail, on the crown's back for
+25:         // a bun, low at the nape for a braid.
+26:         let a = hairdo.hairstyle.tie;
+27:         let on_scalp = c + Vec3::new(0.0, r.y * a.sin(), -r.z * a.cos());
+28:         let out = head.gradient(on_scalp);
+29:         let point = on_scalp + out * (0.012 - head.distance(on_scalp));
+30:         // The tail leaves the tie out of the head and bends down as a
+31:         // cantilever -- stiffer than one strand: it is a bundle.
+32:         let mut axis = vec![point];
+33:         if !matches!(kind, Tie::Bun) {
+34:             // As long as the longest hair: clippers leave the back short.
+35:             let length = hairdo.haircut.longest();
+36:             let stiffness = hairdo.hairstyle.hold * 2.0;
+37:             let mut p = point;
+38:             let mut d = safe_normalize(out + Vec3::down() * 0.4, Vec3::down());
+39:             let ds = 0.002;
+40:             let mut s = 0.0;
+41:             while s < length {
+42:                 d = cantilever(d, Vec3::down(), length - s, stiffness, ds);
+43:                 let mut next = p + d * ds;
+44:                 let distance = head.distance(next);
+45:                 if distance < 0.02 {
+46:                     next += head.gradient(next) * (0.02 - distance);
+47:                     next = p + safe_normalize(next - p, d) * ds;
+48:                 }
+49:                 d = safe_normalize(next - p, d);
+50:                 p = next;
+51:                 axis.push(p);
+52:                 s += ds;
+53:             }
+54:         }
+55:         if axis.len() < 2 {
+56:             axis.push(point + out * 0.002);
+57:         }
+58:         Some(Self {
+59:             kind,
+60:             point,
+61:             out,
+62:             axis,
+63:         })
+64:     }
+65: 
+66:     /// The axis at arc length `s` from the tie, its direction and a frame
+67:     /// across it (the second axis points out of the head).
+68:     fn frame(&self, s: f32) -> (Vec3, Vec3, Vec3, Vec3) {
+69:         let f = (s / 0.002).max(0.0);
+70:         let i = (f as usize).min(self.axis.len().saturating_sub(2));
+71:         let t = (f - i as f32).clamp(0.0, 1.0);
+72:         let p = self.axis[i].lerp(self.axis[i + 1], t);
+73:         let d = safe_normalize(self.axis[i + 1] - self.axis[i], Vec3::down());
+74:         let across = safe_normalize(d.cross(self.out), Vec3::right());
+75:         let depth = across.cross(d);
+76:         (p, d, across, depth)
+77:     }
+78: 
+79:     /// Where a strand is `along` metres past the tie: in the tail, coiled
+80:     /// in the bun or plaited in its lane of the braid, `bundle` off the
+81:     /// middle.
+82:     pub(super) fn bundled(&self, along: f32, bundle: Vec3, lane: f32, phase: f32) -> Vec3 {
+83:         use std::f32::consts::TAU;
+84:         match self.kind {
+85:             Tie::Tail => {
+86:                 let (c, _, across, depth) = self.frame(along);
+87:                 let spread = 1.0 + 0.6 * smoothstep(0.1, 0.4, along);
+88:                 c + (across * bundle.x + depth * bundle.y) * spread
+89:             }
+90:             Tie::Braid => {
+91:                 let (c, _, across, depth) = self.frame(along);
+92:                 let phase = along / 0.035 * TAU + lane * TAU / 3.0;
+93:                 let width = 0.016 * (1.0 - 0.45 * smoothstep(0.0, 0.45, along));
+94:                 let taper = 1.0 - smoothstep(0.38, 0.5, along);
+95:                 c + across * (phase.sin() * width * taper + bundle.x * 0.6)
+96:                     + depth * ((2.0 * phase).sin() * width * 0.35 * taper + bundle.y * 0.6)
+97:             }
+98:             Tie::Bun => {
+99:                 // Coiled round the tie, out from the head as it winds.
+100:                 let turns = along / 0.11;
+101:                 let a = phase + turns * TAU;
+102:                 let r = 0.018 + 0.01 * (turns * 0.5).min(1.0) + bundle.x;
+103:                 let u = safe_normalize(tangent(Vec3::up(), self.out), Vec3::up());
+104:                 let v = self.out.cross(u);
+105:                 self.point
+106:                     + (u * a.cos() + v * a.sin()) * r
+107:                     + self.out * (0.004 + 0.012 * (turns * 0.4).min(1.0) + bundle.y)
+108:             }
+109:         }
+110:     }
+111: }
+SOURCE 2641 pr-working:crates/fabelgeist-hair/src/gpu/grow/input.rs
+1: //! Admission of the guide interpolation boundary in a groom stack.
+2: use super::*;
+3: pub(super) struct Interpolation<'a> {
+4:     pub(super) at: usize,
+5:     pub(super) interpolate: &'a Interpolate,
+6: }
+7: impl<'a> Interpolation<'a> {
+8:     pub(super) fn find(groom: &'a Groom) -> Result<Self> {
+9:         groom
+10:             .ops
+11:             .iter()
+12:             .enumerate()
+13:             .find_map(|(at, op)| {
+14:                 if let Op::Interpolate(interpolate) = op {
+15:                     Some(Self { at, interpolate })
+16:                 } else {
+17:                     None
+18:                 }
+19:             })
+20:             .ok_or(HairGpuError::MissingInterpolation)
+21:     }
+22: }
+SOURCE 2642 pr-working:crates/fabelgeist-hair/src/gpu/grow/profile.rs
+1: //! The profile node changes strand attributes in place.
+2: use super::*;
+3: use crate::ops::Profile;
+4: impl GpuGroomer {
+5:     pub(super) fn record_profile(
+6:         &self,
+7:         batch: &mut KernelBatch,
+8:         set: &StrandSet,
+9:         r: &Profile,
+10:     ) -> Result<()> {
+11:         let count = set.count;
+12:         batch.dispatch_folded(
+13:             &self.kernels.profile,
+14:             &params! {
+15:                 "strands" => set.attributes.clone(),
+16:                 "count" => count,
+17:                 "seed" => rng::seed(r.seed, 51_823),
+18:                 "relative" => u32::from(r.relative_to.is_some()),
+19:                 "pad0" => 0u32,
+20:                 "radius" => r.radius,
+21:                 "random" => r.random,
+22:                 "grown" => r.relative_to.unwrap_or(0.0),
+23:                 "pad1" => 0u32,
+24:             },
+25:             count,
+26:         )?;
+27:         Ok(())
+28:     }
+29: }
+30: 
+31: impl GpuGroomer {
+32:     pub(super) fn record_guide_pack(
+33:         &self,
+34:         batch: &mut KernelBatch,
+35:         guides: &super::super::guides::GpuGuides,
+36:         guide_points: &Buffer,
+37:         guide_info: &Buffer,
+38:         points: u32,
+39:         parting: &Parting,
+40:     ) -> Result<()> {
+41:         let mut pack = params! {
+42:             "positions" => guides.positions.clone(),
+43:             "strands" => guides.attributes.clone(),
+44:             "guide_points" => guide_points.clone(),
+45:             "guide_info" => guide_info.clone(),
+46:             "count" => guides.count,
+47:             "points" => points,
+48:             "pad0" => 0u32,
+49:         };
+50:         for (key, value) in parting_parameters(parting) {
+51:             pack.insert(key, value);
+52:         }
+53:         batch.dispatch_folded(&self.kernels.guide_pack, &pack, guides.count)?;
+54:         Ok(())
+55:     }
+56: }

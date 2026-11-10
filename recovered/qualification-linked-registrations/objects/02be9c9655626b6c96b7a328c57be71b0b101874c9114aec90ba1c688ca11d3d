@@ -1,0 +1,54 @@
+{
+  "schema": "726-prospective-current-source-registration-v1",
+  "at": "2026-11-03T05:55:38.944634+00:00",
+  "lenses": [
+    1,
+    3,
+    4,
+    8,
+    11,
+    13
+  ],
+  "purpose": "Inspect shipped graphics settings, validator remainder and grass placement gate for conditional topology reachability.",
+  "rows": [
+    {
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_path": "assets/config/tactical-graphics.yaml",
+      "source_sha256": "ef88013b1a81f49e88c66271de95bd21136c29c8bdd0db0b73fdf036c0d11249",
+      "actual_EOF": 91,
+      "source_object": "adler-continuation-20261030/objects/ef88013b1a81f49e88c66271de95bd21136c29c8bdd0db0b73fdf036c0d11249",
+      "prospective_ranges": [
+        [
+          1,
+          91
+        ]
+      ]
+    },
+    {
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass/placement.rs",
+      "source_sha256": "d16bd96cb1443180658a7961e14da85b6f03d0a0a89b11a86c3a8a5054bc9bd8",
+      "actual_EOF": 70,
+      "source_object": "adler-continuation-20261030/objects/d16bd96cb1443180658a7961e14da85b6f03d0a0a89b11a86c3a8a5054bc9bd8",
+      "prospective_ranges": [
+        [
+          1,
+          70
+        ]
+      ]
+    },
+    {
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_path": "crates/adventuresim-tactical-client/src/presentation/config.rs",
+      "source_sha256": "4b39a948e24517a32a421b021307c7d1d7dad7a152be348ac952a3c88384f961",
+      "actual_EOF": 404,
+      "source_object": "adler-continuation-20261030/objects/4b39a948e24517a32a421b021307c7d1d7dad7a152be348ac952a3c88384f961",
+      "prospective_ranges": [
+        [
+          365,
+          404
+        ]
+      ]
+    }
+  ]
+}

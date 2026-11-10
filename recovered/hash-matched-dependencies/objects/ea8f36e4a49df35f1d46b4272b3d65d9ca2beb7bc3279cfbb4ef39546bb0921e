@@ -1,0 +1,10 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const root='target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/objects/';
+const wrapper=fs.readFileSync(root+'00cfcd2e251b7d8b3020a2493c94a0907b7cf2afbeccc841331a2f81aabf2c86','utf8');
+const wheelCode=fs.readFileSync(root+'a79949b29f56a6d20af7f42d71ccda2dd39d9220aaf08f965499e9343067d42f','utf8');
+const listeners={},events=[],wheel={style:{},dataset:{strategicConditionWheel:'1'},setAttribute(k,v){this[k]=v}};let fail=false;
+const c={pain:0.2,blood_loss:0,fear:0,fatigue:0,hunger:0,thirst:0,thermal:0,status:'ready',incapacitation:0.2,morale:0};
+const doc={readyState:'complete',addEventListener(n,f){(listeners[n]??=[]).push(f)},querySelectorAll(){return [wheel]},dispatchEvent(e){events.push(e.detail)}};
+const win={setTimeout:f=>f(),addEventListener(){}};const ctx={document:doc,window:win,location:{origin:'https://example.test',search:''},URL,URLSearchParams,AbortController,CustomEvent:class{constructor(type,init){this.type=type;this.detail=init.detail}},getComputedStyle:()=>({getPropertyValue:()=>''}),console:{error(){}},fetch:async()=>fail?{ok:false,status:503,statusText:'Unavailable'}:{ok:true,json:async()=>c}};
+vm.runInNewContext(wrapper,ctx);vm.runInNewContext(wheelCode,ctx);const flush=()=>new Promise(r=>setImmediate(r));
+(async()=>{listeners.DOMContentLoaded.forEach(f=>f());await flush();const old=wheel.title;fail=true;listeners['strategic-live-update'].forEach(f=>f());await flush();assert.equal(wheel.title,old);assert(events.some(e=>e.error.message==='503 Unavailable'));console.log(JSON.stringify({http503Title:wheel.title,errorEvents:events.length,scope:'exact wrapper and wheel, stub DOM and fetch'}));})().catch(e=>{console.error(e);process.exitCode=1});

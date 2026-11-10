@@ -1,0 +1,38 @@
+tree 911ce6a8630da6a88dd365b710195206e087fb45
+parent 33714256b6313ce86fdfbb534c54d92d024d7726
+author Egor Tolstonozhenko <mail@barsoo.xyz> 1793656568 +0600
+committer GitHub <noreply@github.com> 1793656568 +0600
+gpgsig -----BEGIN PGP SIGNATURE-----
+ 
+ wsFcBAABCAAQBQJq6Qb4CRC1aQ7uu5UhlAAAF3EQADN+8NKfxnEEoktyFNobb7D6
+ YblvelS8cEI5HhGTeikfZgxjv/vBw9IDbd1/nmeFXPuYg0esOinmvSYNVTW8bjm+
+ U5myB0+VgGky++Jq2RwAPVboZ4sM3hU/yo/danAdjfoWqCl/UJr7W9Xgi/mcUT+g
+ KmbXlitlls517QDZM8RZqtrzgu08yV/yOfGSBBz7sd7D3Jqnb6ytSkYiV8ahw5CN
+ pM2Ipl208esbp0PwfQrKbuQPbubVV17me77QV9yrhsv1L589AlhfhWzghwybzYTP
+ 0x7TVW6paCl2NfCilj7AqbPqyLpo3dP10Ru6QUMpiXlkCj8fmi0Oy6wVyGCAhDwE
+ mVKOoXpkwnpgTRjR9aPno5dTT7anxv0Z917G9Sr+UcwOFHKq9fcLRwHnL3/PmJxB
+ VVInyx7sknGWAG6YB2OLFKSN5ZpX6s0BibiIggxCY3cfvMZBZb2TkDE3RLGtgwvm
+ 8g1i1KSKGc30tM7F4oipbvEvHCgDA+9OqqCmfFmFoY1W0jjyx9I4zxvCDgEkIvlo
+ +xFD/0f2LBTR5HIibE8CYxDGfrUVznDr/GI3AoQVuNJFarNFZMg9GKNPAQD1h3rh
+ Fwy6+5THXpOvAS6Hr2knjJdkQ/8JJ1WbTWNgPDbCHzmovnyvyj2nORwSXLNY65ya
+ nUGKDIT9FoZaxc9V1TbW
+ =K8IM
+ -----END PGP SIGNATURE-----
+ 
+
+Add a tactical loading screen (#995)
+
+* Add a tactical loading screen
+
+Hold the scene behind an opaque overlay with one progress bar per
+loading stage, then fade in once the scene is presented and its render
+pipelines have compiled. A lost connection, a missing required asset or
+a load that stops advancing ends in a failure panel with Retry and Exit.
+
+* Install pipeline readiness with the game's loading gate
+
+Only the game binary reads the pipeline counter, so the shared presentation plugin does not need to register it. This keeps that plugin's build function within its 100-line ceiling after #994.
+
+* Give the loading screen its own equipment check
+
+Keep EquipmentReadiness as main has it, browser and test only, since a native build reads none of its queries. The loading gate only needs to know that generation has finished for what characters carry.

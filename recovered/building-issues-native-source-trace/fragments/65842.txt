@@ -1,0 +1,201 @@
+SOURCE native:crates.io/bevy_ecs@0.19.1/src/error/bevy_error.rs
+1: use alloc::boxed::Box;
+2: use core::{
+3:     error::Error,
+4:     fmt::{Debug, Display},
+5: };
+6: 
+7: /// The built in "universal" Bevy error type. This has a blanket [`From`] impl for any type that implements Rust's [`Error`],
+8: /// meaning it can be used as a "catch all" error.
+9: ///
+10: /// # Severity
+11: ///
+12: /// Each [`BevyError`] carries a [`Severity`] value that indicates how serious the error is.
+13: /// While the levels within [`Severity`] correspond to traditional logging levels,
+14: /// these levels are fundamentally advisory metadata.
+15: /// The fallback error handler ultimately has discretion to respond to each of these errors
+16: /// according to its configuration.
+17: /// The error handler ultimately has discretion to respond to each of these errors according to its configuration.
+18: /// You can change the behavior of the fallback handler by modifying the [`FallbackErrorHandler`] resource.
+19: ///
+20: /// By default, errors without an assigned severity use [`Severity::Panic`], and will cause your application to panic.
+21: /// You can change the severity of an error by using [`with_severity`], or [`map_severity`] on any [`Result`] type.
+22: ///
+23: /// [`FallbackErrorHandler`]: crate::error::handler::FallbackErrorHandler
+24: /// [`with_severity`]: ResultSeverityExt::with_severity
+25: /// [`map_severity`]: ResultSeverityExt::map_severity
+26: ///
+27: /// # Backtraces
+28: ///
+29: /// When used with the `backtrace` Cargo feature, it can capture a backtrace when the error is constructed (generally in the [`From`] impl).
+30: ///
+31: /// To enable backtrace capture on supported platforms,
+32: /// set the `RUST_BACKTRACE` environment variable.
+33: /// See [`Backtrace::capture`] for details.
+34: ///
+35: /// When the error is printed, the backtrace will be displayed.
+36: /// By default, the backtrace will be trimmed down to filter out noise.
+37: /// To see the full backtrace, set the `BEVY_BACKTRACE=full` environment variable.
+38: ///
+39: /// [`Backtrace::capture`]: https://doc.rust-lang.org/std/backtrace/struct.Backtrace.html#method.capture
+40: ///
+41: /// # Usage
+42: ///
+43: /// ```
+44: /// # use bevy_ecs::prelude::*;
+45: ///
+46: /// fn fallible_system() -> Result<(), BevyError> {
+47: ///     // This will result in Rust's built-in ParseIntError, which will automatically
+48: ///     // be converted into a BevyError.
+49: ///     let parsed: usize = "I am not a number".parse()?;
+50: ///     Ok(())
+51: /// }
+52: /// ```
+53: pub struct BevyError {
+54:     inner: Box<InnerBevyError>,
+55: }
+56: 
+57: impl BevyError {
+58:     /// Constructs a new [`BevyError`] with the given [`Severity`].
+59:     ///
+60:     /// The error will be stored as a `Box<dyn Error + Send + Sync>`.
+61:     ///
+62:     /// The easiest way to use this is to pass in a string.
+63:     /// This works because any type that can be converted into a `Box<dyn Error + Send + Sync>` can be used,
+64:     /// and [`str`] is one such type.
+65:     ///
+66:     /// # Examples
+67:     ///
+68:     /// ```
+69:     /// # use bevy_ecs::error::{BevyError, Severity};
+70:     ///
+71:     /// fn some_function(val: i64) -> Result<(), BevyError> {
+72:     ///     if val < 0 {
+73:     ///         let error =
+74:     ///             BevyError::new(Severity::Panic, format!("Value can't be negative {val}"));
+75:     ///         return Err(error);
+76:     ///     }
+77:     ///
+78:     ///     // ...
+79:     ///     Ok(())
+80:     /// }
+81:     /// ```
+82:     pub fn new<E>(severity: Severity, error: E) -> Self
+83:     where
+84:         Box<dyn Error + Sync + Send>: From<E>,
+85:     {
+86:         Self::from(error).with_severity(severity)
+87:     }
+88: 
+89:     /// Creates a new [`BevyError`] with the [`Severity::Ignore`] severity.
+90:     ///
+91:     /// This is a shorthand for <code>[BevyError::new(Severity::Ignore, error)](BevyError::new)</code>.
+92:     pub fn ignore<E>(error: E) -> Self
+93:     where
+94:         Box<dyn Error + Send + Sync>: From<E>,
+95:     {
+96:         Self::new(Severity::Ignore, error)
+97:     }
+98: 
+99:     /// Creates a new [`BevyError`] with the [`Severity::Trace`] severity.
+100:     ///
+101:     /// This is a shorthand for <code>[BevyError::new(Severity::Trace, error)](BevyError::new)</code>.
+102:     pub fn trace<E>(error: E) -> Self
+103:     where
+104:         Box<dyn Error + Send + Sync>: From<E>,
+105:     {
+106:         Self::new(Severity::Trace, error)
+107:     }
+108: 
+109:     /// Creates a new [`BevyError`] with the [`Severity::Debug`] severity.
+110:     ///
+111:     /// This is a shorthand for <code>[BevyError::new(Severity::Debug, error)](BevyError::new)</code>.
+112:     pub fn debug<E>(error: E) -> Self
+113:     where
+114:         Box<dyn Error + Send + Sync>: From<E>,
+115:     {
+116:         Self::new(Severity::Debug, error)
+117:     }
+118: 
+119:     /// Creates a new [`BevyError`] with the [`Severity::Info`] severity.
+120:     ///
+121:     /// This is a shorthand for <code>[BevyError::new(Severity::Info, error)](BevyError::new)</code>.
+122:     pub fn info<E>(error: E) -> Self
+123:     where
+124:         Box<dyn Error + Send + Sync>: From<E>,
+125:     {
+126:         Self::new(Severity::Info, error)
+127:     }
+128: 
+129:     /// Creates a new [`BevyError`] with the [`Severity::Warning`] severity.
+130:     ///
+131:     /// This is a shorthand for <code>[BevyError::new(Severity::Warning, error)](BevyError::new)</code>.
+132:     pub fn warning<E>(error: E) -> Self
+133:     where
+134:         Box<dyn Error + Send + Sync>: From<E>,
+135:     {
+136:         Self::new(Severity::Warning, error)
+137:     }
+138: 
+139:     /// Creates a new [`BevyError`] with the [`Severity::Error`] severity.
+140:     ///
+141:     /// This is a shorthand for <code>[BevyError::new(Severity::Error, error)](BevyError::new)</code>.
+142:     pub fn error<E>(error: E) -> Self
+143:     where
+144:         Box<dyn Error + Send + Sync>: From<E>,
+145:     {
+146:         Self::new(Severity::Error, error)
+147:     }
+148: 
+149:     /// Creates a new [`BevyError`] with the [`Severity::Panic`] severity.
+150:     ///
+151:     /// This is a shorthand for <code>[BevyError::new(Severity::Panic, error)](BevyError::new)</code>.
+152:     pub fn panic<E>(error: E) -> Self
+153:     where
+154:         Box<dyn Error + Send + Sync>: From<E>,
+155:     {
+156:         Self::new(Severity::Panic, error)
+157:     }
+158: 
+159:     /// Checks if the internal error is of the given type.
+160:     pub fn is<E: Error + 'static>(&self) -> bool {
+161:         self.inner.error.is::<E>()
+162:     }
+163: 
+164:     /// Attempts to downcast the internal error to the given type.
+165:     pub fn downcast_ref<E: Error + 'static>(&self) -> Option<&E> {
+166:         self.inner.error.downcast_ref::<E>()
+167:     }
+168: 
+169:     fn format_backtrace(&self, _f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+170:         #[cfg(feature = "backtrace")]
+171:         {
+172:             let f = _f;
+173:             let backtrace = &self.inner.backtrace;
+174:             if let std::backtrace::BacktraceStatus::Captured = backtrace.status() {
+175:                 // TODO: Cache
+176:                 let full_backtrace = std::env::var("BEVY_BACKTRACE").is_ok_and(|val| val == "full");
+177: 
+178:                 let backtrace_str = alloc::string::ToString::to_string(backtrace);
+179:                 let mut skip_next_location_line = false;
+180:                 for line in backtrace_str.split('\n') {
+181:                     if !full_backtrace {
+182:                         if skip_next_location_line {
+183:                             if line.starts_with("             at") {
+184:                                 continue;
+185:                             }
+186:                             skip_next_location_line = false;
+187:                         }
+188:                         if line.contains("std::backtrace_rs::backtrace::") {
+189:                             skip_next_location_line = true;
+190:                             continue;
+191:                         }
+192:                         if line.contains("std::backtrace::Backtrace::") {
+193:                             skip_next_location_line = true;
+194:                             continue;
+195:                         }
+196:                         if line.contains("<bevy_ecs::error::bevy_error::BevyError as core::convert::From<E>>::from") {
+197:                             skip_next_location_line = true;
+198:                             continue;
+199:                         }
+200:                         if line.contains("<core::result::Result<T,F> as core::ops::try_trait::FromResidual<core::result::Result<core::convert::Infallible,E>>>::from_residual") {

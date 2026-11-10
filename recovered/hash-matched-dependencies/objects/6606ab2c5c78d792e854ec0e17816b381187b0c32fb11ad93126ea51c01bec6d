@@ -1,0 +1,19 @@
+#[test]
+fn pinned_release_rigs_have_finite_normalized_skin_rows() {
+    for lod in [4, 5, 6] {
+        let path = format!("../mhr-release-v1.0.1/assets/lod{lod}.fbx");
+        let bytes = std::fs::read(&path).expect("verified pinned FBX");
+        let character = mhr_module_probe::character::Character::from_fbx_bytes(&bytes, false)
+            .expect("selected-source importer admits pinned rig");
+        let rows = character.skin_weights.weights().as_native_slice();
+        let nonfinite = rows.iter().flatten().filter(|v| !v.is_finite()).count();
+        let negative = rows.iter().flatten().filter(|v| **v < 0.0).count();
+        let max_error = rows.iter().map(|row| (row.iter().sum::<f32>() - 1.0).abs())
+            .fold(0.0_f32, f32::max);
+        println!("lod={lod} rows={} nonfinite={nonfinite} negative={negative} max_sum_error={max_error}", rows.len());
+        assert!(!rows.is_empty());
+        assert_eq!(nonfinite, 0);
+        assert_eq!(negative, 0);
+        assert!(max_error < 0.000_01);
+    }
+}

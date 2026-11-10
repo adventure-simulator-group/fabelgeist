@@ -1,0 +1,174 @@
+{
+  "schema": "726-l13-predecessor-discovery-v1",
+  "original_sha256": "833bf8943cafb748d73f2d2caf90b13c3e68a65f8fc7566941b3b5a855ff7a92",
+  "source_registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+  "recorded_result_ordinal": 55967,
+  "base_helper_output_ordinal": 55796,
+  "derivation_ordinal": 55966,
+  "matched_timestamp": "2026-11-01T22:14:23.915871+00:00",
+  "bounded_search_start_us": 1793571262831000,
+  "bounded_search_end_us": 1793571264031999,
+  "files": [
+    {
+      "file": "PRINTED-RESULT.json",
+      "sha256": "ac0159133f7e7a876660c9c26cf89009820cf819614e33ad7caf569b97b23b86"
+    },
+    {
+      "file": "BASE-HELPER.txt",
+      "sha256": "531d4e7c27bb7bb2093fcd7681fcbfc24edb146e6e8e64bffd829081a7e807b9"
+    },
+    {
+      "file": "DERIVATION.txt",
+      "sha256": "2d61e6e8889c41d31b73ccda0b54a9ac5ab48172ae17b0f82d11718119c7d365"
+    },
+    {
+      "file": "PRINTED-REGISTRATION-RESULT.json",
+      "sha256": "9ca15a25835f09a02f85289be75bcb5647b3d7399cc8789d8fc2cda9989431bc"
+    },
+    {
+      "file": "HELPER-TRANSFORM-COMMANDS.json",
+      "sha256": "35e7956a74cff9a53c7ba216417e14618a51dae39b4812eb03a8748b34c11822"
+    },
+    {
+      "file": "PRINTED-PRIOR-AUTHORITY.json",
+      "sha256": "86ad5d43e834d7d8aa0f9a5f1bb3470fc500996dc61002530b07db913c00b4f2"
+    },
+    {
+      "file": "PRINTED-PACKET-RESULT.json",
+      "sha256": "5e737fa2064afc1d6c59afb0564affa5dde7ee2b5937ad8c9a76776b812198a6"
+    }
+  ],
+  "qualification": "Exact discovery, registration, qualification, packet and helper bytes match separately printed hashes. Ten source objects, six inherited evidence objects and two historical fresh-read displays are preserved. This evidence does not establish current authority, closure or new credit; no historical programs were executed.",
+  "registration_result_ordinal": 55983,
+  "helper": {
+    "sha256": "50ab67fb073b7317c27948d932b2b2b7496e3525e375f9698ac180cb3740b830",
+    "qualification": "Exact original helper source recovered via inverse static transformations; inert, never run during recovery."
+  },
+  "registration": {
+    "sha256": "62fb22103d5c5b8930b1c2d2b4f620ef867f131721f29fd3dbc7c600623d5623",
+    "matched_timestamp": "2026-11-01T22:15:19.893694+00:00",
+    "rows": 10,
+    "qualification": "Original registration bytes match printed hash; no new body credit or authority inferred.",
+    "bounded_search_start_us": 1793571318203000,
+    "bounded_search_end_us": 1793571320003999
+  },
+  "exact_qualification": {
+    "sha256": "12bd59861e3c57be9dce4b4efe6b824e00eb58e74b655effe2fc3d494d9bd0fc",
+    "matched_timestamp": "2026-11-01T22:15:19.894589+00:00",
+    "source_records": [
+      {
+        "original": 2836,
+        "sha256": "99cf829423d94b7d5cafa84c6bc853ce91d1c74dc20891d894e1ca435cc5310b",
+        "bytes": 1575
+      },
+      {
+        "original": 2837,
+        "sha256": "3ed5388a106af6a5915305446634cba57154d784984dc9f05ffc089161938279",
+        "bytes": 1240
+      },
+      {
+        "original": 2838,
+        "sha256": "e054b33865a02762e480744ec0074a04fe71d7bf73e61c10ca5357f493eaf7d3",
+        "bytes": 2228
+      },
+      {
+        "original": 2839,
+        "sha256": "8a2961c2a6d64a997bc81cf6cc94ac1647dbe32afa1093446f97f6de93cedca4",
+        "bytes": 3493
+      },
+      {
+        "original": 2840,
+        "sha256": "4fe112080f5dcc507eb0600309b787389a2dbb7b056ead9fd82bea634d9e496b",
+        "bytes": 2787
+      },
+      {
+        "original": 2841,
+        "sha256": "fe9290ba0a257cd25b730ebad5762e929b2c184773fb1b92f4b4591722a36089",
+        "bytes": 2835
+      },
+      {
+        "original": 2842,
+        "sha256": "cc9107fd14bb47171e08b5020021594835c779dc021dd32e095a926ff9e977f1",
+        "bytes": 7676
+      },
+      {
+        "original": 2843,
+        "sha256": "f9ccb3bf0662590f4dd34ea6de4ce89569348359037efc93e3736a9524c3bca1",
+        "bytes": 2350
+      },
+      {
+        "original": 2844,
+        "sha256": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+        "bytes": 5672
+      },
+      {
+        "original": 2845,
+        "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+        "bytes": 4706
+      }
+    ],
+    "inherited_objects": [
+      {
+        "path": "segovb/READ-L13-PARALLEL-109.json",
+        "sha256": "e0871ab6712bbfffc3442b90c3e4e1af80e5759b8a018758d8c566eabcc7f83a"
+      },
+      {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-111.json",
+        "sha256": "5580ce0d1ae0b75b7f927abf39f549b6e0ea6ac3e02757a435a478258505573a"
+      },
+      {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-111.json",
+        "sha256": "690005fccb5e1eb49eda241d09709e413b8beee0b9b6843c4b42e1df8008d453"
+      },
+      {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-109-111.json",
+        "sha256": "dd03a922fcf435619c587c7d708ccdcaedb91df4440b8604db77ff999d8a1f3e"
+      },
+      {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/QUALIFICATION-PL13-111-CONNECTED-ORIGINAL-NULL-001.json",
+        "sha256": "1bd26cb3058a7cfb366f2e18c3bbf5fffe3fbda4a60d2e1f505785c9f32a7f72"
+      },
+      {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-111-CONNECTED.json",
+        "sha256": "f2679596d339659542362be05433a5b75945447042f41ffe531e9214f2b12c99"
+      }
+    ],
+    "prior_authority_output_ordinal": 55937,
+    "prior_ledger_and_selector_bytes_recovered": false,
+    "qualification": "Exact original qualification matches printed hash; original source and inherited receipt objects are preserved. Historical scope only; no new credit, current reconciliation or authority is inferred.",
+    "bounded_search_start_us": 1793571319893694,
+    "bounded_search_end_us": 1793571320393694
+  },
+  "qualification_original_sha256": "12bd59861e3c57be9dce4b4efe6b824e00eb58e74b655effe2fc3d494d9bd0fc",
+  "exact_packet": {
+    "sha256": "6e30bc3515a4ee8d2504e780da0c96017c2e719fffa8123f16dfb0d26dbd29eb",
+    "matched_timestamp": "2026-11-01T22:17:02.632505+00:00",
+    "bounded_search_start_us": 1793571422049000,
+    "bounded_search_end_us": 1793571422927999,
+    "source_display_fragments": [
+      {
+        "ordinal": 55988,
+        "file": "display-fragments/55988.txt",
+        "sha256": "f1b6b4e65d1ca8b2ec95a1c969d833dbe7bee8baa907c8d16b4905ccca1b6ebb",
+        "line_occurrences": 340
+      },
+      {
+        "ordinal": 55989,
+        "file": "display-fragments/55989.txt",
+        "sha256": "c635e1d1b4a9811befe81369eb16e21af0a4a80d4b7b97fea94b925973f3c90c",
+        "line_occurrences": 233
+      }
+    ],
+    "historical_fresh_line_occurrences": 573,
+    "historical_reused_material_lines": 285,
+    "qualification": "Original packet bytes match printed hash. Two untruncated historical displays match the eight fresh source scopes; two inherited roles retain their original attribution. No new credit, later closure, current authority or runtime validation is inferred."
+  },
+  "plan_candidate": {
+    "file": "PLAN-CANDIDATE-721-SEARCH.json",
+    "sha256": "3b7e02572dd521bf92e0642426b370595289b45ab16e979c3b51bda54cdf8c96",
+    "original_plan_sha256": "dfb531b0d74bd516e2b04da56c7cc48e30fd39b3e94326c3e052ebd647c6ab39",
+    "unknown_predecessor_hash": true,
+    "transcript_distinct_tokens_searched": 16973,
+    "match_found": false
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "schema": "726-scoped-saved-garment-v1",
+  "at": "2026-11-03T16:57:25.926977+00:00",
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-GLB-FIXTURE-PROBE-1066.json",
+    "sha256": "fe6586962d5c466b32f8029b42ba09b4f1a97ac0fc7af9acc30a6c8bf525fbcf"
+  },
+  "probe_result": {
+    "path": "target/726-intake-20261030/glb_fixture_zero_probe_1066-result.json",
+    "sha256": "a713a5ee548d071ded905d83de7d3c1f09224f1227d1db80260848a45b4dbd5f"
+  },
+  "probe_test": {
+    "path": "target/726-intake-20261030/glb-fixture-probe/tests/fixture_zero.rs",
+    "sha256": "1284de003a6c66811b0e2d3e8ca544c6f41d4309b26e9731430b3a156d024605"
+  },
+  "probe_fixture": {
+    "path": "target/726-intake-20261030/glb-fixture-probe/zero_body.glb",
+    "sha256": "8f9c2026fa0cc56d14fa79982f337f099a04323c4b1391968d132d7a61d4e438"
+  },
+  "whole_contract_closed": false,
+  "source_trace": [
+    "A selected-revision canonical body GLB was copied and its first weight row changed from [1,0,0,0] to all zero; two bytes changed within that row. The original asset and copied fixture-loader source were byte-verified against the selected revision.",
+    "A minimal harness compiled the unchanged fixture loader with stub application structs and separately resolved dependencies. The loader accepted the modified full GLB, returned the zero weight row and its actual shared rig reducer produced NaN. One test passed.",
+    "The altered input is synthetic. This is not a full client build, normal asset behavior, browser execution or evidence of visible runtime impact."
+  ],
+  "remaining_evidence": [
+    "Define accepted GLB policy and validate full client/native runtime, generated-equipment boundary and other P09 contracts."
+  ],
+  "product_execution": true,
+  "implementation_gate_complete": false
+}

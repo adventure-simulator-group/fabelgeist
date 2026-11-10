@@ -1,0 +1,122 @@
+{
+  "schema": "726-capture-outcome-facet-comparison-v1",
+  "at": "2026-11-02T06:16:50.163668+00:00",
+  "author": "/root",
+  "base_queue": {
+    "path": "workflow-20261030/CLOSURE-QUEUE-796.json",
+    "sha256": "aba0c2aa8ae999880c33086390a984ede2f9387b19893c8b9e30973c7b4aec32"
+  },
+  "evidence_packets": [
+    {
+      "path": "adler-continuation-20261030/READ-ROOT-L12-CAPTURE-OWNER-OUTCOME-COMPARISON-001.json",
+      "sha256": "3e78c6eff16b99846970968c5c8c3bbb42c5f79bd3b8a20a8e0184578c8caee5"
+    },
+    {
+      "path": "adler-continuation-20261030/READ-ROOT-L12-CAPTURE-OUTPUT-CERTIFICATION-001.json",
+      "sha256": "ce93f9cf3ad41f7004cee33a8fce7683fdb06a96dbce939de517df8f8cf7c952"
+    },
+    {
+      "path": "adler-continuation-20261030/READ-ROOT-L12-CAPTURE-OUTPUT-CERTIFICATION-TAIL-001.json",
+      "sha256": "5bab8a5cdb7e32548e5ae8bdd498c72531a5c9a7e33a8ba7be5dc6a9394b7cc7"
+    }
+  ],
+  "facets": [
+    {
+      "queue_index": 257,
+      "contract_id": "SEGOVB-L12-SCENE-CAPTURE-PERSISTENCE-OUTCOME",
+      "originating_lens": 12,
+      "role": "scene",
+      "scoped_owner": "Existing SceneCaptureState/CapturePhase and PendingSceneCaptureManifest/CaptureRecord",
+      "current_first_failed_contract": "Requested scene PNG unit-save outcome erased; metrics/finalization can certify without persistence. Existing scoped repair002 owns this loop.",
+      "own_lens_assessment": 12,
+      "originating_lens_verdict_transferred": false,
+      "whole_case_alias_applied": false,
+      "whole_case_closed": false
+    },
+    {
+      "queue_index": 206,
+      "contract_id": "SEGOVB-L11-CAPTURE-RUN-ARTIFACT-CERTIFICATION",
+      "originating_lens": 11,
+      "role": "animation",
+      "scoped_owner": "Existing CaptureSequence/CaptureAdmission/CompletedCapture and animation report artifact gate",
+      "current_first_failed_contract": "Three-view callback advances after unit save; provisional frame already lists all images. Output admission reuses directory and invalidates report files but not PNGs; existing nonempty file metadata is not current-run save evidence.",
+      "own_lens_assessment": 12,
+      "originating_lens_verdict_transferred": false,
+      "whole_case_alias_applied": false,
+      "whole_case_closed": false
+    },
+    {
+      "queue_index": 259,
+      "contract_id": "SEGOVB-L12-SKY-CAPTURE-PERSISTENCE-OUTCOME",
+      "originating_lens": 12,
+      "role": "sky",
+      "scoped_owner": "Existing SkyCaptureState/SkyView and sky manifest/validation callback",
+      "current_first_failed_contract": "Prime and final image are distinct; scalar sky/camera gates determine Success after a unit save with no result. Keep these supported modes and quality requirements separate from persistence.",
+      "own_lens_assessment": 12,
+      "originating_lens_verdict_transferred": false,
+      "whole_case_alias_applied": false,
+      "whole_case_closed": false
+    },
+    {
+      "queue_index": 12,
+      "contract_id": "CONT08-CAPTURE-SAVE-OUTCOME-ERASURE",
+      "originating_lens": 8,
+      "role": "plant-and-diagnostics",
+      "scoped_owner": "Plant viewer capture completion and existing ScriptedInput/PendingDiagnosticCaptures state",
+      "current_first_failed_contract": "Plant two-image capture exits on second callback after unit save. Diagnostic directory error is logged while command advances, and pending count zero can permit Success; callback decrements after unit save regardless of outcome.",
+      "own_lens_assessment": 12,
+      "originating_lens_verdict_transferred": false,
+      "whole_case_alias_applied": false,
+      "whole_case_closed": false
+    },
+    {
+      "queue_index": 545,
+      "contract_id": "SEGOVB-L12-CAPTURE-VIEW-KEY-INTERNAL-STRING-PROPAGATION",
+      "originating_lens": 12,
+      "role": "animation-view-identity",
+      "scoped_owner": "Existing CaptureView enum through frame screenshot mapping, report lookup and native JSON serialization",
+      "current_first_failed_contract": "CaptureView is flattened to slug String before FrameSample screenshots map, and lookup reconstructs slug before native filesystem access. This is independent of whether the actual image write succeeded.",
+      "own_lens_assessment": 12,
+      "originating_lens_verdict_transferred": false,
+      "whole_case_alias_applied": false,
+      "whole_case_closed": false
+    }
+  ],
+  "shared_native_facet": {
+    "id": "native-unit-image-save-outcome-erasure",
+    "case_indices": [
+      257,
+      206,
+      259,
+      12
+    ],
+    "basis": "Actual current caller observations discard the same pinned native conversion/PNG/IO outcome behind the unit observer. Share the fallible native persistence port where crate boundaries permit; caller state/completion and output-admission contracts remain independently owned.",
+    "whole_case_alias": false
+  },
+  "independent_facets": [
+    {
+      "id": "animation-current-run-certification",
+      "case_index": 206,
+      "requirement": "Existing nonempty or readonly PNGs from a previous run must not certify a failed new save; require actual admitted current-run persistence for all required view/frame images."
+    },
+    {
+      "id": "diagnostic-directory-and-pending-outcome",
+      "case_index": 12,
+      "requirement": "Failed requested directory creation cannot turn into a zero-pending successful script; pending/requested/succeeded/failed must remain distinct, valid no-screenshot scripts supported."
+    },
+    {
+      "id": "capture-view-private-key-authority",
+      "case_index": 545,
+      "requirement": "Keep existing CaptureView through private producer/map/lookup, emit slug at native filename/JSON/DOM boundaries. A typed map does not fix a discarded save outcome, and a checked save does not fix identity erasure."
+    }
+  ],
+  "scope_limits": [
+    "Scene cursor lifecycle is owned in existing scene repair002; do not force its state machine or clamping conclusions onto animation/sky/plant/diagnostic modes without their own active-state contract.",
+    "This is own-L12 current source trace/facet comparison, not Lens8/Lens11 clearance or unique-count deduplication. Historical canonical fields/source identities remain unchanged.",
+    "Other repository unit-save call sites are located only; no defect/required-output policy or whole capture-family completion inferred."
+  ],
+  "new_body_population_unique_credit": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "independent_agent_review": false
+}

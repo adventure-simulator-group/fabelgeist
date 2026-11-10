@@ -1,0 +1,291 @@
+SOURCE 6 crates/adventuresim-building-generator/src/viewer/tower_rendering.rs b1d6d35ab9e97f19be3e6dd9c5c72211c7b255650d8cce8acc2b68985a49788b
+1: #[allow(clippy::too_many_arguments)]
+2: fn spawn_wall_local_box(
+3:     world: &mut World,
+4:     material: &Handle<StandardMaterial>,
+5:     centre: Vec2,
+6:     tangent: Vec2,
+7:     outward: Vec2,
+8:     along_offset: f32,
+9:     outward_offset: f32,
+10:     along_size: f32,
+11:     depth_size: f32,
+12:     height: f32,
+13:     elevation: f32,
+14:     name: &'static str,
+15: ) {
+16:     let position = centre + tangent * along_offset + outward * outward_offset;
+17:     let horizontal = tangent.x.abs() >= tangent.y.abs();
+18:     spawn_box(
+19:         world,
+20:         material,
+21:         if horizontal {
+22:             Vec3::new(along_size, height, depth_size)
+23:         } else {
+24:             Vec3::new(depth_size, height, along_size)
+25:         },
+26:         Vec3::new(position.x, elevation, position.y),
+27:         Quat::IDENTITY,
+28:         name,
+29:     );
+30: }
+31: 
+32: fn spawn_square_tower(
+33:     world: &mut World,
+34:     palette: &RenderPalette,
+35:     tower: SquareTower,
+36:     origin: Vec2,
+37:     view: ViewerView,
+38: ) {
+39:     if view == ViewerView::Cutaway {
+40:         return;
+41:     }
+42:     let centre = tower.centre + origin;
+43:     // Bell towers hand authority to resolved SquareTowerFace bays at 8 m so
+44:     // their roof junction and bell openings can own real subtractions.  Keep
+45:     // only the monolithic grounded base here; spawning the old full-height box
+46:     // would duplicate those resolved walls and conceal the abutment contour.
+47:     let lower_height = if tower.bell_openings {
+48:         8.0
+49:     } else {
+50:         tower.wall_height_metres
+51:     };
+52:     spawn_box(
+53:         world,
+54:         &palette.stone,
+55:         Vec3::new(tower.size.x, lower_height, tower.size.y),
+56:         Vec3::new(centre.x, lower_height * 0.5, centre.y),
+57:         Quat::IDENTITY,
+58:         "square bell-tower lower mass",
+59:     );
+60:     // The bell stage itself is rendered exclusively from its resolved
+61:     // WallAssembly/OpeningAssembly bays. Keeping a second viewer-owned stage
+62:     // here would conceal voids and duplicate the authoritative masonry.
+63:     // The roof is rendered once from the authoritative RoofAssembly graph.
+64: }
+65: 
+66: #[allow(clippy::too_many_arguments)]
+67: fn spawn_tower(
+68:     world: &mut World,
+69:     palette: &RenderPalette,
+70:     plan: &BuildingPlan,
+71:     tower_index: usize,
+72:     tower: RoundTower,
+73:     origin: Vec2,
+74:     view: ViewerView,
+75:     portals: &[TowerPortal],
+76:     firing_positions: &[FiringPosition],
+77:     authoritative_crown: bool,
+78: ) {
+79:     let centre = tower.centre_metres() + origin;
+80:     if view != ViewerView::Cutaway {
+81:         let mesh = world.resource_mut::<Assets<Mesh>>().add(tower_shell_mesh(
+82:             tower,
+83:             portals,
+84:             firing_positions,
+85:             matches!(
+86:                 view,
+87:                 ViewerView::TowerPortalDetail
+88:                     | ViewerView::CrownTowerCutaway
+89:                     | ViewerView::WallRoundTowerRadialSection
+90:                     | ViewerView::ArtilleryRondelCasemate
+91:                     | ViewerView::ArtilleryRondelCutaway
+92:             ),
+93:         ));
+94:         let wall = plan.wall_assemblies.iter().find(|wall| {
+95:             matches!(
+96:                 wall.source,
+97:                 adventuresim_building_generator::WallSourceId::RoundTower { tower_index: index }
+98:                     if index == tower_index
+99:             )
+100:         });
+101:         let resolved = wall.and_then(|wall| {
+102:             wall.host_solids.first().and_then(|id| {
+103:                 plan.resolved_geometry
+104:                     .solids
+105:                     .iter()
+106:                     .find(|solid| solid.id == *id)
+107:             })
+108:         });
+109:         let mut shell = world.spawn((
+110:             Name::new(if let Some(wall) = wall {
+111:                 format!("resolved wall owner {} round tower shell", wall.owner.0)
+112:             } else {
+113:                 "round tower shell with open firing loops".to_owned()
+114:             }),
+115:             ClosedSolid,
+116:             Mesh3d(mesh),
+117:             MeshMaterial3d(if view == ViewerView::ArtilleryRondelCasemate {
+118:                 palette.cutaway.clone()
+119:             } else {
+120:                 palette.stone.clone()
+121:             }),
+122:             Transform::from_xyz(centre.x, tower.wall_height_metres * 0.5, centre.y),
+123:         ));
+124:         if let (Some(wall), Some(resolved)) = (wall, resolved) {
+125:             shell.insert((
+126:                 GeometryOwner(wall.owner.0),
+127:                 ResolvedRenderItem {
+128:                     id: resolved.id.0,
+129:                     fingerprint: stable_u64(
+130:                         &serde_json::to_vec(resolved)
+131:                             .expect("serialize rendered radial wall shell"),
+132:                     ),
+133:                     local_half_size: resolved.size.metres() * 0.5,
+134:                 },
+135:             ));
+136:         }
+137:         for interface in tower.chord_interfaces() {
+138:             spawn_tower_chord_face(world, palette, tower, centre, interface);
+139:         }
+140:         if !matches!(
+141:             view,
+142:             ViewerView::TowerPortalDetail
+143:                 | ViewerView::CrownTowerCutaway
+144:                 | ViewerView::WallRoundTowerRadialSection
+145:                 | ViewerView::ArtilleryRondelCasemate
+146:                 | ViewerView::ArtilleryRondelCutaway
+147:         ) {
+148:             let inner_height = (tower.wall_height_metres - 0.18).max(0.2);
+149:             let inner = world.resource_mut::<Assets<Mesh>>().add(cylinder_side_mesh(
+150:                 (tower.radius_metres() - tower.wall_thickness_metres).max(0.2),
+370:         Quat::IDENTITY,
+371:         "bonded tower chord face",
+372:     );
+373: }
+374: 
+375: fn direction_vector_2d(direction: Direction) -> Vec2 {
+376:     match direction {
+377:         Direction::North => Vec2::Y,
+378:         Direction::East => Vec2::X,
+379:         Direction::South => -Vec2::Y,
+380:         Direction::West => -Vec2::X,
+381:     }
+382: }
+383: 
+384: fn spawn_tower_portal_geometry(
+385:     world: &mut World,
+386:     palette: &RenderPalette,
+387:     tower: RoundTower,
+388:     origin: Vec2,
+389:     portals: &[TowerPortal],
+390: ) {
+391:     let centre = tower.centre_metres() + origin;
+392:     for portal in portals {
+393:         let radial = direction_vector_2d(portal.facing);
+394:         let tangent = Vec2::new(-radial.y, radial.x);
+395:         let frame_centre = centre + radial * tower.radius_metres();
+396:         if portal.kind == TowerPortalKind::GroundStairEntrance {
+397:             for sign in [-1.0, 1.0] {
+398:                 let jamb = frame_centre + tangent * portal.width_metres * 0.58 * sign;
+399:                 spawn_box(
+400:                     world,
+401:                     &palette.stone,
+402:                     Vec3::new(0.2, portal.clear_height_metres, 0.2),
+403:                     Vec3::new(jamb.x, portal.clear_height_metres * 0.5, jamb.y),
+404:                     Quat::IDENTITY,
+405:                     "tower entrance jamb",
+406:                 );
+407:             }
+408:             spawn_box(
+409:                 world,
+410:                 &palette.stone,
+411:                 if radial.x.abs() > radial.y.abs() {
+412:                     Vec3::new(0.24, 0.22, portal.width_metres + 0.35)
+413:                 } else {
+414:                     Vec3::new(portal.width_metres + 0.35, 0.22, 0.24)
+415:                 },
+416:                 Vec3::new(
+417:                     frame_centre.x,
+418:                     portal.clear_height_metres + 0.11,
+419:                     frame_centre.y,
+420:                 ),
+421:                 Quat::IDENTITY,
+422:                 "tower entrance lintel",
+423:             );
+424:         } else {
+425:             let landing = centre + radial * (tower.radius_metres() - 0.15);
+426:             spawn_box(
+427:                 world,
+428:                 &palette.floor,
+429:                 if radial.x.abs() > radial.y.abs() {
+430:                     Vec3::new(1.3, 0.16, portal.width_metres)
+431:                 } else {
+432:                     Vec3::new(portal.width_metres, 0.16, 1.3)
+433:                 },
+434:                 Vec3::new(landing.x, portal.sill_elevation_metres + 0.12, landing.y),
+435:                 Quat::IDENTITY,
+436:                 "tower-to-wall-walk portal landing",
+437:             );
+438:         }
+439:     }
+440: }
+441: 
+442: #[allow(dead_code)]
+443: fn spawn_conical_roof(world: &mut World, material: &Handle<StandardMaterial>, roof: RoofPiece) {
+444:     let radius = roof.size.x.max(roof.size.y) * 0.5 + roof.eave_metres;
+445:     let height = radius * roof.pitch_degrees.to_radians().tan();
+446:     let mesh = world
+447:         .resource_mut::<Assets<Mesh>>()
+448:         .add(Cone::new(radius, height));
+449:     world.spawn((
+450:         Name::new("conical tower roof"),
+SOURCE 8 crates/adventuresim-building-generator/src/viewer/wall_rendering.rs 219f4297b8574c57fc43e9d420bc1d7e178c420e4a555612b77568c2beaf212b
+438: fn spawn_timber_beam(
+439:     world: &mut World,
+440:     material: &Handle<StandardMaterial>,
+441:     start: Vec3,
+442:     end: Vec3,
+443:     thickness: f32,
+444:     name: &'static str,
+445: ) {
+446:     let delta = end - start;
+447:     let length = delta.length();
+448:     if length <= 0.01 {
+449:         return;
+450:     }
+451:     spawn_box(
+452:         world,
+453:         material,
+454:         Vec3::new(thickness, length, thickness),
+455:         (start + end) * 0.5,
+456:         Quat::from_rotation_arc(Vec3::Y, delta / length),
+457:         name,
+458:     );
+459: }
+460: 
+461: #[allow(clippy::too_many_arguments)]
+462: fn spawn_wall_body(
+463:     world: &mut World,
+464:     material: &Handle<StandardMaterial>,
+465:     horizontal: bool,
+466:     centre: Vec2,
+467:     base_y: f32,
+468:     storey_height: f32,
+469:     depth: f32,
+470:     opening: Option<&Opening>,
+471: ) {
+472:     let Some(opening) = opening else {
+473:         spawn_wall_box_with_depth(
+474:             world,
+475:             material,
+476:             horizontal,
+477:             CELL_SIZE_METRES,
+478:             storey_height,
+479:             depth,
+480:             centre,
+481:             base_y,
+482:             "wall",
+483:         );
+484:         return;
+485:     };
+486:     let side_width = (CELL_SIZE_METRES - opening.width_metres) * 0.5;
+487:     for sign in [-1.0, 1.0] {
+488:         let offset = sign * (opening.width_metres + side_width) * 0.5;
+489:         let pier_centre = if horizontal {
+490:             centre + Vec2::X * offset
+491:         } else {
+492:             centre + Vec2::Y * offset
+493:         };
+494:         spawn_wall_box_with_depth(
+495:             world,

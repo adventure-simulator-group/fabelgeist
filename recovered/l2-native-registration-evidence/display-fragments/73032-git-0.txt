@@ -1,0 +1,28 @@
+1: #[reducer]
+2: pub fn travel_to_case_site(
+3:     ctx: &ReducerContext,
+4:     character_id: u64,
+5:     case_site_id: CaseSiteId,
+6: ) -> Result<(), String> {
+7:     require_strategic_gateway(ctx)?;
+8:     travel_to_case_site_impl(ctx, character_id, case_site_id.into_string(), None)
+9: }
+10: 
+11: #[reducer]
+12: pub fn travel_to_case_site_planned(
+13:     ctx: &ReducerContext,
+14:     character_id: u64,
+15:     case_site_id: CaseSiteId,
+16:     route: JourneyRoutePlan,
+17: ) -> Result<(), String> {
+18:     require_strategic_gateway(ctx)?;
+19:     travel_to_case_site_impl(ctx, character_id, case_site_id.into_string(), Some(route))
+20: }
+21: 
+22: fn authoritative_case_route_binding_digest(
+23:     departure_minute: StrategicMinute,
+24:     origin: &JourneyRoutePoint,
+25:     destination: &JourneyRoutePoint,
+26:     coordinates_are_geographic: bool,
+27:     distance_m: u64,
+28:     minutes: u64,

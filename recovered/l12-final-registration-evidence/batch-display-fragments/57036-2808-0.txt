@@ -1,0 +1,55 @@
+249: pub fn authority_test_resident_projection(
+250:     ctx: &ReducerContext,
+251:     bootstrap_token: String,
+252:     id: u64,
+253: ) -> Result<(), String> {
+254:     use crate::settlement_population::{
+255:         resolve_settlement_resident, settlement_resident_seed_explanation,
+256:     };
+257:     crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
+258:     let before = ctx
+259:         .db
+260:         .settlement_resident_seed_explanation()
+261:         .character_id()
+262:         .find(id)
+263:         .ok_or("Test resident explanation missing")?;
+264:     let mut character = ctx
+265:         .db
+266:         .character()
+267:         .id()
+268:         .find(id)
+269:         .ok_or("Test resident missing")?;
+270:     character.age_years = 60;
+271:     ctx.db.character().id().update(character);
+272:     let mut personality = ctx
+273:         .db
+274:         .character_personality()
+275:         .character_id()
+276:         .find(id)
+277:         .ok_or("Test resident personality missing")?;
+278:     personality.sex = Sex::Female;
+279:     personality.presentation = crate::personality::Presentation::Woman;
+280:     ctx.db
+281:         .character_personality()
+282:         .character_id()
+283:         .update(personality);
+284:     assign_authored_character_name(ctx, id.into(), "Current Resident".into())
+285:         .map_err(|error| error.to_string())?;
+286:     let current = resolve_settlement_resident(ctx, id).ok_or("Test resident join missing")?;
+287:     let after = ctx
+288:         .db
+289:         .settlement_resident_seed_explanation()
+290:         .character_id()
+291:         .find(id)
+292:         .ok_or("Test resident explanation disappeared")?;
+293:     if current.name != "Current Resident"
+294:         || current.presentation != crate::personality::Presentation::Woman
+295:         || current.sex != Sex::Female
+296:         || current.age_band != adventuresim_core::settlement_population::AgeBand::Elder
+297:         || current.profile.projection_id != id
+298:         || before.relations_json != after.relations_json
+299:     {
+300:         return Err("Resident current projection or historical provenance disagrees".into());
+301:     }
+302:     Ok(())
+303: }

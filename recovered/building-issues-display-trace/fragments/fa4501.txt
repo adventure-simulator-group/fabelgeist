@@ -1,0 +1,275 @@
+SOURCE crates/adventuresim-building-generator/src/audit/core.rs
+1: #[derive(Clone, Debug, Eq, PartialEq, Serialize, Deserialize)]
+2: pub struct AuditIssue {
+3:     pub code: &'static str,
+4:     pub message: String,
+5: }
+6: 
+7: pub fn audit_plan(plan: &BuildingPlan) -> Result<Vec<AuditIssue>> {
+8:     let mut issues = crate::heating::audit(plan)?;
+9:     audit_battlement_runs(plan, &mut issues);
+10: 
+11:     for (index, walk) in plan.wall_walks.iter().enumerate() {
+12:         if let WallWalk::Linear { width_metres, .. } = walk
+13:             && *width_metres < 0.9
+14:         {
+15:             issues.push(issue(
+16:                 "wall_walk_too_narrow",
+17:                 format!("wall walk {index} is only {width_metres:.2} m wide"),
+18:             ));
+19:         }
+20:         if let WallWalk::RectangularDeck {
+21:             stairwell_centre,
+22:             stairwell_size,
+23:             elevation_metres,
+24:             ..
+25:         } = walk
+26:         {
+27:             if stairwell_size.min_element() < 0.9 {
+28:                 issues.push(issue(
+29:                     "stairwell_too_small",
+30:                     format!("rectangular deck {index} has an undersized stairwell"),
+31:                 ));
+32:             }
+33:             if !plan.stairs.iter().any(|stair| {
+34:                 matches!(
+35:                     stair,
+36:                     Stair::Spiral { centre, base_height_metres, rise_metres, .. }
+37:                         if close_vec(*centre, *stairwell_centre)
+38:                             && close(*base_height_metres + *rise_metres, *elevation_metres)
+39:                 )
+40:             }) {
+41:                 issues.push(issue(
+42:                     "inaccessible_rectangular_deck",
+43:                     format!("rectangular deck {index} has no stair reaching its stairwell"),
+44:                 ));
+45:             }
+46:         }
+47:     }
+48: 
+49:     audit_defensive_circuit(plan, &mut issues);
+50:     audit_structural_assemblies(plan, &mut issues)?;
+51: 
+52:     if matches!(
+53:         plan.archetype,
+54:         BuildingArchetype::CourtyardCastle | BuildingArchetype::WalledKeep
+55:     ) {
+56:         audit_walk_roof_clearance(plan, &mut issues);
+57:     }
+58: 
+59:     for (index, tower) in plan.towers.iter().enumerate() {
+60:         if tower.battlement.is_some() && tower.roof.is_some() {
+61:             issues.push(issue(
+62:                 "obstructed_tower_deck",
+63:                 format!("tower {index} has both a roof and an open fighting crown"),
+64:             ));
+65:         }
+66:         let deck = plan.wall_walks.iter().any(|walk| {
+67:             matches!(
+68:                 walk,
+69:                 WallWalk::Round { centre, elevation_metres, .. }
+70:                     if close_vec(*centre, tower.centre_metres())
+71:                         && close(*elevation_metres, tower.wall_height_metres)
+72:             )
+73:         });
+74:         let access = plan.stairs.iter().any(|stair| {
+75:             matches!(
+76:                 stair,
+77:                 Stair::Spiral { centre, base_height_metres, rise_metres, .. }
+78:                     if close_vec(*centre, tower.centre_metres())
+79:                         && close(*base_height_metres + *rise_metres, tower.wall_height_metres)
+80:             )
+81:         });
+82:         if tower.battlement.is_some() && !deck {
+83:             issues.push(issue(
+84:                 "missing_tower_deck",
+85:                 format!("battlemented tower {index} has no annular fighting deck"),
+86:             ));
+87:         }
+88:         if tower.battlement.is_some() && !access {
+89:             issues.push(issue(
+90:                 "inaccessible_tower_deck",
+91:                 format!("battlemented tower {index} has no stair reaching its deck"),
+92:             ));
+93:         }
+94:     }
+95: 
+96:     for (index, wall) in plan.curtain_walls.iter().enumerate() {
+97:         if !plan.battlements.iter().any(|run| {
+98:             same_run(run.start, run.end, wall.start, wall.end)
+99:                 && close(run.base_height_metres, wall.height_metres)
+100:                 && run.outward == wall.outward
+101:         }) {
+102:             issues.push(issue(
+103:                 "unprotected_curtain_wall",
+104:                 format!("curtain wall {index} has no outward-facing parapet"),
+105:             ));
+106:         }
+107:     }
+108:     audit_fortified_profile(plan, &mut issues);
+109:     audit_gatehouse_assemblies(plan, &mut issues);
+110:     Ok(issues)
+111: }
+112: 
+SOURCE crates/adventuresim-building-generator/src/audit.rs
+1: use crate::solid_overlap::overlaps_bounds as resolved_solid_overlaps_bounds;
+2: use std::collections::{BTreeMap, BTreeSet, VecDeque};
+3: 
+4: use bevy::math::{Quat, Vec2, Vec3};
+5: use geo::{Area, BooleanOps, Coord, LineString, MultiPolygon, Polygon};
+6: use serde::{Deserialize, Serialize};
+7: 
+8: use crate::{
+9:     BattlementKind, BuildingArchetype, BuildingPlan, CROWN_DRAIN_CHANNEL_WIDTH_METRES,
+10:     CrownJunctionKind, CrownPath, DefensiveCircuit, DefensiveJunction, DefensiveJunctionKind,
+11:     Direction, GateClosureKind, OpeningKind, ProjectedDefenseDeployment, ProjectedDefenseKind,
+12:     ProjectedDefenseMaterial, ProjectedDefensePath, ProjectedDefensePhase, ProjectedDefenseTarget,
+13:     ResolvedItemId, ResolvedSolid, RoofEdgeKind, RoofPiece, RoomKind, SolidRole, Stair,
+14:     StructuralNodeId, SurfaceRole, TowerPortalKind, VoidRole, WALL_THICKNESS_METRES, WallWalk,
+15: };
+16: 
+17: /// Audit operations that can fail with a generation error.
+18: use crate::GenerationResult as Result;
+19: 
+20: include!("audit/core.rs");
+21: include!("audit/vertical_circulation.rs");
+22: include!("audit/artillery.rs");
+23: mod artillery_clearance;
+24: mod bell_hanging;
+25: mod bell_swing;
+26: mod bonding_metrics;
+27: use bonding_metrics::{bonded_geometry_matches, resolved_plan_overlap_area};
+28: #[cfg(test)]
+29: mod spatial_tests;
+30: include!("audit/timber_geometry.rs");
+31: include!("audit/timber.rs");
+32: include!("audit/church.rs");
+33: include!("audit/roofs.rs");
+34: #[path = "audit/bearing.rs"]
+35: mod bearing;
+36: mod church_program;
+37: mod crown_profile;
+38: pub(crate) mod enclosure;
+39: mod enclosure_geometry;
+40: mod enclosure_sections;
+41: mod gable_enclosure;
+42: mod gable_openings;
+43: mod junction_bearing;
+44: mod projected_defense_program;
+45: mod roof_graph;
+46: mod shed_dormers;
+47: #[path = "audit/support.rs"]
+48: mod support;
+49: mod timber_bracing;
+50: mod timber_roof_contacts;
+51: mod wall_frame;
+52: 
+53: #[path = "audit/wall_counts.rs"]
+54: mod wall_counts;
+55: include!("audit/wall_openings.rs");
+56: include!("audit/window_closures.rs");
+57: include!("audit/resolved_geometry_helpers.rs");
+58: include!("audit/resolved_geometry.rs");
+59: include!("audit/crowns.rs");
+60: include!("audit/projected_defenses.rs");
+61: include!("audit/gatehouses.rs");
+62: include!("audit/fortification_geometry.rs");
+63: include!("audit/fortified_profile.rs");
+64: include!("audit/gate_defenses.rs");
+65: include!("audit/guard_chambers.rs");
+66: include!("audit/guard_access.rs");
+67: include!("audit/ballistics.rs");
+68: include!("audit/defensive_circuits.rs");
+69: include!("audit/shared_helpers.rs");
+70: include!("audit/roof_timber_checks.rs");
+71: include!("audit/timber_intersections.rs");
+72: include!("audit/mesh.rs");
+73: include!("audit/tests.rs");
+SOURCE crates/adventuresim-building-generator/src/lib.rs
+1: //! Audited semantic and geometric recipes for procedural buildings.
+2: //!
+3: //! This crate intentionally has no dependency on either the strategic or the
+4: //! tactical runtime. It turns a high-level [`BuildingProgram`] into a bounded,
+5: //! deterministic [`BuildingPlan`] consumed by the viewer and tactical city adapter.
+6: 
+7: mod arch_geometry;
+8: mod audit;
+9: mod axle;
+10: mod bell;
+11: mod church_programme;
+12: mod collision;
+13: mod detail;
+14: mod doors;
+15: mod entrances;
+16: pub use entrances::{
+17:     BuildingEntrance, BuildingEntranceId, BuildingEntranceSupport, EntranceError,
+18:     PassageEntranceSide, compile_ground_entrances,
+19: };
+20: #[cfg(test)]
+21: mod enclosure_tests;
+22: pub mod furniture;
+23: mod gable_frame;
+24: mod generator;
+25: mod geometry_index;
+26: mod heating;
+27: pub mod interior;
+28: mod lod;
+29: mod member_uv;
+30: mod model;
+31: pub mod plan_geometry;
+32: mod roof_enclosure;
+33: mod roof_tessellation;
+34: mod settlement;
+35: pub mod signs;
+36: mod solid_overlap;
+37: pub mod spatial_geometry;
+38: pub mod spiral_stairs;
+39: mod windows;
+40: mod workplace;
+41: pub use settlement::{ServiceBuildingSize, settlement_archetype};
+42: pub use workplace::{
+43:     PartAuthority, WorkplaceConstructionError, WorkplaceFeature, WorkplaceKind, WorkplaceMaterial,
+44:     WorkplacePart, WorkplacePassage, WorkplacePassageId, WorkplacePassagePurpose, WorkplacePlan,
+45:     WorkplaceSurface,
+46: };
+47: 
+48: pub use audit::{AuditIssue, MeshAuditReport, audit_plan, audit_triangle_mesh};
+49: pub use collision::{
+50:     BuildingCollision, CollisionCuboid, CollisionError, CollisionResult, CuboidCorners,
+51:     GroundContact, GroundFloorFootprint, compile_building_collision,
+52: };
+53: pub use detail::{
+54:     BUILDING_DETAIL_UV_METRES_PER_UNIT, BuildingDetail, BuildingKit, TimberComponent,
+55:     TimberInstance, compile_building_detail, compile_solid_detail, compile_static_building_detail,
+56: };
+57: pub use doors::{DoorError, DoorErrorCause, DoorSpec, compile_operable_doors};
+58: pub use generator::small_church::{SmallChurchKind, SmallChurchPlan};
+59: pub use generator::{
+60:     AllocationFailure, GenerationError, GenerationResult, ReservationFailure, edit_document,
+61:     generate, generate_document, set_roof_pitch,
+62: };
+63: pub use heating::{
+64:     DomesticHeatingPlan, DomesticHeatingProgramme, HeatingConstructionError,
+65:     HeatingFloorPenetration, HeatingPart, HeatingPartKind, HeatingPassage, HeatingPassageKind,
+66:     HeatingRoofPenetration, HeatingRoom,
+67: };
+68: pub use lod::{
+69:     BuildingLod, BuildingLodLevel, BuildingLodMaterial, FacadeRun, FacadeRunPath, LodMesh,
+70:     LodVertex, compile_building_lod, compile_program_shell, compile_static_building_lod,
+71: };
+72: pub use model::*;
+73: pub use roof_tessellation::{
+74:     RoofSurface, RoofSurfaceTriangle, tessellate_roof_enclosure, tessellate_roof_face,
+75: };
+76: pub use windows::{
+77:     WindowBarPresence, WindowBarSpec, WindowError, WindowErrorCause, WindowLeafKind, WindowResult,
+78:     WindowSpec, compile_operable_windows, compile_window_bars, compile_window_leaf,
+79: };
+80: 
+81: #[cfg(test)]
+82: mod mixed_construction_tests;
+83: 
+84: #[cfg(test)]
+85: mod storage_range_tests;
+86: 
+87: pub use spatial_geometry::{Architectural, SpatialBounds};

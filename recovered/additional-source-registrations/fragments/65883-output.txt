@@ -1,0 +1,11 @@
+301: fn validate_generated_plan(plan: BuildingPlan) -> GenerationResult<BuildingPlan> {
+302:     let issues = crate::audit_plan(&plan)?;
+303:     if issues.is_empty() {
+304:         Ok(plan)
+305:     } else {
+306:         Err(GenerationError::StructuralContract {
+307:             issues_count: issues.len(),
+308:             issues,
+309:         })
+310:     }
+311: }

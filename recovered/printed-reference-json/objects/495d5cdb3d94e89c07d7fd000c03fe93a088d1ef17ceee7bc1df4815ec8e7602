@@ -1,0 +1,47 @@
+{
+  "packet": {
+    "path": "adler-continuation-20261030/READ-ROOT-L13-2359-2360-001.json",
+    "sha256": "8ddfe4b7ed04040dfee7bdc144b43046f14cfa21578035b8f96d9aac24d9a5ad"
+  },
+  "ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "af4a8158c3e00ef7140cef82b648bbc459ddbff00ad8215c940468a68f96e9c9"
+  },
+  "selector": {
+    "path": "CURRENT-ADLER.json",
+    "sha256": "6f7a68ea95ff9dcaa1d456d80646cd3b8cb9bc9683f5d5668678364f9dcfc9ae"
+  },
+  "queue": {
+    "path": "workflow-20261030/CLOSURE-QUEUE-588.json",
+    "sha256": "69663a8f799e1bf13467c99799ecf0ee881269430ae79445a906ec2c648b1b9a"
+  },
+  "selected_lenses": {
+    "path": "adler-continuation-20261030/SELECTED-LENSES-CONTINUATION-326.json",
+    "sha256": "1afcd38d7794dfc23505b9cc95d926dfc346ea19467bae8d975da25fe551a525"
+  },
+  "previous_state": {
+    "path": "segovb/STATE-L13-PARALLEL-634.json",
+    "sha256": "07f602e209fe0a7248a445f73585c2d79fa3ea72f13260ea66e72968b2e5fb7e"
+  },
+  "root_sequence": 635,
+  "queue_sequence": 589,
+  "next_selected_lenses_filename": "SELECTED-LENSES-CONTINUATION-327.json",
+  "prior_reuses": [
+    {
+      "kind": "exact_regional2359",
+      "original": 2359,
+      "adoption": {
+        "path": "segovb/READ-L13-PARALLEL-016.json",
+        "sha256": "d763dd06195bda4d65f2181dd89d0e01c050f2f83d328f3d43f0eedc0f3677fa"
+      },
+      "qualification": {
+        "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2359-REGIONAL-REUSE-001.json",
+        "sha256": "3a39ae99f477837ff8d1e62c12f73a5db1e5a14c7ca591d0709632b67457dc0f"
+      }
+    }
+  ],
+  "regional_reuse_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2359-REGIONAL-REUSE-001.json",
+    "sha256": "3a39ae99f477837ff8d1e62c12f73a5db1e5a14c7ca591d0709632b67457dc0f"
+  }
+}

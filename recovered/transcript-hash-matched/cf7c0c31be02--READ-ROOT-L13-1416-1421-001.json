@@ -1,0 +1,522 @@
+{
+  "schema": "726-root-l13-source-packet-v1",
+  "at": "2026-10-31T08:12:35.863994+00:00",
+  "lens": 13,
+  "author": "/root",
+  "original_before": 1416,
+  "original_after": 1422,
+  "registered_before_read_attestation": true,
+  "connected": [],
+  "prior_same_lens_adoptions": [],
+  "new_root_ordered_lines": 647,
+  "new_root_connected_reread_lines": 0,
+  "accepted_unique_count_change": 0,
+  "other_population_credit": 0,
+  "current_source_reconciled": false,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "new_questions": [],
+  "ordered": [
+    {
+      "source": {
+        "original": 1416,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs",
+        "sha256": "974eb0a6fc0c028f246576cd03e2ba83b772d47befe3a2593663c1d38339dd68",
+        "actual_eof": 59,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/974eb0a6fc0c028f246576cd03e2ba83b772d47befe3a2593663c1d38339dd68",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            59
+          ]
+        ],
+        "purpose": "Full Lens 13 capture snapshots, overlay, readiness, repeated evaluation and root/subject motion contracts. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1416-1421-001.json",
+        "sha256": "20224bd6d37815cc8c28c5a46b8eeb88f0855d0b041af6390134fd1c91efefc1"
+      },
+      "registration_pointer": "/sources/0",
+      "assessed_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              59
+            ]
+          ],
+          "assessment": "GlobalBoneFrame copies scenario label and scalar time, subject position/rotation and all target/bind/global bones whose bind owner matches subject. Native decomposition produces raw position/quaternion/scale arrays without local finite admission. Missing names serialize as explicit display placeholder; ordering compares display name then still-native AnimationTargetId before dropping native key. Actual DTO consumers and serialized numeric validation remain necessary; no canonical bone restriction is implied for this all-target trace."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1417,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/overlay.rs",
+        "sha256": "52776510686b004cc99d1cc9373424cffdfbad85172cc116f47bb8b15a13f0aa",
+        "actual_eof": 80,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/52776510686b004cc99d1cc9373424cffdfbad85172cc116f47bb8b15a13f0aa",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            80
+          ]
+        ],
+        "purpose": "Full Lens 13 capture snapshots, overlay, readiness, repeated evaluation and root/subject motion contracts. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1416-1421-001.json",
+        "sha256": "20224bd6d37815cc8c28c5a46b8eeb88f0855d0b041af6390134fd1c91efefc1"
+      },
+      "registration_pointer": "/sources/1",
+      "assessed_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              80
+            ]
+          ],
+          "assessment": "Overlay skips gameplay view, requires one subject and admitted animation speed, maps owner bones by role and draws available canonical connections. Duplicate role map replacement follows query traversal, requiring actual rig uniqueness before discrepancy claims. Support visualization deliberately uses logical locomotion_support_weights, not final measured IK support. Threshold .55 and glyph dimensions are display policy; support failure logs after skeleton lines may already be drawn. It is not report acceptance."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1418,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/readiness.rs",
+        "sha256": "2e535e01db3e5692c7f0955fab779a341ffe7d4edb246f4a987e288231223868",
+        "actual_eof": 32,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/2e535e01db3e5692c7f0955fab779a341ffe7d4edb246f4a987e288231223868",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            32
+          ]
+        ],
+        "purpose": "Full Lens 13 capture snapshots, overlay, readiness, repeated evaluation and root/subject motion contracts. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1416-1421-001.json",
+        "sha256": "20224bd6d37815cc8c28c5a46b8eeb88f0855d0b041af6390134fd1c91efefc1"
+      },
+      "registration_pointer": "/sources/2",
+      "assessed_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              32
+            ]
+          ],
+          "assessment": "Readiness consumes warmup one call at a time before checking required motion on scenario frame zero. It requires runtime motion processed and optional playback presentation settled, resets readiness count on failure and requires two successful observations. Other frames return true here. Actual driver earlier authored readiness and harness timeout are separate; processed must be interpreted at its runtime owner before equating with usable motion."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1419,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+        "sha256": "6255135aec06f6ce010b7bb960723b059db57684bf009fa48ad2fe9a8e754d23",
+        "actual_eof": 214,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/6255135aec06f6ce010b7bb960723b059db57684bf009fa48ad2fe9a8e754d23",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            214
+          ]
+        ],
+        "purpose": "Full Lens 13 capture snapshots, overlay, readiness, repeated evaluation and root/subject motion contracts. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1416-1421-001.json",
+        "sha256": "20224bd6d37815cc8c28c5a46b8eeb88f0855d0b041af6390134fd1c91efefc1"
+      },
+      "registration_pointer": "/sources/3",
+      "assessed_ranges": [
+        [
+          1,
+          214
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              89
+            ]
+          ],
+          "assessment": "First view captures scenario/frame, filtered CapturedBones, skeleton contact/landing sequences, total event vector length and LegIkDiagnostics. Later views compare if baseline exists and monotonically accumulate validity; absent baseline leaves validity unchanged. It does not snapshot all procedural state, root/global target set, timestamps or event payload contents. Expected invariant is selected repeated logical-sample observations, not full-state equality."
+        },
+        {
+          "ranges": [
+            [
+              91,
+              129
+            ]
+          ],
+          "assessment": "Bone comparison rejects missing/extra keys with diagnostic infinity deltas, then computes native position distance and quaternion angle with direct-dot identity shortcut. It uses greater-than tolerance predicates (.0005 m, .05 degrees) without explicit finite checks; nonfinite computed deltas do not necessarily select mismatch. Valid native input/rotation requirements and downstream frame validation must be established before promoting a reachable acceptance bypass. Finite nonunit frames are not globally forbidden by this observation."
+        },
+        {
+          "ranges": [
+            [
+              131,
+              180
+            ]
+          ],
+          "assessment": "IK comparison checks optional target vectors and support/settle fractions with <= tolerances, explicit release booleans and plain yaw differences. None/None matches, presence mismatch fails. Numeric NaN handling differs from greater-than bone mismatch; supported diagnostics producers and required presence still determine validity. Plain successful-zero yaw cannot encode missing observation."
+        },
+        {
+          "ranges": [
+            [
+              182,
+              214
+            ]
+          ],
+          "assessment": "Tests read only: missing/extra bone key fixture actually calls mismatch and checks identical moderate sample. Hidden-IK-state-mutation test only assert_ne on baseline versus changed diagnostics; it never calls repeated_leg_ik_matches or record_repeated_evaluation. No tolerance boundaries, native nonfinite input, missing baseline or complete multi-view scheduling acceptance is shown."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1420,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+        "sha256": "40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+        "actual_eof": 136,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            136
+          ]
+        ],
+        "purpose": "Full Lens 13 capture snapshots, overlay, readiness, repeated evaluation and root/subject motion contracts. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1416-1421-001.json",
+        "sha256": "20224bd6d37815cc8c28c5a46b8eeb88f0855d0b041af6390134fd1c91efefc1"
+      },
+      "registration_pointer": "/sources/4",
+      "assessed_ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              49
+            ]
+          ],
+          "assessment": "CaptureGround explicitly selects terrain or checked authored plane. collect_bones filters owner and reportable roles, copies raw global position/rotation and optional terrain clearance. Invalid terrain footprint or missing terrain sample becomes absent clearance; complete position and rotation are not admitted here. The authored-plane path remains a deliberate alternate observation authority, not a terrain fallback. Duplicate roles and native decomposition require producer guarantees."
+        },
+        {
+          "ranges": [
+            [
+              51,
+              94
+            ]
+          ],
+          "assessment": "Initial root requires origin terrain height and checked completed position before replacing translation/rotation while retaining scale. Fixture root admits completed horizontal footprint before height query and completed XYZ before Bevy. Quickstep always requires terrain; enabled IK uses required height, disabled ordinary mode retains current Y. Positive checked result is the boundary, not each intermediate native multiplication."
+        },
+        {
+          "ranges": [
+            [
+              96,
+              136
+            ]
+          ],
+          "assessment": "Ragdoll fixture uses bounded smoothstep of scenario index to compose root rotation and checked complete translation. Index+4 and native rotations rely on actual bounded authored plan. capture_ground with disabled IK admits root-derived SupportElevation and rejects invalid elevation explicitly, never silently selects terrain. Enabled terrain returns Terrain authority; individual bone clearance remains optional in collection."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1421,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs",
+        "sha256": "863b3c4fafe43198495f75878f9544b5af7fd3cccd198a88c0cc37042c390981",
+        "actual_eof": 126,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/863b3c4fafe43198495f75878f9544b5af7fd3cccd198a88c0cc37042c390981",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            126
+          ]
+        ],
+        "purpose": "Full Lens 13 capture snapshots, overlay, readiness, repeated evaluation and root/subject motion contracts. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1416-1421-001.json",
+        "sha256": "20224bd6d37815cc8c28c5a46b8eeb88f0855d0b041af6390134fd1c91efefc1"
+      },
+      "registration_pointer": "/sources/5",
+      "assessed_ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              63
+            ]
+          ],
+          "assessment": "CaptureMotion retains typed elapsed/contact and native orientation/velocity. Facing assigns only successful advance_body_facing outside posture transition. Motion input is admitted before controller projection; jump state updates after success. Posture advancement can mutate skeleton before a fallible facing delta, and final rotation product is normalized natively with no local completed finite admission. Actual authored inputs and downstream terminal rejection define applicability; no unbounded invalid fixture witness assumed."
+        },
+        {
+          "ranges": [
+            [
+              65,
+              126
+            ]
+          ],
+          "assessment": "Fixture action start is explicit by action and frame; contact tick saturating-adds 19 attack or 64 ordinary action ticks, quickstep half-span separately. Actual begin_attack/dodge/block and quickstep direction errors are asserted with expect rather than propagated here. This is source policy requiring actual authored plan/tick/state bounds and applicable crate-rule reconciliation, not proof that valid finite fixture inputs fail. No backward-compatible runtime alias is introduced by these actions."
+        }
+      ]
+    }
+  ],
+  "contract_revisits_pending_queue_adoption": [
+    {
+      "contract_id": "ROOT-L13-1356-FIXED-POSE-CACHE-LIFETIME",
+      "status": "Exact frozen capture-helper evidence; native/current and acceptance obligations retained.",
+      "canonical_owner": "ProceduralAnimationClock fixed sample identity, FixedTickPoseCache and post-procedural MhrBone transform stabilization across repeated renders.",
+      "disposition": "Repeated evaluation compares selected reportable bone transforms, skeleton contact/landing counters, total event count and selected IK diagnostics across views. Missing baseline is not itself rejected. It does not prove all backing state or full global target trace equality. Readiness consumes warmup and needs two successful processed-motion/settled observations on required frame zero. Hidden-mutation fixture does not call the comparison helper, so actual multi-view and source-reset acceptance remains required.",
+      "source_pointers": [
+        {
+          "pointer": "/ordered/2",
+          "ranges": [
+            [
+              1,
+              32
+            ]
+          ]
+        },
+        {
+          "pointer": "/ordered/3",
+          "ranges": [
+            [
+              1,
+              214
+            ]
+          ]
+        }
+      ],
+      "remaining_evidence": [
+        "Actual first-view baseline lifecycle, fixed cache and full supported repeated-view scheduling.",
+        "Required complete visual/backing-state scope versus selected diagnostic comparison and report acceptance.",
+        "Current sources and exact aliases; targeted helper and integrated repeat/new-sample acceptance."
+      ]
+    },
+    {
+      "contract_id": "ROOT-L13-1331-POSE-TERRAIN-NUMERIC-ADMISSION",
+      "status": "Exact frozen capture-helper evidence; native/current and acceptance obligations retained.",
+      "canonical_owner": "Admitted rig bind/proportion/owner transforms and native pose terrain two-bone solve numerical preconditions.",
+      "disposition": "Root position helpers check completed footprints/positions and explicit authored-plane elevation, while global/reportable bone capture copies native decomposition arrays without local admission. Repeated bone mismatch uses > predicates over native distance/angle without finite checks; supported producer validity and downstream gates determine whether invalid data can pass. IK comparator uses <= and explicit option presence. Posture facing final normalization also relies on native input contracts.",
+      "source_pointers": [
+        {
+          "pointer": "/ordered/0",
+          "ranges": [
+            [
+              1,
+              59
+            ]
+          ]
+        },
+        {
+          "pointer": "/ordered/3",
+          "ranges": [
+            [
+              91,
+              180
+            ]
+          ]
+        },
+        {
+          "pointer": "/ordered/4",
+          "ranges": [
+            [
+              18,
+              136
+            ]
+          ]
+        },
+        {
+          "pointer": "/ordered/5",
+          "ranges": [
+            [
+              35,
+              63
+            ]
+          ]
+        }
+      ],
+      "remaining_evidence": [
+        "Actual GlobalTransform/decomposition, captured bone and DTO finite/rotation validation policies.",
+        "Supported authored pose/root/proportion and native quaternion/inverse contracts; preserve finite nonunit semantics.",
+        "Current source and exact aliases; invalid versus unavailable observation and native final result acceptance."
+      ]
+    },
+    {
+      "contract_id": "ROOT-L13-1331-POSE-PUBLICATION-OUTCOME",
+      "status": "Exact frozen capture-helper evidence; native/current and acceptance obligations retained.",
+      "canonical_owner": "PoseBufferRig observation/sample/transition/application state and authored target publication; readiness/capture consumers.",
+      "disposition": "Readiness explicitly separates warmup, processed required motion and settled playback before driver marks applied. Global snapshots and reportable bone samples have different populations and native numeric boundaries. Subject projection admits controller input but can update skeleton before later posture delta failure; fixture action admission uses expects requiring actual plan/rule reconciliation. Full terminal capture path and eventual report still own success.",
+      "source_pointers": [
+        {
+          "pointer": "/ordered/0",
+          "ranges": [
+            [
+              5,
+              59
+            ]
+          ]
+        },
+        {
+          "pointer": "/ordered/2",
+          "ranges": [
+            [
+              1,
+              32
+            ]
+          ]
+        },
+        {
+          "pointer": "/ordered/4",
+          "ranges": [
+            [
+              51,
+              136
+            ]
+          ]
+        },
+        {
+          "pointer": "/ordered/5",
+          "ranges": [
+            [
+              13,
+              126
+            ]
+          ]
+        }
+      ],
+      "remaining_evidence": [
+        "Actual runtime motion_is_processed/presentation_is_settled, authored plan generators and harness timeouts.",
+        "Controller/posture/action admission and terminal failure/report behavior with exact native causes.",
+        "Current source and aliases, including inherited fixture-action qualified review; no invented valid-input failure."
+      ]
+    },
+    {
+      "contract_id": "ADLER-L11-RAISED-SUPPORT-OBSERVATION-DISPATCH",
+      "status": "Exact frozen capture-helper evidence; native/current and acceptance obligations retained.",
+      "canonical_owner": "One per-foot final support observation at post-propagation/capture boundary, keeping logical step topology separate from measured contact confidence.",
+      "disposition": "Overlay uses logical locomotion support while reportable bones measure optional terrain clearance; these are separate observation roles. Repeated evaluation compares IK support options but not the earlier capture-selected RaisedFootworkState general support values, and checks skeleton contact sequence rather than the report-selected raised step sequence. Exact measured-versus-owned role and current late-resnapshot qualifications remain required.",
+      "source_pointers": [
+        {
+          "pointer": "/ordered/1",
+          "ranges": [
+            [
+              20,
+              80
+            ]
+          ]
+        },
+        {
+          "pointer": "/ordered/3",
+          "ranges": [
+            [
+              5,
+              59
+            ],
+            [
+              131,
+              180
+            ]
+          ]
+        },
+        {
+          "pointer": "/ordered/4",
+          "ranges": [
+            [
+              18,
+              49
+            ]
+          ]
+        }
+      ],
+      "remaining_evidence": [
+        "Actual raised step/cache fields, final propagated observation and every report support/sequence consumer.",
+        "Intended overlay semantics and repeated-evaluation coverage of capture-selected values.",
+        "Current qualifications, native applicability and exact aliases; no unconditional support discrepancy asserted."
+      ]
+    },
+    {
+      "contract_id": "ADLER-L11-KNEE-YAW-MISSING-OBSERVATION-ZERO",
+      "status": "Exact frozen capture-helper evidence; native/current and acceptance obligations retained.",
+      "canonical_owner": "Per-leg knee-yaw observation at final measurement/publication boundary, retaining existing AngularMagnitudeDegrees for successful observations.",
+      "disposition": "Repeated IK comparison treats plain yaw magnitude equality within .05 degrees as stable, so repeated default zero cannot establish that a per-leg measurement occurred. Optional support/targets have explicit presence comparisons, underscoring the separate unavailable-yaw contract. No new canonical owner or blanket native rotation restriction is proposed.",
+      "source_pointers": [
+        {
+          "pointer": "/ordered/3",
+          "ranges": [
+            [
+              131,
+              180
+            ],
+            [
+              200,
+              214
+            ]
+          ]
+        }
+      ],
+      "remaining_evidence": [
+        "Actual per-leg observation producers/defaults and supported missing measurement cases.",
+        "Capture/report alignment acceptance and stable unavailable-versus-successful-zero representation.",
+        "Current source and exact aliases; normal mirrored finite nonunit frame behavior preserved."
+      ]
+    }
+  ]
+}

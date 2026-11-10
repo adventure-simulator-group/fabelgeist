@@ -1,0 +1,738 @@
+{
+  "schema": "726-root-l13-source-packet-v1",
+  "at": "2026-10-31T09:21:43.100788+00:00",
+  "lens": 13,
+  "author": "/root",
+  "original_before": 1477,
+  "original_after": 1486,
+  "registered_before_read_attestation": true,
+  "connected": [],
+  "prior_same_lens_adoptions": [],
+  "new_root_ordered_lines": 2178,
+  "new_root_connected_reread_lines": 0,
+  "accepted_unique_count_change": 0,
+  "other_population_credit": 0,
+  "current_source_reconciled": false,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "new_questions": [
+    {
+      "contract_id": "ROOT-L13-1480-EQUIPMENT-READINESS-COVERAGE",
+      "canonical_owner": "EquipmentReadiness requested item set and per-item placeholder/render-part coverage under actual spawn/rebuild/native binding lifecycle.",
+      "first_failed_contract_or_unresolved_question": "check counts ready matching roots and compares with number of distinct requested items, without proving each requested item has its own ready root or a rendered part. Two ready roots for one requested item can numerically substitute for a missing other item if that population is supported. Existing parent rebuild/one-root fixtures may exclude this state; establish exact lifecycle uniqueness and intended part-free equipment policy before classifying. No ordinary duplicate-root event or GPU-ready claim is asserted.",
+      "source_originals": [
+        1477,
+        1480,
+        1481,
+        1484,
+        1485
+      ],
+      "remaining_evidence": [
+        "Actual production visual schedule/deferred command synchronization, placeholder creation/rebuild/removal and all readiness callers.",
+        "Required one-root-per-item and generated part existence/visibility policy, including empty model and failed/stale children.",
+        "Native local/inherited visibility, skin binding and GPU readiness meaning; exact current sources/aliases."
+      ],
+      "dependencies": [
+        "ADLER-L11-RUNTIME-EQUIPMENT-FAILURE-OWNERSHIP; separate error-cause dimension",
+        "Equipment placeholder spawn and runtime generation/binding owners"
+      ],
+      "closure_condition": [
+        "Trace each requested item through root/part lifecycle and actual consumer. Document proved uniqueness/coverage invariant, explicit unsupported duplicate/part-free state, or supported acceptance defect; do not infer rendering success from a count."
+      ],
+      "later_repair_acceptance_requirements": [
+        "Readiness for a requested set requires the declared ready representation for every requested identity; duplicate coverage cannot conceal a missing item.",
+        "Pending, unavailable and failed item preparation remain explicit; legitimate empty requested set and supported part-free items retain declared behavior.",
+        "Existing hold/drop/refit and invalid-placement recovery preserve readiness semantics; native displayed-frame proof remains separate."
+      ]
+    }
+  ],
+  "ordered": [
+    {
+      "source": {
+        "original": 1477,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/placeholder_update.rs",
+        "sha256": "a424e97712e998e237be73411cbc824e915ea7e23cdecbaf14c7cdf7e47a13ad",
+        "actual_eof": 139,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/a424e97712e998e237be73411cbc824e915ea7e23cdecbaf14c7cdf7e47a13ad",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            139
+          ]
+        ],
+        "purpose": "Full Lens13 equipment attachment, preview, render binding/readiness and runtime body/fit generation evidence. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1477-1485-001.json",
+        "sha256": "b528062675b11c2e94b9a5dbe81a34234992791199bf6c759e759a05c192fe09"
+      },
+      "registration_pointer": "/sources/0",
+      "assessed_ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              100
+            ]
+          ],
+          "assessment": "Attachment update despawns placeholder when mandatory item Transform/Topology query fails; failure tag hides and removes held constraint. Scene placement detaches parent/copies item native Transform; resolved worn procedural attaches identity to rig scene; held branch requires weapon-role constraint; generic worn uses bone/correction. Missing rig/attachment hides explicitly. Deferred Commands ordering and actual native fit/skin schedule remain connected."
+        },
+        {
+          "ranges": [
+            [
+              102,
+              139
+            ]
+          ],
+          "assessment": "Held constraint requires corresponding Weapon bone and no secondary grip. Worn attachment resolves a body location to bone, then consumes generated socket directly or computes bind correction. Comment says sockets pelvis-local, but selected bone comes from location; actual socket generator/catalogue restriction to pelvis locations must establish frame compatibility before any defect claim."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1478,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/placeholder_visual.rs",
+        "sha256": "43be98d339543f652eed674fbce2d8ceb5f22f1720fcd5758219f0535e494510",
+        "actual_eof": 63,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/43be98d339543f652eed674fbce2d8ceb5f22f1720fcd5758219f0535e494510",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            63
+          ]
+        ],
+        "purpose": "Full Lens13 equipment attachment, preview, render binding/readiness and runtime body/fit generation evidence. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1477-1485-001.json",
+        "sha256": "b528062675b11c2e94b9a5dbe81a34234992791199bf6c759e759a05c192fe09"
+      },
+      "registration_pointer": "/sources/1",
+      "assessed_ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              63
+            ]
+          ],
+          "assessment": "Generated parts use native cached mesh/material and translation minus admitted-generator grip; fallback cuboid uses dimensions and minus physical anchor supplied by parent is_valid gate. Outline constants are presentation-only. Actual physical/generator quantity guarantees remain upstream, not new arbitrary malformed geometry claim."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1479,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/preview.rs",
+        "sha256": "650387466e93e9e4fca78192a92d693a82d7df3669d21a2e4bf8990921d48e17",
+        "actual_eof": 437,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/650387466e93e9e4fca78192a92d693a82d7df3669d21a2e4bf8990921d48e17",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            437
+          ]
+        ],
+        "purpose": "Full Lens13 equipment attachment, preview, render binding/readiness and runtime body/fit generation evidence. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1477-1485-001.json",
+        "sha256": "b528062675b11c2e94b9a5dbe81a34234992791199bf6c759e759a05c192fe09"
+      },
+      "registration_pointer": "/sources/2",
+      "assessed_ranges": [
+        [
+          1,
+          437
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              98
+            ]
+          ],
+          "assessment": "HeldPreviewItem explicitly separates Empty, Unknown and Defined, but Option<ItemProperties>::None means Empty; parent already loses held entity witness on missing properties. Typed PreviewTarget distinguishes occupied versus empty capacity parent. Direct body-location placement is eligible at depth0, attachment-capable placement selects first accepting target; this is coarse preview, server remains authority."
+        },
+        {
+          "ranges": [
+            [
+              100,
+              292
+            ]
+          ],
+          "assessment": "Input and HUD independently build actor-owned roots ordered by topology root_order. Recursive children are found by parent/point/capacity across query, ordered catalogue attachment points and visited set. Empty capacity addresses parent plus depth; unknown definition emits occupied detached. Missing queried child can be treated as empty capacity; actual replication completeness and server depth ordering/cross-owner invariants required. Visited prevents cycles but no generic stack-depth guarantee inferred."
+        },
+        {
+          "ranges": [
+            [
+              293,
+              437
+            ]
+          ],
+          "assessment": "Fixtures check outermost display skips empty capacity and left/right belt attachment descendants remain in their authored slots, including deepest empty blade first and belt last. They do not exercise missing properties/duplicate occupancy/cross-owner graph. Tests read only."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1480,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/readiness.rs",
+        "sha256": "81632fbe7f7562ccfcfbdbeda4eb587bfcbb4fb62d60ad8c9e550837a1c968bb",
+        "actual_eof": 72,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/81632fbe7f7562ccfcfbdbeda4eb587bfcbb4fb62d60ad8c9e550837a1c968bb",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            72
+          ]
+        ],
+        "purpose": "Full Lens13 equipment attachment, preview, render binding/readiness and runtime body/fit generation evidence. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1477-1485-001.json",
+        "sha256": "b528062675b11c2e94b9a5dbe81a34234992791199bf6c759e759a05c192fe09"
+      },
+      "registration_pointer": "/sources/3",
+      "assessed_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              72
+            ]
+          ],
+          "assessment": "Readiness summary counts requested items, matching roots, hidden/unresolved roots and hidden parts. check returns generic static failure for any failed matching root. Otherwise readiness is number of nonhidden ready matching roots == distinct requested item count plus all matching parts nonhidden; it does not enforce one ready root per requested identity or require part existence. Existing one-root lifecycle may supply invariant, but cardinality alone does not prove per-item coverage. Empty requested set legitimately ready; native visibility is local, not GPU presentation."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1481,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/render_binding.rs",
+        "sha256": "278723baa84e424a5faff89f4ed396c8f5591f507165e11ae62842cafe37c974",
+        "actual_eof": 234,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/278723baa84e424a5faff89f4ed396c8f5591f507165e11ae62842cafe37c974",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            234
+          ]
+        ],
+        "purpose": "Full Lens13 equipment attachment, preview, render binding/readiness and runtime body/fit generation evidence. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1477-1485-001.json",
+        "sha256": "b528062675b11c2e94b9a5dbe81a34234992791199bf6c759e759a05c192fe09"
+      },
+      "registration_pointer": "/sources/4",
+      "assessed_ranges": [
+        [
+          1,
+          234
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              69
+            ]
+          ],
+          "assessment": "ProceduralEquipmentPart retains item, native bindpose handle and bespoke joint-name table; rigid center raw native Vec3. Initial render bundle is Hidden. Bound/unbound mesh handles have distinct roles in retained EquipmentMeshSources; no primitive identity downgrade."
+        },
+        {
+          "ranges": [
+            [
+              71,
+              140
+            ]
+          ],
+          "assessment": "Worn item without skin is hidden. Dropped/unbound clone strips joint index/weight, centers positions and caches once; worn reuses bound mesh. Source missing hides. Guarded expect follows assignment so no reachable None asserted. Centering silently skips missing position format/nonfinite center and does not check completed position subtraction; actual generated coordinate bounds required. Deferred mesh insert then local visibility change depends on native schedule; do not equate it to actual rendered readiness."
+        },
+        {
+          "ranges": [
+            [
+              142,
+              234
+            ]
+          ],
+          "assessment": "Fixture toggles skin/drop/re-equip, checks hidden-before-binding, joint-free dropped mesh, preserved morph names/original bound mesh and stable reused dropped handle. Uses valid synthetic one-vertex mesh, not actual GPU pipeline or generated malformed geometry. Tests unrun."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1482,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment.rs",
+        "sha256": "6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c",
+        "actual_eof": 143,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            143
+          ]
+        ],
+        "purpose": "Full Lens13 equipment attachment, preview, render binding/readiness and runtime body/fit generation evidence. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1477-1485-001.json",
+        "sha256": "b528062675b11c2e94b9a5dbe81a34234992791199bf6c759e759a05c192fe09"
+      },
+      "registration_pointer": "/sources/5",
+      "assessed_ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              53
+            ]
+          ],
+          "assessment": "Runtime presentation stores raw item/placement strings and entity. Global body cache separates optional canonical body/designs, failed bool, shape bodies, per-fit Result<CachedEquipment,String>, one pending task and LRU clock. is_preparing explicitly reports async work so capture budgets may exclude wait; actual consumer still connected."
+        },
+        {
+          "ranges": [
+            [
+              55,
+              143
+            ]
+          ],
+          "assessment": "Canonical preparation waits for base/dependent assets; body/design errors log owned anyhow context then collapse to sticky global failed bool. No requested-base revision key here once body loaded. presentation filters supported runtime item ID then copies item/placement, defaults absent topology to worn. Cached geometry retains native center and String socket map. Canonical selection admission occurs in later fit generation, so raw ingress alone is not blanket unchecked catalogue use."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1483,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/body.rs",
+        "sha256": "fa65ba144131a0190348b38de97ef1fdcf28b5625f80f5b66ddd92a7d1ce3f82",
+        "actual_eof": 229,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/fa65ba144131a0190348b38de97ef1fdcf28b5625f80f5b66ddd92a7d1ce3f82",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            229
+          ]
+        ],
+        "purpose": "Full Lens13 equipment attachment, preview, render binding/readiness and runtime body/fit generation evidence. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1477-1485-001.json",
+        "sha256": "b528062675b11c2e94b9a5dbe81a34234992791199bf6c759e759a05c192fe09"
+      },
+      "registration_pointer": "/sources/6",
+      "assessed_ranges": [
+        [
+          1,
+          229
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              52
+            ]
+          ],
+          "assessment": "Runtime body loader distinguishes missing not-yet-present assets as None from no skinned primitive as owned error. First skinned node and first primitive selected; unavailable earlier asset returns pending immediately. Actual AssetServer failed states and canonical asset structure needed to resolve indefinite pending versus supported load lifecycle."
+        },
+        {
+          "ranges": [
+            [
+              54,
+              148
+            ]
+          ],
+          "assessment": "Body extraction requires exact native attribute formats and triangle-aligned indices. Builds bespoke joint table, checks names/bindpose count, uses PackedRigSkin admission. Bindpose inverse/decomposition retains position, quat and scale.x without complete affine admission here. Normals/weights/vertex counts/face bounds rely on runtime consumers. Optional morph data/default empty can be legitimate. Do not remove existing strong skin-index and count checks."
+        },
+        {
+          "ranges": [
+            [
+              150,
+              229
+            ]
+          ],
+          "assessment": "UV chart validates every position finite and complete height finite positive, rejects empty/flat/extreme span, then cylindrical angle and bounded normalized height. Since y lies inside finite admitted span, no artificial intermediate overflow claim. Tests check chart bounds and empty/flat/NaN rejection. Native bind/morph/fitting downstream still unread."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1484,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation.rs",
+        "sha256": "ea41899e503a9d300af874feb8f230532b8e8c1b9f6994c4c89b690746dfaf29",
+        "actual_eof": 467,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/ea41899e503a9d300af874feb8f230532b8e8c1b9f6994c4c89b690746dfaf29",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            467
+          ]
+        ],
+        "purpose": "Full Lens13 equipment attachment, preview, render binding/readiness and runtime body/fit generation evidence. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1477-1485-001.json",
+        "sha256": "b528062675b11c2e94b9a5dbe81a34234992791199bf6c759e759a05c192fe09"
+      },
+      "registration_pointer": "/sources/7",
+      "assessed_ranges": [
+        [
+          1,
+          467
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              100
+            ]
+          ],
+          "assessment": "FitKey owns shape, admitted LayerSelection and ancestor layer selections. Worn obtains character/proportions or returns pending; unworn previous preserves shape/layers. Crucially selection_for_presentation returns entire previous.selection whenever unworn with prior key, without comparing current item ID. No-prior unworn admits current catalogue item and chooses first authored anatomical placement. LastFit is item-owned across placeholder rebuild."
+        },
+        {
+          "ranges": [
+            [
+              102,
+              215
+            ]
+          ],
+          "assessment": "Cache trims models to128 by wrapping use clock, retains shape bodies referenced by model or pending. prepare_shape stages clone/apply/rig fit before body insertion; start requires prepared designs/body/supports and creates one async task keyed by full FitKey. Support stored String errors are rewrapped into anyhow. Task returns owned generation result; elapsed/vertex logging is diagnostic only."
+        },
+        {
+          "ranges": [
+            [
+              217,
+              286
+            ]
+          ],
+          "assessment": "finish polls once, takes pending, creates sockets/parts/native center, maps owned error to String and stores by original requested key. Pending protects corresponding body from trim, supporting direct body lookup. Successful attach publishes sockets then hidden render parts and resolved root; whole model/native readiness not implied by root tag."
+        },
+        {
+          "ranges": [
+            [
+              288,
+              387
+            ]
+          ],
+          "assessment": "Each update finishes pending, computes worn outfits, derives key from LastFit first/current fallback. Global failure marks all presentation roots failed/resolved. Invalid selection/outfit calls fail_fit; matching current+resolved skips work. Changed key installs before resolve. Thus pending result remains cache-associated with request rather than blindly attached to current placeholder; per-update current key selection controls attachment."
+        },
+        {
+          "ranges": [
+            [
+              389,
+              467
+            ]
+          ],
+          "assessment": "fail_fit removes root FitKey, hides and tags failed/resolved; it does not remove LastFit or item socket state here. resolve retrieves cached model or tags cached error; otherwise starts next fit after shape preparation and stores String on failure. install removes existing procedural children and sockets, writes new root FitKey and item LastFit BEFORE fitting succeeds. Requested versus successful LastFit meaning requires explicit policy; do not assume its name means committed success."
+        }
+      ]
+    },
+    {
+      "source": {
+        "original": 1485,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation_tests.rs",
+        "sha256": "8acbe54a829e4f8c3f5e3d2fc5b4efe91415a6ebf0ea601ed3d98c46f410d6e6",
+        "actual_eof": 394,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/8acbe54a829e4f8c3f5e3d2fc5b4efe91415a6ebf0ea601ed3d98c46f410d6e6",
+        "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "prospective_ranges": [
+          [
+            1,
+            394
+          ]
+        ],
+        "purpose": "Full Lens13 equipment attachment, preview, render binding/readiness and runtime body/fit generation evidence. Source inspection only."
+      },
+      "registration": {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-1477-1485-001.json",
+        "sha256": "b528062675b11c2e94b9a5dbe81a34234992791199bf6c759e759a05c192fe09"
+      },
+      "registration_pointer": "/sources/8",
+      "assessed_ranges": [
+        [
+          1,
+          394
+        ]
+      ],
+      "author": "/root",
+      "untruncated_body_outputs": true,
+      "observations": [
+        {
+          "ranges": [
+            [
+              1,
+              82
+            ]
+          ],
+          "assessment": "Readiness fixture covers empty request, missing root, hidden runtime root, resolved visible root without generated parts, then generic failure. Fake canonical cache/body supports behavior fixtures; this is not real body generation/device validation."
+        },
+        {
+          "ranges": [
+            [
+              84,
+              227
+            ]
+          ],
+          "assessment": "Chained fixture uses prepopulated successful models for two character shapes; verifies worn\u2192held\u2192dropped\u2192new wearer held\u2192new wearer worn, preserving old fit until worn by second actor. Confirms one part, no failure, no pending. Valid transition contract must survive refactor; no async generation or item-ID mutation covered."
+        },
+        {
+          "ranges": [
+            [
+              229,
+              368
+            ]
+          ],
+          "assessment": "Invalid placement fixture mutates runtime presentation while worn, expects failed hidden then corrected left placement recovers. Geometry helper verifies skin, local visibility, centered coordinates, held constraint and parent state. This is meaningful lifecycle evidence but not socket current-item identity or GPU completion proof."
+        },
+        {
+          "ranges": [
+            [
+              370,
+              394
+            ]
+          ],
+          "assessment": "Eviction fixture inserts129 failed model variants and shape bodies, checks oldest removed and128 retained. No use-clock wrapping or live pending concurrency test executed."
+        }
+      ]
+    }
+  ],
+  "contract_revisits_pending_queue_adoption": [
+    {
+      "contract_id": "ADLER-L11-HELD-PREVIEW-ABSENCE-ADMISSION",
+      "status": "Frozen equipment lifecycle, fit generation and tests source evidence; current/alias/native obligations remain open.",
+      "canonical_owner": "Held preview admission preserving held entity witness and property/catalogue outcome.",
+      "disposition": "Preview owns Empty/Unknown/Defined but From(None) is Empty; missing held properties at parent caller still loses witness. Recursive empty-capacity and unknown-definition behavior are explicit; coarse eligibility is client preview and expected-item/revision server guards remain separate.",
+      "source_pointers": [
+        {
+          "pointer": "/ordered/2",
+          "ranges": [
+            [
+              22,
+              98
+            ],
+            [
+              100,
+              292
+            ],
+            [
+              293,
+              437
+            ]
+          ]
+        }
+      ],
+      "remaining_evidence": [
+        "Actual slot selection child, replication property completeness, server traversal/expected-item/revision policy and current aliases.",
+        "Later missing held properties remains unavailable/unknown, not empty; preserve known empty and catalogue eligibility plus attachment ordering."
+      ]
+    },
+    {
+      "contract_id": "ADLER-L11-RUNTIME-EQUIPMENT-FAILURE-OWNERSHIP",
+      "status": "Frozen equipment lifecycle, fit generation and tests source evidence; current/alias/native obligations remain open.",
+      "canonical_owner": "Canonical prepared equipment cache and per-FitKey result with owned typed error context shared with readiness.",
+      "disposition": "Canonical body/design errors log cause then sticky bool; fit errors become String or reconstructed anyhow and failed tags; readiness emits one generic static string. Genuine loading None is separate at body loader, but asset failure observation remains unread. Keep actual per-fit async identity and prepare-before-body-insertion safeguards.",
+      "source_pointers": [
+        {
+          "pointer": "/ordered/3",
+          "ranges": [
+            [
+              53,
+              72
+            ]
+          ]
+        },
+        {
+          "pointer": "/ordered/5",
+          "ranges": [
+            [
+              34,
+              115
+            ]
+          ]
+        },
+        {
+          "pointer": "/ordered/6",
+          "ranges": [
+            [
+              13,
+              52
+            ]
+          ]
+        },
+        {
+          "pointer": "/ordered/7",
+          "ranges": [
+            [
+              141,
+              253
+            ],
+            [
+              293,
+              467
+            ]
+          ]
+        }
+      ],
+      "remaining_evidence": [
+        "Native asset loading failure states, body/rig/mesh/layer typed errors, capture/readiness owner and current aliases.",
+        "Later loading/success/owned failure remain distinct through canonical preparation, per-fit task/cache and readiness; valid retries and transitions preserved."
+      ]
+    },
+    {
+      "contract_id": "L12-CLOSURE-RUNTIME-EQUIPMENT-PRESENTATION-IDENTITY",
+      "status": "Frozen equipment lifecycle, fit generation and tests source evidence; current/alias/native obligations remain open.",
+      "canonical_owner": "Canonical catalog refs versus raw RuntimeEquipmentPresentation ids5/6/socket names122; owner/caller question.",
+      "disposition": "Runtime strings are ingress; worn generation actually admits LayerSelection, while previous unworn fit skips current identity admission. Socket publication pairs cached model with presentation.item but label uses current item_id. Actual pelvis-local socket versus selected location bone frame remains required. Pending result is stored by full requested key; no indiscriminate async result attachment claimed.",
+      "source_pointers": [
+        {
+          "pointer": "/ordered/0",
+          "ranges": [
+            [
+              119,
+              139
+            ]
+          ]
+        },
+        {
+          "pointer": "/ordered/5",
+          "ranges": [
+            [
+              117,
+              143
+            ]
+          ]
+        },
+        {
+          "pointer": "/ordered/7",
+          "ranges": [
+            [
+              15,
+              100
+            ],
+            [
+              217,
+              286
+            ],
+            [
+              315,
+              384
+            ],
+            [
+              442,
+              467
+            ]
+          ]
+        }
+      ],
+      "remaining_evidence": [
+        "LayerSelection, body shape/morph/rig/socket/mesh children, actual item identity mutation and topology laws/current aliases.",
+        "Reuse existing canonical selection owner throughout fit cache and publication; preserve valid same-item held/drop fit and supported socket frames."
+      ]
+    },
+    {
+      "contract_id": "ADLER-CONT08-CANDIDATE-001",
+      "status": "Frozen equipment lifecycle, fit generation and tests source evidence; current/alias/native obligations remain open.",
+      "canonical_owner": {
+        "unresolved_question": "Identify the canonical semantic owner from the linked source receipt before closure."
+      },
+      "disposition": "Frozen generation confirms unworn previous returns full previous.selection and LastFit survives placeholder rebuild. Worn path admits current identity; existing valid hold/drop/new-wearer and invalid-placement recovery fixtures must stay. install writes LastFit before async completion, so retained requested versus successful fit policy also remains explicit. Historical item-ID mutation candidate remains conditional until real producer or immutability policy established.",
+      "source_pointers": [
+        {
+          "pointer": "/ordered/5",
+          "ranges": [
+            [
+              127,
+              143
+            ]
+          ]
+        },
+        {
+          "pointer": "/ordered/7",
+          "ranges": [
+            [
+              23,
+              100
+            ],
+            [
+              315,
+              384
+            ],
+            [
+              389,
+              467
+            ]
+          ]
+        },
+        {
+          "pointer": "/ordered/8",
+          "ranges": [
+            [
+              84,
+              252
+            ]
+          ]
+        }
+      ],
+      "remaining_evidence": [
+        "Actual ordinary item identity mutation or enforced immutability, source overlay/current comparison and all final model/socket/material recipients.",
+        "Keep current item identity associated with current representation; retain previous fit only under supported same-item/requested-versus-committed policy; existing hold/drop/refit/recovery fixtures remain acceptance."
+      ]
+    }
+  ]
+}

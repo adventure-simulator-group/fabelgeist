@@ -1,0 +1,253 @@
+{
+  "lens": 13,
+  "namespace": "PL13-163",
+  "status": "Exact shared stress ceiling and actual tactical accumulator/projection; supported intermediate tier overflow found",
+  "registration": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-163.json",
+    "sha256": "d04e0d0c03045d8c04036388e87d7e76363cb3f44152798561abbf4b77ab3f39"
+  },
+  "registered_before_read_attestation": true,
+  "rows": [],
+  "connected": [
+    {
+      "original": 955,
+      "source_id": "pr-working:crates/adventuresim-core/src/mission.rs",
+      "sha256": "998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
+      "actual_eof": 106,
+      "prospective_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "scope_kind": "connected_existing_original_role",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "purpose": "Actual tactical shared stress maximum, cumulative stress producer and receipt native projection;955 explicit fresh reread after zero-credit unregistered display, qualification preserved.",
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "untruncated_body_outputs": true
+    },
+    {
+      "original": 2032,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "actual_eof": 308,
+      "prospective_ranges": [
+        [
+          1,
+          308
+        ]
+      ],
+      "scope_kind": "connected_existing_original_role",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "purpose": "Actual tactical shared stress maximum, cumulative stress producer and receipt native projection;955 explicit fresh reread after zero-credit unregistered display, qualification preserved.",
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          308
+        ]
+      ],
+      "untruncated_body_outputs": true
+    },
+    {
+      "original": 2815,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/receipt.rs",
+      "sha256": "24e17b0e16c1731ef4fa81d7e8f2448cd42b12b6b75dbbe16bc502f0f606508d",
+      "object_path": "target/726-audit-adler-20261027/parallel-l13-20261029/objects/24e17b0e16c1731ef4fa81d7e8f2448cd42b12b6b75dbbe16bc502f0f606508d",
+      "actual_eof": 102,
+      "prospective_ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "scope_kind": "connected_existing_original_role",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "purpose": "Actual tactical shared stress maximum, cumulative stress producer and receipt native projection;955 explicit fresh reread after zero-credit unregistered display, qualification preserved.",
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "untruncated_body_outputs": true
+    }
+  ],
+  "numeric_role_inventory": [
+    "955 shared mission106 explicitly bounds participants16, injuries64/member, equipmentcontacts128, damage1, ammunition1024 and contactstress10000. IDs canonical ASCII <=128 via constructors; Serdederiveboundarynotassumedconstructor-enforced. Unboundmissionmode deliberate.",
+    "2032 tactical consequence308 actual contact_force.max0 -> inventory provenance-based equipmentcontact match -> record_equipment_contact243..270 cumulative f32sum.min10000 and firstcontact.min10000. Sourceproof of admitted cumulative ceiling, not singlehit10000 claim. Ammunition saturated1024; injuries sum applied clamped limb damage, actual lifecycle/reset/nativeauthorization remainconnected.",
+    "2815 tactical_consequence_receipt21..77 projects exact accumulated contacts, adds missing uninjured contactowners, sorts/truncates party16 then leaves equipmentcontacts unfiltered. Actual TacticalPartyRoster supported<=16 policy needed before claiming omitted-owner mismatch. Sourcefixtures79..105 readnotexecuted.",
+    "Qualified own context: READ030/rows0 full525union1..5632, exactsource87e0...; actually reread700..737 buckler isShield quality1/fracture100, plus180..250/345..440/1875..1980 contextualprofiles. Own READ158/rows0 durability full454 actually reread190..268 for exact quality multiplier and tier expression. These are honest extra context rereads inside prior registered/assessed ranges, zero new source/original credit. Own READ132/rows0 full857 retained BattleRecorder contact_force.max0 is separate exact prior proof, no new read."
+  ],
+  "proposed_findings": [
+    {
+      "proposed_id": "PL13-163-DURABILITY-TIER-INTERMEDIATE-WIDTH",
+      "status": "Source-backed supported native-input finding; currentmain/exactaliases pending, runtime effect not executed",
+      "primary_original": 915,
+      "primary_source_id": "pr-working:crates/adventuresim-core/src/durability.rs",
+      "primary_sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "primary_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "primary_function": "damage_from_impact",
+      "primary_ranges": [
+        [
+          232,
+          265
+        ]
+      ],
+      "primary_registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-158.json",
+        "sha256": "afcb6288c82dd6b9f945a1ee2e095a4f0e0118757948116b169f1bf13fa69f4f"
+      },
+      "primary_registration_pointer": "/sources/0",
+      "primary_read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-158.json",
+        "sha256": "c5326efa3da13140c7636ecb9f32447d5bfb1efac6405d5901d8b35465e30cb5"
+      },
+      "primary_read_pointer": "/rows/0",
+      "producer": "Actual2032record_equipment_contact243..270 accumulates tactical per-inventory contact stress and caps10000; own955 mission14 defines ceiling10000;2815tactical_consequence_receipt21..77 projects it. Canonical525buckler700..732 is Shield quality1 fracture100.",
+      "internal_api": "1242validate_tactical_receipt_bounds1140..1183 accepts finite0..10000; validate_tactical_receipt1040..1126 validates actual member/item/equipped Shield role/custody; apply_tactical_receipt1221 forwards stress to1177apply_impact560..601.",
+      "retained_state": "1136project_definition272..285 persists authored fracture/quality in Item;1177 builds DurabilityProfile575..582. damage_from_impact returns DamageEvent amount/tier/catastrophic to native application.",
+      "consumer": "1177 qualitycaps normalized bins andeventtier586..587 then updates ItemCondition596..600. Buckler quality1 means native final tier clamps1; wrapped release tier may be masked there. Unrepresentable intermediate still occurs before cap/min. No release downstream damage misclassification claimed.",
+      "native_boundary": "Authenticated tactical end_tactical_server -> custody/bounds-validated native SpacetimeDB consequence application -> shared damage_from_impact -> ItemCondition DB update. Battle contact accumulator remains transient Bevy state.",
+      "first_failed_contract": "damage_from_impact253 narrows floor(overload*2) to u8 before adding3 and quality term and only then min5. An allowed catastrophic overload can convert to255;3+255 is outsideu8, before intended tier ceiling can apply.",
+      "canonical_owner": "Shared durability::damage_from_impact owns mapping finite impact/profile values to bounded DamageEvent tier and must bound the complete intermediate before narrowing; native receipt ceiling and item quality do not establish that u8 intermediate is representable.",
+      "function_ownership": {
+        "authored_profile": "item_catalog::catalog and Item project_definition",
+        "transient_stress": "combat::consequence::record_equipment_contact",
+        "transport": "mission::receipt::tactical_consequence_receipt",
+        "native_admission": "validate_tactical_receipt_bounds / validate_tactical_receipt",
+        "tier_mapping": "durability::damage_from_impact / quality_durability_multiplier",
+        "native_retained_consumer": "repair::apply_impact / ItemCondition::set_bins"
+      },
+      "connected_repair_scope": [
+        "Shared tier calculation and actual admitted profile/stress domain",
+        "Quality multiplier/canonical durability admission and native finite stress ceilings",
+        "All callers and exact current-main/alias population reconciliation; no compatibility preservation"
+      ],
+      "dependencies": [
+        "Reconcile currentmain actual implementation/catalogue/native admission before canonical acceptance",
+        "Deduplicate exact firstfailedcontract against retained findings; common checked-arithmetic remedy alone is notalias",
+        "Decide full native/public DamageEvent tier policy separately from qualitycapped persistence; preserve intentional normalization/optionalzero modes"
+      ],
+      "acceptance_requirements": [
+        "For canonical buckler quality1/fracture100 and admitted cumulative stress10000, tier mapping completes without unrepresentable u8 intermediate in every supported overflow-check configuration",
+        "Returned DamageEvent tier obeys documented1..5 policy before native qualitycap; check stress belowyield/atcatastrophic/highfinite and eachquality boundary using authorized later validation",
+        "Native custody/finite ceilings/normalized bins and deliberate qualitycap remain explicit; no obsolete API/error-prose/invalid-behavior compatibility requirements"
+      ],
+      "source_case": "quality multiplier(1)=.65 so catastrophicthreshold100*.65=65. Stress10000 is actual accumulator/native admitted ceiling; overload=10000/65-1>152, floor(2*overload)>255 so float-to-u8 yields255 then3+255 is unrepresentable. Source arithmetic argument only; no generated production session/ordinary incidence/runtime probe claimed. Cloth low-threshold examples are not needed and native defendercontact rejects Clothing; canonical Shield buckler suffices.",
+      "runtime_probe_run": false,
+      "ordinary_production_incident_claimed": false,
+      "accepted_unique_count_change": 0,
+      "current_reconciled": false,
+      "aliases": "Open exact firstfailedcontract comparison; notalias to sourcewidth/custody/timeline by common remedy."
+    }
+  ],
+  "connected_contracts": [
+    {
+      "proposed_id": "PL13-163-TACTICAL-RECEIPT-ROSTER-PENDING",
+      "status": "Conditional aggregate-policy dependency",
+      "scope": "Receipt party truncate16 but equipmentcontacts retain allowners; actual shared TacticalPartyRoster<=16 and accumulator sources/reset/persistence/nativeauthorization must establish or reject effect. No ordinary>16participants assumed.",
+      "accepted_unique_count_change": 0,
+      "current_reconciled": false
+    }
+  ],
+  "necessary_extensions": [],
+  "future_same_lens_reuse_proofs": [
+    {
+      "original": 955,
+      "source_id": "pr-working:crates/adventuresim-core/src/mission.rs",
+      "sha256": "998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 106,
+      "assessed_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "read_pointer": "/connected/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-163.json",
+        "sha256": "d04e0d0c03045d8c04036388e87d7e76363cb3f44152798561abbf4b77ab3f39"
+      },
+      "registration_pointer": "/sources/0",
+      "same_lens_only": true,
+      "count_once_when_frontier_reaches": true,
+      "original_credit_now": 0,
+      "original_role_credit_now": 0
+    },
+    {
+      "original": 2032,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 308,
+      "assessed_ranges": [
+        [
+          1,
+          308
+        ]
+      ],
+      "read_pointer": "/connected/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-163.json",
+        "sha256": "d04e0d0c03045d8c04036388e87d7e76363cb3f44152798561abbf4b77ab3f39"
+      },
+      "registration_pointer": "/sources/1",
+      "same_lens_only": true,
+      "count_once_when_frontier_reaches": true,
+      "original_credit_now": 0,
+      "original_role_credit_now": 0
+    },
+    {
+      "original": 2815,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/receipt.rs",
+      "sha256": "24e17b0e16c1731ef4fa81d7e8f2448cd42b12b6b75dbbe16bc502f0f606508d",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 102,
+      "assessed_ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "read_pointer": "/connected/2",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-163.json",
+        "sha256": "d04e0d0c03045d8c04036388e87d7e76363cb3f44152798561abbf4b77ab3f39"
+      },
+      "registration_pointer": "/sources/2",
+      "same_lens_only": true,
+      "count_once_when_frontier_reaches": true,
+      "original_credit_now": 0,
+      "original_role_credit_now": 0
+    }
+  ],
+  "original_delta_proposed": 0,
+  "proposed_next_original": 917,
+  "authoritative_counts_changed": false,
+  "accepted_unique_count_change": 0,
+  "product_execution": false,
+  "current_reconciled": false,
+  "global_clearance": false,
+  "qualifications": [
+    "955 firstdisplay occurred before REG163 due failed assembly; exact exception b346cd... preserved with zero credit. After successful REG163 d04e... personally reread full9551..106. Fresh2032full1..230/231..308 and2815full105 personally read afterward. All untruncated. No registration backdating; original frontier917 unchanged.",
+    "Prior own525/915 context rereads actual listed ranges, no invented new body coverage. Frozen source is not currentmain; aliases/current reconciliation pending."
+  ],
+  "chronology_exception": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/QUALIFICATION-PL13-163-PROSPECTIVE-READ-EXCEPTION-001.json",
+    "sha256": "b346cd341e15463c680f4d3e6d1bdb65a8cd3e1c29f25e5241f0235247ce2bed"
+  }
+}

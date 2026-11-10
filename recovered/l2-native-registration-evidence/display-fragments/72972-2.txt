@@ -1,0 +1,203 @@
+331: pub(crate) fn derive_deserialize(ty: &SatsType<'_>) -> TokenStream {
+332:     let (name, tuple_name) = (&ty.ident, &ty.name);
+333:     let spacetimedb_lib = &ty.krate;
+334:     let (impl_generics, ty_generics, where_clause) = ty.generics.split_for_impl();
+335: 
+336:     let de_lifetime = syn::Lifetime::new("'de", Span::call_site());
+337:     let deserialize_t = quote!(#spacetimedb_lib::de::Deserialize<#de_lifetime>);
+338: 
+339:     let mut de_generics = ty.generics.clone();
+340: 
+341:     add_type_bounds(&mut de_generics, &deserialize_t);
+342: 
+343:     for lp in de_generics.lifetimes_mut() {
+344:         lp.bounds.push(de_lifetime.clone());
+345:     }
+346: 
+347:     let mut de_lt_param = syn::LifetimeParam::new(de_lifetime);
+348:     de_lt_param.bounds = de_generics
+349:         .lifetimes()
+350:         .map(|lp| Pair::Punctuated(lp.lifetime.clone(), Token![+](Span::call_site())))
+351:         .collect();
+352: 
+353:     de_generics.params.insert(0, de_lt_param.into());
+354:     let (de_impl_generics, _, de_where_clause) = de_generics.split_for_impl();
+355: 
+356:     let (iter_n, iter_n2, iter_n3, iter_n4, iter_n5, iter_n6, iter_n7) =
+357:         (0usize.., 0usize.., 0usize.., 0usize.., 0usize.., 0usize.., 0usize..);
+358: 
+359:     match &ty.data {
+360:         SatsTypeData::Product(fields) => {
+361:             let mut fast_body = None;
+362:             if let Some(fields) = extract_repr_c_primitive(ty) {
+363:                 fast_body = Some(quote! {
+364:                     #[inline(always)]
+365:                     fn deserialize_from_bsatn<R: #spacetimedb_lib::buffer::BufReader<'de>>(
+366:                         mut deserializer: #spacetimedb_lib::bsatn::Deserializer<'de, R>
+367:                     ) -> Result<Self, #spacetimedb_lib::bsatn::DecodeError> {
+368:                         const _: () = {
+369:                             #(#spacetimedb_lib::bsatn::assert_is_primitive_type::<#fields>();)*
+370:                         };
+371:                         // This guarantees that `Self` has no padding.
+372:                         if const { core::mem::size_of::<Self>() == #(core::mem::size_of::<#fields>())+* } {
+373:                             let bytes = deserializer.get_slice(core::mem::size_of::<Self>())?;
+374:                             let ptr = bytes as *const [u8] as *const u8 as *const Self;
+375:                             // SAFETY:
+376:                             // - `ptr` is valid for reads, `size_of::<T>()`.
+377:                             // - `ptr` is trivially properly aligned (alignment = 1).
+378:                             // - `ptr` points to a properly initialized `Foo`
+379:                             //   as we've guaranteed that there is no padding.
+380:                             Ok(unsafe { core::ptr::read(ptr) })
+381:                         } else {
+382:                             Self::deserialize(deserializer)
+383:                         }
+384:                     }
+385:                 });
+386:             }
+387: 
+388:             let n_fields = fields.len();
+389: 
+390:             let field_names = fields.iter().map(|f| f.ident.unwrap()).collect::<Vec<_>>();
+391:             let field_strings = fields.iter().map(|f| f.name.as_deref().unwrap()).collect::<Vec<_>>();
+392:             let field_types = fields.iter().map(|f| f.ty);
+393:             let field_types2 = field_types.clone();
+394:             let field_types3 = field_types.clone();
+395:             let field_types4 = field_types.clone();
+396:             quote! {
+397:                 #[allow(non_camel_case_types)]
+398:                 #[allow(clippy::all)]
+399:                 const _: () = {
+400:                     impl #de_impl_generics #spacetimedb_lib::de::Deserialize<'de> for #name #ty_generics #de_where_clause {
+401:                         #fast_body
+402: 
+403:                         fn deserialize<D: #spacetimedb_lib::de::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+404:                             deserializer.deserialize_product(__ProductVisitor {
+405:                                 _marker: std::marker::PhantomData::<fn() -> #name #ty_generics>,
+406:                             })
+407:                         }
+408: 
+409:                         fn validate<D: #spacetimedb_lib::de::Deserializer<'de>>(deserializer: D) -> Result<(), D::Error> {
+410:                             deserializer.validate_product(__ProductVisitor {
+411:                                 _marker: std::marker::PhantomData::<fn() -> #name #ty_generics>,
+412:                             })
+413:                         }
+414:                     }
+415: 
+416:                     // __ reserved name for binding to prevent name conflicts. See module-level doc comment.
+417:                     struct __ProductVisitor #impl_generics #where_clause {
+418:                         _marker: std::marker::PhantomData<fn() -> #name #ty_generics>,
+419:                     }
+420: 
+421:                     impl #de_impl_generics #spacetimedb_lib::de::ProductVisitor<'de> for __ProductVisitor #ty_generics #de_where_clause {
+422:                         type Output = #name #ty_generics;
+423: 
+424:                         fn product_name(&self) -> Option<&str> {
+425:                             Some(#tuple_name)
+426:                         }
+427:                         fn product_len(&self) -> usize {
+428:                             #n_fields
+429:                         }
+430: 
+431:                         fn visit_seq_product<A: #spacetimedb_lib::de::SeqProductAccess<'de>>(self, mut tup: A) -> Result<Self::Output, A::Error> {
+432:                             Ok(#name {
+433:                                 #(#field_names:
+434:                                     tup.next_element::<#field_types>()?
+435:                                         .ok_or_else(|| #spacetimedb_lib::de::Error::invalid_product_length(#iter_n, &self))?,)*
+436:                             })
+437:                         }
+438:                         fn validate_seq_product<A: #spacetimedb_lib::de::SeqProductAccess<'de>>(self, mut tup: A) -> Result<(), A::Error> {
+439:                             #(
+440:                                 tup.validate_next_element::<#field_types2>()?
+441:                                     .ok_or_else(|| #spacetimedb_lib::de::Error::invalid_product_length(#iter_n2, &self))?;
+442:                             )*
+443:                             Ok(())
+444:                         }
+445:                         // __ reserved name for binding to prevent name conflicts. See module-level doc comment.
+446:                         fn visit_named_product<A: #spacetimedb_lib::de::NamedProductAccess<'de>>(self, mut __prod: A) -> Result<Self::Output, A::Error> {
+447:                             #(let mut #field_names = None;)*
+448:                             // __ reserved name for binding to prevent name conflicts. See module-level doc comment.
+449:                             while let Some(__field) = #spacetimedb_lib::de::NamedProductAccess::get_field_ident(&mut __prod, Self {
+450:                                 _marker: std::marker::PhantomData,
+451:                             })? {
+452:                                 match __field {
+453:                                     #(__ProductFieldIdent::#field_names => {
+454:                                         if #field_names.is_some() {
+455:                                             return Err(#spacetimedb_lib::de::Error::duplicate_field(#iter_n3, Some(#field_strings), &self))
+456:                                         }
+457:                                         #field_names = Some(#spacetimedb_lib::de::NamedProductAccess::get_field_value::<#field_types3>(&mut __prod)?)
+458:                                     })*
+459:                                 }
+460:                             }
+461:                             Ok(#name {
+462:                                 #(#field_names:
+463:                                     #field_names.ok_or_else(|| #spacetimedb_lib::de::Error::missing_field(#iter_n4, Some(#field_strings), &self))?,)*
+464:                             })
+465:                         }
+466:                         // __ reserved name for binding to prevent name conflicts. See module-level doc comment.
+467:                         fn validate_named_product<A: #spacetimedb_lib::de::NamedProductAccess<'de>>(self, mut __prod: A) -> Result<(), A::Error> {
+468:                             #(let mut #field_names = false;)*
+469:                             // __ reserved name for binding to prevent name conflicts. See module-level doc comment.
+470:                             while let Some(__field) = #spacetimedb_lib::de::NamedProductAccess::get_field_ident(&mut __prod, Self {
+471:                                 _marker: std::marker::PhantomData,
+472:                             })? {
+473:                                 match __field {
+474:                                     #(__ProductFieldIdent::#field_names => {
+475:                                         if #field_names {
+476:                                             return Err(#spacetimedb_lib::de::Error::duplicate_field(#iter_n5, Some(#field_strings), &self))
+477:                                         }
+478:                                         #spacetimedb_lib::de::NamedProductAccess::validate_field_value::<#field_types4>(&mut __prod)?;
+479:                                         #field_names = true;
+480:                                     })*
+700:                 if let (Some(member), Some(ty)) = (&var.member, var.ty) {
+701:                     quote_spanned! {ty.span()=>
+702:                         // __ reserved name for binding to prevent name conflicts. See module-level doc comment.
+703:                         Self::#name { #member: __variant } => __serializer.serialize_variant::<#ty>(#tag, Some(#name_str), __variant),
+704:                     }
+705:                 } else {
+706:                     quote! {
+707:                         Self::#name => __serializer.serialize_variant(#tag, Some(#name_str), &()),
+708:                     }
+709:                 }
+710:             });
+711:             quote!(match self {
+712:                 #(#arms)*
+713:                 _ => unreachable!(),
+714:             })
+715:         }
+716:     };
+717:     quote! {
+718:         impl #impl_generics #spacetimedb_lib::ser::Serialize for #name #ty_generics #where_clause {
+719:             #fast_body
+720:             // __ reserved name for binding to prevent name conflicts. See module-level doc comment.
+721:             fn serialize<S: #spacetimedb_lib::ser::Serializer>(&self, __serializer: S) -> Result<S::Ok, S::Error> {
+722:                 #body
+723:             }
+724:         }
+725:     }
+726: }
+727: 
+728: fn variant_data(variant: &syn::Variant) -> syn::Result<Option<(syn::Member, &syn::Type)>> {
+729:     let field = match &variant.fields {
+730:         syn::Fields::Named(f) if f.named.len() == 1 => &f.named[0],
+731:         syn::Fields::Named(_) => {
+732:             return Err(syn::Error::new_spanned(
+733:                 &variant.fields,
+734:                 "must be a unit variant or a newtype variant",
+735:             ))
+736:         }
+737:         syn::Fields::Unnamed(f) if f.unnamed.len() != 1 => {
+738:             return Err(syn::Error::new_spanned(
+739:                 &variant.fields,
+740:                 "must be a unit variant or a newtype variant",
+741:             ))
+742:         }
+743:         syn::Fields::Unnamed(f) => &f.unnamed[0],
+744:         syn::Fields::Unit => return Ok(None),
+745:     };
+746:     let member = field
+747:         .ident
+748:         .clone()
+749:         .map(Into::into)
+750:         .unwrap_or_else(|| syn::Member::from(0));
+751:     Ok(Some((member, &field.ty)))
+752: }

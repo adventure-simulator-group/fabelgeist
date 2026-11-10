@@ -1,0 +1,50 @@
+{
+  "schema": "726-prospective-current-source-registration-v1",
+  "lenses": [
+    2,
+    11,
+    13
+  ],
+  "purpose": "Compare session/prompt identity boundaries and connect existing ballot-order question; prior investigation and ledger search disclosed.",
+  "rows": [
+    {
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_path": "crates/strategic-web/src/routes/dialogue.rs",
+      "source_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "actual_EOF": 1897,
+      "source_object": "adler-continuation-20261030/objects/c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "prospective_ranges": [
+        [
+          1680,
+          1760
+        ]
+      ]
+    },
+    {
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_path": "crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+      "source_sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+      "actual_EOF": 781,
+      "source_object": "adler-continuation-20261030/objects/aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+      "prospective_ranges": [
+        [
+          150,
+          179
+        ]
+      ]
+    },
+    {
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_path": "crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+      "source_sha256": "ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa",
+      "actual_EOF": 616,
+      "source_object": "adler-continuation-20261030/objects/ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa",
+      "prospective_ranges": [
+        [
+          390,
+          495
+        ]
+      ]
+    }
+  ]
+}

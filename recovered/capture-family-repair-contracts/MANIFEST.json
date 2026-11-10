@@ -1,0 +1,58 @@
+{
+  "schema": "726-capture-family-repair-contracts-v1",
+  "qualification": "Three historical unimplemented repair contracts statically reconstructed from recorded literal expressions, cited dependency hashes and timestamp hash searches within their recorded command windows. Both match printed SHA-256 hashes. Referenced packets and related contracts are not thereby recovered; no runtime acceptance, review or final authority is implied.",
+  "contracts": [
+    {
+      "sha256": "97754ef56d3249ac8f65aeba78fe28844e9bc79e5345406016115c302752ad06",
+      "object": "objects/97754ef56d3249ac8f65aeba78fe28844e9bc79e5345406016115c302752ad06",
+      "historical_path": "adler-continuation-20261030/OWNED-REPAIR-ROOT-L11-ANIMATION-CAPTURE-CERTIFICATION-001.json",
+      "transcript_ordinal": 63832,
+      "timestamp": "2026-11-02T07:27:53.287897+00:00",
+      "expression_fragment": "fragments/63832-expression.txt",
+      "expression_sha256": "d33acfe3a672ee329d7becef667f97a76461dd1c1fc6fadfc8337d1fa5467ac5",
+      "output_fragment": "fragments/63832-output.txt",
+      "output_sha256": "f317a0c100c9a541561637c6f270f18130cee896a062570b8a8227f422e28199",
+      "read_packet": {
+        "path": "adler-continuation-20261030/READ-ROOT-L11-ANIMATION-CAPTURE-SOURCE-CLOSURE-001.json",
+        "sha256": "3e4555e836ce53c3ce04a38038f3f30b7faa702c261df035d0f71883f3620a04"
+      }
+    },
+    {
+      "sha256": "f7014b06f1de11da460e1c5ca59c04baad91eadbe42ed0a036154c1bb29dd72c",
+      "object": "objects/f7014b06f1de11da460e1c5ca59c04baad91eadbe42ed0a036154c1bb29dd72c",
+      "historical_path": "adler-continuation-20261030/OWNED-REPAIR-ROOT-L12-REMAINING-CAPTURE-CALLERS-001.json",
+      "transcript_ordinal": 64301,
+      "timestamp": "2026-11-02T08:17:39.237881+00:00",
+      "expression_fragment": "fragments/64301-expression.txt",
+      "expression_sha256": "f2480db57f3bd5b2fe04a65153ba9914231ce547ea4f39fadfa24544d5a35088",
+      "output_fragment": "fragments/64301-output.txt",
+      "output_sha256": "118ef3dbe9ea71cfcc40083b5889f64cadef818c4f2b55a7508587a79b08b369",
+      "read_packet": {
+        "path": "adler-continuation-20261030/READ-ROOT-L12-REMAINING-CAPTURE-CALLERS-001.json",
+        "sha256": "baade3901091dce2158e4179cd75485435c9837bea60ec5fa15618c0970f9774"
+      }
+    },
+    {
+      "sha256": "4e2e07787092c93fc4ba29c212f93f0613bb74a8e0ca9ae122270340f152241a",
+      "object": "objects/4e2e07787092c93fc4ba29c212f93f0613bb74a8e0ca9ae122270340f152241a",
+      "historical_path": "adler-continuation-20261030/OWNED-REPAIR-ROOT-L8-PLANT-DIAGNOSTIC-OUTCOMES-001.json",
+      "transcript_ordinal": 64067,
+      "timestamp": "2026-11-02T07:50:11.788979+00:00",
+      "expression_fragment": "fragments/64067-expression.txt",
+      "expression_sha256": "016dd2304279850b844a7b85725c9b389380e7a5a2b9b4d30a0b7a67b9a6b8ec",
+      "output_fragment": "fragments/64067-output.txt",
+      "output_sha256": "2fe4d2f69d151fde7f292d723341b1c89ac27300b1f562d84526e0978f119b87",
+      "read_packet": {
+        "path": "adler-continuation-20261030/READ-ROOT-L8-PLANT-DIAGNOSTIC-SOURCE-CLOSURE-001.json",
+        "sha256": "dec502e15461de006c3357c0f986de4cc9ecb7329cee4975166a15a8b6ee7559"
+      },
+      "uncredited_source": {
+        "sha256": "a82177376083409276cc58189b2edcc8320c03798f8ff1f29d5009a8c1b214e6",
+        "object": "objects/a82177376083409276cc58189b2edcc8320c03798f8ff1f29d5009a8c1b214e6",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-plant-generator/src/viewer/main.rs",
+        "actual_eof": 215
+      }
+    }
+  ]
+}

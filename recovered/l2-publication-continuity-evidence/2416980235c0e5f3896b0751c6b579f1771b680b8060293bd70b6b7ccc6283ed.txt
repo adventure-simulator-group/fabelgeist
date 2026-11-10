@@ -1,0 +1,17 @@
+@@ -6,2 +6,5 @@
+ from datetime import datetime, timezone
++import json
++from pathlib import Path
++import runpy
+ from audit_l2_publication_v1 import Publication as EvidencePublication
+@@ -20,2 +23,5 @@
+             assert state["checkpoint_number"]==number
++            intake=Path(__file__).resolve().parents[4] / "726-intake-20261030"
++            runpy.run_path(str(intake / "publish_progress.py"))["export"]()
++            print("Remote publication pending: run publish_progress.py --push before checkpoint completion.")
+         else:
+@@ -23 +29,4 @@
+             assert state["checkpoint_number"]==number
++            intake=Path(__file__).resolve().parents[4] / "726-intake-20261030"
++            remote=json.loads((intake / "REMOTE-PROGRESS-STATE.json").read_text())
++            assert remote["checkpoint_number"]==number and remote["remote_verified"]

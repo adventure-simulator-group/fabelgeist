@@ -1,0 +1,200 @@
+1: use fabelgeist_determinism::Seed;
+2: use serde::{Deserialize, Serialize};
+3: 
+4: use crate::shuffle;
+5: 
+6: const LOGIC_GRID_GENERATION_DOMAIN: fabelgeist_determinism::StreamId =
+7:     fabelgeist_determinism::StreamId::new("puzzle.logic_grid");
+8: 
+9: pub const LOGIC_GRID_RULES_VERSION: u16 = 2;
+10: pub const MAX_GRID_SIZE: usize = 4;
+11: 
+12: const TRAVELERS: [&str; MAX_GRID_SIZE] = ["Aldren", "Beatrice", "Cuthbert", "Dorothea"];
+13: const TOKENS: [&str; MAX_GRID_SIZE] = ["Bell", "Key", "Lantern", "Mirror"];
+14: const ROADS: [&str; MAX_GRID_SIZE] = ["Ash road", "Moon road", "Thorn road", "Yew road"];
+15: 
+16: #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+17: pub struct LogicGridSpec {
+18:     pub size: u8,
+19:     pub allow_positive_clues: bool,
+20:     pub allow_negative_clues: bool,
+21:     pub max_clues: u8,
+22: }
+23: 
+24: impl Default for LogicGridSpec {
+25:     fn default() -> Self {
+26:         Self {
+27:             size: 3,
+28:             allow_positive_clues: true,
+29:             allow_negative_clues: true,
+30:             max_clues: 6,
+31:         }
+32:     }
+33: }
+34: 
+35: impl LogicGridSpec {
+36:     pub fn validate(self) -> Result<Self, &'static str> {
+37:         if !(3..=MAX_GRID_SIZE as u8).contains(&self.size) {
+38:             return Err("logic-grid size must be three or four");
+39:         }
+40:         if !self.allow_positive_clues && !self.allow_negative_clues {
+41:             return Err("logic grid must enable at least one clue polarity");
+42:         }
+43:         if !(1..=12).contains(&self.max_clues) {
+44:             return Err("logic-grid clue limit must be between one and twelve");
+45:         }
+46:         Ok(self)
+47:     }
+48: }
+49: 
+50: #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+51: pub enum GridRelation {
+52:     TravelerToken,
+53:     TravelerRoad,
+54:     TokenRoad,
+55: }
+56: 
+57: #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+58: pub struct LogicGridClue {
+59:     pub relation: GridRelation,
+60:     pub left: u8,
+61:     pub right: u8,
+62:     pub matches: bool,
+63: }
+64: 
+65: impl LogicGridClue {
+66:     pub fn text(self) -> String {
+67:         let relation = match self.relation {
+68:             GridRelation::TravelerToken => {
+69:                 format!("{} carried the {}", traveler(self.left), token(self.right))
+70:             }
+71:             GridRelation::TravelerRoad => {
+72:                 format!("{} took the {}", traveler(self.left), road(self.right))
+73:             }
+74:             GridRelation::TokenRoad => format!(
+75:                 "the traveler bearing the {} took the {}",
+76:                 token(self.left),
+77:                 road(self.right)
+78:             ),
+79:         };
+80:         if self.matches {
+81:             format!("{relation}.")
+82:         } else {
+83:             format!("It is not true that {relation}.")
+84:         }
+85:     }
+86: }
+87: 
+88: #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+89: pub struct LogicGridAssignment {
+90:     pub traveler: u8,
+91:     pub token: u8,
+92:     pub road: u8,
+93: }
+94: 
+95: #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+96: pub struct LogicGridPuzzle {
+97:     pub rules_version: u16,
+98:     pub seed: Seed,
+99:     pub spec: LogicGridSpec,
+100:     solution: Vec<LogicGridAssignment>,
+101:     pub clues: Vec<LogicGridClue>,
+102: }
+103: 
+104: #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+105: pub struct LogicGridProjection {
+106:     pub rules_version: u16,
+107:     pub travelers: Vec<String>,
+108:     pub tokens: Vec<String>,
+109:     pub roads: Vec<String>,
+110:     pub clues: Vec<LogicGridClue>,
+111: }
+112: 
+113: impl LogicGridPuzzle {
+114:     pub fn generate(seed: Seed) -> Self {
+115:         Self::generate_with_spec(seed, LogicGridSpec::default())
+116:             .expect("standard logic-grid specification is valid")
+117:     }
+118: 
+119:     pub fn generate_with_spec(seed: Seed, spec: LogicGridSpec) -> Result<Self, &'static str> {
+120:         let spec = spec.validate()?;
+121:         let size = usize::from(spec.size);
+122:         let mut rng = LOGIC_GRID_GENERATION_DOMAIN.rng(seed, &[]);
+123:         let mut token_order = (0..spec.size).collect::<Vec<_>>();
+124:         let mut road_order = (0..spec.size).collect::<Vec<_>>();
+125:         shuffle(&mut token_order, &mut rng);
+126:         shuffle(&mut road_order, &mut rng);
+127:         let solution = (0..spec.size)
+128:             .map(|traveler| LogicGridAssignment {
+129:                 traveler,
+130:                 token: token_order[usize::from(traveler)],
+131:                 road: road_order[usize::from(traveler)],
+132:             })
+133:             .collect::<Vec<_>>();
+134: 
+135:         let mut pool = true_grid_clues(&solution, spec);
+136:         shuffle(&mut pool, &mut rng);
+137:         let candidates = all_grid_solutions(spec.size);
+138:         let mut retained = Vec::new();
+139:         let mut legal = candidates.clone();
+140:         while legal.len() > 1 && retained.len() < usize::from(spec.max_clues) {
+141:             let best = pool
+142:                 .iter()
+143:                 .copied()
+144:                 .enumerate()
+145:                 .filter(|(_, clue)| !retained.contains(clue))
+146:                 .map(|(index, clue)| {
+147:                     let remaining = legal
+148:                         .iter()
+149:                         .filter(|candidate| grid_clue_holds(&clue, candidate))
+150:                         .count();
+151:                     (legal.len().saturating_sub(remaining), index, clue)
+152:                 })
+153:                 .filter(|(eliminated, _, _)| *eliminated > 0)
+154:                 .max_by_key(|(eliminated, index, _)| (*eliminated, std::cmp::Reverse(*index)))
+155:                 .map(|(_, _, clue)| clue)
+156:                 .ok_or("logic-grid clue grammar cannot isolate the solution")?;
+157:             retained.push(best);
+158:             legal.retain(|candidate| grid_clue_holds(&best, candidate));
+159:         }
+160:         if legal.len() != 1 {
+161:             return Err("logic-grid clue limit cannot prove one solution");
+162:         }
+163:         let mut index = retained.len();
+164:         while index > 0 {
+165:             index -= 1;
+166:             let mut reduced = retained.clone();
+167:             reduced.remove(index);
+168:             if grid_solutions(spec.size, &reduced, 2).len() == 1 {
+169:                 retained = reduced;
+170:             }
+171:         }
+172:         let puzzle = Self {
+173:             rules_version: LOGIC_GRID_RULES_VERSION,
+174:             seed,
+175:             spec,
+176:             solution,
+177:             clues: retained,
+178:         };
+179:         puzzle.validate()?;
+180:         debug_assert_eq!(size, puzzle.solution.len());
+181:         Ok(puzzle)
+182:     }
+183: 
+184:     pub fn projection(&self) -> LogicGridProjection {
+185:         let size = usize::from(self.spec.size);
+186:         LogicGridProjection {
+187:             rules_version: self.rules_version,
+188:             travelers: TRAVELERS[..size]
+189:                 .iter()
+190:                 .map(|value| (*value).into())
+191:                 .collect(),
+192:             tokens: TOKENS[..size].iter().map(|value| (*value).into()).collect(),
+193:             roads: ROADS[..size].iter().map(|value| (*value).into()).collect(),
+194:             clues: self.clues.clone(),
+195:         }
+196:     }
+197: 
+198:     pub fn validate(&self) -> Result<(), &'static str> {
+199:         self.spec.validate()?;
+200:         if self.rules_version != LOGIC_GRID_RULES_VERSION {

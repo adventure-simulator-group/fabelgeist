@@ -1,0 +1,221 @@
+SOURCE crates/adventuresim-building-generator/src/viewer/fortification_rendering.rs
+221:     palette: &RenderPalette,
+222:     wall: CurtainWallRun,
+223:     defense: &GateDefense,
+224:     origin: Vec2,
+225: ) {
+226:     let tangent = (wall.end - wall.start).normalize_or_zero();
+227:     let horizontal = tangent.x.abs() >= tangent.y.abs();
+228:     let inward = -direction_vector_2d(wall.outward);
+229:     let gate_width = wall
+230:         .gate_width_metres
+231:         .unwrap_or_else(|| defense.guard_chamber.size.max_element());
+232:     for closure in &defense.closures {
+233:         let centre = defense.threshold + origin + inward * closure.inward_offset_metres;
+234:         match closure.kind {
+235:             GateClosureKind::HeavyLeaves => {
+236:                 for plank in 0..16 {
+237:                     let across = (plank as f32 / 15.0 - 0.5) * gate_width * 0.97;
+238:                     let height = closure.coverage.height_at(across);
+239:                     let leaf = centre + tangent * across;
+240:                     spawn_box(
+241:                         world,
+242:                         &palette.door,
+243:                         if horizontal {
+244:                             Vec3::new(gate_width / 15.0 * 1.04, height, 0.16)
+245:                         } else {
+246:                             Vec3::new(0.16, height, gate_width / 15.0 * 1.04)
+247:                         },
+248:                         Vec3::new(leaf.x, height * 0.5, leaf.y),
+249:                         Quat::IDENTITY,
+250:                         "closed heavy gate leaf",
+251:                     );
+252:                 }
+253:             }
+254:             GateClosureKind::Portcullis => {
+255:                 for bar in 0..9 {
+256:                     let across = (bar as f32 / 8.0 - 0.5) * gate_width * 0.9;
+257:                     let position = centre + tangent * across;
+258:                     let height = closure.coverage.height_at(across);
+259:                     spawn_box(
+260:                         world,
+261:                         &palette.timber,
+262:                         Vec3::splat(0.11).with_y(height),
+263:                         Vec3::new(position.x, height * 0.5, position.y),
+264:                         Quat::IDENTITY,
+265:                         "portcullis vertical bar",
+266:                     );
+267:                 }
+268:             }
+269:         }
+270:     }
+271: }
+272: 
+273: fn spawn_gate_guard_chamber(
+274:     world: &mut World,
+275:     palette: &RenderPalette,
+276:     defense: &GateDefense,
+277:     wall: CurtainWallRun,
+278:     origin: Vec2,
+279:     view: ViewerView,
+280: ) {
+281:     let chamber = &defense.guard_chamber;
+282:     let centre = chamber.centre + origin;
+283:     let tangent = (wall.end - wall.start).normalize_or_zero();
+284:     let outward = direction_vector_2d(wall.outward);
+285:     let along_size = chamber.size.dot(tangent.abs());
+286:     let depth_size = chamber.size.dot(outward.abs());
+287:     let half_along = along_size * 0.5;
+288:     let half_depth = depth_size * 0.5;
+289:     let floor_y = chamber.floor_elevation_metres;
+290:     let wall_mid_y = floor_y + chamber.clear_height_metres * 0.5;
+291:     let downward = chamber
+292:         .openings
+293:         .iter()
+294:         .find(|opening| opening.kind == GuardOpeningKind::DownwardDefense);
+295:     let hole_world = downward.map_or(centre, |opening| opening.position + origin);
+296:     let hole_relative = hole_world - centre;
+297:     let hole_along = hole_relative.dot(tangent);
+298:     let hole_depth = hole_relative.dot(outward);
+299:     let hole_size = downward.map_or(0.45, |opening| opening.width_metres.max(0.35));
+300:     let left_width = hole_along - hole_size * 0.5 + half_along;
+301:     let right_width = half_along - (hole_along + hole_size * 0.5);
+302:     for (width, along) in [
+303:         (left_width, -half_along + left_width * 0.5),
+304:         (right_width, half_along - right_width * 0.5),
+305:     ] {
+306:         if width > 0.05 {
+307:             spawn_wall_local_box(
+308:                 world,
+309:                 &palette.floor,
+310:                 centre,
+311:                 tangent,
+312:                 outward,
+313:                 along,
+314:                 0.0,
+315:                 width,
+316:                 depth_size,
+317:                 0.18,
+318:                 floor_y,
+319:                 "gate guard chamber floor",
+320:             );
+321:         }
+322:     }
+323:     let inward_depth = hole_depth - hole_size * 0.5 + half_depth;
+324:     let outward_depth = half_depth - (hole_depth + hole_size * 0.5);
+325:     for (depth, depth_offset) in [
+326:         (inward_depth, -half_depth + inward_depth * 0.5),
+327:         (outward_depth, half_depth - outward_depth * 0.5),
+328:     ] {
+329:         if depth > 0.05 {
+330:             spawn_wall_local_box(
+331:                 world,
+332:                 &palette.floor,
+333:                 centre,
+334:                 tangent,
+335:                 outward,
+336:                 hole_along,
+337:                 depth_offset,
+338:                 hole_size,
+339:                 depth,
+340:                 0.18,
+341:                 floor_y,
+342:                 "gate guard chamber floor around downward opening",
+343:             );
+344:         }
+345:     }
+346:     // A recessed, explicitly non-colliding backdrop makes the downward
+347:     // opening readable in section captures without filling the audited void.
+348:     let hole_backdrop = world.resource_mut::<Assets<Mesh>>().add(Cuboid::new(
+349:         hole_size * 0.9,
+350:         0.04,
+351:         hole_size * 0.9,
+352:     ));
+353:     world.spawn((
+354:         Name::new("non-colliding downward opening depth"),
+355:         NonCollidingVisualization,
+356:         Mesh3d(hole_backdrop),
+357:         MeshMaterial3d(palette.void.clone()),
+358:         Transform::from_xyz(hole_world.x, floor_y - 0.12, hole_world.y),
+359:     ));
+360:     for support in &chamber.supports {
+361:         let support_centre = support.centre + origin;
+362:         spawn_box(
+363:             world,
+364:             &palette.stone,
+365:             Vec3::new(
+366:                 support.size.x,
+367:                 support.top_elevation_metres - support.base_elevation_metres,
+368:                 support.size.y,
+369:             ),
+370:             Vec3::new(
+371:                 support_centre.x,
+372:                 (support.top_elevation_metres + support.base_elevation_metres) * 0.5,
+373:                 support_centre.y,
+374:             ),
+375:             Quat::IDENTITY,
+376:             "gate guard chamber support pier",
+377:         );
+378:     }
+379: 
+380:     let observation = chamber
+381:         .openings
+382:         .iter()
+383:         .find(|opening| opening.kind == GuardOpeningKind::OutwardObservation);
+384:     let observation_width = observation.map_or(0.35, |opening| opening.width_metres);
+385:     let observation_sill =
+386:         observation.map_or(floor_y + 0.85, |opening| opening.sill_elevation_metres);
+387:     let observation_height = observation.map_or(0.8, |opening| opening.clear_height_metres);
+388:     let observation_along = observation
+389:         .map(|opening| (opening.position - chamber.centre).dot(tangent))
+390:         .unwrap_or(0.0);
+391:     let left_wall_width = observation_along - observation_width * 0.5 + half_along;
+392:     let right_wall_width = half_along - observation_along - observation_width * 0.5;
+393:     for (width, along) in [
+394:         (left_wall_width, -half_along + left_wall_width * 0.5),
+395:         (right_wall_width, half_along - right_wall_width * 0.5),
+396:     ] {
+397:         if width <= 0.05 {
+398:             continue;
+399:         }
+400:         spawn_wall_local_box(
+401:             world,
+402:             &palette.stone,
+403:             centre,
+404:             tangent,
+405:             outward,
+406:             along,
+407:             half_depth,
+408:             width,
+409:             0.28,
+410:             chamber.clear_height_metres,
+411:             wall_mid_y,
+412:             "gate guard chamber outward wall pier",
+413:         );
+414:     }
+415:     let lower_height = (observation_sill - floor_y).max(0.2);
+416:     spawn_wall_local_box(
+417:         world,
+418:         &palette.stone,
+419:         centre,
+420:         tangent,
+421:         outward,
+422:         observation_along,
+423:         half_depth,
+424:         observation_width,
+425:         0.28,
+426:         lower_height,
+427:         floor_y + lower_height * 0.5,
+428:         "gate guard chamber observation sill",
+429:     );
+430:     let upper_base = observation_sill + observation_height;
+431:     let upper_height = (floor_y + chamber.clear_height_metres - upper_base).max(0.2);
+432:     spawn_wall_local_box(
+433:         world,
+434:         &palette.stone,
+435:         centre,
+436:         tangent,
+437:         outward,
+438:         observation_along,
+439:         half_depth,
+440:         observation_width,

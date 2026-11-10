@@ -1,0 +1,72 @@
+{
+  "schema": "726-qualification-linked-registrations-v1",
+  "qualification": "Two historical registration files reconstructed from recorded construction, pinned Git bytes, and timestamp hash searches in the recorded command windows. They match hashes in previously recovered qualifications. Neither registration establishes source-read credit, current audit authority, or implementation acceptance.",
+  "files": [
+    {
+      "sha256": "02be9c9655626b6c96b7a328c57be71b0b101874c9114aec90ba1c688ca11d3d",
+      "object": "objects/02be9c9655626b6c96b7a328c57be71b0b101874c9114aec90ba1c688ca11d3d",
+      "historical_path": "adler-continuation-20261030/REGISTRATION-GRASS-WITNESS-675.json",
+      "parent_qualification": "recovered/embedded-printed-audit-records/objects/b12a963b6ce6d1027648827730c645ae432f5b3bf738f6149cecb2414c761f5e",
+      "parent_sha256": "b12a963b6ce6d1027648827730c645ae432f5b3bf738f6149cecb2414c761f5e",
+      "recorded_creation_ordinal": 99275,
+      "timestamp": "2026-11-03T05:55:38.944634+00:00",
+      "source_rows": [
+        {
+          "sha256": "ef88013b1a81f49e88c66271de95bd21136c29c8bdd0db0b73fdf036c0d11249",
+          "bytes": 2151,
+          "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+          "git_path": "assets/config/tactical-graphics.yaml"
+        },
+        {
+          "sha256": "d16bd96cb1443180658a7961e14da85b6f03d0a0a89b11a86c3a8a5054bc9bd8",
+          "bytes": 2443,
+          "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+          "git_path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass/placement.rs"
+        },
+        {
+          "sha256": "4b39a948e24517a32a421b021307c7d1d7dad7a152be348ac952a3c88384f961",
+          "bytes": 12365,
+          "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+          "git_path": "crates/adventuresim-tactical-client/src/presentation/config.rs"
+        }
+      ]
+    },
+    {
+      "sha256": "7f1c70ee57de87216233a130d6c9ca2cc0e64d2f79ed1ec27729a9f8c28e07df",
+      "object": "objects/7f1c70ee57de87216233a130d6c9ca2cc0e64d2f79ed1ec27729a9f8c28e07df",
+      "historical_path": "adler-continuation-20261030/REGISTRATION-AI-PRECISION-L12-1481.json",
+      "parent_qualification": "recovered/embedded-printed-audit-records/objects/831d63435823b3201d0f7b8f8d45caac0c96acc0bf5aeed11ba83b570af73d8d",
+      "parent_sha256": "831d63435823b3201d0f7b8f8d45caac0c96acc0bf5aeed11ba83b570af73d8d",
+      "recorded_creation_ordinal": 164914,
+      "timestamp": "2026-11-04T06:24:19.420455+00:00",
+      "source_rows": [
+        {
+          "sha256": "ee4573d3b48808c80f0dcea6b98ccbb8b44ef4d1120c6c8b0889571c572b982c",
+          "bytes": 1409,
+          "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+          "git_path": "crates/adventuresim-tactical-core/src/combat_config/ai_offense.rs"
+        },
+        {
+          "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+          "bytes": 31826,
+          "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+          "git_path": "crates/adventuresim-tactical-core/src/combat_config.rs"
+        },
+        {
+          "sha256": "083b8b2af667eddfbb85c778a24dd9794d2b6729a5990f1334f922fa5b2a3730",
+          "bytes": 22323,
+          "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+          "git_path": "crates/adventuresim-tactical-server/src/combat/authority.rs"
+        },
+        {
+          "sha256": "3319be254a488cfacf2abfcea4c143c419090ebcd9b778b4dabdec7c95b85bb5",
+          "bytes": 11893,
+          "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+          "git_path": "crates/adventuresim-tactical-server/src/bot/offense/phase.rs"
+        }
+      ]
+    }
+  ],
+  "source_object_count": 7,
+  "source_population_note": "Seven source objects are copied for portability; six already occur in existing source manifests, while grass placement is newly represented. Do not sum overlapping counts."
+}

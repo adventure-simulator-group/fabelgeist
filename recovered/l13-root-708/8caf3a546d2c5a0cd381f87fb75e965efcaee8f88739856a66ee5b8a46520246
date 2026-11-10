@@ -1,0 +1,505 @@
+{
+  "lens": 13,
+  "kind": "Root full-source assessment adoption",
+  "at": "2026-11-01T19:51:06.800304+00:00",
+  "packet": {
+    "path": "adler-continuation-20261030/READ-ROOT-L13-2693-2699-001.json",
+    "sha256": "a5773242d8b7727727f8a7f3d6db93a4658894a3fd2de3e78a93fd2e22e95c4a"
+  },
+  "evidence": {
+    "schema": "726-root-l13-source-packet-v1",
+    "at": "2026-11-01T19:50:47.873926+00:00",
+    "author": "/root",
+    "lens": 13,
+    "original_before": 2693,
+    "original_after": 2700,
+    "registered_before_read_attestation": true,
+    "ordered": [
+      {
+        "source": {
+          "original": 2693,
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source.rs",
+          "sha256": "ff887ab06cf0892fa9f624f587e493319a93fc570898a890fb117a382061e3b3",
+          "actual_eof": 181,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/ff887ab06cf0892fa9f624f587e493319a93fc570898a890fb117a382061e3b3",
+          "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/ff887ab06cf0892fa9f624f587e493319a93fc570898a890fb117a382061e3b3",
+          "prospective_ranges": [
+            [
+              1,
+              179
+            ]
+          ],
+          "revision_qualification": "Exact frozen PR6533 native Git bytes; archivef82 transports the same body, not current semantic proof.",
+          "purpose": "Seven grounding admission roles,913 fresh material lines; production edge-key scope305..311 retained, no test execution."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2693-2699-001.json",
+          "sha256": "7285d9ebc2cccb0ac748fae28a17bea518b965bc449e5585bd12027f0f696826"
+        },
+        "registration_pointer": "/sources/0",
+        "assessed_ranges": [
+          [
+            1,
+            179
+          ]
+        ],
+        "untruncated_body_outputs": true,
+        "author": "/root",
+        "read_kind": "qualified_root2693_2699_material_scope",
+        "root_personal_source_lines": 179,
+        "whole_file_coverage": false,
+        "unread_ranges": [
+          [
+            180,
+            181
+          ]
+        ],
+        "observations": [
+          {
+            "ranges": [
+              [
+                1,
+                179
+              ]
+            ],
+            "assessment": "Fresh frozenPR GeographicSurface source1..179/181 personally read untruncated179lines. Private query and boundary extension accompany restricted triangles. from_vista_lod requires width/depth>=2, checked count product, exact height count, positive finite spacing and finite original origins; uses usize grid indices and fixed a-c diagonal triangles. Origin cast to f32 and completedposition arithmetic still rely actual GroundTriangle::new numeric admission; constructor name not sufficient proof. from_triangles collects all GroundTriangle admissions through Option, sorts, rejects empty, then builds query and extension. height_range_in_outline fans polygon, filters failed local triangle creation, intersects actual indexed source, re-admits each point/elevation and returns min/max orNone. elevation_at first containing indexedtriangle then re-admits height; complete coverage/overlap explicitly belongs compilation, no extrapolated surface guarantee. Native index membership, expansion/factor/triangle/clip/current caller required634/632. Module imports are not body coverage;180..181testdeclarations excluded. No nativegeometry/test/runtime execution."
+          }
+        ]
+      },
+      {
+        "source": {
+          "original": 2694,
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/members.rs",
+          "sha256": "9e11219c566b928235ef911905fcfbb6f5ee39eaae0b88b00c7852dda97892bc",
+          "actual_eof": 52,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/9e11219c566b928235ef911905fcfbb6f5ee39eaae0b88b00c7852dda97892bc",
+          "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/9e11219c566b928235ef911905fcfbb6f5ee39eaae0b88b00c7852dda97892bc",
+          "prospective_ranges": [
+            [
+              1,
+              52
+            ]
+          ],
+          "revision_qualification": "Exact frozen PR6533 native Git bytes; archivef82 transports the same body, not current semantic proof.",
+          "purpose": "Seven grounding admission roles,913 fresh material lines; production edge-key scope305..311 retained, no test execution."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2693-2699-001.json",
+          "sha256": "7285d9ebc2cccb0ac748fae28a17bea518b965bc449e5585bd12027f0f696826"
+        },
+        "registration_pointer": "/sources/1",
+        "assessed_ranges": [
+          [
+            1,
+            52
+          ]
+        ],
+        "untruncated_body_outputs": true,
+        "author": "/root",
+        "read_kind": "qualified_root2693_2699_material_scope",
+        "root_personal_source_lines": 52,
+        "whole_file_coverage": true,
+        "unread_ranges": [],
+        "observations": [
+          {
+            "ranges": [
+              [
+                1,
+                52
+              ]
+            ],
+            "assessment": "Fresh frozenPR PropertyMembers full52 personally read. Private Vec SceneBuildingId and immutable ids() projection; new validates nonempty, nonzero physical IDs, duplicates returning earliest prior index, preserves order without sorting/dedup. Explicit Empty/Zero/Duplicate reason variants capture actual owner/indices, native usize positions not a second building identity. ManualDeserialize Vec->same canonicalnew then Serde custom wire error, transparentSerialize; opaqueReflect descriptor alone not actualnative construction/mutation admission. Aggregate surface subsequently limits members to1or2 for accepted treatment, distinctfrom generally nonempty membership leaf and not duplicate owner by common Vec. Actual error context/caller/native/current remains1495/3124, no DB/tactical persistence inference."
+          }
+        ]
+      },
+      {
+        "source": {
+          "original": 2695,
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/validation.rs",
+          "sha256": "b3b0b91b5ad6af9f24f0166a723369ea8b37babe7d809934f513a2c0da87b91b",
+          "actual_eof": 159,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/b3b0b91b5ad6af9f24f0166a723369ea8b37babe7d809934f513a2c0da87b91b",
+          "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/b3b0b91b5ad6af9f24f0166a723369ea8b37babe7d809934f513a2c0da87b91b",
+          "prospective_ranges": [
+            [
+              1,
+              157
+            ]
+          ],
+          "revision_qualification": "Exact frozen PR6533 native Git bytes; archivef82 transports the same body, not current semantic proof.",
+          "purpose": "Seven grounding admission roles,913 fresh material lines; production edge-key scope305..311 retained, no test execution."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2693-2699-001.json",
+          "sha256": "7285d9ebc2cccb0ac748fae28a17bea518b965bc449e5585bd12027f0f696826"
+        },
+        "registration_pointer": "/sources/2",
+        "assessed_ranges": [
+          [
+            1,
+            157
+          ]
+        ],
+        "untruncated_body_outputs": true,
+        "author": "/root",
+        "read_kind": "qualified_root2693_2699_material_scope",
+        "root_personal_source_lines": 157,
+        "whole_file_coverage": false,
+        "unread_ranges": [
+          [
+            158,
+            159
+          ]
+        ],
+        "observations": [
+          {
+            "ranges": [
+              [
+                1,
+                157
+              ]
+            ],
+            "assessment": "Fresh frozenPR support validation1..157/159 personally read. validate_encoded requires bounded nonzero propertyID,1or2 ordered nonzero distinct memberIDs, treatmentSingle exactly1/Compound exactly2 and rejects NotSelected. Bounds check exact contact tolerance equality, nonempty region/outline cardinality, valid regions and outlines and every outlinepoint in correspondingregion. Topology gate ensures nonempty finite positions/supporttriangles, every support/retaining index inbounds/distinct before support positions indexing, and finite nonvertical support crossproducts. Position clipping containment then maximum grade check, actual helper needed for complete numeric result assurance; grade reason retains measured/permitted semanticowners, inability to representgrade maps Topology. Ends validate_floors from2696, actual caller invokes gatebeforeuse stillneeded. valid_outline >=3/finite/positive signedarea/nonzeroedges/tolerantconvexity; no arbitrarypolygon policy change from strictScenePlanPolygon versus roundedarchitecturalmode. contains empty-outline vacuity constrained by actual earlier gate, no isolatedpanic witness. Shared admissionerror captures property/member context and SupportSurfaceIssue source, actual final wire/native/consumer chain separate.158..159testdeclarations excluded."
+          }
+        ]
+      },
+      {
+        "source": {
+          "original": 2696,
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "actual_eof": 323,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "prospective_ranges": [
+            [
+              1,
+              299
+            ],
+            [
+              305,
+              311
+            ],
+            [
+              314,
+              323
+            ]
+          ],
+          "revision_qualification": "Exact frozen PR6533 native Git bytes; archivef82 transports the same body, not current semantic proof.",
+          "purpose": "Seven grounding admission roles,913 fresh material lines; production edge-key scope305..311 retained, no test execution."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2693-2699-001.json",
+          "sha256": "7285d9ebc2cccb0ac748fae28a17bea518b965bc449e5585bd12027f0f696826"
+        },
+        "registration_pointer": "/sources/3",
+        "assessed_ranges": [
+          [
+            1,
+            299
+          ],
+          [
+            305,
+            311
+          ],
+          [
+            314,
+            323
+          ]
+        ],
+        "untruncated_body_outputs": true,
+        "author": "/root",
+        "read_kind": "qualified_root2693_2699_material_scope",
+        "root_personal_source_lines": 316,
+        "whole_file_coverage": false,
+        "unread_ranges": [
+          [
+            300,
+            304
+          ],
+          [
+            312,
+            313
+          ]
+        ],
+        "observations": [
+          {
+            "ranges": [
+              [
+                1,
+                299
+              ],
+              [
+                305,
+                311
+              ],
+              [
+                314,
+                323
+              ]
+            ],
+            "assessment": "Fresh frozenPR floor1..299/305..311/314..323 personally read316material lines. FloorBearing restricted fields and wire try_from+denyunknown route admit requires nonzero building, nonempty floorregions and no positive overlap or partial shared edge; regions use canonicalFloorRegion owners, signedSupportElevation preserved. Native projection/clip/partition actualcontracts needed before clear verdict. Ordered zip validates exact member count/identity before per-floor coverage, with building+reason context. Floor coverage subtracts original convexfaces to avoid duplicate masking, skips disjointbounds and zero-area contact, wrong-level faces track separatewrong area/control; aggregates absent/wrongarea and allows exteriorperimeter times contacttolerance in square metres. Wrongdatum/coverage builds checked diagnostic lengths/areas, no direct dimension mismatch. Exact sharededges cancel; edge_coordinate_key305..311 normalizes both signedzero to0 otherwiseusesnativef32bits and BTreeMap sorted endpoints, production key not SceneBuildingId or gameplay tuning. REG027 originally excluded300..313; correctedREG030 includes onlyactual305..311 and rawcontext untouched. u32edge occurrence/internalnativef64 clipping results need actual disjointpartition/bounds/nativeoverflow analysis, not new arbitraryidentity owner. Ranges300..304/312..313 uncreditedcfgtest-header/commentcontext; no tests run. Escapedline133 confirmed square-metre U+00B2, displayencoding adds no bodycredit."
+          }
+        ]
+      },
+      {
+        "source": {
+          "original": 2697,
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/region.rs",
+          "sha256": "0776d212c25f4a233acb887f1fa0e5318c494cff1121dfb5125e6f5105d3d409",
+          "actual_eof": 121,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/0776d212c25f4a233acb887f1fa0e5318c494cff1121dfb5125e6f5105d3d409",
+          "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/0776d212c25f4a233acb887f1fa0e5318c494cff1121dfb5125e6f5105d3d409",
+          "prospective_ranges": [
+            [
+              1,
+              78
+            ]
+          ],
+          "revision_qualification": "Exact frozen PR6533 native Git bytes; archivef82 transports the same body, not current semantic proof.",
+          "purpose": "Seven grounding admission roles,913 fresh material lines; production edge-key scope305..311 retained, no test execution."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2693-2699-001.json",
+          "sha256": "7285d9ebc2cccb0ac748fae28a17bea518b965bc449e5585bd12027f0f696826"
+        },
+        "registration_pointer": "/sources/4",
+        "assessed_ranges": [
+          [
+            1,
+            78
+          ]
+        ],
+        "untruncated_body_outputs": true,
+        "author": "/root",
+        "read_kind": "qualified_root2693_2699_material_scope",
+        "root_personal_source_lines": 78,
+        "whole_file_coverage": false,
+        "unread_ranges": [
+          [
+            79,
+            121
+          ]
+        ],
+        "observations": [
+          {
+            "ranges": [
+              [
+                1,
+                78
+              ]
+            ],
+            "assessment": "Fresh frozenPR FloorRegion1..78/121 personally read. PrivateScenePlanPolygon plus private FloorRegionWire retain exact Scene vs Architectural admission provenance. Serialize into stored admission; Deserialize try_from reconstructs Scene viaorderedScenePlanPoint vertices or Architectural through actualPlanPolygon+centre/origin/orientation projection then ScenePlanPolygon::from_architectural. Constructors both roundtrip same canonicalTryFrom before immutable outline getter, no unchecked dualstate initialization in these methods. Two encodings preserve distinct geometric source contracts, not obsolete compatibilityfallback and not automatically redundantauthority: actual rounded projection relation to retainedoutline and nativeconsumers remains1536/1575/1534. Foreign polygon/projection helper bodies not granted by names; tests79..121 unread/unexecuted."
+          }
+        ]
+      },
+      {
+        "source": {
+          "original": 2698,
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/grounding.rs",
+          "sha256": "b6b4c68b580f96661e79986758218aaa58f8ac2b89c2414c58f5978f1c55bd80",
+          "actual_eof": 78,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/b6b4c68b580f96661e79986758218aaa58f8ac2b89c2414c58f5978f1c55bd80",
+          "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/b6b4c68b580f96661e79986758218aaa58f8ac2b89c2414c58f5978f1c55bd80",
+          "prospective_ranges": [
+            [
+              1,
+              75
+            ]
+          ],
+          "revision_qualification": "Exact frozen PR6533 native Git bytes; archivef82 transports the same body, not current semantic proof.",
+          "purpose": "Seven grounding admission roles,913 fresh material lines; production edge-key scope305..311 retained, no test execution."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2693-2699-001.json",
+          "sha256": "7285d9ebc2cccb0ac748fae28a17bea518b965bc449e5585bd12027f0f696826"
+        },
+        "registration_pointer": "/sources/5",
+        "assessed_ranges": [
+          [
+            1,
+            75
+          ]
+        ],
+        "untruncated_body_outputs": true,
+        "author": "/root",
+        "read_kind": "qualified_root2693_2699_material_scope",
+        "root_personal_source_lines": 75,
+        "whole_file_coverage": false,
+        "unread_ranges": [
+          [
+            76,
+            78
+          ]
+        ],
+        "observations": [
+          {
+            "ranges": [
+              [
+                1,
+                75
+              ]
+            ],
+            "assessment": "Fresh frozenPR grounding generation1..75/78 personally read. Consuming ground_generated_city validates source, rejects alreadyboundgrounding or any mismatch across building/distant/compound/garden/street/yard/parish authoredlayout; emptybuilding/distant path validatescompleteinput thenreturns valid empty. Nonempty preparesgeographicterrain, constructs actualsource, selects+compiles acceptedcity, support_projection beforemutatingself, publishesgroundedplacements then finalvalidate; failure consumes localvalue ratherthanpublish partialplacement bythismethod. physical_placements combines playable and distant physicalrecords. validate_grounding admitsNone onlyemptyplacements, Some onlynonempty plus actualbinding/compound validation, rejects MissingSupport/UnexpectedSupport. Actual digest/reconstruct/native/current needed1581, no guessedmissingplan fallback fromthiscode.76..78cfgtest declarations excluded, no externaltestbodycoverage."
+          }
+        ]
+      },
+      {
+        "source": {
+          "original": 2699,
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/supported.rs",
+          "sha256": "951ac796fe6192eccfebbeca4317a11c29f0ac3697424ddc46973810d05db06b",
+          "actual_eof": 56,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/951ac796fe6192eccfebbeca4317a11c29f0ac3697424ddc46973810d05db06b",
+          "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/951ac796fe6192eccfebbeca4317a11c29f0ac3697424ddc46973810d05db06b",
+          "prospective_ranges": [
+            [
+              1,
+              56
+            ]
+          ],
+          "revision_qualification": "Exact frozen PR6533 native Git bytes; archivef82 transports the same body, not current semantic proof.",
+          "purpose": "Seven grounding admission roles,913 fresh material lines; production edge-key scope305..311 retained, no test execution."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2693-2699-001.json",
+          "sha256": "7285d9ebc2cccb0ac748fae28a17bea518b965bc449e5585bd12027f0f696826"
+        },
+        "registration_pointer": "/sources/6",
+        "assessed_ranges": [
+          [
+            1,
+            56
+          ]
+        ],
+        "untruncated_body_outputs": true,
+        "author": "/root",
+        "read_kind": "qualified_root2693_2699_material_scope",
+        "root_personal_source_lines": 56,
+        "whole_file_coverage": true,
+        "unread_ranges": [],
+        "observations": [
+          {
+            "ranges": [
+              [
+                1,
+                56
+              ]
+            ],
+            "assessment": "Fresh frozenPR supported terrain full56 personally read. prepare_supported_terrain firstvalidates input, prepares unchanged geographiccontext, validatesbuildingpads andcompounds, optionalprojection builds actualsource then reconstructswith completephysicalplacements and installspropertysurface. support_obstacles removal follows accepted installation, retainingbuildings/ground/repair report and avoidingfurniture workaround deletingphysicalrecords. OptionalNone legitimateonlyasparent validation allows; no fallback choosingdifferentfloor or resamplingnative source shownhere. PublicSupportedSceneTerrain outputfields are presentationstage aggregate, actual callers/privatewriters/native/current/canonicalsource digest stillrequired1581/634; no tacticalauthority persistence or nativegeometry/test/runtimeexecution."
+          }
+        ]
+      }
+    ],
+    "connected": [],
+    "prior_same_lens_adoptions": [],
+    "new_root_ordered_lines": 913,
+    "source_line_roles": {
+      "fresh_production": 913,
+      "reused_production": 0,
+      "declared_fixture_source": 0,
+      "fixture_execution": false
+    },
+    "tests_executed": false,
+    "new_root_connected_reread_lines": 0,
+    "accepted_unique_count_change": 0,
+    "other_population_credit": 0,
+    "current_source_reconciled": false,
+    "product_execution": false,
+    "implementation_gate_complete": false,
+    "new_questions": [],
+    "contract_revisits_pending_queue_adoption": [
+      {
+        "entry_index": 632,
+        "contract_id": "Q-L11-c43f55e21f7cb3e50a1f",
+        "scope": "Seven frozen grounding roles913fresh/0prior,35nested, no current/runtime."
+      },
+      {
+        "entry_index": 634,
+        "contract_id": "Q-L11-7279af0e092343b35843",
+        "scope": "Seven frozen grounding roles913fresh/0prior,35nested, no current/runtime."
+      },
+      {
+        "entry_index": 1495,
+        "contract_id": "Q-L12-63086ad832a46ffd7461",
+        "scope": "Seven frozen grounding roles913fresh/0prior,35nested, no current/runtime."
+      },
+      {
+        "entry_index": 1534,
+        "contract_id": "Q-L12-526d08f49c4c2715556f",
+        "scope": "Seven frozen grounding roles913fresh/0prior,35nested, no current/runtime."
+      },
+      {
+        "entry_index": 1536,
+        "contract_id": "Q-L12-cbdcfb63dbf2192bbce3",
+        "scope": "Seven frozen grounding roles913fresh/0prior,35nested, no current/runtime."
+      },
+      {
+        "entry_index": 1575,
+        "contract_id": "Q-L12-6049c76da1ad29b34469",
+        "scope": "Seven frozen grounding roles913fresh/0prior,35nested, no current/runtime."
+      },
+      {
+        "entry_index": 1581,
+        "contract_id": "Q-L12-4e776db6e24c904064e2",
+        "scope": "Seven frozen grounding roles913fresh/0prior,35nested, no current/runtime."
+      },
+      {
+        "entry_index": 3124,
+        "contract_id": "REVIEW-L3-BOUNDARY-BINDING-ADMISSION",
+        "scope": "Seven frozen grounding roles913fresh/0prior,35nested, no current/runtime."
+      }
+    ],
+    "dedup_navigation": {
+      "queue_records_checked": 3821,
+      "existing_contracts": [
+        632,
+        634,
+        1495,
+        1534,
+        1536,
+        1575,
+        1581,
+        3124
+      ],
+      "new_questions_not_unique_findings": 0,
+      "qualification": "Existing632/634 geometry/source/native,1495 membershipdiagnostics,1534surface/floor admission,1536/1575projectionprovenance,1581scene binding,3124boundarybinding context. No alias just common geometry type or remedy, exact current/lateracceptance remains."
+    },
+    "remaining_connected_obligations": [
+      "Actual GeographicSurface/GroundTriangle/PlanarQueryIndex/expansion/clip/subtract/sourcecollection/compilation/native/consumer/current; finite leaves alone not completed numerical result or index membership proof. Retain actual geometric bounds and no allsurfacecoverage guarantee from factory names.",
+      "PropertyMembers leaf nonempty/order/nonzero/duplicate contracts and narrower accepted1or2surface treatment distinct. FloorBearing perimeter*tolerance and exact signedzero nativebit key roles, FloorRegion Scene-vs-Architectural projection provenance retained; actual native rounding/partition/caller/current/error diagnostics before final disposition.",
+      "Source913fresh/0reused/35nested fields incl explicit context_excluded; all711 own receipts authenticated with no exacthash/future/application hits. Registration script terminal summary stale30/270/32 fromtemplate; actual immutable registration/qualification913fresh/0prior/35nested and bodies determine credit, no extra lines. Post99 lacked context_excluded enumeration and remains unused; post100 adds only exactnewprofile context field, old profiles preserved.",
+      "Full13/extensions/current/all20/exactaliases/concrete lateracceptance/repairledger/implementation/independentreview/runtime incomplete. Fresh2511visibilityhelper/native546..557/connected524 remain separate. Next2700 requires latest712 ownreceipt/native/EOF/material/nested/prospective qualification before body/reuse. No newsubagents/productedits/builds/tests/native/runtime/qualityscanners."
+    ]
+  },
+  "original_before": 2693,
+  "original_after": 2700,
+  "new_original_roles": 7,
+  "root_personal_ordered_lines": 913,
+  "root_personal_connected_reread_lines": 0,
+  "prior_same_lens_reuses": [],
+  "prior_authorship_retained": true,
+  "future_original_credit": 0,
+  "qualified_ordered_reuses": [],
+  "new_original_roles_from_prior_connected_reads": 0,
+  "other_population_credit": 0,
+  "accepted_unique_count_change": 0,
+  "current_source_reconciled": false,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "writer": {
+    "path": "adler-continuation-20261030/adopt_root_l13_packet_v152.py",
+    "sha256": "712886750bb8c5ed8e0ca4384d2b7527a1281721ce078980dc152970781074d6"
+  },
+  "plan": {
+    "path": "adler-continuation-20261030/PLAN-ROOT-L13-2693-2699-001.json",
+    "sha256": "730c169a2db4cc41b9309028e27ec7b6c94d827f1564aa8d94d436e62aa551d0"
+  }
+}

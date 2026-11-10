@@ -1,0 +1,66 @@
+{
+  "sha256": "3dfc0d3d341f1dab4cef098697b1dc35a977347e7fd12e9bd552ab2a9907aeb0",
+  "hits": [
+    {
+      "original": 2846,
+      "receipt": {
+        "path": "segovb/READ-L13-PARALLEL-042.json",
+        "sha256": "10fdc2fe4e84ae4e0070a1cb9a61b7108c5b8b3d3f70e7d9ec533ec0264d8aed"
+      }
+    },
+    {
+      "original": 2847,
+      "receipt": {
+        "path": "segovb/READ-L13-PARALLEL-042.json",
+        "sha256": "10fdc2fe4e84ae4e0070a1cb9a61b7108c5b8b3d3f70e7d9ec533ec0264d8aed"
+      }
+    }
+  ],
+  "futures": [
+    {
+      "receipt": "parallel-l13-20261029/READ-PL13-044.json",
+      "receipt_sha256": "3fbce14de61970ba627c15fd2a06d6a2fd4522a43bc10547dcc96b9255921f4c",
+      "row_pointer": "/connected_source_reads/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-044-CONNECTED-CHURCH-ADMISSION.json",
+        "sha256": "532f7d30ace3913cedd133700179ebfc86968232841b598a55217a1380e9763a"
+      },
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/programme.rs",
+      "source_sha256": "c2a4f4450a66bd43300b427d5780df19f3191c572e9b52fd5df91f64549cf8c9",
+      "actual_EOF": 279,
+      "assessed_ranges": [
+        [
+          217,
+          244
+        ]
+      ],
+      "attribution": "Delegated independent L13 personal read; no other-lens/current/root reread transfer",
+      "ordered_credit_now": 0,
+      "original": 2846,
+      "future_rule": "At exact future original frontier qualify sourceID/revision/hash/Gitpath/object/EOF/prospective registration+receipt+rowpointer/ranges/attribution; zero new rereads then count original once."
+    },
+    {
+      "receipt": "parallel-l13-20261029/READ-PL13-044.json",
+      "receipt_sha256": "3fbce14de61970ba627c15fd2a06d6a2fd4522a43bc10547dcc96b9255921f4c",
+      "row_pointer": "/connected_source_reads/2",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-044-CONNECTED-CHURCH-ADMISSION.json",
+        "sha256": "532f7d30ace3913cedd133700179ebfc86968232841b598a55217a1380e9763a"
+      },
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/church_programme.rs",
+      "source_sha256": "9d04b3ec61ac19ee40fd52dca2d0d208e0b69b5039919481d171043904ee518a",
+      "actual_EOF": 46,
+      "assessed_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "attribution": "Delegated independent L13 personal read; no other-lens/current/root reread transfer",
+      "ordered_credit_now": 0,
+      "original": 2847,
+      "future_rule": "At exact future original frontier qualify sourceID/revision/hash/Gitpath/object/EOF/prospective registration+receipt+rowpointer/ranges/attribution; zero new rereads then count original once."
+    }
+  ],
+  "apps": []
+}

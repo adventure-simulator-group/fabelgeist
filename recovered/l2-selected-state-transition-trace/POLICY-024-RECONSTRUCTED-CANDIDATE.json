@@ -1,0 +1,81 @@
+{
+  "schema": "726-l2-journey-minute-carrier-policy-v1",
+  "lens": 2,
+  "at": "2026-11-02T18:51:35.354276+00:00",
+  "parent_contract": "L2-EXT-ERRANTRY-CAMP-COORDINATE-OWNER-FIT",
+  "parent_first_contract": "Existing absolute StrategicMinute is retained correctly; raw journey-relative movement/elapsed coordinates require actual producer/zero admission and exact owner fit. RequestedDuration rejects zero and is a positive request, so no blanket reuse is established.",
+  "evidence": [
+    {
+      "path": "adler-continuation-20261030/READ-ROOT-L2-JOURNEY-ID-SUPPORT-039-042.json",
+      "sha256": "127342bca9eaedaf7af336451499c8b69ce411e75b4eec02909a8d831db1e6f3"
+    },
+    {
+      "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L2-ERRANTRY-REUSE-001.json",
+      "sha256": "c8ac419fd0fe6b38f12eeb8f2338f54331c2589ef46b7f13aa09e31c04904299"
+    }
+  ],
+  "selected_roles": {
+    "movement": "JourneyMovementMinutes(u64)",
+    "elapsed": "JourneyElapsedMinutes(u64)"
+  },
+  "zero_valid": true,
+  "absolute_departure_owner": "Existing StrategicMinute; preserve deliberate frozen-day normalization",
+  "unit_and_frame": "Integer minutes measured from a journey departure. Movement work and elapsed wall-clock progress are distinct quantities. Retained progress, totals and interval measures use their corresponding quantity; record-level operations retain coordinate versus span meaning.",
+  "leaf_admission": "All u64 values including zero. No positive-only request law, schedule quantization, day cutoff, or artificial leaf validation failure. Relevant progress/total and availability relationships belong to their owning records and operations.",
+  "global_missing_owner_proved": false,
+  "assessed_candidate_dispositions": [
+    {
+      "candidate": "RequestedDuration",
+      "reason": "Positive requested interval rejects supported zero progress."
+    },
+    {
+      "candidate": "StrategicMinute",
+      "reason": "Absolute clock, retained correctly for departure; not a journey-relative quantity."
+    },
+    {
+      "candidate": "MinuteSpan",
+      "reason": "Interval of absolute endpoints, not scalar relative minutes."
+    },
+    {
+      "candidate": "StrategicMinuteOfDay",
+      "reason": "Normalized day clock with u16 range, not arbitrary journey minutes."
+    },
+    {
+      "candidate": "ActivityMinutes",
+      "reason": "u16 and15-minute schedule quantization, no arbitrary u64 journey admission."
+    },
+    {
+      "candidate": "ReligionMinutes",
+      "reason": "Multi-religion allocation aggregate, not scalar quantity."
+    },
+    {
+      "candidate": "InjuryRecoveryMinutes",
+      "reason": "Medical recovery role in native surgery module, wrong authority/layer for shared core journey quantity."
+    }
+  ],
+  "animation_elapsed_rejection": {
+    "unit": "f32 seconds, not integer minutes",
+    "reason": "Conversion would change unit and lose exact integer-minute representation. The shared simulation/authority/presentation scope is acknowledged; rejection is not based on its animation name."
+  },
+  "repair_requirements": [
+    "Use distinct zero-valid movement and elapsed minute owners throughout connected core camp helpers, journey progress/interval records and challenge availability. Place shared owners below native/module adapters.",
+    "Retain StrategicMinute departure and the existing canonical JourneyCamp place owner. Its movement component must use the same movement quantity owner instead of independently retaining a raw number.",
+    "Explicitly convert at native encoding boundaries; regenerate generated client bindings after schema changes. Do not hand edit generated files or preserve obsolete raw APIs.",
+    "Preserve legitimate zero initialization/no-op movement, movement capped by total progress, rest advancing elapsed without changing movement/camp, and availability thresholds. Do not impose new gameplay constraints or elapsed-based movement penalties.",
+    "Keep arithmetic overflow, capping and saturation decisions explicit in the actual owning operations; do not invent panicking constructors or silent unit/narrowing conversions."
+  ],
+  "later_acceptance_requirements": [
+    "Verify zero and non-quarter-hour minute values survive actual producer/core/native round trips without narrowing.",
+    "Verify rest changes elapsed while retaining movement and canonical camp identity; positive-only duration remains a distinct request type.",
+    "Verify the actual journey bound/progress and challenge availability rules after schema/client generation, through isolated acceptance after the full gate.",
+    "Audit final connected signatures and native adapters for raw parallel fields, compatibility aliases and hidden f32 seconds conversion."
+  ],
+  "remaining_evidence": [
+    "Exact first-operation alias and all20/current reconciliation remain required. Candidate comparison is scoped, not an exhaustive repository absence proof.",
+    "Frame/trial/challenge full identity owners and all producer/native admission paths remain independent; newly read private parsers are partial projections, not complete shared identity owners.",
+    "Native forecasting/disease/presence/SDK boundaries and all other lens obligations retain their own source and runtime requirements."
+  ],
+  "canonical_alias_applied": false,
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

@@ -1,0 +1,50 @@
+{
+  "schema": "726-l2-contract-state-candidate-v1",
+  "source_write_ordinal": 73181,
+  "target_state_sha256": "7ae4cacab8b115accdf246a682527648e995a0acd86838cdfd3e1544cb4cd62e",
+  "required_predecessor_sha256": "d16c39775477164d99d6fd78aff7231465301bdfecf398a0b50b3c9e83c20299",
+  "files": [
+    {
+      "file": "READ-TEMPLATE.json",
+      "sha256": "2de05c1393a76fcc1c2696ee5fef36b820aec5490d5526fb5e40c69c0112c283"
+    },
+    {
+      "file": "POLICY-TEMPLATE.json",
+      "sha256": "9c969ff01e1aaa34601252535eec29f5d342c12274c1da1d48be51f59fa3e3ac"
+    },
+    {
+      "file": "VIEW-TEMPLATE.json",
+      "sha256": "2e02a80f8418f8a1bae63a04e8ac52185fd7ff7d234515668a9b814912d04ffd"
+    },
+    {
+      "file": "STATE-TEMPLATE.json",
+      "sha256": "e51f3af712a9cf49d0007c24decfa0d03fd27c0cc49d0f8c5e9fa1e517db07fd"
+    }
+  ],
+  "placeholders": {
+    "STAMP": "original write timestamp",
+    "READHASH": "SHA-256 of substituted receipt template",
+    "POLICYHASH": "SHA-256 of substituted policy template"
+  },
+  "source_evidence": "../l2-contract-registration-evidence/MANIFEST.json",
+  "qualification": "Original state matches independently printed reference; receipt and policy match references within that state. Entry 3720 predicate matches the separately printed queue 828 projection. Original queue files remain unavailable; no whole-case closure, new credit or runtime validation is inferred.",
+  "search_window_utc": "2026-11-02T19:04:52.927Z through 2026-11-02T19:04:57.312Z",
+  "hash_matched": true,
+  "matched_timestamp": "2026-11-02T19:04:53.712786+00:00",
+  "read_sha256": "fd7c974f0db8c07ac858c7dfca94a53e3f392687cdc33e22b1b37c899261f938",
+  "policy_sha256": "eb45870500912838b8c7c831c64322d182d89d0bad0ea0a60456919f33f2337d",
+  "originals": [
+    {
+      "file": "7ae4cacab8b115accdf246a682527648e995a0acd86838cdfd3e1544cb4cd62e",
+      "sha256": "7ae4cacab8b115accdf246a682527648e995a0acd86838cdfd3e1544cb4cd62e"
+    },
+    {
+      "file": "fd7c974f0db8c07ac858c7dfca94a53e3f392687cdc33e22b1b37c899261f938",
+      "sha256": "fd7c974f0db8c07ac858c7dfca94a53e3f392687cdc33e22b1b37c899261f938"
+    },
+    {
+      "file": "eb45870500912838b8c7c831c64322d182d89d0bad0ea0a60456919f33f2337d",
+      "sha256": "eb45870500912838b8c7c831c64322d182d89d0bad0ea0a60456919f33f2337d"
+    }
+  ]
+}

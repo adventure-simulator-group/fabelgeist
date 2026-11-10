@@ -1,0 +1,221 @@
+SOURCE crates/adventuresim-building-generator/src/viewer/fortification_rendering.rs 66f62b0e1bb038d1da8cebc618a201b0e78af78aa4049c4a2863fa80775c56c2
+1: fn spawn_curtain_wall(
+2:     world: &mut World,
+3:     palette: &RenderPalette,
+4:     wall: CurtainWallRun,
+5:     origin: Vec2,
+6:     closures: &[GateClosure],
+7: ) {
+8:     let start = wall.start + origin;
+9:     let end = wall.end + origin;
+10:     let delta = end - start;
+11:     let length = delta.length();
+12:     if length <= 0.1 {
+13:         return;
+14:     }
+15:     let tangent = delta / length;
+16:     let horizontal = delta.x.abs() >= delta.y.abs();
+17:     let wall_box = |world: &mut World, centre: Vec2, run_length: f32, height: f32, y: f32| {
+18:         spawn_box(
+19:             world,
+20:             &palette.stone,
+21:             if horizontal {
+22:                 Vec3::new(run_length, height, wall.thickness_metres)
+23:             } else {
+24:                 Vec3::new(wall.thickness_metres, height, run_length)
+25:             },
+26:             Vec3::new(centre.x, y, centre.y),
+27:             Quat::IDENTITY,
+28:             "load-bearing curtain wall",
+29:         );
+30:     };
+31:     if let Some(gate_width) = wall.gate_width_metres {
+32:         let side_length = ((length - gate_width) * 0.5).max(0.1);
+33:         let midpoint = (start + end) * 0.5;
+34:         for sign in [-1.0, 1.0] {
+35:             let centre = midpoint + tangent * (gate_width + side_length) * 0.5 * sign;
+36:             wall_box(
+37:                 world,
+38:                 centre,
+39:                 side_length,
+40:                 wall.height_metres,
+41:                 wall.height_metres * 0.5,
+42:             );
+43:         }
+44:         let lintel_height = wall.height_metres - wall.gate_height_metres;
+45:         wall_box(
+46:             world,
+47:             midpoint,
+48:             gate_width,
+49:             lintel_height,
+50:             wall.gate_height_metres + lintel_height * 0.5,
+51:         );
+52:         if closures.is_empty() {
+53:             spawn_box(
+54:                 world,
+55:                 &palette.void,
+56:                 if horizontal {
+57:                     Vec3::new(gate_width * 0.9, wall.gate_height_metres * 0.94, 0.08)
+58:                 } else {
+59:                     Vec3::new(0.08, wall.gate_height_metres * 0.94, gate_width * 0.9)
+60:                 },
+61:                 Vec3::new(midpoint.x, wall.gate_height_metres * 0.47, midpoint.y),
+62:                 Quat::IDENTITY,
+63:                 "open curtain-wall gate passage",
+64:             );
+65:         }
+66:         let inward = match wall.outward {
+67:             Direction::North => -Vec2::Y,
+68:             Direction::East => -Vec2::X,
+69:             Direction::South => Vec2::Y,
+70:             Direction::West => Vec2::X,
+71:         };
+72:         for closure in closures {
+73:             let closure_centre = midpoint + inward * closure.inward_offset_metres;
+74:             match closure.kind {
+75:                 GateClosureKind::HeavyLeaves => {
+76:                     for sign in [-1.0, 1.0] {
+77:                         let leaf_centre = closure_centre + tangent * gate_width * 0.25 * sign;
+78:                         spawn_box(
+79:                             world,
+80:                             &palette.door,
+81:                             if horizontal {
+82:                                 Vec3::new(gate_width * 0.48, wall.gate_height_metres * 0.9, 0.16)
+83:                             } else {
+84:                                 Vec3::new(0.16, wall.gate_height_metres * 0.9, gate_width * 0.48)
+85:                             },
+86:                             Vec3::new(leaf_centre.x, wall.gate_height_metres * 0.45, leaf_centre.y),
+87:                             Quat::from_rotation_y(sign * 0.22),
+88:                             "closed heavy gate leaf",
+89:                         );
+90:                     }
+91:                 }
+92:                 GateClosureKind::Portcullis => {
+93:                     for bar in 0..9 {
+94:                         let across = (bar as f32 / 8.0 - 0.5) * gate_width * 0.9;
+95:                         let position = closure_centre + tangent * across;
+96:                         spawn_box(
+97:                             world,
+98:                             &palette.timber,
+99:                             Vec3::splat(0.11).with_y(wall.gate_height_metres * 0.88),
+100:                             Vec3::new(position.x, wall.gate_height_metres * 0.44, position.y),
+101:                             Quat::IDENTITY,
+102:                             "portcullis vertical bar",
+103:                         );
+104:                     }
+105:                 }
+106:             }
+107:         }
+108:     } else {
+109:         wall_box(
+110:             world,
+111:             (start + end) * 0.5,
+112:             length,
+113:             wall.height_metres,
+114:             wall.height_metres * 0.5,
+115:         );
+116:     }
+117: }
+118: 
+119: fn spawn_gatehouse_curtain(
+120:     world: &mut World,
+121:     palette: &RenderPalette,
+122:     wall: CurtainWallRun,
+123:     defense: &GateDefense,
+124:     towers: &[RoundTower],
+125:     origin: Vec2,
+126: ) {
+127:     let GatehouseLoadPath::BondedTowerBearing {
+128:         left_tower_index,
+129:         right_tower_index,
+130:         arch_centre,
+131:         arch_spring_elevation_metres,
+132:         arch_ring_depth,
+133:         arch_rise,
+134:         curtain_return_bond,
+135:         ..
+136:     } = defense.guard_chamber.load_path;
+137:     let (Some(left), Some(right)) = (
+138:         towers.get(left_tower_index).copied(),
+139:         towers.get(right_tower_index).copied(),
+140:     ) else {
+141:         return;
+142:     };
+143:     let tangent = (wall.end - wall.start).normalize_or_zero();
+144:     let return_bond = curtain_return_bond.metres();
+145:     let left_outer = left.centre_metres() - tangent * (left.radius_metres() - return_bond);
+146:     let right_outer = right.centre_metres() + tangent * (right.radius_metres() - return_bond);
+147:     for (start, end) in [(wall.start, left_outer), (right_outer, wall.end)] {
+148:         if (end - start).length() > 0.05 {
+149:             spawn_curtain_wall(
+150:                 world,
+151:                 palette,
+152:                 CurtainWallRun {
+153:                     start,
+154:                     end,
+155:                     gate_width_metres: None,
+156:                     ..wall
+157:                 },
+158:                 origin,
+159:                 &[],
+160:             );
+161:         }
+162:     }
+163: 
+164:     let chamber = &defense.guard_chamber;
+165:     let horizontal = tangent.x.abs() >= tangent.y.abs();
+166:     let arch_depth = chamber.size.dot(direction_vector_2d(wall.outward).abs());
+167:     let ring = arch_ring_depth.metres();
+168:     let rise = arch_rise.metres();
+169:     let half_span = wall.gate_width_metres.unwrap_or(3.2) * 0.5;
+170:     let segments = 15;
+171:     let block_width = half_span * 2.0 / segments as f32;
+172:     for segment in 0..segments {
+173:         let along = -half_span + (segment as f32 + 0.5) * block_width;
+174:         let normalized = along / half_span;
+175:         let elevation =
+176:             arch_spring_elevation_metres + ring * 0.5 + rise * (1.0 - normalized * normalized);
+177:         let slope = -2.0 * rise * normalized / half_span;
+178:         let angle = slope.atan();
+179:         let position = arch_centre + origin + tangent * along;
+180:         spawn_box(
+181:             world,
+182:             &palette.stone,
+183:             if horizontal {
+184:                 Vec3::new(block_width * 1.12, ring, arch_depth)
+185:             } else {
+186:                 Vec3::new(arch_depth, ring, block_width * 1.12)
+187:             },
+188:             Vec3::new(position.x, elevation, position.y),
+189:             if horizontal {
+190:                 Quat::from_rotation_z(angle)
+191:             } else {
+192:                 Quat::from_rotation_x(-angle * tangent.y.signum())
+193:             },
+194:             "bonded segmental gate arch voussoir",
+195:         );
+196:     }
+197:     let chamber_along = chamber.size.dot(tangent.abs());
+198:     let shoulder_width = ((chamber_along - half_span * 2.0) * 0.5).max(0.0);
+199:     let spandrel_height = ring + rise;
+200:     for sign in [-1.0, 1.0] {
+201:         spawn_wall_local_box(
+202:             world,
+203:             &palette.stone,
+204:             chamber.centre + origin,
+205:             tangent,
+206:             direction_vector_2d(wall.outward),
+207:             sign * (half_span + shoulder_width * 0.5),
+208:             0.0,
+209:             shoulder_width,
+210:             arch_depth,
+211:             spandrel_height,
+212:             arch_spring_elevation_metres + spandrel_height * 0.5,
+213:             "tower-bonded gate arch spandrel bearing",
+214:         );
+215:     }
+216:     spawn_gate_closures(world, palette, wall, defense, origin);
+217: }
+218: 
+219: fn spawn_gate_closures(
+220:     world: &mut World,

@@ -1,0 +1,73 @@
+{
+  "schema": "726-prospective-current-source-registration-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "purpose": "Review changed quality baseline record and its parser and function; previous diff disclosed.",
+  "rows": [
+    {
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "git_path": "rust-quality-baseline.toml",
+      "source_sha256": "4b5be77ae24e14888a30200538b95510c12baa05efdcddb9169fc67debf0b531",
+      "actual_EOF": 12833,
+      "source_object": "adler-continuation-20261030/objects/4b5be77ae24e14888a30200538b95510c12baa05efdcddb9169fc67debf0b531",
+      "prospective_ranges": [
+        [
+          1,
+          12833
+        ]
+      ]
+    },
+    {
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "rust-quality-baseline.toml",
+      "source_sha256": "39823d5b7007600468c5b2964005dd309b033c465a5d32d04ea8e36539231287",
+      "actual_EOF": 12833,
+      "source_object": "adler-continuation-20261030/objects/39823d5b7007600468c5b2964005dd309b033c465a5d32d04ea8e36539231287",
+      "prospective_ranges": [
+        [
+          1,
+          12833
+        ]
+      ]
+    },
+    {
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/fabelgeist-rust-quality/src/analyze.rs",
+      "source_sha256": "c2493fa9ef6a4189e7e7f4e65dfe63895c952137311aa2ffac6e14e502fc46fa",
+      "actual_EOF": 978,
+      "source_object": "adler-continuation-20261030/objects/c2493fa9ef6a4189e7e7f4e65dfe63895c952137311aa2ffac6e14e502fc46fa",
+      "prospective_ranges": [
+        [
+          1,
+          978
+        ]
+      ]
+    },
+    {
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_understory.rs",
+      "source_sha256": "5ae6e7a5fa707715d1ea9c3f763b5a939a95a0a1949d1ce7516a8dd227dff137",
+      "actual_EOF": 314,
+      "source_object": "adler-continuation-20261030/objects/5ae6e7a5fa707715d1ea9c3f763b5a939a95a0a1949d1ce7516a8dd227dff137",
+      "prospective_ranges": [
+        [
+          1,
+          314
+        ]
+      ]
+    }
+  ]
+}

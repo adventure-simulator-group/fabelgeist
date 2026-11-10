@@ -1,0 +1,47 @@
+{
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-BASELINE-OLDER-662.json",
+    "sha256": "3cf7abfb2b1969419a3b686f591b44d4a3f29dd82bb4b7e3f15ee3ba95e06b0a"
+  },
+  "whole_contract_closed": false,
+  "new_accepted_unique_count": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "at": "2026-11-03T05:39:08.207021+00:00",
+  "schema": "726-scoped-native-git-observation-v1",
+  "source_trace": [
+    "Terrain admission requires at least two vertices per axis, checked vertex and triangle-index counts within u32, positive finite scale and finite represented extents, divisible nonzero stride, and finite height samples.",
+    "No explicit maximum extent in metres is imposed by this validation. Thus finite f32 extents alone do not establish normal 3.2-metre lattice resolution or a small per-cell cardinality at all admitted scales.",
+    "SceneTerrain constructors and wire decoding invoke validation; source inspection does not establish that an extreme terrain is actually generated or reaches rendering."
+  ],
+  "remaining_evidence": [
+    "Reconcile finite-extents and chunk capacity with existing terrain and renderer admission records, including producer-specific dimensions and practical resource limits.",
+    "Assess other chunk producers and device failure handling; complete independent lockfile and baseline lens dispositions."
+  ],
+  "source_references": [
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-BASELINE-OLDER-661.json",
+      "sha256": "2f7463376656d825a51fecab434fe22483a144da7a1f73b750a7a65bc87ee335"
+    },
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-BASELINE-OLDER-660.json",
+      "sha256": "5d9ee273437bf9dfc8d7af48a84bbda8e7c17184feb8e8ac87fd0e10f435a419"
+    },
+    {
+      "path": "adler-continuation-20261030/OBSERVATION-BASELINE-OLDER-659.json",
+      "sha256": "99f463f445d2589f29599e32ec30c0879abdde69e60406aaec4d80704ec17cf6"
+    },
+    {
+      "path": "adler-continuation-20261030/DIFF-METADATA-623-LOCK.patch",
+      "sha256": "90ef2adb9c90c6f469458557c19ec5655b91059e0d37d4372cb3cdf957f14420"
+    }
+  ],
+  "lock_registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-LOCK-DELTA-652.json",
+    "sha256": "9d5c1a0cd144cfc7b6965f6168a040e0e52a92c3b5d45c47661bd7eef331b963"
+  },
+  "native_git_registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-EIDOLON-656.json",
+    "sha256": "1724a826a6f90113b4449bebfb52db565595bc18b70f57ccefebe00472af24b9"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "schema": "726-independent-current-source-packet-v1",
+  "lens": 2,
+  "at": "2026-11-02T21:57:07.749240+00:00",
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L2-CURRENT-ANTICIPATION-OWNER-001.json",
+    "sha256": "15b08613f8386c446d483cea0b704d77fab3a3651b78935d6e7ba521dd9fbea9"
+  },
+  "assessed_rows": [
+    {
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "git_path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "source_sha256": "815bfd27404840b0d69f337719c882adf65fea894e48a769670a582eb42faf1b",
+      "actual_EOF": 1813,
+      "source_object": "adler-continuation-20261030/objects/815bfd27404840b0d69f337719c882adf65fea894e48a769670a582eb42faf1b",
+      "prospective_ranges": [
+        [
+          1,
+          1813
+        ]
+      ],
+      "new_body_credit": 0
+    },
+    {
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "source_sha256": "cff2ba2b0c2f60c6141f86f031ef8470e981c81a5a901febd350a24fcfdc69d3",
+      "actual_EOF": 1813,
+      "source_object": "adler-continuation-20261030/objects/cff2ba2b0c2f60c6141f86f031ef8470e981c81a5a901febd350a24fcfdc69d3",
+      "prospective_ranges": [
+        [
+          1,
+          1813
+        ]
+      ],
+      "new_body_credit": 0
+    }
+  ],
+  "source_observation_tools": [
+    "e3c352",
+    "559945",
+    "79f2a9",
+    "470098",
+    "9225ab",
+    "0ecfa7",
+    "2caa13",
+    "09b294"
+  ],
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-CURRENT-PROCEDURAL-LANDING-001.json",
+    "sha256": "cd4fd67415bc2ca63157b338ba1516ccdb2984d2b0439a82def241032dc45b66"
+  },
+  "support_registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-CURRENT-POSE-BOUNDED-SIDE-OWNERS-001.json",
+    "sha256": "53a80b9542df36fb014209bb2b30937765e4c12b1b5bcaaceff77920f039b72c"
+  },
+  "native_registrations": [],
+  "source_conclusion": "Targeted existing-owner comparison: use existing UnitInterval for retained ProceduralJumpAnticipationState amount and pelvis_amount and 0/1 target values. Their private producer starts at zero, quickstep resets zero, repeated tick retains, and new ticks approach 0/1 with bounded +/-0.125 steps. BlendWeight deliberately permits >1 and would not express the required bound. Preserve exact bounded-step arithmetic and repeated-tick behavior; no arbitrary NaN state or runtime incident is claimed. Other procedural L2 roles remain open.",
+  "exact_current_path_complete": false,
+  "body_output_truncated": false,
+  "new_body_credit": 0,
+  "new_accepted_unique_count": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

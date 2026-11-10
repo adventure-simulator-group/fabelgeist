@@ -1,0 +1,235 @@
+SOURCE 2842 pr-working:crates/adventuresim-building-generator/src/spiral_stairs/tests.rs
+1: use super::*;
+2: 
+3: #[test]
+4: fn spiral_flight_has_grounded_newel_and_exact_supported_storey_landings() {
+5:     let stair = Stair::Spiral {
+6:         centre: Vec2::new(8.0, 9.0),
+7:         base_height_metres: 0.15,
+8:         rise_metres: 10.05,
+9:         inner_radius_metres: 0.25,
+10:         outer_radius_metres: 1.25,
+11:         turns: 2.8,
+12:         clockwise: true,
+13:         tread_count: required_treads(0.15, 10.05, 3.4),
+14:     };
+15:     let flight = compile_flight(stair, 3.4).unwrap();
+16:     let Stair::Spiral { tread_count, .. } = stair else {
+17:         unreachable!()
+18:     };
+19:     assert_eq!(
+20:         flight
+21:             .members
+22:             .iter()
+23:             .filter(|m| m.role == SolidRole::StairTread)
+24:             .count(),
+25:         usize::from(tread_count)
+26:     );
+27:     let newel = flight
+28:         .members
+29:         .iter()
+30:         .find(|m| m.role == SolidRole::StairNewel)
+31:         .unwrap();
+32:     assert!((newel.centre.y - newel.size.y * 0.5).abs() < 0.0001);
+33:     for landing in &flight.landings {
+34:         let point = Vec3::new(
+35:             landing.position_metres.x,
+36:             landing.elevation_metres - 0.01,
+37:             landing.position_metres.y,
+38:         );
+39:         assert!(
+40:             flight
+41:                 .members
+42:                 .iter()
+43:                 .any(|m| m.role == SolidRole::Landing && contains(m, point))
+44:         );
+45:         for offset in [
+46:             Vec2::new(-0.3, -0.3),
+47:             Vec2::new(0.3, -0.3),
+48:             Vec2::new(0.3, 0.3),
+49:             Vec2::new(-0.3, 0.3),
+50:         ] {
+51:             let p = point + Vec3::new(offset.x, 0.0, offset.y);
+52:             assert!(
+53:                 flight
+54:                     .members
+55:                     .iter()
+56:                     .any(|m| m.role == SolidRole::Landing && contains(m, p))
+57:             );
+58:         }
+59:         if landing.storey > 0 {
+60:             assert!(
+61:                 flight
+62:                     .members
+63:                     .iter()
+64:                     .any(|m| m.role == SolidRole::StairTread
+65:                         && (m.centre.y + m.size.y * 0.5 - landing.elevation_metres).abs() < 0.0001)
+66:             );
+67:         }
+68:     }
+69: }
+70: 
+71: #[test]
+72: fn spiral_authored_resolution_and_landing_headroom_are_preserved() {
+73:     let count = required_treads(0.15, 10.05, 3.4);
+74:     let make = |tread_count| Stair::Spiral {
+75:         centre: Vec2::ZERO,
+76:         base_height_metres: 0.15,
+77:         rise_metres: 10.05,
+78:         inner_radius_metres: 0.25,
+79:         outer_radius_metres: 1.25,
+80:         turns: 2.8,
+81:         clockwise: true,
+82:         tread_count,
+83:     };
+84:     assert!(compile_flight(make(count - 1), 3.4).is_none());
+85:     for authored in [count, count + 7] {
+86:         let flight = compile_flight(make(authored), 3.4).unwrap();
+87:         let treads = flight
+88:             .members
+89:             .iter()
+90:             .filter(|m| m.role == SolidRole::StairTread)
+91:             .collect::<Vec<_>>();
+92:         assert_eq!(treads.len(), usize::from(authored));
+93:         let mut previous = 0.0;
+94:         for tread in treads {
+95:             let height = tread.centre.y + tread.size.y * 0.5;
+96:             assert!(height - previous <= 0.1901);
+97:             previous = height;
+98:         }
+99:         for landing in flight
+100:             .members
+101:             .iter()
+102:             .filter(|m| m.role == SolidRole::Landing && m.centre.y > 1.0)
+103:         {
+104:             // The radial bridge joins only the tread outer end, leaving the
+105:             // inner walking line beneath the arrival clear of an overhang.
+106:             let radial = bevy::math::Quat::from_rotation_y(landing.yaw_radians) * Vec3::X;
+107:             let point = radial * 0.75 + Vec3::Y * landing.centre.y;
+108:             assert!(!contains(landing, point));
+109:         }
+110:     }
+111: }
+112: 
+113: fn contains(member: &SpiralMember, point: Vec3) -> bool {
+114:     let local = bevy::math::Quat::from_rotation_y(-member.yaw_radians) * (point - member.centre);
+115:     (member.size * 0.5 + Vec3::splat(0.0001) - local.abs()).min_element() >= 0.0
+116: }
+117: 
+118: #[test]
+119: fn fortified_stairs_and_floor_holes_are_shared_by_detail_and_collision() {
+120:     let plan = crate::generate(&crate::BuildingProgram::fixture(
+121:         BuildingArchetype::WalledKeep,
+122:         fabelgeist_determinism::Seed::from_u64(42),
+123:     ))
+124:     .unwrap_or_else(|error| match error {
+125:         crate::GenerationError::StructuralContract { issues, .. } => panic!(
+126:             "{} issues; first: {:?}",
+127:             issues.len(),
+128:             &issues[..issues.len().min(8)]
+129:         ),
+130:         other => panic!("{other}"),
+131:     });
+132:     let collision = crate::compile_building_collision(&plan).unwrap();
+133:     let detail = crate::compile_building_detail(&plan).unwrap();
+134:     for solid in plan.resolved_geometry.solids.iter().filter(|s| {
+135:         matches!(
+136:             s.role,
+137:             SolidRole::StairTread | SolidRole::StairNewel | SolidRole::InteriorFloor
+138:         ) || owns_landing(s)
+139:     }) {
+140:         assert!(collision.cuboids.iter().any(|c| c.source == solid.id));
+141:         assert!(detail.meshes.iter().flat_map(|m| &m.vertices).any(|v| {
+142:             let local = bevy::math::Quat::from_rotation_y(-solid.yaw_radians.radians())
+143:                 * (v.position - solid.centre.metres());
+144:             (local.abs() - solid.size.metres() * 0.5)
+145:                 .abs()
+146:                 .max_element()
+147:                 < 0.001
+148:         }));
+149:     }
+150:     for (index, stair) in plan.stairs.iter().enumerate() {
+151:         let Stair::Spiral {
+152:             centre,
+153:             outer_radius_metres,
+154:             ..
+155:         } = stair
+156:         else {
+157:             continue;
+158:         };
+159:         if centre.cmpge(Vec2::ZERO).all() && centre.cmple(plan.dimensions_metres()).all() {
+160:             assert!(!landings(&plan, index).is_empty());
+161:         }
+162:         for solid in plan
+163:             .resolved_geometry
+164:             .solids
+165:             .iter()
+166:             .filter(|s| s.role == SolidRole::InteriorFloor && s.centre.metres().y > 1.0)
+167:         {
+168:             let separation =
+169:                 (Vec2::new(solid.centre.metres().x, solid.centre.metres().z) - *centre).abs()
+170:                     - Vec2::new(solid.size.metres().x, solid.size.metres().z) * 0.5;
+171:             assert!(
+172:                 separation.max_element()
+173:                     >= outer_radius_metres + flight::WELL_MARGIN_METRES - 0.001
+174:             );
+175:         }
+176:     }
+177: }
+178: 
+179: #[test]
+180: fn auxiliary_castle_stairs_do_not_claim_unbuilt_occupied_floor_portals() {
+181:     for archetype in [
+182:         BuildingArchetype::CastleGatehouse,
+183:         BuildingArchetype::CourtyardCastle,
+184:     ] {
+185:         let plan = crate::generate(&crate::BuildingProgram::fixture(
+186:             archetype,
+187:             fabelgeist_determinism::Seed::from_u64(59),
+188:         ))
+189:         .unwrap_or_else(|error| match error {
+190:             crate::GenerationError::StructuralContract { issues, .. } => panic!(
+191:                 "{archetype:?}: {} issues; first {:?}",
+192:                 issues.len(),
+193:                 &issues[..issues.len().min(4)]
+194:             ),
+195:             other => panic!("{other}"),
+196:         });
+197:         assert!(
+198:             !plan
+199:                 .resolved_geometry
+200:                 .solids
+201:                 .iter()
+202:                 .any(|solid| solid.role == SolidRole::InteriorFloor)
+203:         );
+204:         for index in 0..plan.stairs.len() {
+205:             assert!(landings(&plan, index).is_empty());
+206:             let owner = GeometryOwnerId(FIRST_FLIGHT_OWNER + index as u32);
+207:             assert!(
+208:                 plan.resolved_geometry
+209:                     .solids
+210:                     .iter()
+211:                     .any(|solid| solid.owner == owner && solid.role == SolidRole::StairTread)
+212:             );
+213:             assert!(
+214:                 plan.resolved_geometry
+215:                     .solids
+216:                     .iter()
+217:                     .any(|solid| solid.owner == owner && solid.role == SolidRole::Landing)
+218:             );
+219:         }
+220:     }
+221: }
+SOURCE 2843 pr-working:crates/fabelgeist-armor/src/gpu/coif_drape.rs
+1: //! The drape a mail coif hangs by: the fit words the device measures on the
+2: //! wearer, and a typed form of them for callers that author one.
+3: 
+4: use super::close_helmet::FIT_PROFILE_WORD;
+5: use super::recipe::own_frame_words;
+6: 
+7: /// Horizontal body sections each flap's drape is measured at.
+8: pub const COIF_DRAPE_SECTIONS: usize = 5;
+9: 
+10: /// Floats of a coif drape in a fit buffer: the neck boundary's seven, then
+11: /// each flap's sections as height, centre and edge depth, front flap first.
+12: pub const COIF_DRAPE_WORDS: usize = 7 + 2 * 3 * COIF_DRAPE_SECTIONS;

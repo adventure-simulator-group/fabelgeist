@@ -1,0 +1,33 @@
+{
+  "schema": "726-late-current-cell-count-evidence-v1",
+  "writer": "recovered/final-writer-static-trace/CANDIDATE-3821.py.txt",
+  "writer_sha256": "248710e7b6817f9c4951df771fb87124b5597ebdd3292f419a0cc85c421ffc54",
+  "output": "recovered/final-writer-static-trace/OUTPUT-419499.txt",
+  "output_sha256": "57acc4af7fb1ed29ab96640a6f584028be9898dc9ff790add5ae5f2cca6af0ad",
+  "assertions": [
+    "assert sum(bool(c.get('delta_closed')) for p in before['current_main_deltas'][1]['paths'] for c in p['per_lens'])==767",
+    "assert sum(bool(c.get('delta_closed')) for p in before['current_main_deltas'][2]['paths'] for c in p['per_lens'])==403"
+  ],
+  "reported_modes": [
+    {
+      "status": "pass",
+      "mode": "--preflight",
+      "writes": 0
+    },
+    {
+      "status": "pass",
+      "mode": "--apply",
+      "checkpoint": 3821,
+      "new_cells_closed": 0,
+      "implementation_gate_complete": false
+    },
+    {
+      "status": "pass",
+      "mode": "--verify",
+      "checkpoint": 3821,
+      "new_cells_closed": 0,
+      "implementation_gate_complete": false
+    }
+  ],
+  "qualification": "Static writer reconstructed from recorded transformations; its recorded checkpoint 3821 modes passed. Assertions describe prior queue values, not independently recovered final queue cells. Inference depends on recorded execution and preservation logic, not independently verified queue bytes."
+}

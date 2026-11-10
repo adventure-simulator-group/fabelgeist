@@ -1,0 +1,21 @@
+1: use super::*;
+2: 
+3: impl InventoryView<'_, '_, '_> {
+4:     pub(crate) fn iter(&self) -> impl Iterator<Item = ItemQueryItem<'_, '_>> + use<'_> {
+5:         let items = self
+6:             .q_inventory
+7:             .get(self.entity)
+8:             .into_iter()
+9:             .flat_map(|inventory| inventory.iter());
+10:         self.q_item.iter_many(items)
+11:     }
+12: 
+13:     pub fn item_at_slot(&self, slot: EquipSlot) -> Option<(&str, Option<u64>)> {
+14:         self.iter().find_map(|item| {
+15:             (item.slot == Some(&slot)).then_some((
+16:                 item.properties.id.as_str(),
+17:                 item.inventory_item_id.map(|id| id.0),
+18:             ))
+19:         })
+20:     }
+21: }

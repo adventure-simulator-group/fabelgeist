@@ -1,0 +1,772 @@
+SOURCE 2704
+1593:     commands.insert_resource(SceneCaptureState {
+1594:         fixture,
+1595:         input_path,
+1596:         output,
+1597:         digest,
+1598:         seed: input.seed,
+1599:         absolute_minute,
+1600:         latitude_microdegrees: latitude_microdegrees.get(),
+1601:         longitude_microdegrees: longitude_microdegrees.get(),
+1602:         canopy_bps,
+1603:         generation_version: input.generation_version,
+1604:         scene_source: input.source,
+1605:         weather: input.weather,
+1606:         repairs: repairs.into(),
+1607:         terrain: terrain_summary,
+1608:         expected_trees,
+1609:         expected_rocks,
+1610:         expects_grass,
+1611:         vista_contract: vista_validation::VistaCaptureContract::from_source(&input.vista),
+1612:         vista_geometry,
+1613:         city_half_extent_metres,
+1614:         obstacle_focus: Position::from_metres(obstacle_focus)?,
+1615:         tree_focus,
+1616:         rock_focus,
+1617:         debris_focus,
+1618:         plant_focus: None,
+1619:         debris_camera: None,
+1620:         debris_leaf_distance_metres: None,
+1621:         debris_twig_distance_metres: None,
+1622:         tree_leaf_focus,
+1623:         tree_leaf_camera,
+1624:         tree_focus_entity,
+1625:         tree_review_entities,
+1626:         tree_review_leaf_entities,
+1627:         ground_eye_position,
+1628:         ground_eye_target,
+1629:         animation_play_focus,
+1630:         building_interior_cameras,
+1631:         city_exterior_cameras,
+1632:         settle_frames,
+1633:         tree_review_azimuth_degrees,
+1634:         profile,
+1635:         requested_views,
+1636:         views,
+1637:         view: 0,
+1638:         phase: CapturePhase::Configure,
+1639:         lighting_luminance_samples: Vec::new(),
+1640:         last_prime_readback_hash: None,
+1641:         captures: Vec::new(),
+1642:         recursive_lods_observed: BTreeSet::new(),
+1643:         recursive_aggregate_lods_observed: BTreeSet::new(),
+1644:     });
+2656: fn capture_views(
+2657:     mut commands: Commands,
+2658:     mut state: Option<ResMut<SceneCaptureState>>,
+2659:     mut tree_lod_override: ResMut<TreeLodRenderOverride>,
+2660:     mut camera: Single<
+2661:         (
+2662:             Entity,
+2663:             &mut Transform,
+2664:             &mut GlobalTransform,
+2665:             &mut Projection,
+2666:             Option<&EnvironmentMapLight>,
+2667:             Option<&AtmosphereSettings>,
+2668:             &Exposure,
+2669:             &Tonemapping,
+2670:         ),
+2671:         With<TacticalGameplayCamera>,
+2672:     >,
+2673:     mut lighting: LightingObservationParams,
+2674:     mut overlays: Query<&mut Visibility, (With<CaptureOverlay>, Without<VistaTerrain>)>,
+2675:     mut tree_backdrops: Query<
+2676:         (&mut Visibility, &mut Transform),
+2677:         (
+2678:             With<TreeReviewBackdrop>,
+2679:             Without<Camera3d>,
+2680:             Without<TacticalGameplayCamera>,
+2681:             Without<CaptureOverlay>,
+2682:             Without<VistaTerrain>,
+2683:         ),
+2684:     >,
+2685:     obstacles: Query<(&SceneObstacle, Has<Collider>)>,
+2686:     rock_visuals: Query<&Mesh3d, With<ProceduralRockVisual>>,
+2687:     tree_lods: Query<(&TreeLod, &ViewVisibility, Option<&ChildOf>)>,
+2688:     tree_lod_clusters: Query<
+2689:         (
+2690:             &TreeLod,
+2691:             &TreeLodCluster,
+2692:             &GlobalTransform,
+2693:             &VisibilityRange,
+2694:             &ViewVisibility,
+2695:         ),
+2696:         (Without<Camera3d>, Without<TacticalGameplayCamera>),
+2697:     >,
+2698:     tree_bakes: Query<&TreeImpostorProvenance>,
+2699:     foliage: Query<&GroundScatterLayer>,
+2700:     terrain_materials: Query<(), With<TerrainMaterialPresentation>>,
+2701:     meshes: Res<Assets<Mesh>>,
+2702:     mut scene_visibility: ParamSet<(
+2703:         vista_validation::VistaQuery<'_, '_>,
+2704:         Query<&mut Visibility, (With<VistaTerrain>, Without<CaptureOverlay>)>,
+2705:         ResMut<Assets<TacticalTreeLeafCardMaterial>>,
+2706:         Query<
+2707:             (Entity, Option<&GroundScatterLayer>),
+2708:             With<MeshMaterial3d<TacticalTreeLeafCardMaterial>>,
+2709:         >,
+2710:         Query<Entity, capture_visibility::ProductionLeaves>,
+2711:         Query<
+2712:             (Entity, &GroundScatterLayer, &GlobalTransform, &Name),
+2713:             (Without<Camera3d>, Without<TacticalGameplayCamera>),
+2714:         >,
+2715:         Query<(), With<WeatherParticle>>,
+2716:         Query<
+2717:             &mut Visibility,
+2718:             (
+2719:                 With<SceneObstacle>,
+2720:                 Without<CaptureOverlay>,
+2721:                 Without<VistaTerrain>,
+2722:                 Without<TreeReviewBackdrop>,
+2723:             ),
+2724:         >,
+2725:     )>,
+2726: ) {
+2727:     let Some(state) = state.as_deref_mut() else {
+2728:         return;
+2729:     };
+2730:     if state.phase.readback_in_flight() || state.view >= state.views.len() {
+2731:         return;
+2732:     }
+2733:     let view = state.views[state.view];
+2734:     if state.phase == CapturePhase::Configure {
+2735:         let lighting_mode = match view.lighting_mode {
+2736:             TreeLightingModeId::Baseline => TREE_LIGHTING_MODES[0],
+2737:             TreeLightingModeId::AmbientOcclusion => TREE_LIGHTING_MODES[1],
+2738:             TreeLightingModeId::Shadows => TREE_LIGHTING_MODES[2],
+2739:             TreeLightingModeId::Combined => TREE_LIGHTING_MODES[3],
+2740:         };
+2741:         for (_, material) in scene_visibility.p2().iter_mut() {
+2742:             material.surface_parameters.z = if material.physical_parameters.z > 0.5 {
+2743:                 0.0
+2744:             } else {
+2745:                 lighting_mode.ambient_occlusion_strength
+2746:             };
+2747:         }
+2748:         let leaf_entities = scene_visibility
+2749:             .p3()
+2750:             .iter()
+2751:             .map(|(entity, layer)| (entity, layer.copied()))
+2752:             .collect::<Vec<_>>();
+2753:         for (entity, layer) in leaf_entities {
+2754:             if lighting_mode.shadows_enabled && layer != Some(GroundScatterLayer::DryLeaves) {
+2755:                 commands.entity(entity).remove::<NotShadowCaster>();
+2756:             } else {
+2757:                 commands.entity(entity).insert(NotShadowCaster);
+2758:             }
+2759:         }
+2760:         tree_lod_override.lod = view.render_lod_override;
+2761:         tree_lod_override.leaf = view.leaf_lod_override;
+2762:         tree_lod_override.projected_scale = view.projected_scale;
+2763:         let specimen_representation = view.specimen_leaf;
+2764:         let specimen_view = specimen_representation.is_some();
+2765:         let specimen_pipeline_warmup = view.warmup;
+2766:         let (suppress_leaves, suppress_grass, suppress_understory) = (
+2767:             view.suppress_leaves,
+2768:             view.suppress_grass,
+2769:             view.suppress_understory,
+2770:         );
+2771:         let production_leaves = scene_visibility.p4().iter().collect::<Vec<_>>();
+2772:         for entity in production_leaves {
+2773:             commands.entity(entity).insert(if suppress_leaves {
+2774:                 Visibility::Hidden
+2775:             } else {
+2776:                 Visibility::Inherited
+2777:             });
+2778:         }
+2779:         let ground_scatter_entities = scene_visibility
+2780:             .p5()
+2781:             .iter()
+2782:             .map(|(entity, layer, transform, name)| {
+2783:                 (
+2784:                     entity,
+2785:                     *layer,
+2786:                     transform.translation(),
+2787:                     name.as_str().to_owned(),
+2788:                 )
+2789:             })
+2790:             .collect::<Vec<_>>();
+2791:         let mut understory_focus = None;
+2792:         for (specimen, mut visibility) in &mut lighting.understory_review_specimens {
+2793:             let selected = view.understory_species == Some(specimen.common_name);
+2794:             *visibility = if selected {
+2795:                 Visibility::Visible
+2796:             } else {
+2797:                 Visibility::Hidden
+2798:             };
+2799:             if selected {
+2800:                 understory_focus = Some(specimen.focus);
+2801:             }
+2802:         }
+2803:         state.plant_focus = lighting
+2804:             .plant_anchors
+2805:             .iter()
+2806:             .flat_map(|anchors| anchors.0.iter().copied())
+2807:             .filter(|anchor| view.pose.accepts_plant(anchor.species))
+2808:             .map(|anchor| anchor.root)
+2809:             .min_by(|a, b| {
+2810:                 a.metres()
+2811:                     .length_squared()
+2812:                     .total_cmp(&b.metres().length_squared())
+2813:             });
+2814:         if view.debris_target {
+2815:             let pairs = lighting
+2816:                 .litter_anchors
+2817:                 .iter()
+2818:                 .flat_map(|anchors| anchors.pairs.iter().copied())
+2819:                 .collect::<Vec<_>>();
+2820:             let Some(terrain) = lighting.required_capture_terrain(&state.output, &mut commands)
+2821:             else {
+2822:                 return;
+2823:             };
+2824:             let target = match DebrisCaptureTarget::reviewable(
+2825:                 &pairs,
+2826:                 terrain,
+2827:                 lighting.obstacle_transforms.iter(),
+2828:                 state.tree_review_azimuth_degrees,
+2829:             ) {
+2830:                 Ok(target) => target,
+2831:                 Err(error) => {
+2832:                     capture_terrain::reject(&state.output, error, &mut commands);
+2833:                     return;
+2834:                 }
+2835:             };
+2836:             if let Some(target) = target {
+2837:                 state.debris_focus = Some(target.focus);
+2838:                 state.debris_camera = target.camera;
+2839:                 state.debris_leaf_distance_metres = Some(target.leaf_distance);
+2840:                 state.debris_twig_distance_metres = Some(target.twig_distance);
+2841:             } else {
+2842:                 state.debris_focus = None;
+2843:                 state.debris_camera = None;
+2844:                 state.debris_leaf_distance_metres = None;
+2845:                 state.debris_twig_distance_metres = None;
+2846:             }
+2847:         }
+2848:         for (entity, layer, position, name) in ground_scatter_entities {
+2849:             let isolated_understory_visible = view
+2850:                 .understory_species
+2851:                 .zip(understory_focus)
+2852:                 .is_some_and(|(common_name, focus)| {
+2853:                     layer == GroundScatterLayer::Understory
+2854:                         && name.starts_with(&format!("Shared {common_name} "))
+2855:                         && position.distance_squared(focus.metres()) <= 0.0001
+2856:                 });
+2857:             let hide_for_view = if matches!(view.pose, CapturePose::PlantLod { .. })
+2858:                 && layer == GroundScatterLayer::BotanicalPlants
+2859:             {
+2860:                 false
+2861:             } else if view.understory_species.is_some() {
+2862:                 !isolated_understory_visible
+2863:             } else {
+2864:                 (layer == GroundScatterLayer::Grass && suppress_grass)
+2865:                     || (matches!(
+2866:                         layer,
+2867:                         GroundScatterLayer::Understory | GroundScatterLayer::BotanicalPlants
+2868:                     ) && suppress_understory)
+2869:                     || view.hide_obstacles
+2870:             };
+2871:             if matches!(
+2872:                 layer,
+2873:                 GroundScatterLayer::Grass
+2874:                     | GroundScatterLayer::Understory
+2875:                     | GroundScatterLayer::BotanicalPlants
+2876:             ) || view.hide_obstacles
+2877:                 || view.understory_species.is_some()
+2878:             {
+2879:                 commands.entity(entity).insert(if hide_for_view {
+2880:                     Visibility::Hidden
+2881:                 } else {
+2882:                     Visibility::Inherited
+2883:                 });
+2884:             }
+2885:         }
+2886:         for mut visibility in scene_visibility.p7().iter_mut() {
+2887:             *visibility = if view.hide_obstacles {
+2888:                 Visibility::Hidden
+2889:             } else {
+2890:                 Visibility::Inherited
+2891:             };
+2892:         }
+2893:         if let Some(entity) = state.tree_focus_entity {
+2894:             commands
+2895:                 .entity(entity)
+2896:                 .insert(if specimen_view || view.hide_obstacles {
+2897:                     Visibility::Hidden
+2898:                 } else {
+2899:                     Visibility::Visible
+2900:                 });
+2901:         }
+2902:         for &entity in &state.tree_review_entities {
+2903:             commands
+2904:                 .entity(entity)
+2905:                 .insert(if specimen_view || specimen_pipeline_warmup {
+2906:                     Visibility::Visible
+2907:                 } else {
+2908:                     Visibility::Hidden
+2909:                 });
+2910:         }
+2911:         for &(entity, representation) in &state.tree_review_leaf_entities {
+2912:             commands.entity(entity).insert(
+2913:                 if specimen_representation == Some(representation) || specimen_pipeline_warmup {
+2914:                     Visibility::Visible
+2915:                 } else {
+2916:                     Visibility::Hidden
+2917:                 },
+2918:             );
+2919:         }
+2920:         if let Projection::Perspective(projection) = &mut *camera.3 {
+2921:             projection.fov = view.fov_degrees.radians();
+2922:         }
+2923:         let placement = match view.pose {
+2924:             CapturePose::AnimationPlayObstruction { yaw_degrees } => camera_obstruction::animation_play_obstruction_camera(state, &lighting.spatial, &camera.3, yaw_degrees),
+2925:             CapturePose::AnimationPlayBoundary { player, yaw_degrees } => {
+2926:                 let Some(camera) = lighting.boundary_camera(&camera.3, player, yaw_degrees, &state.output, &mut commands) else { return; };
+2927:                 Ok(camera)
+2928:             }
+2929:             CapturePose::UnderstoryReview { distance, elevation_degrees, orbit_degrees } => (|| -> view_camera::CaptureCameraResult<view_camera::CaptureCameraPlacement> {
+2930:                 let focus = understory_focus.unwrap_or(state.obstacle_focus);
+2931:                 let azimuth = adventuresim_tactical_core::animation::SignedAngleDegrees::from_degrees(state.tree_review_azimuth_degrees.degrees() + orbit_degrees.degrees())?.radians();
+2932:                 let elevation = elevation_degrees.radians();
+2933:                 let target = Position::from_metres(focus.metres() + Vec3::Y * 1.35)?;
+2934:                 let position = Position::from_metres(target.metres() + Vec3::new(azimuth.sin() * elevation.cos(), elevation.sin(), azimuth.cos() * elevation.cos()) * distance.metres())?;
+2935:                 Ok(view_camera::CaptureCameraPlacement { view: view_camera::SceneCameraView::looking_at(position, target, adventuresim_building_generator::spatial_geometry::SpatialDirection::from_normalized(Vec3::Y)?)?, obstruction: None })
+2936:             })(),
+2937:             CapturePose::TreeReview => {
+2938:                 let species = state.tree_focus_entity.and_then(|entity| lighting.presented_tree_species.get(entity).ok()).copied();
+2939:                 view_camera::lit_tree_review(state, species).map(|view| view_camera::CaptureCameraPlacement { view, obstruction: None })
+2940:             }
+2941:             CapturePose::BranchJunction => {
+2942:                 let species = state.tree_focus_entity.and_then(|entity| lighting.presented_tree_species.get(entity).ok()).copied();
+2943:                 view_camera::lit_branch_junction(state, species).map(|view| view_camera::CaptureCameraPlacement { view, obstruction: None })
+2944:             }
+2945:             _ => camera_for_view(view.pose, state).map(|view| view_camera::CaptureCameraPlacement { view, obstruction: None }),
+2946:         };
+2947:         let placement = match placement {
+2948:             Ok(placement) => placement,
+2949:             Err(error) => { capture_terrain::reject(&state.output, error, &mut commands); return; }
+2950:         };
+2951:         let transform = placement.view.native_transform();
+2952:         let target = placement.view.target;
+2953:         let obstruction = placement.obstruction;
+2954:         *camera.1 = transform;
+2955:         *camera.2 = GlobalTransform::from(transform);
+2956:         for (mut light_transform, mut light) in &mut lighting.plaster_grazing_lights {
+2957:             light.intensity = if view.plaster_grazing_light {
+2958:                 let CapturePose::BuildingInterior {
+2959:                     camera: camera_index,
+2960:                 } = view.pose
+2961:                 else {
+2962:                     panic!("plaster raking light requires a building-interior camera");
+2963:                 };
+2964:                 let review = state.building_interior_cameras[usize::from(camera_index)]
+2965:                     .plaster_raking_light
+2966:                     .expect("plaster proof camera carries its wall-local light frame");
+2967:                 light_transform.translation = review.position;
+2968:                 PLASTER_GRAZING_REVIEW_LUMENS
+2969:             } else {
+2970:                 0.0
+2971:             };
+2972:         }
+2973:         for mut visibility in &mut overlays {
+2974:             *visibility = if view.overlay {
+2975:                 Visibility::Visible
+2976:             } else {
+2977:                 Visibility::Hidden
+2978:             };
+2979:         }
+2980:         for mut visibility in &mut scene_visibility.p1() {
+2981:             *visibility = if view.vista_visible {
+2982:                 Visibility::Visible
+2983:             } else {
+2984:                 Visibility::Hidden
+2985:             };
+2986:         }
+2987:         for (mut visibility, mut backdrop) in &mut tree_backdrops {
+2988:             *visibility = if view.show_tree_backdrop || specimen_view {
+2989:                 Visibility::Visible
+2990:             } else {
+2991:                 Visibility::Hidden
+2992:             };
+2993:             if *visibility == Visibility::Visible {
+2994:                 let away_from_camera = (target.metres() - camera.1.translation).normalize_or_zero();
+2995:                 backdrop.translation = target.metres() + away_from_camera * 5.0;
+2996:                 backdrop.rotation = Transform::from_translation(backdrop.translation)
+2997:                     .looking_at(camera.1.translation, Vec3::Y)
+2998:                     .rotation;
+2999:             }
+3000:         }
+3001:         state.phase = CapturePhase::Settling {
+3002:             frames: 0,
+3003:             prime_readbacks: 0,
+3004:         };
+3005:         if !view.warmup {
+3006:             let vista_observation = matches!(view.pose, CapturePose::AnimationPlayBoundary { .. })
+3007:                 .then(|| largest_visible_vista_tree(&lighting.vista_trees, camera.1.translation))
+3008:                 .flatten();
+3009:             let nearest_playable_tree_distance_metres =
+3010:                 matches!(view.pose, CapturePose::AnimationPlayBoundary { .. })
+3011:                     .then(|| {
+3012:                         lighting
+3013:                             .obstacle_transforms
+3014:                             .iter()
+3015:                             .filter(|(obstacle, _)| matches!(obstacle, SceneObstacle::Tree))
+3016:                             .map(|(_, transform)| {
+3017:                                 camera.1.translation.distance(transform.translation())
+3018:                             })
+3019:                             .min_by(f32::total_cmp)
+3020:                     })
+3021:                     .flatten();
+3022:             state.captures.push(CaptureRecord {
+3023:                 botanical_lods: Vec::new(),
+3024:                 view: view.slug.to_owned(),
+3025:                 label: view.label.to_owned(),
+3026:                 screenshot: format!("{}.png", view.slug),
+3027:                 rendered_resolution: [0, 0],
+3028:                 camera_translation: camera.1.translation.to_array(),
+3029:                 camera_target: target.metres().to_array(),
+3030:                 camera_up: camera.1.up().as_vec3().to_array(),
+3031:                 vertical_fov_degrees: view.fov_degrees.degrees(),
+3032:                 camera_boom_desired_metres: obstruction.map(|value| value.desired_metres.metres()),
+3033:                 camera_boom_resolved_metres: obstruction.map(|value| value.resolved_metres.metres()),
+3034:                 camera_obstruction_hit: obstruction.map(|value| value.hit),
+3035:                 nearest_playable_tree_distance_metres,
+3036:                 largest_visible_vista_tree_distance_metres: vista_observation
+3037:                     .map(|value| value.distance_metres),
+3038:                 largest_visible_vista_tree_angular_height_degrees: vista_observation
+3039:                     .map(|value| value.angular_height_degrees),
+3040:                 largest_visible_vista_tree_has_collider: vista_observation
+3041:                     .map(|value| value.has_collider),
+3042:                 foreground_pixel_bps: 0,
+3043:                 detail_pixel_bps: 0,
+3044:                 canopy_pixel_bps: 0,
+3045:                 forced_tree_lod: tree_lod_override.lod,
+3046:                 focused_tree_lod_queued: None,
+3047:                 focused_tree_species: state
+3048:                     .tree_focus_entity
+3049:                     .and_then(|entity| lighting.presented_tree_species.get(entity).ok())
+3050:                     .copied(),
+3051:                 focused_understory_species: understory_focus
+3052:                     .and(view.understory_species)
+3053:                     .map(str::to_owned),
+3054:                 diagnostic_leaf_suppression: suppress_leaves,
+3055:                 diagnostic_grass_suppression: suppress_grass,
+3056:                 debris_leaf_distance_metres: view
+3057:                     .debris_target
+3058:                     .then_some(state.debris_leaf_distance_metres)
+3059:                     .flatten(),
+3060:                 debris_twig_distance_metres: view
+3061:                     .debris_target
+3062:                     .then_some(state.debris_twig_distance_metres)
+3063:                     .flatten(),
+3064:                 lighting_luminance_samples: Vec::new(),
+3065:                 lighting_luminance_delta: f32::INFINITY,
+3066:                 lighting_ready: false,
+3067:                 temporal_motion_frame: view.temporal_motion,
+3068:                 settled_readback_hashes: Vec::new(),
+3069:                 settled_readbacks_identical: None,
+3070:             });
+3071:         }
+3072:         state.last_prime_readback_hash = None;
+3073:         return;
+3074:     }
+3075:     // Custom terrain and foliage pipelines compile asynchronously. Give the
+3076:     // warmup view a wider budget so the first review frame cannot race a new
+3077:     // shader permutation while ordinary camera transitions stay quick.
+3078:     let temporal_tree_traversal = state.profile == "tree-cold-traversal" && !view.warmup;
+3079:     let temporal_motion = temporal_tree_traversal || view.temporal_motion;
+3080:     let settle_target = if temporal_motion {
+3081:         0
+3082:     } else if state.view == 0 {
+3083:         state.settle_frames.saturating_mul(4)
+3084:     } else {
+3085:         state.settle_frames
+3086:     };
+3087:     let Some((settled, prime_readbacks)) = state.phase.settling() else {
+3088:         return;
+3089:     };
+3090:     if settled < settle_target {
+3091:         state.phase = CapturePhase::Settling {
+3092:             frames: settled + 1,
+3093:             prime_readbacks,
+3094:         };
+3095:         return;
+3096:     }
+3097: 
+3098:     let botanical_lods = plant_lods::observe(
+3099:         &lighting.plant_lods,
+3100:         &lighting.plant_meshes,
+3101:         lighting
+3102:             .plant_visible
+3103:             .get(camera.0)
+3104:             .expect("capture camera has visibility list"),
+3105:         state.plant_focus,
+3106:         camera.1.translation,
+3107:     );
+3108:     if let Some(record) = state.captures.last_mut() {
+3109:         record.botanical_lods = botanical_lods;
+3110:     }
+3111:     if view.observe_recursive_lod {
+3112:         let camera_position = camera.1.translation;
+3113:         state.recursive_lods_observed.extend(
+3114:             tree_lod_clusters
+3115:                 .iter()
+3116:                 .filter(|(_, cluster, transform, range, visibility)| {
+3117:                     let world_center = transform.transform_point(cluster.center);
+3118:                     visibility.get()
+3119:                         && range.is_visible_at_all(camera_position.distance(world_center))
+3120:                 })
+3121:                 .map(|(lod, cluster, _, _, _)| (cluster.primary_group, lod.0)),
+3122:         );
+3123:         // LOD1 and coarser collapse many biological groups into one mesh to
+3124:         // reduce draw calls. Record those visible aggregate tiers separately
+3125:         // instead of pretending they still have per-cluster entity identity.
+3126:         state.recursive_aggregate_lods_observed.extend(
+3127:             tree_lods
+3128:                 .iter()
+3129:                 .filter(|(lod, visibility, _)| lod.0 > 0 && visibility.get())
+3130:                 .map(|(lod, _, _)| lod.0),
+3131:         );
+3132:     }
+3133: 
+3134:     // Bevy's asynchronous window readback can still contain the render world
+3135:     // from before a camera transition. Retain bounded disposable readbacks until
+3136:     // consecutive lighting samples settle, without changing scene or camera state.
+3137:     if !temporal_motion
+3138:         && lighting_convergence(&state.lighting_luminance_samples) == LightingConvergence::Pending
+3139:     {
+3140:         state.phase = CapturePhase::Readback {
+3141:             view: state.view,
+3142:             prime_readbacks,
+3143:             kind: CaptureReadback::Prime,
+3144:         };
+3145:         commands.spawn(Screenshot::primary_window()).observe(
+3146:             |captured: On<ScreenshotCaptured>, mut state: ResMut<SceneCaptureState>| {
+3147:                 let CapturePhase::Readback {
+3148:                     view,
+3149:                     prime_readbacks,
+3150:                     kind: CaptureReadback::Prime,
+3151:                 } = state.phase
+3152:                 else {
+3153:                     return;
+3154:                 };
+3155:                 if state.view != view {
+3156:                     return;
+3157:                 }
+3158:                 state
+3159:                     .lighting_luminance_samples
+3160:                     .push(mean_luminance(captured.image.data.as_deref()));
+3161:                 state.last_prime_readback_hash =
+3162:                     deterministic_readback_hash(captured.image.data.as_deref());
+3163:                 state.phase = CapturePhase::Settling {
+3164:                     frames: 0,
+3165:                     prime_readbacks: prime_readbacks + 1,
+3166:                 };
+3167:             },
+3168:         );
+3169:         return;
+3170:     }
+3171:     if view.warmup {
+3172:         state.phase = CapturePhase::Readback {
+3173:             view: state.view,
+3174:             prime_readbacks,
+3175:             kind: CaptureReadback::Warmup,
+3176:         };
+3177:         commands.spawn(Screenshot::primary_window()).observe(
+3178:             |_: On<ScreenshotCaptured>, mut state: ResMut<SceneCaptureState>| {
+3179:                 if !matches!(
+3180:                     state.phase,
+3181:                     CapturePhase::Readback {
+3182:                         view,
+3183:                         kind: CaptureReadback::Warmup,
+3184:                         ..
+3185:                     } if view == state.view
+3186:                 ) {
+3187:                     return;
+3188:                 }
+3189:                 state.view += 1;
+3190:                 state.lighting_luminance_samples.clear();
+3191:                 state.phase = CapturePhase::Configure;
+3192:             },
+3193:         );
+3194:         return;
+3195:     }
+3196: 
+3197:     if let Some(record) = state.captures.last_mut() {
+3198:         record.focused_tree_lod_queued = record.forced_tree_lod.map(|forced_lod| {
+3199:             focused_tree_lod_queued(state.tree_focus_entity, forced_lod, &tree_lods)
+3200:         });
+3201:         record
+3202:             .lighting_luminance_samples
+3203:             .clone_from(&state.lighting_luminance_samples);
+3204:         record.lighting_luminance_delta =
+3205:             luminance_delta(settled_luminance_samples(&state.lighting_luminance_samples));
+3206:         record.lighting_ready = temporal_motion
+3207:             || lighting_convergence(&state.lighting_luminance_samples)
+3208:                 == LightingConvergence::Ready;
+3209:     }
+3210:     let celestial = capture_celestial(
+3211:         state.absolute_minute,
+3212:         state.latitude_microdegrees,
+3213:         state.longitude_microdegrees,
+3214:     );
+3215:     let observed_presentation = observed_presentation_features(
+3216:         &lighting.settings,
+3217:         camera.4,
+3218:         camera.5,
+3219:         &lighting.images,
+3220:         camera.6,
+3221:         camera.7,
+3222:         &lighting.ambient,
+3223:         &lighting.ambient_handoff,
+3224:         &celestial,
+3225:     );
+3226:     let path = state.output.join(format!("{}.png", view.slug));
+3227:     let final_view = state.view + 1 == state.views.len();
+3228:     let weather_particle_count = scene_visibility.p6().iter().count();
+3229:     let mut final_data = final_view.then(|| {
+3230:         build_manifest(
+3231:             state,
+3232:             &obstacles,
+3233:             &lighting.presented_tree_roots,
+3234:             &rock_visuals,
+3235:             &tree_lods,
+3236:             &tree_bakes,
+3237:             &foliage,
+3238:             &terrain_materials,
+3239:             &meshes,
+3240:             &scene_visibility.p0(),
+3241:             weather_particle_count,
+3242:             observed_presentation,
+3243:         )
+3244:     });
+3245:     state.phase = CapturePhase::Readback {
+3246:         view: state.view,
+3247:         prime_readbacks,
+3248:         kind: CaptureReadback::Screenshot,
+3249:     };
+3250:     commands.spawn(Screenshot::primary_window()).observe(
+3251:         move |captured: On<ScreenshotCaptured>,
+3252:               mut state: ResMut<SceneCaptureState>,
+3253:               mut exit: MessageWriter<AppExit>| {
+3254:             let foreground_pixel_bps = foreground_pixel_bps(captured.image.data.as_deref());
+3255:             if !matches!(
+3256:                 state.phase,
+3257:                 CapturePhase::Readback {
+3258:                     view,
+3259:                     kind: CaptureReadback::Screenshot,
+3260:                     ..
+3261:                 } if view == state.view
+3262:             ) {
+3263:                 return;
+3264:             }
+3265:             let rendered_width = captured.image.width();
+3266:             let rendered_height = captured.image.height();
+3267:             let detail_pixel_bps = foliage_detail_pixel_bps(
+3268:                 captured.image.data.as_deref(),
+3269:                 rendered_width,
+3270:                 rendered_height,
+3271:             );
+3272:             let canopy_pixel_bps = tree_canopy_pixel_bps(
+3273:                 captured.image.data.as_deref(),
+3274:                 rendered_width,
+3275:                 rendered_height,
+3276:             );
+3277:             let final_readback_hash = deterministic_readback_hash(captured.image.data.as_deref());
+3278:             let settled_reference_hash = state.last_prime_readback_hash;
+3279:             // Lighting convergence can precede completion of streamed geometry.
+3280:             // Keep the camera frozen and retain bounded raw retries until the
+3281:             // required pixel-identical pair exists; the final gate stays strict.
+3282:             const MAX_STABLE_READBACK_ATTEMPTS: u8 = 8;
+3283:             if view.verify_settled_readbacks
+3284:                 && settled_reference_hash != final_readback_hash
+3285:                 && prime_readbacks < MAX_STABLE_READBACK_ATTEMPTS
+3286:             {
+3287:                 let retry_path = state
+3288:                     .output
+3289:                     .join(format!("{}-unsettled-{prime_readbacks}.png", view.slug));
+3290:                 save_to_disk(retry_path)(captured);
+3291:                 state.last_prime_readback_hash = final_readback_hash;
+3292:                 state.phase = CapturePhase::Settling {
+3293:                     frames: 0,
+3294:                     prime_readbacks: prime_readbacks + 1,
+3295:                 };
+3296:                 return;
+3297:             }
+3298:             save_to_disk(&path)(captured);
+3299:             if let Some(record) = state.captures.last_mut() {
+3300:                 record.foreground_pixel_bps = foreground_pixel_bps;
+3301:                 record.detail_pixel_bps = detail_pixel_bps;
+3302:                 record.canopy_pixel_bps = canopy_pixel_bps;
+3303:                 record.rendered_resolution = [rendered_width, rendered_height];
+3304:                 if view.verify_settled_readbacks {
+3305:                     record.settled_readback_hashes = settled_reference_hash
+3306:                         .into_iter()
+3307:                         .chain(final_readback_hash)
+3308:                         .map(|hash| format!("{hash:016x}"))
+3309:                         .collect();
+3310:                     record.settled_readbacks_identical = Some(
+3311:                         settled_reference_hash
+3312:                             .zip(final_readback_hash)
+3313:                             .is_some_and(|(reference, final_hash)| reference == final_hash),
+3314:                     );
+3315:                 }
+3316:             }
+3317:             state.view += 1;
+3318:             state.lighting_luminance_samples.clear();
+3319:             state.phase = CapturePhase::Configure;
+3320:             if let Some(pending) = final_data.take() {
+3321:                 let (manifest, valid) =
+3322:                     pending.finalize_after_screenshot(&state.captures, &state.views);
+3323:                 finish_capture(&state.output, &manifest, valid, &mut exit);
+3324:             }
+3325:         },
+3326:     );
+3327: }
+SOURCE 2707
+44: }
+SOURCE 2708
+1: //! Exact six-vertex support prism admission, independent of contact tolerances.
+2: use bevy::math::{Vec3, Vec3Swizzles};
+3: use serde::Serialize;
+4: 
+5: #[derive(Clone, Copy, Debug, PartialEq, Serialize, thiserror::Error)]
+6: pub enum SupportGeometryIssue {
+7:     #[error("support prism cannot be represented by the physics engine")]
+8:     Collider,
+9:     #[error(transparent)]
+10:     Membership(#[from] super::PropertyMemberIssue),
+11:     #[error("support geometry has a non-finite position")]
+12:     NonFinite,
+13:     #[error("support prism top and base have different plan positions")]
+14:     Pair,
+15:     #[error("support prism has a reversed or wholly collapsed height interval")]
+16:     Height,
+17:     #[error("support geometry has incomplete cells or noncanonical triangle indices")]
+18:     Topology,
+19:     #[error("support geometry has invalid property or member bindings")]
+20:     Members,
+21:     #[error("support query index has invalid bounds, topology or source references")]
+22:     Query,
+23: }
+24: 
+25: /// Quantized clipping can collapse a plan edge or reverse a tiny triangle's
+26: /// winding. These represented contact cells remain valid: admission checks
+27: /// finite paired vertices and ordered heights, without a proximity epsilon or
+28: /// changing the producer's vertices and topology.
+29: pub(super) fn prism(points: &[Vec3; 6]) -> Result<(), SupportGeometryIssue> {
+30:     if points.iter().any(|point| !point.is_finite())
+31:         || !points.iter().copied().sum::<Vec3>().is_finite()
+32:     {
+33:         return Err(SupportGeometryIssue::NonFinite);
+34:     }
+35:     if (0..3).any(|i| points[i].xz() != points[i + 3].xz()) {
+36:         return Err(SupportGeometryIssue::Pair);
+37:     }
+38:     if (0..3).any(|i| points[i].y < points[i + 3].y)
+39:         || (0..3).all(|i| points[i].y == points[i + 3].y)
+40:     {
+41:         return Err(SupportGeometryIssue::Height);
+42:     }
+43:     Ok(())
+44: }

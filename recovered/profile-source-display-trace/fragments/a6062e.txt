@@ -1,0 +1,184 @@
+SOURCE crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_capture.rs
+1: use adventuresim_building_generator::spatial_geometry::Position;
+2: use adventuresim_building_generator::{BuildingArchetype, Direction, WALL_THICKNESS_METRES};
+3: use adventuresim_tactical_core::prelude::GeneratedBuilding;
+4: use bevy::prelude::*;
+5: 
+6: use super::capture_state::{BuildingReviewCamera, PlasterRakingLight};
+7: 
+8: const PLASTER_REVIEW_CAMERA_DISTANCE_METRES: f32 = 0.82;
+9: const PLASTER_REVIEW_LIGHT_TANGENT_DISTANCE_METRES: f32 = 1.2;
+10: const PLASTER_REVIEW_LIGHT_INCIDENCE_DEGREES: f32 = 10.0;
+11: 
+12: const REVIEW_ARCHETYPES: [BuildingArchetype; 4] = [
+13:     BuildingArchetype::TownHouse,
+14:     BuildingArchetype::HallHouse,
+15:     BuildingArchetype::FachwerkCottage,
+16:     BuildingArchetype::FachwerkMerchantHouse,
+17: ];
+18: 
+19: pub(super) fn capture_cameras(
+20:     buildings: &[GeneratedBuilding],
+21:     profile: &str,
+22: ) -> Result<Vec<BuildingReviewCamera>> {
+23:     if profile != super::INTERIOR_REVIEW_PROFILE {
+24:         return Ok(Vec::new());
+25:     }
+26:     let mut cameras = Vec::new();
+27:     for archetype in REVIEW_ARCHETYPES {
+28:         let building = buildings
+29:             .iter()
+30:             .find(|building| building.plan.archetype == archetype)
+31:             .ok_or_else(|| format!("interior review lacks {}", archetype.slug()))?;
+32:         cameras.push(camera_for_storey(building, 0, 0)?);
+33:         cameras.push(camera_for_storey(building, 1, 1)?);
+34:     }
+35:     let hall_house = buildings
+36:         .iter()
+37:         .find(|building| building.plan.archetype == BuildingArchetype::HallHouse)
+38:         .expect("interior-review fixture lacks hall-house plaster proof");
+39:     cameras.push(plaster_raking_camera(hall_house)?);
+40:     let merchant_house = buildings
+41:         .iter()
+42:         .find(|building| building.plan.archetype == BuildingArchetype::FachwerkMerchantHouse)
+43:         .expect("interior-review fixture lacks merchant-house partition proof");
+44:     cameras.push(partition_review_camera(merchant_house)?);
+45:     Ok(cameras)
+46: }
+47: 
+48: fn partition_review_camera(building: &GeneratedBuilding) -> Result<BuildingReviewCamera> {
+49:     let storey = &building.plan.storeys[0];
+50:     let room = storey
+51:         .rooms
+52:         .iter()
+53:         .max_by_key(|room| room.cells.len())
+54:         .expect("partition review ground storey has a room");
+55:     let wall = storey
+56:         .walls
+57:         .iter()
+58:         .enumerate()
+59:         .filter(|(_, wall)| wall.inside_room == room.id && !wall.exterior())
+60:         .max_by_key(|(index, _)| {
+61:             usize::from(storey.openings.iter().any(|opening| opening.wall == *index))
+62:         })
+63:         .map(|(_, wall)| *wall)
+64:         .expect("partition review building has an internal wall facing its largest room");
+65:     let centroid =
+66:         room.cells.iter().map(|cell| cell.centre()).sum::<Vec2>() / room.cells.len() as f32;
+67:     let local_origin = building.collision.bounds.centre()?.metres();
+68:     let transform = building.transform()?;
+69:     Ok(BuildingReviewCamera {
+70:         position: Position::from_metres(
+71:             transform.transform_point(Vec3::new(centroid.x, 1.48, centroid.y) - local_origin),
+72:         )?,
+73:         target: Position::from_metres(
+74:             transform
+75:                 .transform_point(Vec3::new(wall.centre().x, 1.38, wall.centre().y) - local_origin),
+76:         )?,
+77:         plaster_raking_light: None,
+78:     })
+79: }
+80: 
+SOURCE crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs
+200:     .warmup();
+201:     let mut views = [warmup; ROOM_LABELS.len() + 1];
+202:     let mut index = 0;
+203:     while index < ROOM_LABELS.len() {
+204:         views[index + 1] = CaptureViewSpec::new(
+205:             ROOM_LABELS[index].0,
+206:             ROOM_LABELS[index].1,
+207:             CapturePose::BuildingInterior {
+208:                 camera: index as u8,
+209:             },
+210:             ROOM_FOV_DEGREES,
+211:             100,
+212:         )
+213:         .settled_readback_pair();
+214:         index += 1;
+215:     }
+216:     views
+217: }
+218: 
+219: pub(super) fn is_profile(profile: &str) -> bool {
+220:     matches!(profile, PROFILE | ROOMS_PROFILE)
+221: }
+222: 
+223: pub(super) fn setup_rooms(
+224:     commands: &mut Commands,
+225:     buildings: &[GeneratedBuilding],
+226:     layout: &FurnitureLayout,
+227:     profile: &str,
+228:     output: &std::path::Path,
+229: ) -> Result<Option<Vec<BuildingReviewCamera>>> {
+230:     if profile != ROOMS_PROFILE {
+231:         return Ok(None);
+232:     }
+233:     super::building_review::setup_geometry_requirements(commands, buildings, output)?;
+234:     let cameras = ROOM_USES
+235:         .into_iter()
+236:         .enumerate()
+237:         .map(|(index, usage)| {
+238:             let building = buildings
+239:                 .iter()
+240:                 .find(|building| building.placement.program.usage == Some(usage))
+241:                 .ok_or_else(|| format!("furnished room fixture lacks {usage:?}"))?;
+242:             use adventuresim_building_generator::RoomKind;
+243:             let selection = match index {
+244:                 0 | 1 => rooms::RoomSelection::Role(RoomKind::CommonRoom),
+245:                 2 => rooms::RoomSelection::Role(RoomKind::Shop),
+246:                 3 | 11 | 12 => rooms::RoomSelection::Role(RoomKind::Workshop),
+247:                 4 | 10 => rooms::RoomSelection::Role(RoomKind::Nave),
+248:                 5 => rooms::RoomSelection::Role(RoomKind::Ward),
+249:                 6 => rooms::RoomSelection::Role(RoomKind::Guardroom),
+250:                 7 => rooms::RoomSelection::Role(RoomKind::Storage),
+251:                 8 => rooms::RoomSelection::UpperKeep,
+252:                 9 => rooms::RoomSelection::Bedroom,
+253:                 13 => rooms::RoomSelection::Role(RoomKind::CountingRoom),
+254:                 14 => rooms::RoomSelection::Operating(FurnitureKind::TreadleLoom),
+255:                 15 => rooms::RoomSelection::Operating(FurnitureKind::SpinningStool),
+256:                 _ => unreachable!("every authored room view has a semantic selection"),
+257:             };
+258:             rooms::camera(building, layout, selection)
+259:         })
+260:         .collect::<Result<Vec<_>>>()?;
+261:     expect_furniture(commands, layout)?;
+262:     std::fs::write(
+263:         output.join("interior-access-proofs.json"),
+264:         serde_json::to_vec_pretty(&layout.interiors).unwrap(),
+265:     )
+SOURCE crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/catalog.rs
+1: //! Production catalogue staging and envelope framing for the viewer.
+2: use super::*;
+3: use adventuresim_building_generator::spatial_geometry::{CuboidDimensions, Position};
+4: 
+5: pub(in crate::tactical_scene_viewer) fn setup_catalog(
+6:     commands: &mut Commands,
+7:     layout: &mut FurnitureLayout,
+8:     terrain: &SceneTerrain,
+9:     profile: &str,
+10:     output: &std::path::Path,
+11: ) -> Result<Option<Vec<BuildingReviewCamera>>> {
+12:     if profile != PROFILE {
+13:         return Ok(None);
+14:     }
+15:     if !layout.instances.is_empty() {
+16:         return Err(CatalogAdmissionError::AlreadyPlaced.into());
+17:     }
+18:     commands.insert_resource(crate::presentation::InteriorFurnitureExhibition);
+19:     let mut cameras = Vec::new();
+20:     for (index, kind) in FurnitureKind::INTERIOR.into_iter().enumerate() {
+21:         let bay = Vec2::new(
+22:             (index % CATALOG_COLUMNS) as f32 - 2.0,
+23:             (index / CATALOG_COLUMNS) as f32 - 3.0,
+24:         ) * CATALOG_BAY_SPACING_METRES;
+25:         let keys = FurnitureVariant::ALL.map(|variant| FurnitureKey::natural(kind, variant));
+26:         let [compact, broad] =
+27:             keys.map(|key| key.interior_spec().map(|spec| spec.size_metres.metres()));
+28:         let sizes = [compact?, broad?];
+29:         let pair_width = sizes[0].x + sizes[1].x + catalog_pair_gap(kind);
+30:         for (variant, key) in keys.into_iter().enumerate() {
+31:             let x = if variant == 0 {
+32:                 -pair_width * 0.5 + sizes[0].x * 0.5
+33:             } else {
+34:                 pair_width * 0.5 - sizes[1].x * 0.5
+35:             };

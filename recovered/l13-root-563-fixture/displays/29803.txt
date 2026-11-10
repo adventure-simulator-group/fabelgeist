@@ -1,0 +1,53 @@
+111:             .map(adventuresim_core::equipment::equipment_body_part)
+112:             .expect("iteration armor placement protects a body part");
+113:         let armor = build.combatant.equipment.armor[body_part_index(part)];
+114:         let material = authored.material.expect("armor material metadata");
+115:         let mut covered_parts = [false; 7];
+116:         let mut coverage_geometry = [None; 7];
+117:         for authored_part in &placement.protection {
+118:             let body_part = adventuresim_core::equipment::equipment_body_part(*authored_part);
+119:             let part_index = body_part_index(body_part);
+120:             covered_parts[part_index] = true;
+121:             let geometry = adventuresim_core::combat::AuthoredArmorCoverage::from_placement(
+122:                 placement, body_part,
+123:             );
+124:             coverage_geometry[part_index] = Some(geometry);
+125:         }
+126:         world.spawn((
+127:             ItemOf(owner),
+128:             ItemProperties {
+129:                 id: (*armor_id).into(),
+130:                 weight: definition.weight_kg,
+131:             },
+132:             TacticalInventoryItemId(10 + item_index as u64),
+133:             EquipSlot::from_armor_body_part(part),
+134:             ArmorItem {
+135:                 material,
+136:                 range_of_motion: armor.range_of_motion,
+137:                 coverage: armor.coverage,
+138:                 slot: armor_slot(part),
+139:                 resistance: armor.resistance,
+140:                 padding: armor.padding,
+141:                 flexibility: armor.flexibility,
+142:                 covered_parts,
+143:                 coverage_geometry,
+144:                 layer_order: placement
+145:                     .outermost_channel()
+146:                     .map(|channel| channel.order())
+147:                     .unwrap_or_default(),
+148:             },
+149:         ));
+150:     }
+151: }
+152: 
+153: fn armor_slot(part: BodyPart) -> ArmorSlot {
+154:     match part {
+155:         BodyPart::LeftArm => ArmorSlot::Arms(Some(ArmorSide::Left)),
+156:         BodyPart::RightArm => ArmorSlot::Arms(Some(ArmorSide::Right)),
+157:         BodyPart::LeftLeg => ArmorSlot::Legs(Some(ArmorSide::Left)),
+158:         BodyPart::RightLeg => ArmorSlot::Legs(Some(ArmorSide::Right)),
+159:         BodyPart::Chest => ArmorSlot::Chest,
+160:         BodyPart::Stomach => ArmorSlot::Stomach,
+161:         BodyPart::Head => ArmorSlot::Head,
+162:     }
+163: }

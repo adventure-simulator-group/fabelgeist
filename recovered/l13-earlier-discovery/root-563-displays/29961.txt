@@ -1,0 +1,110 @@
+1: use super::*;
+2: 
+3: pub(super) struct ResolvedEnergyLog {
+4:     pub(super) outcome: TacticalContactOutcome,
+5:     pub(super) coverage_contact: TacticalCoverageContact,
+6:     pub(super) armor_impact: Option<ArmorImpact>,
+7:     pub(super) contact: f32,
+8:     pub(super) cut: f32,
+9:     pub(super) blunt: f32,
+10: }
+11: 
+12: pub(super) fn resolved_energy_log(result: AttackResult) -> ResolvedEnergyLog {
+13:     match result {
+14:         AttackResult::ToAttacker {
+15:             contact_force,
+16:             physical_contact,
+17:             ..
+18:         } => ResolvedEnergyLog {
+19:             outcome: if physical_contact {
+20:                 TacticalContactOutcome::Defended
+21:             } else {
+22:                 TacticalContactOutcome::Avoided
+23:             },
+24:             coverage_contact: TacticalCoverageContact::None,
+25:             armor_impact: None,
+26:             contact: contact_force,
+27:             cut: 0.0,
+28:             blunt: 0.0,
+29:         },
+30:         AttackResult::ToDefender {
+31:             cut_damage,
+32:             blunt_damage,
+33:             contact_force,
+34:             armor_impact,
+35:             ..
+36:         } => ResolvedEnergyLog {
+37:             outcome: TacticalContactOutcome::Hit,
+38:             coverage_contact: if armor_impact.is_some() {
+39:                 TacticalCoverageContact::ArmorSurface
+40:             } else {
+41:                 TacticalCoverageContact::Gap
+42:             },
+43:             armor_impact,
+44:             contact: contact_force,
+45:             cut: cut_damage,
+46:             blunt: blunt_damage,
+47:         },
+48:     }
+49: }
+50: 
+51: #[expect(
+52:     clippy::too_many_arguments,
+53:     reason = "the log entry joins immutable event projections"
+54: )]
+55: pub(super) fn resolved_attack_entry(
+56:     sequence: u32,
+57:     clock: &IterationClock,
+58:     event: &MeleeAttackResolved,
+59:     attacker: &Player,
+60:     defender: &Player,
+61:     attacker_transform: &Transform,
+62:     defender_transform: &Transform,
+63:     viewer: &TacticalPlayerViewer<'_, '_>,
+64:     states: &Query<(&TacticalCombatState, &Limbs)>,
+65: ) -> TacticalMeleeLogEntry {
+66:     let energy = resolved_energy_log(event.result);
+67:     let armor_impact = energy.armor_impact;
+68:     TacticalMeleeLogEntry {
+69:         sequence,
+70:         tick: clock.tick,
+71:         elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
+72:         attacker: attacker.name.clone(),
+73:         defender: defender.name.clone(),
+74:         center_separation_metres: attacker_transform
+75:             .translation
+76:             .xz()
+77:             .distance(defender_transform.translation.xz()),
+78:         attacker_decision: TacticalDecision::Attack,
+79:         defender_decision: defender_decision(event.defender_response),
+80:         defensive_implement: event.defender_blocking_slot.and_then(|slot| {
+81:             viewer
+82:                 .inventory
+83:                 .get(event.target)
+84:                 .item_at_slot(slot)
+85:                 .map(|(catalog_id, _)| catalog_id.to_owned())
+86:         }),
+87:         defensive_implement_kind: defensive_implement_kind(event, viewer),
+88:         defensive_item_id: event.defender_blocking_slot.and_then(|slot| {
+89:             viewer
+90:                 .inventory
+91:                 .get(event.target)
+92:                 .item_at_slot(slot)
+93:                 .and_then(|(_, inventory_id)| inventory_id)
+94:         }),
+95:         defense_success_probability: event.defense_success_probability,
+96:         defense_alignment_sample: event.defense_alignment_sample,
+97:         defense_engagement: event.defense_engagement,
+98:         body_part: format!("{:?}", event.body_part).to_lowercase(),
+99:         anatomical_subregion: serialized_name(event.anatomical_subregion),
+100:         contact_surface_coordinate: event.surface_coordinate,
+101:         armor_layer_chain: viewer
+102:             .inventory
+103:             .get(event.target)
+104:             .armor_layer_chain(event.body_part, event.surface_coordinate),
+105:         scheduled_contact_measure_metres: event.contact_at_time.scheduled_measure_metres,
+106:         ideal_contact_measure_metres: event.contact_at_time.ideal_measure_metres,
+107:         actual_contact_measure_metres: event.contact_at_time.actual_measure_metres,
+108:         contact_classification: event.contact_at_time.classification,
+109:         contact_lever_arm_metres: event.contact_at_time.lever_arm_metres,
+110:         contact_energy_fraction: event.contact_at_time.energy_fraction,

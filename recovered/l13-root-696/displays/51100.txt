@@ -1,0 +1,227 @@
+SOURCE 2632 pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs
+1: //! Buffer capability selection and its native allocation descriptor.
+2: 
+3: use crate::globals::WgpuContext;
+4: 
+5: use super::{BufferByteLength, BufferLabel};
+6: 
+7: /// Independent uses of one allocation; storage also permits device copies.
+8: #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+9: pub enum BufferUse {
+10:     Uniform,
+11:     Storage,
+12:     Vertex,
+13:     Index,
+14:     Indirect,
+15:     CopySource,
+16:     CopyDestination,
+17:     HostWrite,
+18:     HostRead,
+19: }
+20: 
+21: #[derive(Clone, Copy, Debug)]
+22: enum UsageSelection {
+23:     Unspecified,
+24:     Explicit(wgpu::BufferUsages),
+25: }
+26: 
+27: #[derive(Clone, Debug)]
+28: pub struct BufferDefinition {
+29:     label: Option<BufferLabel>,
+30:     usage: UsageSelection,
+31: }
+32: 
+33: const GENERAL_USAGE: wgpu::BufferUsages = wgpu::BufferUsages::STORAGE
+34:     .union(wgpu::BufferUsages::UNIFORM)
+35:     .union(wgpu::BufferUsages::VERTEX)
+36:     .union(wgpu::BufferUsages::INDEX)
+37:     .union(wgpu::BufferUsages::INDIRECT)
+38:     .union(wgpu::BufferUsages::COPY_DST)
+39:     .union(wgpu::BufferUsages::COPY_SRC);
+40: 
+41: impl Default for BufferDefinition {
+42:     fn default() -> Self {
+43:         Self::all()
+44:     }
+45: }
+46: 
+47: impl BufferDefinition {
+48:     pub fn new() -> Self {
+49:         Self {
+50:             label: None,
+51:             usage: UsageSelection::Unspecified,
+52:         }
+53:     }
+54: 
+55:     pub fn all() -> Self {
+56:         Self {
+57:             label: None,
+58:             usage: UsageSelection::Explicit(GENERAL_USAGE),
+59:         }
+60:     }
+61: 
+62:     pub fn with_label(mut self, label: BufferLabel) -> Self {
+63:         self.label = Some(label);
+64:         self
+65:     }
+66: 
+67:     pub fn with_usage(mut self, selected: BufferUse) -> Self {
+68:         let flags = match selected {
+69:             BufferUse::Uniform => wgpu::BufferUsages::UNIFORM,
+70:             BufferUse::Storage => {
+71:                 wgpu::BufferUsages::STORAGE
+72:                     | wgpu::BufferUsages::COPY_SRC
+73:                     | wgpu::BufferUsages::COPY_DST
+74:             }
+75:             BufferUse::Vertex => wgpu::BufferUsages::VERTEX,
+76:             BufferUse::Index => wgpu::BufferUsages::INDEX,
+77:             BufferUse::Indirect => wgpu::BufferUsages::INDIRECT,
+78:             BufferUse::CopySource => wgpu::BufferUsages::COPY_SRC,
+79:             BufferUse::CopyDestination => wgpu::BufferUsages::COPY_DST,
+80:             BufferUse::HostWrite => wgpu::BufferUsages::MAP_WRITE,
+81:             BufferUse::HostRead => wgpu::BufferUsages::MAP_READ,
+82:         };
+83:         let existing = match self.usage {
+84:             UsageSelection::Unspecified => wgpu::BufferUsages::empty(),
+85:             UsageSelection::Explicit(flags) => flags,
+86:         };
+87:         self.usage = UsageSelection::Explicit(existing | flags);
+88:         self
+89:     }
+90: 
+91:     pub fn uniform() -> Self {
+92:         Self::new().with_usage(BufferUse::Uniform)
+93:     }
+94:     pub fn storage() -> Self {
+95:         Self::new().with_usage(BufferUse::Storage)
+96:     }
+97:     pub fn vertex() -> Self {
+98:         Self::new().with_usage(BufferUse::Vertex)
+99:     }
+100:     pub fn index() -> Self {
+101:         Self::new().with_usage(BufferUse::Index)
+102:     }
+103:     pub fn indirect() -> Self {
+104:         Self::new().with_usage(BufferUse::Indirect)
+105:     }
+106:     pub fn map_write() -> Self {
+107:         Self::new().with_usage(BufferUse::HostWrite)
+108:     }
+109:     pub fn map_read() -> Self {
+110:         Self::new().with_usage(BufferUse::HostRead)
+111:     }
+112:     pub fn copy_src() -> Self {
+113:         Self::new().with_usage(BufferUse::CopySource)
+114:     }
+115:     pub fn copy_dst() -> Self {
+116:         Self::new().with_usage(BufferUse::CopyDestination)
+117:     }
+118: 
+119:     pub(super) fn allocate_native(
+120:         &self,
+121:         context: &WgpuContext,
+122:         length: BufferByteLength,
+123:     ) -> wgpu::Buffer {
+124:         let usage = match self.usage {
+125:             UsageSelection::Unspecified => GENERAL_USAGE,
+126:             UsageSelection::Explicit(flags) => flags,
+127:         };
+128:         context.device.create_buffer(&wgpu::BufferDescriptor {
+129:             label: self.label.as_ref().map(<&str>::from),
+130:             size: u64::from(length),
+131:             usage,
+132:             mapped_at_creation: false,
+133:         })
+134:     }
+135: }
+SOURCE 2633 pr-working:crates/fabelgeist-cloth/src/topology.rs
+1: pub use fabelgeist_shell::topology::*;
+SOURCE 2635 pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs
+1: use crate::data::{gpu::shader::parse_naga, shader};
+2: use crate::globals::WgpuContext;
+3: use anyhow::{Result, anyhow};
+4: use std::sync::{Arc, Mutex};
+5: 
+6: #[derive(Clone, Debug, Default)]
+7: pub struct ComputeShader {
+8:     pub code: String,
+9:     pub module: Option<Arc<wgpu::ShaderModule>>,
+10:     pub error: Arc<Mutex<Option<String>>>,
+11: }
+12: impl ComputeShader {
+13:     pub fn new(context: &WgpuContext, code: String) -> Result<ComputeShader> {
+14:         // 1. Naga Parse & Deep Validation
+15:         let is_glsl = shader::detect_from_code(&code) == "glsl";
+16:         let naga_res = parse_naga(&code, wgpu::naga::ShaderStage::Compute)
+17:             .map_err(|e| anyhow::anyhow!("Compute Shader Parse Error: {}", e))?;
+18: 
+19:         let mut validator = wgpu::naga::valid::Validator::new(
+20:             wgpu::naga::valid::ValidationFlags::all(),
+21:             wgpu::naga::valid::Capabilities::all(),
+22:         );
+23: 
+24:         let info = if let Ok(info) = validator.validate(&naga_res) {
+25:             info
+26:         } else {
+27:             let e = validator.validate(&naga_res).unwrap_err();
+28:             let message = e.emit_to_string(&code);
+29:             return Err(anyhow::anyhow!(
+30:                 "Compute Shader Validation Error: {}",
+31:                 message
+32:             ));
+33:         };
+34: 
+35:         // 2. Convert to WGSL for WGPU compatibility (if it was GLSL)
+36:         let wgsl_code = if is_glsl {
+37:             match wgpu::naga::back::wgsl::write_string(
+38:                 &naga_res,
+39:                 &info,
+40:                 wgpu::naga::back::wgsl::WriterFlags::empty(),
+41:             ) {
+42:                 Ok(s) => s,
+43:                 Err(e) => return Err(anyhow!("Failed to convert GLSL to WGSL: {}", e)),
+44:             }
+45:         } else {
+46:             code.clone()
+47:         };
+48: 
+49:         // 3. WGPU Validation & Creation
+50:         #[cfg(not(target_arch = "wasm32"))]
+51:         let error_scope = context.blocking_validation.then(|| {
+52:             context
+53:                 .device
+54:                 .push_error_scope(wgpu::ErrorFilter::Validation)
+55:         });
+56: 
+57:         let sm = context
+58:             .device
+59:             .create_shader_module(wgpu::ShaderModuleDescriptor {
+60:                 label: Some("ComputeShader"),
+61:                 source: wgpu::ShaderSource::Wgsl(std::borrow::Cow::Borrowed(&wgsl_code)),
+62:             });
+63:         let module = Some(Arc::new(sm));
+64: 
+65:         let error = Arc::new(Mutex::new(None));
+66: 
+67:         #[cfg(not(target_arch = "wasm32"))]
+68:         if let Some(error_scope) = error_scope {
+69:             let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+70:             if let Some(e) = pollster::block_on(error_scope.pop()) {
+71:                 return Err(anyhow!("Compute Shader Validation Error: {}", e));
+72:             }
+73:         }
+74: 
+75:         let definition = ComputeShader {
+76:             code: code.clone(),
+77:             module,
+78:             error,
+79:         };
+80: 
+81:         Ok(definition)
+82:     }
+83: }
+84: impl PartialEq for ComputeShader {
+85:     fn eq(&self, other: &Self) -> bool {
+86:         self.code == other.code
+87:     }
+88: }

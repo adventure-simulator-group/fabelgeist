@@ -1,0 +1,3 @@
+from pathlib import Path
+p=Path('target/726-intake-20261030');s=(p/'discover_l13_2805_2822.py').read_text().replace('bbac6302ee3b300812ee427191324147cfc4436b8b2a4dab6f5e4def0f967aab','3a4e69960dd980c564ad46a74bc4a153590af8cfa8371f93196bf2b9305cbbe6').replace("co['next_original']==2805 and len(co['discovery_receipts'])==723","co['next_original']==2836 and len(co['discovery_receipts'])==725").replace('range(2805,2823)','range(2836,2846)').replace("'frontier':2805,'prior_same_lens_receipts_authenticated':723","'frontier':2836,'prior_same_lens_receipts_authenticated':725").replace('DISCOVERY-L13-2805-2822','DISCOVERY-L13-2836-2845')
+with(p/'discover_l13_2836_2845.py').open('x')as f:f.write(s)

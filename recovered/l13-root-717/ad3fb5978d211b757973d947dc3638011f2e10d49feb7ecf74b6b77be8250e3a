@@ -1,0 +1,717 @@
+{
+  "lens": 13,
+  "kind": "Exact pinned native package connected source adoption",
+  "at": "2026-10-31T23:58:52.267635+00:00",
+  "packet": {
+    "path": "adler-continuation-20261030/READ-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+    "sha256": "15b0da2eddd6207a2ee30416277e4fa38fec9964bca27bce79258bc40ce40d37"
+  },
+  "evidence": {
+    "schema": "726-root-l13-connected-native-source-packet-v1",
+    "at": "2026-10-31T23:56:26.693399+00:00",
+    "lens": 13,
+    "author": "/root",
+    "registered_before_read_attestation": true,
+    "registration": {
+      "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+      "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+    },
+    "additional_registrations": [
+      {
+        "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-MANIFEST-001.json",
+        "sha256": "8ab107bad8cf69c87f6ee506105c388164530db980b12f6370b654fe282ba1f6"
+      }
+    ],
+    "provenance": {
+      "path": "adler-continuation-20261030/PROVENANCE-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+      "sha256": "17b914328ffc351335fc43f7b6bc1883434b9c336205c6cdf6916b7b71b0ec73"
+    },
+    "sources": [
+      {
+        "source": {
+          "original": 2757,
+          "source_id": "native-rand0.9.5:src/distr/weighted/weighted_index.rs",
+          "sha256": "b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003",
+          "actual_eof": 631,
+          "bytes": 21498,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003",
+          "source_revision": "Exact rand0.9.5 registry archive from frozen Git6533 Cargo.lock checksum",
+          "native_package_archive": {
+            "path": "adler-continuation-20261030/objects/b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+            "sha256": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41"
+          },
+          "archive_member": "rand-0.9.5/src/distr/weighted/weighted_index.rs",
+          "prospective_ranges": [
+            [
+              1,
+              145
+            ],
+            [
+              358,
+              369
+            ]
+          ],
+          "original_credit_now": 0,
+          "other_population_credit": 0,
+          "purpose": "Necessary native u64 WeightedIndex new/sample and uniform integer construction/sample kernel only, exact original material scopes; no updates/float/test/unrelated graphs or execution."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+        },
+        "registration_pointer": "/sources/0",
+        "assessed_ranges": [
+          [
+            1,
+            145
+          ],
+          [
+            358,
+            369
+          ]
+        ],
+        "author": "/root",
+        "untruncated_body_outputs": true,
+        "observations": [
+          {
+            "ranges": [
+              [
+                1,
+                145
+              ],
+              [
+                358,
+                369
+              ]
+            ],
+            "assessment": "ExactnativeRand0.9.5 WeightedIndex new constructs private cumulative vector ofN-1 prior totals plus total and native sampler; emptyiterator InvalidInput106, negative/NaN generic InvalidWeight109/117, Weight::checked_add_assign122 overflowError123, totalzero InsufficientNonZero127. Foru64 zero<=weight unconditional and checkedprimitiveWeight impl is read in weightedmod25..60. Successful construction total>0, so new UniformInt(0,total) at130 cannot fail EmptyRange; this expect is guarded native construction, not an initialized first-party panic finding. Distribution sample358..367 uses native chosenweight and partition_point, returning0..=cumulative.len() =0..N-1; no out-of-bounds successindex on unchanged weight vector. Docs/examples source-only. update_weights/body146..357 and369+ helpers/tests unassessed; nowhole631claim."
+          }
+        ]
+      },
+      {
+        "source": {
+          "original": 2758,
+          "source_id": "native-rand0.9.5:src/distr/uniform.rs",
+          "sha256": "04efcc061e1904b824e3feb68541c4e8259a46ecd2c118af6fb383b3ad37f73c",
+          "actual_eof": 622,
+          "bytes": 21611,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/04efcc061e1904b824e3feb68541c4e8259a46ecd2c118af6fb383b3ad37f73c",
+          "source_revision": "Exact rand0.9.5 registry archive from frozen Git6533 Cargo.lock checksum",
+          "native_package_archive": {
+            "path": "adler-continuation-20261030/objects/b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+            "sha256": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41"
+          },
+          "archive_member": "rand-0.9.5/src/distr/uniform.rs",
+          "prospective_ranges": [
+            [
+              190,
+              260
+            ],
+            [
+              268,
+              312
+            ],
+            [
+              399,
+              415
+            ]
+          ],
+          "original_credit_now": 0,
+          "other_population_credit": 0,
+          "purpose": "Necessary native u64 WeightedIndex new/sample and uniform integer construction/sample kernel only, exact original material scopes; no updates/float/test/unrelated graphs or execution."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+        },
+        "registration_pointer": "/sources/1",
+        "assessed_ranges": [
+          [
+            190,
+            260
+          ],
+          [
+            268,
+            312
+          ],
+          [
+            399,
+            415
+          ]
+        ],
+        "author": "/root",
+        "untruncated_body_outputs": true,
+        "observations": [
+          {
+            "ranges": [
+              [
+                190,
+                260
+              ],
+              [
+                268,
+                312
+              ],
+              [
+                399,
+                415
+              ]
+            ],
+            "assessment": "Uniform wrapper delegates construction/sample to SampleUniform::Sampler, whose integer halfopenbound is explicit at287..299; this is actual u64 backend dispatch, not body coverage from docs alone. SampleBorrow owned/ref implementations pass same originalu64 bounds, no transform or precisionloss. Selectedranges133unique lines; original ranges190..219 and219..260 overlap219 so countedonce in union190..260. OtherUniformfloat/custom/single-sample/Serde graphs unassessed. Relevant SampleBorrow functionbody complete through415, outerimpl closing416 not credited."
+          }
+        ]
+      },
+      {
+        "source": {
+          "original": 2759,
+          "source_id": "native-rand0.9.5:src/distr/uniform_int.rs",
+          "sha256": "30c620bc9d74263162de2e0755ae4b323abce1d6aa22c00d1b9de378480f22c0",
+          "actual_eof": 914,
+          "bytes": 34184,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/30c620bc9d74263162de2e0755ae4b323abce1d6aa22c00d1b9de378480f22c0",
+          "source_revision": "Exact rand0.9.5 registry archive from frozen Git6533 Cargo.lock checksum",
+          "native_package_archive": {
+            "path": "adler-continuation-20261030/objects/b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+            "sha256": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41"
+          },
+          "archive_member": "rand-0.9.5/src/distr/uniform_int.rs",
+          "prospective_ranges": [
+            [
+              1,
+              160
+            ],
+            [
+              280,
+              280
+            ]
+          ],
+          "original_credit_now": 0,
+          "other_population_credit": 0,
+          "purpose": "Necessary native u64 WeightedIndex new/sample and uniform integer construction/sample kernel only, exact original material scopes; no updates/float/test/unrelated graphs or execution."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+        },
+        "registration_pointer": "/sources/2",
+        "assessed_ranges": [
+          [
+            1,
+            160
+          ],
+          [
+            280,
+            280
+          ]
+        ],
+        "author": "/root",
+        "untruncated_body_outputs": true,
+        "observations": [
+          {
+            "ranges": [
+              [
+                1,
+                160
+              ],
+              [
+                280,
+                280
+              ]
+            ],
+            "assessment": "UniformInt<u64> instantiated at280. new checks low<high109 then new_inclusive(low,high-1); for0<total<=u64MAX this subtraction safe. Inclusive computes wrappingrange(high-low+1), threshold wrappingsub/mod onlyrange>0; range0 means fullnativeword, deliberatelyencoded nativealgorithm. Weightedpath low0/high_exclusiveT yieldsrangeT nonzero includingT=u64MAX. sample145..159 multiplies arbitraryu64word byrange in exactwideu128 viawmul, rejects lowword<threshold then returnslow+highword. Forlow0/rangeT, highword<=T-1, hence chosenweight<T; nofiniteinterval float reasoning imported. Loops mayrejectsamples but no runtime/performanceobservation. Single-sample/SIMD/otherinteger graphs and160+ except280 excluded; not full914."
+          }
+        ]
+      },
+      {
+        "source": {
+          "original": 2760,
+          "source_id": "native-rand0.9.5:src/distr/weighted/mod.rs",
+          "sha256": "52379f09ea06c8ac54bdb4ecaed93fd7fc08f85866b5e3fcb4e40d0f1576bdfe",
+          "actual_eof": 115,
+          "bytes": 3775,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/52379f09ea06c8ac54bdb4ecaed93fd7fc08f85866b5e3fcb4e40d0f1576bdfe",
+          "source_revision": "Exact rand0.9.5 registry archive from frozen Git6533 Cargo.lock checksum",
+          "native_package_archive": {
+            "path": "adler-continuation-20261030/objects/b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+            "sha256": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41"
+          },
+          "archive_member": "rand-0.9.5/src/distr/weighted/mod.rs",
+          "prospective_ranges": [
+            [
+              25,
+              60
+            ],
+            [
+              85,
+              115
+            ]
+          ],
+          "original_credit_now": 0,
+          "other_population_credit": 0,
+          "purpose": "Necessary native u64 WeightedIndex new/sample and uniform integer construction/sample kernel only, exact original material scopes; no updates/float/test/unrelated graphs or execution."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+        },
+        "registration_pointer": "/sources/3",
+        "assessed_ranges": [
+          [
+            25,
+            60
+          ],
+          [
+            85,
+            115
+          ]
+        ],
+        "author": "/root",
+        "untruncated_body_outputs": true,
+        "observations": [
+          {
+            "ranges": [
+              [
+                25,
+                60
+              ],
+              [
+                85,
+                115
+              ]
+            ],
+            "assessment": "Weight integer macro checked_add43..49 returnsErr before changingtotal on overflow; explicitu64impl60, so u64MAX+1 producesError::Overflow and u64MAXtotal itself admitted. Error enum distinguishes InvalidInput/InvalidWeight/InsufficientNonZero/Overflow; Display terminalnativeformatter. Floating/customWeight impls61..84 unassessed and not needed fornameu64weights. No compatibility classification solelyfrom nativeenum/formatter."
+          }
+        ]
+      },
+      {
+        "source": {
+          "original": 2761,
+          "source_id": "native-rand0.9.5:src/distr/utils.rs",
+          "sha256": "a631940e728257c9b0cb753bc64fa631958c92ce52d5b2265c7ed06a46567b8f",
+          "actual_eof": 408,
+          "bytes": 12603,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/a631940e728257c9b0cb753bc64fa631958c92ce52d5b2265c7ed06a46567b8f",
+          "source_revision": "Exact rand0.9.5 registry archive from frozen Git6533 Cargo.lock checksum",
+          "native_package_archive": {
+            "path": "adler-continuation-20261030/objects/b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+            "sha256": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41"
+          },
+          "archive_member": "rand-0.9.5/src/distr/utils.rs",
+          "prospective_ranges": [
+            [
+              16,
+              61
+            ]
+          ],
+          "original_credit_now": 0,
+          "other_population_credit": 0,
+          "purpose": "Necessary native u64 WeightedIndex new/sample and uniform integer construction/sample kernel only, exact original material scopes; no updates/float/test/unrelated graphs or execution."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+        },
+        "registration_pointer": "/sources/4",
+        "assessed_ranges": [
+          [
+            16,
+            61
+          ]
+        ],
+        "author": "/root",
+        "untruncated_body_outputs": true,
+        "observations": [
+          {
+            "ranges": [
+              [
+                16,
+                61
+              ]
+            ],
+            "assessment": "u64 widening multiply instantiated61 withu128 andshift64. Product ofanytwo u64 words fitsu128 exactly, high/low extracted byshift/cast. Rawfixedword casts/remainder/multiplication are native arithmetic representation endpoints, not firstparty semanticweight erasure or unitduplicate. SIMD macro text present35..56 but no SIMDcaller/bodyclosure implied."
+          }
+        ]
+      },
+      {
+        "source": {
+          "original": 2762,
+          "source_id": "native-rand0.9.5:src/distr/integer.rs",
+          "sha256": "69ac205b6fed57ae09e2f8f1b15ae3d2049b85874bc4da3f246a18188b42d8ea",
+          "actual_eof": 307,
+          "bytes": 9993,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/69ac205b6fed57ae09e2f8f1b15ae3d2049b85874bc4da3f246a18188b42d8ea",
+          "source_revision": "Exact rand0.9.5 registry archive from frozen Git6533 Cargo.lock checksum",
+          "native_package_archive": {
+            "path": "adler-continuation-20261030/objects/b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+            "sha256": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41"
+          },
+          "archive_member": "rand-0.9.5/src/distr/integer.rs",
+          "prospective_ranges": [
+            [
+              49,
+              54
+            ]
+          ],
+          "original_credit_now": 0,
+          "other_population_credit": 0,
+          "purpose": "Necessary native u64 WeightedIndex new/sample and uniform integer construction/sample kernel only, exact original material scopes; no updates/float/test/unrelated graphs or execution."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+        },
+        "registration_pointer": "/sources/5",
+        "assessed_ranges": [
+          [
+            49,
+            54
+          ]
+        ],
+        "author": "/root",
+        "untruncated_body_outputs": true,
+        "observations": [
+          {
+            "ranges": [
+              [
+                49,
+                54
+              ]
+            ],
+            "assessment": "StandardUniform Distribution<u64> reads rng.next_u64 directly. Rangeproof works for everypossibleu64word, so noRNG engine statistical/seed/outputcompatibility proof required to establish successfulindexbound. NativeRngCore implementation/entropy quality remains separate and unassessed here."
+          }
+        ]
+      },
+      {
+        "source": {
+          "original": 2763,
+          "source_id": "native-rand0.9.5:src/rng.rs",
+          "sha256": "19a29d58ea169c50ae7fea0a941c405e4a8f3a9b2ac0dc0edd9f7a55e9431703",
+          "actual_eof": 657,
+          "bytes": 20807,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/19a29d58ea169c50ae7fea0a941c405e4a8f3a9b2ac0dc0edd9f7a55e9431703",
+          "source_revision": "Exact rand0.9.5 registry archive from frozen Git6533 Cargo.lock checksum",
+          "native_package_archive": {
+            "path": "adler-continuation-20261030/objects/b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+            "sha256": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41"
+          },
+          "archive_member": "rand-0.9.5/src/rng.rs",
+          "prospective_ranges": [
+            [
+              58,
+              58
+            ],
+            [
+              95,
+              103
+            ],
+            [
+              357,
+              357
+            ]
+          ],
+          "original_credit_now": 0,
+          "other_population_credit": 0,
+          "purpose": "Necessary native u64 WeightedIndex new/sample and uniform integer construction/sample kernel only, exact original material scopes; no updates/float/test/unrelated graphs or execution."
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-NATIVE-001.json",
+          "sha256": "fe8eb7ace372139f5a61cff0b1f9d3995270b69d92921e23bd9359357e6d2640"
+        },
+        "registration_pointer": "/sources/6",
+        "assessed_ranges": [
+          [
+            58,
+            58
+          ],
+          [
+            95,
+            103
+          ],
+          [
+            357,
+            357
+          ]
+        ],
+        "author": "/root",
+        "untruncated_body_outputs": true,
+        "observations": [
+          {
+            "ranges": [
+              [
+                58,
+                58
+              ],
+              [
+                95,
+                103
+              ],
+              [
+                357,
+                357
+              ]
+            ],
+            "assessment": "Rng extendsRngCore58 and blanketimplements forRngCore357. random<u64>95..100 delegates StandardUniform.sample, actualinteger49..54 read. Methodfunctioncomplete through100; docs102..103 incidental sourceonly. RemainingRng/sample_single/currentfeatures/rawengine bodies excluded, not full657."
+          }
+        ]
+      },
+      {
+        "source": {
+          "source_id": "pr-working:crates/fabelgeist-determinism/Cargo.toml",
+          "git_path": "crates/fabelgeist-determinism/Cargo.toml",
+          "sha256": "c39a8a5055ca88572a587d0eadbde46eeb889d9060ec6b8930f59bfb76e44303",
+          "actual_eof": 26,
+          "bytes": 692,
+          "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/c39a8a5055ca88572a587d0eadbde46eeb889d9060ec6b8930f59bfb76e44303",
+          "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "prospective_ranges": [
+            [
+              1,
+              26
+            ]
+          ],
+          "original_role_credit": 0,
+          "other_population_credit": 0,
+          "new_source_identity_credit": 0,
+          "source_kind": "necessary connected frozen native package pin; identity novelty unresolved"
+        },
+        "registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-NAME-SAMPLER-MANIFEST-001.json",
+          "sha256": "8ab107bad8cf69c87f6ee506105c388164530db980b12f6370b654fe282ba1f6"
+        },
+        "registration_pointer": "/sources/0",
+        "assessed_ranges": [
+          [
+            1,
+            26
+          ]
+        ],
+        "author": "/root",
+        "untruncated_body_outputs": true,
+        "observations": [
+          {
+            "ranges": [
+              [
+                1,
+                26
+              ]
+            ],
+            "assessment": "Actualfrozenfabelgeist-determinism manifest14 pins rand=0.9.5/defaultfeaturesfalse/alloc, matching Cargo.lockchecksum verified against localarchive before allmember reads. Optionalrand08=0.8.8 is a separate named spacetimedb featuredependency17, not replacement for weightedindex Rand0.9.5. Multiple native versions alone do not establish backwardscompatibility API in firstpartycode; actualadapter source is independent scope. No Cargo resolution/build/install/tests executed. Manifest outsideoriginal2853, sourceidentitynovelty/shared196/extensions/current reconciliation unresolved0; registrationall13mandatory/otherpending."
+          }
+        ]
+      }
+    ],
+    "fresh_root_connected_lines": 607,
+    "fresh_native_lines": 581,
+    "fresh_manifest_lines": 26,
+    "new_original_roles": 0,
+    "other_population_credit": 0,
+    "accepted_unique_count_change": 0,
+    "source_novelty_resolved": false,
+    "new_source_identity_credit": 0,
+    "current_source_reconciled": false,
+    "product_execution": false,
+    "implementation_gate_complete": false,
+    "existing_own_stream_evidence": {
+      "adoption": {
+        "path": "segovb/READ-L13-PARALLEL-313.json",
+        "sha256": "6a63567664bca0b8ff065a0dd8b3fab373f976501a36455c97fb3e847397e6fe"
+      },
+      "packet": {
+        "path": "adler-continuation-20261030/READ-ROOT-L13-1239-1241-001.json",
+        "sha256": "17180b0a41be49ce2929e9375ca69e84b1a981d480714fd0de2815f35a84fd88"
+      },
+      "pointer": "/connected/0",
+      "assessed_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "reread_credit_now": 0,
+      "original_credit_now": 0
+    },
+    "existing_own_lock_adoption": {
+      "path": "segovb/READ-L13-PARALLEL-022.json",
+      "sha256": "cb376d19e5655769fe0d8525ab9977de06c4a0e6c9b10dd23b83d25ac82df8f5"
+    },
+    "preserved_future_originals": [
+      2757,
+      2758,
+      2759,
+      2760,
+      2761,
+      2762,
+      2763
+    ],
+    "future_ordered_credit_now": 0,
+    "contract_revisit": {
+      "contract_id": "ADLER-L11-NAME-CATALOG-WEIGHT-ADMISSION",
+      "canonical_owner": "Canonical name catalog validation for each per-sex family group, per-family form group and repertoire surname group, sharing actual deterministic sampler weight contract.",
+      "status": "open-reconciliation",
+      "source_pointers": [
+        {
+          "pointer": "/sources/0",
+          "ranges": [
+            [
+              1,
+              145
+            ],
+            [
+              358,
+              369
+            ]
+          ]
+        },
+        {
+          "pointer": "/sources/1",
+          "ranges": [
+            [
+              190,
+              260
+            ],
+            [
+              268,
+              312
+            ],
+            [
+              399,
+              415
+            ]
+          ]
+        },
+        {
+          "pointer": "/sources/2",
+          "ranges": [
+            [
+              1,
+              160
+            ],
+            [
+              280,
+              280
+            ]
+          ]
+        },
+        {
+          "pointer": "/sources/3",
+          "ranges": [
+            [
+              25,
+              60
+            ],
+            [
+              85,
+              115
+            ]
+          ]
+        },
+        {
+          "pointer": "/sources/4",
+          "ranges": [
+            [
+              16,
+              61
+            ]
+          ]
+        },
+        {
+          "pointer": "/sources/5",
+          "ranges": [
+            [
+              49,
+              54
+            ]
+          ]
+        },
+        {
+          "pointer": "/sources/6",
+          "ranges": [
+            [
+              58,
+              58
+            ],
+            [
+              95,
+              103
+            ],
+            [
+              357,
+              357
+            ]
+          ]
+        },
+        {
+          "pointer": "/sources/7",
+          "ranges": [
+            [
+              1,
+              26
+            ]
+          ]
+        }
+      ],
+      "prior_source_adoptions": [
+        {
+          "path": "segovb/READ-L13-PARALLEL-587.json",
+          "sha256": "636a1c4194660a51e5a29cbe24e8032ed572d66afedee9299aa807ea75a97221"
+        },
+        {
+          "path": "segovb/READ-L13-PARALLEL-591.json",
+          "sha256": "d1cb50714dc2096b462644cefa6d1c5a55a0b34f6c3322d89eaaa90ff8921b91"
+        },
+        {
+          "path": "segovb/READ-L13-PARALLEL-592.json",
+          "sha256": "7142b1cd018fd097c09df220c9170ddcdddb2b0ba900768bc116a810299102f4"
+        },
+        {
+          "path": "segovb/READ-L13-PARALLEL-313.json",
+          "sha256": "6a63567664bca0b8ff065a0dd8b3fab373f976501a36455c97fb3e847397e6fe"
+        }
+      ],
+      "disposition": "Exact pinnednativeu64Weight uses checked_add; WeightedIndex::new rejects overflow/empty/zero and accepts all positive representable totals includingu64MAX. NativeUniformIntsuccessfulsample bounds chosenword belowtotal and partition_point returnsindex<N forNweights. This resolves native successindex and u64total/errorclassification portion for directlyconstructed name distributions. Existingsource shows family/surnamegroupadmission lacks totals while forms checked; derivations/buildvalidate do not repair absentgroupchecks. Supportedauthored positive relativeweights with overflowing family/surnamegroup can pass these local schema/validation predicates then runtime sampler returnsWeightOverflow (name mapping propagatesSamplingerror withstringerasure separatecontract134/286). Source-backed admission mismatch, not observedruntimefailure or claimcurrentcatalogcontents actuallyoverflow. Nativeconstructor guardedexpect130 is not ordinary panic on this admittedu64path.",
+      "first_failed_contract_preserved": "Every build-accepted positive weighted selection group must fit the actual runtime sampler total width.",
+      "later_repair_acceptance_requirements": [
+        "Totalu64MAX remainsvalidifotherwiseeligible",
+        "OverflowperSexfamily/surnamegroup rejects atbuildcatalogadmission",
+        "Eachformgroup stayschecked asalreadyimplemented",
+        "Validweights andstableauthoredorder preserve deterministicnamegeneration"
+      ],
+      "remaining_evidence": [
+        "Current source/content and exactalias/all20 reconciliation and canonical group admission/type/error owner; no blanketotherlens/currentcoverage fromsourceidentity.",
+        "Actual authoredproductiongroups/currentnativeentry reachability and buildartifactpolicy ifordinaryincident claim intended; no execution beforeauditgate.",
+        "Native conditionalfloatrange_f32, unrelatedcatalogparseexpect/IDinternalpropagation/structuredSamplingcause and broaderlegacyRNGempty/stream/identity modes remain separatequestions."
+      ],
+      "conditional_source_case": "Keepotherwiseeligible group references/forms/provenance, give two distinct same-sex familyentries weightsu64MAX and1 with matching positive derivationfrequencies; admittedlocal family/derivationpredicates have no sumcap; nativecheckedadditionrejects. Analogoussurnamegroup. This is an unexecutedsourcecondition, not a claimed productioncatalogfixture.",
+      "native_scope_qualification": "OnlyfreshWeightedIndex::new/sampleu64 path. No distributionSerde/update_weights/float/customWeight/engineentropy clearance; no successfulindexpanic inferred from usize.",
+      "body_or_population_credit_from_revisit": 0,
+      "accepted_unique_count_change": 0
+    },
+    "base_authority_snapshot": {
+      "ledger": {
+        "path": "evidence/continuation-segovb/ledger.json",
+        "sha256": "0b45776f1ee6c429589b229463c48470e0b8a9b3a28a0bc41086de27fd08b54f"
+      },
+      "selector": {
+        "path": "CURRENT-ADLER.json",
+        "sha256": "4335dfd62ce0c6bf0547b3ae082803cb009b9606faa74d38146edc216231df21"
+      },
+      "queue": {
+        "path": "workflow-20261030/CLOSURE-QUEUE-501.json",
+        "sha256": "1a1873d298ff7f22304206fe433970a94d197799dc30b2637991860d35ad1557"
+      }
+    },
+    "adoption_status": "Pending authoritative connected-source and existing canonical-view adoption; no counters changed by this packet."
+  },
+  "writer": {
+    "path": "adler-continuation-20261030/adopt_l13_name_sampler_native.py",
+    "sha256": "d7d139c9cf8d895e77ab8b8574a114eb857ad9e665db6e48008ad027939d3630"
+  },
+  "fresh_root_connected_lines": 607,
+  "new_original_roles": 0,
+  "other_population_credit": 0,
+  "accepted_unique_count_change": 0,
+  "future_ordered_credit_now": 0,
+  "current_source_reconciled": false,
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

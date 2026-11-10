@@ -1,0 +1,920 @@
+SOURCE 2693
+1: //! Indexed exact geographic triangles; no resampling or support substitutions.
+2: use super::*;
+3: use crate::city_layout::grounding::planar::query::{PlanarBounds, PlanarQueryIndex};
+4: mod difference;
+5: mod presented;
+6: mod region;
+7: pub use difference::{GeographicSurfaceComparison, SurfaceDifferenceControl};
+8: pub use region::GeographicRegionMeasurement;
+9: 
+10: /// Finite, nonvertical geographic triangles with canonical order and winding.
+11: /// Coverage is checked against each complete support triangle during compilation.
+12: #[derive(Clone, Debug)]
+13: pub struct GeographicSurface {
+14:     pub(super) triangles: Vec<GroundTriangle>,
+15:     query: PlanarQueryIndex,
+16:     boundary_extension_factor: f64,
+17: }
+18: 
+19: /// Extremal source controls at complete footprint/terrain intersections.
+20: #[derive(Clone, Copy, Debug)]
+21: pub struct GeographicHeightRange {
+22:     pub minimum: GeographicHeightControl,
+23:     pub maximum: GeographicHeightControl,
+24: }
+25: 
+26: /// A finite source elevation bound to its exact scene-plane sampling location.
+27: #[derive(Clone, Copy, Debug, PartialEq)]
+28: pub struct GeographicHeightControl {
+29:     pub point: crate::scene_coordinates::ScenePlanPoint,
+30:     pub elevation: SupportElevation,
+31: }
+32: 
+33: impl GeographicSurface {
+34:     pub(super) fn intersecting(
+35:         &self,
+36:         triangle: &GroundTriangle,
+37:     ) -> impl Iterator<Item = &GroundTriangle> {
+38:         self.query
+39:             .intersections(triangle.bounds())
+40:             .into_iter()
+41:             .map(|i| &self.triangles[i])
+42:     }
+43: 
+44:     pub(super) fn intersecting_boundary_segment(
+45:         &self,
+46:         segment: [bevy::math::DVec2; 2],
+47:         tolerance_metres: f32,
+48:     ) -> Result<impl Iterator<Item = &GroundTriangle>, SupportGeometryIssue> {
+49:         let bounds = PlanarBounds::from_points(segment)
+50:             .ok_or(SupportGeometryIssue::NonFinite)?
+51:             .expanded(f64::from(tolerance_metres) * self.boundary_extension_factor);
+52:         Ok(self
+53:             .query
+54:             .intersections(bounds)
+55:             .into_iter()
+56:             .map(|i| &self.triangles[i]))
+57:     }
+58: 
+59:     pub fn height_range_in(&self, region: CityPlotBounds) -> Option<GeographicHeightRange> {
+60:         self.height_range_in_outline(&region.plan_polygon().ok()?)
+61:     }
+62: 
+63:     pub fn height_range_in_outline(
+64:         &self,
+65:         outline: &crate::scene_coordinates::ScenePlanPolygon,
+66:     ) -> Option<GeographicHeightRange> {
+67:         let outline: Vec<_> = outline
+68:             .vertices()
+69:             .iter()
+70:             .map(|point| point.metres())
+71:             .collect();
+72:         let support: Vec<_> = (1..outline.len().saturating_sub(1))
+73:             .filter_map(|i| {
+74:                 GroundTriangle::new(
+75:                     [outline[0], outline[i], outline[i + 1]].map(|p| Vec3::new(p.x, 0.0, p.y)),
+76:                 )
+77:             })
+78:             .collect();
+79:         let controls: Vec<_> = support
+80:             .iter()
+81:             .flat_map(|support| {
+82:                 self.intersecting(support).flat_map(move |source| {
+83:                     support.intersection(source).into_iter().map(|p| {
+84:                         Some(GeographicHeightControl {
+85:                             point: crate::scene_coordinates::ScenePlanPoint::from_metres(p)?,
+86:                             elevation: SupportElevation::from_metres(source.height_at(p))?,
+87:                         })
+88:                     })
+89:                 })
+90:             })
+91:             .collect::<Option<Vec<_>>>()?;
+92:         let minimum = *controls
+93:             .iter()
+94:             .min_by(|a, b| a.elevation.metres().total_cmp(&b.elevation.metres()))?;
+95:         let maximum = *controls
+96:             .iter()
+97:             .max_by(|a, b| a.elevation.metres().total_cmp(&b.elevation.metres()))?;
+98:         Some(GeographicHeightRange { minimum, maximum })
+99:     }
+100: 
+101:     /// Exact ungraded vista triangles with the presentation's a--c diagonal.
+102:     /// Selecting a LOD is explicit; this does not infer finer source resolution.
+103:     pub fn from_vista_lod(lod: &crate::scene_input::VistaLod) -> Option<Self> {
+104:         let width = usize::from(lod.width);
+105:         let depth = usize::from(lod.depth);
+106:         if width < 2
+107:             || depth < 2
+108:             || lod.heights_metres.len() != width.checked_mul(depth)?
+109:             || !lod.spacing_metres.is_finite()
+110:             || lod.spacing_metres <= 0.0
+111:             || !lod.origin_east_metres.is_finite()
+112:             || !lod.origin_north_metres.is_finite()
+113:         {
+114:             return None;
+115:         }
+116:         let half = Vec2::new((width - 1) as f32, (depth - 1) as f32) * 0.5;
+117:         let origin = Vec2::new(
+118:             lod.origin_east_metres as f32,
+119:             lod.origin_north_metres as f32,
+120:         );
+121:         let point = |x: usize, z: usize| {
+122:             let position = (Vec2::new(x as f32, z as f32) - half) * lod.spacing_metres + origin;
+123:             Vec3::new(position.x, lod.heights_metres[z * width + x], position.y)
+124:         };
+125:         Self::from_triangles((0..depth - 1).flat_map(|z| {
+126:             (0..width - 1).flat_map(move |x| {
+127:                 let [a, b, c, d] = [
+128:                     point(x, z),
+129:                     point(x + 1, z),
+130:                     point(x + 1, z + 1),
+131:                     point(x, z + 1),
+132:                 ];
+133:                 [[a, b, c], [a, c, d]]
+134:             })
+135:         }))
+136:     }
+137: 
+138:     pub fn from_triangles(triangles: impl IntoIterator<Item = [Vec3; 3]>) -> Option<Self> {
+139:         let mut triangles = triangles
+140:             .into_iter()
+141:             .map(GroundTriangle::new)
+142:             .collect::<Option<Vec<_>>>()?;
+143:         triangles.sort_by(GroundTriangle::compare);
+144:         if triangles.is_empty() {
+145:             return None;
+146:         }
+147:         let query =
+148:             PlanarQueryIndex::from_bounds(triangles.iter().map(GroundTriangle::bounds).collect());
+149:         let boundary_extension_factor = triangles
+150:             .iter()
+151:             .map(GroundTriangle::boundary_extension_factor)
+152:             .fold(0.0, f64::max);
+153:         Some(Self {
+154:             triangles,
+155:             query,
+156:             boundary_extension_factor,
+157:         })
+158:     }
+159: 
+160:     pub fn triangles(&self) -> impl Iterator<Item = [Vec3; 3]> + '_ {
+161:         self.triangles.iter().map(GroundTriangle::points)
+162:     }
+163: 
+164:     /// Sample the canonical source triangle, without bilinear interpolation.
+165:     /// Complete coverage and overlap validation still belongs to compilation.
+166:     pub fn elevation_at(
+167:         &self,
+168:         point: crate::scene_coordinates::ScenePlanPoint,
+169:     ) -> Option<SupportElevation> {
+170:         let point = point.metres();
+171:         self.query
+172:             .intersections(PlanarBounds::from_points([point.as_dvec2()])?)
+173:             .into_iter()
+174:             .map(|i| &self.triangles[i])
+175:             .find(|triangle| triangle.contains(point, 0.0))
+176:             .and_then(|triangle| SupportElevation::from_metres(triangle.height_at(point)))
+177:     }
+178: }
+179: 
+SOURCE 2694
+1: //! Ordered physical membership rejects duplicates without canonicalizing input.
+2: use crate::scene_input::SceneBuildingId;
+3: use serde::{Deserialize, Serialize};
+4: #[derive(Clone, Debug, PartialEq, Eq, Serialize, bevy::reflect::Reflect)]
+5: #[serde(transparent)]
+6: #[reflect(opaque)]
+7: pub struct PropertyMembers(Vec<SceneBuildingId>);
+8: #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, thiserror::Error)]
+9: pub enum PropertyMemberIssue {
+10:     #[error("property has no physical members")]
+11:     Empty,
+12:     #[error("property member {index} has zero physical identity")]
+13:     Zero { index: usize },
+14:     #[error("building {building} is repeated at member {index}, first at {first}")]
+15:     Duplicate {
+16:         building: SceneBuildingId,
+17:         first: usize,
+18:         index: usize,
+19:     },
+20: }
+21: impl PropertyMembers {
+22:     pub fn new(ids: Vec<SceneBuildingId>) -> Result<Self, PropertyMemberIssue> {
+23:         Self::validate(&ids)?;
+24:         Ok(Self(ids))
+25:     }
+26:     pub fn ids(&self) -> &[SceneBuildingId] {
+27:         &self.0
+28:     }
+29:     pub(super) fn validate(ids: &[SceneBuildingId]) -> Result<(), PropertyMemberIssue> {
+30:         if ids.is_empty() {
+31:             return Err(PropertyMemberIssue::Empty);
+32:         }
+33:         for (index, building) in ids.iter().enumerate() {
+34:             if building.0 == 0 {
+35:                 return Err(PropertyMemberIssue::Zero { index });
+36:             }
+37:             if let Some(first) = ids[..index].iter().position(|id| id == building) {
+38:                 return Err(PropertyMemberIssue::Duplicate {
+39:                     building: *building,
+40:                     first,
+41:                     index,
+42:                 });
+43:             }
+44:         }
+45:         Ok(())
+46:     }
+47: }
+48: impl<'de> Deserialize<'de> for PropertyMembers {
+49:     fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
+50:         Self::new(Vec::deserialize(d)?).map_err(serde::de::Error::custom)
+51:     }
+52: }
+SOURCE 2695
+1: //! Reject malformed compact geometry before indexing or source compilation.
+2: use super::*;
+3: 
+4: #[derive(Clone, Copy, Debug, PartialEq, Serialize, thiserror::Error)]
+5: pub enum SupportSurfaceIssue {
+6:     #[error("building {building} floor binding rejected: {issue}")]
+7:     Floor {
+8:         building: crate::scene_input::SceneBuildingId,
+9:         issue: FloorBearingIssue,
+10:     },
+11:     #[error("invalid property identity or member bindings")]
+12:     Members,
+13:     #[error("accepted treatment does not match the property members")]
+14:     Treatment,
+15:     #[error("invalid limits, regions or clipping outlines")]
+16:     Bounds,
+17:     #[error("invalid support vertices or triangle indices")]
+18:     Topology,
+19:     #[error("support grade {measured_grade} exceeds {permitted_grade} m/m")]
+20:     Grade {
+21:         measured_grade: GeographicGrade,
+22:         permitted_grade: SupportGrade,
+23:     },
+24: }
+25: 
+26: /// Decoding reports the exact owner before malformed storage can be indexed.
+27: #[derive(Clone, Debug, PartialEq, thiserror::Error)]
+28: #[error("property {property:?}, members {member_building_ids:?}: {issue}")]
+29: pub struct SupportSurfaceAdmissionError {
+30:     pub property: CityPropertyId,
+31:     pub member_building_ids: Vec<crate::scene_input::SceneBuildingId>,
+32:     #[source]
+33:     pub issue: SupportSurfaceIssue,
+34: }
+35: impl SupportSurfaceAdmissionError {
+36:     pub(in crate::city_layout::grounding) fn for_mesh(
+37:         mesh: &PropertySupportMesh,
+38:         issue: SupportSurfaceIssue,
+39:     ) -> Self {
+40:         Self {
+41:             property: mesh.property_id,
+42:             member_building_ids: mesh.member_building_ids.clone(),
+43:             issue,
+44:         }
+45:     }
+46: }
+47: impl PropertySupportSurface {
+48:     pub(crate) fn validate_encoded(&self) -> Result<(), SupportSurfaceIssue> {
+49:         let members = &self.mesh.member_building_ids;
+50:         if self.property_id().0 == 0
+51:             || self.property_id().0 > crate::city_layout::MAX_CITY_LOTS as u64
+52:             || members.is_empty()
+53:             || members.len() > 2
+54:             || members.iter().any(|id| id.0 == 0)
+55:             || members
+56:                 .iter()
+57:                 .enumerate()
+58:                 .any(|(i, id)| members[..i].contains(id))
+59:         {
+60:             return Err(SupportSurfaceIssue::Members);
+61:         }
+62:         let treatment_matches_members = match self.treatment {
+63:             SupportGradingAttempt::SingleBuildingFloorAndEntrances => members.len() == 1,
+64:             SupportGradingAttempt::Compound(_) => members.len() == 2,
+65:             SupportGradingAttempt::NotSelected => false,
+66:         };
+67:         if !treatment_matches_members {
+68:             return Err(SupportSurfaceIssue::Treatment);
+69:         }
+70:         if self.mesh.contact_tolerance_metres != self.limits.contact_tolerance_metres.metres()
+71:             || self.regions.is_empty()
+72:             || self.regions.len() != self.clipping_outlines.len()
+73:             || self.regions.iter().any(|region| !region.is_valid())
+74:             || self
+75:                 .clipping_outlines
+76:                 .iter()
+77:                 .any(|outline| !valid_outline(outline))
+78:             || self
+79:                 .regions
+80:                 .iter()
+81:                 .zip(&self.clipping_outlines)
+82:                 .any(|(region, outline)| {
+83:                     outline
+84:                         .iter()
+85:                         .any(|point| !region.contains(point.as_vec2()))
+86:                 })
+87:         {
+88:             return Err(SupportSurfaceIssue::Bounds);
+89:         }
+90:         if self.mesh.positions.is_empty()
+91:             || self.mesh.positions.iter().any(|p| !p.is_finite())
+92:             || self.mesh.support_triangles.is_empty()
+93:             || self
+94:                 .mesh
+95:                 .support_triangles
+96:                 .iter()
+97:                 .chain(&self.mesh.retaining_triangles)
+98:                 .any(|indices| {
+99:                     indices
+100:                         .iter()
+101:                         .any(|i| *i as usize >= self.mesh.positions.len())
+102:                         || indices[0] == indices[1]
+103:                         || indices[1] == indices[2]
+104:                         || indices[2] == indices[0]
+105:                 })
+106:             || self.mesh.support_triangles.iter().any(|indices| {
+107:                 let [a, b, c] = indices.map(|i| self.mesh.positions[i as usize]);
+108:                 let normal = (b - a).cross(c - a);
+109:                 !normal.is_finite() || normal.y == 0.0
+110:             })
+111:         {
+112:             return Err(SupportSurfaceIssue::Topology);
+113:         }
+114:         if self.mesh.positions.iter().any(|point| {
+115:             !self
+116:                 .clipping_outlines
+117:                 .iter()
+118:                 .any(|outline| contains(outline, Vec2::new(point.x, point.z)))
+119:         }) {
+120:             return Err(SupportSurfaceIssue::Bounds);
+121:         }
+122:         let measured_grade = self.mesh.maximum_grade();
+123:         if measured_grade > self.limits.maximum_grade.ratio() {
+124:             return Err(SupportSurfaceIssue::Grade {
+125:                 measured_grade: GeographicGrade::from_ratio(f64::from(measured_grade))
+126:                     .ok_or(SupportSurfaceIssue::Topology)?,
+127:                 permitted_grade: self.limits.maximum_grade,
+128:             });
+129:         }
+130:         self.validate_floors()
+131:     }
+132: }
+133: 
+134: fn valid_outline(outline: &[bevy::math::DVec2]) -> bool {
+135:     outline.len() >= 3
+136:         && outline.iter().all(|p| p.is_finite())
+137:         && planar::signed_area(outline) > 0.0
+138:         && (0..outline.len()).all(|i| {
+139:             let a = outline[i];
+140:             let edge = outline[(i + 1) % outline.len()] - a;
+141:             edge.length_squared() > 0.0
+142:                 && outline.iter().all(|point| {
+143:                     edge.perp_dot(*point - a)
+144:                         >= -edge.length() * CityPlotBounds::COORDINATE_TOLERANCE_METRES
+145:                 })
+146:         })
+147: }
+148: 
+149: fn contains(outline: &[bevy::math::DVec2], point: Vec2) -> bool {
+150:     (0..outline.len()).all(|i| {
+151:         let a = outline[i];
+152:         let edge = outline[(i + 1) % outline.len()] - a;
+153:         edge.perp_dot(point.as_dvec2() - a)
+154:             >= -edge.length() * CityPlotBounds::COORDINATE_TOLERANCE_METRES
+155:     })
+156: }
+157: 
+SOURCE 2696
+1: //! Authored floor regions bind decoded support to each member datum.
+2: use super::*;
+3: mod region;
+4: use crate::city_layout::grounding::planar::query::PlanarBounds;
+5: use crate::scene_coordinates::{ScenePlanPoint, ScenePlanPolygon};
+6: use bevy::math::{DVec2, Vec3Swizzles};
+7: pub use region::FloorRegion;
+8: 
+9: #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+10: #[serde(try_from = "FloorBearingWire")]
+11: pub struct FloorBearing {
+12:     pub(in crate::city_layout::grounding) building: crate::scene_input::SceneBuildingId,
+13:     pub(in crate::city_layout::grounding) regions: Vec<FloorRegion>,
+14:     pub(in crate::city_layout::grounding) elevation: SupportElevation,
+15: }
+16: #[derive(Deserialize)]
+17: #[serde(deny_unknown_fields)]
+18: struct FloorBearingWire {
+19:     building: crate::scene_input::SceneBuildingId,
+20:     regions: Vec<FloorRegion>,
+21:     elevation: SupportElevation,
+22: }
+23: impl TryFrom<FloorBearingWire> for FloorBearing {
+24:     type Error = FloorBearingConstructionError;
+25:     fn try_from(wire: FloorBearingWire) -> Result<Self, Self::Error> {
+26:         Self::admit(wire.building, wire.regions, wire.elevation)
+27:     }
+28: }
+29: #[derive(Clone, Debug, PartialEq, Serialize, thiserror::Error)]
+30: pub enum FloorBearingConstructionError {
+31:     #[error("floor binding has invalid building {0}")]
+32:     InvalidBuilding(crate::scene_input::SceneBuildingId),
+33:     #[error("floor regions must form a nonempty disjoint partition")]
+34:     InvalidPartition,
+35:     #[error(transparent)]
+36:     Geometry(#[from] adventuresim_building_generator::spatial_geometry::GeometryError),
+37:     #[error(transparent)]
+38:     Plan(#[from] adventuresim_building_generator::plan_geometry::PlanGeometryError),
+39: }
+40: impl FloorBearing {
+41:     fn admit(
+42:         building: crate::scene_input::SceneBuildingId,
+43:         regions: Vec<FloorRegion>,
+44:         elevation: SupportElevation,
+45:     ) -> Result<Self, FloorBearingConstructionError> {
+46:         if building.0 == 0 {
+47:             return Err(FloorBearingConstructionError::InvalidBuilding(building));
+48:         }
+49:         if regions.is_empty() {
+50:             return Err(FloorBearingConstructionError::InvalidPartition);
+51:         }
+52:         let outlines: Vec<Vec<DVec2>> = regions
+53:             .iter()
+54:             .map(|region| {
+55:                 region
+56:                     .outline()
+57:                     .vertices()
+58:                     .iter()
+59:                     .map(|p| p.metres().as_dvec2())
+60:                     .collect()
+61:             })
+62:             .collect();
+63:         for (index, region) in outlines.iter().enumerate() {
+64:             if outlines[..index].iter().any(|other| {
+65:                 has_positive_overlap(region, other) || has_partial_shared_edge(region, other)
+66:             }) {
+67:                 return Err(FloorBearingConstructionError::InvalidPartition);
+68:             }
+69:         }
+70:         Ok(Self {
+71:             building,
+72:             regions,
+73:             elevation,
+74:         })
+75:     }
+76:     // Exact shared partition edges cancel; internal cuts add no tolerance.
+77:     fn exterior_perimeter(&self) -> f64 {
+78:         let mut edges = std::collections::BTreeMap::new();
+79:         for region in &self.regions {
+80:             let vertices = region.outline().vertices();
+81:             for (a, b) in vertices
+82:                 .iter()
+83:                 .zip(vertices.iter().cycle().skip(1))
+84:                 .take(vertices.len())
+85:             {
+86:                 let mut endpoints = [
+87:                     a.metres().to_array().map(edge_coordinate_key),
+88:                     b.metres().to_array().map(edge_coordinate_key),
+89:                 ];
+90:                 endpoints.sort();
+91:                 let edge = edges
+92:                     .entry(endpoints)
+93:                     .or_insert((0_u32, a.metres().as_dvec2().distance(b.metres().as_dvec2())));
+94:                 edge.0 += 1;
+95:             }
+96:         }
+97:         edges
+98:             .values()
+99:             .filter(|(count, _)| *count == 1)
+100:             .map(|(_, length)| length)
+101:             .sum()
+102:     }
+103:     pub fn building(&self) -> crate::scene_input::SceneBuildingId {
+104:         self.building
+105:     }
+106:     pub fn regions(&self) -> &[FloorRegion] {
+107:         &self.regions
+108:     }
+109:     pub fn elevation(&self) -> SupportElevation {
+110:         self.elevation
+111:     }
+112:     pub(in crate::city_layout::grounding) fn from_member(
+113:         plan: &CompoundSupportPlan,
+114:         member: MemberSupport,
+115:     ) -> Result<Self, FloorBearingConstructionError> {
+116:         Self::admit(
+117:             member.building_id,
+118:             mesh::grid::floor_regions(plan, member)?,
+119:             member.elevation,
+120:         )
+121:     }
+122: }
+123: #[derive(Clone, Copy, Debug, PartialEq, Serialize, thiserror::Error)]
+124: pub enum FloorBearingIssue {
+125:     #[error("floor binding has invalid ordered physical membership")]
+126:     Members,
+127:     #[error("floor at {location:?} is {actual:?} m, expected {expected:?}")]
+128:     Datum {
+129:         location: ScenePlanPoint,
+130:         actual: DiagnosticMetres,
+131:         expected: SupportElevation,
+132:     },
+133:     #[error("floor bearing lacks {missing} m² of support, permitted {permitted} m²")]
+134:     Coverage {
+135:         missing: DiagnosticArea,
+136:         permitted: DiagnosticArea,
+137:     },
+138:     #[error("floor bearing cannot be represented by admitted geometry")]
+139:     Geometry,
+140: }
+141: impl PropertySupportSurface {
+142:     pub fn floor_bearings(&self) -> &[FloorBearing] {
+143:         &self.floor_bearings
+144:     }
+145:     pub(super) fn validate_floors(&self) -> Result<(), SupportSurfaceIssue> {
+146:         if self.floor_bearings.len() != self.member_building_ids().len() {
+147:             return Err(SupportSurfaceIssue::Members);
+148:         }
+149:         for (bearing, member) in self.floor_bearings.iter().zip(self.member_building_ids()) {
+150:             if bearing.building != *member {
+151:                 return Err(SupportSurfaceIssue::Members);
+152:             }
+153:             self.validate_floor(bearing)
+154:                 .map_err(|issue| SupportSurfaceIssue::Floor {
+155:                     building: *member,
+156:                     issue,
+157:                 })?;
+158:         }
+159:         Ok(())
+160:     }
+161:     fn validate_floor(&self, bearing: &FloorBearing) -> Result<(), FloorBearingIssue> {
+162:         let mut absent = 0.0;
+163:         let mut wrong_area = 0.0;
+164:         let mut wrong_control = None;
+165:         for region in &bearing.regions {
+166:             let coverage = self.floor_region_coverage(bearing, region.outline())?;
+167:             absent += coverage.absent;
+168:             wrong_area += coverage.wrong_area;
+169:             wrong_control = coverage.wrong_control.or(wrong_control);
+170:         }
+171:         let permitted =
+172:             bearing.exterior_perimeter() * f64::from(self.limits.contact_tolerance_metres.metres());
+173:         if wrong_area > permitted {
+174:             let (point, actual) = wrong_control.ok_or(FloorBearingIssue::Geometry)?;
+175:             return Err(FloorBearingIssue::Datum {
+176:                 location: ScenePlanPoint::try_from(point.as_vec2())
+177:                     .map_err(|_| FloorBearingIssue::Geometry)?,
+178:                 actual: DiagnosticMetres::from_metres(actual).ok_or(FloorBearingIssue::Geometry)?,
+179:                 expected: bearing.elevation,
+180:             });
+181:         }
+182:         if absent > permitted {
+183:             return Err(FloorBearingIssue::Coverage {
+184:                 missing: DiagnosticArea::from_square_metres(absent)
+185:                     .ok_or(FloorBearingIssue::Geometry)?,
+186:                 permitted: DiagnosticArea::from_square_metres(permitted)
+187:                     .ok_or(FloorBearingIssue::Geometry)?,
+188:             });
+189:         }
+190:         Ok(())
+191:     }
+192:     fn floor_region_coverage(
+193:         &self,
+194:         bearing: &FloorBearing,
+195:         region: &ScenePlanPolygon,
+196:     ) -> Result<FloorRegionCoverage, FloorBearingIssue> {
+197:         let outline: Vec<_> = region
+198:             .vertices()
+199:             .iter()
+200:             .map(|p| p.metres().as_dvec2())
+201:             .collect();
+202:         let bounds = PlanarBounds::from_points(outline.iter().copied())
+203:             .ok_or(FloorBearingIssue::Geometry)?;
+204:         let mut missing = vec![outline.clone()];
+205:         let mut without_wrong_level = vec![outline.clone()];
+206:         let mut wrong_control = None;
+207:         let tolerance = f64::from(self.limits.contact_tolerance_metres.metres());
+208:         for indices in self.mesh.support_triangles() {
+209:             let points = indices.map(|i| self.mesh.positions()[i as usize]);
+210:             let triangle =
+211:                 foundations::GroundTriangle::new(points).ok_or(FloorBearingIssue::Geometry)?;
+212:             // Exact disjoint bounds cannot contribute floor area. Edge contact
+213:             // remains a candidate for the existing clipping calculation.
+214:             if !bounds.intersects(triangle.bounds()) {
+215:                 continue;
+216:             }
+217:             let mut face = points.map(|p| p.xz().as_dvec2()).to_vec();
+218:             if planar::signed_area(&face) < 0.0 {
+219:                 face.reverse();
+220:             }
+221:             let intersection = intersection_with_outline(face.clone(), &outline);
+222:             // Retaining-edge contact at another level has no bearing area.
+223:             if planar::signed_area(&intersection) == 0.0 {
+224:                 continue;
+225:             }
+226:             if let Some(point) = intersection.iter().find(|point| {
+227:                 (triangle.height_f64(**point) - f64::from(bearing.elevation.metres())).abs()
+228:                     > tolerance
+229:             }) {
+230:                 // Another retaining/contact level is ineligible coverage. Its
+231:                 // uncovered edge sliver uses the existing perimeter allowance.
+232:                 wrong_control = Some((*point, triangle.height_f64(*point)));
+233:                 without_wrong_level = without_wrong_level
+234:                     .into_iter()
+235:                     .flat_map(|polygon| planar::subtract(polygon, &face))
+236:                     .collect();
+237:                 continue;
+238:             }
+239:             // Subtract original convex faces, not their rounded clipped outline.
+240:             // Clipping may add tiny signed bends or redundant edges; treating
+241:             // those fragments as convex cutters can inflate the missing union.
+242:             // Duplicate original faces still cannot mask a hole.
+243:             missing = missing
+244:                 .into_iter()
+245:                 .flat_map(|polygon| planar::subtract(polygon, &face))
+246:                 .collect();
+247:         }
+248:         let absent = missing
+249:             .iter()
+250:             .map(|p| planar::signed_area(p).abs())
+251:             .sum::<f64>();
+252:         let wrong_area = planar::signed_area(&outline).abs()
+253:             - without_wrong_level
+254:                 .iter()
+255:                 .map(|p| planar::signed_area(p).abs())
+256:                 .sum::<f64>();
+257:         Ok(FloorRegionCoverage {
+258:             absent,
+259:             wrong_area,
+260:             wrong_control,
+261:         })
+262:     }
+263: }
+264: // Native f64 scene-metre planar clipping results, consumed by admission only.
+265: struct FloorRegionCoverage {
+266:     absent: f64,
+267:     wrong_area: f64,
+268:     wrong_control: Option<(DVec2, f64)>,
+269: }
+270: fn intersection_with_outline(mut polygon: Vec<DVec2>, outline: &[DVec2]) -> Vec<DVec2> {
+271:     for index in 0..outline.len() {
+272:         let a = outline[index];
+273:         let edge = outline[(index + 1) % outline.len()] - a;
+274:         polygon = planar::clip(polygon, |p| edge.perp_dot(p - a));
+275:     }
+276:     polygon
+277: }
+278: 
+279: // Conforming authored partitions share complete edges. No proximity threshold
+280: // can turn a partial edge into a complete one during collection admission.
+281: fn has_partial_shared_edge(first: &[DVec2], second: &[DVec2]) -> bool {
+282:     let splits = |vertices: &[DVec2], edges: &[DVec2]| {
+283:         vertices.iter().any(|point| {
+284:             edges
+285:                 .iter()
+286:                 .zip(edges.iter().cycle().skip(1))
+287:                 .take(edges.len())
+288:                 .any(|(a, b)| {
+289:                     let edge = *b - *a;
+290:                     let offset = *point - *a;
+291:                     edge.perp_dot(offset) == 0.0
+292:                         && offset.dot(edge) > 0.0
+293:                         && offset.dot(edge) < edge.length_squared()
+294:                 })
+295:         })
+296:     };
+297:     splits(first, second) || splits(second, first)
+298: }
+299: 
+305: fn edge_coordinate_key(coordinate: f32) -> u32 {
+306:     if coordinate == 0.0 {
+307:         0
+308:     } else {
+309:         coordinate.to_bits()
+310:     }
+311: }
+314: fn has_positive_overlap(first: &[DVec2], second: &[DVec2]) -> bool {
+315:     let separated = |edges: &[DVec2], vertices: &[DVec2]| {
+316:         edges
+317:             .iter()
+318:             .zip(edges.iter().cycle().skip(1))
+319:             .take(edges.len())
+320:             .any(|(a, b)| vertices.iter().all(|p| (*b - *a).perp_dot(*p - *a) <= 0.0))
+321:     };
+322:     !separated(first, second) && !separated(second, first)
+323: }
+SOURCE 2697
+1: //! Transport preserves the authority used to admit each floor region.
+2: use super::*;
+3: use crate::{scene_coordinates::ArchitecturalPlanProjection, scene_input::BuildingOrientation};
+4: use adventuresim_building_generator::plan_geometry::{
+5:     ArchitecturalPlanPoint, PlanGeometryError, PlanPolygon,
+6: };
+7: 
+8: #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+9: #[serde(into = "FloorRegionWire", try_from = "FloorRegionWire")]
+10: pub struct FloorRegion {
+11:     outline: ScenePlanPolygon,
+12:     admission: FloorRegionWire,
+13: }
+14: #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+15: enum FloorRegionWire {
+16:     Scene {
+17:         vertices: Vec<ScenePlanPoint>,
+18:     },
+19:     Architectural {
+20:         vertices: Vec<ArchitecturalPlanPoint>,
+21:         centre: ScenePlanPoint,
+22:         origin: ArchitecturalPlanPoint,
+23:         orientation: BuildingOrientation,
+24:     },
+25: }
+26: impl From<FloorRegion> for FloorRegionWire {
+27:     fn from(region: FloorRegion) -> Self {
+28:         region.admission
+29:     }
+30: }
+31: impl TryFrom<FloorRegionWire> for FloorRegion {
+32:     type Error = PlanGeometryError;
+33:     fn try_from(admission: FloorRegionWire) -> Result<Self, Self::Error> {
+34:         let outline = match &admission {
+35:             FloorRegionWire::Scene { vertices } => {
+36:                 ScenePlanPolygon::from_ordered_vertices(vertices.clone())?
+37:             }
+38:             FloorRegionWire::Architectural {
+39:                 vertices,
+40:                 centre,
+41:                 origin,
+42:                 orientation,
+43:             } => ScenePlanPolygon::from_architectural(
+44:                 &PlanPolygon::from_ordered_vertices(vertices.clone())?,
+45:                 ArchitecturalPlanProjection {
+46:                     centre: *centre,
+47:                     origin: *origin,
+48:                     orientation: *orientation,
+49:                 },
+50:             )?,
+51:         };
+52:         Ok(Self { outline, admission })
+53:     }
+54: }
+55: impl FloorRegion {
+56:     pub fn from_scene(outline: ScenePlanPolygon) -> Result<Self, PlanGeometryError> {
+57:         FloorRegionWire::Scene {
+58:             vertices: outline.vertices().to_vec(),
+59:         }
+60:         .try_into()
+61:     }
+62:     pub fn from_architectural(
+63:         source: &PlanPolygon<ArchitecturalPlanPoint>,
+64:         projection: ArchitecturalPlanProjection,
+65:     ) -> Result<Self, PlanGeometryError> {
+66:         FloorRegionWire::Architectural {
+67:             vertices: source.vertices().to_vec(),
+68:             centre: projection.centre,
+69:             origin: projection.origin,
+70:             orientation: projection.orientation,
+71:         }
+72:         .try_into()
+73:     }
+74:     pub fn outline(&self) -> &ScenePlanPolygon {
+75:         &self.outline
+76:     }
+77: }
+78: 
+SOURCE 2698
+1: //! Accepted support is bound once by the producer and reconstructed by consumers.
+2: use super::*;
+3: use crate::city_layout::grounding::GeographicSurface;
+4: use crate::city_layout::{CitySceneLayout, CompoundGradingPolicy, SelectedCityGrounding};
+5: 
+6: impl TacticalSceneInput {
+7:     /// Seat a complete generated layout against this scene's unchanged source.
+8:     /// Selection must succeed for every owner before any placement is published.
+9:     /// This is the producer boundary; loading never guesses a missing plan.
+10:     pub fn ground_generated_city(
+11:         mut self,
+12:         layout: &CitySceneLayout,
+13:         policy: CompoundGradingPolicy,
+14:     ) -> Result<Self, SceneInputError> {
+15:         self.validate_source()?;
+16:         if self.grounding.is_some()
+17:             || self.buildings != layout.playable
+18:             || self.distant_buildings != layout.distant
+19:             || self.compounds != layout.compounds
+20:             || self.gardens != layout.gardens
+21:             || self.streets != layout.streets
+22:             || self.yards != layout.yards
+23:             || self.parishes != layout.parishes
+24:         {
+25:             return invalid(SceneValidationError::ProducerLayout);
+26:         }
+27:         if self.buildings.is_empty() && self.distant_buildings.is_empty() {
+28:             self.validate()?;
+29:             return Ok(self);
+30:         }
+31:         let prepared = self.prepare_geographic_terrain(&mut GeneratedBuildingRecipes::default())?;
+32:         let source = GeographicSurface::from_presented_scene(&prepared.terrain, &self.vista)
+33:             .ok_or(SceneInputError::Validation(
+34:                 SceneValidationError::GeographicSupport,
+35:             ))?;
+36:         let grounded = SelectedCityGrounding::select(layout, &source, policy)?.compile()?;
+37:         self.grounding = Some(grounded.support_projection()?);
+38:         let (layout, _, _) = grounded.into_parts();
+39:         self.buildings = layout.playable;
+40:         self.distant_buildings = layout.distant;
+41:         // Floors must not change geographic preparation or its asset context.
+42:         // The consumer verifies the source digest before installing support.
+43:         self.validate()?;
+44:         Ok(self)
+45:     }
+46: 
+47:     /// Complete canonical placements, including compact distant buildings.
+48:     /// Exterior consumers use the same physical records as support binding.
+49:     pub fn physical_placements(&self) -> Vec<TacticalBuildingPlacement> {
+50:         self.buildings
+51:             .iter()
+52:             .cloned()
+53:             .chain(
+54:                 self.distant_buildings
+55:                     .iter()
+56:                     .copied()
+57:                     .map(TacticalBuildingPlacement::from),
+58:             )
+59:             .collect()
+60:     }
+61: 
+62:     pub(in crate::scene_input) fn validate_grounding(&self) -> Result<(), SceneInputError> {
+63:         let placements = self.physical_placements();
+64:         match (&self.grounding, placements.is_empty()) {
+65:             (None, true) => Ok(()),
+66:             (Some(projection), false) => {
+67:                 projection.validate_bindings(&placements)?;
+68:                 projection.validate_compound_bindings(&self.compounds)?;
+69:                 Ok(())
+70:             }
+71:             (None, false) => invalid(SceneValidationError::MissingSupport),
+72:             (Some(_), true) => invalid(SceneValidationError::UnexpectedSupport),
+73:         }
+74:     }
+75: }
+SOURCE 2699
+1: //! Reconstruct accepted support without recomputing outdoor scene products.
+2: use super::*;
+3: 
+4: /// Complete geographic context after accepted property support is installed.
+5: /// Consumers retain every placement while selecting their presentation products.
+6: #[derive(Debug)]
+7: pub struct SupportedSceneTerrain {
+8:     pub terrain: SceneTerrain,
+9:     pub ground: SceneGround,
+10:     pub buildings: Vec<GeneratedBuilding>,
+11:     pub obstacles: Vec<GeneratedObstacle>,
+12:     pub repairs: SceneRepairReport,
+13: }
+14: 
+15: impl TacticalSceneInput {
+16:     /// Validate the complete physical input and reconstruct its bound support.
+17:     /// Offline furniture consumers use this phase instead of deleting buildings
+18:     /// to avoid regenerating furniture at runtime.
+19:     pub fn prepare_supported_terrain(
+20:         &self,
+21:         building_recipes: &mut GeneratedBuildingRecipes,
+22:     ) -> Result<SupportedSceneTerrain, SceneInputError> {
+23:         self.validate()?;
+24:         let UngradedSceneTerrain {
+25:             mut terrain,
+26:             ground,
+27:             buildings,
+28:             mut obstacles,
+29:             mut repairs,
+30:         } = self.prepare_geographic_terrain(building_recipes)?;
+31:         buildings::validate_building_pads(&buildings)?;
+32:         compounds::validate_generated(&self.compounds, &buildings, &self.streets)?;
+33:         if let Some(projection) = &self.grounding {
+34:             let source = crate::city_layout::grounding::GeographicSurface::from_presented_scene(
+35:                 &terrain,
+36:                 &self.vista,
+37:             )
+38:             .ok_or(SceneInputError::Validation(
+39:                 SceneValidationError::GeographicSupport,
+40:             ))?;
+41:             let support = projection.reconstruct(&source, &self.physical_placements())?;
+42:             terrain = terrain.with_property_surface(support);
+43:         }
+44:         // Geographic preparation is already bound. Exclude physical obstacles
+45:         // intersecting accepted construction/access, without resampling source
+46:         // relief or choosing a different property floor.
+47:         support_obstacles::remove(self, &terrain, &mut obstacles, &mut repairs);
+48:         Ok(SupportedSceneTerrain {
+49:             terrain,
+50:             ground,
+51:             buildings,
+52:             obstacles,
+53:             repairs,
+54:         })
+55:     }
+56: }

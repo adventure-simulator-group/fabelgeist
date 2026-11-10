@@ -1,0 +1,45 @@
+1: [package]
+2: name = "adventuresim-core"
+3: version.workspace = true
+4: edition.workspace = true
+5: repository.workspace = true
+6: license.workspace = true
+7: build = "build.rs"
+8: 
+9: [features]
+10: default = []
+11: spacetimedb = ["dep:spacetimedb", "adventuresim-world-schema/spacetimedb", "fabelgeist-determinism/spacetimedb"]
+12: 
+13: [dependencies]
+14: fabelgeist-geometry.workspace = true
+15: fabelgeist-math.workspace = true
+16: thiserror.workspace = true
+17: enum-assoc = "1.3.0"
+18: blanket = "0.4.0"
+19: ambassador = "0.5.0"
+20: enumflags2 = "0.7.12"
+21: serde.workspace = true
+22: serde_json.workspace = true
+23: serde-saphyr.workspace = true
+24: sha2.workspace = true
+25: adventuresim-world-schema.workspace = true
+26: adventuresim-dialogue.workspace = true
+27: adventuresim-puzzles.workspace = true
+28: adventuresim-weapon-model.workspace = true
+29: fabelgeist-determinism.workspace = true
+30: spacetimedb = { workspace = true, optional = true }
+31: 
+32: [build-dependencies]
+33: fabelgeist-math.workspace = true
+34: thiserror.workspace = true
+35: serde = { workspace = true, features = ["derive"] }
+36: serde_json.workspace = true
+37: serde-saphyr.workspace = true
+38: sha2.workspace = true
+39: adventuresim-world-schema.workspace = true
+40: 
+41: [dev-dependencies]
+42: spacetimedb-sats.workspace = true
+43: 
+44: [lints]
+45: workspace = true

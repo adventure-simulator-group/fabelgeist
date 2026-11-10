@@ -1,0 +1,5 @@
+import json,hashlib
+from pathlib import Path
+r=Path('target/726-audit-continuation-20261030/target/726-audit-adler-20261027');j=json.loads((r/'adler-continuation-20261030/REGISTRATION-ROOT-L12-BUILDING-AUDIT-ISSUES-004.json').read_bytes());s=j['sources'][0];raw=(r/s['source_object']).read_bytes();assert hashlib.sha256(raw).hexdigest()==s['source_sha256'];lines=raw.decode().splitlines();assert all(0<lo<=hi<=len(lines)for lo,hi in s['ranges'])
+for lo,hi in s['ranges']:
+ for k in range(lo,hi+1):print(f'{k}: {lines[k-1]}')

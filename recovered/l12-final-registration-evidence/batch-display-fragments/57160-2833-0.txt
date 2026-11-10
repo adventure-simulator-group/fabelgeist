@@ -1,0 +1,200 @@
+201:                 seed: puzzle.seed,
+202:                 spec: PuzzleSpec::OrderedSigils(puzzle.spec),
+203:             },
+204:             Self::TruthfulWitnesses(puzzle) => GenerationRequest {
+205:                 seed: puzzle.seed,
+206:                 spec: PuzzleSpec::TruthfulWitnesses(puzzle.spec),
+207:             },
+208:             Self::RuneTransformation(puzzle) => GenerationRequest {
+209:                 seed: puzzle.seed,
+210:                 spec: PuzzleSpec::RuneTransformation(puzzle.spec),
+211:             },
+212:             Self::LogicGrid(puzzle) => GenerationRequest {
+213:                 seed: puzzle.seed,
+214:                 spec: PuzzleSpec::LogicGrid(puzzle.spec),
+215:             },
+216:             Self::ResourceAllocation(puzzle) => GenerationRequest {
+217:                 seed: puzzle.seed,
+218:                 spec: PuzzleSpec::ResourceAllocation(puzzle.spec),
+219:             },
+220:         }
+221:     }
+222: 
+223:     pub const fn kind(&self) -> PuzzleKind {
+224:         match self {
+225:             Self::OrderedSigils(_) => PuzzleKind::OrderedSigils,
+226:             Self::TruthfulWitnesses(_) => PuzzleKind::TruthfulWitnesses,
+227:             Self::RuneTransformation(_) => PuzzleKind::RuneTransformation,
+228:             Self::LogicGrid(_) => PuzzleKind::LogicGrid,
+229:             Self::ResourceAllocation(_) => PuzzleKind::ResourceAllocation,
+230:         }
+231:     }
+232: 
+233:     pub fn projection(&self) -> PuzzleProjection {
+234:         match self {
+235:             Self::OrderedSigils(puzzle) => PuzzleProjection::OrderedSigils(puzzle.projection()),
+236:             Self::TruthfulWitnesses(puzzle) => {
+237:                 PuzzleProjection::TruthfulWitnesses(puzzle.projection())
+238:             }
+239:             Self::RuneTransformation(puzzle) => {
+240:                 PuzzleProjection::RuneTransformation(puzzle.projection())
+241:             }
+242:             Self::LogicGrid(puzzle) => PuzzleProjection::LogicGrid(puzzle.projection()),
+243:             Self::ResourceAllocation(puzzle) => {
+244:                 PuzzleProjection::ResourceAllocation(puzzle.projection())
+245:             }
+246:         }
+247:     }
+248: 
+249:     pub fn validate(&self) -> Result<(), &'static str> {
+250:         match self {
+251:             Self::OrderedSigils(puzzle) => puzzle.validate(),
+252:             Self::TruthfulWitnesses(puzzle) => puzzle.validate(),
+253:             Self::RuneTransformation(puzzle) => puzzle.validate(),
+254:             Self::LogicGrid(puzzle) => puzzle.validate(),
+255:             Self::ResourceAllocation(puzzle) => puzzle.validate(),
+256:         }
+257:     }
+258: 
+259:     pub fn replay(&self) -> Result<Self, &'static str> {
+260:         match self {
+261:             Self::OrderedSigils(puzzle) => Ok(Self::OrderedSigils(
+262:                 OrderedSigilPuzzle::generate_with_spec(puzzle.seed, puzzle.spec)?,
+263:             )),
+264:             Self::TruthfulWitnesses(puzzle) => Ok(Self::TruthfulWitnesses(
+265:                 TruthfulWitnessPuzzle::generate_with_spec(puzzle.seed, puzzle.spec)?,
+266:             )),
+267:             Self::RuneTransformation(puzzle) => Ok(Self::RuneTransformation(
+268:                 RuneTransformationPuzzle::generate_with_spec(puzzle.seed, puzzle.spec)?,
+269:             )),
+270:             Self::LogicGrid(puzzle) => Ok(Self::LogicGrid(LogicGridPuzzle::generate_with_spec(
+271:                 puzzle.seed,
+272:                 puzzle.spec,
+273:             )?)),
+274:             Self::ResourceAllocation(puzzle) => Ok(Self::ResourceAllocation(
+275:                 ResourceAllocationPuzzle::generate_with_spec(puzzle.seed, puzzle.spec)?,
+276:             )),
+277:         }
+278:     }
+279: 
+280:     pub fn check(&self, submission: &PuzzleSubmission) -> Result<bool, PuzzleSubmissionError> {
+281:         match (self, submission) {
+282:             (Self::OrderedSigils(puzzle), PuzzleSubmission::OrderedSigils { ordering }) => puzzle
+283:                 .check(&OrderedSigilSubmission {
+284:                     expected_revision: 0,
+285:                     ordering: *ordering,
+286:                 })
+287:                 .map_err(|_| PuzzleSubmissionError::Malformed),
+288:             (
+289:                 Self::TruthfulWitnesses(puzzle),
+290:                 PuzzleSubmission::TruthfulWitnesses { safe_path },
+291:             ) => Ok(*safe_path == puzzle.solution_path),
+292:             (Self::RuneTransformation(puzzle), PuzzleSubmission::RuneTransformation { result }) => {
+293:                 Ok(*result == puzzle.solution)
+294:             }
+295:             (Self::LogicGrid(puzzle), PuzzleSubmission::LogicGrid { assignments }) => puzzle
+296:                 .check(assignments)
+297:                 .map_err(|_| PuzzleSubmissionError::Malformed),
+298:             (
+299:                 Self::ResourceAllocation(puzzle),
+300:                 PuzzleSubmission::ResourceAllocation { provisions },
+301:             ) => puzzle
+302:                 .check(provisions)
+303:                 .map_err(|_| PuzzleSubmissionError::Malformed),
+304:             _ => Err(PuzzleSubmissionError::WrongKind),
+305:         }
+306:     }
+307: }
+308: 
+309: #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+310: pub enum Witness {
+311:     Crown,
+312:     Hart,
+313:     Moon,
+314: }
+315: 
+316: impl Witness {
+317:     pub const ALL: [Self; 3] = [Self::Crown, Self::Hart, Self::Moon];
+318: 
+319:     pub const fn label(self) -> &'static str {
+320:         match self {
+321:             Self::Crown => "Crown",
+322:             Self::Hart => "Hart",
+323:             Self::Moon => "Moon",
+324:         }
+325:     }
+326: }
+327: 
+328: #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+329: pub enum WitnessClaim {
+330:     PathIsSafe(WitnessPath),
+331:     PathIsUnsafe(WitnessPath),
+332:     WitnessLies(Witness),
+333:     WitnessSpeaksTruth(Witness),
+334: }
+335: 
+336: #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+337: pub struct WitnessStatement {
+338:     pub speaker: Witness,
+339:     pub claim: WitnessClaim,
+340: }
+341: 
+342: #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+343: pub struct TruthfulWitnessSpec {
+344:     pub allow_path_claims: bool,
+345:     pub allow_witness_claims: bool,
+346:     pub require_unique_liar: bool,
+347:     pub require_irredundant: bool,
+348: }
+349: 
+350: impl Default for TruthfulWitnessSpec {
+351:     fn default() -> Self {
+352:         Self {
+353:             allow_path_claims: true,
+354:             allow_witness_claims: true,
+355:             require_unique_liar: false,
+356:             require_irredundant: true,
+357:         }
+358:     }
+359: }
+360: 
+361: impl TruthfulWitnessSpec {
+362:     pub fn validate(self) -> Result<Self, &'static str> {
+363:         if !(self.allow_path_claims || self.allow_witness_claims) {
+364:             return Err("truthful-witness spec must enable a claim family");
+365:         }
+366:         Ok(self)
+367:     }
+368: 
+369:     fn allows(self, claim: WitnessClaim) -> bool {
+370:         match claim {
+371:             WitnessClaim::PathIsSafe(_) | WitnessClaim::PathIsUnsafe(_) => self.allow_path_claims,
+372:             WitnessClaim::WitnessLies(_) | WitnessClaim::WitnessSpeaksTruth(_) => {
+373:                 self.allow_witness_claims
+374:             }
+375:         }
+376:     }
+377: }
+378: 
+379: impl WitnessStatement {
+380:     pub fn text(self) -> String {
+381:         let claim = match self.claim {
+382:             WitnessClaim::PathIsSafe(path) => format!("the {} is safe", path.label()),
+383:             WitnessClaim::PathIsUnsafe(path) => format!("the {} is unsafe", path.label()),
+384:             WitnessClaim::WitnessLies(witness) => {
+385:                 format!("the {} witness is the liar", witness.label())
+386:             }
+387:             WitnessClaim::WitnessSpeaksTruth(witness) => {
+388:                 format!("the {} witness speaks truth", witness.label())
+389:             }
+390:         };
+391:         format!("The {} witness says that {}.", self.speaker.label(), claim)
+392:     }
+393: }
+394: 
+395: #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+396: pub struct TruthfulWitnessPuzzle {
+397:     pub rules_version: u16,
+398:     pub seed: Seed,
+399:     pub spec: TruthfulWitnessSpec,
+400:     pub solution_path: WitnessPath,

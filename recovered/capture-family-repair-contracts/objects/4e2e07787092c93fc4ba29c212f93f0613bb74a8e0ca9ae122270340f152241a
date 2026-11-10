@@ -1,0 +1,93 @@
+{
+  "schema": "726-owned-repair-contract-v1",
+  "at": "2026-11-02T07:50:11.788979+00:00",
+  "author": "/root",
+  "lens": 8,
+  "scope_key": "plant-pair-and-issued-diagnostic-artifact-outcomes",
+  "status": "required-after-full-audit-gate",
+  "source_discovery_complete_for_scoped_failure": true,
+  "whole_queue_contract_closed": false,
+  "primary_existing_question": {
+    "queue_index": 12,
+    "contract_id": "CONT08-CAPTURE-SAVE-OUTCOME-ERASURE"
+  },
+  "resolved_canonical_owner": "Plant viewer capture module owns both requested image persistence outcomes and related manifest/native-exit completion. Connected diagnostic ScriptedInput/PendingDiagnosticCaptures owns issued screenshot outcomes and both automatic exit consumers separately; share only the actual native artifact port.",
+  "resolved_first_failed_contract": "Plant capture emits Success from the second image callback after a unit native save without successful persistence evidence for both requested images and manifest. Connected diagnostics discard directory/save failures, using pending-zero script completion or independent timing completion as success.",
+  "evidence_packets": [
+    {
+      "path": "adler-continuation-20261030/READ-ROOT-L8-PLANT-DIAGNOSTIC-SOURCE-CLOSURE-001.json",
+      "sha256": "dec502e15461de006c3357c0f986de4cc9ecb7329cee4975166a15a8b6ee7559"
+    }
+  ],
+  "shared_native_port_dependency": {
+    "path": "adler-continuation-20261030/OWNED-REPAIR-ROOT-L12-CAPTURE-PERSISTENCE-LIFECYCLE-002.json",
+    "sha256": "a643c4bc1273a98cb678f257e699268cebf4f64161cd607e0a8c3d222ebe7583"
+  },
+  "owner_family_dependency": {
+    "path": "adler-continuation-20261030/OWNED-REPAIR-ROOT-L12-CAPTURE-OWNER-OUTCOMES-001.json",
+    "sha256": "ed5793fce1e70ad4af1541bdfd63382f3d424ce169a32b72fe93bf43fc362210"
+  },
+  "dependency_lens_verdicts_transferred": false,
+  "required_repair": [
+    {
+      "id": "native-format-aware-owned-port",
+      "requirement": "Use an application-owned fallible conversion/encoding/file-write/checked buffered-completion port retaining actual owned native causes. Reuse the qualified port requirements without circular crate dependencies. Plant and other PNG callers pass native ImageFormat::Png explicitly; diagnostics admits ImageFormat from the actual requested path at the native boundary and retains it through the request. Preserve actual supported native formats/RGB-alpha behavior and typed format/codec failures; no shadow format enum, string classifier, unit-only logging or silent PNG coercion."
+    },
+    {
+      "id": "plant-two-image-owner",
+      "requirement": "Plant capture module privately owns both issued image outcomes for the admitted selected View/output/run. Only actual successful persistence of image0 and image1, independent of callback order, plus required matching manifest completion may authorize Success. Retain per-image path/context and failure until terminal native reporting. Warmup/frame60/90 scheduling and the same selected view remain; no unnecessary frame/index wrapper or borrowed scene/animation state manager."
+    },
+    {
+      "id": "plant-manifest-and-native-exit",
+      "requirement": "Retain typed directory/serialization/manifest/image/completion causes and context; publish final successful manifest/completion only after required outputs succeed. Propagate actual AppExit failure through plant main native process result, since main currently discards the run result. Preserve successful prior outputs/unrelated files and optional output=None interactive mode. Do not add a fake rendered-geometry equality guarantee or change valid preset/custom/seed/LOD/view semantics."
+    },
+    {
+      "id": "diagnostic-request-outcome",
+      "requirement": "Extend the existing diagnostic capture owner beyond pending count to retain issued/pending/succeeded/failed requests and typed path/command/format/directory/native-save outcomes. Directory error must become an owned failed request; callback arrival/decrement is not success. Failure cannot be reset by saturation or later successful requests. Preserve native filename boundary strings and actual expected requested outputs without a parallel error/readiness authority."
+    },
+    {
+      "id": "diagnostic-all-automatic-exits",
+      "requirement": "Both script-end and frame-timing automatic exit consumers consult the existing requested-artifact outcome owner. Already issued pending/failed requests cannot be certified successful by either consumer; preserve failure through final native exit/report even if failure-marker writing also fails. Valid timing-only and no-screenshot scripts remain supported; optional no-exit modes keep their policy. A timed cutoff does not imply future unissued script commands executed. Native absent-callback/map/deadline liveness remains separately owned, with no arbitrary timeout prescribed here."
+    },
+    {
+      "id": "typed-required-output-and-preservation",
+      "requirement": "All required output/manifest/serialization/completion ports in this repair retain actual native causes to the intended final diagnostic, with no prose parsing/Box downcast constraints, compatibility aliases or destructive output reset. Preserve existing checked timing trace flush and legitimate command/camera/quality behavior. Wider log setup/clone, numeric/pace and imported generator/rendering contracts remain separate."
+    }
+  ],
+  "native_port_policy_refinement": {
+    "scope": "Clarify actual diagnostic native format parameter; scene repair002 remains PNG-specific for scene callers. This refines shared-port implementation applicability, not a new whole-case alias or replacement of every owner protocol.",
+    "plant_png": "ImageFormat::Png",
+    "diagnostic_format": "Actual native ImageFormat admitted from requested path; retain native unsupported/encoding errors."
+  },
+  "later_acceptance": [
+    "After full audit gate, applicable existing plant capture acceptance produces both requested images for the selected full/head/underside view and required matching manifest before successful native process exit; cover supported preset/custom/seed/LOD and output=None behavior without claiming render quality from mere file existence.",
+    "Controlled failure of either plant image, directory/manifest/serialization or buffered completion retains actual cause/path/context and yields failed completion/nonzero native process result, including second callback arriving before first completion. Preserve successful prior outputs/unrelated files; no impossible enum slots, giant allocations, broad deletion or new object unit tests.",
+    "Valid diagnostic screenshot requests complete using their actual admitted native format. Controlled directory/conversion/format/encoding/write/completion failure cannot become script-end or timing-end Success. Exercise supported combined timing/script behavior for already issued pending/failed requests, valid timing-only and no-screenshot modes; failure reporting failure must not restore success.",
+    "Required source/type/format/lint and applicable existing integration/runtime acceptance pass after implementation at the final revision. Keep native liveness, scalar/render/geometry/manifest-content fidelity and other owner acceptance separately required; do not infer those passes from this source audit."
+  ],
+  "remaining_independent_obligations": [
+    "Native readback map/deadline/missing callbacks, compiled codec features and complete native/render/generator/recipe/UI consistency remain separate.",
+    "Diagnostic source setup/log cloning/error text, pace/kind and scalar/timing quantities retain their own existing contracts; no whole diagnostics source clearance.",
+    "All20/all13/current/global aliases and other source populations, Q206/Q257/Q259/Q545 and prior mesh/field/window/resource/lifetime/frame/publication/capacity/species/profile repairs remain.",
+    "Implementation, independent review and executable/visual acceptance remain unperformed."
+  ],
+  "uncredited_new_source_scopes": [
+    {
+      "source_id": "current-337:crates/adventuresim-plant-generator/src/viewer/main.rs",
+      "source_sha256": "a82177376083409276cc58189b2edcc8320c03798f8ff1f29d5009a8c1b214e6",
+      "ranges": [
+        [
+          1,
+          215
+        ]
+      ],
+      "body_credit": 0,
+      "all_other_lenses_pending_exact_applicability": true
+    }
+  ],
+  "new_unique_findings": 0,
+  "new_original_population_credit": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "independent_agent_review": false
+}

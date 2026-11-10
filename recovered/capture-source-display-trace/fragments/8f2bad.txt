@@ -1,0 +1,391 @@
+SOURCE crates/adventuresim-building-generator/src/bin/building-lod-viewer/capture.rs 193a12a2c36dfda21c1bb0fee7ab76329815ff4223900cd65d4ae49d013bf6a6
+1: use fabelgeist_determinism::Seed;
+2: use std::{fs, path::PathBuf, process::Command};
+3: 
+4: use adventuresim_procedural_textures::{CRENELLATION_ALPHA_CUTOFF, CRENELLATION_MASK_TEXTURE_SIZE};
+5: use bevy::{
+6:     app::AppExit,
+7:     camera::{ClearColorConfig, RenderTarget, visibility::RenderLayers},
+8:     prelude::*,
+9:     render::view::screenshot::{Screenshot, ScreenshotCaptured, save_to_disk},
+10: };
+11: use serde::Serialize;
+12: 
+13: const CAPTURE_PIPELINE: &str = "building_shell_lod_traversal_v1";
+14: const PRIME_READBACKS_PER_POSE: u8 = 2;
+15: const MAX_CAPTURE_ATTEMPTS_PER_POSE: u8 = 3;
+16: const CAMERA_SAMPLE_COUNT: usize = 32;
+17: const CROWN_DIAGNOSTIC_LAYER: usize = 31;
+18: const VIEW_WIDTH: u32 = 1440;
+19: const VIEW_HEIGHT: u32 = 900;
+20: const START_DISTANCE_FACTOR: f32 = 0.9;
+21: const END_DISTANCE_FACTOR: f32 = 7.8;
+22: const START_AZIMUTH_DEGREES: f32 = -18.0;
+23: const END_AZIMUTH_DEGREES: f32 = 18.0;
+24: 
+25: #[derive(Component)]
+26: pub(super) struct ShellCaptureCamera;
+27: 
+28: #[derive(Component)]
+29: pub(super) struct ShellCaptureDiagnosticCamera;
+30: 
+31: #[derive(Resource)]
+32: pub(super) struct ShellCaptureDiagnosticTarget(Handle<Image>);
+33: 
+34: #[derive(Clone, Copy, Debug, PartialEq)]
+35: struct CameraPose {
+36:     position: Vec3,
+37:     target: Vec3,
+38:     distance_metres: f32,
+39:     azimuth_degrees: f32,
+40: }
+41: 
+42: #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+43: enum CapturePhase {
+44:     #[default]
+45:     Configure,
+46:     Settle,
+47:     Prime,
+48:     Save,
+49:     Diagnostic,
+50:     ContinuousStart,
+51:     Continuous,
+52:     ContinuousDrain,
+53:     Complete,
+54: }
+55: 
+56: #[derive(Resource)]
+57: pub(super) struct ShellCaptureConfig {
+58:     output: PathBuf,
+59:     settle_frames: u32,
+60:     fixture: String,
+61:     seed: Seed,
+62:     git_head: String,
+63:     dirty_state: String,
+64:     poses: Vec<CameraPose>,
+65:     sample_index: usize,
+66:     phase: CapturePhase,
+67:     settled: u32,
+68:     prime_readbacks: u8,
+69:     capture_attempt: u8,
+70:     readback_in_flight: bool,
+71:     frame_index: u64,
+72:     records: Vec<CaptureRecord>,
+73:     temporal_readbacks: Vec<TemporalReadback>,
+74:     continuous_index: usize,
+75:     continuous_readbacks: Vec<ContinuousReadback>,
+76:     continuous_crown_readbacks: Vec<ContinuousCrownReadback>,
+77:     discarded_readbacks: Vec<DiscardedReadback>,
+78: }
+79: 
+80: impl ShellCaptureConfig {
+81:     pub(super) fn new(
+82:         output: PathBuf,
+83:         settle_frames: u32,
+84:         fixture: String,
+85:         seed: Seed,
+86:         dimensions: Vec2,
+87:         maximum_height: f32,
+88:     ) -> Result<Self, String> {
+89:         if output.exists() {
+90:             return Err(format!(
+91:                 "capture output {} already exists; use a fresh directory",
+92:                 output.display()
+93:             ));
+94:         }
+95:         if settle_frames == 0 {
+96:             return Err("capture settle frames must be non-zero".to_owned());
+97:         }
+98:         fs::create_dir_all(&output)
+99:             .map_err(|error| format!("create {}: {error}", output.display()))?;
+100:         let git_head = command_output(["rev-parse", "HEAD"]);
+101:         let dirty_state = command_output(["status", "--short"]);
+102:         Ok(Self {
+103:             output,
+104:             settle_frames,
+105:             fixture,
+106:             seed,
+107:             git_head,
+108:             dirty_state,
+109:             poses: camera_path(dimensions, maximum_height),
+110:             sample_index: 0,
+111:             phase: CapturePhase::Configure,
+112:             settled: 0,
+113:             prime_readbacks: 0,
+114:             capture_attempt: 1,
+115:             readback_in_flight: false,
+116:             frame_index: 0,
+117:             records: Vec::new(),
+118:             temporal_readbacks: Vec::new(),
+119:             continuous_index: 0,
+120:             continuous_readbacks: Vec::new(),
+121:             continuous_crown_readbacks: Vec::new(),
+122:             discarded_readbacks: Vec::new(),
+123:         })
+124:     }
+125: }
+126: 
+127: fn command_output<const N: usize>(args: [&str; N]) -> String {
+128:     let crate_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+129:     let repository_root = crate_dir
+130:         .ancestors()
+376:         CapturePhase::Prime => {
+377:             if state.readback_in_flight {
+378:                 return;
+379:             }
+380:             if state.prime_readbacks >= PRIME_READBACKS_PER_POSE {
+381:                 state.phase = CapturePhase::Save;
+382:                 return;
+383:             }
+384:             state.readback_in_flight = true;
+385:             let sample_index = state.sample_index;
+386:             let repeat_index = state.prime_readbacks + 1;
+387:             let screenshot =
+388:                 format!("shell-traversal-{sample_index:02}-temporal-{repeat_index:02}.png");
+389:             let path = state.output.join(&screenshot);
+390:             commands.spawn(Screenshot::primary_window()).observe(
+391:                 move |captured: On<ScreenshotCaptured>, mut state: ResMut<ShellCaptureConfig>| {
+392:                     let bytes = captured.image.data.as_deref().unwrap_or(&[]);
+393:                     let pixel_hash = format!("{:016x}", stable_hash(bytes));
+394:                     let non_clear_pixel_bps = non_clear_pixel_bps(bytes);
+395:                     if non_clear_pixel_bps < 25
+396:                         && state.capture_attempt < MAX_CAPTURE_ATTEMPTS_PER_POSE
+397:                     {
+398:                         let discarded_screenshot = format!(
+399:                             "shell-traversal-{sample_index:02}-discarded-temporal-attempt-{:02}.png",
+400:                             state.capture_attempt
+401:                         );
+402:                         save_to_disk(state.output.join(&discarded_screenshot))(captured);
+403:                         let frame_index = state.frame_index;
+404:                         let capture_attempt = state.capture_attempt;
+405:                         state.discarded_readbacks.push(DiscardedReadback {
+406:                             sample_index,
+407:                             screenshot: discarded_screenshot,
+408:                             frame_index,
+409:                             capture_attempt,
+410:                             reason: "startup_or_clear_temporal_readback_below_25_bps",
+411:                             pixel_hash,
+412:                             non_clear_pixel_bps,
+413:                         });
+414:                         state.capture_attempt += 1;
+415:                         state.settled = 0;
+416:                         state.readback_in_flight = false;
+417:                         state.phase = CapturePhase::Settle;
+418:                         return;
+419:                     }
+420:                     save_to_disk(&path)(captured);
+421:                     let frame_index = state.frame_index;
+422:                     state.temporal_readbacks.push(TemporalReadback {
+423:                         sample_index,
+424:                         repeat_index,
+425:                         screenshot: screenshot.clone(),
+426:                         frame_index,
+427:                         pixel_hash,
+428:                         non_clear_pixel_bps,
+429:                     });
+430:                     state.prime_readbacks += 1;
+431:                     state.readback_in_flight = false;
+432:                 },
+433:             );
+434:         }
+462: fn request_final_readback(commands: &mut Commands, state: &mut ShellCaptureConfig) {
+463:     if state.readback_in_flight {
+464:         return;
+465:     }
+466:     state.readback_in_flight = true;
+467:     let sample_index = state.sample_index;
+468:     let pose = state.poses[sample_index];
+469:     let screenshot = format!("shell-traversal-{sample_index:02}.png");
+470:     commands.spawn(Screenshot::primary_window()).observe(
+471:         move |captured: On<ScreenshotCaptured>, mut state: ResMut<ShellCaptureConfig>| {
+472:             let bytes = captured.image.data.as_deref().unwrap_or(&[]);
+473:             let non_clear_pixel_bps = non_clear_pixel_bps(bytes);
+474:             let pixel_hash = format!("{:016x}", stable_hash(bytes));
+475:             if non_clear_pixel_bps < 25 && state.capture_attempt < MAX_CAPTURE_ATTEMPTS_PER_POSE {
+476:                 let discarded_screenshot = format!(
+477:                     "shell-traversal-{sample_index:02}-discarded-attempt-{:02}.png",
+478:                     state.capture_attempt
+479:                 );
+480:                 save_to_disk(state.output.join(&discarded_screenshot))(captured);
+481:                 let frame_index = state.frame_index;
+482:                 let capture_attempt = state.capture_attempt;
+483:                 state.discarded_readbacks.push(DiscardedReadback {
+484:                     sample_index,
+485:                     screenshot: discarded_screenshot,
+486:                     frame_index,
+487:                     capture_attempt,
+488:                     reason: "startup_or_clear_readback_below_25_bps",
+489:                     pixel_hash,
+490:                     non_clear_pixel_bps,
+491:                 });
+492:                 state.capture_attempt += 1;
+493:                 state.settled = 0;
+494:                 state.prime_readbacks = 0;
+495:                 state.readback_in_flight = false;
+496:                 state.phase = CapturePhase::Settle;
+497:                 return;
+498:             }
+499:             let record = CaptureRecord {
+500:                 sample_index,
+501:                 screenshot: screenshot.clone(),
+502:                 frame_index: state.frame_index,
+503:                 camera_position: pose.position.to_array(),
+504:                 camera_target: pose.target.to_array(),
+505:                 distance_metres: pose.distance_metres,
+506:                 azimuth_degrees: pose.azimuth_degrees,
+507:                 settled_frames: state.settle_frames,
+508:                 prime_readbacks: state.prime_readbacks,
+509:                 capture_attempt: state.capture_attempt,
+510:                 pixel_hash,
+511:                 non_clear_pixel_bps,
+512:                 crown_diagnostic_screenshot: String::new(),
+513:                 crown_pixel_count: 0,
+514:                 crown_pixel_bps: 0,
+515:             };
+516:             save_to_disk(state.output.join(&screenshot))(captured);
+517:             state.records.push(record);
+518:             state.readback_in_flight = false;
+519:             state.phase = CapturePhase::Diagnostic;
+520:         },
+521:     );
+522: }
+561: fn request_continuous_readbacks(
+562:     commands: &mut Commands,
+563:     state: &mut ShellCaptureConfig,
+564:     camera: &mut Transform,
+565:     diagnostic_camera: &mut Transform,
+566:     diagnostic_target: &Handle<Image>,
+567: ) {
+568:     if state.continuous_index >= state.poses.len() {
+569:         state.phase = CapturePhase::ContinuousDrain;
+570:         return;
+571:     }
+572:     let sample_index = state.continuous_index;
+573:     let pose = state.poses[sample_index];
+574:     *camera = Transform::from_translation(pose.position).looking_at(pose.target, Vec3::Y);
+575:     *diagnostic_camera =
+576:         Transform::from_translation(pose.position).looking_at(pose.target, Vec3::Y);
+577:     let requested_frame_index = state.frame_index;
+578: 
+579:     let screenshot = format!("shell-motion-{sample_index:02}.png");
+580:     let path = state.output.join(&screenshot);
+581:     commands.spawn(Screenshot::primary_window()).observe(
+582:         move |captured: On<ScreenshotCaptured>, mut state: ResMut<ShellCaptureConfig>| {
+583:             let bytes = captured.image.data.as_deref().unwrap_or(&[]);
+584:             let record = ContinuousReadback {
+585:                 sample_index,
+586:                 screenshot: screenshot.clone(),
+587:                 requested_frame_index,
+588:                 completed_frame_index: state.frame_index,
+589:                 camera_position: pose.position.to_array(),
+590:                 camera_target: pose.target.to_array(),
+591:                 distance_metres: pose.distance_metres,
+592:                 azimuth_degrees: pose.azimuth_degrees,
+593:                 pixel_hash: format!("{:016x}", stable_hash(bytes)),
+594:                 non_clear_pixel_bps: non_clear_pixel_bps(bytes),
+595:             };
+596:             save_to_disk(&path)(captured);
+597:             state.continuous_readbacks.push(record);
+598:         },
+599:     );
+600: 
+601:     let crown_screenshot = format!("shell-motion-{sample_index:02}-crown-diagnostic.png");
+602:     let crown_path = state.output.join(&crown_screenshot);
+603:     commands
+604:         .spawn(Screenshot::image(diagnostic_target.clone()))
+605:         .observe(
+606:             move |captured: On<ScreenshotCaptured>, mut state: ResMut<ShellCaptureConfig>| {
+607:                 let bytes = captured.image.data.as_deref().unwrap_or(&[]);
+608:                 let crown_pixel_count = diagnostic_pixel_count(bytes);
+609:                 let total_pixels = (bytes.len() / 4).max(1) as u64;
+610:                 let record = ContinuousCrownReadback {
+611:                     sample_index,
+612:                     screenshot: crown_screenshot.clone(),
+613:                     requested_frame_index,
+614:                     completed_frame_index: state.frame_index,
+615:                     distance_metres: pose.distance_metres,
+616:                     crown_pixel_count,
+617:                     crown_pixel_bps: (u64::from(crown_pixel_count) * 10_000 / total_pixels) as u32,
+618:                 };
+619:                 save_to_disk(&crown_path)(captured);
+620:                 state.continuous_crown_readbacks.push(record);
+621:             },
+622:         );
+623:     state.continuous_index += 1;
+624: }
+625: 
+626: fn finish_capture(state: &ShellCaptureConfig, exit: &mut MessageWriter<AppExit>) {
+627:     let failures = validation_failures(state);
+628:     let passed = failures.is_empty();
+629:     write_manifest(state, passed, failures.clone());
+630:     if passed {
+631:         exit.write(AppExit::Success);
+632:     } else {
+633:         fs::write(state.output.join("failure.txt"), failures.join("\n"))
+634:             .expect("write Shell capture failure");
+635:         exit.write(AppExit::Error(1.try_into().expect("one is non-zero")));
+636:     }
+637: }
+836: fn write_manifest(state: &ShellCaptureConfig, passed: bool, failures: Vec<String>) {
+837:     let manifest = CaptureManifest {
+838:         schema: 1,
+839:         pipeline: CAPTURE_PIPELINE,
+840:         status: if passed { "PASS" } else { "FAIL" },
+841:         fixture: &state.fixture,
+842:         seed: state.seed,
+843:         lod: "shell",
+844:         revision: &state.git_head,
+845:         dirty_state: &state.dirty_state,
+846:         width: VIEW_WIDTH,
+847:         height: VIEW_HEIGHT,
+848:         alpha_mode: "mask",
+849:         alpha_cutoff: CRENELLATION_ALPHA_CUTOFF,
+850:         mask_texture_size: CRENELLATION_MASK_TEXTURE_SIZE,
+851:         mask_mip_levels: CRENELLATION_MASK_TEXTURE_SIZE.ilog2() + 1,
+852:         camera_path_semantics: "32 strictly increasing fine-step distances with a bounded azimuth sweep; only the first pose uses the configured startup settle, then each pose advances after one rendered frame",
+853:         temporal_readback_semantics: "two preserved same-pose production GPU readbacks plus one final production frame per pose require identical raw hashes; a second traversal requests all 32 production and CrownMask frames on consecutive Update frames without awaiting completion",
+854:         crown_diagnostic_semantics: "offscreen render of the exact CrownMask mesh and shared alpha-tested texture on an isolated render layer; both settled and consecutive-motion validation require presence and bounded distance-normalized occupancy continuity",
+855:         validation_passed: passed,
+856:         validation_failures: failures,
+857:         discarded_readbacks: &state.discarded_readbacks,
+858:         temporal_readbacks: &state.temporal_readbacks,
+859:         continuous_readbacks: &state.continuous_readbacks,
+860:         continuous_crown_readbacks: &state.continuous_crown_readbacks,
+861:         captures: &state.records,
+862:     };
+863:     fs::write(
+864:         state.output.join("manifest.json"),
+865:         serde_json::to_vec_pretty(&manifest).expect("serialize Shell capture manifest"),
+866:     )
+867:     .expect("write Shell capture manifest");
+868: }
+869: 
+870: #[cfg(test)]
+871: mod tests {
+872:     use super::*;
+873: 
+874:     #[test]
+875:     fn camera_path_moves_strictly_away_while_sweeping_the_crown() {
+876:         let poses = camera_path(Vec2::new(28.0, 24.0), 18.0);
+877:         assert_eq!(poses.len(), CAMERA_SAMPLE_COUNT);
+878:         assert!(
+879:             poses
+880:                 .windows(2)
+881:                 .all(|pair| pair[1].distance_metres > pair[0].distance_metres)
+882:         );
+883:         assert!(poses.first().unwrap().azimuth_degrees < 0.0);
+884:         assert!(poses.last().unwrap().azimuth_degrees > 0.0);
+885:         assert!(poses.iter().all(|pose| pose.position.is_finite()));
+886:     }
+887: 
+888:     #[test]
+889:     fn manifest_contract_uses_the_shared_mask_and_gpu_readback_budget() {
+890:         assert_eq!(CAPTURE_PIPELINE, "building_shell_lod_traversal_v1");
+891:         assert_eq!(CRENELLATION_MASK_TEXTURE_SIZE, 256);
+892:         assert_eq!(CRENELLATION_MASK_TEXTURE_SIZE.ilog2() + 1, 9);
+893:         assert_eq!(CRENELLATION_ALPHA_CUTOFF, 0.5);
+894:         assert_eq!(PRIME_READBACKS_PER_POSE, 2);
+895:         assert_eq!(MAX_CAPTURE_ATTEMPTS_PER_POSE, 3);
+896:         const { assert!(CAMERA_SAMPLE_COUNT >= 24) };
+897:     }
+898: }

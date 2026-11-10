@@ -1,0 +1,169 @@
+{
+  "schema": "726-l12-selected-state-transition-trace-v1",
+  "target_sha256": "01ff18cca3dd9be3c117fd8e4ca55c872a4cbb7edd3805dabab296ff076f6b9c",
+  "candidate_path": "target/726-intake-20261030/prepare_cargo_cell_checkpoint502.py",
+  "candidate_sha256": "44b8c79a69d296aebddb09030a167efa65ec6f8ffeb1bb136c9a53330b48b631",
+  "candidate_filechange_ordinal": 74883,
+  "view_expression": "VIEW-EXPRESSION.txt",
+  "view_expression_sha256": "d130147950a15bcf9448b69d0180f080fda7bedc9cd25aa5fedb3703754e0cd2",
+  "view_fields": {
+    "lens": 12,
+    "contract_id": {
+      "unresolved_expression": "cid"
+    },
+    "status": "explicit-own-l12-current-cell-closed-native-config-no-repair",
+    "source_receipt": {
+      "unresolved_expression": "ref(receipt)"
+    },
+    "decision": {
+      "unresolved_expression": "ref(decision)"
+    },
+    "remaining_evidence": [
+      "Other12 perspectives on this path remain pending. The other58 current paths, older delta cells, connected repair ledger/all20/global aliases and implementation/review/validation remain incomplete."
+    ],
+    "whole_contract_closed": false,
+    "all_current_and_all_lens_closure": false,
+    "new_accepted_unique_count": 0,
+    "new_body_credit": 0,
+    "canonical_alias_applied": false,
+    "repair_implemented": false,
+    "runtime_validation_passed": false,
+    "implementation_gate_complete": false
+  },
+  "state_update_expression": "state.update(at=now, metadata_predecessor=ref(oldstate), current_receipt=ref(receipt), cargo_config_current_cell_disposition=view)",
+  "intended_state_destination": "segovb/STATE-L12-METADATA-CURRENT-008.json",
+  "reported_results": [
+    {
+      "event_ordinal": 74897,
+      "result": {
+        "status": "pass",
+        "mode": "--preflight",
+        "writes": 0,
+        "checkpoint": 502,
+        "inverse_checks": 3,
+        "scoped_l12_source_views_closed": 1
+      }
+    },
+    {
+      "event_ordinal": 74910,
+      "result": {
+        "status": "pass",
+        "mode": "--apply",
+        "checkpoint": 502,
+        "verification": {
+          "path": "target/726-intake-20261030/VERIFICATION-L12-CURRENT-CARGO-CONFIG-ADOPTION-001.json",
+          "sha256": "563719545bde840ab16a91a3aa926174f588ab2a39e1f45142fe8e27ec018f47"
+        },
+        "current": {
+          "path": "target/726-intake-20261030/CURRENT.json",
+          "sha256": "55a04a1cf0ac70fb51e7e35c978c27cdbbd419fc26a0ac16aaa078045ea0be39"
+        },
+        "scoped_l12_source_views_closed": 1,
+        "whole_canonical_cases_closed": 0,
+        "implementation_gate_complete": false
+      }
+    },
+    {
+      "event_ordinal": 74924,
+      "result": {
+        "status": "pass",
+        "mode": "--verify",
+        "checkpoint": 502,
+        "verification": {
+          "path": "target/726-intake-20261030/VERIFICATION-L12-CURRENT-CARGO-CONFIG-ADOPTION-001.json",
+          "sha256": "563719545bde840ab16a91a3aa926174f588ab2a39e1f45142fe8e27ec018f47"
+        },
+        "current": {
+          "path": "target/726-intake-20261030/CURRENT.json",
+          "sha256": "55a04a1cf0ac70fb51e7e35c978c27cdbbd419fc26a0ac16aaa078045ea0be39"
+        },
+        "scoped_l12_source_views_closed": 1,
+        "whole_canonical_cases_closed": 0,
+        "implementation_gate_complete": false
+      }
+    }
+  ],
+  "qualification": "Static extraction from preserved historical helper and reported outputs; helper was not executed, predecessor and exact target bytes are missing, and the named closure is a historical lens-specific audit claim, not implementation or runtime acceptance.",
+  "printed_state_references": {
+    "transcript_ordinal": 99495,
+    "possible_output_truncation": true,
+    "references": [
+      {
+        "sequence": 1,
+        "path": "segovb/STATE-L12-METADATA-CURRENT-001.json",
+        "sha256": "ce50cf1463aeaf0b72ddd9b7adf86088efe2554cca0aa3d55a0c44163756e292",
+        "fragment": "STATE-001-REFERENCE.txt",
+        "fragment_sha256": "f6a44e1b737feba3c52df300c7cf8cea223458e5c50a4bb433e0b52457042254"
+      },
+      {
+        "sequence": 2,
+        "path": "segovb/STATE-L12-METADATA-CURRENT-002.json",
+        "sha256": "134e3801d22fce20dfdea10fdbd119c025373c709f1569463eb1ac00d79e6997",
+        "fragment": "STATE-002-REFERENCE.txt",
+        "fragment_sha256": "6c0faeee79336349740ad145d9ec525d31cf51fa6fc208446891cd7e71ea8e73"
+      },
+      {
+        "sequence": 3,
+        "path": "segovb/STATE-L12-METADATA-CURRENT-003.json",
+        "sha256": "b252a634c3a4d04a030c6897ca5c3e766fd012e33de240429b590751fa49e087",
+        "fragment": "STATE-003-REFERENCE.txt",
+        "fragment_sha256": "1436d2b1b5c273edeff7a75831079ad3a24bec34659f336a71fbbe27733961f1"
+      },
+      {
+        "sequence": 4,
+        "path": "segovb/STATE-L12-METADATA-CURRENT-004.json",
+        "sha256": "abdb07754d9af18a70b69f3b2fed3d56234c2005c1338170e903427a863884f3",
+        "fragment": "STATE-004-REFERENCE.txt",
+        "fragment_sha256": "132a3949806066c2767b75204731f0d5aabb922471ba03d174b61ca74106729e"
+      },
+      {
+        "sequence": 5,
+        "path": "segovb/STATE-L12-METADATA-CURRENT-005.json",
+        "sha256": "628711798efc05d9e82809b26514d66d649f91b91939b227d0fd3c5e27a7cbdf",
+        "fragment": "STATE-005-REFERENCE.txt",
+        "fragment_sha256": "53672ac6261c0520241e6bc296eba6b2e5835af2b12034b88fc8e6345b751295"
+      },
+      {
+        "sequence": 6,
+        "path": "segovb/STATE-L12-METADATA-CURRENT-006.json",
+        "sha256": "c1118d618b3650e7709ae67a6ab88dd0870263ff3b1c8b4d2866788145dc6a57",
+        "fragment": "STATE-006-REFERENCE.txt",
+        "fragment_sha256": "9396f4ed675f1301b39145113c095a9925216f669f7d29477d6ff376202657ee"
+      },
+      {
+        "sequence": 7,
+        "path": "segovb/STATE-L12-METADATA-CURRENT-007.json",
+        "sha256": "2cd437bcc388c17d6dced633baa8cf61751df4a12e0568e1d3601a9b07375a1c",
+        "fragment": "STATE-007-REFERENCE.txt",
+        "fragment_sha256": "2cdb9f465645ebfb4e644691c09ca8b4dd68c1035ab253fbc133d0509a50ea2e"
+      },
+      {
+        "sequence": 8,
+        "path": "segovb/STATE-L12-METADATA-CURRENT-008.json",
+        "sha256": "01ff18cca3dd9be3c117fd8e4ca55c872a4cbb7edd3805dabab296ff076f6b9c",
+        "fragment": "STATE-008-REFERENCE.txt",
+        "fragment_sha256": "80ee9ca985935d3ca80c510f7503251795641994fd878af5c6523e1a234bde66"
+      }
+    ],
+    "qualification": "References printed inside a truncated CURRENT output; presence of these references does not recover state bytes or establish current authority."
+  },
+  "pre_metadata_baseline": {
+    "path": "segovb/STATE-L12-960.json",
+    "sha256": "3d78ed9e6405a8741f30d190cf6fe6e93d490d2b0ab6938d09504407188b5ceb",
+    "reference_ordinal": 57376,
+    "prefix_ordinal": 245050,
+    "prefix_file": "STATE-960-PREFIX.txt",
+    "prefix_sha256": "19926a5059af808f23c94a7754a8ac5cfab8de37d4d4d946704ee56f9fc70ff4",
+    "prefix_lines": 60,
+    "references": {
+      "predecessor": "segovb/STATE-L12-959.json",
+      "predecessor_sha256": "a900fb7a65a2cf3ea1ffa54d619731ae1486aca36516fa407daa0ee7cc3477a9",
+      "receipt": "segovb/READ-L12-960.json",
+      "receipt_sha256": "15638e7c32284e211f1a5fb3c942e39e3a7b010c142d9a2c5e4a0fcf429d0752",
+      "qualification_sha256": "1c240c4538e8734144ed75e55ce6fbf6e136a606c95446ddeb2fb1ec3c00e60d"
+    },
+    "qualification": "Printed first 60 lines and separately recorded baseline hash; full state bytes remain missing.",
+    "reference_file": "STATE-960-REFERENCE.txt",
+    "reference_sha256": "70c372f8d7d7626ee62144b669bf7c401a91ccf9e6aac93a076f53bf11c5eaf1"
+  }
+}

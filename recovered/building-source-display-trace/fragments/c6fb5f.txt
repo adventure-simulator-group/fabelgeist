@@ -1,0 +1,319 @@
+SOURCE crates/adventuresim-building-generator/src/viewer/walk_rendering.rs a521f1cc3330dab17536f0ebba8613bb5458a5440ecb1ae254ef565f2107045b
+1: fn spawn_stair(
+2:     world: &mut World,
+3:     palette: &RenderPalette,
+4:     stair: Stair,
+5:     origin: Vec2,
+6:     storey_height: f32,
+7: ) {
+8:     match stair {
+9:         Stair::Straight {
+10:             start,
+11:             direction,
+12:             base_height_metres,
+13:             rise_metres,
+14:             width_metres,
+15:             tread_count,
+16:             run_metres,
+17:         } => {
+18:             let forward = direction_vector_2d(direction);
+19:             let run = run_metres;
+20:             let count = tread_count.max(1);
+21:             let going = run / f32::from(count);
+22:             let yaw = -forward.y.atan2(forward.x);
+23:             let tread_yaw = forward.x.atan2(forward.y);
+24:             let slope = rise_metres.atan2(run);
+25:             let stringer_rotation = Quat::from_rotation_y(yaw) * Quat::from_rotation_z(slope);
+26:             let lateral = Vec2::new(-forward.y, forward.x);
+27:             // Match the resolved timber flight: two sloping stringers and
+28:             // treads one rise above the lower floor, with the upper floor
+29:             // itself acting as the final landing.
+30:             for side in [-1.0_f32, 1.0] {
+31:                 let position = start
+32:                     + origin
+33:                     + forward * (run * 0.5)
+34:                     + lateral * side * (width_metres * 0.5 - 0.0675);
+35:                 let entity = spawn_box(
+36:                     world,
+37:                     &palette.timber,
+38:                     Vec3::new(run.hypot(rise_metres), 0.135, 0.135),
+39:                     Vec3::new(
+40:                         position.x,
+41:                         base_height_metres + rise_metres * 0.5 - 0.03,
+42:                         position.y,
+43:                     ),
+44:                     stringer_rotation,
+45:                     "straight stair stringer",
+46:                 );
+47:                 world.entity_mut(entity).insert(PlayerBuildStairStringer);
+48:             }
+49:             for tread in 1..count {
+50:                 let progress = f32::from(tread) / f32::from(count);
+51:                 let position = start + origin + forward * (progress * run);
+52:                 spawn_box(
+53:                     world,
+54:                     &palette.stair,
+55:                     Vec3::new(width_metres, 0.05, going * 0.96),
+56:                     Vec3::new(
+57:                         position.x,
+58:                         base_height_metres + progress * rise_metres - 0.025,
+59:                         position.y,
+60:                     ),
+61:                     Quat::from_rotation_y(tread_yaw),
+62:                     "straight stair tread",
+63:                 );
+64:             }
+65:         }
+66:         Stair::Spiral { .. } => {
+67:             let flight = adventuresim_building_generator::spiral_stairs::compile_flight(
+68:                 stair,
+69:                 storey_height,
+70:             )
+71:             .expect("spiral descriptor compiles a flight");
+72:             for member in flight.members {
+73:                 let name = match member.role {
+74:                     SolidRole::StairNewel => "spiral stair newel",
+75:                     SolidRole::Landing => "spiral stair landing",
+76:                     _ => "spiral stair tread",
+77:                 };
+78:                 spawn_box(
+79:                     world,
+80:                     &palette.stair,
+81:                     member.size,
+82:                     member.centre + Vec3::new(origin.x, 0.0, origin.y),
+83:                     Quat::from_rotation_y(member.yaw_radians),
+84:                     name,
+85:                 );
+86:             }
+87:         }
+88:     }
+89: }
+90: 
+91: fn spawn_wall_walk(world: &mut World, palette: &RenderPalette, wall_walk: WallWalk, origin: Vec2) {
+92:     match wall_walk {
+93:         WallWalk::Linear {
+94:             start,
+95:             end,
+96:             elevation_metres,
+97:             width_metres,
+98:             outward,
+99:         } => {
+100:             let start = start + origin;
+101:             let end = end + origin;
+102:             let delta = end - start;
+103:             let length = delta.length();
+104:             if length <= 0.1 {
+105:                 return;
+106:             }
+107:             let outward = match outward {
+108:                 Direction::North => Vec2::Y,
+109:                 Direction::East => Vec2::X,
+110:                 Direction::South => -Vec2::Y,
+111:                 Direction::West => -Vec2::X,
+112:             };
+113:             let centre = (start + end) * 0.5 - outward * width_metres * 0.5;
+114:             let horizontal = delta.x.abs() >= delta.y.abs();
+115:             spawn_box(
+116:                 world,
+117:                 &palette.floor,
+118:                 if horizontal {
+119:                     Vec3::new(length, 0.16, width_metres)
+120:                 } else {
+121:                     Vec3::new(width_metres, 0.16, length)
+122:                 },
+123:                 Vec3::new(centre.x, elevation_metres - 0.08, centre.y),
+124:                 Quat::IDENTITY,
+125:                 "walkable rampart surface",
+126:             );
+127:         }
+128:         WallWalk::Round {
+129:             centre,
+130:             elevation_metres,
+131:             outer_radius_metres,
+132:             stairwell_radius_metres,
+133:         } => {
+134:             let mesh = world.resource_mut::<Assets<Mesh>>().add(annulus_mesh(
+135:                 stairwell_radius_metres,
+136:                 outer_radius_metres,
+137:                 0.16,
+138:             ));
+139:             let centre = centre + origin;
+140:             world.spawn((
+141:                 Name::new("walkable tower-top deck with stairwell"),
+142:                 ClosedSolid,
+143:                 Mesh3d(mesh),
+144:                 MeshMaterial3d(palette.floor.clone()),
+145:                 Transform::from_xyz(centre.x, elevation_metres - 0.08, centre.y),
+146:             ));
+147:         }
+148:         WallWalk::RectangularDeck {
+149:             centre,
+150:             size,
+151:             elevation_metres,
+152:             stairwell_centre,
+153:             stairwell_size,
+154:         } => {
+155:             let centre = centre + origin;
+156:             let stairwell_centre = stairwell_centre + origin;
+157:             let side_depth = (size.y - stairwell_size.y) * 0.5;
+158:             for sign in [-1.0, 1.0] {
+159:                 spawn_box(
+160:                     world,
+161:                     &palette.floor,
+162:                     Vec3::new(size.x, 0.20, side_depth + 0.02),
+163:                     Vec3::new(
+164:                         centre.x,
+165:                         elevation_metres - 0.09,
+166:                         stairwell_centre.y + sign * (stairwell_size.y + side_depth) * 0.5,
+167:                     ),
+168:                     Quat::IDENTITY,
+169:                     "walkable keep roof deck",
+170:                 );
+171:             }
+172:             let side_width = (size.x - stairwell_size.x) * 0.5;
+173:             for sign in [-1.0, 1.0] {
+174:                 spawn_box(
+175:                     world,
+176:                     &palette.floor,
+177:                     Vec3::new(side_width + 0.02, 0.20, stairwell_size.y + 0.02),
+178:                     Vec3::new(
+179:                         stairwell_centre.x + sign * (stairwell_size.x + side_width) * 0.5,
+180:                         elevation_metres - 0.09,
+181:                         stairwell_centre.y,
+182:                     ),
+183:                     Quat::IDENTITY,
+184:                     "walkable keep roof deck",
+185:                 );
+186:             }
+187:         }
+188:     }
+189: }
+190: 
+191: fn annulus_mesh(inner_radius: f32, outer_radius: f32, height: f32) -> Mesh {
+192:     sloped_annulus_mesh(inner_radius, outer_radius, height, 0.0, 0.0, 0, 0.0)
+193: }
+194: 
+195: fn sloped_annulus_mesh(
+196:     inner_radius: f32,
+197:     outer_radius: f32,
+198:     height: f32,
+199:     inner_top_offset: f32,
+200:     outer_top_offset: f32,
+201:     drainage_outlet_count: u8,
+202:     circumferential_fall: f32,
+203: ) -> Mesh {
+204:     const SEGMENTS: usize = 64;
+205:     let half_height = height * 0.5;
+206:     let mut faces = Vec::with_capacity(SEGMENTS * 4);
+207:     for segment in 0..SEGMENTS {
+208:         let angle_a = segment as f32 * std::f32::consts::TAU / SEGMENTS as f32;
+209:         let angle_b = (segment + 1) as f32 * std::f32::consts::TAU / SEGMENTS as f32;
+210:         let direction_a = Vec2::new(angle_a.cos(), angle_a.sin());
+211:         let direction_b = Vec2::new(angle_b.cos(), angle_b.sin());
+212:         let channel_rise = |angle: f32| {
+213:             if drainage_outlet_count == 0 {
+214:                 return 0.0;
+215:             }
+216:             let spacing = std::f32::consts::TAU / f32::from(drainage_outlet_count);
+217:             let phase = angle.rem_euclid(spacing);
+218:             phase.min(spacing - phase) / (spacing * 0.5) * circumferential_fall
+219:         };
+220:         let outer_top_a = half_height + outer_top_offset + channel_rise(angle_a);
+221:         let outer_top_b = half_height + outer_top_offset + channel_rise(angle_b);
+222:         let outer_a = direction_a * outer_radius;
+223:         let outer_b = direction_b * outer_radius;
+224:         let inner_a = direction_a * inner_radius;
+225:         let inner_b = direction_b * inner_radius;
+226:         faces.push(vec![
+227:             Vec3::new(inner_a.x, half_height + inner_top_offset, inner_a.y),
+228:             Vec3::new(outer_a.x, outer_top_a, outer_a.y),
+229:             Vec3::new(outer_b.x, outer_top_b, outer_b.y),
+230:             Vec3::new(inner_b.x, half_height + inner_top_offset, inner_b.y),
+231:         ]);
+232:         faces.push(vec![
+233:             Vec3::new(outer_a.x, -half_height, outer_a.y),
+234:             Vec3::new(inner_a.x, -half_height, inner_a.y),
+235:             Vec3::new(inner_b.x, -half_height, inner_b.y),
+236:             Vec3::new(outer_b.x, -half_height, outer_b.y),
+237:         ]);
+238:         faces.push(vec![
+239:             Vec3::new(outer_a.x, -half_height, outer_a.y),
+240:             Vec3::new(outer_b.x, -half_height, outer_b.y),
+241:             Vec3::new(outer_b.x, outer_top_b, outer_b.y),
+242:             Vec3::new(outer_a.x, outer_top_a, outer_a.y),
+243:         ]);
+244:         faces.push(vec![
+245:             Vec3::new(inner_b.x, -half_height, inner_b.y),
+246:             Vec3::new(inner_a.x, -half_height, inner_a.y),
+247:             Vec3::new(inner_a.x, half_height + inner_top_offset, inner_a.y),
+248:             Vec3::new(inner_b.x, half_height + inner_top_offset, inner_b.y),
+249:         ]);
+250:     }
+251:     for face in &mut faces {
+252:         face.reverse();
+253:     }
+254:     flat_face_mesh(&faces)
+255: }
+256: 
+257: fn annular_sector_mesh(
+258:     inner_radius: f32,
+259:     outer_radius: f32,
+260:     height: f32,
+261:     start_angle: f32,
+262:     end_angle: f32,
+263:     inner_top_offset: f32,
+264:     outer_top_offset: f32,
+265: ) -> Mesh {
+266:     let sweep = (end_angle - start_angle).max(0.001);
+267:     let segments = ((sweep / std::f32::consts::TAU * 64.0).ceil() as usize).max(1);
+268:     let half = height * 0.5;
+269:     let mut faces = Vec::with_capacity(segments * 4 + 2);
+270:     let point =
+271:         |radius: f32, angle: f32, y: f32| Vec3::new(radius * angle.cos(), y, radius * angle.sin());
+272:     for segment in 0..segments {
+273:         let a = start_angle + sweep * segment as f32 / segments as f32;
+274:         let b = start_angle + sweep * (segment + 1) as f32 / segments as f32;
+275:         faces.push(vec![
+276:             point(inner_radius, a, half + inner_top_offset),
+277:             point(outer_radius, a, half + outer_top_offset),
+278:             point(outer_radius, b, half + outer_top_offset),
+279:             point(inner_radius, b, half + inner_top_offset),
+280:         ]);
+281:         faces.push(vec![
+282:             point(outer_radius, a, -half),
+283:             point(inner_radius, a, -half),
+284:             point(inner_radius, b, -half),
+285:             point(outer_radius, b, -half),
+286:         ]);
+287:         faces.push(vec![
+288:             point(outer_radius, a, -half),
+289:             point(outer_radius, b, -half),
+290:             point(outer_radius, b, half + outer_top_offset),
+291:             point(outer_radius, a, half + outer_top_offset),
+292:         ]);
+293:         faces.push(vec![
+294:             point(inner_radius, b, -half),
+295:             point(inner_radius, a, -half),
+296:             point(inner_radius, a, half + inner_top_offset),
+297:             point(inner_radius, b, half + inner_top_offset),
+298:         ]);
+299:     }
+300:     faces.push(vec![
+301:         point(inner_radius, start_angle, -half),
+302:         point(outer_radius, start_angle, -half),
+303:         point(outer_radius, start_angle, half + outer_top_offset),
+304:         point(inner_radius, start_angle, half + inner_top_offset),
+305:     ]);
+306:     // The end cap bounds the opposite side of the angular interval, so its
+307:     // winding must oppose the start cap before the common face reversal.
+308:     faces.push(vec![
+309:         point(inner_radius, end_angle, half + inner_top_offset),
+310:         point(outer_radius, end_angle, half + outer_top_offset),
+311:         point(outer_radius, end_angle, -half),
+312:         point(inner_radius, end_angle, -half),
+313:     ]);
+314:     for face in &mut faces {
+315:         face.reverse();
+316:     }
+317:     flat_face_mesh(&faces)
+318: }

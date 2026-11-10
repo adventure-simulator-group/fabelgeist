@@ -1,0 +1,60 @@
+{
+  "schema": "726-l2-publication-continuity-evidence-v1",
+  "prior_kernel_printed_sha256": "ee09ffccaa023892744d453ec1983d2b80499b7dedc9fcaa62da3acf3943d9ae",
+  "derivation_event": 72859,
+  "contract_writer_filechange_event": 73172,
+  "files": [
+    {
+      "role": "prior-kernel",
+      "file": "ee09ffccaa023892744d453ec1983d2b80499b7dedc9fcaa62da3acf3943d9ae.txt",
+      "sha256": "ee09ffccaa023892744d453ec1983d2b80499b7dedc9fcaa62da3acf3943d9ae"
+    },
+    {
+      "role": "derived-kernel",
+      "file": "0e9cb6b7ae38354dcc371a3b76bdad049ca2131425c7592972ca8874191eda3d.txt",
+      "sha256": "0e9cb6b7ae38354dcc371a3b76bdad049ca2131425c7592972ca8874191eda3d"
+    },
+    {
+      "role": "contract-writer-candidate",
+      "file": "7bc8db85927ee3e2673ee802554b80cbe904c6ce5e7f51bcf2778cc04e7910ce.txt",
+      "sha256": "7bc8db85927ee3e2673ee802554b80cbe904c6ce5e7f51bcf2778cc04e7910ce"
+    },
+    {
+      "role": "printed-status",
+      "file": "PRINTED-ADOPTION-STATUS.json",
+      "sha256": "879f0af6f5fca4cae2bb63c26f718aade7fc1eb28263d0bc469c644fe03b4c91"
+    },
+    {
+      "role": "wrapper-original",
+      "file": "9d055293b7feb51d0f305940796806319779268c78933f4b688fe08ca6aa7cac.txt",
+      "sha256": "9d055293b7feb51d0f305940796806319779268c78933f4b688fe08ca6aa7cac"
+    },
+    {
+      "role": "wrapper-patch",
+      "file": "2416980235c0e5f3896b0751c6b579f1771b680b8060293bd70b6b7ccc6283ed.txt",
+      "sha256": "2416980235c0e5f3896b0751c6b579f1771b680b8060293bd70b6b7ccc6283ed"
+    },
+    {
+      "role": "wrapper-patched-candidate",
+      "file": "a3ad463b32aa8c2edb946ddb83c1d9ad99f1265c9b669d1f591368fbd2cf8a1c.txt",
+      "sha256": "a3ad463b32aa8c2edb946ddb83c1d9ad99f1265c9b669d1f591368fbd2cf8a1c"
+    },
+    {
+      "role": "wrapper-v3-candidate",
+      "file": "e73f0d08e9543736d3d7f7d3bad43fd8a9c8e13ddd93c4b838091e8565371c30.txt",
+      "sha256": "e73f0d08e9543736d3d7f7d3bad43fd8a9c8e13ddd93c4b838091e8565371c30"
+    }
+  ],
+  "qualification": "Prior kernel matches the hash asserted by the recorded write; successor bytes are derived by its deterministic literal replacement. Contract writer bytes are a FileChange candidate without an independently printed original hash. Recorded apply/verify outputs report success, but missing original queue files and unconfirmed wrapper bytes limit this to indirect continuity evidence. No new audit credit or final authority is inferred.",
+  "wrapper_evidence": {
+    "original_sha256": "9d055293b7feb51d0f305940796806319779268c78933f4b688fe08ca6aa7cac",
+    "patch_sha256": "2416980235c0e5f3896b0751c6b579f1771b680b8060293bd70b6b7ccc6283ed",
+    "patched_candidate_sha256": "a3ad463b32aa8c2edb946ddb83c1d9ad99f1265c9b669d1f591368fbd2cf8a1c",
+    "v3_candidate_sha256": "e73f0d08e9543736d3d7f7d3bad43fd8a9c8e13ddd93c4b838091e8565371c30",
+    "filechange_patch_ordinal": 72570,
+    "failed_path_rewrite_ordinal": 72578,
+    "corrected_path_rewrite_ordinal": 72586,
+    "v3_derivation_ordinal": 72859,
+    "qualification": "Original wrapper matches an independently recovered workflow reference. Candidate patch and later successful path correction reconstruct its v3 import; v3 original bytes have no independent hash, and no program has been executed during recovery."
+  }
+}

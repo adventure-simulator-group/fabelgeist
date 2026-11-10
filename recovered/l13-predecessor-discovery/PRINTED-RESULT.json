@@ -1,0 +1,44 @@
+{
+  "sha256": "833bf8943cafb748d73f2d2caf90b13c3e68a65f8fc7566941b3b5a855ff7a92",
+  "hits": [
+    {
+      "original": 2844,
+      "receipt": {
+        "path": "segovb/READ-L13-PARALLEL-109.json",
+        "sha256": "e0871ab6712bbfffc3442b90c3e4e1af80e5759b8a018758d8c566eabcc7f83a"
+      }
+    },
+    {
+      "original": 2845,
+      "receipt": {
+        "path": "segovb/READ-L13-PARALLEL-109.json",
+        "sha256": "e0871ab6712bbfffc3442b90c3e4e1af80e5759b8a018758d8c566eabcc7f83a"
+      }
+    }
+  ],
+  "futures": [
+    {
+      "receipt": "parallel-l13-20261029/READ-PL13-111.json",
+      "receipt_sha256": "5580ce0d1ae0b75b7f927abf39f549b6e0ea6ac3e02757a435a478258505573a",
+      "row_pointer": "/connected/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-111-CONNECTED.json",
+        "sha256": "f2679596d339659542362be05433a5b75945447042f41ffe531e9214f2b12c99"
+      },
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+      "source_sha256": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+      "actual_EOF": 147,
+      "assessed_ranges": [
+        [
+          1,
+          147
+        ]
+      ],
+      "attribution": "Delegated independent L13 personal read; no root/other-lens/current transfer",
+      "ordered_credit_now": 0,
+      "original": 2844,
+      "future_rule": "Exact identity/revision/hash/Git/EOF/prospective/range/attribution qualification, then count once at ordered frontier."
+    }
+  ],
+  "apps": []
+}

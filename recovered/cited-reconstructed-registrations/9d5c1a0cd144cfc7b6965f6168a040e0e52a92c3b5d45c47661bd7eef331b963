@@ -1,0 +1,38 @@
+{
+  "schema": "726-prospective-focused-lock-fields-v1",
+  "at": "2026-11-03T05:18:41.112181+00:00",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "purpose": "Compare removed renderer dependency and exact package record across the older delta; all other lockfile and native obligations remain.",
+  "rows": [
+    {
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "git_path": "Cargo.lock",
+      "source_sha256": "58118b1b138af4f9feea993ea990dc334f63d30c4aa66f8b5597a0f1dfecfcf6",
+      "actual_EOF": 13107,
+      "source_object": "adler-continuation-20261030/objects/58118b1b138af4f9feea993ea990dc334f63d30c4aa66f8b5597a0f1dfecfcf6",
+      "scope": "Complete package tables named adventuresim-tactical-client and bevy_eidolon, including all dependency fields; selected comparison, not entire lockfile or native source."
+    },
+    {
+      "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+      "git_path": "Cargo.lock",
+      "source_sha256": "b36b6a88eebfff2628c4626c1f890f1589f7e06d324aab6d22a998475daa97d1",
+      "actual_EOF": 13077,
+      "source_object": "adler-continuation-20261030/objects/b36b6a88eebfff2628c4626c1f890f1589f7e06d324aab6d22a998475daa97d1",
+      "scope": "Complete package tables named adventuresim-tactical-client and bevy_eidolon, including all dependency fields; selected comparison, not entire lockfile or native source."
+    }
+  ]
+}

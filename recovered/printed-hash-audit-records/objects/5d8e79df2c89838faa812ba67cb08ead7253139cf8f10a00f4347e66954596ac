@@ -1,0 +1,115 @@
+{
+  "schema": "726-root-l2-existing-owner-additive-qualification-v1",
+  "at": "2026-11-02T17:10:15.498131+00:00",
+  "author": "/root",
+  "lens": 2,
+  "read": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/READ-ROOT-L2-CATALOG-CONTACT-008.json",
+    "sha256": "a511a02f5796d3ee709b6a101bf67bbc1493bb6b01e0595823a732fd897ed7d6"
+  },
+  "prior_armor_addendum": {
+    "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/QUALIFICATION-ROOT-L2-CATALOG-PROTECTION-ADDENDUM-001.json",
+    "sha256": "6c61266bcfa2db4506a99ebf8d669769f373e31d8c6ce865676c651c6e5d6e3d"
+  },
+  "definition_use_assessments": [
+    {
+      "role": "layer-contact-position",
+      "source_row": 0,
+      "ranges": [
+        [
+          180,
+          187
+        ]
+      ],
+      "decision": "layered_armor_contact_index returns the first covering layer's ordinal in the supplied sequence, or None for a gap. It does not sort the sequence or return an inventory identity. AuthoredArmorCoverage already owns the per-item disconnected union; overlapping segments do not independently create layers. Retain actual coverage ownership and any required sequence-bound selection record instead of a duplicate coverage wrapper or enum of ordinal numbers.",
+      "acceptance": "Preserve first-match order, actual gap None, overlapping segments as one layer and anatomical disconnected patches. A returned ordinal must stay associated with the same layer sequence until lookup; do not invent missing-element failures for positions established by construction."
+    },
+    {
+      "role": "body-local-contact-coordinate",
+      "source_row": 1,
+      "ranges": [
+        [
+          19,
+          67
+        ],
+        [
+          183,
+          255
+        ]
+      ],
+      "decision": "MeleeContactLocation already groups BodyPart, AnatomicalSubregion, body-local surface coordinate and optional ArmorSurface. melee_contact_location produces the latter three from the same body part and coordinate. gap_targeting is a different fraction role which moves the local coordinate toward next_down(1); it is not itself an anatomical coordinate. UnitInterval is only a reusable bounded numeric leaf, allowing the closed endpoint1 which computed contact coordinates intentionally avoid. Preserve existing native input clamping and distinguish input admission from the computed half-open coordinate contract.",
+      "acceptance": "Retain zero, endpoint clamping, body/coordinate/subregion/surface association, and the single canonical AnatomicalSubregion owner. Strengthen existing producer/constructor ownership rather than accepting independently contradictory semantic fields. No ordinary invalid or NaN input witness is established without upstream producer evidence."
+    },
+    {
+      "role": "anatomical-partition-owner",
+      "source_row": 1,
+      "ranges": [
+        [
+          9,
+          44
+        ],
+        [
+          214,
+          255
+        ]
+      ],
+      "decision": "Targeting owns shared named chest and abdomen boundaries used by coverage projection. ABDOMEN_END distinguishes abdomen/groin; chest partitions distinguish sternum/ribs/lower edge/axilla/neckline. Coverage's imported constants therefore use the actual same policy owner, not copied approximations. The body-part contact weight table and (BodyPart, local coordinate) results are semantic records currently represented as primitive tuples; use named records with meaningful fraction/coordinate leaves under crate rules. Do not replace the partition with UV atlas coordinates or broad equipment locations.",
+      "acceptance": "Keep exact existing boundaries and laterality mappings, half-open comparisons and body-part weighting/normalization. Reuse the existing policy constants and enums; no new tuning change follows from type refactoring."
+    },
+    {
+      "role": "existing-source-acceptance-fixtures",
+      "source_row": 0,
+      "ranges": [
+        [
+          189,
+          347
+        ]
+      ],
+      "decision": "Source fixtures cover plate/cloth gaps, bilateral axilla patches, disconnected arm coverage, serialized segment preservation, overlapping patches, sided garments, capacity rejection, groin/abdomen distinction and knee/neck gaps. They are native fixture boundaries; no tests were run or added.",
+      "acceptance": "Use applicable existing observable checks after the audit gate; source assertions are not passing validation evidence."
+    }
+  ],
+  "bounded_coverage_source_join": {
+    "prior_read": {
+      "path": "target/726-audit-continuation-20261030/target/726-audit-adler-20261027/adler-continuation-20261030/READ-ROOT-L2-CATALOG-PROTECTION-007.json",
+      "sha256": "6d439c64efa05889d5354c36527a4b5c3f7c5d2177d5ad367c9cd0bba1fcbfd0"
+    },
+    "prior_ranges": [
+      [
+        1,
+        179
+      ]
+    ],
+    "new_ranges": [
+      [
+        180,
+        347
+      ]
+    ],
+    "source_sha256": "8bebf038e281f0b1529dd8008a42379c43eac3e0c2f9767d9a29606eb69ddced",
+    "same_lens_same_source_body_union": [
+      [
+        1,
+        347
+      ]
+    ],
+    "new_body_population_credit": 0,
+    "body_union_is_family_or_global_clearance": false
+  },
+  "remaining_evidence": [
+    "Actual tactical armor-surface selection/ordering caller and canonical alias identity remain to qualify. The helper's implementation and grep results do not prove all production consumers use that helper.",
+    "Upstream contact-sample/gap-targeting admission and any existing coordinate/sequence-bound selection owners still need exact source qualification before a final repair choice.",
+    "The eight owner/admission/alias contracts in NEXT-L2-PROGRESS-CP481-002 remain open, narrowed by prior unit/coverage qualifications. Formal own-L2 state/ledger adoption remains required; no L12-only adopter reuse."
+  ],
+  "canonical_source_case_closed": false,
+  "current_delta_cells_closed": 0,
+  "new_primary_findings": 0,
+  "new_body_population_unique_credit": 0,
+  "source_adoption_performed": false,
+  "selected_l2_state_updated": false,
+  "product_edits": false,
+  "product_execution": false,
+  "tests_executed": false,
+  "independent_agent_review": false,
+  "implementation_gate_complete": false
+}

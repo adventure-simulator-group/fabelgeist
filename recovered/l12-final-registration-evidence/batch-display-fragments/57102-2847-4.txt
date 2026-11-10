@@ -1,0 +1,20 @@
+24:     pub(crate) fn validate_church_program(&self) -> Result<(), GenerationError> {
+25:         let principal = self.archetype == BuildingArchetype::ParishChurch
+26:             && self.usage == Some(BuildingUse::ParishChurch)
+27:             && self.service_size == Some(ServiceBuildingSize::Large);
+28:         let urban = self.archetype == BuildingArchetype::Cathedral || principal;
+29:         if urban != self.church_program.is_some()
+30:             || self.church_program.is_some_and(|programme| {
+31:                 programme != ChurchProgram::URBAN_BRICK_BASILICA
+32:                     || self.footprint
+33:                         != crate::Footprint::Rectangle {
+34:                             width: 28,
+35:                             depth: 14,
+36:                         }
+37:             })
+38:         {
+39:             return Err(GenerationError::InvalidChurchProgram);
+40:         }
+41:         Ok(())
+42:     }
+43: }

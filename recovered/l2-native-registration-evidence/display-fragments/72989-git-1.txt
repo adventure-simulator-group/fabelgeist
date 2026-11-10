@@ -1,0 +1,68 @@
+135:     }
+136:     Ok(ValidatedQuestGenerationAuthority { context, manifest })
+137: }
+138: 
+139: /// A separately accepted agreement concerning a case. This row is private:
+140: /// the web gateway builds observer-safe disclosures rather than subscribing
+141: /// clients to undiscovered postings or acceptance state.
+142: #[derive(Clone, Debug)]
+143: #[table(accessor = contract_authority)]
+144: pub struct ContractAuthority {
+145:     #[primary_key]
+146:     pub id: String,
+147:     #[index(btree)]
+148:     pub gateway_bucket: u8,
+149:     #[index(btree)]
+150:     pub case_id: String,
+151:     pub title: String,
+152:     pub description: String,
+153:     pub difficulty: i32,
+154:     pub gold_reward: i32,
+155:     pub xp_reward: i32,
+156:     #[index(btree)]
+157:     pub settlement_id: String,
+158:     #[index(btree)]
+159:     pub service_id: String,
+160:     pub issuer_resident_character_id: u64,
+161:     pub status: ContractStatus,
+162:     pub accepted_by: Option<String>,
+163:     pub opposition_wording: String,
+164:     pub opposition_count_wording: String,
+165:     pub accepted_at_minute: Option<StrategicMinute>,
+166:     pub paid_at_minute: Option<StrategicMinute>,
+167: }
+168: 
+169: impl ContractAuthority {
+170:     /// Parse the flattened row before lifecycle-sensitive reducer logic uses it.
+171:     pub fn parsed_state(
+172:         &self,
+173:     ) -> Result<
+174:         adventuresim_core::strategic_state::ContractState,
+175:         adventuresim_core::strategic_state::StateParseError,
+176:     > {
+177:         adventuresim_core::strategic_state::ContractState::parse(
+530:     pub location_id: String,
+531:     pub leader_id: u64,
+532:     pub status: RecruitmentOfferStatus,
+533:     pub created_at_minute: StrategicMinute,
+534:     pub expires_at_minute: StrategicMinute,
+535: }
+536: 
+537: #[derive(Clone, Debug)]
+538: #[table(accessor = party_authority)]
+539: pub struct Party {
+540:     #[primary_key]
+541:     pub id: String,
+542:     #[index(btree)]
+543:     pub gateway_bucket: u8,
+544:     pub name: String,
+545:     pub leader_id: u64,
+546:     pub current_settlement_id: Option<String>,
+547:     pub current_case_site_id: Option<CaseSiteId>,
+548:     pub active_contract_id: Option<String>,
+549:     /// Living membership projection maintained by party governance refresh.
+550:     pub is_solo: bool,
+551:     /// The fatigue level at which the first tiring party member makes camp.
+552:     #[default(50u8)]
+553:     pub camp_fatigue_percent: u8,
+554:     /// Leader-selected daily walking budget. The itinerary centers it on noon.

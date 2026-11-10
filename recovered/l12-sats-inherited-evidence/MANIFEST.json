@@ -1,0 +1,362 @@
+{
+  "schema": "726-l12-sats-inherited-evidence-v1",
+  "source_command_ordinal": 73557,
+  "team_receipt": {
+    "path": "segovb/READ-L12-CONNECTED-TEAM-009.json",
+    "sha256": "9c60af9cd5c64ef74cc36289f91cad190b4bc37521ea1ed74b93c19a16448079",
+    "bytes": 9128
+  },
+  "ordered_receipt": {
+    "path": "segovb/READ-L12-798.json",
+    "sha256": "54a51cc4ed9328bf3d64999b2f98ad621fff56f0096845f35ce007e00de9e86b",
+    "bytes": 13460
+  },
+  "objects": [
+    {
+      "path": "segovb/READ-L12-CONNECTED-TEAM-009.json",
+      "sha256": "9c60af9cd5c64ef74cc36289f91cad190b4bc37521ea1ed74b93c19a16448079",
+      "bytes": 9128
+    },
+    {
+      "path": "segovb/READ-L12-798.json",
+      "sha256": "54a51cc4ed9328bf3d64999b2f98ad621fff56f0096845f35ce007e00de9e86b",
+      "bytes": 13460
+    },
+    {
+      "path": "parallel-l12-20261029/ADOPTION-MANIFEST-PAR-L12-CONNECTED-TEAM009.json",
+      "sha256": "5e3bd5cc1dee90a5c1cf5df9154e56f18af21a3766354e5ba1dc1d76abcc4d4b",
+      "bytes": 8890
+    },
+    {
+      "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-796-NATIVE-ENVELOPE-SATS-TYPES-PARTIAL001.json",
+      "sha256": "1a48ed8d72d7b7d528bc3d7480b23b56aedd31f93f86dd6da54ffe965c1f4de3",
+      "bytes": 13525
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-379-CONNECTED-ORIGINAL983.json",
+      "sha256": "b8667a585478835c72756aee3d467c10d596cdc6f34d22daa1d2241634fb6e42",
+      "bytes": 5655
+    },
+    {
+      "path": "git:crates/adventuresim-core/src/reducer_error.rs",
+      "sha256": "ec4f9bddc8b7d73ed40bcfbecb23d7b061016ee53bd6fea4a524d05e838691c7",
+      "bytes": 4018,
+      "frozen_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "selected_revision": "33714256b6313ce86fdfbb534c54d92d024d7726"
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-380-CONNECTED-ORIGINAL2386.json",
+      "sha256": "7d43a8d411322cc07b24bf362fdb96ae8b6cc22048e0674a0296d97f50a9fddc",
+      "bytes": 8630
+    },
+    {
+      "path": "git:crates/strategic-web/src/spacetimedb/client/sats.rs",
+      "sha256": "dbb97caa3f3bb18aa862aacce19d0d76f82f7760e82a389f9347698d24031906",
+      "bytes": 20671,
+      "frozen_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "selected_revision": "33714256b6313ce86fdfbb534c54d92d024d7726"
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-381-CONNECTED-ORIGINAL2389.json",
+      "sha256": "43663532a40ad6393ec31da6c69eaf0732299b164b46ed5fe4d5fbb546988501",
+      "bytes": 9196
+    },
+    {
+      "path": "git:crates/strategic-web/src/spacetimedb/types.rs",
+      "sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+      "bytes": 90035,
+      "frozen_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "selected_revision": "33714256b6313ce86fdfbb534c54d92d024d7726"
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-378.json",
+      "sha256": "92741cea024a85d9058de5de959b859f5e40e7025b1a8e371c6d4449cbd3e343",
+      "bytes": 13627
+    },
+    {
+      "path": "parallel-l12-20261029/PROPOSAL-L12-795.json",
+      "sha256": "be815bf5ad019a7092568cb729b78133ad7de0121e3c895a2ab3001457611ba8",
+      "bytes": 34288
+    },
+    {
+      "path": "git:crates/strategic-web/src/spacetimedb/client.rs",
+      "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+      "bytes": 8664,
+      "frozen_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "selected_revision": "33714256b6313ce86fdfbb534c54d92d024d7726"
+    }
+  ],
+  "partial_ranges": [
+    [
+      1,
+      195
+    ],
+    [
+      382,
+      771
+    ]
+  ],
+  "fresh_ranges": [
+    [
+      196,
+      381
+    ],
+    [
+      772,
+      2523
+    ]
+  ],
+  "qualified_union": [
+    [
+      1,
+      2523
+    ]
+  ],
+  "qualification": "Original handoff receipts and registrations plus frozen/current-equal source bytes. Recorded disjoint inherited/fresh ranges retain prior attribution; later qualification, state, ledger and queue bytes are not recovered here. No new audit credit or runtime acceptance.",
+  "follow_on_construction": {
+    "expressions": [
+      {
+        "event_ordinal": 73557,
+        "kind": "proof",
+        "file": "73557-proof-expression.txt",
+        "sha256": "1dae265fc3e9b232819a54936bb9938aca5fb57e91154c067da6bf1421a7f46e",
+        "fields": {
+          "schema": "726-qualified-l12-sats-journal-supersession-v1",
+          "lens": 12,
+          "at": {
+            "unresolved_expression": "datetime.now(timezone.utc).isoformat()"
+          },
+          "qualified_against_ledger": {
+            "unresolved_expression": "ref(lp)"
+          },
+          "qualified_against_queue": {
+            "unresolved_expression": "ref(qpath)"
+          },
+          "root_connected_adoption": {
+            "unresolved_expression": "ref(team_path)"
+          },
+          "manifest": {
+            "unresolved_expression": "team['manifest']"
+          },
+          "original_connected_receipt": {
+            "unresolved_expression": "ref(raw_path)"
+          },
+          "ordered_completion": {
+            "unresolved_expression": "ref(ordered_path)"
+          },
+          "rows": {
+            "unresolved_expression": "rows"
+          },
+          "types2389_full_coverage": {
+            "prior_partial_ranges": {
+              "unresolved_expression": "partial['assessed_ranges']"
+            },
+            "fresh_disjoint_ranges_as_originally_read": {
+              "unresolved_expression": "full['fresh_personal_body_reads']"
+            },
+            "qualified_union": [
+              [
+                1,
+                2523
+              ]
+            ],
+            "attribution": {
+              "unresolved_expression": "full['attribution']"
+            },
+            "no_new_reread": true
+          },
+          "finding_identity": {
+            "prior_id": {
+              "unresolved_expression": "finding['id']"
+            },
+            "canonical_id": {
+              "unresolved_expression": "primary['id']"
+            },
+            "canonical_queue_pointer": "/entries/538",
+            "first_contract": {
+              "unresolved_expression": "finding['first_failed_contract']"
+            },
+            "source_sha256": {
+              "unresolved_expression": "finding['primary_source_sha256']"
+            },
+            "identity_basis": "Exact checked source hash, failed operation, original receipt/new_findings/0 and root connected adoption; not identifier-prefix similarity."
+          },
+          "established_subquestions": [
+            "The connected receipt and malformed-wire finding are already authoritatively adopted by TEAM009 and current canonical record538; the old unadopted note is superseded.",
+            "Original2389 partial support was completed and adopted at READ-L12-798 through disjoint source ranges, retaining original personal attribution.",
+            "The SQL/SATS malformed-reason erasure is distinct from the active CaseSiteId native-derive constructor bypass. These are different decoding operations and repair scopes."
+          ],
+          "remaining_evidence": [
+            "Actual native SQL/SATS normalization/producer contracts, concrete caller reachability, current/all20 and exact historical aliases remain required.",
+            "No malformed input was executed and no ordinary decoding incident or whole journal1880/source case538 closure is claimed.",
+            "Q991 camp/localTrial optional-continuation scope and other-lens/native-source obligations remain independent."
+          ],
+          "whole_journal_closed": false,
+          "source_counts_unchanged": true,
+          "new_body_credit": 0,
+          "new_population_credit": 0,
+          "new_unique_count": 0,
+          "new_lens2_body_credit": 0,
+          "product_execution": false,
+          "implementation_gate_complete": false
+        }
+      },
+      {
+        "event_ordinal": 73584,
+        "kind": "policy",
+        "file": "73584-policy-expression.txt",
+        "sha256": "3b7a7ee4b2ef7dd9cd361fd4c830e2c790744aecfa5e0a98a1175e0b1de2f0ad",
+        "fields": {
+          "schema": "726-l12-sats-journal-supersession-disposition-v1",
+          "lens": 12,
+          "at": {
+            "unresolved_expression": "stamp"
+          },
+          "parent_contract": {
+            "unresolved_expression": "entry['contract_id']"
+          },
+          "first_contract": {
+            "unresolved_expression": "entry['first_failed_contract_or_unresolved_question']"
+          },
+          "qualification": {
+            "unresolved_expression": "ref(proofpath)"
+          },
+          "established_subquestions": {
+            "unresolved_expression": "proof['established_subquestions']"
+          },
+          "superseded_historical_clauses": [
+            {
+              "journal_pointer": "/segovb_continuation/lens12/pending_connected_contracts/992/1",
+              "clause": "Finding adoption separate",
+              "evidence": "Root TEAM009 and canonical538 retain the exact malformed-wire first operation and source."
+            },
+            {
+              "journal_pointer": "/segovb_continuation/lens12/pending_connected_contracts/992/2",
+              "clause": "Connected receipt unadopted until root checks;2389 partial support",
+              "evidence": "TEAM009 checks the connected sources; ordered READ-L12-798, present in authoritative discovery receipts, completes2389 with a disjoint union."
+            }
+          ],
+          "repair_requirements": [
+            "Keep the existing canonical malformed-wire reason/context repair under SEGOVB-L12-SATS-MALFORMED-WIRE-REASON-STRING; do not duplicate it from the stale journal note.",
+            "Preserve original Lens12 source authorship and partial/fresh range attribution. Current byte equality qualifies existing evidence, not a new body read or another lens verdict.",
+            "Keep malformed-wire diagnostic erasure separate from native checked-constructor bypass. Own structured malformed reason/count/tag/context internally and preserve legitimate native encoding/normalization at the actual boundary.",
+            "Retain unresolved native SQL/SATS/Serde producer/caller/current/alias contracts and all actual later acceptance; neither root adoption nor source accounting proves correct runtime normalization."
+          ],
+          "later_acceptance_requirements": [
+            "After audit/implementation gates, verify exact malformed-wire error classification and structural context without changing admitted option/product/array/identity normalization.",
+            "Verify native checked constructor admission separately through actual SATS/BSATN and generated boundaries. No input or runtime validation occurred on this metadata supersession."
+          ],
+          "remaining_evidence": {
+            "unresolved_expression": "proof['remaining_evidence']"
+          },
+          "whole_journal_closed": false,
+          "audit_discovery_closed": false,
+          "current_native_semantics_reconciled": false,
+          "new_body_or_population_credit": 0,
+          "new_unique_count": 0,
+          "product_execution": false,
+          "implementation_gate_complete": false
+        }
+      },
+      {
+        "event_ordinal": 73584,
+        "kind": "view",
+        "file": "73584-view-expression.txt",
+        "sha256": "c17cf93b1201f171e52add94a6fa2d1d194ed61a0e797602ebbbf62fbcb35cdd",
+        "fields": {
+          "lens": 12,
+          "contract_id": {
+            "unresolved_expression": "entry['contract_id']"
+          },
+          "status": "stale-connected-adoption-and-partial-source-clauses-superseded-whole-journal-open",
+          "kind": "Scoped same-Lens12 historical source-status reassessment, not a new source read",
+          "canonical_owner": {
+            "unresolved_expression": "q['entries'][538]['canonical_owner']"
+          },
+          "first_failed_contract_or_unresolved_question": {
+            "unresolved_expression": "entry['first_failed_contract_or_unresolved_question']"
+          },
+          "qualified_same_lens_sources": {
+            "unresolved_expression": "proof['rows']"
+          },
+          "qualification": {
+            "unresolved_expression": "ref(proofpath)"
+          },
+          "semantic_disposition": {
+            "unresolved_expression": "ref(policypath)"
+          },
+          "established_subquestions": {
+            "unresolved_expression": "proof['established_subquestions']"
+          },
+          "repair_requirements": {
+            "unresolved_expression": "policy['repair_requirements']"
+          },
+          "later_acceptance_requirements": {
+            "unresolved_expression": "policy['later_acceptance_requirements']"
+          },
+          "remaining_evidence": {
+            "unresolved_expression": "proof['remaining_evidence']"
+          },
+          "whole_journal_closed": false,
+          "all_current_and_all_lens_closure": false,
+          "new_accepted_unique_count": 0,
+          "new_body_credit": 0,
+          "canonical_alias_applied": false,
+          "repair_implemented": false,
+          "runtime_validation_passed": false,
+          "implementation_gate_complete": false
+        }
+      }
+    ],
+    "state_update_expression": "state.update(at=stamp, metadata_predecessor=ref(oldstate), current_source_complete=False, current_receipt=ref(proofpath), sats_journal_supersession=view)",
+    "reported_outputs": [
+      {
+        "event_ordinal": 73557,
+        "results": [
+          {
+            "qualified_sources": 4,
+            "source_bytes_equal": true,
+            "full_types_coverage_qualified": true,
+            "canonical_malformed_wire_record": 538,
+            "new_body_or_population_credit": 0
+          }
+        ]
+      },
+      {
+        "event_ordinal": 73584,
+        "results": [
+          {
+            "status": "pass",
+            "mode": "--preflight",
+            "writes": 0,
+            "checkpoint": 495,
+            "inverse_checks": 3,
+            "scoped_l12_source_views_closed": 1
+          }
+        ]
+      },
+      {
+        "event_ordinal": 73609,
+        "results": [
+          {
+            "status": "pass",
+            "mode": "--verify",
+            "checkpoint": 495,
+            "verification": {
+              "path": "target/726-intake-20261030/VERIFICATION-L12-SATS-JOURNAL-SUPERSESSION-ADOPTION-001.json",
+              "sha256": "267af63fd9d4688459096854c3a622d94052d0b08edb2b2964cc823560d18943"
+            },
+            "current": {
+              "path": "target/726-intake-20261030/CURRENT.json",
+              "sha256": "ad877c0e8371e874b8358a8ae41a23d2dba1e4754b47cb7e54195eb7cabb8616"
+            },
+            "scoped_l12_source_views_closed": 1,
+            "whole_canonical_cases_closed": 0,
+            "implementation_gate_complete": false
+          }
+        ]
+      }
+    ],
+    "qualification": "Literal values and unresolved dynamic expressions extracted from historical commands. Neither original qualification/state bytes nor final authority are established; no code was executed."
+  }
+}

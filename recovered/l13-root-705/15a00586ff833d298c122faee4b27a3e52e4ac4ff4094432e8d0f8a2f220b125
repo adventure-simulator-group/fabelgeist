@@ -1,0 +1,740 @@
+{
+  "schema": "726-exact2685-2686-admission-mixed-material-v1",
+  "at": "2026-11-01T19:22:30.930326+00:00",
+  "author": "/root",
+  "lens": 13,
+  "proof_builder": {
+    "path": "adler-continuation-20261030/qualify_admission2685_v1.py",
+    "sha256": "baca457f19e798e07cf4c7d1b7aaaf36bba017349934c98d9d6c1554807b3bec"
+  },
+  "registry": {
+    "path": "evidence/audit05/original-scope-072.json",
+    "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2685-2686-001.json",
+    "sha256": "d470a22a4fe2201a3e8c9c08d548a4f80343b1a977279175d9977b295ca9d5ba"
+  },
+  "qualified_against_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "2076e7063bc8f0c0de879ffa5a09c19053b1006b4ace2510d3a6716f9cc23052"
+  },
+  "qualified_against_selector": {
+    "path": "CURRENT-ADLER.json",
+    "sha256": "7d00647d88edd69933e6886fba14f4a784a2d897a9dec8348ba7bbd2e6872b90"
+  },
+  "entries": [
+    {
+      "original": 2685,
+      "source": {
+        "original": 2685,
+        "source_id": "report-p17:Cargo.toml",
+        "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+        "actual_eof": 221,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+        "prospective_ranges": [
+          [
+            85,
+            85
+          ],
+          [
+            95,
+            95
+          ]
+        ],
+        "revision_qualification": "Archivef82 reportP17 recoveredobjects transport only; oldworkspacefull221 read supplies2newmateriallines, lock113fresh, no current/feature/wholeSDK transfer.",
+        "purpose": "Two reportP17workspace/resolveddependency roles115material:2delegatedpriorlines reused and113fresh root lines, no macro/build/runtime execution."
+      },
+      "mode": "delegated-reuse",
+      "bytes": 8395,
+      "assessed_union": [
+        [
+          85,
+          85
+        ],
+        [
+          95,
+          95
+        ]
+      ],
+      "material_line_count": 2,
+      "new_root_personal_lines": 0,
+      "registry_entry_sha256": "72605d8f95788635ed6e8418718b32331189bde1e29146289b4334d65707d2dc",
+      "registry_path_as_recorded": "SNAPSHOTS\\p17\\Cargo.toml",
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          1,
+          84
+        ],
+        [
+          86,
+          94
+        ],
+        [
+          96,
+          221
+        ]
+      ],
+      "whole_file_coverage": false,
+      "prior": {
+        "prior_adoption": {
+          "path": "segovb/READ-L13-PARALLEL-023.json",
+          "sha256": "46ff7eccfcf1fda9ca02cdbc76f115db63246e2882f228b83101896ca9bee4cb"
+        },
+        "prior_raw_receipt": {
+          "path": "parallel-l13-20261029/READ-PL13-025.json",
+          "sha256": "d28e01a01f18152b66e3e9be463ed57661ac010796921367bd14f4db4284e4f3"
+        },
+        "prior_verification": {
+          "path": "parallel-l13-20261029/VERIFY-PL13-025.json",
+          "sha256": "5206e98ceaa3add8ea933fb45841e5a7c332c4b918e0082da2c0571c0ba02198"
+        },
+        "prior_registration": {
+          "path": "parallel-l13-20261029/REGISTRATION-PL13-025.json",
+          "sha256": "5b2abbdcb8be2cdfbd9a6d3019888e8fa32b68e0a5ab7891f8b43239913b33e5"
+        },
+        "prior_validation_manifest": {
+          "path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-025-032.json",
+          "sha256": "db36f2b12ee71aa0370253bf2ec74cd1d0fadc0396d2efaf9d13570f8b43af63"
+        },
+        "prior_row_pointer": "/rows/0",
+        "prior_registration_pointer": "/sources/0",
+        "prior_source_read": {
+          "original": 498,
+          "source_id": "pr-working:Cargo.toml",
+          "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+          "scope_kind": "frozen_requested_change",
+          "source_revision": "pr-working exact frozen original",
+          "purpose": "Ordered L13 manifest/config and actual visual/deleted asset contracts; no empty text range coverage for PNG.",
+          "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+          "material_kind": "text",
+          "actual_eof": 221,
+          "prospective_ranges": [
+            [
+              1,
+              221
+            ]
+          ],
+          "fresh_personal_assessed_ranges": [
+            [
+              1,
+              221
+            ]
+          ],
+          "untruncated_body_outputs": true
+        },
+        "historical_verification_as_recorded": {
+          "lens": 13,
+          "status": "Evidence bookkeeping passed; root adoption required",
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-025.json",
+            "sha256": "d28e01a01f18152b66e3e9be463ed57661ac010796921367bd14f4db4284e4f3"
+          },
+          "checks": [
+            {
+              "original": 498,
+              "exact_hash_eof_prospective_scope": true,
+              "ranges": [
+                [
+                  1,
+                  221
+                ]
+              ],
+              "ordered_credit": 1
+            },
+            {
+              "original": 499,
+              "exact_hash_eof_prospective_scope": true,
+              "ranges": [
+                [
+                  1,
+                  96
+                ]
+              ],
+              "ordered_credit": 1
+            },
+            {
+              "original": 500,
+              "actual_visual_read": true,
+              "png_header_verified": {
+                "width": 128,
+                "height": 128,
+                "bit_depth": 8,
+                "color_type": 6,
+                "compression": 0,
+                "filter": 0,
+                "interlace": 0
+              },
+              "ordered_credit": 1,
+              "text_ranges_counted": 0
+            },
+            {
+              "original": 501,
+              "actual_deleted_contract_read": true,
+              "base_visual_read_at_exact_sha256": "5b4ab9883c3153a5f2aaff6dc07d118e75eb7f8b1f17e99a562c9186f2fa438c",
+              "ordered_credit": 1,
+              "text_ranges_counted": 0
+            },
+            {
+              "original": 502,
+              "exact_hash_eof_prospective_scope": true,
+              "ranges": [
+                [
+                  1,
+                  694
+                ]
+              ],
+              "ordered_credit": 1
+            },
+            {
+              "source_id": "pr-working:scripts/bake_equipment_icons.py",
+              "exact_hash_eof_prospective_scope": true,
+              "ranges": [
+                [
+                  1,
+                  30
+                ]
+              ],
+              "ordered_credit": 0
+            },
+            {
+              "source_id": "pr-working:scripts/render_equipment_icons.py",
+              "exact_hash_eof_prospective_scope": true,
+              "ranges": [
+                [
+                  1,
+                  102
+                ]
+              ],
+              "ordered_credit": 0
+            },
+            {
+              "source_id": "pr-working:crates/strategic-web/src/templates/equipment_icons.rs",
+              "exact_hash_eof_prospective_scope": true,
+              "ranges": [
+                [
+                  1,
+                  56
+                ]
+              ],
+              "ordered_credit": 0
+            },
+            {
+              "source_id": "pr-working:content/items/catalog.yaml",
+              "exact_hash_eof_prospective_scope": true,
+              "ranges": [
+                [
+                  4582,
+                  4611
+                ]
+              ],
+              "ordered_credit": 0
+            },
+            {
+              "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_export.rs",
+              "exact_hash_eof_prospective_scope": true,
+              "ranges": [
+                [
+                  1,
+                  343
+                ]
+              ],
+              "ordered_credit": 0
+            },
+            {
+              "source_id": "pr-working:crates/adventuresim-core/src/equipment_assets.rs",
+              "exact_hash_eof_prospective_scope": true,
+              "ranges": [
+                [
+                  1,
+                  107
+                ]
+              ],
+              "ordered_credit": 0
+            }
+          ],
+          "authority_count_changes": 0,
+          "product_execution": false,
+          "current_reconciled": false
+        },
+        "historical_attribution": "Delegated lens13_resume independent personal body/nontext assessment; no root or other-lens read credit.",
+        "prior_numeric_inventory": {
+          "498:1\u2013221": "Actual full frozen workspace manifest. Native Cargo package/dependency versions, resolver/edition/features/paths and profile booleans are native configuration. Clippy priority-1, opt-level3/1, codegen-units1 are explicit tooling policy; no gameplay numeric owner. Workspace Avian107\u2013114 explicitly requests3d/f32/parry-f32/parallel/default-collider/xpbd_joints and disables defaults, connecting022 actual scalar chain for crates inheriting this workspace entry; actual crate additional features may unify and require independent inspection. Bevy default-featuresfalse withserialize, Repliconclient/server, SDK/SATS2.6.1 pins, postcardalloc and nativeWeb features are actual entries. Presence of frozen patch comments is not proof fixes pass or actual current graph. No dependency resolution/build/generator run."
+        },
+        "prior_alias_application_preserved": {
+          "original": 2671,
+          "receipt": "segovb/READ-L13-PARALLEL-701.json",
+          "receipt_sha256": "06dfa5b4524406999a513b57d2b935001caa671075cd5895e1851067c156482a",
+          "exact_reuses": [
+            {
+              "original": 2671,
+              "reuse": {
+                "kind": "exact_admission_2671_2674_material",
+                "original": 2671,
+                "adoption": {
+                  "path": "segovb/READ-L13-PARALLEL-023.json",
+                  "sha256": "46ff7eccfcf1fda9ca02cdbc76f115db63246e2882f228b83101896ca9bee4cb"
+                },
+                "qualification": {
+                  "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2671-2674-ADMISSION-MIXED-001.json",
+                  "sha256": "45689d000cfd935d3121188534243f935525480459f1a24699aa87c1c86fc4f2"
+                }
+              },
+              "proof": {
+                "qualification": {
+                  "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2671-2674-ADMISSION-MIXED-001.json",
+                  "sha256": "45689d000cfd935d3121188534243f935525480459f1a24699aa87c1c86fc4f2"
+                },
+                "prior_original": 498,
+                "prior_row_pointer": "/rows/0",
+                "prior_source_id": "pr-working:Cargo.toml",
+                "source_sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+                "actual_EOF": 221,
+                "assessed_ranges": [
+                  [
+                    178,
+                    182
+                  ]
+                ],
+                "historical_author": "Delegated lens13_resume independent personal body/nontext assessment; no root or other-lens read credit.",
+                "new_body_credit": 0
+              }
+            }
+          ],
+          "ordered_credit_once_now": true,
+          "root_personal_rereads": []
+        },
+        "old2671_material_subset_not_full_prior_body": [
+          [
+            178,
+            182
+          ]
+        ],
+        "exact_old_source_record": {
+          "proposal": 25,
+          "read_json_pointer": "/rows/0",
+          "source_id": "pr-working:Cargo.toml",
+          "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+          "original": 498,
+          "declared_revision": "pr-working exact frozen original",
+          "scope_kind": "frozen_requested_change",
+          "material_kind": "text",
+          "actual_eof": 221,
+          "prospective_ranges": [
+            [
+              1,
+              221
+            ]
+          ],
+          "fresh_personal_assessed_ranges": [
+            [
+              1,
+              221
+            ]
+          ],
+          "registered_before_read_attestation": true,
+          "body_read_attestation_only": "Verification checks identities and range arithmetic; it does not newly attest body reading.",
+          "registry_index_verified": true,
+          "frozen_git_verification": {
+            "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "path": "Cargo.toml",
+            "exists": true,
+            "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+            "matches_exact_object": true
+          },
+          "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+          "object_sha_verified": true,
+          "actual_eof_and_range_bounds_verified": true,
+          "body_outputs_untruncated_attestation": true
+        },
+        "historical_registration_fields_absent": [
+          "at"
+        ],
+        "historical_raw_fields_absent": [
+          "at",
+          "registered_before_read_attestation"
+        ],
+        "absence_qualification": "No timestamps or missing raw attestation invented; exact old verifier498 and manifestsource498 carry prospective/untruncated attestation, pinned rawregistration and adoption evidence preserved.",
+        "semantic_alias_qualification": "ReportP17 role lines85/95 samebytes as alreadyread full221 PRworkspace498; old2671 material178..182 notusedasproof new2lines. Onlyliteraldependencyedge use, currentfeatures/nativeimplementation independent."
+      }
+    },
+    {
+      "original": 2686,
+      "source": {
+        "original": 2686,
+        "source_id": "report-p17:Cargo.lock",
+        "sha256": "7478839fc1c520db3c24b75b8f0364f5109b1e8f5fa43fa5a576202468258a20",
+        "actual_eof": 13101,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/7478839fc1c520db3c24b75b8f0364f5109b1e8f5fa43fa5a576202468258a20",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/7478839fc1c520db3c24b75b8f0364f5109b1e8f5fa43fa5a576202468258a20",
+        "prospective_ranges": [
+          [
+            1434,
+            1443
+          ],
+          [
+            2307,
+            2366
+          ],
+          [
+            2660,
+            2702
+          ]
+        ],
+        "revision_qualification": "Archivef82 reportP17 recoveredobjects transport only; oldworkspacefull221 read supplies2newmateriallines, lock113fresh, no current/feature/wholeSDK transfer.",
+        "purpose": "Two reportP17workspace/resolveddependency roles115material:2delegatedpriorlines reused and113fresh root lines, no macro/build/runtime execution."
+      },
+      "mode": "fresh",
+      "bytes": 306111,
+      "assessed_union": [
+        [
+          1434,
+          1443
+        ],
+        [
+          2307,
+          2366
+        ],
+        [
+          2660,
+          2702
+        ]
+      ],
+      "material_line_count": 113,
+      "new_root_personal_lines": 113,
+      "registry_entry_sha256": "76c8a9526f93e5d68c7b433f03e03625c83213c5cd82f033b567c192025156f6",
+      "registry_path_as_recorded": "SNAPSHOTS\\p17\\Cargo.lock",
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          1,
+          1433
+        ],
+        [
+          1444,
+          2306
+        ],
+        [
+          2367,
+          2659
+        ],
+        [
+          2703,
+          13101
+        ]
+      ],
+      "whole_file_coverage": false
+    }
+  ],
+  "all_nested_range_fields": [
+    {
+      "pointer": "/files/2685/material_ranges",
+      "raw_value": [
+        [
+          85,
+          85
+        ],
+        [
+          95,
+          95
+        ]
+      ],
+      "actual_eof": 221
+    },
+    {
+      "pointer": "/files/2685/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          95,
+          95
+        ]
+      ],
+      "actual_eof": 221
+    },
+    {
+      "pointer": "/files/2685/admission03_scope_observations/0/local_qualifications/0/original_registration/material_ranges",
+      "raw_value": [
+        [
+          95,
+          95
+        ]
+      ],
+      "actual_eof": 221
+    },
+    {
+      "pointer": "/files/2685/admission03_scope_observations/0/local_qualifications/0/original_requested_context_ranges",
+      "raw_value": [
+        [
+          95,
+          95
+        ]
+      ],
+      "actual_eof": 221
+    },
+    {
+      "pointer": "/files/2685/admission03_scope_observations/0/local_qualifications/0/qualified_material_ranges",
+      "raw_value": [
+        [
+          95,
+          95
+        ]
+      ],
+      "actual_eof": 221
+    },
+    {
+      "pointer": "/files/2685/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          95,
+          95
+        ]
+      ],
+      "actual_eof": 221
+    },
+    {
+      "pointer": "/files/2685/admission03_scope_observations/1/original_record/material_ranges",
+      "raw_value": [
+        [
+          85,
+          85
+        ]
+      ],
+      "actual_eof": 221
+    },
+    {
+      "pointer": "/files/2685/admission03_scope_observations/1/local_qualifications/0/original_registration/material_ranges",
+      "raw_value": [
+        [
+          85,
+          85
+        ]
+      ],
+      "actual_eof": 221
+    },
+    {
+      "pointer": "/files/2685/admission03_scope_observations/1/local_qualifications/0/original_requested_context_ranges",
+      "raw_value": [
+        [
+          85,
+          85
+        ]
+      ],
+      "actual_eof": 221
+    },
+    {
+      "pointer": "/files/2685/admission03_scope_observations/1/local_qualifications/0/qualified_material_ranges",
+      "raw_value": [
+        [
+          85,
+          85
+        ]
+      ],
+      "actual_eof": 221
+    },
+    {
+      "pointer": "/files/2685/admission03_scope_observations/1/effective_material_ranges",
+      "raw_value": [
+        [
+          85,
+          85
+        ]
+      ],
+      "actual_eof": 221
+    },
+    {
+      "pointer": "/files/2686/material_ranges",
+      "raw_value": [
+        [
+          1434,
+          1443
+        ],
+        [
+          2307,
+          2366
+        ],
+        [
+          2660,
+          2702
+        ]
+      ],
+      "actual_eof": 13101
+    },
+    {
+      "pointer": "/files/2686/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1434,
+          1443
+        ],
+        [
+          2307,
+          2366
+        ],
+        [
+          2660,
+          2702
+        ]
+      ],
+      "actual_eof": 13101
+    },
+    {
+      "pointer": "/files/2686/admission03_scope_observations/0/local_qualifications/0/original_registration/material_ranges",
+      "raw_value": [
+        [
+          1434,
+          1443
+        ],
+        [
+          2307,
+          2366
+        ],
+        [
+          2660,
+          2702
+        ]
+      ],
+      "actual_eof": 13101
+    },
+    {
+      "pointer": "/files/2686/admission03_scope_observations/0/local_qualifications/0/original_requested_context_ranges",
+      "raw_value": [
+        [
+          1434,
+          1443
+        ],
+        [
+          2307,
+          2366
+        ],
+        [
+          2660,
+          2702
+        ]
+      ],
+      "actual_eof": 13101
+    },
+    {
+      "pointer": "/files/2686/admission03_scope_observations/0/local_qualifications/0/qualified_material_ranges",
+      "raw_value": [
+        [
+          1434,
+          1443
+        ],
+        [
+          2307,
+          2366
+        ],
+        [
+          2660,
+          2702
+        ]
+      ],
+      "actual_eof": 13101
+    },
+    {
+      "pointer": "/files/2686/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1434,
+          1443
+        ],
+        [
+          2307,
+          2366
+        ],
+        [
+          2660,
+          2702
+        ]
+      ],
+      "actual_eof": 13101
+    }
+  ],
+  "exact_hash_prior_hits": [
+    {
+      "original": 2685,
+      "receipt": {
+        "path": "segovb/READ-L13-PARALLEL-023.json",
+        "sha256": "46ff7eccfcf1fda9ca02cdbc76f115db63246e2882f228b83101896ca9bee4cb"
+      }
+    },
+    {
+      "original": 2685,
+      "receipt": {
+        "path": "segovb/READ-L13-PARALLEL-701.json",
+        "sha256": "06dfa5b4524406999a513b57d2b935001caa671075cd5895e1851067c156482a"
+      }
+    }
+  ],
+  "future_proofs_preserved": [],
+  "old_ordered_applications_preserved": [
+    {
+      "original": 2671,
+      "receipt": "segovb/READ-L13-PARALLEL-701.json",
+      "receipt_sha256": "06dfa5b4524406999a513b57d2b935001caa671075cd5895e1851067c156482a",
+      "exact_reuses": [
+        {
+          "original": 2671,
+          "reuse": {
+            "kind": "exact_admission_2671_2674_material",
+            "original": 2671,
+            "adoption": {
+              "path": "segovb/READ-L13-PARALLEL-023.json",
+              "sha256": "46ff7eccfcf1fda9ca02cdbc76f115db63246e2882f228b83101896ca9bee4cb"
+            },
+            "qualification": {
+              "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2671-2674-ADMISSION-MIXED-001.json",
+              "sha256": "45689d000cfd935d3121188534243f935525480459f1a24699aa87c1c86fc4f2"
+            }
+          },
+          "proof": {
+            "qualification": {
+              "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2671-2674-ADMISSION-MIXED-001.json",
+              "sha256": "45689d000cfd935d3121188534243f935525480459f1a24699aa87c1c86fc4f2"
+            },
+            "prior_original": 498,
+            "prior_row_pointer": "/rows/0",
+            "prior_source_id": "pr-working:Cargo.toml",
+            "source_sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+            "actual_EOF": 221,
+            "assessed_ranges": [
+              [
+                178,
+                182
+              ]
+            ],
+            "historical_author": "Delegated lens13_resume independent personal body/nontext assessment; no root or other-lens read credit.",
+            "new_body_credit": 0
+          }
+        }
+      ],
+      "ordered_credit_once_now": true,
+      "root_personal_rereads": []
+    }
+  ],
+  "discovery_metadata_sha256": "8f76dce9ba21db1e6708681631d6817a4c8ed619ccefda3c49d71d109c5338d6",
+  "production_source_lines": 115,
+  "fixture_source_lines": 0,
+  "fixture_execution": false,
+  "exact_partial_scopes_preserved": true,
+  "all_nested_range_fields_inspected": true,
+  "historical_receipts_unchanged": true,
+  "transport_only_not_current_source": true,
+  "material_lines": 115,
+  "fresh_lines": 113,
+  "reused_material_lines": 2,
+  "body_credit": 0,
+  "authority_changes": 0,
+  "other_population_credit": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "limits": [
+    "Freshlockfile113exactmaterial lines requiresboundedbodyread, other12988locklines unread/uncredited. Manifest85/95reusesoldfull221delegatedPR498/root023read, not merelyold2671twohundred? material178..182, old2671applicationpreserved.",
+    "17nestedfields allqualified: manifesttwoobservations95and85 eachpreservedindependently; Cargo lock113scope exact version/namespace metadata only, no nativeReflect/derive implementation/feature-resolution/build/runtime execution.",
+    "ReportP17archivef82transport andoldPRliteralbytejoin only, current/all20/actualnativeReflection owner/admission/caller gates independent."
+  ]
+}

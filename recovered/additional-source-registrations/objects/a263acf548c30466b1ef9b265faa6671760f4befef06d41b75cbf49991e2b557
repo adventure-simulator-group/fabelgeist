@@ -1,0 +1,393 @@
+{
+  "schema": "726-root-l12-bounded-connected-source-read-v1",
+  "at": "2026-11-02T10:15:19.578532+00:00",
+  "author": "/root",
+  "lens": 12,
+  "base_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "bff7307e7ca533185aef0843fb72b5127f2a8e918ab63532ced0e64875e9fa2a"
+  },
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L12-CAPTURE-PROFILE-OWNERS-002.json",
+    "sha256": "a4d6e385ce23618c58b59df6f8388b5fd6ed669c3ca648d901ea91f4fab2b3be"
+  },
+  "rows": [
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_resolution.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_resolution.rs",
+        "source_sha256": "9a666b81058f7de3538f158dac1c48a0d09280839f879f80de70c70abf967bd7",
+        "source_object": "adler-continuation-20261030/objects/9a666b81058f7de3538f158dac1c48a0d09280839f879f80de70c70abf967bd7",
+        "bytes": 2480,
+        "actual_EOF": 63,
+        "ranges": [
+          [
+            1,
+            63
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 63,
+        "prior_body_join": "No new freshness/reuse/population/unique credit requested; original authors and other lens views remain intact."
+      },
+      "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_resolution.rs",
+      "source_sha256": "9a666b81058f7de3538f158dac1c48a0d09280839f879f80de70c70abf967bd7",
+      "assessed_ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "a6a931"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 63,
+      "semantic_assessment": "capture_resolution14/23/28 derives renderer pixel extent from profile text: TerrainGrounding2240x1260, other modes1280x720. Replace these mode parameters/guards with the existing enum, preserve scale override1.0 and restoration after host scale change. Pixel counts/UVec2 are renderer quantities, not spatial lengths. Existing resolution tests read, not run."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_readiness.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_readiness.rs",
+        "source_sha256": "8f349e6bcd0e513f6a77a8b70f6957051ba93b126b1d2f6a6fe384e2ee035ab3",
+        "source_object": "adler-continuation-20261030/objects/8f349e6bcd0e513f6a77a8b70f6957051ba93b126b1d2f6a6fe384e2ee035ab3",
+        "bytes": 5770,
+        "actual_EOF": 160,
+        "ranges": [
+          [
+            1,
+            160
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 160,
+        "prior_body_join": "No new freshness/reuse/population/unique credit requested; original authors and other lens views remain intact."
+      },
+      "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_readiness.rs",
+      "source_sha256": "8f349e6bcd0e513f6a77a8b70f6957051ba93b126b1d2f6a6fe384e2ee035ab3",
+      "assessed_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "a6a931"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 160,
+      "semantic_assessment": "furniture_readiness13..39 uses eight building modes plus FurnishedRoomReview/TerrainGrounding for production BuildingLodReview; FurnitureReview/interior catalogue/rooms require appropriate GPU/material readiness. Retain exact plugin inclusion, avoid double readiness installation, preserve Last observation ordering and valid optional resources. Raw timing/120s failure/count/native resource semantics are separate."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/fixed_city_cameras.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/fixed_city_cameras.rs",
+        "source_sha256": "116ed503cb72625c577fd02ecf334fc72a8e6968aee36fe97cf6fdd82ac725df",
+        "source_object": "adler-continuation-20261030/objects/116ed503cb72625c577fd02ecf334fc72a8e6968aee36fe97cf6fdd82ac725df",
+        "bytes": 6829,
+        "actual_EOF": 232,
+        "ranges": [
+          [
+            1,
+            232
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 232,
+        "prior_body_join": "No new freshness/reuse/population/unique credit requested; original authors and other lens views remain intact."
+      },
+      "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/fixed_city_cameras.rs",
+      "source_sha256": "116ed503cb72625c577fd02ecf334fc72a8e6968aee36fe97cf6fdd82ac725df",
+      "assessed_ranges": [
+        [
+          1,
+          232
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "a6a931"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 232,
+      "semantic_assessment": "fixed_city_cameras Contract.load54 requires Some path only for TerrainGrounding; a supplied document is also accepted for other modes. Native Document has version/exterior/optional benchmark/playable-building fields and NO profile field. Type only the mode parameter; do not invent Document.profile or reject camera files for other modes. Preserve version2/exact7 exterior views/optional benchmark/document validation and nine-view authored catalog. Geometry/finite/nondegenerate/camera/source IO duties remain separate."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/city_capture.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/city_capture.rs",
+        "source_sha256": "0c29ec29fbd66e1990af24207697a0f3c11610bbf2027623f2d4989288e4d7e8",
+        "source_object": "adler-continuation-20261030/objects/0c29ec29fbd66e1990af24207697a0f3c11610bbf2027623f2d4989288e4d7e8",
+        "bytes": 17300,
+        "actual_EOF": 497,
+        "ranges": [
+          [
+            1,
+            80
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 80,
+        "prior_body_join": "No new freshness/reuse/population/unique credit requested; original authors and other lens views remain intact."
+      },
+      "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/city_capture.rs",
+      "source_sha256": "0c29ec29fbd66e1990af24207697a0f3c11610bbf2027623f2d4989288e4d7e8",
+      "assessed_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "25d050"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 80,
+      "semantic_assessment": "city_capture.capture_cameras23 has CityReview-only guard and returns empty for other valid modes. Retain typed guard without changing corridor/terrain/camera selection; ranges beyond80 unassessed in this packet."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_capture.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_capture.rs",
+        "source_sha256": "5b18a1ddb04059c6126b350b2df16288411ef3402b2573d661ab0bafcb582ea5",
+        "source_object": "adler-continuation-20261030/objects/5b18a1ddb04059c6126b350b2df16288411ef3402b2573d661ab0bafcb582ea5",
+        "bytes": 6723,
+        "actual_EOF": 177,
+        "ranges": [
+          [
+            1,
+            100
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 100,
+        "prior_body_join": "No new freshness/reuse/population/unique credit requested; original authors and other lens views remain intact."
+      },
+      "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_capture.rs",
+      "source_sha256": "5b18a1ddb04059c6126b350b2df16288411ef3402b2573d661ab0bafcb582ea5",
+      "assessed_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "25d050"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 100,
+      "semantic_assessment": "furniture_capture.setup38 writes layout BEFORE its FurnitureReview guard44, including other modes. Change only mode identity, preserving this side effect/order and valid Ok(None) modes. Layout/geometry/missing-vendor errors and later function tail remain separate."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_capture.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_capture.rs",
+        "source_sha256": "bce910fe4144f1301ece257fd3e0a1b333d4f4e61ae2908f796f4e4e72faa933",
+        "source_object": "adler-continuation-20261030/objects/bce910fe4144f1301ece257fd3e0a1b333d4f4e61ae2908f796f4e4e72faa933",
+        "bytes": 9701,
+        "actual_EOF": 241,
+        "ranges": [
+          [
+            1,
+            80
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 80,
+        "prior_body_join": "No new freshness/reuse/population/unique credit requested; original authors and other lens views remain intact."
+      },
+      "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_capture.rs",
+      "source_sha256": "bce910fe4144f1301ece257fd3e0a1b333d4f4e61ae2908f796f4e4e72faa933",
+      "assessed_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "a6062e"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 80,
+      "semantic_assessment": "interior_capture.capture_cameras21 uses InteriorReview-only guard and returns empty for other modes; preserve ten-camera authored selection and actual typed scene positions. Geometry/indexing/panic/error contracts and later file remain separate."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs",
+        "source_sha256": "bcaff9a888ddff154b19d741d428659d595446dbb78e29938811c169810b6738",
+        "source_object": "adler-continuation-20261030/objects/bcaff9a888ddff154b19d741d428659d595446dbb78e29938811c169810b6738",
+        "bytes": 13371,
+        "actual_EOF": 379,
+        "ranges": [
+          [
+            200,
+            265
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 66,
+        "prior_body_join": "No new freshness/reuse/population/unique credit requested; original authors and other lens views remain intact."
+      },
+      "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs",
+      "source_sha256": "bcaff9a888ddff154b19d741d428659d595446dbb78e29938811c169810b6738",
+      "assessed_ranges": [
+        [
+          200,
+          265
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "a6062e"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 66,
+      "semantic_assessment": "interior_furniture_capture.is_profile219 recognizes catalogue OR furnished-room; setup_rooms227 guards only furnished-room then prepares geometry/furniture expectations and room cameras. Preserve distinction, index-to-semantic room selection and native proof side effects. Partial tail after265 remains unassessed."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/catalog.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/catalog.rs",
+        "source_sha256": "e02b7ac3ba7478629a9233a5790f4c54e8f1d2f20d859926fd2c804a87759cd1",
+        "source_object": "adler-continuation-20261030/objects/e02b7ac3ba7478629a9233a5790f4c54e8f1d2f20d859926fd2c804a87759cd1",
+        "bytes": 8228,
+        "actual_EOF": 201,
+        "ranges": [
+          [
+            1,
+            35
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 35,
+        "prior_body_join": "No new freshness/reuse/population/unique credit requested; original authors and other lens views remain intact."
+      },
+      "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/catalog.rs",
+      "source_sha256": "e02b7ac3ba7478629a9233a5790f4c54e8f1d2f20d859926fd2c804a87759cd1",
+      "assessed_ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "a6062e"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 35,
+      "semantic_assessment": "interior_furniture_capture.catalog.setup_catalog9 guards catalogue only; change identity parameter/guard, preserving empty-layout admission, exhibition resource and concrete catalogue construction. Remaining geometry/variant placement tail is not closed."
+    },
+    {
+      "source": {
+        "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/manifest.rs",
+        "revision": "33714256b6313ce86fdfbb534c54d92d024d7726",
+        "git_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/manifest.rs",
+        "source_sha256": "d5ced13275995ed15eb02c87b8889992a0e5a2070e752a05c3bed45505651f92",
+        "source_object": "adler-continuation-20261030/objects/d5ced13275995ed15eb02c87b8889992a0e5a2070e752a05c3bed45505651f92",
+        "bytes": 36023,
+        "actual_EOF": 941,
+        "ranges": [
+          [
+            215,
+            430
+          ]
+        ],
+        "fresh_personal_body_reads_registered": [],
+        "fresh_personal_lines_registered": 0,
+        "uncredited_assessment_lines_registered": 216,
+        "prior_body_join": "No new freshness/reuse/population/unique credit requested; original authors and other lens views remain intact."
+      },
+      "source_id": "current-337:crates/adventuresim-tactical-client/src/tactical_scene_viewer/manifest.rs",
+      "source_sha256": "d5ced13275995ed15eb02c87b8889992a0e5a2070e752a05c3bed45505651f92",
+      "assessed_ranges": [
+        [
+          215,
+          430
+        ]
+      ],
+      "author": "/root",
+      "lens": 12,
+      "output_chunks": [
+        "f92890"
+      ],
+      "untruncated_body_status": true,
+      "fresh_personal_body_reads": [],
+      "fresh_root_personal_lines": 0,
+      "uncredited_assessment_lines": 216,
+      "semantic_assessment": "SceneCaptureManifest.capture_profile String222 is consumed by PendingSceneCaptureManifest.finalize_after_screenshot267 and finalize_screenshot_validation280 BEFORE serialization. Retain existing CaptureProfile in manifest and finalizer. Replace comparisons for beech-leaf-motion307, animation-play354, tree-cold-traversal378 and semantic416 with variants, preserving fixture/name/view gates, sixteen-frame beech rule, eight boundary views, paired canopy floor5 and80percent, sixteen cold plates, detail/obstruction/readback applicability. Emit native profile slug only via enum serde/report adapter. Fixture/requested view names, metrics/optional observations and output lifecycle remain distinct."
+    }
+  ],
+  "fresh_root_personal_source_lines": 0,
+  "uncredited_total_source_lines": 1032,
+  "prior_body_join": "No new freshness/reuse/population/unique credit asserted; preserve exact historical authors and all other-lens views.",
+  "related_queue_contract": "L12-CLOSURE-CAPTURE-PROFILE-TEXT-STATE",
+  "observations": [
+    "capture_resolution14/23/28 derives renderer pixel extent from profile text: TerrainGrounding2240x1260, other modes1280x720. Replace these mode parameters/guards with the existing enum, preserve scale override1.0 and restoration after host scale change. Pixel counts/UVec2 are renderer quantities, not spatial lengths. Existing resolution tests read, not run.",
+    "furniture_readiness13..39 uses eight building modes plus FurnishedRoomReview/TerrainGrounding for production BuildingLodReview; FurnitureReview/interior catalogue/rooms require appropriate GPU/material readiness. Retain exact plugin inclusion, avoid double readiness installation, preserve Last observation ordering and valid optional resources. Raw timing/120s failure/count/native resource semantics are separate.",
+    "fixed_city_cameras Contract.load54 requires Some path only for TerrainGrounding; a supplied document is also accepted for other modes. Native Document has version/exterior/optional benchmark/playable-building fields and NO profile field. Type only the mode parameter; do not invent Document.profile or reject camera files for other modes. Preserve version2/exact7 exterior views/optional benchmark/document validation and nine-view authored catalog. Geometry/finite/nondegenerate/camera/source IO duties remain separate.",
+    "city_capture.capture_cameras23 has CityReview-only guard and returns empty for other valid modes. Retain typed guard without changing corridor/terrain/camera selection; ranges beyond80 unassessed in this packet.",
+    "furniture_capture.setup38 writes layout BEFORE its FurnitureReview guard44, including other modes. Change only mode identity, preserving this side effect/order and valid Ok(None) modes. Layout/geometry/missing-vendor errors and later function tail remain separate.",
+    "interior_capture.capture_cameras21 uses InteriorReview-only guard and returns empty for other modes; preserve ten-camera authored selection and actual typed scene positions. Geometry/indexing/panic/error contracts and later file remain separate.",
+    "interior_furniture_capture.is_profile219 recognizes catalogue OR furnished-room; setup_rooms227 guards only furnished-room then prepares geometry/furniture expectations and room cameras. Preserve distinction, index-to-semantic room selection and native proof side effects. Partial tail after265 remains unassessed.",
+    "interior_furniture_capture.catalog.setup_catalog9 guards catalogue only; change identity parameter/guard, preserving empty-layout admission, exhibition resource and concrete catalogue construction. Remaining geometry/variant placement tail is not closed.",
+    "SceneCaptureManifest.capture_profile String222 is consumed by PendingSceneCaptureManifest.finalize_after_screenshot267 and finalize_screenshot_validation280 BEFORE serialization. Retain existing CaptureProfile in manifest and finalizer. Replace comparisons for beech-leaf-motion307, animation-play354, tree-cold-traversal378 and semantic416 with variants, preserving fixture/name/view gates, sixteen-frame beech rule, eight boundary views, paired canopy floor5 and80percent, sixteen cold plates, detail/obstruction/readback applicability. Emit native profile slug only via enum serde/report adapter. Fixture/requested view names, metrics/optional observations and output lifecycle remain distinct."
+  ],
+  "remaining_evidence": [
+    "Formal exact first-predicate current/all20/non-alias disposition and owned clean repair acceptance. Other-lens/current delta/global aliases remain independently open."
+  ],
+  "new_body_population_unique_credit": 0,
+  "new_primary_findings": 0,
+  "source_adoption_performed": false,
+  "whole_contracts_closed": false,
+  "independent_agent_review": false,
+  "product_execution": false,
+  "tests_executed": false,
+  "implementation_gate_complete": false
+}

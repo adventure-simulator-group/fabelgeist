@@ -1,0 +1,48 @@
+{
+  "schema": "726-prospective-current-source-registration-v1",
+  "at": "2026-11-03T18:20:35.124584+00:00",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "purpose": "Qualify wasm preparation entry points and native error boundary.",
+  "rows": [
+    {
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_path": "crates/adventuresim-tactical-client/src/presentation/generation/wasm.rs",
+      "source_sha256": "0a41df378f9ee30c826e6902365d1400622895612dc9f55b337a3bbe0085880d",
+      "actual_EOF": 73,
+      "source_object": "adler-continuation-20261030/objects/0a41df378f9ee30c826e6902365d1400622895612dc9f55b337a3bbe0085880d",
+      "prospective_ranges": [
+        [
+          1,
+          73
+        ]
+      ]
+    },
+    {
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_path": "crates/adventuresim-tactical-client/src/presentation/generation/wasm_error.rs",
+      "source_sha256": "4ccc83fc48a4ceaffaaea93ec7387dc43ffc32996324f04e6dbd84852e4273a4",
+      "actual_EOF": 23,
+      "source_object": "adler-continuation-20261030/objects/4ccc83fc48a4ceaffaaea93ec7387dc43ffc32996324f04e6dbd84852e4273a4",
+      "prospective_ranges": [
+        [
+          1,
+          23
+        ]
+      ]
+    }
+  ]
+}

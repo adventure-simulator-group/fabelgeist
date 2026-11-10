@@ -1,0 +1,408 @@
+{
+  "lens": 13,
+  "namespace": "PL13-306",
+  "status": "Completed own ordered inventory trade amount/custody/native boundary contracts; root adoption pending",
+  "registration": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-306.json",
+    "sha256": "6f1cbe6a2a3d840721c37a9619f0b7486f0a14aadc47ea5d4e796b933d326438"
+  },
+  "registered_before_read_attestation": true,
+  "connected": [],
+  "proposed_findings": [],
+  "connected_contracts": [
+    {
+      "proposed_id": "PL13-306-UNCHECKED-INVENTORY-GRANT-RESULT-QUESTION",
+      "question": "add_to_party_inventory472..479 discards Result from canonical checked item/physical/food initialization. Actual callers store_battle_loot1532, currencycredit1760, deposit1651 and other scopes must supply a supported failure witness before claiming persistent partial grants; no arbitrary invalid catalog/NaN or missingparty incident.",
+      "owner": "Canonical checked inventory grant and actual source caller admission",
+      "source_read_pointer": "/rows/0",
+      "assessed_ranges": [
+        [
+          472,
+          561
+        ],
+        [
+          1438,
+          1557
+        ],
+        [
+          1560,
+          1695
+        ],
+        [
+          1753,
+          1762
+        ]
+      ],
+      "remaining_evidence": [
+        "Qualify actual producer/catalog/custody admitted failure conditions and current exact callable owner; reject suspicion if checked operations are proven infallible for these callers."
+      ],
+      "audit_closure_condition": "Trace actual valid failing caller state or record scoped rejection/conditional policy; no generic swallowederror finding without a supported source contract."
+    }
+  ],
+  "necessary_extensions": [],
+  "future_same_lens_reuse_proofs": [],
+  "original_delta_proposed": 1,
+  "proposed_next_original": 1226,
+  "authoritative_counts_changed": false,
+  "accepted_unique_count_change": 0,
+  "product_execution": false,
+  "current_reconciled": false,
+  "global_clearance": false,
+  "qualifications": [
+    "Seven immutable partial receipts pin actual prefix460/920/1380/1840/2300/2760/3005; final fresh tail3006..3250 only. Whole3250 personally assessed after prospective registration.",
+    "Old own source focus proof and legacy030 exact partial-complement/attestation remain separately attributed. No inherited read relabeling or current/foreign transfer.",
+    "Stable-row purchase failure has actual authored Simple soap/container witnesses under declared valid GeneralGoods storefront activation, no runtime transaction claimed.",
+    "Temporary stake settlement source matches exact Adler/L12 pr-working hash and functions; actual ordinary temporary-member admission/current remain conditional. Older physicalP16 CONT alias not assumed without cross-revision proof."
+  ],
+  "partial_checkpoints": [
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306-PARTIAL-001.json",
+      "sha256": "97ea6072b9bb4b055b305d7943aa6500d57481497b812fcc962d08785046b9f3"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306-PARTIAL-002.json",
+      "sha256": "4b07c818831ed526b40a75b84b9619ac3a5b9745c2fffd7d5f859023e0aba80e"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306-PARTIAL-003.json",
+      "sha256": "bda748de797137be0aefd40463d1dca0b7f242b1cc014feeea5019abfca90231"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306-PARTIAL-004.json",
+      "sha256": "e4caca6de7bfa07e3789524d385f72cddca9900749b3d858689b5bf8d24a0bf6"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306-PARTIAL-005.json",
+      "sha256": "36dee4d8a468cf057f140ffe8ab500b6c178a7e6a7424606c73e4768e397cdca"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306-PARTIAL-006.json",
+      "sha256": "60c066d06b8c885eafbd37e09aa5865fb9a53b2e3e7616b86a744adacfeb08b6"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-306-PARTIAL-007.json",
+      "sha256": "89841ab4073ed1a714515313013d1ff8f889cc2b78615cf34c6a6b7124fee5ba"
+    }
+  ],
+  "partial_read_union": [
+    {
+      "original": 1225,
+      "cumulative_prefixes": [
+        460,
+        920,
+        1380,
+        1840,
+        2300,
+        2760,
+        3005
+      ],
+      "fresh_completion_ranges": [
+        [
+          3006,
+          3250
+        ]
+      ],
+      "cumulative_assessed_ranges": [
+        [
+          1,
+          3250
+        ]
+      ],
+      "reread_claimed": false
+    }
+  ],
+  "recovery_checkpoint": null,
+  "current_delta_updates": [],
+  "qualified_same_lens_reuse": [],
+  "rows": [
+    {
+      "original": 1225,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+      "object_path": "target/726-audit-adler-20261027/parallel-l13-20261029/objects/013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+      "actual_eof": 3250,
+      "prospective_ranges": [
+        [
+          1,
+          3250
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "purpose": "Own ordered inventory trade amount/food/physical-object custody and native payment boundaries; no runtime",
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          3250
+        ]
+      ],
+      "untruncated_body_outputs": true
+    }
+  ],
+  "numeric_role_inventory": [
+    "Direct transfer positive quantityu32 and sameparty/full64identity admission precedes mutation. Physical objects and measured/medication/durable rows requireexact1 rather than scalarstackmerge; rowID preserved on wholeobject move. No fabricated zero quantity semantics.",
+    "Ordinary stackdestination checked_add overflow creates separate row rather than losing/cappingquantity; original subtraction after sourcequantity>=request guard. Whole Food lot versus fractional measured owner have explicit separate contracts.",
+    "Personal/party subtree valuation uses checked u64 sum/multiplication; finite nonnegative food value floor\u2192u64 is actual currency conversion, supported upstream lot bounds needed before precision/saturation finding. Existing source tests only, no execution/bodycredit to includes.",
+    "add_to_party_inventory_checked481..561 actual quantity0 no-op, stable measured/durable/medication per-row1, own Food lot create minute authority; ordinary stack checked_add overflow creates separate row. Wrapper472..479 discards Result, so future actual failing catalog/food/physical initialization caller admission needs owner trace before classifying partial state.",
+    "Mission weighted candidate input u32\u2192u64 safe; deterministic sorted IDs and enum u8discriminant seed are actual sampling protocol. Weighted_index error mapsNone and missionFailed, source policy distinct from wrong native narrative terminal parser.",
+    "Mission capability pathu16\u2192usize checkedget, exactcapture subject/version tuple required andcustodymatching; no nonexistent-vector indexing or current-case proof granted by common narrative remedy.",
+    "Shared hostile resolution commit exact native mission/case/site/candidate/custody identities validated before public fact and receipt; captured custody version saturated increment has only explicit exhaustion edge until actual repeated-source bound, no cross-counter alias. Initial group write before fallible capture path propagatesErr; do not infer swallowed partial-commit behavior.",
+    "Bound immutable mission normalized power derives morale and reward difficulty rather than later live-group escalation. Maximum_gold difficulty*10 and combined drop saturatingadd require actual authored difficulty/drop bounds, no arbitrary MAX injection. Whole tactical state remains transient; durable strategic result/fact/loot receipts separate allowed outcomes.",
+    "Loot API emptyalignedarrays meansselectall available, explicit supported mode; nonempty rejects duplicateIDs/zeroquantity/excess. Native participant set nonempty before div/mod; checkedlineandaggregateu64 objectivevalue, fixedperrecipientshare+reservemod conserves actual total.",
+    "Deposit physical objects atomicrow1 preserve subtree/custody andowner credit; measured nonobject rows move exactfraction+foodlot before source deletion. Medicationindividualcourse and repairablecapability durable owner applyknownpolicy, no obsoleteAPI requirement.",
+    "Currency transfer min(remaining,u64(stack.quantity)) guarantees following u32 cast exact; perstack subtraction bounded, nativeu64 total supports multipleu32stacks.0amount legitimate no-op, no forcednonzero constructor.",
+    "Withdrawal costu64 vsstakeValue guards top-up difference, saturating_sub implements floor0 after exact top-up; no lost stake from unchecked underflow. Physical subtree moves whole after typedcustodyadmission. Measured fraction/foodlot move together with actualrowIDs.",
+    "Liquidation checked aggregate thenu32try before inventorydestruction explicitly enforces native currency-credit limit; error is declared amount admission, not backward compatibility defect. Discard checkedunique/alignedpositive quantities and unequippedowner before exactsubtree deletion; existing included tests no additional coverage.",
+    "Storefront/partyoffer primitive Vec/u32/bool atnative reducer ABI parsed into canonical checked StorefrontTradeRequest/partyoffer and MerchantProviderId. Extraction happens actual native storage/operation bridge; unsupported rawinvalid vectors rejected rather than preserved.",
+    "Personal storefront withparty stake validates currentunitquote vsmaxunit, checked quantityproduct, canonical paymentplan and actualpersonal/party balances before exactstake subtraction. Later sharednativefinalizer propagatesErr, no claimed swallowedpartialcommit.",
+    "Native stock/service/provider validatedactual typedMerchantProviderId and exactdefaultpresence+PairwiseSoft temporal law; metadata owner IDs preservefull64. MissingclockZERO fallback cannotwitnessordinarymissingclock withoutactualproducer violating previouslyqualified fullcomponent validation.",
+    "Merchantprice missingbasevalue explicitly unwrap_or1 forquote; doesnotbyitself establish that optional/unpricedcataloguemode isinvalid. Existing apple0\u2192None policy must retain actualcatalogue meaning and canonicalconsumercontext, no backward compatibility defect or new alias merelysamevalueowner.",
+    "New actual native personal buy2934..2947 coalesces existing !durable&&!food rows without measured/stable-object exclusion. Own255 says soap/material IDs are measured, but actual authored storefront eligibility and exact current/canonical identity must be traced before retaining a finding. No repeatedpurchase probe executed.",
+    "Measuredsale intrinsic amount.scale_floor(baseu32) bounded<=u32MAX; explicit subcoin0 bypasses wholeitem minimummerchantprice. Whole Food lots finite/complete thenu32try beforequote. Sale identity row-specific, no item-ID netting; duplicate IDs reject.",
+    "Cost/proceeds subtraction conditional preventsunderflow, u64 aggregate checked and nativeu32receiptcredit admission explicit. Personal/party stake payment scopes remain supportedoptional TradeScope modes.",
+    "Complete tail3006..3250 party leave/disband source: full64 actor/member IDs, zero stake andcurrency-only pooled assets/reserve relation checked; aggregatevaluesu64. Temporary member helper only transfers coins; following positive-stake guard remains unchanged. Source alone does not establish ordinary temporary-companion admission.",
+    "Disband leader role/settlement/currentcase/contractReadyToReport andfireplace guards are explicit supported state restrictions. No preservation invalid behavior or obsolete API. Source protected; no repair/runtime operation performed."
+  ],
+  "contract_updates": [
+    {
+      "contract_id_or_proposed_new_id": "PL13-306-PERSONAL-STOREFRONT-STABLE-ROW-MERGE",
+      "lens": 13,
+      "canonical_owner_or_explicit_unresolved_owner_question": "Canonical stable inventory object/fraction row admission in item::requires_stable_object and add_inventory_item_checked; native storefront purchase application in strategic::finalize_storefront_trade_impl.",
+      "first_failed_contract_or_unresolved_question": "After an ordinary allowed personal purchase creates quantity-one measured/physical rows, a repeated same-item purchase enters !durable&&!food optimization2934..2947 and increases existing row.quantity without creating another stable object/fraction. This violates actual measured-row quantity-one contract13..14 and object atomicity339..341.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "original": 1225,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+          "actual_EOF": 3250,
+          "assessed_ranges": [
+            [
+              2916,
+              2955
+            ]
+          ],
+          "read_pointer": "/rows/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-306.json",
+            "sha256": "6f1cbe6a2a3d840721c37a9619f0b7486f0a14aadc47ea5d4e796b933d326438"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Own exact full frozen Lens13 body, prospective registry and immutable partial chronology; no current/foreign transfer"
+        },
+        {
+          "original": null,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/item.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+          "actual_EOF": 957,
+          "assessed_ranges": [
+            [
+              145,
+              220
+            ],
+            [
+              259,
+              305
+            ],
+            [
+              320,
+              411
+            ]
+          ],
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-160.json",
+            "sha256": "dc08d076595799741c3eae9d6c310f90755571b515f885b0b907bb6c2375d8ea"
+          },
+          "read_pointer": "/connected/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-160.json",
+            "sha256": "d03c16deb7c8eea4cf3313180accf2a6a9c6a6ca67a4b66d3a6b7742db3a0d8b"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Exact prior own qualified full body; actual focus independently retained, zero additional role credit"
+        },
+        {
+          "original": null,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+          "actual_EOF": 241,
+          "assessed_ranges": [
+            [
+              1,
+              78
+            ]
+          ],
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-255.json",
+            "sha256": "b6d7ac7a410866d727da317c32ae9f8d0ca023585c528855c8b23120532c329c"
+          },
+          "read_pointer": "/rows/2",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-255.json",
+            "sha256": "ea873e6e7ee2ed8ea125cae22720a7e0f43bd5c7ff526beb4bb2c82a0bc5eb52"
+          },
+          "registration_pointer": "/sources/2",
+          "read_attribution": "Exact prior own qualified full body; actual focus independently retained, zero additional role credit"
+        },
+        {
+          "original": null,
+          "source_id": "pr-working:crates/adventuresim-core/src/settlement_economy.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "5ebaaf60d766322d2dc8bbd0cf1a54b0c790793a11d1d3f7b98e139861a3c54e",
+          "actual_EOF": 552,
+          "assessed_ranges": [
+            [
+              210,
+              293
+            ]
+          ],
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-201.json",
+            "sha256": "17ec7c3cfaf7699f8175b0339f24b2a386f4e7b2cc92a7f85dd6e235d20521ac"
+          },
+          "read_pointer": "/rows/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-201.json",
+            "sha256": "24525045eba3c8573b5de8442427a51dfb5b1bf1327e92daf3fd5dbca8842784"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Exact prior own qualified full body; actual focus independently retained, zero additional role credit"
+        }
+      ],
+      "read_pointer": "/rows/0",
+      "status_proposed": "Retained source finding conditional on declared General service/GeneralGoods stock activation; current/canonical primary alias comparison pending",
+      "remaining_evidence": [
+        "Own current exact native purchase and stable/amount/container/stock/catalogue views and delta qualification",
+        "Global exact first-operation alias comparison; route-private readmission is explicitly distinct",
+        "Native transaction/repair validation later, not discovery proof"
+      ],
+      "dependencies": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/PROOF-PL13-306-OWN160-255-201-175-030-STABLE-ROW-001.json",
+          "sha256": "0938b30a3c66006100570adf4ef0bfcc8c5b3f60c8930e91fd410ab7e6474faf"
+        }
+      ],
+      "closure_condition": "Finalize canonical owner/alias and own current graph with exact activation conditions; source discovery may close with documented conditional finding without implementing or executing repairs.",
+      "later_repair_acceptance_requirements": [
+        "Two successive allowed personal soap purchases create two quantity-one stable rows with independent WHOLE fractions; a partly consumed existing row retains exactly its fraction.",
+        "Repeated empty/nonempty glass bottle or jar purchases create separate object identities, preserving existing container contents/attachments and custody.",
+        "Whole batch purchaseN yieldsN indivisible rows where the canonical owner requires them; supported ordinary fungible stacks may still coalesce with checked quantity arithmetic.",
+        "Disallowed items/services remain explicitly unavailable, and failed trade respects native transaction/value conservation. No backward compatibility requirement."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": "No exact existing primary established by parent metadata search. SEGOVB-L12-STOREFRONT-ROUTE-PRIVATE-READMISSION has different first operation/type-erasure owner, rejected as an alias."
+    },
+    {
+      "contract_id_or_proposed_new_id": "ADLER-L11-TEMPORARY-STAKE-SETTLEMENT",
+      "lens": 13,
+      "canonical_owner_or_explicit_unresolved_owner_question": "Atomic PartyStake entitlement settlement and shared currency transfer; canonical native settlement helper must retire its settled claim.",
+      "first_failed_contract_or_unresolved_question": "settle_temporary_member_stake3093..3109 transfers only coin through1799..1832, then remove_party_member3049..3057 rejects unchanged positive PartyStake. Conditional on admitted leader-dismissed temporary member with positive earned stake and sufficient pool coin.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "original": 1225,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+          "actual_EOF": 3250,
+          "assessed_ranges": [
+            [
+              3007,
+              3109
+            ]
+          ],
+          "read_pointer": "/rows/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-306.json",
+            "sha256": "6f1cbe6a2a3d840721c37a9619f0b7486f0a14aadc47ea5d4e796b933d326438"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Own exact full frozen Lens13 body, prospective registry and immutable partial chronology; no current/foreign transfer"
+        },
+        {
+          "original": 1225,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+          "actual_EOF": 3250,
+          "assessed_ranges": [
+            [
+              1799,
+              1832
+            ]
+          ],
+          "read_pointer": "/rows/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-306.json",
+            "sha256": "6f1cbe6a2a3d840721c37a9619f0b7486f0a14aadc47ea5d4e796b933d326438"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Own exact full frozen Lens13 body, prospective registry and immutable partial chronology; no current/foreign transfer"
+        },
+        {
+          "original": 1225,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+          "actual_EOF": 3250,
+          "assessed_ranges": [
+            [
+              563,
+              593
+            ]
+          ],
+          "read_pointer": "/rows/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-306.json",
+            "sha256": "6f1cbe6a2a3d840721c37a9619f0b7486f0a14aadc47ea5d4e796b933d326438"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Own exact full frozen Lens13 body, prospective registry and immutable partial chronology; no current/foreign transfer"
+        },
+        {
+          "original": 1225,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+          "actual_EOF": 3250,
+          "assessed_ranges": [
+            [
+              1531,
+              1555
+            ]
+          ],
+          "read_pointer": "/rows/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-306.json",
+            "sha256": "6f1cbe6a2a3d840721c37a9619f0b7486f0a14aadc47ea5d4e796b933d326438"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Own exact full frozen Lens13 body, prospective registry and immutable partial chronology; no current/foreign transfer"
+        }
+      ],
+      "read_pointer": "/rows/0",
+      "status_proposed": "Exact independent own-L13 existing-canonical corroboration; ordinary temporary admission/current remain conditional",
+      "remaining_evidence": [
+        "Actual ordinary temporary companion/member producer and authority to admit/dismiss, plus currency liquidity",
+        "Own current exact source graph",
+        "Older physicalP16 CONT-TEMP-STAKE-SETTLEMENT-GUARD cross-revision first-function comparison before aliasing that historical ID"
+      ],
+      "dependencies": [
+        "Canonical PartyStake/currency/reserve ownership and native removal/transaction authority"
+      ],
+      "closure_condition": "Resolve admitted temporary-member activation and current graph, then retain exact conditional finding/rejection; runtime not required for discovery.",
+      "later_repair_acceptance_requirements": [
+        "Successful sufficient-coin settlement consumes the exact earned stake once before dependent authorized member removal.",
+        "Insufficient liquidity gives declared failure with consistent stake/membership/currency; repeated calls cannot double-pay.",
+        "Zero stake and ordinary member leave rules remain coherent without obsolete API preservation."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": "Authoritative ADLER source_key exact013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010:3046-3056,3093-3109,1799-1832 and trace/failedpostcondition match actual own306. SEGOVB-L12-COND-TEMP-COMPANION-STAKE-SETTLEMENT exact same hash/functions/first failed claim also matches this facet; no L11/L12 body credit transferred. Older CONT physicalP16 hash85c8... remains separate pending comparison."
+    }
+  ],
+  "prior_same_lens_focus_proofs": [
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/PROOF-PL13-306-OWN160-255-201-175-030-STABLE-ROW-001.json",
+      "sha256": "0938b30a3c66006100570adf4ef0bfcc8c5b3f60c8930e91fd410ab7e6474faf"
+    }
+  ]
+}

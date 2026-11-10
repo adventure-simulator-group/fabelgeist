@@ -1,0 +1,34 @@
+{
+  "schema": "726-raw-output-native-source-objects-v1",
+  "qualification": "Exact archive members match printed registration-row output and archive checksum. The registration file itself and final authority are not recovered by these source bytes.",
+  "source_output_file": "recovered/source-registration-outputs/RECORDS-05.jsonl",
+  "source_output_ordinal": 205791,
+  "source_output_sha256": "2b7dd3c52ab9e61bf4fb266389b306b8b4765822dd5532ac0b38d732fdf681ee",
+  "archive_sha256": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+  "files": [
+    {
+      "sha256": "fc0c64b2ced501331ff9240cbe7868d7c03650c7ed4bf9d3b30ca7185f5579df",
+      "object": "fc0c64b2ced501331ff9240cbe7868d7c03650c7ed4bf9d3b30ca7185f5579df",
+      "bytes": 64320,
+      "output_row": 0,
+      "archive_member": "rawzip-0.5.2/src/archive.rs",
+      "actual_eof": 1797
+    },
+    {
+      "sha256": "e07bb8283b1e472869fd1f0550d3b7742ec7b4d8915948d69911db4a2fca5898",
+      "object": "e07bb8283b1e472869fd1f0550d3b7742ec7b4d8915948d69911db4a2fca5898",
+      "bytes": 5159,
+      "output_row": 1,
+      "archive_member": "rawzip-0.5.2/src/headers.rs",
+      "actual_eof": 188
+    },
+    {
+      "sha256": "1df835893444e8e330060674456e7cdb05db904ba08fb9e27e17e7a532e09971",
+      "object": "1df835893444e8e330060674456e7cdb05db904ba08fb9e27e17e7a532e09971",
+      "bytes": 341,
+      "output_row": 2,
+      "archive_member": "rawzip-0.5.2/src/utils.rs",
+      "actual_eof": 14
+    }
+  ]
+}

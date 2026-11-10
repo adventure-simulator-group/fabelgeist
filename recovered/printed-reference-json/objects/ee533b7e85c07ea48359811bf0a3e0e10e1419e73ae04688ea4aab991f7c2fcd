@@ -1,0 +1,37 @@
+{
+  "schema": "726-scoped-source-disposition-v1",
+  "at": "2026-11-04T06:10:49.966110+00:00",
+  "contract_id": "SEGOVB-L12-TERRAIN-STAGE-LOOKUP-PANIC",
+  "selected_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "remote_main_at_check": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "owner": "Terrain stage role collection",
+  "source_discovery_scope": "Current stage construction and lookup in comparison example. Other callers and aliases remain open.",
+  "disposition": "TerrainStageRole::source searches a four-element StageSource array and calls expect if its role is missing. The current construction explicitly supplies each of the four variants once; array length alone does not enforce that invariant. crates/AGENTS.md prohibits unwrap or expect outside tests. No missing-stage runtime was demonstrated.",
+  "explicit_alias_comparison": [
+    {
+      "entry_index": 260,
+      "contract_id": "SEGOVB-L12-APRON-FLOOR-INTERVAL-ELEVATION-ADMISSION"
+    }
+  ],
+  "alias_result": "Terrain stage role completeness and apron finite arithmetic are distinct contracts; global aliases remain open.",
+  "evidence": [
+    {
+      "path": "adler-continuation-20261030/QUALIFICATION-TERRAIN-STAGE-L12-1473.json",
+      "sha256": "6b5c65af1993e6e239d5353111a36ae6c694ad3a3185a8597ccc693a9d9c316b"
+    },
+    {
+      "path": "adler-continuation-20261030/REGISTRATION-TERRAIN-STAGE-L12-1473.json",
+      "sha256": "0dfa5627966b497068883f4bd16491cb742b04fe3b510c7508f1ee0da82f7829"
+    }
+  ],
+  "owned_repair": {
+    "path": "adler-continuation-20261030/REPAIR-PLAN-TERRAIN-STAGE-1473.json",
+    "sha256": "7c475e2f855094081e3caf96de2209b30e40e06e52d5e73372d5b66038fd4e07"
+  },
+  "remaining_after_discovery": [
+    "Qualify all source lookup callers, report output and role collection ownership.",
+    "Resolve other lenses, aliases and behavioral acceptance after the audit gate."
+  ],
+  "global_alias_inventory_complete": false,
+  "product_execution": false
+}

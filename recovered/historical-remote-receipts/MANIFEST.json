@@ -1,0 +1,17 @@
+{
+  "schema": "726-historical-remote-receipts-v1",
+  "qualification": "The byte-identical receipt was retrieved from a locally available remote-tracking commit and matches the SHA-256 explicitly asserted in the recorded historical copy command. This does not recover the later checkpoint authority or establish new audit credit.",
+  "files": [
+    {
+      "object": "b9cff73df660fb081c0937df71b83bfd17f32c77bbc479279bb304b9cd5fa1ac",
+      "sha256": "b9cff73df660fb081c0937df71b83bfd17f32c77bbc479279bb304b9cd5fa1ac",
+      "bytes": 6292,
+      "historical_destination": "adler-continuation-20261030/RECEIPT-ERRANTRY-L4-3817.json",
+      "source_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "source_path": "handoff/774/adler-original/audit/continuation/root/initial04-invariant-operations/contract-groups-125.json",
+      "historical_copy_command_ordinal": 419017,
+      "historical_command_sha256": "115a9c85c7a3529b6446e6c0c9285ba5e612edf608b45cb13701240b59d24ac6",
+      "recorded_scope": "Lens 4 source-role comparison: errantry lines 1-445 and ordered sigils ranges 1-12 and 56-81; later related obligations remain separate."
+    }
+  ]
+}

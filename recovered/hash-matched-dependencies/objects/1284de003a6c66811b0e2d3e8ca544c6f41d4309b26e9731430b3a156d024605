@@ -1,0 +1,7 @@
+#[test]
+fn fixture_loader_accepts_zero_weight_row() {
+    let bytes = include_bytes!("../zero_body.glb");
+    let (body, _) = glb_fixture_probe::fixture::load(bytes).unwrap();
+    assert_eq!(body.joint_weights[0], [0.0; 8]);
+    assert!(body.joint_indices.weighted_vertex(0, body.joint_weights[0]).strongest_four().weights[0].is_nan());
+}

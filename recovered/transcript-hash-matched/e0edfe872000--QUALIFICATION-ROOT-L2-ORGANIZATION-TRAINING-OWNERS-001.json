@@ -1,0 +1,96 @@
+{
+  "schema": "726-root-l2-curriculum-target-existing-owner-disposition-v1",
+  "at": "2026-11-02T18:03:41.734384+00:00",
+  "author": "/root",
+  "lens": 2,
+  "read": {
+    "path": "adler-continuation-20261030/READ-ROOT-L2-ORGANIZATION-TRAINING-031-033.json",
+    "sha256": "ac3846333621daf809b4b5029f4bc5199685b8ae7d26bbd986e45081d330e47b"
+  },
+  "canonical_contract_id": "L2-ORGANIZATION-TRAINING-TARGET-OWNER-QUESTION",
+  "canonical_revisit_identity": {
+    "queue": {
+      "path": "workflow-20261030/CLOSURE-QUEUE-820.json",
+      "sha256": "3278a10621e58fdc5514e8f9812a41da6b4d2944089230e2869bb032ced46666"
+    },
+    "entry_pointer": "/entries/2493",
+    "first_contract": "TrainingTarget371..388 retains raw fixed skill/religion/bestiary/terrain while WrittenLanguage is already canonical. General faith display has broader values than official training religion and cannot establish interchangeable owner.",
+    "operation": "Authored curriculum target -> TrainingTarget retained payload -> actual typed skill/subskill progress destination.",
+    "same_definition_sha256_across_frozen_and_selected_current": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+    "definition_ranges": [
+      [
+        1,
+        498
+      ]
+    ],
+    "matching_current_definition_reuse_row": 0,
+    "identity_reason": "Same existing canonical owner question and unchanged TrainingTarget declaration, now connected to the actual dispatch of exactly those payload variants. This revisits the existing ID rather than creating an alias by common remedy or a new finding.",
+    "canonical_alias_application": false,
+    "new_accepted_unique_count": 0
+  },
+  "owner_comparisons": [
+    {
+      "role": "retained-target-identity",
+      "decision": "TrainingTarget already owns distinct FixedSkill/Religion/Bestiary/Terrain/EquippedWeaponSkills/Written roles. Fixed skill, official religion and bestiary payloads are raw strings before the actual scheduler repeatedly converts/matches them; Written already retains WrittenLanguage. Reuse and strengthen this existing enum instead of a parallel training target hierarchy or strings interpreted by every consumer."
+    },
+    {
+      "role": "fixed-skill",
+      "decision": "The runtime fixed_skill_target explicitly maps30 IDs to existing Skill variants and exact corresponding SkillHours fields. Religion and Bestiary are excluded because they need a selected subskill payload. Reuse canonical Skill with the actual ordinary-target subset admitted in the aggregate/constructor; broad Skill alone would admit a meta skill without its required category. Do not duplicate all ordinary Skill variants as an independent vocabulary merely to change representation."
+    },
+    {
+      "role": "official-religion",
+      "decision": "Runtime uses the already-existing OfficialReligion::from_id and ReligionHours::direct_mut. Admit and retain that actual official training identity in TrainingTarget::Religion; the wider faith/display identity is a different role. Preserve the catalog's seven-value authored admission rather than replacing it with unrestricted display text or another religion enum."
+    },
+    {
+      "role": "bestiary",
+      "decision": "Runtime uses existing BestiaryCategory::from_id and BestiaryHours::direct_mut. The selected current existing category/hour owners retain the canonical13-category contract already qualified in the same lens. Carry that owner through TrainingTarget::Bestiary and match directly; no duplicated category vocabulary or conversion back to strings inside progress logic."
+    },
+    {
+      "role": "terrain-skill-subset",
+      "decision": "Actual terrain_target constructs terrain_{name} then reuses fixed_skill_target, whose six terrain Skill variants map to six exact fields. Organization validator admits only four terrain names through this variant; ordinary fixed_skill admission separately includes canonical terrain IDs. Preserve that distinction as explicit supported authored admission. Existing Skill is the proved shared numerical/training identity; geographical TerrainFeature/RouteTerrainClass or an investigation terrain type is not an exact fit solely by name. No missing-terrain gameplay defect is established by the four-versus-six vocabulary difference."
+    },
+    {
+      "role": "written-and-result-units",
+      "decision": "WrittenLanguage already remains typed and is pushed with the weighted real-hour award. Direct training accumulates excess_effective_hours instead. The returned (f32, Vec<(WrittenLanguage,f32)>) combines different roles/units and should become a named result/award record with appropriate existing hour leaves or shared owner, rather than a generic tuple or blanket reuse of TrainingGain/BookGain with different meanings. Preserve zero awards/excess and existing normalization semantics."
+    },
+    {
+      "role": "equipped-weapon-weights",
+      "decision": "apply_curriculum_training explicitly reads activities.combat.weapons.weights(), the nine-element WeaponSkillDistribution leaf, then normalizes and zips the same nine canonical weapon skill destinations. CombatTrainingProfile::weights is a separate thirteen-element view including dodge/block/balance/will and is not called by this branch. A thirteen-versus-nine denominator/drop suspicion is rejected in this exact consumer. Preserve the existing distribution owner and all nine weights; no new weapon-only wrapper per caller."
+    },
+    {
+      "role": "native-authority-boundary",
+      "decision": "Previously qualified current build compile_organizations validates documents then embeds the retained raw JSON; organization catalog deserializes existing definitions and TrainingTarget. The repeated runtime Option parsers silently skip unmatched strings in the inspected branches, but the ordinary validated producer does not establish an invalid target witness. Move admission to the true authored/native decoding boundary and carry checked target identities; do not manufacture a runtime missing-target failure after construction proves a valid variant."
+    }
+  ],
+  "required_repair": [
+    "Strengthen TrainingTarget payloads using the actual Skill/OfficialReligion/BestiaryCategory/WrittenLanguage owners at the lowest shared portable location. Preserve ordinary versus meta skill requirements and authored terrain subset; no compatibility aliases, alternative legacy string paths or repeated runtime reparsing.",
+    "Match admitted variants directly to the corresponding typed progress destination, preserving skill-dependent aptitudes, excess-effective-hour semantics and the separate written real-hour awards. Replace the semantic result/award tuples with named records without conflating elapsed time, accepted/excess effective hours or report-only measurements.",
+    "Keep authored weight/finite stored-value admission and profile construction as their own numeric producer contracts. Preserve from_equipped_hands maximum-per-weapon weighting, shield/default block semantics, separate combat13 view and nine-weapon curriculum normalization; no arithmetic or gameplay policy tuning follows from this type repair."
+  ],
+  "conditional_and_rejected_cases": [
+    "No ordinary invalid embedded training ID or skipped valid authored target is established; raw public constructors remain an admission/retention design gap, not a proved current incident.",
+    "Four authored terrain targets versus six terrain skills is an explicit scope/policy distinction. Preserve it pending a separate product decision; do not claim two supported targets are accidentally absent.",
+    "Equipped-weapon curriculum uses nine weapon weights, not the separate thirteen-element combat profile. No denominator mismatch is established by the common weights method name."
+  ],
+  "later_acceptance": [
+    "After the full audit gate, exercise actual authored organization decoding and native training application for ordinary skill, official religion, all admitted bestiary/terrain categories, equipped weapons and written language; check the exact target field and result units.",
+    "Reject unknown/native malformed targets at admission, preserve legitimate zero work/weights, and keep equipped zero-total behavior and written award handling. Use applicable existing observable checks; no object unit tests requested or added and no tests executed."
+  ],
+  "remaining_evidence": [
+    "Canonical queue adoption of this exact L2 source revisit remains required; L13 and other views remain independent with their own producer/body/error obligations.",
+    "Organization target label/preview and alternative dynamic curriculum producers reached elsewhere must retain the same final owner/authority where they are in the repair scope. This bounded scheduler packet does not give those bodies coverage.",
+    "Numeric work-hour/weight/profile admission, native written-award consumer and broader current/all20/global alias reconciliation remain separate. No all-family or whole1363-line schedule source closure."
+  ],
+  "scoped_training_target_owner_question_answered": true,
+  "source_disposition": "Existing target owner retention repair, with explicit authored subset policies and no ordinary invalid-data incident claim.",
+  "canonical_source_case_closed": false,
+  "canonical_alias_applied": false,
+  "new_primary_or_unique_credit": 0,
+  "current_delta_cells_closed": 0,
+  "source_adoption_performed": false,
+  "product_edits": false,
+  "product_execution": false,
+  "tests_executed": false,
+  "independent_agent_review": false,
+  "implementation_gate_complete": false
+}

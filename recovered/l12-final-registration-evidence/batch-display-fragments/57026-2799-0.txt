@@ -1,0 +1,129 @@
+7: const MAX_PROPERTY_EXTENT_METRES: f32 = 100.0;
+8: const MAX_PROPERTY_ACCESS_SEGMENTS: usize = 16;
+9: const MAX_PROPERTY_WALL_SEGMENTS: usize = 16;
+10: const MAX_ACCESS_HALF_WIDTH_METRES: f32 = 2.0;
+11: 
+12: /// Immutable enclosure anchored at its accepted gate landing elevation.
+13: /// Horizontal coordinates remain in the scene's shared settlement frame.
+14: #[derive(Clone, Debug, PartialEq, Component, Serialize, Deserialize)]
+15: #[component(immutable)]
+16: #[serde(try_from = "SceneBoundaryWire")]
+17: pub struct SceneBoundary {
+18:     property_id: CityPropertyId,
+19:     front_building_id: crate::scene_input::SceneBuildingId,
+20:     boundary: CityBoundary,
+21:     fixed_support: crate::city_layout::grounding::BoundarySupportMesh,
+22: }
+23: 
+24: #[derive(Clone, Debug, Serialize, Deserialize)]
+25: #[serde(try_from = "GeneratedBoundaryWire")]
+26: pub struct GeneratedBoundary {
+27:     scene: SceneBoundary,
+28:     elevation_metres: crate::city_layout::grounding::SupportElevation,
+29: }
+30: 
+31: #[derive(Deserialize)]
+32: #[serde(deny_unknown_fields)]
+33: struct SceneBoundaryWire {
+34:     property_id: CityPropertyId,
+35:     front_building_id: crate::scene_input::SceneBuildingId,
+36:     boundary: CityBoundary,
+37:     fixed_support: crate::city_layout::grounding::BoundarySupportMesh,
+38: }
+39: impl TryFrom<SceneBoundaryWire> for SceneBoundary {
+40:     type Error = crate::city_layout::grounding::enclosure::BoundaryAdmissionError;
+41:     fn try_from(wire: SceneBoundaryWire) -> Result<Self, Self::Error> {
+42:         wire.fixed_support.binding().validate_scene(
+43:             wire.property_id,
+44:             wire.front_building_id,
+45:             &wire.boundary,
+46:         )?;
+47:         Ok(Self {
+48:             property_id: wire.property_id,
+49:             front_building_id: wire.front_building_id,
+50:             boundary: wire.boundary,
+51:             fixed_support: wire.fixed_support,
+52:         })
+53:     }
+54: }
+55: impl SceneBoundary {
+56:     pub fn property_id(&self) -> CityPropertyId {
+57:         self.property_id
+58:     }
+59:     pub fn front_building_id(&self) -> crate::scene_input::SceneBuildingId {
+60:         self.front_building_id
+61:     }
+62:     pub fn boundary(&self) -> &CityBoundary {
+63:         &self.boundary
+64:     }
+65:     pub fn fixed_support(&self) -> &crate::city_layout::grounding::BoundarySupportMesh {
+66:         &self.fixed_support
+67:     }
+68: }
+69: #[derive(Deserialize)]
+70: struct GeneratedBoundaryWire {
+71:     scene: SceneBoundary,
+72:     elevation_metres: crate::city_layout::grounding::SupportElevation,
+73: }
+74: impl TryFrom<GeneratedBoundaryWire> for GeneratedBoundary {
+75:     type Error = crate::city_layout::grounding::enclosure::BoundaryAdmissionError;
+76:     fn try_from(wire: GeneratedBoundaryWire) -> Result<Self, Self::Error> {
+77:         let expected = wire.scene.fixed_support.binding().gate();
+78:         if wire.elevation_metres != expected {
+79:             return Err(Self::Error::Datum {
+80:                 property: wire.scene.property_id,
+81:                 expected,
+82:                 actual: wire.elevation_metres,
+83:             });
+84:         }
+85:         Ok(Self {
+86:             scene: wire.scene,
+87:             elevation_metres: wire.elevation_metres,
+88:         })
+89:     }
+90: }
+91: impl GeneratedBoundary {
+92:     pub fn scene(&self) -> &SceneBoundary {
+93:         &self.scene
+94:     }
+95:     pub fn elevation_metres(&self) -> crate::city_layout::grounding::SupportElevation {
+96:         self.elevation_metres
+97:     }
+98:     pub fn into_scene(self) -> SceneBoundary {
+99:         self.scene
+100:     }
+218: impl GeneratedBoundary {
+219:     /// Project the complete enclosure atomically from its exact accepted owner.
+220:     /// No member floor, neighbouring support or sampled-terrain fallback exists.
+221:     pub fn project(
+222:         compound: &CityCompound,
+223:         terrain: &SceneTerrain,
+224:     ) -> Result<Self, SceneInputError> {
+225:         use crate::city_layout::grounding::enclosure::{
+226:             BoundarySupportConstraint, BoundarySupportElement,
+227:         };
+228:         use crate::city_layout::grounding::{BoundarySupportError, BoundarySupportMesh};
+229:         let foundation = terrain.property_foundation(compound.id).ok_or_else(|| {
+230:             BoundarySupportError::new(
+231:                 compound,
+232:                 BoundarySupportElement::Owner,
+233:                 BoundarySupportConstraint::OwnerBinding,
+234:                 compound.plot.centre_metres(),
+235:                 1.0,
+236:                 0.0,
+237:             )
+238:         })?;
+239:         let policy = crate::city_layout::CompoundGradingPolicy::bounded_settlement();
+240:         let projection =
+241:             BoundarySupportMesh::project(compound, foundation, policy.limits, policy.embedment)?;
+242:         Ok(Self {
+243:             scene: SceneBoundary {
+244:                 property_id: compound.id,
+245:                 front_building_id: compound.front_building_id,
+246:                 boundary: compound.boundary.clone(),
+247:                 fixed_support: projection.mesh,
+248:             },
+249:             elevation_metres: projection.gate_elevation,
+250:         })
+251:     }
+252: }

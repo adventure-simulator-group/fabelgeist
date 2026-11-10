@@ -1,0 +1,446 @@
+{
+  "lens": 13,
+  "status": "Immutable exact source validation109..111 no authoritative mutation",
+  "frozen_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "frozen_is_not_current_main": true,
+  "batches": [
+    {
+      "batch": 109,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-109.json",
+        "sha256": "d21b39ccd56ca3f95fab7a8760b5bedf38072a093455156b5fd2d1b918c17de9"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-109.json",
+        "sha256": "55ad64de134396f7137ef09b72264b96f81206b268af1b88fae3b1167c78c9b5"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-109-PROPOSAL.json",
+        "sha256": "5bd2480390e4f829688cbee69c76fe02691085ff10532ea2d62650cfc920a1cb"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-108-PROPOSAL.json",
+        "sha256": "59765b5fec36c9250fcce894965e73230ada12c7767de2d30ff4e15cd0dd6e40"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-109.json",
+          "sha256": "f011d502e89175249534daecefadfd29dccd18a95a88aed155fe0d1266a63c22"
+        }
+      ],
+      "proposed_next_original": 804
+    },
+    {
+      "batch": 110,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-110.json",
+        "sha256": "d86de635a87a6577f3f063b556099f1b11bf853ddb5d3114f271342bcacf6d35"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-110.json",
+        "sha256": "df7733d110a314289e6ff3dc6c123bc599bebe7e99910513a5522c9d4eacc5a2"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-110-PROPOSAL.json",
+        "sha256": "c95911126b124dd37d6d4b567f503601d79d90f5e13537bf7a44c41c925114b6"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-109-PROPOSAL.json",
+        "sha256": "5bd2480390e4f829688cbee69c76fe02691085ff10532ea2d62650cfc920a1cb"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-110.json",
+          "sha256": "8a1da71b37a803785e344d2fbedd9ed245f0ca1d41ec0cad63e089a77db744b7"
+        }
+      ],
+      "proposed_next_original": 807
+    },
+    {
+      "batch": 111,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-111.json",
+        "sha256": "5580ce0d1ae0b75b7f927abf39f549b6e0ea6ac3e02757a435a478258505573a"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-111.json",
+        "sha256": "690005fccb5e1eb49eda241d09709e413b8beee0b9b6843c4b42e1df8008d453"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-111-PROPOSAL.json",
+        "sha256": "2e95588fc931933efbbf2c108bc4a6de5aa561ae85f5c3a5859cc8cfbe67a947"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-110-PROPOSAL.json",
+        "sha256": "c95911126b124dd37d6d4b567f503601d79d90f5e13537bf7a44c41c925114b6"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-111-CONNECTED.json",
+          "sha256": "f2679596d339659542362be05433a5b75945447042f41ffe531e9214f2b12c99"
+        }
+      ],
+      "proposed_next_original": 807
+    }
+  ],
+  "source_records": [
+    {
+      "original": 801,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/place/mod.rs",
+      "sha256": "4197c4d14aeac409495f9d91e21e2e69439a4a62bd9991804a5b8fe59ebaad8d",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 365,
+      "assessed_ranges": [
+        [
+          1,
+          365
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-109.json",
+        "sha256": "d21b39ccd56ca3f95fab7a8760b5bedf38072a093455156b5fd2d1b918c17de9"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-109.json",
+        "sha256": "f011d502e89175249534daecefadfd29dccd18a95a88aed155fe0d1266a63c22"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration persisted before all credited untruncated body displays; connected111 original2597/2844 receive zero early role count."
+    },
+    {
+      "original": 802,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/place/wgsl.rs",
+      "sha256": "21850bcf4f22d8cd055230bb6ac0c8b93f722a90a278d51568acb513894f88c3",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 274,
+      "assessed_ranges": [
+        [
+          1,
+          274
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-109.json",
+        "sha256": "d21b39ccd56ca3f95fab7a8760b5bedf38072a093455156b5fd2d1b918c17de9"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-109.json",
+        "sha256": "f011d502e89175249534daecefadfd29dccd18a95a88aed155fe0d1266a63c22"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration persisted before all credited untruncated body displays; connected111 original2597/2844 receive zero early role count."
+    },
+    {
+      "original": 803,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/strips.rs",
+      "sha256": "018591fdd7fdc9288f16a0ed5ed2f2ef6e3649448afa564b58358a3987144bba",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 511,
+      "assessed_ranges": [
+        [
+          1,
+          511
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-109.json",
+        "sha256": "d21b39ccd56ca3f95fab7a8760b5bedf38072a093455156b5fd2d1b918c17de9"
+      },
+      "read_pointer": "/rows/2",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-109.json",
+        "sha256": "f011d502e89175249534daecefadfd29dccd18a95a88aed155fe0d1266a63c22"
+      },
+      "registration_pointer": "/sources/2",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration persisted before all credited untruncated body displays; connected111 original2597/2844 receive zero early role count."
+    },
+    {
+      "original": 804,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/groom.rs",
+      "sha256": "6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 233,
+      "assessed_ranges": [
+        [
+          1,
+          233
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-110.json",
+        "sha256": "d86de635a87a6577f3f063b556099f1b11bf853ddb5d3114f271342bcacf6d35"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-110.json",
+        "sha256": "8a1da71b37a803785e344d2fbedd9ed245f0ca1d41ec0cad63e089a77db744b7"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration persisted before all credited untruncated body displays; connected111 original2597/2844 receive zero early role count."
+    },
+    {
+      "original": 805,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/placement.rs",
+      "sha256": "95f08e95fd0815ac957cb0578ef7291036b5d4a9b047e38da1a9f16bdebd4a7f",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 266,
+      "assessed_ranges": [
+        [
+          1,
+          266
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-110.json",
+        "sha256": "d86de635a87a6577f3f063b556099f1b11bf853ddb5d3114f271342bcacf6d35"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-110.json",
+        "sha256": "8a1da71b37a803785e344d2fbedd9ed245f0ca1d41ec0cad63e089a77db744b7"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration persisted before all credited untruncated body displays; connected111 original2597/2844 receive zero early role count."
+    },
+    {
+      "original": 806,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/shape.rs",
+      "sha256": "d2da1edcace60e78eab855e992651bda223fcbab7bd832c0f00304ecdcbe7294",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 229,
+      "assessed_ranges": [
+        [
+          1,
+          229
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-110.json",
+        "sha256": "d86de635a87a6577f3f063b556099f1b11bf853ddb5d3114f271342bcacf6d35"
+      },
+      "read_pointer": "/rows/2",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-110.json",
+        "sha256": "8a1da71b37a803785e344d2fbedd9ed245f0ca1d41ec0cad63e089a77db744b7"
+      },
+      "registration_pointer": "/sources/2",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration persisted before all credited untruncated body displays; connected111 original2597/2844 receive zero early role count."
+    },
+    {
+      "original": 2597,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/selection.rs",
+      "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 271,
+      "assessed_ranges": [
+        [
+          1,
+          271
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-111.json",
+        "sha256": "5580ce0d1ae0b75b7f927abf39f549b6e0ea6ac3e02757a435a478258505573a"
+      },
+      "read_pointer": "/connected/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-111-CONNECTED.json",
+        "sha256": "f2679596d339659542362be05433a5b75945447042f41ffe531e9214f2b12c99"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration persisted before all credited untruncated body displays; connected111 original2597/2844 receive zero early role count."
+    },
+    {
+      "original": 2844,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+      "sha256": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 147,
+      "assessed_ranges": [
+        [
+          1,
+          147
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-111.json",
+        "sha256": "5580ce0d1ae0b75b7f927abf39f549b6e0ea6ac3e02757a435a478258505573a"
+      },
+      "read_pointer": "/connected/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-111-CONNECTED.json",
+        "sha256": "f2679596d339659542362be05433a5b75945447042f41ffe531e9214f2b12c99"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration persisted before all credited untruncated body displays; connected111 original2597/2844 receive zero early role count."
+    },
+    {
+      "original": null,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 138,
+      "assessed_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-111.json",
+        "sha256": "5580ce0d1ae0b75b7f927abf39f549b6e0ea6ac3e02757a435a478258505573a"
+      },
+      "read_pointer": "/connected/2",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-111-CONNECTED.json",
+        "sha256": "f2679596d339659542362be05433a5b75945447042f41ffe531e9214f2b12c99"
+      },
+      "registration_pointer": "/sources/2",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration persisted before all credited untruncated body displays; connected111 original2597/2844 receive zero early role count."
+    }
+  ],
+  "necessary_extensions": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 138,
+      "required_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-111-CONNECTED.json",
+        "sha256": "f2679596d339659542362be05433a5b75945447042f41ffe531e9214f2b12c99"
+      },
+      "registration_pointer": "/sources/2",
+      "read_pointer": "/connected/2",
+      "reason": "Actual HairGpu native source/upload/storage helpers materially called by798..804, mandatory connected source admission contract.",
+      "global_source_identity_novelty": "Pending root dedup; absent original registry does not prove novel global identity",
+      "all_other_lenses_pending": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "original_role_credit_now": 0
+    }
+  ],
+  "necessary_extension_queue": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/NECESSARY-EXTENSION-PL13-111-QUEUE.json",
+    "sha256": "559fddb632c19fdc1c7320ab54ab7e74303f3d34f08188dc8630f564accb945f"
+  },
+  "future_same_lens_reuse_proofs": [
+    {
+      "original": 2597,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/selection.rs",
+      "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 271,
+      "assessed_ranges": [
+        [
+          1,
+          271
+        ]
+      ],
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-111-CONNECTED.json",
+        "sha256": "f2679596d339659542362be05433a5b75945447042f41ffe531e9214f2b12c99"
+      },
+      "registration_pointer": "/sources/0",
+      "read_pointer": "/connected/0",
+      "same_lens_only": true,
+      "original_role_credit_now": 0,
+      "count_once_when_frontier_reaches": true,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-111.json",
+        "sha256": "5580ce0d1ae0b75b7f927abf39f549b6e0ea6ac3e02757a435a478258505573a"
+      }
+    },
+    {
+      "original": 2844,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+      "sha256": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 147,
+      "assessed_ranges": [
+        [
+          1,
+          147
+        ]
+      ],
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-111-CONNECTED.json",
+        "sha256": "f2679596d339659542362be05433a5b75945447042f41ffe531e9214f2b12c99"
+      },
+      "registration_pointer": "/sources/1",
+      "read_pointer": "/connected/1",
+      "same_lens_only": true,
+      "original_role_credit_now": 0,
+      "count_once_when_frontier_reaches": true,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-111.json",
+        "sha256": "5580ce0d1ae0b75b7f927abf39f549b6e0ea6ac3e02757a435a478258505573a"
+      }
+    }
+  ],
+  "proposed_next_original": 807,
+  "original_delta_proposed": 6,
+  "overlays_delta": 0,
+  "merged_delta": 0,
+  "shared_delta": 0,
+  "new_source_identity_delta_inferred": 0,
+  "authoritative_counts_changed": false,
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "global_clearance": false,
+  "product_execution": false,
+  "proposed_finding_provenance": [
+    {
+      "proposed_id": "PL13-110-HEAD-PLACEMENT-INVERTIBILITY",
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-110.json",
+        "sha256": "d86de635a87a6577f3f063b556099f1b11bf853ddb5d3114f271342bcacf6d35"
+      },
+      "pointer": "/proposed_findings/0",
+      "primary_original": 805,
+      "primary_pointer": "/rows/1",
+      "conditional_canonical_provenance_policy_pending": true
+    }
+  ],
+  "qualifications": [
+    "111 actual selection.validate ->792 DrapeSettings.validate closes scoped782 preview modulo/body-fit concerns on that actual path.",
+    "110 conditional HeadPlacement positive/invertible admission source case preserves missing canonical MHR/bust proof and no production/runtime/current claim.",
+    "111 new necessary native helper full138 all-other-lens pending; global dedup pending. Connected2597/2844 future proofs count only when frontier reaches exact identities. Every prior qualification persists."
+  ]
+}

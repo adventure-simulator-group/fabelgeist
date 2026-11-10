@@ -1,0 +1,70 @@
+"""Authenticate current authored fields and publish a distinct provisional question."""
+import json
+from pathlib import Path
+import subprocess
+import sys
+from audit_lens_publication_v5 import Publication
+from audit_l2_publication_v1 import load,sha
+
+base=Path(__file__).resolve().parent
+bundle_path=base/'PROPOSAL-BUNDLE-ROOT-L12-IGNORE-CONTENT-001.json'
+bundle=load(bundle_path)
+ctx=Publication(base,sys.argv[1] if len(sys.argv)>1 else '--preflight','L12-IGNORE-CONTENT-ADOPTION-001',bundle)
+assert ctx.ref(Path(__file__))==bundle['validation_ruleset']
+read=load(ctx.check(bundle['source_receipts'][0]))
+assert read['lens']==12 and read['uncredited_source_excerpt_lines']==246
+for row in read['body_rows']:
+    reg=load(ctx.check(row['registration']));source=reg['rows'][row['registration_index']]
+    assert source==row['source'] and row['assessed_ranges']==source['prospective_ranges']
+    data=subprocess.check_output(['git','show',source['revision']+':'+source['git_path']],cwd=ctx.workspace)
+    assert sha(data)==source['source_sha256']
+    assert row['body_output_truncated'] is False
+obs=load(ctx.check(read['structured_field_observations']))
+reg=load(ctx.check(obs['registration']));ctx.check(obs['schema_registration'])
+paths=subprocess.check_output(['git','ls-tree','-r','--name-only',obs['selected_revision'],'--','content/encounters'],cwd=ctx.workspace).decode().splitlines()
+assert paths==[r['git_path'] for r in reg['rows'][1:]]
+assert len(obs['observations'])==14
+assert sorted(o['source']['git_path'] for o in obs['observations'])==paths
+actual_delays=[]
+for observation in obs['observations']:
+    source=observation['source']
+    data=subprocess.check_output(['git','show',source['revision']+':'+source['git_path']],cwd=ctx.workspace)
+    assert sha(data)==source['source_sha256']
+    doc=json.loads(data);assert len(doc['encounters'])==1;entry=doc['encounters'][0]
+    choice=next(c for c in entry['choices'] if c['id']=='ignore')
+    assert entry['id']==observation['id']
+    assert entry['weight']==observation['weight'] and entry['weight']>0
+    assert entry['quest_reward_eligibility']==observation['quest_reward_eligibility'] and entry['quest_reward_eligibility']
+    assert choice['interaction']==observation['backing']=={'kind':'shared_systems','character_actions':['ignore_travel']}
+    assert choice.get('transition')==observation['transition']['effective_value_by_declared_default']
+    if choice.get('transition'):
+        assert choice['transition']['kind']=='travel_delay' and 1<=choice['transition']['minutes']<=720
+        actual_delays.append(choice['transition']['minutes'])
+    for key,field in observation['defaulted_collections'].items():
+        assert (key in choice)==field['authored_present']
+        assert choice.get(key,[])==field['effective_value_by_declared_serde_default']==[]
+assert obs['summary']['blocked_ignore_backings']==0 and obs['summary']['delay_ignores']==4
+assert sorted(actual_delays)==[60,120,180,180]
+comparison=load(ctx.check(read['alias_comparison']))
+assert comparison['base_ledger']['sha256']==sha(ctx.old_bytes['ledger'])
+question=load(ctx.check(bundle['new_queue_entries'][0]))
+assert question['contract_id']=='ROOT-L12-CATALOGUE-BLOCKED-IGNORE-ADMISSION'
+assert question['provisional_source_question'] and question['accepted_unique_count_change']==0
+queue=load(ctx.check(ctx.old['current']['closure_queue']))
+assert len(queue['entries'])==3837 and all(e['contract_id']!=question['contract_id'] for e in queue['entries'])
+policy=load(ctx.check(bundle['semantic_dispositions'][0]))
+assert policy['current_blocked_ignore_observed'] is policy['runtime_or_validation_executed'] is False
+state_data=ctx.check(bundle['proposed_state']).read_bytes();state=json.loads(state_data)
+old=load(ctx.check(state['metadata_predecessor']))
+assert all(state[k]==v for k,v in old.items() if k not in {'at','metadata_predecessor','current_receipt'})
+assert set(state)-set(old)=={'ignore_content_and_question_disposition'}
+view=state['ignore_content_and_question_disposition']
+assert view['provisional_source_question_index']==3837
+ctx.publish(bundle_path=bundle_path,state_data=state_data,view=view,entry_index=245,
+    checkpoint=497,queue_number=832,selected_number=435,marker='ignore_content_and_question_disposition',
+    scope_text='All14 current authored ignore backings observed as shared IgnoreTravel;4 bounded delays. Independent blocked-ignore admission question queued provisionally, not a current-content failure or accepted unique bug. Global gates remain open.',
+    verification_name='VERIFICATION-L12-IGNORE-CONTENT-ADOPTION-001.json',
+    facts={'authored_documents_observed':14,'current_blocked_ignore_backings':0,'bounded_delay_ignore_choices':4,
+           'uncredited_compiler_schema_excerpt_lines':246,'new_provisional_queue_entries':1,
+           'new_accepted_unique_count':0,'expected_queue_entries_not_unique_findings':3838,
+           'rust_validation_build_or_runtime_executed':False,'source_ruleset':ctx.ref(Path(__file__))})

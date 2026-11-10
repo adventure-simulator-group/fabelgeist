@@ -1,0 +1,118 @@
+1: use crate::allocator::core::BatchRanges;
+2: use crate::prelude::*;
+3: use crate::render::prepare::{
+4:     batcher::Batcher, core::BatchInput, core::Write, instance_buffer_updater::InstanceBufferUpdater,
+5: };
+6: 
+7: use bevy_ecs::entity::{Entity, EntityHashMap};
+8: use bevy_render::{
+9:     mesh::RenderMesh,
+10:     mesh::allocator::MeshAllocator,
+11:     render_asset::RenderAssets,
+12:     render_resource::{BindGroupLayoutDescriptor, PipelineCache},
+13:     renderer::{RenderDevice, RenderQueue},
+14: };
+15: 
+16: pub(super) struct PagePrepareRunner<'a> {
+17:     pub(super) id: usize,
+18:     pub(super) page: &'a mut InstancePage,
+19:     pub(super) source_allocator: &'a mut InstanceAllocatorBackend,
+20:     pub(super) batch_ranges: &'a mut BatchRanges,
+21: 
+22:     pub(super) device: &'a RenderDevice,
+23:     pub(super) pipeline_cache: &'a PipelineCache,
+24:     pub(super) queue: &'a RenderQueue,
+25:     pub(super) meshes: &'a RenderAssets<RenderMesh>,
+26:     pub(super) mesh_allocator: &'a MeshAllocator,
+27: 
+28:     pub(super) common_layout: &'a BindGroupLayoutDescriptor,
+29:     pub(super) compute_layout: Option<&'a BindGroupLayoutDescriptor>,
+30: 
+31:     pub(super) material_name: &'static str,
+32: }
+33: 
+34: impl<'a> PagePrepareRunner<'a> {
+35:     pub fn prepare(
+36:         &mut self,
+37:         page_entities: &Vec<Entity>,
+38:         writes: &[Write],
+39:         all_inputs: &EntityHashMap<BatchInput>,
+40:     ) {
+41:         let writes = self.update(page_entities, writes, all_inputs);
+42: 
+43:         self.batch(page_entities, all_inputs);
+44:         self.write(writes);
+45:         self.flush();
+46:         self.update_page();
+47:     }
+48: 
+49:     /// Write non-compute culled instances directly to the output buffer.
+50:     fn write(&mut self, writes: Vec<(u64, Vec<InstanceData>)>) {
+51:         let Some(buffer) = &self.page.output_buffer else {
+52:             return;
+53:         };
+54: 
+55:         for (offset, data) in writes
+56:             .into_iter()
+57:             .filter(|(offset, data)| buffer.check_bounds(*offset, data))
+58:         {
+59:             self.queue
+60:                 .write_buffer(buffer, offset, bytemuck::cast_slice(&data));
+61:         }
+62:     }
+63: 
+64:     fn update(
+65:         &mut self,
+66:         entities: &Vec<Entity>,
+67:         writes: &[Write],
+68:         inputs: &EntityHashMap<BatchInput>,
+69:     ) -> Vec<(u64, Vec<InstanceData>)> {
+70:         let material_name = self.material_name;
+71:         let mut instance_updater = InstanceBufferUpdater {
+72:             device: self.device,
+73:             queue: self.queue,
+74:             page_id: self.id,
+75:             source_allocator: self.source_allocator,
+76:             material_name,
+77:         };
+78: 
+79:         instance_updater.update(self.page, writes, entities, inputs)
+80:     }
+81: 
+82:     /// Batch compute-culled instances.
+83:     fn batch(&mut self, entities: &[Entity], inputs: &EntityHashMap<BatchInput>) {
+84:         if entities.is_empty() {
+85:             return;
+86:         }
+87: 
+88:         let mut batcher = Batcher {
+89:             page_id: self.id,
+90:             mesh_allocator: self.mesh_allocator,
+91:             meshes: self.meshes,
+92:             source_allocator: self.source_allocator,
+93:             batch_ranges: self.batch_ranges,
+94:         };
+95: 
+96:         batcher.batch(
+97:             &mut self.page.batcher,
+98:             entities,
+99:             inputs,
+100:             &self.page.id_allocator,
+101:         );
+102:     }
+103: 
+104:     fn flush(&mut self) {
+105:         self.page.flush(self.device, self.queue, self.id);
+106:     }
+107: 
+108:     fn update_page(&mut self) {
+109:         self.page.update(
+110:             self.device,
+111:             self.pipeline_cache,
+112:             self.id,
+113:             self.common_layout,
+114:             self.compute_layout,
+115:             self.source_allocator.size(self.id),
+116:         );
+117:     }
+118: }

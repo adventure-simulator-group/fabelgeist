@@ -1,0 +1,150 @@
+SOURCE 2619 pr-working:crates/fabelgeist-armor/src/besagew.rs
+1: //! Circular armpit defenses suspended independently in front of the shoulder.
+2: use crate::{DesignError, Millimeters, Milliradians, RadialFluting};
+3: use serde::{Deserialize, Serialize};
+4: 
+5: #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+6: #[serde(deny_unknown_fields)]
+7: pub struct BesagewDesign {
+8:     pub radius: Millimeters,
+9:     pub boss_height: Millimeters,
+10:     pub fluting: Option<RadialFluting>,
+11:     pub shoulder_drop: Millimeters,
+12:     pub medial_offset: Millimeters,
+13:     pub plate_clearance: Millimeters,
+14:     pub outward_tilt: Milliradians,
+15: }
+16: 
+17: impl Default for BesagewDesign {
+18:     fn default() -> Self {
+19:         Self {
+20:             radius: Millimeters(58),
+21:             boss_height: Millimeters(14),
+22:             fluting: None,
+23:             shoulder_drop: Millimeters(65),
+24:             medial_offset: Millimeters(30),
+25:             plate_clearance: Millimeters(5),
+26:             outward_tilt: Milliradians(100),
+27:         }
+28:     }
+29: }
+30: 
+31: impl BesagewDesign {
+32:     pub fn validate(&self) -> Result<(), DesignError> {
+33:         if !(35..=85).contains(&self.radius.0)
+34:             || self.boss_height.0 > 30
+35:             || !(35..=120).contains(&self.shoulder_drop.0)
+36:             || self.medial_offset.0 > 70
+37:             || !(3..=15).contains(&self.plate_clearance.0)
+38:             || self.outward_tilt.0 > 350
+39:         {
+40:             return Err(DesignError::ParametricParameters);
+41:         }
+42:         if let Some(fluting) = &self.fluting {
+43:             fluting.validate()?;
+44:         }
+45:         Ok(())
+46:     }
+47: }
+SOURCE 2620 pr-working:crates/fabelgeist-armor/src/radial_fluting.rs
+1: //! A complete circular field of spokes with a smooth inner and outer border.
+2: use crate::{DesignError, FluteCount, Millimeters, Permille, PlateFluting};
+3: use serde::{Deserialize, Serialize};
+4: 
+5: #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+6: #[serde(deny_unknown_fields)]
+7: pub struct RadialFluting {
+8:     pub count: FluteCount,
+9:     pub width: Permille,
+10:     pub depth: Millimeters,
+11:     pub start: Permille,
+12:     pub end: Permille,
+13:     pub fade: Permille,
+14: }
+15: 
+16: impl Default for RadialFluting {
+17:     fn default() -> Self {
+18:         Self {
+19:             count: FluteCount(24),
+20:             width: Permille(700),
+21:             depth: Millimeters(2),
+22:             start: Permille(250),
+23:             end: Permille(950),
+24:             fade: Permille(100),
+25:         }
+26:     }
+27: }
+28: 
+29: impl RadialFluting {
+30:     pub(crate) fn validate(&self) -> Result<(), DesignError> {
+31:         if !(4..=48).contains(&self.count.0)
+32:             || !PlateFluting::WIDTH_RANGE.contains(&self.width.0)
+33:             || !PlateFluting::DEPTH_RANGE.contains(&self.depth.0)
+34:             || !(200..=700).contains(&self.start.0)
+35:             || !(800..=1000).contains(&self.end.0)
+36:             || !(50..=250).contains(&self.fade.0)
+37:             || self.end.0 - self.start.0 < self.fade.0 * 2
+38:         {
+39:             return Err(DesignError::PlateFluting);
+40:         }
+41:         Ok(())
+42:     }
+43: 
+44:     /// Columns around a disc: enough samples to shape every spoke.
+45:     pub(crate) fn columns(self) -> usize {
+46:         const SAMPLES_PER_SPOKE: usize = 12;
+47:         usize::from(self.count.0) * SAMPLES_PER_SPOKE
+48:     }
+49: }
+SOURCE 2621 pr-working:crates/fabelgeist-armor/src/joint_extension.rs
+1: //! Separate lower joint plates, including the long terminal plate of a poleyn.
+2: use crate::{DesignError, Millimeters, Milliradians, Permille};
+3: use serde::{Deserialize, Serialize};
+4: 
+5: #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+6: #[serde(deny_unknown_fields)]
+7: pub struct JointExtension {
+8:     pub length: Millimeters,
+9:     pub lame_count: u8,
+10:     /// Share of the extension occupied by its lowest plate.
+11:     pub terminal_share: Permille,
+12:     /// Distal girth relative to the cup edge, shared across all lower plates.
+13:     pub distal_taper: Permille,
+14:     pub wrap: Milliradians,
+15:     pub hem_rounding: Millimeters,
+16: }
+17: 
+18: impl Default for JointExtension {
+19:     fn default() -> Self {
+20:         Self {
+21:             length: Millimeters(130),
+22:             lame_count: 3,
+23:             terminal_share: Permille(650),
+24:             distal_taper: Permille(1000),
+25:             wrap: Milliradians(1350),
+26:             hem_rounding: Millimeters(12),
+27:         }
+28:     }
+29: }
+30: 
+31: impl JointExtension {
+32:     pub fn validate(&self) -> Result<(), DesignError> {
+33:         let terminal_length = f32::from(self.length.0)
+34:             * if self.lame_count == 1 {
+35:                 1.0
+36:             } else {
+37:                 self.terminal_share.unit()
+38:             };
+39:         if !(40..=180).contains(&self.length.0)
+40:             || !(1..=4).contains(&self.lame_count)
+41:             || !(350..=850).contains(&self.terminal_share.0)
+42:             || !(700..=1100).contains(&self.distal_taper.0)
+43:             || !(900..=1550).contains(&self.wrap.0)
+44:             || self.hem_rounding.0 > 25
+45:             || 4.0 * f32::from(self.hem_rounding.0) >= terminal_length
+46:         {
+47:             return Err(DesignError::ParametricParameters);
+48:         }
+49:         Ok(())
+50:     }
+51: }

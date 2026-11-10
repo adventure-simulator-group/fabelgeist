@@ -1,0 +1,71 @@
+{
+  "packet": {
+    "path": "adler-continuation-20261030/READ-ROOT-L13-2319-2325-001.json",
+    "sha256": "9317dba1d95507f4a4661d4c4d2926b6b90e3a6882cd81afb3a90f03a12d3a1b"
+  },
+  "ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "57060206555b10a2b8f922732a37821bd590ee08b3f7ce9f7a155ac34a5617cd"
+  },
+  "selector": {
+    "path": "CURRENT-ADLER.json",
+    "sha256": "9bf8b516aeceb0fbdd1b1f45621141e0d9c188f48a41d2012d0c2ef57aec65c0"
+  },
+  "queue": {
+    "path": "workflow-20261030/CLOSURE-QUEUE-565.json",
+    "sha256": "427d9a2dd0351edac611c68dbe03f1193bbdfa7e92f2e8938e20e57f35740291"
+  },
+  "selected_lenses": {
+    "path": "adler-continuation-20261030/SELECTED-LENSES-CONTINUATION-316.json",
+    "sha256": "a73443d73e7a042d92da118e0dcf2516f0e44d27831abc197c5e3d8ad6d69041"
+  },
+  "previous_state": {
+    "path": "segovb/STATE-L13-PARALLEL-624.json",
+    "sha256": "f5ec01c69f5020fcf97ecc80c90e1429206b580b394e7d3e0a6a2afc85213ab4"
+  },
+  "root_sequence": 625,
+  "queue_sequence": 566,
+  "next_selected_lenses_filename": "SELECTED-LENSES-CONTINUATION-317.json",
+  "prior_reuses": [
+    {
+      "kind": "exact_mhr2319_2322",
+      "original": 2319,
+      "adoption": {
+        "path": "segovb/READ-L13-PARALLEL-120.json",
+        "sha256": "86b6af1c20f6de3ff62a4f4a741e6830a09ec7db5fb6fd476dc8923926e94dc8"
+      },
+      "qualification": {
+        "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2319-2322-MHR-REUSE-001.json",
+        "sha256": "3037d431d4c45a93427bf8590e74bbdd1db4d0ab9aa1aa0244068242a6970ea5"
+      }
+    },
+    {
+      "kind": "exact_mhr2319_2322",
+      "original": 2321,
+      "adoption": {
+        "path": "segovb/READ-L13-PARALLEL-119.json",
+        "sha256": "cde56ad7302570145c9efe30c7de83df40b02aade7595d3aafbc840a7aaa9c8d"
+      },
+      "qualification": {
+        "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2319-2322-MHR-REUSE-001.json",
+        "sha256": "3037d431d4c45a93427bf8590e74bbdd1db4d0ab9aa1aa0244068242a6970ea5"
+      }
+    },
+    {
+      "kind": "exact_mhr2319_2322",
+      "original": 2322,
+      "adoption": {
+        "path": "segovb/READ-L13-PARALLEL-121.json",
+        "sha256": "9f5f6974e042d027473f632476aa82ea24e5fb8e26e4072fb4f620a6c36dfa20"
+      },
+      "qualification": {
+        "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2319-2322-MHR-REUSE-001.json",
+        "sha256": "3037d431d4c45a93427bf8590e74bbdd1db4d0ab9aa1aa0244068242a6970ea5"
+      }
+    }
+  ],
+  "mhr_reuse_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-ROOT-L13-2319-2322-MHR-REUSE-001.json",
+    "sha256": "3037d431d4c45a93427bf8590e74bbdd1db4d0ab9aa1aa0244068242a6970ea5"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "schema": "726-scoped-mhr-diagnostic-v1",
+  "at": "2026-11-03T17:39:07.464936+00:00",
+  "source_qualification": {
+    "path": "adler-continuation-20261030/QUALIFICATION-FLOAT-COORDINATE-1083.json",
+    "sha256": "b92a2c5d921454ad749374559d500effba184c58f9fc77be5bc797c2976fd121"
+  },
+  "evidence": [
+    {
+      "path": "target/726-intake-20261030/float_index_1083.log",
+      "sha256": "d97e4f65f28c39e6e692a2bb29b6be354e6aa5a70a3728d3b271eaae647d40d2"
+    },
+    {
+      "path": "target/726-intake-20261030/product-probe-ff9c1d7/crates/fabelgeist-mhr/tests/float_index_1083.rs",
+      "sha256": "7be4fde007cef03c9156a70964c6a7ccf2a04851aa4aef54cd135e48b4bbca41"
+    },
+    {
+      "path": "target/726-intake-20261030/create_float_index_1083.py",
+      "sha256": "2be806eb6423c070f0b644ff26a22cb2384ac7ec1bdd37fcaddfff57e40868ae"
+    },
+    {
+      "path": "target/726-intake-20261030/float_index_1083-receipt.json",
+      "sha256": "1faefa683a44ff03bab41c45de5a83e5cc68fb59cc67a41b94baea942dd12fc7"
+    },
+    {
+      "path": "target/726-intake-20261030/pinned_model_1079-receipt.json",
+      "sha256": "4f615c6cb371c3df4822f3b77aebbfb9ce1444df9844df876b46562ba9e78528"
+    }
+  ],
+  "whole_contract_closed": false,
+  "source_trace": [
+    "A derived activation archive converts the pinned sparse index array from i64 to f64 and replaces one hidden coordinate value 2 with NaN, leaving counts unchanged. The pinned original remains unchanged.",
+    "The isolated selected-source Mhr::from_asset_bytes constructed a model with this malformed archive. The NumPy value projection casts float to i64 before the corrective layout converts and checks coordinate bounds; source semantics turn NaN into zero before that check.",
+    "This confirms a supported byte entry point accepts the constructed invalid value, not that the pinned release contains it or that a particular rendered artifact was observed. The standalone manifest and dependencies differ from the full workspace."
+  ],
+  "remaining_evidence": [
+    "Decide exact accepted input dtype and value policy and structured failure context; reconcile all aliases, other producers and family obligations."
+  ],
+  "product_execution": true,
+  "implementation_gate_complete": false
+}

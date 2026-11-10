@@ -1,0 +1,175 @@
+1: //! Receiving-shaft constraints for the explicit shaft mount constructions.
+2: use super::*;
+3: 
+4: pub(super) fn socket_fit(
+5:     component: &Component,
+6:     shaft: Option<&Shaft>,
+7:     parents: &[ResolvedComponent],
+8:     offset: Point,
+9:     rotation: Point,
+10: ) -> Result<(), String> {
+11:     let Shape::Spear(p) = &component.shape else {
+12:         return Ok(());
+13:     };
+14:     let Some(socket) = &p.socket else {
+15:         return Ok(());
+16:     };
+17:     let receiver = if let Some(attachment) = &component.attach {
+18:         let owner = attachment.to.rsplit_once('.').map(|p| p.0).unwrap_or("");
+19:         if let Some(parent) = parents.iter().find(|p| p.id == owner) {
+20:             if let Shape::Shaft(shaft) = &parent.component.shape {
+21:                 Some((shaft, parent.offset, parent.rotation))
+22:             } else {
+23:                 None
+24:             }
+25:         } else if matches!(owner, "shaft" | "weapon") {
+26:             shaft.map(|p| (p, [0.0; 3], [0.0; 3]))
+27:         } else {
+28:             None
+29:         }
+30:     } else if component.mount.is_some() {
+31:         shaft.map(|p| (p, [0.0; 3], [0.0; 3]))
+32:     } else {
+33:         None
+34:     };
+35:     let Some((shaft, parent_offset, parent_rotation)) = receiver else {
+36:         return Ok(());
+37:     };
+38:     let offset = inverse_rotate(sub(offset, parent_offset), parent_rotation);
+39:     let axis = inverse_rotate(rotate([0.0, 1.0, 0.0], rotation), parent_rotation);
+40:     if offset[0].abs() > 1e-8
+41:         || offset[2].abs() > 1e-8
+42:         || magnitude(sub(axis, [0.0, 1.0, 0.0])) > 1e-8
+43:     {
+44:         return Err("receiving socket must align with its shaft".into());
+45:     }
+46:     let rim = offset[1] - socket.length.get();
+47:     if shaft
+48:         .wrappings
+49:         .iter()
+50:         .flatten()
+51:         .any(|w| w.start.get() + w.length.get() > rim)
+52:     {
+53:         return Err("receiving socket must seat over an unwrapped shaft tenon".into());
+54:     }
+55:     let penetration = shaft.length.get() - rim;
+56:     if (penetration - socket.insertion_depth.get()).abs() > 1e-8 || rim < 0.0 {
+57:         return Err("socket placement does not match its declared shaft insertion".into());
+58:     }
+59:     // Both profiles are piecewise linear: endpoints and every shaft breakpoint
+60:     // prove clearance throughout the full inserted length, not only at the tip.
+61:     let mut heights = vec![rim, shaft.length.get()];
+62:     heights.extend(
+63:         shaft
+64:             .profile()
+65:             .iter()
+66:             .map(|p| p[0])
+67:             .filter(|y| *y > rim && *y < shaft.length.get()),
+68:     );
+69:     // The coarsest permitted circular section supplies the conservative bore
+70:     // apothem. Finer display levels therefore retain the same accepted fit.
+71:     let radial = Detail::Low.radial(socket.base_radius.get(), 24).div_ceil(4) * 4;
+72:     let apothem = (std::f64::consts::PI / radial as f64).cos();
+73:     for height in heights {
+74:         if shaft.radius_at(height) > socket.bore_radius(height - rim) * apothem + 1e-9 {
+75:             return Err("socket bore cannot clear the complete receiving shaft".into());
+76:         }
+77:     }
+78:     Ok(())
+79: }
+133: pub(super) fn attachment_contact(
+134:     child: &ResolvedComponent,
+135:     parents: &[ResolvedComponent],
+136:     shaft: Option<&Shaft>,
+137: ) -> Result<(), String> {
+138:     let Some(attachment) = &child.component.attach else {
+139:         return Ok(());
+140:     };
+141:     let Some((owner, _)) = attachment.to.rsplit_once('.') else {
+142:         return Ok(());
+143:     };
+144:     let implicit = shaft
+145:         .filter(|_| matches!(owner, "shaft" | "weapon"))
+146:         .map(|shaft| {
+147:             let mut component = child.component.clone();
+148:             component.shape = Shape::Shaft(shaft.clone());
+149:             ResolvedComponent {
+150:                 component,
+151:                 id: "shaft".into(),
+152:                 label: "shaft".into(),
+153:                 offset: [0.0; 3],
+154:                 rotation: [0.0; 3],
+155:                 shaft_contact: None,
+156:                 grip_width: None,
+157:                 grip_seat_radius: None,
+158:             }
+159:         });
+160:     let Some(parent) = parents.iter().find(|p| p.id == owner).or(implicit.as_ref()) else {
+161:         return Ok(());
+162:     };
+163:     mortised_guard::check_mating(child, parent)?;
+164:     if implicit.is_some() && is_axial(&child.component.shape) {
+165:         let mut receiving = child.component.clone();
+166:         receiving.offset = Some([
+167:             Metres::new(child.offset[0])?,
+168:             Metres::new(0.0)?,
+169:             Metres::new(child.offset[2])?,
+170:         ]);
+171:         check(&receiving, shaft.unwrap())?;
+172:     }
+173:     let parent_bounds = bounds(shapes::construct(parent, Detail::High)?, &|p| p);
+174:     let child_bounds = bounds(shapes::construct(child, Detail::High)?, &|p| {
+175:         inverse_rotate(
+176:             sub(add(rotate(p, child.rotation), child.offset), parent.offset),
+177:             parent.rotation,
+178:         )
+179:     });
+180:     let at = attachment.at.unwrap_or_default();
+181:     if at != AttachmentAnchor::Origin {
+182:         let range = child.component.shape.range()?;
+183:         let local_anchor = child.component.shape.attachment_anchor(at, range)?;
+184:         let anchor = inverse_rotate(
+185:             sub(
+186:                 add(rotate(local_anchor, child.rotation), child.offset),
+187:                 parent.offset,
+188:             ),
+189:             parent.rotation,
+190:         );
+191:         let seating_radius = ((child_bounds.1[0] - child_bounds.0[0])
+192:             .min(child_bounds.1[2] - child_bounds.0[2]))
+193:             / 2.0;
+194:         if anchor[1] < parent_bounds.0[1] - seating_radius - 1e-8
+195:             || anchor[1] > parent_bounds.1[1] + seating_radius + 1e-8
+196:         {
+197:             return Err(format!(
+198:                 "declared contact lies outside parent axial geometry {}",
+199:                 attachment.to
+200:             ));
+201:         }
+202:     }
+203:     let separated = |axis| {
+204:         child_bounds.0[axis] > parent_bounds.1[axis] + 1e-8
+205:             || child_bounds.1[axis] < parent_bounds.0[axis] - 1e-8
+206:     };
+207:     if (separated(0) || separated(1) || separated(2))
+208:         && connected_through_assembly(child, parent, parents, implicit.as_ref())?
+209:     {
+210:         return Ok(());
+211:     }
+212:     if separated(1) {
+213:         return Err(format!(
+214:             "{} attachment lies outside parent axial geometry {}",
+215:             child.id, attachment.to
+216:         ));
+217:     }
+218:     if separated(0) || separated(2) {
+219:         return Err(format!(
+220:             "{} attachment lies outside parent footprint {}",
+221:             child.id, attachment.to
+222:         ));
+223:     }
+224:     Ok(())
+225: }
+226: 
+227: /// A coordinate parent may be joined through another explicitly constructed
+228: /// fitting, such as a rear beak carried by a socketed axe head. Require a

@@ -1,0 +1,181 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-103",
+  "at": "2026-10-23T02:31:10.116681+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "sha256": "f041c03c0717ed86e0918d7002f19d097d720976ff98ad591ad80a10711add01",
+      "actual_compared_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "source_evidence": "Fresh complete literal actual variant. PR and P16 differences personally compared; identical armor source shares only independently resolved identical justification."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/combatant.rs",
+      "sha256": "70185e2b1fa6e8e4ca7406ef36aa13c78ac0517e4ff69e7132036a63fcb7d2f2",
+      "actual_compared_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "source_evidence": "Fresh complete literal actual variant. PR and P16 differences personally compared; identical armor source shares only independently resolved identical justification."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/armor.rs",
+      "sha256": "027f27a4294fe1574bcb9c7f376db05904519094f99936be09bcf66d5459b7e0",
+      "actual_compared_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "source_evidence": "Fresh complete literal actual variant. PR and P16 differences personally compared; identical armor source shares only independently resolved identical justification."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/battle_combatants.rs",
+      "sha256": "761099a162f432296e633e8d5a6f3e4092c08fb664bebb89dc3be7d725988444",
+      "actual_compared_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "source_evidence": "Fresh complete literal actual variant. PR and P16 differences personally compared; identical armor source shares only independently resolved identical justification."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "sha256": "1f6a584fc834b98fd0a39dee168f5b8c461518b712f56906a9de26bd44fe192e",
+      "actual_compared_ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "source_evidence": "Fresh complete literal actual variant. PR and P16 differences personally compared; identical armor source shares only independently resolved identical justification."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/combatant.rs",
+      "sha256": "afba3aaeb15ab41fe36d35221b5269a784098863766c03ad61ecd6532204bdbc",
+      "actual_compared_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "source_evidence": "Fresh complete literal actual variant. PR and P16 differences personally compared; identical armor source shares only independently resolved identical justification."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/armor.rs",
+      "sha256": "027f27a4294fe1574bcb9c7f376db05904519094f99936be09bcf66d5459b7e0",
+      "actual_compared_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "source_evidence": "Fresh complete literal actual variant. PR and P16 differences personally compared; identical armor source shares only independently resolved identical justification."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/battle_combatants.rs",
+      "sha256": "85a9cdeb34de89b6b81a65c512747b50771666aae4d1e6616345a617767a6706",
+      "actual_compared_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "source_evidence": "Fresh complete literal actual variant. PR and P16 differences personally compared; identical armor source shares only independently resolved identical justification."
+    }
+  ],
+  "support_ranges": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability.rs",
+      "ranges": [
+        [
+          252,
+          355
+        ],
+        [
+          381,
+          410
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "ranges": [
+        [
+          1034,
+          1059
+        ]
+      ],
+      "qualification": "Contained-water Result, not Option;1059 blank context only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "ranges": [
+        [
+          2945,
+          2950
+        ]
+      ]
+    }
+  ],
+  "groups": {
+    "physical-mass-publication": "P16 correctly replaces current PR recipe expects with concrete fallible physical errors and instance-specific masses; preserve this improvement without retaining F035 arithmetic/measurement error gaps. Fireplace-rooted exclusions, whole food-lot mass and measured fractional stock are distinct policies. P16 collect of local mass results drops partial vector on failure, but final sum remains raw. Actual water Result::map_or erases errors, not an absence Option; do not misdescribe it.",
+    "combatant-admission": "P16 equipment load is fallible and combat_equipment projection infallible after preparation; PR load was infallible and later projection error formatted. Preserve early preparation and current shared contracts when integrating. Health/body weight/calories/focus remain raw retained projection facts; existing F009/F016/F030 admission/numeric graphs remain, not magically sealed by from_strategic_state. Body health need not be a UnitInterval everywhere; preserve intentional signed/diagnostic semantics and nonhuman support. Skills copy direct hours, religion total_direct is a computed aggregate alreadyF016. Attribute into copies shared product and is not inherently a lossy conversion.",
+    "armor-operations": "Placement lookup/protection membership and occupancy max tuple have no unchecked numeric indexing here; missing rows yield explicit Option/filter absence under existing policy. Actual damage-stat helper joins earlier F014 computation graph rather than a new local formula. Native material/coverage extraction returns canonical shared leaves. Outer-layer default occupancy and typed placement ownership require their actual producer invariants; no whole admission guarantee from this helper alone. PR/P16 actual armor bytes/import meanings compared.",
+    "allied-collection": "Each member refreshes strategic condition before loading a pure transient combatant; collection preserves order and propagates error without partial vector. DB refresh effects are not undone merely by dropping the vector; real reducer transaction owns rollback, no speculative corrupt commit claim. No tactical tick state persisted.",
+    "partial-retained-equipment-support": "Seven BodyPart slots/index map already independently compared; peripheral indexes0-3 fit4 array. Weatherproof sum is at most7*u16MAX, so u32 saturation cannot discard information and final min10000 makes u16 cast safe. This differs from premature saturation before division. Ammunition query F036 remains unchecked. Only focused support ranges, no whole capability/contained-water/trade04 credit."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F035",
+      "kind": "represented_state_carried_mass_computation_and_error_erasure",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "locations": [
+        [
+          18,
+          31
+        ]
+      ],
+      "case": "A represented otherwise ordinary non-weapon item with finite positive unit_mass=f32MAX and inventory quantity2 producesInf; dry_inventory_weight returnsOk without re-admitting the product or final sum. Separately actual StrategicEquipment::load325-327 maps contained_water_ml Result errors directly to f32INFINITY and stores the sum346. Helper1034-1057 concretely errors on missing object, custody failure or water sum overflow. No ordinary authored huge mass, corrupt live inventory or runtime failure claimed.",
+      "operation": "Finite positive mass leaves do not preserve products/sums, and an error measuring contained water is fabricated as a successful infinite measurement. That scalar is retained in StrategicEquipment and copied into CombatEquipment403.",
+      "connected_repair": "Carry an appropriate canonical nonnegative carried-mass quantity through item/lot/holder/weapon producers, accumulation and equipment retention. Readmit computed products/sums before publication and propagate concrete contained-water failures or an explicit unavailable state while preserving fail-closed behavior. Empty carried mass0 is valid. Biological human admission bounds do not apply to weapons, inventory or supported nonhuman bodies; do not force a human BodyMass cap. Preserve actual precision/units/native-port policy and instance-specific geometry.",
+      "acceptance": "Successful retained carried mass is a real admitted measurement; errors cannot become infinity or disappear. Unrepresentable arithmetic returns a concrete failure before publishing the equipment product. No new tests/assertions/helpers; adapt existing cases only.",
+      "deduplication": "Separate computed carried-mass graph from RigF014 fixed-material quantity erasure (confirmed by owner). Possible shared lower leaf only after unit/precision/zero comparison.",
+      "contract_ref": "ROOT-INITIAL04-CONTRACT-103"
+    },
+    {
+      "id": "ROOT-INITIAL04-F036",
+      "kind": "represented_valid_stack_ammunition_accumulation_capacity_gap",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability.rs",
+      "locations": [
+        [
+          257,
+          265
+        ],
+        [
+          271,
+          285
+        ]
+      ],
+      "case": "Two non-fireplace arrow stacks with positive u32 quantitiesMAX and1 are individually representable. The plain sum inferred as retained u32 ammunition has no explicit overflow result. Actual trade2945-2950 preserves an overfull fungible merge by creating another stack, so a global one-stack cardinality guarantee cannot be inferred. No ordinary game session or executed purchase at these quantities claimed.",
+      "operation": "Per-row nonzero/finite count admission does not establish aggregate ammunition capacity; unchecked native integer sum can fail or wrap according to build policy instead of a structured load result.",
+      "connected_repair": "Use canonical ammunition/count accumulation with checked addition and explicit capacity failure, or propagate an appropriately wider canonical count through all real consumers. Keep ready-count semantics, positive stack versus zero total distinction and whole-stack inventory behavior; no wrapping identity/count or arbitrary gameplay cap.",
+      "acceptance": "Every successful equipment load publishes the actual representable arrow count; valid multiple rows cannot silently wrap the retained total. Existing tests only, no new cases/assertions/helpers.",
+      "deduplication": "Aggregate ammunition count, distinct from carried mass units and native GPU/sample capacities.",
+      "contract_ref": "ROOT-INITIAL04-CONTRACT-103"
+    }
+  ],
+  "repair": "frozen_initial_audits_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

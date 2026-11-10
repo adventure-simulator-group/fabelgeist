@@ -1,0 +1,200 @@
+1: use super::*;
+2: 
+3: #[derive(Clone, Debug, Serialize)]
+4: pub struct StructuralNode {
+5:     pub id: StructuralNodeId,
+6:     pub owner: GeometryOwnerId,
+7:     pub kind: StructuralNodeKind,
+8:     pub position: crate::spatial_geometry::Position<Architectural>,
+9:     pub supported_by: Vec<StructuralNodeId>,
+10:     pub grounded: bool,
+11: }
+12: 
+13: #[derive(Clone, Debug, Eq, PartialEq, thiserror::Error)]
+14: #[error("structural node {node:?}: {cause}")]
+15: pub struct StructuralNodeError {
+16:     pub node: StructuralNodeId,
+17:     #[source]
+18:     pub cause: crate::spatial_geometry::GeometryError,
+19: }
+20: impl StructuralNode {
+21:     /// Admit a node emitted by an architectural set-out kernel, preserving its
+22:     /// identity if the computed position is nonfinite.
+23:     pub fn from_metres(
+24:         id: StructuralNodeId,
+25:         owner: GeometryOwnerId,
+26:         kind: StructuralNodeKind,
+27:         position: Vec3,
+28:         supported_by: Vec<StructuralNodeId>,
+29:         grounded: bool,
+30:     ) -> Result<Self, StructuralNodeError> {
+31:         let position = crate::spatial_geometry::Position::from_metres(position)
+32:             .map_err(|cause| StructuralNodeError { node: id, cause })?;
+33:         Ok(Self::new(id, owner, kind, position, supported_by, grounded))
+34:     }
+35:     pub fn new(
+36:         id: StructuralNodeId,
+37:         owner: GeometryOwnerId,
+38:         kind: StructuralNodeKind,
+39:         position: crate::spatial_geometry::Position<Architectural>,
+40:         supported_by: Vec<StructuralNodeId>,
+41:         grounded: bool,
+42:     ) -> Self {
+43:         Self {
+44:             id,
+45:             owner,
+46:             kind,
+47:             position,
+48:             supported_by,
+49:             grounded,
+50:         }
+51:     }
+52: }
+53: impl<'de> Deserialize<'de> for StructuralNode {
+54:     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+55:         #[derive(Deserialize)]
+56:         struct SerializedNode {
+57:             id: StructuralNodeId,
+58:             owner: GeometryOwnerId,
+59:             kind: StructuralNodeKind,
+60:             position: Vec3,
+61:             supported_by: Vec<StructuralNodeId>,
+62:             grounded: bool,
+63:         }
+64:         let value = SerializedNode::deserialize(deserializer)?;
+65:         Self::from_metres(
+66:             value.id,
+67:             value.owner,
+68:             value.kind,
+69:             value.position,
+70:             value.supported_by,
+71:             value.grounded,
+72:         )
+73:         .map_err(serde::de::Error::custom)
+74:     }
+75: }
+76: 
+77: #[derive(Clone, Copy, Debug, Serialize, Deserialize)]
+78: pub struct SupportInterface {
+79:     pub id: ResolvedItemId,
+80:     pub owner: GeometryOwnerId,
+81:     pub node: StructuralNodeId,
+82:     pub bounds: SpatialBounds<Architectural>,
+83: }
+84: impl SupportInterface {
+85:     /// A bearing retains its physical owner and node; admitted bounds may have
+86:     /// zero height. Positive contact is established by the bearing audit.
+87:     pub fn new(
+88:         id: ResolvedItemId,
+89:         owner: GeometryOwnerId,
+90:         node: StructuralNodeId,
+91:         bounds: crate::SpatialBounds<crate::Architectural>,
+92:     ) -> Self {
+93:         Self {
+94:             id,
+95:             owner,
+96:             node,
+97:             bounds,
+98:         }
+99:     }
+100: }
+101: 
+102: #[derive(Clone, Copy, Debug, Serialize, Deserialize)]
+103: pub struct DrainageRoute {
+104:     pub id: ResolvedItemId,
+105:     pub owner: GeometryOwnerId,
+106:     pub outlet_void: ResolvedItemId,
+107:     pub inlet: Vec3,
+108:     pub outlet: Vec3,
+109: }
+110: 
+111: #[derive(Clone, Debug, Serialize, Deserialize)]
+112: pub struct DrainageCatchment {
+113:     pub id: ResolvedItemId,
+114:     pub owner: GeometryOwnerId,
+115:     pub walk_solid: ResolvedItemId,
+116:     pub toe_channel_solids: Vec<ResolvedItemId>,
+117:     pub drainage_surface: ResolvedItemId,
+118:     pub outlet_route: ResolvedItemId,
+119:     pub centre: Vec3,
+120:     /// Canonical local +X direction in plan.
+121:     pub tangent: Vec2,
+122:     /// Physical downhill direction in plan.
+123:     pub outward: Vec2,
+124:     pub length_metres: f32,
+125:     pub width_metres: f32,
+126:     pub inner_elevation_metres: f32,
+127:     pub outer_elevation_metres: f32,
+128:     /// Signed local-X coordinate of the exact scupper inlet at the channel end.
+129:     pub outlet_along_metres: f32,
+130: }
+131: 
+132: #[derive(Clone, Copy, Debug, Serialize, Deserialize)]
+133: pub struct RoofDrainageSample {
+134:     /// Point sampled on the authoritative weather face.
+135:     pub surface_point: Vec3,
+136:     /// First physical contact with the receiving eave/valley channel.
+137:     pub channel_inlet: Vec3,
+138: }
+139: 
+140: #[derive(Clone, Debug, Serialize, Deserialize)]
+141: pub struct RoofDrainageNetwork {
+142:     pub id: ResolvedItemId,
+143:     pub owner: GeometryOwnerId,
+144:     pub face: ResolvedItemId,
+145:     pub catchment: ResolvedItemId,
+146:     pub receiving_edge: ResolvedItemId,
+147:     pub samples: Vec<RoofDrainageSample>,
+148:     pub channel_floor: ResolvedItemId,
+149:     pub channel_lips: [ResolvedItemId; 2],
+150:     /// Physical perimeter collector segments connecting this catchment gutter
+151:     /// to its shared outlet station.
+152:     pub collector_solids: Vec<ResolvedItemId>,
+153:     pub outlet_station: ResolvedItemId,
+154:     pub outlet_void: ResolvedItemId,
+155:     pub downspout: Option<ResolvedItemId>,
+156:     pub channel_high: Vec3,
+157:     pub channel_low: Vec3,
+158:     pub discharge: Vec3,
+159: }
+160: 
+161: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+162: #[serde(rename_all = "snake_case")]
+163: pub enum RoofDrainageDisposition {
+164:     BoundDownspout,
+165:     FreeDripToParentRoof,
+166:     FreeDripToGround,
+167: }
+168: 
+169: #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+170: #[serde(rename_all = "snake_case", tag = "kind")]
+171: pub enum RoofDrainageRecipient {
+172:     GroundSplashApron,
+173:     ParentRoofFace {
+174:         roof: RoofAssemblyId,
+175:         face: ResolvedItemId,
+176:     },
+177: }
+178: 
+179: #[derive(Clone, Debug, Serialize, Deserialize)]
+180: pub struct RoofDrainageOutletStation {
+181:     pub id: ResolvedItemId,
+182:     pub owner: GeometryOwnerId,
+183:     pub disposition: RoofDrainageDisposition,
+184:     pub member_networks: Vec<ResolvedItemId>,
+185:     pub host_wall: Option<WallAssemblyId>,
+186:     pub facade_contact: Option<Vec3>,
+187:     pub outlet_void: ResolvedItemId,
+188:     pub downspout: Option<ResolvedItemId>,
+189:     pub recipient: RoofDrainageRecipient,
+190:     pub recipient_surface: ResolvedItemId,
+191:     pub discharge: Vec3,
+192: }
+202: #[derive(Clone, Copy, Debug, Serialize, Deserialize)]
+203: pub struct JunctionBond {
+204:     pub id: ResolvedItemId,
+205:     pub owners: [GeometryOwnerId; 2],
+206:     pub bounds: SpatialBounds<Architectural>,
+207:     pub minimum_interface_area_square_metres: f32,
+208:     pub maximum_penetration_metres: f32,
+209: }

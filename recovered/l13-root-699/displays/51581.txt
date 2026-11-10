@@ -1,0 +1,271 @@
+SOURCE 2660 pr-working:crates/fabelgeist-bvh/src/gpu/shaders.rs
+391: /// calls back into.
+392: ///
+393: /// The defaults match what [`super::GpuBvh::parameters`] binds, so a kernel
+394: /// that takes the BVH as-is only needs to set `callback`.
+395: #[derive(Clone, Debug)]
+396: pub struct TraversalConfig {
+397:     /// Name of the `fn (primitive: u32)` the traversal calls per hit. It must
+398:     /// be declared before the generated source.
+399:     pub callback: String,
+400:     pub nodes: String,
+401:     pub right_children: String,
+402:     pub indices: String,
+403:     /// Prefix on the generated function names, so that one kernel can
+404:     /// traverse two different hierarchies.
+405:     pub prefix: String,
+406:     /// Traversal stack depth. A Morton hierarchy over duplicate-heavy input
+407:     /// can get deep, so this is generous by default.
+408:     pub stack_size: u32,
+409: }
+410: 
+411: impl Default for TraversalConfig {
+412:     fn default() -> Self {
+413:         Self {
+414:             callback: "bvh_hit".into(),
+415:             nodes: "bvh_nodes".into(),
+416:             right_children: "bvh_right_children".into(),
+417:             indices: "bvh_indices".into(),
+418:             prefix: "bvh".into(),
+419:             stack_size: 64,
+420:         }
+421:     }
+422: }
+423: 
+424: impl TraversalConfig {
+425:     pub fn with_callback(callback: impl Into<String>) -> Self {
+426:         Self {
+427:             callback: callback.into(),
+428:             ..Default::default()
+429:         }
+430:     }
+431: }
+432: 
+433: /// WGSL for walking the hierarchy from inside another kernel.
+434: ///
+435: /// Generates `<prefix>_query_aabb(lower, upper)` and
+436: /// `<prefix>_query_point(point, radius)`, both calling `callback(primitive)`
+437: /// for every primitive whose *box* passes. The caller does the exact test --
+438: /// the BVH only ever promises candidates.
+439: pub fn traversal_source(config: &TraversalConfig) -> String {
+440:     let TraversalConfig {
+441:         callback,
+442:         nodes,
+443:         right_children,
+444:         indices,
+445:         prefix,
+446:         stack_size,
+447:     } = config;
+448: 
+449:     format!(
+450:         r#"
+451: fn {prefix}_query_aabb(query_lower: vec3<f32>, query_upper: vec3<f32>) {{
+452:     var stack: array<u32, {stack_size}u>;
+453:     var depth = 1u;
+454:     stack[0] = 0u;
+455: 
+456:     // A full stack drops the deepest branch rather than writing out of
+457:     // bounds, so an over-deep tree loses candidates instead of corrupting
+458:     // memory next door.
+459:     loop {{
+460:         if (depth == 0u) {{
+461:             break;
+462:         }}
+463:         depth = depth - 1u;
+464:         let index = stack[depth];
+465: 
+466:         let lower = {nodes}[index * 2u];
+467:         let upper = {nodes}[index * 2u + 1u];
+468:         if (any(lower.xyz > query_upper) || any(upper.xyz < query_lower)) {{
+469:             continue;
+470:         }}
+471: 
+472:         if (bitcast<u32>(upper.w) != 0u) {{
+473:             {callback}({indices}[bitcast<u32>(lower.w)]);
+474:         }} else {{
+475:             if (depth + 2u <= {stack_size}u) {{
+476:                 stack[depth] = bitcast<u32>(lower.w);
+477:                 stack[depth + 1u] = {right_children}[index];
+478:                 depth = depth + 2u;
+479:             }}
+480:         }}
+481:     }}
+482: }}
+483: 
+484: fn {prefix}_query_point(point: vec3<f32>, radius: f32) {{
+485:     let r = vec3<f32>(radius);
+486:     {prefix}_query_aabb(point - r, point + r);
+487: }}
+488: "#
+489:     )
+490: }
+SOURCE 2661 pr-working:crates/fabelgeist-shell/src/surface_contact/solve/tests.rs
+1: //! The independent original scalar solver pins words, not just a tolerance.
+2: use super::*;
+3: use crate::native_vector_fixture::{decode_native_vectors, encode_native_vectors};
+4: 
+5: #[test]
+6: fn preserves_original_mass_weighted_contact_words() {
+7:     let fixture: serde_json::Value =
+8:         serde_json::from_str(include_str!("../../../tests/fixtures/contact_masses.json"))
+9:             .expect("original contact snapshot");
+10:     let cases = fixture["cases"].as_array().expect("cases");
+11:     assert_eq!(cases.len(), 36);
+12:     for (pair, family) in [Pair::VertexTriangle, Pair::EdgeEdge]
+13:         .into_iter()
+14:         .zip(cases.as_chunks::<18>().0)
+15:     {
+16:         for case in family {
+17:             assert_eq!(case["pair"], format!("{pair:?}"));
+18:             let previous = decode_native_vectors(&case["previous"]);
+19:             let mut positions = decode_native_vectors(&case["predicted"]);
+20:             let mut velocities = decode_native_vectors(&case["initial_velocities"]);
+21:             let mut masses = Vec::new();
+22:             for word in case["inverse_masses"]
+23:                 .as_array()
+24:                 .expect("inverse mass words")
+25:             {
+26:                 masses.push(ParticleInverseMass::from(f32::from_bits(
+27:                     word.as_u64().expect("inverse mass word") as u32,
+28:                 )));
+29:             }
+30:             let with_velocity = case["with_velocity"].as_bool().expect("velocity choice");
+31:             let count = resolve(
+32:                 pair,
+33:                 &mut positions,
+34:                 &previous,
+35:                 &masses,
+36:                 [0, 1, 2, 3],
+37:                 f32::from_bits(case["thickness"].as_u64().expect("thickness word") as u32),
+38:                 with_velocity.then_some(velocities.as_mut_slice()),
+39:             );
+40:             assert_eq!(count.to_string(), case["resolved"].to_string());
+41:             assert_eq!(encode_native_vectors(&positions), case["corrected"]);
+42:             assert_eq!(encode_native_vectors(&velocities), case["velocities"]);
+43:         }
+44:     }
+45: }
+SOURCE 2662 pr-working:crates/fabelgeist-xpbd/src/constraint/tests.rs
+1: use super::*;
+2: use serde_json::json;
+3: 
+4: fn rejected(result: anyhow::Result<ConstraintSet>) -> String {
+5:     match result {
+6:         Ok(_) => panic!("invalid fixture admitted"),
+7:         Err(error) => error.to_string(),
+8:     }
+9: }
+10: 
+11: #[tokio::test]
+12: async fn preserves_native_upload_allocation_admission_and_recording() -> anyhow::Result<()> {
+13:     let expected: serde_json::Value =
+14:         serde_json::from_str(include_str!("../../tests/fixtures/constraint-native.json"))?;
+15:     let context = WgpuContext::new().await?;
+16:     let cache = KernelCache::new();
+17:     let mut messages = vec![
+18:         ConstraintArity::try_from(0).unwrap_err().to_string(),
+19:         ConstraintIncidence::new(
+20:             &[0, 1, 2].map(crate::ParticleIndex::from),
+21:             ConstraintArity::try_from(2)?,
+22:         )
+23:         .unwrap_err()
+24:         .to_string(),
+25:     ];
+26:     messages.push(rejected(ConstraintSet::distance(
+27:         &context,
+28:         &cache,
+29:         "distance",
+30:         &ConstraintEdges::from([[0, 1]].as_slice()),
+31:         &[1.0, 2.0],
+32:         0.0,
+33:     )));
+34:     messages.push(rejected(ConstraintSet::spring(
+35:         &context,
+36:         &cache,
+37:         "spring",
+38:         &ConstraintEdges::from([[0, 1]].as_slice()),
+39:         &[1.0, 2.0],
+40:         &[],
+41:         0.0,
+42:     )));
+43:     let native = [[0, 1], [1, 2], [2, 3], [3, 0], [u32::MAX, 7]];
+44:     let mut set = ConstraintSet::distance(
+45:         &context,
+46:         &cache,
+47:         "distance",
+48:         &ConstraintEdges::from(native.as_slice()),
+49:         &[0.1, 0.2, 0.3, 0.4, 0.5],
+50:         0.0,
+51:     )?;
+52:     let particle_words = set.particles.read::<u32>(&context).await?;
+53:     let rest_words = set.attachments[0].1.read::<u32>(&context).await?;
+54:     let reordered = set.reorder(&[5u32, 6, 7, 8, 9]);
+55:     let lambda_bytes = u64::from(set.lambdas.size);
+56:     let mut live_count = KernelBatch::labelled(&context, "live");
+57:     set.record_clear(&mut live_count)?;
+58:     let clear_dispatches = live_count.dispatch_count();
+59:     set.enabled = false;
+60:     let mut disabled = KernelBatch::labelled(&context, "disabled");
+61:     set.record_clear(&mut disabled)?;
+62:     let disabled_dispatches = disabled.dispatch_count();
+63:     let mut empty = ConstraintSet::distance(
+64:         &context,
+65:         &cache,
+66:         "empty",
+67:         &ConstraintEdges::default(),
+68:         &[],
+69:         0.0,
+70:     )?;
+71:     let empty_words = empty.particles.read::<u32>(&context).await?;
+72:     let empty_attachment_words = empty.attachments[0].1.read::<u32>(&context).await?;
+73:     let held = empty.attachments[0].1.clone();
+74:     messages.push(
+75:         empty
+76:             .attach(&context, "rest_lengths", &[1u32])
+77:             .unwrap_err()
+78:             .to_string(),
+79:     );
+80:     assert_eq!(empty.attachments.len(), 1);
+81:     assert_eq!(empty.attachments[0].1, held);
+82:     assert_eq!(
+83:         empty.attachments[0].1.read::<u32>(&context).await?,
+84:         empty_attachment_words
+85:     );
+86:     let held = set.attachments[0].1.clone();
+87:     messages.push(
+88:         set.attach_raw(&context, "weights", &[1u32])
+89:             .unwrap_err()
+90:             .to_string(),
+91:     );
+92:     assert_eq!(set.attachments.len(), 1);
+93:     assert_eq!(set.attachments[0].1, held);
+94:     assert_eq!(
+95:         set.attachments[0].1.read::<u32>(&context).await?,
+96:         rest_words
+97:     );
+98:     let mut empty_batch = KernelBatch::labelled(&context, "empty");
+99:     empty.record_clear(&mut empty_batch)?;
+100:     let actual = json!({"messages":messages,"particle_words":particle_words,
+101:         "rest_words":rest_words,"reordered":reordered,"lambda_bytes":lambda_bytes,
+102:         "empty_words":empty_words,"empty_attachment_words":empty_attachment_words,
+103:         "empty_lambda_bytes":u64::from(empty.lambdas.size),
+104:         "clear_dispatches":clear_dispatches,"disabled_dispatches":disabled_dispatches,
+105:         "empty_dispatches":empty_batch.dispatch_count()});
+106:     assert_eq!(actual, expected);
+107:     // An empty set keeps the existing raw-attachment admission policy.
+108:     empty.attach_raw(&context, "raw", &[7u32, 8])?;
+109:     assert_eq!(empty.attachments[1].1.read::<u32>(&context).await?, [7, 8]);
+110:     Ok(())
+111: }
+SOURCE 2663 pr-working:crates/fabelgeist-physics/tests/fixtures/collider-capacity.txt
+1: 0 16 1024
+2: 1 16 1024
+3: 16 16 1024
+4: 17 32 2048
+5: 32 32 2048
+6: 33 64 4096
+7: 64 64 4096
+8: 65 128 8192
+9: 4294967295 0 0
+10: 4294967296 16 1024
+11: 4294967312 16 1024

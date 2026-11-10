@@ -1,0 +1,200 @@
+401:     pub liar: Witness,
+402:     pub statements: [WitnessStatement; 3],
+403: }
+404: 
+405: #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+406: pub struct TruthfulWitnessProjection {
+407:     pub rules_version: u16,
+408:     pub witnesses: [Witness; 3],
+409:     pub paths: [WitnessPath; 3],
+410:     pub statements: [WitnessStatement; 3],
+411: }
+412: 
+413: impl TruthfulWitnessPuzzle {
+414:     pub fn generate(seed: Seed) -> Self {
+415:         Self::generate_with_spec(seed, TruthfulWitnessSpec::default())
+416:             .expect("current truthful-witness rules are supported")
+417:     }
+418: 
+419:     pub fn generate_versioned(rules_version: u16, seed: Seed) -> Result<Self, &'static str> {
+420:         if rules_version != TRUTHFUL_WITNESS_RULES_VERSION {
+421:             return Err("unsupported truthful-witness rules version");
+422:         }
+423:         Self::generate_with_spec(seed, TruthfulWitnessSpec::default())
+424:     }
+425: 
+426:     pub fn generate_with_spec(seed: Seed, spec: TruthfulWitnessSpec) -> Result<Self, &'static str> {
+427:         let spec = spec.validate()?;
+428:         const TRUTHFUL_WITNESS_GENERATION_DOMAIN: fabelgeist_determinism::StreamId =
+429:             fabelgeist_determinism::StreamId::new("puzzle.truthful_witness");
+430:         let mut rng = TRUTHFUL_WITNESS_GENERATION_DOMAIN.rng(seed, &[]);
+431:         let solution_path = WitnessPath::ALL[rng.index(WitnessPath::ALL.len())];
+432:         let liar = Witness::ALL[rng.index(Witness::ALL.len())];
+433:         let choices = Witness::ALL.map(|speaker| {
+434:             let mut claims = witness_claims()
+435:                 .into_iter()
+436:                 .filter(|claim| spec.allows(*claim))
+437:                 .filter(|claim| claim_is_true(*claim, solution_path, liar) == (speaker != liar))
+438:                 .filter(|claim| !matches!(claim, WitnessClaim::WitnessLies(w) | WitnessClaim::WitnessSpeaksTruth(w) if *w == speaker))
+439:                 .collect::<Vec<_>>();
+440:             shuffle(&mut claims, &mut rng);
+441:             claims
+442:         });
+443:         let mut selected = None;
+444:         'outer: for &first in &choices[0] {
+445:             for &second in &choices[1] {
+446:                 for &third in &choices[2] {
+447:                     let statements = [
+448:                         WitnessStatement {
+449:                             speaker: Witness::Crown,
+450:                             claim: first,
+451:                         },
+452:                         WitnessStatement {
+453:                             speaker: Witness::Hart,
+454:                             claim: second,
+455:                         },
+456:                         WitnessStatement {
+457:                             speaker: Witness::Moon,
+458:                             claim: third,
+459:                         },
+460:                     ];
+461:                     let legal = witness_solutions(&statements);
+462:                     if !legal.is_empty()
+463:                         && legal.iter().all(|(path, _)| *path == solution_path)
+464:                         && (!spec.require_unique_liar
+465:                             || legal.iter().all(|(_, candidate)| *candidate == liar))
+466:                         && (!spec.require_irredundant || statement_set_is_irredundant(&statements))
+467:                     {
+468:                         selected = Some(statements);
+469:                         break 'outer;
+470:                     }
+471:                 }
+472:             }
+473:         }
+474:         let puzzle = Self {
+475:             rules_version: TRUTHFUL_WITNESS_RULES_VERSION,
+476:             seed,
+477:             spec,
+478:             solution_path,
+479:             liar,
+480:             statements: selected.ok_or("could not generate a unique truthful-witness puzzle")?,
+481:         };
+482:         puzzle.validate()?;
+483:         Ok(puzzle)
+484:     }
+485: 
+486:     pub fn projection(&self) -> TruthfulWitnessProjection {
+487:         TruthfulWitnessProjection {
+488:             rules_version: self.rules_version,
+489:             witnesses: Witness::ALL,
+490:             paths: WitnessPath::ALL,
+491:             statements: self.statements,
+492:         }
+493:     }
+494: 
+495:     pub fn validate(&self) -> Result<(), &'static str> {
+496:         if self.rules_version != TRUTHFUL_WITNESS_RULES_VERSION {
+497:             return Err("unsupported truthful-witness rules version");
+498:         }
+499:         self.spec.validate()?;
+500:         if self
+501:             .statements
+502:             .iter()
+503:             .any(|statement| !self.spec.allows(statement.claim))
+504:         {
+505:             return Err("truthful-witness statements violate their generation spec");
+506:         }
+507:         if self.statements.map(|statement| statement.speaker) != Witness::ALL {
+508:             return Err("truthful-witness speakers are malformed");
+509:         }
+510:         for statement in self.statements {
+511:             if claim_is_true(statement.claim, self.solution_path, self.liar)
+512:                 != (statement.speaker != self.liar)
+513:             {
+514:                 return Err("truthful-witness statement contradicts private authority");
+515:             }
+516:         }
+517:         let legal = witness_solutions(&self.statements);
+518:         if legal.is_empty() || !legal.iter().all(|(path, _)| *path == self.solution_path) {
+519:             return Err("truthful-witness statements do not prove one safe path");
+520:         }
+521:         if self.spec.require_unique_liar && !legal.iter().all(|(_, liar)| *liar == self.liar) {
+522:             return Err("truthful-witness statements do not prove one liar");
+523:         }
+524:         if self.spec.require_irredundant && !statement_set_is_irredundant(&self.statements) {
+525:             return Err("truthful-witness puzzle contains a redundant statement");
+526:         }
+527:         Ok(())
+528:     }
+529: }
+530: 
+531: fn witness_claims() -> Vec<WitnessClaim> {
+532:     let mut claims = Vec::new();
+533:     for path in WitnessPath::ALL {
+534:         claims.push(WitnessClaim::PathIsSafe(path));
+535:         claims.push(WitnessClaim::PathIsUnsafe(path));
+536:     }
+537:     for witness in Witness::ALL {
+538:         claims.push(WitnessClaim::WitnessLies(witness));
+539:         claims.push(WitnessClaim::WitnessSpeaksTruth(witness));
+540:     }
+541:     claims
+542: }
+543: 
+544: fn claim_is_true(claim: WitnessClaim, safe_path: WitnessPath, liar: Witness) -> bool {
+545:     match claim {
+546:         WitnessClaim::PathIsSafe(path) => path == safe_path,
+547:         WitnessClaim::PathIsUnsafe(path) => path != safe_path,
+548:         WitnessClaim::WitnessLies(witness) => witness == liar,
+549:         WitnessClaim::WitnessSpeaksTruth(witness) => witness != liar,
+550:     }
+551: }
+552: 
+553: pub fn witness_solutions(statements: &[WitnessStatement]) -> Vec<(WitnessPath, Witness)> {
+554:     let mut solutions = Vec::new();
+555:     for path in WitnessPath::ALL {
+556:         for liar in Witness::ALL {
+557:             if statements.iter().all(|statement| {
+558:                 claim_is_true(statement.claim, path, liar) == (statement.speaker != liar)
+559:             }) {
+560:                 solutions.push((path, liar));
+561:             }
+562:         }
+563:     }
+564:     solutions
+565: }
+566: 
+567: fn statement_set_is_irredundant(statements: &[WitnessStatement; 3]) -> bool {
+568:     (0..statements.len()).all(|removed| {
+569:         let reduced = statements
+570:             .iter()
+571:             .copied()
+572:             .enumerate()
+573:             .filter_map(|(index, statement)| (index != removed).then_some(statement))
+574:             .collect::<Vec<_>>();
+575:         let solutions = witness_solutions(&reduced);
+576:         let mut paths = solutions.iter().map(|(path, _)| *path).collect::<Vec<_>>();
+577:         paths.sort();
+578:         paths.dedup();
+579:         paths.len() != 1
+580:     })
+581: }
+582: 
+583: #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+584: pub enum RuneOperation {
+585:     ExchangeCrownHart,
+586:     ExchangeHartMoon,
+587:     ExchangeMoonRose,
+588:     ExchangeRoseSword,
+589:     ExchangeSwordCrown,
+590: }
+591: 
+592: #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+593: pub enum RuneGate {
+594:     Ash,
+595:     Briar,
+596:     Glass,
+597: }
+598: 
+599: #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+600: pub struct RuneTransformationSpec {

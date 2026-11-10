@@ -1,0 +1,7 @@
+from pathlib import Path
+import json,hashlib,sys
+sys.stdout.reconfigure(encoding='utf-8');w=Path('target/726-audit-continuation-20261030');a=w/'target/726-audit-adler-20261027/adler-continuation-20261030';qp=a/'QUALIFICATION-ROOT-L13-2600-2607-FRESH-ADMISSION-001.json';assert hashlib.sha256(qp.read_bytes()).hexdigest()=='03881eef3dea143468db1099d69585751fc8f4aa5a888424c0ac3a1804230212';q=json.loads(qp.read_bytes())
+for e in q['entries'][:2]:
+ src=e['source'];b=(w/src['object_path']).read_bytes();assert hashlib.sha256(b).hexdigest()==src['sha256'];ls=b.decode('utf-8').splitlines();print('FRESH',src['original'],src['source_id'],'SCOPE',src['prospective_ranges'])
+ for lo,hi in src['prospective_ranges']:
+  for n in range(lo,hi+1):print(f'{n:04d} {ls[n-1]}')

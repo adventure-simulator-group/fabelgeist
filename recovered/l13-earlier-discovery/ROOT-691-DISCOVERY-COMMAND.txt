@@ -1,0 +1,28 @@
+from pathlib import Path
+from datetime import datetime,timezone
+import json,hashlib
+repo=Path.cwd();w=repo/'target/726-audit-continuation-20261030';r=w/'target/726-audit-adler-20261027';i=repo/'target/726-intake-20261030'
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def read(p):return json.loads(p.read_bytes())
+def ref(p):return {'path':p.relative_to(repo).as_posix(),'sha256':sha(p)}
+cp=i/'CURRENT.json';assert sha(cp)=='0adbbe7e7bbde634ad92245d7da3b3c3908f6457be59feb633e58edf5f283c20';lp=r/'evidence/continuation-segovb/ledger.json';co=read(lp)['segovb_continuation']['lens13'];assert co['next_original']==2592 and len(co['discovery_receipts'])==694;reg=r/'evidence/audit05/original-scope-072.json';assert sha(reg)=='d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f';fs=read(reg)['files'];hs={fs[n]['sha256']:n for n in range(2592,2600)};hits=[]
+for v in co['discovery_receipts']:
+ ps={p.resolve()for p in[r/v['path'],w/v['path'],r/'evidence/continuation-segovb'/v['path']]if p.is_file()and sha(p)==v['sha256']};assert len(ps)==1;raw=ps.pop().read_bytes()
+ for h,n in hs.items():
+  if h.encode()in raw:hits.append({'original':n,'receipt':v})
+fields=[];issues=[]
+def visit(v,eof,p):
+ if isinstance(v,dict):
+  for k,x in v.items():
+   at=p+'/'+k
+   if(k.endswith('ranges')or k in['read_ranges_as_recorded','material_contract_ranges_as_recorded','requested_range_limits'])and x:
+    assert isinstance(x,list)and all(isinstance(z,list)and len(z)==2 and all(isinstance(y,int)for y in z)and 1<=z[0]<=z[1]for z in x);field={'pointer':at,'raw_value':x,'actual_eof':eof};fields.append(field)
+    if any(hi>eof for lo,hi in x):issues.append(field)
+   visit(x,eof,at)
+ elif isinstance(v,list):
+  for j,x in enumerate(v):visit(x,eof,p+'/'+str(j))
+for n in range(2592,2600):visit(fs[n],fs[n]['actual_line_count'],f'/files/{n}')
+assert len(issues)==2 and all(x['pointer'].startswith('/files/2592/')and x['raw_value']==[[1,107]]and x['actual_eof']==106 for x in issues)
+futures=[v for v in co['future_same_lens_reuse_proofs']if any(h in json.dumps(v)for h in hs)];apps=[v for v in co['future_same_lens_ordered_applications']if any(h in json.dumps(v)for h in hs)];out=i/'DISCOVERY-L13-2592-2599-METADATA-001.json';d={'schema':'726-l13-source-metadata-navigation-only-v1','at':datetime.now(timezone.utc).isoformat(),'author':'/root','lens':13,'local_current':ref(cp),'ledger':ref(lp),'registry':ref(reg),'original_before':2592,'entries':[{'original':n,'registry_entry':fs[n]}for n in range(2592,2600)],'own_receipts_authenticated':694,'exact_hash_prior_hits':hits,'future_same_lens_proofs_navigation':futures,'prior_applications_preserved_navigation':apps,'all_nested_range_fields':fields,'out_of_eof_raw_fields_requiring_exact_qualification':issues,'body_credit':0,'authority_changes':0,'product_execution':False,'implementation_gate_complete':False,'limits':['Navigation only, no fresh or reuse source body/prospective registration/adoption credit.','2592 raw requested1..107 in original andlocalqualification must be preserved, actual106/localactual1..106. Future exact proof must exclude nonexistent107 and preserve original record; native source metadata proof still needed.','Mixed P16 equipment/determinism and directPRchoices/garment/underlayer/trunkhose roles; prior proof hits may be metadata-only references, require actual original reader/source/range/prospective/Git/EOF/activation joins.']}
+with out.open('x',encoding='utf-8',newline='\n')as f:json.dump(d,f,indent=2);f.write('\n')
+print(json.dumps({'discovery':ref(out),'own':694,'hits':[(x['original'],x['receipt']['path'])for x in hits],'future_originals':[v.get('original')for v in futures],'nested_fields':len(fields),'out_of_eof_fields':issues}))

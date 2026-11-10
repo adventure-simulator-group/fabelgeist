@@ -1,0 +1,52 @@
+244:     } else {
+245:         return Err(lookahead.error());
+246:     };
+247:     humantime::parse_duration(&s).map_err(|e| syn::Error::new(span, format_args!("can't parse as duration: {e}")))
+248: }
+249: 
+250: /// A helper for the common bits of the derive macros.
+251: fn sats_derive(
+252:     input: StdTokenStream,
+253:     assume_in_module: bool,
+254:     logic: impl FnOnce(&sats::SatsType) -> TokenStream,
+255: ) -> StdTokenStream {
+256:     let input = syn::parse_macro_input!(input as syn::DeriveInput);
+257:     let crate_fallback = if assume_in_module {
+258:         quote!(spacetimedb::spacetimedb_lib)
+259:     } else {
+260:         quote!(spacetimedb_lib)
+261:     };
+262:     sats::sats_type_from_derive(&input, crate_fallback)
+263:         .map(|ty| logic(&ty))
+264:         .unwrap_or_else(syn::Error::into_compile_error)
+265:         .into()
+266: }
+267: 
+268: #[proc_macro_derive(Deserialize, attributes(sats))]
+269: pub fn deserialize(input: StdTokenStream) -> StdTokenStream {
+270:     sats_derive(input, false, sats::derive_deserialize)
+271: }
+272: 
+273: #[proc_macro_derive(Serialize, attributes(sats))]
+274: pub fn serialize(input: StdTokenStream) -> StdTokenStream {
+275:     sats_derive(input, false, sats::derive_serialize)
+276: }
+277: 
+278: #[proc_macro_derive(SpacetimeType, attributes(sats))]
+279: pub fn schema_type(input: StdTokenStream) -> StdTokenStream {
+280:     sats_derive(input, true, |ty| {
+281:         let ident = ty.ident;
+282:         let name = &ty.name;
+283: 
+284:         let krate = &ty.krate;
+285:         TokenStream::from_iter([
+286:             sats::derive_satstype(ty),
+287:             sats::derive_deserialize(ty),
+288:             sats::derive_serialize(ty),
+289:             // unfortunately, generic types don't work in modules at the moment.
+290:             quote!(#krate::__make_register_reftype!(#ident, #name);),
+291:         ])
+292:     })
+293: }
+294: 
+295: #[proc_macro_attribute]

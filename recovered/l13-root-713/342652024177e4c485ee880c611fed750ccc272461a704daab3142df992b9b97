@@ -1,0 +1,1502 @@
+{
+  "schema": "726-exact2721-2728-admission-mixed-material-v1",
+  "at": "2026-11-01T20:31:42.340475+00:00",
+  "author": "/root",
+  "lens": 13,
+  "proof_builder": {
+    "path": "adler-continuation-20261030/qualify_admission2721_v1.py",
+    "sha256": "ab39981f8993ba6139a234f67269d0735fb1fe54de44b3bdd6578ee67b72bff4"
+  },
+  "registry": {
+    "path": "evidence/audit05/original-scope-072.json",
+    "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "registration": {
+    "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2721-2728-001.json",
+    "sha256": "2de410af6df66ce6634292cce2c16611b442f913c2b401ac2ebece3f8f290238"
+  },
+  "qualified_against_ledger": {
+    "path": "evidence/continuation-segovb/ledger.json",
+    "sha256": "861bdaab075be6a831b51ed85ee914e818aa7f0e26f333cc1253d0b5398a91ac"
+  },
+  "qualified_against_selector": {
+    "path": "CURRENT-ADLER.json",
+    "sha256": "aebf1b9c664525f415aff800b2270a7419b18e221091aab4f4daa195f2c36b3b"
+  },
+  "entries": [
+    {
+      "original": 2721,
+      "source": {
+        "original": 2721,
+        "source_id": "physical-p16:crates/adventuresim-stdb-client/src/connected_player_type.rs",
+        "sha256": "01f3bc878d9996682dfdf6b694f614d358d3d5acaa0375b2ca10c027fa464390",
+        "actual_eof": 114,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/01f3bc878d9996682dfdf6b694f614d358d3d5acaa0375b2ca10c027fa464390",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/01f3bc878d9996682dfdf6b694f614d358d3d5acaa0375b2ca10c027fa464390",
+        "prospective_ranges": [
+          [
+            1,
+            114
+          ]
+        ],
+        "revision_qualification": "Exact recorded native prefix/snapshot/path; archivef82 transport only. NativePR literal joins2721..2727; P16design2728 differs from nativePR171 lines, no counterpart/current semantic transfer.",
+        "purpose": "Eight generated-client/SDK/armor roles569material,200fresh/369priorread; generated bindings source only, no native or product execution."
+      },
+      "mode": "fresh",
+      "bytes": 5914,
+      "assessed_union": [
+        [
+          1,
+          114
+        ]
+      ],
+      "material_line_count": 114,
+      "new_root_personal_lines": 114,
+      "registry_entry_sha256": "f6ac6c01ded528bd75b91b579170caa2f96ebc4946e01a438ab639cd2580a93c",
+      "registry_path_as_recorded": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-client\\src\\connected_player_type.rs",
+      "native_pr_comparison": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-stdb-client/src/connected_player_type.rs",
+        "sha256": "01f3bc878d9996682dfdf6b694f614d358d3d5acaa0375b2ca10c027fa464390",
+        "actual_eof": 114,
+        "literal_equal": true
+      },
+      "source_current_reconciled": false,
+      "unread_ranges": [],
+      "whole_file_coverage": true
+    },
+    {
+      "original": 2722,
+      "source": {
+        "original": 2722,
+        "source_id": "physical-p16:crates/adventuresim-stdb-client/src/connected_player_item_type.rs",
+        "sha256": "250d23b8d767b72622ccdaa26a5e3032d7dce28807f900206651c7cd3fda5aac",
+        "actual_eof": 29,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/250d23b8d767b72622ccdaa26a5e3032d7dce28807f900206651c7cd3fda5aac",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/250d23b8d767b72622ccdaa26a5e3032d7dce28807f900206651c7cd3fda5aac",
+        "prospective_ranges": [
+          [
+            1,
+            29
+          ]
+        ],
+        "revision_qualification": "Exact recorded native prefix/snapshot/path; archivef82 transport only. NativePR literal joins2721..2727; P16design2728 differs from nativePR171 lines, no counterpart/current semantic transfer.",
+        "purpose": "Eight generated-client/SDK/armor roles569material,200fresh/369priorread; generated bindings source only, no native or product execution."
+      },
+      "mode": "fresh",
+      "bytes": 1163,
+      "assessed_union": [
+        [
+          1,
+          29
+        ]
+      ],
+      "material_line_count": 29,
+      "new_root_personal_lines": 29,
+      "registry_entry_sha256": "15198b52e9dc7fc1c86b5023469c2ec1cc29b65cbcf4b77bdb4df150802039dd",
+      "registry_path_as_recorded": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-client\\src\\connected_player_item_type.rs",
+      "native_pr_comparison": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-stdb-client/src/connected_player_item_type.rs",
+        "sha256": "250d23b8d767b72622ccdaa26a5e3032d7dce28807f900206651c7cd3fda5aac",
+        "actual_eof": 29,
+        "literal_equal": true
+      },
+      "source_current_reconciled": false,
+      "unread_ranges": [],
+      "whole_file_coverage": true
+    },
+    {
+      "original": 2723,
+      "source": {
+        "original": 2723,
+        "source_id": "pr-working:crates/adventuresim-stdb-client/Cargo.toml",
+        "sha256": "cf3964f3ac12941d5266ff1285c0ce08d8a608eaf93a4a4840126288b937534c",
+        "actual_eof": 14,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/cf3964f3ac12941d5266ff1285c0ce08d8a608eaf93a4a4840126288b937534c",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/cf3964f3ac12941d5266ff1285c0ce08d8a608eaf93a4a4840126288b937534c",
+        "prospective_ranges": [
+          [
+            11,
+            11
+          ]
+        ],
+        "revision_qualification": "Exact recorded native prefix/snapshot/path; archivef82 transport only. NativePR literal joins2721..2727; P16design2728 differs from nativePR171 lines, no counterpart/current semantic transfer.",
+        "purpose": "Eight generated-client/SDK/armor roles569material,200fresh/369priorread; generated bindings source only, no native or product execution."
+      },
+      "mode": "fresh",
+      "bytes": 235,
+      "assessed_union": [
+        [
+          11,
+          11
+        ]
+      ],
+      "material_line_count": 1,
+      "new_root_personal_lines": 1,
+      "registry_entry_sha256": "6e70f426aaababf958f875aebfc7dd68936523240c38f0d380eb0b7eb4238f76",
+      "registry_path_as_recorded": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-client\\Cargo.toml",
+      "native_pr_comparison": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-stdb-client/Cargo.toml",
+        "sha256": "cf3964f3ac12941d5266ff1285c0ce08d8a608eaf93a4a4840126288b937534c",
+        "actual_eof": 14,
+        "literal_equal": true
+      },
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          1,
+          10
+        ],
+        [
+          12,
+          14
+        ]
+      ],
+      "whole_file_coverage": false
+    },
+    {
+      "original": 2724,
+      "source": {
+        "original": 2724,
+        "source_id": "physical-p16:crates/fabelgeist-armor/src/lib.rs",
+        "sha256": "80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd",
+        "actual_eof": 171,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd",
+        "prospective_ranges": [
+          [
+            86,
+            171
+          ]
+        ],
+        "revision_qualification": "Exact recorded native prefix/snapshot/path; archivef82 transport only. NativePR literal joins2721..2727; P16design2728 differs from nativePR171 lines, no counterpart/current semantic transfer.",
+        "purpose": "Eight generated-client/SDK/armor roles569material,200fresh/369priorread; generated bindings source only, no native or product execution."
+      },
+      "mode": "root-reuse",
+      "bytes": 6035,
+      "assessed_union": [
+        [
+          86,
+          171
+        ]
+      ],
+      "material_line_count": 86,
+      "new_root_personal_lines": 0,
+      "registry_entry_sha256": "b71f3ed98ca1fffca20b9b6128b9e383919a9b09bcee69df452cd36ccecafa68",
+      "registry_path_as_recorded": "SNAPSHOTS\\p16\\crates\\fabelgeist-armor\\src\\lib.rs",
+      "native_pr_comparison": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/fabelgeist-armor/src/lib.rs",
+        "sha256": "80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd",
+        "actual_eof": 171,
+        "literal_equal": true
+      },
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "whole_file_coverage": false,
+      "prior": {
+        "prior_adoption": {
+          "path": "segovb/READ-L13-PARALLEL-692.json",
+          "sha256": "7f6a37f8759dadff0242c010164391e69edd1a9210513d75805d7b38cecec064"
+        },
+        "prior_packet": {
+          "path": "adler-continuation-20261030/READ-ROOT-L13-2600-2607-001.json",
+          "sha256": "edadeaf61d4466db932faaaffb223c970cfb1f174d67d54dcea0326f082b53f1"
+        },
+        "prior_plan": {
+          "path": "adler-continuation-20261030/PLAN-ROOT-L13-2600-2607-001.json",
+          "sha256": "ef600e41824c786289f6b184e3d6d90dd11371d3c7bb51777e243f56b4bbdbaa"
+        },
+        "prior_registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2600-2607-001.json",
+          "sha256": "0be7d9f9d6825702bb8fe13bc0fda562d428f9cfc0d557f5bce8f781d6da2ec5"
+        },
+        "prior_native_verification": {
+          "path": "segovb/VERIFY-L13-PARALLEL-692.json",
+          "sha256": "e6b0c89278692eca850a625ff3700b8675737cbb5ce4b69857880b6512444335"
+        },
+        "prior_state": {
+          "path": "segovb/STATE-L13-PARALLEL-692.json",
+          "sha256": "0f12b5426e81661e668983e3d6b210deae5c26c2ac5e6d80dd2623de457899fe"
+        },
+        "prior_row_pointer": "/ordered/6",
+        "prior_registration_pointer": "/sources/6",
+        "prior_source_row": {
+          "source": {
+            "original": 2606,
+            "source_id": "pr-working:crates/fabelgeist-armor/src/lib.rs",
+            "sha256": "80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd",
+            "actual_eof": 171,
+            "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd",
+            "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "transport_git_path": "crates/fabelgeist-armor/src/lib.rs",
+            "prospective_ranges": [
+              [
+                86,
+                171
+              ]
+            ],
+            "revision_qualification": "Seven directprworking identities pinnedGit6533; one native serde_json streaming decoder snapshot archivef82adc transport, actual package/features/namespace unresolved. No current-main transfer.",
+            "purpose": "Eight exact fresh sampling15/streamingJSON345/tree317/icon50/armor215 admission roles942; only material scopes, unrelated native/source tails uncredited. One historical SHA mention is unread navigation, not reuse."
+          },
+          "registration": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2600-2607-001.json",
+            "sha256": "0be7d9f9d6825702bb8fe13bc0fda562d428f9cfc0d557f5bce8f781d6da2ec5"
+          },
+          "registration_pointer": "/sources/6",
+          "assessed_ranges": [
+            [
+              86,
+              171
+            ]
+          ],
+          "untruncated_body_outputs": true,
+          "author": "/root",
+          "read_kind": "qualified_root2600_2607_material_scope",
+          "root_personal_source_lines": 86,
+          "whole_file_coverage": false,
+          "unread_ranges": [
+            [
+              1,
+              85
+            ]
+          ],
+          "observations": [
+            {
+              "ranges": [
+                [
+                  86,
+                  171
+                ]
+              ],
+              "assessment": "Fresh armorlib86..171 personally read untruncated,1..85 excluded. Bracer encode validates before postcard and decode deserializes then validates; design_hash hashes canonical encoded bytes after same validation. Breastplate hash validates profile/construction/fluting/catalog/edges before serialization. parametric_design_hash hashes arbitrary supplied encoded bytes for provenance, not claimed semanticvalidation port. Bracer exact limits include coverage50..1000permille and wristoffset<=950 with widenedu32 sum<=1000, thickness1..20/clearance1..30; widenedu16sum cannot overflowu32. Breastplate profile andoptional Anime/fluting delegates plus explicit edge/clearance/thickness ranges; specific DesignError categories remain typed, native postcard errors collapse toEncoding variant, actual cause/finaldiagnostic policy separate. trimnonempty catalogue check is spelling nonemptiness, not canonicalmembership; actual catalogue producer/native owner remains2689. Public directSerde/design mutation paths and native GPU/generatedmesh admission remain separate, not globally certified by encode/decode. No generated binding/product changes or native codec execution."
+            }
+          ]
+        },
+        "historical_attribution": "/root"
+      }
+    },
+    {
+      "original": 2725,
+      "source": {
+        "original": 2725,
+        "source_id": "physical-p16:crates/fabelgeist-armor/src/breastplate_design.rs",
+        "sha256": "5754de117641f6ec7b40dd69802d0fddedf3d2e9a2608945b8c26b33171f05f6",
+        "actual_eof": 206,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/5754de117641f6ec7b40dd69802d0fddedf3d2e9a2608945b8c26b33171f05f6",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/5754de117641f6ec7b40dd69802d0fddedf3d2e9a2608945b8c26b33171f05f6",
+        "prospective_ranges": [
+          [
+            1,
+            128
+          ]
+        ],
+        "revision_qualification": "Exact recorded native prefix/snapshot/path; archivef82 transport only. NativePR literal joins2721..2727; P16design2728 differs from nativePR171 lines, no counterpart/current semantic transfer.",
+        "purpose": "Eight generated-client/SDK/armor roles569material,200fresh/369priorread; generated bindings source only, no native or product execution."
+      },
+      "mode": "root-reuse",
+      "bytes": 8147,
+      "assessed_union": [
+        [
+          1,
+          128
+        ]
+      ],
+      "material_line_count": 128,
+      "new_root_personal_lines": 0,
+      "registry_entry_sha256": "2b79e28e7027176cb5446a98d313f09e9a2eb402bde10141fe9e564fb29cf1c0",
+      "registry_path_as_recorded": "SNAPSHOTS\\p16\\crates\\fabelgeist-armor\\src\\breastplate_design.rs",
+      "native_pr_comparison": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/fabelgeist-armor/src/breastplate_design.rs",
+        "sha256": "5754de117641f6ec7b40dd69802d0fddedf3d2e9a2608945b8c26b33171f05f6",
+        "actual_eof": 206,
+        "literal_equal": true
+      },
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          129,
+          206
+        ]
+      ],
+      "whole_file_coverage": false,
+      "prior": {
+        "prior_adoption": {
+          "path": "segovb/READ-L13-PARALLEL-692.json",
+          "sha256": "7f6a37f8759dadff0242c010164391e69edd1a9210513d75805d7b38cecec064"
+        },
+        "prior_packet": {
+          "path": "adler-continuation-20261030/READ-ROOT-L13-2600-2607-001.json",
+          "sha256": "edadeaf61d4466db932faaaffb223c970cfb1f174d67d54dcea0326f082b53f1"
+        },
+        "prior_plan": {
+          "path": "adler-continuation-20261030/PLAN-ROOT-L13-2600-2607-001.json",
+          "sha256": "ef600e41824c786289f6b184e3d6d90dd11371d3c7bb51777e243f56b4bbdbaa"
+        },
+        "prior_registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2600-2607-001.json",
+          "sha256": "0be7d9f9d6825702bb8fe13bc0fda562d428f9cfc0d557f5bce8f781d6da2ec5"
+        },
+        "prior_native_verification": {
+          "path": "segovb/VERIFY-L13-PARALLEL-692.json",
+          "sha256": "e6b0c89278692eca850a625ff3700b8675737cbb5ce4b69857880b6512444335"
+        },
+        "prior_state": {
+          "path": "segovb/STATE-L13-PARALLEL-692.json",
+          "sha256": "0f12b5426e81661e668983e3d6b210deae5c26c2ac5e6d80dd2623de457899fe"
+        },
+        "prior_row_pointer": "/ordered/7",
+        "prior_registration_pointer": "/sources/7",
+        "prior_source_row": {
+          "source": {
+            "original": 2607,
+            "source_id": "pr-working:crates/fabelgeist-armor/src/breastplate_design.rs",
+            "sha256": "5754de117641f6ec7b40dd69802d0fddedf3d2e9a2608945b8c26b33171f05f6",
+            "actual_eof": 206,
+            "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/5754de117641f6ec7b40dd69802d0fddedf3d2e9a2608945b8c26b33171f05f6",
+            "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "transport_git_path": "crates/fabelgeist-armor/src/breastplate_design.rs",
+            "prospective_ranges": [
+              [
+                1,
+                129
+              ]
+            ],
+            "revision_qualification": "Seven directprworking identities pinnedGit6533; one native serde_json streaming decoder snapshot archivef82adc transport, actual package/features/namespace unresolved. No current-main transfer.",
+            "purpose": "Eight exact fresh sampling15/streamingJSON345/tree317/icon50/armor215 admission roles942; only material scopes, unrelated native/source tails uncredited. One historical SHA mention is unread navigation, not reuse."
+          },
+          "registration": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2600-2607-001.json",
+            "sha256": "0be7d9f9d6825702bb8fe13bc0fda562d428f9cfc0d557f5bce8f781d6da2ec5"
+          },
+          "registration_pointer": "/sources/7",
+          "assessed_ranges": [
+            [
+              1,
+              129
+            ]
+          ],
+          "untruncated_body_outputs": true,
+          "author": "/root",
+          "read_kind": "qualified_root2600_2607_material_scope",
+          "root_personal_source_lines": 129,
+          "whole_file_coverage": false,
+          "unread_ranges": [
+            [
+              130,
+              206
+            ]
+          ],
+          "observations": [
+            {
+              "ranges": [
+                [
+                  1,
+                  129
+                ]
+              ],
+              "assessment": "Fresh BreastplateDesign/profile1..129 personally read untruncated, remaining presets130..206 excluded. Public fields deriveSerde withdeny_unknown_fields but ordinary derived Deserialize does not itself call validate. Generic Millimeters/Permille carry distinct meanings perfield; documented projectionheight waist0..neck1000, default values andactual perfield profilebounds are firstpartycontracts. Profile validator explicitly checks projection/waist0..80, upperrecession0..50, height150..800, fullness350..1000, ridge0..35, waistpoint0..100/width350..1000; returns typed BreastplateShape. Edge range constants side500..1080, armwidth100..1000, waist650..1200 used by priorfresh canonicalvalidator. Valid explicit0 projection/recession/ridge/point must remain; generic positive-magnitude type would reject legitimatezeros. CatalogueString/defaultbreastplate is not membershipproof. Actual producer validation before retained native fit/geometry, owner/crossfieldrelations/current/all20/aliases remain; no presetbody or testexecution."
+            }
+          ]
+        },
+        "historical_attribution": "/root"
+      }
+    },
+    {
+      "original": 2726,
+      "source": {
+        "original": 2726,
+        "source_id": "physical-p16:crates/fabelgeist-armor/src/plate_fluting.rs",
+        "sha256": "42c3b5a6c8d36617915977082f2a591e7e363910aa7b7b209d0f0168d774fbf7",
+        "actual_eof": 150,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/42c3b5a6c8d36617915977082f2a591e7e363910aa7b7b209d0f0168d774fbf7",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/42c3b5a6c8d36617915977082f2a591e7e363910aa7b7b209d0f0168d774fbf7",
+        "prospective_ranges": [
+          [
+            1,
+            99
+          ]
+        ],
+        "revision_qualification": "Exact recorded native prefix/snapshot/path; archivef82 transport only. NativePR literal joins2721..2727; P16design2728 differs from nativePR171 lines, no counterpart/current semantic transfer.",
+        "purpose": "Eight generated-client/SDK/armor roles569material,200fresh/369priorread; generated bindings source only, no native or product execution."
+      },
+      "mode": "root-reuse",
+      "bytes": 6026,
+      "assessed_union": [
+        [
+          1,
+          99
+        ]
+      ],
+      "material_line_count": 99,
+      "new_root_personal_lines": 0,
+      "registry_entry_sha256": "60781d71bf720b46c285a9f842786cf74a9aaf58719ef782a7dfe1745f4f484d",
+      "registry_path_as_recorded": "SNAPSHOTS\\p16\\crates\\fabelgeist-armor\\src\\plate_fluting.rs",
+      "native_pr_comparison": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/fabelgeist-armor/src/plate_fluting.rs",
+        "sha256": "42c3b5a6c8d36617915977082f2a591e7e363910aa7b7b209d0f0168d774fbf7",
+        "actual_eof": 150,
+        "literal_equal": true
+      },
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          100,
+          150
+        ]
+      ],
+      "whole_file_coverage": false,
+      "prior": {
+        "prior_adoption": {
+          "path": "segovb/READ-L13-PARALLEL-693.json",
+          "sha256": "502870258c6bbf60f36c1b1151bada48e998a58e1eff32b96fe9ddf5cf05d821"
+        },
+        "prior_packet": {
+          "path": "adler-continuation-20261030/READ-ROOT-L13-2608-2615-001.json",
+          "sha256": "1aa2fabb5d167d6044da8c1e2e9b566d596d0dc78df1be7d43541bbec530eebf"
+        },
+        "prior_plan": {
+          "path": "adler-continuation-20261030/PLAN-ROOT-L13-2608-2615-001.json",
+          "sha256": "2e31e5ec0ed0c25db8c10e290f19712411ea4ffab64939f1fb9ff857447fc7f5"
+        },
+        "prior_registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2608-2615-001.json",
+          "sha256": "e41778a288ed2407a42f3630c0ec07ad77ecdcaaac232f2dd4769421c528dba4"
+        },
+        "prior_native_verification": {
+          "path": "segovb/VERIFY-L13-PARALLEL-693.json",
+          "sha256": "ca588029e8bc9f5c7bbfb82ff3123bd5f1abe93a1f86b4c91fc78e5f91cb343d"
+        },
+        "prior_state": {
+          "path": "segovb/STATE-L13-PARALLEL-693.json",
+          "sha256": "81db1d88b9a6056596f1d9a0523e53d8f69e97573e849af5cdd027d42cca41c7"
+        },
+        "prior_row_pointer": "/ordered/0",
+        "prior_registration_pointer": "/sources/0",
+        "prior_source_row": {
+          "source": {
+            "original": 2608,
+            "source_id": "pr-working:crates/fabelgeist-armor/src/plate_fluting.rs",
+            "sha256": "42c3b5a6c8d36617915977082f2a591e7e363910aa7b7b209d0f0168d774fbf7",
+            "actual_eof": 150,
+            "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/42c3b5a6c8d36617915977082f2a591e7e363910aa7b7b209d0f0168d774fbf7",
+            "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "transport_git_path": "crates/fabelgeist-armor/src/plate_fluting.rs",
+            "prospective_ranges": [
+              [
+                1,
+                100
+              ],
+              [
+                102,
+                131
+              ],
+              [
+                147,
+                150
+              ]
+            ],
+            "revision_qualification": "Eight directprworking identities pinnedGit6533; no current-main or native feature transfer.",
+            "purpose": "Exact armor admission1030 fresh material lines across8 roles; qualified Helmet excludes incidental391 plus other registered gaps, fluting101/132..146 excluded."
+          },
+          "registration": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2608-2615-001.json",
+            "sha256": "e41778a288ed2407a42f3630c0ec07ad77ecdcaaac232f2dd4769421c528dba4"
+          },
+          "registration_pointer": "/sources/0",
+          "assessed_ranges": [
+            [
+              1,
+              100
+            ],
+            [
+              102,
+              131
+            ],
+            [
+              147,
+              150
+            ]
+          ],
+          "untruncated_body_outputs": true,
+          "author": "/root",
+          "read_kind": "qualified_root2608_2615_material_scope",
+          "root_personal_source_lines": 134,
+          "whole_file_coverage": false,
+          "unread_ranges": [
+            [
+              101,
+              101
+            ],
+            [
+              132,
+              146
+            ]
+          ],
+          "observations": [
+            {
+              "ranges": [
+                [
+                  1,
+                  100
+                ],
+                [
+                  102,
+                  131
+                ],
+                [
+                  147,
+                  150
+                ]
+              ],
+              "assessment": "Fresh PlateFluting exact1..100/102..131/147..150 union134 personally read untruncated;101/132..146 excluded. Public FluteCount(u16) and generic Permille/Millimeters are only representation bounds, actualvalidate count2..64/width350..850/depth1..4/spread400..850/lower500..1000/fade100..250 plusstart>=50/end<=950/ordered span>=2fade. Shortcircuit afterorderedend/start and boundedfade makes subtraction/multiply safe even arbitraryu16fields reachinglater predicates; not a new overflowcase. For actual validated caller pitchpositive, spread<1 keeps fan outside denominatorpositive, width/fadepositive and finite literalconversion. columns additionally takes independent base_segmentsusize, divides byit beforefilter; zerobase producesNaN sample discardedbycomparisons forvalidatedfield, but actual count/basepopulation/cardinality/nativecap/size arithmetic stillrequired before supportedpanic or emptyresult claim. Generatesfeature columns+endpoints then totalcmpsort/tolerancededup; no requirement to retain unrelated regulargrid strips. fan_coordinate/relief require actual finite nativechartcoordinates and validatedpattern; clamp smooth doesnot independently admitNaN. Actual sourcecreator/DeviceBracer/helmetcarrier/native layout/current remain; unitmethods andbase detail owner outside currentbody."
+            }
+          ]
+        },
+        "historical_attribution": "/root"
+      }
+    },
+    {
+      "original": 2727,
+      "source": {
+        "original": 2727,
+        "source_id": "physical-p16:crates/fabelgeist-armor/src/anime_design.rs",
+        "sha256": "3fd27205e209b9133d640381c16458c180e205625a017b93138e363d14b04b86",
+        "actual_eof": 56,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/3fd27205e209b9133d640381c16458c180e205625a017b93138e363d14b04b86",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/3fd27205e209b9133d640381c16458c180e205625a017b93138e363d14b04b86",
+        "prospective_ranges": [
+          [
+            1,
+            56
+          ]
+        ],
+        "revision_qualification": "Exact recorded native prefix/snapshot/path; archivef82 transport only. NativePR literal joins2721..2727; P16design2728 differs from nativePR171 lines, no counterpart/current semantic transfer.",
+        "purpose": "Eight generated-client/SDK/armor roles569material,200fresh/369priorread; generated bindings source only, no native or product execution."
+      },
+      "mode": "root-reuse",
+      "bytes": 1886,
+      "assessed_union": [
+        [
+          1,
+          56
+        ]
+      ],
+      "material_line_count": 56,
+      "new_root_personal_lines": 0,
+      "registry_entry_sha256": "196d16ef4a7e9d8f7ae3f2457e817ff57f99e8abd12c83974152954eeaf2bafa",
+      "registry_path_as_recorded": "SNAPSHOTS\\p16\\crates\\fabelgeist-armor\\src\\anime_design.rs",
+      "native_pr_comparison": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/fabelgeist-armor/src/anime_design.rs",
+        "sha256": "3fd27205e209b9133d640381c16458c180e205625a017b93138e363d14b04b86",
+        "actual_eof": 56,
+        "literal_equal": true
+      },
+      "source_current_reconciled": false,
+      "unread_ranges": [],
+      "whole_file_coverage": true,
+      "prior": {
+        "prior_adoption": {
+          "path": "segovb/READ-L13-PARALLEL-693.json",
+          "sha256": "502870258c6bbf60f36c1b1151bada48e998a58e1eff32b96fe9ddf5cf05d821"
+        },
+        "prior_packet": {
+          "path": "adler-continuation-20261030/READ-ROOT-L13-2608-2615-001.json",
+          "sha256": "1aa2fabb5d167d6044da8c1e2e9b566d596d0dc78df1be7d43541bbec530eebf"
+        },
+        "prior_plan": {
+          "path": "adler-continuation-20261030/PLAN-ROOT-L13-2608-2615-001.json",
+          "sha256": "2e31e5ec0ed0c25db8c10e290f19712411ea4ffab64939f1fb9ff857447fc7f5"
+        },
+        "prior_registration": {
+          "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2608-2615-001.json",
+          "sha256": "e41778a288ed2407a42f3630c0ec07ad77ecdcaaac232f2dd4769421c528dba4"
+        },
+        "prior_native_verification": {
+          "path": "segovb/VERIFY-L13-PARALLEL-693.json",
+          "sha256": "ca588029e8bc9f5c7bbfb82ff3123bd5f1abe93a1f86b4c91fc78e5f91cb343d"
+        },
+        "prior_state": {
+          "path": "segovb/STATE-L13-PARALLEL-693.json",
+          "sha256": "81db1d88b9a6056596f1d9a0523e53d8f69e97573e849af5cdd027d42cca41c7"
+        },
+        "prior_row_pointer": "/ordered/1",
+        "prior_registration_pointer": "/sources/1",
+        "prior_source_row": {
+          "source": {
+            "original": 2609,
+            "source_id": "pr-working:crates/fabelgeist-armor/src/anime_design.rs",
+            "sha256": "3fd27205e209b9133d640381c16458c180e205625a017b93138e363d14b04b86",
+            "actual_eof": 56,
+            "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/3fd27205e209b9133d640381c16458c180e205625a017b93138e363d14b04b86",
+            "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "transport_git_path": "crates/fabelgeist-armor/src/anime_design.rs",
+            "prospective_ranges": [
+              [
+                1,
+                56
+              ]
+            ],
+            "revision_qualification": "Eight directprworking identities pinnedGit6533; no current-main or native feature transfer.",
+            "purpose": "Exact armor admission1030 fresh material lines across8 roles; qualified Helmet excludes incidental391 plus other registered gaps, fluting101/132..146 excluded."
+          },
+          "registration": {
+            "path": "adler-continuation-20261030/REGISTRATION-ROOT-L13-2608-2615-001.json",
+            "sha256": "e41778a288ed2407a42f3630c0ec07ad77ecdcaaac232f2dd4769421c528dba4"
+          },
+          "registration_pointer": "/sources/1",
+          "assessed_ranges": [
+            [
+              1,
+              56
+            ]
+          ],
+          "untruncated_body_outputs": true,
+          "author": "/root",
+          "read_kind": "qualified_root2608_2615_material_scope",
+          "root_personal_source_lines": 56,
+          "whole_file_coverage": true,
+          "unread_ranges": [],
+          "observations": [
+            {
+              "ranges": [
+                [
+                  1,
+                  56
+                ]
+              ],
+              "assessment": "Fresh AnimeDesign full56 personally read untruncated. Closed BreastplateConstruction Solid/Anime, public ordinarySerde fields include rawu8lamecount andgeneric millimeter/permille controls. validate bounds3..10courses, articulatedheight450..950, overlap4..60, slopes<=500 andlaplift4..12, then compares laplift against gauge.0*2; gauge hasno localbound. Earlier exact root692 original2606 libvalidate_breastplate116..143 invokes anime.validate(wall_thickness) at118..119 before outer wall1..20 predicate137. Native u16 gauge owner andactualloader/profile/current remain to qualify supported invalid-input path. Mathematical32768*2=65536 exceedsu16; no product run/debug/release outcome observed andno invalidmeshacceptedclaim. Existing exact641 SEGOVB-L11-ANIME-GAUGE-VALIDATION-ORDER and608 already cover samefrozen firstcontract; no newquestion or acceptedunique credit. Validated laplift<=12 imposes additional actualgauge<=6 relation even outer1..20, not interchangeable rangeconstraints; preserve validzero slopes andactual overlap semantics."
+            }
+          ]
+        },
+        "historical_attribution": "/root"
+      }
+    },
+    {
+      "original": 2728,
+      "source": {
+        "original": 2728,
+        "source_id": "physical-p16:crates/fabelgeist-armor/src/design.rs",
+        "sha256": "26c72636cd1c9cff2ca9eb5c41bfea3d714d0820824272c2770feb4d9c234c34",
+        "actual_eof": 166,
+        "object_path": "target/726-audit-adler-20261027/adler-continuation-20261030/objects/26c72636cd1c9cff2ca9eb5c41bfea3d714d0820824272c2770feb4d9c234c34",
+        "source_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/26c72636cd1c9cff2ca9eb5c41bfea3d714d0820824272c2770feb4d9c234c34",
+        "prospective_ranges": [
+          [
+            1,
+            22
+          ],
+          [
+            33,
+            66
+          ]
+        ],
+        "revision_qualification": "Exact recorded native prefix/snapshot/path; archivef82 transport only. NativePR literal joins2721..2727; P16design2728 differs from nativePR171 lines, no counterpart/current semantic transfer.",
+        "purpose": "Eight generated-client/SDK/armor roles569material,200fresh/369priorread; generated bindings source only, no native or product execution."
+      },
+      "mode": "fresh",
+      "bytes": 5459,
+      "assessed_union": [
+        [
+          1,
+          22
+        ],
+        [
+          33,
+          66
+        ]
+      ],
+      "material_line_count": 56,
+      "new_root_personal_lines": 56,
+      "registry_entry_sha256": "97c6d85f21c72c776a52ca4f0646bae8cd986ad76e41d6854d053d76805fa1ac",
+      "registry_path_as_recorded": "SNAPSHOTS\\p16\\crates\\fabelgeist-armor\\src\\design.rs",
+      "native_pr_comparison": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/fabelgeist-armor/src/design.rs",
+        "sha256": "8e37cfc29b43f781bc5f265fc6f263c2625aa32cdffbc21e289268437d772ecb",
+        "actual_eof": 171,
+        "literal_equal": false
+      },
+      "source_current_reconciled": false,
+      "unread_ranges": [
+        [
+          23,
+          32
+        ],
+        [
+          67,
+          166
+        ]
+      ],
+      "whole_file_coverage": false
+    }
+  ],
+  "all_nested_range_fields": [
+    {
+      "pointer": "/files/2721/material_ranges",
+      "raw_value": [
+        [
+          1,
+          114
+        ]
+      ],
+      "actual_eof": 114
+    },
+    {
+      "pointer": "/files/2721/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          114
+        ]
+      ],
+      "actual_eof": 114
+    },
+    {
+      "pointer": "/files/2721/admission03_scope_observations/0/local_qualifications/0/registered_requested_ranges",
+      "raw_value": [
+        [
+          1,
+          114
+        ]
+      ],
+      "actual_eof": 114
+    },
+    {
+      "pointer": "/files/2721/admission03_scope_observations/0/local_qualifications/0/qualified_material_ranges",
+      "raw_value": [
+        [
+          1,
+          114
+        ]
+      ],
+      "actual_eof": 114
+    },
+    {
+      "pointer": "/files/2721/admission03_scope_observations/0/local_qualifications/0/original_registration/material_ranges",
+      "raw_value": [
+        [
+          1,
+          114
+        ]
+      ],
+      "actual_eof": 114
+    },
+    {
+      "pointer": "/files/2721/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/original_registration/material_ranges",
+      "raw_value": [
+        [
+          1,
+          114
+        ]
+      ],
+      "actual_eof": 114
+    },
+    {
+      "pointer": "/files/2721/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/qualified_material_ranges",
+      "raw_value": [
+        [
+          1,
+          114
+        ]
+      ],
+      "actual_eof": 114
+    },
+    {
+      "pointer": "/files/2721/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          114
+        ]
+      ],
+      "actual_eof": 114
+    },
+    {
+      "pointer": "/files/2722/material_ranges",
+      "raw_value": [
+        [
+          1,
+          29
+        ]
+      ],
+      "actual_eof": 29
+    },
+    {
+      "pointer": "/files/2722/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          29
+        ]
+      ],
+      "actual_eof": 29
+    },
+    {
+      "pointer": "/files/2722/admission03_scope_observations/0/local_qualifications/0/registered_requested_ranges",
+      "raw_value": [
+        [
+          1,
+          29
+        ]
+      ],
+      "actual_eof": 29
+    },
+    {
+      "pointer": "/files/2722/admission03_scope_observations/0/local_qualifications/0/qualified_material_ranges",
+      "raw_value": [
+        [
+          1,
+          29
+        ]
+      ],
+      "actual_eof": 29
+    },
+    {
+      "pointer": "/files/2722/admission03_scope_observations/0/local_qualifications/0/original_registration/material_ranges",
+      "raw_value": [
+        [
+          1,
+          29
+        ]
+      ],
+      "actual_eof": 29
+    },
+    {
+      "pointer": "/files/2722/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/original_registration/material_ranges",
+      "raw_value": [
+        [
+          1,
+          29
+        ]
+      ],
+      "actual_eof": 29
+    },
+    {
+      "pointer": "/files/2722/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/qualified_material_ranges",
+      "raw_value": [
+        [
+          1,
+          29
+        ]
+      ],
+      "actual_eof": 29
+    },
+    {
+      "pointer": "/files/2722/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          29
+        ]
+      ],
+      "actual_eof": 29
+    },
+    {
+      "pointer": "/files/2723/material_ranges",
+      "raw_value": [
+        [
+          11,
+          11
+        ]
+      ],
+      "actual_eof": 14
+    },
+    {
+      "pointer": "/files/2723/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          11,
+          11
+        ]
+      ],
+      "actual_eof": 14
+    },
+    {
+      "pointer": "/files/2723/admission03_scope_observations/0/local_qualifications/0/registered_requested_ranges",
+      "raw_value": [
+        [
+          11,
+          11
+        ]
+      ],
+      "actual_eof": 14
+    },
+    {
+      "pointer": "/files/2723/admission03_scope_observations/0/local_qualifications/0/qualified_material_ranges",
+      "raw_value": [
+        [
+          11,
+          11
+        ]
+      ],
+      "actual_eof": 14
+    },
+    {
+      "pointer": "/files/2723/admission03_scope_observations/0/local_qualifications/0/original_registration/material_ranges",
+      "raw_value": [
+        [
+          11,
+          11
+        ]
+      ],
+      "actual_eof": 14
+    },
+    {
+      "pointer": "/files/2723/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/original_requested_ranges",
+      "raw_value": [
+        [
+          11,
+          11
+        ]
+      ],
+      "actual_eof": 14
+    },
+    {
+      "pointer": "/files/2723/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/qualified_material_ranges",
+      "raw_value": [
+        [
+          11,
+          11
+        ]
+      ],
+      "actual_eof": 14
+    },
+    {
+      "pointer": "/files/2723/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          11,
+          11
+        ]
+      ],
+      "actual_eof": 14
+    },
+    {
+      "pointer": "/files/2724/material_ranges",
+      "raw_value": [
+        [
+          86,
+          171
+        ]
+      ],
+      "actual_eof": 171
+    },
+    {
+      "pointer": "/files/2724/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          86,
+          171
+        ]
+      ],
+      "actual_eof": 171
+    },
+    {
+      "pointer": "/files/2724/admission03_scope_observations/0/local_qualifications/0/registered_requested_ranges",
+      "raw_value": [
+        [
+          86,
+          171
+        ]
+      ],
+      "actual_eof": 171
+    },
+    {
+      "pointer": "/files/2724/admission03_scope_observations/0/local_qualifications/0/qualified_material_ranges",
+      "raw_value": [
+        [
+          86,
+          171
+        ]
+      ],
+      "actual_eof": 171
+    },
+    {
+      "pointer": "/files/2724/admission03_scope_observations/0/local_qualifications/0/original_registration/material_ranges",
+      "raw_value": [
+        [
+          86,
+          171
+        ]
+      ],
+      "actual_eof": 171
+    },
+    {
+      "pointer": "/files/2724/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/original_requested_ranges",
+      "raw_value": [
+        [
+          86,
+          171
+        ]
+      ],
+      "actual_eof": 171
+    },
+    {
+      "pointer": "/files/2724/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/qualified_material_ranges",
+      "raw_value": [
+        [
+          86,
+          171
+        ]
+      ],
+      "actual_eof": 171
+    },
+    {
+      "pointer": "/files/2724/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          86,
+          171
+        ]
+      ],
+      "actual_eof": 171
+    },
+    {
+      "pointer": "/files/2725/material_ranges",
+      "raw_value": [
+        [
+          1,
+          128
+        ]
+      ],
+      "actual_eof": 206
+    },
+    {
+      "pointer": "/files/2725/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          128
+        ]
+      ],
+      "actual_eof": 206
+    },
+    {
+      "pointer": "/files/2725/admission03_scope_observations/0/local_qualifications/0/registered_requested_ranges",
+      "raw_value": [
+        [
+          1,
+          128
+        ]
+      ],
+      "actual_eof": 206
+    },
+    {
+      "pointer": "/files/2725/admission03_scope_observations/0/local_qualifications/0/qualified_material_ranges",
+      "raw_value": [
+        [
+          1,
+          128
+        ]
+      ],
+      "actual_eof": 206
+    },
+    {
+      "pointer": "/files/2725/admission03_scope_observations/0/local_qualifications/0/original_registration/material_ranges",
+      "raw_value": [
+        [
+          1,
+          128
+        ]
+      ],
+      "actual_eof": 206
+    },
+    {
+      "pointer": "/files/2725/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/original_requested_ranges",
+      "raw_value": [
+        [
+          1,
+          128
+        ]
+      ],
+      "actual_eof": 206
+    },
+    {
+      "pointer": "/files/2725/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/qualified_material_ranges",
+      "raw_value": [
+        [
+          1,
+          128
+        ]
+      ],
+      "actual_eof": 206
+    },
+    {
+      "pointer": "/files/2725/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          128
+        ]
+      ],
+      "actual_eof": 206
+    },
+    {
+      "pointer": "/files/2726/material_ranges",
+      "raw_value": [
+        [
+          1,
+          99
+        ]
+      ],
+      "actual_eof": 150
+    },
+    {
+      "pointer": "/files/2726/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          100
+        ]
+      ],
+      "actual_eof": 150
+    },
+    {
+      "pointer": "/files/2726/admission03_scope_observations/0/local_qualifications/0/registered_requested_ranges",
+      "raw_value": [
+        [
+          1,
+          100
+        ]
+      ],
+      "actual_eof": 150
+    },
+    {
+      "pointer": "/files/2726/admission03_scope_observations/0/local_qualifications/0/qualified_material_ranges",
+      "raw_value": [
+        [
+          1,
+          99
+        ]
+      ],
+      "actual_eof": 150
+    },
+    {
+      "pointer": "/files/2726/admission03_scope_observations/0/local_qualifications/0/context_or_excluded_within_registration",
+      "raw_value": [
+        [
+          100,
+          100
+        ]
+      ],
+      "actual_eof": 150
+    },
+    {
+      "pointer": "/files/2726/admission03_scope_observations/0/local_qualifications/0/original_registration/material_ranges",
+      "raw_value": [
+        [
+          1,
+          100
+        ]
+      ],
+      "actual_eof": 150
+    },
+    {
+      "pointer": "/files/2726/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/original_requested_ranges",
+      "raw_value": [
+        [
+          1,
+          100
+        ]
+      ],
+      "actual_eof": 150
+    },
+    {
+      "pointer": "/files/2726/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/qualified_material_ranges",
+      "raw_value": [
+        [
+          1,
+          99
+        ]
+      ],
+      "actual_eof": 150
+    },
+    {
+      "pointer": "/files/2726/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/context_only_ranges",
+      "raw_value": [
+        [
+          100,
+          100
+        ]
+      ],
+      "actual_eof": 150
+    },
+    {
+      "pointer": "/files/2726/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          99
+        ]
+      ],
+      "actual_eof": 150
+    },
+    {
+      "pointer": "/files/2727/material_ranges",
+      "raw_value": [
+        [
+          1,
+          56
+        ]
+      ],
+      "actual_eof": 56
+    },
+    {
+      "pointer": "/files/2727/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          56
+        ]
+      ],
+      "actual_eof": 56
+    },
+    {
+      "pointer": "/files/2727/admission03_scope_observations/0/local_qualifications/0/registered_requested_ranges",
+      "raw_value": [
+        [
+          1,
+          56
+        ]
+      ],
+      "actual_eof": 56
+    },
+    {
+      "pointer": "/files/2727/admission03_scope_observations/0/local_qualifications/0/qualified_material_ranges",
+      "raw_value": [
+        [
+          1,
+          56
+        ]
+      ],
+      "actual_eof": 56
+    },
+    {
+      "pointer": "/files/2727/admission03_scope_observations/0/local_qualifications/0/original_registration/material_ranges",
+      "raw_value": [
+        [
+          1,
+          56
+        ]
+      ],
+      "actual_eof": 56
+    },
+    {
+      "pointer": "/files/2727/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/original_requested_ranges",
+      "raw_value": [
+        [
+          1,
+          56
+        ]
+      ],
+      "actual_eof": 56
+    },
+    {
+      "pointer": "/files/2727/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/qualified_material_ranges",
+      "raw_value": [
+        [
+          1,
+          56
+        ]
+      ],
+      "actual_eof": 56
+    },
+    {
+      "pointer": "/files/2727/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          56
+        ]
+      ],
+      "actual_eof": 56
+    },
+    {
+      "pointer": "/files/2728/material_ranges",
+      "raw_value": [
+        [
+          1,
+          22
+        ],
+        [
+          33,
+          66
+        ]
+      ],
+      "actual_eof": 166
+    },
+    {
+      "pointer": "/files/2728/admission03_scope_observations/0/original_record/material_ranges",
+      "raw_value": [
+        [
+          1,
+          22
+        ],
+        [
+          33,
+          66
+        ]
+      ],
+      "actual_eof": 166
+    },
+    {
+      "pointer": "/files/2728/admission03_scope_observations/0/local_qualifications/0/registered_requested_ranges",
+      "raw_value": [
+        [
+          1,
+          22
+        ],
+        [
+          33,
+          66
+        ]
+      ],
+      "actual_eof": 166
+    },
+    {
+      "pointer": "/files/2728/admission03_scope_observations/0/local_qualifications/0/qualified_material_ranges",
+      "raw_value": [
+        [
+          1,
+          22
+        ],
+        [
+          33,
+          66
+        ]
+      ],
+      "actual_eof": 166
+    },
+    {
+      "pointer": "/files/2728/admission03_scope_observations/0/local_qualifications/0/original_registration/material_ranges",
+      "raw_value": [
+        [
+          1,
+          22
+        ],
+        [
+          33,
+          66
+        ]
+      ],
+      "actual_eof": 166
+    },
+    {
+      "pointer": "/files/2728/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/original_requested_ranges",
+      "raw_value": [
+        [
+          1,
+          22
+        ],
+        [
+          33,
+          66
+        ]
+      ],
+      "actual_eof": 166
+    },
+    {
+      "pointer": "/files/2728/admission03_scope_observations/0/local_qualifications/0/qualification_history/0/payload/qualified_material_ranges",
+      "raw_value": [
+        [
+          1,
+          22
+        ],
+        [
+          33,
+          66
+        ]
+      ],
+      "actual_eof": 166
+    },
+    {
+      "pointer": "/files/2728/admission03_scope_observations/0/effective_material_ranges",
+      "raw_value": [
+        [
+          1,
+          22
+        ],
+        [
+          33,
+          66
+        ]
+      ],
+      "actual_eof": 166
+    }
+  ],
+  "exact_hash_prior_hits": [
+    {
+      "original": 2724,
+      "receipt": {
+        "path": "segovb/READ-L13-PARALLEL-692.json",
+        "sha256": "7f6a37f8759dadff0242c010164391e69edd1a9210513d75805d7b38cecec064"
+      }
+    },
+    {
+      "original": 2725,
+      "receipt": {
+        "path": "segovb/READ-L13-PARALLEL-692.json",
+        "sha256": "7f6a37f8759dadff0242c010164391e69edd1a9210513d75805d7b38cecec064"
+      }
+    },
+    {
+      "original": 2726,
+      "receipt": {
+        "path": "segovb/READ-L13-PARALLEL-693.json",
+        "sha256": "502870258c6bbf60f36c1b1151bada48e998a58e1eff32b96fe9ddf5cf05d821"
+      }
+    },
+    {
+      "original": 2727,
+      "receipt": {
+        "path": "segovb/READ-L13-PARALLEL-693.json",
+        "sha256": "502870258c6bbf60f36c1b1151bada48e998a58e1eff32b96fe9ddf5cf05d821"
+      }
+    }
+  ],
+  "future_proofs_preserved": [],
+  "old_ordered_applications_preserved": [],
+  "discovery_metadata_sha256": "77384c8beb75db8cd6ce4fd47429ecd9d6252635bd8f148e7c726930171c38da",
+  "production_source_lines": 569,
+  "fixture_source_lines": 0,
+  "fixture_execution": false,
+  "exact_partial_scopes_preserved": true,
+  "design_p16_distinct_from_pr_preserved": true,
+  "armor_four_prior_scopes_preserved": true,
+  "all_nested_range_fields_inspected": true,
+  "historical_receipts_unchanged": true,
+  "transport_only_not_current_source": true,
+  "material_lines": 569,
+  "fresh_lines": 200,
+  "reused_material_lines": 369,
+  "body_credit": 0,
+  "authority_changes": 0,
+  "other_population_credit": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false,
+  "limits": [
+    "Fresh200 requires bounded prospective body reads: generated player114/item29, SDKmanifestline11one and P16design1..22/33..66fiftysix. Generatedbindings must notbe edited manually; no SDK/schema/runtime execution.",
+    "Oldroot692lib86..171/breastplate1..129 androot693fluting1..100/102..131/147..150/animefull56 support exactnew369prior material, original scopes/readers retained without reread.",
+    "All66nested fields/history copies qualified. Archivef82/P16/native Windows identity preserved; nativePR literal equals2721..2727 only. P16design2728 EOF166/hash differs nativePR EOF171/hash; no inferred counterpart/current semantic transfer.",
+    "Full13/extensions/current/all20/exactaliases/lateracceptance/repairledger/implementation/review/runtime incomplete, no product edits/builds/tests/native execution."
+  ]
+}

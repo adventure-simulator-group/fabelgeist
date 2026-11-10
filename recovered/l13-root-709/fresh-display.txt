@@ -1,0 +1,343 @@
+SOURCE 2700
+1: //! Shared demographic vocabulary for strategic identity and naming.
+2: 
+3: use serde::{Deserialize, Serialize};
+4: 
+5: #[derive(
+6:     Clone,
+7:     Copy,
+8:     Debug,
+9:     Deserialize,
+10:     Eq,
+11:     Ord,
+12:     PartialEq,
+13:     PartialOrd,
+14:     Serialize,
+15:     strum::EnumString,
+16:     strum::IntoStaticStr,
+17:     strum::VariantArray,
+18: )]
+19: #[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+20: #[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
+21: #[serde(rename_all = "snake_case")]
+22: #[strum(serialize_all = "snake_case")]
+23: pub enum Sex {
+24:     Female,
+25:     Male,
+26: }
+27: 
+28: impl Sex {
+29:     /// Variants available for uniform deterministic selection.
+30:     pub const VARIANTS: &'static [Self] = <Self as strum::VariantArray>::VARIANTS;
+31: 
+32:     pub fn stable_id(self) -> &'static str {
+33:         self.into()
+34:     }
+35: 
+36:     /// Historical variant spelling used in persisted deterministic seed inputs.
+37:     pub const fn stable_variant_id(self) -> &'static str {
+38:         match self {
+39:             Self::Female => "Female",
+40:             Self::Male => "Male",
+41:         }
+SOURCE 2701
+1: //! Semantic map commands. Pixel displacements enter only at the canvas port.
+2: use adventuresim_building_generator::spatial_geometry::{GeometryError, Radians};
+3: use adventuresim_tactical_core::{
+4:     regional_environment::RegionalEnvironment,
+5:     regional_map::{MapOverlay, MapScaleError, MapSpan, MapZoomRatio},
+6: };
+7: use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
+8: use adventuresim_world_schema::source_package::SourcePackageDigest;
+9: use bevy::math::Vec2;
+10: use serde::{Deserialize, Serialize};
+11: 
+12: pub(crate) use crate::strategic_scene::protocol::CanvasRect;
+13: 
+14: const MAX_BROWSER_OVERLAY_REVISION: u64 = (1_u64 << 53) - 1;
+15: 
+16: /// Document-local overlay publication ordinal, exactly representable by JS.
+17: #[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd, Serialize, Deserialize)]
+18: #[serde(try_from = "u64")]
+19: pub(crate) struct MapOverlayRevision(u64);
+20: 
+21: /// Physical canvas pixels, not scene metres or a geographic position.
+22: #[derive(Clone, Copy, Debug, Deserialize)]
+23: #[serde(try_from = "Vec2")]
+24: pub(crate) struct MapPointerDisplacement(Vec2);
+25: 
+26: #[derive(Debug, Deserialize)]
+27: #[serde(tag = "type", rename_all = "kebab-case", deny_unknown_fields)]
+28: pub(crate) enum MapCommand {
+29:     Open {
+30:         source: SourcePackageDigest,
+31:         origin: Wgs84CoordinateMicrodegrees,
+32:         span: MapSpan,
+33:         #[serde(deserialize_with = "viewport")]
+34:         rect: CanvasRect,
+35:     },
+36:     Resize {
+37:         #[serde(deserialize_with = "viewport")]
+38:         rect: CanvasRect,
+39:     },
+40:     Pan {
+41:         delta: MapPointerDisplacement,
+42:     },
+43:     Zoom {
+44:         ratio: MapZoomRatio,
+45:     },
+46:     Rotate {
+47:         angle: Radians,
+48:     },
+49:     Reset,
+50:     FrameRoute,
+51:     Hide,
+52:     InstallCity {
+53:         document_json: String,
+54:         preparation: crate::presentation::generation::PreparationTicket,
+55:     },
+56:     InstallEnvironment {
+57:         environment: Box<RegionalEnvironment>,
+58:     },
+59:     InstallOverlay {
+60:         revision: MapOverlayRevision,
+61:         overlay: MapOverlay,
+62:     },
+63: }
+64: 
+65: #[derive(Debug, thiserror::Error)]
+66: pub(crate) enum MapProtocolError {
+67:     #[error(transparent)]
+68:     Scale(#[from] MapScaleError),
+69:     #[error("map pointer displacement must be finite")]
+70:     Pointer,
+71:     #[error("map canvas rectangle is invalid")]
+72:     Viewport,
+73:     #[error("map camera origin is outside WGS84")]
+74:     Origin,
+75:     #[error("map overlay revision must be a positive exact browser integer")]
+76:     OverlayRevision,
+77:     #[error(transparent)]
+78:     Geometry(#[from] GeometryError),
+79: }
+80: 
+81: impl TryFrom<u64> for MapOverlayRevision {
+82:     type Error = MapProtocolError;
+83:     fn try_from(revision: u64) -> Result<Self, Self::Error> {
+84:         (1..=MAX_BROWSER_OVERLAY_REVISION)
+85:             .contains(&revision)
+86:             .then_some(Self(revision))
+87:             .ok_or(MapProtocolError::OverlayRevision)
+88:     }
+89: }
+90: 
+91: impl MapPointerDisplacement {
+92:     pub(super) fn pixels(self) -> Vec2 {
+93:         self.0
+94:     }
+95: }
+96: 
+97: impl TryFrom<Vec2> for MapPointerDisplacement {
+98:     type Error = MapProtocolError;
+99:     fn try_from(pixels: Vec2) -> Result<Self, Self::Error> {
+100:         pixels
+101:             .is_finite()
+102:             .then_some(Self(pixels))
+103:             .ok_or(MapProtocolError::Pointer)
+104:     }
+105: }
+106: 
+107: /// CanvasRect is the shared native viewport port. Admit map rectangles here;
+108: /// half-visible CSS edges can round outward by at most one physical pixel.
+109: fn viewport<'de, D: serde::Deserializer<'de>>(deserializer: D) -> Result<CanvasRect, D::Error> {
+110:     let rect = CanvasRect::deserialize(deserializer)?;
+111:     let valid = rect.width > 0
+112:         && rect.height > 0
+113:         && rect.full_width >= rect.width
+114:         && rect.full_height >= rect.height
+115:         && rect.offset_x.is_finite()
+116:         && rect.offset_y.is_finite()
+117:         && rect.offset_x >= 0.0
+118:         && rect.offset_y >= 0.0
+119:         && f64::from(rect.offset_x) + f64::from(rect.width) <= f64::from(rect.full_width) + 1.0
+120:         && f64::from(rect.offset_y) + f64::from(rect.height) <= f64::from(rect.full_height) + 1.0;
+121:     if valid {
+122:         Ok(rect)
+123:     } else {
+124:         Err(serde::de::Error::custom(MapProtocolError::Viewport))
+125:     }
+126: }
+SOURCE 2703
+1: //! Authored review inputs and read-only capture checks. Rendering belongs to presentation.
+2: use super::capture_state::BuildingReviewCamera;
+3: use adventuresim_building_generator::{
+4:     compile_operable_doors, compile_operable_windows,
+5:     signs::{ShopSign, SignSite},
+6: };
+7: use adventuresim_tactical_core::prelude::GeneratedBuilding;
+8: use bevy::prelude::*;
+9: use serde::{Deserialize, Serialize};
+10: use std::{collections::BTreeMap, path::Path};
+11: 
+12: mod cameras;
+13: mod heating;
+14: mod lod;
+15: pub(super) use lod::ReviewLod;
+16: mod gardens;
+17: mod openings;
+18: mod readiness;
+19: pub(super) use openings::{ReviewLeafPose, spawn_openings};
+20: pub(super) use readiness::{BuildingReviewPlugin, ready};
+21: pub(super) const SHOP_PROFILE: &str = "shop-sign-review";
+22: pub(super) const WORKPLACE_PROFILE: &str = "workplace-review";
+23: pub(super) const PARISH_PROFILE: &str = "parish-review";
+24: pub(super) const HEATING_PROFILE: &str = "heating-review";
+25: pub(super) const GARDEN_PROFILE: &str = "garden-review";
+26: pub(super) const FACADE_PROFILE: &str = "facade-review";
+27: pub(super) const GABLE_PROFILE: &str = "gable-review";
+28: pub(super) const COMPOUND_PROFILE: &str = "compound-review";
+29: 
+30: pub(super) fn is_profile(profile: &str) -> bool {
+31:     matches!(
+32:         profile,
+33:         SHOP_PROFILE
+34:             | WORKPLACE_PROFILE
+35:             | PARISH_PROFILE
+36:             | COMPOUND_PROFILE
+37:             | GABLE_PROFILE
+38:             | HEATING_PROFILE
+39:             | FACADE_PROFILE
+40:             | GARDEN_PROFILE
+41:     )
+42: }
+43: 
+44: #[derive(Resource, Deserialize, Serialize)]
+45: #[serde(deny_unknown_fields)]
+46: struct ReviewFixture {
+47:     signs: BTreeMap<adventuresim_tactical_core::scene_input::SceneBuildingId, ShopSign>,
+48:     views: Vec<cameras::ReviewView>,
+49: }
+50: 
+51: #[derive(Resource)]
+52: pub(super) struct ReviewRequirements {
+53:     buildings: usize,
+54:     boundaries: usize,
+55:     doors: usize,
+56:     windows: usize,
+57:     signs: BTreeMap<adventuresim_tactical_core::scene_input::SceneBuildingId, ExpectedSign>,
+58:     output: std::path::PathBuf,
+59: }
+60: 
+61: struct ExpectedSign {
+62:     sign: ShopSign,
+63:     site: SignSite,
+64: }
+65: 
+66: impl ReviewRequirements {
+67:     fn for_buildings(buildings: &[GeneratedBuilding], output: &Path) -> Result<Self> {
+68:         for building in buildings {
+69:             if !adventuresim_building_generator::audit_plan(&building.plan)?.is_empty() {
+70:                 return Err(format!(
+71:                     "review building {} fails the structural audit",
+72:                     building.placement.id
+73:                 )
+74:                 .into());
+75:             }
+76:         }
+77:         Ok(Self {
+78:             buildings: buildings.len(),
+79:             boundaries: 0,
+80:             doors: buildings
+81:                 .iter()
+82:                 .map(|b| compile_operable_doors(&b.plan).map(|doors| doors.len()))
+83:                 .collect::<std::result::Result<Vec<_>, _>>()?
+84:                 .into_iter()
+85:                 .sum(),
+86:             windows: buildings
+87:                 .iter()
+88:                 .map(|b| compile_operable_windows(&b.plan).map(|windows| windows.len()))
+89:                 .collect::<std::result::Result<Vec<_>, _>>()?
+90:                 .into_iter()
+91:                 .sum(),
+92:             signs: BTreeMap::new(),
+93:             output: output.to_owned(),
+94:         })
+95:     }
+96: }
+97: 
+98: /// Furnished rooms require the identical production building and opening checks as facade reviews.
+99: pub(super) fn setup_geometry_requirements(
+100:     commands: &mut Commands,
+101:     buildings: &[GeneratedBuilding],
+102:     output: &Path,
+103: ) -> Result {
+104:     commands.insert_resource(ReviewRequirements::for_buildings(buildings, output)?);
+105:     Ok(())
+106: }
+107: 
+108: pub(super) fn setup(
+109:     commands: &mut Commands,
+110:     buildings: &[GeneratedBuilding],
+111:     boundaries: usize,
+112:     input: &Path,
+113:     output: &Path,
+114:     profile: &str,
+115: ) -> Result<Option<Vec<BuildingReviewCamera>>> {
+116:     if !is_profile(profile) {
+117:         return Ok(None);
+118:     }
+119:     let path = input.with_extension("review.json");
+120:     let bytes = std::fs::read(&path)?;
+121:     let fixture: ReviewFixture = serde_json::from_slice(&bytes)?;
+122:     let specs =
+123:         super::selected_capture_views(profile, &[]).map_err(bevy::ecs::error::BevyError::from)?;
+124:     assert_eq!(
+125:         fixture.views.len(),
+126:         specs.len() - 1,
+127:         "fixture must cover every review view"
+128:     );
+129:     for (view, spec) in fixture.views.iter().zip(&specs[1..]) {
+130:         assert_eq!(view.slug, spec.slug);
+131:     }
+132:     let mut requirements = ReviewRequirements::for_buildings(buildings, output)?;
+133:     requirements.boundaries = boundaries;
+134:     requirements.doors += boundaries;
+135:     for (&id, sign) in &fixture.signs {
+136:         let building = buildings
+137:             .iter()
+138:             .find(|b| b.placement.id == id)
+139:             .ok_or_else(|| format!("review sign building {id} is absent"))?;
+140:         assert!(
+141:             building
+142:                 .placement
+143:                 .program
+144:                 .usage
+145:                 .and_then(adventuresim_building_generator::signs::shop_trade)
+146:                 .is_some(),
+147:             "sign requires a public shopfront"
+148:         );
+149:         let site = SignSite::for_plan(&building.plan)
+150:             .ok_or_else(|| format!("review sign building {id} lacks structural support"))?;
+151:         assert!(
+152:             site.supports(&building.plan, sign.mount),
+153:             "review sign must fit its specified mount"
+154:         );
+155:         requirements.signs.insert(
+156:             id,
+157:             ExpectedSign {
+158:                 sign: sign.clone(),
+159:                 site,
+160:             },
+161:         );
+162:     }
+163:     let cameras = fixture
+164:         .views
+165:         .iter()
+166:         .map(|view| view.camera(buildings, &fixture.signs))
+167:         .collect::<Result<Vec<_>>>()?;
+168:     std::fs::write(output.join("input.review.json"), bytes)?;
+169:     commands.insert_resource(requirements);
+170:     commands.insert_resource(fixture);
+171:     Ok(Some(cameras))
+172: }
+173: 
