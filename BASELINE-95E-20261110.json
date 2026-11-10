@@ -932,8 +932,21 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L01-SURFACE-CUT-95E.json"
+      },
+      {
+        "id": "REVIEW-WARDROBE-FILE-PARTIAL-REPLACEMENT-001",
+        "severity": "P2 conditional local data loss on write failure or interruption; no actual incident observed",
+        "classification": "new bounded 95e source trace of single-file wardrobe replacement; complete historical aliases and durability policy remain open",
+        "related_candidates": [
+          "REVIEW-CREATOR-DESIGN-SET-PARTIAL-SAVE-001"
+        ],
+        "relationship_qualification": "The design-set trace concerns sequential publication across three paths; this trace concerns direct replacement of one wardrobe file and its clone-on-success UI. They share filesystem policy questions but are not assumed duplicates. A bounded exact-term search of the recovered 059 ledger found no Wardrobe::save or WardrobeLibrary entry; broader historical aliases remain open.",
+        "discovery": "partial; all persistence callers, failure and crash policy, platform semantics, related library/recipe outputs and historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L01-WARDROBE-SAVE-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261110-2303.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261110-2305.json"
 }

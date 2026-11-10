@@ -130,6 +130,10 @@ part field and inoperative editor command against the repository rule; the
 semantic assembly and remaining consumers need independent review.
 `ASSESSMENT-L01-HISTORICAL-734-740.json` records frozen garment fit
 and shader source reads; no device or test ran.
+`ASSESSMENT-L01-WARDROBE-SAVE-95E.json` traces conditional local
+file truncation using separately qualified pinned toolchain evidence.
+`ASSESSMENT-L01-HISTORICAL-844-852.json` records frozen creator and
+core source reads; device and asset tests were read only.
 `ASSESSMENT-L01-SURFACE-CUT-95E.json` traces conditional UV-row and
 topology-reuse boundaries, including the same-source fresh-path safeguard.
 `ASSESSMENT-L01-HISTORICAL-834-843.json` records frozen cut and

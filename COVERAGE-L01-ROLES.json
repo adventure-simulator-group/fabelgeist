@@ -9,14 +9,14 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 1880,
+    "unassessed": 1873,
     "lock-metadata-partial": 3,
-    "bounded-current-trace-only": 176,
+    "bounded-current-trace-only": 175,
     "assessed-nonapplicable": 3,
-    "full-historical-body-trace-open": 786,
+    "full-historical-body-trace-open": 794,
     "deleted-base-trace-open": 5
   },
-  "first_unfinished": "Historical Cargo.lock role 497 and nested creator lock role 680 remain metadata-partial; full frozen bodies 834–843 were read at their original snapshot. Continue at role 844 and next unassessed role; independent lenses remain open.",
+  "first_unfinished": "Historical Cargo.lock role 497 and nested creator lock role 680 remain metadata-partial; frozen bodies 844–848 and 850–852 were read at their original snapshot; role 849 remains separately nonapplicable. Continue at role 853; independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -10878,7 +10878,9 @@
       "historical_sha256": "4cd80a0338aaafa8f2b1f80eca296ef22614825d8d1058692fb8c4fe7bbe9595",
       "registry_pointer": "/files/844",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-844-852.json",
+      "qualification": "Full frozen historical body read; any prior bounded current observations retain their original revision and ranges; independent lenses remain open."
     },
     {
       "original_index": 845,
@@ -10888,7 +10890,9 @@
       "historical_sha256": "d80f608bd68c33e719e9f66f8b59bfbea90bc3c569a42af3f4fbbce9d3b8ef09",
       "registry_pointer": "/files/845",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-844-852.json",
+      "qualification": "Full frozen historical body read; any prior bounded current observations retain their original revision and ranges; independent lenses remain open."
     },
     {
       "original_index": 846,
@@ -10898,7 +10902,9 @@
       "historical_sha256": "698dfb037f3fd0e90ec020ce5b5969e34a0e93deba590e1a863f0d04734e7d33",
       "registry_pointer": "/files/846",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-844-852.json",
+      "qualification": "Full frozen historical body read; any prior bounded current observations retain their original revision and ranges; independent lenses remain open."
     },
     {
       "original_index": 847,
@@ -10908,7 +10914,9 @@
       "historical_sha256": "60560353f21b023e6af79358bba4dcaa7e0b095a123bd157eb0fbec1d41c5414",
       "registry_pointer": "/files/847",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-844-852.json",
+      "qualification": "Full frozen historical body read; any prior bounded current observations retain their original revision and ranges; independent lenses remain open."
     },
     {
       "original_index": 848,
@@ -10918,7 +10926,9 @@
       "historical_sha256": "7d2a3dd7507a8405fded5577a7f406273ab835389b52b189415d0878c39d8a73",
       "registry_pointer": "/files/848",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-844-852.json",
+      "qualification": "Full frozen historical body read; any prior bounded current observations retain their original revision and ranges; independent lenses remain open."
     },
     {
       "original_index": 849,
@@ -10940,7 +10950,9 @@
       "historical_sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
       "registry_pointer": "/files/850",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-844-852.json",
+      "qualification": "Full frozen historical body read; any prior bounded current observations retain their original revision and ranges; independent lenses remain open."
     },
     {
       "original_index": 851,
@@ -10950,7 +10962,7 @@
       "historical_sha256": "edfd993d879e1cb771859c76510e7e78e3f612d2f22bacdff5a8ce923970d2ce",
       "registry_pointer": "/files/851",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/adventuresim-core/build/combat_resolution.rs",
       "current_git_blob": "142f6775ebd567bbfdf47e5e8142d974ec3eb12d",
       "current_observations": [
@@ -10994,7 +11006,8 @@
           ]
         }
       ],
-      "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+      "qualification": "Full frozen historical body read; any prior bounded current observations retain their original revision and ranges; independent lenses remain open.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-844-852.json"
     },
     {
       "original_index": 852,
@@ -11004,7 +11017,9 @@
       "historical_sha256": "d8ee276214a67b09ca6571d03b1adce2dc200e6201284a9a8e25b6053aa72a15",
       "registry_pointer": "/files/852",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-844-852.json",
+      "qualification": "Full frozen historical body read; any prior bounded current observations retain their original revision and ranges; independent lenses remain open."
     },
     {
       "original_index": 853,
