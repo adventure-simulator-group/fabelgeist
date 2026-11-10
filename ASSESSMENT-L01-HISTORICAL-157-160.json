@@ -1,0 +1,81 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 157,
+      "source_id": "physical-p16:crates/adventuresim-core/src/stub.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/157",
+      "sha256": "ad0fb93704e78d160c5f6275292d92be0367afd4a2bc55a9c212e373fe9fe4dc",
+      "lines": 117,
+      "new_personal_read_ranges": [
+        [
+          1,
+          117
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 role; source tests were read where present, not executed. Current and connected scopes, historical aliases and independent lenses remain open."
+    },
+    {
+      "original_index": 158,
+      "source_id": "physical-p16:crates/adventuresim-core/src/surgery.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/158",
+      "sha256": "c0b73f812166b3333b5611325539f8c850030c5db3ef7ff4b69b11c1bf9e34fd",
+      "lines": 294,
+      "new_personal_read_ranges": [
+        [
+          1,
+          294
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 role; source tests were read where present, not executed. Current and connected scopes, historical aliases and independent lenses remain open."
+    },
+    {
+      "original_index": 159,
+      "source_id": "physical-p16:crates/adventuresim-core/src/survival.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/159",
+      "sha256": "63f604eeeca44d35f365c9daded84a61ca19b8c9c3976ead8503a2edbf4d1c57",
+      "lines": 430,
+      "new_personal_read_ranges": [
+        [
+          1,
+          430
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 role; source tests were read where present, not executed. Current and connected scopes, historical aliases and independent lenses remain open."
+    },
+    {
+      "original_index": 160,
+      "source_id": "physical-p16:crates/adventuresim-core/src/unit_interval.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/160",
+      "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "lines": 58,
+      "new_personal_read_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this physical-p16 role; source tests were read where present, not executed. Current and connected scopes, historical aliases and independent lenses remain open."
+    }
+  ],
+  "observations": [
+    "Historical stubs supply fixed trait values for examples and tests; their existence does not establish production adapters.",
+    "Historical surgery code defines procedure types, difficulty, blood and cut progression; survival code models wetness, thermal strain and frostbite events using supplied weather and clothing facts.",
+    "Historical UnitInterval owns finite inclusive [0,1] admission and uses a checked serialization conversion. Its semantic fit to each proposed producer must be examined rather than assumed from shared numeric shape.",
+    "Historical source tests were inspected without execution; no current behavior or missing checkpoint 3821 authority follows."
+  ],
+  "remaining": "Trace current wound, exposure, weather, fraction and simulation producers and consumers, each historical identity, aliases and all independent lenses."
+}
