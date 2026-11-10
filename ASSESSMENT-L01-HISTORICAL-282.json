@@ -1,0 +1,30 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 282,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/282",
+      "sha256": "c557181c6e91e2beb9c7f20a44324af9d5f4e95ee886d4ae1198e7c78d7f6682",
+      "lines": 1653,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1653
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; no current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical local chat validates a gateway, living sender, conversation target and physical context; party action requests and leader votes have separate entry checks. Approval deserializes a typed action, checks kind and leader, executes and records resolution before deleting the pending request. All caller and sender authorization paths remain open.",
+    "Leadership reconciliation discards ballots outside living membership and handles sole-survivor succession; all-dead cleanup retires strategic journey and requests while leaving tactical mission authority and pooled assets alone. Party and membership coherence and every transition caller require further review.",
+    "Recruitment creates or edits roles, validates selected requirement fields, checks offer identity and presence, and gates party merges on settlement, leader, encounter and simulation state. Creation checks more rating fields than the shared update validator, while role matching zeroes several of them; intended meaning, current code and actual field consumers remain open.",
+    "Party merge rehomes durable object custody, uses a convenience grant for non-durable inventory before deleting the source row, credits stakes and reserve, then moves membership and votes. Grant error propagation, aggregate conservation, transaction rollback, actual row admissibility and current aliases require connected analysis; this historical read alone is not a finding. No fixture, build, test or runtime probe ran."
+  ],
+  "remaining": "Trace current party action caller identity and approval, living-ballot reconciliation, recruitment requirement ownership and merge conservation through checked item grants and physical custody; reconcile historical aliases and independently assess all lenses."
+}
