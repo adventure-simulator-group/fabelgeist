@@ -1,0 +1,417 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected strategic autoresolve wound-to-corpse propagation, zero-damage injury admission and on-scene surgery wording. This is not complete combat, death, investigation or authority review.",
+  "source_reasoning": "Static source inspection and symbolic control-flow reasoning only. Historical source tests were read, not executed; no battle, disease, examination, reducer, UI, product build or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/autopsy.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "450fd627bf7d3e2e6b52158e6dd27623d8d74d3a",
+      "sha256": "590a02732db6f33532c882ce0d6a6686de3f4bad9e3368242999cc3c30f9fd35",
+      "bytes": 21661,
+      "lines": 648,
+      "ranges": [
+        [
+          1,
+          17
+        ],
+        [
+          38,
+          54
+        ],
+        [
+          69,
+          86
+        ],
+        [
+          104,
+          140
+        ],
+        [
+          186,
+          210
+        ],
+        [
+          224,
+          274
+        ],
+        [
+          364,
+          396
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/autopsy-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/physiology.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8c1f399002e7aa3b3ae2365293cdf3bbb0d5266e",
+      "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "bytes": 38543,
+      "lines": 1169,
+      "ranges": [
+        [
+          188,
+          217
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/autopsy-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/surgery.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "833a18f053639bb556b66cddfb3b9af6fd5c34a6",
+      "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+      "bytes": 50861,
+      "lines": 1435,
+      "ranges": [
+        [
+          102,
+          128
+        ],
+        [
+          145,
+          175
+        ],
+        [
+          254,
+          274
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/autopsy-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+      "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "bytes": 138251,
+      "lines": 3968,
+      "ranges": [
+        [
+          333,
+          435
+        ],
+        [
+          2039,
+          2066
+        ],
+        [
+          2456,
+          2467
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/autopsy-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/corpse.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "35a6f6761eb009760c87bc566bb7b277f5a50e52",
+      "sha256": "ae853a404a9463c18ad6bf2d0b06e86f6fc35061f88cd34e823fc3df0aebbc3f",
+      "bytes": 70545,
+      "lines": 2121,
+      "ranges": [
+        [
+          1,
+          16
+        ],
+        [
+          63,
+          124
+        ],
+        [
+          169,
+          181
+        ],
+        [
+          251,
+          303
+        ],
+        [
+          377,
+          397
+        ],
+        [
+          414,
+          517
+        ],
+        [
+          520,
+          633
+        ],
+        [
+          640,
+          723
+        ],
+        [
+          994,
+          1092
+        ],
+        [
+          1124,
+          1240
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/autopsy-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/corpse/autopsy_context.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fb8fd2d0c78ff90c0895828413a41fe56e8f3df6",
+      "sha256": "3b26e430df2bfed7d8872f969645bf2f86aa1792c64fcf0dfdb95834c793c6ab",
+      "bytes": 807,
+      "lines": 25,
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/autopsy-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2c0b4913c81fa6f89510a5b2bf6c62ec693f2add",
+      "sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+      "bytes": 54084,
+      "lines": 1463,
+      "ranges": [
+        [
+          936,
+          1015
+        ],
+        [
+          1018,
+          1064
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/autopsy-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f81d693da7d589fb8295931442850ca28946dd94",
+      "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+      "bytes": 117342,
+      "lines": 2973,
+      "ranges": [
+        [
+          105,
+          136
+        ],
+        [
+          198,
+          249
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/autopsy-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/world_actor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5ab4eab5c647aa4a85852ccb5e88038431f535da",
+      "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "bytes": 51100,
+      "lines": 1353,
+      "ranges": [
+        [
+          320,
+          346
+        ],
+        [
+          349,
+          419
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/autopsy-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/outbreak.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3d5f689b2969ef773068129ba65b69b02a062bc1",
+      "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "bytes": 80288,
+      "lines": 2111,
+      "ranges": [
+        [
+          849,
+          899
+        ],
+        [
+          1946,
+          1990
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/autopsy-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/quests.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "930f0ade0ae2988b8774ccdc1e2da315c0c5c816",
+      "sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+      "bytes": 69463,
+      "lines": 2102,
+      "ranges": [
+        [
+          1320,
+          1350
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/autopsy-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/templates/settlement/character_health.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bdd234c5bf0f14f42ff8cce2aaad1750cc04b193",
+      "sha256": "e2d0f9c9b380042b6620943eeb712aacad78d4b258feeff578329ce8891bdb24",
+      "bytes": 105027,
+      "lines": 2165,
+      "ranges": [
+        [
+          385,
+          449
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/autopsy-sources/11.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "historical_sources": [
+    {
+      "original_index": 856,
+      "source_id": "pr-working:crates/adventuresim-core/src/autopsy.rs",
+      "historical_sha256": "590a02732db6f33532c882ce0d6a6686de3f4bad9e3368242999cc3c30f9fd35",
+      "current_sha256": "590a02732db6f33532c882ce0d6a6686de3f4bad9e3368242999cc3c30f9fd35",
+      "byte_identical": true,
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-856.json",
+      "qualification": "Full historical Lens 1 body personally read separately; equality gives no checkpoint 3821 or other-lens credit."
+    },
+    {
+      "original_index": 1090,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/corpse.rs",
+      "historical_sha256": "ae853a404a9463c18ad6bf2d0b06e86f6fc35061f88cd34e823fc3df0aebbc3f",
+      "current_sha256": "ae853a404a9463c18ad6bf2d0b06e86f6fc35061f88cd34e823fc3df0aebbc3f",
+      "byte_identical": true,
+      "qualification": "Historical role remains unassessed in this Lens 1 worklist. The earlier Lens 13 agent reported a full separately attributed historical read; current ranges here are independently inspected."
+    }
+  ],
+  "recovered_historical_receipts": [
+    {
+      "original_path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-012.json",
+      "sha256": "02ff1b6b7c2edf3dee6f55d0a99e7a38c88fdfe582a8155bf2c9fb48635c23b1",
+      "bytes": 7455,
+      "preserved_bytes": "recovered/autopsy-059/02ff1b6b7c2edf3dee6f55d0a99e7a38c88fdfe582a8155bf2c9fb48635c23b1.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Original transport-manifest bytes; earlier revision, agent attribution, scope and zero accepted unique-count change remain unchanged."
+    },
+    {
+      "original_path": "segovb/READ-L12-CONNECTED-TEAM-011.json",
+      "sha256": "0d8381a27dd51a98c48e4f63a438705208498fc0d6076a12abe9ba3c9cf6fc46",
+      "bytes": 17143,
+      "preserved_bytes": "recovered/autopsy-059/0d8381a27dd51a98c48e4f63a438705208498fc0d6076a12abe9ba3c9cf6fc46.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Original transport-manifest bytes; earlier revision, agent attribution, scope and zero accepted unique-count change remain unchanged."
+    },
+    {
+      "original_path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-804-CORE-CORPSE-OWNER.json",
+      "sha256": "f1e00550fc106ecc25179dbc02bc0b123a16b28d6bb81d32932624bf667065c4",
+      "bytes": 4662,
+      "preserved_bytes": "recovered/autopsy-059/f1e00550fc106ecc25179dbc02bc0b123a16b28d6bb81d32932624bf667065c4.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Original transport-manifest bytes; earlier revision, agent attribution, scope and zero accepted unique-count change remain unchanged."
+    },
+    {
+      "original_path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-804-NATIVE-CORPSE-CONTRACTS.json",
+      "sha256": "236fb457de60f25db1507648c14879623a14ff62a221aae690fc3786d9dbe56a",
+      "bytes": 15260,
+      "preserved_bytes": "recovered/autopsy-059/236fb457de60f25db1507648c14879623a14ff62a221aae690fc3786d9dbe56a.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Original transport-manifest bytes; earlier revision, agent attribution, scope and zero accepted unique-count change remain unchanged."
+    },
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-240.json",
+      "sha256": "c0a8335ccb7b728557d190b4d4f41b26f318efa58bdb0686582cb40ccc8bacf1",
+      "bytes": 24942,
+      "preserved_bytes": "recovered/autopsy-059/c0a8335ccb7b728557d190b4d4f41b26f318efa58bdb0686582cb40ccc8bacf1.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Original transport-manifest bytes; earlier revision, agent attribution, scope and zero accepted unique-count change remain unchanged."
+    },
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-242.json",
+      "sha256": "9ecccfbccffcac46087e52e9d3a3fe39932bdcdaaa7ce8be6ab739fc87e8429d",
+      "bytes": 18694,
+      "preserved_bytes": "recovered/autopsy-059/9ecccfbccffcac46087e52e9d3a3fe39932bdcdaaa7ce8be6ab739fc87e8429d.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Original transport-manifest bytes; earlier revision, agent attribution, scope and zero accepted unique-count change remain unchanged."
+    }
+  ],
+  "historical_queue_links": [
+    {
+      "pointer": "/entries/697",
+      "id": "Q-L1-52187547250d28ccbdbe",
+      "qualification": "Earlier e275 Lens 1 trace explicitly left current outcome and corpse projections open; partial current work only."
+    },
+    {
+      "pointer": "/entries/2288",
+      "id": "PL13-242-CORPSE-BODY-PATHOLOGY-ADMISSION-PENDING",
+      "qualification": "Earlier PR-working Lens 13 body/snapshot producer and semantic-owner contract remains open, with zero accepted unique-count change."
+    },
+    {
+      "pointer": "/entries/2101",
+      "id": "OBL-L12-other_lens_extension_queues-15",
+      "qualification": "Earlier delegated Lens 12 extension remains pending; its core role 856 read was only lines 1–105 and its native corpse read excluded lines 400–519 and 640–1123."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-AUTORESOLVE-CORPSE-WOUND-PROPAGATION-001",
+      "severity": "P2 conditional loss of player-facing wound evidence; live occurrence not observed",
+      "trace": "In selected random and mission autoresolve, commit_autoresolve_outcome commits log injuries for outcome.allies, then persist_autoresolve_enemy_corpses handles lethal enemies. The death transition first calls persist_character_death_corpse, which copies existing limb_injury rows into CorpseInjury. The enemy persistence code computes post_combat_body(enemy, outcome.log), which derives up to 32 injuries from positive cut/blunt log entries, but updates only corpse health and blood_loss_fraction and does not write body.injuries. Given a newly killed enemy whose preexisting limb rows remain blank, a distinct enemy log entry with positive damage, successful death and no intervening wound write, the computed battle wound is absent from the stored wound rows. That condition is symbolic; no outcome or reducer ran.",
+      "consumer": "realized_finding reads stored CorpseInjury for surgery and bestiary; the selected observer receipt and gateway view expose its wording to the medical dialog if examination/access/skill conditions hold. Physiology can still use updated health and blood. Mission success supplies a case site; random encounter supplies no case site, and its scene access has additional restrictions. No assertion that a particular player reached the display.",
+      "scope_and_limits": "Initial creation seeds seven blank limb rows, not an empty table. Existing injury rows or intervening writes may contain other information. Allied commit, enemy roster lifetime, all death producers, actual encounter success and global aliases remain open.",
+      "connected_repair": "Coordinate the death transition and enemy outcome handoff so a bounded, correctly identified post-combat physical summary reaches the canonical corpse once, without copying a tactical tick state or tactical replay, duplicating existing injuries, or inventing attacker/cause. Coordinate with blank-row admission and retry/idempotency policy.",
+      "acceptance": "A future review must account for positive cut/blunt/projectile data, existing injury history, nonlethal enemies, repeated transitions, bounded count and the selected consumers; runtime validation is deferred.",
+      "discovery": "partial; supported reachability, full owner and historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-CORPSE-BLANK-TRAUMA-FINDING-001",
+      "severity": "P2 conditional misleading forensic output; live occurrence not observed",
+      "trace": "Character creation initializes one zero-damage LimbInjury for each of seven regions. Ordinary death copies every such row into CorpseInjury without excluding zero cut/bruise, then realized_finding maps those rows into BodyInjury. With all rows still zero and no retained projectile, a sufficiently skilled, allowed surgery examination chooses one of the zero rows as strongest; both positive-damage comparisons are false, so surgery_finding returns mixed tearing and crushing trauma. Bestiary likewise returns a threat capable of tearing and impact. This is a symbolic noncombat/no-injury case and source control flow, not a disease or examination execution.",
+      "scope_and_limits": "Outbreak materialization can select a disease death and uses the same transition, but no claim is made that a particular generated patient is uninjured or examinable. Quality, location, permission and timing gates can suppress the observation. If real nonzero preexisting rows are present, their behavior differs. No specific tied zero-row region is asserted.",
+      "connected_repair": "Choose a canonical evidence admission rule for meaningful injuries at the retained corpse or finding boundary, coordinating disease and combat producers with the wound-propagation candidate. Preserve legitimate projectile-only or other injury semantics if supported by the final policy.",
+      "acceptance": "A future review must distinguish no physical trauma from supported real wounds in surgery and bestiary and preserve physical/pathology evidence boundaries; runtime validation is deferred.",
+      "discovery": "partial; supported reachability, full owner and historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-AUTOPSY-SCENE-EVIDENCE-CLAIM-001",
+      "severity": "P2 conditional unsupported scene assertion; a false incident is not established",
+      "trace": "For any selected injury and adequate quality, an external surgery finding appends a statement that the undisturbed scene blood distribution supports this wound occurring there when context.at_scene is true. The selected context derives that flag solely from discovery time and buried/exhumed custody; BodyInjury and CorpseInjury carry no scene-disturbance, distribution or wound-location history. An old retained injury examined soon after later discovery is a symbolic case in which the input facts do not establish the asserted evidence. No particular moved body, wound origin, output or player was observed.",
+      "scope_and_limits": "The selected access path also requires the observer and scene case site to match before examination and time advances before the finding. Those checks establish custody/location access, not observed blood distribution or origin. The blank-trauma issue is a separate earlier failure in zero-damage states; real injuries still leave this scene statement dependent on unstated facts.",
+      "connected_repair": "Establish the canonical scene and wound-provenance evidence needed for the statement, or choose wording that does not claim unsupported observations; coordinate with strategic corpse custody and investigation evidence owners.",
+      "acceptance": "A future review must show that scene claims arise only from supported scene facts for both recent and preexisting wounds; runtime validation is deferred.",
+      "discovery": "partial; supported reachability, full owner and historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

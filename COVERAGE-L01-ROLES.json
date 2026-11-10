@@ -9,14 +9,14 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 1870,
+    "unassessed": 1869,
     "lock-metadata-partial": 3,
     "bounded-current-trace-only": 175,
     "assessed-nonapplicable": 3,
-    "full-historical-body-trace-open": 797,
+    "full-historical-body-trace-open": 798,
     "deleted-base-trace-open": 5
   },
-  "first_unfinished": "Historical Cargo.lock role 497 and nested creator lock role 680 remain metadata-partial; frozen bodies 853–855 were read at their original snapshot. Continue at role 856; independent lenses remain open.",
+  "first_unfinished": "Historical Cargo.lock role 497 and nested creator lock role 680 remain metadata-partial. Frozen role 857 is read through line 500; continue at 501 without changing its bounded-current status. Independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -11065,7 +11065,9 @@
       "historical_sha256": "590a02732db6f33532c882ce0d6a6686de3f4bad9e3368242999cc3c30f9fd35",
       "registry_pointer": "/files/856",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-856.json",
+      "qualification": "Full body read of exact frozen historical source only; no product execution, independent lens credit, alias closure or checkpoint 3821 adoption."
     },
     {
       "original_index": 857,
@@ -11137,7 +11139,18 @@
           ]
         }
       ],
-      "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+      "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate.",
+      "historical_partial_observations": [
+        {
+          "assessment": "ASSESSMENT-L01-HISTORICAL-857-PARTIAL-001.json",
+          "ranges": [
+            [
+              1,
+              500
+            ]
+          ]
+        }
+      ]
     },
     {
       "original_index": 858,

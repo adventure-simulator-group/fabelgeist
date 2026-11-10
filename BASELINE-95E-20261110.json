@@ -972,8 +972,65 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L01-ALCOHOL-CALENDAR-95E.json"
+      },
+      {
+        "id": "REVIEW-AUTORESOLVE-CORPSE-WOUND-PROPAGATION-001",
+        "severity": "P2 conditional loss of player-facing wound evidence; live occurrence not observed",
+        "classification": "new bounded 95e source trace within earlier open corpse and producer contracts; exact historical aliases and unique count remain unresolved",
+        "historical_related_candidates": [
+          "Q-L1-52187547250d28ccbdbe",
+          "PL13-242-CORPSE-BODY-PATHOLOGY-ADMISSION-PENDING",
+          "OBL-L12-other_lens_extension_queues-15"
+        ],
+        "related_current_candidates": [
+          "REVIEW-CORPSE-BLANK-TRAUMA-FINDING-001",
+          "REVIEW-AUTOPSY-SCENE-EVIDENCE-CLAIM-001"
+        ],
+        "relationship_qualification": "These candidates share corpse and examination owners but have distinct first failures: omitted new wound summary, zero-row interpretation, and unsupported scene wording. The recovered 059 records retain their original source revisions, delegated attribution, incomplete status and zero accepted unique increment; no automatic alias, global reconciliation or checkpoint 3821 adoption.",
+        "discovery": "partial; supported reachability, full owner and historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L01-AUTOPSY-EVIDENCE-95E.json"
+      },
+      {
+        "id": "REVIEW-CORPSE-BLANK-TRAUMA-FINDING-001",
+        "severity": "P2 conditional misleading forensic output; live occurrence not observed",
+        "classification": "new bounded 95e source trace within earlier open corpse and producer contracts; exact historical aliases and unique count remain unresolved",
+        "historical_related_candidates": [
+          "Q-L1-52187547250d28ccbdbe",
+          "PL13-242-CORPSE-BODY-PATHOLOGY-ADMISSION-PENDING",
+          "OBL-L12-other_lens_extension_queues-15"
+        ],
+        "related_current_candidates": [
+          "REVIEW-AUTORESOLVE-CORPSE-WOUND-PROPAGATION-001",
+          "REVIEW-AUTOPSY-SCENE-EVIDENCE-CLAIM-001"
+        ],
+        "relationship_qualification": "These candidates share corpse and examination owners but have distinct first failures: omitted new wound summary, zero-row interpretation, and unsupported scene wording. The recovered 059 records retain their original source revisions, delegated attribution, incomplete status and zero accepted unique increment; no automatic alias, global reconciliation or checkpoint 3821 adoption.",
+        "discovery": "partial; supported reachability, full owner and historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L01-AUTOPSY-EVIDENCE-95E.json"
+      },
+      {
+        "id": "REVIEW-AUTOPSY-SCENE-EVIDENCE-CLAIM-001",
+        "severity": "P2 conditional unsupported scene assertion; a false incident is not established",
+        "classification": "new bounded 95e source trace within earlier open corpse and producer contracts; exact historical aliases and unique count remain unresolved",
+        "historical_related_candidates": [
+          "Q-L1-52187547250d28ccbdbe",
+          "PL13-242-CORPSE-BODY-PATHOLOGY-ADMISSION-PENDING",
+          "OBL-L12-other_lens_extension_queues-15"
+        ],
+        "related_current_candidates": [
+          "REVIEW-AUTORESOLVE-CORPSE-WOUND-PROPAGATION-001",
+          "REVIEW-CORPSE-BLANK-TRAUMA-FINDING-001"
+        ],
+        "relationship_qualification": "These candidates share corpse and examination owners but have distinct first failures: omitted new wound summary, zero-row interpretation, and unsupported scene wording. The recovered 059 records retain their original source revisions, delegated attribution, incomplete status and zero accepted unique increment; no automatic alias, global reconciliation or checkpoint 3821 adoption.",
+        "discovery": "partial; supported reachability, full owner and historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L01-AUTOPSY-EVIDENCE-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261110-2310.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261110-2314.json"
 }

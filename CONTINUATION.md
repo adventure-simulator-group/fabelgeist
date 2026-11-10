@@ -130,6 +130,12 @@ part field and inoperative editor command against the repository rule; the
 semantic assembly and remaining consumers need independent review.
 `ASSESSMENT-L01-HISTORICAL-734-740.json` records frozen garment fit
 and shader source reads; no device or test ran.
+`ASSESSMENT-L01-AUTOPSY-EVIDENCE-95E.json` traces conditional lost
+autoresolve wounds, zero-damage trauma findings and an unsupported scene
+claim, with earlier corpse receipts separately attributed. No battle or
+examination ran. `ASSESSMENT-L01-HISTORICAL-856.json` records the frozen
+autopsy body read. `ASSESSMENT-L01-HISTORICAL-857-PARTIAL-001.json`
+records a partial autoresolve body read through line 500; its role remains open.
 `ASSESSMENT-L01-ALCOHOL-CALENDAR-95E.json` records a conditional catalog
 hydration contract question, bounded forecast and catalog safeguards, and an
 open calendar work-budget question; the earlier delegated receipt remains
