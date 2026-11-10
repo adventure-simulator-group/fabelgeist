@@ -128,6 +128,10 @@ count overflow; no document, viewer or product code was run.
 `ASSESSMENT-L01-EDITOR-COMPAT-95E.json` records an explicit legacy
 part field and inoperative editor command against the repository rule; the
 semantic assembly and remaining consumers need independent review.
+`ASSESSMENT-L01-DEVICE-CACHE-95E.json` traces public body/cache
+identity and the tactical shape producer’s reset safeguard; no device ran.
+`ASSESSMENT-L01-HISTORICAL-722-726.json` records frozen device source
+reads separately from current source.
 `ASSESSMENT-L01-CLEARANCE-EMPTY-95E.json` traces a conditional empty
 support hull underflow and late frame-status check to its 059 contract; no
 GPU or shader ran, and actual backend effects remain unknown.
