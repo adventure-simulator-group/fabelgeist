@@ -1,0 +1,48 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 466,
+      "source_id": "pinned-aeronet_websocket-0.21.0:src/client/backend.rs",
+      "snapshot": "pinned-aeronet_websocket-0.21.0",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/466",
+      "sha256": "23dfe8915ad2b846fc6fefc68db46f83d144f77ae59771b5f1917fb323b6bc3b",
+      "lines": 80,
+      "new_personal_read_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read only for this registered pinned native snapshot role; code examples were read, not run. Package archive provenance, applicable lock and features, current usage and independent lens coverage require separate proof."
+    },
+    {
+      "original_index": 467,
+      "source_id": "pinned-aeronet_websocket-0.21.0:src/client/mod.rs",
+      "snapshot": "pinned-aeronet_websocket-0.21.0",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/467",
+      "sha256": "989293dad41e11f0b3d5c5bb4e10be8246e2645cd92c97090a19aa18bb385e93",
+      "lines": 239,
+      "new_personal_read_ranges": [
+        [
+          1,
+          239
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read only for this registered pinned native snapshot role; code examples were read, not run. Package archive provenance, applicable lock and features, current usage and independent lens coverage require separate proof."
+    }
+  ],
+  "observations": [
+    "The registered native WebSocket client backend has distinct wasm and native construction branches, sends a connected frontend through a one-shot channel, and runs the selected session backend. Native setup matches plain and Rustls stream variants and has a panic fallback for other variants; actual compiled feature selection, reachable stream variants, application configuration and error behavior must be traced before asserting a reachable panic.",
+    "The client plugin installs session handling and polls connecting and connected components before session polling. The connecting path checks disconnection first, then swaps the receiver and inserts session IO and endpoint information after a connection message. A closed disconnect channel maps to BackendClosed and triggers a disconnected event. Actual channel scheduling, host use and event consumers are not established from these bodies.",
+    "The snapshot label is a registered historical source identity, not proof of current lock resolution or enabled features. The source examples were read, not run; no product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Verify applicable package archive and lock/feature selection, session backend and application callers, errors and event consumers, and all historical aliases. Independently assess every lens."
+}
