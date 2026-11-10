@@ -130,6 +130,10 @@ part field and inoperative editor command against the repository rule; the
 semantic assembly and remaining consumers need independent review.
 `ASSESSMENT-L01-HISTORICAL-734-740.json` records frozen garment fit
 and shader source reads; no device or test ran.
+`ASSESSMENT-L01-TASSET-NODE-95E.json` records a conditional finite
+body-span station-count overflow and its recovered 059 relation.
+`ASSESSMENT-L01-HISTORICAL-751-761.json` records separate frozen
+tasset, torso and underlayer source reads; tests were not run.
 `ASSESSMENT-L01-HISTORICAL-741-750.json` records frozen gorget,
 head-frame, limb and shared-section source reads, with device execution open.
 `ASSESSMENT-L01-HISTORICAL-727-733.json` records frozen footwear
