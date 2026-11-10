@@ -746,7 +746,7 @@
       "status": "M",
       "path": "crates/adventuresim-tactical-client/src/ui.rs",
       "lens_status": [
-        "unassessed",
+        "partial UI wheel and DOM source trace; related scope open; ASSESSMENT-L1-WHEEL-CUTOFF.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -765,7 +765,7 @@
       "status": "D",
       "path": "crates/adventuresim-tactical-client/src/ui/combat_state.rs",
       "lens_status": [
-        "unassessed",
+        "partial UI wheel and DOM source trace; related scope open; ASSESSMENT-L1-WHEEL-CUTOFF.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -784,7 +784,7 @@
       "status": "D",
       "path": "crates/adventuresim-tactical-client/src/ui/gameplay_camera.rs",
       "lens_status": [
-        "unassessed",
+        "assessed: removed selected file for numeric-value lens; complete 25-line body contains no numeric values; current camera and other lenses open; ASSESSMENT-L1-WHEEL-CUTOFF.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -803,7 +803,7 @@
       "status": "A",
       "path": "crates/adventuresim-tactical-client/src/ui/wheel.rs",
       "lens_status": [
-        "unassessed",
+        "partial UI wheel and DOM source trace; related scope open; ASSESSMENT-L1-WHEEL-CUTOFF.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -1527,7 +1527,8 @@
           "NEW-RECRUITMENT-ROLE-FIELDS-001"
         ],
         "additional_assessments": [
-          "ASSESSMENT-L1-CONTACT-GEOMETRY.json"
+          "ASSESSMENT-L1-CONTACT-GEOMETRY.json",
+          "ASSESSMENT-L01-HISTORICAL-90-99.json"
         ]
       },
       {
@@ -1545,12 +1546,21 @@
         "discovery": "partial; actual admission, lifecycle, policy and historical aliases open",
         "repair": "not started",
         "validation": "not performed"
+      },
+      {
+        "id": "NEW-WHEEL-QUANTIZED-CUTOFF-001",
+        "record": "ASSESSMENT-L1-WHEEL-CUTOFF.json",
+        "classification": "conditional rounded wheel-arc shares can exceed one full circle",
+        "discovery": "partial; static arithmetic, live-state reachability, browser behavior and historical aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "connected_candidates": []
       }
     ],
     "qualification": "Historical queue is retained as a mandatory reconciliation source, not silently imported as current findings. Connected repairs, dependencies and acceptance criteria must be populated from source-backed assessments."
   },
   "validation": "No product builds, tests, runtime probes or repairs authorized or performed. Evidence verification only.",
-  "next_step": "Continue original Lens 1 role 90 and current delta ui.rs. Keep contact geometry, all historical bodies, tree residency and prior connected traces open.",
+  "next_step": "Continue original Lens 1 role 91 and current delta physics/plugin.rs. Keep wheel cutoff, all historical role traces and prior connected repairs open.",
   "continuation_orientation": "CONTINUATION.md",
   "lens1_role_worklist": "COVERAGE-L01-ROLES.json",
   "lockfile_inventory": "LOCKFILE-DELTA.json"

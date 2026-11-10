@@ -1,0 +1,99 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 90,
+      "source_id": "physical-p16:crates/adventuresim-core/src/composite.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/90",
+      "sha256": "d12458450a9186177a47c1b404529e9f6128dfd204fd63817b8a4fd8cf27e72f",
+      "lines": 386,
+      "new_personal_read_ranges": [
+        [
+          1,
+          386
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full-body source read at this exact physical-p16 historical role; any tests were read only. It does not establish current behavior, other role credit, checkpoint 3821 state, or lens closure."
+    },
+    {
+      "original_index": 92,
+      "source_id": "physical-p16:crates/adventuresim-core/src/courtship/child_identity.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/92",
+      "sha256": "79e3e2273c83b841a9b8ad92bef203dfde9e3be24d063568921367c1ffe7f299",
+      "lines": 97,
+      "new_personal_read_ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full-body source read at this exact physical-p16 historical role; any tests were read only. It does not establish current behavior, other role credit, checkpoint 3821 state, or lens closure."
+    },
+    {
+      "original_index": 94,
+      "source_id": "physical-p16:crates/adventuresim-core/src/disease/identity.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/94",
+      "sha256": "bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+      "lines": 132,
+      "new_personal_read_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full-body source read at this exact physical-p16 historical role; any tests were read only. It does not establish current behavior, other role credit, checkpoint 3821 state, or lens closure."
+    },
+    {
+      "original_index": 98,
+      "source_id": "physical-p16:crates/adventuresim-core/src/encounter/choice.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/98",
+      "sha256": "3a327aeb8ec9f72d67960b0cdc94f7ece677c4a963d5ce8e1db7af3fd8025206",
+      "lines": 72,
+      "new_personal_read_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full-body source read at this exact physical-p16 historical role; any tests were read only. It does not establish current behavior, other role credit, checkpoint 3821 state, or lens closure."
+    },
+    {
+      "original_index": 99,
+      "source_id": "physical-p16:crates/adventuresim-core/src/encounter/receipt.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/99",
+      "sha256": "79edfeebdc4b5bdd4dfd8272b5b15981bf986c1acdcc4bca4b92d3fe3022b1b1",
+      "lines": 36,
+      "new_personal_read_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full-body source read at this exact physical-p16 historical role; any tests were read only. It does not establish current behavior, other role credit, checkpoint 3821 state, or lens closure."
+    }
+  ],
+  "observations": {
+    "90": "The historical PlayerInfo composite delegates component traits, exposes typed builder construction, and forwards raw attack accuracy and contact samples. Its melee contact function reconstructs ContactPrecision from an equipment value; related current precision trace is separately assessed.",
+    "92": "The historical child identity file uses distinct seed and ordinal wrappers with deterministic domain-separated values and parent ordering. Identity producer and lifecycle callers remain open.",
+    "94": "The historical DiseaseId enum has snake-case serialized IDs and separately retained variant spelling for deterministic coordinates. Its parsing and tests were read as source, not run; current ownership and callers remain open.",
+    "98": "The historical EncounterChoice enum owns five stable tokens and parses by matching those tokens. Its tests were read, not run; current callers and outcome contracts remain open.",
+    "99": "The historical encounter receipt file generates a deterministic opaque ID from two domain-separated random words and compares supplied receipt identity, actor, choice and revision independently. It is a historical source observation, not a current receipt or queue disposition."
+  },
+  "remaining": "These reads do not close their broader historical scopes, trace all primitive values, assess a later snapshot, establish current behavior, or complete any independent lens."
+}

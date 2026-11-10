@@ -9,13 +9,13 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2664,
+    "unassessed": 2657,
     "lock-metadata-partial": 2,
-    "bounded-current-trace-only": 144,
+    "bounded-current-trace-only": 146,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 41
+    "full-historical-body-trace-open": 46
   },
-  "first_unfinished": "Current Lens 1 delta: tree presentation and capture view specs have bounded tree-state traces; first untouched path is crates/adventuresim-tactical-client/src/ui.rs. Original roles 39/497 have only lock metadata; 41 exact historical bodies have open connected traces; next original changed role with only bounded current evidence is 90.",
+  "first_unfinished": "Current Lens 1 delta: combat UI and wheel have bounded traces, including the deleted selected camera module; first untouched path is crates/adventuresim-tactical-core/src/physics/plugin.rs. Original roles 39/497 have only lock metadata; 46 exact historical bodies have open connected traces; next unread original changed role is 91.",
   "roles": [
     {
       "original_index": 0,
@@ -1146,7 +1146,7 @@
       "historical_sha256": "d12458450a9186177a47c1b404529e9f6128dfd204fd63817b8a4fd8cf27e72f",
       "registry_pointer": "/files/90",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/adventuresim-core/src/composite.rs",
       "current_git_blob": "781cb7f9131a02b3f9b2e157cf1c32382fe69f2a",
       "current_observations": [
@@ -1160,7 +1160,8 @@
           ]
         }
       ],
-      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+      "qualification": "New full read at this exact physical-p16 identity only; connected trace, current applicability, other roles and independent lens closure remain open.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-90-99.json"
     },
     {
       "original_index": 91,
@@ -1180,7 +1181,9 @@
       "historical_sha256": "79e3e2273c83b841a9b8ad92bef203dfde9e3be24d063568921367c1ffe7f299",
       "registry_pointer": "/files/92",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-90-99.json",
+      "qualification": "New full read at this exact physical-p16 identity only; connected trace, current applicability, other roles and independent lens closure remain open."
     },
     {
       "original_index": 93,
@@ -1200,7 +1203,9 @@
       "historical_sha256": "bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
       "registry_pointer": "/files/94",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-90-99.json",
+      "qualification": "New full read at this exact physical-p16 identity only; connected trace, current applicability, other roles and independent lens closure remain open."
     },
     {
       "original_index": 95,
@@ -1255,7 +1260,9 @@
       "historical_sha256": "3a327aeb8ec9f72d67960b0cdc94f7ece677c4a963d5ce8e1db7af3fd8025206",
       "registry_pointer": "/files/98",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-90-99.json",
+      "qualification": "New full read at this exact physical-p16 identity only; connected trace, current applicability, other roles and independent lens closure remain open."
     },
     {
       "original_index": 99,
@@ -1265,7 +1272,9 @@
       "historical_sha256": "79edfeebdc4b5bdd4dfd8272b5b15981bf986c1acdcc4bca4b92d3fe3022b1b1",
       "registry_pointer": "/files/99",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-90-99.json",
+      "qualification": "New full read at this exact physical-p16 identity only; connected trace, current applicability, other roles and independent lens closure remain open."
     },
     {
       "original_index": 100,
@@ -21057,6 +21066,15 @@
         {
           "assessment": "ASSESSMENT-L1-COMBAT-SOUND.json",
           "ranges": "90-109"
+        },
+        {
+          "assessment": "ASSESSMENT-L1-WHEEL-CUTOFF.json",
+          "ranges": [
+            [
+              165,
+              215
+            ]
+          ]
         }
       ],
       "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -21079,7 +21097,21 @@
       "historical_sha256": "bfc02321b1d2716ffaf92d38902b547713a76a9de7a350ece7f35449e9dddf37",
       "registry_pointer": "/files/1892",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-tactical-core/src/player/combat_state.rs",
+      "current_git_blob": "0d7f18a63279bccc60edfc24de24dfb42c0482ae",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-WHEEL-CUTOFF.json",
+          "ranges": [
+            [
+              1,
+              130
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected; equal bytes do not close this historical identity or any lens."
     },
     {
       "original_index": 1893,
@@ -22654,7 +22686,21 @@
       "historical_sha256": "543fe525702b8245d56a704a028a74138144789cf48c888b58704897bb6be7bf",
       "registry_pointer": "/files/2030",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-tactical-server/src/combat/condition.rs",
+      "current_git_blob": "5bf3afe1a222832e72c09014f44843936291d9a5",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-WHEEL-CUTOFF.json",
+          "ranges": [
+            [
+              1,
+              102
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected; equal bytes do not close this historical identity or any lens."
     },
     {
       "original_index": 2031,
@@ -22664,7 +22710,21 @@
       "historical_sha256": "7b2a7d5e50bff9d2fb938aa12d45a750504327c369f2534c6e0866bdef93eb58",
       "registry_pointer": "/files/2031",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-tactical-server/src/combat/condition/forecast.rs",
+      "current_git_blob": "de2a2f23fb6b8572219754d3598da3292410722c",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-WHEEL-CUTOFF.json",
+          "ranges": [
+            [
+              1,
+              64
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected; equal bytes do not close this historical identity or any lens."
     },
     {
       "original_index": 2032,

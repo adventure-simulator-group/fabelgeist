@@ -1,0 +1,247 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "contract_id": "NEW-WHEEL-QUANTIZED-CUTOFF-001",
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "reported_selected_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "classification": "Source-backed conditional 100-percent wheel cutoff breach introduced by independent per-arc quantization; gameplay reachability and rendering impact have not been established.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/ui.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "f91fe076a2bc1dccc6e2660098fe431898681f4e96ea54d15b6ca79e581f7bd9",
+      "git_blob": "aeebce112cdb79070ac32e3d105825e8e2bcb7d0",
+      "bytes": 8262,
+      "lines": 279,
+      "ranges": [
+        [
+          1,
+          279
+        ]
+      ],
+      "preserved_bytes": "source-evidence/wheel-cutoff/current/crates/adventuresim-tactical-client/src/ui.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/ui/wheel.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "3bb34a4383bf5b2d02ba2c8ffe23eae7f97454416657bdc0aad98088ccd7ffc8",
+      "git_blob": "bb5f7e64b9e583e266662cfde006e976d07c7fe1",
+      "bytes": 14497,
+      "lines": 438,
+      "ranges": [
+        [
+          1,
+          438
+        ]
+      ],
+      "preserved_bytes": "source-evidence/wheel-cutoff/current/crates/adventuresim-tactical-client/src/ui/wheel.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/player/combat_state.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "bfc02321b1d2716ffaf92d38902b547713a76a9de7a350ece7f35449e9dddf37",
+      "git_blob": "0d7f18a63279bccc60edfc24de24dfb42c0482ae",
+      "bytes": 7093,
+      "lines": 211,
+      "ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "preserved_bytes": "source-evidence/wheel-cutoff/current/crates/adventuresim-tactical-core/src/player/combat_state.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/condition.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "543fe525702b8245d56a704a028a74138144789cf48c888b58704897bb6be7bf",
+      "git_blob": "5bf3afe1a222832e72c09014f44843936291d9a5",
+      "bytes": 5752,
+      "lines": 160,
+      "ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "preserved_bytes": "source-evidence/wheel-cutoff/current/crates/adventuresim-tactical-server/src/combat/condition.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/condition/forecast.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "7b2a7d5e50bff9d2fb938aa12d45a750504327c369f2534c6e0866bdef93eb58",
+      "git_blob": "de2a2f23fb6b8572219754d3598da3292410722c",
+      "bytes": 5927,
+      "lines": 166,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "preserved_bytes": "source-evidence/wheel-cutoff/current/crates/adventuresim-tactical-server/src/combat/condition/forecast.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/hud.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "fcc8c3870307145ace4daf1f08af7eda0c52d8db1e8cabcba1475e30a4c50283",
+      "git_blob": "a79183f3570d171bf5029da8b87730b9997ab103",
+      "bytes": 6086,
+      "lines": 200,
+      "ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "preserved_bytes": "source-evidence/wheel-cutoff/current/crates/adventuresim-tactical-client/src/hud.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/static/tactical-hud.js",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "017a234502121b9b3dbb4c736c7257d07d3386b146cc6f0d6eb610c0c28c0b24",
+      "git_blob": "8f0c1572300067a10c0bcc1f21153c9c43990d3d",
+      "bytes": 13774,
+      "lines": 335,
+      "ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "preserved_bytes": "source-evidence/wheel-cutoff/current/crates/adventuresim-stdb-module/static/tactical-hud.js.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/static/tactical-hud.css",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "fc05b6e6d902d165ebc03487d9aa33ccc1eadd2dca03887b0ac7bc087c5cdc05",
+      "git_blob": "06621bae43633f8c98fc3228af14c029b86f01a3",
+      "bytes": 6740,
+      "lines": 340,
+      "ranges": [
+        [
+          50,
+          73
+        ]
+      ],
+      "preserved_bytes": "source-evidence/wheel-cutoff/current/crates/adventuresim-stdb-module/static/tactical-hud.css.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/player.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "git_blob": "9d9a7fe4d0da49a45fcc5127992f0c91fdd92c2b",
+      "bytes": 21008,
+      "lines": 640,
+      "ranges": [
+        [
+          165,
+          215
+        ]
+      ],
+      "preserved_bytes": "source-evidence/wheel-cutoff/current/crates/adventuresim-tactical-core/src/player.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          1674,
+          1677
+        ]
+      ],
+      "preserved_bytes": "source-evidence/wheel-cutoff/current/Cargo.lock.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "reported_selected_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/ui.rs",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "sha256": "b448d55a1c925be5ff7173ee105bbec590c7f5268eaede86caa41f316caa0d2f",
+      "git_blob": "c4b567e03ff88f2913336eb9be52a04283e52036",
+      "bytes": 34470,
+      "lines": 1023,
+      "ranges": [
+        [
+          70,
+          115
+        ],
+        [
+          120,
+          249
+        ]
+      ],
+      "preserved_bytes": "source-evidence/wheel-cutoff/reported-selected/crates/adventuresim-tactical-client/src/ui.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/ui/combat_state.rs",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "sha256": "4a377bed178aa3822eba2e6be0f9b97db5e7b8267ade2b3bdc90924241a074a2",
+      "git_blob": "ba27870c4e8bef6e614ed5121f8838b24644ac3c",
+      "bytes": 4530,
+      "lines": 140,
+      "ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "preserved_bytes": "source-evidence/wheel-cutoff/reported-selected/crates/adventuresim-tactical-client/src/ui/combat_state.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/ui/gameplay_camera.rs",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "sha256": "084217c3266574bcfe1d79e9964fd544d415c33f4083f6a6bd12fee0ca5b3f82",
+      "git_blob": "c0111b4a1a153fb67034fac57c462fb53ae24559",
+      "bytes": 852,
+      "lines": 25,
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "preserved_bytes": "source-evidence/wheel-cutoff/reported-selected/crates/adventuresim-tactical-client/src/ui/gameplay_camera.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "native_archive": "native-evidence/bevy_color-0.19.1/MANIFEST.json",
+  "trace": [
+    "The source constructs actual impairment and projected increases separately, scales forecast to the available share, clips visible unrounded amounts using remaining, and subtracts those unrounded amounts. Each resulting amount is then independently rounded to the nearest thousandth for the serialized WheelArc.share. The browser adds each received share to the preceding SVG angle with no aggregate clamp.",
+    "For the representable nonnegative source values pain=0.3336, blood_loss=0.3336 and fear=0.3328, zero projected increase, and a displayed wheel, the mathematical 32-bit-float calculation gives rounded shares near 0.334, 0.334 and 0.333, whose sum exceeds one by approximately 0.001. All three are larger than the minimum visibility threshold. This is an evidence calculation, not an invocation of wheel_arcs, a product test, a JSON/DOM runtime observation, or proof that these precise values occur during play.",
+    "The selected historical renderer clips and directly advances its angular cursor using each unrounded amount. The current renderer instead crosses the JSON/DOM boundary after quantization. Historical source remains at its own selected revision; this comparison does not establish an unexecuted visual result.",
+    "Current color mapping uses a black fatigue segment, translucent grey encumbrance and yellow projected segments. Pinned bevy_color source shows to_hex includes an alpha byte when it is not 255; actual compiled feature selection and browser rendering remain unverified. Current source tests are preserved and were read only."
+  ],
+  "related_ui_trace": [
+    "The current root computes seven whole-percent limb values in head/chest/stomach/left-right arm/left-right leg order, and the page owns a separate label list in the same observed order. The Rust-to-page native array boundary is explicit; future review must trace all admissions and the duplicated ordering contract rather than treating one field as proof of all lifecycle behavior.",
+    "The selected gameplay_camera module only pins the former UI to a Bevy gameplay camera; the selected numeric lens finds no numeric value or unit in its complete 25-line body. The file is removed at current revision; current UiPlugin delegates wheel position to world_to_viewport and DOM. Its camera behavior, engine schedule and all other lenses remain open."
+  ],
+  "repair_direction": "Complete all current/forecast producer and serialization traces. Design a bounded quantization/allocation that cannot produce total transmitted shares above one while retaining actual-before-forecast allocation, subpixel omission, segment color and order, and the visible 100-percent cutoff. Coordinate the separate page renderer and any historic queue candidates; do not alter actual incapacitation, combat penalties, general fatigue, or the transient server authority.",
+  "later_acceptance": [
+    "After separate implementation authorization, verify rounded-share totals never exceed one across multiple near-thousandth boundaries and that exactly-full and under-full cases retain intended arcs.",
+    "Verify no projected yellow arc displaces real impairment, the wheel clips at 100%, encumbrance remains translucent grey, fatigue remains black, and zero/subpixel behavior and browser order stay intentional."
+  ],
+  "remaining": [
+    "Establish whether the representative combination is producible from admitted live state, inspect the exact finite JSON formatter and browser behavior, and reconcile historical queue aliases.",
+    "The remainder of the UI, lifecycle, camera, gameplay consequences and all other lenses remain open. No product repair, build, test, browser, graphics runtime or probe was performed."
+  ],
+  "discovery_status": "partial; arithmetic counterexample established conditionally, real input reachability and browser behavior open",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}
