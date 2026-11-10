@@ -16,7 +16,11 @@
     {
       "path": "crates/adventuresim-tactical-client/src/combat_effects.rs",
       "git_blob": "048149792a65807d50064101c7e2a1be1a645ebb",
-      "range": "102-205, 219-251"
+      "ranges": [
+        "29-37",
+        "102-205",
+        "219-251"
+      ]
     },
     {
       "path": "crates/adventuresim-tactical-core/src/player.rs",
@@ -26,7 +30,11 @@
     {
       "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
       "git_blob": "5bd51b919223279623bc728d4356e092e27c0448",
-      "range": "726-740"
+      "ranges": [
+        "537-577",
+        "726-775",
+        "1994-2028"
+      ]
     },
     {
       "path": "crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
@@ -74,6 +82,21 @@
       "path": "crates/adventuresim-tactical-client/src/sound_output/silent.rs",
       "git_blob": "c62afee752cb3d0b66cc5a526e2d35a060539125",
       "range": "entire file"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/iteration.rs",
+      "git_blob": "b958d10442f73b18c46f5e12869eeecaabc09f0b",
+      "range": "191-205"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/ui.rs",
+      "git_blob": "aeebce112cdb79070ac32e3d105825e8e2bcb7d0",
+      "range": "224-233"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/mod.rs",
+      "git_blob": "4a261f69f138b8a6b6636cfaa1c824d1e2e2b6a5",
+      "range": "477-490"
     }
   ],
   "current_trace": [
@@ -99,9 +122,37 @@
   "remaining": [
     "Inspect all attacker creation paths, event/entity mapping and ordering guarantees, including non-player actors and missing identity; inspect retained Local lifecycle.",
     "Reconcile linked historical queue IDs and any later exact records before aliasing or marking discovery complete.",
-    "Assess changed audio config, seed native receivers, JS and behavior-preservation independently in their own scopes and lenses."
+    "Assess changed audio config, seed native receivers, JS and behavior-preservation independently in their own scopes and lenses.",
+    "Qualify client visibility, entity despawn, component insertion and source configuration against pinned replication and Bevy observer lifecycle; the recorded library queue guarantee does not prove every attacker is queryable."
   ],
   "discovery_status": "partial current trace; family, alias and lens remain incomplete",
   "repair_status": "not started",
-  "validation_status": "none; source and evidence verification only"
+  "validation_status": "none; source and evidence verification only",
+  "additional_current_source_observations": [
+    {
+      "scope": "live projection and observer",
+      "evidence": "player_projection.rs 537-577, 726-775, 1994-2028",
+      "observation": "Both admitted loading and enemy recipients proceed through the same insertion of Player and CharacterId. The Player-added observer requires both in its query before adding Replicated and controller state. This supports the selected projection path; world-dump data validity, alternate sources, timing, visibility and component removal are not established."
+    },
+    {
+      "scope": "iteration fixture",
+      "evidence": "iteration.rs 191-205",
+      "observation": "The selected melee-iteration combatant spawn also inserts Player and CharacterId together. This is a source observation about a harness, not a product execution result or proof for all attackers."
+    },
+    {
+      "scope": "event receive and mapping",
+      "evidence": "native-evidence/bevy-replicon-0.41.1/MANIFEST.json and preserved server_message.rs 128-153, 475-525, 621-647; client/message.rs 60-108, 332-380; server_event.rs 39-51, 140-162; ctx.rs 77-84",
+      "observation": "Pinned bevy_replicon 0.41.1 documents dependent server messages waiting for replication insertions/removals/despawns for their tick, and its receive path queues messages newer than the applied update tick. The client schedules message receive after replication and triggers events after receive. Mapped deserialization marks unmapped entities invalid; the wrapper returns an error and the receive path ignores failed messages. The application registers this event as mapped and does not call make_event_independent in the searched tactical crate sources. This is a bounded source qualification, not proof that the required entity stays visible or contains CharacterId in every allowed configuration."
+    },
+    {
+      "scope": "other event observers",
+      "evidence": "ui.rs 224-233; animation/mod.rs 477-490; combat_effects.rs 102-143",
+      "observation": "The attack-result HUD checks a hit target Player and CharacterId, and the bone-kick observer uses the impact recipient independently. The missing attacker identity branch in combat_effects suppresses its own sound, sparks and blood handling; it does not by itself show that other observers are suppressed. A mapping failure before event delivery is a separate conditional path."
+    },
+    {
+      "scope": "local sequence lifetime",
+      "evidence": "combat_effects.rs 29-37, 102-111, 197-205",
+      "observation": "The sequence map is an observer Local parameter and the plugin registers the observer. No reset or lifecycle guarantee is established by these lines; reconnect, observer lifetime, and repeated character identities require further source qualification."
+    }
+  ]
 }
