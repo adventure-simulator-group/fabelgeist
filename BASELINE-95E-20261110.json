@@ -650,6 +650,32 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L01-SIGN-GLYPH-95E.json"
+      },
+      {
+        "id": "REVIEW-PLAYER-STAIR-UNDERPROVISION-EXPECT-001",
+        "severity": "P3 provisional; a structurally decoded freeform spiral with too few treads can reach an unconditional viewer assertion",
+        "classification": "source-derived current player-document admission and viewer error-boundary failure related to the broader 059 stair obligation",
+        "historical_related_candidates": [
+          "059 stair semantic physical retention/admission and native flight propagation"
+        ],
+        "relationship_qualification": "The recovered 059 contract explicitly left actual player-document admission, viewer body and u16 sum/cast evidence open, and its original status and accepted unique count remain unchanged. These current traces share that broader obligation but their first failures differ; no global alias, queue reconciliation or checkpoint 3821 recovery is inferred.",
+        "discovery": "partial; complete document validation, normal producer scope, runtime panic handling and aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L01-SPIRAL-ADMISSION-95E.json"
+      },
+      {
+        "id": "REVIEW-SPIRAL-TREAD-COUNT-U16-OVERFLOW-001",
+        "severity": "P3 provisional; an extreme finite stair count can overflow a u16 before underprovision is checked",
+        "classification": "source-derived current numeric-operation boundary related to the broader 059 stair obligation, distinct from the viewer None assertion",
+        "historical_related_candidates": [
+          "059 stair semantic physical retention/admission and native flight propagation"
+        ],
+        "relationship_qualification": "The recovered 059 contract explicitly left actual player-document admission, viewer body and u16 sum/cast evidence open, and its original status and accepted unique count remain unchanged. These current traces share that broader obligation but their first failures differ; no global alias, queue reconciliation or checkpoint 3821 recovery is inferred.",
+        "discovery": "partial; supported stair domain, whole programme generation, actual compiler profile and aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L01-SPIRAL-ADMISSION-95E.json"
       }
     ]
   },
