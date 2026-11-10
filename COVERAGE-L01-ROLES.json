@@ -9,9 +9,9 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2764,
+    "unassessed": 2762,
     "lock-metadata-partial": 2,
-    "bounded-current-trace-only": 85,
+    "bounded-current-trace-only": 87,
     "assessed-nonapplicable": 2
   },
   "first_unfinished": "Current source delta: .github/workflows/rust-quality.yml. Original changed-role inventory: 39 and 497 have only lock-metadata comparisons; after their unresolved dependency obligations, the next unassessed changed role by registry index is 47.",
@@ -9476,7 +9476,25 @@
       "historical_sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
       "registry_pointer": "/files/920",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/equipment.rs",
+      "current_git_blob": "72e2ee49455fc5f6845a13dfefa1a74531afeb44",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-HUD-IDENTITY.json",
+          "ranges": [
+            [
+              25,
+              37
+            ],
+            [
+              50,
+              195
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 921,
@@ -15638,7 +15656,21 @@
       "historical_sha256": "95cb7d00f5f9c53287ed626304bd1914c958f7ee38933a8906a354ca12610678",
       "registry_pointer": "/files/1495",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-tactical-client/src/equipment/slot_selection.rs",
+      "current_git_blob": "eb4f1174723ed5877f1363e81fa43b8540109aae",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-HUD-IDENTITY.json",
+          "ranges": [
+            [
+              1,
+              90
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 1496,

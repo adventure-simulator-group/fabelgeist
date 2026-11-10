@@ -290,7 +290,7 @@
       "status": "A",
       "path": "crates/adventuresim-stdb-module/static/tactical-hud.css",
       "lens_status": [
-        "unassessed",
+        "partial browser HUD identity and representation trace; full path scope open; ASSESSMENT-L1-HUD-IDENTITY.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -309,7 +309,7 @@
       "status": "A",
       "path": "crates/adventuresim-stdb-module/static/tactical-hud.js",
       "lens_status": [
-        "unassessed",
+        "partial browser HUD identity and representation trace; full path scope open; ASSESSMENT-L1-HUD-IDENTITY.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -328,7 +328,7 @@
       "status": "M",
       "path": "crates/adventuresim-stdb-module/static/tactical.html",
       "lens_status": [
-        "unassessed",
+        "partial browser HUD identity and representation trace; full path scope open; ASSESSMENT-L1-HUD-IDENTITY.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -404,7 +404,7 @@
       "status": "M",
       "path": "crates/adventuresim-tactical-client/src/browser_runtime.rs",
       "lens_status": [
-        "unassessed",
+        "partial browser HUD identity and representation trace; full path scope open; ASSESSMENT-L1-HUD-IDENTITY.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -461,7 +461,7 @@
       "status": "M",
       "path": "crates/adventuresim-tactical-client/src/equipment.rs",
       "lens_status": [
-        "unassessed",
+        "partial browser HUD identity and representation trace; full path scope open; ASSESSMENT-L1-HUD-IDENTITY.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -480,7 +480,7 @@
       "status": "M",
       "path": "crates/adventuresim-tactical-client/src/equipment/icons.rs",
       "lens_status": [
-        "unassessed",
+        "partial browser HUD identity and representation trace; full path scope open; ASSESSMENT-L1-HUD-IDENTITY.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -499,7 +499,7 @@
       "status": "A",
       "path": "crates/adventuresim-tactical-client/src/equipment/slot_hud.rs",
       "lens_status": [
-        "unassessed",
+        "partial browser HUD identity and representation trace; full path scope open; ASSESSMENT-L1-HUD-IDENTITY.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -518,7 +518,7 @@
       "status": "A",
       "path": "crates/adventuresim-tactical-client/src/hud.rs",
       "lens_status": [
-        "unassessed",
+        "partial browser HUD identity and representation trace; full path scope open; ASSESSMENT-L1-HUD-IDENTITY.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -1400,12 +1400,28 @@
         "discovery": "partial; admitted timeout, native clock, complete consumers and aliases open",
         "repair": "not started",
         "validation": "not performed"
+      },
+      {
+        "id": "NEW-HUD-SLOT-INPUT-001",
+        "record": "ASSESSMENT-L1-HUD-IDENTITY.json",
+        "classification": "candidate internal slot-input identity propagation",
+        "discovery": "partial; full producers, consumers, reachability and historical aliases open",
+        "repair": "not started",
+        "validation": "not performed"
+      },
+      {
+        "id": "NEW-HUD-JOIN-IDENTITY-001",
+        "record": "ASSESSMENT-L1-HUD-IDENTITY.json",
+        "classification": "conditional browser numeric identity collision in visual slot grouping",
+        "discovery": "partial; full producers, consumers, reachability and historical aliases open",
+        "repair": "not started",
+        "validation": "not performed"
       }
     ],
     "qualification": "Historical queue is retained as a mandatory reconciliation source, not silently imported as current findings. Connected repairs, dependencies and acceptance criteria must be populated from source-backed assessments."
   },
   "validation": "No product builds, tests, runtime probes or repairs authorized or performed. Evidence verification only.",
-  "next_step": "Continue Lens 1 source and original role worklists; finish tick/count, combat, inventory, feature, native and report traces without transferring historical lens credit.",
+  "next_step": "Continue Lens 1 source and original role worklists; complete HUD, tick/count, combat, inventory, feature, native and report traces without transferring historical lens credit.",
   "continuation_orientation": "CONTINUATION.md",
   "lens1_role_worklist": "COVERAGE-L01-ROLES.json",
   "lockfile_inventory": "LOCKFILE-DELTA.json"
