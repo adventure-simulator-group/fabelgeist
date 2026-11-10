@@ -1,0 +1,203 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded cumulative leisure arithmetic and selected settlement recovery path only; independent lens coverage remains incomplete.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-world-schema/src/calendar.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3bb463487d89fa1040b72d7708f7e641d5e61cec",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "bytes": 25367,
+      "lines": 698,
+      "ranges": [
+        [
+          82,
+          145
+        ],
+        [
+          263,
+          268
+        ],
+        [
+          390,
+          399
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/daily-share-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_schedule.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "00912abaa99cd109ae11c652fa04099875ea1047",
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "bytes": 48824,
+      "lines": 1363,
+      "ranges": [
+        [
+          120,
+          135
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/daily-share-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f7978724b74a070ff2f5f2c00324276d753a5015",
+      "sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+      "bytes": 12334,
+      "lines": 364,
+      "ranges": [
+        [
+          136,
+          184
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/daily-share-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_time.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cb9f536cb9ea5069fe8b7b2a143dcab75e4d9d2d",
+      "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "bytes": 30716,
+      "lines": 860,
+      "ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/daily-share-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "965aec5634dad55bab94097ddccbf54049135848",
+      "sha256": "f63df87344c6f358a0bcaa63481d349415e8e5481acb42031232d17cf20db125",
+      "bytes": 23560,
+      "lines": 651,
+      "ranges": [
+        [
+          38,
+          85
+        ],
+        [
+          210,
+          270
+        ],
+        [
+          307,
+          345
+        ],
+        [
+          400,
+          429
+        ],
+        [
+          483,
+          493
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/daily-share-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/surgery.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "833a18f053639bb556b66cddfb3b9af6fd5c34a6",
+      "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+      "bytes": 50861,
+      "lines": 1435,
+      "ranges": [
+        [
+          366,
+          510
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/daily-share-sources/05.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "inspection_provenance": "Selected current source ranges and historical matching bytes personally inspected; numerical example calculated independently from source without product execution.",
+  "historical_source": {
+    "checkpoint": "059",
+    "ledger": "baseline-059/ledger.json",
+    "contract_ids": [
+      "ADLER-L11-CALENDAR-DAILY-SHARE-ARITHMETIC"
+    ],
+    "historical_source_roles": [
+      {
+        "index": 440,
+        "source_id": "physical-p16:crates/adventuresim-world-schema/src/calendar.rs",
+        "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+        "current_sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+        "relation": "byte-match"
+      },
+      {
+        "index": 153,
+        "source_id": "physical-p16:crates/adventuresim-core/src/strategic_schedule.rs",
+        "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+        "current_sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+        "relation": "byte-match"
+      },
+      {
+        "index": 2675,
+        "source_id": "physical-p16:crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+        "sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+        "current_sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+        "relation": "byte-match"
+      },
+      {
+        "index": 156,
+        "source_id": "physical-p16:crates/adventuresim-core/src/strategic_time.rs",
+        "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+        "current_sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+        "relation": "byte-match"
+      },
+      {
+        "index": 312,
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+        "sha256": "597a9011b190676ac71213abd7cf040a71a673d78e5b0498f204452a5b2d3223",
+        "current_sha256": "f63df87344c6f358a0bcaa63481d349415e8e5481acb42031232d17cf20db125",
+        "relation": "different"
+      },
+      {
+        "index": 300,
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/surgery.rs",
+        "sha256": "e3beacbecc62d9b55e495bf21e6b2b430a08d0e464e6374a16047a4babf5ef08",
+        "current_sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+        "relation": "different"
+      }
+    ],
+    "qualification": "Original 059 status and revision remain unchanged; no checkpoint 3821 credit is inferred."
+  },
+  "candidates": [
+    {
+      "id": "REVIEW-CALENDAR-RESTORATIVE-SHARE-001",
+      "severity": "P3 provisional; extreme admitted clock arithmetic, supported reachability unverified",
+      "classification": "same first-failure family as checkpoint 059 calendar daily-share arithmetic, independently traced to a current recovery consumer",
+      "detail": "StrategicMinute accepts all u64 values and cumulative_daily_share_minutes saturates the minute-times-share product before dividing by 1440. restorative_leisure_minutes subtracts this cumulative value at the start and end of the interval. Once both products saturate, the subtraction yields zero even when the interval and mathematically correct share fit.",
+      "source_arithmetic": "For a schedule with 720 allocated minutes and thus 720 minutes of daily leisure, start = floor(u64::MAX / 720) + 1 = 25,620,477,880,152,156 and elapsed = 1,440; start plus elapsed remains in u64. Both current cumulative products saturate and the returned difference is 0; full-width floor-product differences give 720. This is about 48.7 billion calendar years after zero, well beyond ordinary play and beyond the separately capped display year. The values were calculated from source, with no product execution.",
+      "consumer": "Settlement rest supplies the computed requested recovery to injury-terminal preview and, after disease clipping, recomputes recovery for injury settlement and field-repair eligibility. Given a rest at the stated clock, a 720-minute daily leisure allocation, admitted one-day duration and no earlier clipping, those calls receive zero rather than the mathematically apportioned 720 restorative minutes. Injury settlement derives blood-recovery fraction and wound healing from the passed minutes. No accepted state, rest, injury result or field-repair outcome was observed.",
+      "safeguards": "A 1,440-minute explicit rest lies within the one-hour-to-one-year duration contract, but the example presupposes a valid character, service, schedule and extraordinarily large personal clock; ordinary reachability is unproven. Keep explicit clock overflow and terminal clipping separate from the erroneous intermediate saturation. Do not infer the behavior of other leisure or fatigue paths.",
+      "connected_scope": "StrategicMinute cumulative allocation, schedule effective allocation and interval subtraction, rest/disease/injury clipping, healing and field-repair consumers, final overflow policy and all time-owner aliases.",
+      "proposed_repair": "After audit completion, compute the cumulative daily share with sufficient intermediate width before applying an explicit final range policy, preserving normal floor and telescoping behavior and existing checked clock advances.",
+      "later_acceptance": "When product validation is authorized, cover zero, whole and half-day shares across adjacent chunks, representable extreme products, final-result overflow policy, settlement recovery and terminal clipping at the supported revision.",
+      "historical_related_candidates": [
+        "ADLER-L11-CALENDAR-DAILY-SHARE-ARITHMETIC"
+      ],
+      "relationship_qualification": "The 059 record retains original revision, source-only arithmetic qualification and zero accepted unique-count change. This separate 95e trace adds selected injury-recovery consumers, without asserting a second unique historical defect or recovering checkpoint 3821.",
+      "discovery": "partial; personal clock reachability, accepted schedule and service, disease/injury clipping and other consumers remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Establish supported clock horizon and effective-schedule paths, injury and disease clipping, native final overflow policy and all aliases; independently assess all lenses. No product validation."
+}
