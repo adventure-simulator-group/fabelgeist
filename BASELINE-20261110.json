@@ -1050,7 +1050,7 @@
       "status": "M",
       "path": "justfile",
       "lens_status": [
-        "unassessed",
+        "partial workflow source trace; numeric roles and connected scope open; ASSESSMENT-L01-WORKFLOW-SOURCES.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -1069,7 +1069,7 @@
       "status": "M",
       "path": "rust-quality-baseline.toml",
       "lens_status": [
-        "unassessed",
+        "partial workflow source trace; numeric roles and connected scope open; ASSESSMENT-L01-WORKFLOW-SOURCES.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -1107,7 +1107,7 @@
       "status": "M",
       "path": "scripts/build_wasm.py",
       "lens_status": [
-        "unassessed",
+        "partial workflow source trace; numeric roles and connected scope open; ASSESSMENT-L01-WORKFLOW-SOURCES.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -1126,7 +1126,7 @@
       "status": "A",
       "path": "scripts/cargo_artifacts.py",
       "lens_status": [
-        "unassessed",
+        "partial workflow source trace; numeric roles and connected scope open; ASSESSMENT-L01-WORKFLOW-SOURCES.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -1145,7 +1145,7 @@
       "status": "M",
       "path": "scripts/dev_stack.py",
       "lens_status": [
-        "unassessed",
+        "partial workflow source trace; numeric roles and connected scope open; ASSESSMENT-L01-WORKFLOW-SOURCES.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -1164,7 +1164,7 @@
       "status": "M",
       "path": "scripts/just_tasks.py",
       "lens_status": [
-        "unassessed",
+        "partial workflow source trace; numeric roles and connected scope open; ASSESSMENT-L01-WORKFLOW-SOURCES.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -1183,7 +1183,7 @@
       "status": "A",
       "path": "scripts/msvc_dev_linker.py",
       "lens_status": [
-        "unassessed",
+        "partial workflow source trace; numeric roles and connected scope open; ASSESSMENT-L01-WORKFLOW-SOURCES.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -1202,7 +1202,7 @@
       "status": "A",
       "path": "scripts/rust-lld.cmd",
       "lens_status": [
-        "unassessed",
+        "partial workflow source trace; numeric roles and connected scope open; ASSESSMENT-L01-WORKFLOW-SOURCES.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -1484,7 +1484,8 @@
           "NEW-MELEE-MOVEMENT-LENGTH-001"
         ],
         "additional_assessments": [
-          "ASSESSMENT-L1-CONTACT-GEOMETRY.json"
+          "ASSESSMENT-L1-CONTACT-GEOMETRY.json",
+          "ASSESSMENT-L01-HISTORICAL-97-105.json"
         ]
       },
       {
@@ -1534,7 +1535,8 @@
         ],
         "additional_assessments": [
           "ASSESSMENT-L1-CONTACT-GEOMETRY.json",
-          "ASSESSMENT-L01-HISTORICAL-90-99.json"
+          "ASSESSMENT-L01-HISTORICAL-90-99.json",
+          "ASSESSMENT-L01-HISTORICAL-97-105.json"
         ]
       },
       {
@@ -1595,12 +1597,20 @@
         "additional_assessments": [
           "ASSESSMENT-L01-BROWSER-FIXTURES.json"
         ]
+      },
+      {
+        "id": "REVIEW-ENCOUNTER-SNEAK-SCORE-001",
+        "record": "ASSESSMENT-L1-ENCOUNTER-SCORES.json",
+        "classification": "conditional public u16 sneak-score arithmetic contract; inspected strategic reducer producer is bounded",
+        "discovery": "partial; full caller, owner, arithmetic policy and historical alias analysis open; no supported gameplay failure established",
+        "repair": "not started",
+        "validation": "not performed"
       }
     ],
     "qualification": "Historical queue is retained as a mandatory reconciliation source, not silently imported as current findings. Connected repairs, dependencies and acceptance criteria must be populated from source-backed assessments."
   },
   "validation": "No product builds, tests, runtime probes or repairs authorized or performed. Evidence verification only.",
-  "next_step": "Continue original Lens 1 role 97 and current delta justfile. Keep disease, browser fixtures, tactical entry and all connected obligations open.",
+  "next_step": "Continue full historical role 100 and 104, remaining source roles, incomplete current-delta traces, overlays and every independent lens. All source-body reads and current ledger entries remain qualified.",
   "continuation_orientation": "CONTINUATION.md",
   "lens1_role_worklist": "COVERAGE-L01-ROLES.json",
   "lockfile_inventory": "LOCKFILE-DELTA.json"

@@ -1,0 +1,120 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "historical_assessment": "ASSESSMENT-L01-HISTORICAL-97-105.json",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/encounter.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "aad69b12c6ade6caa59828876caede30c0a0fe2577b11fdd91f84594d2471dd5",
+      "git_blob": "8e67a9bd9acca41d1bab6878fc6b43d04a4096d9",
+      "bytes": 35568,
+      "lines": 1019,
+      "ranges": [
+        [
+          1,
+          160
+        ],
+        [
+          261,
+          420
+        ]
+      ],
+      "preserved_bytes": "source-evidence/encounter-scores/current/crates/adventuresim-core/src/encounter.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+      "git_blob": "2c0b4913c81fa6f89510a5b2bf6c62ec693f2add",
+      "bytes": 54084,
+      "lines": 1463,
+      "ranges": [
+        [
+          340,
+          365
+        ],
+        [
+          465,
+          490
+        ],
+        [
+          1160,
+          1202
+        ]
+      ],
+      "preserved_bytes": "source-evidence/encounter-scores/current/crates/adventuresim-stdb-module/src/strategic/encounters.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/skill.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "git_blob": "616d9d164bd04cb8a29b745e1a530540756f9fd7",
+      "bytes": 41590,
+      "lines": 1165,
+      "ranges": [
+        [
+          1,
+          9
+        ],
+        [
+          704,
+          789
+        ]
+      ],
+      "preserved_bytes": "source-evidence/encounter-scores/current/crates/adventuresim-core/src/skill.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/bestiary.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "git_blob": "2c97f78c7e667eb250f14a0535bb297abeb9c547",
+      "bytes": 54113,
+      "lines": 1558,
+      "ranges": [
+        [
+          304,
+          330
+        ]
+      ],
+      "preserved_bytes": "source-evidence/encounter-scores/current/crates/adventuresim-core/src/bestiary.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/fabelgeist-determinism/src/stream.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "git_blob": "c59d8a7720881fba266c80112e82880e4422e074",
+      "bytes": 5688,
+      "lines": 169,
+      "ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "preserved_bytes": "source-evidence/encounter-scores/current/crates/fabelgeist-determinism/src/stream.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "classification": "Conditional public helper input-range and arithmetic contract question; inspected reducer producer is bounded and no supported gameplay failure established.",
+  "trace": [
+    "The current public sneak_succeeds function accepts party_stealth and enemy_awareness as unrestricted u16 values and adds each to an index(1000) draw using ordinary u16 addition. The sampler source states a half-open range, so the intended draw range is 0 through 999. If a caller supplies 65535 and the corresponding draw is nonzero, the sum exceeds u16; the actual overflow response depends on compilation settings. No concrete seed, execution or admitted current caller producing that input was established.",
+    "The inspected strategic reducer passes the minimum whole-party sneak score formed from capped_training_rank times 100 and casts to u16. The inspected skill cap clamps aptitude to 0 through 5 and applies min to the training rank, so this producer supplies at most 500. The enemy argument is saturating 200 plus a threat combat stealth u8, at most 455. With draws below 1000, those inspected producer sums remain within u16; the shown reducer path is not evidence of overflow.",
+    "The same encounter module uses saturating addition in awareness_from_rolls, which is a different semantic operation. Do not silently equate awareness rolls and sneak contest scores or change deterministic stream behavior; all callers, owner semantics and historical queue aliases remain open."
+  ],
+  "repair_direction": "Trace all actual callers and the intended score domain. If a future authorized repair is warranted, establish a bounded score contract or safe arithmetic at the owner boundary, while preserving valid encounter outcomes and deterministic draw domains. Do not invent a compatibility path.",
+  "later_acceptance": [
+    "After separate repair authorization, exercise admitted lower, upper and invalid score bounds and confirm normal contest outcomes and deterministic replay identity."
+  ],
+  "remaining": [
+    "Inspect all callers, rule ownership, arithmetic policy and historical aliases before disposition. No product build, test or runtime probe was performed."
+  ],
+  "discovery_status": "partial; representable out-of-range input is not a shown supported gameplay input",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}

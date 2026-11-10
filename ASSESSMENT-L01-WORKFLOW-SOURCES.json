@@ -1,0 +1,237 @@
+{
+  "schema": "726-delta-path-assessment-v1",
+  "lens": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "reported_selected_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "paths": [
+    "justfile",
+    "rust-quality-baseline.toml",
+    "scripts/build_wasm.py",
+    "scripts/cargo_artifacts.py",
+    "scripts/dev_stack.py",
+    "scripts/just_tasks.py",
+    "scripts/msvc_dev_linker.py",
+    "scripts/rust-lld.cmd"
+  ],
+  "current_sources": [
+    {
+      "path": "justfile",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "1e4c8c9b8ad567b5dbc9e76f01ef54a7897c0d9efc22ee8b503c65b436f3211c",
+      "git_blob": "98772a3e2df017912060a96ba81c69ff250eaf7c",
+      "bytes": 54912,
+      "lines": 773,
+      "ranges": [
+        [
+          1,
+          773
+        ]
+      ],
+      "preserved_bytes": "source-evidence/workflow-sources/current/justfile.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "8e83b77456e90d3ad376eda65cc6fc23ddf8123acf15b2bbea103191db52fb38",
+      "git_blob": "c0db7a6f165eeb9f0ab8c89cfc26ea2d427a3f81",
+      "bytes": 331132,
+      "lines": 12812,
+      "ranges": [
+        [
+          1,
+          35
+        ],
+        [
+          525,
+          545
+        ],
+        [
+          560,
+          580
+        ],
+        [
+          2265,
+          2285
+        ],
+        [
+          2360,
+          2385
+        ],
+        [
+          8605,
+          8630
+        ]
+      ],
+      "preserved_bytes": "source-evidence/workflow-sources/current/rust-quality-baseline.toml.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "scripts/build_wasm.py",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "67b7a203b39fd2245aac2dbae2e440a60206b84b712219515f5b4871972bdfb3",
+      "git_blob": "964f79e439090486a962c6678c7fc787494a8251",
+      "bytes": 6304,
+      "lines": 141,
+      "ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "preserved_bytes": "source-evidence/workflow-sources/current/scripts/build_wasm.py.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "scripts/cargo_artifacts.py",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "57053793888c1e4f952209ab81c08d5b34ce4b4fa41390acbeaff50e8f6be8c2",
+      "git_blob": "7148e5742caab29afe3899c8a892bc2f4b990334",
+      "bytes": 9176,
+      "lines": 244,
+      "ranges": [
+        [
+          1,
+          244
+        ]
+      ],
+      "preserved_bytes": "source-evidence/workflow-sources/current/scripts/cargo_artifacts.py.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "scripts/dev_stack.py",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "1be655bbf4f443a65c684fda3f8a754cf039d11c825acdef5c0c7d5fb52c906a",
+      "git_blob": "c575a99ff6332052c50f7bf65bf681b57446f225",
+      "bytes": 145572,
+      "lines": 3466,
+      "ranges": [
+        [
+          1038,
+          1097
+        ]
+      ],
+      "preserved_bytes": "source-evidence/workflow-sources/current/scripts/dev_stack.py.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "scripts/just_tasks.py",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "df22ed0fca225a03c2325204283965cb98242126cbefa3b4b44945b82b4d1c85",
+      "git_blob": "a1ba753ec0725f958774d4324f621d79fa9faa45",
+      "bytes": 30326,
+      "lines": 744,
+      "ranges": [
+        [
+          253,
+          275
+        ]
+      ],
+      "preserved_bytes": "source-evidence/workflow-sources/current/scripts/just_tasks.py.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "scripts/msvc_dev_linker.py",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "f6d7a0197faf21442e00823edac51dc612c9e9bdf7897fb1330417a7e3a7c15a",
+      "git_blob": "97ad4ec71380a987e2378c26811678a5e28ee729",
+      "bytes": 3827,
+      "lines": 100,
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "preserved_bytes": "source-evidence/workflow-sources/current/scripts/msvc_dev_linker.py.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "scripts/rust-lld.cmd",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "b1fba5e695efbc46e6151c4862762223d66429a3961f02029984726848aef468",
+      "git_blob": "9f1b09c0aa91ad46e634ef85d94883bdff503fb1",
+      "bytes": 134,
+      "lines": 5,
+      "ranges": [
+        [
+          1,
+          5
+        ]
+      ],
+      "preserved_bytes": "source-evidence/workflow-sources/current/scripts/rust-lld.cmd.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "reported_selected_sources": [
+    {
+      "path": "justfile",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "sha256": "c2a2bca7ea2abbf28e95b18c982b1dbb54196c52a95ae679697f0ca182b0d3b6",
+      "git_blob": "987aac0902250a16fa022a0f9a91250f4614beac",
+      "bytes": 54516,
+      "lines": 765,
+      "ranges": [],
+      "preserved_bytes": "source-evidence/workflow-sources/reported-selected/justfile.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "sha256": "39823d5b7007600468c5b2964005dd309b033c465a5d32d04ea8e36539231287",
+      "git_blob": "0f40635bcafc6933cb58299ab1838a9a3bd37250",
+      "bytes": 331627,
+      "lines": 12833,
+      "ranges": [],
+      "preserved_bytes": "source-evidence/workflow-sources/reported-selected/rust-quality-baseline.toml.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "scripts/build_wasm.py",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "sha256": "79b6e8341c5b6174c666f61eb85b50f474a63f4e281d62aa96bb63c6cf563cc7",
+      "git_blob": "f526e1055fd2ee5245948054b0fe1e3f38fba5e6",
+      "bytes": 6186,
+      "lines": 139,
+      "ranges": [],
+      "preserved_bytes": "source-evidence/workflow-sources/reported-selected/scripts/build_wasm.py.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "scripts/dev_stack.py",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "sha256": "a6016bb53c71ca978521006bbd4a6f929047db76d1a654194f3ddc7dd60230bd",
+      "git_blob": "16a93442e347e9cd7b898668e4710a7b48dccfd3",
+      "bytes": 145545,
+      "lines": 3466,
+      "ranges": [],
+      "preserved_bytes": "source-evidence/workflow-sources/reported-selected/scripts/dev_stack.py.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "scripts/just_tasks.py",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "sha256": "e18694587305e5fd73280cae1d0cc1f85443d51c29428438eb3b9bc1d9ef29f4",
+      "git_blob": "eadddc9d648f5217f4064641ec51cb3fd9efc59a",
+      "bytes": 30291,
+      "lines": 743,
+      "ranges": [],
+      "preserved_bytes": "source-evidence/workflow-sources/reported-selected/scripts/just_tasks.py.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "absent_at_reported_selected_revision": [
+    "scripts/cargo_artifacts.py",
+    "scripts/msvc_dev_linker.py",
+    "scripts/rust-lld.cmd"
+  ],
+  "disposition": "partial: the current justfile, build_wasm, cargo_artifacts, msvc linker and batch wrapper bodies were read; the quality baseline and two large workflow scripts have only bounded source traces. No recipes or product tools were invoked.",
+  "trace": [
+    "The selected-to-current justfile diff adds capture-label to animation preview/test recipes and introduces artifact report and prune recipes. Current justfile contains numerous numeric ports, seeds, timing and frame defaults with distinct product or local-workflow roles; connected admissions and all independent lenses remain open.",
+    "The new cargo_artifacts helper stores float modification times and uses 14-day and 64-GiB defaults; user-supplied age and budget must parse to finite nonnegative numbers. It builds a preview plan and runs cargo clean only when apply is requested. Inventory and cleanup were not invoked, and source review alone does not establish safety, size accuracy or symlink behavior under all filesystem races.",
+    "The build_wasm delta disables default client features and explicitly selects gameplay while retaining separate art-demo build; the script also pins optimizer version 123 and reports binary byte sizes. We did not run Cargo, rustup, wasm-bindgen, node, the optimizer or the script.",
+    "The newly added Windows linker wrapper parses response files, resolves rust-lld and applies /DEBUG:NONE for an identified development output path; its command wrapper chooses Python and forwards arguments. No Windows behavior, linker or command was run.",
+    "The bounded dev_stack and just_tasks deltas both pass --build-options=--debug when generating bindings. The current quality baseline changes the equipment file ceiling 1034 to 639 and removes selected UI and equipment entries; these are quality policy records, not gameplay values. Most of its 12812-line body and the remaining two script bodies were not personally inspected."
+  ],
+  "qualification": "Every path is partial. Full source-body reading does not complete Lens 1 or assess tests, connected recipes, permissions, platform semantics or any other lens. Selected source pairs are preserved as evidence; selected bodies were not credited as fully read."
+}
