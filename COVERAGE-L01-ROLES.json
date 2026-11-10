@@ -9,13 +9,13 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2590,
+    "unassessed": 2578,
     "lock-metadata-partial": 2,
-    "bounded-current-trace-only": 189,
+    "bounded-current-trace-only": 197,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 70
+    "full-historical-body-trace-open": 74
   },
-  "first_unfinished": "Original changed roles 112, 113 and 116 have full physical-p16 body reads with linked scope open; next unread changed role is 121. All 62 current delta paths have dispositions, 46 partial; independent lenses and additional populations remain open.",
+  "first_unfinished": "Original changed roles 121\u2013124 have exact full historical body reads with linked scope open; next unread changed role is 125. All 62 current deltas have dispositions but 46 remain partial; earlier dependency roles, independent lenses and extra source populations remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -1712,6 +1712,15 @@
               105
             ]
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MISSION-ROSTERS.json",
+          "ranges": [
+            [
+              1,
+              15
+            ]
+          ]
         }
       ]
     },
@@ -1723,7 +1732,22 @@
       "historical_sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
       "registry_pointer": "/files/121",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-121-124.json",
+      "qualification": "Full historical body read at this exact physical-p16 identity; current applicability, connected scope, other variants and all independent lenses remain open.",
+      "current_path": "crates/adventuresim-core/src/mission/enemy_roster.rs",
+      "current_git_blob": "0187ba7ac07c40de2aec1cbaa0b3217a1a51df2e",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-MISSION-ROSTERS.json",
+          "ranges": [
+            [
+              1,
+              96
+            ]
+          ]
+        }
+      ]
     },
     {
       "original_index": 122,
@@ -1733,7 +1757,22 @@
       "historical_sha256": "2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
       "registry_pointer": "/files/122",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-121-124.json",
+      "qualification": "Full historical body read at this exact physical-p16 identity; current applicability, connected scope, other variants and all independent lenses remain open.",
+      "current_path": "crates/adventuresim-core/src/mission/roster.rs",
+      "current_git_blob": "2c5f9532852564023706d91281859df796b922da",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-MISSION-ROSTERS.json",
+          "ranges": [
+            [
+              1,
+              91
+            ]
+          ]
+        }
+      ]
     },
     {
       "original_index": 123,
@@ -1743,7 +1782,9 @@
       "historical_sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
       "registry_pointer": "/files/123",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-121-124.json",
+      "qualification": "Full historical body read at this exact physical-p16 identity; current applicability, connected scope, other variants and all independent lenses remain open."
     },
     {
       "original_index": 124,
@@ -1753,7 +1794,22 @@
       "historical_sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
       "registry_pointer": "/files/124",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-121-124.json",
+      "qualification": "Full historical body read at this exact physical-p16 identity; current applicability, connected scope, other variants and all independent lenses remain open.",
+      "current_path": "crates/adventuresim-core/src/npc_policy.rs",
+      "current_git_blob": "5e6c86e1903edb484d7f76c8bb384daee63da418",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-NPC-HOUSING-RESERVE.json",
+          "ranges": [
+            [
+              1,
+              155
+            ]
+          ]
+        }
+      ]
     },
     {
       "original_index": 125,
@@ -3674,7 +3730,21 @@
       "historical_sha256": "f67d08c1d5b6f22ad63de5ab13e46c5b4f2cd5d7512a7d90de2d1c1cc538a292",
       "registry_pointer": "/files/292",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-stdb-module/src/strategic/mission_roster.rs",
+      "current_git_blob": "872374f9956f1825f664f87eabb367604bda0b4b",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-MISSION-ROSTERS.json",
+          "ranges": [
+            [
+              30,
+              100
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 293,
@@ -11336,6 +11406,15 @@
               105
             ]
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MISSION-ROSTERS.json",
+          "ranges": [
+            [
+              1,
+              15
+            ]
+          ]
         }
       ],
       "qualification": "Only cited current source ranges were inspected; equal bytes do not assess this historical role or any independent lens."
@@ -11348,7 +11427,21 @@
       "historical_sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
       "registry_pointer": "/files/956",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/mission/enemy_roster.rs",
+      "current_git_blob": "0187ba7ac07c40de2aec1cbaa0b3217a1a51df2e",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-MISSION-ROSTERS.json",
+          "ranges": [
+            [
+              1,
+              96
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 957,
@@ -11358,7 +11451,21 @@
       "historical_sha256": "2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
       "registry_pointer": "/files/957",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/mission/roster.rs",
+      "current_git_blob": "2c5f9532852564023706d91281859df796b922da",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-MISSION-ROSTERS.json",
+          "ranges": [
+            [
+              1,
+              91
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 958,
@@ -11378,7 +11485,21 @@
       "historical_sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
       "registry_pointer": "/files/959",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/npc_policy.rs",
+      "current_git_blob": "5e6c86e1903edb484d7f76c8bb384daee63da418",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-NPC-HOUSING-RESERVE.json",
+          "ranges": [
+            [
+              1,
+              155
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 960,
@@ -14045,7 +14166,25 @@
       "historical_sha256": "df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
       "registry_pointer": "/files/1180",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-stdb-module/src/residence.rs",
+      "current_git_blob": "226209e879e08a5e427736402b7e0edd9f618d3f",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-NPC-HOUSING-RESERVE.json",
+          "ranges": [
+            [
+              18,
+              33
+            ],
+            [
+              1210,
+              1253
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 1181,
@@ -14782,7 +14921,21 @@
       "historical_sha256": "f67d08c1d5b6f22ad63de5ab13e46c5b4f2cd5d7512a7d90de2d1c1cc538a292",
       "registry_pointer": "/files/1230",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-stdb-module/src/strategic/mission_roster.rs",
+      "current_git_blob": "872374f9956f1825f664f87eabb367604bda0b4b",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-MISSION-ROSTERS.json",
+          "ranges": [
+            [
+              30,
+              100
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 1231,
@@ -14923,6 +15076,15 @@
               258
             ]
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MISSION-ROSTERS.json",
+          "ranges": [
+            [
+              934,
+              962
+            ]
+          ]
         }
       ],
       "qualification": "Only cited current ranges were inspected. Equal bytes do not close this historical role, other revisions, connected scope or any lens."
@@ -14935,7 +15097,21 @@
       "historical_sha256": "9d7e1ac4bf3e219258571dc74f93f8adef66cd55dcab6fc2d49edf0c60e4cb7d",
       "registry_pointer": "/files/1243",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-stdb-module/src/tactical/request.rs",
+      "current_git_blob": "21d0e83ca8a8149101725ceb86de4b123b3501d5",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-MISSION-ROSTERS.json",
+          "ranges": [
+            [
+              90,
+              103
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 1244,
@@ -23221,7 +23397,21 @@
       "historical_sha256": "de12026f8d2b3c6409d0ff52f053b48b2caf54e3af425d2abdc2e7a3ec6b7eb5",
       "registry_pointer": "/files/1998",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-tactical-server-dispatcher/src/main.rs",
+      "current_git_blob": "7b02773a91adc5fcd843de83f2050419548c5f3a",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-MISSION-ROSTERS.json",
+          "ranges": [
+            [
+              310,
+              329
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current ranges were inspected; equal bytes do not assess this historical role or any independent lens."
     },
     {
       "original_index": 1999,
@@ -31980,6 +32170,15 @@
             [
               245,
               258
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MISSION-ROSTERS.json",
+          "ranges": [
+            [
+              934,
+              962
             ]
           ]
         }

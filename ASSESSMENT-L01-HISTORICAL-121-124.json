@@ -1,0 +1,80 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 121,
+      "source_id": "physical-p16:crates/adventuresim-core/src/mission/enemy_roster.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/121",
+      "sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "lines": 96,
+      "new_personal_read_ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read for this exact physical-p16 historical identity only; source tests were read, not executed. Connected scope, current applicability, other variants and all independent lenses remain open."
+    },
+    {
+      "original_index": 122,
+      "source_id": "physical-p16:crates/adventuresim-core/src/mission/roster.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/122",
+      "sha256": "2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "lines": 91,
+      "new_personal_read_ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read for this exact physical-p16 historical identity only; source tests were read, not executed. Connected scope, current applicability, other variants and all independent lenses remain open."
+    },
+    {
+      "original_index": 123,
+      "source_id": "physical-p16:crates/adventuresim-core/src/morale.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/123",
+      "sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "lines": 527,
+      "new_personal_read_ranges": [
+        [
+          1,
+          527
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read for this exact physical-p16 historical identity only; source tests were read, not executed. Connected scope, current applicability, other variants and all independent lenses remain open."
+    },
+    {
+      "original_index": 124,
+      "source_id": "physical-p16:crates/adventuresim-core/src/npc_policy.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/124",
+      "sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+      "lines": 296,
+      "new_personal_read_ranges": [
+        [
+          1,
+          296
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read for this exact physical-p16 historical identity only; source tests were read, not executed. Connected scope, current applicability, other variants and all independent lenses remain open."
+    }
+  ],
+  "observations": [
+    "Historic enemy and party roster types own distinct nonempty/unique identity and cardinality contracts; party size is capped while enemy size is bounded by u32 transport. Current roster and adapter ranges were separately inspected, and no high-ID browser conversion is implied by the historical bodies.",
+    "Historic morale defines distinct strategic impairment components, thresholds and decays; those need full current producer and consumer review and must not be conflated with tactical combat state or hidden combat penalties. Source tests were read only.",
+    "Historic NPC policy owns bounded deterministic candidate ordering, scheduling, eligibility and housing selection. A current separately inspected source trace records an extreme affordability calculation with a bounded inspected u32 rent producer."
+  ],
+  "remaining": "Current and historical variants, all admission and aggregate contracts, queue aliases and every independent lens remain open. No product tests or probes were executed."
+}

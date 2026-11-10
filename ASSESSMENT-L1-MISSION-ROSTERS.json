@@ -1,0 +1,132 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "historical_assessment": "ASSESSMENT-L01-HISTORICAL-121-124.json",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/mission/enemy_roster.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "git_blob": "0187ba7ac07c40de2aec1cbaa0b3217a1a51df2e",
+      "bytes": 3025,
+      "lines": 96,
+      "ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "preserved_bytes": "source-evidence/mission-rosters/current/crates/adventuresim-core/src/mission/enemy_roster.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/mission/roster.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "git_blob": "2c5f9532852564023706d91281859df796b922da",
+      "bytes": 2983,
+      "lines": 91,
+      "ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "preserved_bytes": "source-evidence/mission-rosters/current/crates/adventuresim-core/src/mission/roster.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/mission.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
+      "git_blob": "4cc46a9f8295c7f37e6e317bf7685d1baac117f9",
+      "bytes": 3506,
+      "lines": 106,
+      "ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "preserved_bytes": "source-evidence/mission-rosters/current/crates/adventuresim-core/src/mission.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/mission_roster.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "f67d08c1d5b6f22ad63de5ab13e46c5b4f2cd5d7512a7d90de2d1c1cc538a292",
+      "git_blob": "872374f9956f1825f664f87eabb367604bda0b4b",
+      "bytes": 3751,
+      "lines": 101,
+      "ranges": [
+        [
+          30,
+          100
+        ]
+      ],
+      "preserved_bytes": "source-evidence/mission-rosters/current/crates/adventuresim-stdb-module/src/strategic/mission_roster.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/tactical/request.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "9d7e1ac4bf3e219258571dc74f93f8adef66cd55dcab6fc2d49edf0c60e4cb7d",
+      "git_blob": "21d0e83ca8a8149101725ceb86de4b123b3501d5",
+      "bytes": 5086,
+      "lines": 133,
+      "ranges": [
+        [
+          90,
+          103
+        ]
+      ],
+      "preserved_bytes": "source-evidence/mission-rosters/current/crates/adventuresim-stdb-module/src/tactical/request.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/tactical.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "git_blob": "564d5e5dbbd90ce101316dedcb53d77c251034f4",
+      "bytes": 53585,
+      "lines": 1515,
+      "ranges": [
+        [
+          934,
+          962
+        ]
+      ],
+      "preserved_bytes": "source-evidence/mission-rosters/current/crates/adventuresim-stdb-module/src/tactical.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server-dispatcher/src/main.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "de12026f8d2b3c6409d0ff52f053b48b2caf54e3af425d2abdc2e7a3ec6b7eb5",
+      "git_blob": "7b02773a91adc5fcd843de83f2050419548c5f3a",
+      "bytes": 14105,
+      "lines": 346,
+      "ranges": [
+        [
+          310,
+          329
+        ]
+      ],
+      "preserved_bytes": "source-evidence/mission-rosters/current/crates/adventuresim-tactical-server-dispatcher/src/main.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "classification": "Bounded current party and enemy roster source trace; related browser identity conversion remains separately open.",
+  "trace": [
+    "TacticalPartyRoster consumes a nonempty Vec<u64> with no duplicate IDs and at most 16 members; its expected count is derived as NonZeroU32. MissionEnemyRoster separately requires a nonempty unique Vec<u64> with u32-representable length and does not impose the party receipt limit. Source tests were read only.",
+    "The strategic request obtains living member IDs into a party roster, tactical server registration validates its authorized ID vector again, and dispatcher launch arguments derive the expected party count from the validated request vector. The strategic hostile group checks the live roster count at capture, and later validates the saved enemy IDs and their existence without rereading the live group count.",
+    "The previously documented browser tactical-entry path converts an individual u64 character ID through JavaScript Number. These roster count and uniqueness guarantees do not by themselves prove full-width individual ID preservation across that later boundary, an authorized wrong join or any runtime outcome. The browser identity record remains independently qualified."
+  ],
+  "related_ledger_entries": [
+    "NEW-TACTICAL-ENTRY-CHARACTER-ID-001"
+  ],
+  "remaining": [
+    "Trace all roster constructors, saved projections, consumer identities and independent lenses. No source test, product runtime, database or network enrollment was performed."
+  ]
+}

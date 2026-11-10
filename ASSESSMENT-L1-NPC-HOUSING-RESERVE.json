@@ -1,0 +1,60 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "historical_assessment": "ASSESSMENT-L01-HISTORICAL-121-124.json",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/npc_policy.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+      "git_blob": "5e6c86e1903edb484d7f76c8bb384daee63da418",
+      "bytes": 9698,
+      "lines": 296,
+      "ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "preserved_bytes": "source-evidence/npc-housing-reserve/current/crates/adventuresim-core/src/npc_policy.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/residence.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+      "git_blob": "226209e879e08a5e427736402b7e0edd9f618d3f",
+      "bytes": 49683,
+      "lines": 1455,
+      "ranges": [
+        [
+          18,
+          33
+        ],
+        [
+          1210,
+          1253
+        ]
+      ],
+      "preserved_bytes": "source-evidence/npc-housing-reserve/current/crates/adventuresim-stdb-module/src/residence.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "classification": "Conditional public affordability helper overflow contract; inspected rent-offer producer uses bounded u32 costs.",
+  "trace": [
+    "best_affordable_house promises to retain one recurring payment and filters using initial_cost.saturating_add(recurring_cost.saturating_mul(1)) <= available. A constructed offer with initial_cost=u64::MAX, recurring_cost=1 and available=u64::MAX passes the saturated comparison, although its mathematical sum exceeds available. The helper does not debit funds and no execution was performed.",
+    "The inspected residence producer converts a u32 rent_per_period into both initial and recurring u64 costs. Their sum is at most 2*(2^32-1), well below u64::MAX, so this producer cannot trigger that particular overflow. Other helper callers, stored offer construction and supported financial limits remain open.",
+    "Selection ordering and reserve policy are distinct from strategic money ownership. Do not assert that an NPC actually rents without a reserve or that saturated extreme inputs are admitted by the current producer."
+  ],
+  "repair_direction": "Trace all offer constructors and intentional cost limits. If separately authorized, make the reserve comparison correct for the chosen input domain while preserving valid affordability, ranking, tie-breaking and economic semantics.",
+  "later_acceptance": [
+    "After separate repair authorization, verify exactly affordable, insufficient, zero, maximum and overflow-cost offers, as well as normal u32-rent producer behavior."
+  ],
+  "remaining": [
+    "Establish supported extreme-input reachability and all connected history; no product build, test, database or runtime probe was performed."
+  ],
+  "discovery_status": "partial; source-level constructed input, current shown producer bounded",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}

@@ -1595,7 +1595,8 @@
           "REVIEW-STRATEGIC-CALENDAR-PRECISION-001"
         ],
         "additional_assessments": [
-          "ASSESSMENT-L01-BROWSER-FIXTURES.json"
+          "ASSESSMENT-L01-BROWSER-FIXTURES.json",
+          "ASSESSMENT-L1-MISSION-ROSTERS.json"
         ]
       },
       {
@@ -1670,12 +1671,20 @@
         "connected_candidates": [
           "NEW-INV-LOOKUP-001"
         ]
+      },
+      {
+        "id": "REVIEW-NPC-RESIDENCE-RESERVE-001",
+        "record": "ASSESSMENT-L1-NPC-HOUSING-RESERVE.json",
+        "classification": "conditional public affordability comparison saturates overflowing u64 cost sum; inspected normal rent producer is u32 bounded",
+        "discovery": "partial; all offer producers, economic limits, supported reachability and historical aliases open",
+        "repair": "not started",
+        "validation": "not performed"
       }
     ],
     "qualification": "Historical queue is retained as a mandatory reconciliation source, not silently imported as current findings. Connected repairs, dependencies and acceptance criteria must be populated from source-backed assessments."
   },
   "validation": "No product builds, tests, runtime probes or repairs authorized or performed. Evidence verification only.",
-  "next_step": "Continue original Lens 1 role 121 and all earlier unassessed dependency roles and mandatory scopes, complete independent lenses and reconcile connected ledger before implementation or product validation.",
+  "next_step": "Continue original Lens 1 role 125 and earlier unassessed dependencies, all partial current source traces and additional populations; complete independent lenses and connected repair ledger before product implementation or validation.",
   "continuation_orientation": "CONTINUATION.md",
   "lens1_role_worklist": "COVERAGE-L01-ROLES.json",
   "lockfile_inventory": "LOCKFILE-DELTA.json"
