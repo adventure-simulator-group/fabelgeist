@@ -1,0 +1,30 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 411,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/411",
+      "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+      "lines": 3450,
+      "new_personal_read_ranges": [
+        [
+          1,
+          3450
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "This historical projection reserves tactical entities for inventory topology, retains durable item identity server-side, admits prepared geometry and quantity, and adds EquipSlot only for held-hand occupancy. The precise admission and attached-item relationships in referenced modules remain open; current protection and stack-mass traces are separately attributed to 95e.",
+    "The historical join path attempts reconnect by character and one unexpired capability, marks the session claimed synchronously, rotates the token, and rebinds retained items before despawning the orphan; expiry skips claimed roots and retries a failed strategic leave. Scheduling, identity admission, transport, missing components and disconnected-combat outcomes need connected analysis.",
+    "The historical player-input path rejects nonfinite look, movement and quickstep vectors, wraps yaw, clamps pitch and magnitude, rejects stale ticks and consumes jump sequence edges even while incapacitated. A quickstep is begun before it emits its defense intent; its workload and duplicate-request consequences must be assessed with the producer and consumer together.",
+    "Feature-gated standalone restoration remaps a template and its items to a joining client, flushes observer commands, and inserts extra posture and pace components. A source comment asserts an earlier live confirmation, but that historical assertion was not independently recovered or verified here. Source tests and all product behavior were not executed."
+  ],
+  "remaining": "Trace the current and other historical projection, connected strategic admission, item geometry and equipment topology, reconnect lifecycle and transport, server input ordering, motion and defense consumers. Reconcile aliases and independently assess every lens."
+}
