@@ -97,7 +97,8 @@ def observed_sources(doc):
 cached = {}
 for role in roles:
     status = role['status']
-    if status == 'bounded-current-trace-only':
+    if status == 'bounded-current-trace-only' or (
+            status == 'full-historical-body-trace-open' and role.get('current_observations')):
         path = role['current_path']
         if role['source_id'].split(':', 1)[-1] != path or paths.get(path) != role['current_git_blob']:
             raise ValueError('current role path mismatch')
@@ -120,7 +121,7 @@ for role in roles:
             )
             if not matched:
                 raise ValueError('unmatched bounded evidence link')
-    elif status == 'lock-metadata-partial':
+    if status == 'lock-metadata-partial':
         if role['assessment'] != 'LOCKFILE-DELTA.json':
             raise ValueError('unexpected lock assessment')
     elif status == 'full-historical-body-trace-open':

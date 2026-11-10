@@ -1,0 +1,309 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "contract_id": "NEW-COMBAT-STEP-RATE-001",
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "reported_selected_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "classification": "Source-backed rate relationship and policy question, not an established gameplay regression.",
+  "historical_source_roles": [
+    {
+      "original_index": 50,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/50",
+      "sha256": "0b6aef0b8e1be9846beaae48cc8f7130333b0b4634acbd0b2f8b393ee40d5cef",
+      "lines": 2879,
+      "new_personal_read_ranges": [
+        [
+          1,
+          2879
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "New read of the exact original historical body; its connected producer and recipient paths and all lens closure remain open."
+    },
+    {
+      "original_index": 51,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/authored_weapon.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/51",
+      "sha256": "d51000403c3e70e523d5bdfe690114fcf0781449dabb10a52ee3dc006b00f5ca",
+      "lines": 130,
+      "new_personal_read_ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "New read of the exact original historical body; its connected producer and recipient paths and all lens closure remain open."
+    },
+    {
+      "original_index": 53,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/error.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/53",
+      "sha256": "877b773ae83bec290966d406d2aae3f84f7e5d804970e4f7771faa63e7b1d318",
+      "lines": 21,
+      "new_personal_read_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "New read of the exact original historical body; its connected producer and recipient paths and all lens closure remain open."
+    },
+    {
+      "original_index": 55,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/joint_melee.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/55",
+      "sha256": "7373a905f23ab3075cfb464c0a936ce1ebc33ba6c5c6ad23866b1a1479c5b983",
+      "lines": 329,
+      "new_personal_read_ranges": [
+        [
+          1,
+          329
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "New read of the exact original historical body; its connected producer and recipient paths and all lens closure remain open."
+    },
+    {
+      "original_index": 56,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/56",
+      "sha256": "6fffe49da3ec9f55c7b6dfcdeb723ef065569b78b004db991367d44329ee7fe9",
+      "lines": 221,
+      "new_personal_read_ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "New read of the exact original historical body; its connected producer and recipient paths and all lens closure remain open."
+    },
+    {
+      "original_index": 57,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_exchange.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/57",
+      "sha256": "cfc25332b52f4fc560e46cefc37fe47517c27237a47cd1d54f512161635b229b",
+      "lines": 293,
+      "new_personal_read_ranges": [
+        [
+          1,
+          293
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "New read of the exact original historical body; its connected producer and recipient paths and all lens closure remain open."
+    }
+  ],
+  "historical_read_observations": {
+    "50": "The p16 battle module retains typed elapsed, speed and battle-time values while producing and retaining physical distances, outcomes and telemetry across multiple modules. Its historical SignedLength fields differ from the current source. Test bodies were read as source only.",
+    "51": "The p16 authored-weapon projection combines authored geometry, recipe-derived values and timing into CombatWeapon; its actual producer, errors and recipients need a connected role trace.",
+    "53": "The p16 resolution error enum retains distinct geometry, speed, timing, battle-time and performance error variants; downstream mappings and current variant remain open.",
+    "55": "The p16 joint-melee module divides rounds into windows, processes contacts and movement, and schedules both sides at window boundaries. Its bytes match the current file, but the p16 role is not current selection or checkpoint 3821 authority.",
+    "56": "The p16 defense module retains typed timing while exposing primitive reaction samples and reflex/guard calculations; actual producer, arithmetic and consumers remain open.",
+    "57": "The p16 exchange passes performance fractions and other primitive samples into shared contact and resolution calls; the concrete native and owner boundaries remain open."
+  },
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/joint_melee.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "7373a905f23ab3075cfb464c0a936ce1ebc33ba6c5c6ad23866b1a1479c5b983",
+      "git_blob": "b5dbea852669a4780b6805b19855a627b382af11",
+      "bytes": 10073,
+      "lines": 329,
+      "ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "preserved_bytes": "source-evidence/combat-step-rates/current/crates/adventuresim-core/src/autoresolve/joint_melee.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "git_blob": "38e9e93154e06307c59fb5e70ff81a4b90013295",
+      "bytes": 100462,
+      "lines": 2878,
+      "ranges": [
+        [
+          752,
+          765
+        ]
+      ],
+      "preserved_bytes": "source-evidence/combat-step-rates/current/crates/adventuresim-core/src/autoresolve.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/lib.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "9830f6dfbbd20a69f7ac1149c6e305244f7fe87e5dc4a082ad2c912f0427b7d9",
+      "git_blob": "c2c35093ca7cd16bfd6ed36f3dd124a5827392ed",
+      "bytes": 2106,
+      "lines": 52,
+      "ranges": [
+        [
+          31,
+          52
+        ]
+      ],
+      "preserved_bytes": "source-evidence/combat-step-rates/current/crates/adventuresim-tactical-netcode/src/lib.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/replication.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "44cf2776eaa433b9291858b34b3996df4fc9dde3def2980ebe83788b5f36fb3e",
+      "git_blob": "8a61e133ac0e6d5caa491738795d94e3431b68a2",
+      "bytes": 10254,
+      "lines": 242,
+      "ranges": [
+        [
+          22,
+          32
+        ]
+      ],
+      "preserved_bytes": "source-evidence/combat-step-rates/current/crates/adventuresim-tactical-netcode/src/replication.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/main.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "a52f98db1a5b753a3b5f3d54348ffa36df35e266644e667489c8a1784508b150",
+      "git_blob": "23d8c064b65c7242f7226fef57a6303aa3556413",
+      "bytes": 28081,
+      "lines": 726,
+      "ranges": [
+        [
+          146,
+          162
+        ]
+      ],
+      "preserved_bytes": "source-evidence/combat-step-rates/current/crates/adventuresim-tactical-server/src/main.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          25,
+          27
+        ],
+        [
+          176,
+          178
+        ]
+      ],
+      "preserved_bytes": "source-evidence/combat-step-rates/current/content/tactical/combat.yaml.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "f26dc1059e4a9d133ac1fba9c80a1086753b20b54e5a5074dc8e557540cea67b",
+      "git_blob": "0c133953d32f479dee44b2ab0f94264e1b5395f8",
+      "bytes": 9366,
+      "lines": 260,
+      "ranges": [
+        [
+          88,
+          92
+        ]
+      ],
+      "preserved_bytes": "source-evidence/combat-step-rates/current/crates/adventuresim-tactical-core/src/animation/locomotion.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "reported_selected_sources": [
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/joint_melee.rs",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "sha256": "7373a905f23ab3075cfb464c0a936ce1ebc33ba6c5c6ad23866b1a1479c5b983",
+      "git_blob": "b5dbea852669a4780b6805b19855a627b382af11",
+      "bytes": 10073,
+      "lines": 329,
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "preserved_bytes": "source-evidence/combat-step-rates/reported-selected/crates/adventuresim-core/src/autoresolve/joint_melee.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/lib.rs",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "sha256": "b753b7f46133494d0731661c97a54439c6a147f8445a8a7852b182e0c8e0f613",
+      "git_blob": "b328af982d388adc36799a926d56270a90c0dffd",
+      "bytes": 1782,
+      "lines": 47,
+      "ranges": [
+        [
+          29,
+          39
+        ]
+      ],
+      "preserved_bytes": "source-evidence/combat-step-rates/reported-selected/crates/adventuresim-tactical-netcode/src/lib.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          24,
+          28
+        ]
+      ],
+      "preserved_bytes": "source-evidence/combat-step-rates/reported-selected/content/tactical/combat.yaml.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "trace": [
+    "The selected ff9 source sets the tactical fixed clock constant to 64 Hz; its unchanged strategic joint-melee file also names a local 64.0 value TACTICAL_SERVER_STEPS_PER_SECOND.",
+    "At current c100, the server main source adds the net plugin group, whose replication plugin configures Time<Fixed> from TACTICAL_TICK_HZ = 30. The strategic joint-melee source retains the same blob and its independent 64.0 constant. The shown source establishes configuration, not a measured active schedule or actual gameplay outcome.",
+    "The shipped combat YAML specifies a one-second autoresolve round. Given a generated one-second parameter and no early defeat, the source calculates 64 strategic windows; the tactical fixed-clock configuration requests 30 ticks per second. Window processing advances movement and schedules attacks at its boundaries, so rate choice can be relevant to behavior, but a divergent duel has not been demonstrated.",
+    "The authored locomotion sample rate is separately 64 Hz and is read through runtime animation configuration. Equality of that sample value and the strategic constant is not proof that the two roles share an owner, and neither should automatically be replaced by the tactical fixed rate."
+  ],
+  "first_open_question": "Is the strategic rate required to follow the tactical fixed-clock frequency, or is it an intentionally independent integration rate whose current tactical-server name is misleading? Determine policy and actual window-boundary consumers before any change.",
+  "repair_direction": "Once the rate relationship is established, keep a single owner if it is the same fact, or name and document distinct rates if the strategic integrator intentionally differs. Preserve the animation sampling clock, deterministic ordering, combat authority boundary and chosen numerical behavior; do not change the rate solely from a matching number or name.",
+  "later_acceptance": [
+    "Document the intended relationship among strategic windows, tactical fixed updates and animation samples at their actual boundaries.",
+    "After separate implementation authorization, validate representative movement, scheduling, contact ordering and determinism at the chosen rates without silently changing combat impairment rules.",
+    "Reconcile all original historical variants and relevant prior records; no current source read transfers credit to another lens."
+  ],
+  "remaining": [
+    "Trace the full scheduling and movement consumers, actual plugin and time override possibilities, configuration policy, numeric rounding and exact historical aliases.",
+    "Complete the six original historical-role traces and the remaining current, historical and independent-lens scope.",
+    "No build, simulation, runtime, tests or product validation were performed."
+  ],
+  "discovery_status": "partial; rate semantics and behavior policy open",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}

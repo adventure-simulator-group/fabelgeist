@@ -9,13 +9,13 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2751,
+    "unassessed": 2746,
     "lock-metadata-partial": 2,
-    "bounded-current-trace-only": 92,
+    "bounded-current-trace-only": 91,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 6
+    "full-historical-body-trace-open": 12
   },
-  "first_unfinished": "Current source delta: workflow has a bounded feature trace; first untouched Lens 1 delta is crates/adventuresim-tactical-client/README.md. Original changed roles 39/497 have only lock metadata, role 47 has a full historical body read with its trace open, and the next unread changed role by registry index is 50.",
+  "first_unfinished": "Current source delta: workflow has a bounded feature trace; first untouched Lens 1 delta is crates/adventuresim-tactical-client/README.md. Original roles 39/497 have only lock metadata, roles 47, 50, 51, 53, 55, 56 and 57 have open connected traces, and the next unread changed role by registry index is 58.",
   "roles": [
     {
       "original_index": 0,
@@ -540,7 +540,9 @@
       "historical_sha256": "0b6aef0b8e1be9846beaae48cc8f7130333b0b4634acbd0b2f8b393ee40d5cef",
       "registry_pointer": "/files/50",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-COMBAT-STEP-RATES.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
     },
     {
       "original_index": 51,
@@ -550,7 +552,9 @@
       "historical_sha256": "d51000403c3e70e523d5bdfe690114fcf0781449dabb10a52ee3dc006b00f5ca",
       "registry_pointer": "/files/51",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-COMBAT-STEP-RATES.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
     },
     {
       "original_index": 52,
@@ -570,7 +574,9 @@
       "historical_sha256": "877b773ae83bec290966d406d2aae3f84f7e5d804970e4f7771faa63e7b1d318",
       "registry_pointer": "/files/53",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-COMBAT-STEP-RATES.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
     },
     {
       "original_index": 54,
@@ -590,7 +596,7 @@
       "historical_sha256": "7373a905f23ab3075cfb464c0a936ce1ebc33ba6c5c6ad23866b1a1479c5b983",
       "registry_pointer": "/files/55",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/adventuresim-core/src/autoresolve/joint_melee.rs",
       "current_git_blob": "b5dbea852669a4780b6805b19855a627b382af11",
       "current_observations": [
@@ -606,9 +612,19 @@
               123
             ]
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-STEP-RATES.json",
+          "ranges": [
+            [
+              1,
+              123
+            ]
+          ]
         }
       ],
-      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open.",
+      "historical_assessment": "ASSESSMENT-L1-COMBAT-STEP-RATES.json"
     },
     {
       "original_index": 56,
@@ -618,7 +634,9 @@
       "historical_sha256": "6fffe49da3ec9f55c7b6dfcdeb723ef065569b78b004db991367d44329ee7fe9",
       "registry_pointer": "/files/56",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-COMBAT-STEP-RATES.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
     },
     {
       "original_index": 57,
@@ -628,7 +646,9 @@
       "historical_sha256": "cfc25332b52f4fc560e46cefc37fe47517c27237a47cd1d54f512161635b229b",
       "registry_pointer": "/files/57",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-COMBAT-STEP-RATES.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
     },
     {
       "original_index": 58,
@@ -8865,6 +8885,15 @@
               935
             ]
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-STEP-RATES.json",
+          "ranges": [
+            [
+              752,
+              765
+            ]
+          ]
         }
       ],
       "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -8930,6 +8959,15 @@
             ],
             [
               43,
+              123
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-STEP-RATES.json",
+          "ranges": [
+            [
+              1,
               123
             ]
           ]
@@ -21871,6 +21909,15 @@
             [
               124,
               139
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-STEP-RATES.json",
+          "ranges": [
+            [
+              146,
+              162
             ]
           ]
         }
