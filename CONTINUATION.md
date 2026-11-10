@@ -125,6 +125,9 @@ nearby lettering path; no scene or rendering was run.
 `ASSESSMENT-L01-SPIRAL-ADMISSION-95E.json` traces a decoded freeform
 spiral through the viewer assertion and separately records a conditional
 count overflow; no document, viewer or product code was run.
+`ASSESSMENT-L01-EDITOR-COMPAT-95E.json` records an explicit legacy
+part field and inoperative editor command against the repository rule; the
+semantic assembly and remaining consumers need independent review.
 `ASSESSMENT-L01-DELETED-272.json` distinguishes the deleted physical-p16
 role from its independently verified pre-deletion base revision and bytes.
 `ASSESSMENT-L01-DELETED-501.json` and `ASSESSMENT-L01-DELETED-2416.json`
