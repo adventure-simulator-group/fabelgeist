@@ -19,7 +19,8 @@
         "144-151",
         "186-195",
         "231-259",
-        "601-625"
+        "601-625",
+        "286-525"
       ]
     },
     {
@@ -59,7 +60,38 @@
     {
       "path": "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
       "git_blob": "56c79313e6fdf736f5f00f2971e8537edc88433d",
-      "range": "490-525"
+      "ranges": [
+        "1-159",
+        "490-525"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+      "git_blob": "5c1f80f39e3233d3912f08168baf1dffae3429d0",
+      "ranges": [
+        "25-59",
+        "190-231",
+        "253-302",
+        "569-654"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "git_blob": "57ae3a7417e2f462a32d2d12c9cb85bf183e1a7e",
+      "range": "690-732"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/repair.rs",
+      "git_blob": "b38ce0ebc126d7e780dfbdcd10eae48cd6719969",
+      "ranges": [
+        "223-242",
+        "381-421"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/continuity.rs",
+      "git_blob": "d162a8f81e1dd48b3e0db8e6f04fc67d75173c0e",
+      "range": "449-486"
     }
   ],
   "trace": [
@@ -85,11 +117,39 @@
     "Trace every object and inventory row writer, item changes and transactions, including food, repair, fireplace, transfer and consumed-row paths.",
     "Trace each lookup caller and its post-lookup checks, failure propagation and independent projection.",
     "Reconcile later recovered inventory admission and corrupt-backing evidence against exact identities, without importing historical claims as current facts.",
-    "Complete same-lens row-identity producer-to-boundary trace; inspect candidate owners and use without presupposing that a raw database key is invalid."
+    "Complete same-lens row-identity producer-to-boundary trace; inspect candidate owners and use without presupposing that a raw database key is invalid.",
+    "Investigate the direct transfer row-only alternatives for each supported item class, and validate exact alias with historical inventory-transfer and corpse-estate obligations before deduplicating."
   ],
   "repair_dependencies": "No repair selected. If the invalid-state defense is required, choose a canonical row-key uniqueness/admission strategy that preserves indexed performance and covers all same-row objects; coordinate schema ownership, lookup consumers, projections and transaction/error behavior. If an enforceable stronger invariant excludes the state, establish it for every writer and boundary first. This is a conditional repair direction, not an authorized implementation.",
   "acceptance_criterion": "Once policy and reachability are decided, source-backed requirements must specify matching and mismatching object cases, duplicate same-row aliases, absent row reconciliation, both scopes, all relevant writers and consumers, and agreement with custody/projection; later product validation is outside this task.",
   "discovery_status": "partial; no whole-path or lens completion claimed",
   "repair_status": "not started",
-  "validation_status": "no product validation; no runtime reachability claim"
+  "validation_status": "no product validation; no runtime reachability claim",
+  "additional_current_source_observations": [
+    {
+      "scope": "direct party-member transfer",
+      "evidence": "inventory_trade.rs 31-56 and 59-157",
+      "observation": "A found object takes the atomic subtree rehome path. If the indexed lookup conditionally misses a mismatched object, execution instead selects measured, medication, durable, food, or fungible row-only paths; those paths do not update that missed object in the displayed scope. Whether the state and each branch are reachable, and transaction effects, remain unproven."
+    },
+    {
+      "scope": "subtree rehome",
+      "evidence": "inventory_container.rs 286-348, 371-525 and object_custody.rs 161-215, 256-295",
+      "observation": "Prevalidation resolves each object and checks its backing row and same-row uniqueness; same-scope moves update row and object custody, while cross-scope moves create a destination row using the source item ID. This establishes guards and transformations only for this path; callers and rollback remain independently open."
+    },
+    {
+      "scope": "fireplace return",
+      "evidence": "fireplace_custody.rs 25-59, 190-231, 253-302 and 569-654",
+      "observation": "Station validation compares its instrument item with the associated object and verifies fixture custody. Death cleanup likewise checks the item before creating a return row; ordinary vessel retrieval uses the validated station item to create its new row before rehoming. These selected checks support matching items in those return paths; they do not prove all station producers or execution reachability."
+    },
+    {
+      "scope": "cooked meal object admission",
+      "evidence": "cooking.rs 690-732 and lot_inventory.rs 11-57",
+      "observation": "The displayed cooking path creates a row with cooked_meal, and if nested creates an object with that same item and row; ensure_food_material_object follows. This is one producer, not an exhaustive producer proof."
+    },
+    {
+      "scope": "repair and estate transitions",
+      "evidence": "repair.rs 223-242, 381-421 and continuity.rs 449-486",
+      "observation": "Repair enters escrow through the indexed lookup, then moves the row owner; restoration scans escrow objects and compares the object item to the order before changing its location. Estate transfer discovers object roots by location, rehomes them first, then updates remaining personal rows. Missing or corrupt object reachability and all callers remain open."
+    }
+  ]
 }
