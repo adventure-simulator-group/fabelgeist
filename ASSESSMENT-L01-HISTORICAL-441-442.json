@@ -1,0 +1,47 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 441,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/coordinates.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/441",
+      "sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+      "lines": 512,
+      "new_personal_read_ranges": [
+        [
+          1,
+          512
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 442,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/language.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/442",
+      "sha256": "1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+      "lines": 756,
+      "new_personal_read_ranges": [
+        [
+          1,
+          756
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical geographic coordinate axes enforce finite WGS84 bounds in construction and implement checked Serde deserialization; pair constructors preserve latitude/longitude order. E7-to-microdegree conversion truncates, while degree admission rounds. Aggregate bounds, antimeridian policy, independent transport adapters and exact consumers remain open.",
+    "Historical oral and written language hours expose mutable raw f32 fields and separate direct_fields_valid checks; effective proficiency uses correlation matrices and training adds positive finite values capped at fluency hours. Actual admission, aggregate finite arithmetic, duplicate party identities and consumer expectations require connected inspection before any defect claim.",
+    "Historical settlement-language inference checks playable geographic bounds, quantizes to microdegrees and derives a bounded regional distribution, while party choices select best counterpart and stable tie ordering from a snapshot. Initialization and all produced profiles remain separate source roles. Existing 95e immediate-activity language trace is separately attributed.",
+    "Source tests were read, not run; no product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace native coordinate and bounded-region admission, precision changes and stored consumers; trace language initialization, skill caps, party identity uniqueness and semantic training propagation. Reconcile historical aliases and independently assess every lens."
+}
