@@ -19,8 +19,10 @@ that transition. `ASSESSMENT-L01-WORLD-RUNTIME-95E.json` records a partial
 current-source trace and a related historical candidate, without claiming an
 alias. `ASSESSMENT-L01-QUEST-ID-95E.json` records two partial identifier
 admission questions and the inspected authority safeguards; neither establishes
-an exploitable path. `LOCKFILE-DELTA.json` preserves separate historical and
-predecessor comparisons of Cargo lockfiles.
+an exploitable path. `ASSESSMENT-L01-TRAINING-FINITE-95E.json` records a
+conditional numeric boundary and an independently attributed historical
+proposal. `LOCKFILE-DELTA.json` preserves separate historical and predecessor
+comparisons of Cargo lockfiles.
 `RECONCILIATION-059.json` indexes the historical queue without turning its
 entries into present findings. The `ASSESSMENT-*.json` records distinguish
 bounded current source observations from historical proposals and name the

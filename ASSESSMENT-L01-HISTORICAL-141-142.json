@@ -1,0 +1,46 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 141,
+      "source_id": "physical-p16:crates/adventuresim-core/src/skill.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/141",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "lines": 1165,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1165
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 historical role; source tests were read, not executed. Other identities, current connected scope and all independent lenses remain open."
+    },
+    {
+      "original_index": 142,
+      "source_id": "physical-p16:crates/adventuresim-core/src/smithing.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/142",
+      "sha256": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "lines": 78,
+      "new_personal_read_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 historical role; source tests were read, not executed. Other identities, current connected scope and all independent lenses remain open."
+    }
+  ],
+  "observations": [
+    "Historical skill code defines aptitude weights, training and language gain, retained hours, transfer correlations and physical/mental check calculation. A separate current trace assesses conditional finite arithmetic and does not close the scope.",
+    "Historical forge quotation derives weapon mass, minutes and inventory fractions, checking material-fraction conversion and accumulation. Actual admitted recipe and mass bounds require connected analysis.",
+    "Historical source tests were read as evidence only; no compilation, test, runtime probe or checkpoint 3821 inference follows."
+  ],
+  "remaining": "Trace current producers, admissions and consumers, numeric contracts, separate historical identities and all independent lenses; no product code ran."
+}

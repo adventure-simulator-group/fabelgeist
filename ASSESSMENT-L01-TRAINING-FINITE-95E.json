@@ -1,0 +1,187 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected skill-training producers, storage and arithmetic boundaries; no independent Lens 13 credit or complete source scope.",
+  "inspection_provenance": "The physical-p16 skill body and selected c100 checkout ranges were read; preserved 95e Git tree entries bind the same bytes to the current revision. Other selected current source ranges were inspected separately.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/skill.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "616d9d164bd04cb8a29b745e1a530540756f9fd7",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "bytes": 41590,
+      "lines": 1165,
+      "ranges": [
+        [
+          690,
+          752
+        ],
+        [
+          820,
+          850
+        ],
+        [
+          1016,
+          1150
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/training-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_schedule.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "00912abaa99cd109ae11c652fa04099875ea1047",
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "bytes": 48824,
+      "lines": 1363,
+      "ranges": [
+        [
+          360,
+          420
+        ],
+        [
+          460,
+          495
+        ],
+        [
+          500,
+          535
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/training-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_time.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cb9f536cb9ea5069fe8b7b2a143dcab75e4d9d2d",
+      "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "bytes": 30716,
+      "lines": 860,
+      "ranges": [
+        [
+          414,
+          424
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/training-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/activity.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "62a15b112f0a0a67ec76b42bafe442b8e1217416",
+      "sha256": "d8ee276214a67b09ca6571d03b1adce2dc200e6201284a9a8e25b6053aa72a15",
+      "bytes": 9114,
+      "lines": 243,
+      "ranges": [
+        [
+          50,
+          70
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/training-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/schedule.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "495977b502b62adaa7a68a5c6ccf4d7aa7689a7d",
+      "sha256": "08c054563be5757fc2da0ce95af4c995e5a8f8d1acf549bc5dbc65f2c3443077",
+      "bytes": 27540,
+      "lines": 741,
+      "ranges": [
+        [
+          207,
+          225
+        ],
+        [
+          228,
+          285
+        ],
+        [
+          310,
+          380
+        ],
+        [
+          379,
+          415
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/training-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/continuity.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d162a8f81e1dd48b3e0db8e6f04fc67d75173c0e",
+      "sha256": "90ac44f54e67bb703e77edc0d8c56f9221e9e31aeaaa3e897cbc0d5ff8759e7a",
+      "bytes": 31392,
+      "lines": 909,
+      "ranges": [
+        [
+          206,
+          280
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/training-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+      "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "bytes": 138251,
+      "lines": 3968,
+      "ranges": [
+        [
+          528,
+          568
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/training-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/capability.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3836a33875b93975f11f6dfdada4c53a768ce0ea",
+      "sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+      "bytes": 26410,
+      "lines": 694,
+      "ranges": [
+        [
+          200,
+          250
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/training-sources/07.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "candidate": {
+    "id": "REVIEW-TRAINING-FINITE-INTERMEDIATE-001",
+    "classification": "conditional finite-input intermediate overflow at public training and skill-projection APIs; supported production reachability unproved",
+    "trigger": "For source-level reasoning, take stored hours 0, finite real_hours=f32::MAX, and a Physiology aptitude of 5. The multiplier is 2.25, so effective_gain exceeds the largest finite f32. hours_for_rank(5) intentionally returns infinity; min(infinity, infinity) remains infinity, stored hours become infinity, and infinity minus infinity yields NaN excess. The language path has a finite aptitude cap but can return infinite excess for the same finite input.",
+    "second_path": "With finite maximum direct Knife hours and positive correlated Sword hours, the raw f32 direct-plus-transfer sum can exceed the finite range. training_rank maps a nonfinite input to zero; this is a source-level conditional, not an observed gameplay state.",
+    "safeguards_and_limits": "The inspected schedule producer derives increment from u64 elapsed minutes and u16 daily minutes, and activity rate is 0.25; its basic increment magnitude is far below f32::MAX even at type maxima. This does not establish bounds for every curriculum, external caller, stored value, duration, or full producer graph. No invalid normal state or gameplay failure was shown.",
+    "connected_scope": "All skill and language hour admissions, direct and transferred operations, elapsed-time and authored curriculum producers, stored character hours, mastery/excess consumers, and intended infinity sentinel policy.",
+    "proposed_repair": "After discovery, establish actual supported input bounds or checked arithmetic across the connected APIs and retained state; preserve the intentional rank-five asymptote and supported finite calculations.",
+    "later_acceptance": "After authorization, verify supported boundary values preserve finite retained hours and meaningful accepted/excess accounting, while normal partial-cap and transfer behavior and the deliberate rank-five sentinel remain intact.",
+    "historical_related_candidate": {
+      "checkpoint": "059",
+      "ledger": "baseline-059/ledger.json",
+      "json_pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/304/contract",
+      "id": "PL13-203-TRAINING-FINITE-INTERMEDIATE-PENDING",
+      "qualification": "Related historical Lens 13 pending proposal, with original revision and attribution retained; this source trace does not prove exact alias, reconcile the record or provide Lens 13 completion credit."
+    },
+    "discovery": "partial; all native bounds, callers, stored-state admission, exact aliases and arithmetic policies remain open",
+    "repair": "not started",
+    "validation": "not performed"
+  },
+  "arithmetic_evidence": "Binary32 largest finite value is (2 - 2^-23) * 2^127. Its product with 9/4 exceeds that bound. The source-level consequences assume IEEE-754 f32 infinity/NaN arithmetic; no Rust function, product test or runtime probe was run.",
+  "remaining": "Trace all original and current producers, admission and actual recipient policies, deliberate sentinel uses and historical aliases; complete all lenses and ledger before implementation."
+}
