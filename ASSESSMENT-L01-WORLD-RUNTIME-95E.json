@@ -1,0 +1,186 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "New world-runtime lock transition and bounded release, road-package, and source-digest consumers; not a full release, path, lens or connected historical review.",
+  "current_sources": [
+    {
+      "path": "scripts/world_runtime_release.py",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "eedf79e89f924e533b567ab57a6f94a984e6911f",
+      "sha256": "8dbd7aae73f7ae81c070a64dba7fce4bcffe4dc308a615a98f0a65f9ffa01dc4",
+      "bytes": 22535,
+      "lines": 484,
+      "ranges": [
+        [
+          1,
+          484
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "scripts/init_world_runtime.py",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9195ccccaa4042412e6dfdcfbffb51ebc70005db",
+      "sha256": "ca3a3991c54161f8aa783d0b934bfe9303debfbdb420bc847e653e7b8e37975d",
+      "bytes": 4630,
+      "lines": 101,
+      "ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "scripts/just_tasks.py",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a1ba753ec0725f958774d4324f621d79fa9faa45",
+      "sha256": "df22ed0fca225a03c2325204283965cb98242126cbefa3b4b44945b82b4d1c85",
+      "bytes": 30326,
+      "lines": 744,
+      "ranges": [
+        [
+          327,
+          360
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "justfile",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "98772a3e2df017912060a96ba81c69ff250eaf7c",
+      "sha256": "1e4c8c9b8ad567b5dbc9e76f01ef54a7897c0d9efc22ee8b503c65b436f3211c",
+      "bytes": 54912,
+      "lines": 773,
+      "ranges": [
+        [
+          215,
+          228
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-terrain/src/road_pack.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d0c4d6a3e65fefbd650374acd530cc30649033a5",
+      "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "bytes": 12472,
+      "lines": 344,
+      "ranges": [
+        [
+          1,
+          260
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-terrain/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e7c455cbbc254d9ebb434ceecb22187ae13b53f5",
+      "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+      "bytes": 71074,
+      "lines": 2059,
+      "ranges": [
+        [
+          268,
+          289
+        ],
+        [
+          335,
+          353
+        ],
+        [
+          410,
+          432
+        ],
+        [
+          948,
+          976
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-terrain/src/digest.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "db348710b2ebe0cd6acd79c30aa6dca005712543",
+      "sha256": "80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+      "bytes": 822,
+      "lines": 28,
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/source_package.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2af94e731dce3671e07608bf2e5750d1073e0481",
+      "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+      "bytes": 1658,
+      "lines": 53,
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sources/07.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "lock_sources": "MAIN-ADVANCE-95E.json",
+  "observations": [
+    {
+      "id": "release-contract",
+      "detail": "The new lock specifies schema 2 and the seven paths listed in the release script MEMBER_DESTINATIONS. That script defines SCHEMA=2, loads a JSON dictionary and validates its schema, year, release name, URL, sizes, digests, member paths and ordering; this is source interpretation and mechanical field comparison, not an execution of the validator or proof of archive contents."
+    },
+    {
+      "id": "release-install",
+      "detail": "The initializer reads the lock, compares installed files with lock metadata, may read a prior marker, and passes an explicit or inferred replacement flag to install. If an older schema-1 marker is supplied to this schema-2 read path, the source rejects that marker; differing files then require the separately provided explicit replacement path unless another supported policy applies. This is a conditional source observation, not a request for compatibility or proof of a real installation failure."
+    },
+    {
+      "id": "road-boundary",
+      "detail": "The release source validates a road manifest against final-terrain package and geometry identities before packaging. RoadPack::load deserializes an external manifest, checks it against TerrainPack, verifies content and geometry digests, decodes the bounded payload and constructs checked coordinate state. The new archive and actual manifests were not downloaded or inspected."
+    },
+    {
+      "id": "digest-propagation",
+      "detail": "Terrain Manifest retains package_sha256 and road_geometry_sha256 as String after validate_manifest. valid_digest invokes SourcePackageDigest::from_hex as a boolean syntax check; TerrainPack::digest returns a borrowed raw package string. RoadPack::write reconstructs SourcePackageDigest from it and RoadManifest::validate compares its typed source as a string to the raw terrain digest. Geometry and content digests are distinct semantic identities and are not presumed to share the source-package owner."
+    }
+  ],
+  "ledger_candidate": {
+    "id": "REVIEW-TERRAIN-SOURCE-DIGEST-PROPAGATION-001",
+    "classification": "partial current producer-propagation migration gap and owner-fit review; no demonstrated runtime failure",
+    "first_observed_escape": "SourcePackageDigest admission in terrain digest::valid_digest is discarded to a boolean, while the validated terrain package identity remains a String in the retained manifest and is exposed as &str.",
+    "connected_scope": "Terrain hash producer, native manifest admission and retained TerrainPack, digest getters, RoadManifest/RoadPack consumers and every other package-identity caller. Do not automatically conflate package, geometry, content or chunk digests.",
+    "proposed_repair": "If the remaining trace confirms the same source-package identity and owner at all affected uses, retain its checked owner through application state and APIs and convert only at the actual native serialization or hashing boundaries; determine distinct geometry/content identities separately.",
+    "later_acceptance": "After discovery is complete, check that supported source identities preserve their actual semantics and native representation, malformed values are rejected at the true admission boundary, and package/geometry/content identities cannot be confused. Product validation is deferred.",
+    "historical_related_candidate": {
+      "checkpoint": "059",
+      "ledger": "baseline-059/ledger.json",
+      "json_pointer": "/discovery_findings_and_dependencies/SEGOVB-L12-TERRAIN-SOURCE-DIGEST-PROPAGATION",
+      "id": "SEGOVB-L12-TERRAIN-SOURCE-DIGEST-PROPAGATION",
+      "qualification": "Related historical proposal; original revision, attribution and all qualifications remain in the recovered ledger and queue. This bounded current trace does not establish a complete alias, semantic reconciliation, 3821 status or Lens 12 coverage."
+    },
+    "discovery": "partial; all other producers, consumers, exact owner fit, native boundaries and historical aliases open",
+    "repair": "not started",
+    "validation": "not performed"
+  },
+  "remaining": "Complete producer and consumer tracing, path and historic role inventories, release state policy, all remaining independent lenses and connected-ledger reconciliation. No product build, test, runtime probe, archive download or repair ran."
+}

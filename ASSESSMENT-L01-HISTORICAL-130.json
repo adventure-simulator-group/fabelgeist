@@ -1,0 +1,29 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 130,
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog_validation.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/130",
+      "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+      "lines": 1526,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1526
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read for this exact physical-p16 historical role only. Source test code was read, not executed. No current-revision identity, connected scope, queue reconciliation, independent lens or checkpoint 3821 credit follows."
+    }
+  ],
+  "observations": [
+    "The historical shared validator interprets authored quest JSON using explicit allowed-key lists, helper admission for identifier syntax, enums and bounded signed and unsigned numbers, and many document-local and cross-reference checks.",
+    "The document validation spans monster mechanics, evidence, dialogue, demographic selectors and authored quest relationships; it depends on the separate demographic module and downstream catalog consumers, which remain open.",
+    "The historical file ends with a small identifier-capacity source test; reading its body is not a test result and does not establish current data, actual consumer behavior or the missing final checkpoint."
+  ],
+  "remaining": "Trace original producers, helper/module admission, connected consumers, current and other historical source roles, queue aliases and all independent lenses; no product code or test ran."
+}

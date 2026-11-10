@@ -14,8 +14,11 @@ qualifications. `BASELINE-20261110.json`, `CONTINUATION-PROGRESS.json`, and
 `COVERAGE-L01-ROLES.json` preserve work attributed to the predecessor revision
 `c100638b720a7281a5fc96f6a3c5c23d5dda85da`; their frozen copies record the
 transition checkpoint. The role file is the Lens 1 worklist of distinct
-original roles. `LOCKFILE-DELTA.json` preserves separate historical and
-predecessor comparisons of Cargo lockfiles.
+original roles, including separately attributed historical reads added after
+that transition. `ASSESSMENT-L01-WORLD-RUNTIME-95E.json` records a partial
+current-source trace and a related historical candidate, without claiming an
+alias. `LOCKFILE-DELTA.json` preserves separate historical and predecessor
+comparisons of Cargo lockfiles.
 `RECONCILIATION-059.json` indexes the historical queue without turning its
 entries into present findings. The `ASSESSMENT-*.json` records distinguish
 bounded current source observations from historical proposals and name the

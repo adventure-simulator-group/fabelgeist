@@ -147,8 +147,11 @@ if (len(baseline['lens_names']) != 13 or baseline['lens_status'] != ['incomplete
         progress['lenses_complete'] != 0 or progress['new_transition_lens_cells_assessed'] != 0):
     raise ValueError('unsupported completion credit')
 additional = baseline['additional_source_delta']
-if len(additional) != 1 or additional[0]['path'] != changes[0]['path'] or additional[0]['lens_status'] != ['unassessed'] * 13:
-    raise ValueError('new transition must remain independently unassessed')
+if (len(additional) != 1 or additional[0]['path'] != changes[0]['path'] or
+        not additional[0]['lens_status'][0].startswith('partial bounded') or
+        additional[0]['lens_status'][1:] != ['unassessed'] * 12 or
+        progress['new_transition_lens_cells_partial'] != 1):
+    raise ValueError('new transition coverage is not correctly qualified')
 if (baseline['historical_queue_records_indexed'] != old_progress['historical_queue_records_indexed'] or
         baseline['historical_queue_records_semantically_reconciled'] != old_progress['current_queue_records_semantically_reconciled']):
     raise ValueError('historical queue count mismatch')

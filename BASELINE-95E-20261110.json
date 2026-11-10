@@ -50,7 +50,7 @@
       "status": "M",
       "path": "world-runtime-release.lock.json",
       "lens_status": [
-        "unassessed",
+        "partial bounded release and digest producer trace; ASSESSMENT-L01-WORLD-RUNTIME-95E.json; remaining scope open",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -64,7 +64,7 @@
         "unassessed",
         "unassessed"
       ],
-      "qualification": "New direct-child transition. The source identity and JSON comparison are mechanically verified; all thirteen lens assessments and connected effects remain open."
+      "qualification": "The JSON and bounded producer trace are recorded; all independent lenses, connected source paths and most transition scope remain open."
     }
   ],
   "historical_roles": {
@@ -84,5 +84,22 @@
   },
   "recovery_qualification": "Checkpoint 059 bytes are recovered and hash-verified for that checkpoint. Final original checkpoint 3821 ledger and queue remain missing; reconstructed records and historical summaries are not promoted to final authority. A bounded older-collection search found no requested hash matches, without proving absence.",
   "validation": "Evidence verification only. No repairs, product builds, product tests, runtime probes, release downloads or product validation.",
-  "next_step": "Reconcile the new lock transition and prior findings at 95e, continue all original roles, deltas, extensions and thirteen independent lenses, and complete the connected repair ledger before stopping at the implementation gate."
+  "next_step": "Reconcile the new lock transition and prior findings at 95e, continue all original roles, deltas, extensions and thirteen independent lenses, and complete the connected repair ledger before stopping at the implementation gate.",
+  "newly_assessed_ledger": {
+    "qualification": "Current 95e source observations only; related checkpoint 059 records retain their own revisions and attribution. Neither connected relationship nor a complete repair plan is assumed.",
+    "entries": [
+      {
+        "id": "REVIEW-TERRAIN-SOURCE-DIGEST-PROPAGATION-001",
+        "record": "ASSESSMENT-L01-WORLD-RUNTIME-95E.json",
+        "classification": "partial source-package digest propagation and owner-fit review",
+        "discovery": "partial; all producer, consumer, semantic owner and historical alias scopes open",
+        "repair": "not started",
+        "validation": "not performed",
+        "historical_related_candidates": [
+          "SEGOVB-L12-TERRAIN-SOURCE-DIGEST-PROPAGATION"
+        ],
+        "relationship_qualification": "Related checkpoint 059 scope only; original attribution preserved and no alias or reconciliation established."
+      }
+    ]
+  }
 }
