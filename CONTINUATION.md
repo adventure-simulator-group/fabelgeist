@@ -67,6 +67,8 @@ furniture identity and cap-winding nonfindings; other consumers and
 degenerate profiles remain open.
 `ASSESSMENT-L01-CHURCH-SAFEGUARDS-95E.json` records bounded programme
 and provisional-host findings without treating temporary IDs as final state.
+`ASSESSMENT-L01-ENTRANCE-SAFEGUARD-95E.json` traces ordinary room
+ordinal admission to entrance selection; alternate paths remain open.
 `ASSESSMENT-L01-AI-CONFIG-95E.json` records conditional precision and
 ranged-deadband admission traces tied to earlier checkpoint 059 records.
 Committed defaults and unexecuted runtime assumptions are distinguished.
