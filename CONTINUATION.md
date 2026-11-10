@@ -130,6 +130,11 @@ part field and inoperative editor command against the repository rule; the
 semantic assembly and remaining consumers need independent review.
 `ASSESSMENT-L01-HISTORICAL-734-740.json` records frozen garment fit
 and shader source reads; no device or test ran.
+`ASSESSMENT-L01-ATTACK-IDENTITY-95E.json` reconnects the earlier packed
+attack-ID concern to current batch metadata, preserving the original 059
+receipts and a byte-identical older handoff Git cross-check. No roster
+collision or combat execution was observed. `ASSESSMENT-L01-HISTORICAL-863-865.json`
+records separate frozen melee source reads; its test code was read only.
 `ASSESSMENT-L01-RANGED-FATIGUE-95E.json` traces missing selected ranged
 attack work in tactical and strategic paths and conditional strategic ranged
 defense work. Earlier general-fatigue and carryover records remain open.

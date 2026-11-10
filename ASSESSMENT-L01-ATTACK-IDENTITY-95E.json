@@ -1,0 +1,419 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected 95e attack ID packing, simultaneous batch metadata and cancellation-evidence matching, with separately attributed earlier 059 and older handoff receipts.",
+  "source_reasoning": "Static source inspection and symbolic integer/collection reasoning only; no combat, fixture, report generation, product build, test or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7be0b2ef2c085026b7b6a5c77ffb2c17c1417913",
+      "sha256": "6c64790c60c4ad2b52d4e3a18e312b8be73cb714ec27aa194f9a345d17eda293",
+      "bytes": 8414,
+      "lines": 221,
+      "ranges": [
+        [
+          171,
+          190
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/attack-identity-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/joint_melee.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b5dbea852669a4780b6805b19855a627b382af11",
+      "sha256": "7373a905f23ab3075cfb464c0a936ce1ebc33ba6c5c6ad23866b1a1479c5b983",
+      "bytes": 10073,
+      "lines": 329,
+      "ranges": [
+        [
+          143,
+          206
+        ],
+        [
+          209,
+          268
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/attack-identity-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/timeline.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bc75db4a7293851dc731f5d32d48a840f24377a5",
+      "sha256": "4e83c1f6cda9e4f7a8f9a19ac6c54119c67701f6d4dae37641c5e6b7b94b753d",
+      "bytes": 4843,
+      "lines": 139,
+      "ranges": [
+        [
+          1,
+          44
+        ],
+        [
+          88,
+          132
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/attack-identity-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2baf681e104881b9b0ddf67f258ffcd96fc478f7",
+      "sha256": "3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "bytes": 22474,
+      "lines": 595,
+      "ranges": [
+        [
+          177,
+          198
+        ],
+        [
+          280,
+          355
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/attack-identity-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a43f1c1962307eb81b1a72e6fa6271766801a17f",
+      "sha256": "9c56fb8232e356e6e204ba7c1065597c6063b0b25572d6f0e7cb131b2a7eb320",
+      "bytes": 13868,
+      "lines": 391,
+      "ranges": [
+        [
+          320,
+          365
+        ],
+        [
+          375,
+          391
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/attack-identity-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/timeline.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a2212eba05966eb358b1de164cea19240ff59dda",
+      "sha256": "8be8fb9671dfce44ce30fa2a7738cc1ff52df15d2ee5517e8eef0aa1733c3d1a",
+      "bytes": 5259,
+      "lines": 151,
+      "ranges": [
+        [
+          1,
+          90
+        ],
+        [
+          93,
+          127
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/attack-identity-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "38e9e93154e06307c59fb5e70ff81a4b90013295",
+      "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "bytes": 100462,
+      "lines": 2878,
+      "ranges": [
+        [
+          49,
+          53
+        ],
+        [
+          129,
+          132
+        ],
+        [
+          168,
+          171
+        ],
+        [
+          725,
+          734
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/attack-identity-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/starting_character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "552ccde3ca27d125ef75b3609a3bd3bb76d5db83",
+      "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+      "bytes": 70536,
+      "lines": 1936,
+      "ranges": [
+        [
+          379,
+          390
+        ],
+        [
+          511,
+          517
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/attack-identity-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+      "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "bytes": 138251,
+      "lines": 3968,
+      "ranges": [
+        [
+          68,
+          77
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/attack-identity-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/world_actor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5ab4eab5c647aa4a85852ccb5e88038431f535da",
+      "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "bytes": 51100,
+      "lines": 1353,
+      "ranges": [
+        [
+          335,
+          353
+        ],
+        [
+          379,
+          392
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/attack-identity-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/capability/combatant.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "42e662da5494c9cb649b3965eb09f7c1d3188141",
+      "sha256": "afba3aaeb15ab41fe36d35221b5269a784098863766c03ad61ecd6532204bdbc",
+      "bytes": 3765,
+      "lines": 111,
+      "ranges": [
+        [
+          5,
+          18
+        ],
+        [
+          43,
+          60
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/attack-identity-sources/10.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 862,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/joint_melee.rs",
+      "historical_sha256": "7373a905f23ab3075cfb464c0a936ce1ebc33ba6c5c6ad23866b1a1479c5b983",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-857-862.json",
+      "qualification": "Exact frozen PR-working role retains its own Lens 1 body attribution; byte equality does not grant independent-lens or checkpoint 3821 credit."
+    },
+    {
+      "original_index": 863,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+      "historical_sha256": "6c64790c60c4ad2b52d4e3a18e312b8be73cb714ec27aa194f9a345d17eda293",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-863-865.json",
+      "qualification": "Exact frozen PR-working role retains its own Lens 1 body attribution; byte equality does not grant independent-lens or checkpoint 3821 credit."
+    }
+  ],
+  "recovered_historical_receipts": [
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens11/batch-011-receipt.json",
+      "sha256": "a3dc283db56a86d80f5baad4143672999d602269a8f4598d32362487981dfb07",
+      "bytes": 21158,
+      "git_blob": "870799510f82c70ad02812810b62fab4386baefd",
+      "preserved_bytes": "recovered/attack-identity-059/a3dc283db56a86d80f5baad4143672999d602269a8f4598d32362487981dfb07.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Original checkpoint 059 transport-manifest bytes; source revision, prior agent attribution, pending status and zero accepted unique-count change remain unchanged."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens11/batch-012-receipt.json",
+      "sha256": "821410a651ac39aeabdcb7ac6fe484a0b61d651eaec59889090264ffcb3c5933",
+      "bytes": 15839,
+      "git_blob": "3e1b6882ef6c6546486441757a142b50a4566244",
+      "preserved_bytes": "recovered/attack-identity-059/821410a651ac39aeabdcb7ac6fe484a0b61d651eaec59889090264ffcb3c5933.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Original checkpoint 059 transport-manifest bytes; source revision, prior agent attribution, pending status and zero accepted unique-count change remain unchanged."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens13/batch-023-033-receipt.json",
+      "sha256": "6e25f41101a75c55185ff8dbf8aaa891a59b2e85c365ce966371736e6d182f5d",
+      "bytes": 72405,
+      "git_blob": "bf72159d5fe73076d605cc226a2ebf4e44831184",
+      "preserved_bytes": "recovered/attack-identity-059/6e25f41101a75c55185ff8dbf8aaa891a59b2e85c365ce966371736e6d182f5d.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Original checkpoint 059 transport-manifest bytes; source revision, prior agent attribution, pending status and zero accepted unique-count change remain unchanged."
+    },
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-132.json",
+      "sha256": "43eb0127555aa487af51a5a95cda38f9e593482f14c7a83e0b2a25d179014df0",
+      "bytes": 20578,
+      "git_blob": "4d430cf71bad519ba87ddad85ca6f3132dace502",
+      "preserved_bytes": "recovered/attack-identity-059/43eb0127555aa487af51a5a95cda38f9e593482f14c7a83e0b2a25d179014df0.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Original checkpoint 059 transport-manifest bytes; source revision, prior agent attribution, pending status and zero accepted unique-count change remain unchanged."
+    },
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-134.json",
+      "sha256": "ccf62125428e81f5cc8ea6e1e5c530b45f3ca78e5ff886c7ae5c8b958f05764c",
+      "bytes": 15914,
+      "git_blob": "fb7c55aba4708fc69c08b4c90aa9e64860efd948",
+      "preserved_bytes": "recovered/attack-identity-059/ccf62125428e81f5cc8ea6e1e5c530b45f3ca78e5ff886c7ae5c8b958f05764c.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Original checkpoint 059 transport-manifest bytes; source revision, prior agent attribution, pending status and zero accepted unique-count change remain unchanged."
+    },
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-135.json",
+      "sha256": "5484433b30c1537eb32f0218998ccfc0e50d0cf2ae887db7484e0e7f2cbf818e",
+      "bytes": 11560,
+      "git_blob": "6e8c39b16bc756103f980dbde0b91ce168b80bab",
+      "preserved_bytes": "recovered/attack-identity-059/5484433b30c1537eb32f0218998ccfc0e50d0cf2ae887db7484e0e7f2cbf818e.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Original checkpoint 059 transport-manifest bytes; source revision, prior agent attribution, pending status and zero accepted unique-count change remain unchanged."
+    }
+  ],
+  "older_handoff_crosscheck": {
+    "commit": "3b9728c1a9b266bba4b5481add6f96c2119c2ed2",
+    "commit_raw": "recovered/attack-identity-older/commit.raw.gz",
+    "root_tree": "51f0bddcc135edeb3cac25c87246a07988459479",
+    "tree_objects": {
+      "51f0bddcc135edeb3cac25c87246a07988459479": "recovered/attack-identity-older/51f0bddcc135edeb3cac25c87246a07988459479.tree.gz",
+      "a061779820322af25f6ff8b8fe84d2518e8a2712": "recovered/attack-identity-older/a061779820322af25f6ff8b8fe84d2518e8a2712.tree.gz",
+      "03fa1c59140c6ee05383890830935a833a464ea3": "recovered/attack-identity-older/03fa1c59140c6ee05383890830935a833a464ea3.tree.gz",
+      "bd0816f6bdf6f49b8c95958e6a63a9cecfe84836": "recovered/attack-identity-older/bd0816f6bdf6f49b8c95958e6a63a9cecfe84836.tree.gz",
+      "4f6982b072708730f9a0d19eb6b37a0bad9857eb": "recovered/attack-identity-older/4f6982b072708730f9a0d19eb6b37a0bad9857eb.tree.gz",
+      "c1466e320b6cdbfd68a6f821d84308d58dfbed51": "recovered/attack-identity-older/c1466e320b6cdbfd68a6f821d84308d58dfbed51.tree.gz",
+      "b7346376ac47e309193c3d81a503a0fe0b140218": "recovered/attack-identity-older/b7346376ac47e309193c3d81a503a0fe0b140218.tree.gz",
+      "14393649dae872fa82189332ce2d485d16a3761f": "recovered/attack-identity-older/14393649dae872fa82189332ce2d485d16a3761f.tree.gz"
+    },
+    "files": [
+      {
+        "path": "MANIFEST.json",
+        "git_blob": "743cd7c2411d1c363b1f4e69b059dda3d331dfac",
+        "sha256": "a9f4d10e730d8c6ba3b3c753cbbdc12f6e2d61c1db41e5679416f66538b1601a",
+        "bytes": 3909924,
+        "preserved_bytes": "recovered/attack-identity-older/MANIFEST.json.gz",
+        "content_encoding": "gzip"
+      },
+      {
+        "path": "README.md",
+        "git_blob": "6d881b31734bf31eaf8976b48795edd6c57d0213",
+        "sha256": "6de13db5e7f10c20972e7dc38e6316e0306b69179e2538fb92e7e06b976ac81c",
+        "bytes": 4760,
+        "preserved_bytes": "recovered/attack-identity-older/README.md.gz",
+        "content_encoding": "gzip"
+      },
+      {
+        "path": "TRANSPORT-VERIFICATION.json",
+        "git_blob": "29efc7802aef7f3daca9516f5fe766991649ede7",
+        "sha256": "b74b9f1ea291a12a8d7e262b1c1857efeff2f8696be3844d2633d59fb43e97c6",
+        "bytes": 1012,
+        "preserved_bytes": "recovered/attack-identity-older/TRANSPORT-VERIFICATION.json.gz",
+        "content_encoding": "gzip"
+      },
+      {
+        "path": "CURRENT-ADLER.json",
+        "git_blob": "a1196c17476d8c17dfe72c6ba6bf1f2cc14861d0",
+        "sha256": "a9f23ec047013ee599f87907dedc4d689dcd64d52528b26002d46fafbd6ae271",
+        "bytes": 4855,
+        "preserved_bytes": "recovered/attack-identity-older/CURRENT-ADLER.json.gz",
+        "content_encoding": "gzip"
+      },
+      {
+        "path": "evidence/continuation-segovb/audit-resume-20261027/lens11/batch-011-receipt.json",
+        "git_blob": "870799510f82c70ad02812810b62fab4386baefd",
+        "sha256": "a3dc283db56a86d80f5baad4143672999d602269a8f4598d32362487981dfb07",
+        "bytes": 21158,
+        "preserved_bytes": "recovered/attack-identity-059/a3dc283db56a86d80f5baad4143672999d602269a8f4598d32362487981dfb07.json.gz",
+        "content_encoding": "gzip"
+      },
+      {
+        "path": "evidence/continuation-segovb/audit-resume-20261027/lens11/batch-012-receipt.json",
+        "git_blob": "3e1b6882ef6c6546486441757a142b50a4566244",
+        "sha256": "821410a651ac39aeabdcb7ac6fe484a0b61d651eaec59889090264ffcb3c5933",
+        "bytes": 15839,
+        "preserved_bytes": "recovered/attack-identity-059/821410a651ac39aeabdcb7ac6fe484a0b61d651eaec59889090264ffcb3c5933.json.gz",
+        "content_encoding": "gzip"
+      },
+      {
+        "path": "evidence/continuation-segovb/audit-resume-20261027/lens13/batch-023-033-receipt.json",
+        "git_blob": "bf72159d5fe73076d605cc226a2ebf4e44831184",
+        "sha256": "6e25f41101a75c55185ff8dbf8aaa891a59b2e85c365ce966371736e6d182f5d",
+        "bytes": 72405,
+        "preserved_bytes": "recovered/attack-identity-059/6e25f41101a75c55185ff8dbf8aaa891a59b2e85c365ce966371736e6d182f5d.json.gz",
+        "content_encoding": "gzip"
+      }
+    ],
+    "qualification": "The three named 2026-10-27 receipts were already present under the 059 extraction evidence/continuation-segovb projection. A targeted read-only search also found byte-identical files in the older 3b9728c handoff. Exact older Git tree/blob and its own manifest are checked here; this is cross-provenance, not recovery of missing checkpoint 3821 bytes or later audit authority. The older handoff README and current-state qualifications remain historical."
+  },
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/discovery_findings_and_dependencies/CROSS-LENS-PACKED-ATTACK-ID-CAPACITY",
+      "qualification": "Earlier cross-lens shared finding candidate, no new accepted global unique count."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/9",
+      "id": "CROSS-LENS-PACKED-ATTACK-ID-CAPACITY",
+      "qualification": "Earlier open reconciliation; selected current evidence does not close all sources or aliases."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/230",
+      "qualification": "Delegated frozen source algebra and batch/consumer concern; original read attribution and no current reconciliation remain intact."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/232",
+      "qualification": "Earlier connected native-output chain, no canonical roster collision or wrong simulation cancellation claimed."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/233",
+      "qualification": "Earlier canonical producer question and full-width qualification; unchanged."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-AUTORESOLVE-ATTACK-IDENTITY-WIDTH-001",
+      "severity": "P3 conditional timeline and report identity collision; actual supported roster collision not established",
+      "classification": "Current bounded trace of the existing CROSS-LENS-PACKED-ATTACK-ID-CAPACITY and PL13-134 pending family, not a new unique historical finding.",
+      "trace": "ScheduledMeleeTiming::attack_id shifts a u64 attacker ID left 32 bits and XORs a quantized start tick, discarding the upper 32 attacker bits. For symbolic distinct IDs 1 and 4294967297 with the same start tick 0, both values are 4294967296. If those two scheduled attacks also share a contact time in one selected batch, contact_batch collects duplicate member IDs and uses position of the first matching ID for each, yielding order 0 for both. Contact timeline events retain that batch membership and order. The iteration evidence also compares canceled and contacted IDs by equality; a matching ID alone cannot distinguish different attacks. These are conditional source and integer/collection reasoning, not a generated battle.",
+      "safeguards_and_limits": "scheduled_attack_is_current compares the individual attacker retained start/contact times directly, rather than this packed ID. No wrong simulation cancellation is asserted. Character storage and selected constructors use u64 and the field-actor producer sets a high bit, but no particular two real roster IDs with equal low 32 bits, equal quantized start, equal contact time or reachable misleading report has been observed. All battle invokers, time-identity policy, native readers and global aliases remain open.",
+      "connected_repair": "Reconcile the canonical participant-plus-attack identity and native output across scheduled state, batch order, cancellation and consumers. Preserve optional scheduled measure where the existing supported fixture derives it; do not invent a 32-bit participant restriction or merely wrap the same lossy packing.",
+      "acceptance": "A later review must distinguish supported distinct same-tick participants and preserve correct batch membership/order and cancellation matching, while retaining valid simultaneous and optional-measure behavior. Runtime validation remains deferred.",
+      "discovery": "partial; supported roster/time reachability, all consumers and aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

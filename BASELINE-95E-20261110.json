@@ -1063,8 +1063,22 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L01-RANGED-FATIGUE-95E.json"
+      },
+      {
+        "id": "REVIEW-AUTORESOLVE-ATTACK-IDENTITY-WIDTH-001",
+        "severity": "P3 conditional timeline and report identity collision; actual supported roster collision not established",
+        "classification": "bounded 95e trace of earlier shared packed-attack identity family; not a new unique historical finding",
+        "historical_related_candidates": [
+          "CROSS-LENS-PACKED-ATTACK-ID-CAPACITY",
+          "PL13-134-ATTACK-IDENTITY-WIDTH-PENDING"
+        ],
+        "relationship_qualification": "The 2026-10-27 and 059 receipts already describe the same exact source algebra and downstream equality concern with zero accepted unique increment. The present source trace and targeted older handoff cross-check preserve prior attribution, unresolved roster reachability and no wrong simulation-cancellation claim.",
+        "discovery": "partial; supported IDs/timing, complete consumers, policy and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L01-ATTACK-IDENTITY-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261110-2320.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261110-2323.json"
 }
