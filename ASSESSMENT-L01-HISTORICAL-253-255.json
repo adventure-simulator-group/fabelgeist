@@ -1,0 +1,64 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 253,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/253",
+      "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "lines": 759,
+      "new_personal_read_ranges": [
+        [
+          1,
+          759
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 254,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/254",
+      "sha256": "0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+      "lines": 585,
+      "new_personal_read_ranges": [
+        [
+          1,
+          585
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 255,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/255",
+      "sha256": "40ec2a78bdcbb5225ff5558a6bb8f186af189dc527eef024048495ec10df0e94",
+      "lines": 299,
+      "new_personal_read_ranges": [
+        [
+          1,
+          299
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical settlement residents are planned as deterministic drafts, validated for duplicate character and business IDs, finalized into household demographics and inherited surnames, then persisted as ordinary characters with separate profile, policy, schedule, business and generation explanation records.",
+    "Historical gateway resident projection joins character and private personality while exposing a deliberately restricted profile. Scheduled presence constructs a typed observer-relative venue and checks historical life and outbreak suppression; separate duration helpers use presence windows and suppression. Their distinct eligibility, default schedule and all consumer contracts require connected review.",
+    "Existing resident reuse checks settlement and reestablishes roles and business association; generated household materialization connects the separate property census. Identity collision, partial existing records, service ownership, schedule and historical/present projection semantics remain open.",
+    "Historical source tests were read where present, not executed. No current source, historical alias or recovered checkpoint 3821 status follows from these reads."
+  ],
+  "remaining": "Trace current settlement generation and all persistence/reuse paths, unique identity, organization and business ownership, census transfer, life and historical presence consumers, and projection authorization; reconcile aliases and independently assess each lens."
+}
