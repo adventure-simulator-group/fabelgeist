@@ -9,13 +9,13 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2746,
+    "unassessed": 2735,
     "lock-metadata-partial": 2,
-    "bounded-current-trace-only": 91,
+    "bounded-current-trace-only": 97,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 12
+    "full-historical-body-trace-open": 17
   },
-  "first_unfinished": "Current source delta: workflow has a bounded feature trace; first untouched Lens 1 delta is crates/adventuresim-tactical-client/README.md. Original roles 39/497 have only lock metadata, roles 47, 50, 51, 53, 55, 56 and 57 have open connected traces, and the next unread changed role by registry index is 58.",
+  "first_unfinished": "Current source delta: workflow has a bounded feature trace; first untouched Lens 1 delta is crates/adventuresim-tactical-client/README.md. Original roles 39/497 have only lock metadata; exact historical bodies 47, 50, 51, 53, 55-62, 80, 85, 89, 96 and 119 have open connected traces; the next unread changed role by registry index is 63.",
   "roles": [
     {
       "original_index": 0,
@@ -658,7 +658,9 @@
       "historical_sha256": "e1dac77a2c5ef7c2bb50b886c9b7340c83f2fcee27fe767788e48463ad6f737c",
       "registry_pointer": "/files/58",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-ARMOR-EVIDENCE.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
     },
     {
       "original_index": 59,
@@ -668,7 +670,9 @@
       "historical_sha256": "a434a6844f7fc1634be9cab2e144ae9a6e7bc9b09a93c1b72b0bdca38140c197",
       "registry_pointer": "/files/59",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-ARMOR-EVIDENCE.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
     },
     {
       "original_index": 60,
@@ -678,7 +682,9 @@
       "historical_sha256": "a806a6dd4779dabe9e140cdc109d4450a5d400c0460b862e157ad4f73b58c345",
       "registry_pointer": "/files/60",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-ARMOR-EVIDENCE.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
     },
     {
       "original_index": 61,
@@ -688,7 +694,22 @@
       "historical_sha256": "9a5f5b89b21f9f10d774f35eb8c9f2cc2c73ebd4a21faf917bae8cd0b428561c",
       "registry_pointer": "/files/61",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-ARMOR-EVIDENCE.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open.",
+      "current_path": "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/armor.rs",
+      "current_git_blob": "5ee3f75e11ae753dfc3baf977b5d2823f49db826",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-ARMOR-EVIDENCE.json",
+          "ranges": [
+            [
+              1,
+              76
+            ]
+          ]
+        }
+      ]
     },
     {
       "original_index": 62,
@@ -698,7 +719,9 @@
       "historical_sha256": "aeeb06c19efd75896544fd2d7d89f4e664f10d8c005772ccc8516d69e27f1126",
       "registry_pointer": "/files/62",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-ARMOR-EVIDENCE.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
     },
     {
       "original_index": 63,
@@ -9003,7 +9026,21 @@
       "historical_sha256": "2f56c5185ec61241a7e4607eef02ebb4051e24dee918f5200585d586a4d971a8",
       "registry_pointer": "/files/865",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "current_git_blob": "795f62b1832f802b658d5bca24477088fdff1b38",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-ARMOR-EVIDENCE.json",
+          "ranges": [
+            [
+              300,
+              352
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 866,
@@ -9023,7 +9060,25 @@
       "historical_sha256": "204c03d01cb76d4603c9c42a010a5ccf300f65abe20d62ab307212fe2fac19bc",
       "registry_pointer": "/files/867",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence.rs",
+      "current_git_blob": "0b3403e92ae51bcda57d46cb7498be4acce93203",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-ARMOR-EVIDENCE.json",
+          "ranges": [
+            [
+              1,
+              125
+            ],
+            [
+              116,
+              165
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 868,
@@ -9033,7 +9088,21 @@
       "historical_sha256": "9a5f5b89b21f9f10d774f35eb8c9f2cc2c73ebd4a21faf917bae8cd0b428561c",
       "registry_pointer": "/files/868",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/armor.rs",
+      "current_git_blob": "5ee3f75e11ae753dfc3baf977b5d2823f49db826",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-ARMOR-EVIDENCE.json",
+          "ranges": [
+            [
+              1,
+              76
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 869,
@@ -21235,7 +21304,25 @@
       "historical_sha256": "351dc4cb2a26bcf9f8f708150890f43c3766a24c6d541eecdbe1a43869121f44",
       "registry_pointer": "/files/2009",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+      "current_git_blob": "9eec452ba5c56682bc04f970710da87d3685369f",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-STEP-RATES.json",
+          "ranges": [
+            [
+              1,
+              42
+            ],
+            [
+              48,
+              79
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 2010,
@@ -21255,7 +21342,21 @@
       "historical_sha256": "6b3523710ea972a96aebe9e062898169c56d10cf28ff987bdbfc36e5370521f0",
       "registry_pointer": "/files/2011",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal/autoresolve.rs",
+      "current_git_blob": "65adec66ac9e1dbead7eafb2b0e223d4b8cf2c1e",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-STEP-RATES.json",
+          "ranges": [
+            [
+              65,
+              126
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 2012,
@@ -21309,6 +21410,15 @@
             [
               125,
               176
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-ARMOR-EVIDENCE.json",
+          "ranges": [
+            [
+              68,
+              112
             ]
           ]
         }
@@ -29237,7 +29347,25 @@
       "historical_sha256": "8bebf038e281f0b1529dd8008a42379c43eac3e0c2f9767d9a29606eb69ddced",
       "registry_pointer": "/files/2766",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/combat/coverage.rs",
+      "current_git_blob": "1e9acdb65785b2a35098289da1104be6a484de5f",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-ARMOR-EVIDENCE.json",
+          "ranges": [
+            [
+              60,
+              112
+            ],
+            [
+              155,
+              176
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 2767,

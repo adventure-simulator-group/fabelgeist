@@ -57,6 +57,12 @@ if not re.search(r'FIXED_TIMESTEP_HZ:\s*f64\s*=\s*64\.0', sources[('reported_sel
     raise ValueError('selected tactical rate not found')
 if not re.search(r'autoresolve:\s*\n\s*combat_round_seconds:\s*1\.0', sources[('current_sources', yaml)]):
     raise ValueError('authored round value not found')
+audit = sources[('current_sources', 'crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs')]
+causal = sources[('current_sources', 'crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal/autoresolve.rs')]
+if '1.0_f32 / 64.0 + 1.0e-6' not in audit or 'maximum_movement_segment_seconds' not in audit:
+    raise ValueError('movement acceptance threshold not found')
+if 'maximum_movement_segment_seconds' not in causal or '.max(elapsed_measurement)' not in causal:
+    raise ValueError('movement segment report source not found')
 
 baseline = json.loads((root / 'BASELINE-20261110.json').read_text())
 progress = json.loads((root / 'CONTINUATION-PROGRESS.json').read_text())
