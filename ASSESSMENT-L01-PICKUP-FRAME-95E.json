@@ -1,0 +1,268 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded catalog-to-dropped-item and client/server pickup frame trace; source-only, independent lens coverage incomplete.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-tactical-server/src/equipment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "572b8fbbc7128b2450769629c320ad2ae9bea463",
+      "sha256": "294ef27435a3d5286f596695c442fb8bd28041af6d7b9ab24a27e1d8c4d2526f",
+      "bytes": 39728,
+      "lines": 1126,
+      "ranges": [
+        [
+          24,
+          34
+        ],
+        [
+          45,
+          54
+        ],
+        [
+          56,
+          90
+        ],
+        [
+          96,
+          172
+        ],
+        [
+          215,
+          232
+        ],
+        [
+          247,
+          263
+        ],
+        [
+          504,
+          625
+        ],
+        [
+          796,
+          808
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pickup-frame-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5bd51b919223279623bc728d4356e092e27c0448",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "bytes": 132880,
+      "lines": 3497,
+      "ranges": [
+        [
+          785,
+          829
+        ],
+        [
+          2335,
+          2379
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pickup-frame-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/inventory.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7ce298607e56c251a5841035d17b1601292ad542",
+      "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+      "bytes": 28617,
+      "lines": 862,
+      "ranges": [
+        [
+          167,
+          172
+        ],
+        [
+          199,
+          208
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pickup-frame-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/grab_world.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "71676c485cd891b9737d683030e346776d157060",
+      "sha256": "4b5e698d92f04c27f1c98dd09a71ddcab3ef0f38fec5bf5072dd917a1df5844b",
+      "bytes": 5330,
+      "lines": 152,
+      "ranges": [
+        [
+          15,
+          50
+        ],
+        [
+          85,
+          99
+        ],
+        [
+          103,
+          119
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pickup-frame-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b00f33154bbef769ede5059715d8c85e41c05498",
+      "sha256": "c94849ea996b6eea5f164b6e04f642241eb448a2869f33235c277cb978da2b1b",
+      "bytes": 50170,
+      "lines": 1341,
+      "ranges": [
+        [
+          67,
+          67
+        ],
+        [
+          205,
+          237
+        ],
+        [
+          242,
+          288
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pickup-frame-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/targeting.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "349fbe592054b78d1a0c6b9135920cdeb0c293c1",
+      "sha256": "d1d12b0de4fd11d6e6b88a8a2c5b8f61ef2e05121c72a09853d745dc7db54f5c",
+      "bytes": 2535,
+      "lines": 84,
+      "ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pickup-frame-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/placeholder_visual.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "83cd7a1eaf19697ab769dbe720164cffe2610c22",
+      "sha256": "43be98d339543f652eed674fbce2d8ceb5f22f1720fcd5758219f0535e494510",
+      "bytes": 1867,
+      "lines": 63,
+      "ranges": [
+        [
+          31,
+          55
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pickup-frame-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/items/catalog.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "047ffe1d42128b056f5c1b97106a7ed23d26263f",
+      "sha256": "2be8ff76fb41fc3e7872a3006e3f6201722bfd2c1ca372c4397db465a5772c50",
+      "bytes": 221503,
+      "lines": 9828,
+      "ranges": [
+        [
+          1981,
+          2012
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pickup-frame-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/message.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7f5b151b3531fe4c3eacb339d903b28ef514a25e",
+      "sha256": "61261c4055cee33ac91c6cdac317996352c4997f93cbd692a93448656a2db2eb",
+      "bytes": 15949,
+      "lines": 475,
+      "ranges": [
+        [
+          115,
+          151
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pickup-frame-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/replication.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8a61e133ac0e6d5caa491738795d94e3431b68a2",
+      "sha256": "44cf2776eaa433b9291858b34b3996df4fc9dde3def2980ebe83788b5f36fb3e",
+      "bytes": 10254,
+      "lines": 242,
+      "ranges": [
+        [
+          75,
+          87
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pickup-frame-sources/09.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "native_evidence": [
+    "native-evidence/avian3d-0.7.0/MANIFEST.json",
+    "native-evidence/parry3d-0.27.0/MANIFEST.json",
+    "native-evidence/bevy_transform-0.19.1/MANIFEST.json",
+    "native-evidence/glamx-0.2.0/MANIFEST.json"
+  ],
+  "historical_source": {
+    "checkpoint": "059",
+    "ledger": "baseline-059/ledger.json",
+    "contract_id": "ADLER-L11-PICKUP-ANCHOR-FRAME",
+    "source_roles": [
+      {
+        "index": 2048,
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/equipment.rs",
+        "sha256": "294ef27435a3d5286f596695c442fb8bd28041af6d7b9ab24a27e1d8c4d2526f",
+        "current_relation": "byte-match"
+      },
+      {
+        "index": 1475,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/grab_world.rs",
+        "sha256": "458e3d73d56242705d9f851842b96b9e5b302ecfffac569a0da3a43a5b3bd392",
+        "current_relation": "different"
+      }
+    ],
+    "qualification": "Original 059 evidence remains unchanged; exact file identities do not transfer other-lens or checkpoint 3821 credit."
+  },
+  "inspection_provenance": "Selected current source ranges personally inspected in c100 checkout with identical 95e tree entries; native ranges inspected from lock-checksum-bound archives. Source assertions were read, not run.",
+  "candidates": [
+    {
+      "id": "REVIEW-PICKUP-ANCHOR-WORLD-PROJECTION-001",
+      "severity": "P2 provisional; conditional pickup range disagreement for a rotated dropped item",
+      "classification": "same first-failure family as recovered 059 pickup-anchor frame, traced with current catalog and native geometry source",
+      "detail": "Server drop constructs a cuboid using physical dimensions as full extents, then a compound child at local -anchor_offset and spawns the dropped item with identity rotation and a dynamic rigid body. The pickup path later reads the item Transform but computes its center as translation minus the unrotated local offset. Range and terrain line-of-sight therefore use that helper position. The client selects scene items using GlobalTransform::transform_point(-anchor_offset), then sends a mapped Pickup action on release. The client and native compound pose apply rotation to the local offset; the server helper does not.",
+      "catalog_case": "For a projected non-parametric catalog halberd, dimensions are [0.16,2.1,0.08], grip-to-tip is 1.9 and local anchor offset is [0,-0.2,0]; current projection retains those catalog values if no accepted instance geometry replaces them and the source validity checks admit the resulting physical fields. With unit scale, a synchronized unparented item origin at (0,0,0), and an assumed +90 degree rotation about X, its local box center (0,+0.2,0) transforms to (0,0,+0.2). The server helper instead uses (0,+0.2,0). An actor at (0,0,2.15) is 1.95 m from the rotated center but approximately 2.159 m from the helper; the two-metre client targeting admits the former while server range rejects the latter. Given an empty hand, a clear client line of sight, a valid camera and no competing selection, the client can select and submit this target, conditional on the remaining action and network gates. This is source geometry and arithmetic only; no item, rotation, pickup, physics or runtime result was observed.",
+      "safeguards": "The dropped item starts at identity rotation, where both center calculations coincide. A vertical catalog offset is unchanged by yaw alone; the example requires pitch or roll. A dynamic rigid body can rotate in principle, but this trace does not establish that the particular supported item reaches the assumed pose, that client/server transforms are synchronized, or that the user sees the example. Server actor authority, sequence, revision, held-item and validity checks remain intact. The existing source assertion covers a nonzero offset without rotation; it was read, not run.",
+      "connected_scope": "Catalog/parametric physical dimensions and local anchor, dropped compound collider and dynamic world pose, replicated client GlobalTransform and target selection, mapped request identity and optimistic concurrency, server world-space range and terrain line of sight, inventory transfer.",
+      "proposed_repair": "After the complete audit and implementation authorization, project the same admitted local center through the captured authoritative item pose for both server range and line of sight; use the existing frame/physical owners and preserve identity-rotation drop construction, client selection and legitimate actor/sequence/revision safeguards. Establish unit-scale and parent/physics synchronization policy before choosing the exact transform owner.",
+      "later_acceptance": "When product validation is authorized, cover identity orientation, admitted nonzero offsets, pitch/roll versus yaw, boundary range on both sides, clear and blocked terrain line of sight, client selection/server agreement, and valid authority/revision/hand behavior using the real drop and pickup path.",
+      "historical_related_candidates": [
+        "ADLER-L11-PICKUP-ANCHOR-FRAME"
+      ],
+      "relationship_qualification": "Recovered 059 first-failure record and later historical qualifications retain original attribution, zero accepted unique-count change and incomplete status. Current server bytes match registered pr-working role 2048; current client bytes differ from historical pr-working role 1475. This separate 95e trace does not credit unread historical role bodies, other lenses or checkpoint 3821.",
+      "discovery": "partial; real rotated state, parent and scale policy, client/server timing, all physical producers, exact aliases and independent lenses remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Establish supported rotated dynamic state, transform and scale synchronization, all physical producers and historical aliases; independently assess every lens."
+}
