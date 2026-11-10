@@ -1,0 +1,52 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 629,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/exterior_access.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/629",
+      "sha256": "d894566a0df2de9fac64d4c280d294f9254efa76ee57571735fec57eb1213abf",
+      "lines": 150,
+      "new_personal_read_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 630,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/finishes.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/630",
+      "sha256": "8bee3e5050eda1118f1cb4b2a9e6c4dc213dd1f30619ffecbf54232a86377b96",
+      "lines": 69,
+      "new_personal_read_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    }
+  ],
+  "observations": [
+    "Role 629 constructs framed standing clearance rectangles from obstacles and performs a native slab intersection on checked endpoints. The separately recovered checkpoint 059 record SEGOVB-L13-STANDING-SLAB-FINITE-DIFFERENCE already identifies finite subtraction overflow and a source-only public API counterexample; this historical read neither creates a new unique finding nor reconciles the present revision or aliases.",
+    "Role 630 assigns finish variants after placement using a deterministic stream keyed by program seed, storey, room, kind, variant, position and facing, and fails explicitly if the referenced room is absent. Material/rendering consumers and identity and independent lenses remain open.",
+    "No product generation, build, test, audit, rendering, simulation or runtime probe ran."
+  ],
+  "remaining": "Independently trace present standing-clearance admission, operation and callers against the separately attributed 059 finding; inspect finish consumers and historical aliases and every independent lens."
+}
