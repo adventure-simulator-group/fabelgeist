@@ -44,6 +44,9 @@ question without claiming supported production reachability.
 suspicion and a separately qualified missing-birth view/reducer question.
 `ASSESSMENT-L01-QUANTITY-TARGET-95E.json` traces a retained inventory target
 authority boundary to an earlier, separately attributed actor-admission record.
+`ASSESSMENT-L01-DIALOGUE-RECEIPT-95E.json` connects a current action-receipt
+trace to the separately attributed checkpoint 059 answer finding. Its topic
+replay path and normal-client limits remain qualified.
 `ASSESSMENT-L01-DELETED-272.json` distinguishes the deleted physical-p16
 role from its independently verified pre-deletion base revision and bytes.
 `LOCKFILE-DELTA.json` preserves separate historical and predecessor comparisons

@@ -1,0 +1,156 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded shared dialogue action receipt, answer payload and topic request boundaries; independent lenses and all connected callers remain incomplete.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "38943030ed5707b3a7840e6488d797b27fffd4b4",
+      "sha256": "ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa",
+      "bytes": 24372,
+      "lines": 616,
+      "ranges": [
+        [
+          115,
+          143
+        ],
+        [
+          210,
+          217
+        ],
+        [
+          357,
+          365
+        ],
+        [
+          370,
+          452
+        ],
+        [
+          607,
+          612
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-receipt-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c5fffd572eb8f059f35e24d96942b42130873818",
+      "sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+      "bytes": 25076,
+      "lines": 781,
+      "ranges": [
+        [
+          255,
+          277
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-receipt-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8193eef1602b1845c5a58ecee2df265c5d6a3f83",
+      "sha256": "f9a27db833d675b23a449676ecfd6d878c0357f2a5190f6a649341766c5ee33c",
+      "bytes": 53120,
+      "lines": 1408,
+      "ranges": [
+        [
+          180,
+          211
+        ],
+        [
+          252,
+          299
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-receipt-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/dialogue.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "12479288a7088740a84536807f5ab2d08ebc9dd8",
+      "sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "bytes": 66234,
+      "lines": 1897,
+      "ranges": [
+        [
+          1651,
+          1682
+        ],
+        [
+          1684,
+          1692
+        ],
+        [
+          1695,
+          1759
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-receipt-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/static/dialogue-client.js",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e2bfcbe72b886e4b7e98444bee27e2aa8771ca0a",
+      "sha256": "dd5524466d59c0e52e3a527e31b8cc005ebf64f581b89a08801e2195943fcf19",
+      "bytes": 52071,
+      "lines": 825,
+      "ranges": [
+        [
+          33,
+          71
+        ],
+        [
+          263,
+          272
+        ],
+        [
+          623,
+          680
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-receipt-sources/04.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "inspection_provenance": "Selected ranges were personally inspected in the predecessor checkout and current Git source; preserved c100 and 95e trees bind identical blobs. Original pr-working role 1215 matches the current prompt body; separately read physical-p16 role 278 differs.",
+  "historical_source": {
+    "checkpoint": "059",
+    "ledger": "baseline-059/ledger.json",
+    "answer_pointer": "/discovery_findings_and_dependencies/ADLER-L11-DIALOGUE-ANSWER-RECEIPT",
+    "case_fact_pointer": "/discovery_findings_and_dependencies/ADLER-L11-CASE-FACT-SOURCE-REPLAY",
+    "matching_role_index": 1215,
+    "matching_source_sha256": "ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa",
+    "different_physical_p16_role_index": 278,
+    "different_physical_p16_sha256": "d00168e23c47224b67755629192618e89fd66e2dc3c2f2440e4e2193acacaf4e",
+    "qualification": "Byte-matched pr-working historical answer record and separately read differing physical-p16 body; original records remain historical and are not checkpoint 3821."
+  },
+  "candidates": [
+    {
+      "id": "REVIEW-DIALOGUE-ACTION-RECEIPT-001",
+      "classification": "source-derived conditional dialogue action receipt/request mismatch; client reachability and intended retry policy remain open",
+      "detail": "For an active session with live presence and a valid catalog and action ID, choose_dialogue_topic looks up the shared session/action receipt and immediately returns Ok if any receipt exists, before comparing the requested topic, action kind, expected session revision or stored session catalog revision. Thus reuse of the ID from an earlier answer, join, or different topic can report success without executing the requested topic. The web topic route forwards the caller-provided action ID and, if the subsequent view succeeds, returns that view. For an answer, a matching prompt-scoped receipt returns Ok before the supplied choices are parsed or compared with the original DialogueAnswer; a different prompt or action kind is rejected. This does not imply duplicate effects or prove any normal user observed a failure. No request, database operation or browser was run.",
+      "safeguards": "Both paths require the strategic gateway, accepted catalog digest and valid action ID; the topic path requires active session membership and live presence, and the answer path also checks the respondent role. Fresh answer requests validate choices and store the original actor and ballot. The normal browser source creates a fresh random action ID for each topic or answer attempt rather than deliberately replaying its prior ID, while another errantry action uses a retained retry ID. Existing committed receipts prevent repeat effect dispatch; source alone does not establish supported changed-payload retry or normal-client collision.",
+      "connected_scope": "The shared DialogueAction receipt across join, topic and answer, DialogueAnswer actor and normalized ballot, session membership and catalog/revision checks, web request-to-session binding, browser request-ID lifecycle, prompt policy including multi/unanimous ordering, lost-response handling and all other producers/consumers.",
+      "proposed_repair": "After complete policy discovery, define one receipt/request identity for each admitted dialogue action, bind it to the authenticated actor and canonical operation payload using the existing answer authority where appropriate, reject or explicitly classify conflicting reuse, and preserve legitimate lost-response replay and single effect application without compatibility shims.",
+      "later_acceptance": "After product validation is authorized, check exact lost-response replay, changed topic, cross-kind reuse, changed answer and changed actor against the chosen contract; preserve fresh valid topic, prompt and join flows, original ballot semantics and non-repetition of effects.",
+      "historical_related_candidates": [
+        "ADLER-L11-DIALOGUE-ANSWER-RECEIPT",
+        "ADLER-L11-CASE-FACT-SOURCE-REPLAY"
+      ],
+      "relationship_qualification": "Checkpoint 059 already records the answer payload association gap and its original pr-working dialogue_prompts.rs source hash is identical to 95e. This current trace adds the related topic/cross-kind early return and browser limits. The older answer and fact-source records retain their original attribution, open status and zero accepted unique-count change. The personally read physical-p16 dialogue_prompts body is different. The two historical records are related but are not declared identical; no new independent unique failure, global alias, whole-lens closure or checkpoint 3821 state is asserted.",
+      "discovery": "partial; all request producers, retry policy, ballot ordering, actor association and global historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Trace all dialogue action producers, authenticated actor and session boundaries, exact lost-response policy, stored answer normalization, multi/unanimous ordering and historical aliases. Independently assess all thirteen lenses; no repair or product validation."
+}
