@@ -1,0 +1,160 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "CharacterLod table-index admission at the selected creator owner and selected model/export call sites; not full mesh or renderer validation.",
+  "inspection_provenance": "Historical role 818 was personally read and hash-verified. Selected current source ranges are independently read and Git-bound. No LOD input, model, UI or product ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-character-creator/src/lod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "26bfedd78103f821102ba1342c8353651bb11ac9",
+      "sha256": "73ad82b91f4b15146231c922544a72466849407fc7fca6ebe2268d78f45d7fa3",
+      "bytes": 1007,
+      "lines": 39,
+      "ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/lod-safeguard-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e4a813d30bd167d41a19986a5218ecce14b8bae9",
+      "sha256": "519fa046f1efe05c4cf36c5780ae989d72643ea47ed72f8dcf203d10e00ddd60",
+      "bytes": 18532,
+      "lines": 474,
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/lod-safeguard-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "78258981301c8c6dff66b0464986f479acea6168",
+      "sha256": "f760d4ca6d1b6e6c9909be505ee450addca82166bc499f403db08c897d69836d",
+      "bytes": 1656,
+      "lines": 43,
+      "ranges": [
+        [
+          26,
+          42
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/lod-safeguard-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/model_controls.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "eff8fdb3c9534750a6ddf549b7d850a1fe813174",
+      "sha256": "f52b873a70ee6fd3ac34fc78e3acb63fac9b6466d973114ca313fe066105b5ae",
+      "bytes": 1336,
+      "lines": 40,
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/lod-safeguard-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/cli.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "93d42e7aca28f9ccc8fc173050acf9e3498b946f",
+      "sha256": "75a646db6855544be80e795e8a46aa8467929113159c7c94011e641e00472c9c",
+      "bytes": 3100,
+      "lines": 70,
+      "ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/lod-safeguard-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/main.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e29f2c7292e67cb7c3d542bb601dcdb9ed3a64b8",
+      "sha256": "076c2d6f80214f1546520c29f4a7d418a7e2d53f55708d2b7081841273769a5f",
+      "bytes": 24202,
+      "lines": 667,
+      "ranges": [
+        [
+          408,
+          428
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/lod-safeguard-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "faa5b2fa34227e958a49d3cd64d22b41f2904154",
+      "sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+      "bytes": 5949,
+      "lines": 164,
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/lod-safeguard-sources/06.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "historical_sources": [
+    {
+      "original_role_index": 818,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/lod.rs",
+      "sha256": "73ad82b91f4b15146231c922544a72466849407fc7fca6ebe2268d78f45d7fa3",
+      "current_sha256": "73ad82b91f4b15146231c922544a72466849407fc7fca6ebe2268d78f45d7fa3",
+      "byte_identical": true,
+      "role_status": "full-historical-body-trace-open",
+      "qualification": "Historical PR-working source retains its own revision and attribution; byte identity grants no checkpoint 3821 or other-lens coverage."
+    }
+  ],
+  "dispositions": [
+    {
+      "id": "NONFINDING-CHARACTER-LOD-TABLE-INDEX-001",
+      "disposition": "The inspected public CharacterLod owner cannot reach its three-element vertex table with an out-of-range u8 through its normal TryFrom admission.",
+      "trace": "CharacterLod has a private u8 field and TryFrom admits only the re-exported MHR MIN_LOD through MAX_LOD inclusive. At 95e those constants are 4 and 6, so the admitted index self.0 - MIN_CHARACTER_LOD is 0, 1 or 2, exactly within the three-element [2461, 971, 595] table. The creator CLI declares the same range, load_body_model calls TryFrom before Mhr::from_files, and the GLB export validator calls TryFrom. This is source and bounded integer reasoning; no constructor, input, widget, export or test was executed.",
+      "remaining": "This does not prove model asset vertex counts, topology, UI widget output, every native MHR caller or full exporter admission. The model control declares a slider range but its expect and actual widget behavior were not executed. Other lenses, producers, historical aliases and 059 native-geometry contract remain open."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/153",
+      "id": "Character/armor/forearm native geometry and morph admission",
+      "qualification": "Earlier broader contract required current LOD policy and native geometry admission; this limited table-index safeguard does not close it."
+    }
+  ],
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-072.json",
+      "sha256": "2d8b75ddbf870febd76094d6f5ad402ca1942f05ab6aceb9a46216915feb9d85",
+      "bytes": 16071,
+      "preserved_bytes": "recovered/lod-safeguard-059/2d8b75ddbf870febd76094d6f5ad402ca1942f05ab6aceb9a46216915feb9d85.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Original transport-manifest hash verified; prior delegated attribution and revision remain unchanged."
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

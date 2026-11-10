@@ -130,6 +130,10 @@ part field and inoperative editor command against the repository rule; the
 semantic assembly and remaining consumers need independent review.
 `ASSESSMENT-L01-HISTORICAL-734-740.json` records frozen garment fit
 and shader source reads; no device or test ran.
+`ASSESSMENT-L01-LOD-SAFEGUARD-95E.json` records the bounded checked
+LOD table-index nonfinding, leaving model and UI behavior open.
+`ASSESSMENT-L01-HISTORICAL-817-824.json` records frozen creator and
+preview source reads; source tests were read only.
 `ASSESSMENT-L01-INVENTORY-BOUNDARIES-95E.json` traces creator ID
 allocation and attachment capacity against their earlier findings.
 `ASSESSMENT-L01-HISTORICAL-809-816.json` records frozen inventory and
