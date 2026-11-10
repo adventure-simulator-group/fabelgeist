@@ -1,0 +1,365 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected authored threat protection, combat snapshot projection and melee shield consumers, with separately attributed frozen historical source reads.",
+  "source_reasoning": "Static source inspection only; no catalog parser, combat, fixture, product build, test or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "content/quests/bestiary.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cbb2da872087dfcef9ffa6569da78b4914a67cfc",
+      "sha256": "90d87627259fc1034f5c063cd4ac0b90fcc82be4e716c30a33d3bda8b3117af5",
+      "bytes": 32501,
+      "lines": 156,
+      "ranges": [
+        [
+          39,
+          51
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-shield-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_catalog_validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4388585e545d4897610e16cc125079af8b635414",
+      "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+      "bytes": 66249,
+      "lines": 1526,
+      "ranges": [
+        [
+          532,
+          556
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-shield-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/bestiary.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2c97f78c7e667eb250f14a0535bb297abeb9c547",
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "bytes": 54113,
+      "lines": 1558,
+      "ranges": [
+        [
+          150,
+          162
+        ],
+        [
+          596,
+          608
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-shield-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/threat.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bb551123f207bbf86a7cb07a27ff135477606c43",
+      "sha256": "58a5e53d2fdf5283f4e7ba8a58f1335f894bb6b4ab4524f3684f92bbca8dc106",
+      "bytes": 6405,
+      "lines": 187,
+      "ranges": [
+        [
+          25,
+          69
+        ],
+        [
+          89,
+          101
+        ],
+        [
+          147,
+          175
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-shield-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d06567c39d00f2e8319772272807da6c86f48dfa",
+      "sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+      "bytes": 11543,
+      "lines": 363,
+      "ranges": [
+        [
+          85,
+          100
+        ],
+        [
+          215,
+          241
+        ],
+        [
+          323,
+          331
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-shield-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "38e9e93154e06307c59fb5e70ff81a4b90013295",
+      "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "bytes": 100462,
+      "lines": 2878,
+      "ranges": [
+        [
+          129,
+          145
+        ],
+        [
+          602,
+          625
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-shield-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7be0b2ef2c085026b7b6a5c77ffb2c17c1417913",
+      "sha256": "6c64790c60c4ad2b52d4e3a18e312b8be73cb714ec27aa194f9a345d17eda293",
+      "bytes": 8414,
+      "lines": 221,
+      "ranges": [
+        [
+          19,
+          56
+        ],
+        [
+          112,
+          128
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-shield-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c1688817265d07fa00b804ff37a2e76922eb3e78",
+      "sha256": "52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "bytes": 8629,
+      "lines": 239,
+      "ranges": [
+        [
+          155,
+          185
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-shield-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2baf681e104881b9b0ddf67f258ffcd96fc478f7",
+      "sha256": "3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "bytes": 22474,
+      "lines": 595,
+      "ranges": [
+        [
+          410,
+          432
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-shield-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/defense.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4ec3c75e8a55254735b6a861d9721ba5b7e002a5",
+      "sha256": "a3019cfa64106abc38bbfa7b0962e406cc6cb1a1a663a8a0dfdee71f874201e1",
+      "bytes": 17674,
+      "lines": 444,
+      "ranges": [
+        [
+          165,
+          192
+        ],
+        [
+          196,
+          211
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-shield-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/targeting.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b8bfc5cf6883356f2bb6ac2b61f6c9f34d53495c",
+      "sha256": "ef6af9c32d9abfa63057616b145b7777bcd39042472238e8966e73cbab202c08",
+      "bytes": 15755,
+      "lines": 427,
+      "ranges": [
+        [
+          99,
+          124
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-shield-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/power.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f4c6df68225fa92dfbf3b8d372aeaa05afbb625e",
+      "sha256": "76922a00bc1d4bf13c6d972aaba83258551ce853fff438f2edc3f0d295ae025a",
+      "bytes": 6098,
+      "lines": 168,
+      "ranges": [
+        [
+          135,
+          145
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-shield-sources/11.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "795f62b1832f802b658d5bca24477088fdff1b38",
+      "sha256": "2f56c5185ec61241a7e4607eef02ebb4051e24dee918f5200585d586a4d971a8",
+      "bytes": 31415,
+      "lines": 866,
+      "ranges": [
+        [
+          262,
+          294
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-shield-sources/12.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/autoresolve.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fda46bba04799966f56fd65eae206557df5c6afe",
+      "sha256": "b475a0317b7ceda238789e057c6c302ca8ca83924b7cb09b13807a2e70b63782",
+      "bytes": 8849,
+      "lines": 235,
+      "ranges": [
+        [
+          120,
+          150
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-shield-sources/13.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2c0b4913c81fa6f89510a5b2bf6c62ec693f2add",
+      "sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+      "bytes": 54084,
+      "lines": 1463,
+      "ranges": [
+        [
+          1012,
+          1053
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-shield-sources/14.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f81d693da7d589fb8295931442850ca28946dd94",
+      "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+      "bytes": 117342,
+      "lines": 2973,
+      "ranges": [
+        [
+          195,
+          225
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-shield-sources/15.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "273eafd632bcd254869f05ba77a9b7be4cf94d72",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "bytes": 51546,
+      "lines": 1586,
+      "ranges": [
+        [
+          238,
+          269
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-shield-sources/16.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/incidents.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "97602f7bf8961bf96a6698dc6c2600d6a9eeb036",
+      "sha256": "9358dd5b0a17f5f01f321c614d3c3309139134a24febfb634a9e6fa19eb0d622",
+      "bytes": 23893,
+      "lines": 703,
+      "ranges": [
+        [
+          396,
+          439
+        ],
+        [
+          455,
+          474
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-shield-sources/17.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 875,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/model.rs",
+      "historical_sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-866-878.json",
+      "qualification": "Frozen PR-working source role retains its own Lens 1 body attribution. Byte equality grants no independent-lens or checkpoint 3821 credit."
+    },
+    {
+      "original_index": 877,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/threat.rs",
+      "historical_sha256": "58a5e53d2fdf5283f4e7ba8a58f1335f894bb6b4ab4524f3684f92bbca8dc106",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-866-878.json",
+      "qualification": "Frozen PR-working source role retains its own Lens 1 body attribution. Byte equality grants no independent-lens or checkpoint 3821 credit."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-AUTORESOLVE-AUTHORED-SHIELD-PROJECTION-001",
+      "severity": "P2 conditional: authored threat protection does not consistently reach shield defense",
+      "classification": "New bounded 95e producer-to-consumer trace; historical aliases and design policy remain open.",
+      "trace": "The checked-in town_watch profile says protection=shielded; the catalog validator admits that spelling and bestiary conversion produces Protection::Shielded. authored_threat_combatant starts from Combatant::new and default equipment, builds the melee weapon and grants trained block skill for Shielded or Armored. Only the Armored branch sets shield_block_bonus=1.0; neither branch assigns shield_side or defense_item_id. Thus the selected shielded profile retains bonus 0 and side None despite its authored protection tag. Its melee weapon may still support an ordinary block: this is not a claim that it cannot defend. For a separately selected Armored profile the producer sets a positive shield bonus but retains side None. A selected block then reaches shield_aligned_response, whose None-side branch returns the input response unchanged instead of applying the directional shield geometry; the positive bonus is also consumed by melee-defense and combat-power calculations. The normal authored iteration equipment example assigns bonus, hand and defense item together, demonstrating a different selected producer, not universal admission.",
+      "safeguards_and_limits": "The public builder can be called with the checked-in threat ID, and selected strategic encounter/mission and observer-power paths call the same builder. Incident source names town_watch and armed_retainer but its complete battle handoff and a realized encounter were not traced. The code does not prove that every armored threat is intended to have a shield, which hand or item it should use, that a block is selected in a particular battle, or that the player observed a discrepancy. No tactical-session parity or database persistence is inferred. Different complete producers, catalog semantics, output visibility and historical aliases remain open.",
+      "connected_repair": "Reconcile the authored protection contract and its representation with the actual combat equipment projection, shield presence, hand, item identity, block selection, directional alignment and observer-power calculation. If armor and shield are independent properties, represent the supported combinations explicitly; do not infer shield possession for all armored threats or suppress ordinary weapon defense. Keep player-relevant defense factors legible and preserve the strategic/tactical authority boundary.",
+      "acceptance": "After separate implementation authorization, verify each supported shielded, armored-only, shield-plus-armor and unshielded profile under the chosen authoring contract, including actual hand/geometry, item identity where present, ordinary weapon block and observer-power consistency. Product validation remains deferred.",
+      "discovery": "partial; authored shield/armor policy, actual selected encounters, all consumers and historical aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

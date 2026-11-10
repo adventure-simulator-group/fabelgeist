@@ -130,6 +130,11 @@ part field and inoperative editor command against the repository rule; the
 semantic assembly and remaining consumers need independent review.
 `ASSESSMENT-L01-HISTORICAL-734-740.json` records frozen garment fit
 and shader source reads; no device or test ran.
+`ASSESSMENT-L01-THREAT-SHIELD-95E.json` traces authored threat protection
+through selected shield-defense and power consumers. Actual battles and
+the intended shield/armor policy remain open.
+`ASSESSMENT-L01-HISTORICAL-866-878.json` records separately attributed
+frozen source reads, including source-only tests; no lens is complete.
 `ASSESSMENT-L01-ATTACK-IDENTITY-95E.json` reconnects the earlier packed
 attack-ID concern to current batch metadata, preserving the original 059
 receipts and a byte-identical older handoff Git cross-check. No roster
