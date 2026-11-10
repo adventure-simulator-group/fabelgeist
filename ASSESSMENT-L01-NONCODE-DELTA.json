@@ -1,0 +1,58 @@
+{
+  "schema": "726-noncode-delta-assessment-v1",
+  "lens": 1,
+  "source_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "comparison_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+  "qualification": "Source-role applicability only at the three named paths. No commands shown in the documents were executed. Other lenses and every referenced implementation path remain open.",
+  "paths": [
+    {
+      "path": "DEPLOY.md",
+      "previous_selected_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "previous_source": {
+        "sha256": "290867b7282506b85862666fa4f6856689309764b2f8aa65a4b79947d441f112",
+        "bytes": 8719,
+        "lines": 194
+      },
+      "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "current_source": {
+        "sha256": "1e5f0ced4d7f130934408a6393be580e577aa4f49f732be39d9aff43c93eb8c0",
+        "bytes": 8866,
+        "lines": 197
+      },
+      "inspected_body": "current complete text",
+      "disposition": "non-applicable to producer-propagation for this path",
+      "reason": "Deployment guide prose and shell-command examples only; it does not implement a game-value producer. Deployment scripts and their contracts must be inspected separately.",
+      "limits": "This disposition does not validate documentation claims, deployment, CSS behavior, named implementation code, any other lens, or the historical full scope."
+    },
+    {
+      "path": "scripts/build-artifacts.md",
+      "previous_selected_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "previous_source": null,
+      "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "current_source": {
+        "sha256": "b054941e1a5b15ed0494156b4815f8009e1d7ea326c5c6d950c73bcfe398a977",
+        "bytes": 6100,
+        "lines": 110
+      },
+      "inspected_body": "current complete text",
+      "disposition": "non-applicable to producer-propagation for this path",
+      "reason": "Developer build-artifact guide and command examples only; it does not implement a game-value producer. Build scripts, Cargo manifests, and actual feature selections retain their own audit obligations.",
+      "limits": "This disposition does not validate documentation claims, deployment, CSS behavior, named implementation code, any other lens, or the historical full scope."
+    },
+    {
+      "path": "assets/ui.css",
+      "previous_selected_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "previous_source": {
+        "sha256": "6de9efd5a6df7e220b0e30f51f8e8b1aa9c0960a609a4a3101d062e1a62836f4",
+        "bytes": 3190,
+        "lines": 214
+      },
+      "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "current_source": null,
+      "inspected_body": "complete prior stylesheet and current absence",
+      "disposition": "non-applicable to producer-propagation for this path",
+      "reason": "At the prior selected source this was a stylesheet of selectors, properties, animation and visual custom-property consumption; it is absent at the current source pin. It does not implement an application bespoke-value producer or API. The surviving HUD code and visual/behavior lenses remain separately open.",
+      "limits": "This disposition does not validate documentation claims, deployment, CSS behavior, named implementation code, any other lens, or the historical full scope."
+    }
+  ]
+}
