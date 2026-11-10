@@ -1,0 +1,52 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 482,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/math/mod.rs",
+      "snapshot": "pinned-registry",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/482",
+      "sha256": "67a006eda87315f690718b4d9c45b656b04958f32a80dffb0700cd9fa2d3a0e0",
+      "lines": 668,
+      "new_personal_read_ranges": [
+        [
+          1,
+          668
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "matching_lock_checksum_archive": "native-evidence/avian3d-0.7.0/MANIFEST.json",
+      "matching_archive_member": "avian3d-0.7.0/src/math/mod.rs",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of this registered native source; matches current lock-checksum archive. Feature resolution, product usage and independent lenses are open."
+    },
+    {
+      "original_index": 483,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/math/single.rs",
+      "snapshot": "pinned-registry",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/483",
+      "sha256": "279b93c665684614416422084c7c9a7aca565ef6a57bd3fa61e76e388a1f71b9",
+      "lines": 146,
+      "new_personal_read_ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "matching_lock_checksum_archive": "native-evidence/avian3d-0.7.0/MANIFEST.json",
+      "matching_archive_member": "avian3d-0.7.0/src/math/single.rs",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of this registered native source; matches current lock-checksum archive. Feature resolution, product usage and independent lenses are open."
+    }
+  ],
+  "observations": [
+    "The native math module selects dimensions, scalar and vector representations by features; the single-precision module aliases scalar to f32 and maps double-precision types down via casts. Actual application dependency features and acceptable precision or finite-value admission remain untraced.",
+    "Reciprocal-or-zero handles zero and nonfinite operands before reciprocal; matrix inverse-or-zero tests exact determinant zero, and isotropy checks use both approximate diagonal comparisons and strict off-diagonal epsilon comparisons. Whether any supported producer yields problematic matrices or tolerances, and which consumer depends on the result, remains open; no numerical result or defect is asserted.",
+    "The 3D make_pose passes position and rotation into Parry pose construction, distinct from application local/world conversion. Exact current archive bytes do not prove engine scheduling or product behavior. No product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace actual enabled features, native vector and matrix implementation, frame conversion producers/consumers, supported numeric admission and all historical aliases. Independently assess all lenses."
+}
