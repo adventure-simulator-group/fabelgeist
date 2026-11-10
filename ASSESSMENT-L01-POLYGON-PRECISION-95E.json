@@ -1,0 +1,211 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Mixed-scale finite polygon admission and selected scene/transport consumers; independent lenses remain incomplete.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-building-generator/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "62ab56a0c960efd034b9a714faa09d7e327d2621",
+      "sha256": "ef8b3008250e9d2647e6d465f9b3c8bd2a2eb9642e61cb89a9e26590db1f70ac",
+      "bytes": 2967,
+      "lines": 87,
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/polygon-precision-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/plan_geometry.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cb2bed2cdcc749234530f8848d40e46e9654a1da",
+      "sha256": "a767ca4e45d2c04ddf94d1f23452ecbb3a5c6c864bc8ce63fc673e6f39e5b92b",
+      "bytes": 11702,
+      "lines": 341,
+      "ranges": [
+        [
+          1,
+          341
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/polygon-precision-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/collision/footprint.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d747eaf876ae0609eaf7783212875b7397b9277f",
+      "sha256": "a604e090ddcb7325da0a3e34907c426cedc7643a88d06cc84f032b853d50baf8",
+      "bytes": 2688,
+      "lines": 80,
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/polygon-precision-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/collision/ground_contact.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cfec5bc06298a081389c02670805ff24211b2df7",
+      "sha256": "76849b38576c81c1060d2720809c0eea1ad64d3e318b70ea8ecb38719b3b17ee",
+      "bytes": 13985,
+      "lines": 393,
+      "ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/polygon-precision-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "beb78ae1974fbedefb8b468e91f5a14be26e170e",
+      "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+      "bytes": 4219,
+      "lines": 122,
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/polygon-precision-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_coordinates/polygon.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d9b9eb0cc30ed8aa99dd145b402b09ac1dc03920",
+      "sha256": "e2ab1721fe7a2424bb3b878a6e98d58d12b6f1edc5ef39a0ae15a8bd3f322956",
+      "bytes": 7471,
+      "lines": 191,
+      "ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/polygon-precision-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/region.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2ab1b2cbd19486a8da34436b528fbfad4cbabff0",
+      "sha256": "0776d212c25f4a233acb887f1fa0e5318c494cff1121dfb5125e6f5105d3d409",
+      "bytes": 4332,
+      "lines": 121,
+      "ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/polygon-precision-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          2292,
+          2302
+        ],
+        [
+          5420,
+          5431
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/polygon-precision-sources/07.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "native_dependencies": [
+    {
+      "manifest": "native-evidence/glam-0.32.1/MANIFEST.json",
+      "archive_sha256": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+      "members": [
+        {
+          "path": "glam-0.32.1/src/f32/vec2.rs",
+          "sha256": "8ee0ec795ff706b0ee737e06378aac90b04d970b7f5c9f997f11c3123f5aedf6",
+          "bytes": 50951,
+          "personally_inspected_ranges": [
+            [
+              1082,
+              1088
+            ]
+          ]
+        },
+        {
+          "path": "glam-0.32.1/src/f64/dvec2.rs",
+          "sha256": "293c86d7ec7edfe8ecae64122662d16491b985aa607f1add0d3e0f18535cba05",
+          "bytes": 51618,
+          "personally_inspected_ranges": [
+            [
+              1038,
+              1050
+            ],
+            [
+              1573,
+              1582
+            ]
+          ]
+        }
+      ],
+      "qualification": "Lock-bound conversion and determinant source only; product feature resolution and execution remain unverified."
+    }
+  ],
+  "inspection_provenance": "Personally read selected current source and locked native ranges; source bytes bind to 95e and identical predecessor tree entries. Frozen role 651 and checkpoint 059 queue retain separate attribution. No product code ran.",
+  "historical_source": {
+    "checkpoint": "059",
+    "queue": "baseline-059/queue.json",
+    "queue_pointer": "/entries/1575",
+    "contract_id": "Q-L12-6049c76da1ad29b34469",
+    "historical_source_role": {
+      "index": 651,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/plan_geometry.rs",
+      "sha256": "a767ca4e45d2c04ddf94d1f23452ecbb3a5c6c864bc8ce63fc673e6f39e5b92b",
+      "assessment": "ASSESSMENT-L01-HISTORICAL-651-656.json",
+      "relation": "byte match"
+    },
+    "qualification": "Broader historical inquiry, not an asserted exact finding alias or checkpoint 3821 state."
+  },
+  "candidates": [
+    {
+      "id": "REVIEW-PLAN-POLYGON-MIXED-SCALE-AREA-001",
+      "severity": "P3 provisional; a finite extreme-scale convex triangle is rejected as degenerate by the public polygon constructor",
+      "classification": "new 95e source and IEEE-arithmetic trace; related to a broader recovered 059 canonical polygon admission question, exact historical alias unresolved",
+      "detail": "ArchitecturalPlanPoint admits any finite f32 pair. PlanPolygon::from_ordered_vertices promises finite nondegenerate counterclockwise convex vertices, but its signed_area subtracts the first point after widening each f32 coordinate to f64 and treats an exactly zero computed sum as degenerate. Widening avoids f32 range overflow but cannot preserve every difference between f32 coordinates at vastly different exponents.",
+      "source_only_case": "Let M=2^60, exactly representable and finite in f32, and use ordered points A=(M,M), B=(0,0), C=(1,0). All three points are distinct and finite; their exact determinant (B\u2212A)\u00d7(C\u2212A) is M > 0, so the triangle is counterclockwise with area M/2. At f64 precision, the nearest representable value below M is M\u2212128, so 1\u2212M rounds to \u2212M. The translated vectors for B and C both become (\u2212M,\u2212M); their computed determinant and signed_area are zero, and the constructor returns DegeneratePolygon before its duplicate or convexity checks. This is integer/IEEE reasoning from source, not an executed constructor, product test or runtime probe.",
+      "consumer_and_safeguards": "ScenePlanPolygon::from_ordered_vertices delegates to the same PlanPolygon constructor for finite scene points; FloorRegion wire admission reconstructs either a scene polygon or an architectural polygon before projection, so the same rejection can propagate if an input of that shape reaches those paths. Ground-contact and floor-footprint source uses the related PlanHull cross predicate, but this particular witness has not been shown to misclassify a hull. ScenePlanPolygon::from_architectural deliberately uses its own rounding-aware rigid-projection policy; this observation does not propose replacing that path with strict arbitrary-polygon revalidation. No ordinary generated city, real transport input, terrain or gameplay failure is demonstrated.",
+      "connected_scope": "Finite point admission; public ordered polygon area and orientation predicates; scene polygon and floor-region wire admission; separately qualified rigid projections; PlanHull and ground-contact owners; errors and actual input bounds; historical aliases.",
+      "proposed_repair": "After audit completion and implementation authorization, decide the supported coordinate and topology policy. Use a robust sign/area predicate for the full promised finite input domain or explicitly admit a defensible narrower domain before geometry operations, while preserving signed-zero, collinear boundary, genuine zero-area and rounded rigid-projection behavior.",
+      "later_acceptance": "When product validation is authorized, cover the exact finite counterexample, reversed order, genuine collinear and duplicate points, ordinary near-collinear shapes, mixed exponent extremes, mapped polygons, scene/floor transport and the distinct rounded projection contract.",
+      "historical_related_candidates": [
+        "Q-L12-6049c76da1ad29b34469"
+      ],
+      "relationship_qualification": "Checkpoint 059 queue Q-L12-6049c76da1ad29b34469 asks broadly for canonical polygon admission and distinguishes rounded projection; it did not state this witness. It remains open with original attribution. This relation is not an alias decision, accepted unique-count update, queue reconciliation or checkpoint 3821 recovery.",
+      "discovery": "partial; supported coordinate bounds, other predicates and consumers, complete historical alias inventory and all independent lenses remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Trace supported coordinate ranges, all area and cross consumers, exact aliases and distinct rigid-projection policies; independently complete every lens."
+}

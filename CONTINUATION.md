@@ -116,6 +116,9 @@ application reachability remains open.
 `ASSESSMENT-L01-BELFRY-SHELL-95E.json` connects a conditional zero-edge
 normalization to its separately attributed 059 contract and the ordinary
 positive-stage producer; accepted-plan ingress remains open.
+`ASSESSMENT-L01-POLYGON-PRECISION-95E.json` traces an extreme finite
+triangle rejected by mixed-scale area arithmetic and relates it to a broader
+059 polygon-admission question; supported-world reachability remains open.
 `ASSESSMENT-L01-DELETED-272.json` distinguishes the deleted physical-p16
 role from its independently verified pre-deletion base revision and bytes.
 `ASSESSMENT-L01-DELETED-501.json` and `ASSESSMENT-L01-DELETED-2416.json`
