@@ -1,0 +1,52 @@
+{
+  "schema": "726-native-archive-evidence-v1",
+  "package": "bytes",
+  "version": "1.12.1",
+  "archive": "bytes-1.12.1.crate",
+  "sha256": "fc652a48c352aef3ea3aed32080501cf3ef6ed5da78602a020c991775b0aff04",
+  "bytes": 75667,
+  "provenance": "Locally cached crates.io archive verified against the preserved Cargo.lock at current source revision 95e.",
+  "qualification": "Only cited ranges were personally inspected. No feature resolution, compiler, product decoder or runtime probe ran.",
+  "inspected_members": [
+    {
+      "path": "bytes-1.12.1/src/buf/buf_impl.rs",
+      "sha256": "f1095872bba7c9d5170207750f4ebe4fa61c4e35a282569491c2ee8ea2dc6714",
+      "bytes": 86641
+    },
+    {
+      "path": "bytes-1.12.1/src/buf/chain.rs",
+      "sha256": "27ff0a6fce049c51a24d45003b9741b655c28330b48af23ad1514587760b0c93",
+      "bytes": 5505
+    },
+    {
+      "path": "bytes-1.12.1/src/bytes.rs",
+      "sha256": "eee15c02105022837d6ed01c6863fee58802ce7bd7c300e158521c9ae61257fc",
+      "bytes": 48531
+    },
+    {
+      "path": "bytes-1.12.1/LICENSE",
+      "sha256": "45f522cacecb1023856e46df79ca625dfc550c94910078bd8aec6e02880b3d42",
+      "bytes": 1055
+    }
+  ],
+  "personally_inspected_ranges": {
+    "bytes-1.12.1/src/buf/buf_impl.rs": [
+      [
+        120,
+        181
+      ]
+    ],
+    "bytes-1.12.1/src/buf/chain.rs": [
+      [
+        130,
+        164
+      ]
+    ],
+    "bytes-1.12.1/src/bytes.rs": [
+      [
+        681,
+        702
+      ]
+    ]
+  }
+}

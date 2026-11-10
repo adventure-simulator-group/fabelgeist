@@ -1,0 +1,86 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded native buffer and postcard source contract, with concrete current tactical decoder safeguard; no product execution.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/replication.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8a61e133ac0e6d5caa491738795d94e3431b68a2",
+      "sha256": "44cf2776eaa433b9291858b34b3996df4fc9dde3def2980ebe83788b5f36fb3e",
+      "bytes": 10254,
+      "lines": 242,
+      "ranges": [
+        [
+          1,
+          12
+        ],
+        [
+          25,
+          87
+        ],
+        [
+          114,
+          126
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/replicon-buffer-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "rust-toolchain.toml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "18d1c14844d398c027c2e2cc740acca5bda2ec75",
+      "sha256": "0ede9efa984ca1bbaacf8ad3231e6e9ee1efd4000986bc913a2178c7ceb5be8a",
+      "bytes": 150,
+      "lines": 5,
+      "ranges": [
+        [
+          1,
+          5
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/replicon-buffer-sources/01.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "native_evidence": [
+    "native-evidence/bevy-replicon-0.41.1-archive/MANIFEST.json",
+    "native-evidence/bytes-1.12.1/MANIFEST.json",
+    "native-evidence/postcard-1.1.3/MANIFEST.json",
+    "native-evidence/serde_core-1.0.229/MANIFEST.json",
+    "native-evidence/rust-nightly-2026-07-13/MANIFEST.json"
+  ],
+  "historical_source": {
+    "checkpoint": "059",
+    "ledger": "baseline-059/ledger.json",
+    "search_terms": [
+      "postcard_utils",
+      "BufFlavor",
+      "try_take_n",
+      "buf-flavor"
+    ],
+    "qualification": "Search limited to discovery_findings_and_dependencies keys and serialized values; all other records and exact aliases remain open."
+  },
+  "inspection_provenance": "Selected current application and native source ranges personally inspected. Historical role 472 was read separately; no historical revision or other-lens coverage transferred. The installed Rust documentation matches the repository-pinned date but does not prove any compiler was used.",
+  "candidates": [
+    {
+      "id": "REVIEW-REPLICON-GENERIC-BUFFER-CONTIGUITY-001",
+      "severity": "conditional dependency memory-safety contract; supported product exposure not established",
+      "classification": "source-derived unsound generic third-party buffer helper for a fragmented Buf, with bounded concrete Bytes safeguard in traced application path",
+      "detail": "The public Replicon postcard helper accepts any bytes::Buf. Its flavor checks remaining() >= ct, then forms a ct-length raw slice from chunk().as_ptr() and advances. The pinned bytes Buf contract permits chunk() to be shorter than remaining(), and Chain returns the first component chunk while summing both remaining lengths. Rust slice construction requires the full range to be valid in one allocation. Thus the check alone cannot establish the unsafe slice precondition for all permitted Buf values.",
+      "conditional_case": "For separately allocated one-byte and three-byte slices combined using the pinned bytes Chain, a call through the public helper to deserialize f32 would have remaining=4 and first chunk length=1. Serde dispatches f32 to postcard deserialize_f32, whose four-byte temporary read delegates by default to this flavor try_take_n. The code would form a four-byte slice from the one-byte allocation, violating the raw-slice safety contract. This is source reasoning only; no decoder, unsafe operation or memory fault was executed or observed. Features and compilation remain unverified.",
+      "safeguards": "The personally inspected current tactical SceneBuilding decoder takes &mut bytes::Bytes, and the inspected native message and component callback signatures also use Bytes. In the pinned bytes source, Bytes::remaining returns its length and Bytes::chunk returns its entire slice, so the fragmented Chain example does not apply to those concrete signatures. This is a bounded safeguard, not proof of all lifetime safety, every helper caller, all compiled features, or absence of a different product path. No remote exploit or product vulnerability is established.",
+      "connected_scope": "Public generic Buf admission and chunk/lifetime guarantees; postcard borrowed and temporary decoding; dependency version and upstream ownership; application concrete buffer construction, callback signatures and all alternate callers; error semantics and supported fragmented inputs.",
+      "proposed_repair": "After audit completion and implementation authorization, decide whether the dependency contract is in product scope. If so, evaluate an upstream-corrected dependency or appropriate bounded usage that respects both contiguity and borrowed-lifetime guarantees; do not silently assume a generic buffer is contiguous or claim a fragmented input is supported after rejecting it without a design decision. Preserve valid concrete Bytes behavior and assess all callers.",
+      "later_acceptance": "When product validation is authorized, verify the chosen dependency or usage against contiguous and fragmented buffers, short input and borrowed versus owned decoding, plus the actual tactical message/replication paths. A memory-safety evaluation needs an appropriate dedicated method and is not supplied by this source-only trace.",
+      "historical_related_candidates": [],
+      "relationship_qualification": "A limited search of recovered 059 discovery finding values for postcard_utils, BufFlavor and try_take_n found no matching IDs. This is not an exhaustive alias search; the historical queue remains unreconciled, no new unique historical count is claimed, and checkpoint 3821 remains unrestored.",
+      "discovery": "partial; feature resolution, public API scope, all application buffer producers and lifetime guarantees, historical aliases and other independent lenses remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Establish native feature and compiler resolution, actual product input and buffer producer paths, lifetime guarantees, generic API ownership, historical aliases and all independent lens reviews."
+}
