@@ -1,0 +1,107 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "id": "SEGOVB-L1-COMBAT-SOUND-IDENTITY-RETENTION",
+  "lens": 1,
+  "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "evidence_classification": "Historical queue contract and newly assessed current source, explicitly distinguished. The identity is the same named helper and retained map; no separate finding is counted for this trace.",
+  "historical_authority": {
+    "queue": "baseline-059/queue.json",
+    "contract_id": "SEGOVB-L1-COMBAT-SOUND-IDENTITY-RETENTION",
+    "status": "open-reconciliation at checkpoint 059",
+    "selected_state": "baseline-059/STATE-L1-CURRENT-094.json",
+    "sha256": "e12baab594faf62c1e8fcd482d5280f688ac94f91a069781d7cf21399dcdb95b",
+    "qualification": "Exact historical state at e2755a732c84e67296b5e3441a4259a84f461b2f; requested bounded scopes complete there, current-source/all20/global gate explicitly incomplete. No new current coverage follows from this hash."
+  },
+  "source_identities": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/combat_effects.rs",
+      "git_blob": "048149792a65807d50064101c7e2a1be1a645ebb",
+      "range": "102-205, 219-251"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/player.rs",
+      "git_blob": "9d9a7fe4d0da49a45fcc5127992f0c91fdd92c2b",
+      "range": "90-109"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "git_blob": "5bd51b919223279623bc728d4356e092e27c0448",
+      "range": "726-740"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+      "git_blob": "b0abdab946bf4d48b812463afb3221312fb89bcc",
+      "range": "39-90"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/ranged/outcome.rs",
+      "git_blob": "96ef1037e3b5a6f235888ea71e9ca15dff32a6db",
+      "range": "35-70"
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/message.rs",
+      "git_blob": "7f5b151b3531fe4c3eacb339d903b28ef514a25e",
+      "range": "410-431"
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/replication.rs",
+      "git_blob": "8a61e133ac0e6d5caa491738795d94e3431b68a2",
+      "ranges": [
+        "31-35",
+        "76-86"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-determinism/src/seed.rs",
+      "git_blob": "67b30be6deac7b4173d1a9dd21d0c4dcfd1e87d4",
+      "range": "23-45, 49-74"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/sound_output.rs",
+      "git_blob": "ac15c624f5610b25cb2b2d4930882c73ad75d990",
+      "ranges": [
+        "13-20",
+        "113-119",
+        "129-145"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/sound_output/web.rs",
+      "git_blob": "128e8a8faa8770257c2666cfbd9a2db0e0977868",
+      "range": "1-18"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/sound_output/silent.rs",
+      "git_blob": "c62afee752cb3d0b66cc5a526e2d35a060539125",
+      "range": "entire file"
+    }
+  ],
+  "current_trace": [
+    "A selected server player projection inserts CharacterId(player.character.id) alongside Player; CharacterId is an immutable tactical component and the replication plugin registers it. This does not establish all attacker producers or arrival order.",
+    "Selected melee and ranged producers put an attacker Entity in SuccessfulAttackResponse. The message maps entity fields, and replication registers it as an ordered mapped server event. Client spawn_combat_effects looks up the mapped attacker in Query<&CharacterId>.",
+    "combat_sound_seed immediately extracts .0 and uses that u64 as the key of Local<BTreeMap<u64,u64>>; it wraps the per-key sequence and supplies the raw ID to Seed::from_u64 and sequence as numeric StreamId context. The map and helper lose the existing identity type before the actual seed-word boundary.",
+    "The observer returns before both sound and subsequent visual effects if the attacker query fails; the source establishes the conditional branch, not a supported or observed missing-identity failure. It also returns for no effect, no first hit, or missing target transform.",
+    "The current audio path chooses take and pitch from the resulting Seed, then calls sound_output::play_spatial. The wasm backend exposes raw numeric gains and speed to JavaScript; native backend is silent. This establishes the handoff in source only, not web-audio behavior or audio equivalence."
+  ],
+  "first_contract": "Retain existing CharacterId in the sequence map and helper path until its numeric seed-word encoding, while preserving exact deterministic sequence and wrapping behavior. This is a source-supported producer propagation gap, not a demonstrated audible failure.",
+  "related_historical_obligations": [
+    {
+      "id": "Q-L1-56acd94873fcfa1a89d3",
+      "relation": "same identity/map trace and producer-guarantee question; potential support, exact full-obligation alias not yet established"
+    },
+    {
+      "id": "Q-L1-a3a6cc61a36ebb243bf7",
+      "relation": "overlapping producer and lifecycle questions; exact alias and remaining scopes not resolved"
+    }
+  ],
+  "repair_scope_and_dependencies": "A future connected change would keep CharacterId through local map and helper, extracting its word only for Seed::from_u64; preserve wrap, ordering and sequence semantics. First resolve all native attacker producers, event mapping and component arrival/lifecycle, exact aliases and current backend contracts. The current source already uses an ordered CharacterId type. No changes authorized here.",
+  "acceptance": "For eventual authorized validation, establish equal deterministic seed outputs and sequence evolution for supported values including wrapping, ensure mapped-entity and missing-identity policy is explicit, and verify native/web presentation separately. Do not infer new runtime behavior from this source trace.",
+  "remaining": [
+    "Inspect all attacker creation paths, event/entity mapping and ordering guarantees, including non-player actors and missing identity; inspect retained Local lifecycle.",
+    "Reconcile linked historical queue IDs and any later exact records before aliasing or marking discovery complete.",
+    "Assess changed audio config, seed native receivers, JS and behavior-preservation independently in their own scopes and lenses."
+  ],
+  "discovery_status": "partial current trace; family, alias and lens remain incomplete",
+  "repair_status": "not started",
+  "validation_status": "none; source and evidence verification only"
+}
