@@ -1,0 +1,46 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 285,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/hostile_surrender.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/285",
+      "sha256": "e2f5748256966b0c213139b3738202af3e71b51ae7b1d2be57814e76e66553d5",
+      "lines": 417,
+      "new_personal_read_ranges": [
+        [
+          1,
+          417
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 286,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/incidents.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/286",
+      "sha256": "51e52195d492033c61465104cf8ec4a29e9b3f64fa7cd6cd13a141b8028a5a16",
+      "lines": 703,
+      "new_personal_read_ranges": [
+        [
+          1,
+          703
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical hostile surrender elects one offer or demand mode from language, morale and public awareness, checks an actor/session-context receipt including mode and answer, and rechecks shared hostile authority before committing an accepted whole-group resolution. Refusal changes affinity; declining an offer does not resolve the group.",
+    "Incident creation binds party, origin, source, site, hostile roster and token, with one pending incident at a time. Activity incidents derive per-kind rolls from retained private entropy and source coordinates; arrest captures unsettled offense provenance. All RNG, source identity and temporal producers remain open.",
+    "Gateway arrest projection calculates a fine from matching unsettled charges and personal currency; surrender revalidates the instigator, party membership/site and charges, consumes funds and resolves the incident. View/reducer parity, payment and transaction boundaries, subsequent hostile and case-site lifecycle remain open. Source tests were read, not executed."
+  ],
+  "remaining": "Trace current surrender mode and answer admission, view/reducer parity, incident entropy and source identity, fine and offense conservation, case-site and hostile teardown, authentication and all transaction callers; reconcile historical aliases and independently assess all lenses."
+}
