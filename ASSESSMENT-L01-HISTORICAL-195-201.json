@@ -1,0 +1,133 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 195,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease/exposure_sources.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/195",
+      "sha256": "fd65f1ffe87f35659e8ebfa0216668ba5e1c17373d94539901cf36bab248c81b",
+      "lines": 77,
+      "new_personal_read_ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace, or independent lens completion is implied."
+    },
+    {
+      "original_index": 196,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/196",
+      "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "lines": 50,
+      "new_personal_read_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace, or independent lens completion is implied."
+    },
+    {
+      "original_index": 197,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease/interval.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/197",
+      "sha256": "4384f792f23b407ce0400d31755a84c01e36c464be04edcea9ca39859deda652",
+      "lines": 53,
+      "new_personal_read_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace, or independent lens completion is implied."
+    },
+    {
+      "original_index": 198,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/equipment_law.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/198",
+      "sha256": "4a28fc949987aabb9f0ee687dac1381cdfc8423ee40c431715c89d6d6863e3b0",
+      "lines": 81,
+      "new_personal_read_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace, or independent lens completion is implied."
+    },
+    {
+      "original_index": 199,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/filth.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/199",
+      "sha256": "2688d57af608f66bdca8ba271a0d9283be2467514b3545e140014b5a5ef9b2fe",
+      "lines": 769,
+      "new_personal_read_ranges": [
+        [
+          1,
+          769
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace, or independent lens completion is implied."
+    },
+    {
+      "original_index": 200,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/filth/blood_attempts.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/200",
+      "sha256": "c62050a86c8ae93213b5e6dfe2ec5137f050ff790ee91b2889f477e69b9c7f7e",
+      "lines": 157,
+      "new_personal_read_ranges": [
+        [
+          1,
+          157
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace, or independent lens completion is implied."
+    },
+    {
+      "original_index": 201,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/filth/exposure_windows.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/201",
+      "sha256": "f83042cfd787c6df04d003db5af5c1ba3e7b3d1fe04a5077969d3f08bd3d2ea4",
+      "lines": 27,
+      "new_personal_read_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace, or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical settlement disease sources combine sorted outbreak rows and bounded local-problem rows, parse DiseaseId at the boundary and derive mitigated exposure. Contact windows intersect participant starts, horizons and presence; admission and temporal endpoints need complete connected traces.",
+    "Historical equipment law consults settlement policy and recognized privileges, unequips rejected equipment and refreshes capability/condition. Its callers, ownership and error disposition remain open.",
+    "Historical filth persists sanitized deposits separately from private provenance and disease snapshots. Travel dirt retains an integer remainder, while blood replay uses absolute-minute windows, bounded work, disease identities and a persisted checkpoint; prior predecessor dirt-remainder work is related but no historical alias is established.",
+    "Washing plans tagged personal and shared soap identities, preflights the planned fractions, then consumes soap and removes deposits. The validity of supplied character groups, custody and transaction boundaries requires separate tracing.",
+    "Historical source test bodies were read where present, not executed. No current source, historical alias or recovered checkpoint 3821 status follows from these reads."
+  ],
+  "remaining": "Trace all current disease-source, equipment compliance, dirt, blood and wash producers and consumers; establish bounded arithmetic, group custody and cursor invariants; reconcile historical aliases and assess every independent lens separately."
+}
