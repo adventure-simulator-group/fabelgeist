@@ -1,0 +1,303 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded near-tier grass seed-head producer-to-instanced shader contract; independent lens coverage remains incomplete.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fb87281b6d59a62b947474f3648ba23bbeb0316a",
+      "sha256": "d375436ca9d226ccb6fbc5b65afcaf94a6b9c3e4bfa90fc1016da8cb958a7281",
+      "bytes": 48519,
+      "lines": 1237,
+      "ranges": [
+        [
+          165,
+          183
+        ],
+        [
+          245,
+          302
+        ],
+        [
+          340,
+          405
+        ],
+        [
+          441,
+          607
+        ],
+        [
+          678,
+          727
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-mesh-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1549d2533d927d16ef08afb6a54b6d89438076ca",
+      "sha256": "183b62660fadacb8f9bfe9a7051edcdc191c695358a95f4d75054095e52fd999",
+      "bytes": 21998,
+      "lines": 548,
+      "ranges": [
+        [
+          50,
+          55
+        ],
+        [
+          130,
+          142
+        ],
+        [
+          241,
+          304
+        ],
+        [
+          310,
+          358
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-mesh-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/batches.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "482c0a1a855bfb0310b17d83c0ae7022d9bdf515",
+      "sha256": "5c2a8b6a4e7d110c4aa81157d6df12213b70a7b2c18be7b500ac202500f2971e",
+      "bytes": 2765,
+      "lines": 79,
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-mesh-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/material.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f9a4cfca96863a7247a547bd80ef673049da37f9",
+      "sha256": "d1f1c82a4c8c3eca722ce058bb927c7987024e10e237fb54f96d931b6c0954dd",
+      "bytes": 2520,
+      "lines": 71,
+      "ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-mesh-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/diagnostics.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b07a1afd62fccf6bdab06280e18219c52aa4c55f",
+      "sha256": "dc974667febacd592df441d70ddd03394c8afc93ec7d59ae54f7730b6dd1dcff",
+      "bytes": 1044,
+      "lines": 35,
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-mesh-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/pipeline.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1df4705a2360e27c1e2e6df035b44c7796b16e50",
+      "sha256": "91bf014c938918e186cb9bfc5d5d563f6f9718c3afa85db2d8c1e9b45fdabdbd",
+      "bytes": 5315,
+      "lines": 152,
+      "ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-mesh-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/chunk_instancing.wgsl",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "009295b130b9b3155ce0ba21ce88be11e657f176",
+      "sha256": "60c8e5c5834d130987b0a37fd09ffee945b4908a863589b8db5bcee69f86a57a",
+      "bytes": 2571,
+      "lines": 68,
+      "ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-mesh-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "assets/shaders/tactical_grass_instanced.wgsl",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b66979570a6266a80f9139a1f01a27bf24e6e44e",
+      "sha256": "5a36ad0ba47fdd18d71e59e9898a83c74a9dcea55d8f4beae223c691aa3a4c2e",
+      "bytes": 13328,
+      "lines": 305,
+      "ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-mesh-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "assets/shaders/tactical_foliage.wgsl",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7396fb255387ea83fc6c9219185659c38aa4b084",
+      "sha256": "e820d0090e4d3b180de4ebac4c8c5259559ca5b19b9709c1d284af8fe75f2eb9",
+      "bytes": 21963,
+      "lines": 507,
+      "ranges": [
+        [
+          160,
+          175
+        ],
+        [
+          265,
+          303
+        ],
+        [
+          330,
+          347
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-mesh-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "assets/config/tactical-graphics.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "96d5c86b2ed38ad5d747bea3b101d8e83e5da7e2",
+      "sha256": "ef88013b1a81f49e88c66271de95bd21136c29c8bdd0db0b73fdf036c0d11249",
+      "bytes": 2151,
+      "lines": 91,
+      "ranges": [
+        [
+          24,
+          75
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-mesh-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          2372,
+          2376
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-mesh-sources/10.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "native_evidence": [
+    "native-evidence/bevy_pbr-0.19.1/MANIFEST.json"
+  ],
+  "inspection_provenance": "Selected current source ranges personally inspected at c100 and checked for identical Git blobs at 95e. Native selected source inspected from a locally cached archive matching 95e Cargo.lock; no product execution, GPU use, shader compilation, rendering or tests.",
+  "historical_source": {
+    "checkpoint": "059",
+    "ledger": "baseline-059/ledger.json",
+    "contract_id": "PL13-GRASS-MESH-NUMERIC-PORT-CONDITIONAL",
+    "historical_source_roles": [
+      {
+        "index": 508,
+        "source_id": "pr-working:assets/shaders/tactical_foliage.wgsl",
+        "sha256": "e820d0090e4d3b180de4ebac4c8c5259559ca5b19b9709c1d284af8fe75f2eb9",
+        "current_sha256": "e820d0090e4d3b180de4ebac4c8c5259559ca5b19b9709c1d284af8fe75f2eb9",
+        "relation": "byte-match"
+      },
+      {
+        "index": 510,
+        "source_id": "pr-working:assets/shaders/tactical_grass_instanced.wgsl",
+        "sha256": "2d88c9d6787c5806e7c1bf6fde37f397e532773a16915e847af0ee5e12b07adc",
+        "current_sha256": "5a36ad0ba47fdd18d71e59e9898a83c74a9dcea55d8f4beae223c691aa3a4c2e",
+        "relation": "different"
+      },
+      {
+        "index": 1550,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs",
+        "sha256": "d375436ca9d226ccb6fbc5b65afcaf94a6b9c3e4bfa90fc1016da8cb958a7281",
+        "current_sha256": "d375436ca9d226ccb6fbc5b65afcaf94a6b9c3e4bfa90fc1016da8cb958a7281",
+        "relation": "byte-match"
+      },
+      {
+        "index": 1554,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs",
+        "sha256": "4ebc106478d263a859403c114c4711598dd570927f2706abf5e7123bc37a9c91",
+        "current_sha256": "183b62660fadacb8f9bfe9a7051edcdc191c695358a95f4d75054095e52fd999",
+        "relation": "different"
+      },
+      {
+        "index": 1555,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/batches.rs",
+        "sha256": "55a8f28f05846eea9e2cd7460a1a1aaecb83c64af31573ed82a2bb2f5bdaf196",
+        "current_sha256": "5c2a8b6a4e7d110c4aa81157d6df12213b70a7b2c18be7b500ac202500f2971e",
+        "relation": "different"
+      },
+      {
+        "index": 1558,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/material.rs",
+        "sha256": "254f470bded28494465ba373831b3e8c80ce627e4480f65c9a5b49e05988b459",
+        "current_sha256": "d1f1c82a4c8c3eca722ce058bb927c7987024e10e237fb54f96d931b6c0954dd",
+        "relation": "different"
+      },
+      {
+        "index": 499,
+        "source_id": "pr-working:assets/config/tactical-graphics.yaml",
+        "sha256": "b922faa3643a9e55508cbf50304273912d9be0b7e0282d271f1b243c75c40307",
+        "current_sha256": "ef88013b1a81f49e88c66271de95bd21136c29c8bdd0db0b73fdf036c0d11249",
+        "relation": "different"
+      }
+    ],
+    "qualification": "Original 059 record, role snapshots and their historical count remain unchanged; no checkpoint 3821 credit is inferred."
+  },
+  "candidates": [
+    {
+      "id": "REVIEW-GRASS-INSTANCED-SEED-HEAD-VERTEX-001",
+      "severity": "P3 provisional; source-derived seed-head geometry loss conditional on a selected near tuft",
+      "classification": "same first-failure family as recovered checkpoint 059 grass mesh numeric port question, now traced through current producer and selected instanced material",
+      "detail": "The mesh builder emits near-tier seed heads for retained blades of species with a positive branch count when the deterministic panicle draw is below 0.125. Its stem quads use start/end positions with positive and negative lateral offsets, but append_attached_quad gives all four vertices the same U attachment height and negative V attachment fraction, the same normal, color and blade root. The instanced shader clamps negative V to zero and treats U as a binary ribbon-side selector; it computes lateral width from the length of the position offset from the root. It does not take the rigid seed-head branch present in the separate foliage shader.",
+      "geometry_case": "For a visible stem edge with the two source positions root minus s and root plus s at the same height, common U/V, normal, color and root, the ideal radial distances from the root are both |s|. The instanced shader therefore gives both vertices the same sign, width, center and side direction. Its curve profile is zero because V is negative. In exact arithmetic the paired edge projects to one vertex; the two stem quad triangles become degenerate when both edges have this symmetry. Actual CPU/GPU f32 rounding can leave small nonzero differences, and no shader or rasterization was executed. This is an illustrative source-derived contract failure, not an observed screenshot or measured visibility claim.",
+      "producer_and_selection": "The current playable scene path groups placed tufts by tier and species and skips empty batches; spawn_tuft_batches builds grass_tuft_mesh for each nonempty batch and attaches the instanced grass material, whose shader reference selects tactical_grass_instanced.wgsl through the chunk pipeline. The mesh has position, normal, UV0, UV1 and color attributes. Lock-checksum-bound bevy_pbr source maps UV1 and color layout attributes to the shader definitions and locations used by the chunk Vertex structure. The checked-in graphics file enables grass and configures Near; four species have nonzero branch counts. The condition still requires an actual placed visible near instance, a retained blade and a panicle draw satisfying the producer gates. No particular scene seed or successful rendering is established.",
+      "safeguards": "RedFescue and YorkshireFog have zero seed-head branch counts; other tiers do not emit these seed heads. Empty batches are skipped and ground coverage can collapse a blade deliberately. The separate foliage path recognizes negative V and deforms rigid attachments, but no policy requires preserving an obsolete renderer byte for byte. The encoded U=0.5 tip also has a separate radial-width question, which remains a related observation rather than a second unique failure.",
+      "connected_scope": "Grass scene placement and species/seed selection; near-tier blade and seed-head builder; encoded UV0/UV1, normal and color ownership; mesh layout and chunk-instanced material/pipeline; shader vertex interpretation, visibility and later rasterization.",
+      "proposed_repair": "After audit completion and implementation authorization, establish the intended supported seed-head and tip representation, then make the canonical mesh vertex roles and selected instanced shader agree while retaining intentional density, visibility, tier and material policy. A dedicated compatible mesh or an explicit encoded-role branch are design alternatives, not a completed decision.",
+      "later_acceptance": "When product validation is authorized, cover an actually emitted near-tier stem and branch with its negative-V attachment encoding, centered ribbon tip, multiple species and relevant visibility conditions through the real mesh/material path; confirm positive-area geometry and intended deformation while retaining the ordinary ribbon and other-tier behavior.",
+      "historical_related_candidates": [
+        "PL13-GRASS-MESH-NUMERIC-PORT-CONDITIONAL"
+      ],
+      "relationship_qualification": "The recovered 059 conditional record remains at its original revision, pending status and +0 historical unique count. This current 95e trace supplies selected producer and material evidence; it does not transfer historical role-body coverage or claim checkpoint 3821 restoration. Current shader role 510 differs from its historical bytes.",
+      "discovery": "partial; concrete scene seed and visual impact, target GPU floating-point behavior, complete producer/consumer aliases and all independent lenses remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Establish an actual supported scene/seed and rendering result only after validation authorization; independently assess all roles, aliases and lenses."
+}
