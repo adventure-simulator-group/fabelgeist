@@ -1,0 +1,52 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 590,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_openings.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/590",
+      "sha256": "cf9a03acb280fa5d4e7397456d4ace1bcba402e898af3539d8301c5661c6deaa",
+      "lines": 552,
+      "new_personal_read_ranges": [
+        [
+          1,
+          552
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 591,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/cathedral_clerestory.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/591",
+      "sha256": "85e4cc768fd27113df0983f8999f7bd5fa56ca9ff08e57afae5b8f076feef870",
+      "lines": 122,
+      "new_personal_read_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    }
+  ],
+  "observations": [
+    "Role 590 derives a cardinal gun opening, wall frame and splayed jamb/head shapes, checked structural nodes and dimensions, stance, mount, three initial rays and optional lower-level vent. A temporary left-reveal depth sign is followed by a first-matching-ID rewrite using the actual frame; whether the newly inserted surface is the selected one depends on ID uniqueness. The parent source in role 589 replaces the initial target-ID sentinel in station rays. Intermediate values must not be mistaken for escaped final values. Related checkpoint 059 PL13-043-ARTILLERY-OPENING-PROPAGATION retains its own status and attribution.",
+    "Role 591 builds candidate clerestory wall hosts from high-side roof polygons and lower wall support nodes. Missing roofs, missing face polygons or a high edge without exactly two vertices cause that candidate to be skipped. Its call reachability, intended optionality, support-node ownership, generated roof inputs and downstream proof behavior require separate tracing; the source carries allow(dead_code), which alone does not prove absence from every build context.",
+    "No product generation, audit, build, test, rendering, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace actual consumers and admission of the artillery and clerestory records, missing-candidate policy, roof and wall support semantics, historical aliases and all independent lenses."
+}
