@@ -1,0 +1,72 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 488,
+      "source_id": "pinned-registry:parry3d-0.27.0/src/math/mod.rs",
+      "snapshot": "pinned-registry",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/488",
+      "sha256": "f1b05b3e1a27c95127e70c59bc0269e9a191b64f4c8f7b02d0f9e402f1752c8c",
+      "lines": 314,
+      "new_personal_read_ranges": [
+        [
+          1,
+          314
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "matching_lock_checksum_archive": "native-evidence/parry3d-0.27.0/MANIFEST.json",
+      "matching_archive_member": "parry3d-0.27.0/src/math/mod.rs",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact registered native source; matches current lock-checksum archive. Features, application usage and independent lenses remain open. Examples were read, not run."
+    },
+    {
+      "original_index": 489,
+      "source_id": "pinned-registry:parry3d-0.27.0/src/shape/cuboid.rs",
+      "snapshot": "pinned-registry",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/489",
+      "sha256": "e096c59d8192dc997b7db25e0dcd024eefb5c9f37a00a2338bafd11f39582630",
+      "lines": 783,
+      "new_personal_read_ranges": [
+        [
+          1,
+          783
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "matching_lock_checksum_archive": "native-evidence/parry3d-0.27.0/MANIFEST.json",
+      "matching_archive_member": "parry3d-0.27.0/src/shape/cuboid.rs",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact registered native source; matches current lock-checksum archive. Features, application usage and independent lenses remain open. Examples were read, not run."
+    },
+    {
+      "original_index": 490,
+      "source_id": "pinned-registry:parry3d-0.27.0/src/shape/shared_shape.rs",
+      "snapshot": "pinned-registry",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/490",
+      "sha256": "7cec2012b2193c9dc60738a2a1ce2b9e873a83f730e6d0d15bfe616eead271c5",
+      "lines": 715,
+      "new_personal_read_ranges": [
+        [
+          1,
+          715
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "matching_lock_checksum_archive": "native-evidence/parry3d-0.27.0/MANIFEST.json",
+      "matching_archive_member": "parry3d-0.27.0/src/shape/shared_shape.rs",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact registered native source; matches current lock-checksum archive. Features, application usage and independent lenses remain open. Examples were read, not run."
+    }
+  ],
+  "observations": [
+    "Parry selects real/vector/pose precision and dimension by feature. Its cuboid is local-origin centered and stores half-extents, while SharedShape::cuboid forwards its arguments as half-extents. The previously read Avian cuboid constructor halves its full extents before calling this owner. Actual product box producer units, rotations and resolved features remain to be traced.",
+    "Cuboid documentation requires positive half-extents, but its public constructor and field do not locally validate those values; SharedShape constructors mostly delegate to native shape owners. Determine actual input admission, native constraints and all callers before treating a hypothetical invalid value as a product defect.",
+    "SharedShape is reference-counted with copy-on-write mutation and supports compound children with poses; mesh and convex construction use distinct Result and Option contracts. Native underlying implementation and supported failure propagation are still open. Examples were read, not run; no product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace product dimensions and frames, native pose/mass/query behavior and input admission, enabled feature selection, shape construction failures and historical aliases. Independently assess every lens."
+}

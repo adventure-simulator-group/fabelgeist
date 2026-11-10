@@ -1,0 +1,53 @@
+{
+  "schema": "726-native-archive-evidence-v1",
+  "package": "parry3d",
+  "version": "0.27.0",
+  "archive": "parry3d-0.27.0.crate",
+  "sha256": "99613136af5c3ae1e26907eb8ef90183636f54d02341c0a1121caa813a242cb5",
+  "bytes": 527020,
+  "provenance": "Locally cached native crate archive verified against the separately preserved Cargo.lock at current source revision 95e.",
+  "qualification": "Registered source bodies personally read; feature resolution, application use and execution remain open.",
+  "inspected_members": [
+    {
+      "path": "parry3d-0.27.0/src/math/mod.rs",
+      "sha256": "f1b05b3e1a27c95127e70c59bc0269e9a191b64f4c8f7b02d0f9e402f1752c8c",
+      "bytes": 9340
+    },
+    {
+      "path": "parry3d-0.27.0/src/shape/cuboid.rs",
+      "sha256": "e096c59d8192dc997b7db25e0dcd024eefb5c9f37a00a2338bafd11f39582630",
+      "bytes": 26406
+    },
+    {
+      "path": "parry3d-0.27.0/src/shape/shared_shape.rs",
+      "sha256": "7cec2012b2193c9dc60738a2a1ce2b9e873a83f730e6d0d15bfe616eead271c5",
+      "bytes": 26726
+    },
+    {
+      "path": "parry3d-0.27.0/LICENSE",
+      "sha256": "ceacfa4d7fa67df64ab09a56fe248c50a3bfc9bc00374d69bd74ad763b14b89c",
+      "bytes": 11347
+    }
+  ],
+  "personally_inspected_ranges": {
+    "parry3d-0.27.0/src/math/mod.rs": [
+      [
+        1,
+        314
+      ]
+    ],
+    "parry3d-0.27.0/src/shape/cuboid.rs": [
+      [
+        1,
+        783
+      ]
+    ],
+    "parry3d-0.27.0/src/shape/shared_shape.rs": [
+      [
+        1,
+        715
+      ]
+    ]
+  },
+  "current_lock_evidence": "main-advance-95e/basis-wire-sources/01.source.gz"
+}
