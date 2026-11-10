@@ -1,0 +1,32 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 484,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/physics_transform/transform.rs",
+      "snapshot": "pinned-registry",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/484",
+      "sha256": "5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+      "lines": 1275,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1275
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "matching_lock_checksum_archive": "native-evidence/avian3d-0.7.0/MANIFEST.json",
+      "matching_archive_member": "avian3d-0.7.0/src/physics_transform/transform.rs",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact registered native source; matches current lock-checksum archive. Actual compiled features, application use and independent lenses remain open. Examples were read, not run."
+    }
+  ],
+  "observations": [
+    "Position and Rotation are global physics components with placeholder sentinel values. In the 3D branch Rotation wraps a quaternion and multiplying a vector applies that rotation; conversion from GlobalTransform extracts its decomposed rotation. Parent hierarchy transforms are composed by the initialization hook; application world/local producer frames and native synchronization scheduling need independent inspection.",
+    "Initialization decides separately whether position and rotation are placeholders, derives defaults, composes parent transforms and may reparent an explicit physics pose into local Transform before filling placeholders from a previously computed global transform. For mixed explicit/placeholder values with a parent, examine exact configuration, hook order, later synchronization and supported application producers before deciding whether any inconsistency persists.",
+    "The 2D branch exposes sine and cosine and checks normalization in debug assertions; the 3D branch wraps a quaternion directly. Native validity, producer admission and downstream direction construction require their own trace. Code examples were read, not run; no product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace physics transform configuration and scheduling, parent/child producers, native quaternion semantics, supported placeholder paths, application local/world conversions and historical aliases. Independently assess all lenses."
+}
