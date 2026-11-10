@@ -32,6 +32,7 @@ python3 verify_selected_states.py
 python3 verify_lock_inventory.py
 python3 verify_delta_sources.py
 python3 verify_role_worklist.py
+python3 verify_iteration_evidence.py
 python3 native-evidence/bevy-replicon-0.41.1/verify.py
 python3 native-evidence/rust-nightly-2026-07-13/verify.py
 python3 native-evidence/serde-saphyr-1.2.0/verify.py

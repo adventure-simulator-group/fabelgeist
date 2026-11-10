@@ -1,0 +1,542 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "contract_id": "ADLER-L11-ITERATION-TIMEOUT-TICK-COUNT",
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "classification": "Source-confirmed conditional iteration-report count mismatch; real timeout reachability and complete connected owner graph remain open.",
+  "current_lens": "Lens 1 producer and consumer trace in progress. Historical Lens 11 and later Lens 12 records retain their original attribution; no independent completion credit is inferred.",
+  "historical": {
+    "queue": "baseline-059/queue.json#/entries/118",
+    "ledger": "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-ITERATION-TIMEOUT-TICK-COUNT",
+    "source_identities": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/furniture.rs",
+        "source_sha256": "f3ec5409fb24d23dcf6c786fe44145ef7a58ece8c335ab6eefaa665eb6b48a7b",
+        "revision_as_recorded": null,
+        "git_path_as_recorded": null,
+        "assessed_ranges_as_recorded": [
+          [
+            1,
+            60
+          ]
+        ],
+        "attribution_as_recorded": null,
+        "proof_pointer": "/sources/0",
+        "receipt": {
+          "path": "adler/READ-L11-320.json",
+          "sha256": "a464d3c8f55799205c8ee2c0b296f8514a87b4f00339d59c1c0bf6f792acab67"
+        },
+        "lens_context": 11,
+        "scope_credit_from_queue": 0
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration.rs",
+        "source_sha256": "812c3b491db93ba51220e73ebe4aef93934ff80abeb3f7d4e2af796c598ce1b7",
+        "revision_as_recorded": null,
+        "git_path_as_recorded": null,
+        "assessed_ranges_as_recorded": [
+          [
+            1,
+            180
+          ],
+          [
+            181,
+            360
+          ],
+          [
+            361,
+            540
+          ],
+          [
+            541,
+            648
+          ]
+        ],
+        "attribution_as_recorded": null,
+        "proof_pointer": "/sources/1",
+        "receipt": {
+          "path": "adler/READ-L11-320.json",
+          "sha256": "a464d3c8f55799205c8ee2c0b296f8514a87b4f00339d59c1c0bf6f792acab67"
+        },
+        "lens_context": 11,
+        "scope_credit_from_queue": 0
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/clock.rs",
+        "source_sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+        "revision_as_recorded": null,
+        "git_path_as_recorded": null,
+        "assessed_ranges_as_recorded": [
+          [
+            1,
+            29
+          ]
+        ],
+        "attribution_as_recorded": null,
+        "proof_pointer": "/sources/2",
+        "receipt": {
+          "path": "adler/READ-L11-320.json",
+          "sha256": "a464d3c8f55799205c8ee2c0b296f8514a87b4f00339d59c1c0bf6f792acab67"
+        },
+        "lens_context": 11,
+        "scope_credit_from_queue": 0
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/equipment.rs",
+        "source_sha256": "ca4439b826717b1d61d7efd26d33a4538f66c8fc5527e32d8e7d9768b71e7074",
+        "revision_as_recorded": null,
+        "git_path_as_recorded": null,
+        "assessed_ranges_as_recorded": [
+          [
+            1,
+            163
+          ]
+        ],
+        "attribution_as_recorded": null,
+        "proof_pointer": "/sources/3",
+        "receipt": {
+          "path": "adler/READ-L11-320.json",
+          "sha256": "a464d3c8f55799205c8ee2c0b296f8514a87b4f00339d59c1c0bf6f792acab67"
+        },
+        "lens_context": 11,
+        "scope_credit_from_queue": 0
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/logging.rs",
+        "source_sha256": "9b544bf84edcca32609b26242d2794c3800a45618c40cef1aa5f4d6965225b88",
+        "revision_as_recorded": null,
+        "git_path_as_recorded": null,
+        "assessed_ranges_as_recorded": [
+          [
+            1,
+            180
+          ],
+          [
+            181,
+            360
+          ],
+          [
+            361,
+            427
+          ]
+        ],
+        "attribution_as_recorded": null,
+        "proof_pointer": "/sources/4",
+        "receipt": {
+          "path": "adler/READ-L11-320.json",
+          "sha256": "a464d3c8f55799205c8ee2c0b296f8514a87b4f00339d59c1c0bf6f792acab67"
+        },
+        "lens_context": 11,
+        "scope_credit_from_queue": 0
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/logging/decisions.rs",
+        "source_sha256": "1e132304f3127343f18a77a99b9d18205c3057788ce99700525a0d16e27a8768",
+        "revision_as_recorded": null,
+        "git_path_as_recorded": null,
+        "assessed_ranges_as_recorded": [
+          [
+            1,
+            89
+          ]
+        ],
+        "attribution_as_recorded": null,
+        "proof_pointer": "/sources/5",
+        "receipt": {
+          "path": "adler/READ-L11-320.json",
+          "sha256": "a464d3c8f55799205c8ee2c0b296f8514a87b4f00339d59c1c0bf6f792acab67"
+        },
+        "lens_context": 11,
+        "scope_credit_from_queue": 0
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs",
+        "source_sha256": "a61ef59cb4da06988229325123ef72662197b3c568ea9822b2d27ee6cb1d7616",
+        "revision_as_recorded": null,
+        "git_path_as_recorded": null,
+        "assessed_ranges_as_recorded": [
+          [
+            1,
+            167
+          ]
+        ],
+        "attribution_as_recorded": null,
+        "proof_pointer": "/sources/6",
+        "receipt": {
+          "path": "adler/READ-L11-320.json",
+          "sha256": "a464d3c8f55799205c8ee2c0b296f8514a87b4f00339d59c1c0bf6f792acab67"
+        },
+        "lens_context": 11,
+        "scope_credit_from_queue": 0
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/lib.rs",
+        "source_sha256": "064901692ab50417dd140de61f50e78b074753457b6084cbc770b833a92369b4",
+        "revision_as_recorded": null,
+        "git_path_as_recorded": null,
+        "assessed_ranges_as_recorded": [
+          [
+            1,
+            51
+          ]
+        ],
+        "attribution_as_recorded": null,
+        "proof_pointer": "/sources/7",
+        "receipt": {
+          "path": "adler/READ-L11-320.json",
+          "sha256": "a464d3c8f55799205c8ee2c0b296f8514a87b4f00339d59c1c0bf6f792acab67"
+        },
+        "lens_context": 11,
+        "scope_credit_from_queue": 0
+      }
+    ],
+    "recorded_owner": "Actual iteration loop completed-tick count versus IterationClock tick coordinate and TacticalElapsed conversion; retain distinct coordinate/count roles rather than unchecked sentinel reuse.",
+    "recorded_acceptance_at_64_hz": [
+      "Exhausted180s64Hz loop reports11520updates/180s",
+      "Early terminal iteration reports exactupdatesperformed",
+      "Aggregate simulatedtime andthroughput use sameactualcount",
+      "No change to native tick quantization, loop iteration order or tactical behavior"
+    ],
+    "receipt_bundle": [
+      {
+        "source_path": "adler/READ-L11-320.json",
+        "preserved_bytes": "recovered/local-adler-l11-320/READ-L11-320.json.gz",
+        "sha256": "a464d3c8f55799205c8ee2c0b296f8514a87b4f00339d59c1c0bf6f792acab67",
+        "content_encoding": "gzip"
+      },
+      {
+        "source_path": "adler/REGISTRATION-ADLER-898.json",
+        "preserved_bytes": "recovered/local-adler-l11-320/REGISTRATION-ADLER-898.json.gz",
+        "sha256": "d3469f81841b3c644e5f9a16ede39d6d98ec33d1fe3dc13177b670277e90386f",
+        "original_index": 2054,
+        "content_encoding": "gzip"
+      },
+      {
+        "source_path": "adler/REGISTRATION-ADLER-899.json",
+        "preserved_bytes": "recovered/local-adler-l11-320/REGISTRATION-ADLER-899.json.gz",
+        "sha256": "772f4edd425ba544962f5c0f235e95a559bfc8e41bd3d25e43b941916993a9b3",
+        "original_index": 2055,
+        "content_encoding": "gzip"
+      },
+      {
+        "source_path": "adler/REGISTRATION-ADLER-900.json",
+        "preserved_bytes": "recovered/local-adler-l11-320/REGISTRATION-ADLER-900.json.gz",
+        "sha256": "2bbf02bec91957349bd86343320062f0999905065a394f5c5f9d03a8d84169bb",
+        "original_index": 2056,
+        "content_encoding": "gzip"
+      },
+      {
+        "source_path": "adler/REGISTRATION-ADLER-901.json",
+        "preserved_bytes": "recovered/local-adler-l11-320/REGISTRATION-ADLER-901.json.gz",
+        "sha256": "bb98079ca52699fce2cbde42d2c9f625ca2afe14f9292947c6713536c3c14702",
+        "original_index": 2057,
+        "content_encoding": "gzip"
+      },
+      {
+        "source_path": "adler/REGISTRATION-ADLER-902.json",
+        "preserved_bytes": "recovered/local-adler-l11-320/REGISTRATION-ADLER-902.json.gz",
+        "sha256": "b2f9ac701ee389071abe786a87a9d717735856c7a863c1b45d850cc61339ba8e",
+        "original_index": 2058,
+        "content_encoding": "gzip"
+      },
+      {
+        "source_path": "adler/REGISTRATION-ADLER-903.json",
+        "preserved_bytes": "recovered/local-adler-l11-320/REGISTRATION-ADLER-903.json.gz",
+        "sha256": "b6aa95357c7c9c05daeaed7a36387b338ada8b6f29a23d0e679b48e173dcacfd",
+        "original_index": 2059,
+        "content_encoding": "gzip"
+      },
+      {
+        "source_path": "adler/REGISTRATION-ADLER-904.json",
+        "preserved_bytes": "recovered/local-adler-l11-320/REGISTRATION-ADLER-904.json.gz",
+        "sha256": "50d446db0858d2000e5cce7d2cf77c27cff2604f4d29ad83db810bcb434f2395",
+        "original_index": 2060,
+        "content_encoding": "gzip"
+      },
+      {
+        "source_path": "adler/REGISTRATION-ADLER-905.json",
+        "preserved_bytes": "recovered/local-adler-l11-320/REGISTRATION-ADLER-905.json.gz",
+        "sha256": "61fa7fc28b8701f1fe1a804440bfc522dade4f59daeb6620ed0d7862e133a02d",
+        "original_index": 2061,
+        "content_encoding": "gzip"
+      }
+    ],
+    "qualification": "Recovered exact original Lens 11 receipt and eight registrations match their recorded hashes in the read-only original extraction. They belong to the original pr-working roles and 64 Hz source, not checkpoint 3821 or an independently completed current Lens 11 review. The complete original transport remains separately preserved."
+  },
+  "later_historical_summary": {
+    "source": "recovered/l13-late-revisit-references/QUEUE-764-PRINTED.json",
+    "qualification": "A later printed output self-reports a contract revisit and names this identifier. The actual resulting complete ledger, queue and proposal are not established by this print; do not attribute this continuation finding to checkpoint 3821."
+  },
+  "related_historical_queue_records": [
+    {
+      "pointer": "baseline-059/queue.json#/entries/1753",
+      "contract_id": "Q-L12-7c8628fe66484e213a0a",
+      "relation": "States the same timeout cap/count source question; full alias and independent Lens 12 obligations remain open."
+    },
+    {
+      "pointer": "baseline-059/queue.json#/entries/1761",
+      "contract_id": "Q-L12-1e2360d2b144a073b61b",
+      "relation": "References the historical Adler cap/count question and further native/source work; do not collapse its wider obligations."
+    }
+  ],
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/lib.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "git_blob": "c2c35093ca7cd16bfd6ed36f3dd124a5827392ed",
+      "sha256": "9830f6dfbbd20a69f7ac1149c6e305244f7fe87e5dc4a082ad2c912f0427b7d9",
+      "bytes": 2106,
+      "lines": 52,
+      "ranges": [
+        [
+          1,
+          52
+        ]
+      ],
+      "preserved_bytes": "source-evidence/iteration-timeout/current/crates/adventuresim-tactical-netcode/src/lib.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/replication.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "git_blob": "8a61e133ac0e6d5caa491738795d94e3431b68a2",
+      "sha256": "44cf2776eaa433b9291858b34b3996df4fc9dde3def2980ebe83788b5f36fb3e",
+      "bytes": 10254,
+      "lines": 242,
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "preserved_bytes": "source-evidence/iteration-timeout/current/crates/adventuresim-tactical-netcode/src/replication.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/iteration.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "git_blob": "b958d10442f73b18c46f5e12869eeecaabc09f0b",
+      "sha256": "6a7c0f94142f4921348b6ce263465973968879d77cb1b0880ef647a72402a3be",
+      "bytes": 24076,
+      "lines": 649,
+      "ranges": [
+        [
+          1,
+          140
+        ],
+        [
+          141,
+          182
+        ]
+      ],
+      "preserved_bytes": "source-evidence/iteration-timeout/current/crates/adventuresim-tactical-server/src/iteration.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/iteration/clock.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "git_blob": "28523a2547a70c8a34d682c05d79ce8d99aef1f2",
+      "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+      "bytes": 1076,
+      "lines": 29,
+      "ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "preserved_bytes": "source-evidence/iteration-timeout/current/crates/adventuresim-tactical-server/src/iteration/clock.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/iteration/logging.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "git_blob": "0d6be6ec2693ce2faa3a551dc1c5a69f409779d0",
+      "sha256": "9b544bf84edcca32609b26242d2794c3800a45618c40cef1aa5f4d6965225b88",
+      "bytes": 14020,
+      "lines": 427,
+      "ranges": [
+        [
+          157,
+          184
+        ]
+      ],
+      "preserved_bytes": "source-evidence/iteration-timeout/current/crates/adventuresim-tactical-server/src/iteration/logging.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "git_blob": "3ae8fbdd5ecafda9a65f16af0a4bf888147449e4",
+      "sha256": "682408c513c94a29855ef855be8d4e16dad21a2de2e3349ff61dea8f87a43d0a",
+      "bytes": 12115,
+      "lines": 325,
+      "ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "preserved_bytes": "source-evidence/iteration-timeout/current/crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "git_blob": "6a4b00b5857530ba3cfd12dd74046db4a3145f7a",
+      "sha256": "5a603f0c5055543157a0dd1d47bc979a6109569d0e61cf088f5ca7a99ca495bd",
+      "bytes": 10643,
+      "lines": 263,
+      "ranges": [
+        [
+          125,
+          176
+        ]
+      ],
+      "preserved_bytes": "source-evidence/iteration-timeout/current/crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/report.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "git_blob": "1a073e50ceb6e9a93633d325491082c703e3712d",
+      "sha256": "06ae9c455782ac10767b46537f84eea1e57f16391b7033fe44352edc24e0f8bc",
+      "bytes": 11954,
+      "lines": 270,
+      "ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "preserved_bytes": "source-evidence/iteration-timeout/current/crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/report.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/measurement.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "git_blob": "f21dbb79b694bdeda71991f8f21eda49468a4305",
+      "sha256": "ed0fe144881de7795bc3d5911ffa2a14bc9d33052a4c04f4af4d0db81e80ad95",
+      "bytes": 6190,
+      "lines": 213,
+      "ranges": [
+        [
+          133,
+          157
+        ]
+      ],
+      "preserved_bytes": "source-evidence/iteration-timeout/current/crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/measurement.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/single_threaded.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "git_blob": "4468e90ecdba21864ae3b37eff4a2c5fc091a8a9",
+      "sha256": "829f1c2101c9cd378e914522ad7d8d719ca6cfe231f9c039bb9be728739a8a2f",
+      "bytes": 1575,
+      "lines": 40,
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "preserved_bytes": "source-evidence/iteration-timeout/current/crates/adventuresim-tactical-client/src/single_threaded.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/main.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "git_blob": "d9216c050b33db12e144e3e2880a5682e3273a41",
+      "sha256": "3ac60ddec31bee62d284f9ff2d87bd3345e1ccf84ce3199e2f2dcdddb59ec6c4",
+      "bytes": 22180,
+      "lines": 619,
+      "ranges": [
+        [
+          329,
+          370
+        ]
+      ],
+      "preserved_bytes": "source-evidence/iteration-timeout/current/crates/adventuresim-tactical-client/src/main.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "reported_selected_sources": [
+    {
+      "path": "crates/adventuresim-tactical-server/src/iteration.rs",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_blob": "56c81652948fea6d92a1765df9cc40939d5797a5",
+      "sha256": "812c3b491db93ba51220e73ebe4aef93934ff80abeb3f7d4e2af796c598ce1b7",
+      "bytes": 24072,
+      "lines": 648,
+      "ranges": [
+        [
+          36,
+          103
+        ]
+      ],
+      "preserved_bytes": "source-evidence/iteration-timeout/reported-selected/crates/adventuresim-tactical-server/src/iteration.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/lib.rs",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_blob": "b328af982d388adc36799a926d56270a90c0dffd",
+      "sha256": "b753b7f46133494d0731661c97a54439c6a147f8445a8a7852b182e0c8e0f613",
+      "bytes": 1782,
+      "lines": 47,
+      "ranges": [
+        [
+          30,
+          39
+        ]
+      ],
+      "preserved_bytes": "source-evidence/iteration-timeout/reported-selected/crates/adventuresim-tactical-netcode/src/lib.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/replication.rs",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "git_blob": "cb7921e8282f94b350c0440a965f857ef8c2cf41",
+      "sha256": "3723f618b79b8e9c01b414c6fb374dd1f15e970c4182b2fa6d446c84924a33c8",
+      "bytes": 10245,
+      "lines": 242,
+      "ranges": [
+        [
+          11,
+          14
+        ],
+        [
+          28,
+          32
+        ]
+      ],
+      "preserved_bytes": "source-evidence/iteration-timeout/reported-selected/crates/adventuresim-tactical-netcode/src/replication.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "current_trace": [
+    "The current shared tactical rate is 30 Hz; the replication plugin supplies it as f64 to the Bevy fixed clock. The iteration harness independently computes its f32 reciprocal and maximum loop count, and its elapsed wrapper multiplies an f32-promoted tick count by that reciprocal. AnimationSampleRate belongs to a different locomotion sample clock; no owner substitution is presumed.",
+    "If the 180-second cap is exhausted normally without the break, maximum_ticks is 5,400 and the half-open loop performs 5,400 app.update calls. final_tick remains 5,400, yet the outcome reports final_tick + 1, or 5,401 simulated_ticks, and derives simulated_seconds from 5,401 tick intervals (approximately 180.033 seconds). This is a source-level conditional calculation; it is not a runtime claim that a duel reaches timeout or that each app update produces exactly one fixed-schedule tick.",
+    "If a defeat causes the loop to break at zero-based index k, final_tick is set to k and the outcome reports k + 1; that agrees with the number of completed iterations in the shown loop. The selected ff9 source had the same sentinel/count issue at 64 Hz; the change to 30 Hz changes the expected cap count but did not introduce this particular sentinel structure.",
+    "The iteration runner converts outcome.simulated_seconds into a tactical measurement, accumulates it, and writes each outcome; the matchup summary uses that total for total, mean and simulated-seconds-per-wall-second values. This identifies source paths for the conditional reporting effect, not a measured result."
+  ],
+  "related_current_path_disposition": {
+    "path": "crates/adventuresim-tactical-client/src/single_threaded.rs",
+    "disposition": "non-applicable to producer propagation within this 40-line body: it configures Bevy plugin and schedule executors and does not construct or retain a migrated application quantity",
+    "qualification": "The main plugin setup and any scheduling equivalence or browser behavior remain independently open; no runtime probe was performed."
+  },
+  "repair_direction": "Determine a single completed-update count for exhausted and early-terminal cases separately from zero-based IterationClock coordinates, propagate it through TacticalElapsed and all reports, and reconcile the shared fixed-rate and sampling-clock boundaries without assuming AnimationSampleRate owns the tactical simulation rate. Preserve the intended tick order and numeric rounding unless an explicit design decision changes them.",
+  "later_acceptance": [
+    "At the current 30 Hz and 180-second limit, an exhausted loop must report the count of actual completed app updates, 5,400; early termination at index k must report k + 1.",
+    "Outcome duration and aggregate report totals, means and throughput must derive from the same declared completed-count contract and retain chosen rounding/quantization.",
+    "Review fixed-clock and locomotion sampling relationships, all coordinate/count owners, other consumers and source revisions independently. Product tests or runtime checks require separate authorization."
+  ],
+  "remaining": [
+    "Establish whether an admitted timeout can occur; no roster, product runtime, test or fixed-schedule timing observation was performed.",
+    "Trace the complete producer-to-native clock and report graph, other count/span owners and exact historical aliases; assess the remaining ranges and other independent lenses.",
+    "Reconcile all later recoverable history, including the qualified printed revisit, without assuming the missing final queue or ledger contents."
+  ],
+  "discovery_status": "partial conditional source assessment; full scopes and aliases open",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}

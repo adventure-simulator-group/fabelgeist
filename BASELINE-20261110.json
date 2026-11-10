@@ -651,7 +651,7 @@
       "status": "A",
       "path": "crates/adventuresim-tactical-client/src/single_threaded.rs",
       "lens_status": [
-        "unassessed",
+        "assessed: non-applicable to producer propagation within scheduling plugin body; ASSESSMENT-L1-ITERATION-TIMEOUT.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -860,7 +860,7 @@
       "status": "M",
       "path": "crates/adventuresim-tactical-netcode/src/lib.rs",
       "lens_status": [
-        "unassessed",
+        "partial tick/count and report trace; complete producer and consumer scope open; ASSESSMENT-L1-ITERATION-TIMEOUT.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -879,7 +879,7 @@
       "status": "M",
       "path": "crates/adventuresim-tactical-netcode/src/replication.rs",
       "lens_status": [
-        "unassessed",
+        "partial tick/count and report trace; complete producer and consumer scope open; ASSESSMENT-L1-ITERATION-TIMEOUT.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -898,7 +898,7 @@
       "status": "M",
       "path": "crates/adventuresim-tactical-server/src/iteration.rs",
       "lens_status": [
-        "unassessed",
+        "partial tick/count and report trace; complete producer and consumer scope open; ASSESSMENT-L1-ITERATION-TIMEOUT.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -1392,12 +1392,20 @@
         "discovery": "partial; policy, producers, consumers, admission and exact aliases open",
         "repair": "not started",
         "validation": "not performed"
+      },
+      {
+        "id": "ADLER-L11-ITERATION-TIMEOUT-TICK-COUNT",
+        "record": "ASSESSMENT-L1-ITERATION-TIMEOUT.json",
+        "classification": "historical timeout-count finding with newly checked current conditional source trace",
+        "discovery": "partial; admitted timeout, native clock, complete consumers and aliases open",
+        "repair": "not started",
+        "validation": "not performed"
       }
     ],
     "qualification": "Historical queue is retained as a mandatory reconciliation source, not silently imported as current findings. Connected repairs, dependencies and acceptance criteria must be populated from source-backed assessments."
   },
   "validation": "No product builds, tests, runtime probes or repairs authorized or performed. Evidence verification only.",
-  "next_step": "Continue Lens 1 with the unassessed current workflow and source delta and original source roles listed in COVERAGE-L01-ROLES.json; keep dependency feature selections and connected sources open.",
+  "next_step": "Continue Lens 1 source and original role worklists; finish tick/count, combat, inventory, feature, native and report traces without transferring historical lens credit.",
   "continuation_orientation": "CONTINUATION.md",
   "lens1_role_worklist": "COVERAGE-L01-ROLES.json",
   "lockfile_inventory": "LOCKFILE-DELTA.json"
