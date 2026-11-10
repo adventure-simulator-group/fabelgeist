@@ -252,7 +252,7 @@
       "status": "A",
       "path": "crates/adventuresim-stdb-module/static/sfx.js",
       "lens_status": [
-        "unassessed",
+        "partial bounded audio trace; full producer-propagation path review open",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -271,7 +271,7 @@
       "status": "A",
       "path": "crates/adventuresim-stdb-module/static/sfx_worklet.js",
       "lens_status": [
-        "unassessed",
+        "partial bounded audio trace; full producer-propagation path review open",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -347,7 +347,7 @@
       "status": "M",
       "path": "crates/adventuresim-tactical-client/Cargo.toml",
       "lens_status": [
-        "unassessed",
+        "partial bounded audio trace; full producer-propagation path review open",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -442,7 +442,7 @@
       "status": "M",
       "path": "crates/adventuresim-tactical-client/src/combat_effects.rs",
       "lens_status": [
-        "unassessed",
+        "partial bounded audio trace; full producer-propagation path review open",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -575,7 +575,7 @@
       "status": "M",
       "path": "crates/adventuresim-tactical-client/src/main.rs",
       "lens_status": [
-        "unassessed",
+        "partial bounded audio trace; full producer-propagation path review open",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -594,7 +594,7 @@
       "status": "M",
       "path": "crates/adventuresim-tactical-client/src/movement_audio.rs",
       "lens_status": [
-        "unassessed",
+        "partial bounded audio trace; full producer-propagation path review open",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -670,7 +670,7 @@
       "status": "A",
       "path": "crates/adventuresim-tactical-client/src/sound_output.rs",
       "lens_status": [
-        "unassessed",
+        "partial bounded audio trace; full producer-propagation path review open",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -689,7 +689,7 @@
       "status": "A",
       "path": "crates/adventuresim-tactical-client/src/sound_output/silent.rs",
       "lens_status": [
-        "unassessed",
+        "partial bounded audio trace; full producer-propagation path review open",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -708,7 +708,7 @@
       "status": "A",
       "path": "crates/adventuresim-tactical-client/src/sound_output/web.rs",
       "lens_status": [
-        "unassessed",
+        "partial bounded audio trace; full producer-propagation path review open",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -822,7 +822,7 @@
       "status": "M",
       "path": "crates/adventuresim-tactical-client/src/weather_audio.rs",
       "lens_status": [
-        "unassessed",
+        "partial bounded audio trace; full producer-propagation path review open",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -1357,6 +1357,24 @@
         "validation": "not performed",
         "connected_candidates": [
           "SEGOVB-L12-BATTLE-OUTCOME-PRIVATE-READMISSION"
+        ]
+      },
+      {
+        "id": "ADLER-L11-MOVEMENT-AUDIO-PITCH-PRODUCT",
+        "record": "ASSESSMENT-L1-AUDIO-CONFIG.json",
+        "classification": "historical conditional pitch composition finding; newly traced current browser boundary",
+        "discovery": "partial Lens 1 source trace only; all other lenses, parser, aliases and supported reachability open",
+        "repair": "not started",
+        "validation": "not performed",
+        "connected_candidates": [
+          "Q-L1-c8f3d9e6ebb9f2366117",
+          "Q-L1-64c44b9147016afcc221",
+          "Q-L1-56acd94873fcfa1a89d3",
+          "Q-L1-dacc0f120a31559ba8b1",
+          "Q-L1-ce338d948a3174807826",
+          "Q-L1-dd3f05dca2774be40049",
+          "Q-L1-d8b25633cdd31630a91d",
+          "Q-L1-1b584dc2f030533962da"
         ]
       }
     ],
