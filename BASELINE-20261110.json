@@ -1248,6 +1248,17 @@
         "discovery": "partial; linked source and historical alias reconciliation pending",
         "repair": "not started",
         "validation": "not performed"
+      },
+      {
+        "id": "NEW-ROW-ID-002",
+        "record": "ASSESSMENT-ROW-IDENTITY.json",
+        "classification": "source-supported producer propagation migration gap; no observed mix-up",
+        "discovery": "partial; related historical aliases and remaining producers/consumers open",
+        "repair": "not started",
+        "validation": "not performed",
+        "dependencies": [
+          "NEW-INV-LOOKUP-001"
+        ]
       }
     ],
     "qualification": "Historical queue is retained as a mandatory reconciliation source, not silently imported as current findings. Connected repairs, dependencies and acceptance criteria must be populated from source-backed assessments."

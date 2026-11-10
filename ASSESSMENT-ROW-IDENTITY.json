@@ -1,0 +1,118 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "id": "NEW-ROW-ID-002",
+  "lens": 1,
+  "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "classification": "source-supported producer propagation migration gap under crates/AGENTS.md semantic-value and producer-migration rules; actual wrong-row selection not observed",
+  "source_identities": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/item.rs",
+      "git_blob": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa",
+      "ranges": [
+        "40-57",
+        "351-407"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "git_blob": "273eafd632bcd254869f05ba77a9b7be4cf94d72",
+      "range": "982-1001"
+    },
+    {
+      "path": "crates/adventuresim-core/src/physical_object.rs",
+      "git_blob": "f909ea20d50d690978330d0d002d6f0d210fe561",
+      "range": "14-137"
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_inventory.rs",
+      "git_blob": "9f29528cec924edd2801d66251bd82045f98f44a",
+      "range": "215-320"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "git_blob": "56c79313e6fdf736f5f00f2971e8537edc88433d",
+      "ranges": [
+        "1-56",
+        "490-525",
+        "2200-2277",
+        "2506-2548",
+        "2640-2648",
+        "2692-2731",
+        "2829-2904"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_container/object_lookup.rs",
+      "git_blob": "6392be9abac49ce8f6bfe66aa11eb9964c14b7ce",
+      "range": "1-56"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "git_blob": "9b3721a9f00be8183915424b975aba69c9eda0ac",
+      "range": "11-117"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/food/model.rs",
+      "git_blob": "5ed3ad5655e51693f0ed66989bcf03b63a39c613",
+      "range": "1-15"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/inventory.rs",
+      "git_blob": "514b6822e4f984b19560912113eef077d9da3717",
+      "ranges": [
+        "23-37",
+        "208-239"
+      ]
+    }
+  ],
+  "producer_to_boundary_trace": [
+    "The personal and party native database tables independently auto-allocate u64 primary keys. add_inventory_item_checked returns Option<u64> and passes item.id to personal object and food initialization; party creation likewise passes party row.id to its object and food initialization.",
+    "InventoryLocation identifies personal versus party in its enum variant but retains each backing row as u64. object_for_row and ensure_food_material_object accept an independently supplied CarriedInventoryScope and u64, select a table by the scope, and compare numeric row IDs. FoodLot persists separate optional numeric fields for the two table references.",
+    "Storefront reducer ABI supplies Vec<u64> and a scope bool to StorefrontTradeRequest::parse. Parsing checks line alignment and positive quantities, but retains each sale ID as u64 and scope as a separate public enum field. The private executor converts that enum back to a bool, extracts vectors, selects the corresponding lookup and table, and applies sales using the same separated values. The selected source does check row ownership and duplicate sale IDs; no incorrect sale is asserted.",
+    "The character creator InventoryItemId belongs to an in-memory character-creator article collection with its own per-collection allocation, rather than the shown persisted strategic personal or party tables. Its similar spelling does not establish shared identity or a safe existing owner for those row IDs."
+  ],
+  "first_contract": "At native row creation or reducer decoding, personal and party identifiers lose their table distinction in application APIs and retained request state; callers must keep the separate scope paired correctly. Determine the shared owner and carry identity through each connected internal producer, field, operation and consumer until an actual database or transport adapter requires a primitive.",
+  "candidate_owner": {
+    "revision": "8e63dde856913bbc7bb49c35329dd1d99da692d7",
+    "status": "preserved historical draft, unreviewed at current source; candidate, not adopted authority",
+    "source_blobs": [
+      {
+        "path": "crates/adventuresim-core/src/physical_object.rs",
+        "git_blob": "7457a7378a3d4637be0daf3e4216272b68f8765a",
+        "range": "45-181"
+      },
+      {
+        "path": "crates/adventuresim-core/src/strategic_inventory.rs",
+        "git_blob": "eae17c62752602578a69688869007a217db51831",
+        "range": "224-293"
+      },
+      {
+        "path": "crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+        "git_blob": "e57253e6022ff7579c1a9126ce19a467faea856f",
+        "scope": "creation and deletion API excerpts"
+      }
+    ],
+    "qualification": "The draft uses distinct personal and party wrappers and a carried-row enum and accepts all u64 values. It is not evidence of positivity, existence, current integration, or a runtime failure. Its lookup scans all objects; current indexed behavior must be reconciled separately."
+  },
+  "connected_contracts": [
+    {
+      "id": "NEW-INV-LOOKUP-001",
+      "relation": "shared lookup and row owner; different first contract, not deduplicated"
+    },
+    {
+      "id": "Q-L12-0ff49f2f24b830b3d243",
+      "relation": "historical inventory admission and transaction obligations overlap producers; exact finding alias unproven"
+    }
+  ],
+  "connected_repair_and_dependencies": "Determine the canonical row-ID owner and admissibility policy, then coordinate native table/ABI adapters, producers, location and food-lot references, typed lookup and its corruption/index contract, storefront request and execution, and all other callers. Preserve the distinction between physical object IDs and backing row IDs. Historical P16 is a candidate source of work, not an implementation instruction. No compatibility paths or manual edits to generated bindings; schema changes would require the prescribed generator, only after future authorization.",
+  "acceptance": "Document every producer-to-native-boundary path for both row namespaces and repair escrow; require correct scope/ID pairing in internal APIs, preserve legitimate native serialization and full transaction behavior, and account for object uniqueness and absent rows. Establish specific product validation later only after authorization; none has been performed here.",
+  "remaining": [
+    "All object_for_row callers and row producers, cross-scope transfers, lot mutations and native projections.",
+    "Exact row-ID admission/zero policy and candidate owner/API compatibility with current source.",
+    "Historical queue and later partial evidence exact-identity alias reconciliation; independent lens assessments.",
+    "Current revision comparison and dependency order for any eventual schema and draft integration."
+  ],
+  "discovery_status": "partial; no path, family or lens completion claimed",
+  "repair_status": "not started",
+  "validation_status": "not performed; no runtime mix-up claimed"
+}
