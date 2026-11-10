@@ -130,6 +130,11 @@ part field and inoperative editor command against the repository rule; the
 semantic assembly and remaining consumers need independent review.
 `ASSESSMENT-L01-HISTORICAL-734-740.json` records frozen garment fit
 and shader source reads; no device or test ran.
+`ASSESSMENT-L01-UNARMED-95E.json` traces the strategic unarmed yield
+gate and selected empty-hand action work, retaining tactical safeguards
+and prior unarmed qualifications. No attack or encounter was run.
+`ASSESSMENT-L01-HISTORICAL-891-900.json` records separate frozen combat
+source reads; source tests were not run.
 `ASSESSMENT-L03-OBJECTIVE-EXPRESSION-95E.json` traces an unchecked empty
 objective path through selected developer and authority boundaries. It
 retains replay safeguards and conditional reachability; Lens 3 remains open.

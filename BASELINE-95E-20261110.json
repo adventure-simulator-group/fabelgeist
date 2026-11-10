@@ -1112,6 +1112,29 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L03-OBJECTIVE-EXPRESSION-95E.json"
+      },
+      {
+        "id": "REVIEW-AUTORESOLVE-UNARMED-YIELD-001",
+        "severity": "P2 conditional: an unarmed strategic fighter is marked yielded rather than scheduled to strike",
+        "classification": "Current bounded strategic/tactical capability propagation and behavior-preservation question; no actual encounter observed.",
+        "discovery": "partial; unarmed/surrender policy, reachable encounters, other gates and historical aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L01-UNARMED-95E.json"
+      },
+      {
+        "id": "REVIEW-EMPTY-HAND-ATTACK-FATIGUE-001",
+        "severity": "P2 conditional: selected empty-hand melee action charges zero calculated action workload",
+        "classification": "Current bounded tactical empty-hand action-work trace; intended unarmed effort policy and actual accepted action remain open.",
+        "discovery": "partial; empty-hand effort policy, actual action reachability, all work producers and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L01-UNARMED-95E.json",
+        "related_current_candidates": [
+          "REVIEW-RANGED-WEAPON-WORK-FATIGUE-001",
+          "REVIEW-AUTORESOLVE-UNARMED-YIELD-001"
+        ],
+        "relationship_qualification": "The shared single-fatigue-pool scope is connected, but the ranged omission and empty-hand zero mass/inertia are distinct selected causes; no historical unique-count or alias asserted."
       }
     ]
   },

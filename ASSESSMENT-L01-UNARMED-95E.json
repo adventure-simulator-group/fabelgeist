@@ -1,0 +1,633 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected strategic no-melee-weapon admission and scheduling versus tactical unarmed hand, action-work and shared fatigue consumers.",
+  "source_reasoning": "Static source and symbolic zero-work reasoning only; no inventory mutation, encounter, attack, product build, test or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "AGENTS.md",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bcbd30c924ef6af16333fc0a7f34bcc322efcd67",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "bytes": 6412,
+      "lines": 113,
+      "ranges": [
+        [
+          17,
+          34
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/AGENTS.md",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e09dc60d55d882fef95a47640f5548a102f01c5b",
+      "sha256": "7d2a3dd7507a8405fded5577a7f406273ab835389b52b189415d0878c39d8a73",
+      "bytes": 420,
+      "lines": 9,
+      "ranges": [
+        [
+          1,
+          9
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/AGENTS.md",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a0b38d1435a5f1122c38793d3c6ecb2ebd99f958",
+      "sha256": "b3fd110d97bc871853458c38282d3d4c18369b6d0647e96e0de6d0641dca61c8",
+      "bytes": 946,
+      "lines": 17,
+      "ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/AGENTS.md",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cd6aa22556d2011389df23681bc05f79e6521037",
+      "sha256": "7ee99ed83ec08c73059455c636748e9aad902d977fe0eb5d2b55d010509c8691",
+      "bytes": 344,
+      "lines": 7,
+      "ranges": [
+        [
+          1,
+          6
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "38e9e93154e06307c59fb5e70ff81a4b90013295",
+      "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "bytes": 100462,
+      "lines": 2878,
+      "ranges": [
+        [
+          129,
+          145
+        ],
+        [
+          223,
+          229
+        ],
+        [
+          273,
+          280
+        ],
+        [
+          637,
+          697
+        ],
+        [
+          737,
+          765
+        ],
+        [
+          1143,
+          1149
+        ],
+        [
+          1233,
+          1250
+        ],
+        [
+          1294,
+          1304
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d06567c39d00f2e8319772272807da6c86f48dfa",
+      "sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+      "bytes": 11543,
+      "lines": 363,
+      "ranges": [
+        [
+          225,
+          241
+        ],
+        [
+          250,
+          265
+        ],
+        [
+          274,
+          292
+        ],
+        [
+          313,
+          316
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a43f1c1962307eb81b1a72e6fa6271766801a17f",
+      "sha256": "9c56fb8232e356e6e204ba7c1065597c6063b0b25572d6f0e7cb131b2a7eb320",
+      "bytes": 13868,
+      "lines": 391,
+      "ranges": [
+        [
+          184,
+          203
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/joint_melee.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b5dbea852669a4780b6805b19855a627b382af11",
+      "sha256": "7373a905f23ab3075cfb464c0a936ce1ebc33ba6c5c6ad23866b1a1479c5b983",
+      "bytes": 10073,
+      "lines": 329,
+      "ranges": [
+        [
+          1,
+          35
+        ],
+        [
+          95,
+          126
+        ],
+        [
+          270,
+          302
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/capability.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e6b5de52f8ae0a3bbae6da56db535c6c5b430236",
+      "sha256": "877f8932ea920a91c610829b96a637ad6d361189a28f41d464376763ca8d160c",
+      "bytes": 2219,
+      "lines": 72,
+      "ranges": [
+        [
+          16,
+          44
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/contact_geometry.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0cc7a809becdfcc5e2ea4af7e6441dc17134f55f",
+      "sha256": "8be98e18f4aa0d7bb6fbc302c7a10e6df912a744927240f6a4618ce41541e75f",
+      "bytes": 19525,
+      "lines": 488,
+      "ranges": [
+        [
+          137,
+          149
+        ],
+        [
+          182,
+          197
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3ca56e4d56b5b0012e70bc5c506497e8a50fe745",
+      "sha256": "7d00629a7da937cf41b5bc49a86df7119cc7054743dce1f70ac2507a7aba59b0",
+      "bytes": 38950,
+      "lines": 1137,
+      "ranges": [
+        [
+          108,
+          122
+        ],
+        [
+          351,
+          371
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/11.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/fatigue.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "76810b6057bd6a1206cb4d84dc4e4f6495c96991",
+      "sha256": "823dc22517760aafcf6f7107becb2e1d9c647c685bfe5022f7865d7739cb52f5",
+      "bytes": 8871,
+      "lines": 263,
+      "ranges": [
+        [
+          17,
+          59
+        ],
+        [
+          89,
+          98
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/12.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/inventory.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7ce298607e56c251a5841035d17b1601292ad542",
+      "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+      "bytes": 28617,
+      "lines": 862,
+      "ranges": [
+        [
+          302,
+          313
+        ],
+        [
+          323,
+          344
+        ],
+        [
+          385,
+          405
+        ],
+        [
+          418,
+          447
+        ],
+        [
+          518,
+          522
+        ],
+        [
+          549,
+          553
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/13.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ddbb471042ffdc77b0b8c7e16b1e184b1a98963e",
+      "sha256": "423abf723a262ebe836e619d7ae78e7307715eeb0a6df531a58967134d312e74",
+      "bytes": 71704,
+      "lines": 2067,
+      "ranges": [
+        [
+          1244,
+          1256
+        ],
+        [
+          1666,
+          1685
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/14.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/player.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9d9a7fe4d0da49a45fcc5127992f0c91fdd92c2b",
+      "sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "bytes": 21008,
+      "lines": 640,
+      "ranges": [
+        [
+          532,
+          537
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/15.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/player/combat_state.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0d7f18a63279bccc60edfc24de24dfb42c0482ae",
+      "sha256": "bfc02321b1d2716ffaf92d38902b547713a76a9de7a350ece7f35449e9dddf37",
+      "bytes": 7093,
+      "lines": 211,
+      "ranges": [
+        [
+          48,
+          59
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/16.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/ingress.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "89fec648992f7d805e4ebc7797a3447b336fc9c5",
+      "sha256": "7b8e51061494a9d8a04960207b16657e3494be1831663d62e911f8a690429d3a",
+      "bytes": 41432,
+      "lines": 1210,
+      "ranges": [
+        [
+          159,
+          192
+        ],
+        [
+          245,
+          271
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/17.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/ingress/work.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ea9117bf8aa6ba065688bae4db3347b097385f2b",
+      "sha256": "6be424d70d473190c8983c7f8657d117cf7aedd39c7e13c8e3d0cd6021d8a3fa",
+      "bytes": 1524,
+      "lines": 50,
+      "ranges": [
+        [
+          21,
+          50
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/18.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/authority.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4c120856814dddd0e362ba0c5c3d1447b8878f7c",
+      "sha256": "083b8b2af667eddfbb85c778a24dd9794d2b6729a5990f1334f922fa5b2a3730",
+      "bytes": 22323,
+      "lines": 674,
+      "ranges": [
+        [
+          624,
+          663
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/19.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/melee.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d0eb217d6cf8558fc2040438f8632dec03a3bb19",
+      "sha256": "fe64843450cc6ba428fd3c9c1fec3a5fcb5b65b3cbf3a5c21997548d3a355dd6",
+      "bytes": 17181,
+      "lines": 473,
+      "ranges": [
+        [
+          131,
+          169
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/20.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/condition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5bf3afe1a222832e72c09014f44843936291d9a5",
+      "sha256": "543fe525702b8245d56a704a028a74138144789cf48c888b58704897bb6be7bf",
+      "bytes": 5752,
+      "lines": 160,
+      "ranges": [
+        [
+          104,
+          160
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/21.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/capability.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3836a33875b93975f11f6dfdada4c53a768ce0ea",
+      "sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+      "bytes": 26410,
+      "lines": 694,
+      "ranges": [
+        [
+          300,
+          335
+        ],
+        [
+          479,
+          534
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/22.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/capability/combatant.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "42e662da5494c9cb649b3965eb09f7c1d3188141",
+      "sha256": "afba3aaeb15ab41fe36d35221b5269a784098863766c03ad61ecd6532204bdbc",
+      "bytes": 3765,
+      "lines": 111,
+      "ranges": [
+        [
+          43,
+          60
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/23.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+      "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "bytes": 138251,
+      "lines": 3968,
+      "ranges": [
+        [
+          2787,
+          2816
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/24.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f81d693da7d589fb8295931442850ca28946dd94",
+      "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+      "bytes": 117342,
+      "lines": 2973,
+      "ranges": [
+        [
+          195,
+          225
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/25.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2c0b4913c81fa6f89510a5b2bf6c62ec693f2add",
+      "sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+      "bytes": 54084,
+      "lines": 1463,
+      "ranges": [
+        [
+          1017,
+          1053
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/unarmed-sources/26.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-143.json",
+      "sha256": "8705856c3406176dc6975a8c12156c5de590cccb19e011bdb95f827b399a9ba4",
+      "bytes": 10347,
+      "git_blob": "f4e490f983f59f80f8022143d79234a7ec7cb4a7",
+      "preserved_bytes": "recovered/unarmed-059/8705856c3406176dc6975a8c12156c5de590cccb19e011bdb95f827b399a9ba4.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 prior delegated receipt; preserve original attribution, pending status and zero accepted unique-count change. Not checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-146.json",
+      "sha256": "6a986ee7f6fe1cb58a9b90e2d7207d489f571c7c7acfb91b8d89ace3c09a8946",
+      "bytes": 12460,
+      "git_blob": "102b7d23f66bb7b2aad429b7b8282430aa67388d",
+      "preserved_bytes": "recovered/unarmed-059/6a986ee7f6fe1cb58a9b90e2d7207d489f571c7c7acfb91b8d89ace3c09a8946.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 prior delegated receipt; preserve original attribution, pending status and zero accepted unique-count change. Not checkpoint 3821 authority."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens12/pending_connected_contracts/827",
+      "qualification": "Earlier partial unarmed/view route cautioned not to infer that missing a melee weapon disables fists before tracing the actual route. That caution remains correct for tactical view; this new 95e trace specifically establishes the separate autoresolve guard and does not retroactively change the prior record."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/245",
+      "qualification": "Earlier broad shared combat energy and native-domain question; relationship to these selected current traces is not a resolved alias."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/249",
+      "qualification": "Earlier fatigue configuration and single-wheel producer/consumer question; exact historical alias remains open."
+    },
+    {
+      "file": "ASSESSMENT-L01-RANGED-FATIGUE-95E.json",
+      "qualification": "Related current single-fatigue workload family; ranged trace omits a charge, whereas this selected empty-hand melee trace calls the workload calculation with zero mass and inertia. The two first failures remain distinct."
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 891,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat.rs",
+      "historical_sha256": "7d00629a7da937cf41b5bc49a86df7119cc7054743dce1f70ac2507a7aba59b0",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-891-900.json",
+      "qualification": "Separate Lens 1 frozen PR-working body read; byte identity grants no independent-lens or checkpoint 3821 credit."
+    },
+    {
+      "original_index": 893,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/capability.rs",
+      "historical_sha256": "877f8932ea920a91c610829b96a637ad6d361189a28f41d464376763ca8d160c",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-891-900.json",
+      "qualification": "Separate Lens 1 frozen PR-working body read; byte identity grants no independent-lens or checkpoint 3821 credit."
+    },
+    {
+      "original_index": 895,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/contact_geometry.rs",
+      "historical_sha256": "8be98e18f4aa0d7bb6fbc302c7a10e6df912a744927240f6a4618ce41541e75f",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-891-900.json",
+      "qualification": "Separate Lens 1 frozen PR-working body read; byte identity grants no independent-lens or checkpoint 3821 credit."
+    },
+    {
+      "original_index": 898,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/fatigue.rs",
+      "historical_sha256": "823dc22517760aafcf6f7107becb2e1d9c647c685bfe5022f7865d7739cb52f5",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-891-900.json",
+      "qualification": "Separate Lens 1 frozen PR-working body read; byte identity grants no independent-lens or checkpoint 3821 credit."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-AUTORESOLVE-UNARMED-YIELD-001",
+      "severity": "P2 conditional: an unarmed strategic fighter is marked yielded rather than scheduled to strike",
+      "classification": "Current bounded strategic/tactical capability propagation and behavior-preservation question; no actual encounter observed.",
+      "trace": "StrategicEquipment selects a melee weapon only from equipped weapon items and projects None when no such item is held. Unequip_item is a selected authorized route that can remove an equipped item subject to ownership, encounter and living-character checks. If the resulting strategic combatant has no usable ranged weapon/ammunition, preferred_attack_mode selects melee; can_attack_melee nevertheless requires melee_weapon.is_some(). When an otherwise active actor reaches schedule_attacker against a non-defeated side, that failed check marks yielded and schedules no melee strike. is_defeated includes yielded and the terminal classification uses side_defeated. This does not mean the actor is medically incapacitated or that every battle reaches the gate.",
+      "tactical_safeguards": "For the selected empty-hand tactical view, InventoryView identifies the selected right or left attack hand even without an equipped weapon, returns unarmed skill distribution and zero weapon reach, and the shared capability rejects an actually disabled selected arm. Tactical ingress still requires a usable skeleton strike, action timing, viewer and authority; its cheap contact check accepts a finite zero weapon reach when arm reach is positive and other conditions hold. Shared contact geometry explicitly models zero-grip unarmed contact. No accepted tactical attack or strategic battle was run.",
+      "safeguards_and_limits": "Strategic loading, ranging, opening sequence, other participants, physical conditions and policy can alter the outcome. The source trace does not establish a real unequipped roster or whether deliberate surrender is the intended autoresolve policy. The earlier 059 tactical caution is retained rather than rewritten as a negative verdict. All admission, tactical assets, player-facing warning and historical aliases remain open.",
+      "connected_repair": "Decide and encode the intended unarmed combat/surrender policy across equipment projection, selected-hand/arm capability, melee scheduling, shared contact and battle outcomes. If unarmed combat is supported, preserve legitimate zero weapon geometry and action timing, disabled-arm injury effects, fatigue and the distinct yielded/incapacitated states; do not remove injury gates or persist tactical tick state.",
+      "acceptance": "After separate implementation authorization, cover an able empty-hand actor, exhausted ranged ammunition without a sidearm, disabled selected arm, legitimate yielded actors and normal armed/ranged actors through the intended strategic and tactical contracts. Product validation remains deferred.",
+      "discovery": "partial; unarmed/surrender policy, reachable encounters, other gates and historical aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-EMPTY-HAND-ATTACK-FATIGUE-001",
+      "severity": "P2 conditional: selected empty-hand melee action charges zero calculated action workload",
+      "classification": "Current bounded tactical empty-hand action-work trace; intended unarmed effort policy and actual accepted action remain open.",
+      "trace": "After a successful timed melee start, tactical ingress calls charge_started_attack_work using the selected attack-hand view. If that hand has no striking item, InventoryView returns weapon weight 0 and weapon inertia 0. For finite positive action duration and validated positive mechanical efficiency, the Attack arm of combat_action_workload computes both weapon-energy terms as zero; it does not use supplied body or carried mass for Attack. The resulting metabolic workload is zero, so with finite fatigue already in its 0–1 range and finite positive capacity the selected charge adds zero to the general fatigue value. This is symbolic source reasoning, not a performed attack.",
+      "safeguards_and_limits": "Stationary active attack animation suppresses recovery, and actual movement, defense or other events may affect fatigue; zero selected attack charge is not a claim that the total wheel is unchanged over an encounter. A non-weapon item in the striking hand can have nonzero item weight, so this witness is specifically an empty hand. A valid animation, complete authority and an actual accepted action are not demonstrated. Root rules require one displayed fatigue pool and typed authored combat tuning, but the exact intended metabolic cost of an unarmed strike is a design question.",
+      "connected_repair": "Determine a coherent authored physical-work model for supported empty-hand attacks and feed it into the existing general fatigue pool through tactical and any future strategic unarmed action path. Preserve the distinct ranged omission, recovery suppression, one incapacitation wheel, total-incapacitation performance and limb-specific injuries. Any new tuning belongs in typed content/tactical/combat.yaml configuration and its shared projection.",
+      "acceptance": "After separate implementation authorization, verify the chosen empty-hand cost and ordinary held-weapon actions, recovery and movement, with no second fatigue pool or direct fatigue-only performance/movement penalty. Product validation remains deferred.",
+      "discovery": "partial; empty-hand effort policy, actual action reachability, all work producers and aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}
