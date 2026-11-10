@@ -206,6 +206,31 @@
           "CONT-WEDDING-CAPACITY-POSTWRITE-ERROR"
         ],
         "record": "ASSESSMENT-L01-WEDDING-CAPACITY-95E.json"
+      },
+      {
+        "id": "REVIEW-REPAIR-REDUCER-AUTHORITY-001",
+        "classification": "source-level caller-authorization gap at equipment repair submission and retrieval entry points; deployment exposure and actual invocation unverified",
+        "discovery": "partial; all callers, supported state, deployment, native behavior and global historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "relationship_qualification": "Same broad character mutation authority theme but different reducer contracts. No exact historical alias or deployment exposure is established.",
+        "record": "ASSESSMENT-L01-REPAIR-SUBMISSION-95E.json",
+        "related_candidates": [
+          "REVIEW-CHARACTER-RENAME-AUTHORITY-001",
+          "REVIEW-INVENTORY-MUTATION-AUTHORITY-001"
+        ]
+      },
+      {
+        "id": "REVIEW-REPAIR-BULK-ERROR-ERASURE-001",
+        "classification": "conditional source-derived post-write containment change after bulk repair suppresses a per-item error; supported state and transaction outcome not observed",
+        "discovery": "partial; all callers, supported state, deployment, native behavior and global historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "relationship_qualification": "Recovered checkpoint 059 records the same bulk Result-erasure family against pr-working repair.rs with the same SHA-256 as 95e. This current trace adds one conditional detach/overflow sequence and the documented successful-reducer premise. The older record retains its original open status, zero unique-count change and attribution; physical-p16 role 242 is a different body. This is not an additional independent unique failure or checkpoint 3821 state. Global aliases remain open.",
+        "record": "ASSESSMENT-L01-REPAIR-SUBMISSION-95E.json",
+        "historical_related_candidates": [
+          "SEGOVB-L12-REPAIR-BULK-ERROR-CLASSIFICATION"
+        ]
       }
     ]
   }

@@ -1,0 +1,291 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded repair reducer authority and bulk submission failure propagation. Independent lenses and remaining connected paths are incomplete.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/repair.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b38ce0ebc126d7e780dfbdcd10eae48cd6719969",
+      "sha256": "121a3412ae887fe1eec8fdf53acc1d66a0e091bc4d5d68593f16f0c13b270c09",
+      "bytes": 24120,
+      "lines": 724,
+      "ranges": [
+        [
+          1,
+          500
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/repair-submission-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/repair/smiths.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "eb29baf9e4b63c16e5609a120499af27160a937f",
+      "sha256": "9f6f941a9c20133485bdb87f96731d858974bde4c8f173fd90da3f51fc1227a6",
+      "bytes": 2219,
+      "lines": 61,
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/repair-submission-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/world_import.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bdf15701efea4303425b67cfc3453ec2b8944e32",
+      "sha256": "cc83d5f3e3c415a12dc0ced11a5e9271a2b115d3ed5ac9703d1a8b8ae9728d22",
+      "bytes": 41257,
+      "lines": 1159,
+      "ranges": [
+        [
+          148,
+          164
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/repair-submission-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/capability.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3836a33875b93975f11f6dfdada4c53a768ce0ea",
+      "sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+      "bytes": 26410,
+      "lines": 694,
+      "ranges": [
+        [
+          77,
+          165
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/repair-submission-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/condition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bdc470d795940aee28e60528b56120a9e09ba232",
+      "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "bytes": 92654,
+      "lines": 2627,
+      "ranges": [
+        [
+          1516,
+          1558
+        ],
+        [
+          1564,
+          1605
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/repair-submission-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "80bf707f3d64af1fe32e630ff811e7b1fe790957",
+      "sha256": "572d3f806ee5f017d597ba5041922e8efc94056e40b22c69a2d9251cebe1c765",
+      "bytes": 50615,
+      "lines": 1430,
+      "ranges": [
+        [
+          154,
+          173
+        ],
+        [
+          603,
+          706
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/repair-submission-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_container/object_lookup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6392be9abac49ce8f6bfe66aa11bb9964c14b7ce",
+      "sha256": "d3fa07b94a49cbd1c54ba90e00a9e76cad9b757990279309e2abf171466ac28a",
+      "bytes": 1987,
+      "lines": 56,
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/repair-submission-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/object_custody.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d5aef64ef75ca9b2094925d4cc07ec11d6e7f788",
+      "sha256": "a9bb1a3335b7d10b135f817c54c903577af4b2df12ca9d1c10a9ca52d48b2d5c",
+      "bytes": 19253,
+      "lines": 501,
+      "ranges": [
+        [
+          117,
+          132
+        ],
+        [
+          160,
+          268
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/repair-submission-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "273eafd632bcd254869f05ba77a9b7be4cf94d72",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "bytes": 51546,
+      "lines": 1586,
+      "ranges": [
+        [
+          940,
+          966
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/repair-submission-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/medical.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ad523058a0a171d121e6767009bb6000a336105d",
+      "sha256": "4a65105b858f1a7597d6f005ffd1840aced5a93d6655837cb0ad03d4f1fdb502",
+      "bytes": 19434,
+      "lines": 567,
+      "ranges": [
+        [
+          362,
+          455
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/repair-submission-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/submit_item_for_repair_reducer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7b2fd351ae4b74e473ae693156d28233b8930828",
+      "sha256": "edb1f835f5bf8d66f815b3a980a78ed8eae1642bf50ff82f927a7415c6c6ea3f",
+      "bytes": 3463,
+      "lines": 103,
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/repair-submission-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/retrieve_repaired_item_reducer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8834a41efcd738386ca79a15a0be75a6d165546b",
+      "sha256": "32e20b51d9099dd52c2dec6cb5f01962f32971b3323299c6970e216c8b8b9e51",
+      "bytes": 2909,
+      "lines": 81,
+      "ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/repair-submission-sources/11.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/item.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa",
+      "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "bytes": 34605,
+      "lines": 957,
+      "ranges": [
+        [
+          40,
+          58
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/repair-submission-sources/12.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "inspection_provenance": "Selected ranges were personally inspected directly from the pinned 95e Git commit; the preserved c100 and 95e trees bind identical blobs. The full physical-p16 role 242 was independently read as historical evidence and has a different SHA-256.",
+  "native_source": {
+    "package_manifest": "native-evidence/spacetimedb-2.6.1/MANIFEST.json",
+    "archive_member": "spacetimedb-2.6.1/src/lib.rs",
+    "ranges": [
+      [
+        456,
+        466
+      ],
+      [
+        528,
+        531
+      ]
+    ],
+    "qualification": "Pinned dependency source documentation only; no deployed server, network access or transaction was observed."
+  },
+  "historical_source": {
+    "checkpoint": "059",
+    "ledger": "baseline-059/ledger.json",
+    "pointer": "/discovery_findings_and_dependencies/SEGOVB-L12-REPAIR-BULK-ERROR-CLASSIFICATION",
+    "original_index": 1177,
+    "original_source_id": "pr-working:crates/adventuresim-stdb-module/src/repair.rs",
+    "original_source_sha256": "121a3412ae887fe1eec8fdf53acc1d66a0e091bc4d5d68593f16f0c13b270c09",
+    "other_physical_p16_index": 242,
+    "other_physical_p16_sha256": "059b098c4d5f5c79ce5f04d376a03631e5d78b601474c3f151881ccae4a66d45",
+    "qualification": "The pr-working historical finding is byte-matched to current repair.rs; physical-p16 is different. Neither record is checkpoint 3821 and neither original attribution or status is changed."
+  },
+  "candidates": [
+    {
+      "id": "REVIEW-REPAIR-REDUCER-AUTHORITY-001",
+      "classification": "source-level caller-authorization gap at equipment repair submission and retrieval entry points; deployment exposure and actual invocation unverified",
+      "detail": "The generated client exposes remote submit_item_for_repair and retrieve_repaired_item. The submit entry calls submit with caller-supplied character, settlement, service and inventory ID; that helper checks that the item belongs to the supplied character but does not inspect ctx.sender or invoke the strategic-character authority gate. The retrieve helper similarly compares the order owner to the supplied character ID, not the sender. If an independent caller reaches the database, knows appropriate IDs, meets all item, service and state preconditions, and downstream helpers succeed without another authorization barrier, source predicts it can submit another character\u2019s equipment to repair or retrieve and charge an eligible order. No network or database invocation was made.",
+      "safeguards": "Submission validates item ownership relative to the supplied character, quantity, service, damage and attachment conditions. Retrieval checks order ownership relative to the supplied ID, location, time, funds, escrow and equipment restoration. The web route obtains a character ID from its session. These do not alone prove the remote caller is authorized. Database exposure, access policy, item and order ID availability, intended simulation policy and complete downstream call graph remain unverified.",
+      "connected_scope": "All four repair reducers, gateway/session-to-character binding, disposable simulation ownership, equipment and physical-object custody, item and order visibility, currency charges, all call sites and external access controls. The record does not assert a deployed exploit or bypass of the item-state safeguards.",
+      "proposed_repair": "After full authority discovery, bind every repair mutation to its actual strategic gateway or permitted simulation owner at the owning reducer boundary, while retaining service, item, escrow, equipment and economic checks without a compatibility path.",
+      "later_acceptance": "After product validation is authorized, verify permitted strategic and isolated simulation repair flows and reject a different unauthorized sender at single and bulk submission and retrieval, with no equipment, money or order change.",
+      "related_candidates": [
+        "REVIEW-CHARACTER-RENAME-AUTHORITY-001",
+        "REVIEW-INVENTORY-MUTATION-AUTHORITY-001"
+      ],
+      "relationship_qualification": "Same broad character mutation authority theme but different reducer contracts. No exact historical alias or deployment exposure is established.",
+      "discovery": "partial; all callers, supported state, deployment, native behavior and global historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-REPAIR-BULK-ERROR-ERASURE-001",
+      "classification": "conditional source-derived post-write containment change after bulk repair suppresses a per-item error; supported state and transaction outcome not observed",
+      "detail": "The current batch loop increments success only for submit(...).is_ok(), discards every error and returns Ok when any item succeeds. For a nested repairable item, detach_if_nested deletes its containment edge before merge_empty_container can fail. Assume an otherwise admissible parent becomes empty, is not itself nested and has a unique valid personal backing row of quantity one; neither parent nor an eligible same-item target stack has an ItemCondition, and the target has no physical object and quantity u32::MAX. Assume another repair item in the same batch succeeds. The parent merge reaches checked_add and returns a stack overflow after the edge deletion; submit propagates that error, the batch ignores it and returns Ok because of the other success. Pinned SpacetimeDB source documentation says successful reducers commit, so source predicts the failed item\u2019s removed containment edge survives without a repair order. No product code, reducer or database was run.",
+      "safeguards": "A batch with no successful item returns an error, and an enclosing failed transaction rolls back. Expected ineligible or undamaged items may intentionally be skipped; individual submission propagates the error. The example assumes specific valid backing, parent/target stack, successful peer, and no later transaction failure. Reachability of that stack state and actual deployed transaction behavior remain unproved. Other post-write refresh errors are connected but no concrete supported cause is claimed.",
+      "connected_scope": "Expected eligibility versus unexpected custody, arithmetic and projection errors; containment detach/parent stack merge, equipment and repair escrow; batch success semantics and all submit callers; native transaction boundary and web result presentation. Reconcile other partial-effect and exact historical aliases without merging distinct owners solely because they catch Result.",
+      "proposed_repair": "After complete discovery, distinguish expected skip from unexpected invariant/custody failures, prepare fallible per-item changes before mutation or propagate unexpected failures to abort the whole reducer, and preserve explicitly chosen batch semantics without string matching or fallback.",
+      "later_acceptance": "After product validation is authorized, verify a batch containing a successful item and a later or earlier parent-merge overflow does not silently commit a detached failed item; verify expected skip, all-failed, valid partial eligibility and single-item behavior under the agreed policy.",
+      "historical_related_candidates": [
+        "SEGOVB-L12-REPAIR-BULK-ERROR-CLASSIFICATION"
+      ],
+      "relationship_qualification": "Recovered checkpoint 059 records the same bulk Result-erasure family against pr-working repair.rs with the same SHA-256 as 95e. This current trace adds one conditional detach/overflow sequence and the documented successful-reducer premise. The older record retains its original open status, zero unique-count change and attribution; physical-p16 role 242 is a different body. This is not an additional independent unique failure or checkpoint 3821 state. Global aliases remain open.",
+      "discovery": "partial; all callers, supported state, deployment, native behavior and global historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Trace all repair calls and policy, full lower-level custody and refresh failures, actual stack admission and transaction semantics; reconcile global historical aliases and assess all thirteen lenses independently. No product validation or repair."
+}
