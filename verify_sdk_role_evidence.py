@@ -1,0 +1,8 @@
+"""Verify registered SDK roles against their current lock-bound archive."""
+import gzip,hashlib,json,tarfile,tomllib
+from pathlib import Path
+root=Path(__file__).resolve().parent; m=json.loads((root/'native-evidence/spacetimedb-sdk-2.6.1/MANIFEST.json').read_text()); lock=gzip.decompress((root/m['current_lock_evidence']).read_bytes()); blob=hashlib.sha1(b'blob '+str(len(lock)).encode()+b'\0'+lock).hexdigest(); tree=dict(line.split('\t',1)[::-1] for line in (root/'main-advance-95e/current-tree.tsv').read_text().splitlines()); assert tree['Cargo.lock'].split()[-1]==blob; pk=[x for x in tomllib.loads(lock.decode())['package'] if x['name']==m['package'] and x['version']==m['version']]; assert len(pk)==1 and pk[0]['checksum']==m['sha256']; doc=json.loads((root/'ASSESSMENT-L01-HISTORICAL-491-494.json').read_text()); w=json.loads((root/'COVERAGE-L01-ROLES.json').read_text())['roles']; assert [x['original_index'] for x in doc['historical_source_roles']]==[491,492,493,494]
+with tarfile.open(root/'recovered/original-registry-source-archive/objects.tar.gz') as h,tarfile.open(root/'native-evidence/spacetimedb-sdk-2.6.1'/m['archive']) as a:
+ for row in doc['historical_source_roles']:
+  r=w[row['original_index']]; raw=h.extractfile(row['sha256']).read(); assert r['source_id']==row['source_id'] and r['historical_sha256']==row['sha256'] and hashlib.sha256(raw).hexdigest()==row['sha256'] and a.extractfile(row['matching_archive_member']).read()==raw and len(raw.splitlines())==row['lines'] and row['new_personal_read_ranges']==[[1,row['lines']]] and r['status']=='full-historical-body-trace-open'
+print('verified four historical SDK roles and current Cargo.lock archive binding')

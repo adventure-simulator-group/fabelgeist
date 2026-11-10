@@ -1,0 +1,64 @@
+{
+  "schema": "726-native-archive-evidence-v1",
+  "package": "spacetimedb-sdk",
+  "version": "2.6.1",
+  "archive": "spacetimedb-sdk-2.6.1.crate",
+  "sha256": "074a6d8828638176eb8e9bba7a3e6fb75dc659b260717306eb966c7e10575cd7",
+  "bytes": 100424,
+  "provenance": "Locally cached SDK archive verified against separately preserved Cargo.lock at current source revision 95e; distinct from the SpacetimeDB module crate.",
+  "qualification": "Registered bodies personally read; no feature resolution, network request, product build or runtime execution.",
+  "inspected_members": [
+    {
+      "path": "spacetimedb-sdk-2.6.1/src/db_connection.rs",
+      "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+      "bytes": 68131
+    },
+    {
+      "path": "spacetimedb-sdk-2.6.1/src/error.rs",
+      "sha256": "e98badf5f0eaff8bfe959e31b3ed9e4a6ad5cf5ec4040bfe806f74dc0c692d38",
+      "bytes": 2970
+    },
+    {
+      "path": "spacetimedb-sdk-2.6.1/src/lib.rs",
+      "sha256": "8de4cda1540f853eb47c888806c1529d3a7b2ed9e928d8fa01304f7d525e8161",
+      "bytes": 3054
+    },
+    {
+      "path": "spacetimedb-sdk-2.6.1/src/subscription.rs",
+      "sha256": "5b1c6b0def7c80c6afb1659ff676de3c9414173452a374041d4c9f27f760e729",
+      "bytes": 21884
+    },
+    {
+      "path": "spacetimedb-sdk-2.6.1/LICENSE",
+      "sha256": "e786b348b89922e18fe9e776bbe4aa9906625c749e24a49750d1d956c0e9b114",
+      "bytes": 40979
+    }
+  ],
+  "personally_inspected_ranges": {
+    "spacetimedb-sdk-2.6.1/src/db_connection.rs": [
+      [
+        1,
+        1624
+      ]
+    ],
+    "spacetimedb-sdk-2.6.1/src/error.rs": [
+      [
+        1,
+        104
+      ]
+    ],
+    "spacetimedb-sdk-2.6.1/src/lib.rs": [
+      [
+        1,
+        76
+      ]
+    ],
+    "spacetimedb-sdk-2.6.1/src/subscription.rs": [
+      [
+        1,
+        566
+      ]
+    ]
+  },
+  "current_lock_evidence": "main-advance-95e/basis-wire-sources/01.source.gz"
+}

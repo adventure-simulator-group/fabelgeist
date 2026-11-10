@@ -1,0 +1,93 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 491,
+      "source_id": "pinned-sdk-2.6.1:db_connection.rs",
+      "snapshot": "pinned-sdk-2.6.1",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/491",
+      "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+      "lines": 1624,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1624
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "matching_lock_checksum_archive": "native-evidence/spacetimedb-sdk-2.6.1/MANIFEST.json",
+      "matching_archive_member": "spacetimedb-sdk-2.6.1/src/db_connection.rs",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact registered SDK source; matches current lock-checksum archive. Feature resolution, generated bindings and application use remain open. Examples and tests were read, not run."
+    },
+    {
+      "original_index": 492,
+      "source_id": "pinned-sdk-2.6.1:error.rs",
+      "snapshot": "pinned-sdk-2.6.1",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/492",
+      "sha256": "e98badf5f0eaff8bfe959e31b3ed9e4a6ad5cf5ec4040bfe806f74dc0c692d38",
+      "lines": 104,
+      "new_personal_read_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "matching_lock_checksum_archive": "native-evidence/spacetimedb-sdk-2.6.1/MANIFEST.json",
+      "matching_archive_member": "spacetimedb-sdk-2.6.1/src/error.rs",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact registered SDK source; matches current lock-checksum archive. Feature resolution, generated bindings and application use remain open. Examples and tests were read, not run."
+    },
+    {
+      "original_index": 493,
+      "source_id": "pinned-sdk-2.6.1:lib.rs",
+      "snapshot": "pinned-sdk-2.6.1",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/493",
+      "sha256": "8de4cda1540f853eb47c888806c1529d3a7b2ed9e928d8fa01304f7d525e8161",
+      "lines": 76,
+      "new_personal_read_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "matching_lock_checksum_archive": "native-evidence/spacetimedb-sdk-2.6.1/MANIFEST.json",
+      "matching_archive_member": "spacetimedb-sdk-2.6.1/src/lib.rs",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact registered SDK source; matches current lock-checksum archive. Feature resolution, generated bindings and application use remain open. Examples and tests were read, not run."
+    },
+    {
+      "original_index": 494,
+      "source_id": "pinned-sdk-2.6.1:subscription.rs",
+      "snapshot": "pinned-sdk-2.6.1",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/494",
+      "sha256": "5b1c6b0def7c80c6afb1659ff676de3c9414173452a374041d4c9f27f760e729",
+      "lines": 566,
+      "new_personal_read_ranges": [
+        [
+          1,
+          566
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "matching_lock_checksum_archive": "native-evidence/spacetimedb-sdk-2.6.1/MANIFEST.json",
+      "matching_archive_member": "spacetimedb-sdk-2.6.1/src/subscription.rs",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact registered SDK source; matches current lock-checksum archive. Feature resolution, generated bindings and application use remain open. Examples and tests were read, not run."
+    }
+  ],
+  "observations": [
+    "The SDK connection parses incoming transport messages in a background loop, advances pending mutations and applies updates/callbacks through shared state. Build success can precede asynchronous connection completion; lifecycle errors, reducer callbacks and subscription state are distinct. Actual application connection setup, generated bindings, scheduling and supported deployment authority remain separate.",
+    "InternalError retains an optional Arc cause and includes it in Display and the deprecated cause method, but its standard Error::source returns None. The application error consumers, cause traversal needs and historical aliases must be traced before assessing a product-level impact; no loss of stored cause is asserted.",
+    "SubscriptionManager on_disconnect currently does nothing and SubscriptionState is_active depends on Applied and unsubscribe_called. Determine application handle lifetimes, disconnect behavior and supported reconnection policy before asserting stale state or a missed callback. Source tests and examples were read, not run.",
+    "These SDK source roles match a locally recovered archive whose checksum is in the current Cargo.lock; this SDK is distinct from the module crate. Feature resolution, runtime use and independent lenses remain open. No product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace generated and handwritten SDK consumers, callback/error and disconnect semantics, enabled features and supported deployment paths, exact historical aliases and every independent lens."
+}
