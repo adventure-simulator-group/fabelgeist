@@ -77,6 +77,8 @@ protective layers across hand and worn equipment transitions.
 timeout-count arithmetic from the historical 64 Hz source record.
 `ASSESSMENT-L01-HOLDER-IDENTITY-95E.json` traces optional authored
 component identity through current holder construction and selected callers.
+`ASSESSMENT-L01-BASIS-WIRE-95E.json` traces bounded fraction
+deserialization and records selected consumers that establish their own bounds.
 `ASSESSMENT-L01-DELETED-272.json` distinguishes the deleted physical-p16
 role from its independently verified pre-deletion base revision and bytes.
 `LOCKFILE-DELTA.json` preserves separate historical and predecessor comparisons

@@ -1,0 +1,330 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded shared basis-point Serde source interpretation and selected consumers only; independent lens coverage remains incomplete.",
+  "current_sources": [
+    {
+      "path": "Cargo.toml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "868b911e5d1fe98bfed681bde574227fb391a263",
+      "sha256": "8bc328dea59124a85bd4c7fcb522e3c55f962657f510ddee685050b7d8a8e512",
+      "bytes": 7583,
+      "lines": 211,
+      "ranges": [
+        [
+          130,
+          139
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/basis-wire-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          9397,
+          9422
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/basis-wire-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-world-schema/Cargo.toml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ff7aa0168b4e6cc4f284fc8c16ddaf4c7adec75d",
+      "sha256": "3c5bed9bdba2fe4d9a73522f70749beccc5240021b04af3755167af288735655",
+      "bytes": 728,
+      "lines": 31,
+      "ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/basis-wire-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/basis_points.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7d14430f5c167640c85eadaf467a87ff8c6e98b7",
+      "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+      "bytes": 4630,
+      "lines": 151,
+      "ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/basis-wire-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/investigation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "db292e533405f8ea4a313f742cae6b25ec7808d9",
+      "sha256": "670a2ae0df206f175978278ad2644e91d75c22a88cfa1ef89759171da672147b",
+      "bytes": 37029,
+      "lines": 1154,
+      "ranges": [
+        [
+          290,
+          322
+        ],
+        [
+          400,
+          432
+        ],
+        [
+          470,
+          556
+        ],
+        [
+          628,
+          711
+        ],
+        [
+          831,
+          849
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/basis-wire-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/local_problem.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "53496666c7f3c4a58e3342cf215a919b1c3facf9",
+      "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+      "bytes": 29321,
+      "lines": 865,
+      "ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/basis-wire-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/disease.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b3f5435464866afdfb3cb48e059be0251a65408d",
+      "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+      "bytes": 101966,
+      "lines": 2950,
+      "ranges": [
+        [
+          1590,
+          1615
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/basis-wire-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/disease/exposure_sources.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9ac360b25d609f22adb21d64f9bfd1afb5dc5667",
+      "sha256": "fd65f1ffe87f35659e8ebfa0216668ba5e1c17373d94539901cf36bab248c81b",
+      "bytes": 2836,
+      "lines": 77,
+      "ranges": [
+        [
+          14,
+          77
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/basis-wire-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/claims.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "261a5d088cff73b14c947fa8d85d039c9a80ea79",
+      "sha256": "19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+      "bytes": 65781,
+      "lines": 1771,
+      "ranges": [
+        [
+          769,
+          806
+        ],
+        [
+          834,
+          890
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/basis-wire-sources/08.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "native_sources": [
+    {
+      "package_manifest": "native-evidence/serde-derive-1.0.229/MANIFEST.json",
+      "archive_member": "serde_derive-1.0.229/src/de.rs",
+      "sha256": "a04fdb321ce47b479b42b2dd0ca1cfd57db88e06451d7dc95303c582fedc135c",
+      "bytes": 34045,
+      "ranges": [
+        [
+          306,
+          323
+        ],
+        [
+          382,
+          422
+        ]
+      ],
+      "qualification": "Lock-checksum-bound source interpretation only; no resolved feature set, macro expansion, compiled artifact or parser execution."
+    },
+    {
+      "package_manifest": "native-evidence/serde_core-1.0.229/MANIFEST.json",
+      "archive_member": "serde_core-1.0.229/src/de/impls.rs",
+      "sha256": "2f8e2ef9d343875bb996319e69feae0dee2287e2548cedd8d3c752b64812331c",
+      "bytes": 97134,
+      "ranges": [
+        [
+          81,
+          150
+        ],
+        [
+          247,
+          255
+        ],
+        [
+          286,
+          303
+        ],
+        [
+          336,
+          350
+        ],
+        [
+          383,
+          389
+        ],
+        [
+          420,
+          426
+        ]
+      ],
+      "qualification": "Lock-checksum-bound source interpretation only; no resolved feature set, macro expansion, compiled artifact or parser execution."
+    },
+    {
+      "package_manifest": "native-evidence/serde_json-1.0.151/MANIFEST.json",
+      "archive_member": "serde_json-1.0.151/src/de.rs",
+      "sha256": "4998d7e252eb513be85b298e287048b4fb283882e9ba7df905f572f07200f3f3",
+      "bytes": 86840,
+      "ranges": [
+        [
+          110,
+          128
+        ],
+        [
+          319,
+          343
+        ],
+        [
+          462,
+          525
+        ],
+        [
+          1341,
+          1353
+        ],
+        [
+          1499,
+          1507
+        ],
+        [
+          1720,
+          1735
+        ]
+      ],
+      "qualification": "Lock-checksum-bound source interpretation only; no resolved feature set, macro expansion, compiled artifact or parser execution."
+    },
+    {
+      "package_manifest": "native-evidence/serde-derive-1.0.229/MANIFEST.json",
+      "archive_member": "serde_derive-1.0.229/src/de/tuple.rs",
+      "sha256": "5496ee711b935b17269960f4a0cfcb7d23de668db9489dfca7276ce1fcdf0f6f",
+      "bytes": 9435,
+      "ranges": [
+        [
+          12,
+          82
+        ],
+        [
+          135,
+          180
+        ]
+      ],
+      "qualification": "Lock-checksum-bound source interpretation only; no resolved feature set, macro expansion, compiled artifact or parser execution."
+    }
+  ],
+  "inspection_provenance": "Selected current source ranges and pinned native archive ranges personally inspected; no product code, parser or macro expansion was run.",
+  "historical_source": {
+    "checkpoint": "059",
+    "ledger": "baseline-059/ledger.json",
+    "contract_ids": [
+      "ADLER-L11-BASIS-POINTS-WIRE-ADMISSION",
+      "PL13-BASIS-POINTS-NATIVE-ADMISSION"
+    ],
+    "historical_source_roles": [
+      {
+        "index": 439,
+        "source_id": "physical-p16:crates/adventuresim-world-schema/src/basis_points.rs",
+        "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+        "current_sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+        "relation": "byte-match"
+      },
+      {
+        "index": 193,
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease.rs",
+        "sha256": "c001a52a7bb957260ae3914ca056d847292760b5911984791143b8a4a1ede2e5",
+        "current_sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+        "relation": "different"
+      },
+      {
+        "index": 195,
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease/exposure_sources.rs",
+        "sha256": "fd65f1ffe87f35659e8ebfa0216668ba5e1c17373d94539901cf36bab248c81b",
+        "current_sha256": "fd65f1ffe87f35659e8ebfa0216668ba5e1c17373d94539901cf36bab248c81b",
+        "relation": "byte-match"
+      }
+    ],
+    "qualification": "Original 059 status and revision remain unchanged; no checkpoint 3821 credit is inferred."
+  },
+  "candidates": [
+    {
+      "id": "REVIEW-BASIS-POINTS-SERDE-ADMISSION-001",
+      "severity": "P2 provisional; bounded-value contract violation on deserialization; actual incoming use unverified",
+      "classification": "same first-failure family as checkpoint 059 basis-point wire admission, independently traced at 95e",
+      "detail": "UnitBasisPoints and SignedUnitBasisPoints document bounded ranges and expose checked constructors, but derive transparent Serde deserialization directly into their private primitive fields. The pinned derive source maps the deserialized primitive into the struct without calling new. The pinned JSON and primitive visitor sources accept representable integer tokens such as 10001 for u16 and -10001 for i16; they predict values outside the promised bounds. This is source interpretation, not an executed decode or resolved build.",
+      "consequence": "The unsigned value 10001 exceeds one whole: as_unit_f32 represents more than one, scaling a whole of 10000 returns 10001, and complement subtracts it from 10000, violating the subtraction premise. Overflow behavior depends on the compiled profile; no panic or gameplay effect was observed. A signed value -10001 likewise violates the signed bound.",
+      "connected_boundary": "The investigation BasisPoints newtype derives Deserialize over UnitBasisPoints and appears as confidence in serializable Observation, Recollection, Claim, Evidence and Belief records, so the same source-level admission is nested there. Actual externally supplied or restored instances of those records and their consumers are not established. The strategic staging path instead decodes PipelineInput without an incoming BasisPoints field and derives bounded confidence from condition constants; disease exposure filters mitigation below one whole and uses the checked constructor before complement. Those safeguards do not prove all other paths safe.",
+      "safeguards": "Normal constructors, finite unit conversions and intentional saturating conversion remain distinct. Preserve valid 0, 10000 and signed endpoints and their existing wire meaning; reject invalid bounded inputs rather than silently clamping them. Do not infer the derived SpacetimeDB/BSATN route from Serde.",
+      "connected_scope": "Shared unsigned and signed owner admission, Serde formats, nested investigation records and real ingress/consumers, operations relying on bounds, separate SpacetimeDB native codec and other canonical fraction owners.",
+      "proposed_repair": "After audit completion, route each untrusted deserialization path through the corresponding checked owner contract and reconcile actual native schema admission. Retain the existing wire shape for valid values and explicit saturation APIs for intentional clamping.",
+      "later_acceptance": "When product validation is authorized, verify unsigned and signed valid endpoints, out-of-range wire values, nested record admission, checked operations and independently established native schema paths without introducing compatibility fallbacks.",
+      "historical_related_candidates": [
+        "ADLER-L11-BASIS-POINTS-WIRE-ADMISSION",
+        "PL13-BASIS-POINTS-NATIVE-ADMISSION"
+      ],
+      "relationship_qualification": "The 059 record retains original revision, open native/current status and zero accepted unique-count change. This separate 95e trace adds the lock-bound Serde source and selected consumer safeguards; it is not a new unique historical defect or restored checkpoint 3821.",
+      "discovery": "partial; actual serialized ingress, all consumers, native SpacetimeDB codec, feature resolution and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Establish actual serialized ingress and consumers, native schema codec behavior, dependency feature resolution and historical aliases, and independently assess all lenses. No product validation."
+}

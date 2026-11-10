@@ -442,6 +442,20 @@
           "PL13-HOLDER-OPTIONAL-COMPONENT-ID"
         ],
         "record": "ASSESSMENT-L01-HOLDER-IDENTITY-95E.json"
+      },
+      {
+        "id": "REVIEW-BASIS-POINTS-SERDE-ADMISSION-001",
+        "severity": "P2 provisional; bounded-value contract violation on deserialization; actual incoming use unverified",
+        "classification": "same first-failure family as checkpoint 059 basis-point wire admission, independently traced at 95e",
+        "discovery": "partial; actual serialized ingress, all consumers, native SpacetimeDB codec, feature resolution and aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "relationship_qualification": "The 059 record retains original revision, open native/current status and zero accepted unique-count change. This separate 95e trace adds the lock-bound Serde source and selected consumer safeguards; it is not a new unique historical defect or restored checkpoint 3821.",
+        "historical_related_candidates": [
+          "ADLER-L11-BASIS-POINTS-WIRE-ADMISSION",
+          "PL13-BASIS-POINTS-NATIVE-ADMISSION"
+        ],
+        "record": "ASSESSMENT-L01-BASIS-WIRE-95E.json"
       }
     ]
   }
