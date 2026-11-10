@@ -1,0 +1,81 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 256,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/256",
+      "sha256": "caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c",
+      "lines": 610,
+      "new_personal_read_ranges": [
+        [
+          1,
+          610
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No simulation, fixture reducer, current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 257,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation/disease_fixture.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/257",
+      "sha256": "f7a9183b1a46d23e9a981d895678917171d40b3ab22c6c9dfd9a7a6cca83d84b",
+      "lines": 86,
+      "new_personal_read_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No simulation, fixture reducer, current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 258,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation/quest_fixture.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/258",
+      "sha256": "a2ed93e7f88ecd11faafba9372db83b889a3af59f2a5344fdc42d77974e919fe",
+      "lines": 105,
+      "new_personal_read_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No simulation, fixture reducer, current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 259,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/smithing.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/259",
+      "sha256": "428e697ec583b24ab798b6dadd2c67abf251e6359ed5b26a9d4819f93e266ce3",
+      "lines": 119,
+      "new_personal_read_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No simulation, fixture reducer, current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical disposable simulation claim checks a compiled bootstrap capability before freshness, refuses existing player-bearing character or party state, and binds one run to sender and nonce. Bounded clock advance, configured characters and isolated fixture reducers are separate from production authority; complete native authorization and all state transitions remain open.",
+    "Historical disease fixture seeds an owned configured character then advances ordinary injury, disease and personal lifecycle hooks. Quest fixture checks owned leaders, party ownership and a safety margin before private seeding, and its view requires a matching initial-rumor receipt. These are fixture source contracts, not executed simulations.",
+    "Historical smithing validates strategic character authority, recipe, location, service and material amounts before consumption and elapsed time, then grants an item and replaces its physical design. Material rounding, failure propagation, tactical/strategic boundary, and the different current grant wrapper remain connected but are not reconciled by this historical read.",
+    "Historical source tests were read where present, not executed. No current source, historical alias or recovered checkpoint 3821 status follows from these reads."
+  ],
+  "remaining": "Trace current simulation capability isolation and all fixture routes without running them; smithing recipe/material/time/grant/physical object ownership and error semantics across producers and consumers; reconcile aliases and independently assess each lens."
+}
