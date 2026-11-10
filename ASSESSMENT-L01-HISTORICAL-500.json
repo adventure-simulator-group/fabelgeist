@@ -1,0 +1,32 @@
+{
+  "schema": "726-source-role-applicability-v1",
+  "lens": 1,
+  "current_source": {
+    "path": "assets/equipment/procedural/icons/belt--worn.png",
+    "preserved_bytes": "source-evidence/belt-worn.png",
+    "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+    "sha256": "5b4ab9883c3153a5f2aaff6dc07d118e75eb7f8b1f17e99a562c9186f2fa438c",
+    "bytes": 13625,
+    "git_blob": "ad6b2c733a9af51c8064b3ee729a14d2e7d0b094"
+  },
+  "historical_source_roles": [
+    {
+      "original_index": 500,
+      "source_id": "pr-working:assets/equipment/procedural/icons/belt--worn.png",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/500",
+      "sha256": "5b4ab9883c3153a5f2aaff6dc07d118e75eb7f8b1f17e99a562c9186f2fa438c",
+      "bytes": 13625,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "inspection": "Exact PNG bytes hash-verified and image visually inspected; dimensions and chunk structure inspected without product rendering."
+    }
+  ],
+  "disposition": "non-applicable to producer propagation within this PNG asset body only",
+  "observation": "The registered 128 by 128 RGBA raster contains encoded image and render metadata; it does not itself construct or propagate a bespoke application value. Its asset naming, authored geometry, loader and UI consumers remain distinct connected source questions.",
+  "qualification": "The frozen pr-working asset bytes match the separately preserved c100 Git blob. This body-only applicability is not a current 95e lens verdict, visual product validation, other-lens closure or checkpoint 3821 adoption. No product rendering, build, test, simulation or runtime probe ran.",
+  "discovery_status": "complete only for named asset body under Lens 1",
+  "repair_status": "none for this asset-body disposition",
+  "validation_status": "not performed"
+}

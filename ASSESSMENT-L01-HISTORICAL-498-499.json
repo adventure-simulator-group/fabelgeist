@@ -1,0 +1,52 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 498,
+      "source_id": "pr-working:Cargo.toml",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/498",
+      "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+      "lines": 221,
+      "new_personal_read_ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen pr-working source only; current 95e bytes differ. No current, alias, checkpoint 3821 or independent lens completion is implied."
+    },
+    {
+      "original_index": 499,
+      "source_id": "pr-working:assets/config/tactical-graphics.yaml",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/499",
+      "sha256": "b922faa3643a9e55508cbf50304273912d9be0b7e0282d271f1b243c75c40307",
+      "lines": 96,
+      "new_personal_read_ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen pr-working source only; current 95e bytes differ. No current, alias, checkpoint 3821 or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Frozen workspace manifest declares package members and exclusions, shared dependency versions and features, patches and profiles. The declared Avian features supply useful context but do not establish resolved Cargo features, runtime behavior or a current manifest verdict.",
+    "Frozen tactical graphics data supplies rendering, grass, interaction and desktop values. Exact parsing, defaults, validation, use and presentation consumers require separate tracing; no out-of-range value or runtime behavior is asserted.",
+    "Both files belong to the original pr-working snapshot and differ from current 95e. No Cargo metadata resolution, product build, test, simulation or runtime probe ran."
+  ],
+  "remaining": "Trace manifest feature resolution and workspace owners, graphics configuration parsers/admission/consumers, historical aliases and all independent lenses."
+}

@@ -9,14 +9,14 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2223,
+    "unassessed": 2220,
     "lock-metadata-partial": 2,
     "bounded-current-trace-only": 180,
-    "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 445,
+    "assessed-nonapplicable": 3,
+    "full-historical-body-trace-open": 447,
     "deleted-base-trace-open": 1
   },
-  "first_unfinished": "Frozen pr-working quality workflow role 496 now has a full historical body read; current 95e differs. Continue at role 497, whose lock metadata was only partially reviewed; all independent lenses remain open.",
+  "first_unfinished": "Historical lock role 497 remains metadata-partial. Frozen pr-working text roles 498 and 499 were read, and PNG asset body 500 was scoped non-applicable; next unassessed role 501 has no original source hash and requires deleted/missing-state investigation. Independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -6672,7 +6672,9 @@
       "historical_sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
       "registry_pointer": "/files/498",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-498-499.json",
+      "qualification": "Full body read of exact frozen pr-working source; current 95e differs. Connected producer scope and independent lenses remain open."
     },
     {
       "original_index": 499,
@@ -6682,7 +6684,9 @@
       "historical_sha256": "b922faa3643a9e55508cbf50304273912d9be0b7e0282d271f1b243c75c40307",
       "registry_pointer": "/files/499",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-498-499.json",
+      "qualification": "Full body read of exact frozen pr-working source; current 95e differs. Connected producer scope and independent lenses remain open."
     },
     {
       "original_index": 500,
@@ -6692,7 +6696,9 @@
       "historical_sha256": "5b4ab9883c3153a5f2aaff6dc07d118e75eb7f8b1f17e99a562c9186f2fa438c",
       "registry_pointer": "/files/500",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "assessed-nonapplicable",
+      "assessment": "ASSESSMENT-L01-HISTORICAL-500.json",
+      "qualification": "PNG body only is non-applicable to producer propagation; asset producers, naming, loader and consumers remain open."
     },
     {
       "original_index": 501,
