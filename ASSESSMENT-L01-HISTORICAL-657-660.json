@@ -1,0 +1,92 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 657,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/rendering.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/657",
+      "sha256": "94edb28991714767ff162deb2178ac55612468b458451a7d2ec1f004e85c5c6c",
+      "lines": 358,
+      "new_personal_read_ranges": [
+        [
+          1,
+          358
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 658,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/rendering/materials.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/658",
+      "sha256": "9ad3e5e6a49eaf7525c9b74221e9b123aaba4c2c95546f0672f327035749e1d1",
+      "lines": 84,
+      "new_personal_read_ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 659,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/site.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/659",
+      "sha256": "ff6ffec8966e6dae1ea4b333d7a0fbf39637384e0353f08c33cd4191e80e53de",
+      "lines": 173,
+      "new_personal_read_ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    },
+    {
+      "original_index": 660,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/tests.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/660",
+      "sha256": "ad6bce5bad8931acd16b45167800018bc3b227a3744703c3f8667ee4a4ebdca9",
+      "lines": 123,
+      "new_personal_read_ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen source only; no execution, current semantic coverage, independent lens credit, alias closure or checkpoint 3821 adoption."
+    }
+  ],
+  "observations": [
+    "Roles 657\u2013658 compose sign boards, lettering faces and brackets with shared meshes, and cache painted material by name, font, finish, emblem and texture height. Board-only detail omits painted texture; glyph and image handling on the lettering path require a separate native/producer trace.",
+    "Role 659 derives a site from an entrance or workplace and a supported plate, then projects board and bracket geometry; raw public/deserialized site fields and support/overlap checks require actual caller and aggregate admission tracing.",
+    "Role 660 contains source assertions for names, sites and font painting; the body was read but no test, font rendering or product operation ran."
+  ],
+  "remaining": "Trace actual sign name admission and font coverage, sign site producer/ingress, cache and rendering consumers, historical aliases and independently complete every lens."
+}
