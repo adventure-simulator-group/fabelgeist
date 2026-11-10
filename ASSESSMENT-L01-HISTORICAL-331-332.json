@@ -1,0 +1,46 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 331,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation_tests.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/331",
+      "sha256": "b9ebdeb456f436026036cd6eeb640ee942b80fb5b4bd885d6c9cd78af795defe",
+      "lines": 395,
+      "new_personal_read_ranges": [
+        [
+          1,
+          395
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests and fixture code were read, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 332,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment/visuals.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/332",
+      "sha256": "d5f2d169f12713c33afc9246eadbcc9389bfcdc8d14c17e64168b8a21b629704",
+      "lines": 75,
+      "new_personal_read_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests and fixture code were read, not run. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "The historical generation-test source describes readiness, retained physical fit across hold/drop/rebuild and refit for a new wearer, recovery from an invalid placement, and bounded cache eviction. These are fixture bodies and assertions, not observed results or proof that runtime asset handling succeeds.",
+    "The equipment visual plugin orders orphan removal, placeholder spawning, generation, skin binding and presentation updates. Orphan cleanup checks for the originating physical component before retaining a placeholder. Ordering, asynchronous generation, entity lifecycle and cache keys require actual producer/consumer inspection.",
+    "No fixture, visual renderer, product build, test, simulation or runtime probe ran; no referenced implementation is credited merely because the source test calls it."
+  ],
+  "remaining": "Trace current runtime generation, cache identity and eviction, wearable fit custody and error recovery, asynchronous and entity ordering, visual readiness consumers and historical aliases; independently assess all lenses."
+}
