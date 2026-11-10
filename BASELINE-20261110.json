@@ -366,7 +366,7 @@
       "status": "M",
       "path": "crates/adventuresim-tactical-client/README.md",
       "lens_status": [
-        "unassessed",
+        "assessed: non-applicable to producer propagation at current documentation path; ASSESSMENT-L01-NONCODE-DELTA.json",
         "unassessed",
         "unassessed",
         "unassessed",
@@ -1440,12 +1440,35 @@
         "discovery": "partial; complete catalog admission, policy, report consumers and historical aliases open",
         "repair": "not started",
         "validation": "not performed"
+      },
+      {
+        "id": "NEW-MELEE-MOVEMENT-LENGTH-001",
+        "record": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+        "classification": "raw movement distances and signed displacement retained across current producer and timeline",
+        "discovery": "partial; admission, reachability, policy, connected producers/consumers and historical aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "dependencies": [
+          "NEW-COMBAT-STEP-RATE-001"
+        ]
+      },
+      {
+        "id": "NEW-ITERATION-MOVEMENT-WINDOW-001",
+        "record": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+        "classification": "conditional rounded strategic-window versus fixed acceptance-threshold mismatch",
+        "discovery": "partial; admission, reachability, policy, connected producers/consumers and historical aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "dependencies": [
+          "NEW-COMBAT-STEP-RATE-001",
+          "NEW-MELEE-MOVEMENT-LENGTH-001"
+        ]
       }
     ],
     "qualification": "Historical queue is retained as a mandatory reconciliation source, not silently imported as current findings. Connected repairs, dependencies and acceptance criteria must be populated from source-backed assessments."
   },
   "validation": "No product builds, tests, runtime probes or repairs authorized or performed. Evidence verification only.",
-  "next_step": "Continue the first unread original Lens 1 changed role 63 and the current delta README; keep prior historical-role traces, positional catalog admission, rate policy and other connected traces open.",
+  "next_step": "Continue first unread original Lens 1 changed role 69 and current delta animation_viewer_main.rs; keep prior historical traces, movement owner, report-window policy and other connected scope open.",
   "continuation_orientation": "CONTINUATION.md",
   "lens1_role_worklist": "COVERAGE-L01-ROLES.json",
   "lockfile_inventory": "LOCKFILE-DELTA.json"

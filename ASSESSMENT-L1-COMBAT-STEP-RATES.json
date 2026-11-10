@@ -326,7 +326,8 @@
     "At current c100, the server main source adds the net plugin group, whose replication plugin configures Time<Fixed> from TACTICAL_TICK_HZ = 30. The strategic joint-melee source retains the same blob and its independent 64.0 constant. The shown source establishes configuration, not a measured active schedule or actual gameplay outcome.",
     "The shipped combat YAML specifies a one-second autoresolve round. Given a generated one-second parameter and no early defeat, the source calculates 64 strategic windows; the tactical fixed-clock configuration requests 30 ticks per second. Window processing advances movement and schedules attacks at its boundaries, so rate choice can be relevant to behavior, but a divergent duel has not been demonstrated.",
     "The authored locomotion sample rate is separately 64 Hz and is read through runtime animation configuration. Equality of that sample value and the strategic constant is not proof that the two roles share an owner, and neither should automatically be replaced by the tactical fixed rate.",
-    "The current iteration report records the maximum elapsed duration of each autoresolve movement event and the acceptance audit compares it against an independently written 1.0 / 64.0 + 1e-6 seconds threshold. This threshold is a report-consumer dependency of the strategic window policy, not evidence that the tactical fixed-clock configuration should be 64 Hz or that a runtime failure occurred."
+    "The current iteration report records the maximum elapsed duration of each autoresolve movement event and the acceptance audit compares it against an independently written 1.0 / 64.0 + 1e-6 seconds threshold. This threshold is a report-consumer dependency of the strategic window policy, not evidence that the tactical fixed-clock configuration should be 64 Hz or that a runtime failure occurred.",
+    "A separately inspected current timeline owner also quantizes event times using a local 64 Hz constant; the iteration report uses those ticks for contact-order checks. See ASSESSMENT-L1-MELEE-MOVEMENT.json for its preserved source and the distinct conditional scheduler/report window-bound question. Equal constants do not establish shared authority."
   ],
   "first_open_question": "Is the strategic rate required to follow the tactical fixed-clock frequency, or is it an intentionally independent integration rate whose current tactical-server name is misleading? Determine policy and actual window-boundary consumers before any change.",
   "repair_direction": "Once the rate relationship is established, keep a single owner if it is the same fact, or name and document distinct rates if the strategic integrator intentionally differs. Preserve the animation sampling clock, deterministic ordering, combat authority boundary and chosen numerical behavior; do not change the rate solely from a matching number or name. Coordinate the separately written acceptance-report movement-segment threshold with the chosen strategic-window contract, retaining any intentional tolerance.",
@@ -339,9 +340,13 @@
     "Trace the full scheduling and movement consumers, actual plugin and time override possibilities, configuration policy, numeric rounding and exact historical aliases.",
     "Complete the six original historical-role traces and the remaining current, historical and independent-lens scope.",
     "No build, simulation, runtime, tests or product validation were performed.",
-    "Trace the movement-event producers and report callers in full to establish whether the literal threshold is an intentional independent acceptance contract."
+    "Trace the movement-event producers and report callers in full to establish whether the literal threshold is an intentional independent acceptance contract.",
+    "Determine the event tick quantization contract and whether it is intended to share the strategic integration-rate owner."
   ],
   "discovery_status": "partial; rate semantics and behavior policy open",
   "repair_status": "not started",
-  "validation_status": "not performed"
+  "validation_status": "not performed",
+  "related_assessments": [
+    "ASSESSMENT-L1-MELEE-MOVEMENT.json"
+  ]
 }

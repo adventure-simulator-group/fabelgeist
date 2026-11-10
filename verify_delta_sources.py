@@ -81,9 +81,22 @@ for key, revision in [('current_sources', current_revision), ('reported_selected
         verify_source(item['path'], item)
 if 'ASSESSMENT-L01-WORKFLOW-FEATURE.json' not in paths['.github/workflows/rust-quality.yml']['lens_status'][0]:
     raise ValueError('missing workflow disposition')
+noncode = json.loads((root / 'ASSESSMENT-L01-NONCODE-DELTA.json').read_text())
+readme_path = 'crates/adventuresim-tactical-client/README.md'
+readmes = [item for item in noncode['paths'] if item['path'] == readme_path]
+if len(readmes) != 1:
+    raise ValueError('client guide disposition missing')
+readme = readmes[0]
+verify_source(readme_path, readme['current_source'])
+verify_source(readme_path, readme['previous_source'])
+if (readme['current_source']['revision'] != current_revision or
+        readme['previous_source']['revision'] != selected_revision or
+        readme['personally_inspected_current_ranges'] != [[1, readme['current_source']['lines']]] or
+        'ASSESSMENT-L01-NONCODE-DELTA.json' not in paths[readme_path]['lens_status'][0]):
+    raise ValueError('client guide disposition mismatch')
 statuses = [item['lens_status'][0] for item in baseline['source_delta']]
 if sum(s.startswith('assessed:') for s in statuses) != progress['delta_lens_cells_assessed']:
     raise ValueError('assessed delta count mismatch')
 if sum(s.startswith('partial') for s in statuses) != progress['delta_lens_cells_partial']:
     raise ValueError('partial delta count mismatch')
-print('verified six manifest pairs, two workflow/feature pairs and qualified delta counts')
+print('verified manifest, workflow and client guide source pairs and qualified delta counts')

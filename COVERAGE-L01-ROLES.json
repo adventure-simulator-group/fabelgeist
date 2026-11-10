@@ -9,13 +9,13 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2735,
+    "unassessed": 2724,
     "lock-metadata-partial": 2,
-    "bounded-current-trace-only": 97,
+    "bounded-current-trace-only": 102,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 17
+    "full-historical-body-trace-open": 23
   },
-  "first_unfinished": "Current source delta: workflow has a bounded feature trace; first untouched Lens 1 delta is crates/adventuresim-tactical-client/README.md. Original roles 39/497 have only lock metadata; exact historical bodies 47, 50, 51, 53, 55-62, 80, 85, 89, 96 and 119 have open connected traces; the next unread changed role by registry index is 63.",
+  "first_unfinished": "Current source delta: workflow has a bounded feature trace; first untouched Lens 1 delta is crates/adventuresim-tactical-client/src/animation_viewer_main.rs. Original roles 39/497 have only lock metadata; 23 exact historical bodies have open connected traces; the next unread changed role by registry index is 69.",
   "roles": [
     {
       "original_index": 0,
@@ -621,6 +621,19 @@
               123
             ]
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+          "ranges": [
+            [
+              1,
+              140
+            ],
+            [
+              295,
+              329
+            ]
+          ]
         }
       ],
       "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open.",
@@ -731,7 +744,9 @@
       "historical_sha256": "3fcb38f4034fe1eccf1d7d99ee3310fed62812d16ef25d547e79e009e4425c33",
       "registry_pointer": "/files/63",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
     },
     {
       "original_index": 64,
@@ -741,7 +756,9 @@
       "historical_sha256": "edaab496e73d7ae22b10743303627d76c5526cdff566e72e60f563dcbc2c77f9",
       "registry_pointer": "/files/64",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
     },
     {
       "original_index": 65,
@@ -751,7 +768,9 @@
       "historical_sha256": "52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
       "registry_pointer": "/files/65",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
     },
     {
       "original_index": 66,
@@ -761,7 +780,9 @@
       "historical_sha256": "6807ada697c587ffd96f625c61692de55a4ae1548d7dcd9e5d2d539e5f6187c0",
       "registry_pointer": "/files/66",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
     },
     {
       "original_index": 67,
@@ -771,7 +792,9 @@
       "historical_sha256": "4d44aec14335abdea2ad0899a2d41cf09c7b5677fcb850b2ede69174596d3a34",
       "registry_pointer": "/files/67",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
     },
     {
       "original_index": 68,
@@ -781,7 +804,9 @@
       "historical_sha256": "170846de4c534120087f3f12c2fd365b8f2103c97d270ff28d71bee179d6e147",
       "registry_pointer": "/files/68",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
     },
     {
       "original_index": 69,
@@ -1069,7 +1094,20 @@
       "historical_object_available": true,
       "status": "full-historical-body-trace-open",
       "historical_assessment": "ASSESSMENT-L1-COMBAT-ADMISSION.json",
-      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open."
+      "qualification": "New full read at this exact historical identity; connected producer/consumer trace, current state, other roles and all lens closure remain open.",
+      "current_path": "crates/adventuresim-core/src/elapsed.rs",
+      "current_git_blob": "189312858c17b73924b6c47ef45190d7b1c89ee1",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+          "ranges": [
+            [
+              1,
+              110
+            ]
+          ]
+        }
+      ]
     },
     {
       "original_index": 97,
@@ -4731,7 +4769,21 @@
       "historical_sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
       "registry_pointer": "/files/450",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/fabelgeist-geometry/src/length.rs",
+      "current_git_blob": "2ce787e969bc6df118dd86a7285293cd3602e063",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+          "ranges": [
+            [
+              1,
+              40
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 451,
@@ -8808,6 +8860,15 @@
               275
             ]
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+          "ranges": [
+            [
+              178,
+              230
+            ]
+          ]
         }
       ],
       "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -8917,6 +8978,19 @@
               765
             ]
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+          "ranges": [
+            [
+              70,
+              180
+            ],
+            [
+              628,
+              770
+            ]
+          ]
         }
       ],
       "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -8992,6 +9066,19 @@
             [
               1,
               123
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+          "ranges": [
+            [
+              1,
+              140
+            ],
+            [
+              295,
+              329
             ]
           ]
         }
@@ -9122,7 +9209,21 @@
       "historical_sha256": "086c2055231445836bac21e3ffa931c0909cd95def8d4fa7e4f041a2fe629e86",
       "registry_pointer": "/files/870",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/autoresolve/melee_movement.rs",
+      "current_git_blob": "b7205ccefdbb7ba2027ebd69b226b0512c82cde9",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+          "ranges": [
+            [
+              1,
+              155
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 871,
@@ -9174,6 +9275,15 @@
               236
             ]
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+          "ranges": [
+            [
+              190,
+              260
+            ]
+          ]
         }
       ],
       "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -9216,7 +9326,21 @@
       "historical_sha256": "4e83c1f6cda9e4f7a8f9a19ac6c54119c67701f6d4dae37641c5e6b7b94b753d",
       "registry_pointer": "/files/878",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/adventuresim-core/src/autoresolve/timeline.rs",
+      "current_git_blob": "bc75db4a7293851dc731f5d32d48a840f24377a5",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+          "ranges": [
+            [
+              1,
+              139
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 879,
@@ -9398,6 +9522,15 @@
           "ranges": [
             [
               1,
+              121
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+          "ranges": [
+            [
+              65,
               121
             ]
           ]
@@ -9661,6 +9794,15 @@
             [
               1,
               131
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+          "ranges": [
+            [
+              1,
+              110
             ]
           ]
         }
@@ -21320,6 +21462,19 @@
               79
             ]
           ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+          "ranges": [
+            [
+              1,
+              42
+            ],
+            [
+              48,
+              79
+            ]
+          ]
         }
       ],
       "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -21351,6 +21506,15 @@
           "ranges": [
             [
               65,
+              126
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+          "ranges": [
+            [
+              1,
               126
             ]
           ]
@@ -21477,6 +21641,23 @@
             [
               1,
               79
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+          "ranges": [
+            [
+              75,
+              115
+            ],
+            [
+              132,
+              162
+            ],
+            [
+              285,
+              318
             ]
           ]
         }
@@ -24189,7 +24370,21 @@
       "historical_sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
       "registry_pointer": "/files/2270",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/fabelgeist-geometry/src/length.rs",
+      "current_git_blob": "2ce787e969bc6df118dd86a7285293cd3602e063",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+          "ranges": [
+            [
+              1,
+              40
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 2271,
@@ -24216,6 +24411,15 @@
         {
           "assessment": "ASSESSMENT-L1-CAMERA.json",
           "ranges": "11-21, 35-45"
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+          "ranges": [
+            [
+              1,
+              104
+            ]
+          ]
         }
       ],
       "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
@@ -28427,7 +28631,21 @@
       "historical_sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
       "registry_pointer": "/files/2680",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "bounded-current-trace-only",
+      "current_path": "crates/fabelgeist-geometry/src/length.rs",
+      "current_git_blob": "2ce787e969bc6df118dd86a7285293cd3602e063",
+      "current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+          "ranges": [
+            [
+              1,
+              40
+            ]
+          ]
+        }
+      ],
+      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
     },
     {
       "original_index": 2681,

@@ -3,7 +3,7 @@
   "lens": 1,
   "source_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
   "comparison_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
-  "qualification": "Source-role applicability only at the three named paths. No commands shown in the documents were executed. Other lenses and every referenced implementation path remain open.",
+  "qualification": "Source-role applicability only at the named paths. No commands shown in the documents were executed. Other lenses and every referenced implementation path remain open.",
   "paths": [
     {
       "path": "DEPLOY.md",
@@ -53,6 +53,48 @@
       "disposition": "non-applicable to producer-propagation for this path",
       "reason": "At the prior selected source this was a stylesheet of selectors, properties, animation and visual custom-property consumption; it is absent at the current source pin. It does not implement an application bespoke-value producer or API. The surviving HUD code and visual/behavior lenses remain separately open.",
       "limits": "This disposition does not validate documentation claims, deployment, CSS behavior, named implementation code, any other lens, or the historical full scope."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/README.md",
+      "previous_selected_revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "previous_source": {
+        "path": "crates/adventuresim-tactical-client/README.md",
+        "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+        "sha256": "a17150cce08b95e7bcd158e123915a4d6ac54969695522954b85a28dc4563304",
+        "git_blob": "253c59577f62b4256afa3c329ec49841bb0aa068",
+        "bytes": 46326,
+        "lines": 782,
+        "ranges": [],
+        "preserved_bytes": "source-evidence/client-readme/reported-selected/crates/adventuresim-tactical-client/README.md.gz",
+        "content_encoding": "gzip"
+      },
+      "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "current_source": {
+        "path": "crates/adventuresim-tactical-client/README.md",
+        "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+        "sha256": "1067fa9b47c67f86299296b67d8c342362d0cc5a42069e768078e31aa7f9857d",
+        "git_blob": "913768b7e60f156e3bbf4364db5488578a561bec",
+        "bytes": 49606,
+        "lines": 837,
+        "ranges": [
+          [
+            1,
+            837
+          ]
+        ],
+        "preserved_bytes": "source-evidence/client-readme/current/crates/adventuresim-tactical-client/README.md.gz",
+        "content_encoding": "gzip"
+      },
+      "personally_inspected_current_ranges": [
+        [
+          1,
+          837
+        ]
+      ],
+      "inspected_body": "current complete text",
+      "disposition": "non-applicable to producer-propagation for this documentation path",
+      "reason": "Crate guide prose and illustrative commands describe system boundaries, but this Markdown path does not itself implement a bespoke-value producer. Each referenced source and API retains its own audit scope.",
+      "limits": "No documentation claim, executable command, product behavior, related implementation, historical role or other lens was validated."
     }
   ]
 }

@@ -1,0 +1,396 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "contract_id": "NEW-MELEE-MOVEMENT-LENGTH-001",
+  "connected_contract_ids": [
+    "NEW-ITERATION-MOVEMENT-WINDOW-001",
+    "NEW-COMBAT-STEP-RATE-001"
+  ],
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "classification": "Current raw movement-length propagation and a conditional report threshold mismatch; historical p16 is separately attributed evidence.",
+  "historical_source_roles": [
+    {
+      "original_index": 63,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_movement.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/63",
+      "sha256": "3fcb38f4034fe1eccf1d7d99ee3310fed62812d16ef25d547e79e009e4425c33",
+      "lines": 392,
+      "new_personal_read_ranges": [
+        [
+          1,
+          392
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "New full-body source read at this exact historical physical-p16 role; connected tracing, present applicability, other snapshots and every lens remain open."
+    },
+    {
+      "original_index": 64,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/assignment.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/64",
+      "sha256": "edaab496e73d7ae22b10743303627d76c5526cdff566e72e60f563dcbc2c77f9",
+      "lines": 72,
+      "new_personal_read_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "New full-body source read at this exact historical physical-p16 role; connected tracing, present applicability, other snapshots and every lens remain open."
+    },
+    {
+      "original_index": 65,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/65",
+      "sha256": "52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "lines": 239,
+      "new_personal_read_ranges": [
+        [
+          1,
+          239
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "New full-body source read at this exact historical physical-p16 role; connected tracing, present applicability, other snapshots and every lens remain open."
+    },
+    {
+      "original_index": 66,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/66",
+      "sha256": "6807ada697c587ffd96f625c61692de55a4ae1548d7dcd9e5d2d539e5f6187c0",
+      "lines": 234,
+      "new_personal_read_ranges": [
+        [
+          1,
+          234
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "New full-body source read at this exact historical physical-p16 role; connected tracing, present applicability, other snapshots and every lens remain open."
+    },
+    {
+      "original_index": 67,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/67",
+      "sha256": "4d44aec14335abdea2ad0899a2d41cf09c7b5677fcb850b2ede69174596d3a34",
+      "lines": 597,
+      "new_personal_read_ranges": [
+        [
+          1,
+          597
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "New full-body source read at this exact historical physical-p16 role; connected tracing, present applicability, other snapshots and every lens remain open."
+    },
+    {
+      "original_index": 68,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/68",
+      "sha256": "170846de4c534120087f3f12c2fd365b8f2103c97d270ff28d71bee179d6e147",
+      "lines": 391,
+      "new_personal_read_ranges": [
+        [
+          1,
+          391
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "New full-body source read at this exact historical physical-p16 role; connected tracing, present applicability, other snapshots and every lens remain open."
+    }
+  ],
+  "historical_read_observations": {
+    "63": "The physical-p16 opposed integrator uses SignedLength for signed displacement and separation while retaining signed speed and elapsed owners; its tests were read as source only. This source differs from current c100 and does not constitute the current implementation.",
+    "64": "The physical-p16 assignment chooses active defenders and retains an index and a flanking scalar. Call preconditions and complete target-selection ownership remain open.",
+    "65": "The physical-p16 commitment owner maps typed phase/timing and primitive response factors into defense transitions, action work and telemetry. Complete producer and recipient semantics remain open.",
+    "66": "The physical-p16 movement preview and advance retain SignedLength across the integration and timeline-event producer. Current c100 uses raw f32 for corresponding distance fields; each role remains independently assessed.",
+    "67": "The physical-p16 melee-round owner joins attack, defense, contact and recorder values. It includes tests read as source only; all connected source and behavior-preservation traces remain open.",
+    "68": "The physical-p16 scheduling owner retains engagement distance, attack timing and readiness through event scheduling. Its implementation differs from the current source and cannot be substituted for the latter."
+  },
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_movement.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "086c2055231445836bac21e3ffa931c0909cd95def8d4fa7e4f041a2fe629e86",
+      "git_blob": "b7205ccefdbb7ba2027ebd69b226b0512c82cde9",
+      "bytes": 14483,
+      "lines": 389,
+      "ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "preserved_bytes": "source-evidence/melee-movement/current/crates/adventuresim-core/src/autoresolve/melee_movement.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "06bfd3a023ac0c22751466720321fe796aba122f605d621f16ba56b318c712f8",
+      "git_blob": "1a0476f2a8fe6615c70e07d831fef7a926a39ca8",
+      "bytes": 8807,
+      "lines": 226,
+      "ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "preserved_bytes": "source-evidence/melee-movement/current/crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "9c56fb8232e356e6e204ba7c1065597c6063b0b25572d6f0e7cb131b2a7eb320",
+      "git_blob": "a43f1c1962307eb81b1a72e6fa6271766801a17f",
+      "bytes": 13868,
+      "lines": 391,
+      "ranges": [
+        [
+          190,
+          260
+        ]
+      ],
+      "preserved_bytes": "source-evidence/melee-movement/current/crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/joint_melee.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "7373a905f23ab3075cfb464c0a936ce1ebc33ba6c5c6ad23866b1a1479c5b983",
+      "git_blob": "b5dbea852669a4780b6805b19855a627b382af11",
+      "bytes": 10073,
+      "lines": 329,
+      "ranges": [
+        [
+          1,
+          140
+        ],
+        [
+          295,
+          329
+        ]
+      ],
+      "preserved_bytes": "source-evidence/melee-movement/current/crates/adventuresim-core/src/autoresolve/joint_melee.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/timeline.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "4e83c1f6cda9e4f7a8f9a19ac6c54119c67701f6d4dae37641c5e6b7b94b753d",
+      "git_blob": "bc75db4a7293851dc731f5d32d48a840f24377a5",
+      "bytes": 4843,
+      "lines": 139,
+      "ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "preserved_bytes": "source-evidence/melee-movement/current/crates/adventuresim-core/src/autoresolve/timeline.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "git_blob": "38e9e93154e06307c59fb5e70ff81a4b90013295",
+      "bytes": 100462,
+      "lines": 2878,
+      "ranges": [
+        [
+          70,
+          180
+        ],
+        [
+          628,
+          770
+        ]
+      ],
+      "preserved_bytes": "source-evidence/melee-movement/current/crates/adventuresim-core/src/autoresolve.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/config.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "69009bf458abab5d6affbd82ce193c159586c474cff8229b545a3f6c4d5e6677",
+      "git_blob": "cfb9a8f1f3b27115066d0a4ba9aeabc7f6a8e468",
+      "bytes": 5348,
+      "lines": 121,
+      "ranges": [
+        [
+          65,
+          121
+        ]
+      ],
+      "preserved_bytes": "source-evidence/melee-movement/current/crates/adventuresim-core/src/combat/config.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/build/combat_resolution.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "edfd993d879e1cb771859c76510e7e78e3f612d2f22bacdff5a8ce923970d2ce",
+      "git_blob": "142f6775ebd567bbfdf47e5e8142d974ec3eb12d",
+      "bytes": 13579,
+      "lines": 275,
+      "ranges": [
+        [
+          178,
+          230
+        ]
+      ],
+      "preserved_bytes": "source-evidence/melee-movement/current/crates/adventuresim-core/build/combat_resolution.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/elapsed.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "git_blob": "189312858c17b73924b6c47ef45190d7b1c89ee1",
+      "bytes": 4147,
+      "lines": 131,
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "preserved_bytes": "source-evidence/melee-movement/current/crates/adventuresim-core/src/elapsed.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "682408c513c94a29855ef855be8d4e16dad21a2de2e3349ff61dea8f87a43d0a",
+      "git_blob": "3ae8fbdd5ecafda9a65f16af0a4bf888147449e4",
+      "bytes": 12115,
+      "lines": 325,
+      "ranges": [
+        [
+          75,
+          115
+        ],
+        [
+          132,
+          162
+        ],
+        [
+          285,
+          318
+        ]
+      ],
+      "preserved_bytes": "source-evidence/melee-movement/current/crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal/autoresolve.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "6b3523710ea972a96aebe9e062898169c56d10cf28ff987bdbfc36e5370521f0",
+      "git_blob": "65adec66ac9e1dbead7eafb2b0e223d4b8cf2c1e",
+      "bytes": 7671,
+      "lines": 185,
+      "ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "preserved_bytes": "source-evidence/melee-movement/current/crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal/autoresolve.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "351dc4cb2a26bcf9f8f708150890f43c3766a24c6d541eecdbe1a43869121f44",
+      "git_blob": "9eec452ba5c56682bc04f970710da87d3685369f",
+      "bytes": 8526,
+      "lines": 197,
+      "ranges": [
+        [
+          1,
+          42
+        ],
+        [
+          48,
+          79
+        ]
+      ],
+      "preserved_bytes": "source-evidence/melee-movement/current/crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/fabelgeist-geometry/src/measurement.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "72ee58eb8ae01af4b7f17ef81f007dfa63c7dc818a1ed71ce5bbba0707236e70",
+      "git_blob": "1ca89018e525af6b5643767d87d80297ea0bb3b6",
+      "bytes": 3508,
+      "lines": 104,
+      "ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "preserved_bytes": "source-evidence/melee-movement/current/crates/fabelgeist-geometry/src/measurement.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/fabelgeist-geometry/src/length.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "git_blob": "2ce787e969bc6df118dd86a7285293cd3602e063",
+      "bytes": 1383,
+      "lines": 40,
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "preserved_bytes": "source-evidence/melee-movement/current/crates/fabelgeist-geometry/src/length.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "movement_length_trace": [
+    "At current c100, opposed movement receives raw f32 center separations and bounds, computes raw signed per-actor displacement, and returns raw distance/displacement alongside checked signed-speed and elapsed owners. The motion calculation performs native f32 operations; the speed check shown does not independently validate the computed distance fields.",
+    "The pair movement path stores the resulting raw separation on each combatant and forwards raw before/after distance and signed displacement into serializable timeline events. Other movement, scheduling and consumers remain to be traced. This identifies a producer-propagation gap in internal unit and finite-value ownership, not a demonstrated nonfinite runtime value.",
+    "The existing geometry SignedLength admits finite positive, zero and negative metres and has checked scaling. PositiveLength rejects zero; separation permits zero while signed displacement may be negative. Choosing an owner for each role requires preserving these distinctions and the existing numerical ordering and clipping semantics, rather than blindly applying one positive type.",
+    "The archived physical-p16 source used SignedLength in these paths; it is a historical variant and is neither a selected current change nor evidence that later checkpoint 3821 implemented or validated it."
+  ],
+  "movement_length_repair_direction": "Trace every producer, mutation, retained field and consumer; select semantically correct signed-displacement and zero-permitting separation owners and check arithmetic where needed. Preserve the current native f32 operation order, collision behavior, timeline serialization and strategic/tactical authority boundary. Reconcile historical queue aliases before choosing a repair.",
+  "window_threshold_trace": [
+    "The current strategic round computes step_count = round(round_seconds * 64), floored to one, and window_seconds = round_seconds / step_count. It advances movement to a contact or window end and records the elapsed movement segment. The iteration runner accumulates the maximum segment from timeline events; the acceptance audit compares it with 1 / 64 + 1e-6 seconds.",
+    "For a hypothetical 0.02-second round, the source formula gives round(1.28) = 1 window, so its unsplit segment is approximately 0.02 seconds, greater than 0.015626 seconds. If the configuration is admitted and produces such a movement event that reaches the summary, that report condition is false even though the window follows the scheduler formula. Rounding, event reachability, generated configuration, all other validation, and a runtime report have not been exercised; the checked-in round is 1.0 second.",
+    "The shown build-time positive-value list and aggregate configuration validator do not impose a 1/64-second divisibility rule on the round field. This limited observation is not proof that the entire configured build and workflow admit the hypothetical input.",
+    "Separately, the current timeline quantizes timestamps with its own 64.0 steps-per-second constant, and the report uses those ticks for contact ordering. Its semantics and relationship to the strategic integration window and 30 Hz tactical clock are policy questions; the 64 Hz locomotion sample remains a distinct role."
+  ],
+  "window_threshold_repair_direction": "Determine whether the acceptance bound should follow the scheduler-derived maximum window for the admitted round, or whether the scheduler/admission must enforce a fixed upper bound. Coordinate the independently quantized timeline only if its contract is the same, retain intended tolerances, and do not alter tactical or locomotion clocks merely because their numbers coincide.",
+  "later_acceptance": [
+    "After separate implementation authorization, validate zero, signed displacement, finite-arithmetic boundaries, native numerical ordering and preserved serialized timeline values across all traced producers and consumers.",
+    "After separate authorization, check representative admitted round lengths above and below window-rounding boundaries and contact-split segments against the chosen scheduler/report contract.",
+    "Resolve rate, timeline-tick, historical aliases and every independent lens before claiming audit closure."
+  ],
+  "remaining": [
+    "Full source, admission, product-policy, numeric reachability and downstream graph remain open for both findings.",
+    "Six new exact historical body reads are partial connected reviews, not lens closure or a claim about the lost final checkpoint.",
+    "No product build, test, probe, runtime or repair was performed."
+  ],
+  "discovery_status": "partial; both contracts, supported configuration reachability and connected scope remain open",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}
