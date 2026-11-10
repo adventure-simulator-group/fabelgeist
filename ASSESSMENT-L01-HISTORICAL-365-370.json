@@ -1,0 +1,115 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 365,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_existing_owner_definition",
+      "registry_pointer": "/files/365",
+      "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+      "lines": 438,
+      "new_personal_read_ranges": [
+        [
+          1,
+          438
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 366,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_existing_owner_definition",
+      "registry_pointer": "/files/366",
+      "sha256": "f1d40643528b12fce9e1062c6a2e23e0192c6216cb5a5f645bbc624ef90b5c26",
+      "lines": 129,
+      "new_personal_read_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 367,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/367",
+      "sha256": "a5a83e7409778230722685583a4efc7985dc11db52bf5eb2dd5a7ebde16af5a0",
+      "lines": 196,
+      "new_personal_read_ranges": [
+        [
+          1,
+          196
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 368,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/368",
+      "sha256": "8c3f05243082a222416fbfc0b33d8307fcce43dce219c0a4bdc2046012220740",
+      "lines": 320,
+      "new_personal_read_ranges": [
+        [
+          1,
+          320
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 369,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal/autoresolve.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/369",
+      "sha256": "5b0e7292d55c87297515274078335112ffd415b7d491548345e6417de1ed129d",
+      "lines": 182,
+      "new_personal_read_ranges": [
+        [
+          1,
+          182
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    },
+    {
+      "original_index": 370,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/370",
+      "sha256": "5e7c0c74cc71452ee3a99374100ae1c8d60941f4b1a563eb4aa6d693440b3c31",
+      "lines": 78,
+      "new_personal_read_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read, not run, and referenced modules were not credited. No current revision, historical alias, complete connected trace or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical building placement validation bounds counts, enforces unique nonzero identities and finite canonical positions/orientation, then checks oriented footprint overlaps. Door and window deserialization admits named dimensions, position and normalized vectors separately and attaches building/opening identity to errors; aggregate direction relationships and all construction paths remain open.",
+    "The historical melee iteration audit derives Boolean acceptance fields from accumulated summaries and separate acceptance evidence. Several per-summary checks use all(), so the caller and seed-count admission must be traced before drawing any conclusion about empty input or an actual report.",
+    "Tactical and autoresolve causal reporting accumulates different event measures, checks movement elapsed and velocity observations, and preserves typed report errors for unavailable intervals and missing observations. Classification and report completeness depend on upstream event producers and other modules that were not credited here.",
+    "Source tests and report-generation source were read only. No combat iteration, product build, test, simulation or runtime probe ran, and no report or acceptance result is claimed."
+  ],
+  "remaining": "Trace current building orientation and scene transport constructors, direction aggregate geometry, placement and collision consumers; independently examine iteration seed admission, event producers, measurement and report publication without executing product validation. Reconcile historical aliases and assess every lens."
+}
