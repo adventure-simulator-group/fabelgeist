@@ -1,0 +1,116 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded empty-exhibit-placement suspicion on the inspected catalog-to-armory producer path; not a complete state, index or lens audit.",
+  "inspection_provenance": "Selected source ranges personally read and tied to identical c100 and 95e Git blobs; frozen roles are separately attributed. No product code ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "55760b925ed60fb59a830da9c69c65c3f7307633",
+      "sha256": "da3139ef3625393db9041ad0680dc244b0f81235b86ea4519a87c9299763bdd6",
+      "bytes": 5194,
+      "lines": 146,
+      "ranges": [
+        [
+          72,
+          110
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/armory-safeguard-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/equipment_assets/selection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0a53ab49bc6b633d88f27a4766e0b261b1b48b56",
+      "sha256": "162b898d78feeae3507d19844b4b11c999c50edd7609680e5ef7c2fac89486d6",
+      "bytes": 5345,
+      "lines": 170,
+      "ranges": [
+        [
+          35,
+          90
+        ],
+        [
+          94,
+          109
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/armory-safeguard-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "375626a194fc2a2ec88da283f28e9ef0846148c6",
+      "sha256": "aa66e0b18f919eb3351635241249df969eeed4c36c36aa302888c320222a54df",
+      "bytes": 16443,
+      "lines": 485,
+      "ranges": [
+        [
+          88,
+          128
+        ],
+        [
+          335,
+          350
+        ],
+        [
+          405,
+          431
+        ],
+        [
+          439,
+          465
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/armory-safeguard-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_ui.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c5e33eac06e8bb89ec393ef300b3d667a9770aa9",
+      "sha256": "5c519edc1b220e1bdb7d874160b997ffb77a98266e5f6c5de49565d4ab5e9ada",
+      "bytes": 12006,
+      "lines": 332,
+      "ranges": [
+        [
+          150,
+          170
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/armory-safeguard-sources/03.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "historical_sources": [
+    {
+      "original_role_index": 694,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armory.rs",
+      "sha256": "aa66e0b18f919eb3351635241249df969eeed4c36c36aa302888c320222a54df",
+      "assessment": "ASSESSMENT-L01-HISTORICAL-691-699.json",
+      "qualification": "Frozen pr-working source retains its recorded attribution; byte equality grants no checkpoint 3821 or independent-lens credit."
+    },
+    {
+      "original_role_index": 696,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armory_ui.rs",
+      "sha256": "5c519edc1b220e1bdb7d874160b997ffb77a98266e5f6c5de49565d4ab5e9ada",
+      "assessment": "ASSESSMENT-L01-HISTORICAL-691-699.json",
+      "qualification": "Frozen pr-working source retains its recorded attribution; byte equality grants no checkpoint 3821 or independent-lens credit."
+    }
+  ],
+  "dispositions": [
+    {
+      "id": "NONFINDING-ARMORY-EMPTY-PLACEMENT-PRODUCER-001",
+      "disposition": "A zero-length placement list is not established for an exhibit produced by the inspected catalog-to-armory path.",
+      "trace": "ItemCatalog::wearable filters item definitions through is_wearable, which requires an equipment material and at least one placement with a nonempty surface. The exhibit producer obtains each wearable CatalogItem, retains an immutable clone of that exact definition with one retained ordinal per placement, and filters those retained selections using the same nonempty-surface condition. At least the previously required placement survives, so placements[0] used by Exhibit::item and the inspected UI is present. The fitted vector is initially constructed once per placement, and fit_exhibits maps each placement to one result.",
+      "limits": "This reasoning is limited to the inspected producer and ordinary subsequent fitting. It does not prove every direct construction or mutation of the pub(super) exhibit fields, all selected-exhibit indices, generated geometry, panics in fitting or runtime behavior. No catalog, armory, UI, generation, test or product probe ran.",
+      "repair": "not applicable to this bounded suspicion; no implementation",
+      "validation": "not performed; source-only evidence verification"
+    }
+  ],
+  "remaining": "Trace alternative exhibit construction and mutation, selected indices, material and fitting contracts, historical aliases and every independent lens."
+}
