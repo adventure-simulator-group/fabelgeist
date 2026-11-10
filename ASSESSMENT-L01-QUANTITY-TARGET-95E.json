@@ -1,0 +1,169 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded inventory target mutation authority, session dispatch and one retained consumer. Independent lenses and broader caller scope remain incomplete.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "273eafd632bcd254869f05ba77a9b7be4cf94d72",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "bytes": 51546,
+      "lines": 1586,
+      "ranges": [
+        [
+          940,
+          966
+        ],
+        [
+          1009,
+          1077
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quantity-target-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+      "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "bytes": 138251,
+      "lines": 3968,
+      "ranges": [
+        [
+          317,
+          331
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quantity-target-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/set_inventory_quantity_target_reducer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "feecfd313e43657f1e51e12982ce6542ad4e62d1",
+      "sha256": "be07f89a8d0592050badf5024a0a6c20ab706ad4b6bba8b45ed6482a8b505c41",
+      "bytes": 3486,
+      "lines": 103,
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quantity-target-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5150aade7681ef4e6b37589a698aa4faed0d06a1",
+      "sha256": "f2874ee749741d0ae6f0e3454f8e6da59b3b031b933580da15ec73a80ad33ed1",
+      "bytes": 29838,
+      "lines": 898,
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quantity-target-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/approved_action.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a913773bac6d8980357d7786a43bca67edefb430",
+      "sha256": "dc45100de7c1f6bfa836ee8b4634f1b502be0aab07d778f21595785bf2eadca1",
+      "bytes": 6013,
+      "lines": 173,
+      "ranges": [
+        [
+          135,
+          155
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quantity-target-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/alcohol.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6526cf7c40db70afb9454e6b2f93736e07b7e929",
+      "sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+      "bytes": 23237,
+      "lines": 677,
+      "ranges": [
+        [
+          78,
+          85
+        ],
+        [
+          104,
+          255
+        ],
+        [
+          311,
+          341
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quantity-target-sources/05.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "inspection_provenance": "Selected ranges were personally inspected directly from 95e Git source. Preserved c100 and 95e inventories bind identical blobs. The separately read physical-p16 approved-action body differs from its 95e counterpart.",
+  "native_source": {
+    "package_manifest": "native-evidence/spacetimedb-2.6.1/MANIFEST.json",
+    "archive_member": "spacetimedb-2.6.1/src/lib.rs",
+    "ranges": [
+      [
+        456,
+        466
+      ],
+      [
+        528,
+        531
+      ]
+    ],
+    "qualification": "Pinned dependency source documentation only; no deployed server or network access was observed."
+  },
+  "historical_source": {
+    "checkpoint": "059",
+    "ledger": "baseline-059/ledger.json",
+    "pointer": "/segovb_continuation/current_connected_dispositions/132",
+    "scope_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    "disposition_id": "current-native-actor-admission-invocation-chain",
+    "matching_authority_model_roles": [
+      269,
+      1204
+    ],
+    "authority_model_sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+    "qualification": "Recovered older source-scoped disposition and byte-matched original roles; neither is checkpoint 3821 and their original status and attribution remain unchanged."
+  },
+  "candidates": [
+    {
+      "id": "REVIEW-INVENTORY-TARGET-AUTHORITY-001",
+      "classification": "source-level caller-authorization gap at retained inventory target mutation; deployed exposure and actual unauthorized invocation unverified",
+      "detail": "The remote set_inventory_quantity_target reducer accepts a caller-supplied character ID, scope, catalog item ID and quantity. It checks the character exists and is alive and, for party scope, that the supplied character is the party\u2019s current leader. It does not compare the sender or call the existing strategic-character authority gate before inserting or updating the public target row. The generated client exposes the remote call. If a separate caller can reach the database and knows a living target and valid item, the personal target can be changed; for party scope the supplied character must additionally be the actual leader. No network or database invocation was performed.",
+      "consumer": "The target is retained gameplay policy, not immediate item transfer. For settled alcohol selection, available_item_micros subtracts the target reserve from personal or party available quantity; higher or lower values can change which potable stacks that path considers. Actual subsequent drinking, UI behavior, other target consumers and deployment reachability were not observed.",
+      "safeguards": "Living-character and catalog existence checks apply; party scope checks the actual leader ID. The web form obtains its character from a session and uses party action approval for party-scope requests. The documented strategic gateway or owned-simulation guard exists elsewhere. Deployment connection permissions, target ID access and intended direct native caller policy are unverified.",
+      "connected_scope": "Native personal/party target reducer, gateway-to-session binding and simulation owner policy; leader and approved-party action dispatch; retained target reads in alcohol and all other bulk workflows; target scope, item admission and actual deployment access controls.",
+      "proposed_repair": "After complete discovery, bind the mutation to the supported gateway or owned-simulation actor and preserve real party leader and approval semantics at the operation boundary. Keep item, scope and consumption policy independent and do not add compatibility paths.",
+      "later_acceptance": "After product validation is authorized, verify legitimate personal, party-leader and approved-party flows, reject distinct unauthorized senders before any target row changes, and confirm retained targets still govern intended consumers.",
+      "historical_related_candidates": [
+        "current-native-actor-admission-invocation-chain"
+      ],
+      "related_candidates": [
+        "REVIEW-INVENTORY-MUTATION-AUTHORITY-001",
+        "REVIEW-REPAIR-REDUCER-AUTHORITY-001"
+      ],
+      "relationship_qualification": "Recovered checkpoint 059 already records this exact setter as part of the broader native actor-admission chain, with source scope revision e2755a732c84e67296b5e3441a4259a84f461b2f and latest-current reconciliation false. Both original pr-working role 1204 and physical-p16 role 269 match this 95e authority-model blob. This is a current source trace of an existing family, not a new independent unique failure or restored checkpoint 3821 state; external exposure and global aliases remain open.",
+      "discovery": "partial; direct caller policy, deployment, all target consumers and historical global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Trace all retained target consumers and request/approval routes, supported native caller and external policy; reconcile historical aliases and assess all thirteen lenses independently. No repair or product validation."
+}

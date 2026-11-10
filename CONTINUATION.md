@@ -42,6 +42,8 @@ billing case at the maximum clock, related to a broader historical open
 question without claiming supported production reachability.
 `ASSESSMENT-L01-PRESENCE-SAFEGUARD-95E.json` records a rejected death-presence
 suspicion and a separately qualified missing-birth view/reducer question.
+`ASSESSMENT-L01-QUANTITY-TARGET-95E.json` traces a retained inventory target
+authority boundary to an earlier, separately attributed actor-admission record.
 `LOCKFILE-DELTA.json` preserves separate historical and predecessor comparisons
 of Cargo lockfiles.
 `RECONCILIATION-059.json` indexes the historical queue without turning its

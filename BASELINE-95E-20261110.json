@@ -246,6 +246,22 @@
           "REVIEW-ITINERARY-CLOCK-NONPROGRESS-001"
         ],
         "record": "ASSESSMENT-L01-RESIDENCE-CLOCK-95E.json"
+      },
+      {
+        "id": "REVIEW-INVENTORY-TARGET-AUTHORITY-001",
+        "classification": "source-level caller-authorization gap at retained inventory target mutation; deployed exposure and actual unauthorized invocation unverified",
+        "discovery": "partial; direct caller policy, deployment, all target consumers and historical global aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "relationship_qualification": "Recovered checkpoint 059 already records this exact setter as part of the broader native actor-admission chain, with source scope revision e2755a732c84e67296b5e3441a4259a84f461b2f and latest-current reconciliation false. Both original pr-working role 1204 and physical-p16 role 269 match this 95e authority-model blob. This is a current source trace of an existing family, not a new independent unique failure or restored checkpoint 3821 state; external exposure and global aliases remain open.",
+        "historical_related_candidates": [
+          "current-native-actor-admission-invocation-chain"
+        ],
+        "related_candidates": [
+          "REVIEW-INVENTORY-MUTATION-AUTHORITY-001",
+          "REVIEW-REPAIR-REDUCER-AUTHORITY-001"
+        ],
+        "record": "ASSESSMENT-L01-QUANTITY-TARGET-95E.json"
       }
     ]
   }
