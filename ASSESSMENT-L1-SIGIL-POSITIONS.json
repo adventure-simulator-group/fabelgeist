@@ -1,0 +1,140 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "historical_assessment": "ASSESSMENT-L01-HISTORICAL-100-104.json",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/errantry.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "c745b617fe6b91b054b4f968565f295d03f9839eb329c4957d86306d65969858",
+      "git_blob": "09b003063a95e928ff0c1c363fe6271b6fd1590b",
+      "bytes": 29128,
+      "lines": 827,
+      "ranges": [
+        [
+          270,
+          294
+        ]
+      ],
+      "preserved_bytes": "source-evidence/sigil-positions/current/crates/adventuresim-core/src/errantry.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-puzzles/src/ordered_sigils.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "663ef1d62d85a2b952a6be5d496949ae0b71d293110c14d6d7d123319559ee6b",
+      "git_blob": "f462591735f4407925cf6e653f000ff6c4bd09a9",
+      "bytes": 12999,
+      "lines": 392,
+      "ranges": [
+        [
+          1,
+          180
+        ],
+        [
+          193,
+          228
+        ]
+      ],
+      "preserved_bytes": "source-evidence/sigil-positions/current/crates/adventuresim-puzzles/src/ordered_sigils.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-puzzles/src/lib.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "710b7464b874f4a7d13e47772786ff780a13d4b4689a613d6f7fbc0efa2b5f28",
+      "git_blob": "2f0123d57fe8f32ddfae6bf0696623036cc1e7e2",
+      "bytes": 463,
+      "lines": 19,
+      "ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "preserved_bytes": "source-evidence/sigil-positions/current/crates/adventuresim-puzzles/src/lib.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-puzzles/src/puzzles.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "e3eb46b050e02df31df84a6d18ded142d748383d0e9611c55bc720d086bbbfbe",
+      "git_blob": "44ba937b34d18e159a4606047c82e240c754004a",
+      "bytes": 41726,
+      "lines": 1131,
+      "ranges": [
+        [
+          220,
+          255
+        ]
+      ],
+      "preserved_bytes": "source-evidence/sigil-positions/current/crates/adventuresim-puzzles/src/puzzles.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "git_blob": "3de0a089cd58fd01543c11356902225b66b2ad41",
+      "bytes": 112976,
+      "lines": 2815,
+      "ranges": [
+        [
+          395,
+          408
+        ]
+      ],
+      "preserved_bytes": "source-evidence/sigil-positions/current/crates/adventuresim-stdb-module/src/strategic/challenges.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/challenges.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "6b3399cb6920c0dd8fd0547c10679723f58ceb8ae2ff9906a92759e040fe4178",
+      "git_blob": "42831c6b8d8a8830a7819cfb10babefbf04572af",
+      "bytes": 17251,
+      "lines": 481,
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "preserved_bytes": "source-evidence/sigil-positions/current/crates/strategic-web/src/routes/challenges.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/templates/challenge.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "febe3f70bd476ace78551dba3e4492bebd3651c96b66d3515dc041e6f9bed05f",
+      "git_blob": "464c15f3d7ccf69ec28beb3b5e365ccd3cab21e7",
+      "bytes": 20598,
+      "lines": 483,
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "preserved_bytes": "source-evidence/sigil-positions/current/crates/strategic-web/src/templates/challenge.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "classification": "Conditional clue-position admission and indexing contract; inspected authoritative generation and backend projection validate positions.",
+  "trace": [
+    "OrderedSigilClue has publicly constructible and deserializable Exact and NotAt variants with position u8. fey_clue_text directly indexes a five-entry row by that value, so a constructed position of 5 indexes outside the row. OrderedSigilClue::text also adds one to the u8 position, which exceeds its range for 255; overflow response is profile-dependent. These are source-level representable cases, not observed product failures.",
+    "The current generator builds positions from 0..ORDERED_SIGIL_COUNT, which is five, and validates the completed authority puzzle. Authority validation rejects position >= five and equal relational sigils; backend_challenges deserializes authority, calls validate, and serializes its projection. The inspected web route deserializes that backend projection and renders the fey clue; no independent position validation is shown in that bounded route. Normal projection from this inspected backend is therefore bounded, while alternate producers, persisted corruption, direct public consumers and all transport guarantees remain open.",
+    "Do not equate the unrelated valid numeric meanings: positions are zero-based stored indexes while displayed places are one-based. Repeated-sigil relational clues and alternate presentation also require separate semantic review."
+  ],
+  "repair_direction": "Trace all direct clue constructors, deserializers, persisted authorities, public projection consumers and failure contracts. If a future authorized repair is appropriate, place a bounded position contract at the correct owner or handle invalid presentation inputs explicitly, preserving existing valid clue text, replay rules and one-based display.",
+  "later_acceptance": [
+    "After separate repair authorization, cover 0 and 4, invalid 5 and 255, direct and deserialized clue paths, valid generator/backend projections and exact valid rendered wording."
+  ],
+  "remaining": [
+    "Complete source and historical alias tracing and other lenses. No product build, test, browser, database call or runtime probe was performed."
+  ],
+  "discovery_status": "partial; invalid constructed clue is representable but no supported route to a failing projection is established",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}

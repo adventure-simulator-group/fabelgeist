@@ -1,0 +1,45 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 100,
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/100",
+      "sha256": "635ee67da06496157b5b091eb40535af2493a554d2b69f6b82023886b9b2a1e0",
+      "lines": 1182,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1182
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Entire body read at this exact physical-p16 historical identity only; source tests were read, not run. Current applicability, connected scope, other historical variants and every independent lens remain open."
+    },
+    {
+      "original_index": 104,
+      "source_id": "physical-p16:crates/adventuresim-core/src/errantry.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/104",
+      "sha256": "c745b617fe6b91b054b4f968565f295d03f9839eb329c4957d86306d65969858",
+      "lines": 827,
+      "new_personal_read_ranges": [
+        [
+          1,
+          827
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Entire body read at this exact physical-p16 historical identity only; source tests were read, not run. Current applicability, connected scope, other historical variants and every independent lens remain open."
+    }
+  ],
+  "observations": [
+    "Role 100 includes equipment attachment graphs, nine skill-weight floats and normalization, historic SignedLength weapon APIs, encumbrance arithmetic, armor hooks and source tests. The current equipment file has a different SHA-256 and was separately inspected only in the skill-distribution range.",
+    "Role 104 includes quest trial and camp identity state, closed presenter speech, five-element clue lookup arrays and source tests. A separately inspected current clue lookup has the same bytes, but the historical role is neither a current-lens completion nor evidence of checkpoint 3821."
+  ],
+  "remaining": "All linked historical variants, consumer admissions, other owners, queue aliases and other lenses remain open; no product tests or runtime probes were run."
+}
