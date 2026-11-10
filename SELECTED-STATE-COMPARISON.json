@@ -1,0 +1,230 @@
+{
+  "schema": "726-selected-state-comparison-v1",
+  "qualification": "Checkpoint 059 selection is authoritative only for that historical checkpoint. Snapshot 440 is reconstructed byte-for-byte against a cited hash and is not final selection authority. Equal hashes identify equal bytes, not source reads, adoption, current coverage or closure. Missing state claims retain all recovery-package search limits; absence is not proved. All original and later individual qualifications remain controlling.",
+  "checkpoint_059_commit": "eb407672813424d64ec31f208193969f5a62620c",
+  "snapshot_440_file": "recovered/selected-lens-440-values/eccc459c300b5faddd10db40aec1bfa7b0f59d91f58e5243760680670f51d232",
+  "snapshot_440_sha256": "eccc459c300b5faddd10db40aec1bfa7b0f59d91f58e5243760680670f51d232",
+  "snapshot_440_manifest": "recovered/selected-lens-440-values/MANIFEST.json",
+  "rows": [
+    {
+      "lens": 1,
+      "checkpoint_059": {
+        "path": "segovb/STATE-L1-CURRENT-094.json",
+        "sha256": "e12baab594faf62c1e8fcd482d5280f688ac94f91a069781d7cf21399dcdb95b",
+        "bytes": 803
+      },
+      "checkpoint_059_file": "baseline-059/states/01.json",
+      "snapshot_440": {
+        "path": "segovb/STATE-L1-CURRENT-094.json",
+        "sha256": "e12baab594faf62c1e8fcd482d5280f688ac94f91a069781d7cf21399dcdb95b",
+        "bytes": 803
+      },
+      "snapshot_440_same_as_059": true,
+      "snapshot_440_state_bytes": "hash-matched checkpoint 059 copy",
+      "current_assessment": "incomplete"
+    },
+    {
+      "lens": 2,
+      "checkpoint_059": {
+        "path": "segovb/STATE-L2-EXT-CURRENT-015.json",
+        "sha256": "cd3dcd9b27ecd2fa4f108004b85031716389d163b41f28c6f9eb11dc803fefd8",
+        "bytes": 3171
+      },
+      "checkpoint_059_file": "baseline-059/states/02.json",
+      "snapshot_440": {
+        "path": "segovb/STATE-L2-EXT-CURRENT-028.json",
+        "sha256": "199a4a9479b5ed3491ccc6df6d5f667cf41db2f9745c26bff939348c9a2f4158",
+        "bytes": 227345
+      },
+      "snapshot_440_same_as_059": false,
+      "snapshot_440_state_bytes": "not recovered in the handoff; do not substitute checkpoint 059 state",
+      "current_assessment": "incomplete"
+    },
+    {
+      "lens": 3,
+      "checkpoint_059": {
+        "path": "segovb/STATE-L3-EXT-CURRENT-007.json",
+        "sha256": "2e13471196002bf97e9997953c391706fc1a016253427b3d3ebe3c51e5481ce6",
+        "bytes": 2230
+      },
+      "checkpoint_059_file": "baseline-059/states/03.json",
+      "snapshot_440": {
+        "path": "segovb/STATE-L3-EXT-CURRENT-007.json",
+        "sha256": "2e13471196002bf97e9997953c391706fc1a016253427b3d3ebe3c51e5481ce6",
+        "bytes": 2230
+      },
+      "snapshot_440_same_as_059": true,
+      "snapshot_440_state_bytes": "hash-matched checkpoint 059 copy",
+      "current_assessment": "incomplete"
+    },
+    {
+      "lens": 4,
+      "checkpoint_059": {
+        "path": "evidence/audit04-delta/STATE.json",
+        "sha256": "f46d28626869f61910f2e871253e72a40463b64420f9a312eb1085bccb815c08",
+        "bytes": 634
+      },
+      "checkpoint_059_file": "baseline-059/states/04.json",
+      "snapshot_440": {
+        "path": "evidence/audit04-delta/STATE.json",
+        "sha256": "f46d28626869f61910f2e871253e72a40463b64420f9a312eb1085bccb815c08",
+        "bytes": 634
+      },
+      "snapshot_440_same_as_059": true,
+      "snapshot_440_state_bytes": "hash-matched checkpoint 059 copy",
+      "current_assessment": "incomplete"
+    },
+    {
+      "lens": 5,
+      "checkpoint_059": {
+        "path": "evidence/audit05/STATE.json",
+        "sha256": "66c8c5ce6fffd42126e59cb5bc1d01688dc1eea0a92fd2d87d38bf390cf315aa",
+        "bytes": 32070
+      },
+      "checkpoint_059_file": "baseline-059/states/05.json",
+      "snapshot_440": {
+        "path": "evidence/audit05/STATE.json",
+        "sha256": "66c8c5ce6fffd42126e59cb5bc1d01688dc1eea0a92fd2d87d38bf390cf315aa",
+        "bytes": 32070
+      },
+      "snapshot_440_same_as_059": true,
+      "snapshot_440_state_bytes": "hash-matched checkpoint 059 copy",
+      "current_assessment": "incomplete"
+    },
+    {
+      "lens": 6,
+      "checkpoint_059": {
+        "path": "evidence/audit06-delta/STATE.json",
+        "sha256": "fd9612c600c9532d58bde7bfd9291afc81afaf74ba97cb9d81035edaa65cd2fe",
+        "bytes": 2113
+      },
+      "checkpoint_059_file": "baseline-059/states/06.json",
+      "snapshot_440": {
+        "path": "evidence/audit06-delta/STATE.json",
+        "sha256": "fd9612c600c9532d58bde7bfd9291afc81afaf74ba97cb9d81035edaa65cd2fe",
+        "bytes": 2113
+      },
+      "snapshot_440_same_as_059": true,
+      "snapshot_440_state_bytes": "hash-matched checkpoint 059 copy",
+      "current_assessment": "incomplete"
+    },
+    {
+      "lens": 7,
+      "checkpoint_059": {
+        "path": "evidence/audit07-delta/CURRENT.json",
+        "sha256": "4a27b54eb2f796ce8506cad1a7cb59336cde1d5319fc428e1a1d289660547942",
+        "bytes": 2292
+      },
+      "checkpoint_059_file": "baseline-059/states/07.json",
+      "snapshot_440": {
+        "path": "evidence/audit07-delta/CURRENT.json",
+        "sha256": "4a27b54eb2f796ce8506cad1a7cb59336cde1d5319fc428e1a1d289660547942",
+        "bytes": 2292
+      },
+      "snapshot_440_same_as_059": true,
+      "snapshot_440_state_bytes": "hash-matched checkpoint 059 copy",
+      "current_assessment": "incomplete"
+    },
+    {
+      "lens": 8,
+      "checkpoint_059": {
+        "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/STATE-129.json",
+        "sha256": "7f7bf345493f369ff9eb147afca1ab761c5fb9e32a274fe731c21911b2e8d7c9",
+        "bytes": 34828
+      },
+      "checkpoint_059_file": "baseline-059/states/08.json",
+      "snapshot_440": {
+        "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/STATE-129.json",
+        "sha256": "7f7bf345493f369ff9eb147afca1ab761c5fb9e32a274fe731c21911b2e8d7c9",
+        "bytes": 34828
+      },
+      "snapshot_440_same_as_059": true,
+      "snapshot_440_state_bytes": "hash-matched checkpoint 059 copy",
+      "current_assessment": "incomplete"
+    },
+    {
+      "lens": 9,
+      "checkpoint_059": {
+        "path": "evidence/audit09-delta/STATE.json",
+        "sha256": "f6378568623a9a9592f1be94e8e816cbc8b745e1428444c9366a648690dc9ecc",
+        "bytes": 1400
+      },
+      "checkpoint_059_file": "baseline-059/states/09.json",
+      "snapshot_440": {
+        "path": "evidence/audit09-delta/STATE.json",
+        "sha256": "f6378568623a9a9592f1be94e8e816cbc8b745e1428444c9366a648690dc9ecc",
+        "bytes": 1400
+      },
+      "snapshot_440_same_as_059": true,
+      "snapshot_440_state_bytes": "hash-matched checkpoint 059 copy",
+      "current_assessment": "incomplete"
+    },
+    {
+      "lens": 10,
+      "checkpoint_059": {
+        "path": "evidence/audit10/STATE.json",
+        "sha256": "094452c21cf86b64343a7c0143f03e1edac5c8bbac02d01bcd3caf6d01e0c34e",
+        "bytes": 23430
+      },
+      "checkpoint_059_file": "baseline-059/states/10.json",
+      "snapshot_440": {
+        "path": "evidence/audit10/STATE.json",
+        "sha256": "094452c21cf86b64343a7c0143f03e1edac5c8bbac02d01bcd3caf6d01e0c34e",
+        "bytes": 23430
+      },
+      "snapshot_440_same_as_059": true,
+      "snapshot_440_state_bytes": "hash-matched checkpoint 059 copy",
+      "current_assessment": "incomplete"
+    },
+    {
+      "lens": 11,
+      "checkpoint_059": {
+        "path": "segovb/STATE-L11-733.json",
+        "sha256": "6866a59e6158090421fd350b20c970dd552768e1989423902cb778cf5e1d7004",
+        "bytes": 558
+      },
+      "checkpoint_059_file": "baseline-059/states/11.json",
+      "snapshot_440": {
+        "path": "segovb/STATE-L11-733.json",
+        "sha256": "6866a59e6158090421fd350b20c970dd552768e1989423902cb778cf5e1d7004",
+        "bytes": 558
+      },
+      "snapshot_440_same_as_059": true,
+      "snapshot_440_state_bytes": "hash-matched checkpoint 059 copy",
+      "current_assessment": "incomplete"
+    },
+    {
+      "lens": 12,
+      "checkpoint_059": {
+        "path": "segovb/STATE-L12-932.json",
+        "sha256": "8673acaaa0e69a3c749aadbc0624d16846edf5905473d70b9f937a7529469eff",
+        "bytes": 1544
+      },
+      "checkpoint_059_file": "baseline-059/states/12.json",
+      "snapshot_440": {
+        "path": "segovb/STATE-L12-METADATA-CURRENT-008.json",
+        "sha256": "01ff18cca3dd9be3c117fd8e4ca55c872a4cbb7edd3805dabab296ff076f6b9c",
+        "bytes": 77639
+      },
+      "snapshot_440_same_as_059": false,
+      "snapshot_440_state_bytes": "not recovered in the handoff; do not substitute checkpoint 059 state",
+      "current_assessment": "incomplete"
+    },
+    {
+      "lens": 13,
+      "checkpoint_059": {
+        "path": "segovb/STATE-L13-PARALLEL-300.json",
+        "sha256": "ab0b436bdaeffa6918d226136c08f582f0fa06896fc4504f744cbd8847cf6d7e",
+        "bytes": 598
+      },
+      "checkpoint_059_file": "baseline-059/states/13.json",
+      "snapshot_440": {
+        "path": "segovb/STATE-L13-PARALLEL-723.json",
+        "sha256": "e177a5f553ffb2e438702ac6e547c40475f42a0ffdbe014fe88283cfd38137e2"
+      },
+      "snapshot_440_same_as_059": false,
+      "snapshot_440_state_bytes": "not recovered in the handoff; do not substitute checkpoint 059 state",
+      "current_assessment": "incomplete"
+    }
+  ]
+}

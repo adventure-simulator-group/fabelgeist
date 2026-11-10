@@ -10,12 +10,19 @@
   "delta_lens_cells_assessed": 1,
   "repair_ledger": "incomplete; two new inventory obligations and one carried historical combat-sound finding have partial current traces; no repair started",
   "recovery_verification": "Fresh shallow clone of parent checkpoint from GitHub on the same machine has the expected commit and passed python3 verify_recovered.py. This does not establish independent-machine recovery, full original transport extraction, source-read credit, or final authority.",
-  "original_evidence": "Direct historical ledger and queue bytes match checkpoint 059 published SHA-256 values and are copied unchanged. Selected states are copied unchanged. The 36,487-file transport remains on its pinned original branch; full extraction was not repeated in this checkpoint.",
+  "original_evidence": "The exact checkpoint 059 ledger, queue, selector and all 13 selected-state bytes match their cited SHA-256 values and are preserved. The 36,487-file transport remains at its pinned original branch; full extraction was not repeated here.",
   "remaining": "Missing final checkpoint 3821 ledger and queue; historical summaries and reconstructed records retain all recovery-package qualifications. Assess each preserved entry, all later recoverable evidence and each independent lens and connected scope. No product validation or implementation.",
   "original_role_identities_indexed": 2853,
   "current_tree_entries_indexed": 6361,
   "inventory_qualification": "Mechanical inventory only; no source scope, applicability, independent-lens assessment or closure is implied.",
-  "prior_checkpoint_remote_verification": "Fetched 1c45dd47058fe162eb2e9b66984a092f6e6283b0; recovered Lens 1 state hash matched, recovery verifier passed and ledger link was present on this machine.",
-  "new_assessments": "Combat-sound trace includes selected live/enemy projection, observer distinctions and pinned replication event ordering/mapping source. Source evidence narrows ordinary ordering concerns; visibility, lifecycle, full producers and aliases remain open.",
-  "partial_connected_assessments": 3
+  "prior_checkpoint_remote_verification": "Fetched da2de5cc52055e1bfbe5a9377eb259c0cf3948dc; recovery verifier and six pinned dependency member checks passed on this machine.",
+  "new_assessments": "Thirteen historical selected-state identities have been verified; ten match the reconstructed snapshot 440, while selected state bytes for lenses 2, 12 and 13 remain missing. This grants no current source coverage.",
+  "partial_connected_assessments": 3,
+  "historical_selected_059_states_verified": 13,
+  "snapshot_440_states_same_bytes_as_059": 10,
+  "snapshot_440_selected_state_bytes_missing_lenses": [
+    2,
+    12,
+    13
+  ]
 }
