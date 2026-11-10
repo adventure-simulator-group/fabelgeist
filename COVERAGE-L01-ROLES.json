@@ -9,14 +9,14 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2323,
+    "unassessed": 2317,
     "lock-metadata-partial": 2,
-    "bounded-current-trace-only": 184,
+    "bounded-current-trace-only": 183,
     "assessed-nonapplicable": 2,
-    "full-historical-body-trace-open": 341,
+    "full-historical-body-trace-open": 348,
     "deleted-base-trace-open": 1
   },
-  "first_unfinished": "Physical-p16 combat ingress, melee start/lunge/timing/work roles 388 through 392 now have full historical body reads. Continue at role 393; earlier dependencies and independent lenses remain open.",
+  "first_unfinished": "Physical-p16 melee completion, active defense, geometry/outcome, protocol and ranged roles 393 through 399 now have full historical body reads. Prior bounded c100 observations for role 396 remain separately linked. Continue at role 400; earlier dependencies and independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -5326,7 +5326,9 @@
       "historical_sha256": "6fd64503e79c60d080ad7322bfdd270e451887f48d89c80898c47cd161532727",
       "registry_pointer": "/files/393",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-393-399.json",
+      "qualification": "Full historical body read for this physical-p16 role; any previous bounded c100 observations retain their exact linked ranges and attribution. Current applicability, connected scope and independent lenses remain open."
     },
     {
       "original_index": 394,
@@ -5336,7 +5338,9 @@
       "historical_sha256": "291b5d7171d5674bc929189b672bf92ee1b1348b9866f526f65d4377c8fbedbe",
       "registry_pointer": "/files/394",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-393-399.json",
+      "qualification": "Full historical body read for this physical-p16 role; any previous bounded c100 observations retain their exact linked ranges and attribution. Current applicability, connected scope and independent lenses remain open."
     },
     {
       "original_index": 395,
@@ -5346,7 +5350,9 @@
       "historical_sha256": "0e6bff7b2a9b88f916e90495f72d65ce3e854b21a05b6a59d30a684174dfe957",
       "registry_pointer": "/files/395",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-393-399.json",
+      "qualification": "Full historical body read for this physical-p16 role; any previous bounded c100 observations retain their exact linked ranges and attribution. Current applicability, connected scope and independent lenses remain open."
     },
     {
       "original_index": 396,
@@ -5356,7 +5362,7 @@
       "historical_sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
       "registry_pointer": "/files/396",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
       "current_git_blob": "b0abdab946bf4d48b812463afb3221312fb89bcc",
       "current_observations": [
@@ -5365,7 +5371,8 @@
           "ranges": "39-90"
         }
       ],
-      "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+      "qualification": "Full historical body read for this physical-p16 role; any previous bounded c100 observations retain their exact linked ranges and attribution. Current applicability, connected scope and independent lenses remain open.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-393-399.json"
     },
     {
       "original_index": 397,
@@ -5375,7 +5382,9 @@
       "historical_sha256": "bdc79a977759c6bc89210af417c605af95bdf23d383bcf29a3e1f49552590c6a",
       "registry_pointer": "/files/397",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-393-399.json",
+      "qualification": "Full historical body read for this physical-p16 role; any previous bounded c100 observations retain their exact linked ranges and attribution. Current applicability, connected scope and independent lenses remain open."
     },
     {
       "original_index": 398,
@@ -5385,7 +5394,9 @@
       "historical_sha256": "e960a4f52cd7fa6f8d28da2983c5f066e216f0b74828295faa41b66bd436659e",
       "registry_pointer": "/files/398",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-393-399.json",
+      "qualification": "Full historical body read for this physical-p16 role; any previous bounded c100 observations retain their exact linked ranges and attribution. Current applicability, connected scope and independent lenses remain open."
     },
     {
       "original_index": 399,
@@ -5395,7 +5406,9 @@
       "historical_sha256": "666e7ae0d0aaeeed9b53efc70bf96befd2ffbbfdc84adf176db63126431658f5",
       "registry_pointer": "/files/399",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-393-399.json",
+      "qualification": "Full historical body read for this physical-p16 role; any previous bounded c100 observations retain their exact linked ranges and attribution. Current applicability, connected scope and independent lenses remain open."
     },
     {
       "original_index": 400,
