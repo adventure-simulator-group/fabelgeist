@@ -1,0 +1,134 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 178,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/178",
+      "sha256": "1c346cbf22b4b7ad34cdd6b515b08d015c43e6489f953aa3a75ea40d8e3c675c",
+      "lines": 3987,
+      "new_personal_read_ranges": [
+        [
+          1,
+          3987
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace, or independent lens completion is implied."
+    },
+    {
+      "original_index": 179,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character/name_identity.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/179",
+      "sha256": "1e4fa37b2fb89c3fa7ccca3c9c15a6c514044539ef4b97776e8ebb66cc7eccbc",
+      "lines": 242,
+      "new_personal_read_ranges": [
+        [
+          1,
+          242
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace, or independent lens completion is implied."
+    },
+    {
+      "original_index": 180,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character/name_reducers.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/180",
+      "sha256": "ce69b10b91846fd901ae6d97b470b4d96c592e96858032dedb6376b4b8b4cc17",
+      "lines": 8,
+      "new_personal_read_ranges": [
+        [
+          1,
+          8
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace, or independent lens completion is implied."
+    },
+    {
+      "original_index": 181,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character/name_types.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/181",
+      "sha256": "698c97ddc6ffa8f8a1765775397dc10013ea5359f32a06b62845cf62ce0a946e",
+      "lines": 111,
+      "new_personal_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace, or independent lens completion is implied."
+    },
+    {
+      "original_index": 182,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character/occupancy.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/182",
+      "sha256": "b19bf8ef16841ed00b6e678e2ed26c12fb072ca49ec363a1c1e7172379e0c15e",
+      "lines": 191,
+      "new_personal_read_ranges": [
+        [
+          1,
+          191
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace, or independent lens completion is implied."
+    },
+    {
+      "original_index": 183,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character/origin.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/183",
+      "sha256": "68cde880ac4ca70b55a5e3aed94f85463cacc3f2177a656c26d023abf7917ed6",
+      "lines": 67,
+      "new_personal_read_ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace, or independent lens completion is implied."
+    },
+    {
+      "original_index": 184,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character/tactical_assignment.rs",
+      "snapshot": "physical-p16",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/184",
+      "sha256": "aba1547a6cf046580545e45ed7b29cfa81e1e9a54c96cc0f7a6dc04a998982c7",
+      "lines": 10,
+      "new_personal_read_ranges": [
+        [
+          1,
+          10
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "qualification": "Full body read only for this exact physical-p16 role; source tests were read where present, not run. No current revision, historical alias, complete connected trace, or independent lens completion is implied."
+    }
+  ],
+  "observations": [
+    "Historical Character storage keeps separate rows for attributes, skills, limbs, life state, capabilities and equipment; broad character views check the gateway identity, while persistent death records exclude tactical tick state.",
+    "Character creation distinguishes player, persistent NPC, temporary NPC and newborn modes, builds component rows and validates their presence. Temporary characters are exempted from persistent semantic name identity.",
+    "Semantic name identity is stored in a private typed JSON adapter and projected to Character.name after rendering; the historical rename reducer calls the living-character check but its entire authorization and exposed-invocation context requires separate tracing.",
+    "Equipment projection validates placement, parent and capacity selection, conflict and cycle checks before changing normalized equipped and occupancy rows. These checks and source tests do not establish actual database transaction semantics or runtime behavior.",
+    "Origin selection sorts settlements and chooses by explicit origin, organization eligibility or seeded selection. Tactical assignment is represented by a server identity; dependent consumers and authority remain open.",
+    "Historical source tests were read, not executed. No current source, historical alias or recovered checkpoint 3821 status follows from this body read."
+  ],
+  "remaining": "Trace native storage and API admissions, gateway and reducer authorization, generated identity, name projection, equipment graph dependencies and all current consumers; reconcile historical variants and assess each independent lens separately."
+}
