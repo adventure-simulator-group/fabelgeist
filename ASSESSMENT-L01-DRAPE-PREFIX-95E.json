@@ -1,0 +1,101 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded suspicion that a drape failure skips an input yet shifts a later garment onto the wrong preview inventory ID; not a complete worker, cache or export audit.",
+  "inspection_provenance": "Selected current source ranges personally read and tied to source Git blobs. Frozen historical roles retain independent attribution. No product code ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-character-creator/src/drape_preview.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cd4d5ea97a0d4ac2739f01131eabdcce789d2e4",
+      "sha256": "715c6e8c127082ff44f8bee6d966f349d69b69bf8c42a7cc40a126b9d93535dd",
+      "bytes": 10510,
+      "lines": 312,
+      "ranges": [
+        [
+          1,
+          44
+        ],
+        [
+          167,
+          225
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/drape-prefix-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/drape_worker.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c87888ffb30401fe9991eb773b59982329bbaa9c",
+      "sha256": "6e96818d06560c10bd8f74d121d84fc812726274dedc89b59f85bce7d0e6ca73",
+      "bytes": 4610,
+      "lines": 131,
+      "ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/drape-prefix-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/outfit.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f99cc8b139f14b0bd05c083176af5dedbe11144d",
+      "sha256": "571784773d4506fa741fed5d4dab85c61bbf9dee836fab1833987b233a4ecdb9",
+      "bytes": 2897,
+      "lines": 82,
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/drape-prefix-sources/02.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "historical_sources": [
+    {
+      "original_role_index": 762,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/drape_preview.rs",
+      "sha256": "c6e605a97a1a017db71939375f50395488a049834eebd77c4a09ee1058360077",
+      "current_sha256": "715c6e8c127082ff44f8bee6d966f349d69b69bf8c42a7cc40a126b9d93535dd",
+      "byte_identical": false,
+      "role_status": "full-historical-body-trace-open",
+      "qualification": "Frozen historical identity retains original attribution; equality does not establish checkpoint 3821, historical body credit or another lens."
+    },
+    {
+      "original_role_index": 763,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/drape_worker.rs",
+      "sha256": "6e96818d06560c10bd8f74d121d84fc812726274dedc89b59f85bce7d0e6ca73",
+      "current_sha256": "6e96818d06560c10bd8f74d121d84fc812726274dedc89b59f85bce7d0e6ca73",
+      "byte_identical": true,
+      "role_status": "full-historical-body-trace-open",
+      "qualification": "Frozen historical identity retains original attribution; equality does not establish checkpoint 3821, historical body credit or another lens."
+    },
+    {
+      "original_role_index": 786,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/outfit.rs",
+      "sha256": "571784773d4506fa741fed5d4dab85c61bbf9dee836fab1833987b233a4ecdb9",
+      "current_sha256": "571784773d4506fa741fed5d4dab85c61bbf9dee836fab1833987b233a4ecdb9",
+      "byte_identical": true,
+      "role_status": "unassessed",
+      "qualification": "Frozen historical identity retains original attribution; equality does not establish checkpoint 3821, historical body credit or another lens."
+    }
+  ],
+  "dispositions": [
+    {
+      "id": "NONFINDING-DRAPE-PREVIEW-INPUT-PREFIX-001",
+      "disposition": "The inspected outfit producer does not skip a failed garment and continue producing later garments, so that specific suspected source of a shifted preview ID is not established.",
+      "trace": "The worker unzips each pending vector of (tag, input) pairs into aligned tag and input vectors and stores the tags for the started job. The outfit loop processes those inputs in order. A completed result appends the current garment; the first error returns the finished prefix immediately. Intermediate previews clone the finished prefix and append only the current garment. The preview system zips these prefix snapshots with the stored tags. Request cancellation suppresses old previews and results before a pending job replaces its tags, so the examined failure/cancellation paths do not establish a later successful garment paired with an earlier failed input ID.",
+      "limits": "This is a source-only control-flow disposition for that specific producer and preview pairing. It does not prove inner drape lineage, checkpoint validity, concurrent memory behavior, material/selection freshness, all export outcomes or any actual runtime execution. Finished partial outfits can still be exposed as ready with a problem status; their product policy remains open.",
+      "repair": "not applicable to this bounded suspicion; no implementation",
+      "validation": "not performed; source-only evidence verification"
+    }
+  ],
+  "remaining": "Trace checkpoint and model-cache invalidation, partial-outfit export policy, actual garment identities and independent lens coverage."
+}

@@ -130,6 +130,10 @@ part field and inoperative editor command against the repository rule; the
 semantic assembly and remaining consumers need independent review.
 `ASSESSMENT-L01-HISTORICAL-734-740.json` records frozen garment fit
 and shader source reads; no device or test ran.
+`ASSESSMENT-L01-DRAPE-PREFIX-95E.json` records the inspected drape
+producer’s input-order safeguard; cache and partial-export policy stay open.
+`ASSESSMENT-L01-HISTORICAL-762-766.json` records frozen drape, catalog,
+export and equipment-layer source reads without executing product code.
 `ASSESSMENT-L01-TASSET-NODE-95E.json` records a conditional finite
 body-span station-count overflow and its recovered 059 relation.
 `ASSESSMENT-L01-HISTORICAL-751-761.json` records separate frozen
