@@ -1,0 +1,30 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 681,
+      "source_id": "pr-working:crates/adventuresim-character-creator/Cargo.toml",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/681",
+      "sha256": "b44ae2d0177b2c835054b53f233a12d93f7fffdce8ecbf20fad37d99796840a4",
+      "lines": 79,
+      "new_personal_read_ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "qualification": "Full body read of exact frozen manifest only; current manifest differs, and no execution, feature resolution, other lens credit, alias closure or checkpoint 3821 adoption follows."
+    }
+  ],
+  "observations": [
+    "The historical character-creator manifest defines an independent workspace, optional offline creator and explicit local dependencies with selected native feature flags and pinned Git dependencies. Its current 95e bytes differ; package metadata does not resolve actual active features or native behavior."
+  ],
+  "remaining": "Trace current manifest, actual enabled features, dependency/native boundaries and independent lenses."
+}

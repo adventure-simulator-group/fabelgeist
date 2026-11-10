@@ -136,6 +136,9 @@ remain absent and the matching bytes do not establish a rename.
 `ASSESSMENT-L01-DELETED-669.json` and `ASSESSMENT-L01-DELETED-670.json`
 prove and read separately attributed pre-deletion geometry source bytes; their
 frozen pr-working snapshot bodies are absent.
+`CREATOR-LOCK-DELTA.json` mechanically compares the separately attributed
+historical nested creator lock with current bytes; it is metadata, not a full
+lock-body or feature review.
 `LOCKFILE-DELTA.json` preserves separate historical and predecessor comparisons
 of Cargo lockfiles.
 `RECONCILIATION-059.json` indexes the historical queue without turning its

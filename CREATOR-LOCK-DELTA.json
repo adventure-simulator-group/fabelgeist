@@ -1,0 +1,332 @@
+{
+  "schema": "726-nested-lockfile-metadata-v1",
+  "qualification": "Mechanical TOML package identity comparison only; no full historical lock-body review, feature resolution, product build, test, execution, current lens coverage, checkpoint 3821 state or semantic alias is inferred.",
+  "historical": {
+    "original_index": 680,
+    "source_id": "pr-working:crates/adventuresim-character-creator/Cargo.lock",
+    "snapshot": "pr-working",
+    "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "sha256": "60cf80c50552791fe98d6c50b3a730b7c0f04bdfa993ec003a781538683e6d72",
+    "bytes": 289478,
+    "lines": 12310,
+    "package_records": 1064,
+    "object_archive": "recovered/original-registry-source-archive/objects.tar.gz"
+  },
+  "current": {
+    "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "path": "crates/adventuresim-character-creator/Cargo.lock",
+    "git_blob": "297bc730de4f0bc38e610210576e52fa05abb908",
+    "sha256": "6d43df2de46078b0b4bb892d533d0236e0826350bafa0c85d418cf1e627225e3",
+    "bytes": 289744,
+    "lines": 12320,
+    "package_records": 1065,
+    "preserved_bytes": "main-advance-95e/creator-Cargo.lock.gz",
+    "content_encoding": "gzip",
+    "predecessor_tree_relation": "same Git blob at c100"
+  },
+  "comparison": {
+    "added_records": 1,
+    "removed_records": 0,
+    "modified_records": 6,
+    "unchanged_records": 1058,
+    "changes": [
+      {
+        "key": [
+          "adventuresim-character-creator",
+          "0.1.0",
+          ""
+        ],
+        "before": {
+          "name": "adventuresim-character-creator",
+          "version": "0.1.0",
+          "dependencies": [
+            "adventuresim-core",
+            "adventuresim-world-schema",
+            "anyhow",
+            "async-lock",
+            "base64",
+            "bevy",
+            "bevy_egui",
+            "blake3",
+            "burn",
+            "bytemuck",
+            "clap",
+            "derive_more 2.1.1",
+            "egui_extras",
+            "fabelgeist-armor",
+            "fabelgeist-bvh",
+            "fabelgeist-cloth",
+            "fabelgeist-compute",
+            "fabelgeist-determinism",
+            "fabelgeist-garment-code",
+            "fabelgeist-garment-fit",
+            "fabelgeist-geometry",
+            "fabelgeist-gpu",
+            "fabelgeist-hair",
+            "fabelgeist-math",
+            "fabelgeist-mhr",
+            "fabelgeist-rig",
+            "fabelgeist-shell",
+            "gltf",
+            "image",
+            "pollster",
+            "rand 0.9.5",
+            "rayon",
+            "serde",
+            "serde_json",
+            "thiserror 2.0.20",
+            "tokio"
+          ]
+        },
+        "after": {
+          "name": "adventuresim-character-creator",
+          "version": "0.1.0",
+          "dependencies": [
+            "adventuresim-core",
+            "adventuresim-world-schema",
+            "anyhow",
+            "async-lock",
+            "base64",
+            "bevy",
+            "bevy_egui",
+            "blake3",
+            "burn",
+            "bytemuck",
+            "clap",
+            "derive_more 2.1.1",
+            "egui_extras",
+            "fabelgeist-armor",
+            "fabelgeist-bvh",
+            "fabelgeist-cloth",
+            "fabelgeist-compute",
+            "fabelgeist-determinism",
+            "fabelgeist-garment-code",
+            "fabelgeist-garment-fit",
+            "fabelgeist-geometry",
+            "fabelgeist-gpu",
+            "fabelgeist-hair",
+            "fabelgeist-math",
+            "fabelgeist-mhr",
+            "fabelgeist-rig",
+            "fabelgeist-shell",
+            "gltf",
+            "image",
+            "pollster",
+            "rand 0.9.5",
+            "rayon",
+            "serde",
+            "serde_json",
+            "spade",
+            "thiserror 2.0.20",
+            "tokio"
+          ]
+        }
+      },
+      {
+        "key": [
+          "adventuresim-core",
+          "0.1.0",
+          ""
+        ],
+        "before": {
+          "name": "adventuresim-core",
+          "version": "0.1.0",
+          "dependencies": [
+            "adventuresim-dialogue",
+            "adventuresim-puzzles",
+            "adventuresim-weapon-model",
+            "adventuresim-world-schema",
+            "ambassador",
+            "blanket",
+            "enum-assoc",
+            "enumflags2",
+            "fabelgeist-determinism",
+            "fabelgeist-geometry",
+            "serde",
+            "serde-saphyr",
+            "serde_json",
+            "sha2",
+            "thiserror 2.0.20"
+          ]
+        },
+        "after": {
+          "name": "adventuresim-core",
+          "version": "0.1.0",
+          "dependencies": [
+            "adventuresim-dialogue",
+            "adventuresim-puzzles",
+            "adventuresim-weapon-model",
+            "adventuresim-world-schema",
+            "ambassador",
+            "blanket",
+            "enum-assoc",
+            "enumflags2",
+            "fabelgeist-determinism",
+            "fabelgeist-geometry",
+            "fabelgeist-math",
+            "serde",
+            "serde-saphyr",
+            "serde_json",
+            "sha2",
+            "thiserror 2.0.20"
+          ]
+        }
+      },
+      {
+        "key": [
+          "fabelgeist-geometry",
+          "0.1.0",
+          ""
+        ],
+        "before": {
+          "name": "fabelgeist-geometry",
+          "version": "0.1.0",
+          "dependencies": [
+            "bevy_math",
+            "bevy_reflect",
+            "serde",
+            "thiserror 2.0.20"
+          ]
+        },
+        "after": {
+          "name": "fabelgeist-geometry",
+          "version": "0.1.0",
+          "dependencies": [
+            "serde",
+            "thiserror 2.0.20"
+          ]
+        }
+      },
+      {
+        "key": [
+          "fabelgeist-gpu",
+          "0.1.0",
+          ""
+        ],
+        "before": {
+          "name": "fabelgeist-gpu",
+          "version": "0.1.0",
+          "dependencies": [
+            "anyhow",
+            "async-lock",
+            "bytemuck",
+            "fabelgeist-color",
+            "fabelgeist-math",
+            "fabelgeist-timer",
+            "futures-channel",
+            "indexmap",
+            "naga 29.0.4",
+            "parking_lot",
+            "pollster",
+            "regex",
+            "serde",
+            "strum 0.27.2",
+            "wasm-bindgen-futures",
+            "web-sys",
+            "wgpu 29.0.4"
+          ]
+        },
+        "after": {
+          "name": "fabelgeist-gpu",
+          "version": "0.1.0",
+          "dependencies": [
+            "anyhow",
+            "async-lock",
+            "bytemuck",
+            "derive_more 2.1.1",
+            "fabelgeist-color",
+            "fabelgeist-math",
+            "fabelgeist-timer",
+            "futures-channel",
+            "indexmap",
+            "naga 29.0.4",
+            "parking_lot",
+            "pollster",
+            "regex",
+            "serde",
+            "strum 0.27.2",
+            "wasm-bindgen-futures",
+            "web-sys",
+            "wgpu 29.0.4"
+          ]
+        }
+      },
+      {
+        "key": [
+          "fabelgeist-mhr",
+          "0.1.0",
+          ""
+        ],
+        "before": {
+          "name": "fabelgeist-mhr",
+          "version": "0.1.0",
+          "dependencies": [
+            "anyhow",
+            "burn",
+            "fabelgeist-fbx",
+            "fabelgeist-fs",
+            "fabelgeist-numpy-storage",
+            "fabelgeist-rig"
+          ]
+        },
+        "after": {
+          "name": "fabelgeist-mhr",
+          "version": "0.1.0",
+          "dependencies": [
+            "anyhow",
+            "burn",
+            "derive_more 2.1.1",
+            "fabelgeist-fbx",
+            "fabelgeist-fs",
+            "fabelgeist-numpy-storage",
+            "fabelgeist-rig"
+          ]
+        }
+      },
+      {
+        "key": [
+          "fabelgeist-numpy-storage",
+          "0.1.0",
+          ""
+        ],
+        "before": {
+          "name": "fabelgeist-numpy-storage",
+          "version": "0.1.0",
+          "dependencies": [
+            "anyhow",
+            "burn",
+            "flate2",
+            "memmap2"
+          ]
+        },
+        "after": {
+          "name": "fabelgeist-numpy-storage",
+          "version": "0.1.0",
+          "dependencies": [
+            "anyhow",
+            "burn",
+            "derive_more 2.1.1",
+            "flate2",
+            "memmap2",
+            "rawzip"
+          ]
+        }
+      },
+      {
+        "key": [
+          "rawzip",
+          "0.5.2",
+          "registry+https://github.com/rust-lang/crates.io-index"
+        ],
+        "before": null,
+        "after": {
+          "name": "rawzip",
+          "version": "0.5.2",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "checksum": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c"
+        }
+      }
+    ]
+  },
+  "remaining": "Personally assess required historical and current dependency contracts and feature/native usage for each lens; reconcile source and package changes without treating metadata as coverage."
+}

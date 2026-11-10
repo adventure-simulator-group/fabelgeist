@@ -9,14 +9,14 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 2043,
-    "lock-metadata-partial": 2,
+    "unassessed": 2041,
+    "lock-metadata-partial": 3,
     "bounded-current-trace-only": 177,
     "assessed-nonapplicable": 3,
-    "full-historical-body-trace-open": 623,
+    "full-historical-body-trace-open": 624,
     "deleted-base-trace-open": 5
   },
-  "first_unfinished": "Historical lock role 497 remains metadata-partial; frozen viewer and window roles 675\u2013679 were read. Continue at unassessed role 680; independent lenses remain open.",
+  "first_unfinished": "Historical Cargo.lock role 497 and nested creator lock role 680 remain metadata-partial; creator manifest role 681 was read. Continue at unassessed role 682; independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -8898,7 +8898,10 @@
       "historical_sha256": "60cf80c50552791fe98d6c50b3a730b7c0f04bdfa993ec003a781538683e6d72",
       "registry_pointer": "/files/680",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "lock-metadata-partial",
+      "assessment": "LOCKFILE-DELTA.json",
+      "metadata_assessment": "CREATOR-LOCK-DELTA.json",
+      "qualification": "Nested creator lockfile mechanically compared by package identity only; its 12,310-line frozen body, dependency semantics and independent lenses remain open."
     },
     {
       "original_index": 681,
@@ -8908,7 +8911,9 @@
       "historical_sha256": "b44ae2d0177b2c835054b53f233a12d93f7fffdce8ecbf20fad37d99796840a4",
       "registry_pointer": "/files/681",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-681.json",
+      "qualification": "Full historical manifest body read; current manifest differs and dependency/feature semantics remain open."
     },
     {
       "original_index": 682,
