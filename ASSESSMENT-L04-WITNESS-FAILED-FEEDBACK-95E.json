@@ -1,0 +1,454 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 4,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected witness challenge operation, native morale-event recording and observer projection; this is not full operations-lens or privacy coverage.",
+  "source_reasoning": "Static source reading and symbolic branch reasoning only; no social challenge, random draw, event query, product build, test or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/social/witness.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "654d931a2bd2061a656ae2ece797ffba2964c7cd",
+      "sha256": "14db851b00491a104efa4d272f24ef1285b357a92dbd0f875a109a27033fd735",
+      "bytes": 7553,
+      "lines": 233,
+      "ranges": [
+        [
+          1,
+          233
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/witness-feedback-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/social.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8935a5cc8a43805c1ab69ab3c17fa09e6a789eba",
+      "sha256": "bb53725a73f48ae6fbd9f4ff3e2e744aaaea403fa2fd0a9381c6766ce0ad1b6d",
+      "bytes": 65014,
+      "lines": 1909,
+      "ranges": [
+        [
+          900,
+          995
+        ],
+        [
+          1150,
+          1186
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/witness-feedback-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/social/action_kind.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "02774dffa973257f0d2aa83a7b29147d6b63dcab",
+      "sha256": "2b9ff5d4ad32e81e8a66e3ad09dc43d0e382c88b117b89b970876d9d3789ce92",
+      "bytes": 10528,
+      "lines": 264,
+      "ranges": [
+        [
+          1,
+          264
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/witness-feedback-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/social/claim_resolution.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1a13fff4ec3f08a265858fd05f1bf3dd295b9ec8",
+      "sha256": "adfd512aab47db7827260717ebbb91d41706b4668372a0137510c9d3df796dcc",
+      "bytes": 2355,
+      "lines": 69,
+      "ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/witness-feedback-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/social.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1fe72b59d2f12138fc8062fe6905d67fa9f536b8",
+      "sha256": "a09342196732b00b8520e9a446aa9fdef60e8fd44a439032ebdadc21e6e8e4c5",
+      "bytes": 134286,
+      "lines": 3800,
+      "ranges": [
+        [
+          194,
+          265
+        ],
+        [
+          299,
+          370
+        ],
+        [
+          400,
+          440
+        ],
+        [
+          911,
+          963
+        ],
+        [
+          1021,
+          1281
+        ],
+        [
+          1580,
+          1690
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/witness-feedback-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/condition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bdc470d795940aee28e60528b56120a9e09ba232",
+      "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "bytes": 92654,
+      "lines": 2627,
+      "ranges": [
+        [
+          65,
+          115
+        ],
+        [
+          818,
+          844
+        ],
+        [
+          1516,
+          1558
+        ],
+        [
+          1695,
+          1724
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/witness-feedback-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cff95893978abd26ca4493f9d353343f57d8e68",
+      "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+      "bytes": 40825,
+      "lines": 1095,
+      "ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/witness-feedback-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/social/draws.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "df275db1feedbf0666f55c45ef9d501f5594cfa7",
+      "sha256": "788653b52576c63a07a52065f8742eb6b63bc0268cb64ce16441cdea693f8c09",
+      "bytes": 1587,
+      "lines": 54,
+      "ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/witness-feedback-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_generation/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "848dadf550fbd4a7ed4126d4c53c5c5a4493c4fd",
+      "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "bytes": 41036,
+      "lines": 1230,
+      "ranges": [
+        [
+          920,
+          970
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/witness-feedback-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/fabelgeist-determinism/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "41b943e1662a3f34e210f28bf171c579e8aaade0",
+      "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "bytes": 1971,
+      "lines": 58,
+      "ranges": [
+        [
+          11,
+          25
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/witness-feedback-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/fabelgeist-determinism/src/stream.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c59d8a7720881fba266c80112e82880e4422e074",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "bytes": 5688,
+      "lines": 169,
+      "ranges": [
+        [
+          75,
+          85
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/witness-feedback-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/live.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "34103c05e348d4bc8efff9bae2fbaccc56c12ecd",
+      "sha256": "d8611d26f2f703a8230242abbbac3daf99979f4eefdf9f75066f6d1278305103",
+      "bytes": 32800,
+      "lines": 756,
+      "ranges": [
+        [
+          420,
+          448
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/witness-feedback-sources/11.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/dialogue/claims.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "00b51f256576840f078b76b3d7fd412c5acdd2ed",
+      "sha256": "6ce1fead82db25ebeebc1f64944e44bf410b5ea3b28b9f46480cd04128130197",
+      "bytes": 4317,
+      "lines": 127,
+      "ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/witness-feedback-sources/12.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/morale_event_type.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e198ad578c16470195b164006ac5e1509296649b",
+      "sha256": "62c7e2036ef75f4e4a3a6705af7b9f07577420606e70c20323fc282af8a90e26",
+      "bytes": 2958,
+      "lines": 72,
+      "ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/witness-feedback-sources/13.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/morale_event_table.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f0c175baed48f36f7b47a208b92003ec0a1867d1",
+      "sha256": "3fedd91ccdcce264fd7df5c592b61f66db37342b1d97ebaea35b8bf036df9b69",
+      "bytes": 5617,
+      "lines": 161,
+      "ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/witness-feedback-sources/14.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-203.json",
+      "sha256": "4676a9db66260a890de0117e78ffe71439df294a69ddb4d2d3e8b5e01dd171f7",
+      "bytes": 10536,
+      "git_blob": "936628ea86bc1b061f13ddbd5a242f496a7ded1f",
+      "preserved_bytes": "recovered/witness-feedback-059/4676a9db66260a890de0117e78ffe71439df294a69ddb4d2d3e8b5e01dd171f7.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 receipt or directly referenced support; retain original reader, six-part partial-read lineage where applicable, and revision without checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-280.json",
+      "sha256": "d71286b7f3ddf7a26376f0d4de0f6d2c64b88b0f9dd3cb505d2052314897af91",
+      "bytes": 16472,
+      "git_blob": "6bbad55b1e0ab8b9f0ed814e78608202827d3f92",
+      "preserved_bytes": "recovered/witness-feedback-059/d71286b7f3ddf7a26376f0d4de0f6d2c64b88b0f9dd3cb505d2052314897af91.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 receipt or directly referenced support; retain original reader, six-part partial-read lineage where applicable, and revision without checkpoint 3821 or other-lens transfer."
+    }
+  ],
+  "recovered_historical_support": [
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-205.json",
+      "sha256": "270f3b1dd00bd8b1d6ecdcb7073f42c7361e91fb4e155862e4ba635d7eff4a89",
+      "bytes": 6214,
+      "git_blob": "676e905a03a4c9d0451072e136be9abe7f4f86de",
+      "preserved_bytes": "recovered/witness-feedback-059/270f3b1dd00bd8b1d6ecdcb7073f42c7361e91fb4e155862e4ba635d7eff4a89.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 receipt or directly referenced support; retain original reader, six-part partial-read lineage where applicable, and revision without checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VERIFY-PL13-205.json",
+      "sha256": "60dd6c60e67cc6e94a4e25c6243c9844b3ce1a8b524edf2df8795ee314031a19",
+      "bytes": 628,
+      "git_blob": "447e55f9b6922244608cd83a3b28e251bb9826bd",
+      "preserved_bytes": "recovered/witness-feedback-059/60dd6c60e67cc6e94a4e25c6243c9844b3ce1a8b524edf2df8795ee314031a19.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 receipt or directly referenced support; retain original reader, six-part partial-read lineage where applicable, and revision without checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/REGISTRATION-PL13-205.json",
+      "sha256": "5ab8c202a78ea84da31eddd2ce9f3c6f83af7c302d67cbbb66fa1c53cd3e2da9",
+      "bytes": 3183,
+      "git_blob": "ce54ad90459246b9683be3139be940f472dbc1f2",
+      "preserved_bytes": "recovered/witness-feedback-059/5ab8c202a78ea84da31eddd2ce9f3c6f83af7c302d67cbbb66fa1c53cd3e2da9.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 receipt or directly referenced support; retain original reader, six-part partial-read lineage where applicable, and revision without checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-203-205.json",
+      "sha256": "1898bdfdee34ffcb3868bb50e36dd53e6f630a2615397b4755dc61bb3d26fcc8",
+      "bytes": 15047,
+      "git_blob": "f84a15eff637996927232fb0603a2a24626a67ca",
+      "preserved_bytes": "recovered/witness-feedback-059/1898bdfdee34ffcb3868bb50e36dd53e6f630a2615397b4755dc61bb3d26fcc8.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 receipt or directly referenced support; retain original reader, six-part partial-read lineage where applicable, and revision without checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-280.json",
+      "sha256": "5e1edb2c68303d635816df2f2f79022aa8357c2451067941ab8c1bc8e39b2596",
+      "bytes": 707,
+      "git_blob": "ec3443dfe9951a3b06661f2a6f4c20cef957ecf0",
+      "preserved_bytes": "recovered/witness-feedback-059/5e1edb2c68303d635816df2f2f79022aa8357c2451067941ab8c1bc8e39b2596.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 receipt or directly referenced support; retain original reader, six-part partial-read lineage where applicable, and revision without checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-102.json",
+      "sha256": "de1ae47238d27e4b0c77b5bcd72929338e012f90373566e2c76b7ed2ad115f7c",
+      "bytes": 1258,
+      "git_blob": "c96baf7d0a7aece2d871a7de261b3151c30f90e3",
+      "preserved_bytes": "recovered/witness-feedback-059/de1ae47238d27e4b0c77b5bcd72929338e012f90373566e2c76b7ed2ad115f7c.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 receipt or directly referenced support; retain original reader, six-part partial-read lineage where applicable, and revision without checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-280-001.json",
+      "sha256": "e2ec1e6653a9c31651190dd73089d81242ca8b86c2a6b82127fc2365f0007319",
+      "bytes": 3997,
+      "git_blob": "dc020a4ca07b50af4a46c5f7ef77a18fbf8af789",
+      "preserved_bytes": "recovered/witness-feedback-059/e2ec1e6653a9c31651190dd73089d81242ca8b86c2a6b82127fc2365f0007319.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 receipt or directly referenced support; retain original reader, six-part partial-read lineage where applicable, and revision without checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-280-002.json",
+      "sha256": "72d7ab3bec381f61b07289ec465471eed60fc35f18b2eb6e0f6355dd7be578cd",
+      "bytes": 4359,
+      "git_blob": "502b4305d3822a8d5ba7ebf1106933e0697f02f3",
+      "preserved_bytes": "recovered/witness-feedback-059/72d7ab3bec381f61b07289ec465471eed60fc35f18b2eb6e0f6355dd7be578cd.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 receipt or directly referenced support; retain original reader, six-part partial-read lineage where applicable, and revision without checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-280-003.json",
+      "sha256": "d1733a16681051e1546ed18d19c8437ccdd5eff719db793ea497abe036fcd0ec",
+      "bytes": 4756,
+      "git_blob": "167b68c40398a88c2053af42fce39325e0b26552",
+      "preserved_bytes": "recovered/witness-feedback-059/d1733a16681051e1546ed18d19c8437ccdd5eff719db793ea497abe036fcd0ec.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 receipt or directly referenced support; retain original reader, six-part partial-read lineage where applicable, and revision without checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-280-004.json",
+      "sha256": "1621c6728bbaf97dd0b3775cb5de631fca4b1c40007f0a1e78aa338ab35f1b91",
+      "bytes": 4462,
+      "git_blob": "2fa43d6dce73bfa1d70de93cdd60b10dcf413837",
+      "preserved_bytes": "recovered/witness-feedback-059/1621c6728bbaf97dd0b3775cb5de631fca4b1c40007f0a1e78aa338ab35f1b91.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 receipt or directly referenced support; retain original reader, six-part partial-read lineage where applicable, and revision without checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-280-005.json",
+      "sha256": "20dc7bff4783aa8212bda97350adf8ec6bb54c4883fb015b62b4e2dcbb280677",
+      "bytes": 4294,
+      "git_blob": "44fc26ce76d0754691ff46addae3270946f15aca",
+      "preserved_bytes": "recovered/witness-feedback-059/20dc7bff4783aa8212bda97350adf8ec6bb54c4883fb015b62b4e2dcbb280677.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 receipt or directly referenced support; retain original reader, six-part partial-read lineage where applicable, and revision without checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-280-006-EOF.json",
+      "sha256": "28932e45ddb27a40e97b551d61f9ff20c6b865702d0e93ed262001b17016e49b",
+      "bytes": 3063,
+      "git_blob": "b3e0b7c056b50bb847cc16b3d7a28ea0903ba6ec",
+      "preserved_bytes": "recovered/witness-feedback-059/28932e45ddb27a40e97b551d61f9ff20c6b865702d0e93ed262001b17016e49b.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 receipt or directly referenced support; retain original reader, six-part partial-read lineage where applicable, and revision without checkpoint 3821 or other-lens transfer."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/discovery_receipts/202",
+      "qualification": "PL13-205 identified truthful failure, positive-morale clipping and fixed failed affinity, leaving the actual native claim, receipt and projection authority pending; it accepted no finding. It did not establish the event distinction now traced."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens12/discovery_receipts/45",
+      "qualification": "Lens 12 batch 280 personally inventoried the exact native social source in six attributed partials; its retained private-action string readmission finding is a distinct contract, not an alias of this feedback question."
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 1002,
+      "source_id": "pr-working:crates/adventuresim-core/src/social/witness.rs",
+      "historical_sha256": "14db851b00491a104efa4d272f24ef1285b357a92dbd0f875a109a27033fd735",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-995-1002.json",
+      "qualification": "Separate full historical Lens 1 read; old delegated Lens 13 and current trace remain distinct."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-WITNESS-FAILED-FEEDBACK-001",
+      "severity": "unassigned; source-supported conditional information-exposure risk, no runtime incident established",
+      "classification": "Failed witness challenges can have distinct native morale-event effects despite the stated same-safe-failure contract; public visibility and practical inference require deployment and timing confirmation.",
+      "trace": "resolve_claim_challenge computes a latent ordinary social outcome, then succeeds only if the private claim is not factually accurate and that outcome succeeded. Every final failure uses the same approach-specific affinity loss, but its morale is the latent morale clipped at zero. For a factually accurate claim and latent success, final feedback is DidNotYield and morale is zero. For an inaccurate claim and latent failure, final feedback is also DidNotYield but morale is negative. The ordinary success chance is clamped to 0.05..0.95; symbolic rolls 0 and 1 select those latent branches under finite normal inputs. The selected native draw uses an inclusive-unit conversion; no particular seed was generated or proven.",
+      "native_boundary": "The reducer passes the private accuracy flag into this operation, advances time, and records nonzero morale through apply_witness_relationship_outcome. A negative delta calls record_morale_event with source_id npc-morale-approach:<session>:<action>; zero skips it. MoraleEvent is declared public and carries character, kind, magnitude and source ID; the generated SDK exposes the table and the strategic web live connection subscribes to it. The normal observer claim projection contains only DidNotYield/UsefulAnswer and realized affinity delta, not the private flag or latent roll.",
+      "conditional_inference": "If an observer can inspect a complete, current, unfiltered and retained public morale-event set for the exact committed action and can associate the source ID, a DidNotYield result with no corresponding event distinguishes the factual-accuracy=true/latent-success branch from an inaccurate failed branch, which produces a negative event. A present negative event is inconclusive because an accurate claim with a failed latent check also produces one. This assumes all other admission, time, event-write, transaction and retention conditions succeed; absence under incomplete subscriptions, expiry, unrelated failures or inaccessible database APIs cannot support that inference.",
+      "producer_and_limits": "The quest testimony authority maps Truthful to factual accuracy true and several other reliability values to false, then native dialogue binding and claim persistence retain the private flag. No specific generated claim, challenge response, player sequence, seed, table subscription, client authorization, event delivery, inference, transaction or deployed incident was exercised. The web subscription is server-side evidence and alone does not prove ordinary browser users can query or see raw events. Finite input and identical starting affinity assumptions are required for the symbolic comparison.",
+      "connected_repair": "Determine the intended indistinguishability boundary and reconcile the two final-failure branches across persisted morale, events, public views and future social effects. If indistinguishability is required, use one policy for failed outcomes and protect private causes end to end while preserving explicit success, fixed approach costs, realized affinity, legitimate morale and retry semantics; merely hiding the visible claim field may leave other observable consequences. Reconcile related social and morale ledger entries before implementation.",
+      "later_acceptance": "After separate authorization for implementation and product validation, exercise accurate and inaccurate claim failures across both latent rolls and committed event/projection paths, including retries and source scoping, and prove no unauthorized observer can infer the private cause through available outputs while intended costs and useful answers remain intact.",
+      "discovery": "partial; deployed public-table access, actual challenge reachability, event retention, policy and aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}
