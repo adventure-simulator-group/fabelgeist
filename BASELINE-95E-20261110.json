@@ -4267,7 +4267,8 @@
         "validation": "not performed",
         "record": "RECONCILIATION-VISTA-TREE-FRAME-95E.json",
         "additional_current_evidence": [
-          "ASSESSMENT-FURNITURE-VISTA-SUPPORT-95E.json"
+          "ASSESSMENT-FURNITURE-VISTA-SUPPORT-95E.json",
+          "ASSESSMENT-GROUNDING-REPORT-OWNERS-95E.json"
         ]
       },
       {
@@ -5933,8 +5934,70 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-TERRAIN-DIAGNOSTICS-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-CITY-EXPORT-PROPERTY-CORNER-PANIC",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          11,
+          13
+        ],
+        "severity": "unassigned; rule finding, no reachable panic established",
+        "classification": "Original059 property-corner expect remains outside tests in the offline exporter.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/262",
+          "segovb/READ-L12-664.json"
+        ],
+        "relationship_qualification": "Original059 identifier and attribution preserved; distinct source/owner from the terrain-stage lookup rule finding, not a new historical unique finding or checkpoint3821 record.",
+        "discovery": "partial; current source and historic attribution connected, aliases and other lenses open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GROUNDING-REPORT-OWNERS-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GROUNDING-REPORT-REPRESENTATION-ROLE",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          11,
+          13
+        ],
+        "severity": "unassigned; semantic representation ownership",
+        "classification": "Original059 private playable/distant report representation remains a raw string across the internal helper.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/263",
+          "segovb/READ-L12-664.json"
+        ],
+        "relationship_qualification": "Same original059 finding; no checkpoint3821 or extra historical unique finding asserted.",
+        "discovery": "partial; current source and historic attribution connected, aliases and other lenses open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GROUNDING-REPORT-OWNERS-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GROUNDING-TERRACE-PRIVATE-JSON-READMISSION",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          11,
+          13
+        ],
+        "severity": "unassigned; producer migration, no malformed-data incident",
+        "classification": "Original059 typed terrace levels are encoded into and read back from private JSON before support comparison.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/264",
+          "segovb/READ-L12-667.json",
+          "segovb/READ-L12-664.json",
+          "segovb/READ-L12-666.json"
+        ],
+        "relationship_qualification": "The original059 identifier, historic own-lens reused sources and author remain distinct from new95e traces; no checkpoint3821 or historical count increment.",
+        "discovery": "partial; current source and historic attribution connected, aliases and other lenses open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GROUNDING-REPORT-OWNERS-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1240.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1244.json"
 }
