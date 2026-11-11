@@ -1,0 +1,636 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1831,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/mesh/grid.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; source equality does not transfer a lens verdict.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1831",
+      "sha256": "8c28100b68a4934760fdb6e468d601a8a4f29890d5ee8837120d992250b837f3",
+      "lines": 279,
+      "new_personal_read_ranges": [
+        [
+          1,
+          279
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "SUPPORT-INTERVAL-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-STAIR-SUPPORT.json",
+          "ranges": [
+            [
+              7,
+              48
+            ],
+            [
+              175,
+              204
+            ],
+            [
+              247,
+              258
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/mesh/grid.rs",
+        "sha256": "8c28100b68a4934760fdb6e468d601a8a4f29890d5ee8837120d992250b837f3",
+        "bytes": 9896,
+        "lines": 279,
+        "git_blob": "f62390145f2ace932dd996a7fdd0c7bc804758e6",
+        "preserved_bytes": "main-advance-95e/interval-evidence/current-1831.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            230
+          ],
+          [
+            247,
+            258
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            279
+          ]
+        ],
+        "qualification": "Current exact bytes match complete historical read; only stated ranges separately current-inspected, including previously recorded bounded traces for roles1831 and1835. Test source read only."
+      },
+      "qualification": "Complete historical body read at this identity only; original Segovb and Adler reads retain separate authorship and lens."
+    },
+    {
+      "original_index": 1832,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/mesh/union.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; source equality does not transfer a lens verdict.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1832",
+      "sha256": "9cdb98cd62ba36d980b2849b02eecb067caa56a6cd6f62c6ad3f7ef8f008412a",
+      "lines": 37,
+      "new_personal_read_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "SUPPORT-INTERVAL-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/mesh/union.rs",
+        "sha256": "9cdb98cd62ba36d980b2849b02eecb067caa56a6cd6f62c6ad3f7ef8f008412a",
+        "bytes": 1509,
+        "lines": 37,
+        "git_blob": "59246dfa48028dbe189b77a90983f48256f54493",
+        "preserved_bytes": "main-advance-95e/interval-evidence/current-1832.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            36
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            37
+          ]
+        ],
+        "qualification": "Current exact bytes match complete historical read; only stated ranges separately current-inspected, including previously recorded bounded traces for roles1831 and1835. Test source read only."
+      },
+      "qualification": "Complete historical body read at this identity only; original Segovb and Adler reads retain separate authorship and lens."
+    },
+    {
+      "original_index": 1833,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar/query.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; source equality does not transfer a lens verdict.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/1833",
+      "sha256": "6876c759c1e7a12a44cce57a8c372f1f7dcb4f926b9edc6e1486fc341a489cf6",
+      "lines": 156,
+      "new_personal_read_ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "SUPPORT-INTERVAL-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/planar/query.rs",
+        "sha256": "6876c759c1e7a12a44cce57a8c372f1f7dcb4f926b9edc6e1486fc341a489cf6",
+        "bytes": 5177,
+        "lines": 156,
+        "git_blob": "5d4a2705116d129dc4f86de067b3492e8133975b",
+        "preserved_bytes": "main-advance-95e/interval-evidence/current-1833.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            156
+          ]
+        ],
+        "qualification": "Current exact bytes match complete historical read; only stated ranges separately current-inspected, including previously recorded bounded traces for roles1831 and1835. Test source read only."
+      },
+      "qualification": "Complete historical body read at this identity only; original Segovb and Adler reads retain separate authorship and lens."
+    },
+    {
+      "original_index": 1834,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar/query/tests.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; source equality does not transfer a lens verdict.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/1834",
+      "sha256": "544ce48792225f7185f51cc90b4bc2e30be076ddb813b5011a2f3204e5cfba84",
+      "lines": 51,
+      "new_personal_read_ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "SUPPORT-INTERVAL-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/planar/query/tests.rs",
+        "sha256": "544ce48792225f7185f51cc90b4bc2e30be076ddb813b5011a2f3204e5cfba84",
+        "bytes": 1789,
+        "lines": 51,
+        "git_blob": "2a48e158ef853d191d2fa83762122e2e848a56d9",
+        "preserved_bytes": "main-advance-95e/interval-evidence/current-1834.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            51
+          ]
+        ],
+        "qualification": "Current exact bytes match complete historical read; only stated ranges separately current-inspected, including previously recorded bounded traces for roles1831 and1835. Test source read only."
+      },
+      "qualification": "Complete historical body read at this identity only; original Segovb and Adler reads retain separate authorship and lens."
+    },
+    {
+      "original_index": 1835,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/policy.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; source equality does not transfer a lens verdict.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1835",
+      "sha256": "2a2a18dafb072f8878e496462df0257b5bdaa9481895595affbee001b0e52e46",
+      "lines": 64,
+      "new_personal_read_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "SUPPORT-INTERVAL-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-STAIR-SUPPORT.json",
+          "ranges": [
+            [
+              6,
+              32
+            ],
+            [
+              35,
+              55
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/policy.rs",
+        "sha256": "2a2a18dafb072f8878e496462df0257b5bdaa9481895595affbee001b0e52e46",
+        "bytes": 2187,
+        "lines": 64,
+        "git_blob": "9a550bf89025e58876c9c9b821fa31c0ff7d4b08",
+        "preserved_bytes": "main-advance-95e/interval-evidence/current-1835.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            6,
+            32
+          ],
+          [
+            35,
+            55
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            64
+          ]
+        ],
+        "qualification": "Current exact bytes match complete historical read; only stated ranges separately current-inspected, including previously recorded bounded traces for roles1831 and1835. Test source read only."
+      },
+      "qualification": "Complete historical body read at this identity only; original Segovb and Adler reads retain separate authorship and lens."
+    },
+    {
+      "original_index": 1836,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/profile.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; source equality does not transfer a lens verdict.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1836",
+      "sha256": "e8662abeffcf5acd766443246d2f7a45d909bc367cb1b2d2e0d13676503506ce",
+      "lines": 260,
+      "new_personal_read_ranges": [
+        [
+          1,
+          260
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "SUPPORT-INTERVAL-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/profile.rs",
+        "sha256": "e8662abeffcf5acd766443246d2f7a45d909bc367cb1b2d2e0d13676503506ce",
+        "bytes": 10081,
+        "lines": 260,
+        "git_blob": "a7b59645ac4a19cd57131ce897cae9d7ee43480a",
+        "preserved_bytes": "main-advance-95e/interval-evidence/current-1836.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            85,
+            130
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            260
+          ]
+        ],
+        "qualification": "Current exact bytes match complete historical read; only stated ranges separately current-inspected, including previously recorded bounded traces for roles1831 and1835. Test source read only."
+      },
+      "qualification": "Complete historical body read at this identity only; original Segovb and Adler reads retain separate authorship and lens."
+    },
+    {
+      "original_index": 1837,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/query.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; source equality does not transfer a lens verdict.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1837",
+      "sha256": "f10e81a1d2a2040a7bb9aaaf1cb83951a49f47404a6c2e7ae3db66175b393637",
+      "lines": 61,
+      "new_personal_read_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "SUPPORT-INTERVAL-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/query.rs",
+        "sha256": "f10e81a1d2a2040a7bb9aaaf1cb83951a49f47404a6c2e7ae3db66175b393637",
+        "bytes": 2162,
+        "lines": 61,
+        "git_blob": "e89fb493ba37ef5eb088d5f9b80dbe0e4a060635",
+        "preserved_bytes": "main-advance-95e/interval-evidence/current-1837.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            61
+          ]
+        ],
+        "qualification": "Current exact bytes match complete historical read; only stated ranges separately current-inspected, including previously recorded bounded traces for roles1831 and1835. Test source read only."
+      },
+      "qualification": "Complete historical body read at this identity only; original Segovb and Adler reads retain separate authorship and lens."
+    },
+    {
+      "original_index": 1838,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/selection.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; source equality does not transfer a lens verdict.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1838",
+      "sha256": "c4827110d150c745990de0f5da9e210b9dfd0797122a4cd661ef7353d2142084",
+      "lines": 127,
+      "new_personal_read_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "SUPPORT-INTERVAL-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/selection.rs",
+        "sha256": "c4827110d150c745990de0f5da9e210b9dfd0797122a4cd661ef7353d2142084",
+        "bytes": 5113,
+        "lines": 127,
+        "git_blob": "feb04b11734dab5dcb9ae818ae0a71b8dffdd802",
+        "preserved_bytes": "main-advance-95e/interval-evidence/current-1838.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            75
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            127
+          ]
+        ],
+        "qualification": "Current exact bytes match complete historical read; only stated ranges separately current-inspected, including previously recorded bounded traces for roles1831 and1835. Test source read only."
+      },
+      "qualification": "Complete historical body read at this identity only; original Segovb and Adler reads retain separate authorship and lens."
+    },
+    {
+      "original_index": 1839,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/single.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; source equality does not transfer a lens verdict.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1839",
+      "sha256": "328feb3454948dd70bc97472745b9766b0dee5d91302c0a5de0ea7d0464d8813",
+      "lines": 115,
+      "new_personal_read_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "SUPPORT-INTERVAL-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/single.rs",
+        "sha256": "328feb3454948dd70bc97472745b9766b0dee5d91302c0a5de0ea7d0464d8813",
+        "bytes": 4531,
+        "lines": 115,
+        "git_blob": "0033a4f40f3c9173361f81017ae1f791490f2f34",
+        "preserved_bytes": "main-advance-95e/interval-evidence/current-1839.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            90
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            115
+          ]
+        ],
+        "qualification": "Current exact bytes match complete historical read; only stated ranges separately current-inspected, including previously recorded bounded traces for roles1831 and1835. Test source read only."
+      },
+      "qualification": "Complete historical body read at this identity only; original Segovb and Adler reads retain separate authorship and lens."
+    },
+    {
+      "original_index": 1840,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/single/apron.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; source equality does not transfer a lens verdict.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1840",
+      "sha256": "f9e32dcc77548278629c776402165e95ee25eee417165f1020b9e82c2eca7d37",
+      "lines": 281,
+      "new_personal_read_ranges": [
+        [
+          1,
+          281
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "SUPPORT-INTERVAL-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/single/apron.rs",
+        "sha256": "f9e32dcc77548278629c776402165e95ee25eee417165f1020b9e82c2eca7d37",
+        "bytes": 10168,
+        "lines": 281,
+        "git_blob": "8cb4c13b35845518da62dff2035af7d50c7325cf",
+        "preserved_bytes": "main-advance-95e/interval-evidence/current-1840.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            220
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            281
+          ]
+        ],
+        "qualification": "Current exact bytes match complete historical read; only stated ranges separately current-inspected, including previously recorded bounded traces for roles1831 and1835. Test source read only."
+      },
+      "qualification": "Complete historical body read at this identity only; original Segovb and Adler reads retain separate authorship and lens."
+    },
+    {
+      "original_index": 1841,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/single/apron/surface.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; source equality does not transfer a lens verdict.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1841",
+      "sha256": "b0385be5c59e01fd9faacffa45e1165daeeb9bf9c81ca5b6b56ef2cf9956e988",
+      "lines": 120,
+      "new_personal_read_ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "SUPPORT-INTERVAL-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/single/apron/surface.rs",
+        "sha256": "b0385be5c59e01fd9faacffa45e1165daeeb9bf9c81ca5b6b56ef2cf9956e988",
+        "bytes": 4276,
+        "lines": 120,
+        "git_blob": "1946ae0fbfd808bf74285fabf6eab68414e52425",
+        "preserved_bytes": "main-advance-95e/interval-evidence/current-1841.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            120
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            120
+          ]
+        ],
+        "qualification": "Current exact bytes match complete historical read; only stated ranges separately current-inspected, including previously recorded bounded traces for roles1831 and1835. Test source read only."
+      },
+      "qualification": "Complete historical body read at this identity only; original Segovb and Adler reads retain separate authorship and lens."
+    },
+    {
+      "original_index": 1842,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/single/bearing.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; source equality does not transfer a lens verdict.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1842",
+      "sha256": "2f03defda63188c2d3cda5491164f2ed5c6366a272ca14509e1a899f51c92ba2",
+      "lines": 66,
+      "new_personal_read_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "SUPPORT-INTERVAL-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/single/bearing.rs",
+        "sha256": "2f03defda63188c2d3cda5491164f2ed5c6366a272ca14509e1a899f51c92ba2",
+        "bytes": 2503,
+        "lines": 66,
+        "git_blob": "af00d1ce9c1266febecdc6625082e505a4cb04a6",
+        "preserved_bytes": "main-advance-95e/interval-evidence/current-1842.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            64
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            66
+          ]
+        ],
+        "qualification": "Current exact bytes match complete historical read; only stated ranges separately current-inspected, including previously recorded bounded traces for roles1831 and1835. Test source read only."
+      },
+      "qualification": "Complete historical body read at this identity only; original Segovb and Adler reads retain separate authorship and lens."
+    },
+    {
+      "original_index": 1843,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/single/floor.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; source equality does not transfer a lens verdict.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1843",
+      "sha256": "5e5981b110fe26b972a64d993e58a3d3c8cd3452696b75eb45b9f21a08fd19f9",
+      "lines": 115,
+      "new_personal_read_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "SUPPORT-INTERVAL-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/single/floor.rs",
+        "sha256": "5e5981b110fe26b972a64d993e58a3d3c8cd3452696b75eb45b9f21a08fd19f9",
+        "bytes": 4010,
+        "lines": 115,
+        "git_blob": "875a6ff538c3e93f1acdac8cedbc5f427beafb87",
+        "preserved_bytes": "main-advance-95e/interval-evidence/current-1843.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            115
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            115
+          ]
+        ],
+        "qualification": "Current exact bytes match complete historical read; only stated ranges separately current-inspected, including previously recorded bounded traces for roles1831 and1835. Test source read only."
+      },
+      "qualification": "Complete historical body read at this identity only; original Segovb and Adler reads retain separate authorship and lens."
+    }
+  ],
+  "observations": [
+    "Frozen grid/union/planar index and tests, engineering policy, profile/query/selection, single support and apron/floor bodies read through actual EOF.",
+    "Segovb602 reuses its own earlier1808 and1831 reads; Segovb603 reuses its own1803,1804,1835,1839 reads. Reuse is not a fresh read. Adler275–277 historical Lens11 reads are independently attributed.",
+    "Test and compile-fail source was inspected, not executed. The earlier bounded current observations on1831/1835 remain recorded."
+  ],
+  "qualification": "Personal historical Lens1 read only; connected current evidence separate. Original059 receipts are not checkpoint3821.",
+  "next_original_role": 1844
+}
