@@ -3862,8 +3862,40 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-PLANT-WORK-AND-SPECIES-95E.json"
+      },
+      {
+        "id": "REVIEW-INTERIOR-FIELD-CELL-SPAN-001",
+        "lens": 4,
+        "severity": "unassigned; conditional source and reachability question",
+        "classification": "New conditional current source question: field dimensions subtract and increment signed cell coordinates before widening.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1326",
+          "baseline-059/queue.json#/entries/1327",
+          "baseline-059/queue.json#/entries/2244"
+        ],
+        "relationship_qualification": "New95e source question connected to earlier unresolved contracts; no historical unique count or checkpoint3821 transfer. Exact aliases remain open.",
+        "discovery": "partial; symbolic checked-arithmetic case and one generator safeguard, actual supported aggregate and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-INTERIOR-LIGHTING-95E.json"
+      },
+      {
+        "id": "REVIEW-INTERIOR-EXPOSURE-GPU-RESIDENCY-001",
+        "lens": 7,
+        "severity": "unassigned; conditional source and reachability question",
+        "classification": "New conditional current source question: exposure and GPU daylight use different field selections.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1326",
+          "baseline-059/queue.json#/entries/1327",
+          "baseline-059/queue.json#/entries/2244"
+        ],
+        "relationship_qualification": "New95e source question connected to earlier unresolved contracts; no historical unique count or checkpoint3821 transfer. Exact aliases remain open.",
+        "discovery": "partial; independent source selection paths and conditional capacity case, supported mode and observable effect open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-INTERIOR-LIGHTING-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0709.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0713.json"
 }
