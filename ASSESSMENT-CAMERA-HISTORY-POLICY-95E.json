@@ -1,0 +1,371 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Five historical camera bodies and bounded current pose staging, normal camera producer, projection, shaping and screen-value connections.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1465-1469.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/camera/config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4e853deb276575ac76497583d65603c95cc1a5cb",
+      "sha256": "62f911a33b3857f7f42007f9773937a09e031bc7944bcf57536a64a030a6b9fa",
+      "bytes": 5812,
+      "lines": 142,
+      "ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/camera-history-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained. No product execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/camera/collision.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bf2eadcb0c887647c4c186f6020df785207f0a9a",
+      "sha256": "e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+      "bytes": 11795,
+      "lines": 339,
+      "ranges": [
+        [
+          1,
+          339
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/camera-history-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained. No product execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/player.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ad8ef59e860df91568bb704b4e061e843dcb2447",
+      "sha256": "e58cbe13aa543aebd82995383e999d55e0e47b9885396f958282313316f4e37c",
+      "bytes": 33413,
+      "lines": 944,
+      "ranges": [
+        [
+          428,
+          488
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/camera-history-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained. No product execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/environment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3b4950e0711f02231d0c6f5434fc238f98d0bc65",
+      "sha256": "b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+      "bytes": 21534,
+      "lines": 577,
+      "ranges": [
+        [
+          183,
+          250
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/camera-history-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained. No product execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/shaping_time.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "094ea4a6cc9ee1eafe35971b5dda6484b010c1dd",
+      "sha256": "daf4c6b1cf6f43edc45f91ac44fb6fe70ae0848a2e1b23b8bc313ba24d887a87",
+      "bytes": 2331,
+      "lines": 63,
+      "ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/camera-history-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained. No product execution."
+    }
+  ],
+  "conditional_findings": [],
+  "existing_contract_connections": [
+    {
+      "ids": [
+        "Q-L12-aa57704a13001d9864bf",
+        "Q-L12-80160c69dab4f3aa67e2",
+        "Q-L12-7a962182192551dc77e3",
+        "REVIEW-L1-CAMERA-FINAL-SWEEP-HISTORY-STAGING-SAFEGUARD"
+      ],
+      "trace": "The rig validates elapsed time, advances and commits checked profile blend/velocity independently, then observes a fresh or cloned pose-history candidate. CameraRigInput::prepare mutates only that candidate; after it returns successfully, the rig commits history and the camera translation. BoomRecovery also copies its state, performs final sweep and checked position construction, then commits the replacement. This supports a staged pose/boom safeguard but does not make the already advanced profile blend atomic with later observation failure.",
+      "remaining": "Other systems and external transform writes, all failure paths, physics availability and supported multi-camera policy remain open; no physical sweep was executed.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "ids": [
+        "Q-L12-aa57704a13001d9864bf",
+        "Q-L12-7a962182192551dc77e3",
+        "REVIEW-L1-CAMERA-QUERY-POPULATION-HISTORY-POLICY"
+      ],
+      "trace": "The presentation setup spawns a marked TacticalGameplayCamera and a PerspectiveProjection. The player-added hook uses Single<Entity, With<TacticalGameplayCamera>> and attaches CharacterControllerCameraOf to that camera for the matching local player. The rig query itself is keyed by CharacterControllerCameraOf plus Transform and Projection, and advances its one shared profile state once per matching loop iteration. These normal producer constraints narrow an ordinary multiple-camera claim without proving every custom population or schedule.",
+      "remaining": "All alternate producers and custom multi-camera/controller support remain open; no duplicate camera or runtime outcome is asserted.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "ids": [
+        "Q-L12-92ea66048c4efc2e3348"
+      ],
+      "trace": "ResponseShapingTime admits any finite signed value and explicitly leaves its floor to each response kernel. Camera critical damping uses seconds.max(0.0001) before division. That local policy includes zero and negative finite shaping values without itself being a legacy fallback. camera_view_metrics uses the actual perspective aspect/fov when perspective, and a fixed 16:9/40-degree approximation for other projection variants; the normal presentation setup creates PerspectiveProjection.",
+      "remaining": "Decide whether any supported linked gameplay camera uses nonperspective projection and whether its approximation is intended; all numerical extremes, projections and other shaping consumers remain open.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "ids": [
+        "Q-L12-d3cfd360958ef751c9c4"
+      ],
+      "trace": "ScreenWindow admits finite nonnegative NDC half-extents without imposing an upper bound, and ScreenError admits finite signed NDC values; both explicitly allow off-screen values. SignedBlendVelocity separately admits finite signed fraction-per-second values. Their units and possible values are distinct, so a blanket UnitInterval substitution would narrow these source contracts. The later Fraction variant in CameraError is preserved only as an exact source difference.",
+      "remaining": "All error conversions, native producers, consumers, and owner/alias decisions remain open; no behavior is inferred solely from an added variant.",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1264 through /entries/1268"
+      ],
+      "qualification": "Earlier source questions retain their own scope and pending status."
+    },
+    {
+      "file": "ASSESSMENT-CAMERA-CLEARANCE-95E.json",
+      "pointers": [
+        "/"
+      ],
+      "qualification": "Earlier 95e source candidates and adler Lens11 207 records remain distinct and recoverable there."
+    },
+    {
+      "file": "ASSESSMENT-L1-CAMERA.json",
+      "pointers": [
+        "/"
+      ],
+      "qualification": "Earlier c100 bounded observations and historical proposals remain separately attributed; they are not automatically credited to 95e."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-433.json",
+      "sha256": "ec6a51f9e1def132b912eec4ba0e8f77ae69a416cb40c1bbdd482837c5b0a088",
+      "bytes": 1691,
+      "git_blob": "6e6a74d8ad8cf8e0fcdd7f65a9eb1de2ec7866b0",
+      "preserved_bytes": "recovered/camera-history-059/ec6a51f9e1def132b912eec4ba0e8f77ae69a416cb40c1bbdd482837c5b0a088.gz",
+      "published_sha256": "ec6a51f9e1def132b912eec4ba0e8f77ae69a416cb40c1bbdd482837c5b0a088",
+      "published_bytes": 1691,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-434.json",
+      "sha256": "e88b98a69256370cb7b47e8423faa436bdaa4361e4bb4620a293fc9a0b0f0721",
+      "bytes": 1202,
+      "git_blob": "57bb9274b0e3a97a7c84b9c998f2eb689d0c7928",
+      "preserved_bytes": "recovered/camera-history-059/e88b98a69256370cb7b47e8423faa436bdaa4361e4bb4620a293fc9a0b0f0721.gz",
+      "published_sha256": "e88b98a69256370cb7b47e8423faa436bdaa4361e4bb4620a293fc9a0b0f0721",
+      "published_bytes": 1202,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-433.json",
+      "sha256": "0e57b310175ea630312310d5c8e7f167ee1f262094caadbc7d63a411b9caff9a",
+      "bytes": 12071,
+      "git_blob": "39f6040c5f64e11ef1af9af014e9f56e4bb9d6d7",
+      "preserved_bytes": "recovered/camera-history-059/0e57b310175ea630312310d5c8e7f167ee1f262094caadbc7d63a411b9caff9a.gz",
+      "published_sha256": "0e57b310175ea630312310d5c8e7f167ee1f262094caadbc7d63a411b9caff9a",
+      "published_bytes": 12071,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-434.json",
+      "sha256": "1addd9891d044e64d9c510888707afd5445f68f112437703a1f4cf8697928609",
+      "bytes": 9263,
+      "git_blob": "494a4fce3ee53e753e59274579ee974126587b9c",
+      "preserved_bytes": "recovered/camera-history-059/1addd9891d044e64d9c510888707afd5445f68f112437703a1f4cf8697928609.gz",
+      "published_sha256": "1addd9891d044e64d9c510888707afd5445f68f112437703a1f4cf8697928609",
+      "published_bytes": 9263,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-372.json",
+      "sha256": "f2d4455c07749fab15cb30dfa6c76be2a072b9726b6b6207d5c2415c76172358",
+      "bytes": 1197,
+      "git_blob": "7338e77f8e03267b1f6d209aa1a84b043b52ffc3",
+      "preserved_bytes": "recovered/camera-history-059/f2d4455c07749fab15cb30dfa6c76be2a072b9726b6b6207d5c2415c76172358.gz",
+      "published_sha256": "f2d4455c07749fab15cb30dfa6c76be2a072b9726b6b6207d5c2415c76172358",
+      "published_bytes": 1197,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-373.json",
+      "sha256": "fcb816e2cd5ae06831aa07cfb2e11e849173abfb3af8f6f64b0c7ccd653cfb1b",
+      "bytes": 1223,
+      "git_blob": "a21f0c1089fee66bb4214a43fde405892c7057ac",
+      "preserved_bytes": "recovered/camera-history-059/fcb816e2cd5ae06831aa07cfb2e11e849173abfb3af8f6f64b0c7ccd653cfb1b.gz",
+      "published_sha256": "fcb816e2cd5ae06831aa07cfb2e11e849173abfb3af8f6f64b0c7ccd653cfb1b",
+      "published_bytes": 1223,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-374.json",
+      "sha256": "3d945958b94c4015d502fc2e07cfa396573ef2ba79ad1e99c717135f2153e1ba",
+      "bytes": 1215,
+      "git_blob": "a90a146e21d02f79630840ffc2fdcd4c2cd1c771",
+      "preserved_bytes": "recovered/camera-history-059/3d945958b94c4015d502fc2e07cfa396573ef2ba79ad1e99c717135f2153e1ba.gz",
+      "published_sha256": "3d945958b94c4015d502fc2e07cfa396573ef2ba79ad1e99c717135f2153e1ba",
+      "published_bytes": 1215,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-375.json",
+      "sha256": "47c49475495a9c53072b4d38b5a471da0790c622156593d143f154f70f958a32",
+      "bytes": 1190,
+      "git_blob": "d57e48f38d52f93e1a08be90f12275a9b3d6b15d",
+      "preserved_bytes": "recovered/camera-history-059/47c49475495a9c53072b4d38b5a471da0790c622156593d143f154f70f958a32.gz",
+      "published_sha256": "47c49475495a9c53072b4d38b5a471da0790c622156593d143f154f70f958a32",
+      "published_bytes": 1190,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-376.json",
+      "sha256": "a13e9da3dc420906300290df4548a6b716217ca8e340b3d9ec65cb7a91fe7c86",
+      "bytes": 1184,
+      "git_blob": "0aa72e9f549a598ce747f8cd299f1dfeb7e81631",
+      "preserved_bytes": "recovered/camera-history-059/a13e9da3dc420906300290df4548a6b716217ca8e340b3d9ec65cb7a91fe7c86.gz",
+      "published_sha256": "a13e9da3dc420906300290df4548a6b716217ca8e340b3d9ec65cb7a91fe7c86",
+      "published_bytes": 1184,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-433.json",
+      "sha256": "605d71a45994bbbc2cfd8f956e9af7fe81846b105ac0c5165fb65484be189a8f",
+      "bytes": 840,
+      "git_blob": "3606f0f83607648bcb664e2293fd3a60e2469603",
+      "preserved_bytes": "recovered/camera-history-059/605d71a45994bbbc2cfd8f956e9af7fe81846b105ac0c5165fb65484be189a8f.gz",
+      "published_sha256": "605d71a45994bbbc2cfd8f956e9af7fe81846b105ac0c5165fb65484be189a8f",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-434.json",
+      "sha256": "eb65d1bc4fe712e74b95b183f77f83e44f78063dab00ea5052764a6c88f63309",
+      "bytes": 840,
+      "git_blob": "166586b1bf645a5b26026171363026648c4208c7",
+      "preserved_bytes": "recovered/camera-history-059/eb65d1bc4fe712e74b95b183f77f83e44f78063dab00ea5052764a6c88f63309.gz",
+      "published_sha256": "eb65d1bc4fe712e74b95b183f77f83e44f78063dab00ea5052764a6c88f63309",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-433.json",
+      "sha256": "95515d324886d1c7ca9a09efb250b995f264c844b47e1206fb772c54a16957ba",
+      "bytes": 558,
+      "git_blob": "cfbe21b66818cd791c4558b4a155daec89ce02fb",
+      "preserved_bytes": "recovered/camera-history-059/95515d324886d1c7ca9a09efb250b995f264c844b47e1206fb772c54a16957ba.gz",
+      "published_sha256": "95515d324886d1c7ca9a09efb250b995f264c844b47e1206fb772c54a16957ba",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-434.json",
+      "sha256": "57e5e9f25f95c308b87635047c25c422aaab56b5042df0ee56ea794e3a8514f5",
+      "bytes": 558,
+      "git_blob": "cfcb1615fc51030d6d0b3295747c37e9955e64df",
+      "preserved_bytes": "recovered/camera-history-059/57e5e9f25f95c308b87635047c25c422aaab56b5042df0ee56ea794e3a8514f5.gz",
+      "published_sha256": "57e5e9f25f95c308b87635047c25c422aaab56b5042df0ee56ea794e3a8514f5",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    }
+  ],
+  "remaining": "Actual native camera scheduling, projection policy, alternate producers, scene bounds, exact aliases and thirteen independent lenses remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

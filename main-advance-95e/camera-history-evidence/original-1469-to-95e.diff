@@ -1,0 +1,11 @@
+--- historical-1469/crates/adventuresim-tactical-client/src/camera/values.rs
++++ 95e/crates/adventuresim-tactical-client/src/camera/values.rs
+@@ -43,6 +43,8 @@
+ 
+ #[derive(Debug, thiserror::Error)]
+ pub enum CameraError {
++    #[error(transparent)]
++    Fraction(#[from] adventuresim_core::unit_interval::FractionError),
+     #[error(transparent)]
+     Geometry(#[from] GeometryError),
+     #[error(transparent)]
