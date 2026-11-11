@@ -1,0 +1,1143 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Five original strategic adapter and scene roles; bounded95e equipment admission, generated-building error, per-view daylight diagnostics and person-layer lifecycle.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1682-1686.json",
+  "git_membership_evidence": "STRATEGIC-ADAPTER-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/views.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5a086d960a21ef030a10a4a890208ff2ab655339",
+      "sha256": "166888938d9f2e7a9445782c7b576d0d2506d963ee67a76c594bffbfb959de01",
+      "bytes": 13697,
+      "lines": 399,
+      "ranges": [
+        [
+          1,
+          265
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/staging.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "141799cbeae6e2217c54e50e7182aebc45a3b162",
+      "sha256": "a82273da32ccd7a1120c85e4e623691449a0a3519f43d6a0020debe90997bb8f",
+      "bytes": 5305,
+      "lines": 130,
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/protocol.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2fb8113a7e0c5b4d8db3419e0ed86098f3227273",
+      "sha256": "9270aa713a8d01fcde27fa616751c3f9df87b8abe76227ff86f66d288b6d67de",
+      "bytes": 2085,
+      "lines": 65,
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ownership.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "56a0800050f29452566833a62f364bbf717bf218",
+      "sha256": "0684778a884bee8a450d0b36393b297ca63af510042690511d1c267d51bdee59",
+      "bytes": 1764,
+      "lines": 59,
+      "ranges": [
+        [
+          6,
+          6
+        ],
+        [
+          56,
+          56
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/browser_runtime.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9b453eb2ed0b42e7680846a4c1b877c7dacc08a4",
+      "sha256": "83c7e8a4696ea53dca63deabee935561888354229cc8b71e92be800b592f98d7",
+      "bytes": 17179,
+      "lines": 522,
+      "ranges": [
+        [
+          1,
+          250
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/strategic-web/static/strategic-scene.js",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cf9ab76117504facf687efe34a19b897b1248b21",
+      "sha256": "7db5964db4e3c0c4a152ba1b501a57068a4553a440427152382042f74988be20",
+      "bytes": 19166,
+      "lines": 371,
+      "ranges": [
+        [
+          68,
+          371
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/interior_lighting/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9e3980223fdb3a8c516a194918b63ea7cd96781e",
+      "sha256": "7e1ddb323e8daf9aeb8c1a0270dda49ebb86500f4c346b18c2c06fc563ad41aa",
+      "bytes": 9143,
+      "lines": 251,
+      "ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "934bdca38cc6ce60186cc62d9b6a6542f02aff6b",
+      "sha256": "30ec1a75ea378ea1528986b6ba6fcd4a7f28985befe6dea1bb9b2b2d3f50ba1c",
+      "bytes": 7446,
+      "lines": 231,
+      "ranges": [
+        [
+          190,
+          230
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/world.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "42f8efd9a398ccc5ac4be936e7a75c04e836ca12",
+      "sha256": "d957debd0155371a6487925b22efab792acadf0a9a374b35e8994126146a1f27",
+      "bytes": 6354,
+      "lines": 177,
+      "ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/status.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2ba57c1d4608fff7d625797ecf7d06b27ad907f8",
+      "sha256": "3a17db60e7f3371d1040442ac335fa84371b8ab9eee2eba20ea36ae2397b686a",
+      "bytes": 7109,
+      "lines": 207,
+      "ranges": [
+        [
+          90,
+          207
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-core/src/equipment_presentation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "50f3d1dc1a52caa4a43bd43752575b3e6badea47",
+      "sha256": "7e48b429725c7241c26a7f4f83f3306b0b6c0372240e0c2e8310249ebf6ebe97",
+      "bytes": 1496,
+      "lines": 48,
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/strategic-web/src/routes/scene_equipment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ee54216f14f4652049c5bd3d39d5015bd344e26d",
+      "sha256": "2ecdbb109e62b9227c8b94ae71714cab987c49a1cb9c47c4e87afb39560ac210",
+      "bytes": 11103,
+      "lines": 306,
+      "ranges": [
+        [
+          1,
+          290
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+      "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "bytes": 138251,
+      "lines": 3968,
+      "ranges": [
+        [
+          555,
+          640
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/inventory.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7ce298607e56c251a5841035d17b1601292ad542",
+      "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+      "bytes": 28617,
+      "lines": 862,
+      "ranges": [
+        [
+          85,
+          200
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/inventory/ordering.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1c8e039ec137ef036eea9a22b872a5d7a291560e",
+      "sha256": "a16a4fd249e9a9fa97fa44588caa57dc7a15e35ef78bfd5e194267419a507f20",
+      "bytes": 4982,
+      "lines": 130,
+      "ranges": [
+        [
+          1,
+          125
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b00f33154bbef769ede5059715d8c85e41c05498",
+      "sha256": "c94849ea996b6eea5f164b6e04f642241eb448a2869f33235c277cb978da2b1b",
+      "bytes": 50170,
+      "lines": 1341,
+      "ranges": [
+        [
+          560,
+          710
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/recipes.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "de08312f5f2361412d08b0aca2d557003286ff94",
+      "sha256": "cce4ce937c53b3edbb8c3ebc7e76f14b65139f4acc63770d448ed6712398e60e",
+      "bytes": 3755,
+      "lines": 112,
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-16.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "76183b03fb13e09dd65710d069792cab55e02cc3",
+      "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+      "bytes": 16151,
+      "lines": 438,
+      "ranges": [
+        [
+          215,
+          330
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-17.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/buildings/placement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "acb7b1f969760a5dc4fedf26b90db6c9494a9cf3",
+      "sha256": "8d39af4feaf3413ec32ff198193d1f15b9c029ac9be1f9582f00834976ac1bcc",
+      "bytes": 7849,
+      "lines": 188,
+      "ranges": [
+        [
+          1,
+          180
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-18.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/doors.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "935e163f5ec9531e902575c1bcbb277c9fe3558d",
+      "sha256": "117277d2c1a3694f567606dcd0e8207f647755a386fdabfca098aa8597a6e1b7",
+      "bytes": 11431,
+      "lines": 295,
+      "ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-19.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/windows.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ccb6af24bf796d1c15ff6e092433a8080a49e131",
+      "sha256": "ebb276b2f9852eb4cd3cf87b5582ac9f8e58c4b266f937bc5a84d0396b06ff76",
+      "bytes": 9957,
+      "lines": 259,
+      "ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-20.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "123ae6d6c21a6f42ed510109e85cc63bf93d4ab3",
+      "sha256": "aab7cbd205fd372d7542412ed9898345ccc87e83c548b9988a46424d4b88c2af",
+      "bytes": 10809,
+      "lines": 270,
+      "ranges": [
+        [
+          70,
+          160
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-21.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_coordinates/window.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b1d784c5db2742f603eb914bfedcbd2e2c3c3930",
+      "sha256": "9e148e80284c8a960dc0fe0495783563bae67ec6bbf07abbdf6f82ff8edf5601",
+      "bytes": 5906,
+      "lines": 136,
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-22.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/strategic-web/tests/strategic-startup-profile.cjs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b7def142a24a2700ad8e4b6771b4a32f32e02cda",
+      "sha256": "5e57fcccca23970dfe7a18dbb03eb08b3a5d23d9420c0aca6882532f7cf3b3ec",
+      "bytes": 8672,
+      "lines": 151,
+      "ranges": [
+        [
+          60,
+          135
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-23.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/cached_views.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "dac1134c25572084b2d2c8cc93012c6991928923",
+      "sha256": "dca6bf2178d031e1dbc40c3af8a9024bbf5d730cddf00ac542845500227f737c",
+      "bytes": 19099,
+      "lines": 529,
+      "ranges": [
+        [
+          1,
+          335
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-adapter-evidence/support-24.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests, product build, rendering, simulation and runtime were not run; no historical or other-lens credit inferred."
+    }
+  ],
+  "native_source": {
+    "manifest": "native-evidence/bevy_camera-0.19.1/MANIFEST.json",
+    "member": "bevy_camera-0.19.1/src/visibility/render_layers.rs",
+    "ranges": [
+      [
+        1,
+        205
+      ]
+    ],
+    "qualification": "Lock-matched upstream0.19.1 source, independently read; no native code execution."
+  },
+  "observations": [
+    {
+      "contract": "Equipment graph and prior omission candidate",
+      "trace": "Scene protocol accepts deserialized appearance lists; sync_equipment builds a HashMap from item IDs, filters an attachment row if its parent ID is absent, and stores Wardrobe equality. The HTTP producer obtains IDs from equipped inventory rows; CharacterEquippedItem.inventory_item_id is a primary key. The prior REVIEW-STRATEGIC-EQUIPMENT-OMISSION-READINESS-001 already covers unrecognized catalog requests disappearing from the readiness population.",
+      "remaining": "Determine the actual admitted attachment graph, duplicate identity and cross-query consistency policy, plus retained consumer outcomes. This bounded trace does not add a duplicate finding or prove an invalid graph from normal data. Strategic synthetic occupancy_id remains serialized and compared as part of derived topology; a text grep finding no explicit field read is not an exhaustive cross-boundary consumer proof."
+    },
+    {
+      "contract": "Fallible queued building prefix",
+      "trace": "spawn_building queues its building root before fallible door and window compilation/pose conversions, and only queues the SceneBuilding and PreparedBuildingGeometry pair after the loops. world::retain_scene catches a returned error into scene.error, stops same-location retries on subsequent calls, and status reports that error and does not mark installation ready. GeneratedBuildingRecipe::generate prepares plan and collision before this adapter; separate city recipe source compiles door and detail geometry.",
+      "remaining": "The source order is not evidence of an actually reachable invalid generated plan, final applied command state, cleanup policy, leaked entity or displayed partial scene. Validate exact generated plan guarantees and native command/observer failure semantics before a disposition; no product command ran."
+    },
+    {
+      "contract": "Venue and layer qualifications",
+      "trace": "Venue::in_building requires at least one ConversationPose before constructing an indoor Venue and outdoor venue producers provide a one-element positions list. This is local counterevidence to assuming retain_people modulo necessarily sees an empty positions vector.",
+      "remaining": "All constructors and supported mutations remain open; no independent lens clearance follows."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-STRATEGIC-PORTRAIT-DIAGNOSTIC-SUBJECT-001",
+      "lens": 8,
+      "severity": "unassigned; source-observed diagnostic coordinate mismatch with effect conditional",
+      "classification": "Newly assessed95e diagnostic subject-position question connected to earlier Segovb and Adler pending native lighting scope; no historical finding.",
+      "canonical_owner": "Per-view camera role and actual subject sample position through LightingDiagnostics, InteriorLightingGpu and serialized strategic status.",
+      "first_failed_contract": "A field named subject_daylight samples a fixed conversation-distance point for every active StrategicCamera, although portrait views are positioned at a different target distance and some cameras have no person subject.",
+      "trace": "person_view points the camera at anchor plus portrait head height, with portrait camera distance0.30m and stage distance CONVERSATION_DISTANCE_METRES=1.1m. LightingDiagnostics iterates every active StrategicCamera and samples transform.translation()+forward*1.1m. For an ideal valid portrait pose, the sample is 0.8m past its target along the view ray; stage uses the matching1.1m distance. Street snapshot and RegionalMapCamera also carry StrategicCamera and do not establish a person subject. sample_at selects a discrete admitted interior field cell or returns zero; status serializes the values and strategic-scene.js stores them in window.strategicRendererMetrics.state.",
+      "symbolic_example": "For a portrait target at the origin and facing +Z, the camera is at z=0.30 and its forward direction points toward -Z; 0.30-1.1=-0.80m. This is source-level ideal vector arithmetic, not a renderer execution or a claim about actual floating-point transforms, sampled cell values or pixels.",
+      "counterevidence": "The field is diagnostic, not a rendering or gameplay input. Snapshot cameras are active only during capture, and the inspected startup profiler explicitly omits view_lighting from its brief readiness events. Both points may lie in the same cell or no lit interior; the intended term subject and any external consumers are not fully documented. Normal stage diagnostics intentionally use conversation distance.",
+      "connected_repair": "After full audit and separate implementation authorization, decide whether each camera has a subject and preserve its actual target or explicitly name a fixed-ray sample; avoid implying a person for street/map views. Keep camera versus subject diagnostics and readiness separate.",
+      "acceptance_requirements": [
+        "Every published subject-lighting sample is tied to an identified subject/target or explicitly described as a fixed-ray diagnostic, for stage, portrait, street and map cameras."
+      ],
+      "discovery": "partial; mathematical camera-role mismatch shown, actual supported camera states, field values, diagnostic consumers and exact aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    },
+    {
+      "id": "REVIEW-STRATEGIC-PERSON-LAYER-CHURN-001",
+      "lens": 13,
+      "severity": "unassigned; conditional long-lived residency and native allocation policy",
+      "classification": "Newly assessed95e source and pinned-native layer-retention question connected to earlier Segovb next-person-layer scope; no historical finding.",
+      "canonical_owner": "RetainedScene person lifecycle and Bevy RenderLayers allocation for strategic actors, lights and cameras.",
+      "first_failed_contract": "Person removal drops the retained person and queues despawn but does not reuse its numeric layer; each newly required person receives a monotonically increasing layer until RetainedScene resets. Native layer storage expands through the highest represented bit.",
+      "trace": "retain_people retains only IDs in the current view and despawns removed person roots. A newly required ID is assigned FIRST_PERSON_LAYER+next_person_layer and increments next_person_layer, including a previously removed ID when later reintroduced; release_scene or root replacement resets RetainedScene. Person meshes and focused views use these layers, and room lights build a layer set from retained people. The normal JS source can refresh a roster after strategic-live-update, but no particular supported remove-and-readd sequence or session duration is established. Bevy Camera0.19.1 source stores RenderLayers in SmallVec<u64>, with .with extending to layer/64+1 blocks, rather than a fixed64-layer failure.",
+      "symbolic_example": "FIRST_PERSON_LAYER is4. If one still-resident scene successively creates 65,536 required person rigs with earlier rigs removed, the last assigned layer is65,539, requiring 1,025 u64 blocks, or8,200 bytes of block payload, for each RenderLayers value containing that layer before allocator/object overhead. This is integer reasoning from pinned source only: no allocation, browser, rig or rendering ran, and actual roster churn, memory and workload are unmeasured.",
+      "counterevidence": "Monotonic layers avoid accidental intersection among retained actors, .with supports arbitrary layer numbers, and resets bound an individual scene lifetime. Typical sessions may never approach meaningful layer numbers, and multiple RenderLayers values may be released when entities disappear. This is distinct from image-target retention and is not a measured memory leak.",
+      "connected_repair": "After full audit and separate implementation authorization, establish the intended maximum scene lifetime and churn; if needed, recycle or bound layer identities only after all dependent camera, light and retained snapshot references have been reconciled.",
+      "acceptance_requirements": [
+        "Supported person churn has an explicit resource bound or justified scene lifetime, while concurrently visible actors retain distinct layers and cached snapshots preserve their intended identity."
+      ],
+      "discovery": "partial; source and native block growth shown symbolically, supported churn, allocation costs, lifetime and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1404",
+        "/entries/1405",
+        "/entries/1406",
+        "/entries/1407",
+        "/entries/1408"
+      ],
+      "qualification": "Partial current source reinspection of original pending contracts; prior reviewers and all required connected scope remain open."
+    },
+    {
+      "file": "ASSESSMENT-STRATEGIC-VIEW-RETENTION-95E.json",
+      "qualification": "Preserves prior1682–1683 identity-only non-credit and exact Segovb READ536; the later historical reads are recorded independently."
+    },
+    {
+      "file": "ASSESSMENT-EQUIPMENT-PREVIEW-READINESS-95E.json",
+      "qualification": "Existing equipment omission candidate retained and connected; no automatic alias or independent new defect inferred."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-206.json",
+      "sha256": "a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428",
+      "bytes": 10076,
+      "git_blob": "bdef465d85fc43250665e32018d90918091422a1",
+      "preserved_bytes": "recovered/strategic-adapter-059/a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428.gz",
+      "published_sha256": "a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428",
+      "published_bytes": 10076,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context without new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-209.json",
+      "sha256": "6719ac48fa2688a51e65c72768c1405234eb2b02cb85cdfc465d487aeaec90b9",
+      "bytes": 13242,
+      "git_blob": "32400a1bc60a5c7c22853f613a8e68b8a4fb4614",
+      "preserved_bytes": "recovered/strategic-adapter-059/6719ac48fa2688a51e65c72768c1405234eb2b02cb85cdfc465d487aeaec90b9.gz",
+      "published_sha256": "6719ac48fa2688a51e65c72768c1405234eb2b02cb85cdfc465d487aeaec90b9",
+      "published_bytes": 13242,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context without new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047",
+      "bytes": 29295,
+      "git_blob": "12f78ab54e0ca5709963ce605b8f843a317b34bf",
+      "preserved_bytes": "recovered/strategic-adapter-059/ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047.gz",
+      "published_sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047",
+      "published_bytes": 29295,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context without new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-215.json",
+      "sha256": "79af28f93aa97f541d149b9f7f806ae6692316ad9abb364c4390223c7f8431ac",
+      "bytes": 11750,
+      "git_blob": "fbe4f308b78f40fd7504dc32c0a426653743263b",
+      "preserved_bytes": "recovered/strategic-adapter-059/79af28f93aa97f541d149b9f7f806ae6692316ad9abb364c4390223c7f8431ac.gz",
+      "published_sha256": "79af28f93aa97f541d149b9f7f806ae6692316ad9abb364c4390223c7f8431ac",
+      "published_bytes": 11750,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context without new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-216.json",
+      "sha256": "d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7",
+      "bytes": 20180,
+      "git_blob": "752ede0dde7695e901a75a8b65cc5dadf3beffa1",
+      "preserved_bytes": "recovered/strategic-adapter-059/d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7.gz",
+      "published_sha256": "d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7",
+      "published_bytes": 20180,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context without new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-217.json",
+      "sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5",
+      "bytes": 13360,
+      "git_blob": "a9e0ca18553110bab06d2b4e360d644d4b4908d8",
+      "preserved_bytes": "recovered/strategic-adapter-059/7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5.gz",
+      "published_sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5",
+      "published_bytes": 13360,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context without new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-218.json",
+      "sha256": "5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca",
+      "bytes": 28862,
+      "git_blob": "95edfc8fdd908cdbab5fffe854ef97f8864d31cb",
+      "preserved_bytes": "recovered/strategic-adapter-059/5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca.gz",
+      "published_sha256": "5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca",
+      "published_bytes": 28862,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context without new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-221.json",
+      "sha256": "5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42",
+      "bytes": 10621,
+      "git_blob": "25bb8a4a591ee3909127f214e44fb93350adcbea",
+      "preserved_bytes": "recovered/strategic-adapter-059/5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42.gz",
+      "published_sha256": "5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42",
+      "published_bytes": 10621,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context without new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-228.json",
+      "sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801",
+      "bytes": 12598,
+      "git_blob": "90a28ed99ca21b61895e44f56d29f3abad161731",
+      "preserved_bytes": "recovered/strategic-adapter-059/b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801.gz",
+      "published_sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801",
+      "published_bytes": 12598,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context without new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-229.json",
+      "sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e",
+      "bytes": 7769,
+      "git_blob": "d563e583ecc5c2413b2d14a29bc66e12b00f68a4",
+      "preserved_bytes": "recovered/strategic-adapter-059/2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e.gz",
+      "published_sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e",
+      "published_bytes": 7769,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context without new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-230.json",
+      "sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec",
+      "bytes": 13714,
+      "git_blob": "20c134892a8bebb3d8e9924ab9f9b646884583d8",
+      "preserved_bytes": "recovered/strategic-adapter-059/0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec.gz",
+      "published_sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec",
+      "published_bytes": 13714,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context without new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-231.json",
+      "sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f",
+      "bytes": 28619,
+      "git_blob": "933b2f20628d6089414bb9e1cd52abc5a9b51384",
+      "preserved_bytes": "recovered/strategic-adapter-059/482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f.gz",
+      "published_sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f",
+      "published_bytes": 28619,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context without new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-232.json",
+      "sha256": "16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e",
+      "bytes": 12351,
+      "git_blob": "f94fb7bf5fa58c50328fc55a6d29800df744f74c",
+      "preserved_bytes": "recovered/strategic-adapter-059/16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e.gz",
+      "published_sha256": "16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e",
+      "published_bytes": 12351,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context without new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-233.json",
+      "sha256": "4831bc7c2c30cab943473a81129fa0cdeb2f6feba0c07a277d09a6626a4f88f2",
+      "bytes": 19400,
+      "git_blob": "b6d53cc4ad9ab3120b059d081bf8239919b03dd2",
+      "preserved_bytes": "recovered/strategic-adapter-059/4831bc7c2c30cab943473a81129fa0cdeb2f6feba0c07a277d09a6626a4f88f2.gz",
+      "published_sha256": "4831bc7c2c30cab943473a81129fa0cdeb2f6feba0c07a277d09a6626a4f88f2",
+      "published_bytes": 19400,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context without new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-234.json",
+      "sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136",
+      "bytes": 14490,
+      "git_blob": "bc0f773eeb8695793e91db5321f4a69482370794",
+      "preserved_bytes": "recovered/strategic-adapter-059/422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136.gz",
+      "published_sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136",
+      "published_bytes": 14490,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context without new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-235.json",
+      "sha256": "8fa6c851be9577703b6739e7ed069c47cc16d0d5e5a1feeded4eb69e23744509",
+      "bytes": 18811,
+      "git_blob": "36a766aac5ad6c9426d59d658ed3a8d73a60d2f4",
+      "preserved_bytes": "recovered/strategic-adapter-059/8fa6c851be9577703b6739e7ed069c47cc16d0d5e5a1feeded4eb69e23744509.gz",
+      "published_sha256": "8fa6c851be9577703b6739e7ed069c47cc16d0d5e5a1feeded4eb69e23744509",
+      "published_bytes": 18811,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context without new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-236.json",
+      "sha256": "e5f6ce8d6aa743c46567aea00a814ebd27847aa5643b5f66fbce064067767f48",
+      "bytes": 18188,
+      "git_blob": "87fe5a523b60caf394c0c69c8e52a2980136d13b",
+      "preserved_bytes": "recovered/strategic-adapter-059/e5f6ce8d6aa743c46567aea00a814ebd27847aa5643b5f66fbce064067767f48.gz",
+      "published_sha256": "e5f6ce8d6aa743c46567aea00a814ebd27847aa5643b5f66fbce064067767f48",
+      "published_bytes": 18188,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context without new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-237.json",
+      "sha256": "b132641c48544d2335f37f895b480f9d3f98c7d296c9ab57cfa9e79803344ff4",
+      "bytes": 18097,
+      "git_blob": "80c9f2860e085b80089da3bc4dfe00436f589898",
+      "preserved_bytes": "recovered/strategic-adapter-059/b132641c48544d2335f37f895b480f9d3f98c7d296c9ab57cfa9e79803344ff4.gz",
+      "published_sha256": "b132641c48544d2335f37f895b480f9d3f98c7d296c9ab57cfa9e79803344ff4",
+      "published_bytes": 18097,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context without new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-238.json",
+      "sha256": "ff62639e9259786232e9eab399b36b48563b4ceae9f0a2c0d9042b1a8b8ab601",
+      "bytes": 15331,
+      "git_blob": "c02f740d171a766a74ccfab52113c2948d26de63",
+      "preserved_bytes": "recovered/strategic-adapter-059/ff62639e9259786232e9eab399b36b48563b4ceae9f0a2c0d9042b1a8b8ab601.gz",
+      "published_sha256": "ff62639e9259786232e9eab399b36b48563b4ceae9f0a2c0d9042b1a8b8ab601",
+      "published_bytes": 15331,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context without new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-239.json",
+      "sha256": "6ae50c701936dbd39c003b6df17c69c3d0faf2fd885ca78e5254c6d405fa6801",
+      "bytes": 15279,
+      "git_blob": "f4a0932b9ef082898caf43158e14e04c7abbb098",
+      "preserved_bytes": "recovered/strategic-adapter-059/6ae50c701936dbd39c003b6df17c69c3d0faf2fd885ca78e5254c6d405fa6801.gz",
+      "published_sha256": "6ae50c701936dbd39c003b6df17c69c3d0faf2fd885ca78e5254c6d405fa6801",
+      "published_bytes": 15279,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context without new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-240.json",
+      "sha256": "892541eaabed917f78fb696be9de6488aeb1fe6a48f7ce004ff393339cd37230",
+      "bytes": 16467,
+      "git_blob": "a85d71c7da5943a8b0ebda5d3e807a7727c829c5",
+      "preserved_bytes": "recovered/strategic-adapter-059/892541eaabed917f78fb696be9de6488aeb1fe6a48f7ce004ff393339cd37230.gz",
+      "published_sha256": "892541eaabed917f78fb696be9de6488aeb1fe6a48f7ce004ff393339cd37230",
+      "published_bytes": 16467,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context without new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-241.json",
+      "sha256": "47a80004e322c173aef492bae227f74c6941d128d640eef5263400faf8f30330",
+      "bytes": 17859,
+      "git_blob": "75db69485b5727f787c0a1722d74f1878d10f499",
+      "preserved_bytes": "recovered/strategic-adapter-059/47a80004e322c173aef492bae227f74c6941d128d640eef5263400faf8f30330.gz",
+      "published_sha256": "47a80004e322c173aef492bae227f74c6941d128d640eef5263400faf8f30330",
+      "published_bytes": 17859,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context without new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-242.json",
+      "sha256": "018a558e88a7c9a55f8abd4326db816cf000c69a746fbfa3bf58d185a29f784a",
+      "bytes": 17903,
+      "git_blob": "0b26ecdc5c5b18f4900c68a80f9fdb544ef5b013",
+      "preserved_bytes": "recovered/strategic-adapter-059/018a558e88a7c9a55f8abd4326db816cf000c69a746fbfa3bf58d185a29f784a.gz",
+      "published_sha256": "018a558e88a7c9a55f8abd4326db816cf000c69a746fbfa3bf58d185a29f784a",
+      "published_bytes": 17903,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context without new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-243.json",
+      "sha256": "98f17ed1e567dc243fc0b0710223c9c3e5881ab18a3ed244de44d8e2aa20dcb1",
+      "bytes": 20092,
+      "git_blob": "23b5337ea9e55bb1d9c40e8f2c8d87fc67d4e1b3",
+      "preserved_bytes": "recovered/strategic-adapter-059/98f17ed1e567dc243fc0b0710223c9c3e5881ab18a3ed244de44d8e2aa20dcb1.gz",
+      "published_sha256": "98f17ed1e567dc243fc0b0710223c9c3e5881ab18a3ed244de44d8e2aa20dcb1",
+      "published_bytes": 20092,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler Lens11 receipt at6533, with future1687–1689 and no new ordered credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-517.json",
+      "sha256": "625223eb140d25ec3b3499d66b5fe06d5b9f9511e9a308af2ea6810f9da61033",
+      "bytes": 756,
+      "git_blob": "23cdf8d258b10afb2919fecbdfddeac76bbc45dd",
+      "preserved_bytes": "recovered/strategic-adapter-059/625223eb140d25ec3b3499d66b5fe06d5b9f9511e9a308af2ea6810f9da61033.gz",
+      "published_sha256": "625223eb140d25ec3b3499d66b5fe06d5b9f9511e9a308af2ea6810f9da61033",
+      "published_bytes": 756,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-518.json",
+      "sha256": "951e5ed9fdd732c2ec4c7cbf1bcc630b3cf6889851c7cf5b07d7a8d5894075a9",
+      "bytes": 767,
+      "git_blob": "f42f9cd059d502838e59c153ee377da2cea8ad2e",
+      "preserved_bytes": "recovered/strategic-adapter-059/951e5ed9fdd732c2ec4c7cbf1bcc630b3cf6889851c7cf5b07d7a8d5894075a9.gz",
+      "published_sha256": "951e5ed9fdd732c2ec4c7cbf1bcc630b3cf6889851c7cf5b07d7a8d5894075a9",
+      "published_bytes": 767,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-519.json",
+      "sha256": "6b785fe6b5c36938d8634fc5074c9672fcdd33a1ecd4b75c16d617d9197fe9d7",
+      "bytes": 751,
+      "git_blob": "806cea940f4c4d7319c80c5a60feffd92cd9f444",
+      "preserved_bytes": "recovered/strategic-adapter-059/6b785fe6b5c36938d8634fc5074c9672fcdd33a1ecd4b75c16d617d9197fe9d7.gz",
+      "published_sha256": "6b785fe6b5c36938d8634fc5074c9672fcdd33a1ecd4b75c16d617d9197fe9d7",
+      "published_bytes": 751,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-520.json",
+      "sha256": "89c4113a36d99dd315800322ebee4be406a5eeba0789f02b50ca16ff95125422",
+      "bytes": 758,
+      "git_blob": "b4e719381f4afea1cbf098b09088fe1c48d2c743",
+      "preserved_bytes": "recovered/strategic-adapter-059/89c4113a36d99dd315800322ebee4be406a5eeba0789f02b50ca16ff95125422.gz",
+      "published_sha256": "89c4113a36d99dd315800322ebee4be406a5eeba0789f02b50ca16ff95125422",
+      "published_bytes": 758,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-521.json",
+      "sha256": "a1c5bb93099f4e6f307bfb27480c1adb3f0826bb68edaee700bb39e53bbd420e",
+      "bytes": 756,
+      "git_blob": "5dca6617268c5ec90bc149569a2c1537f000ff21",
+      "preserved_bytes": "recovered/strategic-adapter-059/a1c5bb93099f4e6f307bfb27480c1adb3f0826bb68edaee700bb39e53bbd420e.gz",
+      "published_sha256": "a1c5bb93099f4e6f307bfb27480c1adb3f0826bb68edaee700bb39e53bbd420e",
+      "published_bytes": 756,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-522.json",
+      "sha256": "fa915264510eb89d182d2b1a6b2421ab4ad88ede0079dbf133c1d14b0b1aa064",
+      "bytes": 765,
+      "git_blob": "fab1d53383417251d62d3aabd6d2323596d791ce",
+      "preserved_bytes": "recovered/strategic-adapter-059/fa915264510eb89d182d2b1a6b2421ab4ad88ede0079dbf133c1d14b0b1aa064.gz",
+      "published_sha256": "fa915264510eb89d182d2b1a6b2421ab4ad88ede0079dbf133c1d14b0b1aa064",
+      "published_bytes": 765,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-523.json",
+      "sha256": "693e4c28a2ab1dc85032a1ec5bee3d431204ff54942964329862ccc3968bcee6",
+      "bytes": 825,
+      "git_blob": "d50c23c68053b0505f5dae01b4e8315d936fcfd9",
+      "preserved_bytes": "recovered/strategic-adapter-059/693e4c28a2ab1dc85032a1ec5bee3d431204ff54942964329862ccc3968bcee6.gz",
+      "published_sha256": "693e4c28a2ab1dc85032a1ec5bee3d431204ff54942964329862ccc3968bcee6",
+      "published_bytes": 825,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-243.json",
+      "sha256": "6e7205b6930fb649e26ee5fee56517412a5c1b3e778b3eeab83e90d9af30b039",
+      "bytes": 668,
+      "git_blob": "d802f599498e23474e8fa7322a75261b67489ec6",
+      "preserved_bytes": "recovered/strategic-adapter-059/6e7205b6930fb649e26ee5fee56517412a5c1b3e778b3eeab83e90d9af30b039.gz",
+      "published_sha256": "6e7205b6930fb649e26ee5fee56517412a5c1b3e778b3eeab83e90d9af30b039",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 state"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-243.json",
+      "sha256": "a83057a5c9f8ed02e446f1c6cbb66fa2a6264fdf3f4b2008cd316b1020ade6f9",
+      "bytes": 31516,
+      "git_blob": "2d81e3fd9708026bbc2d54517264c42135fc2ab2",
+      "preserved_bytes": "recovered/strategic-adapter-059/a83057a5c9f8ed02e446f1c6cbb66fa2a6264fdf3f4b2008cd316b1020ade6f9.gz",
+      "published_sha256": "a83057a5c9f8ed02e446f1c6cbb66fa2a6264fdf3f4b2008cd316b1020ade6f9",
+      "published_bytes": 31516,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-537.json",
+      "sha256": "5ffdcf2a87f2f875ce9f75598e6381c2f3c1b8a477764603026005287daed1ff",
+      "bytes": 1711,
+      "git_blob": "d61a12d7586e1fb27c000a2ca3d7f0b39b2f69f0",
+      "preserved_bytes": "recovered/strategic-adapter-059/5ffdcf2a87f2f875ce9f75598e6381c2f3c1b8a477764603026005287daed1ff.gz",
+      "published_sha256": "5ffdcf2a87f2f875ce9f75598e6381c2f3c1b8a477764603026005287daed1ff",
+      "published_bytes": 1711,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-537.json",
+      "sha256": "2f346ae6fbd3aa3baa199d79f776c07120191db1505c794a5c5caa633aa0adc1",
+      "bytes": 14207,
+      "git_blob": "bbe25004bade3ffff68e906eac5f1dc53115cadc",
+      "preserved_bytes": "recovered/strategic-adapter-059/2f346ae6fbd3aa3baa199d79f776c07120191db1505c794a5c5caa633aa0adc1.gz",
+      "published_sha256": "2f346ae6fbd3aa3baa199d79f776c07120191db1505c794a5c5caa633aa0adc1",
+      "published_bytes": 14207,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Segovb Lens12 receipt at6533, with future1687–1688 and no new ordered credit"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-593.json",
+      "sha256": "a4be2b39205e6210914856a157682e841f427b2a8978cbae69c9c1bf88c4ead8",
+      "bytes": 1182,
+      "git_blob": "64745885375b508ace5b0c188832cf2ccc5d878a",
+      "preserved_bytes": "recovered/strategic-adapter-059/a4be2b39205e6210914856a157682e841f427b2a8978cbae69c9c1bf88c4ead8.gz",
+      "published_sha256": "a4be2b39205e6210914856a157682e841f427b2a8978cbae69c9c1bf88c4ead8",
+      "published_bytes": 1182,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-594.json",
+      "sha256": "35a8dbea36953878c658e9d5088ee13b4bf1f2a2b6ba751f8338e9948e49f5fe",
+      "bytes": 1196,
+      "git_blob": "91fd5d6c9882393dd99547dc7fb869c8c545eb97",
+      "preserved_bytes": "recovered/strategic-adapter-059/35a8dbea36953878c658e9d5088ee13b4bf1f2a2b6ba751f8338e9948e49f5fe.gz",
+      "published_sha256": "35a8dbea36953878c658e9d5088ee13b4bf1f2a2b6ba751f8338e9948e49f5fe",
+      "published_bytes": 1196,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-595.json",
+      "sha256": "7293f2b01c1bb28fee94d6558dc02006f1e76a381b2be01d7c7cb5d679b7739e",
+      "bytes": 1192,
+      "git_blob": "82dca92c83ef14d2a7eff3e69802ca93b9522395",
+      "preserved_bytes": "recovered/strategic-adapter-059/7293f2b01c1bb28fee94d6558dc02006f1e76a381b2be01d7c7cb5d679b7739e.gz",
+      "published_sha256": "7293f2b01c1bb28fee94d6558dc02006f1e76a381b2be01d7c7cb5d679b7739e",
+      "published_bytes": 1192,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-537.json",
+      "sha256": "996401d68e61e75f5d07dcc6cb035e7fdcf2b729477db96ac1026ad25b1aa9a7",
+      "bytes": 840,
+      "git_blob": "2db014493b93e5a3a01ce5d60d4871cb641930fc",
+      "preserved_bytes": "recovered/strategic-adapter-059/996401d68e61e75f5d07dcc6cb035e7fdcf2b729477db96ac1026ad25b1aa9a7.gz",
+      "published_sha256": "996401d68e61e75f5d07dcc6cb035e7fdcf2b729477db96ac1026ad25b1aa9a7",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-537.json",
+      "sha256": "446c3f2ba5035ad7dbf25f5750142d22e09ca0997afb0bc7b6454409c02df5e2",
+      "bytes": 558,
+      "git_blob": "20a74a94056922013d8b18b0e9ea21cc6b7ec877",
+      "preserved_bytes": "recovered/strategic-adapter-059/446c3f2ba5035ad7dbf25f5750142d22e09ca0997afb0bc7b6454409c02df5e2.gz",
+      "published_sha256": "446c3f2ba5035ad7dbf25f5750142d22e09ca0997afb0bc7b6454409c02df5e2",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer,6533 revision, ranges and prior attribution retained; no checkpoint3821, future ordered-role or other-lens transfer."
+    }
+  ],
+  "remaining": "Continue original1687; trace supported equipment graph/command/error producers, actual lighting metric interpretation and churn limits, all13 lenses, queue and aliases. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
