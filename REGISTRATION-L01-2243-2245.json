@@ -1,0 +1,78 @@
+{
+  "schema": "726-source-inspection-registration-v1",
+  "registered_at_utc": "2026-11-11 16:25:17 UTC",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "roles": [
+    {
+      "index": 2243,
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "historical": {
+        "sha256": "8cb7511310b96d6e799dd584a3a6f64270c73ee3abbb50a7f730831938ef2fcf",
+        "ranges": [
+          [
+            1,
+            379
+          ]
+        ]
+      },
+      "current": {
+        "sha256": "352f06a1ddfc9d7be1813161e4ac2365ae813a2f0e751614464fc8adddf9a735",
+        "ranges": [
+          [
+            1,
+            375
+          ]
+        ]
+      },
+      "byte_identical": false
+    },
+    {
+      "index": 2244,
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "historical": {
+        "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+        "ranges": [
+          [
+            1,
+            406
+          ]
+        ]
+      },
+      "current": {
+        "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+        "ranges": [
+          [
+            1,
+            406
+          ]
+        ]
+      },
+      "byte_identical": true
+    },
+    {
+      "index": 2245,
+      "path": "crates/fabelgeist-compute/src/prelude.rs",
+      "historical": {
+        "sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+        "ranges": [
+          [
+            1,
+            16
+          ]
+        ]
+      },
+      "current": {
+        "sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+        "ranges": [
+          [
+            1,
+            16
+          ]
+        ]
+      },
+      "byte_identical": true
+    }
+  ],
+  "qualification": "Prospective registration for distinct historical and current complete source bodies. Changed2243 versions require independent displays; byte-identical others may use current display and exact equality. Prior reviewer attributions remain separate; no checkpoint3821 or other-lens credit; time is not independently attested."
+}

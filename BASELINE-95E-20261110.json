@@ -9537,8 +9537,320 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-HOST-FLOAT-95E.json"
+      },
+      {
+        "id": "ADLER-L11-KERNEL-VALIDATION-ERROR-OWNERSHIP",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          12
+        ],
+        "severity": "unassigned; validation cause identity",
+        "classification": "Original kernel validation finding reconnected: captured pipeline validation is formatted into a generic message at the construction boundary.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/149",
+          "baseline-059/queue.json#/entries/293",
+          "adler/READ-L11-356.json via ASSESSMENT-KERNEL-95E.json",
+          "segovb/READ-L12-740.json via ASSESSMENT-KERNEL-95E.json",
+          "baseline-059/queue.json#/entries/353"
+        ],
+        "relationship_qualification": "Original Adler149 and delegate293 refer to the same selected historical formatting operation; both historical identities remain intact pending full alias review. The current scope-policy source changed and was independently displayed. The standard ComputePipeline formatting in queue353 is a distinct operation and remains separately recorded.",
+        "discovery": "partial; changed current policy, native formatting and shared validation owner traced; uncaptured contexts, other error origins and aliases remain open",
+        "connected_repair_direction": "Retain the native validation cause and contextual operation through the owning compute error boundary, preserving intentional uncaptured-device observation.",
+        "future_acceptance": "After audit and authorization, cover blocking native rejection, distinct progress failure, borrowed context policy and final presentation.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-KERNEL-95E.json"
+      },
+      {
+        "id": "ADLER-L11-KERNEL-CACHE-DEVICE-IDENTITY",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          8,
+          12
+        ],
+        "severity": "unassigned; device identity",
+        "classification": "Original kernel cache finding reconnected: source text alone selects a cached kernel even when a different context is supplied.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/150",
+          "adler/READ-L11-356.json via ASSESSMENT-KERNEL-95E.json",
+          "segovb/READ-L12-741.json via ASSESSMENT-KERNEL-95E.json"
+        ],
+        "relationship_qualification": "Original reviewer and delegate identified the conditional cross-device question. The selected ArmorGpu owns one context and cache; public cache consumers accept independent context. No devices or cache were created.",
+        "discovery": "partial; cache key, dispatch context and selected same-context consumer traced; native resource identity and all sharing remain open",
+        "connected_repair_direction": "Bind cached compiled resources to the actual device identity or enforce a coherent context at cache ownership, without duplicating device authority.",
+        "future_acceptance": "After audit and authorization, cover same-device borrowed contexts, distinct devices, races and normal shared-cache reuse.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-KERNEL-95E.json"
+      },
+      {
+        "id": "ADLER-L11-UNIFORM-ABI-ADMISSION",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          7,
+          8,
+          12
+        ],
+        "severity": "unassigned; reflected uniform ABI",
+        "classification": "Original uniform ABI finding reconnected: reflection omits member kind/shape and fast and standard packers can accept incompatible or omitted values differently.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/151",
+          "baseline-059/queue.json#/entries/295",
+          "adler/READ-L11-356.json via ASSESSMENT-KERNEL-95E.json"
+        ],
+        "relationship_qualification": "Original Adler151 already required the standard-packer and missing-field trace; delegate295 separately owns the cached missing-reason identity. Symbolic values and layouts were not executed.",
+        "discovery": "partial; current member metadata and both packers traced; valid shader admission, padding, producer types and aliases remain open",
+        "connected_repair_direction": "Preserve reflected field kind, shape and layout through typed parameter admission with coherent cached and standard semantics.",
+        "future_acceptance": "After audit and authorization, cover wrong scalar and vector kinds, bounds, padding, missing fields, valid layouts and both dispatch paths.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-KERNEL-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-BUFFER-LOGICAL-ZERO-NONZERO-PANIC",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          7,
+          8,
+          11
+        ],
+        "severity": "unassigned; standard buffer binding admission",
+        "classification": "Original standard-pass zero-logical-buffer finding reconnected: a publicly modified zero logical extent reaches a nonzero-size unwrap.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/352",
+          "segovb/READ-L12-749.json via ASSESSMENT-KERNEL-95E.json"
+        ],
+        "relationship_qualification": "The original delegate749 source finding remains distinct from the cached path's optional-size interpretation. Buffer::new itself rejects zero and no buffer or panic occurred.",
+        "discovery": "partial; current Buffer admission, public mutation and standard binding traced; real callers and native policy remain open",
+        "connected_repair_direction": "Keep logical extent coherent with native binding at the owning buffer/pass boundary and return an explicit result for unsupported empty binding.",
+        "future_acceptance": "After audit and authorization, cover positive and zero logical sizes, checked replacement and standard/cached binding outcomes.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-KERNEL-95E.json"
+      },
+      {
+        "id": "REVIEW-COMPUTE-TYPED-FAILURE-FAMILY-95E",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; compute error identity family",
+        "classification": "Six earlier compute failure reasons remain text-only at distinct source predicates and need a connected typed error owner.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/294",
+          "baseline-059/queue.json#/entries/295",
+          "baseline-059/queue.json#/entries/296",
+          "baseline-059/queue.json#/entries/297",
+          "baseline-059/queue.json#/entries/298",
+          "baseline-059/queue.json#/entries/299"
+        ],
+        "named_subcontracts": [
+          {
+            "id": "SEGOVB-L12-COMPUTE-BUFFER-PARAMETER-REASON",
+            "queue": 294,
+            "first_failure": "missing-or-wrong-buffer admission predicate252 represented as anyhow formatted prose253"
+          },
+          {
+            "id": "SEGOVB-L12-COMPUTE-MISSING-UNIFORM-REASON",
+            "queue": 295,
+            "first_failure": "missing reflected member331 represented as anyhow formatted prose332"
+          },
+          {
+            "id": "SEGOVB-L12-COMPUTE-UNSUPPORTED-UNIFORM-REASON",
+            "queue": 296,
+            "first_failure": "unsupported PassParameter kind368 represented as anyhow formatted prose369"
+          },
+          {
+            "id": "SEGOVB-L12-COMPUTE-MISSING-COMPUTE-ENTRY-REASON",
+            "queue": 297,
+            "first_failure": "actual parsed module lacks compute entrypoint87/88 represented solely as anyhow message at88 before public internal error propagation"
+          },
+          {
+            "id": "SEGOVB-L12-COMPUTE-ZERO-WORKGROUP-REASON",
+            "queue": 298,
+            "first_failure": "actual parsed entry workgroup_size contains0 at92 represented solely as anyhow message at93 before public internal error propagation"
+          },
+          {
+            "id": "SEGOVB-L12-COMPUTE-COPY-BOUNDS-REASON",
+            "queue": 299,
+            "first_failure": "bytes exceeds actual source or destination declared typedBuffer size320 represented solely as anyhow message at321 before public internal error propagation"
+          }
+        ],
+        "relationship_qualification": "The original six reasons and their historical delegate receipts remain separate; grouping common repair dependencies is not an alias or a count of six newly found defects. Native parser reachability and final callers remain open.",
+        "discovery": "partial; exact current error branches traced; native cause composition and presentation remain open",
+        "connected_repair_direction": "Compose distinct missing/wrong buffer, missing/unsupported uniform, compute-entry, workgroup and copy-bounds reasons with native causes at the canonical compute boundary.",
+        "future_acceptance": "After audit and authorization, check each reason, its context, native cause retention and intentionally valid empty dispatch behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-KERNEL-95E.json"
+      },
+      {
+        "id": "REVIEW-FAST-ZERO-LOGICAL-BINDING-95E",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          3,
+          5,
+          6,
+          7,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; cached buffer extent",
+        "classification": "A cached dispatch can describe the whole native buffer when its public logical extent has been changed to zero.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/352",
+          "adler/READ-L11-356.json via ASSESSMENT-KERNEL-95E.json"
+        ],
+        "relationship_qualification": "Original q352 concerns a distinct standard-pass unwrap panic; the cached None binding interpretation is newly traced against the Cargo-locked native source. No device or binding ran.",
+        "discovery": "partial; public logical field, cached optional binding and native None semantics traced; caller reachability and native validation remain open",
+        "connected_repair_direction": "Establish one logical/native buffer extent contract for both dispatch paths, including explicit empty handling.",
+        "future_acceptance": "After audit and authorization, cover positive and zero logical extents, empty binding policy and both paths with correct native resource usage.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-KERNEL-95E.json"
+      },
+      {
+        "id": "REVIEW-KERNEL-VALIDATION-POLL-LOSS-95E",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; native validation progress",
+        "classification": "Kernel pipeline compilation discards the validation-scope polling result before waiting for and formatting the scope outcome.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/149",
+          "baseline-059/queue.json#/entries/293"
+        ],
+        "relationship_qualification": "This current progress-outcome question is distinct from the original native-validation formatting cause. The shared ValidationScope owner has explicit progress variants; no poll or device ran.",
+        "discovery": "partial; changed scope policy and shared result owner traced; actual poll failure behavior, uncaptured contexts and all compiler paths open",
+        "connected_repair_direction": "Preserve native progress and validation outcomes through the existing observation owner where synchronous scopes are allowed.",
+        "future_acceptance": "After audit and authorization, cover progress-only, native-only, combined failures and uncaptured contexts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-KERNEL-95E.json"
+      },
+      {
+        "id": "REVIEW-KERNEL-CACHE-POISON-HANDLING-95E",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; production error handling rule",
+        "classification": "Kernel cache lock access and uniform arena allocation use production unwrap or expect despite the crate rule requiring explicit handling.",
+        "historical_related_records": [
+          "segovb/READ-L12-740.json via ASSESSMENT-KERNEL-95E.json",
+          "segovb/READ-L12-741.json via ASSESSMENT-KERNEL-95E.json"
+        ],
+        "relationship_qualification": "The original delegates already noted the rule cases. Lock poisoning is hypothetical and the arena source establishes a chunk before expect under its normal control flow. No panic ran.",
+        "discovery": "partial; exact source and governing rule traced; lock poison policy and all consumers remain open",
+        "connected_repair_direction": "Handle lock and arena states explicitly at the owning APIs while preserving ordinary cache and allocation behavior.",
+        "future_acceptance": "After audit and authorization, cover normal reuse and explicit poisoned-lock handling without introducing unreachable panic paths.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-KERNEL-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-PIPELINE-VALIDATION-CAUSE-ERASURE",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; standard pipeline cause",
+        "classification": "Original standard GPU pipeline finding reconnected: captured native validation is retained and later reported only as text.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/353",
+          "segovb/READ-L12-749.json via ASSESSMENT-KERNEL-95E.json",
+          "baseline-059/queue.json#/entries/149",
+          "baseline-059/queue.json#/entries/293"
+        ],
+        "relationship_qualification": "Original delegate749 identified the standard ComputePipeline operation; cached kernel scope formatting is a different first owner. Root adoption recorded zero personal rereads. No validation ran.",
+        "discovery": "partial; standard captured-error storage and compile source traced; uncaptured policy, native outcomes and presentation remain open",
+        "connected_repair_direction": "Retain the native pipeline validation cause through the standard pipeline owner while composing it with the separate cached kernel error path.",
+        "future_acceptance": "After audit and authorization, cover native causes, progress failures, cache reuse and uncaptured-device policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-KERNEL-95E.json"
+      },
+      {
+        "id": "REVIEW-GPU-SHADER-PARSE-CAUSES-95E",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; parser cause family",
+        "classification": "Original GLSL and WGSL parser failures lose their native error objects at distinct shared shader parsing branches.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/360",
+          "baseline-059/queue.json#/entries/361",
+          "segovb/READ-L12-749.json via ASSESSMENT-KERNEL-95E.json"
+        ],
+        "named_subcontracts": [
+          {
+            "id": "SEGOVB-L12-GPU-SHADER-GLSL-PARSE-CAUSE-ERASURE",
+            "queue": 360,
+            "first_failure": "NagaGLSL frontend.parse typedcause debugformatted66"
+          },
+          {
+            "id": "SEGOVB-L12-GPU-SHADER-WGSL-PARSE-CAUSE-ERASURE",
+            "queue": 361,
+            "first_failure": "NagaWGSL parse_str typedParseError68 projected to diagnosticString69 then onlytext70"
+          }
+        ],
+        "relationship_qualification": "The original two parser reasons remain separate named subcontracts and their delegate attribution is preserved; grouping repair dependencies is not an alias or new unique-count claim.",
+        "discovery": "partial; current parse branches traced; exact native cause types, consumers and presentation remain open",
+        "connected_repair_direction": "Preserve GLSL and WGSL native parser causes with source diagnostics through the canonical shader parsing boundary.",
+        "future_acceptance": "After audit and authorization, cover both parser families, distinct causes and contextual diagnostic presentation.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-KERNEL-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1623.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1628.json"
 }
