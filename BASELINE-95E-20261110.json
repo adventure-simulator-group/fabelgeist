@@ -522,7 +522,10 @@
           "ADLER-L11-PICKUP-ANCHOR-FRAME"
         ],
         "relationship_qualification": "Recovered 059 first-failure record and later historical qualifications retain original attribution, zero accepted unique-count change and incomplete status. Current server bytes match registered pr-working role 2048; current client bytes differ from historical pr-working role 1475. This separate 95e trace does not credit unread historical role bodies, other lenses or checkpoint 3821.",
-        "correction": "CORRECTION-PICKUP-FRAME-95E.json"
+        "correction": "CORRECTION-PICKUP-FRAME-95E.json",
+        "additional_current_evidence": [
+          "ASSESSMENT-EQUIPMENT-TOPOLOGY-95E.json"
+        ]
       },
       {
         "id": "REVIEW-GRASS-INSTANCED-SEED-HEAD-VERTEX-001",
@@ -7125,8 +7128,84 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-GATE-HANDEDNESS-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-EQUIPMENT-DESTINATION-GUARDED-UNWRAP",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; outside-test rule, no reachable None panic",
+        "classification": "Original059 guarded destination unwrap rule finding independently traced at95e. Both selected match arms already establish Some and the cloned Option is not changed; no reachable None panic is established. Historical unique count and original reviewer attribution remain unchanged.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/273",
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/SEGOVB-L12-EQUIPMENT-DESTINATION-GUARDED-UNWRAP"
+        ],
+        "relationship_qualification": "Original059 finding independently assessed at95e; historical accepted unique-count change stays zero, no3821 promotion.",
+        "discovery": "partial; selected source and authored-catalog census recorded, admission, lifecycle, aliases and policy remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-EQUIPMENT-TOPOLOGY-95E.json"
+      },
+      {
+        "id": "REVIEW-TACTICAL-MIXED-EQUIPMENT-PLACEMENT-001",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional future equipment topology contract; no current stock witness",
+        "classification": "The shared catalog placement shape permits body occupancy and item parent requirements together; strategic equip builds both, but tactical root and attachment selectors exclude that mixed shape. This is a future/admitted-shape contract gap: the authored95e catalog census contains no mixed placement and no runtime behavior was observed.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1746"
+        ],
+        "relationship_qualification": "New95e source analysis linked to an original pending obligation; no checkpoint3821 or historical unique-count claim.",
+        "discovery": "partial; selected source and authored-catalog census recorded, admission, lifecycle, aliases and policy remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-EQUIPMENT-TOPOLOGY-95E.json"
+      },
+      {
+        "id": "REVIEW-TACTICAL-ATTACHMENT-GREEDY-SELECTION-001",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional future equipment topology contract; no current stock witness",
+        "classification": "A hypothetical selected left support plus two same-order requirements, first unsided and second left-sided, makes greedy selection consume the left point too early although right-then-left satisfies both. The authored95e census has only a two-parent sheath with distinct orders; no affected current catalog placement or product result was observed.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1749"
+        ],
+        "relationship_qualification": "New95e source analysis linked to an original pending obligation; no checkpoint3821 or historical unique-count claim.",
+        "discovery": "partial; selected source and authored-catalog census recorded, admission, lifecycle, aliases and policy remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-EQUIPMENT-TOPOLOGY-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1357.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1400.json"
 }
