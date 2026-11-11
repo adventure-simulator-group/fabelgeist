@@ -1,0 +1,53 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2018,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Equality is per role and does not supply unrecorded revision-as-recorded or independent lens credit.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2018",
+      "sha256": "8626aece6d47f2087249b45ecc70c2fc943b600943ac23e3a5eb3c7cbc55619b",
+      "lines": 1248,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1248
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "BOT-BEHAVIOR-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/bot.rs",
+        "sha256": "8626aece6d47f2087249b45ecc70c2fc943b600943ac23e3a5eb3c7cbc55619b",
+        "bytes": 42849,
+        "lines": 1248,
+        "git_blob": "578d143c62f51c6c96109758fecde7444e8aa28d",
+        "preserved_bytes": "main-advance-95e/bot-behavior-evidence/current-2018.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            1248
+          ]
+        ],
+        "qualification": "Full historic body personally read. Byte-identical historic body supplies the current content read, without separate independent reviewer credit. No product ran."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; earlier bounded traces and other reviewer ranges remain separately attributed."
+    }
+  ],
+  "observations": [
+    "Full historical bot module1248 lines personally read through EOF, including source of authored tests; no test, bot, dump or product ran.",
+    "The body matches95e bytes. Segovb676 and Adler313 retain independent original scopes and attribution. Adler313 also includes future roles2019–2025, which do not receive this session personal historical credit."
+  ],
+  "qualification": "Personal historical Lens1 body and bounded current sources; original author, revision, qualification and later-recipient roles remain separate, with no checkpoint3821 claim.",
+  "next_original_role": 2019
+}

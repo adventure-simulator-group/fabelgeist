@@ -6443,8 +6443,138 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-MELEE-REPORT-AGGREGATION-95E.json"
+      },
+      {
+        "id": "REVIEW-BOT-DUMP-RESTORE-CONTROLLER-RESET-001",
+        "lens": 1,
+        "additional_current_lenses": [
+          2,
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; source-backed conditional authority or production-rule contract",
+        "classification": "A restored snapshot that includes a live offensive controller and its declarative behavior must have one explicit authority for the restored controller state.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1689",
+          "segovb/READ-L12-676.json"
+        ],
+        "relationship_qualification": "A bounded exact-term search of recovered059 ledger and queue found no materialize_behavior_packages or OffensiveCombatAi dump record; global alias status and historical unique count remain open. No checkpoint3821 promotion.",
+        "discovery": "partial; selected source and qualified case recorded, policy and global aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-BOT-BEHAVIOR-SNAPSHOT-95E.json"
+      },
+      {
+        "id": "REVIEW-BOT-BEHAVIOR-PACKAGE-CHANGES-001",
+        "lens": 1,
+        "additional_current_lenses": [
+          2,
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; source-backed conditional authority or production-rule contract",
+        "classification": "The retained public behavior-package collection and its installed capability components need an explicit lifecycle authority if packages can change after their initial materialization.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1689",
+          "segovb/READ-L12-676.json"
+        ],
+        "relationship_qualification": "Related to snapshot initialization but a distinct first contract for post-materialization mutation, not an exact alias by common component remedy. Global aliases and support policy remain open.",
+        "discovery": "partial; selected source and qualified case recorded, policy and global aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-BOT-BEHAVIOR-SNAPSHOT-95E.json"
+      },
+      {
+        "id": "REVIEW-INFALLIBLE-SCENE-FIXTURE-EXPECT-001",
+        "lens": 1,
+        "additional_current_lenses": [
+          2,
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; source-backed conditional authority or production-rule contract",
+        "classification": "The default-scene path must avoid a production expect while preserving the distinct native Clap value-parser contract.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1688",
+          "segovb/READ-L12-676.json"
+        ],
+        "relationship_qualification": "The original059 question specifically did not infer a finding merely from String. The connected production caller establishes the separate outside-test expect rule; this is no global alias or historical unique-count claim.",
+        "discovery": "partial; selected source and qualified case recorded, policy and global aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-BOT-BEHAVIOR-SNAPSHOT-95E.json"
+      },
+      {
+        "id": "REVIEW-ENEMY-FIXTURE-DESERIALIZATION-ADMISSION-001",
+        "lens": 1,
+        "additional_current_lenses": [
+          2,
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; source-backed conditional authority or production-rule contract",
+        "classification": "A value that represents an admitted tactical enemy fixture should enforce its roster and version contract on every supported construction or deserialization path.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1688",
+          "segovb/READ-L12-676.json"
+        ],
+        "relationship_qualification": "No exact TacticalEnemyFixture term was found in a bounded recovered059 queue/ledger search. No global alias absence, historical unique-count change or checkpoint3821 inference.",
+        "discovery": "partial; selected source and qualified case recorded, policy and global aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-BOT-BEHAVIOR-SNAPSHOT-95E.json"
+      },
+      {
+        "id": "REVIEW-ENEMY-FIXTURE-COUNT-EXPECT-001",
+        "lens": 1,
+        "additional_current_lenses": [
+          2,
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; source-backed conditional authority or production-rule contract",
+        "classification": "A production count conversion must follow the repository no-unwrap/expect rule and its actual input invariant.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1688",
+          "segovb/READ-L12-676.json"
+        ],
+        "relationship_qualification": "The production expect is a distinct operation from unvalidated deserialization and fake scene-path Result; share evidence as dependencies but do not infer exact aliases or historical counts.",
+        "discovery": "partial; selected source and qualified case recorded, policy and global aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-BOT-BEHAVIOR-SNAPSHOT-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1314.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1318.json"
 }
