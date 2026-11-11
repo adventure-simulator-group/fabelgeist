@@ -1,0 +1,108 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2163,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/language.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original scoped PR-working body matches committed6533 and95e at this exact identity; no independent reviewer or other-lens credit follows.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2163",
+      "sha256": "1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+      "lines": 756,
+      "original_ordered_ranges": [
+        [
+          120,
+          308
+        ],
+        [
+          315,
+          530
+        ]
+      ],
+      "separately_registered_historical_gap_ranges": [
+        [
+          1,
+          119
+        ],
+        [
+          309,
+          314
+        ],
+        [
+          531,
+          756
+        ]
+      ],
+      "new_personal_read_ranges": [
+        [
+          1,
+          756
+        ]
+      ],
+      "connected_gap_registration": {
+        "path": "REGISTRATION-L01-2163-CONNECTED-GAPS.json",
+        "sha256": "21bfdd027628939e1047ee9d72c957885fbca878850a573cf9721f1a7ac19f0d",
+        "qualification": "Local source-gap registration preceded this session display; local timestamp is not independent third-party proof."
+      },
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "LANGUAGE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-world-schema/src/language.rs",
+        "sha256": "1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+        "bytes": 26211,
+        "lines": 756,
+        "git_blob": "65e25a290e2964219a2dc97e48364ff40efc63c0",
+        "preserved_bytes": "main-advance-95e/language-evidence/current-2163.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            756
+          ]
+        ],
+        "qualification": "Identical current bytes do not grant another reviewer or independent other-lens credit."
+      },
+      "qualification": "Original ordered ranges, historical registered gaps and this new full-body Lens1 read remain separate; historical attributions are not transferred."
+    }
+  ],
+  "historical_connected_sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/language/initialization.rs",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_extension": "ROOT-L3-EXT-0028",
+      "historical_object_original_path": "root-l3-extension-20261030/objects/87ffb9656350a955c7a86f75ec43181d59b5a891053f3938da81e8eb5f82d593",
+      "sha256": "87ffb9656350a955c7a86f75ec43181d59b5a891053f3938da81e8eb5f82d593",
+      "bytes": 1983,
+      "lines": 54,
+      "git_blob": "a190e0fa176474e088a8e002af8671788e76bf33",
+      "new_personal_read_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/language-evidence/current-initialization.source.gz",
+      "content_encoding": "gzip",
+      "new_local_registration": {
+        "path": "REGISTRATION-L01-LANGUAGE-INITIALIZATION.json",
+        "sha256": "45ec5aaa3030dab1e1051c66661c3c9daf7521b9fe6b713693c7aac50cf23a8f"
+      },
+      "qualification": "Separately registered connected source, not original role2163 or a new global source identity. Historical independent Lens3 full read and this personal Lens1 body are separate; no3821 credit."
+    }
+  ],
+  "observations": [
+    "The original language body was personally displayed through EOF after separately registering the originally unscoped gaps; initialization was separately registered and read. No test was executed.",
+    "Root Lens12 adoption721 preserves delegate, original scoped ranges and separately registered gaps, zero root personal rereads and zero accepted unique-count change. Adler339 independently read all756. Earlier root Lens3 independently read all756 and separately read initialization54; earlier Lens2 inherited original scoped ranges and personally read only gaps. Earlier e275 current qualifications retain their reuse/reader limitations; no attribution transfers to this Lens1 read or checkpoint3821."
+  ],
+  "qualification": "Original scope, connected gaps, initialization identity and each reader are separately preserved; no checkpoint3821 claim.",
+  "next_original_role": 2164
+}
