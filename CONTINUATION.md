@@ -172,6 +172,9 @@ current authored corpus. Decoder features and actual runtime remain open.
 `ASSESSMENT-L04-FOLLOWUP-WEIGHT-TOTAL-95E.json` extends the earlier
 sampler-overflow question with a pinned dependency and current authored
 weight bound. The hypothetical context and historical attribution remain open.
+`ASSESSMENT-L01-HISTORICAL-975-979.json` preserves the frozen quest
+solver and test-source contracts. Tests were read only; no independent
+current lens is complete.
 `ASSESSMENT-L01-HISTORICAL-969-974.json` preserves separate frozen
 quest assembly, model, projection and sampling reads. Existing historical
 numeric and admission questions remain independently attributed.
