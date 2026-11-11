@@ -82,7 +82,11 @@ expected=['REVIEW-VISTA-TREE-ORIGIN-FRAME-001','REVIEW-VISTA-CARD-NEAR-DISTANCE-
 baseline=load('BASELINE-95E-20261110.json');ledger=baseline['newly_assessed_ledger']['entries']
 for x in a['conditional_findings']:
     assert x['accepted_historical_unique_count_change']==0 and x['repair']=='not started' and x['validation']=='not performed'
-    assert sum(r['id']==x['id'] and r['record']=='ASSESSMENT-VISTA-CARD-BATCHING-95E.json' for r in ledger)==1
+    alias=load('RECONCILIATION-VISTA-TREE-FRAME-95E.json')
+    canonical=alias['canonical_id'] if x['id']==alias['superseded_working_id'] else x['id']
+    assert sum(r['id']==canonical and r['record']=='ASSESSMENT-VISTA-CARD-BATCHING-95E.json' for r in ledger)==1
+    if canonical!=x['id']:
+        assert x['id'] in next(r for r in ledger if r['id']==canonical)['former_working_ids']
 p=load('CONTINUATION-PROGRESS-95E.json');assert p['new_current_ledger_candidates']==len(ledger) and p['lenses_complete']==0 and p['queue_records_semantically_reconciled']==0
 assert load(baseline['latest_main_recheck'])['observed_revision']==revision
 print('Verified five historical roles, native distance provenance and symbolic card gates; no product execution.')

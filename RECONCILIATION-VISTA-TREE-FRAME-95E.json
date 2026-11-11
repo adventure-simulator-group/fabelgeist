@@ -1,0 +1,128 @@
+{
+  "schema": "726-exact-alias-and-current-reassessment-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "canonical_id": "ADLER-L11-VISTA-TREE-PLACEMENT-FRAME",
+  "superseded_working_id": "REVIEW-VISTA-TREE-ORIGIN-FRAME-001",
+  "historical_evidence": {
+    "checkpoint": "059",
+    "ledger": "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-VISTA-TREE-PLACEMENT-FRAME",
+    "queue": "baseline-059/queue.json#/entries/87",
+    "original_reviewer": "Adler Lens11",
+    "original_receipt": "adler/READ-L11-235.json",
+    "later_receipts": [
+      "adler/READ-L11-236.json",
+      "adler/READ-L11-238.json",
+      "adler/READ-L11-241.json"
+    ],
+    "qualification": "The recovered059 ledger and queue preserve Adler attribution, source ranges, ongoing later same-lens observations and original acceptance requirements. They are not checkpoint3821 bytes."
+  },
+  "current_evidence": {
+    "record": "ASSESSMENT-VISTA-CARD-BATCHING-95E.json",
+    "former_candidate_pointer": "/conditional_findings/0",
+    "qualification": "The published earlier assessment remains unchanged and its original wording is historical working evidence. Its use of a new working ID is superseded here by the recovered059 ID; the instancing-specific source comparison remains new95e evidence, not a new historical unique finding."
+  },
+  "identity_reason": "Both describe the same VistaLod candidate local coordinates plus origin used for the tree support query while the emitted tree position remains local. The frozen6533 per-entity Transform is replaced at95e by an instanced position interpreted in world space; the shared first failed frame contract and owner persist. Different representation is a current change, not a distinct root failure.",
+  "distinct_connected_questions": [
+    "REVIEW-VISTA-OWNED-SURFACE-ORIGIN-FRAME-001 concerns the separately traced owned mesh clipping and transformation path; it is related, not automatically an exact alias.",
+    "REVIEW-VISTA-CARD-NEAR-DISTANCE-BEHAVIOR-001 compares separate camera-distance gates and remains a distinct policy question.",
+    "ADLER-L11-VISTA-PLAYABLE-SEAM-FRAME is the earlier shifted sampled-seam/clipping finding; its normal occupied zero-origin safeguard is now independently traced at95e. It is not automatically an alias of tree position, owned mesh, or zero-origin tree seam height."
+  ],
+  "discovery": "partial; historical/current source difference and exact identity reconciled, supported origin producers and global aliases remain open",
+  "historical_accepted_unique_count_change": 0,
+  "checkpoint3821_attribution": "not asserted; final ledger and queue bytes remain missing",
+  "repair": "not started",
+  "validation": "not performed",
+  "owned_origin_counterevidence": {
+    "historical_attribution": "Adler Lens11 ADLER-L11-VISTA-PLAYABLE-SEAM-FRAME at6533 already records that occupied geographic reconstruction excludes nonzero origins; this is distinct from the tree-placement finding.",
+    "current_trace": "At95e GeographicSurface::from_presented_scene returns None for any nonzero LOD origin. TacticalSceneInput::prepare_supported_terrain invokes this reconstruction when grounding is present before installing the property surface; ground_generated_city also invokes it when buildings exist. Therefore the inspected ordinary grounded input path cannot successfully install this owned surface with shifted input rings. The separately inspected normal dispatcher also emits zero origins.",
+    "scope_limit": "The earlier owned-mesh example demonstrates a conditional source-frame mismatch only if a property surface and shifted ring reach that presentation boundary by another supported route. It does not demonstrate that the ordinary grounded producer can supply the combination. Replicated components, event binding, alternate/custom producers, full policy and runtime behavior remain open. This counterevidence narrows the prior working assessment without changing its historical bytes.",
+    "supporting_sources": [
+      {
+        "original_index": 1823,
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source/presented.rs",
+        "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "62b9ee8ef4e79762a0461d366d99a44e77dded7f0a362ea105da1515af8db4ee",
+        "git_blob": "873027f69c6775a821bd37e3c7341326ad9c9c29",
+        "bytes": 9219,
+        "lines": 248,
+        "current_personal_ranges": [
+          [
+            1,
+            103
+          ]
+        ],
+        "preserved_current_bytes": "main-advance-95e/vista-origin-qualification/current-1823.source.gz",
+        "historical_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+        "historical_current_identical": true,
+        "historical_personal_ordered_credit": 0,
+        "qualification": "Current bounded ranges were personally inspected; equal earlier source is Git-proved, not newly full-read in its future historical ordered role. No other-lens or checkpoint3821 credit."
+      },
+      {
+        "original_index": 2699,
+        "path": "crates/adventuresim-tactical-core/src/scene_input/generation/supported.rs",
+        "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "951ac796fe6192eccfebbeca4317a11c29f0ac3697424ddc46973810d05db06b",
+        "git_blob": "fb361cce7e4baecc411cbe9ff3faab3ae49ced41",
+        "bytes": 2242,
+        "lines": 56,
+        "current_personal_ranges": [
+          [
+            1,
+            56
+          ]
+        ],
+        "preserved_current_bytes": "main-advance-95e/vista-origin-qualification/current-2699.source.gz",
+        "historical_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+        "historical_current_identical": true,
+        "historical_personal_ordered_credit": 0,
+        "qualification": "Current bounded ranges were personally inspected; equal earlier source is Git-proved, not newly full-read in its future historical ordered role. No other-lens or checkpoint3821 credit."
+      },
+      {
+        "original_index": 2698,
+        "path": "crates/adventuresim-tactical-core/src/scene_input/generation/grounding.rs",
+        "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "b6b4c68b580f96661e79986758218aaa58f8ac2b89c2414c58f5978f1c55bd80",
+        "git_blob": "a59daf6513c5851c13fdc67a5bbc0065c063b735",
+        "bytes": 3291,
+        "lines": 78,
+        "current_personal_ranges": [
+          [
+            1,
+            75
+          ]
+        ],
+        "preserved_current_bytes": "main-advance-95e/vista-origin-qualification/current-2698.source.gz",
+        "historical_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+        "historical_current_identical": true,
+        "historical_personal_ordered_credit": 0,
+        "qualification": "Current bounded ranges were personally inspected; equal earlier source is Git-proved, not newly full-read in its future historical ordered role. No other-lens or checkpoint3821 credit."
+      },
+      {
+        "original_index": 1964,
+        "path": "crates/adventuresim-tactical-core/src/vista_surface.rs",
+        "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "0238db91b3a926b53a353da8892a2e0ff17018d131529261be5a4cdf2cb8e405",
+        "git_blob": "aaabc328d2ea8563c38944007e64ea05eb0f7213",
+        "bytes": 15643,
+        "lines": 480,
+        "current_personal_ranges": [
+          [
+            1,
+            479
+          ]
+        ],
+        "preserved_current_bytes": "main-advance-95e/vista-origin-qualification/current-1964.source.gz",
+        "historical_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+        "historical_current_identical": true,
+        "historical_personal_ordered_credit": 0,
+        "qualification": "Current bounded ranges were personally inspected; equal earlier source is Git-proved, not newly full-read in its future historical ordered role. No other-lens or checkpoint3821 credit."
+      }
+    ],
+    "git_membership_evidence": "VISTA-ORIGIN-QUALIFICATION-GIT-PROOFS.json"
+  }
+}

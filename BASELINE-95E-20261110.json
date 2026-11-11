@@ -4157,20 +4157,28 @@
         "record": "ASSESSMENT-VISTA-SELECTED-LOD-95E.json"
       },
       {
-        "id": "REVIEW-VISTA-TREE-ORIGIN-FRAME-001",
-        "lens": 8,
+        "id": "ADLER-L11-VISTA-TREE-PLACEMENT-FRAME",
+        "lens": 11,
         "severity": "unassigned; conditional coordinate or visibility policy question",
-        "classification": "New95e source-derived conditional coordinate frame question; earlier6533 output uses the same local-position pattern, and no checkpoint3821 finding is claimed.",
+        "classification": "Recovered059 Adler tree-placement frame finding newly reassessed at95e; the earlier working identifier was an alias, not another independent finding.",
         "historical_related_records": [
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-VISTA-TREE-PLACEMENT-FRAME",
+          "baseline-059/queue.json#/entries/87",
           "baseline-059/queue.json#/entries/1359",
           "baseline-059/queue.json#/entries/1604",
           "baseline-059/queue.json#/entries/1609"
         ],
-        "relationship_qualification": "New95e bounded source assessment; prior6533 behavior and later historical questions retain their revision and scope. Exact aliases and accepted historical count unchanged; no checkpoint3821 transfer.",
+        "relationship_qualification": "The same support-query-versus-native-tree-position first failure and canonical VistaLod frame owner were recorded by Adler at6533 in checkpoint059. The95e instancing trace is a subsequent bounded reassessment; its prior working ID is retained as an alias, no new accepted historical issue or checkpoint3821 transfer.",
         "discovery": "partial; bounded current and earlier source show frame difference for conditional nonzero origin; supported producers and aliases open",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-VISTA-CARD-BATCHING-95E.json"
+        "record": "ASSESSMENT-VISTA-CARD-BATCHING-95E.json",
+        "former_working_ids": [
+          "REVIEW-VISTA-TREE-ORIGIN-FRAME-001"
+        ],
+        "additional_assessments": [
+          "RECONCILIATION-VISTA-TREE-FRAME-95E.json"
+        ]
       },
       {
         "id": "REVIEW-VISTA-CARD-NEAR-DISTANCE-BEHAVIOR-001",
@@ -4200,12 +4208,13 @@
           "baseline-059/queue.json#/entries/1609"
         ],
         "relationship_qualification": "New95e bounded source assessment with earlier6533 reviewer dependency explicitly retained. Exact alias and accepted historical count unchanged; no checkpoint3821 transfer.",
-        "discovery": "partial; symbolic source frame and historical context traced, supported producer and alias status open",
+        "discovery": "partial; conditional source frame traced, but ordinary grounded reconstruction rejects shifted rings; alternate producer, origin policy and alias status open",
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-VISTA-SURFACE-FRAMES-95E.json",
         "additional_assessments": [
-          "ASSESSMENT-OWNED-GROUND-SUPPORT-95E.json"
+          "ASSESSMENT-OWNED-GROUND-SUPPORT-95E.json",
+          "RECONCILIATION-VISTA-TREE-FRAME-95E.json"
         ]
       },
       {
@@ -4242,8 +4251,23 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-OWNED-GROUND-SUPPORT-95E.json"
+      },
+      {
+        "id": "ADLER-L11-VISTA-PLAYABLE-SEAM-FRAME",
+        "lens": 11,
+        "severity": "unassigned; conditional shifted sampled-seam frame question",
+        "classification": "Recovered059 Adler finding independently reconnected to byte-identical bounded95e source; no new historical finding or checkpoint3821 transfer.",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-VISTA-PLAYABLE-SEAM-FRAME",
+          "baseline-059/queue.json#/entries/112"
+        ],
+        "relationship_qualification": "Retain original Adler source evidence, acceptance and 6533 revision. At95e the same helper source remains byte-identical; occupied geographic reconstruction rejects offset rings, while other supported producers and runtime remain unproved. Related tree/owned/seam-height questions are not automatically exact aliases.",
+        "discovery": "partial; current public helper source and ordinary grounded zero-origin safeguard traced; alternate producer, affected consumers and global aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "RECONCILIATION-VISTA-TREE-FRAME-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0823.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0828.json"
 }
