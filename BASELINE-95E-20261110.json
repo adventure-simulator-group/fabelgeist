@@ -13267,7 +13267,10 @@
         "future_acceptance": "After audit and authorization, cover accepted values and the chosen boundary behavior.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-HAIR-GUIDES-95E.json"
+        "record": "ASSESSMENT-HAIR-GUIDES-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-HAIRDO-GROOM-95E.json"
+        ]
       },
       {
         "id": "REVIEW-HAIR-GUIDE-PATH-INDEX-95E",
@@ -13323,7 +13326,10 @@
         "future_acceptance": "After audit and authorization, cover accepted values and the chosen boundary behavior.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-HAIR-GUIDES-95E.json"
+        "record": "ASSESSMENT-HAIR-GUIDES-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-HAIRDO-GROOM-95E.json"
+        ]
       },
       {
         "id": "REVIEW-HAIR-GUIDE-BOUNDARY-COUNT-95E",
@@ -13519,8 +13525,61 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-HAIR-GPU-MODULE-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-CONNECTED-HAIR-CURVE-RESAMPLE-INPUT-EXTENT-ADMISSION",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11,
+          13
+        ],
+        "severity": "unassigned; historical resample extent contract",
+        "classification": "Public resample_into280 accepts source0/1 and nonemptyout then reads lengths[segment+1]290 before segmentadmission",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/381",
+          "segovb/READ-L12-760.json via ASSESSMENT-HAIRDO-GROOM-95E.json"
+        ],
+        "relationship_qualification": "Original delegate760 first contract retained; the selected fringe/hairdo path is a conditional current producer, not an independent unique historical finding.",
+        "discovery": "partial; selected source, one-point path reasoning and previous attribution traced; fringe validity, other producers and exact aliases open",
+        "connected_repair_direction": "Admit or handle short source paths before resampling and align producer length policy with the selected behavior.",
+        "future_acceptance": "After audit and authorization, cover empty, one-point and multi-point input through supported callers.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HAIRDO-GROOM-95E.json"
+      },
+      {
+        "id": "REVIEW-HAIR-GUIDE-POINTS-ADMISSION-95E",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          2,
+          4,
+          5,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; direct guide point admission",
+        "classification": "Public Hairdo.guides accepts raw point count before a downstream constructor requires at least two.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/378",
+          "segovb/READ-L12-754.json via ASSESSMENT-HAIRDO-GROOM-95E.json"
+        ],
+        "relationship_qualification": "The original q378 concerns default Strands and is related, not silently aliased; selected Look.guides passes64. No guide generation ran.",
+        "discovery": "partial; direct API, target constructor and selected ordinary caller traced; supported zero/one policy and all producers open",
+        "connected_repair_direction": "Admit or normalize points at the owning guide-generation boundary with an explicit minimum.",
+        "future_acceptance": "After audit and authorization, cover zero, one and normal point counts through each supported guide API.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HAIRDO-GROOM-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1821.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1827.json"
 }

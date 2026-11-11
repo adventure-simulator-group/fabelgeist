@@ -1,0 +1,141 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2290,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/groom.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2290",
+      "original_locator": "crates/fabelgeist-hair/src/groom.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 48,
+          "read_ranges": [
+            [
+              1,
+              79
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-011",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              79
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "083ab47dd800216d8bbcd584b64aa7851587f5e88bd459c449d0d429793f23cf",
+      "lines": 79,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "HAIRDO-GROOM-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2290-2291.json",
+        "sha256": "e5c92425b9d5048f95d000b2d86a3b54470ea5d0f6eea234458a4aa740c172e5"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 and current95e roles2290–2291 are byte-identical; complete current body displayed after local registration. Historical reviewer attribution is not transferred.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-hair/src/groom.rs",
+        "sha256": "083ab47dd800216d8bbcd584b64aa7851587f5e88bd459c449d0d429793f23cf",
+        "bytes": 2539,
+        "lines": 79,
+        "git_blob": "394134ff71049b7b25d4d02441daa71a00064875",
+        "preserved_bytes": "main-advance-95e/hairdo-groom-evidence/current-2290.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            79
+          ]
+        ],
+        "qualification": "Current full body displayed after registration. The identical historical body is bound by its hash and Git tree; no product code was executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim."
+    },
+    {
+      "original_index": 2291,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/hairdo.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2291",
+      "original_locator": "crates/fabelgeist-hair/src/hairdo.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 104,
+          "read_ranges": [
+            [
+              1,
+              710
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14",
+      "lines": 710,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "HAIRDO-GROOM-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2290-2291.json",
+        "sha256": "e5c92425b9d5048f95d000b2d86a3b54470ea5d0f6eea234458a4aa740c172e5"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          710
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 and current95e roles2290–2291 are byte-identical; complete current body displayed after local registration. Historical reviewer attribution is not transferred.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-hair/src/hairdo.rs",
+        "sha256": "7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14",
+        "bytes": 28924,
+        "lines": 710,
+        "git_blob": "3949e0448856562442d7079cea95529aef6ac02b",
+        "preserved_bytes": "main-advance-95e/hairdo-groom-evidence/current-2291.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            710
+          ]
+        ],
+        "qualification": "Current full body displayed after registration. The identical historical body is bound by its hash and Git tree; no product code was executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim."
+    }
+  ],
+  "observations": [
+    "Original6533 Groom2290 full79 and Hairdo2291 full710 match current95e byte-for-byte and were newly displayed after local registration. Earlier full current support display2290 and bounded current2291 support views retain their original attribution and zero ordered credit.",
+    "Original rig supplier read both source bodies fully; producer supplement RIG-PPS-011 explicitly recorded2290. Adler365 personally read2290; Adler366 personally read2291. Original Lens12 delegate754 independently read both fully, and root adoption recorded zero personal rereads, zero unique change and no other-lens transfer.",
+    "Original delegate754 already proved guide_count returns only110/140/160 and that grow_reporting constant-true callback cannot return cancellation None; those are historic reviewer observations, not newly invented. Earlier delegate760 owns the separately recorded resample and Strand state questions."
+  ],
+  "qualification": "Separate supplier, producer and historical reviewers, prior connected current views and new registered ordered source displays remain distinct; no checkpoint3821 promotion. Local registration time not independently attested.",
+  "next_original_role": 2292
+}

@@ -1,0 +1,732 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2290–2291 grooming and hairdo sources; selected haircut, strand and producer evidence and original historical records.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2290-2291.json",
+  "git_membership_evidence": "HAIRDO-GROOM-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/fabelgeist-hair/src/haircut.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2f15779431faf91da819915cfe40771a4161f4c2",
+      "sha256": "707b015e87fe4c3b69df96658a1f904b186775ff7d80b7e3f2a3b68fb9a0f02b",
+      "bytes": 12855,
+      "lines": 409,
+      "ranges": [
+        [
+          104,
+          142
+        ],
+        [
+          144,
+          174
+        ],
+        [
+          315,
+          320
+        ],
+        [
+          333,
+          359
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hairdo-groom-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges credited; complete bytes preserved without other future-role credit."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/strands.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "73594775643839d9ee3755ac9b84b8e6f5c71b1e",
+      "sha256": "5a3bb021b299493d92f25c9aca9d2fc24fd46c9f0fa66c97aa5845996f6f6f29",
+      "bytes": 14821,
+      "lines": 448,
+      "ranges": [
+        [
+          25,
+          65
+        ],
+        [
+          189,
+          200
+        ],
+        [
+          279,
+          298
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hairdo-groom-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges credited; complete bytes preserved without other future-role credit."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/look.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "00f465173e02af5239d89591c2143234fc97c20d",
+      "sha256": "81e8743f737a776691275b86117f5b22c8b318ae88c8985f2dcc12f7280b69d5",
+      "bytes": 21029,
+      "lines": 469,
+      "ranges": [
+        [
+          449,
+          457
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hairdo-groom-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges credited; complete bytes preserved without other future-role credit."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/ops/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "821bdd314616d8df693871c2d086ca00ec3a4a96",
+      "sha256": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+      "bytes": 12699,
+      "lines": 347,
+      "ranges": [
+        [
+          79,
+          112
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hairdo-groom-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges credited; complete bytes preserved without other future-role credit."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-HAIR-GUIDES-95E.json",
+    "ASSESSMENT-HAIR-GPU-MODULE-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Conditional single-point guide and resampling",
+      "trace": "Haircut.length clamps the ordinary non-fringe branch to at least0.0005, but a matching Fringe returns 0.1 + drop earlier. With a matching fringe, directly supplied drop=-0.1, zero variation and dome0, the static length expression is zero; Hairdo.comb starts with one root and has zero steps, then guides passes that one-point path to resample_into with a nonempty output. arc_lengths makes one length and resample_into indexes lengths[1].",
+      "remaining": "This depends on a matching sampled root, admissibility of a negative fringe drop, a finite otherwise valid head and prior operations succeeding. No hairdo, loop, sampler or panic ran. Original q381 is the existing first resampling contract; this is a connected producer, not a duplicate unique finding."
+    },
+    {
+      "contract": "Guide point admission",
+      "trace": "Public Hairdo.guides takes raw usize points and ultimately calls Strands::with_capacity, whose constructor asserts at least two. A direct zero-points call has no local points admission. Look.guides instead passes64; Groom.grow_while normalizes its requested points with max(2).",
+      "remaining": "The failure is conditional on the direct API and earlier source operations succeeding, with zero-count semantics unchosen. Historical q378 concerns a separate default Strands admission first cut. No guide creation ran."
+    },
+    {
+      "contract": "Already established source guarantees",
+      "trace": "Hairdo.guide_count selects110/140/160; its count*40 and the GPU recipient therefore stay below u32 capacity. Original delegate754 already established this. Groom.grow_reporting supplies an always-true cancellation closure to grow_while, which returns Some after the operations, so the expect does not fail by ordinary cancellation.",
+      "remaining": "Historical source reviewer attribution is preserved; neither guarantee covers extreme hair lengths, surface admission, panics inside operations or runtime outcomes."
+    },
+    {
+      "contract": "Typed flow and report labels",
+      "trace": "Hairdo keeps arrangement-derived flow in an enum with payloads, parting uses typed variants and the braid producer supplies three lanes. Groom records Op.name only for human-readable reporting and executes typed Op values.",
+      "remaining": "Native shader encoding, all producer shapes and cancellation effects remain separate; final diagnostic strings are not treated as internal classifier defects. Source tests were read only."
+    }
+  ],
+  "reconnected_historical_findings": [
+    {
+      "id": "SEGOVB-L12-CONNECTED-HAIR-CURVE-RESAMPLE-INPUT-EXTENT-ADMISSION",
+      "queue": 381,
+      "qualification": "Original resampling first contract; selected fringe/guide producer is conditional and does not confer full reconciliation."
+    }
+  ],
+  "new_current_candidates": [
+    {
+      "id": "REVIEW-HAIR-GUIDE-POINTS-ADMISSION-95E",
+      "qualification": "Distinct direct guide API admission question; default Strand state remains separate."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-220.json",
+      "sha256": "5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389",
+      "bytes": 22794,
+      "git_blob": "952796dee871a39c4b4718abe1f720b50bb7332d",
+      "preserved_bytes": "recovered/hairdo-groom-059/5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389.gz",
+      "published_sha256": "5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389",
+      "published_bytes": 22794,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-354.json",
+      "sha256": "f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2",
+      "bytes": 12620,
+      "git_blob": "bec980cdd0cb93891828d4b5a7a690c936ae6b37",
+      "preserved_bytes": "recovered/hairdo-groom-059/f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2.gz",
+      "published_sha256": "f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2",
+      "published_bytes": 12620,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-355.json",
+      "sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "bytes": 15195,
+      "git_blob": "3bf9dd51f997220de36ab9528a052022572cb545",
+      "preserved_bytes": "recovered/hairdo-groom-059/05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207.gz",
+      "published_sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "published_bytes": 15195,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-356.json",
+      "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "bytes": 24598,
+      "git_blob": "15a9edc19d117a4470ab7e4837f4c3e753517b00",
+      "preserved_bytes": "recovered/hairdo-groom-059/f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c.gz",
+      "published_sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "published_bytes": 24598,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-357.json",
+      "sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "bytes": 8858,
+      "git_blob": "b94f820a6f2779d892638a70cec91d691ea25e25",
+      "preserved_bytes": "recovered/hairdo-groom-059/6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6.gz",
+      "published_sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "published_bytes": 8858,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-358.json",
+      "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d",
+      "bytes": 14390,
+      "git_blob": "b0548779064b890ccda7b7f09995c3d954394767",
+      "preserved_bytes": "recovered/hairdo-groom-059/044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d.gz",
+      "published_sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d",
+      "published_bytes": 14390,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-359.json",
+      "sha256": "510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f",
+      "bytes": 5718,
+      "git_blob": "534c71620b715e73261570e4933aed838ffde588",
+      "preserved_bytes": "recovered/hairdo-groom-059/510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f.gz",
+      "published_sha256": "510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f",
+      "published_bytes": 5718,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-360.json",
+      "sha256": "6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9",
+      "bytes": 10355,
+      "git_blob": "dcbb2f5ad255bfc9555a54bd65200f84331b3302",
+      "preserved_bytes": "recovered/hairdo-groom-059/6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9.gz",
+      "published_sha256": "6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9",
+      "published_bytes": 10355,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-361.json",
+      "sha256": "a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31",
+      "bytes": 14000,
+      "git_blob": "744f0ca5c64ce4a66244ce8881b1975b4a58a4d5",
+      "preserved_bytes": "recovered/hairdo-groom-059/a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31.gz",
+      "published_sha256": "a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31",
+      "published_bytes": 14000,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-362.json",
+      "sha256": "eac4ba1b74b56e05ab2e57a8722b895d135f64232c40bf11f008aadb264a1b6c",
+      "bytes": 5840,
+      "git_blob": "1b262e91e7425b0aca6dd8b573570702374af696",
+      "preserved_bytes": "recovered/hairdo-groom-059/eac4ba1b74b56e05ab2e57a8722b895d135f64232c40bf11f008aadb264a1b6c.gz",
+      "published_sha256": "eac4ba1b74b56e05ab2e57a8722b895d135f64232c40bf11f008aadb264a1b6c",
+      "published_bytes": 5840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-363.json",
+      "sha256": "655ae24929bef717417d071eb4bd754ce35be0eba987589cefd11e693dfe2e2e",
+      "bytes": 17910,
+      "git_blob": "f2e0003dcbc1d7a451a6c51df2dfc89fbf3c22ef",
+      "preserved_bytes": "recovered/hairdo-groom-059/655ae24929bef717417d071eb4bd754ce35be0eba987589cefd11e693dfe2e2e.gz",
+      "published_sha256": "655ae24929bef717417d071eb4bd754ce35be0eba987589cefd11e693dfe2e2e",
+      "published_bytes": 17910,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-364.json",
+      "sha256": "8b39f65b50bb03918f855fe7aa29c444817b1e3ce47a9900e1a135b5222b2c86",
+      "bytes": 10812,
+      "git_blob": "404f67ba8ba50a9362cb5324a4c268a374d6d52d",
+      "preserved_bytes": "recovered/hairdo-groom-059/8b39f65b50bb03918f855fe7aa29c444817b1e3ce47a9900e1a135b5222b2c86.gz",
+      "published_sha256": "8b39f65b50bb03918f855fe7aa29c444817b1e3ce47a9900e1a135b5222b2c86",
+      "published_bytes": 10812,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-365.json",
+      "sha256": "1290ed4828cfb712f340ab43721dfb1adb581bcb91426418e72004248fdb7864",
+      "bytes": 7835,
+      "git_blob": "57a2729dd95be00d6d34525cd548ee9f307a08f5",
+      "preserved_bytes": "recovered/hairdo-groom-059/1290ed4828cfb712f340ab43721dfb1adb581bcb91426418e72004248fdb7864.gz",
+      "published_sha256": "1290ed4828cfb712f340ab43721dfb1adb581bcb91426418e72004248fdb7864",
+      "published_bytes": 7835,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-366.json",
+      "sha256": "c1bde972fa539c28ed68b8b6e5b95659af52c690bbee8af7dbe2bf5518868b64",
+      "bytes": 11710,
+      "git_blob": "fca86575e16670b1c6631575ffb9383af2f46e09",
+      "preserved_bytes": "recovered/hairdo-groom-059/c1bde972fa539c28ed68b8b6e5b95659af52c690bbee8af7dbe2bf5518868b64.gz",
+      "published_sha256": "c1bde972fa539c28ed68b8b6e5b95659af52c690bbee8af7dbe2bf5518868b64",
+      "published_bytes": 11710,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1148.json",
+      "sha256": "499e51566bf53ff316287a716f6f20e538ea0b36e8e54417a4d771d6a8cc282b",
+      "bytes": 785,
+      "git_blob": "fe9aee23a0a8cc6e1b2f7a0b5a2a9c9b0e057870",
+      "preserved_bytes": "recovered/hairdo-groom-059/499e51566bf53ff316287a716f6f20e538ea0b36e8e54417a4d771d6a8cc282b.gz",
+      "published_sha256": "499e51566bf53ff316287a716f6f20e538ea0b36e8e54417a4d771d6a8cc282b",
+      "published_bytes": 785,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1149.json",
+      "sha256": "7d2c46ea2d0048011bb845dfbc40a029dbc68a22882220333bc14b6fdf799c71",
+      "bytes": 781,
+      "git_blob": "03c37f6587e4de997e1c1dd1d4cb6d535e865431",
+      "preserved_bytes": "recovered/hairdo-groom-059/7d2c46ea2d0048011bb845dfbc40a029dbc68a22882220333bc14b6fdf799c71.gz",
+      "published_sha256": "7d2c46ea2d0048011bb845dfbc40a029dbc68a22882220333bc14b6fdf799c71",
+      "published_bytes": 781,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1150.json",
+      "sha256": "9bd207e26f6679481b190147334e08a0cc7776d33be72737fa4e1af0737b33b6",
+      "bytes": 785,
+      "git_blob": "5dceeaf7e63bddde0f00e9a65ab4fcaaa1bfa382",
+      "preserved_bytes": "recovered/hairdo-groom-059/9bd207e26f6679481b190147334e08a0cc7776d33be72737fa4e1af0737b33b6.gz",
+      "published_sha256": "9bd207e26f6679481b190147334e08a0cc7776d33be72737fa4e1af0737b33b6",
+      "published_bytes": 785,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1152.json",
+      "sha256": "c8708895c8012c7a7dcd3e2632a428dbd79b99f181183c102c6888780d3921a5",
+      "bytes": 781,
+      "git_blob": "b4bd7f49db094bf5220e485408e8daf51126b331",
+      "preserved_bytes": "recovered/hairdo-groom-059/c8708895c8012c7a7dcd3e2632a428dbd79b99f181183c102c6888780d3921a5.gz",
+      "published_sha256": "c8708895c8012c7a7dcd3e2632a428dbd79b99f181183c102c6888780d3921a5",
+      "published_bytes": 781,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1153.json",
+      "sha256": "ffac08c3f8deff746825f08517d4c4a2c26b0aad64996614104371a5abc0a626",
+      "bytes": 787,
+      "git_blob": "8c46d56c46255f32747db10bc9019560d1ed9c64",
+      "preserved_bytes": "recovered/hairdo-groom-059/ffac08c3f8deff746825f08517d4c4a2c26b0aad64996614104371a5abc0a626.gz",
+      "published_sha256": "ffac08c3f8deff746825f08517d4c4a2c26b0aad64996614104371a5abc0a626",
+      "published_bytes": 787,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1154.json",
+      "sha256": "8bded65a5e6658554d5bf21bfa58d2b10658ffbdabffb891f00adf7c8f344aa4",
+      "bytes": 787,
+      "git_blob": "6bc2af1ace7bf05f0fcf3780bcaacc3f54e44523",
+      "preserved_bytes": "recovered/hairdo-groom-059/8bded65a5e6658554d5bf21bfa58d2b10658ffbdabffb891f00adf7c8f344aa4.gz",
+      "published_sha256": "8bded65a5e6658554d5bf21bfa58d2b10658ffbdabffb891f00adf7c8f344aa4",
+      "published_bytes": 787,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1158.json",
+      "sha256": "98aba4f6c2e948763dfee5851d3394abc621a1a0b3a5307e3addfa7f9fed68e8",
+      "bytes": 969,
+      "git_blob": "11848593a35bec02e298209de9decde401a19222",
+      "preserved_bytes": "recovered/hairdo-groom-059/98aba4f6c2e948763dfee5851d3394abc621a1a0b3a5307e3addfa7f9fed68e8.gz",
+      "published_sha256": "98aba4f6c2e948763dfee5851d3394abc621a1a0b3a5307e3addfa7f9fed68e8",
+      "published_bytes": 969,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1159.json",
+      "sha256": "58f4bd89531c700bc9995a08ce37dcb99e02444e251411ec5a4a4c9535a829ec",
+      "bytes": 885,
+      "git_blob": "1ceb4a22e8adf7bd60d48b091e2b2e7b4fa56c44",
+      "preserved_bytes": "recovered/hairdo-groom-059/58f4bd89531c700bc9995a08ce37dcb99e02444e251411ec5a4a4c9535a829ec.gz",
+      "published_sha256": "58f4bd89531c700bc9995a08ce37dcb99e02444e251411ec5a4a4c9535a829ec",
+      "published_bytes": 885,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-365.json",
+      "sha256": "7e823ecad8add3292c03a88ca050a3ba811d371ead5f2eedc72b8e9a6c76bc7d",
+      "bytes": 624,
+      "git_blob": "907a5e05fb707733c907942ca88ab0c509b73361",
+      "preserved_bytes": "recovered/hairdo-groom-059/7e823ecad8add3292c03a88ca050a3ba811d371ead5f2eedc72b8e9a6c76bc7d.gz",
+      "published_sha256": "7e823ecad8add3292c03a88ca050a3ba811d371ead5f2eedc72b8e9a6c76bc7d",
+      "published_bytes": 624,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-366.json",
+      "sha256": "6dd1666424928f24ed828a5c4c62c10fd1eb18becc25b2c0c0795de0725d33eb",
+      "bytes": 657,
+      "git_blob": "76a034e56dd71f57848cb0fe6ca82b1a1c44bded",
+      "preserved_bytes": "recovered/hairdo-groom-059/6dd1666424928f24ed828a5c4c62c10fd1eb18becc25b2c0c0795de0725d33eb.gz",
+      "published_sha256": "6dd1666424928f24ed828a5c4c62c10fd1eb18becc25b2c0c0795de0725d33eb",
+      "published_bytes": 657,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-365.json",
+      "sha256": "3328e0ff40d6de5a5bdadbc629feb59c15a99884a78a3e7afc4a20172b59184c",
+      "bytes": 33336,
+      "git_blob": "1337dd7d2dfe3f0e3a3abcae45ce730611702554",
+      "preserved_bytes": "recovered/hairdo-groom-059/3328e0ff40d6de5a5bdadbc629feb59c15a99884a78a3e7afc4a20172b59184c.gz",
+      "published_sha256": "3328e0ff40d6de5a5bdadbc629feb59c15a99884a78a3e7afc4a20172b59184c",
+      "published_bytes": 33336,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-366.json",
+      "sha256": "af79ef49e5b8f4f5cb0f17f7fbb79249cb3876935a3c461622067cca8393a1dc",
+      "bytes": 38204,
+      "git_blob": "5910d94bd371124c8abb57856701ad743357d6a0",
+      "preserved_bytes": "recovered/hairdo-groom-059/af79ef49e5b8f4f5cb0f17f7fbb79249cb3876935a3c461622067cca8393a1dc.gz",
+      "published_sha256": "af79ef49e5b8f4f5cb0f17f7fbb79249cb3876935a3c461622067cca8393a1dc",
+      "published_bytes": 38204,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-754.json",
+      "sha256": "ee437642a2f6958db50646056baecf16bb730a2afe6af083504c116df6811737",
+      "bytes": 7890,
+      "git_blob": "793cb84a11733313c7e7f3400bad4afe2806d8d2",
+      "preserved_bytes": "recovered/hairdo-groom-059/ee437642a2f6958db50646056baecf16bb730a2afe6af083504c116df6811737.gz",
+      "published_sha256": "ee437642a2f6958db50646056baecf16bb730a2afe6af083504c116df6811737",
+      "published_bytes": 7890,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-760.json",
+      "sha256": "6295a7c638f81cf40d356a21b5a3fd0c4a96a715052a0d0de2dd85c74898700a",
+      "bytes": 13902,
+      "git_blob": "85199a8e571c578aa4fa839578c167665b091da8",
+      "preserved_bytes": "recovered/hairdo-groom-059/6295a7c638f81cf40d356a21b5a3fd0c4a96a715052a0d0de2dd85c74898700a.gz",
+      "published_sha256": "6295a7c638f81cf40d356a21b5a3fd0c4a96a715052a0d0de2dd85c74898700a",
+      "published_bytes": 13902,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-251.json",
+      "sha256": "db4fcb7fffdf52581aa2b596e12ca87d955f64673c4f333797f3a3ccf59bd559",
+      "bytes": 885,
+      "git_blob": "1c3d91e2c37a1acebd2c2eb35c0dba34dd904c3d",
+      "preserved_bytes": "recovered/hairdo-groom-059/db4fcb7fffdf52581aa2b596e12ca87d955f64673c4f333797f3a3ccf59bd559.gz",
+      "published_sha256": "db4fcb7fffdf52581aa2b596e12ca87d955f64673c4f333797f3a3ccf59bd559",
+      "published_bytes": 885,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-252.json",
+      "sha256": "7f4669bd1cfcfb8117f2c8e76c91fb9c672afb94cc87b9674fe9d22e42caa162",
+      "bytes": 891,
+      "git_blob": "6bb38bc8f7abe347315538afdc858387dbe9fff6",
+      "preserved_bytes": "recovered/hairdo-groom-059/7f4669bd1cfcfb8117f2c8e76c91fb9c672afb94cc87b9674fe9d22e42caa162.gz",
+      "published_sha256": "7f4669bd1cfcfb8117f2c8e76c91fb9c672afb94cc87b9674fe9d22e42caa162",
+      "published_bytes": 891,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-253.json",
+      "sha256": "6d4253c74fa0f9c60b02b98fa2edf427e95f00f91d266848c2598e157f6c8884",
+      "bytes": 882,
+      "git_blob": "4ea101f6a2e0655f241dce82966851f1eec600a6",
+      "preserved_bytes": "recovered/hairdo-groom-059/6d4253c74fa0f9c60b02b98fa2edf427e95f00f91d266848c2598e157f6c8884.gz",
+      "published_sha256": "6d4253c74fa0f9c60b02b98fa2edf427e95f00f91d266848c2598e157f6c8884",
+      "published_bytes": 882,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-269.json",
+      "sha256": "09033eebcea3d995ee27cc54b8a87be427d447c73f4f6355d5d97a8997fbd31e",
+      "bytes": 876,
+      "git_blob": "5f67f0dcdde8530d5f3c5d98ebf1577f05b5a149",
+      "preserved_bytes": "recovered/hairdo-groom-059/09033eebcea3d995ee27cc54b8a87be427d447c73f4f6355d5d97a8997fbd31e.gz",
+      "published_sha256": "09033eebcea3d995ee27cc54b8a87be427d447c73f4f6355d5d97a8997fbd31e",
+      "published_bytes": 876,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-754.json",
+      "sha256": "d80f9f90304ecb92e0f041131e252592c33fd1367ef85f0472e73fc9738d5c16",
+      "bytes": 8865,
+      "git_blob": "7a344da10b87b7a279ee3b7f7941c62de2b3e829",
+      "preserved_bytes": "recovered/hairdo-groom-059/d80f9f90304ecb92e0f041131e252592c33fd1367ef85f0472e73fc9738d5c16.gz",
+      "published_sha256": "d80f9f90304ecb92e0f041131e252592c33fd1367ef85f0472e73fc9738d5c16",
+      "published_bytes": 8865,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-760.json",
+      "sha256": "29235f0d29bc1fd2806aa7537aad409f156e01dbaaaf0815e9315f456f3e860d",
+      "bytes": 5646,
+      "git_blob": "31eabc248939ee6efb05a83fef0e21d6795fbec9",
+      "preserved_bytes": "recovered/hairdo-groom-059/29235f0d29bc1fd2806aa7537aad409f156e01dbaaaf0815e9315f456f3e860d.gz",
+      "published_sha256": "29235f0d29bc1fd2806aa7537aad409f156e01dbaaaf0815e9315f456f3e860d",
+      "published_bytes": 5646,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state",
+        "Original059 queue378 historical evidence",
+        "Original059 queue381 historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-754.json",
+      "sha256": "465ca48debbf03718811829f839615adf623e73c6c2272ea88904979e855d9ca",
+      "bytes": 2025,
+      "git_blob": "f43ef6e5a675b6276a6a827163202ffe739bd1c5",
+      "preserved_bytes": "recovered/hairdo-groom-059/465ca48debbf03718811829f839615adf623e73c6c2272ea88904979e855d9ca.gz",
+      "published_sha256": "465ca48debbf03718811829f839615adf623e73c6c2272ea88904979e855d9ca",
+      "published_bytes": 2025,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-760.json",
+      "sha256": "edb174883c87b7bcd199bd2e168dd96be9da6ac3393b907e90418bbe3ac13784",
+      "bytes": 1255,
+      "git_blob": "1df7063cf7d9c9e6981d88d35b27e89cd1e51cbd",
+      "preserved_bytes": "recovered/hairdo-groom-059/edb174883c87b7bcd199bd2e168dd96be9da6ac3393b907e90418bbe3ac13784.gz",
+      "published_sha256": "edb174883c87b7bcd199bd2e168dd96be9da6ac3393b907e90418bbe3ac13784",
+      "published_bytes": 1255,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-754.json",
+      "sha256": "dc76b8289f4d0e516909addb0c34e75b94f5e64a08dd230e2cb3911df736470e",
+      "bytes": 667,
+      "git_blob": "f4ee2075b8fb5da3842f13b975960cb98cd6f204",
+      "preserved_bytes": "recovered/hairdo-groom-059/dc76b8289f4d0e516909addb0c34e75b94f5e64a08dd230e2cb3911df736470e.gz",
+      "published_sha256": "dc76b8289f4d0e516909addb0c34e75b94f5e64a08dd230e2cb3911df736470e",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-760.json",
+      "sha256": "313c2059b6e31790af8541178204636183e9e4bd61aadf37b705231889979c4b",
+      "bytes": 667,
+      "git_blob": "1bfb4152a582c2462f8ddb4a0de8a6f7e90df535",
+      "preserved_bytes": "recovered/hairdo-groom-059/313c2059b6e31790af8541178204636183e9e4bd61aadf37b705231889979c4b.gz",
+      "published_sha256": "313c2059b6e31790af8541178204636183e9e4bd61aadf37b705231889979c4b",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "Rig supplier, producer, separate Adler365/366 and delegate754 full reads and delegate760 resampling finding retain original scopes; original root adoption had zero personal rereads.",
+  "remaining": "Continue original2292 and all thirteen lenses. Fringe and point admission policy, all source producers and exact aliases remain open. Original3821 queue and ledger remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
