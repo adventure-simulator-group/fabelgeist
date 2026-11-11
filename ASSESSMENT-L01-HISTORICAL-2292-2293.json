@@ -1,0 +1,142 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2292,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/lib.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2292",
+      "original_locator": "crates/fabelgeist-hair/src/lib.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 68,
+          "read_ranges": [
+            [
+              1,
+              90
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-011",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              90
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "57c7525f7e70077874384b0491220ff8d9dd427cc3b5e18b8e0f43d5ef5ddff0",
+      "lines": 187,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "HAIR-LOOK-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2292-2293.json",
+        "sha256": "5677204c0cf84f73ca84621700edfbe0177dc20b5d819fc3c6221a19b4dfd331"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 and current95e roles2292–2293 are byte-identical; complete current body displayed after local registration. Historical reviewer attribution is not transferred.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-hair/src/lib.rs",
+        "sha256": "57c7525f7e70077874384b0491220ff8d9dd427cc3b5e18b8e0f43d5ef5ddff0",
+        "bytes": 9438,
+        "lines": 187,
+        "git_blob": "2b0d300f0e2a6e3a770a16677d9f584afa866c01",
+        "preserved_bytes": "main-advance-95e/hair-look-evidence/current-2292.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            187
+          ]
+        ],
+        "qualification": "Current full body displayed after registration. The identical historical body is bound by its hash and Git tree; no product code was executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim."
+    },
+    {
+      "original_index": 2293,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/look.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2293",
+      "original_locator": "crates/fabelgeist-hair/src/look.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 107,
+          "read_ranges": [
+            [
+              1,
+              469
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "81e8743f737a776691275b86117f5b22c8b318ae88c8985f2dcc12f7280b69d5",
+      "lines": 469,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "HAIR-LOOK-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2292-2293.json",
+        "sha256": "5677204c0cf84f73ca84621700edfbe0177dc20b5d819fc3c6221a19b4dfd331"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          469
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 and current95e roles2292–2293 are byte-identical; complete current body displayed after local registration. Historical reviewer attribution is not transferred.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-hair/src/look.rs",
+        "sha256": "81e8743f737a776691275b86117f5b22c8b318ae88c8985f2dcc12f7280b69d5",
+        "bytes": 21029,
+        "lines": 469,
+        "git_blob": "00f465173e02af5239d89591c2143234fc97c20d",
+        "preserved_bytes": "main-advance-95e/hair-look-evidence/current-2293.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            469
+          ]
+        ],
+        "qualification": "Current full body displayed after registration. The identical historical body is bound by its hash and Git tree; no product code was executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim."
+    }
+  ],
+  "observations": [
+    "Original6533 hair facade2292 full187 and Look2293 full469 match current95e byte-for-byte; complete current bodies newly displayed after registration. Earlier bounded Look current views remain separately attributed and confer no ordered credit.",
+    "For facade2292, original rig supplier and producer RIG-PPS-011 read1–90, and Lens12 delegate754 also read only1–90. Adler366 separately registered the missing91–187 before reading1–187. Earlier independent root Lens2 and Lens3 receipts each record their own prospective full1–187 read, with no original population credit or cross-lens transfer.",
+    "For Look2293, original rig supplier, Adler366 and Lens12 delegate755 each read full469; original root adoption had zero personal rereads and zero accepted unique change. Earlier reviewers already identified numeric texture choice and full signed-seed offset concerns.",
+    "Earlier Adler366 personally registered/read future role2306 full140 as same-lens connected evidence with zero original frontier credit; current bounded support ranges preserve that record without advancing ordered2306 or other lenses."
+  ],
+  "qualification": "Earlier original and extension read scopes, identities, authors and no-credit rules remain distinct from current registered reads; no checkpoint3821 promotion. Local time is not independently attested.",
+  "next_original_role": 2294
+}
