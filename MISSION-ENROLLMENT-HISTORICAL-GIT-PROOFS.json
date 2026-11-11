@@ -1,0 +1,626 @@
+{
+  "schema": "726-exact-git-tree-path-membership-v1",
+  "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "shared_commit_and_tree_objects": "EQUIPMENT-HISTORICAL-GIT-PROOFS.json",
+  "additional_shared_tree_objects": [
+    "RUNTIME-FIT-HISTORICAL-GIT-PROOFS.json",
+    "MESH-RIG-HISTORICAL-GIT-PROOFS.json",
+    "SLOT-AUDIO-HISTORICAL-GIT-PROOFS.json",
+    "PLAYER-TRACE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-BOUNDARY-HISTORICAL-GIT-PROOFS.json",
+    "CITY-GPU-HISTORICAL-GIT-PROOFS.json",
+    "CITY-STREAMING-HISTORICAL-GIT-PROOFS.json",
+    "CLOUD-HISTORICAL-GIT-PROOFS.json",
+    "GRAPHICS-HISTORICAL-GIT-PROOFS.json",
+    "GENERATION-HISTORICAL-GIT-PROOFS.json",
+    "WORKER-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-HISTORICAL-GIT-PROOFS.json",
+    "GRASS-CHUNK-HISTORICAL-GIT-PROOFS.json",
+    "LITTER-HISTORICAL-GIT-PROOFS.json",
+    "PEBBLE-HISTORICAL-GIT-PROOFS.json",
+    "PLANT-HISTORICAL-GIT-PROOFS.json",
+    "INTERIOR-HISTORICAL-GIT-PROOFS.json",
+    "ROCK-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SHOOT-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SKELETON-HISTORICAL-GIT-PROOFS.json",
+    "TREE-CROWN-HISTORICAL-GIT-PROOFS.json",
+    "TREE-ASSET-HISTORICAL-GIT-PROOFS.json",
+    "TREE-STREAM-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SCENE-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-MAP-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-SURFACE-HISTORICAL-GIT-PROOFS.json",
+    "SKY-TIME-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-LANDFORM-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-CONTACT-HISTORICAL-GIT-PROOFS.json",
+    "VENUE-TERRAIN-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-SELECTED-LOD-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-CARD-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-SURFACE-HISTORICAL-GIT-PROOFS.json",
+    "OWNED-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-ORIGIN-QUALIFICATION-GIT-PROOFS.json",
+    "VISTA-ZERO-RING-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-SAMPLE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-GROUND-WIRE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-TRAFFIC-CONTEXT-HISTORICAL-GIT-PROOFS.json",
+    "ROAD-WEATHER-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-VIEW-RETENTION-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-ADAPTER-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-STATUS-CENSUS-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-CAMERA-LIFECYCLE-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-REPLACEMENT-HISTORICAL-GIT-PROOFS.json",
+    "CAPTURE-PERSISTENCE-HISTORICAL-GIT-PROOFS.json",
+    "LITTER-CLEARANCE-HISTORICAL-GIT-PROOFS.json",
+    "CATALOG-ROW-HISTORICAL-GIT-PROOFS.json",
+    "WEIGH-HOUSE-HISTORICAL-GIT-PROOFS.json",
+    "PLANT-LOD-ROOT-HISTORICAL-GIT-PROOFS.json",
+    "VIEW-SPEC-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-METRIC-HISTORICAL-GIT-PROOFS.json",
+    "SKY-CAPTURE-HISTORICAL-GIT-PROOFS.json",
+    "WHEEL-CURRENT-HISTORICAL-GIT-PROOFS.json",
+    "CALIBRATION-BOUND-HISTORICAL-GIT-PROOFS.json",
+    "ANIMATION-EVALUATION-HISTORICAL-GIT-PROOFS.json",
+    "LANDING-SETTLE-HISTORICAL-GIT-PROOFS.json",
+    "GAIT-PROFILE-HISTORICAL-GIT-PROOFS.json",
+    "PACK-RESPONSE-HISTORICAL-GIT-PROOFS.json",
+    "SEMANTIC-NAMES-HISTORICAL-GIT-PROOFS.json",
+    "ACTION-STATE-HISTORICAL-GIT-PROOFS.json",
+    "TURN-INTENT-HISTORICAL-GIT-PROOFS.json",
+    "HOME-IDENTITY-HISTORICAL-GIT-PROOFS.json",
+    "GATE-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+    "GARDEN-HISTORICAL-GIT-PROOFS.json",
+    "GROUNDING-HISTORICAL-GIT-PROOFS.json",
+    "FOUNDATION-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-CUTFACE-HISTORICAL-GIT-PROOFS.json",
+    "GEOGRAPHY-GRADE-HISTORICAL-GIT-PROOFS.json",
+    "SUPPORT-INTERVAL-HISTORICAL-GIT-PROOFS.json",
+    "SAMPLED-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-FIXTURES-HISTORICAL-GIT-PROOFS.json",
+    "MOVEMENT-REPORT-HISTORICAL-GIT-PROOFS.json",
+    "MARKET-GEOMETRY-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-CONFIG-HISTORICAL-GIT-PROOFS.json",
+    "LANDFORM-BOUNDS-HISTORICAL-GIT-PROOFS.json",
+    "INVENTORY-CACHE-HISTORICAL-GIT-PROOFS.json",
+    "MARCHING-ADMISSION-HISTORICAL-GIT-PROOFS.json",
+    "QUICKSTEP-FORCE-HISTORICAL-GIT-PROOFS.json",
+    "PRONE-EFFORT-HISTORICAL-GIT-PROOFS.json",
+    "CONDITION-REGIONAL-HISTORICAL-GIT-PROOFS.json",
+    "SHORT-ROUTE-HISTORICAL-GIT-PROOFS.json",
+    "GRADE-BOUNDED-HISTORICAL-GIT-PROOFS.json",
+    "URBAN-BUCKET-HISTORICAL-GIT-PROOFS.json",
+    "ROUNDED-POLYGON-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-CARDINALITY-HISTORICAL-GIT-PROOFS.json",
+    "SCENE-WEATHER-HISTORICAL-GIT-PROOFS.json",
+    "FURNITURE-VISTA-HISTORICAL-GIT-PROOFS.json",
+    "INTERIOR-INSTALL-HISTORICAL-GIT-PROOFS.json",
+    "GARDEN-CLEARANCE-HISTORICAL-GIT-PROOFS.json",
+    "RECIPE-ROAD-HISTORICAL-GIT-PROOFS.json",
+    "TRANSITION-VISTA-HISTORICAL-GIT-PROOFS.json",
+    "LANDFORM-OVERLAP-HISTORICAL-GIT-PROOFS.json",
+    "LANDFORM-CODEC-HISTORICAL-GIT-PROOFS.json",
+    "CLIENT-ENDPOINT-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-DIAGNOSTICS-HISTORICAL-GIT-PROOFS.json",
+    "GROUNDING-REPORT-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-STAGE-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-CONTACT-HISTORICAL-GIT-PROOFS.json",
+    "DISPATCHER-HISTORICAL-GIT-PROOFS.json",
+    "SCENE-MATERIALIZATION-HISTORICAL-GIT-PROOFS.json",
+    "GEOLOGY-ESTABLISHMENT-HISTORICAL-GIT-PROOFS.json",
+    "MELEE-REPORT-HISTORICAL-GIT-PROOFS.json",
+    "MELEE-AGGREGATION-HISTORICAL-GIT-PROOFS.json",
+    "BOT-BEHAVIOR-HISTORICAL-GIT-PROOFS.json",
+    "BOT-REACTION-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-BOUNDARY-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-AUTHORITY-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-CONSEQUENCE-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-IMPACT-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-INGRESS-HISTORICAL-GIT-PROOFS.json",
+    "MELEE-LIFECYCLE-HISTORICAL-GIT-PROOFS.json",
+    "GATE-HANDEDNESS-HISTORICAL-GIT-PROOFS.json",
+    "EQUIPMENT-TOPOLOGY-HISTORICAL-GIT-PROOFS.json",
+    "ITERATION-CLOCKS-HISTORICAL-GIT-PROOFS.json"
+  ],
+  "root_tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+  "additional_tree_objects": {
+    "4d6a80b5c241302a12bd80d9441c02f27b87b498": {
+      "git_object": "4d6a80b5c241302a12bd80d9441c02f27b87b498",
+      "type": "tree",
+      "sha256": "9c8ee9a31c623792317cbbff49d1e3c5006bf7c8934a70708554f0f1659dd326",
+      "bytes": 190,
+      "preserved_bytes": "main-advance-95e/mission-enrollment-evidence/git-objects/4d6a80b5c241302a12bd80d9441c02f27b87b498.tree.gz"
+    }
+  },
+  "paths": {
+    "crates/adventuresim-tactical-server/src/lib.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-server",
+          "mode": "40000",
+          "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+        },
+        {
+          "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+          "name": "src",
+          "mode": "40000",
+          "child": "37162e086b885f355f6758a9249dd223932c4672"
+        },
+        {
+          "tree": "37162e086b885f355f6758a9249dd223932c4672",
+          "name": "lib.rs",
+          "mode": "100644",
+          "child": "58187fcda166f0f6b78167588d51b5660281205a"
+        }
+      ],
+      "git_blob": "58187fcda166f0f6b78167588d51b5660281205a",
+      "sha256": "064901692ab50417dd140de61f50e78b074753457b6084cbc770b833a92369b4",
+      "bytes": 2205,
+      "lines": 51
+    },
+    "crates/adventuresim-tactical-server/src/main.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-server",
+          "mode": "40000",
+          "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+        },
+        {
+          "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+          "name": "src",
+          "mode": "40000",
+          "child": "37162e086b885f355f6758a9249dd223932c4672"
+        },
+        {
+          "tree": "37162e086b885f355f6758a9249dd223932c4672",
+          "name": "main.rs",
+          "mode": "100644",
+          "child": "23d8c064b65c7242f7226fef57a6303aa3556413"
+        }
+      ],
+      "git_blob": "23d8c064b65c7242f7226fef57a6303aa3556413",
+      "sha256": "a52f98db1a5b753a3b5f3d54348ffa36df35e266644e667489c8a1784508b150",
+      "bytes": 28081,
+      "lines": 726
+    },
+    "crates/adventuresim-tactical-server/src/mission/mod.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-server",
+          "mode": "40000",
+          "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+        },
+        {
+          "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+          "name": "src",
+          "mode": "40000",
+          "child": "37162e086b885f355f6758a9249dd223932c4672"
+        },
+        {
+          "tree": "37162e086b885f355f6758a9249dd223932c4672",
+          "name": "mission",
+          "mode": "40000",
+          "child": "4d6a80b5c241302a12bd80d9441c02f27b87b498"
+        },
+        {
+          "tree": "4d6a80b5c241302a12bd80d9441c02f27b87b498",
+          "name": "mod.rs",
+          "mode": "100644",
+          "child": "67729b22c3e2ead9a1a5ed8da0e3eb1b3da5b360"
+        }
+      ],
+      "git_blob": "67729b22c3e2ead9a1a5ed8da0e3eb1b3da5b360",
+      "sha256": "294366e9eac449d161658a404c461baaf901a04a89e96ea87909a819e322e88a",
+      "bytes": 10959,
+      "lines": 362
+    },
+    "crates/adventuresim-tactical-server/src/mission/systems.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-server",
+          "mode": "40000",
+          "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+        },
+        {
+          "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+          "name": "src",
+          "mode": "40000",
+          "child": "37162e086b885f355f6758a9249dd223932c4672"
+        },
+        {
+          "tree": "37162e086b885f355f6758a9249dd223932c4672",
+          "name": "mission",
+          "mode": "40000",
+          "child": "4d6a80b5c241302a12bd80d9441c02f27b87b498"
+        },
+        {
+          "tree": "4d6a80b5c241302a12bd80d9441c02f27b87b498",
+          "name": "systems.rs",
+          "mode": "100644",
+          "child": "7bf1a2d2e98e212a0589e67f266b6d771a6de253"
+        }
+      ],
+      "git_blob": "7bf1a2d2e98e212a0589e67f266b6d771a6de253",
+      "sha256": "cc4bc873f502d3a08fc30a6f3d40d1d0752a81dfdee70651fb2c04737b64d6b8",
+      "bytes": 11106,
+      "lines": 320
+    },
+    "crates/adventuresim-tactical-server/src/mission/terminal.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-server",
+          "mode": "40000",
+          "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+        },
+        {
+          "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+          "name": "src",
+          "mode": "40000",
+          "child": "37162e086b885f355f6758a9249dd223932c4672"
+        },
+        {
+          "tree": "37162e086b885f355f6758a9249dd223932c4672",
+          "name": "mission",
+          "mode": "40000",
+          "child": "4d6a80b5c241302a12bd80d9441c02f27b87b498"
+        },
+        {
+          "tree": "4d6a80b5c241302a12bd80d9441c02f27b87b498",
+          "name": "terminal.rs",
+          "mode": "100644",
+          "child": "42b999e726d5fac2d4120489ab98604a3d8628b8"
+        }
+      ],
+      "git_blob": "42b999e726d5fac2d4120489ab98604a3d8628b8",
+      "sha256": "a381bfd75836c7f9f37ad73df102d94cfb8e8b2afb79592549e12b3ddbde1347",
+      "bytes": 9076,
+      "lines": 303
+    },
+    "crates/adventuresim-tactical-server/src/openings.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-server",
+          "mode": "40000",
+          "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+        },
+        {
+          "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+          "name": "src",
+          "mode": "40000",
+          "child": "37162e086b885f355f6758a9249dd223932c4672"
+        },
+        {
+          "tree": "37162e086b885f355f6758a9249dd223932c4672",
+          "name": "openings.rs",
+          "mode": "100644",
+          "child": "e56d2e58e57f9f834ca79d9010361aabae0ad3a5"
+        }
+      ],
+      "git_blob": "e56d2e58e57f9f834ca79d9010361aabae0ad3a5",
+      "sha256": "e2b631050589329c5b243b414c9ad77d1d394827829ee277f288072d2c460314",
+      "bytes": 2960,
+      "lines": 99
+    }
+  },
+  "earlier_git_comparison": {
+    "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    "root_tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+    "commit_and_shared_trees": "E275-LANDFORM-GIT-PROOFS.json",
+    "paths": {
+      "crates/adventuresim-tactical-server/src/mission/mod.rs": {
+        "proof": {
+          "chain": [
+            {
+              "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+              "name": "crates",
+              "mode": "40000",
+              "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+            },
+            {
+              "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+            },
+            {
+              "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+              "name": "src",
+              "mode": "40000",
+              "child": "37162e086b885f355f6758a9249dd223932c4672"
+            },
+            {
+              "tree": "37162e086b885f355f6758a9249dd223932c4672",
+              "name": "mission",
+              "mode": "40000",
+              "child": "4d6a80b5c241302a12bd80d9441c02f27b87b498"
+            },
+            {
+              "tree": "4d6a80b5c241302a12bd80d9441c02f27b87b498",
+              "name": "mod.rs",
+              "mode": "100644",
+              "child": "67729b22c3e2ead9a1a5ed8da0e3eb1b3da5b360"
+            }
+          ],
+          "git_blob": "67729b22c3e2ead9a1a5ed8da0e3eb1b3da5b360",
+          "sha256": "294366e9eac449d161658a404c461baaf901a04a89e96ea87909a819e322e88a",
+          "bytes": 10959,
+          "lines": 362
+        },
+        "current_preserved_bytes": "main-advance-95e/mission-enrollment-evidence/current-2063.source.gz",
+        "historical_source_id": "e2755a7:crates/adventuresim-tactical-server/src/mission/mod.rs",
+        "historical_assessed_ranges": [
+          [
+            1,
+            220
+          ]
+        ],
+        "historical_fresh_personal_ranges": [],
+        "historical_qualified_reuse_ranges": [
+          [
+            1,
+            220
+          ]
+        ],
+        "frozen_source_adoption_pending_as_recorded": true,
+        "qualification": "Individual e275 Git path equals this95e source body. The original e275 receipt is same-lens reuse with zero new personal reads and expressly records frozen adoption pending; no transfer to95e or3821."
+      },
+      "crates/adventuresim-tactical-server/src/mission/systems.rs": {
+        "proof": {
+          "chain": [
+            {
+              "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+              "name": "crates",
+              "mode": "40000",
+              "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+            },
+            {
+              "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+            },
+            {
+              "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+              "name": "src",
+              "mode": "40000",
+              "child": "37162e086b885f355f6758a9249dd223932c4672"
+            },
+            {
+              "tree": "37162e086b885f355f6758a9249dd223932c4672",
+              "name": "mission",
+              "mode": "40000",
+              "child": "4d6a80b5c241302a12bd80d9441c02f27b87b498"
+            },
+            {
+              "tree": "4d6a80b5c241302a12bd80d9441c02f27b87b498",
+              "name": "systems.rs",
+              "mode": "100644",
+              "child": "7bf1a2d2e98e212a0589e67f266b6d771a6de253"
+            }
+          ],
+          "git_blob": "7bf1a2d2e98e212a0589e67f266b6d771a6de253",
+          "sha256": "cc4bc873f502d3a08fc30a6f3d40d1d0752a81dfdee70651fb2c04737b64d6b8",
+          "bytes": 11106,
+          "lines": 320
+        },
+        "current_preserved_bytes": "main-advance-95e/mission-enrollment-evidence/current-2064.source.gz",
+        "historical_source_id": "e2755a7:crates/adventuresim-tactical-server/src/mission/systems.rs",
+        "historical_assessed_ranges": [
+          [
+            1,
+            320
+          ]
+        ],
+        "historical_fresh_personal_ranges": [],
+        "historical_qualified_reuse_ranges": [
+          [
+            1,
+            320
+          ]
+        ],
+        "frozen_source_adoption_pending_as_recorded": true,
+        "qualification": "Individual e275 Git path equals this95e source body. The original e275 receipt is same-lens reuse with zero new personal reads and expressly records frozen adoption pending; no transfer to95e or3821."
+      },
+      "crates/adventuresim-tactical-server/src/mission/enrollment.rs": {
+        "proof": {
+          "chain": [
+            {
+              "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+              "name": "crates",
+              "mode": "40000",
+              "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+            },
+            {
+              "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+            },
+            {
+              "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+              "name": "src",
+              "mode": "40000",
+              "child": "37162e086b885f355f6758a9249dd223932c4672"
+            },
+            {
+              "tree": "37162e086b885f355f6758a9249dd223932c4672",
+              "name": "mission",
+              "mode": "40000",
+              "child": "4d6a80b5c241302a12bd80d9441c02f27b87b498"
+            },
+            {
+              "tree": "4d6a80b5c241302a12bd80d9441c02f27b87b498",
+              "name": "enrollment.rs",
+              "mode": "100644",
+              "child": "f1ee59791c70c50a3eb0f26dd6f1fbb4d82fab72"
+            }
+          ],
+          "git_blob": "f1ee59791c70c50a3eb0f26dd6f1fbb4d82fab72",
+          "sha256": "9d6646ad8d4c3da14afcf544a8426c44afd33921fc4c39d20f4e2c09a49aa5f1",
+          "bytes": 5703,
+          "lines": 189
+        },
+        "current_preserved_bytes": "main-advance-95e/mission-enrollment-evidence/support-0.source.gz",
+        "historical_source_id": "e2755a7:crates/adventuresim-tactical-server/src/mission/enrollment.rs",
+        "historical_assessed_ranges": [
+          [
+            1,
+            189
+          ]
+        ],
+        "historical_fresh_personal_ranges": [],
+        "historical_qualified_reuse_ranges": [
+          [
+            1,
+            189
+          ]
+        ],
+        "frozen_source_adoption_pending_as_recorded": true,
+        "qualification": "Individual e275 Git path equals this95e source body. The original e275 receipt is same-lens reuse with zero new personal reads and expressly records frozen adoption pending; no transfer to95e or3821."
+      },
+      "crates/adventuresim-tactical-server/src/main.rs": {
+        "proof": {
+          "chain": [
+            {
+              "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+              "name": "crates",
+              "mode": "40000",
+              "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+            },
+            {
+              "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+            },
+            {
+              "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+              "name": "src",
+              "mode": "40000",
+              "child": "37162e086b885f355f6758a9249dd223932c4672"
+            },
+            {
+              "tree": "37162e086b885f355f6758a9249dd223932c4672",
+              "name": "main.rs",
+              "mode": "100644",
+              "child": "23d8c064b65c7242f7226fef57a6303aa3556413"
+            }
+          ],
+          "git_blob": "23d8c064b65c7242f7226fef57a6303aa3556413",
+          "sha256": "a52f98db1a5b753a3b5f3d54348ffa36df35e266644e667489c8a1784508b150",
+          "bytes": 28081,
+          "lines": 726
+        },
+        "current_preserved_bytes": "main-advance-95e/mission-enrollment-evidence/current-2062.source.gz",
+        "historical_source_id": "e2755a7:crates/adventuresim-tactical-server/src/main.rs",
+        "historical_assessed_ranges": [
+          [
+            1,
+            276
+          ]
+        ],
+        "historical_fresh_personal_ranges": [],
+        "historical_qualified_reuse_ranges": [
+          [
+            1,
+            276
+          ]
+        ],
+        "frozen_source_adoption_pending_as_recorded": true,
+        "qualification": "Individual e275 Git path equals this95e source body. The original e275 receipt is same-lens reuse with zero new personal reads and expressly records frozen adoption pending; no transfer to95e or3821."
+      },
+      "crates/adventuresim-tactical-server/src/bot.rs": {
+        "proof": {
+          "chain": [
+            {
+              "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+              "name": "crates",
+              "mode": "40000",
+              "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+            },
+            {
+              "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+            },
+            {
+              "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+              "name": "src",
+              "mode": "40000",
+              "child": "37162e086b885f355f6758a9249dd223932c4672"
+            },
+            {
+              "tree": "37162e086b885f355f6758a9249dd223932c4672",
+              "name": "bot.rs",
+              "mode": "100644",
+              "child": "578d143c62f51c6c96109758fecde7444e8aa28d"
+            }
+          ],
+          "git_blob": "578d143c62f51c6c96109758fecde7444e8aa28d",
+          "sha256": "8626aece6d47f2087249b45ecc70c2fc943b600943ac23e3a5eb3c7cbc55619b",
+          "bytes": 42849,
+          "lines": 1248
+        },
+        "current_preserved_bytes": "main-advance-95e/mission-enrollment-evidence/support-1.source.gz",
+        "historical_source_id": "e2755a7:crates/adventuresim-tactical-server/src/bot.rs",
+        "historical_assessed_ranges": [
+          [
+            1,
+            62
+          ]
+        ],
+        "historical_fresh_personal_ranges": [],
+        "historical_qualified_reuse_ranges": [
+          [
+            1,
+            62
+          ]
+        ],
+        "frozen_source_adoption_pending_as_recorded": true,
+        "qualification": "Individual e275 Git path equals this95e source body. The original e275 receipt is same-lens reuse with zero new personal reads and expressly records frozen adoption pending; no transfer to95e or3821."
+      }
+    },
+    "qualification": "Exact e275 source equality only; the root receipt explicitly reuses earlier own-Lens3 reads with zero fresh personal reads and pending frozen-source adoption."
+  },
+  "qualification": "Raw6533 chains bind original2061–2066, and separate e275 chains bind only the five individually compared mission sources."
+}
