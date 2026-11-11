@@ -1,0 +1,345 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 5,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected dialogue condition and priority aggregate, build/runtime checks, pinned authored response groups and exact-spelling native callers. The aggregate lens remains incomplete.",
+  "source_reasoning": "Static source reading, historical evidence recovery and read-only structural extraction only; no product build, validator, selector, test or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-dialogue/build.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "496c69d1dfb77f6f666e8acbaa627dca4bec473b",
+      "sha256": "cc1742e70ed56b721e25aebb320b2295d621a1f826310a05b1f8771ab968093b",
+      "bytes": 21927,
+      "lines": 580,
+      "ranges": [
+        [
+          84,
+          110
+        ],
+        [
+          218,
+          288
+        ],
+        [
+          389,
+          408
+        ],
+        [
+          526,
+          580
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-priority-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-dialogue/src/authoring_schema.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c74f764ff9c0d7af196810687ad877bd6fb54c1b",
+      "sha256": "5218afbbe83f65f767841fc2de3aea7f09b2b9fff8226085d6ab2ad98f63f6a7",
+      "bytes": 9048,
+      "lines": 347,
+      "ranges": [
+        [
+          162,
+          180
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-priority-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-dialogue/src/condition_validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1dc717494cc66d2fa1885caae5f324ecf2ff4583",
+      "sha256": "00fbc301066749af85fa86ca0ac2e5ca6be75aba4ac99770a9e4a4b2fd0e3c13",
+      "bytes": 1049,
+      "lines": 30,
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-priority-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-dialogue/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f22d9fdd444e756a612d59a63d64f520bda6cb5f",
+      "sha256": "bd30bf8d21bb5152ad8cfdc81e7ff99fc9629f6f3c5d359c156aa4b1e21cd284",
+      "bytes": 65762,
+      "lines": 1785,
+      "ranges": [
+        [
+          1,
+          95
+        ],
+        [
+          438,
+          450
+        ],
+        [
+          615,
+          758
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-priority-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "92c9735c2c7d49e7eca00061cac622348d5fea17",
+      "sha256": "86473c2872a35a61a69775dc2578440eeefe4b620a5414c4aa044ca98bacf412",
+      "bytes": 13850,
+      "lines": 351,
+      "ranges": [
+        [
+          75,
+          115
+        ],
+        [
+          195,
+          240
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-priority-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cff95893978abd26ca4493f9d353343f57d8e68",
+      "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+      "bytes": 40825,
+      "lines": 1095,
+      "ranges": [
+        [
+          945,
+          990
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-priority-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "38943030ed5707b3a7840e6488d797b27fffd4b4",
+      "sha256": "ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa",
+      "bytes": 24372,
+      "lines": 616,
+      "ranges": [
+        [
+          228,
+          255
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-priority-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/dialogue/examples.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3b1b1e0e95544844ae002e17483425edcd8607fb",
+      "sha256": "0b88481c5969b3dba36855dd3f2cdeff3895abda9e9696cd76e1f9eb263dbc7f",
+      "bytes": 2333,
+      "lines": 45,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/dialogue-priority-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/dialogue/organizations.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4f7be7661b9f07270a24926f3d64f26b3b7377ce",
+      "sha256": "57f566bbee311d7f54aa2cb344abbb5b0119fcdf7e321d2a2f2bda43bc2dcf67",
+      "bytes": 26146,
+      "lines": 707,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/dialogue-priority-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/dialogue/services.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3fe3dac15f6925914228d9f989a3fa65c29256ae",
+      "sha256": "72e3e18751e06c9334390f98ed3dec812147d32f089fd7dd4a03429b0c192556",
+      "bytes": 38465,
+      "lines": 246,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/dialogue-priority-sources/09.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "search_evidence": {
+    "path": "main-advance-95e/dialogue-priority-call-search.txt",
+    "sha256": "3079b5f05bbfa37644a5354f02948a8e96fc308fd629c71979a0170b60cef5ed",
+    "bytes": 1747,
+    "query": "git grep for exact select_start_response(, select_response( and adventuresim_dialogue::validate( spellings at the pinned revision",
+    "qualification": "Tracked-source exact spelling only; aliases, indirect calls and external consumers are not excluded."
+  },
+  "corpus_evidence": {
+    "path": "main-advance-95e/dialogue-priority-groups.json",
+    "sha256": "c11933cdae815fce9f419a4b8266478ed91b22869a464fbf8d557498ee854cd5",
+    "bytes": 12310,
+    "qualification": "Read-only structural extraction; group semantics are source reasoning, not execution or product validation."
+  },
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-027.json",
+      "sha256": "255c847ab4f2c58d5c42426b3d9944a8941747c1b28d32359308cbf2e117bc59",
+      "bytes": 16187,
+      "git_blob": "c374950037e8d49f57a653d6be31ea6ab6132c7e",
+      "preserved_bytes": "recovered/dialogue-priority-059/255c847ab4f2c58d5c42426b3d9944a8941747c1b28d32359308cbf2e117bc59.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; attribution and historical scope remain unchanged, with no 3821 or other-lens transfer."
+    }
+  ],
+  "recovered_historical_support": [
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-029.json",
+      "sha256": "afbfe5894da6a3342f00e7a843835c38f573bba121f3298e9984466f6bbc86ed",
+      "bytes": 12455,
+      "git_blob": "85e48e6f80f540555a0b31ce57612185577a01fc",
+      "preserved_bytes": "recovered/dialogue-priority-059/afbfe5894da6a3342f00e7a843835c38f573bba121f3298e9984466f6bbc86ed.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; attribution and historical scope remain unchanged, with no 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VERIFY-PL13-029.json",
+      "sha256": "16e22988617611177e737fbd769358fb6ed4b3c66e7eb7e1dba7bbde8bc62c32",
+      "bytes": 1116,
+      "git_blob": "822198c78d9e4ee709d9c68a718e076b923cbc81",
+      "preserved_bytes": "recovered/dialogue-priority-059/16e22988617611177e737fbd769358fb6ed4b3c66e7eb7e1dba7bbde8bc62c32.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; attribution and historical scope remain unchanged, with no 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-025-032.json",
+      "sha256": "db36f2b12ee71aa0370253bf2ec74cd1d0fadc0396d2efaf9d13570f8b43af63",
+      "bytes": 91599,
+      "git_blob": "8590e50c6679ac054faee5d07b0288d3e74823d1",
+      "preserved_bytes": "recovered/dialogue-priority-059/db36f2b12ee71aa0370253bf2ec74cd1d0fadc0396d2efaf9d13570f8b43af63.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; attribution and historical scope remain unchanged, with no 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/REGISTRATION-PL13-029.json",
+      "sha256": "d6339c5204c47fcc309bc1ee5c893edb2324b1c6680fb50c5eb1bbd21e87e5a0",
+      "bytes": 3056,
+      "git_blob": "bc13bea5359813d846fc7ff860bb1a6caee851e9",
+      "preserved_bytes": "recovered/dialogue-priority-059/d6339c5204c47fcc309bc1ee5c893edb2324b1c6680fb50c5eb1bbd21e87e5a0.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; attribution and historical scope remain unchanged, with no 3821 or other-lens transfer."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/91",
+      "qualification": "Earlier PL13-029 inspected authored data and left priority validator/runtime paths pending, with zero accepted unique findings; retain delegated attribution and do not promote it to checkpoint 3821."
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 165,
+      "source_id": "physical-p16:crates/adventuresim-dialogue/build.rs",
+      "historical_sha256": "cc1742e70ed56b721e25aebb320b2295d621a1f826310a05b1f8771ab968093b",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-165-169.json",
+      "qualification": "Separately attributed full historical Lens 1 read and current byte comparison only; no historical delegate or current aggregate lens coverage transfer."
+    },
+    {
+      "original_index": 166,
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/authoring_schema.rs",
+      "historical_sha256": "5218afbbe83f65f767841fc2de3aea7f09b2b9fff8226085d6ab2ad98f63f6a7",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-165-169.json",
+      "qualification": "Separately attributed full historical Lens 1 read and current byte comparison only; no historical delegate or current aggregate lens coverage transfer."
+    },
+    {
+      "original_index": 169,
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/condition_validation.rs",
+      "historical_sha256": "00fbc301066749af85fa86ca0ac2e5ca6be75aba4ac99770a9e4a4b2fd0e3c13",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-165-169.json",
+      "qualification": "Separately attributed full historical Lens 1 read and current byte comparison only; no historical delegate or current aggregate lens coverage transfer."
+    },
+    {
+      "original_index": 170,
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/lib.rs",
+      "historical_sha256": "bd30bf8d21bb5152ad8cfdc81e7ff99fc9629f6f3c5d359c156aa4b1e21cd284",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-170-172.json",
+      "qualification": "Separately attributed full historical Lens 1 read and current byte comparison only; no historical delegate or current aggregate lens coverage transfer."
+    },
+    {
+      "original_index": 522,
+      "source_id": "pr-working:content/dialogue/examples.yaml",
+      "historical_sha256": "0b88481c5969b3dba36855dd3f2cdeff3895abda9e9696cd76e1f9eb263dbc7f",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-521-524.json",
+      "qualification": "Separately attributed full historical Lens 1 read and current byte comparison only; no historical delegate or current aggregate lens coverage transfer."
+    },
+    {
+      "original_index": 523,
+      "source_id": "pr-working:content/dialogue/organizations.yaml",
+      "historical_sha256": "57f566bbee311d7f54aa2cb344abbb5b0119fcdf7e321d2a2f2bda43bc2dcf67",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-521-524.json",
+      "qualification": "Separately attributed full historical Lens 1 read and current byte comparison only; no historical delegate or current aggregate lens coverage transfer."
+    },
+    {
+      "original_index": 524,
+      "source_id": "pr-working:content/dialogue/services.yaml",
+      "historical_sha256": "72e3e18751e06c9334390f98ed3dec812147d32f089fd7dd4a03429b0c192556",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-521-524.json",
+      "qualification": "Separately attributed full historical Lens 1 read and current byte comparison only; no historical delegate or current aggregate lens coverage transfer."
+    },
+    {
+      "original_index": 1029,
+      "source_id": "pr-working:crates/adventuresim-dialogue/build.rs",
+      "historical_sha256": "cc1742e70ed56b721e25aebb320b2295d621a1f826310a05b1f8771ab968093b",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1021-1030.json",
+      "qualification": "Separately attributed full historical Lens 1 read and current byte comparison only; no historical delegate or current aggregate lens coverage transfer."
+    },
+    {
+      "original_index": 1030,
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/authoring_schema.rs",
+      "historical_sha256": "5218afbbe83f65f767841fc2de3aea7f09b2b9fff8226085d6ab2ad98f63f6a7",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1021-1030.json",
+      "qualification": "Separately attributed full historical Lens 1 read and current byte comparison only; no historical delegate or current aggregate lens coverage transfer."
+    },
+    {
+      "original_index": 1033,
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/condition_validation.rs",
+      "historical_sha256": "00fbc301066749af85fa86ca0ac2e5ca6be75aba4ac99770a9e4a4b2fd0e3c13",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1031-1040.json",
+      "qualification": "Separately attributed full historical Lens 1 read and current byte comparison only; no historical delegate or current aggregate lens coverage transfer."
+    },
+    {
+      "original_index": 1034,
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/lib.rs",
+      "historical_sha256": "bd30bf8d21bb5152ad8cfdc81e7ff99fc9629f6f3c5d359c156aa4b1e21cd284",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1031-1040.json",
+      "qualification": "Separately attributed full historical Lens 1 read and current byte comparison only; no historical delegate or current aggregate lens coverage transfer."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-DIALOGUE-PRIORITY-OVERLAP-001",
+      "severity": "unassigned; possible incomplete authoring preflight with runtime ambiguity rejected",
+      "classification": "Equal-priority semantically overlapping conditions can pass the selected structural admission checks.",
+      "trace": "The shared Condition enum permits Always and All with an empty conditions vector. Both build.rs validate_document and the runtime validate function reject same-priority pairs only when their Condition values compare equal. Their recursive condition-role checks do not reject an empty All. FactContext::matches treats Always as true and an empty All as true by the iterator all rule. select_response_set keeps all highest-priority matches and returns AmbiguousPriority if more than one wins.",
+      "conditional_counterexample": "A hypothetical otherwise valid conversation with two distinct response IDs at priority 0, one conditioned on Always and the other on All with no children, has structurally different conditions that both match every FactContext. Assuming all other authored fields meet their own validators, neither selected equal-condition preflight rejects that pair, but selection returns AmbiguousPriority. This is source reasoning only: no authored file was modified, no build, validator, selector or product code ran.",
+      "corpus_and_consumers": "A read-only structural extraction of all three pinned content/dialogue JSON-formatted YAML files finds seven same-priority response groups. Inspection shows each group distinguishes mutually exclusive values of a common fact key; the suspended-member pair additionally distinguishes a Boolean dues fact. No ambiguous pair from those groups is asserted. The selected native session start maps a start-selection error to a greeting error, and native topic option and prompt paths map response selection errors to a dialogue error. No affected generated catalog, reachable facts, user-visible failure or transaction behavior was observed.",
+      "historical_attribution": "The checkpoint 059 PL13-029 delegate inspected earlier authored priority and cardinality data, explicitly left loader and runtime contracts pending, and accepted zero unique findings. The exact adoption, proposal, verification, validation manifest and registration bytes retain their original attribution. This current source reasoning is not evidence of a finding at checkpoint 3821.",
+      "safeguards_and_limits": "Runtime selection fails closed on an actual highest-priority tie; equal-priority responses are legitimate when conditions are mutually exclusive, as in the selected current corpus. Whether the authoring preflight promises to reject every reachable ambiguity, whether an overlap is reachable under authoritative facts, and handling of missing eligible responses remain policy and connected-scope questions.",
+      "connected_repair": "If preflight is intended to guarantee unambiguous selection, define a sound shared authoring rule for overlapping highest-priority conditions and use it consistently for build and runtime admission, retaining disjoint equal-priority cases and explicit runtime error handling. Trace condition fact producers, generated catalog, session start, option projection and choice/effect consumers before selecting a repair.",
+      "later_acceptance": "Only after separate authorization for implementation and product validation, cover logically equivalent but structurally distinct conditions, partially overlapping reachable facts, disjoint equal-priority cases, higher-priority masking, no eligible responses, and selected native error paths.",
+      "discovery": "partial; preflight policy, all condition producers, alternate callers and connected historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

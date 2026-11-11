@@ -1326,8 +1326,22 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L04-WATER-MODEL-ATOMICITY-95E.json"
+      },
+      {
+        "id": "REVIEW-DIALOGUE-PRIORITY-OVERLAP-001",
+        "lens": 5,
+        "severity": "unassigned; possible incomplete authoring preflight with runtime ambiguity rejected",
+        "classification": "possible incomplete authoring preflight for equal-priority condition overlap, with runtime rejection",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/91"
+        ],
+        "relationship_qualification": "Earlier delegated PL13-029 assessed authored data and explicitly left validator and runtime contracts pending, accepting zero historical unique findings; no checkpoint 3821 transfer.",
+        "discovery": "partial; preflight policy, all condition producers, alternate callers and connected historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L05-DIALOGUE-PRIORITY-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0027.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0040.json"
 }

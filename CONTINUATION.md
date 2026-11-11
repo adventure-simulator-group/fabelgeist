@@ -179,6 +179,11 @@ production database incident or execution is claimed.
 weather, world-event and dialogue source reads. Historical role 1022 differs
 from 95e; the newer fraction operations are not covered by that read. Build
 and test source was inspected only.
+`ASSESSMENT-L01-HISTORICAL-1031-1040.json` preserves dialogue and plant
+generator source reads. Test source was inspected only.
+`ASSESSMENT-L05-DIALOGUE-PRIORITY-95E.json` records a conditional
+authoring preflight gap and the selected runtime ambiguity error. The
+inspected current equal-priority groups use disjoint fact values.
 `ASSESSMENT-L05-SCHEDULE-AGGREGATE-95E.json` records a possible schedule
 aggregate strengthening. Both selected production callers supply matching
 organization minutes; no invalid native schedule was established.

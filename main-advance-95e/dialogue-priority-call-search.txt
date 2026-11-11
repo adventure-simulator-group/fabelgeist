@@ -1,0 +1,10 @@
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-dialogue/src/lib.rs:1042:        assert_eq!(select_response(topic, &f).unwrap().id, "morning");
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-dialogue/src/lib.rs:1100:        let greeting = select_start_response(conversation, &facts).unwrap();
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-dialogue/src/lib.rs:1137:            select_response(profession, &facts).unwrap().id,
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-dialogue/src/lib.rs:1148:        let referral = select_response(profession, &facts).unwrap();
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-dialogue/src/lib.rs:1318:            let start = select_start_response(conversation, facts).expect("eligible greeting");
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-dialogue/src/lib.rs:1334:                let response = select_response(topic, facts).expect("reachable topic response");
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs:969:            let response = adventuresim_dialogue::select_response(topic, &facts)
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs:244:    let response = adventuresim_dialogue::select_response(topic, &facts)
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs:98:    adventuresim_dialogue::validate(adventuresim_dialogue::catalog())
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs:218:        let response = adventuresim_dialogue::select_start_response(conversation, &facts)

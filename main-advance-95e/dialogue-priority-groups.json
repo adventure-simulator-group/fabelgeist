@@ -1,0 +1,475 @@
+{
+  "qualification": "Read-only structural extraction of equal-priority response groups in the three pinned authored JSON files; no product condition evaluator or validator ran.",
+  "groups": [
+    {
+      "file": "content/dialogue/organizations.yaml",
+      "conversation": "organization-representative",
+      "kind": "topic",
+      "label": "organization-business",
+      "priority": 30,
+      "responses": [
+        {
+          "id": "business-for-nonmember",
+          "conditions": {
+            "op": "fact",
+            "key": {
+              "kind": "organization_membership",
+              "player": "player",
+              "representative": "representative"
+            },
+            "equals": "none"
+          }
+        },
+        {
+          "id": "business-for-suspended-member",
+          "conditions": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "fact",
+                "key": {
+                  "kind": "organization_membership",
+                  "player": "player",
+                  "representative": "representative"
+                },
+                "equals": "suspended"
+              },
+              {
+                "op": "fact",
+                "key": {
+                  "kind": "organization_dues_required",
+                  "representative": "representative"
+                },
+                "equals": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "business-for-suspended-member-without-dues",
+          "conditions": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "fact",
+                "key": {
+                  "kind": "organization_membership",
+                  "player": "player",
+                  "representative": "representative"
+                },
+                "equals": "suspended"
+              },
+              {
+                "op": "fact",
+                "key": {
+                  "kind": "organization_dues_required",
+                  "representative": "representative"
+                },
+                "equals": false
+              }
+            ]
+          }
+        },
+        {
+          "id": "business-for-current-member",
+          "conditions": {
+            "op": "fact",
+            "key": {
+              "kind": "organization_membership",
+              "player": "player",
+              "representative": "representative"
+            },
+            "equals": "current"
+          }
+        }
+      ]
+    },
+    {
+      "file": "content/dialogue/organizations.yaml",
+      "conversation": "organization-representative",
+      "kind": "topic",
+      "label": "member-business",
+      "priority": 10,
+      "responses": [
+        {
+          "id": "current-member-with-dues",
+          "conditions": {
+            "op": "fact",
+            "key": {
+              "kind": "organization_dues_required",
+              "representative": "representative"
+            },
+            "equals": true
+          }
+        },
+        {
+          "id": "current-member-without-dues",
+          "conditions": {
+            "op": "fact",
+            "key": {
+              "kind": "organization_dues_required",
+              "representative": "representative"
+            },
+            "equals": false
+          }
+        }
+      ]
+    },
+    {
+      "file": "content/dialogue/organizations.yaml",
+      "conversation": "organization-representative",
+      "kind": "topic",
+      "label": "advancement-business",
+      "priority": 10,
+      "responses": [
+        {
+          "id": "advancement-available",
+          "conditions": {
+            "op": "fact",
+            "key": {
+              "kind": "organization_promotion_available",
+              "player": "player",
+              "representative": "representative"
+            },
+            "equals": true
+          }
+        },
+        {
+          "id": "advancement-unavailable",
+          "conditions": {
+            "op": "fact",
+            "key": {
+              "kind": "organization_promotion_available",
+              "player": "player",
+              "representative": "representative"
+            },
+            "equals": false
+          }
+        }
+      ]
+    },
+    {
+      "file": "content/dialogue/organizations.yaml",
+      "conversation": "organization-representative",
+      "kind": "topic",
+      "label": "presentation-business",
+      "priority": 10,
+      "responses": [
+        {
+          "id": "presentation-available",
+          "conditions": {
+            "op": "fact",
+            "key": {
+              "kind": "organization_presentation",
+              "player": "player",
+              "representative": "representative"
+            },
+            "equals": false
+          }
+        },
+        {
+          "id": "presentation-current",
+          "conditions": {
+            "op": "fact",
+            "key": {
+              "kind": "organization_presentation",
+              "player": "player",
+              "representative": "representative"
+            },
+            "equals": true
+          }
+        }
+      ]
+    },
+    {
+      "file": "content/dialogue/services.yaml",
+      "conversation": "service-professions",
+      "kind": "start",
+      "label": "on_start",
+      "priority": 10,
+      "responses": [
+        {
+          "id": "merchant-greeting",
+          "conditions": {
+            "op": "fact",
+            "key": {
+              "kind": "service",
+              "role": "professional"
+            },
+            "equals": "merchants"
+          }
+        },
+        {
+          "id": "weaponsmith-greeting",
+          "conditions": {
+            "op": "fact",
+            "key": {
+              "kind": "service",
+              "role": "professional"
+            },
+            "equals": "weapons"
+          }
+        },
+        {
+          "id": "armourer-greeting",
+          "conditions": {
+            "op": "fact",
+            "key": {
+              "kind": "service",
+              "role": "professional"
+            },
+            "equals": "armor"
+          }
+        },
+        {
+          "id": "tailor-greeting",
+          "conditions": {
+            "op": "fact",
+            "key": {
+              "kind": "service",
+              "role": "professional"
+            },
+            "equals": "clothing"
+          }
+        },
+        {
+          "id": "innkeeper-greeting",
+          "conditions": {
+            "op": "fact",
+            "key": {
+              "kind": "service",
+              "role": "professional"
+            },
+            "equals": "inn"
+          }
+        }
+      ]
+    },
+    {
+      "file": "content/dialogue/services.yaml",
+      "conversation": "service-professions",
+      "kind": "topic",
+      "label": "profession",
+      "priority": 20,
+      "responses": [
+        {
+          "id": "merchant-profession-referral",
+          "conditions": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "fact",
+                "key": {
+                  "kind": "service",
+                  "role": "professional"
+                },
+                "equals": "merchants"
+              },
+              {
+                "op": "fact",
+                "key": {
+                  "kind": "local_organization_representative",
+                  "role": "professional"
+                },
+                "equals": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "weaponsmith-profession-referral",
+          "conditions": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "fact",
+                "key": {
+                  "kind": "service",
+                  "role": "professional"
+                },
+                "equals": "weapons"
+              },
+              {
+                "op": "fact",
+                "key": {
+                  "kind": "local_organization_representative",
+                  "role": "professional"
+                },
+                "equals": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "armourer-profession-referral",
+          "conditions": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "fact",
+                "key": {
+                  "kind": "service",
+                  "role": "professional"
+                },
+                "equals": "armor"
+              },
+              {
+                "op": "fact",
+                "key": {
+                  "kind": "local_organization_representative",
+                  "role": "professional"
+                },
+                "equals": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "tailor-profession-referral",
+          "conditions": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "fact",
+                "key": {
+                  "kind": "service",
+                  "role": "professional"
+                },
+                "equals": "clothing"
+              },
+              {
+                "op": "fact",
+                "key": {
+                  "kind": "local_organization_representative",
+                  "role": "professional"
+                },
+                "equals": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "innkeeper-profession-referral",
+          "conditions": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "fact",
+                "key": {
+                  "kind": "service",
+                  "role": "professional"
+                },
+                "equals": "inn"
+              },
+              {
+                "op": "fact",
+                "key": {
+                  "kind": "local_organization_representative",
+                  "role": "professional"
+                },
+                "equals": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "file": "content/dialogue/services.yaml",
+      "conversation": "service-professions",
+      "kind": "topic",
+      "label": "profession",
+      "priority": 10,
+      "responses": [
+        {
+          "id": "merchant-profession",
+          "conditions": {
+            "op": "fact",
+            "key": {
+              "kind": "service",
+              "role": "professional"
+            },
+            "equals": "merchants"
+          }
+        },
+        {
+          "id": "weaponsmith-profession",
+          "conditions": {
+            "op": "fact",
+            "key": {
+              "kind": "service",
+              "role": "professional"
+            },
+            "equals": "weapons"
+          }
+        },
+        {
+          "id": "armourer-profession",
+          "conditions": {
+            "op": "fact",
+            "key": {
+              "kind": "service",
+              "role": "professional"
+            },
+            "equals": "armor"
+          }
+        },
+        {
+          "id": "tailor-profession",
+          "conditions": {
+            "op": "fact",
+            "key": {
+              "kind": "service",
+              "role": "professional"
+            },
+            "equals": "clothing"
+          }
+        },
+        {
+          "id": "herbalist-profession",
+          "conditions": {
+            "op": "fact",
+            "key": {
+              "kind": "service",
+              "role": "professional"
+            },
+            "equals": "herbalist"
+          }
+        },
+        {
+          "id": "physician-profession",
+          "conditions": {
+            "op": "fact",
+            "key": {
+              "kind": "service",
+              "role": "professional"
+            },
+            "equals": "physician"
+          }
+        },
+        {
+          "id": "surgeon-profession",
+          "conditions": {
+            "op": "fact",
+            "key": {
+              "kind": "service",
+              "role": "professional"
+            },
+            "equals": "surgeon"
+          }
+        },
+        {
+          "id": "innkeeper-profession",
+          "conditions": {
+            "op": "fact",
+            "key": {
+              "kind": "service",
+              "role": "professional"
+            },
+            "equals": "inn"
+          }
+        }
+      ]
+    }
+  ]
+}
