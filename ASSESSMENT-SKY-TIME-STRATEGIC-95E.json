@@ -1,0 +1,602 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Three historical sky/strategic roles, bounded current time and product sources and local pinned-channel Rust numeric documentation.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1623-1625.json",
+  "git_membership_evidence": "SKY-TIME-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-world-schema/src/calendar.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3bb463487d89fa1040b72d7708f7e641d5e61cec",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "bytes": 25367,
+      "lines": 698,
+      "ranges": [
+        [
+          1,
+          135
+        ],
+        [
+          245,
+          273
+        ],
+        [
+          324,
+          325
+        ],
+        [
+          380,
+          398
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sky-time-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No future historical role, other-lens, compiler, fixture or runtime credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-core/src/celestial.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c362a617103337e2865de59b21695b0ad4e6934d",
+      "sha256": "c31595528b5df5ab5137bb15789e202abcc096187f12ba1f5f207d7299726b06",
+      "bytes": 6834,
+      "lines": 169,
+      "ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sky-time-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No future historical role, other-lens, compiler, fixture or runtime credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ce5e205c98dc45232f19e7762729c8a9a59ebac4",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "bytes": 39530,
+      "lines": 1026,
+      "ranges": [
+        [
+          166,
+          204
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sky-time-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No future historical role, other-lens, compiler, fixture or runtime credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/descriptor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2c4201a9ec21590b4961ca955b3f4370d5841a7e",
+      "sha256": "2b30929bb687f5865c0fa515cb96763b1b03d4a97522dbc015b02d7cb4558336",
+      "bytes": 4372,
+      "lines": 103,
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sky-time-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No future historical role, other-lens, compiler, fixture or runtime credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server-dispatcher/src/scene_input.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d2935bd735cfa600328abf870a8a4fdcccbdfcce",
+      "sha256": "03e1948b1e2d2492d4f2062ef4aebb1e6dc293f6e228bede4d15710785306b57",
+      "bytes": 40769,
+      "lines": 978,
+      "ranges": [
+        [
+          85,
+          190
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sky-time-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No future historical role, other-lens, compiler, fixture or runtime credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/generation/scene.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "42b481358e265e409ee39c550b2d53f0a2c634ac",
+      "sha256": "2881b50dfcd55e6d008b3852ea37e34b90130da2739fc846e6b9e8d0f2282d49",
+      "bytes": 2645,
+      "lines": 69,
+      "ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sky-time-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No future historical role, other-lens, compiler, fixture or runtime credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/generation/ownership.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3cb64f24d48b29dc5b3969259f653ae48e8c916e",
+      "sha256": "e778ced99ff655e2f55ac67e0faf0e8152899f9552b0210670c232b48483ea4f",
+      "bytes": 9992,
+      "lines": 320,
+      "ranges": [
+        [
+          95,
+          120
+        ],
+        [
+          175,
+          192
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sky-time-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No future historical role, other-lens, compiler, fixture or runtime credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/generation/installation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "54ee1273148dbb05cd02c90bb286e26886b55532",
+      "sha256": "b6bfc1a3b7fee5f042c8c1c926db1e528aed65c795c69dc303755fef51f877f8",
+      "bytes": 1586,
+      "lines": 54,
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sky-time-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No future historical role, other-lens, compiler, fixture or runtime credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/environment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c48f3661134425004fe566834961000534b78505",
+      "sha256": "5dc4692893cb46eafc83376730b05121885a310d915bfacc8b824aebd24eee3d",
+      "bytes": 3709,
+      "lines": 86,
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sky-time-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No future historical role, other-lens, compiler, fixture or runtime credit inferred."
+    },
+    {
+      "path": "rust-toolchain.toml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "18d1c14844d398c027c2e2cc740acca5bda2ec75",
+      "sha256": "0ede9efa984ca1bbaacf8ad3231e6e9ee1efd4000986bc913a2178c7ceb5be8a",
+      "bytes": 150,
+      "lines": 5,
+      "ranges": [
+        [
+          1,
+          5
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sky-time-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No future historical role, other-lens, compiler, fixture or runtime credit inferred."
+    }
+  ],
+  "current_static_asset": {
+    "path": "assets/data/hipparcos-bright-stars.csv",
+    "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "git_blob": "54fa2155be80c9b1aa040b3580d7206c95326ed8",
+    "sha256": "5546a905c3af4b4c798fc9b1f4bdd7b8a6243ef4df7ad06bb8f136be29280e0f",
+    "bytes": 375323,
+    "lines": 8867,
+    "personally_inspected_ranges": [
+      [
+        1,
+        8
+      ]
+    ],
+    "preserved_bytes": "main-advance-95e/sky-time-evidence/star-catalog.csv.gz",
+    "content_encoding": "gzip",
+    "qualification": "Complete bytes preserved and same blob at6533; only header and first seven data lines personally inspected. Catalogue content, valid count, values and parser behavior were not validated or executed; no historical body credit."
+  },
+  "native_source_evidence": {
+    "channel": "nightly-2026-07-13",
+    "pinned_by": "rust-toolchain.toml at95e",
+    "sources": [
+      {
+        "toolchain_relative_path": "share/doc/rust/html/reference/expressions/operator-expr.html",
+        "sha256": "d51cc1160b3f46b63b0189e0bfed536581e30dea52b56b18908ff413b83a758c",
+        "bytes": 171170,
+        "lines": 3105,
+        "personally_inspected_ranges": [
+          [
+            1928,
+            1948
+          ],
+          [
+            1982,
+            1984
+          ]
+        ],
+        "preserved_bytes": "native-evidence/rust-nightly-2026-07-13/sky-time-0.source.gz",
+        "content_encoding": "gzip",
+        "qualification": "Read-only files from the locally installed toolchain directory matching the Git-pinned channel. Local installation authenticity was not independently checked; no compiler or product execution."
+      },
+      {
+        "toolchain_relative_path": "share/doc/rust/html/reference/types/numeric.html",
+        "sha256": "2d6bf5d732be1b426294bac2116b96e79db5044a7cbd944f449a71638da4b9c7",
+        "bytes": 29559,
+        "lines": 328,
+        "personally_inspected_ranges": [
+          [
+            216,
+            246
+          ]
+        ],
+        "preserved_bytes": "native-evidence/rust-nightly-2026-07-13/sky-time-1.source.gz",
+        "content_encoding": "gzip",
+        "qualification": "Read-only files from the locally installed toolchain directory matching the Git-pinned channel. Local installation authenticity was not independently checked; no compiler or product execution."
+      },
+      {
+        "toolchain_relative_path": "lib/rustlib/src/rust/library/core/src/num/f32.rs",
+        "sha256": "41d78dcc60e2f57fd8613ed4d62e6538cf2c6765ad5f57373f92ffc46ca2a026",
+        "bytes": 82209,
+        "lines": 2180,
+        "personally_inspected_ranges": [
+          [
+            398,
+            414
+          ]
+        ],
+        "preserved_bytes": "native-evidence/rust-nightly-2026-07-13/sky-time-2.source.gz",
+        "content_encoding": "gzip",
+        "qualification": "Read-only files from the locally installed toolchain directory matching the Git-pinned channel. Local installation authenticity was not independently checked; no compiler or product execution."
+      }
+    ],
+    "qualification": "Read-only installed toolchain documentation/source, SHA-256 preserved; local installation authenticity unverified and no compiler or product was run."
+  },
+  "observations": [
+    {
+      "contract": "Celestial setup and retained lifecycle",
+      "trace": "The sky setup creates sun and moon light entities, conditionally adds moon and star visual entities, and uses a typed snapshot for direction and lighting values. The preset cascade helper always returns Some in its body, despite a comment describing a None branch; this source observation does not establish a renderer regression. When no celestial snapshot exists, the selected application path clears light intensity, resets exposure, and hides moon and stars if their single entities/materials are present.",
+      "remaining": "Native scheduling, source cardinality, component changes, visual/output policy and the distinct existing new-material lifecycle finding remain open. No source test or GPU operation ran."
+    },
+    {
+      "contract": "Catalogue admission and authored evidence",
+      "trace": "The source includes the checked-in CSV and parses comma-separated fields with filter_map: required numeric parse failures discard rows and the optional color index defaults when parse fails. It emits six source vertices per parsed star. An authored source test asserts count and magnitude expectations.",
+      "remaining": "The CSV full bytes are preserved but only the first eight lines were personally inspected. No parser, catalogue-wide count/range check, asset load, source test, shader or image was executed; validity and policy remain open."
+    },
+    {
+      "contract": "Strategic prepared scene identity",
+      "trace": "The native generate path validates input, derives input.digest, generates recipes for occupied building placements and furnishes interiors. The separate from_products path builds from staged placements, checks primary or promoted distant placements, installs venue interiors and rejects missing primary matches; the installation consumer filters the staged scene by a freshly derived input digest.",
+      "remaining": "Worker ticket/ownership, digest versus all product variants and all native/browser consumers remain open. No scene generation, digest or fixture was run."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-STAR-SIDEREAL-TIME-PRECISION-001",
+      "lens": 8,
+      "classification": "Newly assessed95e source-derived numeric resolution and policy question; no runtime sky observation or recovered checkpoint3821 finding.",
+      "canonical_owner": "StrategicMinute and its conversion to a bounded sidereal phase consumed by the celestial star transform.",
+      "first_failed_contract": "If consecutive supported strategic minutes must yield distinct sidereal input, converting the entire absolute minute count to binary32 before reduction can collapse them.",
+      "trace": "StrategicMinute admits a u64 and days_since_epoch_f32 casts it to f32 before dividing by1440. The pinned-channel local Rust reference says integer-to-float casts use nearest with ties to even; local core source says f32 has radix2 and24 significant binary digits. At minute2^24=16,777,216 the next f32 integer is16,777,218, so16,777,217 is an exact midpoint and casts to16,777,216. Both minutes therefore feed the same day value to equatorial_to_world at equal latitude and longitude; no star matrix calculation is required to prove identical arguments. Their minute-of-day values are1216 and1217, and the separate sun direction source consumes minute_of_day at15 degrees per hour. Under the calendar source both are in year1575, about32 years after its epoch.",
+      "consumer_trace": "CelestialLightingSnapshot derives both the sun directions and star transform from the environment absolute minute; apply_presented_celestial_lighting copies the star transform to an existing star material when the celestial or settings resource changes. A tactical scene environment carries a typed absolute minute, and the inspected dispatcher forwards its input to the scene document.",
+      "safeguards": "This is symbolic IEEE binary32 integer-rounding and bounded source inspection; no minute, sky, matrix, material, image, schedule or renderer was run. Both times are admitted by StrategicMinute, but supported world lifetime, actual consecutive scene environments, celestial visibility, artistic resolution and tolerance policy remain unproved. Same star-time inputs do not assert a measured error, a gameplay penalty or a required high-precision ephemeris. Local Rust toolchain files match the channel named in the95e manifest; installation authenticity is not independently verified.",
+      "dependencies": [
+        "Determine supported strategic lifetime and acceptable sidereal motion resolution, including times before and beyond the illustrative pair.",
+        "Trace environment updates, star material lifecycle, catalogue/shader and actual celestial consumers without conflating the separately recorded new-material lifecycle question.",
+        "If required by policy, retain enough temporal precision or reduce the integer time before a lower-precision numerical boundary; preserve intended visual celestial model and independent lunar phase."
+      ],
+      "acceptance_requirements": [
+        "A documented supported date range and sidereal accuracy are preserved by the authoritative clock-to-star transform.",
+        "The chosen representation avoids unintended loss of required minute resolution and remains consistent with the separately owned solar and lunar time semantics."
+      ],
+      "discovery": "partial; source-level binary32 collapse and bounded consumer traced, supported timeline and visual accuracy policy open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "existing_finding_connections": [
+    {
+      "id": "REVIEW-CELESTIAL-MATERIAL-NEW-ASSET-001",
+      "record": "ASSESSMENT-PEBBLE-CHUNK-CELESTIAL-95E.json",
+      "relationship": "Related but distinct existing new-material refresh question; no automatic alias or actual renderer outcome."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1346",
+        "/entries/1347"
+      ],
+      "qualification": "Recovered059 questions remain partial; no checkpoint3821 attribution or exact alias inferred."
+    },
+    {
+      "file": "ASSESSMENT-TREE-SCENE-PREPARATION-95E.json",
+      "qualification": "Scene digest and preparation error trace remain distinct; no full ownership closure inferred."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-232.json",
+      "sha256": "16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e",
+      "bytes": 12351,
+      "git_blob": "f94fb7bf5fa58c50328fc55a6d29800df744f74c",
+      "preserved_bytes": "recovered/sky-time-059/16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e.gz",
+      "published_sha256": "16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e",
+      "published_bytes": 12351,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler Lens11 receipt at6533"
+      ],
+      "qualification": "Original reviewer,6533 source and scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-456.json",
+      "sha256": "389c62b857296d6e9922407ec71d30539ae1275990e2108569f164bd3e976b21",
+      "bytes": 735,
+      "git_blob": "4e6827f0944eb8d993070960b8056d34bae50c7f",
+      "preserved_bytes": "recovered/sky-time-059/389c62b857296d6e9922407ec71d30539ae1275990e2108569f164bd3e976b21.gz",
+      "published_sha256": "389c62b857296d6e9922407ec71d30539ae1275990e2108569f164bd3e976b21",
+      "published_bytes": 735,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 source registration"
+      ],
+      "qualification": "Original reviewer,6533 source and scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-457.json",
+      "sha256": "2dc51698a117a6a638397d27896b9e1261b87cb45cd9f1d7510099c348b25442",
+      "bytes": 743,
+      "git_blob": "3b7aa1ddd741b7cb09fb61ce1ab63e73e7cdd612",
+      "preserved_bytes": "recovered/sky-time-059/2dc51698a117a6a638397d27896b9e1261b87cb45cd9f1d7510099c348b25442.gz",
+      "published_sha256": "2dc51698a117a6a638397d27896b9e1261b87cb45cd9f1d7510099c348b25442",
+      "published_bytes": 743,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 source registration"
+      ],
+      "qualification": "Original reviewer,6533 source and scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-458.json",
+      "sha256": "5a6c7e3cb227e39100eadbf71fce9e5617978de7ca37d0535eb6a134106404d9",
+      "bytes": 743,
+      "git_blob": "a5f3aec2bb882f617be01970c3d3e04f786e8af8",
+      "preserved_bytes": "recovered/sky-time-059/5a6c7e3cb227e39100eadbf71fce9e5617978de7ca37d0535eb6a134106404d9.gz",
+      "published_sha256": "5a6c7e3cb227e39100eadbf71fce9e5617978de7ca37d0535eb6a134106404d9",
+      "published_bytes": 743,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 source registration"
+      ],
+      "qualification": "Original reviewer,6533 source and scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-232.json",
+      "sha256": "7763456c9d3b2038ca721f1e7b3b13a78cbf60c37351fc683c66fe38121ac28a",
+      "bytes": 635,
+      "git_blob": "4581d401398902ff25cf5be8af05935f6d3f30b3",
+      "preserved_bytes": "recovered/sky-time-059/7763456c9d3b2038ca721f1e7b3b13a78cbf60c37351fc683c66fe38121ac28a.gz",
+      "published_sha256": "7763456c9d3b2038ca721f1e7b3b13a78cbf60c37351fc683c66fe38121ac28a",
+      "published_bytes": 635,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 state"
+      ],
+      "qualification": "Original reviewer,6533 source and scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-232.json",
+      "sha256": "bbcd2444f903a0d615810017892195332080a98a3ff5716672eed8a1078b733f",
+      "bytes": 37100,
+      "git_blob": "a0920f736a51a47f4ab1a6f1edcd80428e6291fd",
+      "preserved_bytes": "recovered/sky-time-059/bbcd2444f903a0d615810017892195332080a98a3ff5716672eed8a1078b733f.gz",
+      "published_sha256": "bbcd2444f903a0d615810017892195332080a98a3ff5716672eed8a1078b733f",
+      "published_bytes": 37100,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Original reviewer,6533 source and scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-512.json",
+      "sha256": "73e5caf0c85f4141182649dfaa198953162c8b729c8564e507de012ed6f6fcff",
+      "bytes": 1218,
+      "git_blob": "513edb03370e7babea6b449edae38031832d41a0",
+      "preserved_bytes": "recovered/sky-time-059/73e5caf0c85f4141182649dfaa198953162c8b729c8564e507de012ed6f6fcff.gz",
+      "published_sha256": "73e5caf0c85f4141182649dfaa198953162c8b729c8564e507de012ed6f6fcff",
+      "published_bytes": 1218,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer,6533 source and scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-513.json",
+      "sha256": "8b75f9b2576f4b773a9fcaf8eac67c39da033022510d30902a70df7d1a5cba79",
+      "bytes": 736,
+      "git_blob": "cc66fb7397ca59cd597aa3e80d652b040d96a4c2",
+      "preserved_bytes": "recovered/sky-time-059/8b75f9b2576f4b773a9fcaf8eac67c39da033022510d30902a70df7d1a5cba79.gz",
+      "published_sha256": "8b75f9b2576f4b773a9fcaf8eac67c39da033022510d30902a70df7d1a5cba79",
+      "published_bytes": 736,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer,6533 source and scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-512.json",
+      "sha256": "9922e6474babbbf906640965f41beaeb90d44a4074d2daea917b3b481bf6b7f0",
+      "bytes": 10298,
+      "git_blob": "e674ba22ef3de1ddc57f5492924525048d15d93f",
+      "preserved_bytes": "recovered/sky-time-059/9922e6474babbbf906640965f41beaeb90d44a4074d2daea917b3b481bf6b7f0.gz",
+      "published_sha256": "9922e6474babbbf906640965f41beaeb90d44a4074d2daea917b3b481bf6b7f0",
+      "published_bytes": 10298,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Segovb Lens12 receipt at6533"
+      ],
+      "qualification": "Original reviewer,6533 source and scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-513.json",
+      "sha256": "28a826f8e571e66390068588c48725d8140b131982ab15e490cbcfefde50dfd9",
+      "bytes": 4460,
+      "git_blob": "ded6298adc5c53a134a6d812ecec11d6442bb948",
+      "preserved_bytes": "recovered/sky-time-059/28a826f8e571e66390068588c48725d8140b131982ab15e490cbcfefde50dfd9.gz",
+      "published_sha256": "28a826f8e571e66390068588c48725d8140b131982ab15e490cbcfefde50dfd9",
+      "published_bytes": 4460,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Segovb Lens12 receipt at6533"
+      ],
+      "qualification": "Original reviewer,6533 source and scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-530.json",
+      "sha256": "c140a61eccd5433242bf3ff9305b0eefd34c1015840bcde7b8d72149cb65460e",
+      "bytes": 1196,
+      "git_blob": "d98c475277447c3923c35f7678c8b153a22f621e",
+      "preserved_bytes": "recovered/sky-time-059/c140a61eccd5433242bf3ff9305b0eefd34c1015840bcde7b8d72149cb65460e.gz",
+      "published_sha256": "c140a61eccd5433242bf3ff9305b0eefd34c1015840bcde7b8d72149cb65460e",
+      "published_bytes": 1196,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original registration"
+      ],
+      "qualification": "Original reviewer,6533 source and scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-531.json",
+      "sha256": "0ffa397e91249fae090752b96d93f80fa7d839a6256e136572d392c765bd4154",
+      "bytes": 1184,
+      "git_blob": "0d60a88c3f71a2dd35d99f1c189a09ef0a9a40c0",
+      "preserved_bytes": "recovered/sky-time-059/0ffa397e91249fae090752b96d93f80fa7d839a6256e136572d392c765bd4154.gz",
+      "published_sha256": "0ffa397e91249fae090752b96d93f80fa7d839a6256e136572d392c765bd4154",
+      "published_bytes": 1184,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original registration"
+      ],
+      "qualification": "Original reviewer,6533 source and scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-532.json",
+      "sha256": "830dfc1f20c4d453e52dfb3370436ec71822eab50be4d0c1f00d60c3592803c1",
+      "bytes": 1176,
+      "git_blob": "686d8b61fd07fe7008b7aeec3d74b39d04673560",
+      "preserved_bytes": "recovered/sky-time-059/830dfc1f20c4d453e52dfb3370436ec71822eab50be4d0c1f00d60c3592803c1.gz",
+      "published_sha256": "830dfc1f20c4d453e52dfb3370436ec71822eab50be4d0c1f00d60c3592803c1",
+      "published_bytes": 1176,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original registration"
+      ],
+      "qualification": "Original reviewer,6533 source and scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-512.json",
+      "sha256": "9204d798e8351a51261d55c82e76946e3c1f4897c53d7e7b8fd1335dd7376c22",
+      "bytes": 840,
+      "git_blob": "e1eb359c283a9a2cc8cde59fd366368c4ee4133c",
+      "preserved_bytes": "recovered/sky-time-059/9204d798e8351a51261d55c82e76946e3c1f4897c53d7e7b8fd1335dd7376c22.gz",
+      "published_sha256": "9204d798e8351a51261d55c82e76946e3c1f4897c53d7e7b8fd1335dd7376c22",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Original reviewer,6533 source and scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-513.json",
+      "sha256": "57d85b5df264bdfaf10ebfe985e97acbd10eabd238980b2cb19e70aa44603fe2",
+      "bytes": 840,
+      "git_blob": "f987e6dbb76b4745be320b6924eb0a140a0b800c",
+      "preserved_bytes": "recovered/sky-time-059/57d85b5df264bdfaf10ebfe985e97acbd10eabd238980b2cb19e70aa44603fe2.gz",
+      "published_sha256": "57d85b5df264bdfaf10ebfe985e97acbd10eabd238980b2cb19e70aa44603fe2",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Original reviewer,6533 source and scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-512.json",
+      "sha256": "e68031b0ca275069a365be0754e5339102f7711f11eb014cc7eb7da02d14595e",
+      "bytes": 558,
+      "git_blob": "09d569e9eab4b0e5560ea23a3528679c40bc3483",
+      "preserved_bytes": "recovered/sky-time-059/e68031b0ca275069a365be0754e5339102f7711f11eb014cc7eb7da02d14595e.gz",
+      "published_sha256": "e68031b0ca275069a365be0754e5339102f7711f11eb014cc7eb7da02d14595e",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer,6533 source and scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-513.json",
+      "sha256": "23a8fd7c29a263805396edded8cc2657f7a45274e60aaa9d9d3100aba1e5ce05",
+      "bytes": 558,
+      "git_blob": "846886f7e34d71f8e0eb338f42e19d2f54e0178c",
+      "preserved_bytes": "recovered/sky-time-059/23a8fd7c29a263805396edded8cc2657f7a45274e60aaa9d9d3100aba1e5ce05.gz",
+      "published_sha256": "23a8fd7c29a263805396edded8cc2657f7a45274e60aaa9d9d3100aba1e5ce05",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer,6533 source and scope retained; no checkpoint3821 transfer."
+    }
+  ],
+  "remaining": "Trace supported dates, celestial shaders/catalogue and all active scene lifecycles, strategic preparation, original1626 onward, all13 lenses and exact aliases. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
