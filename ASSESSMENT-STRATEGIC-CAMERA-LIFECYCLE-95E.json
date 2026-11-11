@@ -1,0 +1,828 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Five original status, person, street, source-only test and view roles; bounded current optional-environment synchronization and idealized frontage framing.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1692-1696.json",
+  "git_membership_evidence": "STRATEGIC-CAMERA-LIFECYCLE-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/atmosphere.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b6605718573500e5780e8b967a35056a1f87119f",
+      "sha256": "b9dcce7121c3161293d2fbd9c9f02f0df7aa341d51c9a0a1b94a7315f8bfdd4c",
+      "bytes": 22633,
+      "lines": 656,
+      "ranges": [
+        [
+          1,
+          115
+        ],
+        [
+          160,
+          375
+        ],
+        [
+          425,
+          656
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-camera-lifecycle-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2f2d500d8c8334accb9fea5059aa5bcc897d4a56",
+      "sha256": "ed476924038076fa25da5298c9bfb408b27eccc8210e5bbf01ddaa3c7cd6248d",
+      "bytes": 16427,
+      "lines": 411,
+      "ranges": [
+        [
+          195,
+          340
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-camera-lifecycle-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/visibility.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "53760023b57bde83c0f0dc3ae658b9a7128dcd60",
+      "sha256": "09366b1705b726c94763a99aaa47ffd35ccd1874b93bc11150436a9c8210595e",
+      "bytes": 7893,
+      "lines": 214,
+      "ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-camera-lifecycle-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/atmosphere/shader_corrections.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "840b6c5437b4d54e96e7926a54d2eb23839d8219",
+      "sha256": "27f4cb6754211db08f92f87c051f0219391abaae753e94038b4f441a261ec646",
+      "bytes": 4446,
+      "lines": 123,
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-camera-lifecycle-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/environment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3b4950e0711f02231d0c6f5434fc238f98d0bc65",
+      "sha256": "b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+      "bytes": 21534,
+      "lines": 577,
+      "ranges": [
+        [
+          175,
+          270
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-camera-lifecycle-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/cached_views.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "dac1134c25572084b2d2c8cc93012c6991928923",
+      "sha256": "dca6bf2178d031e1dbc40c3af8a9024bbf5d730cddf00ac542845500227f737c",
+      "bytes": 19099,
+      "lines": 529,
+      "ranges": [
+        [
+          1,
+          335
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-camera-lifecycle-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/cached_views/travel.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "61dcd789c6bc07a86392b45af9b4520aeef3def7",
+      "sha256": "fcc5da9af3e6cdbc09ec0512bcd8f36416dbfcf4ce9fad4f2c0e44c5cd8e47b5",
+      "bytes": 5528,
+      "lines": 159,
+      "ranges": [
+        [
+          20,
+          82
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-camera-lifecycle-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer/display_history.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6b3e6e732f64c7bfa02bb396ee3af73d193c5c44",
+      "sha256": "671c08c8e47aac129b38a9cc107630319a1fa9a2e9eb29bd1128272dcf15e268",
+      "bytes": 479,
+      "lines": 17,
+      "ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-camera-lifecycle-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/main.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d9216c050b33db12e144e3e2880a5682e3273a41",
+      "sha256": "3ac60ddec31bee62d284f9ff2d87bd3345e1ccf84ce3199e2f2dcdddb59ec6c4",
+      "bytes": 22180,
+      "lines": 619,
+      "ranges": [
+        [
+          315,
+          415
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-camera-lifecycle-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/pipeline_readiness.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "025a920a904ae475ab9f30b2744b387cb9a67d6a",
+      "sha256": "60ce45cc8a4f42746bb97a3fa98f0ed21bebe03279ea65682d30abea07d11af1",
+      "bytes": 915,
+      "lines": 26,
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-camera-lifecycle-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/loading_screen.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8d4f546246c40dbf9b4ba3dbb6d0b8c6483ed486",
+      "sha256": "5c360141557d45744477669e273ce72ccb29b0f346302af52483a8ca60426810",
+      "bytes": 7145,
+      "lines": 220,
+      "ranges": [
+        [
+          45,
+          105
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-camera-lifecycle-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/venues.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "13bbd7334dbf8882f29a6901c9d9278f7fbeba18",
+      "sha256": "ae556b18add14ae22e1b97bc772ab06f455827e6afdff55b5659fac6ae9b9d27",
+      "bytes": 2993,
+      "lines": 100,
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-camera-lifecycle-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/strategic-web/static/strategic-scene.js",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cf9ab76117504facf687efe34a19b897b1248b21",
+      "sha256": "7db5964db4e3c0c4a152ba1b501a57068a4553a440427152382042f74988be20",
+      "bytes": 19166,
+      "lines": 371,
+      "ranges": [
+        [
+          1,
+          53
+        ],
+        [
+          220,
+          243
+        ],
+        [
+          315,
+          340
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-camera-lifecycle-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/strategic-web/static/css/strategic-scene.css",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2cdc5a9a1b88b63152e416bfc04c937ccdd4ace1",
+      "sha256": "64534b6c2f20ca791a2107cf6ed530d5ce883b53fbb0fbb2112b571932c2f21f",
+      "bytes": 4030,
+      "lines": 62,
+      "ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-camera-lifecycle-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/canvas_view.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8e56b14e047b99a0e0fe590d948ad0ec27559c3a",
+      "sha256": "a60a60698fc8aa2bc5da2abc34a8887443180db7dff00a436901511a1fd6c474",
+      "bytes": 2242,
+      "lines": 77,
+      "ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-camera-lifecycle-evidence/support-14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    }
+  ],
+  "earlier_historical_source_identities": [
+    {
+      "original_index": 1697,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/visibility.rs",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "09366b1705b726c94763a99aaa47ffd35ccd1874b93bc11150436a9c8210595e",
+      "bytes": 7893,
+      "lines": 214,
+      "git_blob": "53760023b57bde83c0f0dc3ae658b9a7128dcd60",
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "earlier_attribution": "Adler Lens11 READ245 and Segovb Lens12 READ541 at6533.",
+      "new_personal_historical_full_read": false,
+      "additional_original_frontier_credit": 0,
+      "qualification": "Future historical visibility role identity proved only; selected current95e lines independently inspected as support do not grant historical or checkpoint3821 credit."
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Required pose versus counts",
+      "trace": "CharacterReadiness computes required_posed per exact retained entity, but status gates installed on global loaded==scene.people.len and posed==loaded plus presence of requested IDs; required_posed itself is telemetry. PoseBufferRig::has_presented_pose checks presentation==Displaying.",
+      "remaining": "The current owner creates SceneModel on retained people and removes them on roster deletion; whether exclusive membership, timing and component lifecycle make these count equalities sufficient remains open. No unsupported ghost, readiness or draw failure is claimed."
+    },
+    {
+      "contract": "Existing duplicate venue issue",
+      "trace": "Street reuses selected building IDs and overwrites a relocation entry per ID. REVIEW-VENUE-PLACE-BUILDING-IDENTITY-001 already traces the conditional duplicate-selection and furniture transform question.",
+      "remaining": "Keep the existing candidate and its producer safeguards; no duplicate created."
+    },
+    {
+      "contract": "Layer test coverage",
+      "trace": "Source-only strategic test asserts distinct layers for103 resident rigs and removal of one roster entry. It does not establish long-term remove/readd churn or execute here.",
+      "remaining": "The existing REVIEW-STRATEGIC-PERSON-LAYER-CHURN-001 remains conditional; no test result is inferred."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-STRATEGIC-CAMERA-OPTIONAL-ENVIRONMENT-REMOVAL-001",
+      "lens": 7,
+      "severity": "unassigned; source-observed copy/removal asymmetry with conditional visible consequence",
+      "classification": "New95e source reassessment connected to earlier Adler245 and Segovb541 removal questions; no new historical finding.",
+      "canonical_owner": "TacticalGameplayCamera optional environment/atmosphere components and the retained strategic camera synchronization owner.",
+      "first_failed_contract": "The camera-copy path inserts optional environment components when present, but neither detects absence as a change nor removes stale target components when the gameplay camera loses them.",
+      "trace": "sync_environment observes optional Ref<EnvironmentMapLight> and Ref<AtmosphereSettings>, considers only present changed values, and inserts each only on Some. For non-map targets it never removes either on None; a map target explicitly removes AtmosphereSettings and fog, but not EnvironmentMapLight. AtmosphereIblCache::clear removes EnvironmentMapLight from the gameplay camera on a changed bake key or absence of a usable current scene/shader; cache_initialized_atmosphere also removes AtmosphereSettings when atmosphere is disabled. Live ViewCameras and pooled SnapshotCamera entities can be retained and reused. A removed gameplay component therefore does not itself clear the prior target component; even another tracked change or a reinserted marker reaches the same Some-only insertion logic.",
+      "counterevidence": "Replacement-scene mesh visibility waits for installation, and capture settlement only advances while complete assets are ready; a later successful bake can insert a new map and be copied. The visibility gate deliberately remains open for later rebakes, but a real supported same-root rebake, specific camera timing, old/new lighting result or visible artifact was not observed. Graphics settings appear initialized from config; no production in-place enable/disable writer was established. Atmosphere-disabled startup alone does not prove a previously populated target.",
+      "connected_repair": "After audit and separate implementation authorization, define explicit present/absent propagation and change detection for each source optional component, preserving the intentional regional-map exception and the correct new-bake, camera reuse and capture lifecycles.",
+      "acceptance_requirements": [
+        "A retained strategic camera has the intended environment and atmosphere component state across supported source insertion, removal, rebake, reuse and map modes, with readiness gates preserving their intended behavior."
+      ],
+      "discovery": "partial; exact remove/copy source paths and safeguards traced; supported same-root transitions, schedule, native rendering and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    },
+    {
+      "id": "REVIEW-STRATEGIC-FRONTAGE-VERTICAL-FRAMING-001",
+      "lens": 8,
+      "severity": "unassigned; conditional perspective framing question",
+      "classification": "New95e idealized source-level camera geometry question connected to prior Street/viewport scope; no historical finding.",
+      "canonical_owner": "Street full-size frontage target, vertical field of view and browser full-rectangle framing.",
+      "first_failed_contract": "The camera aims at 45% of street height from an eye 1.7m above the frontage, while vertical FOV assumes a symmetric half-height around its view ray; for some height/width ratios a point at the frontage ground can fall below the field.",
+      "trace": "Street::arrange uses width at least18m per bay, height at least18m and height=max(current, collision extent.y+8m). distance=width/2/tan(80 degrees/2); the camera looks from ground+1.7m toward ground+0.45*height, and vertical_fov=2*atan(height/2/distance). The generated flat frontage plane is at ground+0.01m. Browser streetWindow derives full-rectangle bay widths from width/height and retains the full camera projection while clipping.",
+      "symbolic_example": "For a hypothetical one-bay street width18m and height30m (consistent with a22m collision extent and no more than14m width before the4m bay gap), ideal real-number trigonometry gives distance about10.7258m, optical elevation47.7303 degrees, half FOV54.4333 degrees and lower edge -6.7030 degrees. A ground-plane point at the front-centre has angle about -8.9542 degrees, roughly2.25 degrees below that edge. This computes source formulas only; it constructs no building, camera, projection, canvas or pixels.",
+      "counterevidence": "No supported generated building with that extent and bay width, actual browser rectangle or visible clipping was established. Collision extent can include buried geometry, the intended 45% target and skyline margin may deliberately prefer upper frontage, and other portions of the ground plane may still be visible. Aspect, clipping and floating-point behavior need actual contract and source-specific confirmation.",
+      "connected_repair": "After audit and separate implementation authorization, decide the required vertical bounds for supported full-size frontage and derive framing from actual eye-to-bound angles or explicitly document intentional crop while preserving normal horizontal lens and scrolling behavior.",
+      "acceptance_requirements": [
+        "Supported frontage geometry satisfies a stated framing policy at the full camera rectangle; intentional cropping and any tall/narrow exceptions are explicit."
+      ],
+      "discovery": "partial; ideal symbolic counterexample and browser layout relation recorded, valid generated inputs, viewport/rendering and exact aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1414",
+        "/entries/1415",
+        "/entries/1416",
+        "/entries/1417",
+        "/entries/1418"
+      ],
+      "qualification": "Partial current reassessments; original reviewers and pending contracts retained."
+    },
+    {
+      "file": "ASSESSMENT-STRATEGIC-STATUS-CENSUS-95E.json",
+      "qualification": "Prior role1692 identity-only non-credit retained, followed by this independently recorded read."
+    },
+    {
+      "file": "ASSESSMENT-VENUE-IDENTITY-TERRAIN-LIFECYCLE-95E.json",
+      "qualification": "Earlier duplicate venue/relocation candidate remains canonical; no auto-alias."
+    },
+    {
+      "file": "ASSESSMENT-STRATEGIC-ADAPTER-DIAGNOSTICS-95E.json",
+      "qualification": "Earlier person layer churn and portrait diagnostic questions remain separately qualified."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047",
+      "bytes": 29295,
+      "git_blob": "12f78ab54e0ca5709963ce605b8f843a317b34bf",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047.gz",
+      "published_sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047",
+      "published_bytes": 29295,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context, no new credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-231.json",
+      "sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f",
+      "bytes": 28619,
+      "git_blob": "933b2f20628d6089414bb9e1cd52abc5a9b51384",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f.gz",
+      "published_sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f",
+      "published_bytes": 28619,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context, no new credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-232.json",
+      "sha256": "16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e",
+      "bytes": 12351,
+      "git_blob": "f94fb7bf5fa58c50328fc55a6d29800df744f74c",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e.gz",
+      "published_sha256": "16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e",
+      "published_bytes": 12351,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context, no new credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-242.json",
+      "sha256": "018a558e88a7c9a55f8abd4326db816cf000c69a746fbfa3bf58d185a29f784a",
+      "bytes": 17903,
+      "git_blob": "0b26ecdc5c5b18f4900c68a80f9fdb544ef5b013",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/018a558e88a7c9a55f8abd4326db816cf000c69a746fbfa3bf58d185a29f784a.gz",
+      "published_sha256": "018a558e88a7c9a55f8abd4326db816cf000c69a746fbfa3bf58d185a29f784a",
+      "published_bytes": 17903,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context, no new credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-243.json",
+      "sha256": "98f17ed1e567dc243fc0b0710223c9c3e5881ab18a3ed244de44d8e2aa20dcb1",
+      "bytes": 20092,
+      "git_blob": "23b5337ea9e55bb1d9c40e8f2c8d87fc67d4e1b3",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/98f17ed1e567dc243fc0b0710223c9c3e5881ab18a3ed244de44d8e2aa20dcb1.gz",
+      "published_sha256": "98f17ed1e567dc243fc0b0710223c9c3e5881ab18a3ed244de44d8e2aa20dcb1",
+      "published_bytes": 20092,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context, no new credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-244.json",
+      "sha256": "5fb5a7ba00f88d568e03a1f4c12b7bf041a85a1b764a8617ea67f545e8f6d0b0",
+      "bytes": 16097,
+      "git_blob": "ea83207360fa87df44f2fdcc5a3c82a8f08c4339",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/5fb5a7ba00f88d568e03a1f4c12b7bf041a85a1b764a8617ea67f545e8f6d0b0.gz",
+      "published_sha256": "5fb5a7ba00f88d568e03a1f4c12b7bf041a85a1b764a8617ea67f545e8f6d0b0",
+      "published_bytes": 16097,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context, no new credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-245.json",
+      "sha256": "abfe870f524691806cd9dc05331066a35b40d3dad0f15f6db460b944aecabc4d",
+      "bytes": 8599,
+      "git_blob": "39af12c265bd070ab5974d3c705a8e50795546a3",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/abfe870f524691806cd9dc05331066a35b40d3dad0f15f6db460b944aecabc4d.gz",
+      "published_sha256": "abfe870f524691806cd9dc05331066a35b40d3dad0f15f6db460b944aecabc4d",
+      "published_bytes": 8599,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler Lens11 original6533 review; future1697–1698 no fresh ordered credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-531.json",
+      "sha256": "a179e714e4dd56ab80007ee1654df3e2b81b4fc30819adbe06dd574b33f4da20",
+      "bytes": 673,
+      "git_blob": "bfba3f9616eaedfe9ced04c3234d5e1faa3ff5f1",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/a179e714e4dd56ab80007ee1654df3e2b81b4fc30819adbe06dd574b33f4da20.gz",
+      "published_sha256": "a179e714e4dd56ab80007ee1654df3e2b81b4fc30819adbe06dd574b33f4da20",
+      "published_bytes": 673,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-532.json",
+      "sha256": "fc1d6a9ff3c86c94abf6a11c95dc538b4164ae0c6c20b624337cae5333437773",
+      "bytes": 678,
+      "git_blob": "6c2a95669ee5b367d8d80a24dd2a5b20f1547582",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/fc1d6a9ff3c86c94abf6a11c95dc538b4164ae0c6c20b624337cae5333437773.gz",
+      "published_sha256": "fc1d6a9ff3c86c94abf6a11c95dc538b4164ae0c6c20b624337cae5333437773",
+      "published_bytes": 678,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-533.json",
+      "sha256": "24f32adfb2a6ed2ab8f3179401c6833eb1081574a21acc7affba01e0e5a91ded",
+      "bytes": 673,
+      "git_blob": "ef8233c620c8cecf7cf969c0d6d661989a5f4d28",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/24f32adfb2a6ed2ab8f3179401c6833eb1081574a21acc7affba01e0e5a91ded.gz",
+      "published_sha256": "24f32adfb2a6ed2ab8f3179401c6833eb1081574a21acc7affba01e0e5a91ded",
+      "published_bytes": 673,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-245.json",
+      "sha256": "1c8eaafb1d000530738af6bbae60851303d897d141b5fefc53c267a4f8edc160",
+      "bytes": 635,
+      "git_blob": "124bfd884248fc7653a98b87c456befb7dc2abd5",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/1c8eaafb1d000530738af6bbae60851303d897d141b5fefc53c267a4f8edc160.gz",
+      "published_sha256": "1c8eaafb1d000530738af6bbae60851303d897d141b5fefc53c267a4f8edc160",
+      "published_bytes": 635,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-245.json",
+      "sha256": "c50b67fc375c570bf85d0542f463381ff59ffdb8d764ec6431eea3b6b2b62fae",
+      "bytes": 32898,
+      "git_blob": "1cd4053182a95d464e493f666a6bde914a2a3bd8",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/c50b67fc375c570bf85d0542f463381ff59ffdb8d764ec6431eea3b6b2b62fae.gz",
+      "published_sha256": "c50b67fc375c570bf85d0542f463381ff59ffdb8d764ec6431eea3b6b2b62fae",
+      "published_bytes": 32898,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-539.json",
+      "sha256": "a81c314b2d91b702642d4772889a6bb14c4b82e4fa82895e43e4acc3c9e08e49",
+      "bytes": 1226,
+      "git_blob": "b02ac9de6eb02221b17a606fe0d7a4d9a9a112f6",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/a81c314b2d91b702642d4772889a6bb14c4b82e4fa82895e43e4acc3c9e08e49.gz",
+      "published_sha256": "a81c314b2d91b702642d4772889a6bb14c4b82e4fa82895e43e4acc3c9e08e49",
+      "published_bytes": 1226,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-540.json",
+      "sha256": "069aab434610739e3de106ffcf3503cff2e8e3908d913224e58680184453b5da",
+      "bytes": 724,
+      "git_blob": "3d4a2f9a8388a25111838a65e207506612dd739c",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/069aab434610739e3de106ffcf3503cff2e8e3908d913224e58680184453b5da.gz",
+      "published_sha256": "069aab434610739e3de106ffcf3503cff2e8e3908d913224e58680184453b5da",
+      "published_bytes": 724,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-541.json",
+      "sha256": "4bc5e7fb4bdbeb26ce0ff96c41a4d2ec8f1c6c2a617d3db8df23bde86e5cfc41",
+      "bytes": 1220,
+      "git_blob": "cc56f48d7244939d679eaf494116e4dc972a241e",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/4bc5e7fb4bdbeb26ce0ff96c41a4d2ec8f1c6c2a617d3db8df23bde86e5cfc41.gz",
+      "published_sha256": "4bc5e7fb4bdbeb26ce0ff96c41a4d2ec8f1c6c2a617d3db8df23bde86e5cfc41",
+      "published_bytes": 1220,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-539.json",
+      "sha256": "4b001d8a624f21c0142acaecdf68b2fe6d4e10eb381c0be7ef21be1b1ca90f0b",
+      "bytes": 9755,
+      "git_blob": "ec52aa7b099804f93c4865573c97cddfabd2c9e1",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/4b001d8a624f21c0142acaecdf68b2fe6d4e10eb381c0be7ef21be1b1ca90f0b.gz",
+      "published_sha256": "4b001d8a624f21c0142acaecdf68b2fe6d4e10eb381c0be7ef21be1b1ca90f0b",
+      "published_bytes": 9755,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; future1697 no fresh ordered credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-540.json",
+      "sha256": "56abd96e661b15517f21e82e0bf9fd88fb57f4431a4944fd5bb3966d6320c6c9",
+      "bytes": 5106,
+      "git_blob": "9dbd46090bc8901df1ae8439d3b03aa83a40d361",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/56abd96e661b15517f21e82e0bf9fd88fb57f4431a4944fd5bb3966d6320c6c9.gz",
+      "published_sha256": "56abd96e661b15517f21e82e0bf9fd88fb57f4431a4944fd5bb3966d6320c6c9",
+      "published_bytes": 5106,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; future1697 no fresh ordered credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-541.json",
+      "sha256": "ca29014276cf81ffbc2d5870958eece0b074d9c51b7518341d50991a81c29f29",
+      "bytes": 10122,
+      "git_blob": "7b94ff72d8d057295f5225a0eadf2955306add23",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/ca29014276cf81ffbc2d5870958eece0b074d9c51b7518341d50991a81c29f29.gz",
+      "published_sha256": "ca29014276cf81ffbc2d5870958eece0b074d9c51b7518341d50991a81c29f29",
+      "published_bytes": 10122,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; future1697 no fresh ordered credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-600.json",
+      "sha256": "1b983ccfb55a064e26a8696aac3a58270a22eafb442be09661f87e412ee8865e",
+      "bytes": 1219,
+      "git_blob": "22f83d7f907cfcc0a8dcbda6e0b57c7deb4cf90b",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/1b983ccfb55a064e26a8696aac3a58270a22eafb442be09661f87e412ee8865e.gz",
+      "published_sha256": "1b983ccfb55a064e26a8696aac3a58270a22eafb442be09661f87e412ee8865e",
+      "published_bytes": 1219,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-601.json",
+      "sha256": "68d7c7079c9d95fea6fa0c21f1c4567fe50fc7a2e87fed20e49969d8c95d2478",
+      "bytes": 1199,
+      "git_blob": "a7ac480f1818d68993d9c49696883af85d253fac",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/68d7c7079c9d95fea6fa0c21f1c4567fe50fc7a2e87fed20e49969d8c95d2478.gz",
+      "published_sha256": "68d7c7079c9d95fea6fa0c21f1c4567fe50fc7a2e87fed20e49969d8c95d2478",
+      "published_bytes": 1199,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-602.json",
+      "sha256": "40ba0943a5f22cdfed3e273c57741b80368ec5d3b1cc2924a0a05032da93e9c3",
+      "bytes": 1194,
+      "git_blob": "6e8cf6853247e730f37429628c613cbf8a3a9ae2",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/40ba0943a5f22cdfed3e273c57741b80368ec5d3b1cc2924a0a05032da93e9c3.gz",
+      "published_sha256": "40ba0943a5f22cdfed3e273c57741b80368ec5d3b1cc2924a0a05032da93e9c3",
+      "published_bytes": 1194,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-603.json",
+      "sha256": "870c7619fe27bd5e27eb0318d60c54c87a1c52639ab2272b779638fe703e2974",
+      "bytes": 1181,
+      "git_blob": "fb92c33a9f76bbc3eb1c10969305e0312aed45e7",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/870c7619fe27bd5e27eb0318d60c54c87a1c52639ab2272b779638fe703e2974.gz",
+      "published_sha256": "870c7619fe27bd5e27eb0318d60c54c87a1c52639ab2272b779638fe703e2974",
+      "published_bytes": 1181,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-604.json",
+      "sha256": "c40618a7b962c5ec78f4eca764d9c28140a8d1d08e1ae631627a0c7bf1e37119",
+      "bytes": 1191,
+      "git_blob": "bd85495ec3aab7aabdfb09baf6e04b104a7c002b",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/c40618a7b962c5ec78f4eca764d9c28140a8d1d08e1ae631627a0c7bf1e37119.gz",
+      "published_sha256": "c40618a7b962c5ec78f4eca764d9c28140a8d1d08e1ae631627a0c7bf1e37119",
+      "published_bytes": 1191,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-539.json",
+      "sha256": "b95e48f3a93a08e2fbe67a906abcdf25b4978f62d26cf6bebdcde1397063827f",
+      "bytes": 840,
+      "git_blob": "fc0b2f0dc357863ae63e256476d6cea8762fd8c4",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/b95e48f3a93a08e2fbe67a906abcdf25b4978f62d26cf6bebdcde1397063827f.gz",
+      "published_sha256": "b95e48f3a93a08e2fbe67a906abcdf25b4978f62d26cf6bebdcde1397063827f",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-540.json",
+      "sha256": "48b9d927c3135df51658fe3a313584d65c04b0fdbd2dfa6b7533ff87bd01e94c",
+      "bytes": 840,
+      "git_blob": "e3168ab8a834c197f706b50fb29c75424412b585",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/48b9d927c3135df51658fe3a313584d65c04b0fdbd2dfa6b7533ff87bd01e94c.gz",
+      "published_sha256": "48b9d927c3135df51658fe3a313584d65c04b0fdbd2dfa6b7533ff87bd01e94c",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-541.json",
+      "sha256": "961fdba774a70ee7d113eedc8b6087531375f487f477a6f6361348a5cb864927",
+      "bytes": 840,
+      "git_blob": "f1782600b80809bfe4e993bdcdc83657c06c8a59",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/961fdba774a70ee7d113eedc8b6087531375f487f477a6f6361348a5cb864927.gz",
+      "published_sha256": "961fdba774a70ee7d113eedc8b6087531375f487f477a6f6361348a5cb864927",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-539.json",
+      "sha256": "9b64f5e60fc7cea7eba603f818c7e392331a61f520227ca802e5ea15049cd430",
+      "bytes": 558,
+      "git_blob": "eca62940c19173ffe0d7dccc79c76a35949a5cf9",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/9b64f5e60fc7cea7eba603f818c7e392331a61f520227ca802e5ea15049cd430.gz",
+      "published_sha256": "9b64f5e60fc7cea7eba603f818c7e392331a61f520227ca802e5ea15049cd430",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-540.json",
+      "sha256": "b5c1308e096217464a426d5c099264c40a7c8ddd378768b3d52798bcc218daf8",
+      "bytes": 558,
+      "git_blob": "a1bc39001fea35d81cc52b633f5f6f5d53e9c02f",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/b5c1308e096217464a426d5c099264c40a7c8ddd378768b3d52798bcc218daf8.gz",
+      "published_sha256": "b5c1308e096217464a426d5c099264c40a7c8ddd378768b3d52798bcc218daf8",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-541.json",
+      "sha256": "c52bbef10b593c29ac50aaa730845fa16ebad9a6aec17a73a9d9d1dc6a9bd241",
+      "bytes": 558,
+      "git_blob": "e95ede19f06afa2507ec6b60c5b5c71dd6e631b4",
+      "preserved_bytes": "recovered/strategic-camera-lifecycle-059/c52bbef10b593c29ac50aaa730845fa16ebad9a6aec17a73a9d9d1dc6a9bd241.gz",
+      "published_sha256": "c52bbef10b593c29ac50aaa730845fa16ebad9a6aec17a73a9d9d1dc6a9bd241",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    }
+  ],
+  "remaining": "Continue original1697; actual source environment transitions, supported camera framing, per-entity readiness, all13 lenses and semantic queue remain open. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
