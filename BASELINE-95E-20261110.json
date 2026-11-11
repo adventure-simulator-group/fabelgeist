@@ -5593,8 +5593,37 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-SHORT-ROUTE-HEIGHTFIELD-95E.json"
+      },
+      {
+        "id": "ADLER-L11-TERRAIN-GRADE-OFFSET-TOLERANCE",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          6,
+          7,
+          8,
+          12,
+          13
+        ],
+        "severity": "unassigned; previously recorded standalone physical-grade tolerance, bounded input example source-reasoned",
+        "classification": "A reported successful physical grade constraint needs an explicit representable tolerance that does not erase a material rise solely because of the absolute elevation offset.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/109",
+          "baseline-059/queue.json#/entries/1569",
+          "adler/READ-L11-289.json",
+          "adler/READ-L11-292.json",
+          "adler/READ-L11-299.json",
+          "ADLER-L11-SUPPORT-GRADE-NUMERIC-ADMISSION"
+        ],
+        "relationship_qualification": "The same original059 Adler finding is newly reassessed at95e with a smaller source-range illustration. Preserve the earlier extreme-input exclusion and then-no-bounded-example qualification; no historical unique increment or checkpoint3821 attribution.",
+        "discovery": "partial; same historical issue and later input qualification preserved, bounded initial-stage symbolic illustration added, actual final surface/policy and exact aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GRADE-BOUNDED-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1148.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1151.json"
 }
