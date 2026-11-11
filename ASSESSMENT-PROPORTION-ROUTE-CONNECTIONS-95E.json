@@ -1,0 +1,655 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    11,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Four further historical bodies, a conditional shared proportion arithmetic candidate and selected route/reference authority connections.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1406-1409.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-core/src/character_proportions.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c90956a8d2c0f664da84f22b7d8c7a7db90645e0",
+      "sha256": "7a3b0a5797dbb6d8c811aa2e2df9d831e7424367faf501cf6b3b9bffe1683433",
+      "bytes": 7056,
+      "lines": 208,
+      "ranges": [
+        [
+          1,
+          161
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/proportion-route-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test source read only; no product asset, viewer, fixture, fitting, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/proportions.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5e81a910aa70c62a3fb134d7b2cb601d0f15d207",
+      "sha256": "43710ce5f3f1a0ecdc487d413b6b62a6e051f62b6b520ab4d003be6eeb70d640",
+      "bytes": 3071,
+      "lines": 79,
+      "ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/proportion-route-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test source read only; no product asset, viewer, fixture, fitting, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/skeleton.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c4c654047138ef904a552c5a95786ea6b9aee847",
+      "sha256": "ac761936db58c742f2c58ab7381b8e26a8b6f819bfb91c0b29c54170fe96abff",
+      "bytes": 2564,
+      "lines": 69,
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/proportion-route-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test source read only; no product asset, viewer, fixture, fitting, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/rig.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bc4c897d14d58b94238f9b09fd9c9e1d4693574a",
+      "sha256": "376e2b436adccb5e961cafbb25082a1e38c1cabe2e56d0d9ccbada3fa69a1a7b",
+      "bytes": 6553,
+      "lines": 190,
+      "ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/proportion-route-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test source read only; no product asset, viewer, fixture, fitting, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/body.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f259239f2b5a49f7c57c494e2bdf0da18ff6002d",
+      "sha256": "fa65ba144131a0190348b38de97ef1fdcf28b5625f80f5b66ddd92a7d1ce3f82",
+      "bytes": 7838,
+      "lines": 229,
+      "ranges": [
+        [
+          115,
+          147
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/proportion-route-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test source read only; no product asset, viewer, fixture, fitting, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cdbbd4ed0e444db23e913bda3c21cbcd7299be13",
+      "sha256": "8fd8eb2ebae7206be3aa38b846ff7258857b16f4508ac77e1979d0d9aa32c93d",
+      "bytes": 16086,
+      "lines": 469,
+      "ranges": [
+        [
+          141,
+          160
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/proportion-route-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test source read only; no product asset, viewer, fixture, fitting, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer/proportions.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "10cf34e93eaab90cf88ffd3189ff9898ed083568",
+      "sha256": "02cbec8ef4635c8fc9afb5ee10bf4abacdc552432f70d03d44cf4f46995e24ec",
+      "bytes": 3610,
+      "lines": 103,
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/proportion-route-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test source read only; no product asset, viewer, fixture, fitting, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9f3cc5b2c458a41bc49c82502a39d1159c1e8f13",
+      "sha256": "4b41d158f102b67dd8ec40b40179456bbb348084165de92c33cf57fd8981b5da",
+      "bytes": 73988,
+      "lines": 1894,
+      "ranges": [
+        [
+          420,
+          506
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/proportion-route-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test source read only; no product asset, viewer, fixture, fitting, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/bind_pose.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "209e93a6ccfaaec0b42f61a6ae056a9202edfbef",
+      "sha256": "18362beeb59c79ca73d1ea84c897ce75b45074c2fd0e099999cabc707f058e12",
+      "bytes": 1461,
+      "lines": 48,
+      "ranges": [
+        [
+          31,
+          48
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/proportion-route-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test source read only; no product asset, viewer, fixture, fitting, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/identity_morphs.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "03c2ba33a682356cb3002bec8e0dbe55ee209b66",
+      "sha256": "340b2018b6091fe33081fc257ab36fc8f65a72011cb81d5fc583239d32807c5d",
+      "bytes": 5145,
+      "lines": 138,
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/proportion-route-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test source read only; no product asset, viewer, fixture, fitting, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9d20e485651cedabc0b3a980b476ba73949ccc0c",
+      "sha256": "754a5ea02732df10071edad99a78c5fc1524236ac1232401129c06da611834ee",
+      "bytes": 5565,
+      "lines": 118,
+      "ranges": [
+        [
+          27,
+          62
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/proportion-route-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test source read only; no product asset, viewer, fixture, fitting, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/setup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8a2e1d8926486283727417e82ed35ffe81f07c91",
+      "sha256": "ca7571cd25d303d7ef2ca543a07674e3ba3ba58b4a9abb8bb3f234f03507f9cb",
+      "bytes": 3153,
+      "lines": 94,
+      "ranges": [
+        [
+          36,
+          54
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/proportion-route-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test source read only; no product asset, viewer, fixture, fitting, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer_main.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e416dc7b646d0c1652361a08ac6f2bfb74eed9b8",
+      "sha256": "aa3d28a6c951d8fe7246dcd68b52baf41afebe9ccfdf5eb84dbf5cbe17c40932",
+      "bytes": 4516,
+      "lines": 132,
+      "ranges": [
+        [
+          41,
+          51
+        ],
+        [
+          108,
+          110
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/proportion-route-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test source read only; no product asset, viewer, fixture, fitting, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8bdd33b05699f49ceb18ff2aa5c6adb8678f778e",
+      "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "bytes": 40632,
+      "lines": 1021,
+      "ranges": [
+        [
+          550,
+          591
+        ],
+        [
+          740,
+          753
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/proportion-route-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test source read only; no product asset, viewer, fixture, fitting, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5723da1a36ca843bb38d402262ef0499ad6f8ea0",
+      "sha256": "927e13d910b8e3b7dc6a9cc58ef2e936172b4ec9188948ffd5d1a524d4b89185",
+      "bytes": 37278,
+      "lines": 792,
+      "ranges": [
+        [
+          514,
+          525
+        ],
+        [
+          600,
+          629
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/proportion-route-evidence/support-14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test source read only; no product asset, viewer, fixture, fitting, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0f8470338b1dd6dcd7974abe3a83cf0ff3e3aa05",
+      "sha256": "71dab9d14d4296c98d6828de5f19e3998f8b3716a32f4bb28d665196edb9c376",
+      "bytes": 17947,
+      "lines": 352,
+      "ranges": [
+        [
+          230,
+          243
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/proportion-route-evidence/support-15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test source read only; no product asset, viewer, fixture, fitting, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/diagnostic_record.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6c6e1cf87c2c875e913c19e850edbb17acc27ca4",
+      "sha256": "5141597330c799f5d0ca0312cb48602fb6dd20520737d18c46429dcf21829330",
+      "bytes": 4292,
+      "lines": 117,
+      "ranges": [
+        [
+          38,
+          53
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/proportion-route-evidence/support-16.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test source read only; no product asset, viewer, fixture, fitting, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/diagnostics.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8d97d00cf7ceca0592151c262e2fcaca17a963d1",
+      "sha256": "255ebbf963270d5128375972f1059af2843fa7da821834bcb5df88014a122a35",
+      "bytes": 11075,
+      "lines": 312,
+      "ranges": [
+        [
+          205,
+          228
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/proportion-route-evidence/support-17.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test source read only; no product asset, viewer, fixture, fitting, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/tests.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c67cbf98d8e3088a055b297dd4ae46736ad848e5",
+      "sha256": "244ceaa77e510437e0f435b2ebc89eec78e610e1f67b74abc45382634fa4246f",
+      "bytes": 57220,
+      "lines": 1524,
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/proportion-route-evidence/support-18.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test source read only; no product asset, viewer, fixture, fitting, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/weighted.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1118986a2bc6f564e461ad4d76cef175f0b0d14b",
+      "sha256": "8453166436911f4394c507ec05f4e3bf3f52d0bb92cb9f388bb0cecbe64ceb7c",
+      "bytes": 2231,
+      "lines": 71,
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/proportion-route-evidence/support-19.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test source read only; no product asset, viewer, fixture, fitting, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/README.md",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "913768b7e60f156e3bbf4364db5488578a561bec",
+      "sha256": "1067fa9b47c67f86299296b67d8c342362d0cc5a42069e768078e31aa7f9857d",
+      "bytes": 49606,
+      "lines": 837,
+      "ranges": [
+        [
+          272,
+          280
+        ],
+        [
+          288,
+          300
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/proportion-route-evidence/support-20.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test source read only; no product asset, viewer, fixture, fitting, build, test or runtime probe ran."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-SKELETAL-BASIS-RESULT-OVERFLOW-001",
+      "lens": 4,
+      "severity": "unassigned; conditional source-level arithmetic, asset reachability unproved",
+      "classification": "New current-source proportion-result candidate tied to an earlier Lens12 producer/consumer question; actual assets, fitting behavior and global aliases remain open.",
+      "trace": "JointProportionBasis stores a bounded CharacterProportions reference plus finite translation coefficients. CharacterProportions checks each MHR coefficient against its own finite symmetric limit; basis.is_finite checks the coefficient leaves, while translation multiplies each coefficient by the difference from the reference and sums without checking the completed result. The client admits finite basis metadata from glTF extras, computes offsets, queues SkeletalJointOffset, and the pose-buffer consumer adds it to local pose translation. The equipment FittingRig independently checks finite bases and consistent references, then its global/fit calculations use the same translation result and can mutate fitted body positions and states. The character-creator producer constructs bases with a common reference from MHR translation channels and checks matching model limits; export checks coefficient finiteness and count.",
+      "symbolic_example": "Conditionally take a decoded basis whose only nonzero translation coefficient is about 2×10^38 on the X axis of an arm joint for LowerArmLength; let the shared reference be -1 and explicit current proportion +1. Both endpoints are within that control's stated limit of 1 and the coefficient is a finite f32. Under ordinary f32 arithmetic the single term is about 4×10^38, above finite f32 maximum, so translation returns infinity. If the arm is not an ancestor of either foot and other basis terms and parent geometry are finite, the pelvis ground correction does not repair that arm offset. The next selected source path has no finite-result check before its offset is retained or added. This is a symbolic source example, not a constructed asset or executed numerical kernel.",
+      "qualifications": "No claim that the pinned MHR producer or shipped base asset contains an extreme coefficient, that a supported glTF with these values loads, or that an actual player, fitting job or renderer observes a nonfinite result. JSON/native parsing, target floating-point behavior, fitted-body publication, all pose and skin consumers, legitimate bounds and exact aliases remain open. Existing reference and character value admission, ordinary zero/default cases, common-reference producer and the ground-height correction are meaningful safeguards that must be preserved.",
+      "first_failed_contract": "Finite input leaves do not by themselves establish a finite completed proportion offset before it reaches multiple retained and native consumers.",
+      "canonical_owner": "The shared JointProportionBasis evaluation contract in adventuresim-core, coordinated with animation and FittingRig publication owners.",
+      "connected_repair": "Determine supported basis and character ranges. If the case is supported, admit the completed translation and any subsequent composed corrections before publishing animation offsets or mutating fitted geometry; propagate a meaningful failure at each owner while preserving valid character bounds, a common exported reference, neutral ground height and independent per-character rigs.",
+      "later_acceptance": "Only after separate authorization for implementation and validation, cover finite representable extremes, cross-joint accumulation, finite normal inputs, malformed basis/reference handling and no partial pose or fitted-body mutation on rejection.",
+      "discovery": "partial; actual assets, numeric policy and aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "existing_contract_connections": [
+    {
+      "id": "Q-L12-4d5057d03d6c602d2348-REFERENCE-CONSISTENCY",
+      "relationship": "Additional unresolved aggregate question within the earlier skeletal proportion contract; not another counted finding.",
+      "trace": "The inspected creator joint_bases initializes each joint with one reference. FittingRig::new explicitly rejects inconsistent basis references. The animation loader checks each basis for finiteness independently; during sync it queues a SkeletalProportionReference from each basis whose reference differs from the owner snapshot, while each bone uses its own basis. The owner reference is also used by identity morph weighting.",
+      "limits": "The actual base asset, supported custom asset inputs, complete schedule, query iteration/command ordering and resulting observable state have not been established. The source does not prove a legitimate inconsistent-reference asset or an actual repeated update; a shared producer reference narrows the case. Any fix decision must preserve the two consumers' intended coherent reference without inventing a data migration.",
+      "discovery": "unresolved conditional",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "Q-L12-ae91fa2003a230562617-ROUTE-REPORT",
+      "relationship": "Selected current producer-to-report trace within the earlier route authority question; no new counted finding or asserted alternate routing implementation.",
+      "trace": "The only textual SemanticRouteTrace construction found assigns requested_path and path from the same requested_path classification after one direct AnimationEvaluation::from_skeleton call. Capture requires a trace, copies both fields and marks runtime_evaluated true. The report field semantic_route_paths_exercised tests every frame for GeneralPose or that Boolean plus equality; it also records selected-path counts. On this selected producer path the equality and Boolean are not independent evidence of a separate branch being executed. The documented architecture describes direct semantic routing, and the existing source tests compare the router evaluation with direct evaluation.",
+      "limits": "The common evaluation really is called; do not say no routing or no evaluation occurred. GeneralPose is deliberately exempted, selected single-scenario reports need not cover all categories, and report completion has many independent gates. Whether the field promises coverage, merely records classification consistency, or should carry a different witness requires a product/report contract decision and complete external consumers. No report was generated.",
+      "connected_repair": "Clarify what the report field promises. If it is intended as a behavioral execution gate, carry an independently established witness from the actual owner; if it is a classification observation, align its name and schema with that meaning while preserving intentional direct routing and existing report consumers.",
+      "discovery": "unresolved policy and authority",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1201 through /entries/1204"
+      ],
+      "qualification": "Earlier Lens12 questions retain original scope and are not closed by this bounded trace."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-401.json",
+      "sha256": "0212d9a2e233be05423b037e83fac06683de600625bc55b1e9704b958f13e724",
+      "bytes": 1739,
+      "git_blob": "e098efd18d8a2e6c4afc314f3bb4afd6c0e2e66d",
+      "preserved_bytes": "recovered/proportion-route-059/0212d9a2e233be05423b037e83fac06683de600625bc55b1e9704b958f13e724.gz",
+      "published_sha256": "0212d9a2e233be05423b037e83fac06683de600625bc55b1e9704b958f13e724",
+      "published_bytes": 1739,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-402.json",
+      "sha256": "03eeb5c51668e4b187aacd81248faecd011228757cc44a3c0912fae0758a552a",
+      "bytes": 1718,
+      "git_blob": "b224d5a7640538362de8a552d2767775dd8c957e",
+      "preserved_bytes": "recovered/proportion-route-059/03eeb5c51668e4b187aacd81248faecd011228757cc44a3c0912fae0758a552a.gz",
+      "published_sha256": "03eeb5c51668e4b187aacd81248faecd011228757cc44a3c0912fae0758a552a",
+      "published_bytes": 1718,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-401.json",
+      "sha256": "24c4488c735a1af25a7b66128cdc7ba495a85479d2a346e1f67a3489da4a9d1c",
+      "bytes": 12968,
+      "git_blob": "80e0b6a897fc44a3412b071d3e5bf005b069ec11",
+      "preserved_bytes": "recovered/proportion-route-059/24c4488c735a1af25a7b66128cdc7ba495a85479d2a346e1f67a3489da4a9d1c.gz",
+      "published_sha256": "24c4488c735a1af25a7b66128cdc7ba495a85479d2a346e1f67a3489da4a9d1c",
+      "published_bytes": 12968,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-402.json",
+      "sha256": "b1da478567562e9ed5e1202000edaa421056f71066c479eb4dbcf88394b77760",
+      "bytes": 12970,
+      "git_blob": "2c4451aaee1c9c509357882e65a2c7c17e67a981",
+      "preserved_bytes": "recovered/proportion-route-059/b1da478567562e9ed5e1202000edaa421056f71066c479eb4dbcf88394b77760.gz",
+      "published_sha256": "b1da478567562e9ed5e1202000edaa421056f71066c479eb4dbcf88394b77760",
+      "published_bytes": 12970,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-311.json",
+      "sha256": "bf0bd085e8fd5a5af626276456bc7884a5f5b900b2ecae1a5c0148aee39822ad",
+      "bytes": 1261,
+      "git_blob": "f59d358ca8e67a2e3b59b6d3629289adbfe35814",
+      "preserved_bytes": "recovered/proportion-route-059/bf0bd085e8fd5a5af626276456bc7884a5f5b900b2ecae1a5c0148aee39822ad.gz",
+      "published_sha256": "bf0bd085e8fd5a5af626276456bc7884a5f5b900b2ecae1a5c0148aee39822ad",
+      "published_bytes": 1261,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-312.json",
+      "sha256": "695f360662610bdc6c10f260dff1a3c2224ffb2d89c79716f2b7d005b774dd16",
+      "bytes": 1249,
+      "git_blob": "31d5b9f035d52c6a4413d69f1e76f0042151a255",
+      "preserved_bytes": "recovered/proportion-route-059/695f360662610bdc6c10f260dff1a3c2224ffb2d89c79716f2b7d005b774dd16.gz",
+      "published_sha256": "695f360662610bdc6c10f260dff1a3c2224ffb2d89c79716f2b7d005b774dd16",
+      "published_bytes": 1249,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-313.json",
+      "sha256": "5a87c2c0cf8573e25f60fcf0c2f7ffb8db6aefaa25f1b422480bc31de3dffc2a",
+      "bytes": 1221,
+      "git_blob": "9084a58d27e55fd4d375e448a69cd8f81c13bef4",
+      "preserved_bytes": "recovered/proportion-route-059/5a87c2c0cf8573e25f60fcf0c2f7ffb8db6aefaa25f1b422480bc31de3dffc2a.gz",
+      "published_sha256": "5a87c2c0cf8573e25f60fcf0c2f7ffb8db6aefaa25f1b422480bc31de3dffc2a",
+      "published_bytes": 1221,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-314.json",
+      "sha256": "c68658216d425c2c1de1cebb05d3569696361e9e321e18b81f09c36af3aa3148",
+      "bytes": 1248,
+      "git_blob": "e212566c408a8c8dd6ab4078dd23996b21691b69",
+      "preserved_bytes": "recovered/proportion-route-059/c68658216d425c2c1de1cebb05d3569696361e9e321e18b81f09c36af3aa3148.gz",
+      "published_sha256": "c68658216d425c2c1de1cebb05d3569696361e9e321e18b81f09c36af3aa3148",
+      "published_bytes": 1248,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-315.json",
+      "sha256": "e33e78e73ba3d01aeda8b544474203c1cca441d8ecbf8bc45d7b34ef713aa73f",
+      "bytes": 1252,
+      "git_blob": "f2b610ebbd4f91d192c3e7115f52061995175e76",
+      "preserved_bytes": "recovered/proportion-route-059/e33e78e73ba3d01aeda8b544474203c1cca441d8ecbf8bc45d7b34ef713aa73f.gz",
+      "published_sha256": "e33e78e73ba3d01aeda8b544474203c1cca441d8ecbf8bc45d7b34ef713aa73f",
+      "published_bytes": 1252,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-316.json",
+      "sha256": "45da5c1f70e669bd49ad616a6343c81a4bafa808b93dd64c63fb81ce7403c3a2",
+      "bytes": 1264,
+      "git_blob": "6a0197372dfe412bae803ceb851f4f7a54a5c2f5",
+      "preserved_bytes": "recovered/proportion-route-059/45da5c1f70e669bd49ad616a6343c81a4bafa808b93dd64c63fb81ce7403c3a2.gz",
+      "published_sha256": "45da5c1f70e669bd49ad616a6343c81a4bafa808b93dd64c63fb81ce7403c3a2",
+      "published_bytes": 1264,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-401.json",
+      "sha256": "b70ad3dc9aff72598c2031e84ffc253d488558453c225cdaff23476cb796f770",
+      "bytes": 840,
+      "git_blob": "9975eaf7bb104fadea7212e3b0a72d4eaa9ab0e5",
+      "preserved_bytes": "recovered/proportion-route-059/b70ad3dc9aff72598c2031e84ffc253d488558453c225cdaff23476cb796f770.gz",
+      "published_sha256": "b70ad3dc9aff72598c2031e84ffc253d488558453c225cdaff23476cb796f770",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-402.json",
+      "sha256": "ab43b5745a636f637e4f6830f7b6effbf5541a99979786be7c2071647935cb52",
+      "bytes": 840,
+      "git_blob": "fa93a4b237619ffb13974f7703b4c6e541c92125",
+      "preserved_bytes": "recovered/proportion-route-059/ab43b5745a636f637e4f6830f7b6effbf5541a99979786be7c2071647935cb52.gz",
+      "published_sha256": "ab43b5745a636f637e4f6830f7b6effbf5541a99979786be7c2071647935cb52",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-401.json",
+      "sha256": "44e163fd79407f24288d16bc2bb51fbced78a314cf249810367f11f49c169396",
+      "bytes": 558,
+      "git_blob": "2d3cb753613d413bf6504f6b52498265cb624cad",
+      "preserved_bytes": "recovered/proportion-route-059/44e163fd79407f24288d16bc2bb51fbced78a314cf249810367f11f49c169396.gz",
+      "published_sha256": "44e163fd79407f24288d16bc2bb51fbced78a314cf249810367f11f49c169396",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-402.json",
+      "sha256": "571d563c56b979f49520ff9ba1979bc1721f7cf04aa02d4fb82b9dab4e07d4a7",
+      "bytes": 558,
+      "git_blob": "6775e4d347b4e192098c5ed4a02ec2a3266adc2f",
+      "preserved_bytes": "recovered/proportion-route-059/571d563c56b979f49520ff9ba1979bc1721f7cf04aa02d4fb82b9dab4e07d4a7.gz",
+      "published_sha256": "571d563c56b979f49520ff9ba1979bc1721f7cf04aa02d4fb82b9dab4e07d4a7",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    }
+  ],
+  "remaining": "Actual asset values and native loading, valid finite policy, fitting/pose lifecycle, route report meaning and global aliases plus all thirteen lenses remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
