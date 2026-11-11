@@ -1,0 +1,604 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    9,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Historical projection, raised-intent and turn-deadline roles; bounded current server/client/config/replication and pinned Rust source semantics.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1787-1789.json",
+  "git_membership_evidence": "TURN-INTENT-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5bd51b919223279623bc728d4356e092e27c0448",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "bytes": 132880,
+      "lines": 3497,
+      "ranges": [
+        [
+          1619,
+          1686
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/turn-intent-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges personally inspected; complete bytes retained. Source fixtures are not test execution, and unrelated role/lens credit is not transferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "adf8bac771becfd41e2852409b0432f0918796c6",
+      "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+      "bytes": 6582,
+      "lines": 162,
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/turn-intent-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges personally inspected; complete bytes retained. Source fixtures are not test execution, and unrelated role/lens credit is not transferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/player.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ad8ef59e860df91568bb704b4e061e843dcb2447",
+      "sha256": "e58cbe13aa543aebd82995383e999d55e0e47b9885396f958282313316f4e37c",
+      "bytes": 33413,
+      "lines": 944,
+      "ranges": [
+        [
+          525,
+          580
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/turn-intent-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges personally inspected; complete bytes retained. Source fixtures are not test execution, and unrelated role/lens credit is not transferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b7f556d2ad2e5461e428a24423d6947b1e9726a9",
+      "sha256": "aa04ddf1b466365d8e27a43076eab1904f9d1d4abfd1715e2af1578f5d4e5636",
+      "bytes": 80901,
+      "lines": 2050,
+      "ranges": [
+        [
+          525,
+          556
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/turn-intent-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges personally inspected; complete bytes retained. Source fixtures are not test execution, and unrelated role/lens credit is not transferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/replication.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8a61e133ac0e6d5caa491738795d94e3431b68a2",
+      "sha256": "44cf2776eaa433b9291858b34b3996df4fc9dde3def2980ebe83788b5f36fb3e",
+      "bytes": 10254,
+      "lines": 242,
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/turn-intent-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges personally inspected; complete bytes retained. Source fixtures are not test execution, and unrelated role/lens credit is not transferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0c133953d32f479dee44b2ab0f94264e1b5395f8",
+      "sha256": "f26dc1059e4a9d133ac1fba9c80a1086753b20b54e5a5074dc8e557540cea67b",
+      "bytes": 9366,
+      "lines": 260,
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/turn-intent-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges personally inspected; complete bytes retained. Source fixtures are not test execution, and unrelated role/lens credit is not transferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b1c06fb10a4034af5132474367304371b496bbe3",
+      "sha256": "e54bd673db78d4b343707613e348b7d7fb4f74d34b8a454fefe73f426145a045",
+      "bytes": 10812,
+      "lines": 320,
+      "ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/turn-intent-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges personally inspected; complete bytes retained. Source fixtures are not test execution, and unrelated role/lens credit is not transferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/presentation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fcde79c797a4df12522675f7d722322168ca4569",
+      "sha256": "6a067389a1cdcbddd0dd3814f95e17664351794be139353572edd19928a18171",
+      "bytes": 35002,
+      "lines": 867,
+      "ranges": [
+        [
+          85,
+          125
+        ],
+        [
+          245,
+          277
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/turn-intent-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges personally inspected; complete bytes retained. Source fixtures are not test execution, and unrelated role/lens credit is not transferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5eff44d2c63c470fef92210078d199f5d299ab45",
+      "sha256": "1316d55883c31826dcf78b1c36f80116faf40dee3aa3cf8a4bc82646030d19e3",
+      "bytes": 139647,
+      "lines": 2973,
+      "ranges": [
+        [
+          575,
+          640
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/turn-intent-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges personally inspected; complete bytes retained. Source fixtures are not test execution, and unrelated role/lens credit is not transferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a6af10e5436c223765c54b58458beb7daa755097",
+      "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+      "bytes": 3696,
+      "lines": 107,
+      "ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/turn-intent-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges personally inspected; complete bytes retained. Source fixtures are not test execution, and unrelated role/lens credit is not transferred."
+    },
+    {
+      "path": "crates/adventuresim-core/src/elapsed.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "189312858c17b73924b6c47ef45190d7b1c89ee1",
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "bytes": 4147,
+      "lines": 131,
+      "ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/turn-intent-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges personally inspected; complete bytes retained. Source fixtures are not test execution, and unrelated role/lens credit is not transferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "69c5ba2736064f8b1155cc01260f3947883972a7",
+      "sha256": "744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+      "bytes": 2982,
+      "lines": 86,
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/turn-intent-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges personally inspected; complete bytes retained. Source fixtures are not test execution, and unrelated role/lens credit is not transferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4b64e4d89c6af0bf3bda86b5083fcc77108de4fe",
+      "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+      "bytes": 31826,
+      "lines": 779,
+      "ranges": [
+        [
+          75,
+          105
+        ],
+        [
+          365,
+          393
+        ],
+        [
+          588,
+          648
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/turn-intent-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges personally inspected; complete bytes retained. Source fixtures are not test execution, and unrelated role/lens credit is not transferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ddbb471042ffdc77b0b8c7e16b1e184b1a98963e",
+      "sha256": "423abf723a262ebe836e619d7ae78e7307715eeb0a6df531a58967134d312e74",
+      "bytes": 71704,
+      "lines": 2067,
+      "ranges": [
+        [
+          124,
+          199
+        ],
+        [
+          1134,
+          1162
+        ],
+        [
+          1260,
+          1282
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/turn-intent-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges personally inspected; complete bytes retained. Source fixtures are not test execution, and unrelated role/lens credit is not transferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/tests.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "28d3ac89af3ab47510d9443514c2111edefe4d19",
+      "sha256": "48ba1b8005d63740183260c570153bbd903dba12c0fc3615253199a65a70f27e",
+      "bytes": 76703,
+      "lines": 1969,
+      "ranges": [
+        [
+          847,
+          887
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/turn-intent-evidence/support-14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges personally inspected; complete bytes retained. Source fixtures are not test execution, and unrelated role/lens credit is not transferred."
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          155,
+          220
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/turn-intent-evidence/support-15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges personally inspected; complete bytes retained. Source fixtures are not test execution, and unrelated role/lens credit is not transferred."
+    },
+    {
+      "path": "rust-toolchain.toml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "18d1c14844d398c027c2e2cc740acca5bda2ec75",
+      "sha256": "0ede9efa984ca1bbaacf8ad3231e6e9ee1efd4000986bc913a2178c7ceb5be8a",
+      "bytes": 150,
+      "lines": 5,
+      "ranges": [
+        [
+          1,
+          4
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/turn-intent-evidence/support-16.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges personally inspected; complete bytes retained. Source fixtures are not test execution, and unrelated role/lens credit is not transferred."
+    }
+  ],
+  "native_source_members": [
+    {
+      "path": "native-evidence/rust-nightly-2026-07-13/library/core/src/num/f32.rs",
+      "content_encoding": null,
+      "sha256": "41d78dcc60e2f57fd8613ed4d62e6538cf2c6765ad5f57373f92ffc46ca2a026",
+      "bytes": 82209,
+      "ranges": [
+        [
+          1028,
+          1080
+        ]
+      ],
+      "manifest": "native-evidence/rust-nightly-2026-07-13/MANIFEST.json",
+      "qualification": "Installed nightly-2026-07-13 rust-src matches previously preserved bytes; repository pins this date but no compiler source or settings used in any product build are asserted. Newly inspected lines are current native-source evidence, not a historical read."
+    },
+    {
+      "path": "native-evidence/rust-nightly-2026-07-13/library/core/src/primitive_docs.rs.gz",
+      "content_encoding": "gzip",
+      "sha256": "339d21cb6a937245e38a5d09e84b329b1c6c11a6bc35eeb829fc18cd644c8e3b",
+      "bytes": 76082,
+      "ranges": [
+        [
+          1172,
+          1233
+        ]
+      ],
+      "manifest": "native-evidence/rust-nightly-2026-07-13/MANIFEST.json",
+      "qualification": "Installed nightly-2026-07-13 rust-src matches previously preserved bytes; repository pins this date but no compiler source or settings used in any product build are asserted. Newly inspected lines are current native-source evidence, not a historical read."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-PAUSED-FACING-SUBNORMAL-DURATION-001",
+      "lens": 4,
+      "additional_current_lenses": [
+        1,
+        3,
+        7,
+        8,
+        13
+      ],
+      "severity": "unassigned; conditional source-level arithmetic failure",
+      "first_contract": "A zero elapsed step must not advance facing or make the tracking residual assume a completed turn.",
+      "trace": "PositiveAnimationDuration admits positive finite f32 with no lower bound, including representable 2^-140. With a nonzero desired yaw, configured_half_turn(2^-140) computes PI / duration above f32 maximum and hence infinity under IEEE arithmetic; elapsed zero yields infinity * 0 = NaN. Pinned Rust f32::min returns the non-NaN argument when exactly one input is NaN, so NaN.min(PI) supplies a full PI cap and the source clamps the desired yaw to that cap rather than zero. tracking_residual similarly applies max(0) to a NaN expression and returns zero. A finite nonzero angle and positive tiny remaining deadline can reach the same form; the explicit two-zero deadline path correctly returns zero speed.",
+      "producer_and_consumer": "The server fixed-step facing path and client prediction pass elapsed and configured positive half-turn duration to this kernel; the animation-viewer report uses tracking_residual. Actual clock scheduling, configuration loading and a paused call with such tiny duration were not observed.",
+      "safeguards_and_limits": "Committed YAML duration is0.25 seconds. No full extreme configuration was parsed or installed, no sample/frame/rotation/report ran, and no measured gameplay effect or false-pass was observed. Rust sources match the repository-pinned nightly date but do not prove the compiler or math mode of a historical or future build. The prior Segovb580 receipt identified this specific pending question but did not establish the native semantics; this is newly assessed current evidence, not a historical or checkpoint3821 finding.",
+      "connected_repair_dependencies": [
+        "Establish whether zero elapsed and tiny positive configured/deadline duration can co-occur through supported clients, server clocks and config; inspect all callers and native representations.",
+        "Define bounded turn and residual arithmetic so a paused observation retains zero movement, while preserving legitimate no-direction and two-zero modes and nonzero deadline behavior.",
+        "Reconcile exact aliases and retain the server/presentation authority boundary before any later implementation or validation."
+      ],
+      "historical_related_candidates": [
+        "baseline-059/queue.json#/entries/1466",
+        "baseline-059/queue.json#/entries/1467",
+        "segovb/READ-L12-580.json"
+      ],
+      "accepted_historical_unique_count_change": 0,
+      "discovery": "partial; source-derived extreme input with live reachability unproved",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-GUARD-INTENT-AUTHORITY-DOC-001",
+      "lens": 8,
+      "additional_current_lenses": [
+        1,
+        5,
+        7,
+        9,
+        12,
+        13
+      ],
+      "severity": "unassigned; source documentation mismatch",
+      "first_contract": "The documented authority and meaning of raised-guard state should match the authored request, observation and server-planned contact contracts.",
+      "trace": "RaisedLocomotionIntent documentation says authority replicates only observed motion and visual plants, swing ownership and progress are client presentation state. On the shown server projection path, an upright raised guard with zero observed speed and a nonzero held movement direction chooses a Moving intent with at least0.051 m/s even though the physical velocity is zero. The 0.05 stationary threshold admits this value; SkeletonState retains the stance and netcode registers SkeletonState for replication. The same state owns a server-authored GuardStepPlan with swing foot, contacts and contact deadline; client presentation interpolates from that plan and its IK can substitute authored contacts when stopped.",
+      "safeguards_and_limits": "This is a source-documentation mismatch and a conditional source path, not proof of an observed network frame, wrong gameplay movement, rendering artifact or a reason to remove the intentional held-request behavior. The prior Segovb579 receipt specifically kept this comment/request relationship pending. The chosen future remedy depends on the intended contract; supported fallback/normalization and tactical authority remain distinct from compatibility shims.",
+      "connected_repair_dependencies": [
+        "Confirm the intended split between server observation, held intent, authoritative contact plan and client interpolation across all producers/consumers.",
+        "Align the type documentation with that decision and retain the intentional in-flight step and held-input behavior; do not add hidden movement or fatigue penalties.",
+        "Reconcile original pending record and any exact aliases before implementation."
+      ],
+      "historical_related_candidates": [
+        "baseline-059/queue.json#/entries/1459",
+        "baseline-059/queue.json#/entries/1465",
+        "segovb/READ-L12-579.json"
+      ],
+      "accepted_historical_unique_count_change": 0,
+      "discovery": "partial; source mismatch established, broader authorship and live path remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1459",
+        "/entries/1464",
+        "/entries/1465",
+        "/entries/1466",
+        "/entries/1467"
+      ],
+      "qualification": "Original059 pending questions retain prior author/revision and do not become3821; current findings are new assessments."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-579.json",
+      "sha256": "015cdc4432fca2ac32e50a94183fbc66d5ae6b0aa5d0e668e4ac11582f3ec2b6",
+      "bytes": 1228,
+      "git_blob": "98fa631a7672353f7986d9ad027b225595d6a79e",
+      "preserved_bytes": "recovered/turn-intent-059/015cdc4432fca2ac32e50a94183fbc66d5ae6b0aa5d0e668e4ac11582f3ec2b6.gz",
+      "published_sha256": "015cdc4432fca2ac32e50a94183fbc66d5ae6b0aa5d0e668e4ac11582f3ec2b6",
+      "published_bytes": 1228,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original plan"
+      ],
+      "qualification": "Original author, lens, revision, range, qualifications and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-580.json",
+      "sha256": "7103d1f707181598b1b1c5a637091ba80629368c2aa0d3c780802016e9811d5c",
+      "bytes": 730,
+      "git_blob": "243c6fd510a494d9b084bb41929203cd4703d2b6",
+      "preserved_bytes": "recovered/turn-intent-059/7103d1f707181598b1b1c5a637091ba80629368c2aa0d3c780802016e9811d5c.gz",
+      "published_sha256": "7103d1f707181598b1b1c5a637091ba80629368c2aa0d3c780802016e9811d5c",
+      "published_bytes": 730,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original plan"
+      ],
+      "qualification": "Original author, lens, revision, range, qualifications and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/READ-L12-579.json",
+      "sha256": "5b4f2b2571b78e24c1508f49df74fb1f9a1ba4ce41e8e58bc27e782fb594f9ae",
+      "bytes": 8066,
+      "git_blob": "fe966993d1f8823cf4fe1f54e7c0e590acb8e3ce",
+      "preserved_bytes": "recovered/turn-intent-059/5b4f2b2571b78e24c1508f49df74fb1f9a1ba4ce41e8e58bc27e782fb594f9ae.gz",
+      "published_sha256": "5b4f2b2571b78e24c1508f49df74fb1f9a1ba4ce41e8e58bc27e782fb594f9ae",
+      "published_bytes": 8066,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision, range, qualifications and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/READ-L12-580.json",
+      "sha256": "bf811f23390a5ce8d52e9abf30e7095b760735240025e040958363cd968f664c",
+      "bytes": 5689,
+      "git_blob": "c385b87972abc4462741b68f40d4972d321a79cd",
+      "preserved_bytes": "recovered/turn-intent-059/bf811f23390a5ce8d52e9abf30e7095b760735240025e040958363cd968f664c.gz",
+      "published_sha256": "bf811f23390a5ce8d52e9abf30e7095b760735240025e040958363cd968f664c",
+      "published_bytes": 5689,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision, range, qualifications and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-694.json",
+      "sha256": "3d65f751021f343ddbd9fca766771255c2a20530861b6acb90a28f724fdcce7d",
+      "bytes": 1211,
+      "git_blob": "5994c5af7c8dcbb343066cb4db7b88030cd892a9",
+      "preserved_bytes": "recovered/turn-intent-059/3d65f751021f343ddbd9fca766771255c2a20530861b6acb90a28f724fdcce7d.gz",
+      "published_sha256": "3d65f751021f343ddbd9fca766771255c2a20530861b6acb90a28f724fdcce7d",
+      "published_bytes": 1211,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original registration"
+      ],
+      "qualification": "Original author, lens, revision, range, qualifications and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-695.json",
+      "sha256": "90be4d7fdf83d9a85a19892d85966b26875fa7b5c5e2a457dc8dd6df15668d3a",
+      "bytes": 1225,
+      "git_blob": "d4b8bdff0e0eb3a7fbd3240357266a87dbff6e01",
+      "preserved_bytes": "recovered/turn-intent-059/90be4d7fdf83d9a85a19892d85966b26875fa7b5c5e2a457dc8dd6df15668d3a.gz",
+      "published_sha256": "90be4d7fdf83d9a85a19892d85966b26875fa7b5c5e2a457dc8dd6df15668d3a",
+      "published_bytes": 1225,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original registration"
+      ],
+      "qualification": "Original author, lens, revision, range, qualifications and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-696.json",
+      "sha256": "ee4251a8441fd23575e7ef9a34c00515b612e9b68c145394648c4d1915d0ad87",
+      "bytes": 1215,
+      "git_blob": "bd6d8b05346273255589a62e2ad85dca27bed295",
+      "preserved_bytes": "recovered/turn-intent-059/ee4251a8441fd23575e7ef9a34c00515b612e9b68c145394648c4d1915d0ad87.gz",
+      "published_sha256": "ee4251a8441fd23575e7ef9a34c00515b612e9b68c145394648c4d1915d0ad87",
+      "published_bytes": 1215,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original registration"
+      ],
+      "qualification": "Original author, lens, revision, range, qualifications and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/STATE-L12-579.json",
+      "sha256": "02076fc55c1c966bb40ba428802bf72c2d2a6d7ee2b154e36aa0fc8e9da18527",
+      "bytes": 840,
+      "git_blob": "561b44225881d5a5dafbf84c2d7d87ed6b9ce358",
+      "preserved_bytes": "recovered/turn-intent-059/02076fc55c1c966bb40ba428802bf72c2d2a6d7ee2b154e36aa0fc8e9da18527.gz",
+      "published_sha256": "02076fc55c1c966bb40ba428802bf72c2d2a6d7ee2b154e36aa0fc8e9da18527",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original author, lens, revision, range, qualifications and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/STATE-L12-580.json",
+      "sha256": "0b35bcf04428b8dd117062b167b343b84cabe47e8c373486f6739d222cb482b2",
+      "bytes": 840,
+      "git_blob": "b6fa07d5959fabac3e96703b809af7fd21a51553",
+      "preserved_bytes": "recovered/turn-intent-059/0b35bcf04428b8dd117062b167b343b84cabe47e8c373486f6739d222cb482b2.gz",
+      "published_sha256": "0b35bcf04428b8dd117062b167b343b84cabe47e8c373486f6739d222cb482b2",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original author, lens, revision, range, qualifications and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-579.json",
+      "sha256": "a28672408c025508839bc8da883cd6b22da899f4d50d6798bd9726948d17af4c",
+      "bytes": 558,
+      "git_blob": "32e401fb6120e0999dd94303cf6588b63ea6deb9",
+      "preserved_bytes": "recovered/turn-intent-059/a28672408c025508839bc8da883cd6b22da899f4d50d6798bd9726948d17af4c.gz",
+      "published_sha256": "a28672408c025508839bc8da883cd6b22da899f4d50d6798bd9726948d17af4c",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original verification"
+      ],
+      "qualification": "Original author, lens, revision, range, qualifications and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-580.json",
+      "sha256": "0c70fb756f88fa10f62f7bb3c178c4081af14e9e38145a9d4aa57b9fba38fb56",
+      "bytes": 558,
+      "git_blob": "f4f79e52f5087d9c940a2ddb8c0bc9226cbbeb16",
+      "preserved_bytes": "recovered/turn-intent-059/0c70fb756f88fa10f62f7bb3c178c4081af14e9e38145a9d4aa57b9fba38fb56.gz",
+      "published_sha256": "0c70fb756f88fa10f62f7bb3c178c4081af14e9e38145a9d4aa57b9fba38fb56",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original verification"
+      ],
+      "qualification": "Original author, lens, revision, range, qualifications and pending dependencies retained; not checkpoint3821."
+    }
+  ],
+  "remaining": "Continue historical1790, all13 lenses, actual configuration/clock/network policy, exact aliases and queue closure. Final original3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
