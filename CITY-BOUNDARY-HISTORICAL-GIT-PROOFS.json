@@ -1,0 +1,515 @@
+{
+  "schema": "726-exact-git-tree-path-membership-v1",
+  "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "shared_commit_and_tree_objects": "EQUIPMENT-HISTORICAL-GIT-PROOFS.json",
+  "additional_shared_tree_objects": [
+    "RUNTIME-FIT-HISTORICAL-GIT-PROOFS.json",
+    "MESH-RIG-HISTORICAL-GIT-PROOFS.json",
+    "SLOT-AUDIO-HISTORICAL-GIT-PROOFS.json",
+    "PLAYER-TRACE-HISTORICAL-GIT-PROOFS.json"
+  ],
+  "root_tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+  "additional_tree_objects": {
+    "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba": {
+      "git_object": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+      "sha256": "bd610ad8646771125979d20d65f4aa9e9cc1937b50f1d3efcb7f99a3aed026ca",
+      "bytes": 1681,
+      "preserved_bytes": "main-advance-95e/city-boundary-evidence/git-objects/8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba.tree.gz"
+    },
+    "64c4cbc69462a8821f684351bdc4a125c80a83a2": {
+      "git_object": "64c4cbc69462a8821f684351bdc4a125c80a83a2",
+      "sha256": "5e3e565d0cdf6978d5adb715d81b54b84129b855305ccd1166cc64ef818baf94",
+      "bytes": 411,
+      "preserved_bytes": "main-advance-95e/city-boundary-evidence/git-objects/64c4cbc69462a8821f684351bdc4a125c80a83a2.tree.gz"
+    },
+    "571c643446d11a4f9cc30b54225f8afb1b1e9278": {
+      "git_object": "571c643446d11a4f9cc30b54225f8afb1b1e9278",
+      "sha256": "02302fb0d9c25a58e5bc37ad6db12375618ca30bb64c84f609364e12f916a20a",
+      "bytes": 152,
+      "preserved_bytes": "main-advance-95e/city-boundary-evidence/git-objects/571c643446d11a4f9cc30b54225f8afb1b1e9278.tree.gz"
+    },
+    "a4900cafdce5bb8c931c7c977679d92957a0b00f": {
+      "git_object": "a4900cafdce5bb8c931c7c977679d92957a0b00f",
+      "sha256": "cd4b943d8bc363d2645cbfe8b3c8d2a7f969b61b34d68607da223e4d86dcec7d",
+      "bytes": 36,
+      "preserved_bytes": "main-advance-95e/city-boundary-evidence/git-objects/a4900cafdce5bb8c931c7c977679d92957a0b00f.tree.gz"
+    },
+    "c6b0db7f8c9f15c47a809b48dbd486cb87461070": {
+      "git_object": "c6b0db7f8c9f15c47a809b48dbd486cb87461070",
+      "sha256": "e35e97eb97f5776b4348e7af9b6cad5e310073135a742b8bcd20a63a7f06425c",
+      "bytes": 36,
+      "preserved_bytes": "main-advance-95e/city-boundary-evidence/git-objects/c6b0db7f8c9f15c47a809b48dbd486cb87461070.tree.gz"
+    },
+    "9cafadc71311b08319431e4560dce80b156e8fe9": {
+      "git_object": "9cafadc71311b08319431e4560dce80b156e8fe9",
+      "sha256": "590baeadaebca5a03796316cf610c014766ad327351431b0fd18d6d119ad1be5",
+      "bytes": 333,
+      "preserved_bytes": "main-advance-95e/city-boundary-evidence/git-objects/9cafadc71311b08319431e4560dce80b156e8fe9.tree.gz"
+    },
+    "030139395482b6b00b735c5979254bff43cb3c06": {
+      "git_object": "030139395482b6b00b735c5979254bff43cb3c06",
+      "sha256": "468a48545903b24c93cdd8471266ddd802b8f594f0993377d4547f12700710e7",
+      "bytes": 183,
+      "preserved_bytes": "main-advance-95e/city-boundary-evidence/git-objects/030139395482b6b00b735c5979254bff43cb3c06.tree.gz"
+    }
+  },
+  "paths": {
+    "crates/adventuresim-tactical-client/src/presentation/buildings.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "buildings.rs",
+          "mode": "100644",
+          "child": "df78e756ba64379f69b43f1052c63a9675505fce"
+        }
+      ],
+      "git_blob": "df78e756ba64379f69b43f1052c63a9675505fce",
+      "sha256": "f4d17651442bf511cbf0f98d9810f06bcd8a3e227ca4e7ddebbf926de66044fb",
+      "bytes": 20118,
+      "lines": 596
+    },
+    "crates/adventuresim-tactical-client/src/presentation/buildings/boundaries.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "buildings",
+          "mode": "40000",
+          "child": "64c4cbc69462a8821f684351bdc4a125c80a83a2"
+        },
+        {
+          "tree": "64c4cbc69462a8821f684351bdc4a125c80a83a2",
+          "name": "boundaries.rs",
+          "mode": "100644",
+          "child": "18abc24b24a4fa28880b862b57ae2f2514d849d0"
+        }
+      ],
+      "git_blob": "18abc24b24a4fa28880b862b57ae2f2514d849d0",
+      "sha256": "ffdb3559ea0f7d890cce5e17163ad07db7cd15148029ca652b6a16966fde9d5a",
+      "bytes": 1437,
+      "lines": 43
+    },
+    "crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/batching.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "buildings",
+          "mode": "40000",
+          "child": "64c4cbc69462a8821f684351bdc4a125c80a83a2"
+        },
+        {
+          "tree": "64c4cbc69462a8821f684351bdc4a125c80a83a2",
+          "name": "boundaries",
+          "mode": "40000",
+          "child": "571c643446d11a4f9cc30b54225f8afb1b1e9278"
+        },
+        {
+          "tree": "571c643446d11a4f9cc30b54225f8afb1b1e9278",
+          "name": "batching.rs",
+          "mode": "100644",
+          "child": "a4313fb5216813614f59bd47e5b6d404eb000a5a"
+        }
+      ],
+      "git_blob": "a4313fb5216813614f59bd47e5b6d404eb000a5a",
+      "sha256": "847dc0610fa3630451d5a8b0ce95bf807fd422350e0155d3c953a2e780e576bb",
+      "bytes": 6012,
+      "lines": 163
+    },
+    "crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/batching/tests.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "buildings",
+          "mode": "40000",
+          "child": "64c4cbc69462a8821f684351bdc4a125c80a83a2"
+        },
+        {
+          "tree": "64c4cbc69462a8821f684351bdc4a125c80a83a2",
+          "name": "boundaries",
+          "mode": "40000",
+          "child": "571c643446d11a4f9cc30b54225f8afb1b1e9278"
+        },
+        {
+          "tree": "571c643446d11a4f9cc30b54225f8afb1b1e9278",
+          "name": "batching",
+          "mode": "40000",
+          "child": "a4900cafdce5bb8c931c7c977679d92957a0b00f"
+        },
+        {
+          "tree": "a4900cafdce5bb8c931c7c977679d92957a0b00f",
+          "name": "tests.rs",
+          "mode": "100644",
+          "child": "29381b5a09ccfabbe20aa7a1b54e9215bda2c932"
+        }
+      ],
+      "git_blob": "29381b5a09ccfabbe20aa7a1b54e9215bda2c932",
+      "sha256": "91c488bbcd41456ba8b49137d04a094b41263874eba6809977f4458d2dfe076b",
+      "bytes": 3215,
+      "lines": 101
+    },
+    "crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/projection.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "buildings",
+          "mode": "40000",
+          "child": "64c4cbc69462a8821f684351bdc4a125c80a83a2"
+        },
+        {
+          "tree": "64c4cbc69462a8821f684351bdc4a125c80a83a2",
+          "name": "boundaries",
+          "mode": "40000",
+          "child": "571c643446d11a4f9cc30b54225f8afb1b1e9278"
+        },
+        {
+          "tree": "571c643446d11a4f9cc30b54225f8afb1b1e9278",
+          "name": "projection.rs",
+          "mode": "100644",
+          "child": "7ba015e91befc23e9f9ad3d0c428957ed1d602db"
+        }
+      ],
+      "git_blob": "7ba015e91befc23e9f9ad3d0c428957ed1d602db",
+      "sha256": "9e1ea40e6edc73ed03f1e87f93011ea6c61f31947c641df1681f66a687886ac4",
+      "bytes": 4809,
+      "lines": 153
+    },
+    "crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/projection/tests.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "buildings",
+          "mode": "40000",
+          "child": "64c4cbc69462a8821f684351bdc4a125c80a83a2"
+        },
+        {
+          "tree": "64c4cbc69462a8821f684351bdc4a125c80a83a2",
+          "name": "boundaries",
+          "mode": "40000",
+          "child": "571c643446d11a4f9cc30b54225f8afb1b1e9278"
+        },
+        {
+          "tree": "571c643446d11a4f9cc30b54225f8afb1b1e9278",
+          "name": "projection",
+          "mode": "40000",
+          "child": "c6b0db7f8c9f15c47a809b48dbd486cb87461070"
+        },
+        {
+          "tree": "c6b0db7f8c9f15c47a809b48dbd486cb87461070",
+          "name": "tests.rs",
+          "mode": "100644",
+          "child": "8d9c4b5dee0d6290facbf8a15667a9d1f6bdefcf"
+        }
+      ],
+      "git_blob": "8d9c4b5dee0d6290facbf8a15667a9d1f6bdefcf",
+      "sha256": "cac08ddf1f934addb03c6c6e26e50b47ba8c387042fa917f143776c52d51c04a",
+      "bytes": 1463,
+      "lines": 41
+    },
+    "crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "buildings",
+          "mode": "40000",
+          "child": "64c4cbc69462a8821f684351bdc4a125c80a83a2"
+        },
+        {
+          "tree": "64c4cbc69462a8821f684351bdc4a125c80a83a2",
+          "name": "gpu",
+          "mode": "40000",
+          "child": "9cafadc71311b08319431e4560dce80b156e8fe9"
+        },
+        {
+          "tree": "9cafadc71311b08319431e4560dce80b156e8fe9",
+          "name": "assembly.rs",
+          "mode": "100644",
+          "child": "94c105244782c9bd6fb857bd67facb02d3759cc0"
+        }
+      ],
+      "git_blob": "94c105244782c9bd6fb857bd67facb02d3759cc0",
+      "sha256": "cbda2d52d625c9e1eb7fbb5d5aec2690066609512d42c9e95dfad4291ae59890",
+      "bytes": 10896,
+      "lines": 355
+    },
+    "crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/input.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "buildings",
+          "mode": "40000",
+          "child": "64c4cbc69462a8821f684351bdc4a125c80a83a2"
+        },
+        {
+          "tree": "64c4cbc69462a8821f684351bdc4a125c80a83a2",
+          "name": "gpu",
+          "mode": "40000",
+          "child": "9cafadc71311b08319431e4560dce80b156e8fe9"
+        },
+        {
+          "tree": "9cafadc71311b08319431e4560dce80b156e8fe9",
+          "name": "assembly",
+          "mode": "40000",
+          "child": "030139395482b6b00b735c5979254bff43cb3c06"
+        },
+        {
+          "tree": "030139395482b6b00b735c5979254bff43cb3c06",
+          "name": "input.rs",
+          "mode": "100644",
+          "child": "99eabe3a9ee9cee790292e27ccfff5b18c55ec3f"
+        }
+      ],
+      "git_blob": "99eabe3a9ee9cee790292e27ccfff5b18c55ec3f",
+      "sha256": "f034c1a0aa3a41421c9cf823b2fa3c3b491889188a8e4ecc228a50d8e96c3399",
+      "bytes": 5525,
+      "lines": 153
+    },
+    "crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/packing.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "buildings",
+          "mode": "40000",
+          "child": "64c4cbc69462a8821f684351bdc4a125c80a83a2"
+        },
+        {
+          "tree": "64c4cbc69462a8821f684351bdc4a125c80a83a2",
+          "name": "gpu",
+          "mode": "40000",
+          "child": "9cafadc71311b08319431e4560dce80b156e8fe9"
+        },
+        {
+          "tree": "9cafadc71311b08319431e4560dce80b156e8fe9",
+          "name": "assembly",
+          "mode": "40000",
+          "child": "030139395482b6b00b735c5979254bff43cb3c06"
+        },
+        {
+          "tree": "030139395482b6b00b735c5979254bff43cb3c06",
+          "name": "packing.rs",
+          "mode": "100644",
+          "child": "a0f9b851238353eb7acc868977a5279a7e5c6c29"
+        }
+      ],
+      "git_blob": "a0f9b851238353eb7acc868977a5279a7e5c6c29",
+      "sha256": "73f096fbf7bd766dea82037bb3b7f9f83b1e3a20a5ef36355ff36dc6b9990cc1",
+      "bytes": 2955,
+      "lines": 75
+    }
+  },
+  "qualification": "Previously preserved raw public commit/tree objects plus exact additional subtrees prove the original committed blobs; no review credit follows solely from identity."
+}

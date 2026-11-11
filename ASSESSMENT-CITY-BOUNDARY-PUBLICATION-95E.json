@@ -1,0 +1,1076 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Nine original building, boundary and GPU assembly bodies plus bounded 95e scene projection, publication and readiness connections.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1502-1510.json",
+  "git_membership_evidence": "CITY-BOUNDARY-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/buildings/prepared.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "389d98ca6eaa860789ed6aed7202d02839d1748b",
+      "sha256": "93f6d71ef4483adfa946c8c19da9692b9843eb84629a32210c1652a3978b3e4d",
+      "bytes": 1826,
+      "lines": 54,
+      "ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-boundary-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/buildings/streaming.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9aaf45ca388bbd233c1251e26f8e108cc847dbf2",
+      "sha256": "b8091bd1fe336c7162f6fcc4729bdd1e16cadf288fafe8ad4092029e2ea1fcc4",
+      "bytes": 9404,
+      "lines": 272,
+      "ranges": [
+        [
+          1,
+          97
+        ],
+        [
+          169,
+          271
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-boundary-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/buildings/gpu/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ab28470d1792b9f9dc95410043e2fd0e1064cff5",
+      "sha256": "76c13f913682347307d57a33b86d367ca3e074609de2365fa7833a0013fe2a38",
+      "bytes": 4000,
+      "lines": 123,
+      "ranges": [
+        [
+          24,
+          25
+        ],
+        [
+          61,
+          80
+        ],
+        [
+          102,
+          123
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-boundary-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/buildings/gpu/compute.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a87f221fccef574639fe53720b52900f547020c8",
+      "sha256": "d681948a7f1f82b5ab95dfe90ffc820f8dafa85c558a29756c26603c5f208aba",
+      "bytes": 15334,
+      "lines": 430,
+      "ranges": [
+        [
+          338,
+          404
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-boundary-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/city.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "712411d19e791eba69f0cee33bd7c7096f18d512",
+      "sha256": "37acad3e1e8aa1d83943c1167447b4dc783f070fd86bedc55741dc7f43674910",
+      "bytes": 10195,
+      "lines": 284,
+      "ranges": [
+        [
+          181,
+          210
+        ],
+        [
+          256,
+          283
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-boundary-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/status.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2ba57c1d4608fff7d625797ecf7d06b27ad907f8",
+      "sha256": "3a17db60e7f3371d1040442ac335fa84371b8ab9eee2eba20ea36ae2397b686a",
+      "bytes": 7109,
+      "lines": 207,
+      "ranges": [
+        [
+          110,
+          207
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-boundary-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code or fixture executed."
+    },
+    {
+      "path": "crates/strategic-web/static/strategic-scene.js",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cf9ab76117504facf687efe34a19b897b1248b21",
+      "sha256": "7db5964db4e3c0c4a152ba1b501a57068a4553a440427152382042f74988be20",
+      "bytes": 19166,
+      "lines": 371,
+      "ranges": [
+        [
+          323,
+          339
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-boundary-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/compounds.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "81374180c0135284459b0ccfefad1324ef747a66",
+      "sha256": "1749661a3b0a1baf513595ff7076a7670510285e556b3e2cf7acbc5888f89583",
+      "bytes": 10980,
+      "lines": 294,
+      "ranges": [
+        [
+          1,
+          105
+        ],
+        [
+          200,
+          267
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-boundary-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "aa4e64e6039b0e334ebe5f19adc508436d5547ef",
+      "sha256": "f9abcd66e159994c71c72f4cbf44f1562f9e72eb376d07cbef3f09f01cd2053b",
+      "bytes": 9179,
+      "lines": 263,
+      "ranges": [
+        [
+          255,
+          262
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-boundary-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "123ae6d6c21a6f42ed510109e85cc63bf93d4ab3",
+      "sha256": "aab7cbd205fd372d7542412ed9898345ccc87e83c548b9988a46424d4b88c2af",
+      "bytes": 10809,
+      "lines": 270,
+      "ranges": [
+        [
+          154,
+          207
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-boundary-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/buildings/focused.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6ded98213d1dfa7c6ad038ad6d05f90e9e2a188b",
+      "sha256": "98c72492107d3f8b6409717857e0a590ae552afe300e7e53eed0f789f9d8671b",
+      "bytes": 2455,
+      "lines": 63,
+      "ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-boundary-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/demo_lifecycle.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "38cdf5e0bc2df1376a350e64b742b0359cdbd050",
+      "sha256": "3790d136f55324b8e8719d006dd305f3c0b333896cef846d74644343725bf551",
+      "bytes": 5474,
+      "lines": 136,
+      "ranges": [
+        [
+          19,
+          71
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-boundary-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/buildings/gpu/geometry.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "df7c3466166bee3e1d2ec2052ee11b04bf16beb6",
+      "sha256": "29d5e171eb43f72999573edd891e5789074d9df1f31c061568965e17ef885740",
+      "bytes": 5328,
+      "lines": 151,
+      "ranges": [
+        [
+          1,
+          117
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-boundary-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code or fixture executed."
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Prepared dynamic building safeguards",
+      "trace": "The ordinary dynamic building compiler sets interior lighting to Some, and the inspected worker-built prepared installer also installs Some before caching. on_scene_building_added removes PreparedBuildingGeometry and requires that interior before spawning children. These two installer paths narrow the old unsupported claim that an ordinary admitted dynamic building necessarily has no interior.",
+      "remaining": "Cache ownership, every installer, native command/error scheduling and actual geometry remain open. Source fixture assertions were not run."
+    },
+    {
+      "contract": "Boundary preflight and scene identity",
+      "trace": "The direct playable on_boundary handler builds all local BoundaryBatches before queueing visibility and child meshes. Distant boundary projection retains its pending work while the selected environment digest does not match and selects terrain/environment from the same query row. A match removes the pending projection before calling GeneratedBoundary::project for each compound; that projector returns an error if the terrain lacks the compound property foundation and may return bounded support projection errors.",
+      "remaining": "The earlier 059 Lens12 batch458 already recorded consume-before-fallible-project as a conditional question. Normal generated scene pairing may rule out specific failures; actual mismatched/invalid input, scheduling and output policy remain unproved. Do not treat a test fixture or arbitrary invalid compound as a real failure."
+    },
+    {
+      "contract": "Distant doors and later fallible batches",
+      "trace": "After the complete boundary projection returns, project_pending iterates boundaries, adds each to a local fallible mesh batch, constructs its gate door and pose, then queues a door spawn. A later boundary batch or door/pose error occurs after earlier door commands were queued but before the final aggregated mesh batches are queued.",
+      "remaining": "This is the separately stated earlier batch458 partial-publication question, not a proven executed partial scene. Bevy system-error/command application semantics, a valid producer for a later failure and recovery policy remain open; no source-level error is assumed to run."
+    },
+    {
+      "contract": "Scene city assembly failure ownership",
+      "trace": "Ordinary distant Scene placements enter a default PendingGpuBuildings queue without a publication root. assemble_owner takes that queue, then groups, packs and uploads it. On a MissingMaterials, MissingMesh, MissingMaterial or ComponentCapacity error it warns and inserts CityAssemblyFailure only when a publication root exists; the taken ordinary queue is not restored there. Once no later work is queued, another empty, rootless queue returns without retry. Strategic status exposes retained scene, asset, streaming-city and equipment errors, and requires city_gpu_ready when city.total is nonzero; it has no CityAssemblyFailure from the rootless path.",
+      "remaining": "A missing resource, mesh, material or capacity error on an admitted ordinary scene has not been observed. If ready remains false and no other failure appears, the inspected browser readiness loop continues polling; earlier ready state, other requeue/failure paths and native GPU scheduling remain conditional. Earlier queue1293 explicitly anticipated this question; no new historical unique count is asserted."
+    },
+    {
+      "contract": "Regional city and readiness safeguards",
+      "trace": "Focused regional map construction builds its queue locally, sets a publication root and publishes that queue only after preparing all placement geometry. Assembly writes CityAssemblyFailure on that root; regional publication converts the marker into InstallationFailure::Assembly. GPU publication and the later per-owner ready flag are separate stages. The streaming city retains its own build failure and strategic status exposes it; the browser checks status.error before status.ready.",
+      "remaining": "This does not prove every failure reaches every consumer or that a GPU finished work. The existing regional marker, streaming error and intentional mode-specific behavior must be preserved when assessing the rootless path."
+    },
+    {
+      "contract": "Native geometry assumptions",
+      "trace": "GPU Geometry::insert expects generated position/normal/UV attributes, indexed whole triangles and valid per-vertex indices, while splitting storage pages below an explicit byte limit. Boundary batching validates generated finite position/UV values and retains native tangent/merge errors.",
+      "remaining": "These are source assumptions and safeguards, not proof that all native meshes meet them or that arbitrary invalid meshes are admitted; no GPU, fixture, tangent calculation or renderer was executed."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "Q-L12-d829e07618b787afe028",
+      "first_failed_contract": "Open distant-boundary failure-state questions: pending work is taken before fallible projection, and earlier door commands can be queued before a later fallible boundary is processed.",
+      "classification": "Earlier 059 queue obligation and segovb Lens12 batch458 conditional cases re-assessed at 95e; no new accepted historical unique finding.",
+      "canonical_owner": "PendingDistantBoundaries and the exact scene-boundary projection/publication lifecycle.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/1292"
+      ],
+      "dependencies": [
+        "Prove which admitted generated scenes and terrain associations can produce projection, batch, door or pose errors.",
+        "Resolve Bevy deferred-command behavior on system errors, intended retry/failure disposition and any later status consumer.",
+        "Keep consume-before-project and queued-partial-door questions distinct until exact alias and policy are established."
+      ],
+      "acceptance_requirements": [
+        "Each supported projection failure has an explicit retry or failure disposition without silently losing required scene work.",
+        "If atomicity is required, a later boundary failure cannot expose a partially published collection; retain exact digest waiting and valid geometry semantics."
+      ],
+      "discovery": "partial; supported failures, native command scheduling, recovery policy and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    },
+    {
+      "id": "Q-L12-fe5aeac1436aeecbda1a",
+      "first_failed_contract": "Open ordinary Scene city-assembly failure-state question: a taken rootless queue can be lost on assembly error without the candidate-owned failure marker used by regional map publication.",
+      "classification": "Earlier 059 queue obligation and segovb Lens12 batch459 pending-take question re-assessed through the 95e streaming and status consumers; no new accepted historical unique finding.",
+      "canonical_owner": "Scene city assembly work and its failure/readiness status, with the regional candidate root remaining a separate owner.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/1293"
+      ],
+      "dependencies": [
+        "Establish actual admitted source-resource, mesh and material lifetime/capacity failures and whether another producer can requeue or report them.",
+        "Trace GPU readiness transitions and every strategic status consumer; do not infer a GPU result from a publication marker.",
+        "Preserve regional candidate failure handling, prepared streaming errors and native resource lifetimes."
+      ],
+      "acceptance_requirements": [
+        "A supported Scene assembly failure has an explicit recoverable or failed state visible to the relevant readiness consumer.",
+        "Normal successful city publication, staged regional map replacement and existing failure reporting retain their separate semantics."
+      ],
+      "discovery": "partial; actual error reachability, GPU readiness, requeue paths, consumer policy and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1290",
+        "/entries/1291",
+        "/entries/1292",
+        "/entries/1293"
+      ],
+      "qualification": "All four earlier obligations remain partial and separately attributed; 059 is not checkpoint3821."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047",
+      "bytes": 29295,
+      "git_blob": "12f78ab54e0ca5709963ce605b8f843a317b34bf",
+      "preserved_bytes": "recovered/city-boundary-059/ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047.gz",
+      "published_sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047",
+      "published_bytes": 29295,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens11 receipt"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-318.json",
+      "sha256": "dd97636078b3bc9ae4b26207b719c844e11e7e2010f5f3a0bd8212e299810740",
+      "bytes": 750,
+      "git_blob": "d1ff567461d1d46ceceaa4f7b1e3d0e896247522",
+      "preserved_bytes": "recovered/city-boundary-059/dd97636078b3bc9ae4b26207b719c844e11e7e2010f5f3a0bd8212e299810740.gz",
+      "published_sha256": "dd97636078b3bc9ae4b26207b719c844e11e7e2010f5f3a0bd8212e299810740",
+      "published_bytes": 750,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-319.json",
+      "sha256": "02cfe15e126b1bc16cb826bafe82a85440913acfffadf603c590817f3a10caa2",
+      "bytes": 760,
+      "git_blob": "2850b88b4daf4640f3e583facc0bdb3b34abba17",
+      "preserved_bytes": "recovered/city-boundary-059/02cfe15e126b1bc16cb826bafe82a85440913acfffadf603c590817f3a10caa2.gz",
+      "published_sha256": "02cfe15e126b1bc16cb826bafe82a85440913acfffadf603c590817f3a10caa2",
+      "published_bytes": 760,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-320.json",
+      "sha256": "08e966df6ef5f6f352b810771323208efbc909bc4cb739f14be48770735a8bd5",
+      "bytes": 770,
+      "git_blob": "28bc322089b0650de260a2c45c6e29c24795d11e",
+      "preserved_bytes": "recovered/city-boundary-059/08e966df6ef5f6f352b810771323208efbc909bc4cb739f14be48770735a8bd5.gz",
+      "published_sha256": "08e966df6ef5f6f352b810771323208efbc909bc4cb739f14be48770735a8bd5",
+      "published_bytes": 770,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-321.json",
+      "sha256": "d55e054d45f0d8fab527abdfb7f7e27b73e01d25305d77bd18e75ee84024c29f",
+      "bytes": 776,
+      "git_blob": "659801ebe671b92fc0685529d01c1f05efd45c2c",
+      "preserved_bytes": "recovered/city-boundary-059/d55e054d45f0d8fab527abdfb7f7e27b73e01d25305d77bd18e75ee84024c29f.gz",
+      "published_sha256": "d55e054d45f0d8fab527abdfb7f7e27b73e01d25305d77bd18e75ee84024c29f",
+      "published_bytes": 776,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-322.json",
+      "sha256": "a9acbc86b86740451c03d665c02833b0321b4a30b6caa7b70889d5faf0e647cd",
+      "bytes": 772,
+      "git_blob": "d7e16afbc4b9773c88cffdde1e7338e4d3b72819",
+      "preserved_bytes": "recovered/city-boundary-059/a9acbc86b86740451c03d665c02833b0321b4a30b6caa7b70889d5faf0e647cd.gz",
+      "published_sha256": "a9acbc86b86740451c03d665c02833b0321b4a30b6caa7b70889d5faf0e647cd",
+      "published_bytes": 772,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-323.json",
+      "sha256": "7459a142a8843fc5495d1d3eaf2f88c03b2dfff7688005070bd5554832651408",
+      "bytes": 777,
+      "git_blob": "9b2c555b5cbe934f4edb7df59525c35cfc8675f3",
+      "preserved_bytes": "recovered/city-boundary-059/7459a142a8843fc5495d1d3eaf2f88c03b2dfff7688005070bd5554832651408.gz",
+      "published_sha256": "7459a142a8843fc5495d1d3eaf2f88c03b2dfff7688005070bd5554832651408",
+      "published_bytes": 777,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-324.json",
+      "sha256": "84a44d83422544da1c0d0e57e48afa2cf55671416ade3e8007745ca94e4a8264",
+      "bytes": 763,
+      "git_blob": "58e470fdbd55d6256d2102835828223680ddc878",
+      "preserved_bytes": "recovered/city-boundary-059/84a44d83422544da1c0d0e57e48afa2cf55671416ade3e8007745ca94e4a8264.gz",
+      "published_sha256": "84a44d83422544da1c0d0e57e48afa2cf55671416ade3e8007745ca94e4a8264",
+      "published_bytes": 763,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-325.json",
+      "sha256": "fee9726d10e66fa95811ecbd8e670d1bf8c4461e7080f5e22f09d56e8de5e8d7",
+      "bytes": 769,
+      "git_blob": "9aefef630983d5a4a3bf689913081e15c7c54dda",
+      "preserved_bytes": "recovered/city-boundary-059/fee9726d10e66fa95811ecbd8e670d1bf8c4461e7080f5e22f09d56e8de5e8d7.gz",
+      "published_sha256": "fee9726d10e66fa95811ecbd8e670d1bf8c4461e7080f5e22f09d56e8de5e8d7",
+      "published_bytes": 769,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-326.json",
+      "sha256": "13865055a911c096468f531bad241126149f987c79694936545104cd0ec6aaac",
+      "bytes": 770,
+      "git_blob": "74ca9657e36e09a2692b39eefbe3112f1c0933f4",
+      "preserved_bytes": "recovered/city-boundary-059/13865055a911c096468f531bad241126149f987c79694936545104cd0ec6aaac.gz",
+      "published_sha256": "13865055a911c096468f531bad241126149f987c79694936545104cd0ec6aaac",
+      "published_bytes": 770,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-327.json",
+      "sha256": "7c5b472b0185175693d4093dc2ce6adb328ea9e2e8afc015ed400dede3c46965",
+      "bytes": 768,
+      "git_blob": "37508fc438acee2908176da527d651d1b7d1a302",
+      "preserved_bytes": "recovered/city-boundary-059/7c5b472b0185175693d4093dc2ce6adb328ea9e2e8afc015ed400dede3c46965.gz",
+      "published_sha256": "7c5b472b0185175693d4093dc2ce6adb328ea9e2e8afc015ed400dede3c46965",
+      "published_bytes": 768,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-328.json",
+      "sha256": "af7ffc0e5fe018bd85f060a760da5464c92162099b812c93f95108bb507741e5",
+      "bytes": 770,
+      "git_blob": "fdbdde594f0e01a7b833ac6455615b5ce635e5e6",
+      "preserved_bytes": "recovered/city-boundary-059/af7ffc0e5fe018bd85f060a760da5464c92162099b812c93f95108bb507741e5.gz",
+      "published_sha256": "af7ffc0e5fe018bd85f060a760da5464c92162099b812c93f95108bb507741e5",
+      "published_bytes": 770,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-329.json",
+      "sha256": "b9fd419b87748c857ec97df82dc09f20d8666260470991bef83ed26ef2c350c0",
+      "bytes": 769,
+      "git_blob": "cdca4ef99cf56e976cb734b629d998d652f2b327",
+      "preserved_bytes": "recovered/city-boundary-059/b9fd419b87748c857ec97df82dc09f20d8666260470991bef83ed26ef2c350c0.gz",
+      "published_sha256": "b9fd419b87748c857ec97df82dc09f20d8666260470991bef83ed26ef2c350c0",
+      "published_bytes": 769,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-330.json",
+      "sha256": "40948a22f2645ce31d7bbf9cd89c9bc606ed05f2f7de83b7be10fc4d97b5373f",
+      "bytes": 762,
+      "git_blob": "b0a87b805aa9dd9b11937bd300ea6fe8075ce86f",
+      "preserved_bytes": "recovered/city-boundary-059/40948a22f2645ce31d7bbf9cd89c9bc606ed05f2f7de83b7be10fc4d97b5373f.gz",
+      "published_sha256": "40948a22f2645ce31d7bbf9cd89c9bc606ed05f2f7de83b7be10fc4d97b5373f",
+      "published_bytes": 762,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-331.json",
+      "sha256": "00b515b3622af7dc4b81512ce373187756034c44766d4ee66dae887ed66f5cb3",
+      "bytes": 760,
+      "git_blob": "c46ee138e2b3fc4e3d5c66b56a62f0bedbbef5dd",
+      "preserved_bytes": "recovered/city-boundary-059/00b515b3622af7dc4b81512ce373187756034c44766d4ee66dae887ed66f5cb3.gz",
+      "published_sha256": "00b515b3622af7dc4b81512ce373187756034c44766d4ee66dae887ed66f5cb3",
+      "published_bytes": 760,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-332.json",
+      "sha256": "3dd2f1e1c2ef0ee7b4db912066731bbcbc2ce47e4556c70986f599cf132a7b8f",
+      "bytes": 763,
+      "git_blob": "488c228e26ca55db04569cb3b862aa6046213334",
+      "preserved_bytes": "recovered/city-boundary-059/3dd2f1e1c2ef0ee7b4db912066731bbcbc2ce47e4556c70986f599cf132a7b8f.gz",
+      "published_sha256": "3dd2f1e1c2ef0ee7b4db912066731bbcbc2ce47e4556c70986f599cf132a7b8f",
+      "published_bytes": 763,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-333.json",
+      "sha256": "e086c235e3c425e8cb577d5af7c2660d951d80a35839d1fdb819b4ffc8352d5d",
+      "bytes": 763,
+      "git_blob": "eefcc20b1cd073b61dca854e9deb7cb71f8277a9",
+      "preserved_bytes": "recovered/city-boundary-059/e086c235e3c425e8cb577d5af7c2660d951d80a35839d1fdb819b4ffc8352d5d.gz",
+      "published_sha256": "e086c235e3c425e8cb577d5af7c2660d951d80a35839d1fdb819b4ffc8352d5d",
+      "published_bytes": 763,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-334.json",
+      "sha256": "55cadcb59b740cdbbd1b6f38996a481a37afed18738fccd6d05df243cb3d9af5",
+      "bytes": 758,
+      "git_blob": "51a415321477315ab3224e9bfc6749942743b2b2",
+      "preserved_bytes": "recovered/city-boundary-059/55cadcb59b740cdbbd1b6f38996a481a37afed18738fccd6d05df243cb3d9af5.gz",
+      "published_sha256": "55cadcb59b740cdbbd1b6f38996a481a37afed18738fccd6d05df243cb3d9af5",
+      "published_bytes": 758,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-335.json",
+      "sha256": "f03084448dde5c7a2a75c1a095654a1442a5a55052bb5066ce1a8eb63609c550",
+      "bytes": 727,
+      "git_blob": "4b471a012243b57c210ed67c006432cc16567b9b",
+      "preserved_bytes": "recovered/city-boundary-059/f03084448dde5c7a2a75c1a095654a1442a5a55052bb5066ce1a8eb63609c550.gz",
+      "published_sha256": "f03084448dde5c7a2a75c1a095654a1442a5a55052bb5066ce1a8eb63609c550",
+      "published_bytes": 727,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-336.json",
+      "sha256": "869551dace7f9f2bebd6610f3797bdb7f79580036dce87c190cf183ec4fce783",
+      "bytes": 1527,
+      "git_blob": "1108b20ff2fe4aef01a6113bba048683a223cb04",
+      "preserved_bytes": "recovered/city-boundary-059/869551dace7f9f2bebd6610f3797bdb7f79580036dce87c190cf183ec4fce783.gz",
+      "published_sha256": "869551dace7f9f2bebd6610f3797bdb7f79580036dce87c190cf183ec4fce783",
+      "published_bytes": 1527,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-337.json",
+      "sha256": "c0292288262a9db4cc8cc5a9950af64418d8ad387a2bd3892a6ef954b0332548",
+      "bytes": 745,
+      "git_blob": "d8057a73c5d30495c8f46b7499fd6a8db57d0aa3",
+      "preserved_bytes": "recovered/city-boundary-059/c0292288262a9db4cc8cc5a9950af64418d8ad387a2bd3892a6ef954b0332548.gz",
+      "published_sha256": "c0292288262a9db4cc8cc5a9950af64418d8ad387a2bd3892a6ef954b0332548",
+      "published_bytes": 745,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-214.json",
+      "sha256": "0c15c6204f9f02e7f398acc7dfda0ac19def141c4763b12d35b245376afaeac8",
+      "bytes": 800,
+      "git_blob": "9e17a1282b5d2dc362f0a08a088733ac01af70da",
+      "preserved_bytes": "recovered/city-boundary-059/0c15c6204f9f02e7f398acc7dfda0ac19def141c4763b12d35b245376afaeac8.gz",
+      "published_sha256": "0c15c6204f9f02e7f398acc7dfda0ac19def141c4763b12d35b245376afaeac8",
+      "published_bytes": 800,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 state"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-214.json",
+      "sha256": "11eb5785a705944e97fc2406f4a9a32da9c20e7b3ac0d040bb6c5c50d39bc979",
+      "bytes": 30431,
+      "git_blob": "3af4e9277d6aaf6a55e1fb236ef811f94f277012",
+      "preserved_bytes": "recovered/city-boundary-059/11eb5785a705944e97fc2406f4a9a32da9c20e7b3ac0d040bb6c5c50d39bc979.gz",
+      "published_sha256": "11eb5785a705944e97fc2406f4a9a32da9c20e7b3ac0d040bb6c5c50d39bc979",
+      "published_bytes": 30431,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-456.json",
+      "sha256": "52ee7e258352830979a2c1619d15e9ef3c657f89335929a9c5bc408b01f7f0c0",
+      "bytes": 725,
+      "git_blob": "47455f7de43b573ab52c97a56061aaeac5373dbe",
+      "preserved_bytes": "recovered/city-boundary-059/52ee7e258352830979a2c1619d15e9ef3c657f89335929a9c5bc408b01f7f0c0.gz",
+      "published_sha256": "52ee7e258352830979a2c1619d15e9ef3c657f89335929a9c5bc408b01f7f0c0",
+      "published_bytes": 725,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-457.json",
+      "sha256": "6cc1c09426c54b6975a1e018126b184115e49cc8f3bedb64cc995822bc731ae1",
+      "bytes": 1764,
+      "git_blob": "42fbf616327d57b1f2812104f141c3fff481cb65",
+      "preserved_bytes": "recovered/city-boundary-059/6cc1c09426c54b6975a1e018126b184115e49cc8f3bedb64cc995822bc731ae1.gz",
+      "published_sha256": "6cc1c09426c54b6975a1e018126b184115e49cc8f3bedb64cc995822bc731ae1",
+      "published_bytes": 1764,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-458.json",
+      "sha256": "7efdfc68b29044badcdb4db4683f2870a2b20b75a6fe1c87e1ecd47c0ada71c9",
+      "bytes": 1265,
+      "git_blob": "c7d3035fa8a3d32688a9394527acb9cad3a17850",
+      "preserved_bytes": "recovered/city-boundary-059/7efdfc68b29044badcdb4db4683f2870a2b20b75a6fe1c87e1ecd47c0ada71c9.gz",
+      "published_sha256": "7efdfc68b29044badcdb4db4683f2870a2b20b75a6fe1c87e1ecd47c0ada71c9",
+      "published_bytes": 1265,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-459.json",
+      "sha256": "d1b303c57a9f9a87b7df096bfdc83b8636ebc4e075fe930def79e23ca2400d93",
+      "bytes": 1760,
+      "git_blob": "c028ad4e03721ab54a1cff18f5f35d2b5a15bcb0",
+      "preserved_bytes": "recovered/city-boundary-059/d1b303c57a9f9a87b7df096bfdc83b8636ebc4e075fe930def79e23ca2400d93.gz",
+      "published_sha256": "d1b303c57a9f9a87b7df096bfdc83b8636ebc4e075fe930def79e23ca2400d93",
+      "published_bytes": 1760,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-456.json",
+      "sha256": "76720a8fabe81bb1f3e48f9b5f4da41b60a20f55ba15b57e922ec29ed50e6a8c",
+      "bytes": 6230,
+      "git_blob": "83a51c09148bd4d6c5d8eef2d7ff458cfd208294",
+      "preserved_bytes": "recovered/city-boundary-059/76720a8fabe81bb1f3e48f9b5f4da41b60a20f55ba15b57e922ec29ed50e6a8c.gz",
+      "published_sha256": "76720a8fabe81bb1f3e48f9b5f4da41b60a20f55ba15b57e922ec29ed50e6a8c",
+      "published_bytes": 6230,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-457.json",
+      "sha256": "48529dcd6343ab4858cfc0666c483238df5bf7ef3c93f5ec6fc7678c527b5f78",
+      "bytes": 10845,
+      "git_blob": "95d019679a4379ac0716d1bc648464668a5fdb23",
+      "preserved_bytes": "recovered/city-boundary-059/48529dcd6343ab4858cfc0666c483238df5bf7ef3c93f5ec6fc7678c527b5f78.gz",
+      "published_sha256": "48529dcd6343ab4858cfc0666c483238df5bf7ef3c93f5ec6fc7678c527b5f78",
+      "published_bytes": 10845,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-458.json",
+      "sha256": "a6c0231b6ea2679b600f020a5b22059ee6b45e85b7b285fe30048eb0dc69dd64",
+      "bytes": 8455,
+      "git_blob": "bc397664009e86ca0051bed888d541de937c2c21",
+      "preserved_bytes": "recovered/city-boundary-059/a6c0231b6ea2679b600f020a5b22059ee6b45e85b7b285fe30048eb0dc69dd64.gz",
+      "published_sha256": "a6c0231b6ea2679b600f020a5b22059ee6b45e85b7b285fe30048eb0dc69dd64",
+      "published_bytes": 8455,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-459.json",
+      "sha256": "77f293d4326d922af13083b9201cde7653c271b5a2e268eec15e102aed76022f",
+      "bytes": 12792,
+      "git_blob": "ed4a7a05f42c4f8a587bf282b3ec75d2aeb53e5c",
+      "preserved_bytes": "recovered/city-boundary-059/77f293d4326d922af13083b9201cde7653c271b5a2e268eec15e102aed76022f.gz",
+      "published_sha256": "77f293d4326d922af13083b9201cde7653c271b5a2e268eec15e102aed76022f",
+      "published_bytes": 12792,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-409.json",
+      "sha256": "5e0662b2a0df483e70b35395bcce3af2b5d6321aa4bbd4fc6be3ae2fdfd3dd06",
+      "bytes": 1192,
+      "git_blob": "68b0df04989ebdf09cd2f828efec19a0ab709de3",
+      "preserved_bytes": "recovered/city-boundary-059/5e0662b2a0df483e70b35395bcce3af2b5d6321aa4bbd4fc6be3ae2fdfd3dd06.gz",
+      "published_sha256": "5e0662b2a0df483e70b35395bcce3af2b5d6321aa4bbd4fc6be3ae2fdfd3dd06",
+      "published_bytes": 1192,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-410.json",
+      "sha256": "af9d39c3b52e05b3c88040c0fcee0814841501d1ffd19cad83bcdccadf5d6f4a",
+      "bytes": 1211,
+      "git_blob": "2f87a54a6776d7b401f8a321db6e4f337645c97e",
+      "preserved_bytes": "recovered/city-boundary-059/af9d39c3b52e05b3c88040c0fcee0814841501d1ffd19cad83bcdccadf5d6f4a.gz",
+      "published_sha256": "af9d39c3b52e05b3c88040c0fcee0814841501d1ffd19cad83bcdccadf5d6f4a",
+      "published_bytes": 1211,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-411.json",
+      "sha256": "340a816f31fa5058a2414ace9cd52c76fd5cf199348b64b6fc4a9dc40ebcde32",
+      "bytes": 1231,
+      "git_blob": "815fb6ef1e310a2a0ce3f1899af8fd5bdca4e5b7",
+      "preserved_bytes": "recovered/city-boundary-059/340a816f31fa5058a2414ace9cd52c76fd5cf199348b64b6fc4a9dc40ebcde32.gz",
+      "published_sha256": "340a816f31fa5058a2414ace9cd52c76fd5cf199348b64b6fc4a9dc40ebcde32",
+      "published_bytes": 1231,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-412.json",
+      "sha256": "2622e383b736322ce773820a8038076310a34985f2473bdc43dde2ba73c2e7c1",
+      "bytes": 1243,
+      "git_blob": "074fa41159c569a589927dc6ef521a86762926b9",
+      "preserved_bytes": "recovered/city-boundary-059/2622e383b736322ce773820a8038076310a34985f2473bdc43dde2ba73c2e7c1.gz",
+      "published_sha256": "2622e383b736322ce773820a8038076310a34985f2473bdc43dde2ba73c2e7c1",
+      "published_bytes": 1243,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-413.json",
+      "sha256": "90ca419b4d7e2441fc5922102613e694596c8d3cc446d2ae64c92a1c110151c0",
+      "bytes": 1251,
+      "git_blob": "b246a6c7a28f42928cd06b8048acd4066c9c204b",
+      "preserved_bytes": "recovered/city-boundary-059/90ca419b4d7e2441fc5922102613e694596c8d3cc446d2ae64c92a1c110151c0.gz",
+      "published_sha256": "90ca419b4d7e2441fc5922102613e694596c8d3cc446d2ae64c92a1c110151c0",
+      "published_bytes": 1251,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-414.json",
+      "sha256": "eaa2ca4cba90088974157f7f33a84d66065b215ee499d39459f983cb36033946",
+      "bytes": 1261,
+      "git_blob": "a44a1ad42bce6374a7c1bb415eef969ed67578bc",
+      "preserved_bytes": "recovered/city-boundary-059/eaa2ca4cba90088974157f7f33a84d66065b215ee499d39459f983cb36033946.gz",
+      "published_sha256": "eaa2ca4cba90088974157f7f33a84d66065b215ee499d39459f983cb36033946",
+      "published_bytes": 1261,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-415.json",
+      "sha256": "9abd40452cf60eab2d085f732474a8f5a772cf414354a02c7925dee5c4762ae1",
+      "bytes": 1223,
+      "git_blob": "533a23d9532b15e4ba7705535106d7dd4fbeab70",
+      "preserved_bytes": "recovered/city-boundary-059/9abd40452cf60eab2d085f732474a8f5a772cf414354a02c7925dee5c4762ae1.gz",
+      "published_sha256": "9abd40452cf60eab2d085f732474a8f5a772cf414354a02c7925dee5c4762ae1",
+      "published_bytes": 1223,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-416.json",
+      "sha256": "dc3a4e3e5a1407791f26ba754b56a433bb8a4c1274d31582841e0eae777ab967",
+      "bytes": 1235,
+      "git_blob": "a9ce60e803ad1ced4fb262c4d9b21f647623a320",
+      "preserved_bytes": "recovered/city-boundary-059/dc3a4e3e5a1407791f26ba754b56a433bb8a4c1274d31582841e0eae777ab967.gz",
+      "published_sha256": "dc3a4e3e5a1407791f26ba754b56a433bb8a4c1274d31582841e0eae777ab967",
+      "published_bytes": 1235,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-417.json",
+      "sha256": "eca0466bf4b75c05a76c3d9c8a35f32b390919a19eb04cb5429f0d850d8d35e9",
+      "bytes": 1237,
+      "git_blob": "1a146cf9f9996e96ccc279fe8bf89bc55a0d2b18",
+      "preserved_bytes": "recovered/city-boundary-059/eca0466bf4b75c05a76c3d9c8a35f32b390919a19eb04cb5429f0d850d8d35e9.gz",
+      "published_sha256": "eca0466bf4b75c05a76c3d9c8a35f32b390919a19eb04cb5429f0d850d8d35e9",
+      "published_bytes": 1237,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-456.json",
+      "sha256": "9b77ea0d7f64581a2731fd730e07babc383f555554cd5c38efcfc958f98bed3d",
+      "bytes": 840,
+      "git_blob": "acf71c4b82f9195ab5c015c43a4fd69aa2d588ba",
+      "preserved_bytes": "recovered/city-boundary-059/9b77ea0d7f64581a2731fd730e07babc383f555554cd5c38efcfc958f98bed3d.gz",
+      "published_sha256": "9b77ea0d7f64581a2731fd730e07babc383f555554cd5c38efcfc958f98bed3d",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 scope state"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-457.json",
+      "sha256": "d9fa925ea4683d70ed06f8f34c3c875d9efd1463ccf38604348ff41c6313abba",
+      "bytes": 840,
+      "git_blob": "e00b650bf089fed14397e00920879e474b44bf22",
+      "preserved_bytes": "recovered/city-boundary-059/d9fa925ea4683d70ed06f8f34c3c875d9efd1463ccf38604348ff41c6313abba.gz",
+      "published_sha256": "d9fa925ea4683d70ed06f8f34c3c875d9efd1463ccf38604348ff41c6313abba",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 scope state"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-458.json",
+      "sha256": "3d2a88b93ec464d5c33d8fa253d63a0ce6af7af49e4fe8c5d5bc3a5626d8dc6d",
+      "bytes": 840,
+      "git_blob": "d40174acf38f3d179a2f5808e9a54fbc1a97423c",
+      "preserved_bytes": "recovered/city-boundary-059/3d2a88b93ec464d5c33d8fa253d63a0ce6af7af49e4fe8c5d5bc3a5626d8dc6d.gz",
+      "published_sha256": "3d2a88b93ec464d5c33d8fa253d63a0ce6af7af49e4fe8c5d5bc3a5626d8dc6d",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 scope state"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-459.json",
+      "sha256": "ad18011d8a788055d6693fc74fd0406119648d53cf97037a3d96af13d6580d8d",
+      "bytes": 840,
+      "git_blob": "3be3648dd02c6e642a4de593d065e89642010875",
+      "preserved_bytes": "recovered/city-boundary-059/ad18011d8a788055d6693fc74fd0406119648d53cf97037a3d96af13d6580d8d.gz",
+      "published_sha256": "ad18011d8a788055d6693fc74fd0406119648d53cf97037a3d96af13d6580d8d",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 scope state"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-456.json",
+      "sha256": "c77db38e20a2c348dc3c366fad035b6a15f400bee5290a22adc6197b518f2af0",
+      "bytes": 558,
+      "git_blob": "221f27fc4779aa61f1310cdec8e623f578bd62cf",
+      "preserved_bytes": "recovered/city-boundary-059/c77db38e20a2c348dc3c366fad035b6a15f400bee5290a22adc6197b518f2af0.gz",
+      "published_sha256": "c77db38e20a2c348dc3c366fad035b6a15f400bee5290a22adc6197b518f2af0",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-457.json",
+      "sha256": "a80fdba81f0b8917429c0807eafe9ee279f4fbdb8ecd28b983715cd05020b888",
+      "bytes": 558,
+      "git_blob": "2ed4d5fd375551ef2b96c421e7149494732807c6",
+      "preserved_bytes": "recovered/city-boundary-059/a80fdba81f0b8917429c0807eafe9ee279f4fbdb8ecd28b983715cd05020b888.gz",
+      "published_sha256": "a80fdba81f0b8917429c0807eafe9ee279f4fbdb8ecd28b983715cd05020b888",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-458.json",
+      "sha256": "34e6932ac81771cedaa01417089e99cf90540f23dc7517dd95a651f9d4673703",
+      "bytes": 558,
+      "git_blob": "c3265f64b760ed9d4ba5a977c2076987329592cd",
+      "preserved_bytes": "recovered/city-boundary-059/34e6932ac81771cedaa01417089e99cf90540f23dc7517dd95a651f9d4673703.gz",
+      "published_sha256": "34e6932ac81771cedaa01417089e99cf90540f23dc7517dd95a651f9d4673703",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-459.json",
+      "sha256": "057ba58331a61345918bccc12ffe98416f313736927434501910efaa09b2b677",
+      "bytes": 558,
+      "git_blob": "4615415adb19d06d2c784f52323c247006954abd",
+      "preserved_bytes": "recovered/city-boundary-059/057ba58331a61345918bccc12ffe98416f313736927434501910efaa09b2b677.gz",
+      "published_sha256": "057ba58331a61345918bccc12ffe98416f313736927434501910efaa09b2b677",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    }
+  ],
+  "remaining": "Admitted scene geometry failures, Bevy command error semantics, complete city producers, GPU readiness, all consumers, aliases, original populations and thirteen independent lenses remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
