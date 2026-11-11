@@ -10361,8 +10361,279 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-FBX-95E.json"
+      },
+      {
+        "id": "ADLER-L11-FILESYSTEM-LOAD-ERROR-OWNERSHIP",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          12
+        ],
+        "severity": "unassigned; native load error ownership",
+        "classification": "Original Adler filesystem finding reconnected: native file-read and Base64-decode errors are formatted before reusable callers can retain their owned causes.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/154",
+          "baseline-059/queue.json#/entries/311",
+          "baseline-059/queue.json#/entries/313",
+          "adler/READ-L11-359.json via ASSESSMENT-FILESYSTEM-95E.json",
+          "segovb/READ-L12-744.json via ASSESSMENT-FILESYSTEM-95E.json"
+        ],
+        "relationship_qualification": "Original Adler154 and delegate311/313 retain separate historical identities for the same selected respective first operations; no global alias asserted. NativeFile.read is a separate operation.",
+        "discovery": "partial; current source and locked Base64 error type traced; native callers and presentation open",
+        "connected_repair_direction": "Retain native file and decode causes with contextual locator while keeping distinct operation kinds.",
+        "future_acceptance": "After audit and authorization, cover native IO and each decoder category through the canonical loader.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-FILESYSTEM-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-FS-NATIVE-FILE-READ-CAUSE-ERASURE",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; native file-entry cause",
+        "classification": "Original delegate finding reconnected: NativeFile.read formats the native IO error at a different operation from load_file.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/312",
+          "segovb/READ-L12-744.json via ASSESSMENT-FILESYSTEM-95E.json"
+        ],
+        "relationship_qualification": "Delegate744 independently read this connected operation; Adler359 did not read that range. Do not merge it with load_file merely because the remedies are related.",
+        "discovery": "partial; selected project-root file-entry producer and read operation traced; callers and error presentation open",
+        "connected_repair_direction": "Retain the actual native IO cause through FileEntry and the caller-facing loader boundary.",
+        "future_acceptance": "After audit and authorization, cover file-entry read failure with its native cause and selected path context.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-FILESYSTEM-95E.json"
+      },
+      {
+        "id": "REVIEW-FS-HTTP-STATUS-POLICY-95E",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          3,
+          5,
+          7,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; HTTP response policy",
+        "classification": "Native and browser HTTP paths differ on whether a delivered non-success response is rejected before returning bytes.",
+        "historical_related_records": [
+          "adler/READ-L11-359.json via ASSESSMENT-FILESYSTEM-95E.json",
+          "segovb/READ-L12-744.json via ASSESSMENT-FILESYSTEM-95E.json",
+          "baseline-059/queue.json#/entries/1829"
+        ],
+        "relationship_qualification": "Earlier reviewers identified this policy question. Current reqwest source and the MHR caller refine the conditional outcome; no request, response or browser ran.",
+        "discovery": "partial; native/client and browser status branches and selected consumers traced; supported status policy and aliases open",
+        "connected_repair_direction": "Define one explicit response-status policy per supported target while preserving useful response details and native causes.",
+        "future_acceptance": "After audit and authorization, cover successful, redirect and error-status responses and MHR direct/nested selection on each supported target.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-FILESYSTEM-95E.json"
+      },
+      {
+        "id": "REVIEW-FS-NATIVE-ROOT-RESTORE-PATH-95E",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          3,
+          5,
+          6,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; persisted path identity",
+        "classification": "Persisting an absolute Unix project root removes its leading slash, so restore interprets the stored path relative to the process working directory.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1829"
+        ],
+        "relationship_qualification": "This newly assessed range was outside Adler359 and delegate744’s stated historical reads. The effect is conditional on Unix path and working-directory interpretation; no persistence or restore ran.",
+        "discovery": "partial; native path-to-URI, strip and restore source traced; real callers, permissions and platform policies open",
+        "connected_repair_direction": "Persist and restore one canonical native root representation without losing absolute-path identity.",
+        "future_acceptance": "After audit and authorization, cover absolute Unix paths, Windows paths, spaces and actual root restoration without compatibility fallbacks.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-FILESYSTEM-95E.json"
+      },
+      {
+        "id": "REVIEW-FS-FILE-URI-RESOLUTION-95E",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          3,
+          5,
+          6,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; locator representation",
+        "classification": "File-URI root comparison and native fallback interpret different representations, including percent-encoded file names.",
+        "historical_related_records": [
+          "adler/READ-L11-359.json via ASSESSMENT-FILESYSTEM-95E.json",
+          "segovb/READ-L12-744.json via ASSESSMENT-FILESYSTEM-95E.json"
+        ],
+        "named_subcontracts": [
+          {
+            "scope": "root routing",
+            "first_failure": "decoded scheme-stripped input compared with root.path URI text"
+          },
+          {
+            "scope": "native fallback",
+            "first_failure": "original file URI stripped without percent decoding"
+          }
+        ],
+        "relationship_qualification": "Earlier reviewers already noted both questions; they are kept as distinct first sites with shared locator ownership. No file or decoder ran.",
+        "discovery": "partial; exact string transformations, pinned percent-decoding source and selected callers traced; supported locator grammar and platform semantics open",
+        "connected_repair_direction": "Admit and carry a canonical locator/path representation through project lookup and native fallback.",
+        "future_acceptance": "After audit and authorization, cover literal versus encoded paths, native roots and cross-target locator policies.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-FILESYSTEM-95E.json"
+      },
+      {
+        "id": "REVIEW-FS-PROJECT-RELATIVE-AUTHORITY-95E",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          4,
+          5,
+          6,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; project path authority",
+        "classification": "Project-relative URI handling leaves parent components, rootless native fallback and textual prefix matching to implicit policy.",
+        "historical_related_records": [
+          "adler/READ-L11-359.json via ASSESSMENT-FILESYSTEM-95E.json",
+          "segovb/READ-L12-744.json via ASSESSMENT-FILESYSTEM-95E.json"
+        ],
+        "named_subcontracts": [
+          {
+            "scope": "parent components",
+            "first_failure": "project suffix components are joined without a containment decision"
+          },
+          {
+            "scope": "missing project root",
+            "first_failure": "native fallback treats the project suffix as a process-relative path"
+          },
+          {
+            "scope": "textual prefix",
+            "first_failure": "root membership uses String prefix rather than an admitted path boundary"
+          }
+        ],
+        "relationship_qualification": "Original reviewers already highlighted parent components and textual prefix as unresolved; rootless fallback is newly traced. No sandbox promise, actual untrusted input, filesystem access or security incident is asserted.",
+        "discovery": "partial; native path routing and project-root state traced; symlink policy, external caller trust and intended authority open",
+        "connected_repair_direction": "Define project-root authority, component containment and missing-root outcomes explicitly at the locator owner.",
+        "future_acceptance": "After audit and authorization, cover intended parent, symlink, prefix-collision and missing-root cases under the chosen policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-FILESYSTEM-95E.json"
+      },
+      {
+        "id": "REVIEW-FS-BLOB-FAILURE-CACHE-95E",
+        "lens": 6,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; browser failure lifecycle",
+        "classification": "A failed blob fetch is cached by URI and later returns a generic failure without retry or original cause.",
+        "historical_related_records": [
+          "adler/READ-L11-359.json via ASSESSMENT-FILESYSTEM-95E.json",
+          "baseline-059/queue.json#/entries/1829"
+        ],
+        "relationship_qualification": "The original reviewer already recorded the cache/cause question. Any transient failure and retry requirement are hypothetical; no browser or fetch ran.",
+        "discovery": "partial; retained static state and second-lookup branch traced; blob lifetime, retry policy and cause consumers open",
+        "connected_repair_direction": "Define blob failure lifetime, retry and cause retention at the browser loader boundary.",
+        "future_acceptance": "After audit and authorization, cover repeated failed and transient blob reads and chosen cache invalidation.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-FILESYSTEM-95E.json"
+      },
+      {
+        "id": "REVIEW-FS-WRITE-CAUSE-OWNERSHIP-95E",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          12
+        ],
+        "severity": "unassigned; native write causes",
+        "classification": "Several native write and persistence operations format IO errors before callers can retain the native cause.",
+        "historical_related_records": [
+          "segovb/READ-L12-744.json via ASSESSMENT-FILESYSTEM-95E.json"
+        ],
+        "named_subcontracts": [
+          {
+            "scope": "NativeFile.write",
+            "first_failure": "std::fs::write failure formatted into anyhow text"
+          },
+          {
+            "scope": "write_bytes native fallback",
+            "first_failure": "std::fs::write failure formatted with path into anyhow text"
+          },
+          {
+            "scope": "persist_project_root",
+            "first_failure": "native directory creation and root-file write causes formatted"
+          }
+        ],
+        "relationship_qualification": "These are separate first operations from original read/decode errors; grouping their related repair direction does not assert aliases. No write or filesystem error ran.",
+        "discovery": "partial; source operations traced; actual callers, error taxonomy and aliases open",
+        "connected_repair_direction": "Preserve native write/create error objects and operation context at the filesystem owner.",
+        "future_acceptance": "After audit and authorization, cover each write/create boundary and source chain.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-FILESYSTEM-95E.json"
+      },
+      {
+        "id": "REVIEW-FS-UNCHECKED-ERROR-HANDLING-95E",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          8,
+          11
+        ],
+        "severity": "unassigned; production error handling",
+        "classification": "Filesystem source uses production lock and browser reflection unwraps and discards some browser Reflect.set outcomes.",
+        "historical_related_records": [
+          "segovb/READ-L12-744.json via ASSESSMENT-FILESYSTEM-95E.json",
+          "baseline-059/queue.json#/entries/1829"
+        ],
+        "relationship_qualification": "The local rule forbids production unwrap/expect. No lock poisoning, JS error, cast failure or browser execution was observed; discarded outcomes and actual JS taxonomy remain separate.",
+        "discovery": "partial; exact operations and governing rule traced; browser and synchronization policies open",
+        "connected_repair_direction": "Handle lock and JS result states explicitly at their owners while retaining native browser causes.",
+        "future_acceptance": "After audit and authorization, cover normal handles, rejected operations and explicit lock policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-FILESYSTEM-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1640.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1645.json"
 }

@@ -1,0 +1,153 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2259,
+      "source_id": "pr-working:crates/fabelgeist-fs/Cargo.toml",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2259",
+      "original_locator": "crates/fabelgeist-fs/Cargo.toml",
+      "original_supplier_scopes": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 13,
+          "read_ranges": [
+            [
+              1,
+              53
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "d2956fd40d57eb20bc9dec56699c024d7d83cd1d1b62de9a685a69352dc27aef",
+      "lines": 53,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "FILESYSTEM-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2259-2260.json",
+        "sha256": "1eb18ab8eb9dabb051e68207aa1e27dd930d035578b3a416461fd7fa0d4e5395"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current complete body displayed after local registration and exact historical6533 byte equality verified. Historical reviewer and supplier scopes are separately attributed.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-fs/Cargo.toml",
+        "sha256": "d2956fd40d57eb20bc9dec56699c024d7d83cd1d1b62de9a685a69352dc27aef",
+        "bytes": 1158,
+        "lines": 53,
+        "git_blob": "7576ec4a9edeebce87a6b95b7c694601cbe6f094",
+        "preserved_bytes": "main-advance-95e/filesystem-evidence/current-2259.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            53
+          ]
+        ],
+        "qualification": "Current full body displayed after registration; exact historical byte identity verified. No product code executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim.",
+      "prior_current_observations": [],
+      "prior_role_qualification": null
+    },
+    {
+      "original_index": 2260,
+      "source_id": "pr-working:crates/fabelgeist-fs/src/lib.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2260",
+      "original_locator": "crates/fabelgeist-fs/src/lib.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 226,
+          "read_ranges": [
+            [
+              635,
+              705
+            ],
+            [
+              782,
+              884
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-028",
+          "read_ranges_as_recorded": [
+            [
+              635,
+              705
+            ],
+            [
+              782,
+              884
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "b0eda40872d0165cc3a1524083dc60e23ec7a9ee0e88d7bd88fa26e7f3a4ed6f",
+      "lines": 944,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "FILESYSTEM-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2259-2260.json",
+        "sha256": "1eb18ab8eb9dabb051e68207aa1e27dd930d035578b3a416461fd7fa0d4e5395"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          944
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current complete body displayed after local registration and exact historical6533 byte equality verified. Historical reviewer and supplier scopes are separately attributed.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-fs/src/lib.rs",
+        "sha256": "b0eda40872d0165cc3a1524083dc60e23ec7a9ee0e88d7bd88fa26e7f3a4ed6f",
+        "bytes": 32439,
+        "lines": 944,
+        "git_blob": "85bbfc826a159ad7bbe15b0204ef62c8ff18df91",
+        "preserved_bytes": "main-advance-95e/filesystem-evidence/current-2260.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            944
+          ]
+        ],
+        "qualification": "Current full body displayed after registration; exact historical byte identity verified. No product code executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim.",
+      "prior_current_observations": [],
+      "prior_role_qualification": null
+    }
+  ],
+  "observations": [
+    "Current95e filesystem manifest53 and source944 were prospectively registered and personally displayed in bounded untruncated ranges; exact historical6533 byte identity verified. Original supplier2259 read full53; original supplier2260 read only635–705 and782–884.",
+    "Adler359 independently read2259 full and2260 only635–705 plus782–884; its own receipt explicitly excludes1–634,706–781 and885–944. Lens12 delegate744 independently read those original2260 ranges, plus separately registered connected ranges1–38,54–128,141–188,210–227,270–297,314–349 and596–604; it did not read all944. Root adoption has zero personal rereads and zero accepted unique-count change.",
+    "New95e full displays do not retroactively enlarge any earlier reviewer, connected-source or other-lens scope. Earlier pending HTTP status, URL representation and blob cache observations remain questions with original attribution. No file, network, browser, parser, test or product ran. Local registration time is not independently attested."
+  ],
+  "qualification": "Original supplier, Adler partial, delegate initial and separately registered connected ranges, and new full source displays remain distinct; no checkpoint3821 claim.",
+  "next_original_role": 2261
+}

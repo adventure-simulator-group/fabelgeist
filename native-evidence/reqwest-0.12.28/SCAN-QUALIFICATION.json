@@ -1,0 +1,9 @@
+{
+  "schema": "726-publication-scan-qualification-v1",
+  "archive": "reqwest-0.12.28.crate",
+  "archive_sha256": "eddd3ca559203180a307f12d114c268abf583f59b03cb906fd0b3ff8646c1147",
+  "member": "reqwest-0.12.28/src/tls.rs",
+  "member_sha256": "73afedbf9e144a8c66dad7706bc37c6a73ff185eff1ee8654d158e57a0a8cbd6",
+  "qualification": "The sole private-key-marker match is an intentionally empty Rust test literal: the BEGIN and END delimiters have only a newline escape, source-line continuation, newline and indentation between them. It contains no key material. The complete locked archive is preserved unchanged. All other credential and local-path patterns remain subject to the publication scan.",
+  "verification": "verify_filesystem_95e.py checks the archive/member hashes, single marker, and exact empty inter-marker bytes; no TLS, tests or product code run."
+}
