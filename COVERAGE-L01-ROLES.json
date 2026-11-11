@@ -9,14 +9,14 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 1295,
+    "unassessed": 1289,
     "lock-metadata-partial": 3,
     "bounded-current-trace-only": 71,
     "assessed-nonapplicable": 3,
-    "full-historical-body-trace-open": 1476,
-    "deleted-base-trace-open": 5
+    "full-historical-body-trace-open": 1481,
+    "deleted-base-trace-open": 6
   },
-  "first_unfinished": "Lock roles 39, 497 and 680 remain metadata-partial; frozen bodies 1530–1534 have now been read. Continue at historical body 1535; independent lenses remain open.",
+  "first_unfinished": "Lock roles 39, 497 and 680 remain metadata-partial; frozen bodies 1535–1536 and 1538–1540 plus deleted-role1537 base have now been read. Continue at historical body 1541; independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -21259,7 +21259,9 @@
       "historical_sha256": "1152ca1b81a23bb4bf4bf1128d479d5cbdc8109c653dd9d4a6057b4da7d6baae",
       "registry_pointer": "/files/1535",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1535-1540.json",
+      "qualification": "Full original body personally read through actual EOF. Earlier reviewers and sources remain separately attributed. No generation, worker, browser, test or product runtime ran."
     },
     {
       "original_index": 1536,
@@ -21269,7 +21271,9 @@
       "historical_sha256": "dc50098c2f04955e49c7bc30582a809addb65cbd3e8107c64e282b585cdedb50",
       "registry_pointer": "/files/1536",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1535-1540.json",
+      "qualification": "Full original body personally read through actual EOF. Earlier reviewers and sources remain separately attributed. No generation, worker, browser, test or product runtime ran."
     },
     {
       "original_index": 1537,
@@ -21279,7 +21283,9 @@
       "historical_sha256": null,
       "registry_pointer": "/files/1537",
       "historical_object_available": false,
-      "status": "unassessed"
+      "status": "deleted-base-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-DELETED-1537.json",
+      "qualification": "Deleted frozen role has no snapshot body; separately read 3a50 base and prove frozen/current absence. Successor and other lenses remain independent."
     },
     {
       "original_index": 1538,
@@ -21289,7 +21295,9 @@
       "historical_sha256": "b6bfc1a3b7fee5f042c8c1c926db1e528aed65c795c69dc303755fef51f877f8",
       "registry_pointer": "/files/1538",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1535-1540.json",
+      "qualification": "Full original body personally read through actual EOF. Earlier reviewers and sources remain separately attributed. No generation, worker, browser, test or product runtime ran."
     },
     {
       "original_index": 1539,
@@ -21299,7 +21307,9 @@
       "historical_sha256": "e778ced99ff655e2f55ac67e0faf0e8152899f9552b0210670c232b48483ea4f",
       "registry_pointer": "/files/1539",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1535-1540.json",
+      "qualification": "Full original body personally read through actual EOF. Earlier reviewers and sources remain separately attributed. No generation, worker, browser, test or product runtime ran."
     },
     {
       "original_index": 1540,
@@ -21309,7 +21319,9 @@
       "historical_sha256": "59d35ca03f4c4de7d0a0073bbec0d155d1a4df348a2814bca0e72dce625f04fd",
       "registry_pointer": "/files/1540",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1535-1540.json",
+      "qualification": "Full original body personally read through actual EOF. Earlier reviewers and sources remain separately attributed. No generation, worker, browser, test or product runtime ran."
     },
     {
       "original_index": 1541,

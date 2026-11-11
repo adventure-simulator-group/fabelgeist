@@ -3626,8 +3626,24 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-GRAPHICS-CONFIG-ADMISSION-95E.json"
+      },
+      {
+        "id": "REVIEW-REGIONAL-CITY-FINISH-GRAPHICS-IDENTITY-001",
+        "lens": 5,
+        "severity": "unassigned; conditional preparation identity question",
+        "classification": "Newly assessed conditional 95e source question; not an observed incident, proven product defect or recovered checkpoint3821 finding.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1305",
+          "baseline-059/queue.json#/entries/1307",
+          "ASSESSMENT-GRAPHICS-CONFIG-ADMISSION-95E.json"
+        ],
+        "relationship_qualification": "New current source question connected to earlier open obligations; no historical unique count or checkpoint3821 transfer. Supported caller sequencing and exact alias remain open.",
+        "discovery": "partial; source-level conditional sequence and normal coordinator safeguards documented, supported reachability and policy open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GENERATION-IDENTITY-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0637.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0641.json"
 }
