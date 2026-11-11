@@ -1,0 +1,648 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2200,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/recipe.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2200",
+      "original_locator": "crates/fabelgeist-armor/src/gpu/recipe.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 133,
+          "read_ranges": [
+            [
+              1,
+              166
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-019",
+          "read_ranges_as_recorded": [
+            [
+              146,
+              166
+            ]
+          ]
+        }
+      ],
+      "sha256": "09540bbac5ff1df4fbe07021b362cd80495d565cc843ed8b484f8ab401fe508b",
+      "lines": 166,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "STAGING-TASSETS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2200-2209.json",
+        "sha256": "242dae40af31a791f7568e7c6af0b8ea29b899011346dc5eacf63e8fcb364d5e"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          166
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 body2200 was separately displayed from current95e; for identical2201–2209 the display used current bytes whose historical equality is verified. No historical reviewer reread credit follows.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/gpu/recipe.rs",
+        "sha256": "47f60d1bea5f969747b095c3b6383a20ecc5761131c85306d60211d3dd904bee",
+        "bytes": 6563,
+        "lines": 188,
+        "git_blob": "5b7a171ce6c0d3a54251b18bb7f0c2f55a006b54",
+        "preserved_bytes": "main-advance-95e/staging-tassets-evidence/current-2200.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "current_personal_ranges": [
+          [
+            1,
+            188
+          ]
+        ],
+        "qualification": "Both changed2200 revisions were separately displayed; identical roles use the current display with byte equivalence only. No earlier author or other-lens credit follows."
+      },
+      "qualification": "Original2205 supplier and producer scopes end at160; independent historical reviewers read the full376 lines. Those attributions and current full display remain separate."
+    },
+    {
+      "original_index": 2201,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/staging.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2201",
+      "original_locator": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 216,
+          "read_ranges": [
+            [
+              1,
+              77
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "c82ccc89151834ead198496d95805780ebc3770b1d259c1d7d61dafa9817f02e",
+      "lines": 77,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "STAGING-TASSETS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2200-2209.json",
+        "sha256": "242dae40af31a791f7568e7c6af0b8ea29b899011346dc5eacf63e8fcb364d5e"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 body2200 was separately displayed from current95e; for identical2201–2209 the display used current bytes whose historical equality is verified. No historical reviewer reread credit follows.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+        "sha256": "c82ccc89151834ead198496d95805780ebc3770b1d259c1d7d61dafa9817f02e",
+        "bytes": 2365,
+        "lines": 77,
+        "git_blob": "44b1f6a7539a3ad1603560c6ee9fd65112922651",
+        "preserved_bytes": "main-advance-95e/staging-tassets-evidence/current-2201.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            77
+          ]
+        ],
+        "qualification": "Both changed2200 revisions were separately displayed; identical roles use the current display with byte equivalence only. No earlier author or other-lens credit follows."
+      },
+      "qualification": "Original2205 supplier and producer scopes end at160; independent historical reviewers read the full376 lines. Those attributions and current full display remain separate."
+    },
+    {
+      "original_index": 2202,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tasset_carrier.wgsl",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2202",
+      "original_locator": "crates/fabelgeist-armor/src/gpu/wrapped_tasset_carrier.wgsl",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 109,
+          "read_ranges": [
+            [
+              1,
+              64
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-024",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              64
+            ]
+          ]
+        }
+      ],
+      "sha256": "d2769977cd06ab462c3180b8faf97efd4b55c067d626ff300078d8a6baa6409d",
+      "lines": 64,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "STAGING-TASSETS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2200-2209.json",
+        "sha256": "242dae40af31a791f7568e7c6af0b8ea29b899011346dc5eacf63e8fcb364d5e"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 body2200 was separately displayed from current95e; for identical2201–2209 the display used current bytes whose historical equality is verified. No historical reviewer reread credit follows.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/gpu/wrapped_tasset_carrier.wgsl",
+        "sha256": "d2769977cd06ab462c3180b8faf97efd4b55c067d626ff300078d8a6baa6409d",
+        "bytes": 3353,
+        "lines": 64,
+        "git_blob": "9483d394943e0f1824cc93b4072aa02dca28bbfe",
+        "preserved_bytes": "main-advance-95e/staging-tassets-evidence/current-2202.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            64
+          ]
+        ],
+        "qualification": "Both changed2200 revisions were separately displayed; identical roles use the current display with byte equivalence only. No earlier author or other-lens credit follows."
+      },
+      "qualification": "Original2205 supplier and producer scopes end at160; independent historical reviewers read the full376 lines. Those attributions and current full display remain separate."
+    },
+    {
+      "original_index": 2203,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tasset_shape.wgsl",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2203",
+      "original_locator": "crates/fabelgeist-armor/src/gpu/wrapped_tasset_shape.wgsl",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 110,
+          "read_ranges": [
+            [
+              1,
+              55
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-024",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              55
+            ]
+          ]
+        }
+      ],
+      "sha256": "6bf36983d7b2fe90b22fd0e5bccd860aa4e951be3fd90828a85c87438f8f6c40",
+      "lines": 55,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "STAGING-TASSETS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2200-2209.json",
+        "sha256": "242dae40af31a791f7568e7c6af0b8ea29b899011346dc5eacf63e8fcb364d5e"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 body2200 was separately displayed from current95e; for identical2201–2209 the display used current bytes whose historical equality is verified. No historical reviewer reread credit follows.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/gpu/wrapped_tasset_shape.wgsl",
+        "sha256": "6bf36983d7b2fe90b22fd0e5bccd860aa4e951be3fd90828a85c87438f8f6c40",
+        "bytes": 2502,
+        "lines": 55,
+        "git_blob": "b6abe0ec59affdfe11bd303a0723465078e03aad",
+        "preserved_bytes": "main-advance-95e/staging-tassets-evidence/current-2203.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            55
+          ]
+        ],
+        "qualification": "Both changed2200 revisions were separately displayed; identical roles use the current display with byte equivalence only. No earlier author or other-lens credit follows."
+      },
+      "qualification": "Original2205 supplier and producer scopes end at160; independent historical reviewers read the full376 lines. Those attributions and current full display remain separate."
+    },
+    {
+      "original_index": 2204,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2204",
+      "original_locator": "crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 108,
+          "read_ranges": [
+            [
+              1,
+              154
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-024",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              154
+            ]
+          ]
+        }
+      ],
+      "sha256": "e3b42051512367ece0bf95da50fe255586f90159da138fc22385ba5304ba62b9",
+      "lines": 154,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "STAGING-TASSETS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2200-2209.json",
+        "sha256": "242dae40af31a791f7568e7c6af0b8ea29b899011346dc5eacf63e8fcb364d5e"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          154
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 body2200 was separately displayed from current95e; for identical2201–2209 the display used current bytes whose historical equality is verified. No historical reviewer reread credit follows.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs",
+        "sha256": "e3b42051512367ece0bf95da50fe255586f90159da138fc22385ba5304ba62b9",
+        "bytes": 6274,
+        "lines": 154,
+        "git_blob": "dd076150f50c59218912878309bfe091c7654250",
+        "preserved_bytes": "main-advance-95e/staging-tassets-evidence/current-2204.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            154
+          ]
+        ],
+        "qualification": "Both changed2200 revisions were separately displayed; identical roles use the current display with byte equivalence only. No earlier author or other-lens credit follows."
+      },
+      "qualification": "Original2205 supplier and producer scopes end at160; independent historical reviewers read the full376 lines. Those attributions and current full display remain separate."
+    },
+    {
+      "original_index": 2205,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/limb_armor.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2205",
+      "original_locator": "crates/fabelgeist-armor/src/limb_armor.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 100,
+          "read_ranges": [
+            [
+              1,
+              160
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-024",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              160
+            ]
+          ]
+        }
+      ],
+      "sha256": "5cc9bda50004b9d57d81c6c253f9e51e1185141f978f731fd9b55809de0f3b55",
+      "lines": 376,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "STAGING-TASSETS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2200-2209.json",
+        "sha256": "242dae40af31a791f7568e7c6af0b8ea29b899011346dc5eacf63e8fcb364d5e"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          376
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 body2200 was separately displayed from current95e; for identical2201–2209 the display used current bytes whose historical equality is verified. No historical reviewer reread credit follows.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/limb_armor.rs",
+        "sha256": "5cc9bda50004b9d57d81c6c253f9e51e1185141f978f731fd9b55809de0f3b55",
+        "bytes": 12448,
+        "lines": 376,
+        "git_blob": "a9f03dc271915ee2cc5859a086c053ab23fc2ad0",
+        "preserved_bytes": "main-advance-95e/staging-tassets-evidence/current-2205.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            376
+          ]
+        ],
+        "qualification": "Both changed2200 revisions were separately displayed; identical roles use the current display with byte equivalence only. No earlier author or other-lens credit follows."
+      },
+      "qualification": "Original2205 supplier and producer scopes end at160; independent historical reviewers read the full376 lines. Those attributions and current full display remain separate."
+    },
+    {
+      "original_index": 2206,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/material.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2206",
+      "original_locator": "crates/fabelgeist-armor/src/material.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 210,
+          "read_ranges": [
+            [
+              1,
+              103
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "ab288766a2010d8edd2795c541884dda9c55367deaf0105f1a7e8a0574c0f0fe",
+      "lines": 103,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "STAGING-TASSETS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2200-2209.json",
+        "sha256": "242dae40af31a791f7568e7c6af0b8ea29b899011346dc5eacf63e8fcb364d5e"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 body2200 was separately displayed from current95e; for identical2201–2209 the display used current bytes whose historical equality is verified. No historical reviewer reread credit follows.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/material.rs",
+        "sha256": "ab288766a2010d8edd2795c541884dda9c55367deaf0105f1a7e8a0574c0f0fe",
+        "bytes": 3464,
+        "lines": 103,
+        "git_blob": "3b4806c2451a2351e4dbc0360d1f836506ae1ee4",
+        "preserved_bytes": "main-advance-95e/staging-tassets-evidence/current-2206.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            103
+          ]
+        ],
+        "qualification": "Both changed2200 revisions were separately displayed; identical roles use the current display with byte equivalence only. No earlier author or other-lens credit follows."
+      },
+      "qualification": "Original2205 supplier and producer scopes end at160; independent historical reviewers read the full376 lines. Those attributions and current full display remain separate."
+    },
+    {
+      "original_index": 2207,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/ornament.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2207",
+      "original_locator": "crates/fabelgeist-armor/src/ornament.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 229,
+          "read_ranges": [
+            [
+              1,
+              189
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "5aaf7f24806502832feef0cc0a9d5e572e80199b63c1d371b05a14fd6cb361ef",
+      "lines": 189,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "STAGING-TASSETS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2200-2209.json",
+        "sha256": "242dae40af31a791f7568e7c6af0b8ea29b899011346dc5eacf63e8fcb364d5e"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          189
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 body2200 was separately displayed from current95e; for identical2201–2209 the display used current bytes whose historical equality is verified. No historical reviewer reread credit follows.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/ornament.rs",
+        "sha256": "5aaf7f24806502832feef0cc0a9d5e572e80199b63c1d371b05a14fd6cb361ef",
+        "bytes": 6162,
+        "lines": 189,
+        "git_blob": "b587fd2f153a8a456df9e3db35dfb3349b9379ae",
+        "preserved_bytes": "main-advance-95e/staging-tassets-evidence/current-2207.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            189
+          ]
+        ],
+        "qualification": "Both changed2200 revisions were separately displayed; identical roles use the current display with byte equivalence only. No earlier author or other-lens credit follows."
+      },
+      "qualification": "Original2205 supplier and producer scopes end at160; independent historical reviewers read the full376 lines. Those attributions and current full display remain separate."
+    },
+    {
+      "original_index": 2208,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/pattern.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2208",
+      "original_locator": "crates/fabelgeist-armor/src/pattern.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 212,
+          "read_ranges": [
+            [
+              1,
+              86
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "8d0d262278bc2b6511da93bf24abf111ae4e5649b288166b56a2a5a4a17d1ca2",
+      "lines": 86,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "STAGING-TASSETS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2200-2209.json",
+        "sha256": "242dae40af31a791f7568e7c6af0b8ea29b899011346dc5eacf63e8fcb364d5e"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 body2200 was separately displayed from current95e; for identical2201–2209 the display used current bytes whose historical equality is verified. No historical reviewer reread credit follows.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/pattern.rs",
+        "sha256": "8d0d262278bc2b6511da93bf24abf111ae4e5649b288166b56a2a5a4a17d1ca2",
+        "bytes": 2857,
+        "lines": 86,
+        "git_blob": "da9af32d9c59805994f227450c3126ba935fcd2e",
+        "preserved_bytes": "main-advance-95e/staging-tassets-evidence/current-2208.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            86
+          ]
+        ],
+        "qualification": "Both changed2200 revisions were separately displayed; identical roles use the current display with byte equivalence only. No earlier author or other-lens credit follows."
+      },
+      "qualification": "Original2205 supplier and producer scopes end at160; independent historical reviewers read the full376 lines. Those attributions and current full display remain separate."
+    },
+    {
+      "original_index": 2209,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/skin.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2209",
+      "original_locator": "crates/fabelgeist-armor/src/skin.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 134,
+          "read_ranges": [
+            [
+              1,
+              99
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "30e87caf9ec73fb5defee0388b3bd24e2fc37b5d9c5200af5889d03455f7e816",
+      "lines": 99,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "STAGING-TASSETS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2200-2209.json",
+        "sha256": "242dae40af31a791f7568e7c6af0b8ea29b899011346dc5eacf63e8fcb364d5e"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 body2200 was separately displayed from current95e; for identical2201–2209 the display used current bytes whose historical equality is verified. No historical reviewer reread credit follows.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/skin.rs",
+        "sha256": "30e87caf9ec73fb5defee0388b3bd24e2fc37b5d9c5200af5889d03455f7e816",
+        "bytes": 2879,
+        "lines": 99,
+        "git_blob": "72331583544bbad833bcbdb59f0d532459c6c1ad",
+        "preserved_bytes": "main-advance-95e/staging-tassets-evidence/current-2209.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            99
+          ]
+        ],
+        "qualification": "Both changed2200 revisions were separately displayed; identical roles use the current display with byte equivalence only. No earlier author or other-lens credit follows."
+      },
+      "qualification": "Original2205 supplier and producer scopes end at160; independent historical reviewers read the full376 lines. Those attributions and current full display remain separate."
+    }
+  ],
+  "observations": [
+    "Original6533 historical recipe2200 and changed current95e counterpart were prospectively registered and independently displayed in full. Roles2201–2209 use a current full display with verified byte identity to6533; source test modules were inspected, never executed.",
+    "Original2205 supplier and producer metadata cover only1–160; independent original Adler350 and Lens12 delegate733 each read full1–376. No supplier or earlier reviewer receives extra scope from the new display.",
+    "Adler348/349/350 and Lens12 delegate732/733/734 retain independent original reads, registrations, states and zero accepted unique-count changes. Root Lens12 adoptions had zero personal rereads. Their receipts also include later historical roles without new current credit. Local registration time is not independently attested."
+  ],
+  "qualification": "Original supplier scopes, reviewer attribution and current full displays are separate; no checkpoint3821 claim.",
+  "next_original_role": 2210
+}
