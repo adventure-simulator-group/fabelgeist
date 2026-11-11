@@ -1,0 +1,1140 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original roles2001–2006, settlement binding, selected geology footprint and terrain capture/sample admission.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2001-2006.json",
+  "git_membership_evidence": "GEOLOGY-ESTABLISHMENT-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/terrain_transition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7623bca1628d33cacbec84d7a2e40e87d40a3d8a",
+      "sha256": "df252469b9538a750abdbc7646c7cb240e14f41a73eb79e640670ab4be6dda90",
+      "bytes": 7862,
+      "lines": 200,
+      "ranges": [
+        [
+          1,
+          49
+        ],
+        [
+          101,
+          199
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/geology-establishment-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No generator, terrain decoder, projection, source test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/volumetric_terrain/recipe.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4316aed04dad6574def44b14293e8a962c66f2d9",
+      "sha256": "fcaf87702a89d958728884e2576a2f981d6a15f491e9fab4586e483f9527df2f",
+      "bytes": 8089,
+      "lines": 217,
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/geology-establishment-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No generator, terrain decoder, projection, source test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/volumetric_terrain.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1ed9bffbcdb0200bccb84e7ffd4df69765261b43",
+      "sha256": "7623a9336cbe4a4c30650bd451893f1769952e1d29b6cd4c18e6c4f23780887e",
+      "bytes": 20430,
+      "lines": 526,
+      "ranges": [
+        [
+          44,
+          49
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/geology-establishment-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No generator, terrain decoder, projection, source test or product ran."
+    },
+    {
+      "path": "crates/fabelgeist-determinism/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "41b943e1662a3f34e210f28bf171c579e8aaade0",
+      "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "bytes": 1971,
+      "lines": 58,
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/geology-establishment-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No generator, terrain decoder, projection, source test or product ran."
+    },
+    {
+      "path": "crates/fabelgeist-determinism/src/stream.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c59d8a7720881fba266c80112e82880e4422e074",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "bytes": 5688,
+      "lines": 169,
+      "ranges": [
+        [
+          74,
+          84
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/geology-establishment-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No generator, terrain decoder, projection, source test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-terrain/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e7c455cbbc254d9ebb434ceecb22187ae13b53f5",
+      "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+      "bytes": 71074,
+      "lines": 2059,
+      "ranges": [
+        [
+          65,
+          130
+        ],
+        [
+          438,
+          474
+        ],
+        [
+          500,
+          546
+        ],
+        [
+          804,
+          826
+        ],
+        [
+          865,
+          889
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/geology-establishment-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No generator, terrain decoder, projection, source test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-terrain/src/builder.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ed1831cabff3dd0557829572522ff362eceaa08f",
+      "sha256": "39502f30860a433c74e3d1309365d46fda323b7406ee627123dfcd50630442a1",
+      "bytes": 23141,
+      "lines": 646,
+      "ranges": [
+        [
+          100,
+          145
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/geology-establishment-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No generator, terrain decoder, projection, source test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ce5e205c98dc45232f19e7762729c8a9a59ebac4",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "bytes": 39530,
+      "lines": 1026,
+      "ranges": [
+        [
+          427,
+          467
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/geology-establishment-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No generator, terrain decoder, projection, source test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/regional_terrain.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f9c84ff2480af8f05a4a626bc98f9d814c8f9a52",
+      "sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+      "bytes": 3597,
+      "lines": 112,
+      "ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/geology-establishment-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No generator, terrain decoder, projection, source test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "457b4b0f8a3ef81218680f80fa91573f8faaaaf3",
+      "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "bytes": 172137,
+      "lines": 4796,
+      "ranges": [
+        [
+          1636,
+          1689
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/geology-establishment-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No generator, terrain decoder, projection, source test or product ran."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-SCENE-MATERIALIZATION-95E.json",
+    "ASSESSMENT-REGIONAL-SAMPLE-ADMISSION-95E.json",
+    "ASSESSMENT-LANDFORM-OVERLAP-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Business and operator binding",
+      "trace": "The selected builder checks settlement identity, unique BusinessKey entries, every placed business and no leftover operator, then sorts by building ID. Failure variants are first encoded as static Strings before the reusable provisioning and final dispatcher log.",
+      "remaining": "See the conditional error-owner finding; actual rejected inputs, external callers and all identity owners remain open."
+    },
+    {
+      "contract": "Selected geological footprint",
+      "trace": "For the fixed procedural half-length 12m, half-width 10m and wander at most 1.25m, assume ideal orthonormal axes and the source noise stays in its documented unit bounds. For any collar point, Cauchy-Schwarz bounds each un-wandered scene-axis extent by 12m and wander adds at most 1.25m, so each extent is at most 13.25m. The selected safety square uses radius 14m, and its centre/corridor test leaves an ideal 0.75m margin beyond the 7m corridor. Width variation never increases the stated 10m half-width under those bounds.",
+      "remaining": "This is symbolic counterevidence to a simple rotated-ellipse-exceeds-square suspicion, not an executed geometry or floating-point proof. Coverage of continuous protected cells, all producer paths, projection curvature/window containment and actual scenes remain open."
+    },
+    {
+      "contract": "Terrain and regional sample admission",
+      "trace": "The normal builder maps raw canopy above100 percent to0, while the chunk decoder checks length/hash and surface/flag discriminants then copies the canopy byte. The shared adapter multiplies it by100; tactical scene validation rejects environmental fractions above10000, whereas RegionalTerrain checks cardinality.",
+      "remaining": "This is the same recovered059 regional sample question already linked in ASSESSMENT-REGIONAL-SAMPLE-ADMISSION-95E.json; no additional finding or actual invalid pack is asserted."
+    },
+    {
+      "contract": "Capture wire and error chain",
+      "trace": "ImportedTerrainCapture validates source point and absolute elevation and retains typed terrain/source errors, but sample_city_vista returns String before the outer VistaSampling(String) wrapper. SourceElevationSample explicitly emits the elevation as a scalar; ElevationMeters itself derives a struct-shaped serializer with a meters field.",
+      "remaining": "Blindly deriving the outer serializer would change the selected wire shape; actual artifact consumers and clean future schema policy remain open. No sample, serializer or diagnostic was run."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-ESTABLISHMENT-BINDING-ERROR-IDENTITY-001",
+      "first_contract": "Settlement business binding failures should preserve the semantic failure and the relevant settlement, business or building identity until the owning provisioning boundary reports them.",
+      "source_witness": "bind_establishments checks for cross-settlement operators, duplicate business keys, a placed business without an operator, and remaining operators without placements. Each early branch returns a static String before build_imported_scene propagates it, without carrying the offending key or building identity as structured context. The dispatcher later logs the propagated String with a mission ID.",
+      "counterevidence": "The function performs the binding checks and rejects the listed mismatch cases; it does not silently invent an operator. None settlement intentionally produces an empty list, and normal matched operators preserve typed BusinessId, CharacterId and RenderedPersonalName. No actual failed binding, log consumer or deployed incident was observed.",
+      "effect_and_limits": "A bounded semantic error-owner question, distinct at the first failing binding function from the broader provisioning API losing native terrain or IO causes. Whether all error families should share an outer owner and exact aliases remain open.",
+      "repair_direction": "When authorized, retain typed binding variants and relevant identities through provisioning to final presentation, preserving exact membership checks and legitimate unoccupied mode.",
+      "related_historical": [
+        "baseline-059/queue.json#/entries/1662",
+        "baseline-059/queue.json#/entries/114",
+        "segovb/READ-L12-671.json",
+        "adler/READ-L11-309.json"
+      ],
+      "alias_qualification": "Segovb059 pending binding question and Adler059 broader family remain attributed as recorded. This current bounded case has a distinct first failure; global deduplication and historical unique count remain open. No checkpoint3821 claim.",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-234.json",
+      "sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136",
+      "bytes": 14490,
+      "git_blob": "bc0f773eeb8695793e91db5321f4a69482370794",
+      "preserved_bytes": "recovered/geology-establishment-059/422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136.gz",
+      "published_sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136",
+      "published_bytes": 14490,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-265.json",
+      "sha256": "b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374",
+      "bytes": 8630,
+      "git_blob": "ee988ea2ae34edc4ae4b93853692d48df29003cc",
+      "preserved_bytes": "recovered/geology-establishment-059/b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374.gz",
+      "published_sha256": "b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374",
+      "published_bytes": 8630,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-271.json",
+      "sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba",
+      "bytes": 11760,
+      "git_blob": "6215e73adce4e51c62992d37dd261190433a79ea",
+      "preserved_bytes": "recovered/geology-establishment-059/52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba.gz",
+      "published_sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba",
+      "published_bytes": 11760,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-273.json",
+      "sha256": "ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b",
+      "bytes": 12123,
+      "git_blob": "bdd561888e4bca8bdaf6956ed56cada4863d6b71",
+      "preserved_bytes": "recovered/geology-establishment-059/ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b.gz",
+      "published_sha256": "ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b",
+      "published_bytes": 12123,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-279.json",
+      "sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7",
+      "bytes": 9700,
+      "git_blob": "30bff15c9967db3e6f6f3c7727bef93f7ce5c919",
+      "preserved_bytes": "recovered/geology-establishment-059/d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7.gz",
+      "published_sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7",
+      "published_bytes": 9700,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "bytes": 15035,
+      "git_blob": "45ee5dcfa447994407de51ae6b68f85de63c1ac4",
+      "preserved_bytes": "recovered/geology-establishment-059/bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3.gz",
+      "published_sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "published_bytes": 15035,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-286.json",
+      "sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de",
+      "bytes": 12115,
+      "git_blob": "f0857f21383fa7232908947c1df1dd955d94cf4a",
+      "preserved_bytes": "recovered/geology-establishment-059/58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de.gz",
+      "published_sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de",
+      "published_bytes": 12115,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-289.json",
+      "sha256": "28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0",
+      "bytes": 13932,
+      "git_blob": "492f7a3770c7692e16bb1d1a6c1004a0817290db",
+      "preserved_bytes": "recovered/geology-establishment-059/28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0.gz",
+      "published_sha256": "28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0",
+      "published_bytes": 13932,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-290.json",
+      "sha256": "16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a",
+      "bytes": 12417,
+      "git_blob": "36c15abc3fc414b93ef16c17a4a8076ad21c0fef",
+      "preserved_bytes": "recovered/geology-establishment-059/16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a.gz",
+      "published_sha256": "16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a",
+      "published_bytes": 12417,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-292.json",
+      "sha256": "5c26ba04d65cdc40be9513f91a368a207f0a7048a48a5698e894774bbbc514c4",
+      "bytes": 9488,
+      "git_blob": "6ba539810f50cddd901d8215cc076a30e8583ab0",
+      "preserved_bytes": "recovered/geology-establishment-059/5c26ba04d65cdc40be9513f91a368a207f0a7048a48a5698e894774bbbc514c4.gz",
+      "published_sha256": "5c26ba04d65cdc40be9513f91a368a207f0a7048a48a5698e894774bbbc514c4",
+      "published_bytes": 9488,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-293.json",
+      "sha256": "fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b",
+      "bytes": 13832,
+      "git_blob": "e0d57c8d63b43f7316a36c36887ecedae0af0d74",
+      "preserved_bytes": "recovered/geology-establishment-059/fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b.gz",
+      "published_sha256": "fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b",
+      "published_bytes": 13832,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-296.json",
+      "sha256": "92425386e808fe506fae1a85a1acef4394f2219df503b1598a6fb69e148deeec",
+      "bytes": 14121,
+      "git_blob": "9f4260dce5010eb14df055908d6ee3833f7001cb",
+      "preserved_bytes": "recovered/geology-establishment-059/92425386e808fe506fae1a85a1acef4394f2219df503b1598a6fb69e148deeec.gz",
+      "published_sha256": "92425386e808fe506fae1a85a1acef4394f2219df503b1598a6fb69e148deeec",
+      "published_bytes": 14121,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-297.json",
+      "sha256": "6c4f62e52946e14edc7ebeb67ff618cc01dc9a4e1cfcfaa9605d12c7a521c203",
+      "bytes": 12122,
+      "git_blob": "c01cb886745ed876e6caf0a782209a6ff12e519b",
+      "preserved_bytes": "recovered/geology-establishment-059/6c4f62e52946e14edc7ebeb67ff618cc01dc9a4e1cfcfaa9605d12c7a521c203.gz",
+      "published_sha256": "6c4f62e52946e14edc7ebeb67ff618cc01dc9a4e1cfcfaa9605d12c7a521c203",
+      "published_bytes": 12122,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-299.json",
+      "sha256": "c5ca5e4e387af5f2c8b5a645b9e236e4b22f705abf5cc17b773a230296202ae6",
+      "bytes": 10759,
+      "git_blob": "8a875adb77b5a5923245dfda1d75a20bc9818e92",
+      "preserved_bytes": "recovered/geology-establishment-059/c5ca5e4e387af5f2c8b5a645b9e236e4b22f705abf5cc17b773a230296202ae6.gz",
+      "published_sha256": "c5ca5e4e387af5f2c8b5a645b9e236e4b22f705abf5cc17b773a230296202ae6",
+      "published_bytes": 10759,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-300.json",
+      "sha256": "9efdb0883fd8786563aebae54818efc1d897809b682a2a09ff860c53df98582d",
+      "bytes": 11459,
+      "git_blob": "a24ab095462a169485e442e22aced45eaaae7526",
+      "preserved_bytes": "recovered/geology-establishment-059/9efdb0883fd8786563aebae54818efc1d897809b682a2a09ff860c53df98582d.gz",
+      "published_sha256": "9efdb0883fd8786563aebae54818efc1d897809b682a2a09ff860c53df98582d",
+      "published_bytes": 11459,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-301.json",
+      "sha256": "6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e",
+      "bytes": 12478,
+      "git_blob": "8a66f0a027598f95f575b11171cb359c9314a6aa",
+      "preserved_bytes": "recovered/geology-establishment-059/6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e.gz",
+      "published_sha256": "6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e",
+      "published_bytes": 12478,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-302.json",
+      "sha256": "42d85fb7de2c99f3d01504cba8d628c336d9796cac25447e26817f57323726f8",
+      "bytes": 7451,
+      "git_blob": "508d1a77265adb8920c00b2ba0e81d774483a069",
+      "preserved_bytes": "recovered/geology-establishment-059/42d85fb7de2c99f3d01504cba8d628c336d9796cac25447e26817f57323726f8.gz",
+      "published_sha256": "42d85fb7de2c99f3d01504cba8d628c336d9796cac25447e26817f57323726f8",
+      "published_bytes": 7451,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-303.json",
+      "sha256": "9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99",
+      "bytes": 7583,
+      "git_blob": "f947e14e1d4038d2b61fdb68dd1b4956d1ed72dd",
+      "preserved_bytes": "recovered/geology-establishment-059/9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99.gz",
+      "published_sha256": "9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99",
+      "published_bytes": 7583,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-304.json",
+      "sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2",
+      "bytes": 6729,
+      "git_blob": "5466efc73a0ea970be2f052c22ee776d9212a9f6",
+      "preserved_bytes": "recovered/geology-establishment-059/94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2.gz",
+      "published_sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2",
+      "published_bytes": 6729,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-305.json",
+      "sha256": "9e39931ec49520696ab93ba8ab83b907f461c539121cc8efd39f8a133958f7cc",
+      "bytes": 12822,
+      "git_blob": "fea54431e72233de591cc15671817f650972cc18",
+      "preserved_bytes": "recovered/geology-establishment-059/9e39931ec49520696ab93ba8ab83b907f461c539121cc8efd39f8a133958f7cc.gz",
+      "published_sha256": "9e39931ec49520696ab93ba8ab83b907f461c539121cc8efd39f8a133958f7cc",
+      "published_bytes": 12822,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-306.json",
+      "sha256": "b19fa365c1e3e51bf326219d289974142de8b643de990dfcf7abe7ec45035b24",
+      "bytes": 13469,
+      "git_blob": "03d9e5a5d93651d58efa5db57abaaa4d869faaa3",
+      "preserved_bytes": "recovered/geology-establishment-059/b19fa365c1e3e51bf326219d289974142de8b643de990dfcf7abe7ec45035b24.gz",
+      "published_sha256": "b19fa365c1e3e51bf326219d289974142de8b643de990dfcf7abe7ec45035b24",
+      "published_bytes": 13469,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-307.json",
+      "sha256": "a707874cbec2449e0bd174884c0401fbf8bc7c5c93a2d0ae6a3ecf4c661d854f",
+      "bytes": 12787,
+      "git_blob": "31079c87e62cba2759b1a84768d125bf82641f4d",
+      "preserved_bytes": "recovered/geology-establishment-059/a707874cbec2449e0bd174884c0401fbf8bc7c5c93a2d0ae6a3ecf4c661d854f.gz",
+      "published_sha256": "a707874cbec2449e0bd174884c0401fbf8bc7c5c93a2d0ae6a3ecf4c661d854f",
+      "published_bytes": 12787,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-308.json",
+      "sha256": "315b5fd262fd97d09fa2d4bc459306ed5d3793869338040deb3a0f3cc0939c63",
+      "bytes": 12901,
+      "git_blob": "cd013b7915384f5576c554181e5756db2b16a042",
+      "preserved_bytes": "recovered/geology-establishment-059/315b5fd262fd97d09fa2d4bc459306ed5d3793869338040deb3a0f3cc0939c63.gz",
+      "published_sha256": "315b5fd262fd97d09fa2d4bc459306ed5d3793869338040deb3a0f3cc0939c63",
+      "published_bytes": 12901,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-309.json",
+      "sha256": "fd4d08d8a2820389e66268480770d6d03fd481e478a7d5bfcf0b1d650f966361",
+      "bytes": 11360,
+      "git_blob": "97d31521685a433d550211d99b51048b651bd923",
+      "preserved_bytes": "recovered/geology-establishment-059/fd4d08d8a2820389e66268480770d6d03fd481e478a7d5bfcf0b1d650f966361.gz",
+      "published_sha256": "fd4d08d8a2820389e66268480770d6d03fd481e478a7d5bfcf0b1d650f966361",
+      "published_bytes": 11360,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-310.json",
+      "sha256": "37b72ab64670db0b5b185ff8a85f66033bf05949eea8d326d7449118d666cc6a",
+      "bytes": 11210,
+      "git_blob": "ce564c195b3299950bf09eaa40162535217da0cc",
+      "preserved_bytes": "recovered/geology-establishment-059/37b72ab64670db0b5b185ff8a85f66033bf05949eea8d326d7449118d666cc6a.gz",
+      "published_sha256": "37b72ab64670db0b5b185ff8a85f66033bf05949eea8d326d7449118d666cc6a",
+      "published_bytes": 11210,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-843.json",
+      "sha256": "18f1963ea7bcf63be07ce51ed93e81ef6a020e1d0e375a7276c2d181bbde22ad",
+      "bytes": 694,
+      "git_blob": "2a0befb0d30b69388f628db3732b6817849dacf2",
+      "preserved_bytes": "recovered/geology-establishment-059/18f1963ea7bcf63be07ce51ed93e81ef6a020e1d0e375a7276c2d181bbde22ad.gz",
+      "published_sha256": "18f1963ea7bcf63be07ce51ed93e81ef6a020e1d0e375a7276c2d181bbde22ad",
+      "published_bytes": 694,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-844.json",
+      "sha256": "bb90e4c5febeb7e66c360ef504abad86ea11139acd9b887528eb4e390397ab6a",
+      "bytes": 708,
+      "git_blob": "9eeda8a6262816ced4623cd55bbee23bbf817972",
+      "preserved_bytes": "recovered/geology-establishment-059/bb90e4c5febeb7e66c360ef504abad86ea11139acd9b887528eb4e390397ab6a.gz",
+      "published_sha256": "bb90e4c5febeb7e66c360ef504abad86ea11139acd9b887528eb4e390397ab6a",
+      "published_bytes": 708,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-845.json",
+      "sha256": "fe041b1b132878681d9fcc7c381015f43972874e7a052ee1c95ad76074bae0bd",
+      "bytes": 715,
+      "git_blob": "2dd17fb6129ee68dc223826167bca61764385025",
+      "preserved_bytes": "recovered/geology-establishment-059/fe041b1b132878681d9fcc7c381015f43972874e7a052ee1c95ad76074bae0bd.gz",
+      "published_sha256": "fe041b1b132878681d9fcc7c381015f43972874e7a052ee1c95ad76074bae0bd",
+      "published_bytes": 715,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-847.json",
+      "sha256": "9f2a84658419dc48d5cf7cd012651ec97dc9adfe061826433519258b3bbbb2c3",
+      "bytes": 723,
+      "git_blob": "c8b4cf11883abbd21fb01d22d4900fe4a123556c",
+      "preserved_bytes": "recovered/geology-establishment-059/9f2a84658419dc48d5cf7cd012651ec97dc9adfe061826433519258b3bbbb2c3.gz",
+      "published_sha256": "9f2a84658419dc48d5cf7cd012651ec97dc9adfe061826433519258b3bbbb2c3",
+      "published_bytes": 723,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-848.json",
+      "sha256": "c8ef9522f812b788340aa47c1290166b960048164189d07ec5d18ec9595eb17b",
+      "bytes": 730,
+      "git_blob": "799e227870fe09e74d90bdfe53419c6df91077a7",
+      "preserved_bytes": "recovered/geology-establishment-059/c8ef9522f812b788340aa47c1290166b960048164189d07ec5d18ec9595eb17b.gz",
+      "published_sha256": "c8ef9522f812b788340aa47c1290166b960048164189d07ec5d18ec9595eb17b",
+      "published_bytes": 730,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-849.json",
+      "sha256": "858794dfa4a27a0621a825ee99b946c2fdc051b89b8470a3de15adfb08c56a60",
+      "bytes": 715,
+      "git_blob": "bd0fe41b70cdcf2e1162789e62e3dd9053aab74e",
+      "preserved_bytes": "recovered/geology-establishment-059/858794dfa4a27a0621a825ee99b946c2fdc051b89b8470a3de15adfb08c56a60.gz",
+      "published_sha256": "858794dfa4a27a0621a825ee99b946c2fdc051b89b8470a3de15adfb08c56a60",
+      "published_bytes": 715,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-850.json",
+      "sha256": "85fe59247b58aa975720d1b6e2c1e94f7fa6bedb166d0e118918cfeedbb83a84",
+      "bytes": 711,
+      "git_blob": "375bc572757f0b94b7fd12e6733fdef4e7e20b49",
+      "preserved_bytes": "recovered/geology-establishment-059/85fe59247b58aa975720d1b6e2c1e94f7fa6bedb166d0e118918cfeedbb83a84.gz",
+      "published_sha256": "85fe59247b58aa975720d1b6e2c1e94f7fa6bedb166d0e118918cfeedbb83a84",
+      "published_bytes": 711,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-851.json",
+      "sha256": "0775878394bd15d77d16c25350dc5fe7e8db46f9a1b2b41f9485ce6e90725029",
+      "bytes": 687,
+      "git_blob": "91111dc04498f219d479cd9edcbf1e59b9ac0258",
+      "preserved_bytes": "recovered/geology-establishment-059/0775878394bd15d77d16c25350dc5fe7e8db46f9a1b2b41f9485ce6e90725029.gz",
+      "published_sha256": "0775878394bd15d77d16c25350dc5fe7e8db46f9a1b2b41f9485ce6e90725029",
+      "published_bytes": 687,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-852.json",
+      "sha256": "f2fde757e7125cab43bc6c9daa16300c4d10f99d0f2609a2aea5f6192d2c9afb",
+      "bytes": 709,
+      "git_blob": "0987a740cc0ce13f3677a0af35570bca3a38205d",
+      "preserved_bytes": "recovered/geology-establishment-059/f2fde757e7125cab43bc6c9daa16300c4d10f99d0f2609a2aea5f6192d2c9afb.gz",
+      "published_sha256": "f2fde757e7125cab43bc6c9daa16300c4d10f99d0f2609a2aea5f6192d2c9afb",
+      "published_bytes": 709,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-309.json",
+      "sha256": "816d5ccfb4ea235f5d9ffc75a51378ec7f1ac28cdcfc9372c0053108630a62d0",
+      "bytes": 635,
+      "git_blob": "29cec337e058e57f0a7cb05176d254ffc087d90a",
+      "preserved_bytes": "recovered/geology-establishment-059/816d5ccfb4ea235f5d9ffc75a51378ec7f1ac28cdcfc9372c0053108630a62d0.gz",
+      "published_sha256": "816d5ccfb4ea235f5d9ffc75a51378ec7f1ac28cdcfc9372c0053108630a62d0",
+      "published_bytes": 635,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-310.json",
+      "sha256": "a6952685cdfe41312ce2ee30da7a348caed097b76bf51ee2591e3731ba50aea6",
+      "bytes": 668,
+      "git_blob": "63be868f5620453bf2568bc238a4c6135d5fc370",
+      "preserved_bytes": "recovered/geology-establishment-059/a6952685cdfe41312ce2ee30da7a348caed097b76bf51ee2591e3731ba50aea6.gz",
+      "published_sha256": "a6952685cdfe41312ce2ee30da7a348caed097b76bf51ee2591e3731ba50aea6",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-309.json",
+      "sha256": "96d9fbf66b5f99350f736bf3f41a425818df6af371696e041c6e9aa1da34940f",
+      "bytes": 48566,
+      "git_blob": "c21a61f8acec5f37798aa7b034388f76a63feffc",
+      "preserved_bytes": "recovered/geology-establishment-059/96d9fbf66b5f99350f736bf3f41a425818df6af371696e041c6e9aa1da34940f.gz",
+      "published_sha256": "96d9fbf66b5f99350f736bf3f41a425818df6af371696e041c6e9aa1da34940f",
+      "published_bytes": 48566,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-310.json",
+      "sha256": "9495413e56ba65d56615bfae2dcc3ead662e1205c4a234cbf7e5807143541188",
+      "bytes": 37918,
+      "git_blob": "4cd848ed646a9554bbbecc832383faac4f5f8546",
+      "preserved_bytes": "recovered/geology-establishment-059/9495413e56ba65d56615bfae2dcc3ead662e1205c4a234cbf7e5807143541188.gz",
+      "published_sha256": "9495413e56ba65d56615bfae2dcc3ead662e1205c4a234cbf7e5807143541188",
+      "published_bytes": 37918,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-671.json",
+      "sha256": "8622d9fa68d4f798beb37a2e107562985193c2f383898dc31cbf410832b32a52",
+      "bytes": 1251,
+      "git_blob": "e941222ee4de27556dc9dc81807c72d22d1ff528",
+      "preserved_bytes": "recovered/geology-establishment-059/8622d9fa68d4f798beb37a2e107562985193c2f383898dc31cbf410832b32a52.gz",
+      "published_sha256": "8622d9fa68d4f798beb37a2e107562985193c2f383898dc31cbf410832b32a52",
+      "published_bytes": 1251,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 prospective plan"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-672.json",
+      "sha256": "4bd6bb8b31d28e13f6c4cd445ffeb44b78c163e5934900f648b97d81e73ce1cf",
+      "bytes": 2250,
+      "git_blob": "eb8355fdd1bc4832f29af248e62718d16d4034ea",
+      "preserved_bytes": "recovered/geology-establishment-059/4bd6bb8b31d28e13f6c4cd445ffeb44b78c163e5934900f648b97d81e73ce1cf.gz",
+      "published_sha256": "4bd6bb8b31d28e13f6c4cd445ffeb44b78c163e5934900f648b97d81e73ce1cf",
+      "published_bytes": 2250,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 prospective plan"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/QUALIFICATION-L12-ORIGINAL2006-LOCATOR.json",
+      "sha256": "9dafb1f833d6f63379846c9834d818bacb5deec911839dd7c5c84320b02cf040",
+      "bytes": 3842,
+      "git_blob": "52f77c7092b810c366c55c24cecfbeb0fcd007b0",
+      "preserved_bytes": "recovered/geology-establishment-059/9dafb1f833d6f63379846c9834d818bacb5deec911839dd7c5c84320b02cf040.gz",
+      "published_sha256": "9dafb1f833d6f63379846c9834d818bacb5deec911839dd7c5c84320b02cf040",
+      "published_bytes": 3842,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original exact Windows locator qualification, metadata only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-670.json",
+      "sha256": "43a42fa3da6a1507583aca1ad20dd980f95c2bb698648818206ea197cd4ac82e",
+      "bytes": 13014,
+      "git_blob": "1f415c74d33ec5d0d8120d4fbaa096c841c13b39",
+      "preserved_bytes": "recovered/geology-establishment-059/43a42fa3da6a1507583aca1ad20dd980f95c2bb698648818206ea197cd4ac82e.gz",
+      "published_sha256": "43a42fa3da6a1507583aca1ad20dd980f95c2bb698648818206ea197cd4ac82e",
+      "published_bytes": 13014,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens earlier receipt, zero fresh reads",
+        "Original same-lens earlier receipt, zero fresh reads"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-671.json",
+      "sha256": "d41fb554d53b98558a05a78293d734d858b424c42d043e89c69997973d630d84",
+      "bytes": 8941,
+      "git_blob": "86b81fd9eff08c07905e0934abae5ac502fe2b6d",
+      "preserved_bytes": "recovered/geology-establishment-059/d41fb554d53b98558a05a78293d734d858b424c42d043e89c69997973d630d84.gz",
+      "published_sha256": "d41fb554d53b98558a05a78293d734d858b424c42d043e89c69997973d630d84",
+      "published_bytes": 8941,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-672.json",
+      "sha256": "d532b3c5248f54a03cdf152802e4a47c36f5baab2c765bdf045768964042a6e4",
+      "bytes": 9924,
+      "git_blob": "e109f59185d90b4e74a0d1d4f279e5fa448caa0c",
+      "preserved_bytes": "recovered/geology-establishment-059/d532b3c5248f54a03cdf152802e4a47c36f5baab2c765bdf045768964042a6e4.gz",
+      "published_sha256": "d532b3c5248f54a03cdf152802e4a47c36f5baab2c765bdf045768964042a6e4",
+      "published_bytes": 9924,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-907.json",
+      "sha256": "b660f279d92aa0197fe0787e1b7a02b198ed504913b0d495160b4c4e390f76d8",
+      "bytes": 1233,
+      "git_blob": "66eb97bcef9503034c92323d6249f96020d8d9b8",
+      "preserved_bytes": "recovered/geology-establishment-059/b660f279d92aa0197fe0787e1b7a02b198ed504913b0d495160b4c4e390f76d8.gz",
+      "published_sha256": "b660f279d92aa0197fe0787e1b7a02b198ed504913b0d495160b4c4e390f76d8",
+      "published_bytes": 1233,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens earlier registration, zero fresh reads",
+        "Original same-lens earlier registration, zero fresh reads"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-908.json",
+      "sha256": "f0670f8f037bafb18f19799d253d6760113b95d875cabd3fbc4b08e6b3300174",
+      "bytes": 1255,
+      "git_blob": "3e14da1866c5d4e1f046534b4645a812c8f746f8",
+      "preserved_bytes": "recovered/geology-establishment-059/f0670f8f037bafb18f19799d253d6760113b95d875cabd3fbc4b08e6b3300174.gz",
+      "published_sha256": "f0670f8f037bafb18f19799d253d6760113b95d875cabd3fbc4b08e6b3300174",
+      "published_bytes": 1255,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-909.json",
+      "sha256": "dca4908bd4ad45553f11b6148b8a6ae62e8193d5c121e2136111475d9ac99a41",
+      "bytes": 1269,
+      "git_blob": "32999982273fb75a29b37731fd4f05f48dff583d",
+      "preserved_bytes": "recovered/geology-establishment-059/dca4908bd4ad45553f11b6148b8a6ae62e8193d5c121e2136111475d9ac99a41.gz",
+      "published_sha256": "dca4908bd4ad45553f11b6148b8a6ae62e8193d5c121e2136111475d9ac99a41",
+      "published_bytes": 1269,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-910.json",
+      "sha256": "dcfacc298157d612bd83c3f84c2861a975babe6a80fdbed0abd9cb94025fcc6e",
+      "bytes": 1257,
+      "git_blob": "be86a28e23c76fe2245517c68ea6a8c888a4d999",
+      "preserved_bytes": "recovered/geology-establishment-059/dcfacc298157d612bd83c3f84c2861a975babe6a80fdbed0abd9cb94025fcc6e.gz",
+      "published_sha256": "dcfacc298157d612bd83c3f84c2861a975babe6a80fdbed0abd9cb94025fcc6e",
+      "published_bytes": 1257,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-911.json",
+      "sha256": "1d9793f84cba0157d7489e360ee6f80b3f7b68c58fc797a99b293f5b0e23ebec",
+      "bytes": 1271,
+      "git_blob": "6ae992232eaebd3f47e6a6d9ae53228f60a24630",
+      "preserved_bytes": "recovered/geology-establishment-059/1d9793f84cba0157d7489e360ee6f80b3f7b68c58fc797a99b293f5b0e23ebec.gz",
+      "published_sha256": "1d9793f84cba0157d7489e360ee6f80b3f7b68c58fc797a99b293f5b0e23ebec",
+      "published_bytes": 1271,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-912.json",
+      "sha256": "a8516e167b1228ea42cb7c66bd04891a0135eb85c5bde6e267a529856277e35d",
+      "bytes": 1241,
+      "git_blob": "377e4240dacba238b3deef518fadc887498ad92b",
+      "preserved_bytes": "recovered/geology-establishment-059/a8516e167b1228ea42cb7c66bd04891a0135eb85c5bde6e267a529856277e35d.gz",
+      "published_sha256": "a8516e167b1228ea42cb7c66bd04891a0135eb85c5bde6e267a529856277e35d",
+      "published_bytes": 1241,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-913.json",
+      "sha256": "4fb5f35d49a22e3541cac47ce0314176240a13f45e6ac748be1a98acf508f71a",
+      "bytes": 1539,
+      "git_blob": "4ada194568364ec10555f02afd2b145c18c989d2",
+      "preserved_bytes": "recovered/geology-establishment-059/4fb5f35d49a22e3541cac47ce0314176240a13f45e6ac748be1a98acf508f71a.gz",
+      "published_sha256": "4fb5f35d49a22e3541cac47ce0314176240a13f45e6ac748be1a98acf508f71a",
+      "published_bytes": 1539,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-671.json",
+      "sha256": "f4a49f049c2bb41f1a3fd9d3fbaad4aab72067e6cfef9b1ae2c951f8173d5974",
+      "bytes": 840,
+      "git_blob": "ee7dd9c236e6bc2d7539614e8b37c41813fdcc36",
+      "preserved_bytes": "recovered/geology-establishment-059/f4a49f049c2bb41f1a3fd9d3fbaad4aab72067e6cfef9b1ae2c951f8173d5974.gz",
+      "published_sha256": "f4a49f049c2bb41f1a3fd9d3fbaad4aab72067e6cfef9b1ae2c951f8173d5974",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-672.json",
+      "sha256": "64a26d25953407bb73a68024832be89efe9e78d9726078ce7b2af585259cb6ef",
+      "bytes": 840,
+      "git_blob": "afcd92cbef230f23f54df7f340b3709565d8ea7c",
+      "preserved_bytes": "recovered/geology-establishment-059/64a26d25953407bb73a68024832be89efe9e78d9726078ce7b2af585259cb6ef.gz",
+      "published_sha256": "64a26d25953407bb73a68024832be89efe9e78d9726078ce7b2af585259cb6ef",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-671.json",
+      "sha256": "db323b07d98d7162a09648b7320e4f9fc4bd6dc074703ae503fffde3fca4f46d",
+      "bytes": 558,
+      "git_blob": "a27d0823c911d9558cb2ef9c806b89d9679a4ae8",
+      "preserved_bytes": "recovered/geology-establishment-059/db323b07d98d7162a09648b7320e4f9fc4bd6dc074703ae503fffde3fca4f46d.gz",
+      "published_sha256": "db323b07d98d7162a09648b7320e4f9fc4bd6dc074703ae503fffde3fca4f46d",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-672.json",
+      "sha256": "f624a6f9351cd862d7a5907650e49f41645ec51c2694984e291389a57d775a55",
+      "bytes": 558,
+      "git_blob": "b7a3fe82003ab1fc2b1fb0863469887602d8cb21",
+      "preserved_bytes": "recovered/geology-establishment-059/f624a6f9351cd862d7a5907650e49f41645ec51c2694984e291389a57d775a55.gz",
+      "published_sha256": "f624a6f9351cd862d7a5907650e49f41645ec51c2694984e291389a57d775a55",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "Segovb671/672 and Adler309/310 retain independent original scope and authors. Earlier same-lens role2000 reuse carries no fresh read credit; role2006 locator qualification is preserved as metadata, not another body read. Future receipt roles do not gain new personal coverage. No record is promoted to3821.",
+  "remaining": "Continue original2007 and all13 lenses, actual binding failure owners, source projection and terrain producers, exact aliases and all extensions. Original3821 final ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed",
+  "recovered_older_774_records": [
+    {
+      "path_in_774": "handoff/774/adler-original/audit/records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+      "older_publication_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "sha256": "6cfd484d22fe2d5972a1de6a3a2f0ca7b54c89b2b459ccba7efd61c0193ae583",
+      "bytes": 581215,
+      "git_blob": "9ae38e6e156326a174de9a9c0b5c3bf9af8b80cd",
+      "preserved_bytes": "recovered/older-774-regional-qualification/6cfd484d22fe2d5972a1de6a3a2f0ca7b54c89b2b459ccba7efd61c0193ae583.gz",
+      "package_original_sha256": "6cfd484d22fe2d5972a1de6a3a2f0ca7b54c89b2b459ccba7efd61c0193ae583",
+      "package_exported_sha256": "6cfd484d22fe2d5972a1de6a3a2f0ca7b54c89b2b459ccba7efd61c0193ae583",
+      "qualification": "Exact complete earlier774 published root producer trace and matching older pre-export hash, independently attributed. Referenced native trace and path-normalized locator044 are preserved in ASSESSMENT-INVENTORY-CACHE-IDENTITY-95E.json; record044 pre-export differs and the historic Segovb reviewer explicitly did not read that body. None is checkpoint3821."
+    },
+    {
+      "path_in_774": "handoff/774/adler-original/audit/records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+      "older_publication_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "sha256": "512940c3d587e1ff6c1a7539f0fec9e485b7b2a4ca066b030089fb00c6b8bb74",
+      "bytes": 631913,
+      "git_blob": "3ca408d30ca2635ee57002c3b48043571ff40504",
+      "preserved_bytes": "recovered/older-774-inventory-qualification/512940c3d587e1ff6c1a7539f0fec9e485b7b2a4ca066b030089fb00c6b8bb74.gz",
+      "qualification": "Exact bytes of the earlier published774 package, not checkpoint3821 or newly assessed current source. Package manifest distinguishes its pre-export hash from the published export; equality is only asserted when those hashes match.",
+      "package_original_sha256": "512940c3d587e1ff6c1a7539f0fec9e485b7b2a4ca066b030089fb00c6b8bb74",
+      "package_exported_sha256": "512940c3d587e1ff6c1a7539f0fec9e485b7b2a4ca066b030089fb00c6b8bb74"
+    },
+    {
+      "path_in_774": "handoff/774/adler-original/audit/continuation/rig/source-scope-reconciliation-044.json",
+      "older_publication_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "sha256": "1221f858b25f889ab7918895b1f4a3329fb4cb0614b8664531ffd821e7202a31",
+      "bytes": 1354778,
+      "git_blob": "058fdec5494af5743eaa04339a1254679bcaa850",
+      "preserved_bytes": "recovered/older-774-inventory-qualification/1221f858b25f889ab7918895b1f4a3329fb4cb0614b8664531ffd821e7202a31.gz",
+      "qualification": "Exact bytes of the earlier published774 package, not checkpoint3821 or newly assessed current source. Package manifest distinguishes its pre-export hash from the published export; equality is only asserted when those hashes match.",
+      "package_original_sha256": "fe7e2e81a37b125318a22c961f2d9bead728e93d3721e1e3a4142ff1f62defa1",
+      "package_exported_sha256": "1221f858b25f889ab7918895b1f4a3329fb4cb0614b8664531ffd821e7202a31"
+    }
+  ],
+  "older_2006_attribution": {
+    "root_pointer": "ROOT-PPS-TERRAIN-DISPATCH-WEB-037#/source_proofs/1",
+    "native_pointer": "NATIVE-PS-ROOT-TERRAIN-SOURCE-PACKET-015#/related_current_reads/1",
+    "qualification": "Earlier774 root/native trace bytes are exact prior-package originals at f82 and match the original2006 locator source ID, hash, range and path. The qualifier contains corrupted scope prose while these trace rows have different decoded scope text; both exact forms are preserved without treating the prose as identical or transferring personal/other-lens credit. The referenced locator044 is only the path-normalized 774 export; its pre-export hash differs and its original bytes remain unrecovered, and the historical reviewer explicitly did not read it. None is checkpoint3821."
+  }
+}

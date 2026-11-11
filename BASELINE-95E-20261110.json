@@ -4301,7 +4301,10 @@
         "discovery": "partial; recovered Segovb question, source decoder, builder safeguard and two bounded consumers traced; actual pack, full admission and aliases open",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-REGIONAL-SAMPLE-ADMISSION-95E.json"
+        "record": "ASSESSMENT-REGIONAL-SAMPLE-ADMISSION-95E.json",
+        "additional_current_evidence": [
+          "ASSESSMENT-GEOLOGY-AND-ESTABLISHMENTS-95E.json"
+        ]
       },
       {
         "id": "Q-L12-ba25fccbf4ff81c29772",
@@ -6100,7 +6103,10 @@
         "discovery": "partial; exact current source and qualified native semantics, actual filesystem and global aliases open",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-SCENE-MATERIALIZATION-95E.json"
+        "record": "ASSESSMENT-SCENE-MATERIALIZATION-95E.json",
+        "additional_current_evidence": [
+          "ASSESSMENT-GEOLOGY-AND-ESTABLISHMENTS-95E.json"
+        ]
       },
       {
         "id": "SEGOVB-L12-HILLY-DETAIL-RANGE-ADMISSION-PANIC",
@@ -6152,8 +6158,35 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-SCENE-MATERIALIZATION-95E.json"
+      },
+      {
+        "id": "REVIEW-ESTABLISHMENT-BINDING-ERROR-IDENTITY-001",
+        "lens": 1,
+        "additional_current_lenses": [
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; semantic binding error and context ownership",
+        "classification": "Settlement business binding rejects mismatches using static Strings before the reusable provisioning boundary, without structured offending identities.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1662",
+          "baseline-059/queue.json#/entries/114",
+          "segovb/READ-L12-671.json",
+          "adler/READ-L11-309.json"
+        ],
+        "relationship_qualification": "Segovb059 pending binding question and Adler059 broader family remain attributed as recorded. This current bounded case has a distinct first failure; global deduplication and historical unique count remain open. No checkpoint3821 claim.",
+        "discovery": "partial; exact current binding and caller source, actual errors and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GEOLOGY-AND-ESTABLISHMENTS-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1256.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1305.json"
 }
