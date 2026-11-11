@@ -13607,7 +13607,10 @@
         "future_acceptance": "After audit and authorization, cover signed extremes and representative derived streams under the chosen arithmetic contract.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-HAIR-LOOK-95E.json"
+        "record": "ASSESSMENT-HAIR-LOOK-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-LOOK-RANDOM-CONTRACTS-95E.json"
+        ]
       },
       {
         "id": "SEGOVB-L12-CONNECTED-HAIR-SEED-OFFSET-OVERFLOW",
@@ -13637,7 +13640,10 @@
         "future_acceptance": "After audit and authorization, cover signed extremes and representative derived streams under the chosen arithmetic contract.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-HAIR-LOOK-95E.json"
+        "record": "ASSESSMENT-HAIR-LOOK-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-LOOK-RANDOM-CONTRACTS-95E.json"
+        ]
       },
       {
         "id": "REVIEW-HAIR-RANDOM-TEXTURE-CHOICE-95E",
@@ -13665,8 +13671,62 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-HAIR-LOOK-95E.json"
+      },
+      {
+        "id": "REVIEW-HAIR-RNG-RANGE-HALF-OPEN-95E",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          9,
+          11,
+          13
+        ],
+        "severity": "unassigned; public RNG contract boundary",
+        "classification": "The public Rng.range half-open upper-bound documentation conflicts with f32 rounding for reachable generator output.",
+        "historical_related_records": [
+          "adler/READ-L11-366.json via ASSESSMENT-HAIR-LOOK-95E.json",
+          "segovb/READ-L12-755.json via ASSESSMENT-HAIR-LOOK-95E.json"
+        ],
+        "relationship_qualification": "Prior reviewers left RNG owner behavior pending; no claim of independent historical discovery or globally unique bug.",
+        "discovery": "partial; exact source and symbolic boundary established, full caller reachability and aliases remain open",
+        "connected_repair_direction": "Decide and express a finite floating range contract that reconciles the documented endpoint policy with seeded-stream stability.",
+        "future_acceptance": "After audit and authorization, check representable endpoints, draw counts and representative seeded streams.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-LOOK-RANDOM-CONTRACTS-95E.json"
+      },
+      {
+        "id": "REVIEW-HAIR-RNG-EMPTY-INDEX-95E",
+        "lens": 1,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          9,
+          11,
+          13
+        ],
+        "severity": "unassigned; public RNG contract boundary",
+        "classification": "The public Rng.index(0) returns 0 although 0..0 has no valid index.",
+        "historical_related_records": [
+          "adler/READ-L11-366.json via ASSESSMENT-HAIR-LOOK-95E.json",
+          "segovb/READ-L12-755.json via ASSESSMENT-HAIR-LOOK-95E.json"
+        ],
+        "relationship_qualification": "Prior reviewers left RNG owner behavior pending; no claim of independent historical discovery or globally unique bug.",
+        "discovery": "partial; exact source and symbolic boundary established, full caller reachability and aliases remain open",
+        "connected_repair_direction": "Represent or reject an empty index domain and audit consumers, preserving the deliberate random draw contract.",
+        "future_acceptance": "After audit and authorization, exercise empty and nonempty index domains and consumer behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-LOOK-RANDOM-CONTRACTS-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1832.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1843.json"
 }

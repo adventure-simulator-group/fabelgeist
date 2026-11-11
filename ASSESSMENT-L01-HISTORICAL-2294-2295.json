@@ -1,0 +1,154 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2294,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/look/groom.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2294",
+      "original_locator": "crates/fabelgeist-hair/src/look/groom.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 51,
+          "read_ranges": [
+            [
+              1,
+              193
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-011",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              193
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "3dffaa4b35a78c1b5f3d8e07b5698d2f273f563741c9250883f74701d5572818",
+      "lines": 193,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "LOOK-RANDOM-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2294-2295.json",
+        "sha256": "216fb7bae97625b7347cdf485722e9b3475e604d3c857b075a8f7bb945b708ee"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          193
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 and current95e roles2294–2295 are byte-identical; complete current body displayed after local registration. Historical reviewer attribution is not transferred.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-hair/src/look/groom.rs",
+        "sha256": "3dffaa4b35a78c1b5f3d8e07b5698d2f273f563741c9250883f74701d5572818",
+        "bytes": 7154,
+        "lines": 193,
+        "git_blob": "74839cad2ea4c0a4496080620c04c72282eb1ee4",
+        "preserved_bytes": "main-advance-95e/look-random-evidence/current-2294.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            193
+          ]
+        ],
+        "qualification": "Current full body displayed after registration. The identical historical body is bound by its hash and Git tree; no product code was executed."
+      },
+      "qualification": "Original supplier, producer, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim."
+    },
+    {
+      "original_index": 2295,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/look/random.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2295",
+      "original_locator": "crates/fabelgeist-hair/src/look/random.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 52,
+          "read_ranges": [
+            [
+              1,
+              50
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-011",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              50
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "bbc2659794d1758ed6147329c7cc21c8e1a08a726ec80e12426ae397fa13e0b5",
+      "lines": 50,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "LOOK-RANDOM-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2294-2295.json",
+        "sha256": "216fb7bae97625b7347cdf485722e9b3475e604d3c857b075a8f7bb945b708ee"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 and current95e roles2294–2295 are byte-identical; complete current body displayed after local registration. Historical reviewer attribution is not transferred.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-hair/src/look/random.rs",
+        "sha256": "bbc2659794d1758ed6147329c7cc21c8e1a08a726ec80e12426ae397fa13e0b5",
+        "bytes": 1494,
+        "lines": 50,
+        "git_blob": "aaa069ad39573b0b555252fb50f9dfa53d2b86a3",
+        "preserved_bytes": "main-advance-95e/look-random-evidence/current-2295.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            50
+          ]
+        ],
+        "qualification": "Current full body displayed after registration. The identical historical body is bound by its hash and Git tree; no product code was executed."
+      },
+      "qualification": "Original supplier, producer, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim."
+    }
+  ],
+  "observations": [
+    "Original6533 groom2294 full193 and follicle random2295 full50 match current95e byte-for-byte; complete current bodies newly displayed after registration. Earlier current groom support views and the separately registered RNG support retain their distinct limited attribution.",
+    "Original rig supplier and producer RIG-PPS-011 recorded full1–193 and1–50 for these roles; Adler366 and Lens12 delegate755 each recorded their own separately registered full source reads. Lens12 root adoption had zero personal rereads and zero accepted unique change.",
+    "The complete verified 059 later inherited rig supplier file is preserved with original attribution; the separate original producer trace is reported through the recovered registry rather than silently reconstructed.",
+    "Earlier Adler already described the exact groom order, admitted signed seed offsets, fixed random weights and conditional recession; the new RNG owner support closes only the index100 range question and raises separate public range/index edge contracts."
+  ],
+  "qualification": "Original and current reads, role assignment, author and no-credit rules remain distinct; no checkpoint3821 promotion. Local time is not independently attested.",
+  "next_original_role": 2296
+}

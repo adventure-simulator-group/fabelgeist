@@ -1,0 +1,254 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2294–2295 full groom and follicle-random bodies, their historical reviewer evidence, and separately registered full current RNG support.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2294-2295.json",
+  "git_membership_evidence": "LOOK-RANDOM-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/fabelgeist-hair/src/rng.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8dab19c6a25f37ab5a25319331e80c46adf86b0f",
+      "sha256": "84f8d24277715741f39370e332b06b8a111193ae2d3e8602e115b1f6410913bd",
+      "bytes": 4990,
+      "lines": 168,
+      "ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/look-random-evidence/rng.source.gz",
+      "content_encoding": "gzip",
+      "registration": "REGISTRATION-RNG-SUPPORT-95E.json",
+      "registration_sha256": "16671ff311e595ed484c20aec27a6476c2e28072a698ad349f4b65cabe33699d",
+      "qualification": "Full current RNG body newly displayed as connected support only; tests present in source were not run, and no ordered RNG role or independent lens is credited."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-HAIR-LOOK-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Groom operation order and offsets",
+      "trace": "Look.groom calls guide_operations, coarse_texture, fine_texture. Its graph always has exactly one Interpolate, one Orient and one Profile; optional drape, trim and texture branches surround them. The admitted signed seed is used directly and plain additions +1 through +9 appear; Orient +9 and final Profile +7 are unconditional.",
+      "remaining": "Earlier Adler366 and delegate755 personally reported the source sequence and offset family; original q161 and q377 remain separately named and partially related, without asserted distinct bug counts. The public Groom vector remains a separate admission surface. No grooming ran."
+    },
+    {
+      "contract": "Growth-weight selector",
+      "trace": "The existing RNG index implementation caps n=100 to 99, and the seven positive growth weights sum to100. Thus the subtraction loop always selects a Growth variant for this call; the initial Whorl value is a defensive fallback, not evidence of an observed extra outcome.",
+      "remaining": "Earlier Adler366 and delegate755 recorded the weights but left the RNG owner pending. Under a uniform initial 64-bit state, its bijection yields 2^24 equally represented fractions; 2^24 is not divisible by100, so exact equal per-index probabilities are not implied. No distribution sample was run. Preserve mapping and draw order in any repair."
+    },
+    {
+      "contract": "Public floating range exclusive bound",
+      "trace": "Rng.range documents [low, high) and computes low + (high-low)*next_f32. For low=0.5, high=1.0 and next_f32=1-2^-24, the exact pre-round sum 1-2^-25 lies halfway between f32 1.0 and its predecessor; round-to-nearest ties-to-even gives 1.0 on the assumed IEEE-754 behavior. Rng.new and next_u64 are permutations on 64-bit words, so some initial seed produces the required fraction on its first draw. Look.random includes range(0.5,1.0), but its branch and prior draw reachability are not established.",
+      "remaining": "This is exact source arithmetic and a mathematical existence proof, not a concrete seed, product execution or evidence that a particular Look.random invocation reaches the endpoint. Decide whether half-open interval or current seeded behavior owns the contract."
+    },
+    {
+      "contract": "Public empty index",
+      "trace": "Rng.index documents an index into 0..n. At admitted n=0, n.saturating_sub(1) is0 and the min is0, although 0..0 has no valid index; the generator still consumes a draw.",
+      "remaining": "Public method contract is inconsistent for n=0; no actual empty-list caller, panic or runtime outcome has been shown. Repair policy must preserve seeded draw semantics where required."
+    },
+    {
+      "contract": "Hairline recession accumulation",
+      "trace": "The private follicle randomizer conditionally increments the recession of its supplied Follicles rather than assigning a value; Look.random has one call.",
+      "remaining": "Earlier Adler366 and delegate755 identified this accumulation and did not claim unbounded ordinary growth. No repeated product invocation was run."
+    }
+  ],
+  "reconnected_historical_findings": [
+    {
+      "id": "ADLER-L11-HAIR-SEED-DERIVATION-ARITHMETIC",
+      "queue": 161,
+      "qualification": "Preserved original offset family and exact +9 subcase; formal alias remains open."
+    },
+    {
+      "id": "SEGOVB-L12-CONNECTED-HAIR-SEED-OFFSET-OVERFLOW",
+      "queue": 377,
+      "qualification": "Preserved original offset family and exact +9 subcase; formal alias remains open."
+    }
+  ],
+  "new_current_candidates": [
+    {
+      "id": "REVIEW-HAIR-RNG-RANGE-HALF-OPEN-95E",
+      "qualification": "Newly assessed source-level boundary; no product execution; global alias search remains open."
+    },
+    {
+      "id": "REVIEW-HAIR-RNG-EMPTY-INDEX-95E",
+      "qualification": "Newly assessed source-level boundary; no product execution; global alias search remains open."
+    }
+  ],
+  "reused_historical_records": [
+    {
+      "original_path": "adler/READ-L11-366.json",
+      "sha256": "c1bde972fa539c28ed68b8b6e5b95659af52c690bbee8af7dbe2bf5518868b64",
+      "bytes": 11710,
+      "git_blob": "fca86575e16670b1c6631575ffb9383af2f46e09",
+      "preserved_bytes": "recovered/hair-look-059/c1bde972fa539c28ed68b8b6e5b95659af52c690bbee8af7dbe2bf5518868b64.gz",
+      "published_sha256": "c1bde972fa539c28ed68b8b6e5b95659af52c690bbee8af7dbe2bf5518868b64",
+      "published_bytes": 11710,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state",
+        "Original059 queue161 supporting historical evidence",
+        "Original059 queue161 supporting historical evidence",
+        "Original059 queue161 supporting historical evidence",
+        "Original059 queue161 supporting historical evidence",
+        "Original059 queue161 supporting historical evidence",
+        "Original059 queue161 supporting historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1153.json",
+      "sha256": "ffac08c3f8deff746825f08517d4c4a2c26b0aad64996614104371a5abc0a626",
+      "bytes": 787,
+      "git_blob": "8c46d56c46255f32747db10bc9019560d1ed9c64",
+      "preserved_bytes": "recovered/hair-look-059/ffac08c3f8deff746825f08517d4c4a2c26b0aad64996614104371a5abc0a626.gz",
+      "published_sha256": "ffac08c3f8deff746825f08517d4c4a2c26b0aad64996614104371a5abc0a626",
+      "published_bytes": 787,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration, including future2306"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1154.json",
+      "sha256": "8bded65a5e6658554d5bf21bfa58d2b10658ffbdabffb891f00adf7c8f344aa4",
+      "bytes": 787,
+      "git_blob": "6bc2af1ace7bf05f0fcf3780bcaacc3f54e44523",
+      "preserved_bytes": "recovered/hair-look-059/8bded65a5e6658554d5bf21bfa58d2b10658ffbdabffb891f00adf7c8f344aa4.gz",
+      "published_sha256": "8bded65a5e6658554d5bf21bfa58d2b10658ffbdabffb891f00adf7c8f344aa4",
+      "published_bytes": 787,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration, including future2306"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-755.json",
+      "sha256": "2c0f8c327d28ffc38668b64b9a3289ec576257363f6c9d0ee49fcf3d8a4d5769",
+      "bytes": 9173,
+      "git_blob": "94c26edab23a81ff87c3accb2c22096a0b9ed71e",
+      "preserved_bytes": "recovered/hair-look-059/2c0f8c327d28ffc38668b64b9a3289ec576257363f6c9d0ee49fcf3d8a4d5769.gz",
+      "published_sha256": "2c0f8c327d28ffc38668b64b9a3289ec576257363f6c9d0ee49fcf3d8a4d5769",
+      "published_bytes": 9173,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-755.json",
+      "sha256": "c656cfb98251e892df854e7971dccf6eea22a0c3df2d37a435b8be3ad10d617e",
+      "bytes": 667,
+      "git_blob": "d4be9f0fb512a48da00f4f282b88c09b90943dba",
+      "preserved_bytes": "recovered/hair-look-059/c656cfb98251e892df854e7971dccf6eea22a0c3df2d37a435b8be3ad10d617e.gz",
+      "published_sha256": "c656cfb98251e892df854e7971dccf6eea22a0c3df2d37a435b8be3ad10d617e",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-755.json",
+      "sha256": "ea1ef0832719a3fc66ae986e4a66f8257162d690957f9006559d5fb3b79874c3",
+      "bytes": 2025,
+      "git_blob": "ecc5914ccb7ef1aebca2550d9fb4d32f5c1681d0",
+      "preserved_bytes": "recovered/hair-look-059/ea1ef0832719a3fc66ae986e4a66f8257162d690957f9006559d5fb3b79874c3.gz",
+      "published_sha256": "ea1ef0832719a3fc66ae986e4a66f8257162d690957f9006559d5fb3b79874c3",
+      "published_bytes": 2025,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-755.json",
+      "sha256": "4d41e15ff0d21f3b1d7acfd053e810ca501cc4c5ae1075a60b2f8e9918e68c42",
+      "bytes": 7690,
+      "git_blob": "dace1a63e6d7e8aa648ba6c8e2f1fba189b70281",
+      "preserved_bytes": "recovered/hair-look-059/4d41e15ff0d21f3b1d7acfd053e810ca501cc4c5ae1075a60b2f8e9918e68c42.gz",
+      "published_sha256": "4d41e15ff0d21f3b1d7acfd053e810ca501cc4c5ae1075a60b2f8e9918e68c42",
+      "published_bytes": 7690,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-255.json",
+      "sha256": "a7640bb66f83c1d45384ed0643b73155fcb3a2ae8441201a05c382342e6145ef",
+      "bytes": 809,
+      "git_blob": "1bb23aa0cef049a8e15b376ca66a28168b6b52b1",
+      "preserved_bytes": "recovered/hair-look-059/a7640bb66f83c1d45384ed0643b73155fcb3a2ae8441201a05c382342e6145ef.gz",
+      "published_sha256": "a7640bb66f83c1d45384ed0643b73155fcb3a2ae8441201a05c382342e6145ef",
+      "published_bytes": 809,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-256.json",
+      "sha256": "3ba5f989ef8279a521570b4909deda9267ca6f4380e4da6e38bb7726234ec01c",
+      "bytes": 809,
+      "git_blob": "b0b3a0d98436c9066b2aa1dfb345f5aef187ef9e",
+      "preserved_bytes": "recovered/hair-look-059/3ba5f989ef8279a521570b4909deda9267ca6f4380e4da6e38bb7726234ec01c.gz",
+      "published_sha256": "3ba5f989ef8279a521570b4909deda9267ca6f4380e4da6e38bb7726234ec01c",
+      "published_bytes": 809,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    }
+  ],
+  "inherited_supplier_record": {
+    "original_path": "root-l2-extension-20261030/INHERITED-L2-RIG-additional-sources.jsonl",
+    "sha256": "89cdd99753ed0a48b1539e2509f3aeaa5c878ac54205077cf02a74fc6bab580a",
+    "bytes": 288503,
+    "git_blob": "c0cdd787e8bf20c22c77d70772b0ccc2c5c679a4",
+    "preserved_bytes": "recovered/look-random-059/inherited-rig-supplier.jsonl.gz",
+    "relevant_jsonl_lines": [
+      52,
+      53
+    ],
+    "qualification": "Exact byte-verified 059 transport copy in the later root Lens2 inherited collection; the recorded original rig supplier scopes retain their earlier source revision and do not become checkpoint3821 evidence. No claim that this later copy is the missing standalone original record."
+  },
+  "historical_attribution_qualification": "Original supplier, producer, Adler366 and Lens12 delegate755 scopes remain separate; the later inherited copy is exact 059 transport evidence, not the original standalone record or checkpoint3821.",
+  "remaining": "Continue original2296 and all thirteen lenses; exact aliases, ordinary caller reachability and seeded behavior policy remain open. Original3821 queue and ledger remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
