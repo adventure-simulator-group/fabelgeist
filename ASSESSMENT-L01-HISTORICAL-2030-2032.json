@@ -1,0 +1,305 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2030,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/condition.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533 and95e for this specific role; no other lens or reviewer credit follows.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2030",
+      "sha256": "543fe525702b8245d56a704a028a74138144789cf48c888b58704897bb6be7bf",
+      "lines": 160,
+      "new_personal_read_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "COMBAT-CONSEQUENCE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-WHEEL-CUTOFF.json",
+          "ranges": [
+            [
+              1,
+              102
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/combat/condition.rs",
+        "sha256": "543fe525702b8245d56a704a028a74138144789cf48c888b58704897bb6be7bf",
+        "bytes": 5752,
+        "lines": 160,
+        "git_blob": "5bf3afe1a222832e72c09014f44843936291d9a5",
+        "preserved_bytes": "main-advance-95e/combat-consequence-evidence/current-2030.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            160
+          ]
+        ],
+        "qualification": "Complete historical body personally read. Byte-identical current content is not separate independent reviewer or other-lens credit."
+      },
+      "qualification": "Full historical Lens1 body at the exact identity; original reviewers and prior current ranges remain separately attributed.",
+      "prior_worklist_observation_revision_qualification": "Prior worklist cited ASSESSMENT-L1-WHEEL-CUTOFF.json, whose source observation is c100, not95e. The role was then subsequently inspected at95e separately; the predecessor read receives no independent95e credit.",
+      "preexisting_current_and_predecessor_support_not_indexed_in_prior_role_row": [
+        {
+          "assessment": "ASSESSMENT-WHEEL-CUTOFF-95E.json",
+          "ranges": [
+            [
+              1,
+              102
+            ]
+          ],
+          "qualification": "Earlier bounded95e current observation preserved independently of the new historical read.",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "assessment": "ASSESSMENT-CONDITION-REGIONAL-95E.json",
+          "ranges": [
+            [
+              23,
+              102
+            ],
+            [
+              104,
+              160
+            ]
+          ],
+          "qualification": "Earlier bounded95e current observation preserved independently of the new historical read.",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "assessment": "ASSESSMENT-PRONE-EFFORT-95E.json",
+          "ranges": [
+            [
+              1,
+              160
+            ]
+          ],
+          "qualification": "Earlier bounded95e current observation preserved independently of the new historical read.",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "assessment": "ASSESSMENT-L01-RANGED-FATIGUE-95E.json",
+          "ranges": [
+            [
+              23,
+              48
+            ],
+            [
+              63,
+              79
+            ],
+            [
+              104,
+              159
+            ]
+          ],
+          "qualification": "Earlier bounded95e current observation preserved independently of the new historical read.",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "assessment": "ASSESSMENT-L1-WHEEL-CUTOFF.json",
+          "ranges": [
+            [
+              1,
+              102
+            ]
+          ],
+          "qualification": "Earlier c100 predecessor observation; byte-identical selected source does not transfer independent read credit to95e.",
+          "source_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da"
+        },
+        {
+          "assessment": "ASSESSMENT-L01-UNARMED-95E.json",
+          "ranges": [
+            [
+              104,
+              160
+            ]
+          ],
+          "qualification": "Earlier bounded95e current observation preserved independently of the new historical read.",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "assessment": "ASSESSMENT-L01-STACK-MASS-95E.json",
+          "ranges": [
+            [
+              102,
+              155
+            ]
+          ],
+          "qualification": "Earlier bounded95e current observation preserved independently of the new historical read.",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    },
+    {
+      "original_index": 2031,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/condition/forecast.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533 and95e for this specific role; no other lens or reviewer credit follows.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2031",
+      "sha256": "7b2a7d5e50bff9d2fb938aa12d45a750504327c369f2534c6e0866bdef93eb58",
+      "lines": 166,
+      "new_personal_read_ranges": [
+        [
+          1,
+          166
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "COMBAT-CONSEQUENCE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-WHEEL-CUTOFF.json",
+          "ranges": [
+            [
+              1,
+              64
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/combat/condition/forecast.rs",
+        "sha256": "7b2a7d5e50bff9d2fb938aa12d45a750504327c369f2534c6e0866bdef93eb58",
+        "bytes": 5927,
+        "lines": 166,
+        "git_blob": "de2a2f23fb6b8572219754d3598da3292410722c",
+        "preserved_bytes": "main-advance-95e/combat-consequence-evidence/current-2031.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            166
+          ]
+        ],
+        "qualification": "Complete historical body personally read. Byte-identical current content is not separate independent reviewer or other-lens credit."
+      },
+      "qualification": "Full historical Lens1 body at the exact identity; original reviewers and prior current ranges remain separately attributed.",
+      "prior_worklist_observation_revision_qualification": "Prior worklist cited ASSESSMENT-L1-WHEEL-CUTOFF.json, whose source observation is c100, not95e. The role was then subsequently inspected at95e separately; the predecessor read receives no independent95e credit.",
+      "preexisting_current_and_predecessor_support_not_indexed_in_prior_role_row": [
+        {
+          "assessment": "ASSESSMENT-WHEEL-CUTOFF-95E.json",
+          "ranges": [
+            [
+              1,
+              64
+            ]
+          ],
+          "qualification": "Earlier bounded95e current observation preserved independently of the new historical read.",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "assessment": "ASSESSMENT-L1-WHEEL-CUTOFF.json",
+          "ranges": [
+            [
+              1,
+              64
+            ]
+          ],
+          "qualification": "Earlier c100 predecessor observation; byte-identical selected source does not transfer independent read credit to95e.",
+          "source_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da"
+        }
+      ]
+    },
+    {
+      "original_index": 2032,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533 and95e for this specific role; no other lens or reviewer credit follows.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2032",
+      "sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "lines": 308,
+      "new_personal_read_ranges": [
+        [
+          1,
+          308
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "COMBAT-CONSEQUENCE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/combat/consequence.rs",
+        "sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+        "bytes": 10796,
+        "lines": 308,
+        "git_blob": "3998872ad3b16a55e7e79d12d2100b8c79645a16",
+        "preserved_bytes": "main-advance-95e/combat-consequence-evidence/current-2032.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            308
+          ]
+        ],
+        "qualification": "Complete historical body personally read. Byte-identical current content is not separate independent reviewer or other-lens credit."
+      },
+      "qualification": "Full historical Lens1 body at the exact identity; original reviewers and prior current ranges remain separately attributed.",
+      "preexisting_current_and_predecessor_support_not_indexed_in_prior_role_row": [
+        {
+          "assessment": "ASSESSMENT-L01-PROTECTION-TOPOLOGY-95E.json",
+          "ranges": [
+            [
+              1,
+              13
+            ],
+            [
+              112,
+              175
+            ]
+          ],
+          "qualification": "Earlier bounded95e current observation preserved independently of the new historical read.",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "assessment": "ASSESSMENT-L01-PROTECTIVE-CONTACT-95E.json",
+          "ranges": [
+            [
+              1,
+              175
+            ],
+            [
+              245,
+              272
+            ]
+          ],
+          "qualification": "Earlier bounded95e current observation preserved independently of the new historical read.",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    }
+  ],
+  "observations": [
+    "Full historical condition, forecast and consequence bodies personally read through EOF, including authored source tests; none were run.",
+    "All three match95e bytes. Earlier bounded95e current traces, including one full current condition body, and earlier c100 predecessor observations remain separately listed and do not acquire independent historical reviewer or95e read credit.",
+    "Segovb681 and Adler315 retain their recorded original scopes and personal-read attribution; other roles in Adler315 gain no new personal historical credit."
+  ],
+  "qualification": "Personal historical Lens1 bodies and bounded current observations only; no checkpoint3821 claim.",
+  "next_original_role": 2033
+}
