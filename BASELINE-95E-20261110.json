@@ -9483,8 +9483,62 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-COLOR-95E.json"
+      },
+      {
+        "id": "REVIEW-L11-HOST-FLOAT-QUALIFIED-HISTORICAL-DOMAIN",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          7,
+          8,
+          12
+        ],
+        "severity": "unassigned; scoped numerical qualification",
+        "classification": "Original qualified host-float disposition reconnected: source requires a runtime-zero hook and retains documented FMA, subnormal and angle limits.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/2281",
+          "parallel-l11-20261029/READ-163.json via ASSESSMENT-HOST-FLOAT-95E.json",
+          "segovb/READ-L11-699.json via ASSESSMENT-HOST-FLOAT-95E.json",
+          "adler/READ-L11-356.json via ASSESSMENT-HOST-FLOAT-95E.json"
+        ],
+        "relationship_qualification": "Earlier e275 same-lens source rows were inherited from Adler with no agent/root reread and no native/runtime verdict. Current bodies and selected metal hooks were independently inspected.",
+        "discovery": "partial; exact e275/current paths, documented limits and selected hooks traced; other consumers and native compiler/device behavior remain open",
+        "connected_repair_direction": "Preserve documented mathematical domains and the runtime-zero/fused-operation contract while tracing every actual producer and backend before any numerical change.",
+        "future_acceptance": "After audit and authorization, establish supported argument ranges and verify native target behavior with representative hooks, subnormals, FMA and reduction limits.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HOST-FLOAT-95E.json"
+      },
+      {
+        "id": "REVIEW-HOST-POW-ZERO-NEGATIVE-95E",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          3,
+          5,
+          7,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; power-domain policy",
+        "classification": "The host-style power helper returns zero for a zero base with a negative exponent, while its module describes zero as an accepted base without stating an exponent restriction.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/2281",
+          "adler/READ-L11-356.json via ASSESSMENT-HOST-FLOAT-95E.json"
+        ],
+        "relationship_qualification": "Original Adler356 documented the nonpositive branch and qualified domains; this exact zero/negative exponent policy question is a new source assessment. Validated selected breastplate fullness yields positive front exponents. No shader or power calculation ran.",
+        "discovery": "partial; source branch, unexecuted test sample domain and selected caller validation traced; supported special-value policy and all including kernels remain open",
+        "connected_repair_direction": "Decide and document the supported zero-base exponent domain, then preserve or explicitly reject special values at the canonical helper/caller boundary.",
+        "future_acceptance": "After audit and authorization, cover zero base with positive, zero and negative exponents, normal positive bases, special values and existing breastplate geometry.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HOST-FLOAT-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1619.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1623.json"
 }

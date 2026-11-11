@@ -1,0 +1,222 @@
+{
+  "schema": "726-exact-git-tree-path-membership-v1",
+  "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "root_tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+  "shared_commit_and_tree_objects": "COLOR-OLD-L3-GIT-PROOFS.json",
+  "additional_tree_objects": {
+    "46183b6a4977af21ed2094dcf078c6e9e8b5ba77": {
+      "git_object": "46183b6a4977af21ed2094dcf078c6e9e8b5ba77",
+      "type": "tree",
+      "sha256": "a74026c45d022c5576e151f809baac48f347b6a6ae62f47ba0908164070ed6d9",
+      "bytes": 100,
+      "preserved_bytes": "main-advance-95e/host-float-evidence/e275-git-objects/46183b6a4977af21ed2094dcf078c6e9e8b5ba77.tree.gz"
+    },
+    "c2ebf323d8c0db4f685583cb9c62d4c74a61ee72": {
+      "git_object": "c2ebf323d8c0db4f685583cb9c62d4c74a61ee72",
+      "type": "tree",
+      "sha256": "9c90f2b95073b345a961df2b3bb44028bce57020b24f45f756d1257c0838f890",
+      "bytes": 1219,
+      "preserved_bytes": "main-advance-95e/host-float-evidence/e275-git-objects/c2ebf323d8c0db4f685583cb9c62d4c74a61ee72.tree.gz"
+    },
+    "2d491fdc03dff7b6a9c970a074aebf17ec84831c": {
+      "git_object": "2d491fdc03dff7b6a9c970a074aebf17ec84831c",
+      "type": "tree",
+      "sha256": "8cad70e3218cde5c6a8685e2ad6514a9eea5bee2f7057cd9d31d4ad9fc035f42",
+      "bytes": 154,
+      "preserved_bytes": "main-advance-95e/host-float-evidence/e275-git-objects/2d491fdc03dff7b6a9c970a074aebf17ec84831c.tree.gz"
+    },
+    "3c04cdb8f80c844774098f86f4481f02d46bbe60": {
+      "git_object": "3c04cdb8f80c844774098f86f4481f02d46bbe60",
+      "type": "tree",
+      "sha256": "edcffe768f424e7000e4a3bfe906c69ae2129cb300fea3bae05a752fa32f2b5b",
+      "bytes": 242,
+      "preserved_bytes": "main-advance-95e/host-float-evidence/e275-git-objects/3c04cdb8f80c844774098f86f4481f02d46bbe60.tree.gz"
+    },
+    "e0b74d17ff8eda39f94bb32f3b6d249919ee095a": {
+      "git_object": "e0b74d17ff8eda39f94bb32f3b6d249919ee095a",
+      "type": "tree",
+      "sha256": "1cbd8cf5ec5c526586402857072e86bc9391b1e9416e101e72f886a226f3799a",
+      "bytes": 3079,
+      "preserved_bytes": "main-advance-95e/host-float-evidence/e275-git-objects/e0b74d17ff8eda39f94bb32f3b6d249919ee095a.tree.gz"
+    },
+    "d28f001d8510c70f77d2b61e590c57149a1edb27": {
+      "git_object": "d28f001d8510c70f77d2b61e590c57149a1edb27",
+      "type": "tree",
+      "sha256": "cb974d13fa4fc0d07854b5e387e024e2074120ab670da4c44ecfb4069c084cef",
+      "bytes": 2690,
+      "preserved_bytes": "main-advance-95e/host-float-evidence/e275-git-objects/d28f001d8510c70f77d2b61e590c57149a1edb27.tree.gz"
+    },
+    "306edaab06e6089fbe4e0d7bd2937de65ffdd97f": {
+      "git_object": "306edaab06e6089fbe4e0d7bd2937de65ffdd97f",
+      "type": "tree",
+      "sha256": "36944d177c224ad0ec9bb46b51bd659e88d2ac5ae37fcfb262d376fa980a3c2f",
+      "bytes": 255,
+      "preserved_bytes": "main-advance-95e/host-float-evidence/e275-git-objects/306edaab06e6089fbe4e0d7bd2937de65ffdd97f.tree.gz"
+    }
+  },
+  "paths": {
+    "crates/fabelgeist-compute/src/host_float/arithmetic.rs": {
+      "chain": [
+        {
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+          "name": "crates",
+          "mode": "40000",
+          "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "name": "fabelgeist-compute",
+          "mode": "40000",
+          "child": "46183b6a4977af21ed2094dcf078c6e9e8b5ba77"
+        },
+        {
+          "tree": "46183b6a4977af21ed2094dcf078c6e9e8b5ba77",
+          "name": "src",
+          "mode": "40000",
+          "child": "c2ebf323d8c0db4f685583cb9c62d4c74a61ee72"
+        },
+        {
+          "tree": "c2ebf323d8c0db4f685583cb9c62d4c74a61ee72",
+          "name": "host_float",
+          "mode": "40000",
+          "child": "2d491fdc03dff7b6a9c970a074aebf17ec84831c"
+        },
+        {
+          "tree": "2d491fdc03dff7b6a9c970a074aebf17ec84831c",
+          "name": "arithmetic.rs",
+          "mode": "100644",
+          "child": "4f514b2262ee68eccd1f6983710f26d22cb29926"
+        }
+      ],
+      "git_blob": "4f514b2262ee68eccd1f6983710f26d22cb29926",
+      "sha256": "c1f92194b17274f4c4f616f05402724d6714024a31d791d3af256b08d7b7df51",
+      "bytes": 6183,
+      "lines": 175,
+      "qualification": "Exact e275 and95e bytes match; historical same-Lens11 inherited attribution is not a fresh e275 read or checkpoint3821 evidence."
+    },
+    "crates/fabelgeist-compute/src/host_float/double_float.rs": {
+      "chain": [
+        {
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+          "name": "crates",
+          "mode": "40000",
+          "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "name": "fabelgeist-compute",
+          "mode": "40000",
+          "child": "46183b6a4977af21ed2094dcf078c6e9e8b5ba77"
+        },
+        {
+          "tree": "46183b6a4977af21ed2094dcf078c6e9e8b5ba77",
+          "name": "src",
+          "mode": "40000",
+          "child": "c2ebf323d8c0db4f685583cb9c62d4c74a61ee72"
+        },
+        {
+          "tree": "c2ebf323d8c0db4f685583cb9c62d4c74a61ee72",
+          "name": "host_float",
+          "mode": "40000",
+          "child": "2d491fdc03dff7b6a9c970a074aebf17ec84831c"
+        },
+        {
+          "tree": "2d491fdc03dff7b6a9c970a074aebf17ec84831c",
+          "name": "double_float.rs",
+          "mode": "100644",
+          "child": "0e9092a03a3cf98413d04b00fbcc81bcdf18d49e"
+        }
+      ],
+      "git_blob": "0e9092a03a3cf98413d04b00fbcc81bcdf18d49e",
+      "sha256": "196e4e5928c8690f9c454f6df53c6923893063912d0e5ea63cddf199ab7f5688",
+      "bytes": 12533,
+      "lines": 360,
+      "qualification": "Exact e275 and95e bytes match; historical same-Lens11 inherited attribution is not a fresh e275 read or checkpoint3821 evidence."
+    },
+    "crates/fabelgeist-compute/src/host_float/mod.rs": {
+      "chain": [
+        {
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+          "name": "crates",
+          "mode": "40000",
+          "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "name": "fabelgeist-compute",
+          "mode": "40000",
+          "child": "46183b6a4977af21ed2094dcf078c6e9e8b5ba77"
+        },
+        {
+          "tree": "46183b6a4977af21ed2094dcf078c6e9e8b5ba77",
+          "name": "src",
+          "mode": "40000",
+          "child": "c2ebf323d8c0db4f685583cb9c62d4c74a61ee72"
+        },
+        {
+          "tree": "c2ebf323d8c0db4f685583cb9c62d4c74a61ee72",
+          "name": "host_float",
+          "mode": "40000",
+          "child": "2d491fdc03dff7b6a9c970a074aebf17ec84831c"
+        },
+        {
+          "tree": "2d491fdc03dff7b6a9c970a074aebf17ec84831c",
+          "name": "mod.rs",
+          "mode": "100644",
+          "child": "b7452d2bb695dee092394922384c1379aab2dcd3"
+        }
+      ],
+      "git_blob": "b7452d2bb695dee092394922384c1379aab2dcd3",
+      "sha256": "f584218ee80866588dc56bfddb3464f65635a41e317f6fbaa08a404143b42b39",
+      "bytes": 4434,
+      "lines": 86,
+      "qualification": "Exact e275 and95e bytes match; historical same-Lens11 inherited attribution is not a fresh e275 read or checkpoint3821 evidence."
+    },
+    "crates/fabelgeist-armor/src/gpu/metal/wgsl.rs": {
+      "chain": [
+        {
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+          "name": "crates",
+          "mode": "40000",
+          "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "name": "fabelgeist-armor",
+          "mode": "40000",
+          "child": "3c04cdb8f80c844774098f86f4481f02d46bbe60"
+        },
+        {
+          "tree": "3c04cdb8f80c844774098f86f4481f02d46bbe60",
+          "name": "src",
+          "mode": "40000",
+          "child": "e0b74d17ff8eda39f94bb32f3b6d249919ee095a"
+        },
+        {
+          "tree": "e0b74d17ff8eda39f94bb32f3b6d249919ee095a",
+          "name": "gpu",
+          "mode": "40000",
+          "child": "d28f001d8510c70f77d2b61e590c57149a1edb27"
+        },
+        {
+          "tree": "d28f001d8510c70f77d2b61e590c57149a1edb27",
+          "name": "metal",
+          "mode": "40000",
+          "child": "306edaab06e6089fbe4e0d7bd2937de65ffdd97f"
+        },
+        {
+          "tree": "306edaab06e6089fbe4e0d7bd2937de65ffdd97f",
+          "name": "wgsl.rs",
+          "mode": "100644",
+          "child": "90b9922194f0d53900c22ad8eee1c8657a5fc030"
+        }
+      ],
+      "git_blob": "90b9922194f0d53900c22ad8eee1c8657a5fc030",
+      "sha256": "90083b6c258f47bcf6e52babf50abc2cda917c32ea982b0404edcd75b8157f83",
+      "bytes": 2037,
+      "lines": 69,
+      "qualification": "Exact e275 and95e bytes match; historical same-Lens11 inherited attribution is not a fresh e275 read or checkpoint3821 evidence."
+    }
+  },
+  "qualification": "Earlier e275 Lens11 records inherited Adler's exact historical body attestation with no agent/root reread and no native/runtime verdict."
+}
