@@ -1,0 +1,377 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original roles1849–1851, exact two fixture bodies, production support policy and bounded contact-only consumers.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1849-1851.json",
+  "git_membership_evidence": "GROUND-FIXTURES-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "assets/tactical-grounding/goslar-1238.json",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2bba77793377ed9d01e868cffefbf56c774ed261",
+      "sha256": "1a842b2e8dcdaf157223be260d9f032ca33c50a0fe6fe4eee1a93fd2d86d64c6",
+      "bytes": 8027,
+      "lines": 301,
+      "ranges": [
+        [
+          1,
+          301
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ground-fixtures-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges inspected; complete bytes preserved. Fixture authored provenance and past acceptance claims are source text, not audit validation."
+    },
+    {
+      "path": "assets/tactical-grounding/goslar-965.json",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fdb1dc501c40251e839539400db2cc4bfd1e9043",
+      "sha256": "2b3a097c3469f453f240c26de8b63e3475d1d157e35e82460830d7b11d0a258e",
+      "bytes": 9226,
+      "lines": 369,
+      "ranges": [
+        [
+          1,
+          369
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ground-fixtures-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges inspected; complete bytes preserved. Fixture authored provenance and past acceptance claims are source text, not audit validation."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/collider.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f3bf84734697fd2fbbfa85fbc0dd4020321c77b3",
+      "sha256": "98d29f729249f373eff25cbe778ec3f2d8cdb0921379130e99ebc9fb720f413c",
+      "bytes": 1967,
+      "lines": 62,
+      "ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ground-fixtures-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges inspected; complete bytes preserved. Fixture authored provenance and past acceptance claims are source text, not audit validation."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/support/policy.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2d7b2be58ebbe96a79b424fc9734d72dfae7e59b",
+      "sha256": "7c4add5a0ac115e04490a20e1f428918a2c70544b05b6f3be9d8e57771ebb775",
+      "bytes": 1891,
+      "lines": 45,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ground-fixtures-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges inspected; complete bytes preserved. Fixture authored provenance and past acceptance claims are source text, not audit validation."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/boundaries.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7f858c971a117575076916f10cb829c271247f6f",
+      "sha256": "41530ea3d8197242c6c5cc79ac9a35b31b9df76287a57aae530247553f3e2f2b",
+      "bytes": 1481,
+      "lines": 46,
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ground-fixtures-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges inspected; complete bytes preserved. Fixture authored provenance and past acceptance claims are source text, not audit validation."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "aa4e64e6039b0e334ebe5f19adc508436d5547ef",
+      "sha256": "f9abcd66e159994c71c72f4cbf44f1562f9e72eb376d07cbef3f09f01cd2053b",
+      "bytes": 9179,
+      "lines": 263,
+      "ranges": [
+        [
+          190,
+          263
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ground-fixtures-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges inspected; complete bytes preserved. Fixture authored provenance and past acceptance claims are source text, not audit validation."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d4eafa2d03869a1fbc6b09c105076b0a018d46b6",
+      "sha256": "067e6669cec19996bd4cbe6fc1caf61c221b294ad11a150ccc3ca36423379797",
+      "bytes": 14597,
+      "lines": 390,
+      "ranges": [
+        [
+          130,
+          223
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ground-fixtures-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges inspected; complete bytes preserved. Fixture authored provenance and past acceptance claims are source text, not audit validation."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/replacement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cfd3bcc8f9008389488fc107af6c93f46325fd6d",
+      "sha256": "b75aba1e567b755f62e7882e2ad69001c5ad5fc8923d0b9a8430a4ffcebf0f32",
+      "bytes": 6062,
+      "lines": 152,
+      "ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ground-fixtures-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges inspected; complete bytes preserved. Fixture authored provenance and past acceptance claims are source text, not audit validation."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-GROUNDING-BOUNDARY-95E.json",
+    "ASSESSMENT-FOUNDATION-VOLUME-95E.json",
+    "ASSESSMENT-GEOGRAPHY-GRADE-95E.json",
+    "ASSESSMENT-SUPPORT-INTERVAL-95E.json",
+    "ASSESSMENT-TERRAIN-CUTFACE-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Fixtures and policy",
+      "trace": "Both exact current fixture JSON bodies identify dated provenance, a property and placements, finite engineering doorway values, and four or eight geographic triangles. Their notes claim prior controller/clipper acceptance and explicitly limit historical and citywide interpretation. Those are authored claims; neither provenance package nor claimed run transcript is independently established here. Fixture tests read JSON via serde and invoke generation in source only. The production bounded_settlement policy uses fixed typed support and stair constants; the two fixture doorway solutions record grade0.65, displacement6, riser0.19 and minimum going0.25.",
+      "remaining": "Trace the actual codec, producer, fixture package links and gate/door sweep assumptions; no tests or generator ran."
+    },
+    {
+      "contract": "Contact-only and physical owner",
+      "trace": "SupportCollision explicitly distinguishes Solid from ContactOnly; into_solid returns None for the latter. Enclosure and foundation builders skip zero-volume cells and pass solid parts to native convex_mesh, returning a typed collider error if native construction returns None. The server boundary handler creates and replicates the door/boundary, then inserts a static rigid body only for Some solid. BoundedPropertyTerrain colliders likewise collects an optional foundation solid. The enclosure fixture deliberately asserts ContactOnly for width0 and Solid for width1 and 1e-8, both windings; these source assertions are not executed physics.",
+      "remaining": "Native convex construction, full consumers, actual supported aggregate enclosure coverage and production reachability remain unresolved; do not turn a legitimate per-cell contact mode into an automatic defect or erase the separate aggregate binding concern."
+    },
+    {
+      "contract": "Ordinary numeric and coverage expectations",
+      "trace": "The foundation test source expects a coplanar volume within0.01 of area times0.2, exact structured shortfalls and complete-triangle cut/fill rejection; its replacement checks sample points. The retained finite-volume overflow, interval and cutface-only candidates remain source-conditional and are neither validated nor disproven by these ordinary unexecuted test bodies.",
+      "remaining": "Ordinary/excessive numeric producers, full source geometry, native serialization and exact aliases require independent evidence."
+    },
+    {
+      "contract": "Negative gate diagnostic",
+      "trace": "The test body mutates a fixture gate x to NaN and plus/minus infinity and asserts that the rejection keeps property/member context, attempted x bits and FramedGeometry NonFinite cause.",
+      "remaining": "That mutation is deliberately invalid test input, not evidence of a real decoded incident or a native report serialization result."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-606.json",
+      "sha256": "01e50850bf075de0d435dacb27da7868319363630d145fe7bbcbce0b609f688f",
+      "bytes": 728,
+      "git_blob": "d888c3cc2baca542c26a02d763a90569431e9399",
+      "preserved_bytes": "recovered/ground-fixtures-059/01e50850bf075de0d435dacb27da7868319363630d145fe7bbcbce0b609f688f.gz",
+      "published_sha256": "01e50850bf075de0d435dacb27da7868319363630d145fe7bbcbce0b609f688f",
+      "published_bytes": 728,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 plan"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-607.json",
+      "sha256": "2ad0aad19d5eb8a749ae2895adc0ba98d128e3cc90b6f44920d2ca91a98d9af6",
+      "bytes": 1246,
+      "git_blob": "05232b12ec57dd83de23abf3f24031682cbe0a9a",
+      "preserved_bytes": "recovered/ground-fixtures-059/2ad0aad19d5eb8a749ae2895adc0ba98d128e3cc90b6f44920d2ca91a98d9af6.gz",
+      "published_sha256": "2ad0aad19d5eb8a749ae2895adc0ba98d128e3cc90b6f44920d2ca91a98d9af6",
+      "published_bytes": 1246,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 plan"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-606.json",
+      "sha256": "9c70d8084c2a09307271105389ae9d907f85ce140833439df9f2b5f435648022",
+      "bytes": 6118,
+      "git_blob": "5424a4a9acccd84340b3c806d27f37b3f5f92585",
+      "preserved_bytes": "recovered/ground-fixtures-059/9c70d8084c2a09307271105389ae9d907f85ce140833439df9f2b5f435648022.gz",
+      "published_sha256": "9c70d8084c2a09307271105389ae9d907f85ce140833439df9f2b5f435648022",
+      "published_bytes": 6118,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-607.json",
+      "sha256": "d27fc0ae1d1d0a1e45d22182191445f5f13ab415d4872d105ce4e73adfd6ddf8",
+      "bytes": 3726,
+      "git_blob": "5aece68cdcac69b09d61c960ca6599864e329cd1",
+      "preserved_bytes": "recovered/ground-fixtures-059/d27fc0ae1d1d0a1e45d22182191445f5f13ab415d4872d105ce4e73adfd6ddf8.gz",
+      "published_sha256": "d27fc0ae1d1d0a1e45d22182191445f5f13ab415d4872d105ce4e73adfd6ddf8",
+      "published_bytes": 3726,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-756.json",
+      "sha256": "0fd6cdfc014ce2f86b379a22bdc301d05c537390be4163781b3c236b48469bb9",
+      "bytes": 1214,
+      "git_blob": "88375dc1036bb98384d21de875cfdcd92d274274",
+      "preserved_bytes": "recovered/ground-fixtures-059/0fd6cdfc014ce2f86b379a22bdc301d05c537390be4163781b3c236b48469bb9.gz",
+      "published_sha256": "0fd6cdfc014ce2f86b379a22bdc301d05c537390be4163781b3c236b48469bb9",
+      "published_bytes": 1214,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-757.json",
+      "sha256": "101213bf38061be54b056a4996225130a0dcbcaa74a2f13374ac43d9c64dca8d",
+      "bytes": 1244,
+      "git_blob": "d9d36945543b9c856095bfdc7b08d81e292cf09c",
+      "preserved_bytes": "recovered/ground-fixtures-059/101213bf38061be54b056a4996225130a0dcbcaa74a2f13374ac43d9c64dca8d.gz",
+      "published_sha256": "101213bf38061be54b056a4996225130a0dcbcaa74a2f13374ac43d9c64dca8d",
+      "published_bytes": 1244,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-758.json",
+      "sha256": "16f137f63e5d4256249defb9a17d68365d8ef77aaa02ae93a0a41b62fc78f130",
+      "bytes": 1246,
+      "git_blob": "b003266674db9f770dcc8f1cf2a821d366436c00",
+      "preserved_bytes": "recovered/ground-fixtures-059/16f137f63e5d4256249defb9a17d68365d8ef77aaa02ae93a0a41b62fc78f130.gz",
+      "published_sha256": "16f137f63e5d4256249defb9a17d68365d8ef77aaa02ae93a0a41b62fc78f130",
+      "published_bytes": 1246,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-606.json",
+      "sha256": "76c28a2b976837e03eb109ec0a4c7c5082e9b80b3916d760a84b31f1116ca8fb",
+      "bytes": 840,
+      "git_blob": "1fd9095da528c0e33515c38bf931ae51a0f07701",
+      "preserved_bytes": "recovered/ground-fixtures-059/76c28a2b976837e03eb109ec0a4c7c5082e9b80b3916d760a84b31f1116ca8fb.gz",
+      "published_sha256": "76c28a2b976837e03eb109ec0a4c7c5082e9b80b3916d760a84b31f1116ca8fb",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-607.json",
+      "sha256": "f454f8393bb83c3eaeb937042ec1d415d5a2fce5d6f917ae03dd0912fe83e28f",
+      "bytes": 840,
+      "git_blob": "096847b12eb6d776f750cbeb0fb471c5f85d9b2f",
+      "preserved_bytes": "recovered/ground-fixtures-059/f454f8393bb83c3eaeb937042ec1d415d5a2fce5d6f917ae03dd0912fe83e28f.gz",
+      "published_sha256": "f454f8393bb83c3eaeb937042ec1d415d5a2fce5d6f917ae03dd0912fe83e28f",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-606.json",
+      "sha256": "12567141449e129eb64c1bb0031543d9ceb5259ed28245d365ef6e22a6c182ab",
+      "bytes": 558,
+      "git_blob": "3808651d761459a6568435134e2f5b08bb069ccc",
+      "preserved_bytes": "recovered/ground-fixtures-059/12567141449e129eb64c1bb0031543d9ceb5259ed28245d365ef6e22a6c182ab.gz",
+      "published_sha256": "12567141449e129eb64c1bb0031543d9ceb5259ed28245d365ef6e22a6c182ab",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-607.json",
+      "sha256": "fad1fbd571e5fe0651db5ae778e35a2647e1e22542d6ebdc233588d7a14fd3c4",
+      "bytes": 558,
+      "git_blob": "77d0ed411d9cc8572bda4501786716651fabd5a4",
+      "preserved_bytes": "recovered/ground-fixtures-059/fad1fbd571e5fe0651db5ae778e35a2647e1e22542d6ebdc233588d7a14fd3c4.gz",
+      "published_sha256": "fad1fbd571e5fe0651db5ae778e35a2647e1e22542d6ebdc233588d7a14fd3c4",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    }
+  ],
+  "prior_preserved_independent_receipts": {
+    "adler/READ-L11-279.json": "ASSESSMENT-GEOGRAPHY-GRADE-95E.json",
+    "adler/READ-L11-280.json": "ASSESSMENT-FOUNDATION-VOLUME-95E.json",
+    "qualification": "These prior direct original059 preserved receipts and registrations remain separately authored Lens11. The recorded pr-working rows do not supply a row-level revision; hash equality does not fill it. Adler279 also records original2695 lines1–157 as scoped future read, not an ordered credit or158–159 read."
+  },
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/102",
+        "/entries/260",
+        "/entries/1506",
+        "/entries/1537",
+        "/entries/1538",
+        "/entries/1539",
+        "/entries/1540",
+        "/entries/1541"
+      ],
+      "qualification": "Original059 obligations and candidates not checkpoint3821; preserve prior findings and no assumed aliases."
+    }
+  ],
+  "historical_attribution_qualification": "Original Segovb606/607 full fresh ranges and registration/plan/state/verification remain separate from new Lens1 reads; Adler279/280 already preserved with independent authorship. No source equality transfers verdicts, original revision or earlier records into checkpoint3821.",
+  "remaining": "Continue original1852 and all thirteen independent lenses, codec/native shape/producer and consumer closure, supported aggregate binding policy and exact aliases. Final original3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
