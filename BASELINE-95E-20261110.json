@@ -7840,8 +7840,77 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-WEAPON-ORNAMENT-95E.json"
+      },
+      {
+        "id": "REVIEW-SHIELD-INACTIVE-STRAP-VALIDATION-001",
+        "lens": 9,
+        "additional_current_lenses": [
+          1,
+          3,
+          5,
+          8,
+          11,
+          13
+        ],
+        "severity": "unassigned; fitting-mode policy question",
+        "classification": "Shield validation requires and considers strap fields for handle-only mode while construction emits no strap. Hypothetical inactive width can reject at clearance; no product execution.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1798"
+        ],
+        "relationship_qualification": "Historical713 left numerical shield policy for actual validators; this95e trace supplies selected validator and producer. No historic finding or3821 attribution.",
+        "discovery": "partial; selected shape schema, validation and fitting consumers traced; editor retention, intended mode policy, full admitted paths and aliases remain open",
+        "connected_repair_direction": "Decide whether inactive fields are retained presets or mode-owned data, then make admission and clearance correspond to that explicit contract without discarding legitimate mode switching.",
+        "future_acceptance": "After authorization, cover handle-only and handle-and-strap modes, omitted or retained inactive data, clearance and switching.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-SHIELD-FORGE-95E.json"
+      },
+      {
+        "id": "REVIEW-FORGE-STOCK-IDENTITY-AUTHORITY-001",
+        "lens": 7,
+        "additional_current_lenses": [
+          1,
+          2,
+          6,
+          12,
+          13
+        ],
+        "severity": "unassigned; authority and type-owner question",
+        "classification": "The four stock IDs and weights currently agree across ForgeStock, catalogue and measured-inventory and merchant consumers, but independent mappings can drift.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1798"
+        ],
+        "relationship_qualification": "Continues the original713 unresolved ForgeStock producer-to-recipient question. Current values match; no present mismatched transaction or historical unique-count increase is claimed.",
+        "discovery": "partial; selected quote, catalogue, DB and merchant recipients traced; canonical owner, all clients and native boundaries remain open",
+        "connected_repair_direction": "Choose one authoritative traded-stock identity and mass contract shared at appropriate dependency boundaries, preserving catalogue and authoring-only material distinctions.",
+        "future_acceptance": "After authorization, cover every traded stock mapping, catalogue mass, measured-row classification, transaction and merchant exposure, plus unsupported authoring-only materials.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-SHIELD-FORGE-95E.json"
+      },
+      {
+        "id": "REVIEW-FORGE-REQUIREMENT-ERROR-UNITS-001",
+        "lens": 13,
+        "additional_current_lenses": [
+          1,
+          4,
+          8,
+          12
+        ],
+        "severity": "unassigned; conditional insufficient-stock message",
+        "classification": "The forge insufficient-stock message labels a raw aggregate micro-fraction count as milliunits, a factor-of-1000 unit error.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1798"
+        ],
+        "relationship_qualification": "New current source observation connected to the original stock-recipient question; no original finding or3821 attribution.",
+        "discovery": "partial; quote unit and reducer formatting traced, runtime error surfacing and exact aliases remain open",
+        "connected_repair_direction": "Give aggregate required amounts a unit-bearing owner that can exceed one whole, and format errors consistently in a deliberate player-facing unit.",
+        "future_acceptance": "After authorization, cover insufficient stock at fractional, whole and multi-whole quantities and verify displayed units.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-SHIELD-FORGE-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1447.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1451.json"
 }
