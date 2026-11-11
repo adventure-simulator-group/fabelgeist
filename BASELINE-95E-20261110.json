@@ -1831,8 +1831,24 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L07-POPULATION-REPLAY-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-SOCIAL-ACTION-PRIVATE-READMISSION",
+        "lens": 12,
+        "severity": "unassigned; unnecessary private representation roundtrip; no failing canonical variant or product incident demonstrated",
+        "classification": "95e revisit of the same earlier Lens12 contract, not a new unique historical defect.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/227",
+          "baseline-059/queue.json#/entries/971",
+          "segovb/READ-L12-280.json via ASSESSMENT-L12-SOCIAL-ACTION-95E.json"
+        ],
+        "relationship_qualification": "Same earlier typed social-action roundtrip contract; the six earlier personal fragments, prior attribution and zero accepted unique-count change remain intact. The corpse retry and truthful-claim safeguards are bounded, not aliases or full closures.",
+        "discovery": "partial; all callers, security boundary, native representations, aliases and behavior-preservation lenses remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L12-SOCIAL-ACTION-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0210.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0234.json"
 }
