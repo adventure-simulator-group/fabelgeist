@@ -1,0 +1,476 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Three historical setup, view and CLI bodies and bounded current proportion, readiness, camera and sample-rate consumer connections.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1446-1448.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/identity_morphs.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "03c2ba33a682356cb3002bec8e0dbe55ee209b66",
+      "sha256": "340b2018b6091fe33081fc257ab36fc8f65a72011cb81d5fc583239d32807c5d",
+      "bytes": 5145,
+      "lines": 138,
+      "ranges": [
+        [
+          1,
+          74
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/setup-view-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No product execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/skeletal_proportions.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e8a5c9c942724007e6b188796d52653537201315",
+      "sha256": "56f60067aad4396f087ebb56e068d5a0413b75ae81cd5fb4424dc3a14f28bc8c",
+      "bytes": 10545,
+      "lines": 279,
+      "ranges": [
+        [
+          65,
+          128
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/setup-view-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No product execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/player.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9d9a7fe4d0da49a45fcc5127992f0c91fdd92c2b",
+      "sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "bytes": 21008,
+      "lines": 640,
+      "ranges": [
+        [
+          65,
+          86
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/setup-view-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No product execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2f2d500d8c8334accb9fea5059aa5bcc897d4a56",
+      "sha256": "ed476924038076fa25da5298c9bfb408b27eccc8210e5bbf01ddaa3c7cd6248d",
+      "bytes": 16427,
+      "lines": 411,
+      "ranges": [
+        [
+          227,
+          257
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/setup-view-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No product execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/environment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3b4950e0711f02231d0c6f5434fc238f98d0bc65",
+      "sha256": "b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+      "bytes": 21534,
+      "lines": 577,
+      "ranges": [
+        [
+          183,
+          236
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/setup-view-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No product execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a87b397fb6a6288c2c24a39e5af93e140fb0aab6",
+      "sha256": "96b6408758b0c8b82f49c210bb4acc352526519b3ba8a525b3500f045279af24",
+      "bytes": 19400,
+      "lines": 518,
+      "ranges": [
+        [
+          145,
+          220
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/setup-view-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No product execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/capture_schedule.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "458b76e92dd6ab09e86a2e162fce1093866883e2",
+      "sha256": "fc43df34f82478bf3b387906033df195b64b4cdbc32c6b9c4e53415a51ee1308",
+      "bytes": 1882,
+      "lines": 57,
+      "ranges": [
+        [
+          16,
+          51
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/setup-view-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No product execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8bdd33b05699f49ceb18ff2aa5c6adb8678f778e",
+      "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "bytes": 40632,
+      "lines": 1021,
+      "ranges": [
+        [
+          750,
+          796
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/setup-view-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No product execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9d20e485651cedabc0b3a980b476ba73949ccc0c",
+      "sha256": "754a5ea02732df10071edad99a78c5fc1524236ac1232401129c06da611834ee",
+      "bytes": 5565,
+      "lines": 118,
+      "ranges": [
+        [
+          35,
+          63
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/setup-view-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No product execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f8bf9081d52e4821df3ecc68cc8bfbcb17340939",
+      "sha256": "48cf5febbcb02887e500a960eb52ab06b5abfc9f55e4bdbf236319f5d89da684",
+      "bytes": 7343,
+      "lines": 99,
+      "ranges": [
+        [
+          75,
+          84
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/setup-view-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No product execution."
+    }
+  ],
+  "conditional_findings": [],
+  "existing_contract_connections": [
+    {
+      "ids": [
+        "Q-L12-f1531c9c865826a6ed2c",
+        "REVIEW-CAPTURE-PREAPPLIED-READINESS-TIMEOUT-001"
+      ],
+      "trace": "The earlier setup source question asks about the required-motion initial wait and actual native load. The separately documented current readiness candidate traces an initial pre-application animation/motion wait; connect the records without asserting an identical scope or duplicating a candidate.",
+      "remaining": "Actual asset state, failure propagation, timeout policy, complete setup/scene identities and exact aliases remain open; no motion asset was loaded.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "ids": [
+        "Q-L12-f1531c9c865826a6ed2c"
+      ],
+      "trace": "setup_viewer spawns the subject with CharacterId(default_tactical_character_id()) and inserts CharacterSkeletalProportions only for an explicit input. write_body_proportions uses the explicit input or CharacterProportions::from_seed(Seed::from_u64(default_tactical_character_id())). Current sync_character_morphs and sync_skeletal_proportions similarly choose an explicit component or derive from the owning CharacterId. Thus omission of the optional component alone does not establish that the reported default differs from the displayed character; the same nominal identity and proportion selection are visible in these bounded paths.",
+      "remaining": "This is not proof that writing succeeds, asynchronous rig loading completes, morphs attach, every consumer shares the same reference or the final image equals the report. Existing proportion-route and overflow questions remain separately recorded.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "ids": [
+        "Q-L12-96bf280e7b1c15aac5ae",
+        "REVIEW-CAPTURE-SCENARIO-TIMESTAMP-RATE-001"
+      ],
+      "trace": "The historical CLI record expressly raised whether selected non-64-Hz config conflicts with hardcoded 64-Hz playback and UI labels. At 95e the CLI builds its fixed clock from the selected sample rate, while view.rs labels inspection frames as 64 Hz and the HTML timer uses 1000/64. The separately assessed selected-rate timestamp candidate also traces a bounded symbolic 32-Hz case. These are related consumers of the same sample-rate policy; the historical question and current candidate are not asserted to be exact aliases.",
+      "remaining": "Actual display/playback intent, full sample-rate configuration contract, other frame-count consumers, screenshot and runtime outcomes remain open.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "ids": [
+        "Q-L12-37e8d233f7bce17eeee8"
+      ],
+      "trace": "Current presentation startup registers setup_tactical_presentation and its setup spawns a Camera3d with the TacticalGameplayCamera marker. position_capture_camera requires single matching subject and camera queries and returns when either is unavailable or nonunique; it also logs and returns on an offset-construction error. It runs in PostUpdate after the tactical camera offset and before transform propagation; capture_frame in Last is a separate consumer. These normal setup and ordering paths narrow an unqualified missing-camera hypothesis.",
+      "safeguards": "Armor review can supply an inspection camera when its selected view and head data allow it; otherwise a non-gameplay view uses the fallback orbit. Gameplay follows its own offset path. Earlier orbit admission and screenshot-certification records remain distinct.",
+      "remaining": "Normal spawn source is not proof of query uniqueness or availability at every capture, actual offset success, deferred schedule completion, camera transform correctness, renderer readiness, image output or a false report pass. No camera was executed or rendered.",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1244",
+        "/entries/1245",
+        "/entries/1246"
+      ],
+      "qualification": "Earlier questions retain original reviewer, revision, pending scope and no current reconciliation."
+    },
+    {
+      "file": "ASSESSMENT-CAPTURE-READINESS-COMPARISON-95E.json",
+      "pointers": [
+        "/"
+      ],
+      "qualification": "Previously assessed pre-application wait remains a separate conditional current candidate."
+    },
+    {
+      "file": "ASSESSMENT-SCENARIO-CLOCK-CONFIG-95E.json",
+      "pointers": [
+        "/"
+      ],
+      "qualification": "Previous sample-rate timestamp candidate and historical relationship remain separately qualified."
+    },
+    {
+      "file": "ASSESSMENT-PROPORTION-ROUTE-CONNECTIONS-95E.json",
+      "pointers": [
+        "/"
+      ],
+      "qualification": "Other shared-reference and arithmetic questions remain separate."
+    },
+    {
+      "file": "ASSESSMENT-L1-CAPTURE-ORBIT.json",
+      "pointers": [
+        "/"
+      ],
+      "qualification": "Prior bounded view trace remains attributed to its own assessment."
+    },
+    {
+      "file": "ASSESSMENT-L01-CAMERA-ROOT.json",
+      "pointers": [
+        "/"
+      ],
+      "qualification": "Prior bounded view trace remains attributed to its own assessment."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-421.json",
+      "sha256": "95a28c5877ee8387c76b7427085d8615d7430655fa38113f97da29da61ac3d9c",
+      "bytes": 1738,
+      "git_blob": "4f3df4d1b8acd9a86b9e79969b74ca664e6aaa20",
+      "preserved_bytes": "recovered/setup-view-059/95a28c5877ee8387c76b7427085d8615d7430655fa38113f97da29da61ac3d9c.gz",
+      "published_sha256": "95a28c5877ee8387c76b7427085d8615d7430655fa38113f97da29da61ac3d9c",
+      "published_bytes": 1738,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-422.json",
+      "sha256": "4c1a360d743c8edc645c42cbca145a68b495e8e565c69436ae248fd43a32bc45",
+      "bytes": 1213,
+      "git_blob": "b543058ab5fdb9c0832bdcd0d2464c63e45bbfb6",
+      "preserved_bytes": "recovered/setup-view-059/4c1a360d743c8edc645c42cbca145a68b495e8e565c69436ae248fd43a32bc45.gz",
+      "published_sha256": "4c1a360d743c8edc645c42cbca145a68b495e8e565c69436ae248fd43a32bc45",
+      "published_bytes": 1213,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-421.json",
+      "sha256": "c58a2f3364f9dd368b3c8c12f49abae586d4ead95f950dbb323c7dc39469e1ac",
+      "bytes": 11870,
+      "git_blob": "3c531ed8d1c6b5661f265d4b3edc4441083e4b35",
+      "preserved_bytes": "recovered/setup-view-059/c58a2f3364f9dd368b3c8c12f49abae586d4ead95f950dbb323c7dc39469e1ac.gz",
+      "published_sha256": "c58a2f3364f9dd368b3c8c12f49abae586d4ead95f950dbb323c7dc39469e1ac",
+      "published_bytes": 11870,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-422.json",
+      "sha256": "02482fd6ae4ea9850e416e8e733b040fcda2aaa3d98f7c701b1e5b3601f3e2a7",
+      "bytes": 9633,
+      "git_blob": "525c60e6bf860df0305b2447ed92e449fcc86909",
+      "preserved_bytes": "recovered/setup-view-059/02482fd6ae4ea9850e416e8e733b040fcda2aaa3d98f7c701b1e5b3601f3e2a7.gz",
+      "published_sha256": "02482fd6ae4ea9850e416e8e733b040fcda2aaa3d98f7c701b1e5b3601f3e2a7",
+      "published_bytes": 9633,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-351.json",
+      "sha256": "734b306ee8b7b4502e3e75c3bf10408a4576b98243ac8005144e849d7fdd52e5",
+      "bytes": 1249,
+      "git_blob": "682b3489521000dc689c523297a32f35c14d8ba0",
+      "preserved_bytes": "recovered/setup-view-059/734b306ee8b7b4502e3e75c3bf10408a4576b98243ac8005144e849d7fdd52e5.gz",
+      "published_sha256": "734b306ee8b7b4502e3e75c3bf10408a4576b98243ac8005144e849d7fdd52e5",
+      "published_bytes": 1249,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-352.json",
+      "sha256": "9cd5ab3fbe0aba9851d995f72b3d13c719574281f9738539c6ba858849dd6ad7",
+      "bytes": 1257,
+      "git_blob": "2c62545ef8cf7454f3a7ab11842fb40bf161f77c",
+      "preserved_bytes": "recovered/setup-view-059/9cd5ab3fbe0aba9851d995f72b3d13c719574281f9738539c6ba858849dd6ad7.gz",
+      "published_sha256": "9cd5ab3fbe0aba9851d995f72b3d13c719574281f9738539c6ba858849dd6ad7",
+      "published_bytes": 1257,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-353.json",
+      "sha256": "d33ff20e07dbba2bffc60fe6d4c643feedfe8ac97e76e66319a5aaeb93b8d41f",
+      "bytes": 1219,
+      "git_blob": "99cefbf17e80aa540877967d4e8aed140c7818e7",
+      "preserved_bytes": "recovered/setup-view-059/d33ff20e07dbba2bffc60fe6d4c643feedfe8ac97e76e66319a5aaeb93b8d41f.gz",
+      "published_sha256": "d33ff20e07dbba2bffc60fe6d4c643feedfe8ac97e76e66319a5aaeb93b8d41f",
+      "published_bytes": 1219,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-354.json",
+      "sha256": "68839aca276ce530028e6eaa330bceb4463497963bdc3d168d0d5a67d3a21269",
+      "bytes": 1208,
+      "git_blob": "a767cc032592f4c72da68ead9ad7efa3aa58eaac",
+      "preserved_bytes": "recovered/setup-view-059/68839aca276ce530028e6eaa330bceb4463497963bdc3d168d0d5a67d3a21269.gz",
+      "published_sha256": "68839aca276ce530028e6eaa330bceb4463497963bdc3d168d0d5a67d3a21269",
+      "published_bytes": 1208,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-355.json",
+      "sha256": "06a78b103fe13c72cad11befc87b7536fb963e0a5ba731424e16a3a29543e811",
+      "bytes": 1210,
+      "git_blob": "8d2883fd4209e925f154fb5dd665ea333a5da055",
+      "preserved_bytes": "recovered/setup-view-059/06a78b103fe13c72cad11befc87b7536fb963e0a5ba731424e16a3a29543e811.gz",
+      "published_sha256": "06a78b103fe13c72cad11befc87b7536fb963e0a5ba731424e16a3a29543e811",
+      "published_bytes": 1210,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-421.json",
+      "sha256": "1db8f6072e8871ac5989e7f139aadca4e4745f36d69d4fe5fcd8f283c9abcc14",
+      "bytes": 840,
+      "git_blob": "248c2321c07eb85e83f3c294e59a0c26d3d7d3da",
+      "preserved_bytes": "recovered/setup-view-059/1db8f6072e8871ac5989e7f139aadca4e4745f36d69d4fe5fcd8f283c9abcc14.gz",
+      "published_sha256": "1db8f6072e8871ac5989e7f139aadca4e4745f36d69d4fe5fcd8f283c9abcc14",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-422.json",
+      "sha256": "75997919a6df39a70fa69d59da4615ee8db70cdd7c31c7255a6fad09540f26cb",
+      "bytes": 840,
+      "git_blob": "1b9874281b81f9861889a8e7444676ca6ce97c0c",
+      "preserved_bytes": "recovered/setup-view-059/75997919a6df39a70fa69d59da4615ee8db70cdd7c31c7255a6fad09540f26cb.gz",
+      "published_sha256": "75997919a6df39a70fa69d59da4615ee8db70cdd7c31c7255a6fad09540f26cb",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-421.json",
+      "sha256": "8c7f31cd66e88069bdb1b784b365d8b06d05455c5d2ea62c5f7eeaa74f4b756c",
+      "bytes": 558,
+      "git_blob": "1e5f8817cad3d95dcf6f92854b49b2d7ee9433e3",
+      "preserved_bytes": "recovered/setup-view-059/8c7f31cd66e88069bdb1b784b365d8b06d05455c5d2ea62c5f7eeaa74f4b756c.gz",
+      "published_sha256": "8c7f31cd66e88069bdb1b784b365d8b06d05455c5d2ea62c5f7eeaa74f4b756c",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-422.json",
+      "sha256": "6d4baf6cc624e9c7919c9c24748e1387b2455b38196f190e69e2c68526d8e711",
+      "bytes": 558,
+      "git_blob": "5135fb51ce525a5081e93ec4a82a62c84299f6b1",
+      "preserved_bytes": "recovered/setup-view-059/6d4baf6cc624e9c7919c9c24748e1387b2455b38196f190e69e2c68526d8e711.gz",
+      "published_sha256": "6d4baf6cc624e9c7919c9c24748e1387b2455b38196f190e69e2c68526d8e711",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    }
+  ],
+  "remaining": "Actual native asset and deferred camera lifecycle, complete admission and sample-rate policy, report certification, aliases and thirteen independent lenses remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

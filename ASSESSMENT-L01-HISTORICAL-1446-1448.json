@@ -1,0 +1,134 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1446,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/setup.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact historical identity, not a claim of committed-tree equivalence.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1446",
+      "sha256": "ca7571cd25d303d7ef2ca543a07674e3ba3ba58b4a9abb8bb3f234f03507f9cb",
+      "lines": 94,
+      "new_personal_read_ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/setup.rs",
+        "sha256": "ca7571cd25d303d7ef2ca543a07674e3ba3ba58b4a9abb8bb3f234f03507f9cb",
+        "bytes": 3153,
+        "lines": 94,
+        "git_blob": "8a2e1d8926486283727417e82ed35ffe81f07c91",
+        "preserved_bytes": "main-advance-95e/setup-view-evidence/current-1446.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Current bytes bind only bounded current-source connections; earlier revision and reviewer remain separate and no checkpoint 3821 transfer follows."
+      },
+      "qualification": "Full original historical source personally read through actual EOF. No CLI, asset, scene, camera, viewer, renderer, report, test or runtime probe ran. Earlier reviewers retain original attribution and revision."
+    },
+    {
+      "original_index": 1447,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/view.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact historical identity, not a claim of committed-tree equivalence.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1447",
+      "sha256": "1ec7bad7a491c5c78bfefb2ee24f87039f35d5fc22fcca5aec8ab879f69a79d8",
+      "lines": 74,
+      "new_personal_read_ranges": [
+        [
+          1,
+          74
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-CAPTURE-ORBIT.json",
+          "ranges": [
+            [
+              1,
+              74
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L01-CAMERA-ROOT.json",
+          "ranges": [
+            [
+              1,
+              74
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/view.rs",
+        "sha256": "1ec7bad7a491c5c78bfefb2ee24f87039f35d5fc22fcca5aec8ab879f69a79d8",
+        "bytes": 3111,
+        "lines": 74,
+        "git_blob": "638c54ae240ddf78b3e10ff462183c5227bd6d27",
+        "preserved_bytes": "main-advance-95e/setup-view-evidence/current-1447.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Current bytes bind only bounded current-source connections; earlier revision and reviewer remain separate and no checkpoint 3821 transfer follows."
+      },
+      "qualification": "Full original historical source personally read through actual EOF. No CLI, asset, scene, camera, viewer, renderer, report, test or runtime probe ran. Earlier reviewers retain original attribution and revision."
+    },
+    {
+      "original_index": 1448,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer_main.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact historical identity, not a claim of committed-tree equivalence.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1448",
+      "sha256": "e0f7a9dac82a710fe98097b0b6baaa166da0f386c1c3314819bef4cabb95864d",
+      "lines": 131,
+      "new_personal_read_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer_main.rs",
+        "sha256": "aa3d28a6c951d8fe7246dcd68b52baf41afebe9ccfdf5eb84dbf5cbe17c40932",
+        "bytes": 4516,
+        "lines": 132,
+        "git_blob": "e416dc7b646d0c1652361a08ac6f2bfb74eed9b8",
+        "preserved_bytes": "main-advance-95e/setup-view-evidence/current-1448.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "qualification": "Current bytes bind only bounded current-source connections; earlier revision and reviewer remain separate and no checkpoint 3821 transfer follows.",
+        "diff": "main-advance-95e/setup-view-evidence/original-1448-to-95e.diff",
+        "diff_sha256": "73d1de02ddbf7fb42f6b4e0cf8b47c450cc2e32c4bf3e440f5b1264f30b28980",
+        "difference": "Current source adds the module declaration mod hud; this declaration is not assigned to the historical snapshot and its module behavior was not inferred here."
+      },
+      "qualification": "Full original historical source personally read through actual EOF. No CLI, asset, scene, camera, viewer, renderer, report, test or runtime probe ran. Earlier reviewers retain original attribution and revision."
+    }
+  ],
+  "observations": [
+    "Three historical setup, view and entry-point bodies personally read through actual EOF. Setup and view match 95e; current entry point adds a separate hud module declaration. The full current bytes and exact difference are retained.",
+    "Earlier independent Lens12 batches 421–422 retain original reviewer, snapshot scope, verification, zero accepted count change and no current reconciliation. Batch 421 also recorded roles 1444 and 1445, whose separate personal reads were already recorded and are not counted again here.",
+    "Role 1447 had two previous bounded current-source observations; both are retained verbatim alongside this new historical read, without transferring either reviewer verdict across lenses.",
+    "No CLI, asset, scene, camera, viewer, report, test, renderer or runtime probe ran."
+  ],
+  "remaining": "Continue role 1449; complete asset/readiness/camera lifecycles, actual UI policy, aliases, overlays and thirteen independent lenses remain open."
+}
