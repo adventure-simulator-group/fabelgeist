@@ -1,0 +1,672 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Five original traffic/support roles, bounded scene and showcase camera sources, material-channel source semantics and source-only symbolic comparisons.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1667-1671.json",
+  "git_membership_evidence": "CITY-TRAFFIC-CONTEXT-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/streets.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5b36eb38d140b39ad5ea24720c82632c8d30e131",
+      "sha256": "0c1abe95c96378d50acffc88477c5694fd8a715b32de66f586bdb4eac30f46c5",
+      "bytes": 6165,
+      "lines": 168,
+      "ranges": [
+        [
+          1,
+          167
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-traffic-context-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full source bytes retained. Source tests and fixtures were not executed; no future historical role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/streets/material.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "07d459ed8e3c2fa5942ea8d674a5f6c3fed72a75",
+      "sha256": "7166792f47fb4800916b03dd90a149033382ed4a4f2d2e7b058a1237a4586f71",
+      "bytes": 4776,
+      "lines": 153,
+      "ranges": [
+        [
+          36,
+          75
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-traffic-context-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full source bytes retained. Source tests and fixtures were not executed; no future historical role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/streets/mesh.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f609a21df0d7c3ca339cb41b5afd428a58cb28c0",
+      "sha256": "001e9ddd72769e824937e8765c48d3c42f9bf67f348ff62f258129019cd61f26",
+      "bytes": 12681,
+      "lines": 331,
+      "ranges": [
+        [
+          110,
+          166
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-traffic-context-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full source bytes retained. Source tests and fixtures were not executed; no future historical role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic/paths.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "60a7493f132391d69b3df95d6f66ab8f9685bcc7",
+      "sha256": "325f130f750218a5c1d23de280add6f1f8e101a349427bc68e47f306d4a0bfc8",
+      "bytes": 13044,
+      "lines": 325,
+      "ranges": [
+        [
+          1,
+          250
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-traffic-context-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full source bytes retained. Source tests and fixtures were not executed; no future historical role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic/tests.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "31dc7f28766823fca7fb885e51deb85c85230e28",
+      "sha256": "1c244b9eb9aefab83effd806c86bd999b7f56495eea1d48ebf72495b181187db",
+      "bytes": 7216,
+      "lines": 212,
+      "ranges": [
+        [
+          98,
+          130
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-traffic-context-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full source bytes retained. Source tests and fixtures were not executed; no future historical role or other-lens credit."
+    },
+    {
+      "path": "assets/shaders/tactical_city_ground.wgsl",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3a8c7dc0efa5526cb3a4de2f99048cfa09635634",
+      "sha256": "3bc0e8bdfb4aea730fbca506f80fd06afd9f410c658869396cc616d6c35c6a21",
+      "bytes": 10215,
+      "lines": 189,
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-traffic-context-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full source bytes retained. Source tests and fixtures were not executed; no future historical role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/art_demo/camera.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "db17c7715e457f4b52a2aeb626bf467b2d545935",
+      "sha256": "f224852ee3543e1c0825abbacf14ffcfe52d92a1b2bdddfdaa8645a12feff4de",
+      "bytes": 5933,
+      "lines": 179,
+      "ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-traffic-context-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full source bytes retained. Source tests and fixtures were not executed; no future historical role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/art_demo/scenery.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2844fa9d856f85c0e44de1d298151905234b5150",
+      "sha256": "95a004dde106af96c0cf9b12ff034f21fdca47458dcc594df12b52abac2c7857",
+      "bytes": 13999,
+      "lines": 365,
+      "ranges": [
+        [
+          34,
+          42
+        ],
+        [
+          111,
+          117
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-traffic-context-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full source bytes retained. Source tests and fixtures were not executed; no future historical role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/art_demo/exhibits.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7a203119f2c54068f3d66ac50e098f0b12322bb3",
+      "sha256": "5896675fcae039122783eb698deaed6685a79a3a2ae52bf861dc0bcfdb27d19c",
+      "bytes": 8312,
+      "lines": 275,
+      "ranges": [
+        [
+          99,
+          129
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-traffic-context-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full source bytes retained. Source tests and fixtures were not executed; no future historical role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/art_demo/residency.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9612a4328187256cbe142955b41b3e31d7c23472",
+      "sha256": "b45ee560c501d47400ffe19d3bb88989b9e88f70c3a8dae87d2893f3b9b4cc63",
+      "bytes": 12139,
+      "lines": 348,
+      "ranges": [
+        [
+          30,
+          46
+        ],
+        [
+          57,
+          105
+        ],
+        [
+          110,
+          142
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-traffic-context-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full source bytes retained. Source tests and fixtures were not executed; no future historical role or other-lens credit."
+    },
+    {
+      "path": "assets/art-demo/catalog.json",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "68323d77cb405046faf993693b3bcc9557394ca2",
+      "sha256": "765076511ef7f6d1e7ea00204088128519329399059e93ad89a53e5587192c37",
+      "bytes": 3626,
+      "lines": 154,
+      "ranges": [
+        [
+          128,
+          140
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-traffic-context-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full source bytes retained. Source tests and fixtures were not executed; no future historical role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/environment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3b4950e0711f02231d0c6f5434fc238f98d0bc65",
+      "sha256": "b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+      "bytes": 21534,
+      "lines": 577,
+      "ranges": [
+        [
+          176,
+          224
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-traffic-context-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full source bytes retained. Source tests and fixtures were not executed; no future historical role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2f2d500d8c8334accb9fea5059aa5bcc897d4a56",
+      "sha256": "ed476924038076fa25da5298c9bfb408b27eccc8210e5bbf01ddaa3c7cd6248d",
+      "bytes": 16427,
+      "lines": 411,
+      "ranges": [
+        [
+          317,
+          326
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-traffic-context-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full source bytes retained. Source tests and fixtures were not executed; no future historical role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/buildings/strategic.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e15d0d3d5b235063cb85789bf4462fe3b8bc2646",
+      "sha256": "c6448721576dbf02f9333d85245249b9eb8cfe4dfc3bd675d50f919d9e4af3cb",
+      "bytes": 710,
+      "lines": 24,
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-traffic-context-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full source bytes retained. Source tests and fixtures were not executed; no future historical role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/player.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ad8ef59e860df91568bb704b4e061e843dcb2447",
+      "sha256": "e58cbe13aa543aebd82995383e999d55e0e47b9885396f958282313316f4e37c",
+      "bytes": 33413,
+      "lines": 944,
+      "ranges": [
+        [
+          432,
+          487
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-traffic-context-evidence/support-14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full source bytes retained. Source tests and fixtures were not executed; no future historical role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ce5e205c98dc45232f19e7762729c8a9a59ebac4",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "bytes": 39530,
+      "lines": 1026,
+      "ranges": [
+        [
+          427,
+          468
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-traffic-context-evidence/support-15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full source bytes retained. Source tests and fixtures were not executed; no future historical role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/terrain_samples.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b45a3494a89213894d786b281bc4693736da2939",
+      "sha256": "d2ea661c716a406090f74c7caf955d7381bb8eee5f02850af42cd153b3fedd84",
+      "bytes": 3335,
+      "lines": 109,
+      "ranges": [
+        [
+          44,
+          55
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-traffic-context-evidence/support-16.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full source bytes retained. Source tests and fixtures were not executed; no future historical role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8a54b1049b5593d0d06440ec8bda5f08f28c4ef8",
+      "sha256": "2661ce950659807c47c0de4fdc769ba1ba79825c47ba2985fcec32d7e4f38390",
+      "bytes": 20452,
+      "lines": 553,
+      "ranges": [
+        [
+          91,
+          115
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-traffic-context-evidence/support-17.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full source bytes retained. Source tests and fixtures were not executed; no future historical role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene/admission.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6fa3f51f1e19db0e2af765358447300b6ffbe537",
+      "sha256": "c77986f9f9ff85cd6b4359792d8c28838b437942db2e61c92dc4104856e849cb",
+      "bytes": 3032,
+      "lines": 98,
+      "ranges": [
+        [
+          41,
+          85
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-traffic-context-evidence/support-18.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full source bytes retained. Source tests and fixtures were not executed; no future historical role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/surfaces.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0509b746b4c68920ab40476703adbb00f0b28135",
+      "sha256": "064e2fe3fc9294f655bfeaf2cd691d7277e6ad428a603ad1dbbf10aa42c18993",
+      "bytes": 4936,
+      "lines": 164,
+      "ranges": [
+        [
+          14,
+          93
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-traffic-context-evidence/support-19.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full source bytes retained. Source tests and fixtures were not executed; no future historical role or other-lens credit."
+    }
+  ],
+  "earlier_historical_source_identities": [
+    {
+      "original_index": 1672,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic/paths.rs",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "325f130f750218a5c1d23de280add6f1f8e101a349427bc68e47f306d4a0bfc8",
+      "bytes": 13044,
+      "lines": 325,
+      "git_blob": "60a7493f132391d69b3df95d6f66ab8f9685bcc7",
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "earlier_attribution": "Segovb Lens12 READ530 at6533, exact scope retained in recovered receipt.",
+      "new_personal_historical_full_read": false,
+      "additional_original_frontier_credit": 0,
+      "qualification": "Future historical role identity-proved only; current95e lines1–250 were separately inspected for wheel-stroke binning. No ordered historical or checkpoint3821 credit."
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Derived support index",
+      "trace": "GroundSupport invalidates its OnceLock after adding triangles; TriangleIndex builds one empty root even for an empty input. This narrows unsupported claims of a stale index or absent root in the inspected source.",
+      "remaining": "All native producers, bounds and overflow policies are not closed."
+    },
+    {
+      "contract": "Traffic bin gutters",
+      "trace": "Stroke bins include wheel radius, feather and one texel margin; an inspected test source asserts equal gutters for one shared network. Neither that test nor independently generated streamed neighboring masks were executed.",
+      "remaining": "The equality of independently selected neighbor networks and actual image/GPU behavior remains open."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "ADLER-L11-CITY-TRAFFIC-DISTANCE-FRAME",
+      "lens": 11,
+      "classification": "Recovered059 Adler traffic-distance reference-frame finding newly reassessed at95e; not a new historical finding.",
+      "canonical_owner": "Scene traffic mask residency policy, its scene-relative surface and the selected TacticalGameplayCamera frame.",
+      "first_failed_contract": "Traffic detail compares a global 3D camera position to a planar tile centre at fixed y=0 without naming the scene surface or an intentional overview datum.",
+      "trace": "The scene paving path builds tiles in scene east/north metres from retained support triangles and publishes each with default Transform. When StreamCityTraffic is present, it installs neutral masks, tags each scene tile and records CityTrafficResidency. The presentation plugin schedules residency update, which takes the first TacticalGameplayCamera GlobalTransform, retains tiles with distance from Vec3(tile centre east, 0, north) strictly below 110m, keeps at most one missing bake per update, and updates tile mask/material transform. Scene heights are documented as relative to tactical origin; validate_grid allows finite samples in [-12000,12000] and the SceneTerrain boundary separately checks finite samples. The local player hook associates the gameplay camera with the controlled player; the showcase has a separate orbit camera with high overview zoom.",
+      "symbolic_example": "If an otherwise supported scene places a street surface at relative y=120m and a gameplay camera at its tile centre at y=121m, the surface-to-camera separation is 1m but the current predicate computes 121m to the zero-height tile centre and does not want that tile. The grid numeric height check permits120, but a complete supported city, actor placement, camera state and all other admission and grounding constraints have not been established. This is a conditional source arithmetic example, not a running scene.",
+      "counterevidence": "The art showcase deliberately allows zooming to 2500m and may intentionally suppress close traffic detail for a high overview. A close viewpoint can differ from a view target, local player camera positioning and scene-specific terrain normalization need tracing, and a renderer or actual elevated scene was not observed. Focused regional-map paving is a separate path and explicitly starts neutral rather than installing actor traffic residency. The predicate may reflect an intended overview policy if its reference surface is explicit.",
+      "dependencies": [
+        "Prove actual scene/camera producer and permitted relative ground heights, including active camera and terrain transforms.",
+        "Decide ground-following versus high-overview behavior and document the distance datum without conflating geographic and actor-scene owners.",
+        "Trace material and image lifetimes, masks and other coordinate-frame findings before alias decisions."
+      ],
+      "acceptance_requirements": [
+        "Close surface views and intentional high overviews follow the documented traffic-detail policy at supported ground elevations and frames, while retaining the per-update bake budget and intentionally neutral focused-map mode."
+      ],
+      "discovery": "partial; earlier finding and current source connected, supported scene/camera witness and policy remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    },
+    {
+      "id": "REVIEW-CITY-TRAFFIC-NEUTRAL-SHOULDER-001",
+      "lens": 12,
+      "classification": "Newly assessed95e conditional material-channel question, connected to recovered Segovb pending queue1393; no historical finding or checkpoint3821 attribution.",
+      "canonical_owner": "TrafficMask neutral channel semantics jointly with the city-ground shader shoulder and surface-material contract.",
+      "first_failed_contract": "The neutral texture stores blue=0, while the shader interprets blue=0 as full street shoulder; no explicit validity flag or local-footprint fallback distinguishes absent traffic data from a baked outside-shoulder value.",
+      "trace": "TrafficMask::neutral creates a 1x1 Rgba8Unorm [0,0,0,255] image with zero transform. Streamed scene tiles initially use that mask and return to it when not wanted; spawn_focused independently starts all map paving with the same neutral mask and does not tag it for scene traffic streaming. CityGroundMaterial binds the mask and transform. For street/market footprint values the WGSL samples the blue channel and computes clamp(1-traffic.b+(broken-0.5)*0.20,0,1) as shoulder; soil_level includes 0.91 times this shoulder and the distance-averaged exposed fieldstone uses 1-smoothstep(0.02,0.82,soil_level). A baked market interior sufficiently far from edges writes blue255 through the clearance formula.",
+      "symbolic_example": "Assume a fieldstone market interior with valid footprint, zero traffic red and green, broken=0.5, zero deposits, activity wear and plaza-crossing wear, and a far fragment where resolved=0. With a standard sample of the neutral texture blue0, shoulder=1 and the stated soil expression is0.985, above0.82, giving exposed_average0. With an otherwise equal baked interior blue1, shoulder=0 and soil expression0.075, inside the smoothstep interval, so exposed_average is positive. This compares source expressions under stated inputs; it does not construct an image, execute WGSL or establish that a particular fragment meets these conditions.",
+      "prior_attribution_and_counterevidence": "Segovb READ530 at6533 explicitly described the neutral mode as valid while leaving the actual shader/channel and current/native policy pending in queue1393. Preserve that assessment rather than retroactively changing it. A neutral mask may intentionally choose a soil-heavy temporary or overview appearance; the focused path explicitly says traffic remains neutral until independently scheduled. Noise, wear, proximity and near-distance blending affect real material appearance. Actual asset binding, sampled values, shader execution, visibility, policy and whether this is a defect remain unverified.",
+      "dependencies": [
+        "Clarify the intended material appearance while masks are absent, streaming, retired or intentionally omitted.",
+        "Trace all shader consumers and texture/sampler/native binding semantics and determine whether absence needs an explicit state or another admitted fallback.",
+        "Compare existing distance-frame and material/render findings and reconcile aliases only on exact first-failure evidence."
+      ],
+      "acceptance_requirements": [
+        "Absent traffic detail preserves the documented street surface and shoulder policy, and switching between neutral and baked masks has an explicit and deterministic interpretation without invalidating intended regional-map behavior."
+      ],
+      "discovery": "partial; conditional shader-source interpretation differs from earlier preliminary neutral-mode assessment, policy and native outcome open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/88",
+        "/entries/1389",
+        "/entries/1390",
+        "/entries/1391",
+        "/entries/1392",
+        "/entries/1393"
+      ],
+      "qualification": "Partial source reassessments; exact reviewer attribution and unresolved native, policy and alias scope remain open."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointers": [
+        "/discovery_findings_and_dependencies/ADLER-L11-CITY-TRAFFIC-DISTANCE-FRAME"
+      ],
+      "qualification": "Original Adler finding and Segovb same-lens connection unchanged."
+    },
+    {
+      "file": "ASSESSMENT-CITY-GROUND-WIRE-ADMISSION-95E.json",
+      "qualification": "Preserves full recovered Adler READ240 and Segovb READ528 records and earlier future-role non-credit."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-529.json",
+      "sha256": "25ae8d0c835d3482a9bd01030b9a2161b71b6315147f0f710e3c348a4854a89b",
+      "bytes": 1247,
+      "git_blob": "03eef6eef52861a2beda538484814591ddb0a7da",
+      "preserved_bytes": "recovered/city-traffic-context-059/25ae8d0c835d3482a9bd01030b9a2161b71b6315147f0f710e3c348a4854a89b.gz",
+      "published_sha256": "25ae8d0c835d3482a9bd01030b9a2161b71b6315147f0f710e3c348a4854a89b",
+      "published_bytes": 1247,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-530.json",
+      "sha256": "8a52a1455b3dc903baebfffae3630bc7f1aab10e8de5aea113f0d22c97739fbf",
+      "bytes": 1756,
+      "git_blob": "9e3c50e334f2bfbb32642fbe9e2c185f03fb3878",
+      "preserved_bytes": "recovered/city-traffic-context-059/8a52a1455b3dc903baebfffae3630bc7f1aab10e8de5aea113f0d22c97739fbf.gz",
+      "published_sha256": "8a52a1455b3dc903baebfffae3630bc7f1aab10e8de5aea113f0d22c97739fbf",
+      "published_bytes": 1756,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-529.json",
+      "sha256": "55a257c060eda6e04bbc5d12d9f4994fc6884d5a08f1adab1038723e75ac2b9c",
+      "bytes": 9451,
+      "git_blob": "4d39b8a8c9168e7df428092b5b055442b6b3393f",
+      "preserved_bytes": "recovered/city-traffic-context-059/55a257c060eda6e04bbc5d12d9f4994fc6884d5a08f1adab1038723e75ac2b9c.gz",
+      "published_sha256": "55a257c060eda6e04bbc5d12d9f4994fc6884d5a08f1adab1038723e75ac2b9c",
+      "published_bytes": 9451,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Segovb Lens12 receipt at6533"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-530.json",
+      "sha256": "93502d4042b61aa50980192030a466e47dcfae355e0dcad86d0e5d5a5cae0dea",
+      "bytes": 12011,
+      "git_blob": "2185bf0fc28a02a052f28c17d70d6f1c5f24f2cf",
+      "preserved_bytes": "recovered/city-traffic-context-059/93502d4042b61aa50980192030a466e47dcfae355e0dcad86d0e5d5a5cae0dea.gz",
+      "published_sha256": "93502d4042b61aa50980192030a466e47dcfae355e0dcad86d0e5d5a5cae0dea",
+      "published_bytes": 12011,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Segovb Lens12 receipt at6533"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-575.json",
+      "sha256": "eef2956970beada583332a809a0358f49f76815be30e1fb9cb049c596ba43406",
+      "bytes": 1217,
+      "git_blob": "b3ba33833da8f8b379936b405b5835f473f26fdb",
+      "preserved_bytes": "recovered/city-traffic-context-059/eef2956970beada583332a809a0358f49f76815be30e1fb9cb049c596ba43406.gz",
+      "published_sha256": "eef2956970beada583332a809a0358f49f76815be30e1fb9cb049c596ba43406",
+      "published_bytes": 1217,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-576.json",
+      "sha256": "5423f556f58cfca14576c51419226f3d814b6d4e687f4d4f5d9df6d502be20b6",
+      "bytes": 1229,
+      "git_blob": "261ebda800f3f58fce07e8651dd977d8bc12e002",
+      "preserved_bytes": "recovered/city-traffic-context-059/5423f556f58cfca14576c51419226f3d814b6d4e687f4d4f5d9df6d502be20b6.gz",
+      "published_sha256": "5423f556f58cfca14576c51419226f3d814b6d4e687f4d4f5d9df6d502be20b6",
+      "published_bytes": 1229,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-577.json",
+      "sha256": "f2d207e679866fdcd9d7ca5b1d406d7d6bdcea19959efa6aba433e328bfd952b",
+      "bytes": 1211,
+      "git_blob": "4a72632fa0b89c0179d22f14e71f10f76682119b",
+      "preserved_bytes": "recovered/city-traffic-context-059/f2d207e679866fdcd9d7ca5b1d406d7d6bdcea19959efa6aba433e328bfd952b.gz",
+      "published_sha256": "f2d207e679866fdcd9d7ca5b1d406d7d6bdcea19959efa6aba433e328bfd952b",
+      "published_bytes": 1211,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-578.json",
+      "sha256": "7e0aeb0cbf6769504bcd2966ee0aa1a39cec00a5946b6b520e1ab3def2c34f61",
+      "bytes": 1221,
+      "git_blob": "253f2dc141ce12368f1300a4dfd3c813c8d1e7fd",
+      "preserved_bytes": "recovered/city-traffic-context-059/7e0aeb0cbf6769504bcd2966ee0aa1a39cec00a5946b6b520e1ab3def2c34f61.gz",
+      "published_sha256": "7e0aeb0cbf6769504bcd2966ee0aa1a39cec00a5946b6b520e1ab3def2c34f61",
+      "published_bytes": 1221,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-579.json",
+      "sha256": "4ac613f087bfc9465e3545b935f325137b10b11e91c0e125a440386ee2167d7d",
+      "bytes": 1223,
+      "git_blob": "da5c6765e335813bc36abe7259fa6cdb718097f2",
+      "preserved_bytes": "recovered/city-traffic-context-059/4ac613f087bfc9465e3545b935f325137b10b11e91c0e125a440386ee2167d7d.gz",
+      "published_sha256": "4ac613f087bfc9465e3545b935f325137b10b11e91c0e125a440386ee2167d7d",
+      "published_bytes": 1223,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-529.json",
+      "sha256": "668c562b6ed43622b68b2a22891f71a4b09fda9acc38a3bd6682e8b1874ae3ad",
+      "bytes": 840,
+      "git_blob": "b3f30aed7dc5ebbaaf0950cca5f5a679f3a4f897",
+      "preserved_bytes": "recovered/city-traffic-context-059/668c562b6ed43622b68b2a22891f71a4b09fda9acc38a3bd6682e8b1874ae3ad.gz",
+      "published_sha256": "668c562b6ed43622b68b2a22891f71a4b09fda9acc38a3bd6682e8b1874ae3ad",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-530.json",
+      "sha256": "9c4acdb8b1e3974dd6ece32acb26779ebe0212a8c4f9cc55d9d49023afe53069",
+      "bytes": 840,
+      "git_blob": "7fc6d204c403c9b54cb9f5d0e560e51d75b48eaf",
+      "preserved_bytes": "recovered/city-traffic-context-059/9c4acdb8b1e3974dd6ece32acb26779ebe0212a8c4f9cc55d9d49023afe53069.gz",
+      "published_sha256": "9c4acdb8b1e3974dd6ece32acb26779ebe0212a8c4f9cc55d9d49023afe53069",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-529.json",
+      "sha256": "bfc7a19cabe0a92bf5c01b9c5ba9ea97528871ccc20a939e184a6c14dd9a5c69",
+      "bytes": 558,
+      "git_blob": "dfca4ed087e838f1c670f221c49e3d1d8eff3b3b",
+      "preserved_bytes": "recovered/city-traffic-context-059/bfc7a19cabe0a92bf5c01b9c5ba9ea97528871ccc20a939e184a6c14dd9a5c69.gz",
+      "published_sha256": "bfc7a19cabe0a92bf5c01b9c5ba9ea97528871ccc20a939e184a6c14dd9a5c69",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-530.json",
+      "sha256": "b218e533de578c2fea68900953effc8f96b9bdbd89e5ebae814220e2d5de0228",
+      "bytes": 558,
+      "git_blob": "8a9ee5ac40058279151a0edba49ba795f46e7e2e",
+      "preserved_bytes": "recovered/city-traffic-context-059/b218e533de578c2fea68900953effc8f96b9bdbd89e5ebae814220e2d5de0228.gz",
+      "published_sha256": "b218e533de578c2fea68900953effc8f96b9bdbd89e5ebae814220e2d5de0228",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    }
+  ],
+  "remaining": "Trace actual active scene, camera/surface datum, rendering policy, texture/sampler and asset lifetimes, original1672 onward, all13 lenses, semantic queue and aliases. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

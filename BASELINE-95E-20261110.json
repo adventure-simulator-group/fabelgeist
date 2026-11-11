@@ -4313,8 +4313,37 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-CITY-GROUND-WIRE-ADMISSION-95E.json"
+      },
+      {
+        "id": "ADLER-L11-CITY-TRAFFIC-DISTANCE-FRAME",
+        "lens": 11,
+        "severity": "unassigned; conditional source and policy question",
+        "classification": "Recovered059 Adler traffic-distance reference-frame finding newly reassessed at95e; not a new historical finding.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/88",
+          "baseline-059/queue.json#/entries/1389"
+        ],
+        "relationship_qualification": "Same recovered059 Adler finding, with Segovb Lens12 prior connection; current source and counterevidence added without historical unique-count change.",
+        "discovery": "partial; earlier finding and current source connected, supported scene/camera witness and policy remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-CITY-TRAFFIC-CONTEXT-95E.json"
+      },
+      {
+        "id": "REVIEW-CITY-TRAFFIC-NEUTRAL-SHOULDER-001",
+        "lens": 12,
+        "severity": "unassigned; conditional source and policy question",
+        "classification": "Newly assessed95e conditional material-channel question, connected to recovered Segovb pending queue1393; no historical finding or checkpoint3821 attribution.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1393"
+        ],
+        "relationship_qualification": "New source-only material-channel question connected to a broader recovered pending contract; Segovb preliminary valid-neutral statement retained. Exact alias and intended appearance remain open.",
+        "discovery": "partial; conditional shader-source interpretation differs from earlier preliminary neutral-mode assessment, policy and native outcome open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-CITY-TRAFFIC-CONTEXT-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0836.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0842.json"
 }
