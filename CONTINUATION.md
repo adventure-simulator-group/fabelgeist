@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-1519.json`).
+2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-1525.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -275,6 +275,8 @@ module composition and evidence state without expanding current coverage.
 face admission, paving support and conditional small-face filtering.
 `ASSESSMENT-VISTA-SURFACE-FRAMES-95E.json` traces conditional owned
 surface origins and sampled-tree seam heights, preserving earlier attribution.
+`ASSESSMENT-WORLD-SCHEMA-ADMISSION-95E.json` connects offline
+travel-point admission, religion hours, route context and tree-profile limits.
 `ASSESSMENT-LANGUAGE-ADMISSION-95E.json` reconnects language
 initialization and traces conditional written-hour and party-identity cases.
 `ASSESSMENT-CALENDAR-ECONOMY-95E.json` reconnects calendar

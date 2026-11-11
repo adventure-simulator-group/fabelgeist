@@ -1,0 +1,184 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2164,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original scoped PR-working body matches committed6533 and95e for this exact source identity; no other reviewer or lens credit follows.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2164",
+      "original_supplier_scopes": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 393,
+          "read_ranges": [
+            [
+              2670,
+              2735
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+          "row": 16,
+          "read_ranges": [
+            [
+              130,
+              330
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+          "row": 40,
+          "read_ranges": [
+            [
+              2990,
+              3080
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+          "row": 55,
+          "read_ranges": [
+            [
+              1,
+              330
+            ],
+            [
+              2990,
+              3080
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+          "row": 98,
+          "read_ranges": [
+            [
+              1825,
+              1888
+            ]
+          ]
+        }
+      ],
+      "historical_requested_union": [
+        [
+          1,
+          330
+        ],
+        [
+          1633,
+          1690
+        ],
+        [
+          1768,
+          1909
+        ],
+        [
+          2670,
+          3510
+        ]
+      ],
+      "separately_registered_historical_enum_tail": [
+        [
+          331,
+          333
+        ]
+      ],
+      "new_connected_import_range": [
+        [
+          3798,
+          3901
+        ]
+      ],
+      "new_connected_remainder_ranges": [
+        [
+          334,
+          1632
+        ],
+        [
+          1691,
+          1767
+        ],
+        [
+          1910,
+          2669
+        ],
+        [
+          3511,
+          3797
+        ],
+        [
+          3902,
+          4796
+        ]
+      ],
+      "new_personal_read_ranges": [
+        [
+          1,
+          4796
+        ]
+      ],
+      "local_registrations": [
+        {
+          "path": "REGISTRATION-L01-2164-ORDERED-AND-ENUM.json",
+          "sha256": "5a1a2fa56d97bbef01997028015c4e2eb80392ea30a02c823e4e4125171c340e"
+        },
+        {
+          "path": "REGISTRATION-L01-2164-IMPORT-CONTEXT.json",
+          "sha256": "4b4c1725d4e1ec27010531482cc42a545261464fc934c1ba025dcd96dca4559f"
+        },
+        {
+          "path": "REGISTRATION-L01-2164-CONNECTED-REMAINDER.json",
+          "sha256": "384a864c00e17a993b2fbaaecc58d98263c72521dc97b7bed193cefc3c4c70ec"
+        }
+      ],
+      "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "lines": 4796,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "WORLD-SCHEMA-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "prior_separate_current_support": [
+        "ASSESSMENT-CALENDAR-ECONOMY-95E.json",
+        "ASSESSMENT-LANGUAGE-ADMISSION-95E.json"
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-world-schema/src/lib.rs",
+        "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+        "bytes": 172137,
+        "lines": 4796,
+        "git_blob": "457b4b0f8a3ef81218680f80fa91573f8faaaaf3",
+        "preserved_bytes": "main-advance-95e/world-schema-evidence/current-2164.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            4796
+          ]
+        ],
+        "qualification": "Entire historical body displayed across separately registered scopes; same current bytes add no second reviewer or other-lens credit."
+      },
+      "qualification": "Historical supplier and reviewer ranges remain unchanged; newly registered full-body read adds no historical checkpoint3821 or other-lens coverage."
+    }
+  ],
+  "observations": [
+    "All4796 historical lines personally displayed in bounded untruncated segments, including original union, separately registered enum tail and separately registered connected remainder; source tests were read, not executed. Earlier selected current supporting excerpts are retained as such and add no additional reviewer credit.",
+    "Original Lens12 adoption722 retains delegate, zero root rereads, scoped1–330/1633–1690/1768–1909/2670–3510 and no whole-file claim. Adler340 and root Lens3 separately assessed those ranges plus registered331–333; Adler explicitly discarded a truncated combined attempt before bounded rereads. Neither earlier reviewer is credited with the newly read remainder. Local registration timestamps are not independent third-party attestation."
+  ],
+  "qualification": "Original scoped evidence, new full-body read and prior attributions remain distinct; no checkpoint3821 claim.",
+  "next_original_role": 2165
+}
