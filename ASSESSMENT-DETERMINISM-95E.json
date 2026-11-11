@@ -1,0 +1,1339 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2248–2250 determinism bodies, Adler220/357 and delegate724/742 attribution, prior e275 Lens1/partial native evidence and selected current sampling callers.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2248-2250.json",
+  "git_membership_evidence": "DETERMINISM-HISTORICAL-GIT-PROOFS.json",
+  "older_own_lens_git_membership_evidence": "DETERMINISM-OLD-L1-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/fabelgeist-determinism/Cargo.toml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "05aeacca8e215bf71d17ef8a769e71b811a51cb1",
+      "sha256": "c39a8a5055ca88572a587d0eadbde46eeb889d9060ec6b8930f59bfb76e44303",
+      "bytes": 692,
+      "lines": 26,
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/determinism-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No other-lens or future original-role credit transferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/movement_audio.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b4de634e7a6d0034e40b46f8ff11ddad71bdf3ed",
+      "sha256": "7ade134423ab664c74bf4e2ad2b793332a17722ba4bc589521ac416a72b412ae",
+      "bytes": 11279,
+      "lines": 333,
+      "ranges": [
+        [
+          218,
+          240
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/determinism-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No other-lens or future original-role credit transferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/sound_output.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ac15c624f5610b25cb2b2d4930882c73ad75d990",
+      "sha256": "6535f894c764e5177f163a603eb7c5b06be48c02c0a98776a388d492f6389515",
+      "bytes": 4884,
+      "lines": 146,
+      "ranges": [
+        [
+          87,
+          108
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/determinism-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No other-lens or future original-role credit transferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection/spawn_admission.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e41ded70709805c037dc14f912a4e36695d3a595",
+      "sha256": "036e9735654b7050eab0212a18012e9ade1badc0ceebe3f5c093235c48ff228f",
+      "bytes": 3929,
+      "lines": 108,
+      "ranges": [
+        [
+          67,
+          78
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/determinism-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No other-lens or future original-role credit transferred."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/profile.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "94c77ead5e0ec3fd7bfb76a9063ca7dc2125e03e",
+      "sha256": "765a5b37cbc4ffd63fff90bddf75a154a779a77bc8dbfd6d26d1bbf929c8fd9e",
+      "bytes": 28065,
+      "lines": 789,
+      "ranges": [
+        [
+          84,
+          116
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/determinism-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No other-lens or future original-role credit transferred."
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b890bfd0f628b3aae3d417cb8d0a4070bf7b3117",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "bytes": 12051,
+      "lines": 192,
+      "ranges": [
+        [
+          120,
+          127
+        ],
+        [
+          141,
+          147
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/determinism-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No other-lens or future original-role credit transferred."
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          8573,
+          8602
+        ],
+        [
+          8668,
+          8675
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/determinism-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No other-lens or future original-role credit transferred."
+    }
+  ],
+  "native_reference_sources": [
+    {
+      "path": "native-evidence/rand-0.9.5/rand-0.9.5.crate",
+      "sha256": "b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41",
+      "manifest": "native-evidence/rand-0.9.5/MANIFEST.json",
+      "qualification": "Earlier weighted prefixes and uniform prefixes preserve exact004 attribution; current bounded native source inspection includes weighted/mod40–100, weighted_index90–130, uniform_int1–90 and92–199. No sampler ran."
+    },
+    {
+      "path": "native-evidence/rand_xoshiro-0.7.0/rand_xoshiro-0.7.0.crate",
+      "sha256": "f703f4665700daf5512dcca5f43afa6af89f09db47fb56be587f80636bda2d41",
+      "manifest": "native-evidence/rand_xoshiro-0.7.0/MANIFEST.json",
+      "qualification": "Earlier e275 Lens1 qualified prefix1–77 from its partial; full source archive and licenses preserved. No native RNG executed."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-NAME-CATALOG-95E.json",
+    "ASSESSMENT-READBACK-SORT-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Original independent and adopted reads",
+      "trace": "Adler357 records no fresh body reads for original2248–2250; it adopted the earlier Adler220 registered reads, including two ranges for seed. Lens12 delegate742 freshly read lib and seed, but qualified the earlier separately registered delegate724 stream body with zero new rereads. The original Lens12 root adoption recorded zero personal rereads. The later delegate742 correction says the exact derivation literal is fabelgeist.determinism.seed.v1; a trailing source line number was not part of the literal.",
+      "remaining": "No prior read is promoted to checkpoint3821. Historical supplier, delegate, root, e275 and new95e source displays retain exact separate attribution and count qualifications."
+    },
+    {
+      "contract": "Sampling and native error taxonomy",
+      "trace": "DeterministicRng uses fixed-width SplitMix64 and constructs a Rand Uniform for a NonZeroU64 upper bound. The exact locked Rand0.9.5 integer constructor rejects low>=high, and its constructed sampler uses a rejection loop; separate sample_single has a different bias policy. WeightedIndex<u64>::new checks empty input, zero total and checked sum overflow; an unsigned input cannot satisfy its negative-or-NaN InvalidWeight predicate. First-party SamplingError owns three error categories before the already recorded naming adapter stringifies them. The current movement-audio call passes SoundFamily::TAKES=3 to index.",
+      "remaining": "Prior e275 Lens1 recorded the same narrow native source rejection and nonempty audio precondition, not a global caller or randomness proof. Production expect calls at index, boolean and sample_below directly conflict with crates/AGENTS.md even where selected input makes their failure branches unreachable. index documents a nonempty caller precondition. Actual caller admission, compiler profile, feature resolution, final consumers and overall policy remain open. No RNG, hash, weighted sampler or test ran."
+    },
+    {
+      "contract": "Finite ordered range and arithmetic",
+      "trace": "range_f32 checks both endpoints finite and minimum<=maximum, then computes minimum + unit*(maximum-minimum) in f32. For hypothetical -f32::MAX to +f32::MAX, each input meets that admission but the exact positive span is twice the largest finite f32. Under ordinary IEEE binary32 overflow semantics, the intermediate difference is infinite; with a hypothetical unit draw0, zero times infinity is NaN, and with a positive draw it is infinite. Earlier q662 already recorded this opposite-sign extreme-range issue as unresolved.",
+      "remaining": "No numerical operation, draw or test ran and no specific RNG seed or application caller has been shown to reach the extreme bounds. The current tactical spawn uses [-5,5], while selected strategic profile calls use small fixed spreads, so they do not establish the extreme witness. Equal endpoint, output upper-bound rounding and error policy remain design questions, not inferred new defects. This is separate from integer Uniform and prior MHR clamp."
+    },
+    {
+      "contract": "Seed and stream ownership",
+      "trace": "StreamId wraps a nonempty static purpose; Seed derives a length-framed hash over root bytes, stream name and ordered context fields. StreamId::seed supplies fixed-width little-endian u64 context. Current source Hash feeds explicit canonical byte array, while Ord compares numeric words. Some distinct source sites intentionally repeat a stream purpose for the same underlying identity or phase; matching a String does not by itself prove an unwanted alias.",
+      "remaining": "No hash or random value was computed. Context slot identity, namespace reuse and all actual producers/consumers remain open. A blind derived Hash could change hasher input; any derive suggestion must preserve exact byte behavior. Native Rand0.8 integration remains the SpacetimeDB transaction boundary, not evidence of a legacy compatibility shim."
+    },
+    {
+      "contract": "Earlier e275 native and partial-read scope",
+      "trace": "The earlier Lens1 READ004 preserved a partial receipt: Cargo manifest, weighted module/index and SplitMix64 prefixes had qualified earlier same-lens reads and zero new reads at004; uniform1–488 and uniform_int1–595 were fresh at004. Excluded native test/tails are retained as unread in that scope. The exact e275 Cargo.lock hash58118... and both Cargo-locked Rand and rand_xoshiro archives are independently bound; the current95e Cargo.lock has a different complete hash but matching selected package checksums.",
+      "remaining": "Neither native archive retention nor equal byte hashes retroactively increases historical read scope or proves runtime behavior; exact full feature resolution and uninspected native tails stay open."
+    }
+  ],
+  "reconnected_historical_findings": [
+    {
+      "id": "Q-L1-64c44b9147016afcc221",
+      "queue": 646,
+      "qualification": "Earlier Lens1 caller, native sampling and production-expect question, not blanket runtime failure."
+    },
+    {
+      "id": "Q-L1-c356cec832d5514e0721",
+      "queue": 662,
+      "qualification": "Earlier Lens1 finite opposite-sign range question; extreme symbolic example refines it without new unique finding."
+    }
+  ],
+  "new_current_candidates": [],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-220.json",
+      "sha256": "5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389",
+      "bytes": 22794,
+      "git_blob": "952796dee871a39c4b4718abe1f720b50bb7332d",
+      "preserved_bytes": "recovered/determinism-059/5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389.gz",
+      "published_sha256": "5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389",
+      "published_bytes": 22794,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler earlier independently read same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-341.json",
+      "sha256": "dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba",
+      "bytes": 19496,
+      "git_blob": "16c3ce74bf3d77eac3003c6b461bcdc72a99a6c6",
+      "preserved_bytes": "recovered/determinism-059/dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba.gz",
+      "published_sha256": "dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba",
+      "published_bytes": 19496,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler earlier independently read same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-355.json",
+      "sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "bytes": 15195,
+      "git_blob": "3bf9dd51f997220de36ab9528a052022572cb545",
+      "preserved_bytes": "recovered/determinism-059/05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207.gz",
+      "published_sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "published_bytes": 15195,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler earlier independently read same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-356.json",
+      "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "bytes": 24598,
+      "git_blob": "15a9edc19d117a4470ab7e4837f4c3e753517b00",
+      "preserved_bytes": "recovered/determinism-059/f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c.gz",
+      "published_sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "published_bytes": 24598,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler earlier independently read same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-357.json",
+      "sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "bytes": 8858,
+      "git_blob": "b94f820a6f2779d892638a70cec91d691ea25e25",
+      "preserved_bytes": "recovered/determinism-059/6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6.gz",
+      "published_sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "published_bytes": 8858,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler ordered adoption with zero fresh reads"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-396.json",
+      "sha256": "d8ba3effd0b6c8a15e8725bf0d2b110070db3edb3121bd1c432faa4f0331c8e7",
+      "bytes": 740,
+      "git_blob": "6242f914920984ca46f6df35ea08ab58ca8776ac",
+      "preserved_bytes": "recovered/determinism-059/d8ba3effd0b6c8a15e8725bf0d2b110070db3edb3121bd1c432faa4f0331c8e7.gz",
+      "published_sha256": "d8ba3effd0b6c8a15e8725bf0d2b110070db3edb3121bd1c432faa4f0331c8e7",
+      "published_bytes": 740,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prior prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-397.json",
+      "sha256": "5e69b20fe0e8d632ea4b88a592bb403586252ec26e018f6b0a36517683387a40",
+      "bytes": 742,
+      "git_blob": "0797696843a3d3e074e93a1a3a89f949b4796348",
+      "preserved_bytes": "recovered/determinism-059/5e69b20fe0e8d632ea4b88a592bb403586252ec26e018f6b0a36517683387a40.gz",
+      "published_sha256": "5e69b20fe0e8d632ea4b88a592bb403586252ec26e018f6b0a36517683387a40",
+      "published_bytes": 742,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prior prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-398.json",
+      "sha256": "73368b8a2eef674346be85ffbffc3510104a814227b6f9d2f52a042feb546601",
+      "bytes": 738,
+      "git_blob": "c8647825c20b254a67e198d1b569dfac0e3fbf7d",
+      "preserved_bytes": "recovered/determinism-059/73368b8a2eef674346be85ffbffc3510104a814227b6f9d2f52a042feb546601.gz",
+      "published_sha256": "73368b8a2eef674346be85ffbffc3510104a814227b6f9d2f52a042feb546601",
+      "published_bytes": 738,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prior prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-357.json",
+      "sha256": "399963e15df81020ba7881d5c79cfda844e77db7234cd66ea28d5c8ddfd529b3",
+      "bytes": 635,
+      "git_blob": "939627005d26a66717a5a8bb1c97e6eb66ac7cf3",
+      "preserved_bytes": "recovered/determinism-059/399963e15df81020ba7881d5c79cfda844e77db7234cd66ea28d5c8ddfd529b3.gz",
+      "published_sha256": "399963e15df81020ba7881d5c79cfda844e77db7234cd66ea28d5c8ddfd529b3",
+      "published_bytes": 635,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-357.json",
+      "sha256": "3a4d30a33170befaeeef95d5a32f914ae95942b9b7c2f590a652305fea5efe71",
+      "bytes": 33175,
+      "git_blob": "e5286dd741852361cb1d227d1104d7d3db22aff1",
+      "preserved_bytes": "recovered/determinism-059/3a4d30a33170befaeeef95d5a32f914ae95942b9b7c2f590a652305fea5efe71.gz",
+      "published_sha256": "3a4d30a33170befaeeef95d5a32f914ae95942b9b7c2f590a652305fea5efe71",
+      "published_bytes": 33175,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-742.json",
+      "sha256": "2b4d5a6eb4c7e1b535edecb658be120362b41fc90e9df5b4ad4d8840894151e0",
+      "bytes": 15522,
+      "git_blob": "a6e74e0534954393bf6f7b92af4bd83ec4ba7d52",
+      "preserved_bytes": "recovered/determinism-059/2b4d5a6eb4c7e1b535edecb658be120362b41fc90e9df5b4ad4d8840894151e0.gz",
+      "published_sha256": "2b4d5a6eb4c7e1b535edecb658be120362b41fc90e9df5b4ad4d8840894151e0",
+      "published_bytes": 15522,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-742-SEED-CONTEXT-LITERAL.json",
+      "sha256": "f5b92ba1588f7fc04a6b059291441c6d32455fce17b680a9ce67e280224cb951",
+      "bytes": 873,
+      "git_blob": "3f8009d7a9f29a8f0a300f2d92fcbe9081c7e5f5",
+      "preserved_bytes": "recovered/determinism-059/f5b92ba1588f7fc04a6b059291441c6d32455fce17b680a9ce67e280224cb951.gz",
+      "published_sha256": "f5b92ba1588f7fc04a6b059291441c6d32455fce17b680a9ce67e280224cb951",
+      "published_bytes": 873,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original additive qualification or connected tail"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-ORIGINAL2247-WINDOWS-TAIL.json",
+      "sha256": "6c9224750ae46e697b1dbd05d53f73a953bdf1c211d941c50a3b4e90b81d2c3d",
+      "bytes": 1371,
+      "git_blob": "b027d596b56d0cce14b3d50ddc42876c414d043c",
+      "preserved_bytes": "recovered/determinism-059/6c9224750ae46e697b1dbd05d53f73a953bdf1c211d941c50a3b4e90b81d2c3d.gz",
+      "published_sha256": "6c9224750ae46e697b1dbd05d53f73a953bdf1c211d941c50a3b4e90b81d2c3d",
+      "published_bytes": 1371,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original additive qualification or connected tail"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-ORIGINAL2247-WINDOWS.json",
+      "sha256": "df3f7c77faaccecca4be0a26c6a83b89fcc26be119a3f2e2c296e07d0da6ad0d",
+      "bytes": 928,
+      "git_blob": "99bed5446ed310a646a5ef7a540c65bd40e0ef50",
+      "preserved_bytes": "recovered/determinism-059/df3f7c77faaccecca4be0a26c6a83b89fcc26be119a3f2e2c296e07d0da6ad0d.gz",
+      "published_sha256": "df3f7c77faaccecca4be0a26c6a83b89fcc26be119a3f2e2c296e07d0da6ad0d",
+      "published_bytes": 928,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original additive qualification or connected tail"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-724-ORIGINAL2250.json",
+      "sha256": "7e33b25dd35263fe8208b5ce4f4ae91422450a2645c7099f12f366d87802cdc3",
+      "bytes": 3289,
+      "git_blob": "ea780f0a7201f35ef2c8453ffa9baf4edede51d9",
+      "preserved_bytes": "recovered/determinism-059/7e33b25dd35263fe8208b5ce4f4ae91422450a2645c7099f12f366d87802cdc3.gz",
+      "published_sha256": "7e33b25dd35263fe8208b5ce4f4ae91422450a2645c7099f12f366d87802cdc3",
+      "published_bytes": 3289,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate724 earlier full stream read, zero original credit at that time"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-742-ORIGINAL2247-TAIL.json",
+      "sha256": "13428231ffe7ef38d06c1f5c31eefe5c4e58949fe53e8485b7720842519ae8d8",
+      "bytes": 1992,
+      "git_blob": "d507e0e80631ba7374799b596c292df712c54b5f",
+      "preserved_bytes": "recovered/determinism-059/13428231ffe7ef38d06c1f5c31eefe5c4e58949fe53e8485b7720842519ae8d8.gz",
+      "published_sha256": "13428231ffe7ef38d06c1f5c31eefe5c4e58949fe53e8485b7720842519ae8d8",
+      "published_bytes": 1992,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original additive qualification or connected tail"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-121-CONNECTED-ORIGINAL2250.json",
+      "sha256": "1c31b214dd059ff1a937c7b8b2a43eaa48f4d8e61a215297d509f4a0d313b02b",
+      "bytes": 908,
+      "git_blob": "9e47ee8bea0651bb5b8d8193d2a177f665302a4b",
+      "preserved_bytes": "recovered/determinism-059/1c31b214dd059ff1a937c7b8b2a43eaa48f4d8e61a215297d509f4a0d313b02b.gz",
+      "published_sha256": "1c31b214dd059ff1a937c7b8b2a43eaa48f4d8e61a215297d509f4a0d313b02b",
+      "published_bytes": 908,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate724 stream registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-201.json",
+      "sha256": "27e8d252f25de3278b688a50c9fc8b4a705f587238e4d630ad2a51988207f65c",
+      "bytes": 1116,
+      "git_blob": "7455dad4392d8cbc867578767ad77912534c3698",
+      "preserved_bytes": "recovered/determinism-059/27e8d252f25de3278b688a50c9fc8b4a705f587238e4d630ad2a51988207f65c.gz",
+      "published_sha256": "27e8d252f25de3278b688a50c9fc8b4a705f587238e4d630ad2a51988207f65c",
+      "published_bytes": 1116,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate adopted registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-202.json",
+      "sha256": "a38389fa96b76e347b7c2fc2d2291863c53f2415bb5dc3a62f9878562a28f4c8",
+      "bytes": 765,
+      "git_blob": "27e59364f5f13d951671fff5a973d81bbc9d5894",
+      "preserved_bytes": "recovered/determinism-059/a38389fa96b76e347b7c2fc2d2291863c53f2415bb5dc3a62f9878562a28f4c8.gz",
+      "published_sha256": "a38389fa96b76e347b7c2fc2d2291863c53f2415bb5dc3a62f9878562a28f4c8",
+      "published_bytes": 765,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate adopted registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-203.json",
+      "sha256": "72df18c467d27e7ff31a5b1414a912a906da185ef00ed2649c2ce5f51b2ea87f",
+      "bytes": 769,
+      "git_blob": "3ed956407a605a4597933ad33003c1960a2a0540",
+      "preserved_bytes": "recovered/determinism-059/72df18c467d27e7ff31a5b1414a912a906da185ef00ed2649c2ce5f51b2ea87f.gz",
+      "published_sha256": "72df18c467d27e7ff31a5b1414a912a906da185ef00ed2649c2ce5f51b2ea87f",
+      "published_bytes": 769,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate adopted registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-204-CONNECTED-ORIGINAL2247-TAIL.json",
+      "sha256": "a49cee9cf69d049677412bdbd4e0636b85008a37f07b77efca6404cb7af2bb9e",
+      "bytes": 1339,
+      "git_blob": "f2fec6b41f85d12516a11188a9a5df167aac2f40",
+      "preserved_bytes": "recovered/determinism-059/a49cee9cf69d049677412bdbd4e0636b85008a37f07b77efca6404cb7af2bb9e.gz",
+      "published_sha256": "a49cee9cf69d049677412bdbd4e0636b85008a37f07b77efca6404cb7af2bb9e",
+      "published_bytes": 1339,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate adopted registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/PARTIAL-ROOT-L1-CURRENT-004-001.json",
+      "sha256": "138700d2ce0f7ab650500db95d7e3217d6e18c8023d43cae4a294f56fe48fa99",
+      "bytes": 7571,
+      "git_blob": "c3ac555ed2775bc20bdb607254f3333ef268b931",
+      "preserved_bytes": "recovered/determinism-059/138700d2ce0f7ab650500db95d7e3217d6e18c8023d43cae4a294f56fe48fa99.gz",
+      "published_sha256": "acc565b767dda6c8bdb40dfacd12484ba841465f6ad78ced7d40443f34995e55",
+      "published_bytes": 7237,
+      "redacted_local_path_occurrences": 4,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original e275 partial receipt for no-reread qualification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-001.json",
+      "sha256": "4092a753424c8072df366ad8d249a1807c797c0f06625771bb576fe7d2070035",
+      "bytes": 14452,
+      "git_blob": "ced956810785b794d8bee9bdcedf30eafc03ff1c",
+      "preserved_bytes": "recovered/determinism-059/4092a753424c8072df366ad8d249a1807c797c0f06625771bb576fe7d2070035.gz",
+      "published_sha256": "4092a753424c8072df366ad8d249a1807c797c0f06625771bb576fe7d2070035",
+      "published_bytes": 14452,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue646 direct historical records; retain exact revisions and attributions",
+        "Original059 queue646 direct historical records; retain exact revisions and attributions",
+        "Original059 queue646 direct historical records; retain exact revisions and attributions",
+        "Original059 queue646 direct historical records; retain exact revisions and attributions",
+        "Original059 queue646 direct historical records; retain exact revisions and attributions",
+        "Original059 queue646 direct historical records; retain exact revisions and attributions",
+        "Original e275 Lens1 source receipt"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-004.json",
+      "sha256": "d044dff810842c0f385bd097e70f5995fd6248a53022615df1bc6a2e6de00225",
+      "bytes": 19843,
+      "git_blob": "656ad290b5cc911c13e16d64ad527fd8ace49e3c",
+      "preserved_bytes": "recovered/determinism-059/d044dff810842c0f385bd097e70f5995fd6248a53022615df1bc6a2e6de00225.gz",
+      "published_sha256": "a7dbfb0aec61b0894d9a4b189a1cc94e03a59efb65eab9000839a6aae3f0a8ee",
+      "published_bytes": 18980,
+      "redacted_local_path_occurrences": 10,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 queue662 direct historical records; retain exact revisions and attributions",
+        "Original059 queue662 direct historical records; retain exact revisions and attributions",
+        "Original059 queue662 direct historical records; retain exact revisions and attributions",
+        "Original059 queue662 direct historical records; retain exact revisions and attributions",
+        "Original059 queue662 direct historical records; retain exact revisions and attributions",
+        "Original059 queue662 direct historical records; retain exact revisions and attributions",
+        "Original059 queue662 direct historical records; retain exact revisions and attributions",
+        "Original e275 Lens1 source receipt"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/REGISTRATION-ROOT-L1-CURRENT-001.json",
+      "sha256": "99734802c2ae460015472693e2bafd2ff9b0c5f83069aedf128310b7e57146ba",
+      "bytes": 5034,
+      "git_blob": "bf5c46deedc620857e6ccb49acbf04b373ec6a79",
+      "preserved_bytes": "recovered/determinism-059/99734802c2ae460015472693e2bafd2ff9b0c5f83069aedf128310b7e57146ba.gz",
+      "published_sha256": "99734802c2ae460015472693e2bafd2ff9b0c5f83069aedf128310b7e57146ba",
+      "published_bytes": 5034,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original e275 Lens1 prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/REGISTRATION-ROOT-L1-CURRENT-004.json",
+      "sha256": "1f373b37f53fc91b975e2a8e9a899c2329fd8bc1e658b1b6cbd0e11f8f0731e2",
+      "bytes": 9431,
+      "git_blob": "2d1b531028783d79f12a4de9107dedadf6beb8a3",
+      "preserved_bytes": "recovered/determinism-059/1f373b37f53fc91b975e2a8e9a899c2329fd8bc1e658b1b6cbd0e11f8f0731e2.gz",
+      "published_sha256": "2d2afaf109a2f7b17d3599aae5bd23e1e2ff5bada19f008a2dcfbc0f3344e03e",
+      "published_bytes": 8568,
+      "redacted_local_path_occurrences": 10,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original e275 Lens1 prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/objects/04efcc061e1904b824e3feb68541c4e8259a46ecd2c118af6fb383b3ad37f73c",
+      "sha256": "04efcc061e1904b824e3feb68541c4e8259a46ecd2c118af6fb383b3ad37f73c",
+      "bytes": 21611,
+      "git_blob": "b59fdbf790b4d92e5e51cbc5fe0a99be8b58d828",
+      "preserved_bytes": "recovered/determinism-059/04efcc061e1904b824e3feb68541c4e8259a46ecd2c118af6fb383b3ad37f73c.gz",
+      "published_sha256": "04efcc061e1904b824e3feb68541c4e8259a46ecd2c118af6fb383b3ad37f73c",
+      "published_bytes": 21611,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original e275 receipt source object, credited only as original scope states"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/objects/30c620bc9d74263162de2e0755ae4b323abce1d6aa22c00d1b9de378480f22c0",
+      "sha256": "30c620bc9d74263162de2e0755ae4b323abce1d6aa22c00d1b9de378480f22c0",
+      "bytes": 34184,
+      "git_blob": "4a872b0c87d22d98c8301f2b1987b12464385197",
+      "preserved_bytes": "recovered/determinism-059/30c620bc9d74263162de2e0755ae4b323abce1d6aa22c00d1b9de378480f22c0.gz",
+      "published_sha256": "30c620bc9d74263162de2e0755ae4b323abce1d6aa22c00d1b9de378480f22c0",
+      "published_bytes": 34184,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original e275 receipt source object, credited only as original scope states"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/objects/52379f09ea06c8ac54bdb4ecaed93fd7fc08f85866b5e3fcb4e40d0f1576bdfe",
+      "sha256": "52379f09ea06c8ac54bdb4ecaed93fd7fc08f85866b5e3fcb4e40d0f1576bdfe",
+      "bytes": 3775,
+      "git_blob": "368c5b0703de652bf2c31d34e1c28f8dd3a7aa9c",
+      "preserved_bytes": "recovered/determinism-059/52379f09ea06c8ac54bdb4ecaed93fd7fc08f85866b5e3fcb4e40d0f1576bdfe.gz",
+      "published_sha256": "52379f09ea06c8ac54bdb4ecaed93fd7fc08f85866b5e3fcb4e40d0f1576bdfe",
+      "published_bytes": 3775,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original e275 receipt source object, credited only as original scope states"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/objects/5e14a6d56fb2815e6deecaa97b44644b3428b4b3607f446859b81abb86fa3f67",
+      "sha256": "5e14a6d56fb2815e6deecaa97b44644b3428b4b3607f446859b81abb86fa3f67",
+      "bytes": 6312,
+      "git_blob": "750b07dde1508d17c0b6c495c5f44236a7616407",
+      "preserved_bytes": "recovered/determinism-059/5e14a6d56fb2815e6deecaa97b44644b3428b4b3607f446859b81abb86fa3f67.gz",
+      "published_sha256": "5e14a6d56fb2815e6deecaa97b44644b3428b4b3607f446859b81abb86fa3f67",
+      "published_bytes": 6312,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original e275 receipt source object, credited only as original scope states"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/objects/85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "bytes": 1971,
+      "git_blob": "41b943e1662a3f34e210f28bf171c579e8aaade0",
+      "preserved_bytes": "recovered/determinism-059/85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb.gz",
+      "published_sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "published_bytes": 1971,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original e275 receipt source object, credited only as original scope states"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/objects/ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "bytes": 7283,
+      "git_blob": "67b30be6deac7b4173d1a9dd21d0c4dcfd1e87d4",
+      "preserved_bytes": "recovered/determinism-059/ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4.gz",
+      "published_sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "published_bytes": 7283,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original e275 receipt source object, credited only as original scope states"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/objects/b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003",
+      "sha256": "b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003",
+      "bytes": 21498,
+      "git_blob": "4bb9d141fb32f92053a2748568f8e8122bfe5696",
+      "preserved_bytes": "recovered/determinism-059/b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003.gz",
+      "published_sha256": "b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003",
+      "published_bytes": 21498,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original e275 receipt source object, credited only as original scope states"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/objects/c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "bytes": 5688,
+      "git_blob": "c59d8a7720881fba266c80112e82880e4422e074",
+      "preserved_bytes": "recovered/determinism-059/c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6.gz",
+      "published_sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "published_bytes": 5688,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original e275 receipt source object, credited only as original scope states"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/objects/c39a8a5055ca88572a587d0eadbde46eeb889d9060ec6b8930f59bfb76e44303",
+      "sha256": "c39a8a5055ca88572a587d0eadbde46eeb889d9060ec6b8930f59bfb76e44303",
+      "bytes": 692,
+      "git_blob": "05aeacca8e215bf71d17ef8a769e71b811a51cb1",
+      "preserved_bytes": "recovered/determinism-059/c39a8a5055ca88572a587d0eadbde46eeb889d9060ec6b8930f59bfb76e44303.gz",
+      "published_sha256": "c39a8a5055ca88572a587d0eadbde46eeb889d9060ec6b8930f59bfb76e44303",
+      "published_bytes": 692,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original e275 receipt source object, credited only as original scope states"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/objects/e8b15deac3874c9457efc9dec7ac27b1b4eca56b6577a0352fe6cf3c1c896238",
+      "sha256": "e8b15deac3874c9457efc9dec7ac27b1b4eca56b6577a0352fe6cf3c1c896238",
+      "bytes": 5662,
+      "git_blob": "9fc0b9ae56069f7636c4fb5508e5d272922c0ba7",
+      "preserved_bytes": "recovered/determinism-059/e8b15deac3874c9457efc9dec7ac27b1b4eca56b6577a0352fe6cf3c1c896238.gz",
+      "published_sha256": "e8b15deac3874c9457efc9dec7ac27b1b4eca56b6577a0352fe6cf3c1c896238",
+      "published_bytes": 5662,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original e275 receipt source object, credited only as original scope states"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/objects/f5c454510c3069982a265c36de6013d01d6c00c12aff6c90c05b60ddcb610292",
+      "sha256": "f5c454510c3069982a265c36de6013d01d6c00c12aff6c90c05b60ddcb610292",
+      "bytes": 12162,
+      "git_blob": "7edb27f11f313458a564195d26b5930422dfd25f",
+      "preserved_bytes": "recovered/determinism-059/f5c454510c3069982a265c36de6013d01d6c00c12aff6c90c05b60ddcb610292.gz",
+      "published_sha256": "f5c454510c3069982a265c36de6013d01d6c00c12aff6c90c05b60ddcb610292",
+      "published_bytes": 12162,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original e275 receipt source object, credited only as original scope states"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-724.json",
+      "sha256": "cd086fba08e978cafa0b6b4b030b7ee09b6e3402466ca470f00ab19d215c4c0b",
+      "bytes": 16443,
+      "git_blob": "ea9667bc805b836a56cc183f7919c13864c946b9",
+      "preserved_bytes": "recovered/determinism-059/cd086fba08e978cafa0b6b4b030b7ee09b6e3402466ca470f00ab19d215c4c0b.gz",
+      "published_sha256": "cd086fba08e978cafa0b6b4b030b7ee09b6e3402466ca470f00ab19d215c4c0b",
+      "published_bytes": 16443,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification, state or earlier root adoption"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-742.json",
+      "sha256": "79392454bf14d39c721010677e5532a8074af8d52f07c082a2d9bf87e3a99ef1",
+      "bytes": 21725,
+      "git_blob": "a06b91c508a582a4589dd7a9f06d067c3872cf02",
+      "preserved_bytes": "recovered/determinism-059/79392454bf14d39c721010677e5532a8074af8d52f07c082a2d9bf87e3a99ef1.gz",
+      "published_sha256": "79392454bf14d39c721010677e5532a8074af8d52f07c082a2d9bf87e3a99ef1",
+      "published_bytes": 21725,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption of delegated Lens12 evidence; zero root rereads"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-742.json",
+      "sha256": "59450eb5501a2fc29a8973067180f6dcb55e7a950aad2e90ca16c82cb183f01a",
+      "bytes": 2438,
+      "git_blob": "f4ee7c5764137041b6d4d37ed8df442cab9bdc5d",
+      "preserved_bytes": "recovered/determinism-059/59450eb5501a2fc29a8973067180f6dcb55e7a950aad2e90ca16c82cb183f01a.gz",
+      "published_sha256": "59450eb5501a2fc29a8973067180f6dcb55e7a950aad2e90ca16c82cb183f01a",
+      "published_bytes": 2438,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification, state or earlier root adoption"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-742.json",
+      "sha256": "00328b283afb8f4bcdd71bf0f0db17f1a3eee989e90ece1a2d97910d5b619197",
+      "bytes": 667,
+      "git_blob": "cd791b39457492d029cc7344f83c145dcf6ddee2",
+      "preserved_bytes": "recovered/determinism-059/00328b283afb8f4bcdd71bf0f0db17f1a3eee989e90ece1a2d97910d5b619197.gz",
+      "published_sha256": "00328b283afb8f4bcdd71bf0f0db17f1a3eee989e90ece1a2d97910d5b619197",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification, state or earlier root adoption"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-205.json",
+      "sha256": "9aac84d8a209f12d187262c27489e28fdbbce436938d39d68e6aa5e2f4bf78a0",
+      "bytes": 13574,
+      "git_blob": "bd5b37f06661bd5823afa2dd3832555555697499",
+      "preserved_bytes": "recovered/determinism-059/9aac84d8a209f12d187262c27489e28fdbbce436938d39d68e6aa5e2f4bf78a0.gz",
+      "published_sha256": "9aac84d8a209f12d187262c27489e28fdbbce436938d39d68e6aa5e2f4bf78a0",
+      "published_bytes": 13574,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler220 exact earlier same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-206.json",
+      "sha256": "a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428",
+      "bytes": 10076,
+      "git_blob": "bdef465d85fc43250665e32018d90918091422a1",
+      "preserved_bytes": "recovered/determinism-059/a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428.gz",
+      "published_sha256": "a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428",
+      "published_bytes": 10076,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler220 exact earlier same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047",
+      "bytes": 29295,
+      "git_blob": "12f78ab54e0ca5709963ce605b8f843a317b34bf",
+      "preserved_bytes": "recovered/determinism-059/ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047.gz",
+      "published_sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047",
+      "published_bytes": 29295,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler220 exact earlier same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-215.json",
+      "sha256": "79af28f93aa97f541d149b9f7f806ae6692316ad9abb364c4390223c7f8431ac",
+      "bytes": 11750,
+      "git_blob": "fbe4f308b78f40fd7504dc32c0a426653743263b",
+      "preserved_bytes": "recovered/determinism-059/79af28f93aa97f541d149b9f7f806ae6692316ad9abb364c4390223c7f8431ac.gz",
+      "published_sha256": "79af28f93aa97f541d149b9f7f806ae6692316ad9abb364c4390223c7f8431ac",
+      "published_bytes": 11750,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler220 exact earlier same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-216.json",
+      "sha256": "d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7",
+      "bytes": 20180,
+      "git_blob": "752ede0dde7695e901a75a8b65cc5dadf3beffa1",
+      "preserved_bytes": "recovered/determinism-059/d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7.gz",
+      "published_sha256": "d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7",
+      "published_bytes": 20180,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler220 exact earlier same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-217.json",
+      "sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5",
+      "bytes": 13360,
+      "git_blob": "a9e0ca18553110bab06d2b4e360d644d4b4908d8",
+      "preserved_bytes": "recovered/determinism-059/7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5.gz",
+      "published_sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5",
+      "published_bytes": 13360,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler220 exact earlier same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-218.json",
+      "sha256": "5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca",
+      "bytes": 28862,
+      "git_blob": "95edfc8fdd908cdbab5fffe854ef97f8864d31cb",
+      "preserved_bytes": "recovered/determinism-059/5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca.gz",
+      "published_sha256": "5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca",
+      "published_bytes": 28862,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler220 exact earlier same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-219.json",
+      "sha256": "2b8699438fc65c9fc4e17d5f991b958f358e08f5a71da036bf69cff932af55e5",
+      "bytes": 21212,
+      "git_blob": "0536d442e7e82cc0140fcf14eb0f50fe1c3b3eee",
+      "preserved_bytes": "recovered/determinism-059/2b8699438fc65c9fc4e17d5f991b958f358e08f5a71da036bf69cff932af55e5.gz",
+      "published_sha256": "2b8699438fc65c9fc4e17d5f991b958f358e08f5a71da036bf69cff932af55e5",
+      "published_bytes": 21212,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler220 exact earlier same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-386.json",
+      "sha256": "6be732b735f436d08aa9e48ab3915739ddd9dbf8c18bdb8234e71c84fcae2ac5",
+      "bytes": 770,
+      "git_blob": "dab04db9056660fa865cc412cbc86b0eb99dec02",
+      "preserved_bytes": "recovered/determinism-059/6be732b735f436d08aa9e48ab3915739ddd9dbf8c18bdb8234e71c84fcae2ac5.gz",
+      "published_sha256": "6be732b735f436d08aa9e48ab3915739ddd9dbf8c18bdb8234e71c84fcae2ac5",
+      "published_bytes": 770,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler220 original source registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-387.json",
+      "sha256": "c3787fce799eea0558dcfde154e8afe5d763605753ca339e9930731793b1fe64",
+      "bytes": 741,
+      "git_blob": "b6bfadd2a170d2c4856c032a1ed555bf94d8c740",
+      "preserved_bytes": "recovered/determinism-059/c3787fce799eea0558dcfde154e8afe5d763605753ca339e9930731793b1fe64.gz",
+      "published_sha256": "c3787fce799eea0558dcfde154e8afe5d763605753ca339e9930731793b1fe64",
+      "published_bytes": 741,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler220 original source registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-388.json",
+      "sha256": "51b6d4fc87e816272a0119a227b57a73523b7ad1536a1b21179d915f3d660788",
+      "bytes": 742,
+      "git_blob": "32e0fd8e246b3a44777499c25706e92b1e2e6a11",
+      "preserved_bytes": "recovered/determinism-059/51b6d4fc87e816272a0119a227b57a73523b7ad1536a1b21179d915f3d660788.gz",
+      "published_sha256": "51b6d4fc87e816272a0119a227b57a73523b7ad1536a1b21179d915f3d660788",
+      "published_bytes": 742,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler220 original source registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-389.json",
+      "sha256": "f4674315612f56421b44090c4cc152d361666c4d7ec3c96fc0b7e863ef2d7efa",
+      "bytes": 762,
+      "git_blob": "5257af8ee9340ebaa6e1b2fbbea811af02adbac5",
+      "preserved_bytes": "recovered/determinism-059/f4674315612f56421b44090c4cc152d361666c4d7ec3c96fc0b7e863ef2d7efa.gz",
+      "published_sha256": "f4674315612f56421b44090c4cc152d361666c4d7ec3c96fc0b7e863ef2d7efa",
+      "published_bytes": 762,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler220 original source registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-390.json",
+      "sha256": "f886cec56688cc9fe2f7a70bd7f4b0c1f6a262b9acb3e059070674a3fd327ba8",
+      "bytes": 751,
+      "git_blob": "f8670bbf84d445a6d4dea62699e5b2f26f513a1a",
+      "preserved_bytes": "recovered/determinism-059/f886cec56688cc9fe2f7a70bd7f4b0c1f6a262b9acb3e059070674a3fd327ba8.gz",
+      "published_sha256": "f886cec56688cc9fe2f7a70bd7f4b0c1f6a262b9acb3e059070674a3fd327ba8",
+      "published_bytes": 751,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler220 original source registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-391.json",
+      "sha256": "508f7b45a46a8e6dff8193f549b4b0bcb1395f01541253343e3a14f43a43dc3b",
+      "bytes": 750,
+      "git_blob": "0868dbdcbd0fa3c945fde2831f779544f267fb15",
+      "preserved_bytes": "recovered/determinism-059/508f7b45a46a8e6dff8193f549b4b0bcb1395f01541253343e3a14f43a43dc3b.gz",
+      "published_sha256": "508f7b45a46a8e6dff8193f549b4b0bcb1395f01541253343e3a14f43a43dc3b",
+      "published_bytes": 750,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler220 original source registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-392.json",
+      "sha256": "3a0ab34cfc104553f3e5264a915d1d03e0fd9931b84cd8846a3af368672035af",
+      "bytes": 750,
+      "git_blob": "ff0e9ac9ce7a7d132ae7bcda35dec75018d58270",
+      "preserved_bytes": "recovered/determinism-059/3a0ab34cfc104553f3e5264a915d1d03e0fd9931b84cd8846a3af368672035af.gz",
+      "published_sha256": "3a0ab34cfc104553f3e5264a915d1d03e0fd9931b84cd8846a3af368672035af",
+      "published_bytes": 750,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler220 original source registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-393.json",
+      "sha256": "353c100ee6f2ebbd0d54de0e0eb0eff2662d27a488ef0aa7bd8751ea2ee7c17d",
+      "bytes": 747,
+      "git_blob": "73582b8a9fc1e91a30b83c5d877dd5e5f12f06cf",
+      "preserved_bytes": "recovered/determinism-059/353c100ee6f2ebbd0d54de0e0eb0eff2662d27a488ef0aa7bd8751ea2ee7c17d.gz",
+      "published_sha256": "353c100ee6f2ebbd0d54de0e0eb0eff2662d27a488ef0aa7bd8751ea2ee7c17d",
+      "published_bytes": 747,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler220 original source registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-394.json",
+      "sha256": "2038dc049efbe1cb088f54879577d23546ae95188c6ea46cca365b2e63ee0f92",
+      "bytes": 751,
+      "git_blob": "29c0f4982b5bff863a4383236a90003e3b2d10bf",
+      "preserved_bytes": "recovered/determinism-059/2038dc049efbe1cb088f54879577d23546ae95188c6ea46cca365b2e63ee0f92.gz",
+      "published_sha256": "2038dc049efbe1cb088f54879577d23546ae95188c6ea46cca365b2e63ee0f92",
+      "published_bytes": 751,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler220 original source registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-395.json",
+      "sha256": "a294e4af5bbb11e2b6d106aff2738228ef8c406aa119bb3ea9b4e7f79f22367e",
+      "bytes": 1337,
+      "git_blob": "0401faf8a9672e28e738cae1646607d3d9235a2a",
+      "preserved_bytes": "recovered/determinism-059/a294e4af5bbb11e2b6d106aff2738228ef8c406aa119bb3ea9b4e7f79f22367e.gz",
+      "published_sha256": "a294e4af5bbb11e2b6d106aff2738228ef8c406aa119bb3ea9b4e7f79f22367e",
+      "published_bytes": 1337,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler220 original source registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-220.json",
+      "sha256": "e688e0b7bff59350223d86028d22dbed53b29ad5288a6653c364ba5fbf48feb7",
+      "bytes": 701,
+      "git_blob": "de4fe1aa1078dec35af44e488d7fc294ea03b0a4",
+      "preserved_bytes": "recovered/determinism-059/e688e0b7bff59350223d86028d22dbed53b29ad5288a6653c364ba5fbf48feb7.gz",
+      "published_sha256": "e688e0b7bff59350223d86028d22dbed53b29ad5288a6653c364ba5fbf48feb7",
+      "published_bytes": 701,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original verification or selected state, historical scope only"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-220.json",
+      "sha256": "cbecd09f963fb43d641defcb8f4b4a35a3ba7c4190e8c6003f8f1a87ec5e6491",
+      "bytes": 31372,
+      "git_blob": "7a206583aa12c6b58b95fd1271c9f3508a82ef1f",
+      "preserved_bytes": "recovered/determinism-059/cbecd09f963fb43d641defcb8f4b4a35a3ba7c4190e8c6003f8f1a87ec5e6491.gz",
+      "published_sha256": "cbecd09f963fb43d641defcb8f4b4a35a3ba7c4190e8c6003f8f1a87ec5e6491",
+      "published_bytes": 31372,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original verification or selected state, historical scope only"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-724.json",
+      "sha256": "254536bf9aa5530089ec269f2c7cbc892960ef4d9b6110063905aa4ec5ce8695",
+      "bytes": 17834,
+      "git_blob": "47f951c1fc6ddfec9b92939f972e58a620c47d1b",
+      "preserved_bytes": "recovered/determinism-059/254536bf9aa5530089ec269f2c7cbc892960ef4d9b6110063905aa4ec5ce8695.gz",
+      "published_sha256": "254536bf9aa5530089ec269f2c7cbc892960ef4d9b6110063905aa4ec5ce8695",
+      "published_bytes": 17834,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Delegate724 original proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-700-ORIGINAL2171.json",
+      "sha256": "9fbf94db3ce7b2798df9399377bbe46b7d55d1cf40be2f383cc117fdc9d287f4",
+      "bytes": 3002,
+      "git_blob": "19059f4a68baf51477a7666d4b4fe882d99260c2",
+      "preserved_bytes": "recovered/determinism-059/9fbf94db3ce7b2798df9399377bbe46b7d55d1cf40be2f383cc117fdc9d287f4.gz",
+      "published_sha256": "9fbf94db3ce7b2798df9399377bbe46b7d55d1cf40be2f383cc117fdc9d287f4",
+      "published_bytes": 3002,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Delegate724 prior qualified reuse"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-024-CONNECTED-ORIGINAL2171.json",
+      "sha256": "42ca812189e9659859c54d1d26c75fcbda17c7a8929db6e42a724ee65ee91f51",
+      "bytes": 925,
+      "git_blob": "d0fbda8263f97b1b4095ae82b2af67a712af42b7",
+      "preserved_bytes": "recovered/determinism-059/42ca812189e9659859c54d1d26c75fcbda17c7a8929db6e42a724ee65ee91f51.gz",
+      "published_sha256": "42ca812189e9659859c54d1d26c75fcbda17c7a8929db6e42a724ee65ee91f51",
+      "published_bytes": 925,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Delegate724 prior reuse registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-118.json",
+      "sha256": "23a9dc039b50ae36703303103cb268b792f7b95fe4290b694fafd0e5ef663379",
+      "bytes": 773,
+      "git_blob": "335a9a8211655e0518ee73a525c2494189a84352",
+      "preserved_bytes": "recovered/determinism-059/23a9dc039b50ae36703303103cb268b792f7b95fe4290b694fafd0e5ef663379.gz",
+      "published_sha256": "23a9dc039b50ae36703303103cb268b792f7b95fe4290b694fafd0e5ef663379",
+      "published_bytes": 773,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Delegate724 adopted registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-119.json",
+      "sha256": "13ab0bd10e9c90369d123caec2751be64440b9df46353202dae7c809f67c7975",
+      "bytes": 783,
+      "git_blob": "4aa8bd175d5a58a108598ce5d92cf69fcb2eb306",
+      "preserved_bytes": "recovered/determinism-059/13ab0bd10e9c90369d123caec2751be64440b9df46353202dae7c809f67c7975.gz",
+      "published_sha256": "13ab0bd10e9c90369d123caec2751be64440b9df46353202dae7c809f67c7975",
+      "published_bytes": 783,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Delegate724 adopted registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-120.json",
+      "sha256": "c2678cb31c8d28ee15433a5e58303b3c21a54d1cf2e9860150ab3ae3a4b12d90",
+      "bytes": 813,
+      "git_blob": "6a7875241553768da3e01ef5bf21471260be24a7",
+      "preserved_bytes": "recovered/determinism-059/c2678cb31c8d28ee15433a5e58303b3c21a54d1cf2e9860150ab3ae3a4b12d90.gz",
+      "published_sha256": "c2678cb31c8d28ee15433a5e58303b3c21a54d1cf2e9860150ab3ae3a4b12d90",
+      "published_bytes": 813,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Delegate724 adopted registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/VERIFY-ROOT-L1-CURRENT-001.json",
+      "sha256": "c76168cbceb92a0a4e20a272851472ad7f57fe32824e26419616f1f35e347636",
+      "bytes": 447,
+      "git_blob": "44757fc8d5ffb25063e1076dd77e9eba9f7558f6",
+      "preserved_bytes": "recovered/determinism-059/c76168cbceb92a0a4e20a272851472ad7f57fe32824e26419616f1f35e347636.gz",
+      "published_sha256": "c76168cbceb92a0a4e20a272851472ad7f57fe32824e26419616f1f35e347636",
+      "published_bytes": 447,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original verification or selected state, historical scope only"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/VERIFY-ROOT-L1-CURRENT-004.json",
+      "sha256": "66c54a9373763a475e5b48f0e4669ff1f288914c4dfaf080c68541c1da8cd666",
+      "bytes": 376,
+      "git_blob": "8705dd2e8094d470c2e40c4959b3cf015b1d28bc",
+      "preserved_bytes": "recovered/determinism-059/66c54a9373763a475e5b48f0e4669ff1f288914c4dfaf080c68541c1da8cd666.gz",
+      "published_sha256": "66c54a9373763a475e5b48f0e4669ff1f288914c4dfaf080c68541c1da8cd666",
+      "published_bytes": 376,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original verification or selected state, historical scope only"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L1-CURRENT-001.json",
+      "sha256": "45b29d6bc07ed3d697ad05fe0a21f11433a87a8b363e535b4d18f415fc1c64d8",
+      "bytes": 1305,
+      "git_blob": "b8df002224828dad23390d5733313f743880775c",
+      "preserved_bytes": "recovered/determinism-059/45b29d6bc07ed3d697ad05fe0a21f11433a87a8b363e535b4d18f415fc1c64d8.gz",
+      "published_sha256": "45b29d6bc07ed3d697ad05fe0a21f11433a87a8b363e535b4d18f415fc1c64d8",
+      "published_bytes": 1305,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original verification or selected state, historical scope only"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L1-CURRENT-004-PARTIAL-001.json",
+      "sha256": "649c369d904586f10e095280731841d5a1ddee21739016065b50e38461e6b67d",
+      "bytes": 6624,
+      "git_blob": "dc34c56027c8b9e75b857ad81b7e0552b07e73a4",
+      "preserved_bytes": "recovered/determinism-059/649c369d904586f10e095280731841d5a1ddee21739016065b50e38461e6b67d.gz",
+      "published_sha256": "e93faa79e33df2ef52ef78ad382d712d6b114a87b460825c253978f7caf23e12",
+      "published_bytes": 6290,
+      "redacted_local_path_occurrences": 4,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original verification or selected state, historical scope only"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L1-CURRENT-004.json",
+      "sha256": "d1767ad3864ddb8fd88608dacc26755473b29ec28e71945c55f1e24a5d2ef38b",
+      "bytes": 1857,
+      "git_blob": "993526a1ddaea288fb566065afd66d7a836c132a",
+      "preserved_bytes": "recovered/determinism-059/d1767ad3864ddb8fd88608dacc26755473b29ec28e71945c55f1e24a5d2ef38b.gz",
+      "published_sha256": "d1767ad3864ddb8fd88608dacc26755473b29ec28e71945c55f1e24a5d2ef38b",
+      "published_bytes": 1857,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original verification or selected state, historical scope only"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-724.json",
+      "sha256": "0fff67e63b2e8079b4e59f46bc28793b1a4e1f4fcfff3b0328f2cf5539d0c78a",
+      "bytes": 2433,
+      "git_blob": "79fe31f1a00312248be36d51a1a3a79c19458c5f",
+      "preserved_bytes": "recovered/determinism-059/0fff67e63b2e8079b4e59f46bc28793b1a4e1f4fcfff3b0328f2cf5539d0c78a.gz",
+      "published_sha256": "0fff67e63b2e8079b4e59f46bc28793b1a4e1f4fcfff3b0328f2cf5539d0c78a",
+      "published_bytes": 2433,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original verification or selected state, historical scope only"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-724.json",
+      "sha256": "41b76a5b9ae97b4a7908db007bba6f927e7bb1c295ef3de5a1b23ff958232744",
+      "bytes": 667,
+      "git_blob": "6face02880e903b1c87ec378fa1cd4820ca36b07",
+      "preserved_bytes": "recovered/determinism-059/41b76a5b9ae97b4a7908db007bba6f927e7bb1c295ef3de5a1b23ff958232744.gz",
+      "published_sha256": "41b76a5b9ae97b4a7908db007bba6f927e7bb1c295ef3de5a1b23ff958232744",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original verification or selected state, historical scope only"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "Adler357 and delegate742 stream2250 are ordered no-reread adoptions of earlier independent reads. Prior e275 Lens1 004 mixes qualified earlier partials with fresh bounded native ranges; omitted tails are not credited. Earlier revisions remain distinct from the new95e display.",
+  "remaining": "Continue original2251 and all thirteen lenses; actual sampler call sites, stream context semantics, runtime and exact aliases remain open. Original3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

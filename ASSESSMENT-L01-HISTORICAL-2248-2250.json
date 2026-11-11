@@ -1,0 +1,551 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2248,
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/lib.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2248",
+      "original_locator": "crates/fabelgeist-determinism/src/lib.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 82,
+          "read_ranges": [
+            [
+              1,
+              58
+            ]
+          ]
+        },
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 44,
+          "read_ranges": [
+            [
+              1,
+              58
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+          "receipt": "ROOT-PPS-WEATHER-NOISE-GPU-006",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              58
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+          "receipt": "CAM-PPS-RELATIONSHIP-RECEIVERS-030",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              58
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+          "receipt": "CAM-PPS-TACTICAL-RECEIVERS-044",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              58
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-031",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              58
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+          "receipt": "NATIVE-PS-COMBAT-RECEIVER-CLOSURE-020",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              58
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "lines": 58,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "DETERMINISM-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2248-2250.json",
+        "sha256": "b8bd3d893faa569dbcc95d55e4663bef621718bc71c3e1c6c4aa2a8eda5937a4"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current complete body displayed after local registration and exact historical6533 byte equality verified. Historical reviewer and supplier scopes are separately attributed.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-determinism/src/lib.rs",
+        "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+        "bytes": 1971,
+        "lines": 58,
+        "git_blob": "41b943e1662a3f34e210f28bf171c579e8aaade0",
+        "preserved_bytes": "main-advance-95e/determinism-evidence/current-2248.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            58
+          ]
+        ],
+        "qualification": "Current full body displayed after registration; exact historical byte identity verified. No product code executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim.",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-AUDIO-CONFIG.json",
+          "ranges": [
+            [
+              12,
+              24
+            ]
+          ]
+        }
+      ],
+      "prior_role_qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+    },
+    {
+      "original_index": 2249,
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/seed.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2249",
+      "original_locator": "crates/fabelgeist-determinism/src/seed.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 83,
+          "read_ranges": [
+            [
+              1,
+              213
+            ]
+          ]
+        },
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 43,
+          "read_ranges": [
+            [
+              1,
+              213
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+          "row": 37,
+          "read_ranges": [
+            [
+              1,
+              213
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+          "receipt": "ROOT-PPS-WEATHER-NOISE-GPU-006",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              213
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+          "receipt": "CAM-PPS-RELATIONSHIP-RECEIVERS-030",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              131
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+          "receipt": "CAM-PPS-TACTICAL-RECEIVERS-044",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              119
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+          "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              120
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-031",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              131
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-036",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              120
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-040",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              213
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+          "receipt": "NATIVE-PS-COMBAT-RECEIVER-CLOSURE-020",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              119
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        },
+        {
+          "record": "continuation/rig/pure-food-recipient-carry-forward-041.json",
+          "receipt": "RIG-CONT-PPS-PURE-FOOD-RECIPIENT-CARRY-FORWARD-041",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              213
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "lines": 213,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "DETERMINISM-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2248-2250.json",
+        "sha256": "b8bd3d893faa569dbcc95d55e4663bef621718bc71c3e1c6c4aa2a8eda5937a4"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          213
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current complete body displayed after local registration and exact historical6533 byte equality verified. Historical reviewer and supplier scopes are separately attributed.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-determinism/src/seed.rs",
+        "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+        "bytes": 7283,
+        "lines": 213,
+        "git_blob": "67b30be6deac7b4173d1a9dd21d0c4dcfd1e87d4",
+        "preserved_bytes": "main-advance-95e/determinism-evidence/current-2249.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            213
+          ]
+        ],
+        "qualification": "Current full body displayed after registration; exact historical byte identity verified. No product code executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim.",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-SOUND.json",
+          "ranges": "23-45, 49-74"
+        }
+      ],
+      "prior_role_qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+    },
+    {
+      "original_index": 2250,
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/stream.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2250",
+      "original_locator": "crates/fabelgeist-determinism/src/stream.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 84,
+          "read_ranges": [
+            [
+              1,
+              169
+            ]
+          ]
+        },
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 33,
+          "read_ranges": [
+            [
+              1,
+              169
+            ]
+          ]
+        },
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 147,
+          "read_ranges": [
+            [
+              1,
+              169
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+          "receipt": "ROOT-PPS-WEATHER-NOISE-GPU-006",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              169
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+          "receipt": "CAM-PPS-RELATIONSHIP-RECEIVERS-030",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              169
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+          "receipt": "CAM-PPS-TACTICAL-RECEIVERS-044",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              169
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+          "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              144
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-031",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              169
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-036",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              144
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-040",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              108
+            ],
+            [
+              128,
+              169
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+          "receipt": "NATIVE-PS-COMBAT-RECEIVER-CLOSURE-020",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              169
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        },
+        {
+          "record": "continuation/rig/pure-food-recipient-carry-forward-041.json",
+          "receipt": "RIG-CONT-PPS-PURE-FOOD-RECIPIENT-CARRY-FORWARD-041",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              108
+            ],
+            [
+              128,
+              169
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "lines": 169,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "DETERMINISM-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2248-2250.json",
+        "sha256": "b8bd3d893faa569dbcc95d55e4663bef621718bc71c3e1c6c4aa2a8eda5937a4"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current complete body displayed after local registration and exact historical6533 byte equality verified. Historical reviewer and supplier scopes are separately attributed.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-determinism/src/stream.rs",
+        "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+        "bytes": 5688,
+        "lines": 169,
+        "git_blob": "c59d8a7720881fba266c80112e82880e4422e074",
+        "preserved_bytes": "main-advance-95e/determinism-evidence/current-2250.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            169
+          ]
+        ],
+        "qualification": "Current full body displayed after registration; exact historical byte identity verified. No product code executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim.",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-AUDIO-CONFIG.json",
+          "ranges": [
+            [
+              53,
+              67
+            ],
+            [
+              82,
+              84
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-ENCOUNTER-SCORES.json",
+          "ranges": [
+            [
+              1,
+              63
+            ]
+          ]
+        }
+      ],
+      "prior_role_qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+    }
+  ],
+  "observations": [
+    "Current95e determinism lib58, seed213 and stream169 bodies were prospectively registered and personally displayed in full; historical6533 bytes are identical. Original supplier and producer scopes remain exactly recorded.",
+    "Adler357 adopted earlier same-lens READ220, with zero fresh reads in357: READ220 independently read lib1–58, seed1–131 plus132–213, and stream1–169 as connected future bodies with no ordered credit at that time. Later Adler341 was supplemental, not a reread credited to357.",
+    "Lens12 delegate742 freshly read lib1–58 and seed1–213; its stream2250 row reuses an earlier delegate724 independently registered full stream1–169 with zero new rereads and one ordered count at adoption. Root adoption has zero personal rereads and zero accepted unique-count change. The delegate742 seed-context literal correction preserves v1 and zero reread.",
+    "Earlier e275 Lens1 READ001 personally read determinism sources; READ004 reused those sources and its earlier partial for several native rows, while independently reading uniform1–488 and uniform_int1–595. Unread native tails remain excluded. Earlier e275 lock identity58118... differs from95e lock even where pinned package checksums coincide. New95e source displays are independently attributed. Local registration time is not independently attested."
+  ],
+  "qualification": "Prior full reads, ordered no-reread adoptions, source-specific literal correction, earlier e275 native partial and new current display remain distinct; no checkpoint3821 claim.",
+  "next_original_role": 2251
+}

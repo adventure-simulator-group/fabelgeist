@@ -1,0 +1,78 @@
+{
+  "schema": "726-source-inspection-registration-v1",
+  "registered_at_utc": "2026-11-11 16:36:18 UTC",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "roles": [
+    {
+      "index": 2248,
+      "path": "crates/fabelgeist-determinism/src/lib.rs",
+      "historical": {
+        "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+        "ranges": [
+          [
+            1,
+            58
+          ]
+        ]
+      },
+      "current": {
+        "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+        "ranges": [
+          [
+            1,
+            58
+          ]
+        ]
+      },
+      "byte_identical": true
+    },
+    {
+      "index": 2249,
+      "path": "crates/fabelgeist-determinism/src/seed.rs",
+      "historical": {
+        "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+        "ranges": [
+          [
+            1,
+            213
+          ]
+        ]
+      },
+      "current": {
+        "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+        "ranges": [
+          [
+            1,
+            213
+          ]
+        ]
+      },
+      "byte_identical": true
+    },
+    {
+      "index": 2250,
+      "path": "crates/fabelgeist-determinism/src/stream.rs",
+      "historical": {
+        "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+        "ranges": [
+          [
+            1,
+            169
+          ]
+        ]
+      },
+      "current": {
+        "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+        "ranges": [
+          [
+            1,
+            169
+          ]
+        ]
+      },
+      "byte_identical": true
+    }
+  ],
+  "qualification": "Prospective registration of historical and current complete bodies. Equality permits the current full display to evidence identical historical bytes; original supplier and historical agent attribution remain separate. Local time is not independently attested."
+}

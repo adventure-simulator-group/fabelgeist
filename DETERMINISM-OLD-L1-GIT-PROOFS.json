@@ -1,0 +1,283 @@
+{
+  "schema": "726-exact-git-tree-path-membership-v1",
+  "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "root_tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+  "shared_commit_and_tree_objects": "COLOR-OLD-L3-GIT-PROOFS.json",
+  "additional_shared_tree_objects": [
+    "HOST-FLOAT-OLD-L11-GIT-PROOFS.json",
+    "READBACK-SORT-OLD-GIT-PROOFS.json"
+  ],
+  "additional_tree_objects": {
+    "d984be7618d221479315ea2933288bb3206fc6d6": {
+      "git_object": "d984be7618d221479315ea2933288bb3206fc6d6",
+      "type": "tree",
+      "sha256": "85e3c42056014a381814d95d9d8ddd1320524922ecdf685200c84831ed7fa9a4",
+      "bytes": 336,
+      "preserved_bytes": "main-advance-95e/determinism-evidence/e275-git-objects/d984be7618d221479315ea2933288bb3206fc6d6.tree.gz"
+    },
+    "f7aa48014560e38985b8d7912b6c6c3cc1b657e3": {
+      "git_object": "f7aa48014560e38985b8d7912b6c6c3cc1b657e3",
+      "type": "tree",
+      "sha256": "138a3765b938f21f64827a7c22d687c2646e1e38b95b8cbfa78b4a9131638fb1",
+      "bytes": 1463,
+      "preserved_bytes": "main-advance-95e/determinism-evidence/e275-git-objects/f7aa48014560e38985b8d7912b6c6c3cc1b657e3.tree.gz"
+    },
+    "795c3a9fec69ccb81d102328c19d8d9296efcf06": {
+      "git_object": "795c3a9fec69ccb81d102328c19d8d9296efcf06",
+      "type": "tree",
+      "sha256": "6696ceba167e16ccb1c2c1ccdc7b2efba1b54b61ad73d6f65bc801a2e5f01b6d",
+      "bytes": 1606,
+      "preserved_bytes": "main-advance-95e/determinism-evidence/e275-git-objects/795c3a9fec69ccb81d102328c19d8d9296efcf06.tree.gz"
+    },
+    "631f6b04cc2964f0bd878a5a5fb2ad70b9bdcd28": {
+      "git_object": "631f6b04cc2964f0bd878a5a5fb2ad70b9bdcd28",
+      "type": "tree",
+      "sha256": "86c75e1072814416e8f5564a31ba93edc760ae2194fec1f91ec51690d58b07ee",
+      "bytes": 183,
+      "preserved_bytes": "main-advance-95e/determinism-evidence/e275-git-objects/631f6b04cc2964f0bd878a5a5fb2ad70b9bdcd28.tree.gz"
+    },
+    "c637d478ae496e2f52256d17f93f0718c6a79b2e": {
+      "git_object": "c637d478ae496e2f52256d17f93f0718c6a79b2e",
+      "type": "tree",
+      "sha256": "3f99f61412c8ed64d937c00ef3e90b2de81751d079206468be169bda26187b4a",
+      "bytes": 137,
+      "preserved_bytes": "main-advance-95e/determinism-evidence/e275-git-objects/c637d478ae496e2f52256d17f93f0718c6a79b2e.tree.gz"
+    },
+    "685480603f7d8065f3db4928c5eec489adeb4c52": {
+      "git_object": "685480603f7d8065f3db4928c5eec489adeb4c52",
+      "type": "tree",
+      "sha256": "64cd8c8d285ca099b3c3d08a9ba237678e9bbc3556d002cdbb03981ca5c6a2c9",
+      "bytes": 106,
+      "preserved_bytes": "main-advance-95e/determinism-evidence/e275-git-objects/685480603f7d8065f3db4928c5eec489adeb4c52.tree.gz"
+    }
+  },
+  "paths": {
+    "crates/adventuresim-tactical-client/src/movement_audio.rs": {
+      "chain": [
+        {
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+          "name": "crates",
+          "mode": "40000",
+          "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "d984be7618d221479315ea2933288bb3206fc6d6"
+        },
+        {
+          "tree": "d984be7618d221479315ea2933288bb3206fc6d6",
+          "name": "src",
+          "mode": "40000",
+          "child": "f7aa48014560e38985b8d7912b6c6c3cc1b657e3"
+        },
+        {
+          "tree": "f7aa48014560e38985b8d7912b6c6c3cc1b657e3",
+          "name": "movement_audio.rs",
+          "mode": "100644",
+          "child": "7edb27f11f313458a564195d26b5930422dfd25f"
+        }
+      ],
+      "git_blob": "7edb27f11f313458a564195d26b5930422dfd25f",
+      "sha256": "f5c454510c3069982a265c36de6013d01d6c00c12aff6c90c05b60ddcb610292",
+      "bytes": 12162,
+      "lines": 370,
+      "preserved_bytes": "main-advance-95e/determinism-evidence/e275-source-f5c454510c3069982a265c36de6013d01d6c00c12aff6c90c05b60ddcb610292.gz",
+      "qualification": "Exact e275 body bytes; prior independent Lens1 scope and attribution stay e275; no newly credited prior read or checkpoint3821."
+    },
+    "crates/adventuresim-tactical-client/src/animation/presentation/events.rs": {
+      "chain": [
+        {
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+          "name": "crates",
+          "mode": "40000",
+          "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "d984be7618d221479315ea2933288bb3206fc6d6"
+        },
+        {
+          "tree": "d984be7618d221479315ea2933288bb3206fc6d6",
+          "name": "src",
+          "mode": "40000",
+          "child": "f7aa48014560e38985b8d7912b6c6c3cc1b657e3"
+        },
+        {
+          "tree": "f7aa48014560e38985b8d7912b6c6c3cc1b657e3",
+          "name": "animation",
+          "mode": "40000",
+          "child": "795c3a9fec69ccb81d102328c19d8d9296efcf06"
+        },
+        {
+          "tree": "795c3a9fec69ccb81d102328c19d8d9296efcf06",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "631f6b04cc2964f0bd878a5a5fb2ad70b9bdcd28"
+        },
+        {
+          "tree": "631f6b04cc2964f0bd878a5a5fb2ad70b9bdcd28",
+          "name": "events.rs",
+          "mode": "100644",
+          "child": "9fc0b9ae56069f7636c4fb5508e5d272922c0ba7"
+        }
+      ],
+      "git_blob": "9fc0b9ae56069f7636c4fb5508e5d272922c0ba7",
+      "sha256": "e8b15deac3874c9457efc9dec7ac27b1b4eca56b6577a0352fe6cf3c1c896238",
+      "bytes": 5662,
+      "lines": 174,
+      "preserved_bytes": "main-advance-95e/determinism-evidence/e275-source-e8b15deac3874c9457efc9dec7ac27b1b4eca56b6577a0352fe6cf3c1c896238.gz",
+      "qualification": "Exact e275 body bytes; prior independent Lens1 scope and attribution stay e275; no newly credited prior read or checkpoint3821."
+    },
+    "crates/fabelgeist-determinism/src/seed.rs": {
+      "chain": [
+        {
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+          "name": "crates",
+          "mode": "40000",
+          "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "name": "fabelgeist-determinism",
+          "mode": "40000",
+          "child": "c637d478ae496e2f52256d17f93f0718c6a79b2e"
+        },
+        {
+          "tree": "c637d478ae496e2f52256d17f93f0718c6a79b2e",
+          "name": "src",
+          "mode": "40000",
+          "child": "685480603f7d8065f3db4928c5eec489adeb4c52"
+        },
+        {
+          "tree": "685480603f7d8065f3db4928c5eec489adeb4c52",
+          "name": "seed.rs",
+          "mode": "100644",
+          "child": "67b30be6deac7b4173d1a9dd21d0c4dcfd1e87d4"
+        }
+      ],
+      "git_blob": "67b30be6deac7b4173d1a9dd21d0c4dcfd1e87d4",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "bytes": 7283,
+      "lines": 213,
+      "preserved_bytes": "main-advance-95e/determinism-evidence/e275-source-ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4.gz",
+      "qualification": "Exact e275 body bytes; prior independent Lens1 scope and attribution stay e275; no newly credited prior read or checkpoint3821."
+    },
+    "crates/fabelgeist-determinism/src/stream.rs": {
+      "chain": [
+        {
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+          "name": "crates",
+          "mode": "40000",
+          "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "name": "fabelgeist-determinism",
+          "mode": "40000",
+          "child": "c637d478ae496e2f52256d17f93f0718c6a79b2e"
+        },
+        {
+          "tree": "c637d478ae496e2f52256d17f93f0718c6a79b2e",
+          "name": "src",
+          "mode": "40000",
+          "child": "685480603f7d8065f3db4928c5eec489adeb4c52"
+        },
+        {
+          "tree": "685480603f7d8065f3db4928c5eec489adeb4c52",
+          "name": "stream.rs",
+          "mode": "100644",
+          "child": "c59d8a7720881fba266c80112e82880e4422e074"
+        }
+      ],
+      "git_blob": "c59d8a7720881fba266c80112e82880e4422e074",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "bytes": 5688,
+      "lines": 169,
+      "preserved_bytes": "main-advance-95e/determinism-evidence/e275-source-c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6.gz",
+      "qualification": "Exact e275 body bytes; prior independent Lens1 scope and attribution stay e275; no newly credited prior read or checkpoint3821."
+    },
+    "crates/fabelgeist-determinism/src/lib.rs": {
+      "chain": [
+        {
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+          "name": "crates",
+          "mode": "40000",
+          "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "name": "fabelgeist-determinism",
+          "mode": "40000",
+          "child": "c637d478ae496e2f52256d17f93f0718c6a79b2e"
+        },
+        {
+          "tree": "c637d478ae496e2f52256d17f93f0718c6a79b2e",
+          "name": "src",
+          "mode": "40000",
+          "child": "685480603f7d8065f3db4928c5eec489adeb4c52"
+        },
+        {
+          "tree": "685480603f7d8065f3db4928c5eec489adeb4c52",
+          "name": "lib.rs",
+          "mode": "100644",
+          "child": "41b943e1662a3f34e210f28bf171c579e8aaade0"
+        }
+      ],
+      "git_blob": "41b943e1662a3f34e210f28bf171c579e8aaade0",
+      "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "bytes": 1971,
+      "lines": 58,
+      "preserved_bytes": "main-advance-95e/determinism-evidence/e275-source-85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb.gz",
+      "qualification": "Exact e275 body bytes; prior independent Lens1 scope and attribution stay e275; no newly credited prior read or checkpoint3821."
+    },
+    "crates/fabelgeist-determinism/Cargo.toml": {
+      "chain": [
+        {
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+          "name": "crates",
+          "mode": "40000",
+          "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "name": "fabelgeist-determinism",
+          "mode": "40000",
+          "child": "c637d478ae496e2f52256d17f93f0718c6a79b2e"
+        },
+        {
+          "tree": "c637d478ae496e2f52256d17f93f0718c6a79b2e",
+          "name": "Cargo.toml",
+          "mode": "100644",
+          "child": "05aeacca8e215bf71d17ef8a769e71b811a51cb1"
+        }
+      ],
+      "git_blob": "05aeacca8e215bf71d17ef8a769e71b811a51cb1",
+      "sha256": "c39a8a5055ca88572a587d0eadbde46eeb889d9060ec6b8930f59bfb76e44303",
+      "bytes": 692,
+      "lines": 26,
+      "preserved_bytes": "main-advance-95e/determinism-evidence/e275-source-c39a8a5055ca88572a587d0eadbde46eeb889d9060ec6b8930f59bfb76e44303.gz",
+      "qualification": "Exact e275 body bytes; prior independent Lens1 scope and attribution stay e275; no newly credited prior read or checkpoint3821."
+    },
+    "Cargo.lock": {
+      "chain": [
+        {
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+          "name": "Cargo.lock",
+          "mode": "100644",
+          "child": "e1205c6dcf53fa05b4dba231a986cb369af0fa4e"
+        }
+      ],
+      "git_blob": "e1205c6dcf53fa05b4dba231a986cb369af0fa4e",
+      "sha256": "58118b1b138af4f9feea993ea990dc334f63d30c4aa66f8b5597a0f1dfecfcf6",
+      "bytes": 306205,
+      "lines": 13107,
+      "preserved_bytes": "main-advance-95e/determinism-evidence/e275-source-58118b1b138af4f9feea993ea990dc334f63d30c4aa66f8b5597a0f1dfecfcf6.gz",
+      "qualification": "Exact e275 body bytes; prior independent Lens1 scope and attribution stay e275; no newly credited prior read or checkpoint3821."
+    }
+  },
+  "qualification": "Earlier e275 Lens1 source and lock objects retain their original revision and independent attribution; neither matching current bytes nor the older records restore3821."
+}

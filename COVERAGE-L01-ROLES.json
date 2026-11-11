@@ -11,12 +11,12 @@
   "status_counts": {
     "unassessed": 622,
     "lock-metadata-partial": 3,
-    "bounded-current-trace-only": 31,
+    "bounded-current-trace-only": 28,
     "assessed-nonapplicable": 3,
-    "full-historical-body-trace-open": 2187,
+    "full-historical-body-trace-open": 2190,
     "deleted-base-trace-open": 7
   },
-  "first_unfinished": "Lock roles39,497 and680 remain metadata-partial; original2246–2247 current full bodies are read. Continue original2248; independent lenses remain open.",
+  "first_unfinished": "Lock roles39,497 and680 remain metadata-partial; original2248–2250 current full bodies are read. Continue original2251; independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -30611,7 +30611,7 @@
       "historical_sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
       "registry_pointer": "/files/2248",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/fabelgeist-determinism/src/lib.rs",
       "current_git_blob": "41b943e1662a3f34e210f28bf171c579e8aaade0",
       "current_observations": [
@@ -30625,7 +30625,8 @@
           ]
         }
       ],
-      "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-2248-2250.json"
     },
     {
       "original_index": 2249,
@@ -30635,7 +30636,7 @@
       "historical_sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
       "registry_pointer": "/files/2249",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/fabelgeist-determinism/src/seed.rs",
       "current_git_blob": "67b30be6deac7b4173d1a9dd21d0c4dcfd1e87d4",
       "current_observations": [
@@ -30644,7 +30645,8 @@
           "ranges": "23-45, 49-74"
         }
       ],
-      "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-2248-2250.json"
     },
     {
       "original_index": 2250,
@@ -30654,7 +30656,7 @@
       "historical_sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
       "registry_pointer": "/files/2250",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/fabelgeist-determinism/src/stream.rs",
       "current_git_blob": "c59d8a7720881fba266c80112e82880e4422e074",
       "current_observations": [
@@ -30681,7 +30683,8 @@
           ]
         }
       ],
-      "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-2248-2250.json"
     },
     {
       "original_index": 2251,

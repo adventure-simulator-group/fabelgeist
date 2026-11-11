@@ -10028,8 +10028,62 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-READBACK-SORT-95E.json"
+      },
+      {
+        "id": "Q-L1-64c44b9147016afcc221",
+        "lens": 1,
+        "additional_current_lenses": [
+          2,
+          3,
+          4,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; sampling and rule scope",
+        "classification": "The earlier Lens1 sampling question remains open across public index/choose callers and production expect handling.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/646",
+          "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-001.json via ASSESSMENT-DETERMINISM-95E.json",
+          "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-004.json via ASSESSMENT-DETERMINISM-95E.json"
+        ],
+        "relationship_qualification": "The earlier Lens1 record already noted production expects and the nonempty audio index3. The selected audio call is safe against an empty bound; no general runtime failure or broad native verdict follows.",
+        "discovery": "partial; current API, governing rule, pinned u64 sampler source and one nonempty caller traced; all other callers and feature resolution open",
+        "connected_repair_direction": "Preserve documented nonempty and unbiased-sampling behavior while explicitly handling invalid caller inputs and production expect cases at the owning API.",
+        "future_acceptance": "After audit and authorization, cover empty and nonempty candidate policies, fixed-width rejection behavior and typed sampler causes without inventing failures for proven constants.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DETERMINISM-95E.json"
+      },
+      {
+        "id": "Q-L1-c356cec832d5514e0721",
+        "lens": 1,
+        "additional_current_lenses": [
+          3,
+          4,
+          5,
+          7,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; floating-range admission",
+        "classification": "The earlier Lens1 range question remains open: finite ordered opposite-sign endpoints can produce a non-finite intermediate span.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/662",
+          "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-004.json via ASSESSMENT-DETERMINISM-95E.json",
+          "adler/READ-L11-220.json via ASSESSMENT-DETERMINISM-95E.json"
+        ],
+        "relationship_qualification": "The original q662 already raised this condition; a symbolic f32 maximum example adds precision without a new finding. Selected normal small-range callers do not demonstrate it; no numeric calculation or RNG ran.",
+        "discovery": "partial; exact admission, arithmetic and selected bounded callers traced; extreme caller reachability, output endpoint semantics and aliases open",
+        "connected_repair_direction": "Define the supported floating interval and overflow/rounding policy at the deterministic range owner, preserving normal draw consumption and intentional replay behavior.",
+        "future_acceptance": "After audit and authorization, cover extreme finite opposite-sign inputs, equal endpoints, small ranges and replay/draw-sequence policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DETERMINISM-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1632.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1636.json"
 }
