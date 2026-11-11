@@ -1,0 +1,90 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1697,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/visibility.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals6533 committed blob;95e independently compared.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1697",
+      "sha256": "09366b1705b726c94763a99aaa47ffd35ccd1874b93bc11150436a9c8210595e",
+      "lines": 214,
+      "new_personal_read_ranges": [
+        [
+          1,
+          214
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "STRATEGIC-REPLACEMENT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/strategic_scene/visibility.rs",
+        "sha256": "09366b1705b726c94763a99aaa47ffd35ccd1874b93bc11150436a9c8210595e",
+        "bytes": 7893,
+        "lines": 214,
+        "git_blob": "53760023b57bde83c0f0dc3ae658b9a7128dcd60",
+        "preserved_bytes": "main-advance-95e/strategic-replacement-evidence/current-1697.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            214
+          ]
+        ],
+        "qualification": "Current body independently read through EOF; source tests and product were not executed, and other-lens closure is not inferred."
+      },
+      "qualification": "Complete historical body personally inspected at this original role; source tests and connected native behavior remain open."
+    },
+    {
+      "original_index": 1698,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/world.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals6533 committed blob;95e independently compared.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1698",
+      "sha256": "d957debd0155371a6487925b22efab792acadf0a9a374b35e8994126146a1f27",
+      "lines": 177,
+      "new_personal_read_ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "STRATEGIC-REPLACEMENT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/strategic_scene/world.rs",
+        "sha256": "d957debd0155371a6487925b22efab792acadf0a9a374b35e8994126146a1f27",
+        "bytes": 6354,
+        "lines": 177,
+        "git_blob": "42f8efd9a398ccc5ac4be936e7a75c04e836ca12",
+        "preserved_bytes": "main-advance-95e/strategic-replacement-evidence/current-1698.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            177
+          ]
+        ],
+        "qualification": "Current body independently read through EOF; source tests and product were not executed, and other-lens closure is not inferred."
+      },
+      "qualification": "Complete historical body personally inspected at this original role; source tests and connected native behavior remain open."
+    }
+  ],
+  "observations": [
+    "Original strategic visibility and world roles personally inspected through EOF; current95e bodies are byte-identical and independently read. Source tests and product were not run.",
+    "The previous camera-lifecycle checkpoint proved role1697 identity with no ordered full-read credit; that qualification remains unchanged for its time, and the later complete personal read is recorded here. Segovb READ541–542 and Adler READ245 retain independent original scope.",
+    "The actual world caller consumes generated building and furniture data by value; prepare_venues failure discards that local generated prefix. Direct retained.street, queued native commands and failure/retry policy remain separate open contracts."
+  ],
+  "remaining": "Continue original1699 at line1601; destination error identity, native install timing, all13 lenses, queue and aliases remain open."
+}

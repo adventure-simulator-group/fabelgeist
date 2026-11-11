@@ -9,14 +9,14 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 1136,
+    "unassessed": 1134,
     "lock-metadata-partial": 3,
     "bounded-current-trace-only": 68,
     "assessed-nonapplicable": 3,
-    "full-historical-body-trace-open": 1637,
+    "full-historical-body-trace-open": 1639,
     "deleted-base-trace-open": 6
   },
-  "first_unfinished": "Lock roles39,497 and680 remain metadata-partial; original roles1692–1696 have now been read. Continue at historical body1697; independent lenses remain open.",
+  "first_unfinished": "Lock roles39,497 and680 remain metadata-partial; original roles1697–1698 have now been read. Continue historical role1699 at line1601; independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -23242,7 +23242,9 @@
       "historical_sha256": "09366b1705b726c94763a99aaa47ffd35ccd1874b93bc11150436a9c8210595e",
       "registry_pointer": "/files/1697",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1697-1698.json",
+      "qualification": "Complete historical body personally inspected at this original role; source tests and connected native behavior remain open."
     },
     {
       "original_index": 1698,
@@ -23252,7 +23254,9 @@
       "historical_sha256": "d957debd0155371a6487925b22efab792acadf0a9a374b35e8994126146a1f27",
       "registry_pointer": "/files/1698",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1697-1698.json",
+      "qualification": "Complete historical body personally inspected at this original role; source tests and connected native behavior remain open."
     },
     {
       "original_index": 1699,
@@ -23296,7 +23300,31 @@
           ]
         }
       ],
-      "qualification": "Only cited current ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+      "qualification": "Only cited current ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate.",
+      "historical_partial_observations": [
+        {
+          "assessment": "ASSESSMENT-L01-HISTORICAL-1699-PARTIAL-001.json",
+          "ranges": [
+            [
+              1,
+              400
+            ],
+            [
+              401,
+              800
+            ],
+            [
+              801,
+              1200
+            ],
+            [
+              1201,
+              1600
+            ]
+          ]
+        }
+      ],
+      "historical_partial_qualification": "Historical lines1–1600 personally read; 1601–4477 remain unread by this reviewer. Original Segovb full read and prior current bounded traces remain independently attributed."
     },
     {
       "original_index": 1700,

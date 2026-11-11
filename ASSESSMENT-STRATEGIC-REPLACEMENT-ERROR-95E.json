@@ -1,0 +1,834 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Two original strategic visibility/world roles and a qualified prefix of the viewer; bounded current destination failure identity.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1697-1698.json",
+  "historical_partial_read": "ASSESSMENT-L01-HISTORICAL-1699-PARTIAL-001.json",
+  "git_membership_evidence": "STRATEGIC-REPLACEMENT-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/generation/ownership.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3cb64f24d48b29dc5b3969259f653ae48e8c916e",
+      "sha256": "e778ced99ff655e2f55ac67e0faf0e8152899f9552b0210670c232b48483ea4f",
+      "bytes": 9992,
+      "lines": 320,
+      "ranges": [
+        [
+          1,
+          260
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-replacement-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/generation/installation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "54ee1273148dbb05cd02c90bb286e26886b55532",
+      "sha256": "b6bfc1a3b7fee5f042c8c1c926db1e528aed65c795c69dc303755fef51f877f8",
+      "bytes": 1586,
+      "lines": 54,
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-replacement-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/strategic-web/static/strategic-scene-request.js",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "967562539fd2a80ea7a9e7842249fe0adc4ebdf9",
+      "sha256": "115d5bb4d13aa19a2db6ec66612d6dfce39867927ce807bb8d5a1703991bc5c4",
+      "bytes": 3335,
+      "lines": 80,
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-replacement-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/strategic-web/static/strategic-generation.js",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4148239cc39ceec068ddab31d4380eeb4cd485d0",
+      "sha256": "990b58405ed9b2c9110031b9c0cfa98557a4803f43ed2cff46e64afa9d136101",
+      "bytes": 5602,
+      "lines": 117,
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-replacement-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/strategic-web/static/strategic-scene.js",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cf9ab76117504facf687efe34a19b897b1248b21",
+      "sha256": "7db5964db4e3c0c4a152ba1b501a57068a4553a440427152382042f74988be20",
+      "bytes": 19166,
+      "lines": 371,
+      "ranges": [
+        [
+          250,
+          305
+        ],
+        [
+          315,
+          340
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-replacement-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/browser_runtime.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9b453eb2ed0b42e7680846a4c1b877c7dacc08a4",
+      "sha256": "83c7e8a4696ea53dca63deabee935561888354229cc8b71e92be800b592f98d7",
+      "bytes": 17179,
+      "lines": 522,
+      "ranges": [
+        [
+          189,
+          227
+        ],
+        [
+          511,
+          522
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-replacement-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/status.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2ba57c1d4608fff7d625797ecf7d06b27ad907f8",
+      "sha256": "3a17db60e7f3371d1040442ac335fa84371b8ab9eee2eba20ea36ae2397b686a",
+      "bytes": 7109,
+      "lines": 207,
+      "ranges": [
+        [
+          90,
+          207
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-replacement-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/instances.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fbc75b2400a14d4c0747ba3ba6ef19896e5974a7",
+      "sha256": "66149a921888d0c9cf3f530e5c3d909dc4950a182bbaefc83c15ff8f7adf792b",
+      "bytes": 3520,
+      "lines": 95,
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-replacement-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/buildings.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "270b0787af3e99d72ce4b0409808b14306f14a8a",
+      "sha256": "eed4c2d99ec4ad18e67456e133d4ea14ae54d5bb6645beaa5dd3b707f842a3be",
+      "bytes": 9842,
+      "lines": 252,
+      "ranges": [
+        [
+          1,
+          180
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/strategic-replacement-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Scoped preparation prefix",
+      "trace": "prepare consumes PreparedStrategicScene by value; when prepare_venues returns Err, its mutated local generated building/furniture prefix is dropped. Segovb READ542 previously made the same narrow caller-specific qualification at6533.",
+      "remaining": "retained.street may be assigned before a later venue error, and native queued entity cleanup and other callers have not been cleared."
+    },
+    {
+      "contract": "Visibility gate and far-plane filter",
+      "trace": "The installation latch resets on scene-root change, deliberately does not reclose for later rebakes, and clears only Mesh3d visibility for strategic/gameplay cameras while excluding the regional map. Far-plane filtering uses the transformed AABB and leaves missing bounds/NoFrustumCulling entries.",
+      "remaining": "Source-only fixtures were not executed; native frustum plane ordering and all owner/schedule contracts remain independently open."
+    },
+    {
+      "contract": "Viewer prefix and safe output",
+      "trace": "Original viewer lines1–1600 include a fresh-output guard that refuses an already existing destination before creating it, and select_capture_views checks profile and requested slugs.",
+      "remaining": "The unread lines1601–4477, connected helpers and any output-side effects remain open. The source itself was not executed, and no capture directory was created."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-STRATEGIC-DESTINATION-ERROR-IDENTITY-001",
+      "lens": 7,
+      "severity": "unassigned; conditional failed destination and return lifecycle",
+      "classification": "New95e source-level error identity question connected to earlier Segovb542 and Adler245 pending destination failure scope; no new historical finding.",
+      "canonical_owner": "Destination-specific generation outcome and RetainedScene location/root/error relationship.",
+      "first_failed_contract": "A failed new-location generated_scene result is stored in the existing retained scene before its location and root are replaced, so the error has no retained destination identity.",
+      "trace": "With a resident scene A and a matching requested/document location B, retain_scene calls document.generated_scene before despawning A or resetting RetainedScene. If that call returns Err, it assigns scene.error and returns, leaving scene.location=A and the old root. If a later matching valid document/view for A reaches retain_scene without a reset, the same-location error guard returns immediately. Status separately requires scene.error.is_none for installation and serializes that error. This is source-level branch reasoning; no A/B navigation, request, failure, update loop or UI was executed.",
+      "producer_safeguards": "The browser request controller waits for prepareGeneratedScene to finish before installing a document and serializes overlapping worker ownership; generation finish validates the input and records the exact owner/ticket/digest, and activate rejects stale or mismatched preparation. These protections constrain, but do not by themselves prove impossible, an error after installation. The old scene/root are deliberately retained on destination generation failure, and explicit scene release or successful replacement may reset state.",
+      "counterevidence": "A concrete supported transition that produces a post-install generated_scene error followed by return to A has not been demonstrated; native non-Wasm generation and manually supplied invalid requests are distinct paths. The controller may fail before installing B, the user may not return while the old resource persists, and later unseen systems or policy may intentionally end the session. This is not the previously recorded same-location place-identity mismatch or the local generated-prefix issue.",
+      "connected_repair": "After full audit and separate implementation authorization, bind generation failures to the requested destination or a separate request outcome, and define which transitions retain, clear or retry the resident scene without losing typed error causes; coordinate ticket activation and browser request status.",
+      "acceptance_requirements": [
+        "A failed destination reports its own error without making an unrelated still-resident scene permanently fail when a supported return/retry occurs; genuine same-scene errors remain explicit."
+      ],
+      "discovery": "partial; exact branch sequence and ticket safeguards traced, supported post-install failure/return producer, schedules, retry policy and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1419",
+        "/entries/1420",
+        "/entries/1421"
+      ],
+      "qualification": "Partial current reassessment; earlier reviewer and full independent scopes remain open."
+    },
+    {
+      "file": "ASSESSMENT-STRATEGIC-CAMERA-LIFECYCLE-95E.json",
+      "qualification": "Prior role1697 identity-only non-credit retained, followed by the later independent read."
+    },
+    {
+      "file": "ASSESSMENT-TREE-STREAM-DIAGNOSTICS-95E.json",
+      "qualification": "Earlier Adler READ246 full viewer scope and earlier identity-only no-credit qualification retained at6533."
+    },
+    {
+      "file": "ASSESSMENT-BROWSER-COMMAND-CANVAS-95E.json",
+      "qualification": "Earlier deferred command batch case remains separate; no automatic alias with destination error ownership."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PARTIAL-L12-543-001.json",
+      "sha256": "1ebc9059d7e4ed9c09f047a86b095b17d51e218398ef0a378e9e935c34c9622a",
+      "bytes": 4915,
+      "git_blob": "fd12bb3fe0a0145ea7b308203e317711bf577e47",
+      "preserved_bytes": "recovered/strategic-replacement-059/1ebc9059d7e4ed9c09f047a86b095b17d51e218398ef0a378e9e935c34c9622a.gz",
+      "published_sha256": "1ebc9059d7e4ed9c09f047a86b095b17d51e218398ef0a378e9e935c34c9622a",
+      "published_bytes": 4915,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier reviewer partial or EOF qualification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-543-002.json",
+      "sha256": "8c79f5ee35b4dbe6bf2d1eb64f491189df0e70c8773f18e4a0fd585b159bd081",
+      "bytes": 6578,
+      "git_blob": "969295b159adb19e327153c23ffdedc7c1e4d4ee",
+      "preserved_bytes": "recovered/strategic-replacement-059/8c79f5ee35b4dbe6bf2d1eb64f491189df0e70c8773f18e4a0fd585b159bd081.gz",
+      "published_sha256": "8c79f5ee35b4dbe6bf2d1eb64f491189df0e70c8773f18e4a0fd585b159bd081",
+      "published_bytes": 6578,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier reviewer partial or EOF qualification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-543-003.json",
+      "sha256": "0d3b2c501e2bd8814089968681698969f73ff3b5e981e7e228480e3663f0018b",
+      "bytes": 6824,
+      "git_blob": "554bbdb3c99ea7c55bc54d0f38a318190c5f109b",
+      "preserved_bytes": "recovered/strategic-replacement-059/0d3b2c501e2bd8814089968681698969f73ff3b5e981e7e228480e3663f0018b.gz",
+      "published_sha256": "0d3b2c501e2bd8814089968681698969f73ff3b5e981e7e228480e3663f0018b",
+      "published_bytes": 6824,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier reviewer partial or EOF qualification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-543-004.json",
+      "sha256": "5be649106b46fd20d9e899139d9c6eba7ba3835ce64accff1436101506c282b6",
+      "bytes": 6781,
+      "git_blob": "c9766ab3fadc468940465543953d454a439b4352",
+      "preserved_bytes": "recovered/strategic-replacement-059/5be649106b46fd20d9e899139d9c6eba7ba3835ce64accff1436101506c282b6.gz",
+      "published_sha256": "5be649106b46fd20d9e899139d9c6eba7ba3835ce64accff1436101506c282b6",
+      "published_bytes": 6781,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier reviewer partial or EOF qualification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-543-005.json",
+      "sha256": "f27b57c420792a936ea14b030d8372994dbea97d1f6622903384317061672045",
+      "bytes": 7072,
+      "git_blob": "04dca07163c20b44789280796ec9edf28c39ce35",
+      "preserved_bytes": "recovered/strategic-replacement-059/f27b57c420792a936ea14b030d8372994dbea97d1f6622903384317061672045.gz",
+      "published_sha256": "f27b57c420792a936ea14b030d8372994dbea97d1f6622903384317061672045",
+      "published_bytes": 7072,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier reviewer partial or EOF qualification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-543-006.json",
+      "sha256": "16da198c5ead19bae3b697f8807393ce7e19b4225558df718e8b2c83ed9b05c1",
+      "bytes": 6968,
+      "git_blob": "d785621d3c429bf5fb9b903f2112fe67f576043b",
+      "preserved_bytes": "recovered/strategic-replacement-059/16da198c5ead19bae3b697f8807393ce7e19b4225558df718e8b2c83ed9b05c1.gz",
+      "published_sha256": "16da198c5ead19bae3b697f8807393ce7e19b4225558df718e8b2c83ed9b05c1",
+      "published_bytes": 6968,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier reviewer partial or EOF qualification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-543-007.json",
+      "sha256": "49be1a8588c4d87fc08c8cfbf34c61ee31e359f31595ed7f110b52aaa791d629",
+      "bytes": 6480,
+      "git_blob": "54ec9ce927fe05033be528d6e9d200958a351452",
+      "preserved_bytes": "recovered/strategic-replacement-059/49be1a8588c4d87fc08c8cfbf34c61ee31e359f31595ed7f110b52aaa791d629.gz",
+      "published_sha256": "49be1a8588c4d87fc08c8cfbf34c61ee31e359f31595ed7f110b52aaa791d629",
+      "published_bytes": 6480,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier reviewer partial or EOF qualification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-543-008-EOF.json",
+      "sha256": "331c56510de970c2204edf22377cf4bbd4033af119f036cb5ebdc066bfe3afef",
+      "bytes": 5720,
+      "git_blob": "37dfffdf9dd008f6759c66cfb5517fdac9223c4f",
+      "preserved_bytes": "recovered/strategic-replacement-059/331c56510de970c2204edf22377cf4bbd4033af119f036cb5ebdc066bfe3afef.gz",
+      "published_sha256": "331c56510de970c2204edf22377cf4bbd4033af119f036cb5ebdc066bfe3afef",
+      "published_bytes": 5720,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier reviewer partial or EOF qualification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-542.json",
+      "sha256": "0ac61973ef4886a8ce1dcda945799c14510eba154744e59891c45a30b7fceba9",
+      "bytes": 724,
+      "git_blob": "00392dde9db8afbb46c2f716af9b5ea9a46435eb",
+      "preserved_bytes": "recovered/strategic-replacement-059/0ac61973ef4886a8ce1dcda945799c14510eba154744e59891c45a30b7fceba9.gz",
+      "published_sha256": "0ac61973ef4886a8ce1dcda945799c14510eba154744e59891c45a30b7fceba9",
+      "published_bytes": 724,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-543.json",
+      "sha256": "f3d8c59912edf0ac44a74b2e5dd6c022c0df998d156ee2f6f1e8e3ff4096094e",
+      "bytes": 726,
+      "git_blob": "4a59add5baf828165a03cf3ca5f3e5e00d667db1",
+      "preserved_bytes": "recovered/strategic-replacement-059/f3d8c59912edf0ac44a74b2e5dd6c022c0df998d156ee2f6f1e8e3ff4096094e.gz",
+      "published_sha256": "f3d8c59912edf0ac44a74b2e5dd6c022c0df998d156ee2f6f1e8e3ff4096094e",
+      "published_bytes": 726,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-482.json",
+      "sha256": "1ddf12f1b29359be891b3d59b95aed06b1815d6d065714f80461499964d98185",
+      "bytes": 5666,
+      "git_blob": "a02c17040e6fd749714871464cb6877ee594ad3f",
+      "preserved_bytes": "recovered/strategic-replacement-059/1ddf12f1b29359be891b3d59b95aed06b1815d6d065714f80461499964d98185.gz",
+      "published_sha256": "1ddf12f1b29359be891b3d59b95aed06b1815d6d065714f80461499964d98185",
+      "published_bytes": 5666,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier same-lens receipt, no new credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-489.json",
+      "sha256": "14729effcde0c2342a173a1d5228527354fde6fc1b3910a80d279322483b4ed6",
+      "bytes": 8126,
+      "git_blob": "d44c718ccb9aac2b10def85b7c001e2741780400",
+      "preserved_bytes": "recovered/strategic-replacement-059/14729effcde0c2342a173a1d5228527354fde6fc1b3910a80d279322483b4ed6.gz",
+      "published_sha256": "14729effcde0c2342a173a1d5228527354fde6fc1b3910a80d279322483b4ed6",
+      "published_bytes": 8126,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier same-lens receipt, no new credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-491.json",
+      "sha256": "b5a0527472fa44b3139451cfcaf12f5e314e818c38f5bf0284c766595d840adc",
+      "bytes": 5576,
+      "git_blob": "b97e504542fdde934b0ec99c548acf4efbab608b",
+      "preserved_bytes": "recovered/strategic-replacement-059/b5a0527472fa44b3139451cfcaf12f5e314e818c38f5bf0284c766595d840adc.gz",
+      "published_sha256": "b5a0527472fa44b3139451cfcaf12f5e314e818c38f5bf0284c766595d840adc",
+      "published_bytes": 5576,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier same-lens receipt, no new credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-496.json",
+      "sha256": "b8f142491421e300a69a277d1bcd044cbd2cf30f19bf923f65c32eda509c6479",
+      "bytes": 9537,
+      "git_blob": "fba8fca4e01bdbd4427f5b36ee6192daa9a96b8e",
+      "preserved_bytes": "recovered/strategic-replacement-059/b8f142491421e300a69a277d1bcd044cbd2cf30f19bf923f65c32eda509c6479.gz",
+      "published_sha256": "b8f142491421e300a69a277d1bcd044cbd2cf30f19bf923f65c32eda509c6479",
+      "published_bytes": 9537,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier same-lens receipt, no new credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-497.json",
+      "sha256": "85901e392636a0ef77eaa742861bfbada74c015006d6fa2498e7f603aa80f223",
+      "bytes": 13951,
+      "git_blob": "b8facdbf191f9854827d4b072d317523db6cae42",
+      "preserved_bytes": "recovered/strategic-replacement-059/85901e392636a0ef77eaa742861bfbada74c015006d6fa2498e7f603aa80f223.gz",
+      "published_sha256": "85901e392636a0ef77eaa742861bfbada74c015006d6fa2498e7f603aa80f223",
+      "published_bytes": 13951,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier same-lens receipt, no new credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-500.json",
+      "sha256": "6c7624d72e81cd9ccc07a40e7fd6f408c0274d9461135517da9f305233532a2b",
+      "bytes": 8661,
+      "git_blob": "2169bc87370ea18908c9e2ad0aded9179283e7a5",
+      "preserved_bytes": "recovered/strategic-replacement-059/6c7624d72e81cd9ccc07a40e7fd6f408c0274d9461135517da9f305233532a2b.gz",
+      "published_sha256": "6c7624d72e81cd9ccc07a40e7fd6f408c0274d9461135517da9f305233532a2b",
+      "published_bytes": 8661,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier same-lens receipt, no new credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-503.json",
+      "sha256": "4e4fae64e1e3fca4ff58906e7c4ff5407c029b21c8c59824bf7a1bff3521062e",
+      "bytes": 10708,
+      "git_blob": "990a24360d899a2c3f413f030d1a1be9c260d955",
+      "preserved_bytes": "recovered/strategic-replacement-059/4e4fae64e1e3fca4ff58906e7c4ff5407c029b21c8c59824bf7a1bff3521062e.gz",
+      "published_sha256": "4e4fae64e1e3fca4ff58906e7c4ff5407c029b21c8c59824bf7a1bff3521062e",
+      "published_bytes": 10708,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier same-lens receipt, no new credit",
+        "earlier same-lens receipt, no new credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-505.json",
+      "sha256": "3a2c9a9b2ccd3cbb8a45e225582f1ae86e5199359bd6881c9ec65846883292c1",
+      "bytes": 14211,
+      "git_blob": "16c650e3e04c05beb59d239587e97036c1d5acc5",
+      "preserved_bytes": "recovered/strategic-replacement-059/3a2c9a9b2ccd3cbb8a45e225582f1ae86e5199359bd6881c9ec65846883292c1.gz",
+      "published_sha256": "3a2c9a9b2ccd3cbb8a45e225582f1ae86e5199359bd6881c9ec65846883292c1",
+      "published_bytes": 14211,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier same-lens receipt, no new credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-533.json",
+      "sha256": "8f6580556e7d3da0279fd99b34b037033b6198a1fcbaae05ee303bec50abf250",
+      "bytes": 9746,
+      "git_blob": "9610c8be06dd28f6bf623baf3818aea4e9ca0007",
+      "preserved_bytes": "recovered/strategic-replacement-059/8f6580556e7d3da0279fd99b34b037033b6198a1fcbaae05ee303bec50abf250.gz",
+      "published_sha256": "8f6580556e7d3da0279fd99b34b037033b6198a1fcbaae05ee303bec50abf250",
+      "published_bytes": 9746,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier same-lens receipt, no new credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-539.json",
+      "sha256": "4b001d8a624f21c0142acaecdf68b2fe6d4e10eb381c0be7ef21be1b1ca90f0b",
+      "bytes": 9755,
+      "git_blob": "ec52aa7b099804f93c4865573c97cddfabd2c9e1",
+      "preserved_bytes": "recovered/strategic-replacement-059/4b001d8a624f21c0142acaecdf68b2fe6d4e10eb381c0be7ef21be1b1ca90f0b.gz",
+      "published_sha256": "4b001d8a624f21c0142acaecdf68b2fe6d4e10eb381c0be7ef21be1b1ca90f0b",
+      "published_bytes": 9755,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier same-lens receipt, no new credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-542.json",
+      "sha256": "7dd6aa80b9d4c0c2af7177db3a392c0073abf7993717bec1da19d596c91c0860",
+      "bytes": 12870,
+      "git_blob": "ce9e0e1c017438bdb157ef8475ca4e9bc6e515ef",
+      "preserved_bytes": "recovered/strategic-replacement-059/7dd6aa80b9d4c0c2af7177db3a392c0073abf7993717bec1da19d596c91c0860.gz",
+      "published_sha256": "7dd6aa80b9d4c0c2af7177db3a392c0073abf7993717bec1da19d596c91c0860",
+      "published_bytes": 12870,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-543.json",
+      "sha256": "42b41aaff4e286f1bee20a290f1837069b4c843713feddfaa782119b2ece45bb",
+      "bytes": 42071,
+      "git_blob": "316fadcf065d57e6c78673c8a66d2d3b819feda9",
+      "preserved_bytes": "recovered/strategic-replacement-059/42b41aaff4e286f1bee20a290f1837069b4c843713feddfaa782119b2ece45bb.gz",
+      "published_sha256": "42b41aaff4e286f1bee20a290f1837069b4c843713feddfaa782119b2ece45bb",
+      "published_bytes": 42071,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-469.json",
+      "sha256": "5d21f5347344367365c91243b6f13179533bd410375d1718e3ba686de93af82d",
+      "bytes": 1233,
+      "git_blob": "cc2ed2766ad34cdf02e3d73d5601d2a3f176b685",
+      "preserved_bytes": "recovered/strategic-replacement-059/5d21f5347344367365c91243b6f13179533bd410375d1718e3ba686de93af82d.gz",
+      "published_sha256": "5d21f5347344367365c91243b6f13179533bd410375d1718e3ba686de93af82d",
+      "published_bytes": 1233,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-485.json",
+      "sha256": "1a80b25775869a4a7cdcf76612f43c84ea60a2de9eb82e9440ae45c8511078b3",
+      "bytes": 1189,
+      "git_blob": "05de8b3d814dcebb7d893f5a1ddc26dec303f60c",
+      "preserved_bytes": "recovered/strategic-replacement-059/1a80b25775869a4a7cdcf76612f43c84ea60a2de9eb82e9440ae45c8511078b3.gz",
+      "published_sha256": "1a80b25775869a4a7cdcf76612f43c84ea60a2de9eb82e9440ae45c8511078b3",
+      "published_bytes": 1189,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-489.json",
+      "sha256": "c0dd81976f5bfba86bc459460566e456ea4b4b035781c204e9c79ec8022bdd14",
+      "bytes": 1183,
+      "git_blob": "632b4edbaeff568cb5add565798192530e8cf29b",
+      "preserved_bytes": "recovered/strategic-replacement-059/c0dd81976f5bfba86bc459460566e456ea4b4b035781c204e9c79ec8022bdd14.gz",
+      "published_sha256": "c0dd81976f5bfba86bc459460566e456ea4b4b035781c204e9c79ec8022bdd14",
+      "published_bytes": 1183,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-500.json",
+      "sha256": "fdc4617194922babc7963e5d2d5b5bc00d059a26d1ba48629ebea509fe25466e",
+      "bytes": 1204,
+      "git_blob": "1ceecab98c85f59a0796f92707580ef61b4cfd89",
+      "preserved_bytes": "recovered/strategic-replacement-059/fdc4617194922babc7963e5d2d5b5bc00d059a26d1ba48629ebea509fe25466e.gz",
+      "published_sha256": "fdc4617194922babc7963e5d2d5b5bc00d059a26d1ba48629ebea509fe25466e",
+      "published_bytes": 1204,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-503.json",
+      "sha256": "adee6e8d8f536acf9eeb74fcafdb76d7cb5befadc23351e6f326ec4915abb861",
+      "bytes": 1223,
+      "git_blob": "f99fa7c1945f86a094b0d32ee717e4584dad3f6a",
+      "preserved_bytes": "recovered/strategic-replacement-059/adee6e8d8f536acf9eeb74fcafdb76d7cb5befadc23351e6f326ec4915abb861.gz",
+      "published_sha256": "adee6e8d8f536acf9eeb74fcafdb76d7cb5befadc23351e6f326ec4915abb861",
+      "published_bytes": 1223,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-507.json",
+      "sha256": "6614b770997be8167597c7846b1dfa1b2bca23c4784729ce238113a92e4d6e2b",
+      "bytes": 1202,
+      "git_blob": "95f8540cb11e613f3cd6a3742a9bbd47b390d901",
+      "preserved_bytes": "recovered/strategic-replacement-059/6614b770997be8167597c7846b1dfa1b2bca23c4784729ce238113a92e4d6e2b.gz",
+      "published_sha256": "6614b770997be8167597c7846b1dfa1b2bca23c4784729ce238113a92e4d6e2b",
+      "published_bytes": 1202,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-511.json",
+      "sha256": "0a54f7e8b528d8f3ca97c7f4a7d2b6de02925ab8ffa32fe6f6539949f8f03340",
+      "bytes": 1239,
+      "git_blob": "312243903c43b8c75f56e4b50838c8a34aea5e92",
+      "preserved_bytes": "recovered/strategic-replacement-059/0a54f7e8b528d8f3ca97c7f4a7d2b6de02925ab8ffa32fe6f6539949f8f03340.gz",
+      "published_sha256": "0a54f7e8b528d8f3ca97c7f4a7d2b6de02925ab8ffa32fe6f6539949f8f03340",
+      "published_bytes": 1239,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-512.json",
+      "sha256": "73032764cb1e4d2c69259578402d121782544f73c161bd992b5a292b850960ff",
+      "bytes": 1215,
+      "git_blob": "a4feaaf91fc099decca726b3931d95b354933152",
+      "preserved_bytes": "recovered/strategic-replacement-059/73032764cb1e4d2c69259578402d121782544f73c161bd992b5a292b850960ff.gz",
+      "published_sha256": "73032764cb1e4d2c69259578402d121782544f73c161bd992b5a292b850960ff",
+      "published_bytes": 1215,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-514.json",
+      "sha256": "8ab6d6db0dc900c3e73dd1531f357a31f65a004e3ee6fafaa85fdf94b88ab899",
+      "bytes": 1230,
+      "git_blob": "79620f6ed1c55b078d68d2d8a7ea7f047f613002",
+      "preserved_bytes": "recovered/strategic-replacement-059/8ab6d6db0dc900c3e73dd1531f357a31f65a004e3ee6fafaa85fdf94b88ab899.gz",
+      "published_sha256": "8ab6d6db0dc900c3e73dd1531f357a31f65a004e3ee6fafaa85fdf94b88ab899",
+      "published_bytes": 1230,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-585.json",
+      "sha256": "1f22d3b9e0c19cd63bcf4e97ddebbf58a3772d642266a9f33138be4e459061c2",
+      "bytes": 1206,
+      "git_blob": "d642280f5d5f49c3da5cbacf08ca9e45b36db219",
+      "preserved_bytes": "recovered/strategic-replacement-059/1f22d3b9e0c19cd63bcf4e97ddebbf58a3772d642266a9f33138be4e459061c2.gz",
+      "published_sha256": "1f22d3b9e0c19cd63bcf4e97ddebbf58a3772d642266a9f33138be4e459061c2",
+      "published_bytes": 1206,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-601.json",
+      "sha256": "68d7c7079c9d95fea6fa0c21f1c4567fe50fc7a2e87fed20e49969d8c95d2478",
+      "bytes": 1199,
+      "git_blob": "a7ac480f1818d68993d9c49696883af85d253fac",
+      "preserved_bytes": "recovered/strategic-replacement-059/68d7c7079c9d95fea6fa0c21f1c4567fe50fc7a2e87fed20e49969d8c95d2478.gz",
+      "published_sha256": "68d7c7079c9d95fea6fa0c21f1c4567fe50fc7a2e87fed20e49969d8c95d2478",
+      "published_bytes": 1199,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-605.json",
+      "sha256": "42927c0dba835b254b8cb5c716598df46577154a1b589eca82bb0053ea76ee32",
+      "bytes": 1182,
+      "git_blob": "5b56616e755ae19f10abe25147cea3f7b20016d5",
+      "preserved_bytes": "recovered/strategic-replacement-059/42927c0dba835b254b8cb5c716598df46577154a1b589eca82bb0053ea76ee32.gz",
+      "published_sha256": "42927c0dba835b254b8cb5c716598df46577154a1b589eca82bb0053ea76ee32",
+      "published_bytes": 1182,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-606.json",
+      "sha256": "639d55b7e5918087a2663bf7bb27df4c25ae90175a27829f053649b32f497dae",
+      "bytes": 1247,
+      "git_blob": "d151d4a11f21ba678fbcf7989f7138b8e2c00bac",
+      "preserved_bytes": "recovered/strategic-replacement-059/639d55b7e5918087a2663bf7bb27df4c25ae90175a27829f053649b32f497dae.gz",
+      "published_sha256": "639d55b7e5918087a2663bf7bb27df4c25ae90175a27829f053649b32f497dae",
+      "published_bytes": 1247,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-542.json",
+      "sha256": "8403a15fece60c0322136a83fb0ab0d06ac252ccc30076b5f2555b2104b360bf",
+      "bytes": 840,
+      "git_blob": "2bf41e8207a3d8f9c0cb6da77541b47437d14e53",
+      "preserved_bytes": "recovered/strategic-replacement-059/8403a15fece60c0322136a83fb0ab0d06ac252ccc30076b5f2555b2104b360bf.gz",
+      "published_sha256": "8403a15fece60c0322136a83fb0ab0d06ac252ccc30076b5f2555b2104b360bf",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-543.json",
+      "sha256": "50950723cc5c477fb26273288be9f919b32bf5586bdbd6b23292858698a7daec",
+      "bytes": 840,
+      "git_blob": "8f33842d6177d3ef055cfd4a5ae369a07fe4fe04",
+      "preserved_bytes": "recovered/strategic-replacement-059/50950723cc5c477fb26273288be9f919b32bf5586bdbd6b23292858698a7daec.gz",
+      "published_sha256": "50950723cc5c477fb26273288be9f919b32bf5586bdbd6b23292858698a7daec",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-542.json",
+      "sha256": "0719818e429f72d074db64763930fea7dbce803886b5376b2aded7965cdb517b",
+      "bytes": 558,
+      "git_blob": "f6dc3d1e8ee52c4cd6256b62afc4b92b768ef601",
+      "preserved_bytes": "recovered/strategic-replacement-059/0719818e429f72d074db64763930fea7dbce803886b5376b2aded7965cdb517b.gz",
+      "published_sha256": "0719818e429f72d074db64763930fea7dbce803886b5376b2aded7965cdb517b",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-543.json",
+      "sha256": "b0f1f3015613ffe709d40d6fcd35368d9e447bb89c8a2b1acef7f1813fe14591",
+      "bytes": 558,
+      "git_blob": "5f89cb2adb99ae8a78b7a4db962966a726b129af",
+      "preserved_bytes": "recovered/strategic-replacement-059/b0f1f3015613ffe709d40d6fcd35368d9e447bb89c8a2b1acef7f1813fe14591.gz",
+      "published_sha256": "b0f1f3015613ffe709d40d6fcd35368d9e447bb89c8a2b1acef7f1813fe14591",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    }
+  ],
+  "remaining": "Continue original1699 at line1601; establish supported post-install failure and return, source body/native contracts, all13 lenses and semantic queue. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
