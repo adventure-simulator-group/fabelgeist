@@ -1,0 +1,472 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    4,
+    5,
+    7,
+    8,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Five additional historical bodies and a conditional sampled-terrain off-chord search case.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1384-1388.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene/admission.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6fa3f51f1e19db0e2af765358447300b6ffbe537",
+      "sha256": "c77986f9f9ff85cd6b4359792d8c28838b437942db2e61c92dc4104856e849cb",
+      "bytes": 3032,
+      "lines": 98,
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-search-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No scene, viewer, fixture, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene/queries.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a7fbe35525bc0e222e93cbedfac379560fbf4f0c",
+      "sha256": "feacac20255eb9787f14ee21a2b7955e72d5be7b618755698965657402efc08c",
+      "bytes": 6550,
+      "lines": 170,
+      "ranges": [
+        [
+          61,
+          170
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-search-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No scene, viewer, fixture, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8a54b1049b5593d0d06440ec8bda5f08f28c4ef8",
+      "sha256": "2661ce950659807c47c0de4fdc769ba1ba79825c47ba2985fcec32d7e4f38390",
+      "bytes": 20452,
+      "lines": 553,
+      "ranges": [
+        [
+          32,
+          53
+        ],
+        [
+          199,
+          213
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-search-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No scene, viewer, fixture, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene/property_support.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1391ac3030047ba89477fe576c06de1e7493f7b0",
+      "sha256": "4eb5b88b6059d622bb8663f784c3cd8eab5289a4928d2c51ab38031acc6a354a",
+      "bytes": 7361,
+      "lines": 181,
+      "ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-search-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No scene, viewer, fixture, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c7e7c3b49f7c88910d1b8eb460e723e125f788b3",
+      "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+      "bytes": 14801,
+      "lines": 407,
+      "ranges": [
+        [
+          73,
+          86
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-search-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No scene, viewer, fixture, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface_hit.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2067206fd8709ca623644904d5c95ce14d59ca34",
+      "sha256": "27d50aec52ef52b5d464e0e14d56fd1099e965784ab7db2198744ec9de96e558",
+      "bytes": 1228,
+      "lines": 37,
+      "ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-search-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No scene, viewer, fixture, test or runtime probe ran."
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          273,
+          307
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-search-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No scene, viewer, fixture, test or runtime probe ran."
+    }
+  ],
+  "related_current_coordinator": "ASSESSMENT-L01-HISTORICAL-1370-1374.json#/historical_source_roles/0; exact 95e source retained and historical differences documented.",
+  "conditional_findings": [
+    {
+      "id": "REVIEW-TERRAIN-DISK-SEARCH-ABSENCE-001",
+      "lens": 5,
+      "severity": "unassigned; conditional source-level scenario, actual owner and generated terrain unproved",
+      "classification": "Newly assessed source-level absence-policy case linked to an earlier Lens12 flight-projection obligation; not a demonstrated player-visible event.",
+      "trace": "advance_run_airborne_world_target first checks 65 points along the direct line, then calls terrain_feasible_target_in_step if none meets the step budget. In the off-chord grid, the first candidate with an unavailable clearance floor returns Ok(None) for the entire search, rather than skipping that candidate. The outer function then returns its closest cleared line sample even if it exceeds the motion budget. terrain_clearance_floor returns None for a SceneTerrain.height_at miss; the sampled terrain query returns None outside its grid.",
+      "symbolic_example": "Consider a sampled 21×21 grid of 0.01-metre spacing and stride 1, with every row containing heights -0.016 metres in columns 0–1, -0.066 in column 2 and -0.116 from column 3 onward. Terrain admission checks finite samples, dimensions, scale and stride; this hypothetical heightfield satisfies those checks. Its left X boundary is -0.1 m. Let start_world=(-0.095,0,0), desired_world=(-0.095,0,0.05), an identity owner frame, a 0.094 m step budget, and terrain clearance 0.051 m. The configured sole offset is 0.085 m, so the straight chord clearance floor is approximately 0.12 m, exceeding the budget even at its closest start. With spacing 0.094/12, the first off-chord grid candidate that passes both the disk and 0.04 m chord-distance filters has offsets (-5,-1) times that spacing; it lies outside the left terrain edge, so its None floor aborts the search. Yet the later grid candidate at offsets (+4,+6) times spacing is inside the terrain and corridor, has floor approximately 0.02 m, and is about 0.060 m from the start, within the 0.094 m budget. The returned line fallback remains at least about 0.12 m from start. The candidate order and inequalities are symbolic source reasoning, not an executed scene or search.",
+      "qualification": "The example intentionally places the transported target below the terrain-clearance floor at the scene edge. Source admission of the constructed heightfield and the specified finite helper arguments do not prove an actual supported actor can reach that starting pose, extreme local slope, terrain boundary, mode or timing. The first-release budget and clearance match values present in current content, but config selection and owner lifecycle are not demonstrated. The later solver, propagation and report gates may change the observed outcome. Missing-surface policy itself needs an explicit decision; no runtime incident or unconditional fix is claimed.",
+      "connected_repair": "Decide whether an absent local floor means skip one search candidate, stop the whole search, or report an unavailable result. If the valid scene/owner chain confirms a defect, preserve clearance and budget truth through the selected policy, distinguish a genuinely infeasible search from incomplete terrain coverage, and retain intentional fallback behavior.",
+      "later_acceptance": "After separate implementation and validation authorization if needed, exercise a supported scene-edge query with both missing and feasible samples, a fully covered infeasible region and the normal off-chord case; compare requested and propagated movement and clearance.",
+      "discovery": "partial; actual scene/owner reachability and missing-surface policy open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "native_evidence": [
+    {
+      "manifest": "native-evidence/bevy_math-0.19.1/MANIFEST.json",
+      "archive_member": "bevy_math-0.19.1/src/direction.rs",
+      "personally_inspected_ranges": [
+        [
+          563,
+          564
+        ],
+        [
+          582,
+          593
+        ]
+      ],
+      "qualification": "Dir3 accepts finite nonzero vector length in the pinned native source; no engine or terrain runtime executed."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1179 through /entries/1183"
+      ],
+      "qualification": "Earlier Lens12 questions preserve original scope; this example does not close actual producer/native/alias obligations."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-391.json",
+      "sha256": "520a3d0c62eb9da9c1406730f0afdb1e8b401f24911f697f42a7f6a53b7b2466",
+      "bytes": 1747,
+      "git_blob": "9de61e22987d33bd5d5ca85ab3f0f8d6d2883a3d",
+      "preserved_bytes": "recovered/terrain-search-059/520a3d0c62eb9da9c1406730f0afdb1e8b401f24911f697f42a7f6a53b7b2466.gz",
+      "published_sha256": "520a3d0c62eb9da9c1406730f0afdb1e8b401f24911f697f42a7f6a53b7b2466",
+      "published_bytes": 1747,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-392.json",
+      "sha256": "aa0474c57914a031c0f6472f3d8425f5b4bd7e05cd929f052d5b47f6b02566f9",
+      "bytes": 1803,
+      "git_blob": "9eec5af27bbcfe532ace80091394a75b531e9bfb",
+      "preserved_bytes": "recovered/terrain-search-059/aa0474c57914a031c0f6472f3d8425f5b4bd7e05cd929f052d5b47f6b02566f9.gz",
+      "published_sha256": "aa0474c57914a031c0f6472f3d8425f5b4bd7e05cd929f052d5b47f6b02566f9",
+      "published_bytes": 1803,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-393.json",
+      "sha256": "e075969d7f1fe717008d66f76cef8f8e13f2192ce3a00438a811fb7e169941e0",
+      "bytes": 753,
+      "git_blob": "f561a13c81adc2da230ed15786d67424daf7036d",
+      "preserved_bytes": "recovered/terrain-search-059/e075969d7f1fe717008d66f76cef8f8e13f2192ce3a00438a811fb7e169941e0.gz",
+      "published_sha256": "e075969d7f1fe717008d66f76cef8f8e13f2192ce3a00438a811fb7e169941e0",
+      "published_bytes": 753,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-391.json",
+      "sha256": "a11c4e2c63ffb0a92f6fbf99becdad40bd7684cf298e56f43d9a4bfcf4a55d15",
+      "bytes": 12016,
+      "git_blob": "0b4c67348c777734286c0de0af1819eb0f7ec65c",
+      "preserved_bytes": "recovered/terrain-search-059/a11c4e2c63ffb0a92f6fbf99becdad40bd7684cf298e56f43d9a4bfcf4a55d15.gz",
+      "published_sha256": "a11c4e2c63ffb0a92f6fbf99becdad40bd7684cf298e56f43d9a4bfcf4a55d15",
+      "published_bytes": 12016,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-392.json",
+      "sha256": "761f5ba1dc75b2bf320ea3df540696415decbb98e9ebaf0c9b276e3201fda83f",
+      "bytes": 11712,
+      "git_blob": "18438f05b4bc9a3bc47968be500d165488b0a680",
+      "preserved_bytes": "recovered/terrain-search-059/761f5ba1dc75b2bf320ea3df540696415decbb98e9ebaf0c9b276e3201fda83f.gz",
+      "published_sha256": "761f5ba1dc75b2bf320ea3df540696415decbb98e9ebaf0c9b276e3201fda83f",
+      "published_bytes": 11712,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-393.json",
+      "sha256": "ff2112340d615d9c3ee90f51d6ee5aa552fcbc04087d14e35c76f7d7bf9bab79",
+      "bytes": 5203,
+      "git_blob": "958d271c404276687e6dc148a2e36041c89eee5a",
+      "preserved_bytes": "recovered/terrain-search-059/ff2112340d615d9c3ee90f51d6ee5aa552fcbc04087d14e35c76f7d7bf9bab79.gz",
+      "published_sha256": "ff2112340d615d9c3ee90f51d6ee5aa552fcbc04087d14e35c76f7d7bf9bab79",
+      "published_bytes": 5203,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-289.json",
+      "sha256": "94e8d612e24c62da046972efc6ea865a1067d79e30ae05ca797142901de8e0db",
+      "bytes": 1235,
+      "git_blob": "578cbf584709ec2d6b0b1d4b7bd6623d92770adf",
+      "preserved_bytes": "recovered/terrain-search-059/94e8d612e24c62da046972efc6ea865a1067d79e30ae05ca797142901de8e0db.gz",
+      "published_sha256": "94e8d612e24c62da046972efc6ea865a1067d79e30ae05ca797142901de8e0db",
+      "published_bytes": 1235,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-290.json",
+      "sha256": "66a46a9192b63e5c06e6894b7ed585b51f1f591e98dbcbfd05431c2245774199",
+      "bytes": 1227,
+      "git_blob": "0e3a0775fa9513f2408f7ecd50a57bfa19440009",
+      "preserved_bytes": "recovered/terrain-search-059/66a46a9192b63e5c06e6894b7ed585b51f1f591e98dbcbfd05431c2245774199.gz",
+      "published_sha256": "66a46a9192b63e5c06e6894b7ed585b51f1f591e98dbcbfd05431c2245774199",
+      "published_bytes": 1227,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-291.json",
+      "sha256": "76739be6e7987e3f2ca12b27f0676ebe229c190e41a9accf919dc3e3bcff5f81",
+      "bytes": 1245,
+      "git_blob": "58bd72426610afcfebaaa7f1bb2bf6b09c0a72f3",
+      "preserved_bytes": "recovered/terrain-search-059/76739be6e7987e3f2ca12b27f0676ebe229c190e41a9accf919dc3e3bcff5f81.gz",
+      "published_sha256": "76739be6e7987e3f2ca12b27f0676ebe229c190e41a9accf919dc3e3bcff5f81",
+      "published_bytes": 1245,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-292.json",
+      "sha256": "85e87b62226b2ced6fea5bb26589c6feeb20cc9815dc8da150be66783e3faf59",
+      "bytes": 1263,
+      "git_blob": "80b8538dbe65be92f7e605a4761a66ea5ef747e2",
+      "preserved_bytes": "recovered/terrain-search-059/85e87b62226b2ced6fea5bb26589c6feeb20cc9815dc8da150be66783e3faf59.gz",
+      "published_sha256": "85e87b62226b2ced6fea5bb26589c6feeb20cc9815dc8da150be66783e3faf59",
+      "published_bytes": 1263,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-293.json",
+      "sha256": "c814942430b739ef3ee98313e9758e319917a143ad176f552236baa37323c51f",
+      "bytes": 1283,
+      "git_blob": "150f616d9a3c1f7bdad18a98cf0a85706e82552d",
+      "preserved_bytes": "recovered/terrain-search-059/c814942430b739ef3ee98313e9758e319917a143ad176f552236baa37323c51f.gz",
+      "published_sha256": "c814942430b739ef3ee98313e9758e319917a143ad176f552236baa37323c51f",
+      "published_bytes": 1283,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-294.json",
+      "sha256": "a30bdcd319857edbf96543c2cfd77313a05f72d317ce11da1147951be2417c0d",
+      "bytes": 1277,
+      "git_blob": "257464e7ddf8d2c26c7c44d9554d7d4d278ddb32",
+      "preserved_bytes": "recovered/terrain-search-059/a30bdcd319857edbf96543c2cfd77313a05f72d317ce11da1147951be2417c0d.gz",
+      "published_sha256": "a30bdcd319857edbf96543c2cfd77313a05f72d317ce11da1147951be2417c0d",
+      "published_bytes": 1277,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-295.json",
+      "sha256": "a94e5aba9c635583b93a8d8e63dcd971be3f6cb748183f2809959a8360bb9e7f",
+      "bytes": 1242,
+      "git_blob": "a082b28e2b03bea340ba761966e1505830e50ce0",
+      "preserved_bytes": "recovered/terrain-search-059/a94e5aba9c635583b93a8d8e63dcd971be3f6cb748183f2809959a8360bb9e7f.gz",
+      "published_sha256": "a94e5aba9c635583b93a8d8e63dcd971be3f6cb748183f2809959a8360bb9e7f",
+      "published_bytes": 1242,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-391.json",
+      "sha256": "3c8ac5fdf7af66f3f7b9d92b573f7f788b68bf35e3cb1993524fb9b0c2404828",
+      "bytes": 840,
+      "git_blob": "2b699c45ceb2166e2016687afb9a24b1cff14201",
+      "preserved_bytes": "recovered/terrain-search-059/3c8ac5fdf7af66f3f7b9d92b573f7f788b68bf35e3cb1993524fb9b0c2404828.gz",
+      "published_sha256": "3c8ac5fdf7af66f3f7b9d92b573f7f788b68bf35e3cb1993524fb9b0c2404828",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-392.json",
+      "sha256": "c8e6af64df631034938add5f4f90c6e5cb112f4da44396b929c151cf749884d5",
+      "bytes": 840,
+      "git_blob": "8e581dcd4bc851a9a04ff50c8efe39a41f50f1df",
+      "preserved_bytes": "recovered/terrain-search-059/c8e6af64df631034938add5f4f90c6e5cb112f4da44396b929c151cf749884d5.gz",
+      "published_sha256": "c8e6af64df631034938add5f4f90c6e5cb112f4da44396b929c151cf749884d5",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-393.json",
+      "sha256": "cbbea226a9665179f5da20cd10bb03d1ce2d0c8c669377405470c0dfc8220c70",
+      "bytes": 840,
+      "git_blob": "298510172f8d2ce5e3281a82812027eecf48df3a",
+      "preserved_bytes": "recovered/terrain-search-059/cbbea226a9665179f5da20cd10bb03d1ce2d0c8c669377405470c0dfc8220c70.gz",
+      "published_sha256": "cbbea226a9665179f5da20cd10bb03d1ce2d0c8c669377405470c0dfc8220c70",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-391.json",
+      "sha256": "9df7ad012540228dd7f6baa4184516fb69330cbb1898e00f2deb1291c68c4574",
+      "bytes": 558,
+      "git_blob": "c7473f4087abdeddf3559d82c19df7f4ed7fc496",
+      "preserved_bytes": "recovered/terrain-search-059/9df7ad012540228dd7f6baa4184516fb69330cbb1898e00f2deb1291c68c4574.gz",
+      "published_sha256": "9df7ad012540228dd7f6baa4184516fb69330cbb1898e00f2deb1291c68c4574",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-392.json",
+      "sha256": "49bb4d293f7df1bf6150423d1654d7fb105e5e19095a2e42386981cdf4f3e999",
+      "bytes": 558,
+      "git_blob": "054e9d4f7c07e9a16d596ab7bf84a196214ced61",
+      "preserved_bytes": "recovered/terrain-search-059/49bb4d293f7df1bf6150423d1654d7fb105e5e19095a2e42386981cdf4f3e999.gz",
+      "published_sha256": "49bb4d293f7df1bf6150423d1654d7fb105e5e19095a2e42386981cdf4f3e999",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-393.json",
+      "sha256": "7331b120fd63aa78669cbd056ff09865c25afb41995e5bf912ee714ad0cfc690",
+      "bytes": 558,
+      "git_blob": "088fcb7bd34ecc4f97e3b334a38b949f3de61556",
+      "preserved_bytes": "recovered/terrain-search-059/7331b120fd63aa78669cbd056ff09865c25afb41995e5bf912ee714ad0cfc690.gz",
+      "published_sha256": "7331b120fd63aa78669cbd056ff09865c25afb41995e5bf912ee714ad0cfc690",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    }
+  ],
+  "remaining": "Actual supported scene and owner states, native application and downstream reports, exact aliases and thirteen independent lenses remain open. Checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
