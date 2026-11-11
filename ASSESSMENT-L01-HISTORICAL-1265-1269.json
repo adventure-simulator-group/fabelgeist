@@ -1,0 +1,158 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1265,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1265",
+      "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+      "lines": 1188,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1188
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1266,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/fixtures/core-loop-failure-v9.json",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/1266",
+      "sha256": "e5e30261e86b2ae438c1570fff8ceda66ea00e258d8e0647e8d53496706da220",
+      "lines": 119,
+      "new_personal_read_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "e5e30261e86b2ae438c1570fff8ceda66ea00e258d8e0647e8d53496706da220",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1267,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/lifecycle/runner.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1267",
+      "sha256": "8e66bfc1f9b0ca9fbf5210ffa925235c3a1965e8165b6992d35f0b5278c638ae",
+      "lines": 590,
+      "new_personal_read_ranges": [
+        [
+          1,
+          590
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-CONCEPTION-STATE.json",
+          "ranges": [
+            [
+              145,
+              185
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "8e66bfc1f9b0ca9fbf5210ffa925235c3a1965e8165b6992d35f0b5278c638ae",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1268,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1268",
+      "sha256": "e58eadc935d9bd93c40262b170bc85c9e2d26c0b42ee490e882e0dd96f65be55",
+      "lines": 1325,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1325
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "e58eadc935d9bd93c40262b170bc85c9e2d26c0b42ee490e882e0dd96f65be55",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1269,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/config.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/1269",
+      "sha256": "7e192ef20631845534afb5f4060d45c4253271682e203f89ae3c83dec1b5687e",
+      "lines": 171,
+      "new_personal_read_ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "7e192ef20631845534afb5f4060d45c4253271682e203f89ae3c83dec1b5687e",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    }
+  ],
+  "observations": [
+    "The frozen world-event body, static failure fixture, offline lifecycle runner, live simulation bootstrap and configuration were personally read through actual EOF. Source tests, fixture and live-runner code were read but never executed; the fixture is not a newly observed run.",
+    "Earlier independent Lens12 batch 324 used 1–600 with the semantic-binding tail unread, then 601–1188 to EOF. Batch 326 used 1–600 with the live bootstrap tail unread, then 601–1325 to EOF. Both pairs, receipts, plans, registrations, states and verifications retain their exact attribution and original limits.",
+    "Earlier Lens12 batch 325 explicitly described the offline report limits and its shared daily partition; no simulation, writer or runtime evidence was claimed. Batch 327 preserves its separate config reading. No other-lens verdict transfers.",
+    "Historical 6533 working-state evidence, predecessor bounded observations and selected 95e source traces remain distinct. Equal hashes do not complete any independent lens or establish checkpoint 3821 authority."
+  ],
+  "remaining": "Continue role 1270; world-event producers/replay, lifecycle report policy, simulation boundaries, exact aliases and all independent lenses remain open."
+}

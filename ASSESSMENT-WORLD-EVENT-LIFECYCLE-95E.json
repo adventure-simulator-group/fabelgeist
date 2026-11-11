@@ -1,0 +1,616 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 12,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected world-event private identity and offline lifecycle report source at 95e; no product execution.",
+  "source_reasoning": "Pinned source inspection and evidence-byte verification only. Source tests, a static historical fixture, simulation and live-runner code were read without execution; no product build, test, simulation, runtime, database or browser probe.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/world_event.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "37d35c3873f8a8a6cac2b3e05dd0e690ac894765",
+      "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+      "bytes": 43772,
+      "lines": 1188,
+      "ranges": [
+        [
+          1,
+          1188
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/world-lifecycle-sources/00.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    },
+    {
+      "path": "crates/adventuresim-core/src/world_event.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "416b602e4d44fdf6b09c82cba6f80be216028025",
+      "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+      "bytes": 21001,
+      "lines": 620,
+      "ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/world-lifecycle-sources/01.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/lifecycle/runner.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5f802580e84cb024e224e3d5cae92a7b9a542c7d",
+      "sha256": "8e66bfc1f9b0ca9fbf5210ffa925235c3a1965e8165b6992d35f0b5278c638ae",
+      "bytes": 23639,
+      "lines": 590,
+      "ranges": [
+        [
+          1,
+          590
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/world-lifecycle-sources/02.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/lifecycle/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5cccc74ed7a373435fe8904977b5e825b1fd9604",
+      "sha256": "d0166252850681a2489e4957363e302baeadec6b8019d365931ce8d72e280563",
+      "bytes": 4450,
+      "lines": 144,
+      "ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/world-lifecycle-sources/03.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/lifecycle/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6c20c87c423fdea0594ecbf524dfc6a9454fb445",
+      "sha256": "a497a85d474dcd4be9e6e0d23227f62392bba644d1a54e67e8a2a9fa3c2c6f84",
+      "bytes": 389,
+      "lines": 12,
+      "ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/world-lifecycle-sources/04.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/lifecycle/runner/sampling.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c2e2314789d5e0e0f6fcca646e53dd3105568989",
+      "sha256": "61b28f4573be2c39f22698cec4476fe2cc336a972810a43756b54988e33e459d",
+      "bytes": 491,
+      "lines": 15,
+      "ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/world-lifecycle-sources/05.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/lifecycle/privacy.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b25a96a2e3a0ba4b3595a7f6f7733d7792264044",
+      "sha256": "96d29852a84233a2c7a6b8c84b7f22ed77f805b54d070c38c2af4bb7d7720b46",
+      "bytes": 1015,
+      "lines": 38,
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/world-lifecycle-sources/06.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/courtship.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b749ba524c9cb1644888d798b9403cba17f72ea2",
+      "sha256": "3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+      "bytes": 24389,
+      "lines": 685,
+      "ranges": [
+        [
+          427,
+          590
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/world-lifecycle-sources/07.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "643d744a82700c81d6f10c659269d9f345423fef",
+      "sha256": "e58eadc935d9bd93c40262b170bc85c9e2d26c0b42ee490e882e0dd96f65be55",
+      "bytes": 58364,
+      "lines": 1325,
+      "ranges": [
+        [
+          1,
+          1325
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/world-lifecycle-sources/08.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2448f1b939e36c8f9143f88066f6b1930bfdc0b6",
+      "sha256": "7e192ef20631845534afb5f4060d45c4253271682e203f89ae3c83dec1b5687e",
+      "bytes": 6849,
+      "lines": 171,
+      "ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/world-lifecycle-sources/09.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/247",
+      "qualification": "Same earlier world-event private string key."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/248",
+      "qualification": "Same earlier lifecycle literal metric question."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/1057",
+      "qualification": "Same earlier entropy and privacy connected scope."
+    },
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1265-1269.json",
+      "qualification": "Five independently recorded historical Lens1 reads and earlier Lens12 partials."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PARTIAL-L12-324-001.json",
+      "sha256": "f00f58fe025287d31b6ce53ecbd9eec07fe32d268c8681f4015a874ec19e0aec",
+      "bytes": 4745,
+      "git_blob": "51ac6f070b50ce1bd218eb8b353c2abce79b2b45",
+      "preserved_bytes": "recovered/world-lifecycle-059/f00f58fe025287d31b6ce53ecbd9eec07fe32d268c8681f4015a874ec19e0aec.gz",
+      "published_sha256": "f00f58fe025287d31b6ce53ecbd9eec07fe32d268c8681f4015a874ec19e0aec",
+      "published_bytes": 4745,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-324-002-EOF.json",
+      "sha256": "6cbf42929a438647c116ccb8f140122f575b23e5dbb2376c44c669acc35a44fc",
+      "bytes": 4940,
+      "git_blob": "86c6408aa4b83c8e67d6e879057dd9b41be60115",
+      "preserved_bytes": "recovered/world-lifecycle-059/6cbf42929a438647c116ccb8f140122f575b23e5dbb2376c44c669acc35a44fc.gz",
+      "published_sha256": "6cbf42929a438647c116ccb8f140122f575b23e5dbb2376c44c669acc35a44fc",
+      "published_bytes": 4940,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-326-001.json",
+      "sha256": "46082ead7c653ce3c6396dbae7714d0f4d2c70c6bfb7410e9ae7be55b263b7ab",
+      "bytes": 5122,
+      "git_blob": "9d7cee78c0ebcb1512e98ba6ab2afc9ab5559517",
+      "preserved_bytes": "recovered/world-lifecycle-059/46082ead7c653ce3c6396dbae7714d0f4d2c70c6bfb7410e9ae7be55b263b7ab.gz",
+      "published_sha256": "46082ead7c653ce3c6396dbae7714d0f4d2c70c6bfb7410e9ae7be55b263b7ab",
+      "published_bytes": 5122,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-326-002-EOF.json",
+      "sha256": "1a38245ffd56179747c220a7c3af044abbf7fea5abcfd733ab49a24e9b20be43",
+      "bytes": 4933,
+      "git_blob": "c78271a73a40115bff2b39859683fe7de8d3df74",
+      "preserved_bytes": "recovered/world-lifecycle-059/1a38245ffd56179747c220a7c3af044abbf7fea5abcfd733ab49a24e9b20be43.gz",
+      "published_sha256": "1a38245ffd56179747c220a7c3af044abbf7fea5abcfd733ab49a24e9b20be43",
+      "published_bytes": 4933,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-324.json",
+      "sha256": "b0f47d07e06857511ca0a8bd812a6eeb7aa96075693fccaf8bbb538a7c2952dc",
+      "bytes": 712,
+      "git_blob": "76ae77e946f97248a4bbdccf59586de16ce57f05",
+      "preserved_bytes": "recovered/world-lifecycle-059/b0f47d07e06857511ca0a8bd812a6eeb7aa96075693fccaf8bbb538a7c2952dc.gz",
+      "published_sha256": "b0f47d07e06857511ca0a8bd812a6eeb7aa96075693fccaf8bbb538a7c2952dc",
+      "published_bytes": 712,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-325.json",
+      "sha256": "a17163a3fb325304daf84b93f5802ecc37ad0174451c2a273a41889c83818022",
+      "bytes": 1212,
+      "git_blob": "224d450ceeb53ab1a9a66a27b9b6fda18f54f68f",
+      "preserved_bytes": "recovered/world-lifecycle-059/a17163a3fb325304daf84b93f5802ecc37ad0174451c2a273a41889c83818022.gz",
+      "published_sha256": "a17163a3fb325304daf84b93f5802ecc37ad0174451c2a273a41889c83818022",
+      "published_bytes": 1212,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-326.json",
+      "sha256": "37e86b6f90eb4625eef57fb5677e2d2c9981840dadebeaf75f24437b12a5cc84",
+      "bytes": 722,
+      "git_blob": "bf7e7e65b0710bcdd8e96c0b26adbb8111f53f62",
+      "preserved_bytes": "recovered/world-lifecycle-059/37e86b6f90eb4625eef57fb5677e2d2c9981840dadebeaf75f24437b12a5cc84.gz",
+      "published_sha256": "37e86b6f90eb4625eef57fb5677e2d2c9981840dadebeaf75f24437b12a5cc84",
+      "published_bytes": 722,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-327.json",
+      "sha256": "9af8decefc731ac5c02851631f3f704764cf50ce008ae42ed0ac6921443e17db",
+      "bytes": 717,
+      "git_blob": "06f8fcf42e4a09cf9415d466cffe8dcb66e8c68f",
+      "preserved_bytes": "recovered/world-lifecycle-059/9af8decefc731ac5c02851631f3f704764cf50ce008ae42ed0ac6921443e17db.gz",
+      "published_sha256": "9af8decefc731ac5c02851631f3f704764cf50ce008ae42ed0ac6921443e17db",
+      "published_bytes": 717,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-324.json",
+      "sha256": "f51deee1c6a7f0faf6458dc4b8d10ef0258b24307210b0fe53f47b2ff6142e88",
+      "bytes": 7862,
+      "git_blob": "4fa90630a153462d1bda73f4be15d75f84294556",
+      "preserved_bytes": "recovered/world-lifecycle-059/f51deee1c6a7f0faf6458dc4b8d10ef0258b24307210b0fe53f47b2ff6142e88.gz",
+      "published_sha256": "f51deee1c6a7f0faf6458dc4b8d10ef0258b24307210b0fe53f47b2ff6142e88",
+      "published_bytes": 7862,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-325.json",
+      "sha256": "c5ab01fc3225dd4a9e2c5a6df3d33ac6c54f74c775e9aad07cc20aa613577ed7",
+      "bytes": 10301,
+      "git_blob": "d49f216e6aef1edce1675be188476b841fb6245f",
+      "preserved_bytes": "recovered/world-lifecycle-059/c5ab01fc3225dd4a9e2c5a6df3d33ac6c54f74c775e9aad07cc20aa613577ed7.gz",
+      "published_sha256": "c5ab01fc3225dd4a9e2c5a6df3d33ac6c54f74c775e9aad07cc20aa613577ed7",
+      "published_bytes": 10301,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-326.json",
+      "sha256": "f5cbf33f823e8174d81e72a4f499cea17a189919f0d2fd59c42e45abbfda0c6f",
+      "bytes": 8202,
+      "git_blob": "97a1134dd00a97f2d98a1b035123258495123789",
+      "preserved_bytes": "recovered/world-lifecycle-059/f5cbf33f823e8174d81e72a4f499cea17a189919f0d2fd59c42e45abbfda0c6f.gz",
+      "published_sha256": "f5cbf33f823e8174d81e72a4f499cea17a189919f0d2fd59c42e45abbfda0c6f",
+      "published_bytes": 8202,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-327.json",
+      "sha256": "f3a9247363ebac8b3ae9ef93759761ccc2a53eca734a45f888869f5a8770945c",
+      "bytes": 6401,
+      "git_blob": "ac4ec6f0b3f46137422c0e7ea3acfd8bbe6ce2ae",
+      "preserved_bytes": "recovered/world-lifecycle-059/f3a9247363ebac8b3ae9ef93759761ccc2a53eca734a45f888869f5a8770945c.gz",
+      "published_sha256": "f3a9247363ebac8b3ae9ef93759761ccc2a53eca734a45f888869f5a8770945c",
+      "published_bytes": 6401,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-172.json",
+      "sha256": "60aa45ac216a3e5be350366364305782078b91e292c7dbcdb1b8c33db75b3547",
+      "bytes": 1154,
+      "git_blob": "b544007507b9b6cdaf33bf2fcfe9342d481edfbe",
+      "preserved_bytes": "recovered/world-lifecycle-059/60aa45ac216a3e5be350366364305782078b91e292c7dbcdb1b8c33db75b3547.gz",
+      "published_sha256": "60aa45ac216a3e5be350366364305782078b91e292c7dbcdb1b8c33db75b3547",
+      "published_bytes": 1154,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-173.json",
+      "sha256": "8aba9747586f2b8f9a1a3d827729d95f81fb751b9654d7d3ac6ee4500c1b42c0",
+      "bytes": 1217,
+      "git_blob": "29c22dee99bd51137810262efd11fbad5679262e",
+      "preserved_bytes": "recovered/world-lifecycle-059/8aba9747586f2b8f9a1a3d827729d95f81fb751b9654d7d3ac6ee4500c1b42c0.gz",
+      "published_sha256": "8aba9747586f2b8f9a1a3d827729d95f81fb751b9654d7d3ac6ee4500c1b42c0",
+      "published_bytes": 1217,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-174.json",
+      "sha256": "06502f6d01bdf358f952038d091ce82bc4b7fca74e69ed41736cdfd968433c85",
+      "bytes": 1195,
+      "git_blob": "ccdf8c2d41bd11d1b6181a95b4d2009f4ccd4125",
+      "preserved_bytes": "recovered/world-lifecycle-059/06502f6d01bdf358f952038d091ce82bc4b7fca74e69ed41736cdfd968433c85.gz",
+      "published_sha256": "06502f6d01bdf358f952038d091ce82bc4b7fca74e69ed41736cdfd968433c85",
+      "published_bytes": 1195,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-175.json",
+      "sha256": "71dedc9d8cbe79cfc6f8122359f72d870ef953c3a6a791dcfa1536e61edd2b01",
+      "bytes": 1188,
+      "git_blob": "e00a5349f871f77fae1a1868015b9bc85008cf4f",
+      "preserved_bytes": "recovered/world-lifecycle-059/71dedc9d8cbe79cfc6f8122359f72d870ef953c3a6a791dcfa1536e61edd2b01.gz",
+      "published_sha256": "71dedc9d8cbe79cfc6f8122359f72d870ef953c3a6a791dcfa1536e61edd2b01",
+      "published_bytes": 1188,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-176.json",
+      "sha256": "1e05c796d3bf9611d43a92ee21c46b32a47e467c5a42fd3cdd9e2d5394238c5a",
+      "bytes": 1448,
+      "git_blob": "ccd613b773f823148e7bc2a71d76250764b1c2c7",
+      "preserved_bytes": "recovered/world-lifecycle-059/1e05c796d3bf9611d43a92ee21c46b32a47e467c5a42fd3cdd9e2d5394238c5a.gz",
+      "published_sha256": "1e05c796d3bf9611d43a92ee21c46b32a47e467c5a42fd3cdd9e2d5394238c5a",
+      "published_bytes": 1448,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-324.json",
+      "sha256": "1e5a927d2a9eed858da42e4c6b87f1fd139b80f5314df6a036fcf6e06c9bace9",
+      "bytes": 840,
+      "git_blob": "be7ffc30dd63c2c080eaa636e0e8db04e7b1e21b",
+      "preserved_bytes": "recovered/world-lifecycle-059/1e5a927d2a9eed858da42e4c6b87f1fd139b80f5314df6a036fcf6e06c9bace9.gz",
+      "published_sha256": "1e5a927d2a9eed858da42e4c6b87f1fd139b80f5314df6a036fcf6e06c9bace9",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-325.json",
+      "sha256": "64eec1c5c8aa431b9aa5869096a55ba3fc38b1d34e07ae953c9fb37921242daa",
+      "bytes": 840,
+      "git_blob": "ab13745820a1c4dbfe3af671f75ac1e8c6492c8b",
+      "preserved_bytes": "recovered/world-lifecycle-059/64eec1c5c8aa431b9aa5869096a55ba3fc38b1d34e07ae953c9fb37921242daa.gz",
+      "published_sha256": "64eec1c5c8aa431b9aa5869096a55ba3fc38b1d34e07ae953c9fb37921242daa",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-326.json",
+      "sha256": "cb2dae586993cf263cbb8027683cf9faaf5016beb801e00038dcad9a18bd0312",
+      "bytes": 840,
+      "git_blob": "b803d4906073454537ba79c087c47619a15fd7c9",
+      "preserved_bytes": "recovered/world-lifecycle-059/cb2dae586993cf263cbb8027683cf9faaf5016beb801e00038dcad9a18bd0312.gz",
+      "published_sha256": "cb2dae586993cf263cbb8027683cf9faaf5016beb801e00038dcad9a18bd0312",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-327.json",
+      "sha256": "cbab87115aafcd722c751433c26122549c982e9afa33382cb795eaec6390cd84",
+      "bytes": 840,
+      "git_blob": "77c3a1f6e324231a656118f256655de4cd833ccd",
+      "preserved_bytes": "recovered/world-lifecycle-059/cbab87115aafcd722c751433c26122549c982e9afa33382cb795eaec6390cd84.gz",
+      "published_sha256": "cbab87115aafcd722c751433c26122549c982e9afa33382cb795eaec6390cd84",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-324.json",
+      "sha256": "059703e9bfb53c3673e215b8be7a4abf35523a1bb1f499d5e6f0cfbc66c395b7",
+      "bytes": 558,
+      "git_blob": "1480aaba3741cf1212de6197e172123b2ff095fc",
+      "preserved_bytes": "recovered/world-lifecycle-059/059703e9bfb53c3673e215b8be7a4abf35523a1bb1f499d5e6f0cfbc66c395b7.gz",
+      "published_sha256": "059703e9bfb53c3673e215b8be7a4abf35523a1bb1f499d5e6f0cfbc66c395b7",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-325.json",
+      "sha256": "b32eef51441caa614b064c620ef6f41cf250808c5348467517d967d21e2d0ea7",
+      "bytes": 558,
+      "git_blob": "941772d1297581098a6c51b2daba238af5d25b6d",
+      "preserved_bytes": "recovered/world-lifecycle-059/b32eef51441caa614b064c620ef6f41cf250808c5348467517d967d21e2d0ea7.gz",
+      "published_sha256": "b32eef51441caa614b064c620ef6f41cf250808c5348467517d967d21e2d0ea7",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-326.json",
+      "sha256": "d3dbc4aec56d32cdbdb1307fc594ddbd46b57d014a0a3e1ff8cb8892170510a1",
+      "bytes": 558,
+      "git_blob": "820f23e0767c37dd6378ead54ffedf75ff9686d8",
+      "preserved_bytes": "recovered/world-lifecycle-059/d3dbc4aec56d32cdbdb1307fc594ddbd46b57d014a0a3e1ff8cb8892170510a1.gz",
+      "published_sha256": "d3dbc4aec56d32cdbdb1307fc594ddbd46b57d014a0a3e1ff8cb8892170510a1",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-327.json",
+      "sha256": "8fc159b929a813a518a09b6b94cccdc38b5c96e6958262618d6c50c587867c2d",
+      "bytes": 558,
+      "git_blob": "5a269b28f2ac855f26a4478ac0fdd5be658c1710",
+      "preserved_bytes": "recovered/world-lifecycle-059/8fc159b929a813a518a09b6b94cccdc38b5c96e6958262618d6c50c587867c2d.gz",
+      "published_sha256": "8fc159b929a813a518a09b6b94cccdc38b5c96e6958262618d6c50c587867c2d",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, revision, attribution and individual partial-read limits; no checkpoint 3821 authority or other-lens/current transfer."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "SEGOVB-L12-WORLD-EVENT-CONSEQUENCE-TEXT-KEY",
+      "lens": 12,
+      "severity": "unassigned; earlier private mechanical discriminator question",
+      "classification": "95e revisit of the same earlier world-event consequence key boundary; no new unique historical defect.",
+      "trace": "consequence_identity matches the existing typed WorldEventConsequence variants and returns one of five private static category strings plus its owned ID as a tuple. validate_consequences uses the tuple in a BTreeSet to reject repeated consequence identities after canonical order checks. The preflight separately uses the category string to format an error. The selected source constructs the labels exhaustively from existing enum variants; no arbitrary input label, collision, duplicate accepted consequence or observed failure is asserted.",
+      "connected_repair": "If the private identity warrants a dedicated typed key, derive its discriminator directly from the existing consequence owner and preserve exact variant-and-ID equality, canonical ordering, native receipt fingerprint bytes and diagnostic readability; do not treat boundary prose as a stable public contract. Trace all consumers and historical aliases first.",
+      "discovery": "partial; all native consequence producers, replay/transaction semantics, exact alias and owner choice remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "SEGOVB-L12-COND-LIFECYCLE-POLICY-METRIC-LITERALS",
+      "lens": 12,
+      "severity": "unassigned; earlier source-derived report-evidence question",
+      "classification": "95e revisit of the same earlier lifecycle report metric contract; no new unique historical defect or product validation.",
+      "trace": "project_metrics assigns literal true to five CourtshipMetrics fields for formal sex and father-approval requirements, informal coverage of father disapproval and same-sex pairs, and required secrecy checks. all_acceptance_assertions_pass consumes those fields as pass conditions, and run_cadence includes the resulting passed flag and metrics in its report. The source also computes other metrics from pure rule calls or scenario state. Separately inspected strategic courtship reducers implement selected actual guards, but those independent bodies are not invoked by these five literal assignments. A serialized report containing those true fields would therefore reflect literals rather than evidence that the individual policy decisions were exercised. No report, simulation, test, reducer or browser was run.",
+      "safeguards_and_limits": "The lifecycle module explicitly identifies an offline pure-rules tier and the report says it does not invoke database reducers or browser projections. Its whole-cadence call internally splits at each day boundary just as the daily loop advances by days; equality demonstrates the constructed scenario partition, not independent coverage of every chronology. No claim is made that the actual courtship policy is wrong, that all reported metrics are literals, or that any output was produced.",
+      "connected_repair": "Decide whether these fields are declared scenario assumptions or asserted observations; if they claim coverage, derive them from the appropriate authoritative pure decisions or separately scoped reducer evidence and keep the offline/report limitations explicit. Preserve the other computed metrics, privacy checks, deterministic seed and existing behavior until separately authorized.",
+      "discovery": "partial; report audience, desired evidence tier, actual policy suites, all consumers and historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "Q-L12-6605957d34805b2ecd9a",
+      "lens": 12,
+      "severity": "unassigned; earlier private entropy and report privacy scope",
+      "classification": "Bounded current revisit of the same 059 lifecycle sampling/privacy question; no new unique historical defect.",
+      "trace": "The selected lifecycle runner calls the private lifecycle_entropy adapter with the literal conception and trial ordinal; it combines those bytes with a typed fixed simulation.lifecycle stream and seed. The current bounded source search found this one adapter call; it does not establish a closed global domain inventory. The privacy helper serializes a value, lowercases the entire JSON text and scans forbidden substrings, so its scope includes values as well as field names. No invalid domain, collision, privacy leak, false positive or report output was observed.",
+      "connected_repair": "Trace any additional domains and public report consumers, decide whether the single private event should retain a typed purpose and whether privacy filtering should inspect structured field names or entire serialized text; preserve intentional private canary and privacy semantics, deterministic entropy and exact output contract.",
+      "discovery": "partial; all callers, desired privacy scope, actual report payloads and historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Trace all world-event producer/replay semantics, lifecycle evidence consumers and report policy, simulation modes, exact aliases and all independent lenses. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
