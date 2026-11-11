@@ -1457,6 +1457,23 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L10-REPORT-SERIALIZE-95E.json"
+      },
+      {
+        "id": "NEW-THREAT-ID-ADMISSION-001",
+        "lens": 11,
+        "severity": "unassigned; conditional public API misuse, no observed native incident",
+        "classification": "revisit of predecessor syntax-only ThreatId versus catalog-backed profile contract",
+        "historical_related_records": [
+          "BASELINE-20261110.json#/repair_ledger/entries/26",
+          "ASSESSMENT-L1-THREAT-IDENTITY.json#/trace",
+          "baseline-059/queue.json#/entries/975",
+          "ASSESSMENT-L10-REPORT-SERIALIZE-95E.json#/candidates/0"
+        ],
+        "relationship_qualification": "Same canonical c100 finding independently revisited at 95e; not a second unique defect. The 059 private-readmission and L10 derive scopes are related but distinct until an exact alias is proven.",
+        "discovery": "partial; full caller inventory, catalog policy, initialisation, type ownership and historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L11-THREAT-ID-95E.json"
       }
     ]
   },

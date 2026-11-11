@@ -1,0 +1,205 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 11,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected threat, report and evidence identity granularity, catalog-assuming profile, and bounded native consumer safeguards. Type granularity and the connected ledger remain incomplete.",
+  "source_reasoning": "Static source inspection, exact-spelling tracked-source search and previously preserved pinned catalog inventory only; no product function, parser, build, test, panic or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/bestiary.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2c97f78c7e667eb250f14a0535bb297abeb9c547",
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "bytes": 54113,
+      "lines": 1558,
+      "ranges": [
+        [
+          1,
+          145
+        ],
+        [
+          205,
+          280
+        ],
+        [
+          450,
+          510
+        ],
+        [
+          700,
+          765
+        ],
+        [
+          860,
+          935
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-granularity-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_catalog.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "df5f6d116d5c52fdf9e1cfbebc08d06616a04b95",
+      "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "bytes": 62269,
+      "lines": 1630,
+      "ranges": [
+        [
+          1,
+          45
+        ],
+        [
+          325,
+          350
+        ],
+        [
+          390,
+          425
+        ],
+        [
+          580,
+          600
+        ],
+        [
+          645,
+          690
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-granularity-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/condition/fear.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e61c88f500f9ace90cf8dd4e533c7e64a42951e5",
+      "sha256": "8cefb00626e1f5cf3f9eb57fb0e412503aecbd64597f2bbb63d04a97c0eda958",
+      "bytes": 364,
+      "lines": 8,
+      "ranges": [
+        [
+          1,
+          8
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-granularity-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/projections.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bd1ffdf65672c95c22b7b04d463887fee2f124f5",
+      "sha256": "4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102",
+      "bytes": 63916,
+      "lines": 1801,
+      "ranges": [
+        [
+          210,
+          250
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-granularity-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3de0a089cd58fd01543c11356902225b66b2ad41",
+      "sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "bytes": 112976,
+      "lines": 2815,
+      "ranges": [
+        [
+          365,
+          410
+        ],
+        [
+          2765,
+          2790
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-granularity-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/templates/settlement/travel.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e07068818330aac3d0b7422b0747660684dd9db4",
+      "sha256": "6aabf6b42ea20cd7b12e0ce9e5b3cba26c21b29cee6652b53f307ed65bf1063e",
+      "bytes": 73088,
+      "lines": 1579,
+      "ranges": [
+        [
+          1080,
+          1110
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/threat-granularity-sources/05.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "search_evidence": {
+    "path": "main-advance-95e/threat-granularity-search.txt",
+    "sha256": "0792079a120bab47228ee5c7445c2b4bd2146f1cd19bcf69b386df3a5addfa22",
+    "bytes": 2687,
+    "query": "git grep selected exact ThreatId constructor and parse spellings at the pinned revision under crates",
+    "qualification": "Exact tracked spellings only, including test source; aliases, inferred calls, external users and other construction mechanisms remain open."
+  },
+  "catalog_inventory": "main-advance-95e/report-serialize-catalog.json",
+  "historical_source_roles": [
+    {
+      "original_index": 75,
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+      "historical_sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "historical_assessment": "ASSESSMENT-L1-THREAT-IDENTITY.json",
+      "qualification": "Separate historical full Lens 1 read; current byte match does not transfer independent-lens coverage or checkpoint 3821 authority."
+    },
+    {
+      "original_index": 1087,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/condition/fear.rs",
+      "historical_sha256": "8cefb00626e1f5cf3f9eb57fb0e412503aecbd64597f2bbb63d04a97c0eda958",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1086-1089.json",
+      "qualification": "Separate historical full Lens 1 read; current byte match does not transfer independent-lens coverage or checkpoint 3821 authority."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "BASELINE-20261110.json",
+      "pointer": "/repair_ledger/entries/26",
+      "qualification": "Same canonical predecessor finding at c100, not a second unique finding."
+    },
+    {
+      "file": "ASSESSMENT-L1-THREAT-IDENTITY.json",
+      "pointer": "/trace",
+      "qualification": "Separately attributed c100 source trace and historical role."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/975",
+      "qualification": "Related historical native ThreatId/profile scope; exact alias and all caller reconciliation remain open."
+    },
+    {
+      "file": "ASSESSMENT-L10-REPORT-SERIALIZE-95E.json",
+      "pointer": "/candidates/0",
+      "qualification": "Distinct Serialize-only maintainability suggestion; deserializer constraints coordinate with this finding."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "NEW-THREAT-ID-ADMISSION-001",
+      "severity": "unassigned; conditional public API misuse, no observed native incident",
+      "classification": "Existing predecessor finding revisited at 95e: syntax-only ThreatId and catalog-backed threat identity share one type while profile operations assume catalog membership.",
+      "trace": "ThreatId::try_new accepts a nonempty at-most-63-byte ASCII identifier made of lowercase letters, digits and selected punctuation, without consulting the monster catalog. FromStr adds a catalog lookup, and ThreatId Deserialize uses that parse. The public profile method indexes the catalog-derived profile map and expects the key to exist; regional_prior also expects a catalog monster for its non-generic branch. A syntax-valid unknown therefore fits the public constructor yet violates the consumers’ precondition.",
+      "conditional_example": "The literal not_an_authored_threat fits the source syntax predicate and is absent from the 25 monster IDs in the pinned tracked quest source inventory. If the catalog compiles as described and a caller constructs that ID using try_new and invokes profile, the selected map lookup reaches its expect failure. This is a source-derived conditional API counterexample; no parser, constructor, catalog build, profile, panic or runtime probe ran.",
+      "granularity_and_safeguards": "ReportDescription and EvidenceKind are distinct wrappers, which prevent direct accidental interchange with threats, but they intentionally call the syntax-only constructor and represent open report/evidence vocabularies. For example small_upright_figures is an authored description but not a monster ID. Simply tightening the shared constructor would change those roles. Selected fear, investigation and web readers parse through FromStr before profile or display, so this trace does not show those readers receiving the hypothetical unknown ID; exact-spelling search is not a full caller inventory.",
+      "historical_attribution": "The same canonical NEW-THREAT-ID-ADMISSION-001 was recorded at c100 with the same public API counterexample and separately attributed physical-p16 role 75. This is an independent bounded 95e revisit, not a second unique finding or promotion of predecessor coverage. The 059 hostile and generated private-readmission entries and Q-L12-d3c2d0c28c4cc6667828 concern related producer/receiver scopes, with alias status unresolved. The separate Lens 10 Serialize-only suggestion does not resolve admission.",
+      "connected_repair": "After the audit gate, decide the public type contract. One coherent option is a shared syntax-validated identifier beneath a distinct catalog-validated threat identity with infallible profile operations, while report and evidence wrappers retain open syntax; another is to keep syntactic ThreatId and make profile-dependent operations explicitly fallible. Reconcile all constructors, catalog initialization cycles, named constants, parser/serde wire shapes, producers, consumers and 059 aliases before selecting a repair.",
+      "later_acceptance": "After separately authorized implementation and validation, cover valid unknown and known threat IDs, invalid syntax, profile and regional operations, open report/evidence identifiers, custom authored catalog entries, serialized forms and initialization without recursive catalog construction.",
+      "discovery": "partial; full caller inventory, catalog policy, initialisation, type ownership and historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

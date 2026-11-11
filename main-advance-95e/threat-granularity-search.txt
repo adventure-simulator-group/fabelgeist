@@ -1,0 +1,17 @@
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/bestiary.rs:23:        .map(|monster| ThreatId::try_new(&monster.id).expect("validated monster ID"))
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/bestiary.rs:226:        ThreatId::try_new(value).map(Self)
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/bestiary.rs:276:        ThreatId::try_new(value).map(Self)
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/bestiary.rs:475:            profile: ThreatId::try_new(&monster.id)
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/bestiary.rs:493:                    let id = ThreatId::try_new(&monster.id).expect("validated monster ID");
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/bestiary.rs:684:            .map(|value| ThreatId::try_new(value).expect("validated monster reference"))
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/bestiary.rs:1073:        if id.as_str().parse::<ThreatId>() != Ok(*id) {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/bestiary.rs:1234:        assert!("restless skeletons".parse::<ThreatId>().is_err());
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/bestiary/catalog_tests.rs:7:        let id = authored.id.parse::<ThreatId>().unwrap();
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/bestiary/catalog_tests.rs:28:    let id = ThreatId::try_new(&authored.id).unwrap();
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/bestiary/error.rs:23:            let error = key.parse::<ThreatId>().unwrap_err();
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/bestiary/error.rs:49:        assert_eq!("bandit".parse::<ThreatId>().unwrap(), threat);
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/condition/fear.rs:4:    let threat = enemy_type.parse::<adventuresim_core::bestiary::ThreatId>();
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/investigation/projections.rs:230:                .parse::<adventuresim_core::bestiary::ThreatId>()
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/strategic/challenges.rs:389:        .parse::<adventuresim_core::bestiary::ThreatId>()
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/strategic/challenges.rs:2778:            .parse::<adventuresim_core::bestiary::ThreatId>()
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/strategic-web/src/templates/settlement/travel.rs:1094:    let threat = encounter.archetype.parse::<ThreatId>().ok();
