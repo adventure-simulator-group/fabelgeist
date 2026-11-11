@@ -1,0 +1,1470 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2267–2272 geometry owners and manifest, selected cloth resolution and creator inputs, plus bounded Cargo-locked serialization sources.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2267-2272.json",
+  "git_membership_evidence": "GEOMETRY-OWNERS-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/fabelgeist-cloth/src/garment/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "94db2f0bda1af6552398a438309bbc48725ec550",
+      "sha256": "d5124bc81c37905a779feea7e56a120ed5fadda9448cad8cf907a61c938b1da6",
+      "bytes": 16037,
+      "lines": 455,
+      "ranges": [
+        [
+          1,
+          160
+        ],
+        [
+          205,
+          255
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/geometry-owners-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    },
+    {
+      "path": "crates/fabelgeist-cloth/src/triangulate/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "609ded333fbdbf4f86f68e2e49cc1c2eca58507b",
+      "sha256": "18e60b537352a1753963980da26dd94705dee8a4b44232dece7c90fa07d8416b",
+      "bytes": 14820,
+      "lines": 413,
+      "ranges": [
+        [
+          90,
+          159
+        ],
+        [
+          161,
+          255
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/geometry-owners-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    },
+    {
+      "path": "crates/fabelgeist-cloth/Cargo.toml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5d66ee22a6e06b894244a0d09af3d89d2db181c9",
+      "sha256": "4d25ce0c957fc08ea17964e695728d4c47251e88e98ad2eace19233a20128a2d",
+      "bytes": 687,
+      "lines": 21,
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/geometry-owners-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    },
+    {
+      "path": "crates/fabelgeist-garment-fit/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "833060e83af63f490cbdea7f82582edc7dee7246",
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "bytes": 27692,
+      "lines": 715,
+      "ranges": [
+        [
+          1,
+          95
+        ],
+        [
+          227,
+          330
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/geometry-owners-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/selection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b20be4510393559df429ca9307545474ee9555c4",
+      "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+      "bytes": 8724,
+      "lines": 271,
+      "ranges": [
+        [
+          105,
+          145
+        ],
+        [
+          155,
+          156
+        ],
+        [
+          195,
+          223
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/geometry-owners-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/drape.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "753031e1c18fdb2720429f321bc7b7593db74263",
+      "sha256": "c26b0508ccce30c3c2ca164e46327764ca4b133b418b5ea49e008b0a45613421",
+      "bytes": 12914,
+      "lines": 334,
+      "ranges": [
+        [
+          37,
+          52
+        ],
+        [
+          267,
+          278
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/geometry-owners-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "74f867e9f76d9f60dae0c7545e59b174f7ba66a5",
+      "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+      "bytes": 1026,
+      "lines": 28,
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/geometry-owners-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          8273,
+          8276
+        ],
+        [
+          9407,
+          9410
+        ],
+        [
+          9418,
+          9421
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/geometry-owners-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    }
+  ],
+  "native_reference_sources": [
+    {
+      "manifest": "native-evidence/serde-derive-1.0.229/MANIFEST.json",
+      "archive": "native-evidence/serde-derive-1.0.229/serde_derive-1.0.229.crate",
+      "archive_sha256": "e7a5d71263a5a7d47b41f6b3f06ba276f10cc18b0931f1799f710578e2309348",
+      "member": "serde_derive-1.0.229/src/internals/case.rs",
+      "member_sha256": "10c8dda2b32d8c6c6b63cf09cdc63d02375af7e95ecefe8fecb34f93b65191bb",
+      "member_bytes": 7121,
+      "personally_inspected_ranges": [
+        [
+          33,
+          41
+        ],
+        [
+          56,
+          72
+        ]
+      ],
+      "qualification": "Exact previously published Cargo-locked archive reused; these bounded current member views do not establish a historical receipt or actual application codec invocation."
+    },
+    {
+      "manifest": "native-evidence/serde-derive-1.0.229/MANIFEST.json",
+      "archive": "native-evidence/serde-derive-1.0.229/serde_derive-1.0.229.crate",
+      "archive_sha256": "e7a5d71263a5a7d47b41f6b3f06ba276f10cc18b0931f1799f710578e2309348",
+      "member": "serde_derive-1.0.229/src/ser.rs",
+      "member_sha256": "18b3a4d06cd721c402835b17f008a63fdbaad379734f0fd4132aa28d8ea5c1de",
+      "member_bytes": 45068,
+      "personally_inspected_ranges": [
+        [
+          502,
+          533
+        ]
+      ],
+      "qualification": "Exact previously published Cargo-locked archive reused; these bounded current member views do not establish a historical receipt or actual application codec invocation."
+    },
+    {
+      "manifest": "native-evidence/serde_json-1.0.151/MANIFEST.json",
+      "archive": "native-evidence/serde_json-1.0.151/serde_json-1.0.151.crate",
+      "archive_sha256": "c841b55ecdae098c80dcae9cf767f6f8a0c2cdb3416bbef72181df4d0fe73f14",
+      "member": "serde_json-1.0.151/src/ser.rs",
+      "member_sha256": "f2b8cc0b97e30c49dbc58698fa22c14a7d56ea616cdb57b067835a59af49a75f",
+      "member_bytes": 63877,
+      "personally_inspected_ranges": [
+        [
+          189,
+          191
+        ],
+        [
+          213,
+          221
+        ]
+      ],
+      "qualification": "Exact previously published Cargo-locked archive reused; these bounded current member views do not establish a historical receipt or actual application codec invocation."
+    },
+    {
+      "manifest": "native-evidence/serde_json-1.0.151/MANIFEST.json",
+      "archive": "native-evidence/serde_json-1.0.151/serde_json-1.0.151.crate",
+      "archive_sha256": "c841b55ecdae098c80dcae9cf767f6f8a0c2cdb3416bbef72181df4d0fe73f14",
+      "member": "serde_json-1.0.151/src/de.rs",
+      "member_sha256": "4998d7e252eb513be85b298e287048b4fb283882e9ba7df905f572f07200f3f3",
+      "member_bytes": 86840,
+      "personally_inspected_ranges": [
+        [
+          1072,
+          1087
+        ],
+        [
+          1737,
+          1786
+        ]
+      ],
+      "qualification": "Exact previously published Cargo-locked archive reused; these bounded current member views do not establish a historical receipt or actual application codec invocation."
+    },
+    {
+      "manifest": "native-evidence/postcard-1.1.3/MANIFEST.json",
+      "archive": "native-evidence/postcard-1.1.3/postcard-1.1.3.crate",
+      "archive_sha256": "6764c3b5dd454e283a30e6dfe78e9b31096d9e32036b5d1eaac7a6119ccb9a24",
+      "member": "postcard-1.1.3/src/ser/serializer.rs",
+      "member_sha256": "e8ac1136c617d622e8897a0469295605239d1000f772cafa0d64f18e1a52e5bc",
+      "member_bytes": 14769,
+      "personally_inspected_ranges": [
+        [
+          183,
+          190
+        ],
+        [
+          226,
+          235
+        ]
+      ],
+      "qualification": "Exact previously published Cargo-locked archive reused; these bounded current member views do not establish a historical receipt or actual application codec invocation."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-GARMENT-FIT-95E.json",
+    "ASSESSMENT-GARMENT-MEASUREMENT-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Admitted geometry scalar and aggregate owners",
+      "trace": "PositiveLength admits finite values strictly above zero in metres. SignedLength admits finite signed metres and checks scaled_by results; Area admits finite nonnegative square metres. CuboidDimensions admits finite nonnegative per-axis extents, including zero, and its custom deserializer routes values back through from_metres.",
+      "remaining": "Existing owners have distinct semantics: do not make a signed offset positive or a zero cuboid extent invalid. Opaque reflection, all producers and all native codec/consumer routes remain independent open contracts. No construction, decode or reflection ran."
+    },
+    {
+      "contract": "Existing positive length at cloth resolution",
+      "trace": "FitSettings.resolution_cm is a raw f32 converted to metres before cloth::build; the latter rejects target_edge <=0 or NaN but does not reject positive infinity. Public triangulate has the same predicate at a separate entry. PositiveLength is an existing finite positive metre owner. The selected creator validates its resolution as finite within 2.5–6cm before constructing settings.",
+      "remaining": "Positive infinity is a conditional direct public-input case, not an observed ordinary creator route. The cloth crate has no direct geometry dependency in the inspected manifest; adopting an owner also requires unit conversion, subnormal behavior and dependency-layer decisions. No meshing, math kernel, test or product ran."
+    },
+    {
+      "contract": "Scalar error axis semantics",
+      "trace": "PositiveLength, SignedLength and Area are scalar measurements independent of coordinate frame, yet their nonfinite or invalid constructor errors use CoordinateAxis::X. GeometryError Display describes that axis as a component, so a hypothetical invalid scalar is reported as an X component even where no coordinate axis exists. CuboidDimensions performs its own axis-specific checks and can legitimately report X/Y/Z.",
+      "remaining": "No invalid value or error formatting ran. The desired error schema and caller presentation must decide how to represent axis-free versus axis-specific cases; preserve the distinct scalar constructors and all valid cuboid axis diagnostics."
+    },
+    {
+      "contract": "Direction error serializer derivability",
+      "trace": "DirectionError serializes zero, infinite and nan with serialize_str. Locked serde_derive lower-case renaming would produce those spellings, while snake_case transforms NaN to na_n. Its default unit-enum derive invokes serialize_unit_variant instead of serialize_str. Locked serde_json routes unit variants through serialize_str, whereas locked postcard encodes variant index and encodes strings as length plus bytes.",
+      "remaining": "This is a derivability and codec-contract question, not a proven application bug: JSON and postcard member code was inspected but no macro or codec ran, and postcard use for DirectionError is unproven. User explicitly disallows compatibility shims, so supported final serialization policy rather than automatic old-wire preservation governs any later choice."
+    },
+    {
+      "contract": "Cuboid deserializer extra-element suspicion rejected for selected JSON",
+      "trace": "The CuboidDimensions visitor reads three elements, then serde_json.deserialize_tuple_struct delegates to deserialize_seq, which invokes end_seq after the visitor. Its end_seq rejects a following comma/value rather than silently accepting a fourth array element.",
+      "remaining": "This rejection applies only to the inspected serde_json stream deserializer and exact source logic; other deserializers, reflection and application routes remain open. No JSON input, deserializer or test ran. Direct field derives would also need to preserve the nonnegative aggregate admission and tuple-struct identity where required."
+    }
+  ],
+  "historical_connected_contracts": [
+    {
+      "id": "L12-CLOSURE-CATALOG-PHYSICAL-SERDE-NATIVE-F32",
+      "queue": 2435,
+      "qualification": "Partial current source only; historical catalog/physical and native codec closure requirements remain open."
+    },
+    {
+      "id": "L12-CLOSURE-REPORT-GEOMETRY-TYPED-ERROR-NATIVE-PORT",
+      "queue": 3445,
+      "qualification": "Partial current portable geometry error/serde source only; reflection and native port consumers remain open."
+    }
+  ],
+  "new_current_candidates": [
+    {
+      "id": "REVIEW-CLOTH-POSITIVE-RESOLUTION-95E",
+      "qualification": "Current95e source and conditional boundary or derivability question; no product execution and no global alias determination."
+    },
+    {
+      "id": "REVIEW-GEOMETRY-SCALAR-ERROR-AXIS-95E",
+      "qualification": "Current95e source and conditional boundary or derivability question; no product execution and no global alias determination."
+    },
+    {
+      "id": "REVIEW-GEOMETRY-DIRECTION-SERIALIZER-DERIVABILITY-95E",
+      "qualification": "Current95e source and conditional boundary or derivability question; no product execution and no global alias determination."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-354.json",
+      "sha256": "f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2",
+      "bytes": 12620,
+      "git_blob": "bec980cdd0cb93891828d4b5a7a690c936ae6b37",
+      "preserved_bytes": "recovered/geometry-owners-059/f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2.gz",
+      "published_sha256": "f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2",
+      "published_bytes": 12620,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-355.json",
+      "sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "bytes": 15195,
+      "git_blob": "3bf9dd51f997220de36ab9528a052022572cb545",
+      "preserved_bytes": "recovered/geometry-owners-059/05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207.gz",
+      "published_sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "published_bytes": 15195,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-356.json",
+      "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "bytes": 24598,
+      "git_blob": "15a9edc19d117a4470ab7e4837f4c3e753517b00",
+      "preserved_bytes": "recovered/geometry-owners-059/f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c.gz",
+      "published_sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "published_bytes": 24598,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-357.json",
+      "sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "bytes": 8858,
+      "git_blob": "b94f820a6f2779d892638a70cec91d691ea25e25",
+      "preserved_bytes": "recovered/geometry-owners-059/6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6.gz",
+      "published_sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "published_bytes": 8858,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-358.json",
+      "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d",
+      "bytes": 14390,
+      "git_blob": "b0548779064b890ccda7b7f09995c3d954394767",
+      "preserved_bytes": "recovered/geometry-owners-059/044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d.gz",
+      "published_sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d",
+      "published_bytes": 14390,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-359.json",
+      "sha256": "510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f",
+      "bytes": 5718,
+      "git_blob": "534c71620b715e73261570e4933aed838ffde588",
+      "preserved_bytes": "recovered/geometry-owners-059/510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f.gz",
+      "published_sha256": "510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f",
+      "published_bytes": 5718,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-360.json",
+      "sha256": "6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9",
+      "bytes": 10355,
+      "git_blob": "dcbb2f5ad255bfc9555a54bd65200f84331b3302",
+      "preserved_bytes": "recovered/geometry-owners-059/6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9.gz",
+      "published_sha256": "6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9",
+      "published_bytes": 10355,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-361.json",
+      "sha256": "a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31",
+      "bytes": 14000,
+      "git_blob": "744f0ca5c64ce4a66244ce8881b1975b4a58a4d5",
+      "preserved_bytes": "recovered/geometry-owners-059/a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31.gz",
+      "published_sha256": "a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31",
+      "published_bytes": 14000,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler scoped historical receipt"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1125.json",
+      "sha256": "e58f658f47683b1b537046ae385e194aa87de5f3132cf73d643f97c617e22ca0",
+      "bytes": 803,
+      "git_blob": "d511a515c31bed3e011f5df745b0bd6f813d086a",
+      "preserved_bytes": "recovered/geometry-owners-059/e58f658f47683b1b537046ae385e194aa87de5f3132cf73d643f97c617e22ca0.gz",
+      "published_sha256": "e58f658f47683b1b537046ae385e194aa87de5f3132cf73d643f97c617e22ca0",
+      "published_bytes": 803,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1126.json",
+      "sha256": "a8684dd10756bd765b356342b41b203449dd1c8a0963b6f3fd2ddc386e542ccf",
+      "bytes": 799,
+      "git_blob": "02cc4cd7667c4567537328058db19d750c12b5a6",
+      "preserved_bytes": "recovered/geometry-owners-059/a8684dd10756bd765b356342b41b203449dd1c8a0963b6f3fd2ddc386e542ccf.gz",
+      "published_sha256": "a8684dd10756bd765b356342b41b203449dd1c8a0963b6f3fd2ddc386e542ccf",
+      "published_bytes": 799,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1127.json",
+      "sha256": "6c4f2fb1fcdd5ccaa2c9ad643b89b83ef3289029123e4101c0f42401bd3fe78e",
+      "bytes": 799,
+      "git_blob": "efc885138642d021d39258f117395edc35d6c933",
+      "preserved_bytes": "recovered/geometry-owners-059/6c4f2fb1fcdd5ccaa2c9ad643b89b83ef3289029123e4101c0f42401bd3fe78e.gz",
+      "published_sha256": "6c4f2fb1fcdd5ccaa2c9ad643b89b83ef3289029123e4101c0f42401bd3fe78e",
+      "published_bytes": 799,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1128.json",
+      "sha256": "6b64ea3946e5a23ac9532ccfdb701dc497d95eb227988084844d84bb7af5b2f3",
+      "bytes": 801,
+      "git_blob": "91d490db7164e15b422df20af22e87c01784e5bf",
+      "preserved_bytes": "recovered/geometry-owners-059/6b64ea3946e5a23ac9532ccfdb701dc497d95eb227988084844d84bb7af5b2f3.gz",
+      "published_sha256": "6b64ea3946e5a23ac9532ccfdb701dc497d95eb227988084844d84bb7af5b2f3",
+      "published_bytes": 801,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1129.json",
+      "sha256": "a493e29fc96d5d784b55c13b1d3ed70e2df6fa0f9cc515594341176fc7030631",
+      "bytes": 802,
+      "git_blob": "0e588056051aae2ccd9797b2aaad66931ca89709",
+      "preserved_bytes": "recovered/geometry-owners-059/a493e29fc96d5d784b55c13b1d3ed70e2df6fa0f9cc515594341176fc7030631.gz",
+      "published_sha256": "a493e29fc96d5d784b55c13b1d3ed70e2df6fa0f9cc515594341176fc7030631",
+      "published_bytes": 802,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1130.json",
+      "sha256": "5bb426255802eac6d2b2bdbeb3424fe9fe29af80ec226406de74d4ed20312dfd",
+      "bytes": 799,
+      "git_blob": "5f35aebfcf693331ae287cfc03c64fcf291c9504",
+      "preserved_bytes": "recovered/geometry-owners-059/5bb426255802eac6d2b2bdbeb3424fe9fe29af80ec226406de74d4ed20312dfd.gz",
+      "published_sha256": "5bb426255802eac6d2b2bdbeb3424fe9fe29af80ec226406de74d4ed20312dfd",
+      "published_bytes": 799,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1131.json",
+      "sha256": "243e59673943ddc09e0622c119c24931a546fab079b4bddb5964c549dbd9aa3d",
+      "bytes": 808,
+      "git_blob": "3d8d4ab4b9d03b6a6b03af0159a7f35beedf058b",
+      "preserved_bytes": "recovered/geometry-owners-059/243e59673943ddc09e0622c119c24931a546fab079b4bddb5964c549dbd9aa3d.gz",
+      "published_sha256": "243e59673943ddc09e0622c119c24931a546fab079b4bddb5964c549dbd9aa3d",
+      "published_bytes": 808,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1132.json",
+      "sha256": "b8a7c607c1788b6896cd02c20afbec8511b193f26be90e64d3095cde8cb7a284",
+      "bytes": 792,
+      "git_blob": "cd615a78def809477bdadf9434a9af7167f30477",
+      "preserved_bytes": "recovered/geometry-owners-059/b8a7c607c1788b6896cd02c20afbec8511b193f26be90e64d3095cde8cb7a284.gz",
+      "published_sha256": "b8a7c607c1788b6896cd02c20afbec8511b193f26be90e64d3095cde8cb7a284",
+      "published_bytes": 792,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-361.json",
+      "sha256": "58655110305b681616700c1632b9d320d8ccee0339187869e6398c64f328e148",
+      "bytes": 690,
+      "git_blob": "e3b3261dfced68bc8f696a5e6fd265b7727cdffb",
+      "preserved_bytes": "recovered/geometry-owners-059/58655110305b681616700c1632b9d320d8ccee0339187869e6398c64f328e148.gz",
+      "published_sha256": "58655110305b681616700c1632b9d320d8ccee0339187869e6398c64f328e148",
+      "published_bytes": 690,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-361.json",
+      "sha256": "458346602ca98ecfc9e3738dbf7abdabc1ec0cb91a4c7578e60e86ad181aa16b",
+      "bytes": 32979,
+      "git_blob": "2b4dc39d49489c6c1b92ef6d188313a26651cb39",
+      "preserved_bytes": "recovered/geometry-owners-059/458346602ca98ecfc9e3738dbf7abdabc1ec0cb91a4c7578e60e86ad181aa16b.gz",
+      "published_sha256": "458346602ca98ecfc9e3738dbf7abdabc1ec0cb91a4c7578e60e86ad181aa16b",
+      "published_bytes": 32979,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-925-932.json",
+      "sha256": "bbef82778ecefd0df4c48529aa4fd9f8e07e146022c0b5cd252c30da8a65bc90",
+      "bytes": 130868,
+      "git_blob": "3c7a48834ba1e4c1c295751e01431d39fcf68818",
+      "preserved_bytes": "recovered/geometry-owners-059/bbef82778ecefd0df4c48529aa4fd9f8e07e146022c0b5cd252c30da8a65bc90.gz",
+      "published_sha256": "bbef82778ecefd0df4c48529aa4fd9f8e07e146022c0b5cd252c30da8a65bc90",
+      "published_bytes": 130868,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-746.json",
+      "sha256": "7dd20df9dcdf51d8158f1b4749304516bd83b4bb7dcf33aeed53a06325e91018",
+      "bytes": 12921,
+      "git_blob": "e5a31fd4a9a03ba0f9ba618fb98c9fbff75ca933",
+      "preserved_bytes": "recovered/geometry-owners-059/7dd20df9dcdf51d8158f1b4749304516bd83b4bb7dcf33aeed53a06325e91018.gz",
+      "published_sha256": "7dd20df9dcdf51d8158f1b4749304516bd83b4bb7dcf33aeed53a06325e91018",
+      "published_bytes": 12921,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-747.json",
+      "sha256": "385242dec56eb340b77aee6bf9254bfc1455439b3d6adf373665dfd49f005ea3",
+      "bytes": 10089,
+      "git_blob": "9d8b76675f0690e2db0ddb200f3525dd724f53fe",
+      "preserved_bytes": "recovered/geometry-owners-059/385242dec56eb340b77aee6bf9254bfc1455439b3d6adf373665dfd49f005ea3.gz",
+      "published_sha256": "385242dec56eb340b77aee6bf9254bfc1455439b3d6adf373665dfd49f005ea3",
+      "published_bytes": 10089,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-844.json",
+      "sha256": "c049cccd637d9e0b5cc6606cd3b2663c5372b753da5c09852f15a529120f76e2",
+      "bytes": 12251,
+      "git_blob": "4ee9db2f130ba35e35478dbd500d21c4c825d288",
+      "preserved_bytes": "recovered/geometry-owners-059/c049cccd637d9e0b5cc6606cd3b2663c5372b753da5c09852f15a529120f76e2.gz",
+      "published_sha256": "c049cccd637d9e0b5cc6606cd3b2663c5372b753da5c09852f15a529120f76e2",
+      "published_bytes": 12251,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-878.json",
+      "sha256": "c16f9bd5b8a3bdbdf971da644fd7140a90ca4f37630ec9d9e3e5eb021544933d",
+      "bytes": 11699,
+      "git_blob": "a19fe2e7f6851a8e5822bf92ad721bc6e099df14",
+      "preserved_bytes": "recovered/geometry-owners-059/c16f9bd5b8a3bdbdf971da644fd7140a90ca4f37630ec9d9e3e5eb021544933d.gz",
+      "published_sha256": "c16f9bd5b8a3bdbdf971da644fd7140a90ca4f37630ec9d9e3e5eb021544933d",
+      "published_bytes": 11699,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-879.json",
+      "sha256": "450204205d0a2be0dfd86b835676986a0d2121fc818df44af913320153ed7ed7",
+      "bytes": 9621,
+      "git_blob": "1f48d8898e1e8f6061f0d9418183fae75fac69ca",
+      "preserved_bytes": "recovered/geometry-owners-059/450204205d0a2be0dfd86b835676986a0d2121fc818df44af913320153ed7ed7.gz",
+      "published_sha256": "450204205d0a2be0dfd86b835676986a0d2121fc818df44af913320153ed7ed7",
+      "published_bytes": 9621,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-880.json",
+      "sha256": "db46befefab243f5297dd0f4505a1b20ddf7d356255ce6a39f8bfa0b6e2e8bb7",
+      "bytes": 9688,
+      "git_blob": "decaff85df647d36123ffb20fdff3e7876eeb6c1",
+      "preserved_bytes": "recovered/geometry-owners-059/db46befefab243f5297dd0f4505a1b20ddf7d356255ce6a39f8bfa0b6e2e8bb7.gz",
+      "published_sha256": "db46befefab243f5297dd0f4505a1b20ddf7d356255ce6a39f8bfa0b6e2e8bb7",
+      "published_bytes": 9688,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-929.json",
+      "sha256": "eefa1b3936ce6c99efdd467b07bd3535941dba70032891f015e43c06dbaaf635",
+      "bytes": 10007,
+      "git_blob": "732ab02d5402215491cc775a3476ef355fe73354",
+      "preserved_bytes": "recovered/geometry-owners-059/eefa1b3936ce6c99efdd467b07bd3535941dba70032891f015e43c06dbaaf635.gz",
+      "published_sha256": "eefa1b3936ce6c99efdd467b07bd3535941dba70032891f015e43c06dbaaf635",
+      "published_bytes": 10007,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-930.json",
+      "sha256": "70c169a0d6321996f24610d78e39407fbd4f4d30ad89b923736811acb6fd9ed5",
+      "bytes": 10353,
+      "git_blob": "05874496bc6b4fe046ba1b5752df3e1838546c89",
+      "preserved_bytes": "recovered/geometry-owners-059/70c169a0d6321996f24610d78e39407fbd4f4d30ad89b923736811acb6fd9ed5.gz",
+      "published_sha256": "70c169a0d6321996f24610d78e39407fbd4f4d30ad89b923736811acb6fd9ed5",
+      "published_bytes": 10353,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-932.json",
+      "sha256": "a407115b0f934334a748aae1ec3ada2463db3f7faeaae0589afeecf31f57e647",
+      "bytes": 10418,
+      "git_blob": "7def1067a2ef072bbdc99ab878d57da4531b7750",
+      "preserved_bytes": "recovered/geometry-owners-059/a407115b0f934334a748aae1ec3ada2463db3f7faeaae0589afeecf31f57e647.gz",
+      "published_sha256": "a407115b0f934334a748aae1ec3ada2463db3f7faeaae0589afeecf31f57e647",
+      "published_bytes": 10418,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFIED-REUSE-PAR-L12-TEAM022-CUBOID-OWNER.json",
+      "sha256": "e685b2861fbd0485c71304a61110eaf6ef69e5f9c494c45fb0fb479ca7ea3df3",
+      "bytes": 3519,
+      "git_blob": "f963bc9155de783c0487604129acb37a7b9843aa",
+      "preserved_bytes": "recovered/geometry-owners-059/e685b2861fbd0485c71304a61110eaf6ef69e5f9c494c45fb0fb479ca7ea3df3.gz",
+      "published_sha256": "e685b2861fbd0485c71304a61110eaf6ef69e5f9c494c45fb0fb479ca7ea3df3",
+      "published_bytes": 3519,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-TEAM021-COMPLETED-SOURCE-VIEWS-v2.json",
+      "sha256": "a5c9084f4214074db2c28bd2163a937ef31cda514be46217b200d9dc402d9f6c",
+      "bytes": 47045,
+      "git_blob": "9996b24b2885782ec312e46f5de5dd2a8b13c202",
+      "preserved_bytes": "recovered/geometry-owners-059/a5c9084f4214074db2c28bd2163a937ef31cda514be46217b200d9dc402d9f6c.gz",
+      "published_sha256": "925b4bc7cace0b72b00ac13631dfb6692c123c131c43373ccaa8f863fe6f400c",
+      "published_bytes": 46960,
+      "redacted_local_path_occurrences": 1,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-TEAM022-COMPLETED-VIEWS-v2.json",
+      "sha256": "fee41a12a72c367d50af4acdf3fdc33d6f403e5dde03130a57d23dea113c39a2",
+      "bytes": 13475,
+      "git_blob": "dff928ab64c0112e4bf212cfe6db8c106fbeeb6d",
+      "preserved_bytes": "recovered/geometry-owners-059/fee41a12a72c367d50af4acdf3fdc33d6f403e5dde03130a57d23dea113c39a2.gz",
+      "published_sha256": "fee41a12a72c367d50af4acdf3fdc33d6f403e5dde03130a57d23dea113c39a2",
+      "published_bytes": 13475,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-221.json",
+      "sha256": "9cc59202048ef9a989c67d46b21a34a66131ea59bf249b00b25b89fe06aec190",
+      "bytes": 764,
+      "git_blob": "f3ae7489cf807f154483d7c1fb78836139a1f56d",
+      "preserved_bytes": "recovered/geometry-owners-059/9cc59202048ef9a989c67d46b21a34a66131ea59bf249b00b25b89fe06aec190.gz",
+      "published_sha256": "9cc59202048ef9a989c67d46b21a34a66131ea59bf249b00b25b89fe06aec190",
+      "published_bytes": 764,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-222.json",
+      "sha256": "fe692db89668ac33f28b939ddc57e3cb4caae52efa5dd6a3bac243759b6b841e",
+      "bytes": 766,
+      "git_blob": "d9877d118628929026c2e35c3cb7905f4cb59579",
+      "preserved_bytes": "recovered/geometry-owners-059/fe692db89668ac33f28b939ddc57e3cb4caae52efa5dd6a3bac243759b6b841e.gz",
+      "published_sha256": "fe692db89668ac33f28b939ddc57e3cb4caae52efa5dd6a3bac243759b6b841e",
+      "published_bytes": 766,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-223.json",
+      "sha256": "6b71f2f774ede668d3ad219433a7d614a344c1f511ea85095f91d131b3bf7209",
+      "bytes": 758,
+      "git_blob": "c18a7f99084314ec42932a8ca510e942382859c0",
+      "preserved_bytes": "recovered/geometry-owners-059/6b71f2f774ede668d3ad219433a7d614a344c1f511ea85095f91d131b3bf7209.gz",
+      "published_sha256": "6b71f2f774ede668d3ad219433a7d614a344c1f511ea85095f91d131b3bf7209",
+      "published_bytes": 758,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-224.json",
+      "sha256": "53069c8ff4ab66c3f9eb17a0c75d9abd7e3f2d4603a2ab826b4a7904a786a86e",
+      "bytes": 766,
+      "git_blob": "7452a3080cfbd721fef9fe8b0b651e1cc797abb1",
+      "preserved_bytes": "recovered/geometry-owners-059/53069c8ff4ab66c3f9eb17a0c75d9abd7e3f2d4603a2ab826b4a7904a786a86e.gz",
+      "published_sha256": "53069c8ff4ab66c3f9eb17a0c75d9abd7e3f2d4603a2ab826b4a7904a786a86e",
+      "published_bytes": 766,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-228.json",
+      "sha256": "5d09bc35d53febafe05145fd5431aa7ce8dcaa4ddaf48874131cdfe5c6d10138",
+      "bytes": 870,
+      "git_blob": "53f8658205e2414e90bfd332c5c4660421c86bac",
+      "preserved_bytes": "recovered/geometry-owners-059/5d09bc35d53febafe05145fd5431aa7ce8dcaa4ddaf48874131cdfe5c6d10138.gz",
+      "published_sha256": "5d09bc35d53febafe05145fd5431aa7ce8dcaa4ddaf48874131cdfe5c6d10138",
+      "published_bytes": 870,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-229.json",
+      "sha256": "7c37ed208cd98c7009d004abac13b9f226f0db668c4deb3a52aa5c08b071225d",
+      "bytes": 872,
+      "git_blob": "ec264eda06b7c1efc26f9b08b691fbecf79bd9eb",
+      "preserved_bytes": "recovered/geometry-owners-059/7c37ed208cd98c7009d004abac13b9f226f0db668c4deb3a52aa5c08b071225d.gz",
+      "published_sha256": "7c37ed208cd98c7009d004abac13b9f226f0db668c4deb3a52aa5c08b071225d",
+      "published_bytes": 872,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-230.json",
+      "sha256": "c93495ec01327b477cc40b2733f9e1e5a17adad385a66addf4e8efd987dea6ba",
+      "bytes": 866,
+      "git_blob": "abb48a82b3a5c9115068a9c14e46f2694d0223e5",
+      "preserved_bytes": "recovered/geometry-owners-059/c93495ec01327b477cc40b2733f9e1e5a17adad385a66addf4e8efd987dea6ba.gz",
+      "published_sha256": "c93495ec01327b477cc40b2733f9e1e5a17adad385a66addf4e8efd987dea6ba",
+      "published_bytes": 866,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-231.json",
+      "sha256": "97e0865d658f016b31abb9c4d339fd29ecc66edc709002bd962056d13eaec25d",
+      "bytes": 884,
+      "git_blob": "09aef2158f8bfc4eb09170cf8aa9c8a9f3a0a772",
+      "preserved_bytes": "recovered/geometry-owners-059/97e0865d658f016b31abb9c4d339fd29ecc66edc709002bd962056d13eaec25d.gz",
+      "published_sha256": "97e0865d658f016b31abb9c4d339fd29ecc66edc709002bd962056d13eaec25d",
+      "published_bytes": 884,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-232.json",
+      "sha256": "d17edae0533373d61b60a312cf28b58b4dba0f5a421d2fde583c4b4ab6c220d9",
+      "bytes": 856,
+      "git_blob": "335643952c1198fe42bf06b82f35257277427945",
+      "preserved_bytes": "recovered/geometry-owners-059/d17edae0533373d61b60a312cf28b58b4dba0f5a421d2fde583c4b4ab6c220d9.gz",
+      "published_sha256": "d17edae0533373d61b60a312cf28b58b4dba0f5a421d2fde583c4b4ab6c220d9",
+      "published_bytes": 856,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-506.json",
+      "sha256": "d1ef1e6ffdf57354477755c3958b4a1150f769c0da177f99a3e289cd48ded7d0",
+      "bytes": 8687,
+      "git_blob": "355a4460dbe0f07c0ff252d8682db0f78f8be1ce",
+      "preserved_bytes": "recovered/geometry-owners-059/d1ef1e6ffdf57354477755c3958b4a1150f769c0da177f99a3e289cd48ded7d0.gz",
+      "published_sha256": "d1ef1e6ffdf57354477755c3958b4a1150f769c0da177f99a3e289cd48ded7d0",
+      "published_bytes": 8687,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-638.json",
+      "sha256": "3f19282b309ffd98282c76ad4de2b38093d392a0beedccbb0fc9a880d984a1ec",
+      "bytes": 5168,
+      "git_blob": "7141ab2178f7d9e866c4701ed7087e0f811c783b",
+      "preserved_bytes": "recovered/geometry-owners-059/3f19282b309ffd98282c76ad4de2b38093d392a0beedccbb0fc9a880d984a1ec.gz",
+      "published_sha256": "3f19282b309ffd98282c76ad4de2b38093d392a0beedccbb0fc9a880d984a1ec",
+      "published_bytes": 5168,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-644.json",
+      "sha256": "2a064b9e65ee27ba2432a5de2288c1a19eff02e05489643ee7eddb4e30f6127f",
+      "bytes": 7054,
+      "git_blob": "336bd7cdf11b074e27a73712fe20d36fa1d5730f",
+      "preserved_bytes": "recovered/geometry-owners-059/2a064b9e65ee27ba2432a5de2288c1a19eff02e05489643ee7eddb4e30f6127f.gz",
+      "published_sha256": "2a064b9e65ee27ba2432a5de2288c1a19eff02e05489643ee7eddb4e30f6127f",
+      "published_bytes": 7054,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-645.json",
+      "sha256": "01612927371c76737e7793d63e3551a4b7cf74e3e084e20162a8a42121918b55",
+      "bytes": 6447,
+      "git_blob": "e405dba26cd2ff69331379c39ea13cc51b3fea02",
+      "preserved_bytes": "recovered/geometry-owners-059/01612927371c76737e7793d63e3551a4b7cf74e3e084e20162a8a42121918b55.gz",
+      "published_sha256": "01612927371c76737e7793d63e3551a4b7cf74e3e084e20162a8a42121918b55",
+      "published_bytes": 6447,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-650.json",
+      "sha256": "f0773414224cf7c738a5c44a0758406b0ae7c5fa11d1c9110fd69df6487d2a6b",
+      "bytes": 5853,
+      "git_blob": "e533171860d0e32f3b8304f22a8b14b62fa03e2d",
+      "preserved_bytes": "recovered/geometry-owners-059/f0773414224cf7c738a5c44a0758406b0ae7c5fa11d1c9110fd69df6487d2a6b.gz",
+      "published_sha256": "f2272ffcd2722b9a2d870e0c928b478321916bf8c5430cdb1bfc1ac16e33a3f5",
+      "published_bytes": 5769,
+      "redacted_local_path_occurrences": 1,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-651.json",
+      "sha256": "1349c56feaf179443d87bd164a41e9d926547a65cfe0c56f88349ed9ddc24d51",
+      "bytes": 5385,
+      "git_blob": "036362086cfc85e303bc49e40cf80c3c47139967",
+      "preserved_bytes": "recovered/geometry-owners-059/1349c56feaf179443d87bd164a41e9d926547a65cfe0c56f88349ed9ddc24d51.gz",
+      "published_sha256": "a5bf9c62dee249b57e7aced644930c8f3dab55f64404c46bf952c5f909e4bc4b",
+      "published_bytes": 5301,
+      "redacted_local_path_occurrences": 1,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-652.json",
+      "sha256": "d465a296bbbae345370d2aa84f7031872ce6c219deb21bfdd44e57ff43cc0e8d",
+      "bytes": 7548,
+      "git_blob": "89605f309ff0c0cef42e40ee7effc8495fe3660a",
+      "preserved_bytes": "recovered/geometry-owners-059/d465a296bbbae345370d2aa84f7031872ce6c219deb21bfdd44e57ff43cc0e8d.gz",
+      "published_sha256": "d629b80662ea51e56263f933f9d5ee37505e95c8b5a3dbe61da39f6c56b205d6",
+      "published_bytes": 7464,
+      "redacted_local_path_occurrences": 1,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-655.json",
+      "sha256": "c4db51dcae0abefa7b0dbf2d0f2510fb99119a5ca38d866bd2d82e418a9d49d9",
+      "bytes": 3682,
+      "git_blob": "070c177c27a5e2af2187281760fb043610436de7",
+      "preserved_bytes": "recovered/geometry-owners-059/c4db51dcae0abefa7b0dbf2d0f2510fb99119a5ca38d866bd2d82e418a9d49d9.gz",
+      "published_sha256": "c4db51dcae0abefa7b0dbf2d0f2510fb99119a5ca38d866bd2d82e418a9d49d9",
+      "published_bytes": 3682,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-656.json",
+      "sha256": "173f6834e6e20d80319a19dcc9b3cbd124506b3446c1b4f5de2884c9c2a99ebe",
+      "bytes": 9479,
+      "git_blob": "159f17f5c7797c5cf7c89d69da68ca979c0bb463",
+      "preserved_bytes": "recovered/geometry-owners-059/173f6834e6e20d80319a19dcc9b3cbd124506b3446c1b4f5de2884c9c2a99ebe.gz",
+      "published_sha256": "173f6834e6e20d80319a19dcc9b3cbd124506b3446c1b4f5de2884c9c2a99ebe",
+      "published_bytes": 9479,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-672.json",
+      "sha256": "7364ba0ebc4971e6da9137b0bebed312905268113bd50774234e6c5d4124e1b3",
+      "bytes": 7563,
+      "git_blob": "50076cb5fd082768e44bdddcc4f25e713eaa80d2",
+      "preserved_bytes": "recovered/geometry-owners-059/7364ba0ebc4971e6da9137b0bebed312905268113bd50774234e6c5d4124e1b3.gz",
+      "published_sha256": "7364ba0ebc4971e6da9137b0bebed312905268113bd50774234e6c5d4124e1b3",
+      "published_bytes": 7563,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-673.json",
+      "sha256": "f4bba458592cca55bef6d97f61c2ef03679fc4a95d6c06077148ec9603b54596",
+      "bytes": 5634,
+      "git_blob": "31651bcc173c86fea782ef8bca319d20386cdc06",
+      "preserved_bytes": "recovered/geometry-owners-059/f4bba458592cca55bef6d97f61c2ef03679fc4a95d6c06077148ec9603b54596.gz",
+      "published_sha256": "f4bba458592cca55bef6d97f61c2ef03679fc4a95d6c06077148ec9603b54596",
+      "published_bytes": 5634,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-743.json",
+      "sha256": "c161ce3f75be736789f87e88fba2280dd58bab210f060c375d9383f000408e2c",
+      "bytes": 6163,
+      "git_blob": "96984464e90b69897dffae006befa2229dcb8a5f",
+      "preserved_bytes": "recovered/geometry-owners-059/c161ce3f75be736789f87e88fba2280dd58bab210f060c375d9383f000408e2c.gz",
+      "published_sha256": "c161ce3f75be736789f87e88fba2280dd58bab210f060c375d9383f000408e2c",
+      "published_bytes": 6163,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-744.json",
+      "sha256": "64fcbfd873117309be9f9159b8d4f8820a69dfeabd7986128c1846ca4b930cc4",
+      "bytes": 6083,
+      "git_blob": "c97252fe0fb897e41fed682873c9a3bf0cad2f34",
+      "preserved_bytes": "recovered/geometry-owners-059/64fcbfd873117309be9f9159b8d4f8820a69dfeabd7986128c1846ca4b930cc4.gz",
+      "published_sha256": "64fcbfd873117309be9f9159b8d4f8820a69dfeabd7986128c1846ca4b930cc4",
+      "published_bytes": 6083,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-745.json",
+      "sha256": "15fd6265ece3f5a15bba8b48f83e2c898bd2dc772d7cb3bf43f0b2b0df0bb34d",
+      "bytes": 6267,
+      "git_blob": "2cd89a0873a07127bffcd6c631df805502ac8421",
+      "preserved_bytes": "recovered/geometry-owners-059/15fd6265ece3f5a15bba8b48f83e2c898bd2dc772d7cb3bf43f0b2b0df0bb34d.gz",
+      "published_sha256": "15fd6265ece3f5a15bba8b48f83e2c898bd2dc772d7cb3bf43f0b2b0df0bb34d",
+      "published_bytes": 6267,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-746.json",
+      "sha256": "13f89777d6b689ae17b8570ec9a35e0715b2308895c1b9496ee3806e39537653",
+      "bytes": 6294,
+      "git_blob": "362c3a1af54760590f6c8d70fcc917ea1235f5a4",
+      "preserved_bytes": "recovered/geometry-owners-059/13f89777d6b689ae17b8570ec9a35e0715b2308895c1b9496ee3806e39537653.gz",
+      "published_sha256": "13f89777d6b689ae17b8570ec9a35e0715b2308895c1b9496ee3806e39537653",
+      "published_bytes": 6294,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-751.json",
+      "sha256": "30a554441ac7e6f521d879fde77f7b9ff0009186ab95261dbd1f0e08ec678572",
+      "bytes": 6381,
+      "git_blob": "b32a8eaa5e5a1e11d99c55e02b9772d86827a463",
+      "preserved_bytes": "recovered/geometry-owners-059/30a554441ac7e6f521d879fde77f7b9ff0009186ab95261dbd1f0e08ec678572.gz",
+      "published_sha256": "30a554441ac7e6f521d879fde77f7b9ff0009186ab95261dbd1f0e08ec678572",
+      "published_bytes": 6381,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-752.json",
+      "sha256": "4a0df6a7f3a9367e02eca32409e86220339fdf32387959a2bfde462b8eb0af70",
+      "bytes": 6134,
+      "git_blob": "7043c4c064b5c089e5adec58b879e1323f932a78",
+      "preserved_bytes": "recovered/geometry-owners-059/4a0df6a7f3a9367e02eca32409e86220339fdf32387959a2bfde462b8eb0af70.gz",
+      "published_sha256": "4a0df6a7f3a9367e02eca32409e86220339fdf32387959a2bfde462b8eb0af70",
+      "published_bytes": 6134,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract3445 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-746.json",
+      "sha256": "3a5f0632fb0711fae506272b826fd64c346876009a2bf9f509b36bd19585cac3",
+      "bytes": 12297,
+      "git_blob": "e57c9d66021feca196b322a3a5cad63505671dcf",
+      "preserved_bytes": "recovered/geometry-owners-059/3a5f0632fb0711fae506272b826fd64c346876009a2bf9f509b36bd19585cac3.gz",
+      "published_sha256": "3a5f0632fb0711fae506272b826fd64c346876009a2bf9f509b36bd19585cac3",
+      "published_bytes": 12297,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption of delegated Lens12 evidence; zero root rereads"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-747.json",
+      "sha256": "920d8c25fb4734a24387edf32106f10e4631a25eb33cf0a8518b914c78e7d122",
+      "bytes": 12365,
+      "git_blob": "d3042068cff2d7dbb1fd9fc1f55f6f4872035710",
+      "preserved_bytes": "recovered/geometry-owners-059/920d8c25fb4734a24387edf32106f10e4631a25eb33cf0a8518b914c78e7d122.gz",
+      "published_sha256": "920d8c25fb4734a24387edf32106f10e4631a25eb33cf0a8518b914c78e7d122",
+      "published_bytes": 12365,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption of delegated Lens12 evidence; zero root rereads"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-844.json",
+      "sha256": "f042ad55e5ec7f272350c1dcce75dae2deefc718561d74b03fe3469fb0ef011b",
+      "bytes": 18280,
+      "git_blob": "f09bf3cea31fd1ca75ff22fab8dc00331d19ccfe",
+      "preserved_bytes": "recovered/geometry-owners-059/f042ad55e5ec7f272350c1dcce75dae2deefc718561d74b03fe3469fb0ef011b.gz",
+      "published_sha256": "f042ad55e5ec7f272350c1dcce75dae2deefc718561d74b03fe3469fb0ef011b",
+      "published_bytes": 18280,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-878.json",
+      "sha256": "ce88b9058bb0f7d8271e31aabcb898e864ac49c0cd22a6f8b6decbc54393418b",
+      "bytes": 14632,
+      "git_blob": "daa9218df15dd10f049c6a7b9888d6237b62bb36",
+      "preserved_bytes": "recovered/geometry-owners-059/ce88b9058bb0f7d8271e31aabcb898e864ac49c0cd22a6f8b6decbc54393418b.gz",
+      "published_sha256": "ce88b9058bb0f7d8271e31aabcb898e864ac49c0cd22a6f8b6decbc54393418b",
+      "published_bytes": 14632,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-879.json",
+      "sha256": "1c83988037704a7cdc040a3092996de0f09610f10b727a5c1e9a69c29b8c8462",
+      "bytes": 13557,
+      "git_blob": "1475adc6258992ac5254dead3112270cb535a77b",
+      "preserved_bytes": "recovered/geometry-owners-059/1c83988037704a7cdc040a3092996de0f09610f10b727a5c1e9a69c29b8c8462.gz",
+      "published_sha256": "1c83988037704a7cdc040a3092996de0f09610f10b727a5c1e9a69c29b8c8462",
+      "published_bytes": 13557,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-880.json",
+      "sha256": "a1b17982fdef8064dd00e3b18965e15b02ce2849c705fb0dcf5970b96f507269",
+      "bytes": 13665,
+      "git_blob": "e6879c3543bc5d6db8b90ad70481cf92de249407",
+      "preserved_bytes": "recovered/geometry-owners-059/a1b17982fdef8064dd00e3b18965e15b02ce2849c705fb0dcf5970b96f507269.gz",
+      "published_sha256": "a1b17982fdef8064dd00e3b18965e15b02ce2849c705fb0dcf5970b96f507269",
+      "published_bytes": 13665,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope",
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-CONNECTED-TEAM-021.json",
+      "sha256": "7b34138147d8c96134be996c812dedac60aec9416645fa48e9ab475274fb87e7",
+      "bytes": 189377,
+      "git_blob": "32c3ce6e0f24883508727c3c8aa2aef5426d90e2",
+      "preserved_bytes": "recovered/geometry-owners-059/7b34138147d8c96134be996c812dedac60aec9416645fa48e9ab475274fb87e7.gz",
+      "published_sha256": "7b34138147d8c96134be996c812dedac60aec9416645fa48e9ab475274fb87e7",
+      "published_bytes": 189377,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-CONNECTED-TEAM-022.json",
+      "sha256": "9b23e19619568f899cdf36989a3eeec633d56b8d92b9d988644a84837be1fbaa",
+      "bytes": 54514,
+      "git_blob": "0e299323d932d671b14e2b259f123cabf461d794",
+      "preserved_bytes": "recovered/geometry-owners-059/9b23e19619568f899cdf36989a3eeec633d56b8d92b9d988644a84837be1fbaa.gz",
+      "published_sha256": "9b23e19619568f899cdf36989a3eeec633d56b8d92b9d988644a84837be1fbaa",
+      "published_bytes": 54514,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-746.json",
+      "sha256": "f19c313760afc2abea2db84a67d9b624b5f97b4c691ce86a5ddf5e5c894d3185",
+      "bytes": 2410,
+      "git_blob": "8b0b61bc9bb5b9636e3992bbea5b7c2e48b5cf98",
+      "preserved_bytes": "recovered/geometry-owners-059/f19c313760afc2abea2db84a67d9b624b5f97b4c691ce86a5ddf5e5c894d3185.gz",
+      "published_sha256": "f19c313760afc2abea2db84a67d9b624b5f97b4c691ce86a5ddf5e5c894d3185",
+      "published_bytes": 2410,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-747.json",
+      "sha256": "7a37dfd296cd50c1091d9f8d421934c7e22287348cb5cf754be738fe99671a47",
+      "bytes": 2795,
+      "git_blob": "5c3c85c5317d8a0be5bbe061ddbaf7644710cb41",
+      "preserved_bytes": "recovered/geometry-owners-059/7a37dfd296cd50c1091d9f8d421934c7e22287348cb5cf754be738fe99671a47.gz",
+      "published_sha256": "7a37dfd296cd50c1091d9f8d421934c7e22287348cb5cf754be738fe99671a47",
+      "published_bytes": 2795,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-746.json",
+      "sha256": "04ac6ac5c7adf0a4e5e295af620a3f5954f9305e553158fdcd245a5a6c51cbee",
+      "bytes": 667,
+      "git_blob": "9e3fe8be7c2c57fa3e18b78ff73b4ec67b314ce5",
+      "preserved_bytes": "recovered/geometry-owners-059/04ac6ac5c7adf0a4e5e295af620a3f5954f9305e553158fdcd245a5a6c51cbee.gz",
+      "published_sha256": "04ac6ac5c7adf0a4e5e295af620a3f5954f9305e553158fdcd245a5a6c51cbee",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-747.json",
+      "sha256": "c90604d028c6e0b44f63d6696ca9420d5e52018a4d345086a8c8ca8cb761aacb",
+      "bytes": 667,
+      "git_blob": "1534a8cb82ae46706eab92544d53436adf687ebd",
+      "preserved_bytes": "recovered/geometry-owners-059/c90604d028c6e0b44f63d6696ca9420d5e52018a4d345086a8c8ca8cb761aacb.gz",
+      "published_sha256": "c90604d028c6e0b44f63d6696ca9420d5e52018a4d345086a8c8ca8cb761aacb",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-CONNECTED-TEAM-021.json",
+      "sha256": "e85e5bac22c92d05a4229e384835a28b216632020866e6f453eba0067f6b01d5",
+      "bytes": 759,
+      "git_blob": "56a25bd1be2d731ff55f840035573bbe5aa5e911",
+      "preserved_bytes": "recovered/geometry-owners-059/e85e5bac22c92d05a4229e384835a28b216632020866e6f453eba0067f6b01d5.gz",
+      "published_sha256": "e85e5bac22c92d05a4229e384835a28b216632020866e6f453eba0067f6b01d5",
+      "published_bytes": 759,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope exact verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-CONNECTED-TEAM-022.json",
+      "sha256": "9288e7723326e4d4950d9e0b757c6138ae5b3c143b4e76920033fca8896cd6bd",
+      "bytes": 834,
+      "git_blob": "a2c3e23555da9ed8f7f3cdb424d08657b105460a",
+      "preserved_bytes": "recovered/geometry-owners-059/9288e7723326e4d4950d9e0b757c6138ae5b3c143b4e76920033fca8896cd6bd.gz",
+      "published_sha256": "9288e7723326e4d4950d9e0b757c6138ae5b3c143b4e76920033fca8896cd6bd",
+      "published_bytes": 834,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 connected contract2435 directly referenced evidence; preserve original revision and scope exact verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "Multiple original root/rig/native supplier observations and Adler361/delegate746–747 full historical readings are separate; root delegation adoption had zero rereads. Newly displayed current bodies and Cargo-locked member views do not change prior scopes.",
+  "remaining": "Continue changed original2273 and all thirteen lenses. Actual resolution policy, geometry consumers, native codecs/reflection, aliases and queue reconciliation remain open. Original3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

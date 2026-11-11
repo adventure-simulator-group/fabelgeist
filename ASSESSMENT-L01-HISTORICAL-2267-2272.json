@@ -1,0 +1,663 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2267,
+      "source_id": "pr-working:crates/fabelgeist-geometry/Cargo.toml",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2267",
+      "original_locator": "crates/fabelgeist-geometry/Cargo.toml",
+      "original_supplier_scopes": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 16,
+          "read_ranges": [
+            [
+              1,
+              21
+            ]
+          ]
+        },
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+          "row": 50,
+          "read_ranges": [
+            [
+              1,
+              21
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+          "receipt": "ROOT-PPS-NATIVE-CONTRACT-METADATA-003",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              21
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "a301b39ec718fa3959414680a15d2fa22226c216298da879aed86b9a1fb62165",
+      "lines": 21,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GEOMETRY-OWNERS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2267-2272.json",
+        "sha256": "6d3bb22eb06b989335e161c76b0505bd1d492cf64ec0920c3ca2501b56e8c6c7"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current complete body displayed after local registration and exact historical6533 byte equality verified. Historical reviewer and supplier scopes are separately attributed.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-geometry/Cargo.toml",
+        "sha256": "a301b39ec718fa3959414680a15d2fa22226c216298da879aed86b9a1fb62165",
+        "bytes": 582,
+        "lines": 21,
+        "git_blob": "8064ebee815ea1714165b41e6c2ddf1862ae5ef4",
+        "preserved_bytes": "main-advance-95e/geometry-owners-evidence/current-2267.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            21
+          ]
+        ],
+        "qualification": "Current full body displayed after registration; exact historical byte identity verified. No product code executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim.",
+      "prior_current_observations": [],
+      "prior_role_qualification": null
+    },
+    {
+      "original_index": 2268,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/cuboid.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2268",
+      "original_locator": "crates/fabelgeist-geometry/src/cuboid.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 52,
+          "read_ranges": [
+            [
+              1,
+              126
+            ]
+          ]
+        },
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 157,
+          "read_ranges": [
+            [
+              1,
+              126
+            ]
+          ]
+        },
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 454,
+          "read_ranges": [
+            [
+              1,
+              126
+            ]
+          ]
+        },
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 2,
+          "read_ranges": [
+            [
+              1,
+              126
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+          "row": 66,
+          "read_ranges": [
+            [
+              1,
+              126
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+          "receipt": "ROOT-PPS-GEOMETRY-OWNERS-004",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              126
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "1fe1e6483da91ee1bd681df6ff788ec97d680ac453c450069a30111c66dc40ed",
+      "lines": 126,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GEOMETRY-OWNERS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2267-2272.json",
+        "sha256": "6d3bb22eb06b989335e161c76b0505bd1d492cf64ec0920c3ca2501b56e8c6c7"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current complete body displayed after local registration and exact historical6533 byte equality verified. Historical reviewer and supplier scopes are separately attributed.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-geometry/src/cuboid.rs",
+        "sha256": "1fe1e6483da91ee1bd681df6ff788ec97d680ac453c450069a30111c66dc40ed",
+        "bytes": 4298,
+        "lines": 126,
+        "git_blob": "1cb0d7f399f2c32fe44d67f5bdfcb04d4bd99fd9",
+        "preserved_bytes": "main-advance-95e/geometry-owners-evidence/current-2268.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            126
+          ]
+        ],
+        "qualification": "Current full body displayed after registration; exact historical byte identity verified. No product code executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim.",
+      "prior_current_observations": [],
+      "prior_role_qualification": null
+    },
+    {
+      "original_index": 2269,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/error.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2269",
+      "original_locator": "crates/fabelgeist-geometry/src/error.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 53,
+          "read_ranges": [
+            [
+              1,
+              95
+            ]
+          ]
+        },
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 3,
+          "read_ranges": [
+            [
+              1,
+              95
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+          "receipt": "ROOT-PPS-GEOMETRY-OWNERS-004",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              95
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+      "lines": 95,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GEOMETRY-OWNERS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2267-2272.json",
+        "sha256": "6d3bb22eb06b989335e161c76b0505bd1d492cf64ec0920c3ca2501b56e8c6c7"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current complete body displayed after local registration and exact historical6533 byte equality verified. Historical reviewer and supplier scopes are separately attributed.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-geometry/src/error.rs",
+        "sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+        "bytes": 2663,
+        "lines": 95,
+        "git_blob": "f823fb962c4814644229310840ee8616ec90be18",
+        "preserved_bytes": "main-advance-95e/geometry-owners-evidence/current-2269.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            95
+          ]
+        ],
+        "qualification": "Current full body displayed after registration; exact historical byte identity verified. No product code executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim.",
+      "prior_current_observations": [],
+      "prior_role_qualification": null
+    },
+    {
+      "original_index": 2270,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/length.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2270",
+      "original_locator": "crates/fabelgeist-geometry/src/length.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 54,
+          "read_ranges": [
+            [
+              1,
+              40
+            ]
+          ]
+        },
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 158,
+          "read_ranges": [
+            [
+              1,
+              40
+            ]
+          ]
+        },
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 348,
+          "read_ranges": [
+            [
+              1,
+              40
+            ]
+          ]
+        },
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 360,
+          "read_ranges": [
+            [
+              1,
+              40
+            ]
+          ]
+        },
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 0,
+          "read_ranges": [
+            [
+              1,
+              40
+            ]
+          ]
+        },
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 137,
+          "read_ranges": [
+            [
+              1,
+              40
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+          "receipt": "ROOT-PPS-GEOMETRY-OWNERS-004",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              40
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "lines": 40,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GEOMETRY-OWNERS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2267-2272.json",
+        "sha256": "6d3bb22eb06b989335e161c76b0505bd1d492cf64ec0920c3ca2501b56e8c6c7"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current complete body displayed after local registration and exact historical6533 byte equality verified. Historical reviewer and supplier scopes are separately attributed.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-geometry/src/length.rs",
+        "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+        "bytes": 1383,
+        "lines": 40,
+        "git_blob": "2ce787e969bc6df118dd86a7285293cd3602e063",
+        "preserved_bytes": "main-advance-95e/geometry-owners-evidence/current-2270.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            40
+          ]
+        ],
+        "qualification": "Current full body displayed after registration; exact historical byte identity verified. No product code executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim.",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+          "ranges": [
+            [
+              1,
+              40
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-WEAPON-LENGTH.json",
+          "ranges": [
+            [
+              1,
+              40
+            ]
+          ]
+        }
+      ],
+      "prior_role_qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+    },
+    {
+      "original_index": 2271,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/lib.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2271",
+      "original_locator": "crates/fabelgeist-geometry/src/lib.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 55,
+          "read_ranges": [
+            [
+              1,
+              16
+            ]
+          ]
+        },
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 4,
+          "read_ranges": [
+            [
+              1,
+              16
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+          "receipt": "ROOT-PPS-GEOMETRY-OWNERS-004",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              16
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+      "lines": 16,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GEOMETRY-OWNERS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2267-2272.json",
+        "sha256": "6d3bb22eb06b989335e161c76b0505bd1d492cf64ec0920c3ca2501b56e8c6c7"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current complete body displayed after local registration and exact historical6533 byte equality verified. Historical reviewer and supplier scopes are separately attributed.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-geometry/src/lib.rs",
+        "sha256": "4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+        "bytes": 632,
+        "lines": 16,
+        "git_blob": "029d185535629cee9ca47ad8ef547aca80239827",
+        "preserved_bytes": "main-advance-95e/geometry-owners-evidence/current-2271.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            16
+          ]
+        ],
+        "qualification": "Current full body displayed after registration; exact historical byte identity verified. No product code executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim.",
+      "prior_current_observations": [],
+      "prior_role_qualification": null
+    },
+    {
+      "original_index": 2272,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/measurement.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2272",
+      "original_locator": "crates/fabelgeist-geometry/src/measurement.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 56,
+          "read_ranges": [
+            [
+              1,
+              104
+            ]
+          ]
+        },
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 349,
+          "read_ranges": [
+            [
+              1,
+              104
+            ]
+          ]
+        },
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 361,
+          "read_ranges": [
+            [
+              1,
+              104
+            ]
+          ]
+        },
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 412,
+          "read_ranges": [
+            [
+              1,
+              104
+            ]
+          ]
+        },
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 1,
+          "read_ranges": [
+            [
+              1,
+              104
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+          "receipt": "ROOT-PPS-GEOMETRY-OWNERS-004",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              104
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "72ee58eb8ae01af4b7f17ef81f007dfa63c7dc818a1ed71ce5bbba0707236e70",
+      "lines": 104,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GEOMETRY-OWNERS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2267-2272.json",
+        "sha256": "6d3bb22eb06b989335e161c76b0505bd1d492cf64ec0920c3ca2501b56e8c6c7"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current complete body displayed after local registration and exact historical6533 byte equality verified. Historical reviewer and supplier scopes are separately attributed.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-geometry/src/measurement.rs",
+        "sha256": "72ee58eb8ae01af4b7f17ef81f007dfa63c7dc818a1ed71ce5bbba0707236e70",
+        "bytes": 3508,
+        "lines": 104,
+        "git_blob": "1ca89018e525af6b5643767d87d80297ea0bb3b6",
+        "preserved_bytes": "main-advance-95e/geometry-owners-evidence/current-2272.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            104
+          ]
+        ],
+        "qualification": "Current full body displayed after registration; exact historical byte identity verified. No product code executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim.",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-CAMERA.json",
+          "ranges": "11-21, 35-45"
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+          "ranges": [
+            [
+              1,
+              104
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-WEAPON-LENGTH.json",
+          "ranges": [
+            [
+              1,
+              80
+            ]
+          ]
+        }
+      ],
+      "prior_role_qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+    }
+  ],
+  "observations": [
+    "Current95e geometry manifest21 and five sources126/95/40/16/104 were prospectively registered and personally displayed in bounded untruncated ranges; exact historical6533 byte identity verified. Multiple original root, rig and native supplier observations retain their original identities, scopes and record pointers.",
+    "Adler361 independently read2267–2272 in full; Lens12 delegate746 read2267–2268 in full and delegate747 read2269–2272 in full. Root adoption of each delegated receipt recorded zero personal rereads and zero accepted unique-count change.",
+    "Earlier predecessor c100 current observations of2270 and2272, including their own full or partial ranges, retain c100 attribution; they were not silently credited to95e. Earlier connected contracts2435 and3445 remain historical scoped records, not checkpoint3821 or current complete verdicts. New full current reads and bounded native source inspection do not enlarge original supplier scopes or settle reflection behavior. No serializer, deserializer, macro, mesh, test or product ran. Local registration time is not independently attested."
+  ],
+  "qualification": "Original multiple supplier observations, Adler and delegated full historical reads and new current displays remain distinct; no checkpoint3821 claim.",
+  "next_original_role": 2273
+}

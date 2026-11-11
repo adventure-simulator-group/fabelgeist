@@ -11124,8 +11124,108 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-GARMENT-FIT-95E.json"
+      },
+      {
+        "id": "REVIEW-CLOTH-POSITIVE-RESOLUTION-95E",
+        "lens": 1,
+        "additional_current_lenses": [
+          2,
+          3,
+          4,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; resolution admission",
+        "classification": "The public cloth meshing entries accept positive-infinite target edge length despite an existing finite positive metre length owner.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/408",
+          "ASSESSMENT-GARMENT-FIT-95E.json"
+        ],
+        "named_subcontracts": [
+          {
+            "scope": "garment build",
+            "first_failure": "target_edge rejects nonpositive or NaN, but not positive infinity"
+          },
+          {
+            "scope": "direct triangulate",
+            "first_failure": "target_edge rejects nonpositive or NaN, but not positive infinity"
+          }
+        ],
+        "relationship_qualification": "The selected creator validates finite resolution within2.5–6cm, so ordinary creator use is not shown to reach this case. The historical opening-dimension finding has a different owner and is not asserted as an alias. No mesher or input ran.",
+        "discovery": "partial; existing PositiveLength, selected producer, two distinct admission sites and crate dependencies traced; actual public callers and unit-conversion owner open",
+        "connected_repair_direction": "Choose a finite positive resolution owner and enforce its contract at each applicable boundary, retaining any narrower creator range and safe centimetre-to-metre conversion.",
+        "future_acceptance": "After audit and authorization, cover finite valid sizes, zero, negative, NaN, positive infinity, conversion edge cases and the selected creator range.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GEOMETRY-OWNERS-95E.json"
+      },
+      {
+        "id": "REVIEW-GEOMETRY-SCALAR-ERROR-AXIS-95E",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          2,
+          3,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; scalar error shape",
+        "classification": "Scalar length and area constructors attach an X-axis component to errors even though their documented values have no coordinate axis.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/3445"
+        ],
+        "named_subcontracts": [
+          {
+            "scope": "PositiveLength",
+            "first_failure": "invalid scalar assigns CoordinateAxis::X"
+          },
+          {
+            "scope": "SignedLength",
+            "first_failure": "nonfinite scalar assigns CoordinateAxis::X"
+          },
+          {
+            "scope": "Area",
+            "first_failure": "invalid scalar assigns CoordinateAxis::X"
+          }
+        ],
+        "relationship_qualification": "CuboidDimensions separately knows real X/Y/Z axes and must retain axis-specific diagnostics. These scalar sites are related but distinct constructors; exact earlier aliases and caller needs remain open. No constructor or error display ran.",
+        "discovery": "partial; scalar owners and GeometryError shape/display traced; all error consumers and serialization decisions open",
+        "connected_repair_direction": "Represent axis-free scalar failures and actual coordinate-component failures accurately at the common geometry error owner.",
+        "future_acceptance": "After audit and authorization, cover invalid scalar values and each cuboid axis without inventing an axis for scalar measurements.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GEOMETRY-OWNERS-95E.json"
+      },
+      {
+        "id": "REVIEW-GEOMETRY-DIRECTION-SERIALIZER-DERIVABILITY-95E",
+        "lens": 13,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; manual serializer and codec contract",
+        "classification": "DirectionError manual string serialization has a possible derive simplification, but unit-enum serialization is not equivalent for every serializer.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/3445"
+        ],
+        "relationship_qualification": "Cargo-locked derive, JSON and postcard member source supports the scoped comparison; actual postcard use of DirectionError is unproven. No macro, serializer or decoder ran, and no compatibility-preservation requirement is inferred.",
+        "discovery": "partial; existing string spelling and selected codec operations compared; supported final wire contract and consumers open",
+        "connected_repair_direction": "Decide the supported serialization data model and use the simplest implementation that preserves its chosen semantics without legacy paths.",
+        "future_acceptance": "After audit and authorization, cover chosen serializer formats and all three direction error variants at actual supported boundaries.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GEOMETRY-OWNERS-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1701.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1705.json"
 }
