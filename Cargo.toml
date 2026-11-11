@@ -18,6 +18,7 @@ members = [
   "crates/adventuresim-stdb-module",
   "crates/adventuresim-stdb-client",
   "crates/adventuresim-tactical-core",
+  "crates/adventuresim-tactical-game",
   "crates/adventuresim-tactical-netcode",
   "crates/adventuresim-tactical-client",
   "crates/adventuresim-tactical-server",
@@ -71,6 +72,10 @@ ab_glyph = "0.2.32"
 adventuresim-procedural-materials = { path = "crates/adventuresim-procedural-materials" }
 adventuresim-tactical-netcode = { version = "0.1.0", default-features = false }
 adventuresim-tactical-core = { version = "0.1.0" }
+# Netcode for the tactical layer: prediction, input rollback, lag compensation and the
+# WebTransport/WebSocket transports, with the bevy_ahoy fork it steps (wtfdemon/bevy_netahoy,
+# branch oss-lib). Its bevy_ahoy comes from the patch below.
+bevy_netahoy = { git = "https://github.com/wtfdemon/bevy_netahoy", rev = "bf7207703c7c29e13c412047347ceeada885b3ac" }
 adventuresim-stdb-client = { version = "0.1.0" }
 adventuresim-core = { version = "0.1.0" }
 adventuresim-puzzles = { version = "0.1.0", path = "crates/adventuresim-puzzles" }
@@ -100,7 +105,7 @@ bevy = { version = "0.19.0", default-features = false, features = [
 aeronet = { version = "0.21.0" }
 aeronet_replicon = { version = "0.21.0", default-features = false }
 aeronet_websocket = { version = "0.21.0", default-features = false }
-bevy_replicon = { version = "0.41.1", default-features = false, features = [
+bevy_replicon = { version = "0.44.3", default-features = false, features = [
   "client",
   "server",
 ] }
@@ -171,7 +176,7 @@ shapefile = { version = "0.9.0", features = ["geo-types"] }
 zip = { version = "3.0.0", default-features = false, features = ["deflate"] }
 flate2 = "1.1"
 ron = "0.12"
-wasm-bindgen = "=0.2.126"
+wasm-bindgen = "=0.2.127"
 web-time = "1.1.0"
 spacetimedb = "=2.6.1"
 spacetimedb-sdk = "=2.6.1"
@@ -182,12 +187,28 @@ spacetimedb-sats = { version = "=2.6.1", features = ["serde"] }
 all = { level = "warn", priority = -1 }
 
 [patch.crates-io]
+# wtfdemon/aeronet, branch wasm-newest-wins: aeronet on bevy_replicon 0.44 with send
+# backpressure, stale-fragment expiry, 64 KiB WebSocket packets and a browser WebTransport send
+# loop that doesn't wait on each datagram's write; what bevy_netahoy runs on. All six: a partial
+# patch leaves two aeronet_io, whose sessions the other crates don't see.
+aeronet = { git = "https://github.com/wtfdemon/aeronet", rev = "aeb846c749717ea7ea3fdfc0b7f3f427c39ed8eb" }
+aeronet_io = { git = "https://github.com/wtfdemon/aeronet", rev = "aeb846c749717ea7ea3fdfc0b7f3f427c39ed8eb" }
+aeronet_transport = { git = "https://github.com/wtfdemon/aeronet", rev = "aeb846c749717ea7ea3fdfc0b7f3f427c39ed8eb" }
+aeronet_replicon = { git = "https://github.com/wtfdemon/aeronet", rev = "aeb846c749717ea7ea3fdfc0b7f3f427c39ed8eb" }
+aeronet_webtransport = { git = "https://github.com/wtfdemon/aeronet", rev = "aeb846c749717ea7ea3fdfc0b7f3f427c39ed8eb" }
+aeronet_websocket = { git = "https://github.com/wtfdemon/aeronet", rev = "aeb846c749717ea7ea3fdfc0b7f3f427c39ed8eb" }
 adventuresim-tactical-netcode = { path = "crates/adventuresim-tactical-netcode" }
 adventuresim-tactical-core = { path = "crates/adventuresim-tactical-core" }
 adventuresim-stdb-client = { path = "crates/adventuresim-stdb-client" }
 adventuresim-core = { path = "crates/adventuresim-core" }
 adventuresim-puzzles = { path = "crates/adventuresim-puzzles" }
 adventuresim-strategic-sim = { path = "crates/adventuresim-strategic-sim" }
+
+# bevy_netahoy names its bevy_ahoy fork by path, beside its own checkout, which a git checkout
+# doesn't have. This supplies it: wtfdemon/bevy_ahoy, branch netahoy. It is not the
+# vendor/bevy_ahoy the older tactical crates use.
+[patch."https://github.com/wtfdemon/bevy_netahoy"]
+bevy_ahoy = { git = "https://github.com/wtfdemon/bevy_ahoy", rev = "bdf3f27b0beea40abd74d45612aacca249d1775a" }
 
 [profile.win-dev]
 inherits = "dev"
