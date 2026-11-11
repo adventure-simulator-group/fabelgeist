@@ -1,0 +1,1170 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Six original woody geometry roles, exact current source diffs and bounded shoot identity, provenance and prepared-asset consumers.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1592-1597.json",
+  "git_membership_evidence": "TREE-SHOOT-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f6a572e392112603c3cdb61528dc50ffcf82de31",
+      "sha256": "661e960ce52adbbd70eff6d9b7f9e4704273a9b2de2b0ad64b9dcea9de9ecf38",
+      "bytes": 56596,
+      "lines": 1336,
+      "ranges": [
+        [
+          330,
+          402
+        ],
+        [
+          580,
+          627
+        ],
+        [
+          710,
+          773
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/tree-shoot-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. Future original, other-lens, bake, runtime and product credit remain distinct."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b6574c9ed341e6983d473c831c7837c50a6726dd",
+      "sha256": "b436cbf44b376a8eff01bc3e1ff7592cb839a353fa7ab1cb986943417dcb0ec4",
+      "bytes": 3728,
+      "lines": 91,
+      "ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/tree-shoot-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. Future original, other-lens, bake, runtime and product credit remain distinct."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "22b07ef40abe55ac7afa66546071052bf9b369fe",
+      "sha256": "89d34cfa5179d198fb44055235ef1638c1626b9fa979bdc722f0e06ba62a632a",
+      "bytes": 47751,
+      "lines": 1233,
+      "ranges": [
+        [
+          1,
+          150
+        ],
+        [
+          335,
+          376
+        ],
+        [
+          690,
+          765
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/tree-shoot-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. Future original, other-lens, bake, runtime and product credit remain distinct."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/raster.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cf05e5b2c776c51f4b5b34b0de614180e0612784",
+      "sha256": "9fccf858ba9d05364f441ce14f4b51f32755539575e274040bb09aed6a1b0483",
+      "bytes": 37379,
+      "lines": 932,
+      "ranges": [
+        [
+          40,
+          88
+        ],
+        [
+          90,
+          135
+        ],
+        [
+          150,
+          235
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/tree-shoot-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. Future original, other-lens, bake, runtime and product credit remain distinct."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor_assets.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "332c73105f5f115591223504a1795e8ff04c6522",
+      "sha256": "792c336a1d9612c83b4ae0f385c94a35175009ae202f71d4e3231d10179f899a",
+      "bytes": 15117,
+      "lines": 444,
+      "ranges": [
+        [
+          1,
+          165
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/tree-shoot-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. Future original, other-lens, bake, runtime and product credit remain distinct."
+    },
+    {
+      "path": "crates/fabelgeist-determinism/src/seed.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "67b30be6deac7b4173d1a9dd21d0c4dcfd1e87d4",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "bytes": 7283,
+      "lines": 213,
+      "ranges": [
+        [
+          45,
+          82
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/tree-shoot-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. Future original, other-lens, bake, runtime and product credit remain distinct."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0c5eb5ceb85493113db1475e01db7037fcb4fb78",
+      "sha256": "21c4da31ab6698c3f1386b39d2a722a9b8675fd1527dfd257bf6fddd68179b21",
+      "bytes": 5521,
+      "lines": 140,
+      "ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/tree-shoot-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. Future original, other-lens, bake, runtime and product credit remain distinct."
+    }
+  ],
+  "earlier_historical_source_identities": [
+    {
+      "original_index": 1600,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "918bd2a4ed873968c420e4ad7c3070043b2073a9bbdd30e27d1dbbd6c1a4d2a1",
+      "bytes": 47439,
+      "lines": 1231,
+      "git_blob": "0dd24ad9e84ddca4a20a79f0817c9fd1468b7f3a",
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "earlier_attribution": "Adler Lens11 READ-L11-227 through229; Segovb Lens12 READ-L12-500 and503 as their specific rows state, all at6533.",
+      "new_personal_full_read": false,
+      "additional_original_frontier_credit": 0,
+      "qualification": "Earlier full-body reviewer source identity plus a new personally inspected historical range707–745; no personal full historical body, ordered-frontier, other-lens, runtime or checkpoint3821 credit.",
+      "new_personal_bounded_ranges": [
+        [
+          707,
+          745
+        ]
+      ]
+    },
+    {
+      "original_index": 1601,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/card_mesh.rs",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "b05ac342df292a30117ec56a148a282b51c6fe49d23f3b6f26b68059e092c416",
+      "bytes": 1548,
+      "lines": 54,
+      "git_blob": "fc20753bb34eb6e1ed38a7024d8ab4037cae94e7",
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "earlier_attribution": "Adler Lens11 READ-L11-227 through229; Segovb Lens12 READ-L12-500 and503 as their specific rows state, all at6533.",
+      "new_personal_full_read": false,
+      "additional_original_frontier_credit": 0,
+      "qualification": "Earlier reviewer source identity only; no personal historical body, other-lens, runtime or checkpoint3821 credit."
+    },
+    {
+      "original_index": 1602,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/orientation.rs",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "0832c7f01271afcbd8d65ccc61ac2a3b0837c605f1d6239b8ece5dddc7fb64bd",
+      "bytes": 1780,
+      "lines": 56,
+      "git_blob": "f853cade759ce3d809cc1807ea415e68a71e60e6",
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "earlier_attribution": "Adler Lens11 READ-L11-227 through229; Segovb Lens12 READ-L12-500 and503 as their specific rows state, all at6533.",
+      "new_personal_full_read": false,
+      "additional_original_frontier_credit": 0,
+      "qualification": "Earlier reviewer source identity only; no personal historical body, other-lens, runtime or checkpoint3821 credit."
+    },
+    {
+      "original_index": 1603,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/raster.rs",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "ee16efd8a79ab3116e35ecd6f0e7ac5eb6a5e48c573e33e84eba57b4c5634913",
+      "bytes": 39770,
+      "lines": 976,
+      "git_blob": "53d044f4e6450d14174eb68ee3426c8f131e460c",
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "earlier_attribution": "Adler Lens11 READ-L11-227 through229; Segovb Lens12 READ-L12-500 and503 as their specific rows state, all at6533.",
+      "new_personal_full_read": false,
+      "additional_original_frontier_credit": 0,
+      "qualification": "Earlier reviewer source identity only; no personal historical body, other-lens, runtime or checkpoint3821 credit."
+    },
+    {
+      "original_index": 1604,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor_assets.rs",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "792c336a1d9612c83b4ae0f385c94a35175009ae202f71d4e3231d10179f899a",
+      "bytes": 15117,
+      "lines": 444,
+      "git_blob": "332c73105f5f115591223504a1795e8ff04c6522",
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "earlier_attribution": "Adler Lens11 READ-L11-227 through229; Segovb Lens12 READ-L12-500 and503 as their specific rows state, all at6533.",
+      "new_personal_full_read": false,
+      "additional_original_frontier_credit": 0,
+      "qualification": "Earlier reviewer source identity only; no personal historical body, other-lens, runtime or checkpoint3821 credit."
+    },
+    {
+      "original_index": 1605,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/lod.rs",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "9e94d087fccffc1d1ed76815d33256a0d9c53b941cf11929db12be7d6419b4bd",
+      "bytes": 13115,
+      "lines": 402,
+      "git_blob": "1a36ee24ed36e8ff61d1c94142e8c87d39c81e63",
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "earlier_attribution": "Adler Lens11 READ-L11-227 through229; Segovb Lens12 READ-L12-500 and503 as their specific rows state, all at6533.",
+      "new_personal_full_read": false,
+      "additional_original_frontier_credit": 0,
+      "qualification": "Earlier reviewer source identity only; no personal historical body, other-lens, runtime or checkpoint3821 credit."
+    },
+    {
+      "original_index": 1606,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/materials.rs",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "3611b0226c15f78d4dd5c10bb85a682798a4c5bcec6a5eec1aa09ca05d81a2e9",
+      "bytes": 25060,
+      "lines": 629,
+      "git_blob": "073548df19cdd9df1cecea281da6e10407acffab",
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "earlier_attribution": "Adler Lens11 READ-L11-227 through229; Segovb Lens12 READ-L12-500 and503 as their specific rows state, all at6533.",
+      "new_personal_full_read": false,
+      "additional_original_frontier_credit": 0,
+      "qualification": "Earlier reviewer source identity only; no personal historical body, other-lens, runtime or checkpoint3821 credit."
+    },
+    {
+      "original_index": 1607,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation.rs",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "eb8c1a54c7a158a3a3858b2eb9ba2b4f5c62ce6fb1fde444bc6b2c2207b824be",
+      "bytes": 54657,
+      "lines": 1392,
+      "git_blob": "26671e56c72577de574be817eb31edae8ba93c67",
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "earlier_attribution": "Adler Lens11 READ-L11-227 through229; Segovb Lens12 READ-L12-500 and503 as their specific rows state, all at6533.",
+      "new_personal_full_read": false,
+      "additional_original_frontier_credit": 0,
+      "qualification": "Earlier reviewer source identity only; no personal historical body, other-lens, runtime or checkpoint3821 credit."
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Construction and representation",
+      "trace": "Current oak, beech and shrub source paths assign TreeShootId from respective source seeds; append_branch_curve keeps foliage only on the terminal segment. Leaf construction, sparse/group selection, preview and bake sampling retain that identity.",
+      "remaining": "Only stated ranges are inspected. All source and producer paths, uniqueness and native behavior require further review."
+    },
+    {
+      "contract": "Source versus artifact authority",
+      "trace": "Current source fingerprint is retained with bake version in TreeImpostorProvenance. Runtime prepared-asset resolution uses usage/species/seed/LOD; matches_art_demo recomputes expected hashes only under cfg(test).",
+      "remaining": "No prepared artifact, hash value, raster result or capture was generated or verified."
+    }
+  ],
+  "existing_finding_connections": [
+    {
+      "id": "ADLER-L11-TREE-SHOOT-IDENTITY-OWNERSHIP",
+      "classification": "Recovered059 raw shoot-identity ownership finding newly assessed against bounded95e source.",
+      "canonical_owner": "TreeShootId owned by woody geometry, retained on terminal branches and leaves, with Seed encoding at deterministic/native boundaries.",
+      "trace": "The frozen identity function hashes group values and start/end float bits into a raw u64 retained on TreeLeaf. Current source introduces TreeShootId, assigns it from source seeds on selected terminal branch segments, retains it on TreeLeaf, uses it in sorting and filtering, and adapts it to Seed for sampling and full-word provenance. The bounded code addresses the prior raw-retention concern along these inspected paths.",
+      "safeguards": "The identity construction changed from a geometry-derived context to a seed-derived context; same geometry or same source seed is not proven to retain the old word or resulting sampled leaves. No RNG, generator, bake, fixture or render ran. All producers/consumers, collision assumptions, cross-host expectations, artifact and behavior policy remain open; the older requested same-word condition is not silently declared met.",
+      "dependencies": [
+        "Trace every source identity constructor and retained consumer, including bake and review surfaces.",
+        "Resolve intended deterministic behavior and prepared asset provenance across the source transition without adding legacy compatibility paths."
+      ],
+      "acceptance_requirements": [
+        "Semantic shoot identity has one canonical owner across supported producer and consumer paths, with explicit deterministic behavior and native encoding."
+      ],
+      "discovery": "partial; typed current path and distinct old/current derivation contexts, complete behavior and aliases open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    },
+    {
+      "id": "ADLER-L11-TREE-BAKE-PROVENANCE-GEOMETRY-KEY",
+      "classification": "Recovered059 geometry-fingerprint finding newly assessed against bounded95e source.",
+      "canonical_owner": "Tree source geometry and bake-provenance input contract, distinct from prepared asset lookup identity.",
+      "trace": "Current tree_source_geometry_hash includes branch endpoints/radii and leaf petiole/centre/length/width plus the full shoot identity word through Seed::from_u64/to_u64, addressing the historical float-narrowing concern. It still does not encode leaf right, up or torsion although the current cambered leaf mesh consumes those values and the current tree-card raster path consumes that mesh. Holding the encoded fields fixed while changing a valid orthogonal leaf-right direction gives the same hash input words but different vertex expressions; this is source reasoning, not a computed hash or bake.",
+      "safeguards": "No pair of independently produced supported leaves, changed artifact, actual collision, stale bake, shader output or test result was observed. Exact claimed fingerprint policy, generated-value dependencies and all consumers remain open. The current prepared-asset resolver selects by usage, species, seed and LOD; the inspected expected-hash comparison is cfg(test). Do not call the fingerprint a general runtime cache key or assume stale reuse.",
+      "dependencies": [
+        "Trace all provenance serialization, diagnostic consumers and supported source/asset publication policies.",
+        "Resolve which exact geometry and identity fields the fingerprint promises and compare related historical aliases."
+      ],
+      "acceptance_requirements": [
+        "The canonical fingerprint and validation policy explicitly cover the geometry and identity they claim, retain full identity words and distinguish source geometry from bake style/version."
+      ],
+      "discovery": "partial; integer encoding corrected in current source, omitted geometry inputs and supported impact/policy remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointers": [
+        "/discovery_findings_and_dependencies/ADLER-L11-TREE-SHOOT-IDENTITY-OWNERSHIP",
+        "/discovery_findings_and_dependencies/ADLER-L11-TREE-BAKE-PROVENANCE-GEOMETRY-KEY"
+      ],
+      "qualification": "Original059 findings and historical acceptance unchanged; current bounded reassessment is separate."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/77",
+        "/entries/80",
+        "/entries/1330",
+        "/entries/1331"
+      ],
+      "qualification": "Earlier059 records remain partial; no checkpoint3821 transfer."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-224.json",
+      "sha256": "5192b4c763acb3cba73be3d10fdced3fe2b700cc82635adbb37c2a3d431763f7",
+      "bytes": 13262,
+      "git_blob": "5735c5a6bc5b69867b6e2b914fd392d60771d013",
+      "preserved_bytes": "recovered/tree-shoot-059/5192b4c763acb3cba73be3d10fdced3fe2b700cc82635adbb37c2a3d431763f7.gz",
+      "published_sha256": "5192b4c763acb3cba73be3d10fdced3fe2b700cc82635adbb37c2a3d431763f7",
+      "published_bytes": 13262,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent adler Lens11 receipt"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-227.json",
+      "sha256": "ef3966445740bcd7a8c7881a63076ef75523675642e8e5efb14cfbd9d8a2f5f5",
+      "bytes": 9381,
+      "git_blob": "dc829a237106bae51d162ed2594d5e34f5d1e5e2",
+      "preserved_bytes": "recovered/tree-shoot-059/ef3966445740bcd7a8c7881a63076ef75523675642e8e5efb14cfbd9d8a2f5f5.gz",
+      "published_sha256": "ef3966445740bcd7a8c7881a63076ef75523675642e8e5efb14cfbd9d8a2f5f5",
+      "published_bytes": 9381,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent adler Lens11 receipt"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-228.json",
+      "sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801",
+      "bytes": 12598,
+      "git_blob": "90a28ed99ca21b61895e44f56d29f3abad161731",
+      "preserved_bytes": "recovered/tree-shoot-059/b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801.gz",
+      "published_sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801",
+      "published_bytes": 12598,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent adler Lens11 receipt"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-229.json",
+      "sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e",
+      "bytes": 7769,
+      "git_blob": "d563e583ecc5c2413b2d14a29bc66e12b00f68a4",
+      "preserved_bytes": "recovered/tree-shoot-059/2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e.gz",
+      "published_sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e",
+      "published_bytes": 7769,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent adler Lens11 receipt"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-419.json",
+      "sha256": "c8933b65c70f1d580bb314fa9292278956e6780e402a0bfbebaa355508167847",
+      "bytes": 759,
+      "git_blob": "17a1575c84e63cbe914c6d1fc8ae38ab65624383",
+      "preserved_bytes": "recovered/tree-shoot-059/c8933b65c70f1d580bb314fa9292278956e6780e402a0bfbebaa355508167847.gz",
+      "published_sha256": "c8933b65c70f1d580bb314fa9292278956e6780e402a0bfbebaa355508167847",
+      "published_bytes": 759,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 source registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-420.json",
+      "sha256": "73c1da3ff0af4e135c1921002617d367aff8ec063831188572b14a223932e284",
+      "bytes": 766,
+      "git_blob": "42c3dc7fb149e207a479d7acb5de3bc8046a7ac1",
+      "preserved_bytes": "recovered/tree-shoot-059/73c1da3ff0af4e135c1921002617d367aff8ec063831188572b14a223932e284.gz",
+      "published_sha256": "73c1da3ff0af4e135c1921002617d367aff8ec063831188572b14a223932e284",
+      "published_bytes": 766,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 source registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-421.json",
+      "sha256": "0d6a907623ca14f7ad018c539745279fc9c4fd0205927f0575f67b3138fa2903",
+      "bytes": 778,
+      "git_blob": "677a6e01710f53fe8522a0fc43d1e88f1aafdeb2",
+      "preserved_bytes": "recovered/tree-shoot-059/0d6a907623ca14f7ad018c539745279fc9c4fd0205927f0575f67b3138fa2903.gz",
+      "published_sha256": "0d6a907623ca14f7ad018c539745279fc9c4fd0205927f0575f67b3138fa2903",
+      "published_bytes": 778,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 source registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-422.json",
+      "sha256": "80c3a8b129e1324dc330f13f2f9a989ad7d0e925b8e6a3c7d74e373f07043728",
+      "bytes": 774,
+      "git_blob": "e43bc34a355dca2bb044e618781241fce049c812",
+      "preserved_bytes": "recovered/tree-shoot-059/80c3a8b129e1324dc330f13f2f9a989ad7d0e925b8e6a3c7d74e373f07043728.gz",
+      "published_sha256": "80c3a8b129e1324dc330f13f2f9a989ad7d0e925b8e6a3c7d74e373f07043728",
+      "published_bytes": 774,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 source registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-423.json",
+      "sha256": "d7b9aa777e56a7dba4ba729715fa4d2d5edbeea147b6b03c0384d1056171fff0",
+      "bytes": 775,
+      "git_blob": "15101bb0f8f67a75e72022453a22d81f56672aea",
+      "preserved_bytes": "recovered/tree-shoot-059/d7b9aa777e56a7dba4ba729715fa4d2d5edbeea147b6b03c0384d1056171fff0.gz",
+      "published_sha256": "d7b9aa777e56a7dba4ba729715fa4d2d5edbeea147b6b03c0384d1056171fff0",
+      "published_bytes": 775,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 source registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-424.json",
+      "sha256": "389f7f00362ce29c6a079ec119a50f569d3446661a0a8338ec83a5d4d9962dae",
+      "bytes": 773,
+      "git_blob": "ed780b29b845bb740289c182c8c6fccbfa440a35",
+      "preserved_bytes": "recovered/tree-shoot-059/389f7f00362ce29c6a079ec119a50f569d3446661a0a8338ec83a5d4d9962dae.gz",
+      "published_sha256": "389f7f00362ce29c6a079ec119a50f569d3446661a0a8338ec83a5d4d9962dae",
+      "published_bytes": 773,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 source registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-433.json",
+      "sha256": "08e7fafbb3703d58f390aaf60375600f51b1b0b90ab67ca6c63e1fa2b6fdaf7d",
+      "bytes": 801,
+      "git_blob": "b1583a3931242204f997fd8065ac6846d817ee08",
+      "preserved_bytes": "recovered/tree-shoot-059/08e7fafbb3703d58f390aaf60375600f51b1b0b90ab67ca6c63e1fa2b6fdaf7d.gz",
+      "published_sha256": "08e7fafbb3703d58f390aaf60375600f51b1b0b90ab67ca6c63e1fa2b6fdaf7d",
+      "published_bytes": 801,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 source registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-434.json",
+      "sha256": "9990b6648ec431fb887c3ef2df2e7f2333c3d088a9d08bc32c1477831eea919e",
+      "bytes": 809,
+      "git_blob": "30831aaa0f5506b4d6a467fb42c38be6ec166298",
+      "preserved_bytes": "recovered/tree-shoot-059/9990b6648ec431fb887c3ef2df2e7f2333c3d088a9d08bc32c1477831eea919e.gz",
+      "published_sha256": "9990b6648ec431fb887c3ef2df2e7f2333c3d088a9d08bc32c1477831eea919e",
+      "published_bytes": 809,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 source registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-435.json",
+      "sha256": "a4b49efa74729b6e2d133e46bef3b4cec0c20452edd5a76f3de33dc5024a8c78",
+      "bytes": 811,
+      "git_blob": "dbf7dac9410f9b70b73ae91d38d382c43c4c0bef",
+      "preserved_bytes": "recovered/tree-shoot-059/a4b49efa74729b6e2d133e46bef3b4cec0c20452edd5a76f3de33dc5024a8c78.gz",
+      "published_sha256": "a4b49efa74729b6e2d133e46bef3b4cec0c20452edd5a76f3de33dc5024a8c78",
+      "published_bytes": 811,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 source registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-436.json",
+      "sha256": "44c57bb843c17831a701025d97dcad17cc9d296bb6bf00bf303596473ab222c8",
+      "bytes": 800,
+      "git_blob": "399b989f03025ad896d86deaed1fed24e15d79f7",
+      "preserved_bytes": "recovered/tree-shoot-059/44c57bb843c17831a701025d97dcad17cc9d296bb6bf00bf303596473ab222c8.gz",
+      "published_sha256": "44c57bb843c17831a701025d97dcad17cc9d296bb6bf00bf303596473ab222c8",
+      "published_bytes": 800,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 source registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-437.json",
+      "sha256": "b3e80bcd87410a29ce5a9302253e739e91f46c7dd84194873bce64563563f5b4",
+      "bytes": 800,
+      "git_blob": "b02f0bcef09f2ae765c5b7f2bd732ce453759dd2",
+      "preserved_bytes": "recovered/tree-shoot-059/b3e80bcd87410a29ce5a9302253e739e91f46c7dd84194873bce64563563f5b4.gz",
+      "published_sha256": "b3e80bcd87410a29ce5a9302253e739e91f46c7dd84194873bce64563563f5b4",
+      "published_bytes": 800,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 source registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-438.json",
+      "sha256": "a13a8ef9fdb46c7e707d004dcd6b243a760ad067e7760559483ff60b74bba37e",
+      "bytes": 788,
+      "git_blob": "56f4009c96358d9712707489fd07d12fe3065410",
+      "preserved_bytes": "recovered/tree-shoot-059/a13a8ef9fdb46c7e707d004dcd6b243a760ad067e7760559483ff60b74bba37e.gz",
+      "published_sha256": "a13a8ef9fdb46c7e707d004dcd6b243a760ad067e7760559483ff60b74bba37e",
+      "published_bytes": 788,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 source registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-439.json",
+      "sha256": "f37b6e7a8278cb61cdbbb211929fee8a1e520209c946e1163bb3341a4d44c88d",
+      "bytes": 808,
+      "git_blob": "e2e4dbc174e639350fb6c9293881cab023528464",
+      "preserved_bytes": "recovered/tree-shoot-059/f37b6e7a8278cb61cdbbb211929fee8a1e520209c946e1163bb3341a4d44c88d.gz",
+      "published_sha256": "f37b6e7a8278cb61cdbbb211929fee8a1e520209c946e1163bb3341a4d44c88d",
+      "published_bytes": 808,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 source registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-440.json",
+      "sha256": "d98c820bb1b82fda4eb2d8613839e940a95d487780d20f50a7a4e97da3bde327",
+      "bytes": 874,
+      "git_blob": "e152c4ba8382ed4bbe6d7d756a3fff0972d1da48",
+      "preserved_bytes": "recovered/tree-shoot-059/d98c820bb1b82fda4eb2d8613839e940a95d487780d20f50a7a4e97da3bde327.gz",
+      "published_sha256": "d98c820bb1b82fda4eb2d8613839e940a95d487780d20f50a7a4e97da3bde327",
+      "published_bytes": 874,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 source registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-224.json",
+      "sha256": "ec4c0082055738c18326223161affb529df36b66f9e0562bb229557484f38163",
+      "bytes": 668,
+      "git_blob": "71471173ab0113dbb347fe18b7a80ce620f4c0a7",
+      "preserved_bytes": "recovered/tree-shoot-059/ec4c0082055738c18326223161affb529df36b66f9e0562bb229557484f38163.gz",
+      "published_sha256": "ec4c0082055738c18326223161affb529df36b66f9e0562bb229557484f38163",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 state"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-227.json",
+      "sha256": "efb7eaa693a5b0c960a8ce4e4c2afea064495406d7096fefcbedd3331305bf9e",
+      "bytes": 635,
+      "git_blob": "7247e9ea436976da8baf21edc0f5c8f26b09a012",
+      "preserved_bytes": "recovered/tree-shoot-059/efb7eaa693a5b0c960a8ce4e4c2afea064495406d7096fefcbedd3331305bf9e.gz",
+      "published_sha256": "efb7eaa693a5b0c960a8ce4e4c2afea064495406d7096fefcbedd3331305bf9e",
+      "published_bytes": 635,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 state"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-228.json",
+      "sha256": "671b6cd38c3d15bca545eed3bd143dd058e4d0dbf0ed9c22f7718efccfed295a",
+      "bytes": 646,
+      "git_blob": "1287a1ce6dd3a58c8a498cfac6c87687c956722a",
+      "preserved_bytes": "recovered/tree-shoot-059/671b6cd38c3d15bca545eed3bd143dd058e4d0dbf0ed9c22f7718efccfed295a.gz",
+      "published_sha256": "671b6cd38c3d15bca545eed3bd143dd058e4d0dbf0ed9c22f7718efccfed295a",
+      "published_bytes": 646,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 state"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-229.json",
+      "sha256": "5bd6f5dca1ec8d7b73620288bca93a4618ccf76815d00f236812adf9a627c2d0",
+      "bytes": 613,
+      "git_blob": "c5bdc71646193f6be837c1aa7bd35eecc10e5643",
+      "preserved_bytes": "recovered/tree-shoot-059/5bd6f5dca1ec8d7b73620288bca93a4618ccf76815d00f236812adf9a627c2d0.gz",
+      "published_sha256": "5bd6f5dca1ec8d7b73620288bca93a4618ccf76815d00f236812adf9a627c2d0",
+      "published_bytes": 613,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 state"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-224.json",
+      "sha256": "51748fa8215e912780b536c081ed2c411072669d483bd14fcb174bd4e3e762cd",
+      "bytes": 26243,
+      "git_blob": "425b2c84ee0e3863704a299f8c3cf5332181a92a",
+      "preserved_bytes": "recovered/tree-shoot-059/51748fa8215e912780b536c081ed2c411072669d483bd14fcb174bd4e3e762cd.gz",
+      "published_sha256": "51748fa8215e912780b536c081ed2c411072669d483bd14fcb174bd4e3e762cd",
+      "published_bytes": 26243,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-227.json",
+      "sha256": "082297831e9aba81f41fbcfb1a574e3d27c0a0997c84742ceed5d445d5587c28",
+      "bytes": 30730,
+      "git_blob": "1ef4363a6d87d47d9d06e6ba4ff0f40ff1159100",
+      "preserved_bytes": "recovered/tree-shoot-059/082297831e9aba81f41fbcfb1a574e3d27c0a0997c84742ceed5d445d5587c28.gz",
+      "published_sha256": "082297831e9aba81f41fbcfb1a574e3d27c0a0997c84742ceed5d445d5587c28",
+      "published_bytes": 30730,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-228.json",
+      "sha256": "3de13b8bbc04a4a93e00f7006332acbb79b52e3d474657c3f8e82cd02274eb19",
+      "bytes": 33273,
+      "git_blob": "2d80dec7e5b46287251c040d10aab3c2efdf8f4e",
+      "preserved_bytes": "recovered/tree-shoot-059/3de13b8bbc04a4a93e00f7006332acbb79b52e3d474657c3f8e82cd02274eb19.gz",
+      "published_sha256": "3de13b8bbc04a4a93e00f7006332acbb79b52e3d474657c3f8e82cd02274eb19",
+      "published_bytes": 33273,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-229.json",
+      "sha256": "29014b78cbaf83b32cee0035996fb1edfbb38732a978cb15d089eff0ff78b16b",
+      "bytes": 36032,
+      "git_blob": "bf5e32a41a4a376c62984fe3c540ecbb54411df3",
+      "preserved_bytes": "recovered/tree-shoot-059/29014b78cbaf83b32cee0035996fb1edfbb38732a978cb15d089eff0ff78b16b.gz",
+      "published_sha256": "29014b78cbaf83b32cee0035996fb1edfbb38732a978cb15d089eff0ff78b16b",
+      "published_bytes": 36032,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-500-001.json",
+      "sha256": "0d16db9824b25ca49a63370ba5fde8d42f110d248b35c7d2ddb65ce15c75a19b",
+      "bytes": 4611,
+      "git_blob": "4075134acd5d7e4d8aad92b22d4fdc90d562a2bb",
+      "preserved_bytes": "recovered/tree-shoot-059/0d16db9824b25ca49a63370ba5fde8d42f110d248b35c7d2ddb65ce15c75a19b.gz",
+      "published_sha256": "0d16db9824b25ca49a63370ba5fde8d42f110d248b35c7d2ddb65ce15c75a19b",
+      "published_bytes": 4611,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier partial read"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-500-002.json",
+      "sha256": "362f0216470728f29fba91d99d1f94fc1ffdd3c7eaf2f1598c3fee071dce996e",
+      "bytes": 4882,
+      "git_blob": "e23366f70d56ee25fe79516250a44446fcc2bbbc",
+      "preserved_bytes": "recovered/tree-shoot-059/362f0216470728f29fba91d99d1f94fc1ffdd3c7eaf2f1598c3fee071dce996e.gz",
+      "published_sha256": "362f0216470728f29fba91d99d1f94fc1ffdd3c7eaf2f1598c3fee071dce996e",
+      "published_bytes": 4882,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier partial read"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-500-003-EOF.json",
+      "sha256": "98cc593f067ef31ddcc0e76aaf75a32c7adcf8f0d19b5ee50d4b46d0750dc7ff",
+      "bytes": 2977,
+      "git_blob": "8ba35875b06a3055bd4388f45d7b360d2aa035cf",
+      "preserved_bytes": "recovered/tree-shoot-059/98cc593f067ef31ddcc0e76aaf75a32c7adcf8f0d19b5ee50d4b46d0750dc7ff.gz",
+      "published_sha256": "98cc593f067ef31ddcc0e76aaf75a32c7adcf8f0d19b5ee50d4b46d0750dc7ff",
+      "published_bytes": 2977,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier partial read"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-496.json",
+      "sha256": "f674c4fd80c95f25b1a51aa282d90734568a4df386824e759065dc4118b611db",
+      "bytes": 1252,
+      "git_blob": "d6ca8c62efcf8240b37f9a9c573a465f3ed9a195",
+      "preserved_bytes": "recovered/tree-shoot-059/f674c4fd80c95f25b1a51aa282d90734568a4df386824e759065dc4118b611db.gz",
+      "published_sha256": "f674c4fd80c95f25b1a51aa282d90734568a4df386824e759065dc4118b611db",
+      "published_bytes": 1252,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-497.json",
+      "sha256": "b7480f2cc096ee6c8fbaa24bcdca7bda5efbec2591cf11c6070eea48598393eb",
+      "bytes": 2318,
+      "git_blob": "17e293e25e8e1a4183c2eab569c45857e048a721",
+      "preserved_bytes": "recovered/tree-shoot-059/b7480f2cc096ee6c8fbaa24bcdca7bda5efbec2591cf11c6070eea48598393eb.gz",
+      "published_sha256": "b7480f2cc096ee6c8fbaa24bcdca7bda5efbec2591cf11c6070eea48598393eb",
+      "published_bytes": 2318,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-500.json",
+      "sha256": "3f522b1d1984981b6f2f479fa4925d7e46485a6b2f5dd213b08d709662f250f4",
+      "bytes": 741,
+      "git_blob": "b7dd1ae52cc74f798752d84e84c1de22a9dec0b2",
+      "preserved_bytes": "recovered/tree-shoot-059/3f522b1d1984981b6f2f479fa4925d7e46485a6b2f5dd213b08d709662f250f4.gz",
+      "published_sha256": "3f522b1d1984981b6f2f479fa4925d7e46485a6b2f5dd213b08d709662f250f4",
+      "published_bytes": 741,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-503.json",
+      "sha256": "9f14c161e238cec468f80f11924d7d0cb05f1d44e0fdf82f31e55d26e8fdb7ac",
+      "bytes": 1247,
+      "git_blob": "7a51e1fb807b3566d63dc5d563729fad707cd572",
+      "preserved_bytes": "recovered/tree-shoot-059/9f14c161e238cec468f80f11924d7d0cb05f1d44e0fdf82f31e55d26e8fdb7ac.gz",
+      "published_sha256": "9f14c161e238cec468f80f11924d7d0cb05f1d44e0fdf82f31e55d26e8fdb7ac",
+      "published_bytes": 1247,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-496.json",
+      "sha256": "b8f142491421e300a69a277d1bcd044cbd2cf30f19bf923f65c32eda509c6479",
+      "bytes": 9537,
+      "git_blob": "fba8fca4e01bdbd4427f5b36ee6192daa9a96b8e",
+      "preserved_bytes": "recovered/tree-shoot-059/b8f142491421e300a69a277d1bcd044cbd2cf30f19bf923f65c32eda509c6479.gz",
+      "published_sha256": "b8f142491421e300a69a277d1bcd044cbd2cf30f19bf923f65c32eda509c6479",
+      "published_bytes": 9537,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent segovb Lens12 receipt"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-497.json",
+      "sha256": "85901e392636a0ef77eaa742861bfbada74c015006d6fa2498e7f603aa80f223",
+      "bytes": 13951,
+      "git_blob": "b8facdbf191f9854827d4b072d317523db6cae42",
+      "preserved_bytes": "recovered/tree-shoot-059/85901e392636a0ef77eaa742861bfbada74c015006d6fa2498e7f603aa80f223.gz",
+      "published_sha256": "85901e392636a0ef77eaa742861bfbada74c015006d6fa2498e7f603aa80f223",
+      "published_bytes": 13951,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent segovb Lens12 receipt"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-500.json",
+      "sha256": "6c7624d72e81cd9ccc07a40e7fd6f408c0274d9461135517da9f305233532a2b",
+      "bytes": 8661,
+      "git_blob": "2169bc87370ea18908c9e2ad0aded9179283e7a5",
+      "preserved_bytes": "recovered/tree-shoot-059/6c7624d72e81cd9ccc07a40e7fd6f408c0274d9461135517da9f305233532a2b.gz",
+      "published_sha256": "6c7624d72e81cd9ccc07a40e7fd6f408c0274d9461135517da9f305233532a2b",
+      "published_bytes": 8661,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent segovb Lens12 receipt",
+        "earlier qualified receipt"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-503.json",
+      "sha256": "4e4fae64e1e3fca4ff58906e7c4ff5407c029b21c8c59824bf7a1bff3521062e",
+      "bytes": 10708,
+      "git_blob": "990a24360d899a2c3f413f030d1a1be9c260d955",
+      "preserved_bytes": "recovered/tree-shoot-059/4e4fae64e1e3fca4ff58906e7c4ff5407c029b21c8c59824bf7a1bff3521062e.gz",
+      "published_sha256": "4e4fae64e1e3fca4ff58906e7c4ff5407c029b21c8c59824bf7a1bff3521062e",
+      "published_bytes": 10708,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent segovb Lens12 receipt"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-499.json",
+      "sha256": "3afe5528230cf05ccc4607e76b530daa2a239569d6968e955e07da237f945808",
+      "bytes": 1190,
+      "git_blob": "481807e737ae02e5859ec44a499db0a1361f64c9",
+      "preserved_bytes": "recovered/tree-shoot-059/3afe5528230cf05ccc4607e76b530daa2a239569d6968e955e07da237f945808.gz",
+      "published_sha256": "3afe5528230cf05ccc4607e76b530daa2a239569d6968e955e07da237f945808",
+      "published_bytes": 1190,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-500.json",
+      "sha256": "fdc4617194922babc7963e5d2d5b5bc00d059a26d1ba48629ebea509fe25466e",
+      "bytes": 1204,
+      "git_blob": "1ceecab98c85f59a0796f92707580ef61b4cfd89",
+      "preserved_bytes": "recovered/tree-shoot-059/fdc4617194922babc7963e5d2d5b5bc00d059a26d1ba48629ebea509fe25466e.gz",
+      "published_sha256": "fdc4617194922babc7963e5d2d5b5bc00d059a26d1ba48629ebea509fe25466e",
+      "published_bytes": 1204,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-501.json",
+      "sha256": "b15cd1a8fa4bc3dbb12d137ecb2a9d42e044c79f8c4856a5fc3f5afc85c91d88",
+      "bytes": 1229,
+      "git_blob": "95af46b4e08fbd700fc79971767f6013d5db15f5",
+      "preserved_bytes": "recovered/tree-shoot-059/b15cd1a8fa4bc3dbb12d137ecb2a9d42e044c79f8c4856a5fc3f5afc85c91d88.gz",
+      "published_sha256": "b15cd1a8fa4bc3dbb12d137ecb2a9d42e044c79f8c4856a5fc3f5afc85c91d88",
+      "published_bytes": 1229,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-502.json",
+      "sha256": "25c73985c10455d7cbd3f975da5a0f2f7881a91c7573bff1126f49aa888e7dc1",
+      "bytes": 1221,
+      "git_blob": "531791bc4fc918ec619c3ab33c3c76ac792a099f",
+      "preserved_bytes": "recovered/tree-shoot-059/25c73985c10455d7cbd3f975da5a0f2f7881a91c7573bff1126f49aa888e7dc1.gz",
+      "published_sha256": "25c73985c10455d7cbd3f975da5a0f2f7881a91c7573bff1126f49aa888e7dc1",
+      "published_bytes": 1221,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-503.json",
+      "sha256": "adee6e8d8f536acf9eeb74fcafdb76d7cb5befadc23351e6f326ec4915abb861",
+      "bytes": 1223,
+      "git_blob": "f99fa7c1945f86a094b0d32ee717e4584dad3f6a",
+      "preserved_bytes": "recovered/tree-shoot-059/adee6e8d8f536acf9eeb74fcafdb76d7cb5befadc23351e6f326ec4915abb861.gz",
+      "published_sha256": "adee6e8d8f536acf9eeb74fcafdb76d7cb5befadc23351e6f326ec4915abb861",
+      "published_bytes": 1223,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-504.json",
+      "sha256": "e8c96e4adbf234de14767d3fefa1f4025eb039aaab2de3eb00500bee42523055",
+      "bytes": 1219,
+      "git_blob": "7bb61ca47dc6c5575f36ee7add5abae87052297e",
+      "preserved_bytes": "recovered/tree-shoot-059/e8c96e4adbf234de14767d3fefa1f4025eb039aaab2de3eb00500bee42523055.gz",
+      "published_sha256": "e8c96e4adbf234de14767d3fefa1f4025eb039aaab2de3eb00500bee42523055",
+      "published_bytes": 1219,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-507.json",
+      "sha256": "6614b770997be8167597c7846b1dfa1b2bca23c4784729ce238113a92e4d6e2b",
+      "bytes": 1202,
+      "git_blob": "95f8540cb11e613f3cd6a3742a9bbd47b390d901",
+      "preserved_bytes": "recovered/tree-shoot-059/6614b770997be8167597c7846b1dfa1b2bca23c4784729ce238113a92e4d6e2b.gz",
+      "published_sha256": "6614b770997be8167597c7846b1dfa1b2bca23c4784729ce238113a92e4d6e2b",
+      "published_bytes": 1202,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original registration",
+        "earlier qualified registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-511.json",
+      "sha256": "0a54f7e8b528d8f3ca97c7f4a7d2b6de02925ab8ffa32fe6f6539949f8f03340",
+      "bytes": 1239,
+      "git_blob": "312243903c43b8c75f56e4b50838c8a34aea5e92",
+      "preserved_bytes": "recovered/tree-shoot-059/0a54f7e8b528d8f3ca97c7f4a7d2b6de02925ab8ffa32fe6f6539949f8f03340.gz",
+      "published_sha256": "0a54f7e8b528d8f3ca97c7f4a7d2b6de02925ab8ffa32fe6f6539949f8f03340",
+      "published_bytes": 1239,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-512.json",
+      "sha256": "73032764cb1e4d2c69259578402d121782544f73c161bd992b5a292b850960ff",
+      "bytes": 1215,
+      "git_blob": "a4feaaf91fc099decca726b3931d95b354933152",
+      "preserved_bytes": "recovered/tree-shoot-059/73032764cb1e4d2c69259578402d121782544f73c161bd992b5a292b850960ff.gz",
+      "published_sha256": "73032764cb1e4d2c69259578402d121782544f73c161bd992b5a292b850960ff",
+      "published_bytes": 1215,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-496.json",
+      "sha256": "ee668680745f824ff50af30425e9ca9a41c1ddba9ec8e3f1d6477acb2dd9fd8a",
+      "bytes": 840,
+      "git_blob": "2784fabd8328008356f1d72efa2be996e3f6a995",
+      "preserved_bytes": "recovered/tree-shoot-059/ee668680745f824ff50af30425e9ca9a41c1ddba9ec8e3f1d6477acb2dd9fd8a.gz",
+      "published_sha256": "ee668680745f824ff50af30425e9ca9a41c1ddba9ec8e3f1d6477acb2dd9fd8a",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-497.json",
+      "sha256": "d52c8b47b37f301b540b54d33222baded25ba722ea1ff161823a51f04d98fdd9",
+      "bytes": 840,
+      "git_blob": "3ab521ece7d13d85bc4c2d4367ac86eff0d5689a",
+      "preserved_bytes": "recovered/tree-shoot-059/d52c8b47b37f301b540b54d33222baded25ba722ea1ff161823a51f04d98fdd9.gz",
+      "published_sha256": "d52c8b47b37f301b540b54d33222baded25ba722ea1ff161823a51f04d98fdd9",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-500.json",
+      "sha256": "fbe82925b879580b521427c998159ffa376b17f1bde488086b46fedaec7ff343",
+      "bytes": 840,
+      "git_blob": "9bcb0458b16d5f894fc36959cdc41f64c80ada10",
+      "preserved_bytes": "recovered/tree-shoot-059/fbe82925b879580b521427c998159ffa376b17f1bde488086b46fedaec7ff343.gz",
+      "published_sha256": "fbe82925b879580b521427c998159ffa376b17f1bde488086b46fedaec7ff343",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-503.json",
+      "sha256": "027a2ed52b5d2112aa9a40f2f8532cc71410ccf5c31f515ea2baa637f0d0dfab",
+      "bytes": 840,
+      "git_blob": "e9827556e6161ec0b16f9814e475c1c3e6ac4644",
+      "preserved_bytes": "recovered/tree-shoot-059/027a2ed52b5d2112aa9a40f2f8532cc71410ccf5c31f515ea2baa637f0d0dfab.gz",
+      "published_sha256": "027a2ed52b5d2112aa9a40f2f8532cc71410ccf5c31f515ea2baa637f0d0dfab",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-496.json",
+      "sha256": "798d1e2b42fc260e09278c3c557245e423d737ab737c6c6e3f6ade03893fe586",
+      "bytes": 558,
+      "git_blob": "0bf807126db34785b622ff5cb1dc36a604f97009",
+      "preserved_bytes": "recovered/tree-shoot-059/798d1e2b42fc260e09278c3c557245e423d737ab737c6c6e3f6ade03893fe586.gz",
+      "published_sha256": "798d1e2b42fc260e09278c3c557245e423d737ab737c6c6e3f6ade03893fe586",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-497.json",
+      "sha256": "7e108530590d747b4ee22401f739942efc7364b276e9364db08de083ecc658cd",
+      "bytes": 558,
+      "git_blob": "a5992175596716a175483b8d482ef6d76e273349",
+      "preserved_bytes": "recovered/tree-shoot-059/7e108530590d747b4ee22401f739942efc7364b276e9364db08de083ecc658cd.gz",
+      "published_sha256": "7e108530590d747b4ee22401f739942efc7364b276e9364db08de083ecc658cd",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-500.json",
+      "sha256": "f7d8483fda07a62f747763723e2fc8abb93ce2f618a19c96eed41bf67c9ca75c",
+      "bytes": 558,
+      "git_blob": "50d05a7f76fccb9285b431f5a2272390589bcf48",
+      "preserved_bytes": "recovered/tree-shoot-059/f7d8483fda07a62f747763723e2fc8abb93ce2f618a19c96eed41bf67c9ca75c.gz",
+      "published_sha256": "f7d8483fda07a62f747763723e2fc8abb93ce2f618a19c96eed41bf67c9ca75c",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-503.json",
+      "sha256": "5b44b009daac4c5d60732b83c5c54f7fd6cc6408f65813148172957bd08deb9c",
+      "bytes": 558,
+      "git_blob": "f2f424c7d0df95f5a4bc6207f4a017b845a6c831",
+      "preserved_bytes": "recovered/tree-shoot-059/5b44b009daac4c5d60732b83c5c54f7fd6cc6408f65813148172957bd08deb9c.gz",
+      "published_sha256": "5b44b009daac4c5d60732b83c5c54f7fd6cc6408f65813148172957bd08deb9c",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer,6533 source scope, partial-read and no-current-reconciliation qualifications retained; no checkpoint3821 transfer."
+    }
+  ],
+  "remaining": "Complete identity producer/consumer, source fingerprint and artifact policies, all source families and aliases, original1598 onward and all13 lenses remain open. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
