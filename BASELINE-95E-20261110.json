@@ -1658,6 +1658,21 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-INVENTORY-MUTATION-95E.json"
+      },
+      {
+        "id": "CONT-REF-CORRECTION-SOURCE-NAMESPACE",
+        "lens": 12,
+        "severity": "unassigned; source-established historical-visibility mismatch under an exact prior-lead and disclosure sequence",
+        "classification": "95e revisit of the earlier correction-source namespace finding, including both reducer and view readers; not a new unique historical defect.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/15",
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/CONT-REF-CORRECTION-SOURCE-NAMESPACE"
+        ],
+        "relationship_qualification": "Same previously identified disclosure-ID versus correction-lead-ID first failure. Earlier 059 Lens11 and Lens12 work keeps original attribution, revision and zero accepted unique-count change; current revisit adds no unique defect. Other correction sources and aliases remain open.",
+        "discovery": "partial; all correction writers/readers, actual admitted chronology, stable first-frontier policy and global historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L12-CORRECTION-FRONTIER-95E.json"
       }
     ]
   },

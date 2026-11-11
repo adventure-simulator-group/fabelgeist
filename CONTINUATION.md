@@ -269,6 +269,10 @@ action, provenance and route sources without expanding current coverage.
 capability, claim and geometry sources without expanding current coverage.
 `ASSESSMENT-L01-HISTORICAL-1126-1127.json` records historical investigation
 module composition and evidence state without expanding current coverage.
+`ASSESSMENT-L12-CORRECTION-FRONTIER-95E.json` revisits the earlier public
+disclosure correction-reference mismatch and its historical-visibility
+readers. `ASSESSMENT-L01-HISTORICAL-1139-1140.json` records separate
+historical local-problem source bodies, including unexecuted test code.
 `ASSESSMENT-INVENTORY-MUTATION-95E.json` traces stable-object quantity,
 grant error, actor admission and measured exhaustion contracts. Each
 finding states its source-only preconditions and unverified boundaries.

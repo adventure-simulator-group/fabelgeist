@@ -17,7 +17,7 @@
   "product_validation": "not performed",
   "current_main_qualification": "GitHub connector resolved main to 95e within 2026-11-11 01:51:16–01:51:17 UTC; main may advance. See MAIN-RECHECK-20261111-0151.json.",
   "new_transition_lens_cells_partial": 1,
-  "new_current_ledger_candidates": 112,
+  "new_current_ledger_candidates": 113,
   "post_transition_historical_body_reads": [
     "ASSESSMENT-L01-HISTORICAL-130.json",
     "ASSESSMENT-L01-HISTORICAL-131.json",
@@ -244,7 +244,8 @@
     "ASSESSMENT-L01-HISTORICAL-1128-1129.json",
     "ASSESSMENT-L01-HISTORICAL-1130-1133.json",
     "ASSESSMENT-L01-HISTORICAL-1134-1135.json",
-    "ASSESSMENT-L01-HISTORICAL-1136-1138.json"
+    "ASSESSMENT-L01-HISTORICAL-1136-1138.json",
+    "ASSESSMENT-L01-HISTORICAL-1139-1140.json"
   ],
   "qualification": "Partial current trace and historical body read remain distinct; neither closes a lens, historical alias or current scope.",
   "new_nonfinding_assessments": [
@@ -326,5 +327,8 @@
   ],
   "post_transition_bounded_inventory_contract_traces": [
     "ASSESSMENT-INVENTORY-MUTATION-95E.json"
+  ],
+  "post_transition_bounded_string_traces": [
+    "ASSESSMENT-L12-CORRECTION-FRONTIER-95E.json"
   ]
 }
