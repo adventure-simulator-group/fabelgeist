@@ -2622,8 +2622,39 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-SIMULATION-WAIT-QUEUE-LINKS-95E.json"
+      },
+      {
+        "id": "REVIEW-SIM-INVESTIGATION-METHOD-STRING-RANK-001",
+        "lens": 12,
+        "severity": "unassigned; selected private mechanical string dispatch",
+        "classification": "New bounded current source trace of the method subset of two earlier pending questions; no historical unique-count change is implied.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1066 (method subset)",
+          "baseline-059/queue.json#/entries/1074 (method subset)",
+          "segovb/READ-L12-337.json via ASSESSMENT-INVESTIGATION-METHOD-RANK-95E.json"
+        ],
+        "relationship_qualification": "Earlier records retain their original revision and attribution, including inherited partial-read and unconfirmed-adoption qualifications. The broader questions and distinct guarded calls are not global aliases.",
+        "discovery": "partial; all native ingress/SDK consumers, rank policy, error handling, exact aliases and other independent lenses remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-INVESTIGATION-METHOD-RANK-95E.json"
+      },
+      {
+        "id": "REVIEW-SIMULATION-GROUPING-GUARDED-EXPECT-001",
+        "lens": 8,
+        "severity": "unassigned; explicit repository rule violation in selected production source",
+        "classification": "New bounded current rule-review finding, connected to but not automatically aliased with the fixture unwrap/expect finding.",
+        "historical_related_records": [
+          "crates/AGENTS.md:126–127 at 95e63628f9d70b8dd6e6fede64334696c6995009",
+          "REVIEW-SIMULATION-FIXTURE-GUARDED-UNWRAPS-001 via ASSESSMENT-EXPEDITION-DIALOGUE-RULES-95E.json"
+        ],
+        "relationship_qualification": "Earlier records retain their original revision and attribution, including inherited partial-read and unconfirmed-adoption qualifications. The broader questions and distinct guarded calls are not global aliases.",
+        "discovery": "partial; all helper callers, aggregate profile limits, source-wide rule inventory and exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-INVESTIGATION-METHOD-RANK-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0332.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0335.json"
 }
