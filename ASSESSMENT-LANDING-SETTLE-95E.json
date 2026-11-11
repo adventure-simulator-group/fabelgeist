@@ -1,0 +1,692 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Four original animation roles and bounded current landing/config/settlement producer and consumer source.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1763-1766.json",
+  "git_membership_evidence": "LANDING-SETTLE-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/shaping_time.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "094ea4a6cc9ee1eafe35971b5dda6484b010c1dd",
+      "sha256": "daf4c6b1cf6f43edc45f91ac44fb6fe70ae0848a2e1b23b8bc313ba24d887a87",
+      "bytes": 2331,
+      "lines": 63,
+      "ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landing-settle-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Current shaping_time and measurement are supporting source only, not original role1779 or1768 credit. No other-lens clearance, test or product execution is implied."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a6af10e5436c223765c54b58458beb7daa755097",
+      "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+      "bytes": 3696,
+      "lines": 107,
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landing-settle-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Current shaping_time and measurement are supporting source only, not original role1779 or1768 credit. No other-lens clearance, test or product execution is implied."
+    },
+    {
+      "path": "crates/adventuresim-core/src/elapsed.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "189312858c17b73924b6c47ef45190d7b1c89ee1",
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "bytes": 4147,
+      "lines": 131,
+      "ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landing-settle-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Current shaping_time and measurement are supporting source only, not original role1779 or1768 credit. No other-lens clearance, test or product execution is implied."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0c133953d32f479dee44b2ab0f94264e1b5395f8",
+      "sha256": "f26dc1059e4a9d133ac1fba9c80a1086753b20b54e5a5074dc8e557540cea67b",
+      "bytes": 9366,
+      "lines": 260,
+      "ranges": [
+        [
+          1,
+          228
+        ],
+        [
+          230,
+          260
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landing-settle-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Current shaping_time and measurement are supporting source only, not original role1779 or1768 credit. No other-lens clearance, test or product execution is implied."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/landing.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4e864a8aeb3f26bac221de14ae07dbaabb4f97bf",
+      "sha256": "d2e6f0bf1986b9465dec28c0b29c39db72b5470d50c0d8ce55332f6f8d1c0831",
+      "bytes": 1218,
+      "lines": 33,
+      "ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landing-settle-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Current shaping_time and measurement are supporting source only, not original role1779 or1768 credit. No other-lens clearance, test or product execution is implied."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "73af7f0cb329aa85659960c33e3d1f3687c592c9",
+      "sha256": "b394bde991895d6328b6f9f2be24fcb6d51c5c00e7f7143316339c372b7b5089",
+      "bytes": 2521,
+      "lines": 65,
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landing-settle-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Current shaping_time and measurement are supporting source only, not original role1779 or1768 credit. No other-lens clearance, test or product execution is implied."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "70dd787c5f87370f4676d51434ec0825a81f65b9",
+      "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "bytes": 935,
+      "lines": 26,
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landing-settle-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Current shaping_time and measurement are supporting source only, not original role1779 or1768 credit. No other-lens clearance, test or product execution is implied."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4b64e4d89c6af0bf3bda86b5083fcc77108de4fe",
+      "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+      "bytes": 31826,
+      "lines": 779,
+      "ranges": [
+        [
+          95,
+          185
+        ],
+        [
+          417,
+          470
+        ],
+        [
+          600,
+          700
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landing-settle-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Current shaping_time and measurement are supporting source only, not original role1779 or1768 credit. No other-lens clearance, test or product execution is implied."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a9e2ddafa154aea5bd420ff42968d491ca726344",
+      "sha256": "39a9e16f5913535b637c6b4fd26ef5d4d2f900fc7ea5ae4f1f2eb790d6dff28f",
+      "bytes": 3309,
+      "lines": 98,
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landing-settle-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Current shaping_time and measurement are supporting source only, not original role1779 or1768 credit. No other-lens clearance, test or product execution is implied."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c44f5525698a86c627c327b19f39fe82d8bbf3d7",
+      "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "bytes": 8238,
+      "lines": 217,
+      "ranges": [
+        [
+          70,
+          145
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landing-settle-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Current shaping_time and measurement are supporting source only, not original role1779 or1768 credit. No other-lens clearance, test or product execution is implied."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state/projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1a83ffa8beeede1de72e5d5c508a303cea83f74b",
+      "sha256": "1c3d107a1b048fc5397ff0bd4ce896e703fd748296193bf90bea403fe7af7bab",
+      "bytes": 10398,
+      "lines": 272,
+      "ranges": [
+        [
+          40,
+          185
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landing-settle-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Current shaping_time and measurement are supporting source only, not original role1779 or1768 credit. No other-lens clearance, test or product execution is implied."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6922c0b9fd561e03f11ef1d098a70768a599d9b2",
+      "sha256": "ae1dcc0043d5bd5a98744dfb43a3f172a259b3ac3b5e0fe0743c31b83e00327e",
+      "bytes": 13300,
+      "lines": 336,
+      "ranges": [
+        [
+          1,
+          240
+        ],
+        [
+          285,
+          336
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landing-settle-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Current shaping_time and measurement are supporting source only, not original role1779 or1768 credit. No other-lens clearance, test or product execution is implied."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "96ba096e60314683c71611623bda86c6e9e67711",
+      "sha256": "cff2ba2b0c2f60c6141f86f031ef8470e981c81a5a901febd350a24fcfdc69d3",
+      "bytes": 68840,
+      "lines": 1813,
+      "ranges": [
+        [
+          449,
+          475
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landing-settle-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Current shaping_time and measurement are supporting source only, not original role1779 or1768 credit. No other-lens clearance, test or product execution is implied."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/settle/planning.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "dd55c03aac5e41931622907118df4f136f170fff",
+      "sha256": "f5003b3bf06fa6b565747e7a1e37a08ca9ed66aeb64d6d702ca90268078203c6",
+      "bytes": 11075,
+      "lines": 297,
+      "ranges": [
+        [
+          28,
+          110
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landing-settle-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Current shaping_time and measurement are supporting source only, not original role1779 or1768 credit. No other-lens clearance, test or product execution is implied."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/settle.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "14651077f8215b9e92315c47e59f722e84d1a08d",
+      "sha256": "82541741fb7abc29a8018c22de3a815a496f10c8a19000345a9b5c708720a9c8",
+      "bytes": 14608,
+      "lines": 373,
+      "ranges": [
+        [
+          1,
+          180
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landing-settle-evidence/support-14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Current shaping_time and measurement are supporting source only, not original role1779 or1768 credit. No other-lens clearance, test or product execution is implied."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5eff44d2c63c470fef92210078d199f5d299ab45",
+      "sha256": "1316d55883c31826dcf78b1c36f80116faf40dee3aa3cf8a4bc82646030d19e3",
+      "bytes": 139647,
+      "lines": 2973,
+      "ranges": [
+        [
+          310,
+          404
+        ],
+        [
+          2176,
+          2192
+        ],
+        [
+          2890,
+          2970
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landing-settle-evidence/support-15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Current shaping_time and measurement are supporting source only, not original role1779 or1768 credit. No other-lens clearance, test or product execution is implied."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/foot_clearance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9ae2765389e755e5a3f30d47d3c2a58eb9f2a35c",
+      "sha256": "fbee9961d5150f7a221c942cab5c5288e3efdca4d36e920ab5476a2ed9be3b82",
+      "bytes": 14209,
+      "lines": 395,
+      "ranges": [
+        [
+          100,
+          130
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landing-settle-evidence/support-16.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Current shaping_time and measurement are supporting source only, not original role1779 or1768 credit. No other-lens clearance, test or product execution is implied."
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/client.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4e95000315470b399ee50b29e716000f78abd030",
+      "sha256": "7efcd68002b4980f4d901f87a84c47dc0f697e35551b4fb3a13bc6ce80a1e770",
+      "bytes": 53907,
+      "lines": 1514,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landing-settle-evidence/support-17.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Current shaping_time and measurement are supporting source only, not original role1779 or1768 credit. No other-lens clearance, test or product execution is implied."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/startup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "416b6c9007352d1fa110f10ed68f6b542484dbe0",
+      "sha256": "a2f5959d603a1f54ed2b719eb96e15c4101b6834d30aae545d19e8c4c3e46983",
+      "bytes": 4837,
+      "lines": 120,
+      "ranges": [
+        [
+          35,
+          73
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landing-settle-evidence/support-18.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Current shaping_time and measurement are supporting source only, not original role1779 or1768 credit. No other-lens clearance, test or product execution is implied."
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          174,
+          184
+        ],
+        [
+          310,
+          316
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landing-settle-evidence/support-19.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Current shaping_time and measurement are supporting source only, not original role1779 or1768 credit. No other-lens clearance, test or product execution is implied."
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Ground contact and landing identity",
+      "trace": "GroundContact converts controller contact separately from posture. The current projection creates a landing impact when prior body support is absent and the new controller contact is grounded, increments a separate LandingSequence and records nonnegative downward impact; coalescing uses checked forward event spans.",
+      "remaining": "All physical/controller/native producers and wrap/reset lifecycle are not proven by this bounded path."
+    },
+    {
+      "contract": "Settle cap and signed progress",
+      "trace": "The current advance_settle applies min(1.0) before its arithmetic-only constructor, so this caller does not establish the earlier above-one retained suspicion. Signed progress is kept by the type; its swing target locally clamps to0..1 and a safe-stance fallback can request completion.",
+      "remaining": "Other writers and intended field policy remain open; do not infer obsolete compatibility from normalization comments."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-LANDING-RECOVERY-RATE-OVERFLOW-001",
+      "lens": 4,
+      "additional_current_lenses": [
+        3,
+        8,
+        13
+      ],
+      "classification": "New95e conditional aggregate numeric representability question connected to original059 scopes; not an observed runtime defect or new checkpoint3821 finding.",
+      "canonical_owner": "Relationship between the configured positive landing recovery duration, admitted compression range and finite HeightSpeed result at the owning configuration/height operation boundary.",
+      "first_failed_contract": "Strict positivity of a recovery divisor does not guarantee that an admitted nonzero compression divided by it is a finite f32 rate.",
+      "trace": "AnimationLandingConfig stores PositiveAnimationDuration, which rejects zero; the shown landing validator checks compression ordering and the shown top-level validation does not check recovery rate representability. landing_profile copies the duration into an AnimationElapsed, and begin_landing calls HeightSpeed::recovery after calculating the target compression. That operation rejects a nonfinite quotient. apply_locomotion_height logs and skips publishing the copied height state when advance_height returns an error. Server startup and client observer validate and install configuration snapshots.",
+      "symbolic_example": "For a finite positive duration 2^-140 seconds and compression 2^-5 metres, the exact quotient is 2^135 metres/second, exceeding the greatest finite binary32 value (<2^128). Both operands are representable binary32 values. The committed landing settings have a 0.04m minimum compression (>2^-5), minimum impact1.0m/s, and recovery0.16s; the example duration is not the committed one. This is exact symbolic arithmetic, not execution of the product, YAML parser, graphics or an allocated scene.",
+      "safeguards": "The zero-duration hypothesis is excluded on the traced configured path. A landing must have an earlier height observation, a nonzero in-budget sequence delta, no early quickstep or posture-transition bypass, an impact at least the threshold, and successful preceding calculations. No fully parsed/delivered extreme configuration, landing event, rejected frame or visual effect has been observed. Source-declared fallback and reset policy elsewhere may matter. Whether subnormal/extreme tuning is intended to be supported requires a policy decision.",
+      "dependencies": [
+        "Establish the supported duration/compression ranges and all constructors, serialization and runtime consumer paths.",
+        "Resolve whether to reject unsupported relationships at configuration admission or use a defined bounded recovery method; retain zero elapsed for ordinary observations.",
+        "Reconcile historical059 queue842,847,1448 and exact aliases without relabeling their earlier read qualifications."
+      ],
+      "later_acceptance": [
+        "Supported recovery settings yield a finite and meaningful derived operation for the allowed compression range; unsupported combinations fail at the owning boundary with useful context.",
+        "Preserve normal landing and no-extra-impairment gameplay behavior; later validation must be separately authorized."
+      ],
+      "discovery": "partial; source-directed representability counterexample and rejection path connected, full config reachability, live landing and aliases open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    },
+    {
+      "id": "REVIEW-SETTLE-SHAPING-SIGN-POLICY-001",
+      "lens": 3,
+      "additional_current_lenses": [
+        4,
+        7,
+        8,
+        13
+      ],
+      "classification": "New95e conditional field-specific configuration and settlement policy question; prior6533 signed-type and capped-caller qualifications remain intact.",
+      "canonical_owner": "The inverse-kinematics settle_step_seconds field and the settlement transition using that field, not the general signed ResponseShapingTime type.",
+      "first_failed_contract": "The actual settlement consumer advances toward completion using a signed divisor, but the shown field validation does not define whether nonpositive values are intended modes or supported inputs.",
+      "trace": "ResponseShapingTime admits all finite signed values. InverseKinematicsConfig stores settle_step_seconds in that type, and the top-level IK validation has no reference to this field. Settlement planning seeds progress at zero; when a nonzero elapsed sample occurs, advance_settle_state uses this field in advance_settle. The kernel caps at1 and retains finite negative results. The IK loop uses is_complete for readiness; the swing-target helper clamps progress to0..1.",
+      "symbolic_example": "With a hypothetical field value -1 second, initial progress0 and a positive elapsed sample0.5 seconds, the shown arithmetic gives retained progress -0.5; the swing helper sees0 and the completion predicate is false. The shipped YAML uses +0.28 seconds. This is exact source-directed arithmetic only; no alternate configuration or animation was run.",
+      "safeguards": "The normal IK loop skips advancement for zero elapsed, and completion can also be requested by a safe-stance elapsed fallback or a terminal state; terminal contact preparation and rendered-contact checks still apply. Therefore the example does not prove permanent failure, a visible defect, or that negative tuning is unsupported. Original Segovb575 explicitly keeps signed shaping/progress intentional unless the actual configuration/native contract establishes otherwise, and rejects an above-one witness for this capped producer.",
+      "dependencies": [
+        "Determine the supported configuration policy for zero and negative settlement time, and trace all installation, settle, foot contact and fallback lifecycles.",
+        "Decide whether this field requires a positive duration or whether defined signed/instant semantics should remain; do not globally narrow the shared shaping type.",
+        "Reconcile original059 queue1448/1455 and any exact aliases without revising earlier attribution."
+      ],
+      "later_acceptance": [
+        "Each supported field value has defined settlement, contact and fallback behavior; unsupported values fail at the owning configuration boundary.",
+        "Preserve legitimate negative shaping modes in other consumers and normal positive settlement behavior; validation remains separately authorized."
+      ],
+      "discovery": "partial; actual field, producer, consumer, symbolic signed case and fallback connected, policy and runtime reachability remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/842",
+        "/entries/847",
+        "/entries/1448",
+        "/entries/1455"
+      ],
+      "qualification": "Original059 scopes only partially connected; earlier e275 and6533 reviewer/range and upper-cap qualifications remain separate from new95e questions."
+    },
+    {
+      "file": "ASSESSMENT-ANIMATION-EVALUATION-95E.json",
+      "qualification": "Earlier budgeted presentation and snapshot lifecycle remain independently qualified."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-570.json",
+      "sha256": "e5454e9802e5dba18f0fc578771c8dc02216892143aa58bc4c6d07c584d1f910",
+      "bytes": 2191,
+      "git_blob": "dac05cae32f04f764ebb282fa82ead6af23e865f",
+      "preserved_bytes": "recovered/landing-settle-059/e5454e9802e5dba18f0fc578771c8dc02216892143aa58bc4c6d07c584d1f910.gz",
+      "published_sha256": "e5454e9802e5dba18f0fc578771c8dc02216892143aa58bc4c6d07c584d1f910",
+      "published_bytes": 2191,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-575.json",
+      "sha256": "43f3987a9b490536379b0537f2b41324639537c556e7da982f6e413d736540e8",
+      "bytes": 1212,
+      "git_blob": "d4bf26a0b78467ad15750e19d7b5dc8c5ca45e0e",
+      "preserved_bytes": "recovered/landing-settle-059/43f3987a9b490536379b0537f2b41324639537c556e7da982f6e413d736540e8.gz",
+      "published_sha256": "43f3987a9b490536379b0537f2b41324639537c556e7da982f6e413d736540e8",
+      "published_bytes": 1212,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-570.json",
+      "sha256": "cef203d8e02e5cc7f62bf9983b02a2731cc77907af038b965f7df3f8a00e3aad",
+      "bytes": 12746,
+      "git_blob": "b35f2cdd064b02cc1c5f310b30526a9c46d6acce",
+      "preserved_bytes": "recovered/landing-settle-059/cef203d8e02e5cc7f62bf9983b02a2731cc77907af038b965f7df3f8a00e3aad.gz",
+      "published_sha256": "cef203d8e02e5cc7f62bf9983b02a2731cc77907af038b965f7df3f8a00e3aad",
+      "published_bytes": 12746,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal historical source-role transfer",
+        "earlier same-lens receipt with no fresh read credit"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-575.json",
+      "sha256": "b103eb224c5b968b31acf2aa794bfbdbbaf6787987d46813953465f67258d5af",
+      "bytes": 8168,
+      "git_blob": "2daf3a2447f16a34727d165189ee62b9297bc214",
+      "preserved_bytes": "recovered/landing-settle-059/b103eb224c5b968b31acf2aa794bfbdbbaf6787987d46813953465f67258d5af.gz",
+      "published_sha256": "b103eb224c5b968b31acf2aa794bfbdbbaf6787987d46813953465f67258d5af",
+      "published_bytes": 8168,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal historical source-role transfer"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-670.json",
+      "sha256": "69a557a2546fe3893f8f7af37fa01fb5032b2af2bba31cd1641135f531e559b3",
+      "bytes": 1219,
+      "git_blob": "c55191393b89b0987af4ae3f8bfe89d6010887cb",
+      "preserved_bytes": "recovered/landing-settle-059/69a557a2546fe3893f8f7af37fa01fb5032b2af2bba31cd1641135f531e559b3.gz",
+      "published_sha256": "69a557a2546fe3893f8f7af37fa01fb5032b2af2bba31cd1641135f531e559b3",
+      "published_bytes": 1219,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-671.json",
+      "sha256": "52b5346ae95c38e2eced935a94c2257baea8b7e64579012d044578edf06cdc6e",
+      "bytes": 1229,
+      "git_blob": "8dc91d0f05c416d2e21b10b65a8a748df923feba",
+      "preserved_bytes": "recovered/landing-settle-059/52b5346ae95c38e2eced935a94c2257baea8b7e64579012d044578edf06cdc6e.gz",
+      "published_sha256": "52b5346ae95c38e2eced935a94c2257baea8b7e64579012d044578edf06cdc6e",
+      "published_bytes": 1229,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-672.json",
+      "sha256": "6d8f873834692049e08473a02471c183cfffeab3f4ad96c4d59f2fd54d42032c",
+      "bytes": 1217,
+      "git_blob": "3c1f1ade452d9ed0bc649d5a4eaf02bbe2de4d7e",
+      "preserved_bytes": "recovered/landing-settle-059/6d8f873834692049e08473a02471c183cfffeab3f4ad96c4d59f2fd54d42032c.gz",
+      "published_sha256": "6d8f873834692049e08473a02471c183cfffeab3f4ad96c4d59f2fd54d42032c",
+      "published_bytes": 1217,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration",
+        "earlier qualified same-lens registration"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-673.json",
+      "sha256": "6adf298e13fe936e340c55d0682fb14d3f52d386eb7cf983f613d44d78417832",
+      "bytes": 1205,
+      "git_blob": "43357d2cf44dd3b00eeccf6c2d05e224e96d0bad",
+      "preserved_bytes": "recovered/landing-settle-059/6adf298e13fe936e340c55d0682fb14d3f52d386eb7cf983f613d44d78417832.gz",
+      "published_sha256": "6adf298e13fe936e340c55d0682fb14d3f52d386eb7cf983f613d44d78417832",
+      "published_bytes": 1205,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-686.json",
+      "sha256": "5c88fce5bb0eec8fc93a2660b9e983afe6cdcf02e3077e6d8bbff14502283e60",
+      "bytes": 1209,
+      "git_blob": "c43037816de257566ecf40292824f42e123dba69",
+      "preserved_bytes": "recovered/landing-settle-059/5c88fce5bb0eec8fc93a2660b9e983afe6cdcf02e3077e6d8bbff14502283e60.gz",
+      "published_sha256": "5c88fce5bb0eec8fc93a2660b9e983afe6cdcf02e3077e6d8bbff14502283e60",
+      "published_bytes": 1209,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-687.json",
+      "sha256": "1e42d9944d11e847f9ec9208bb19e2b7e0eb4e1bfea0220a8ecb076dab646b00",
+      "bytes": 1215,
+      "git_blob": "561554407a563c60c9bbee736a9ac01082b14599",
+      "preserved_bytes": "recovered/landing-settle-059/1e42d9944d11e847f9ec9208bb19e2b7e0eb4e1bfea0220a8ecb076dab646b00.gz",
+      "published_sha256": "1e42d9944d11e847f9ec9208bb19e2b7e0eb4e1bfea0220a8ecb076dab646b00",
+      "published_bytes": 1215,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-570.json",
+      "sha256": "f3b8354431bbc88db32d45320746c1090396b685cba9863fe320fd5691d67d8e",
+      "bytes": 840,
+      "git_blob": "3dd69f603e3cfb8a54118e33a07bdfb8097b37eb",
+      "preserved_bytes": "recovered/landing-settle-059/f3b8354431bbc88db32d45320746c1090396b685cba9863fe320fd5691d67d8e.gz",
+      "published_sha256": "f3b8354431bbc88db32d45320746c1090396b685cba9863fe320fd5691d67d8e",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-575.json",
+      "sha256": "294cb3f12e2fc06f368d26ddf24e39cc5d095c56fa1c50f202d5e140677b0aab",
+      "bytes": 840,
+      "git_blob": "ebe191d676ca48efcb06736f99c1dce4658ba90d",
+      "preserved_bytes": "recovered/landing-settle-059/294cb3f12e2fc06f368d26ddf24e39cc5d095c56fa1c50f202d5e140677b0aab.gz",
+      "published_sha256": "294cb3f12e2fc06f368d26ddf24e39cc5d095c56fa1c50f202d5e140677b0aab",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-570.json",
+      "sha256": "bd1f746e263cf2f4ffa22226d5feb5068dd840d0d7fc43ac00bfa318be5a1d7a",
+      "bytes": 558,
+      "git_blob": "b57b94f9a74d562d57b6874a33e393cec3d6560c",
+      "preserved_bytes": "recovered/landing-settle-059/bd1f746e263cf2f4ffa22226d5feb5068dd840d0d7fc43ac00bfa318be5a1d7a.gz",
+      "published_sha256": "bd1f746e263cf2f4ffa22226d5feb5068dd840d0d7fc43ac00bfa318be5a1d7a",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-575.json",
+      "sha256": "01e7dc35ddd66b213792f07118ab5d96f5df9deee853b27379b8fd845631acad",
+      "bytes": 558,
+      "git_blob": "68217aa0beb673f25b041445c2845fa27bb5a678",
+      "preserved_bytes": "recovered/landing-settle-059/01e7dc35ddd66b213792f07118ab5d96f5df9deee853b27379b8fd845631acad.gz",
+      "published_sha256": "01e7dc35ddd66b213792f07118ab5d96f5df9deee853b27379b8fd845631acad",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    }
+  ],
+  "remaining": "Continue original1767; establish supported configuration values, actual landing/settlement lifecycle, all13 lenses, semantic queue and aliases. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

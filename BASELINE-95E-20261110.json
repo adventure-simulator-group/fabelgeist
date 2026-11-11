@@ -4688,8 +4688,53 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-PHASE-CALIBRATION-BOUND-95E.json"
+      },
+      {
+        "id": "REVIEW-LANDING-RECOVERY-RATE-OVERFLOW-001",
+        "lens": 4,
+        "additional_current_lenses": [
+          3,
+          8,
+          13
+        ],
+        "severity": "unassigned; conditional source and policy question",
+        "classification": "New95e conditional aggregate numeric representability question connected to original059 scopes; not an observed runtime defect or new checkpoint3821 finding.",
+        "historical_related_records": [
+          "segovb/READ-L12-570.json",
+          "segovb/READ-L12-575.json",
+          "baseline-059/queue.json#/entries/1448",
+          "baseline-059/queue.json#/entries/1455"
+        ],
+        "relationship_qualification": "Original6533 review, earlier e275 queue and same-lens reuse remain separately attributed; current source and arithmetic change no historical or checkpoint3821 count.",
+        "discovery": "partial; source-directed representability counterexample and rejection path connected, full config reachability, live landing and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-LANDING-SETTLE-95E.json"
+      },
+      {
+        "id": "REVIEW-SETTLE-SHAPING-SIGN-POLICY-001",
+        "lens": 3,
+        "additional_current_lenses": [
+          4,
+          7,
+          8,
+          13
+        ],
+        "severity": "unassigned; conditional source and policy question",
+        "classification": "New95e conditional field-specific configuration and settlement policy question; prior6533 signed-type and capped-caller qualifications remain intact.",
+        "historical_related_records": [
+          "segovb/READ-L12-570.json",
+          "segovb/READ-L12-575.json",
+          "baseline-059/queue.json#/entries/1448",
+          "baseline-059/queue.json#/entries/1455"
+        ],
+        "relationship_qualification": "Original6533 review, earlier e275 queue and same-lens reuse remain separately attributed; current source and arithmetic change no historical or checkpoint3821 count.",
+        "discovery": "partial; actual field, producer, consumer, symbolic signed case and fallback connected, policy and runtime reachability remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-LANDING-SETTLE-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0958.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1001.json"
 }
