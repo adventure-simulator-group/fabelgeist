@@ -9,14 +9,14 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 943,
+    "unassessed": 940,
     "lock-metadata-partial": 3,
-    "bounded-current-trace-only": 56,
+    "bounded-current-trace-only": 55,
     "assessed-nonapplicable": 3,
-    "full-historical-body-trace-open": 1842,
+    "full-historical-body-trace-open": 1846,
     "deleted-base-trace-open": 6
   },
-  "first_unfinished": "Lock roles39,497 and680 remain metadata-partial; original roles1898–1901 now read. Continue original1902; independent lenses remain open.",
+  "first_unfinished": "Lock roles39,497 and680 remain metadata-partial; original roles1902–1905 now read. Continue original1906; original1907 has a separate exact-EOF qualification. Independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -26001,7 +26001,9 @@
       "historical_sha256": "3af5fab04d729f25434e3c731429726b08d94fb12f637ad51c3be301bb25a4dc",
       "registry_pointer": "/files/1902",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1902-1905.json",
+      "qualification": "Complete historical Lens1 body at this exact identity; other reviewer ranges and previous bounded current traces remain separately attributed."
     },
     {
       "original_index": 1903,
@@ -26011,7 +26013,9 @@
       "historical_sha256": "f126fe289f242ec3ba4166575dca79fcbc5be9c21e74c7f0fe63988d97907aff",
       "registry_pointer": "/files/1903",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1902-1905.json",
+      "qualification": "Complete historical Lens1 body at this exact identity; other reviewer ranges and previous bounded current traces remain separately attributed."
     },
     {
       "original_index": 1904,
@@ -26021,7 +26025,7 @@
       "historical_sha256": "4eb5b88b6059d622bb8663f784c3cd8eab5289a4928d2c51ab38031acc6a354a",
       "registry_pointer": "/files/1904",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/adventuresim-tactical-core/src/scene/property_support.rs",
       "current_git_blob": "1391ac3030047ba89477fe576c06de1e7493f7b0",
       "current_observations": [
@@ -26039,7 +26043,8 @@
           ]
         }
       ],
-      "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+      "qualification": "Complete historical Lens1 body at this exact identity; other reviewer ranges and previous bounded current traces remain separately attributed.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1902-1905.json"
     },
     {
       "original_index": 1905,
@@ -26049,7 +26054,9 @@
       "historical_sha256": "feacac20255eb9787f14ee21a2b7955e72d5be7b618755698965657402efc08c",
       "registry_pointer": "/files/1905",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1902-1905.json",
+      "qualification": "Complete historical Lens1 body at this exact identity; other reviewer ranges and previous bounded current traces remain separately attributed."
     },
     {
       "original_index": 1906,

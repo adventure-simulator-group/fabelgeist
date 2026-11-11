@@ -1,0 +1,546 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original roles1902–1905, urban patch spatial bucket work bound, terrain owner and selected query contracts.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1902-1905.json",
+  "git_membership_evidence": "URBAN-BUCKET-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3834677dae7efa2917cff646da08aac3fa9d3c6f",
+      "sha256": "244fd713d736e5e7da01d379afdcae5c77cd5705016504d882221057490eef26",
+      "bytes": 8724,
+      "lines": 159,
+      "ranges": [
+        [
+          107,
+          113
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/urban-bucket-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No input, lookup, terrain, renderer, game or source test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8a54b1049b5593d0d06440ec8bda5f08f28c4ef8",
+      "sha256": "2661ce950659807c47c0de4fdc769ba1ba79825c47ba2985fcec32d7e4f38390",
+      "bytes": 20452,
+      "lines": 553,
+      "ranges": [
+        [
+          7,
+          21
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/urban-bucket-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No input, lookup, terrain, renderer, game or source test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene/ground.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5b519a2c494eb2918f19c3b6237d13ad5e91fdf8",
+      "sha256": "54559503a139270a829c73a46cb1ba81b69ada99dc3827350e16b575c4139d8a",
+      "bytes": 5729,
+      "lines": 182,
+      "ranges": [
+        [
+          1,
+          3
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/urban-bucket-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No input, lookup, terrain, renderer, game or source test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4907d3df4cce5cd8a4ca2211cfdd26b0b0316f86",
+      "sha256": "d5aacb8a24fecfd5dadee9361c1b6c3d32bd19171bfc0bc984cd8b2efb183c8f",
+      "bytes": 11449,
+      "lines": 338,
+      "ranges": [
+        [
+          63,
+          70
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/urban-bucket-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No input, lookup, terrain, renderer, game or source test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/surfaces.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0509b746b4c68920ab40476703adbb00f0b28135",
+      "sha256": "064e2fe3fc9294f655bfeaf2cd691d7277e6ad428a603ad1dbbf10aa42c18993",
+      "bytes": 4936,
+      "lines": 164,
+      "ranges": [
+        [
+          1,
+          92
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/urban-bucket-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No input, lookup, terrain, renderer, game or source test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ce5e205c98dc45232f19e7762729c8a9a59ebac4",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "bytes": 39530,
+      "lines": 1026,
+      "ranges": [
+        [
+          150,
+          168
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/urban-bucket-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No input, lookup, terrain, renderer, game or source test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7a8109a7fbc6969b4d2ed502091b48a48ea78bd4",
+      "sha256": "3d97a798029ddc9f195aa209105f64070c55fb0172ef87a515e67fe945c735c9",
+      "bytes": 2908,
+      "lines": 64,
+      "ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/urban-bucket-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No input, lookup, terrain, renderer, game or source test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/urban.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "770e2e6b38cbd651caef72242c2c1f98182a6d28",
+      "sha256": "0636460b78d2af66faa57a8483f4a89a9b99c84cd19c3f7f90615635734fe95b",
+      "bytes": 830,
+      "lines": 20,
+      "ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/urban-bucket-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No input, lookup, terrain, renderer, game or source test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/generation/geographic.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6bba9b6f8d48e49b21a90f2213558e71a0894bbc",
+      "sha256": "b0a7c91fd0c9c09870ebcacd16ae968638ba3381e66e7d44b9ee6c7e6235236c",
+      "bytes": 3790,
+      "lines": 96,
+      "ranges": [
+        [
+          16,
+          45
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/urban-bucket-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No input, lookup, terrain, renderer, game or source test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_ground.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bf3976188319490bb5216801ceab4ae105cb9958",
+      "sha256": "326752c9f0ad95c8f898c8ad0d106eae2395e3a89ec135922c6fd7da8d860622",
+      "bytes": 3420,
+      "lines": 88,
+      "ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/urban-bucket-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No input, lookup, terrain, renderer, game or source test ran."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-GRADE-BOUNDED-95E.json",
+    "ASSESSMENT-MARKET-GEOMETRY-95E.json",
+    "ASSESSMENT-GROUND-RASTER-ADMISSION-95E.json",
+    "ASSESSMENT-L1-STAIR-SUPPORT.json",
+    "ASSESSMENT-SHORT-ROUTE-HEIGHTFIELD-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Spatial work bound",
+      "trace": "Public UrbanGroundLookup::new eagerly indexes each patch bounding box into inclusive 32m cells; its nondegenerate finite market example has a mathematical upper iteration count of 3906375001 for one patch if completion is possible. The Market leaf checks finiteness, and the selected urban validator checks count and leaf validity.",
+      "remaining": "Other whole-scene checks, accepted producers, actual memory/time, work-budget policy and all lifecycle paths remain unresolved. No product operation or test was executed."
+    },
+    {
+      "contract": "Urban ownership and serialization",
+      "trace": "UrbanGroundSurfaces stores private canonical patch collections and a Serde-skipped OnceLock; equality compares only those collections, and lookup rebuilds the derived cache lazily. Natural cover and the urban disk exclusion are distinct APIs; the earlier selected loose-stone source calls the latter.",
+      "remaining": "This does not prove malformed wire admission, every scatter variant, bounded overlapping query radii, external callers or physical/render behavior."
+    },
+    {
+      "contract": "Terrain owner and error classification",
+      "trace": "TerrainGeometry is an explicit Sampled/Owned sum. Physical surface queries select that owner; natural_collision_mesh_with_transition collects natural triangles and foundation cutfaces, while foundation_colliders collects Results before filtering ContactOnly. Required sampled queries map an absent optional hit to MissingSupport.",
+      "remaining": "Owned geometry alignment, native numerical sources and downstream failure classification remain open; a separate BoundedSettlementTerrain collider candidate is not disproved by this consumer."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-URBAN-BUCKET-SPAN-CAPACITY-001",
+      "lens": 1,
+      "additional_current_lenses": [
+        3,
+        4,
+        6,
+        7,
+        8,
+        11,
+        12,
+        13
+      ],
+      "severity": "unassigned; source-derived resource-bound candidate",
+      "first_contract": "An admitted urban extent needs a defined spatial indexing work and storage bound at the owner that expands patch bounding boxes into cells.",
+      "classification": "New current source assessment, conditional on supported extent and producer policy; not a historical unique-count increment.",
+      "trace": "SpatialBuckets::new divides each patch bounding box by the 32m bucket size, floors to integer minimum and maximum, then visits every inclusive pair of x/y cells, inserting the patch index. UrbanGroundLookup::new is publicly exposed and eagerly expands every supplied street, yard and building bounding box without a per-patch span or total-cell guard in that implementation. A nondegenerate convex Market with four finite corners at (−1000000,−1000000), (1000000,−1000000), (1000000,1000000), (−1000000,1000000) passes the Market leaf is_valid check. Its coordinates and quotient by32 are exactly representable; the cell indices run from −31250 through31250 on each axis. If the nested loops could complete, one patch entails 62501×62501 = 3906375001 cell insertions. Allocation or resource limits may intervene first. No lookup, allocation, time measurement or input was executed.",
+      "safeguards_and_limits": "The scene urban validator caps street count at12000 and checks each leaf, but that cap does not itself constrain the extent of this particular finite Market. TacticalSceneInput also runs other source and grounding validations, and geographic preparation does other fallible work before build_scene_ground constructs UrbanGroundSurfaces; no complete accepted scene or actual producer, performance result, denial of service or user impact has been demonstrated. UrbanGroundSurfaces uses the same constructor when created and reconstructs the skipped lookup lazily after deserialization, subject to upstream data and successful earlier steps. Ordinary city generation may impose smaller extents, which still needs tracing. The prior Segovb632 record explicitly left bounded patch producers and work-cap evidence open; it is preserved without reattributing this new calculation. This large convex example has a different first contract from the prior degenerate-market containment/masking finding and the ground-raster allocation question; exact relationships remain open.",
+      "connected_repair_dependencies": [
+        "Trace all actual geographic and city patch producers, whole-scene and decoded bounds, query-domain ownership, and whether a per-patch or aggregate work budget is part of the supported contract.",
+        "If a change is authorized after audit closure, coordinate valid market geometry and lookup capacity with exact urban ownership, scatter exclusion, out-of-scene policy and cache reconstruction; avoid conflating these with degenerate polygon admission.",
+        "Later authorized checks should cover ordinary and boundary-straddling patches, large admitted or rejected extents, aggregate patch counts and serialization/reconstruction. None was run."
+      ],
+      "historical_related_candidates": [
+        "baseline-059/queue.json#/entries/1570",
+        "baseline-059/queue.json#/entries/1571",
+        "segovb/READ-L12-632.json",
+        "adler/READ-L11-290.json",
+        "ADLER-L11-CITY-PATCH-GEOMETRY-ADMISSION"
+      ],
+      "accepted_historical_unique_count_change": 0,
+      "discovery": "partial; source formula and leaf admission established for symbolic input, full producer, spatial extent and allocation policy remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-632.json",
+      "sha256": "618c9863aacfd31d26802078c5c7b97b65fd807a945e1032648e94aa180573cb",
+      "bytes": 719,
+      "git_blob": "649dabf77c1028bacbb96cd6e8a85347c53f602f",
+      "preserved_bytes": "recovered/urban-bucket-059/618c9863aacfd31d26802078c5c7b97b65fd807a945e1032648e94aa180573cb.gz",
+      "published_sha256": "618c9863aacfd31d26802078c5c7b97b65fd807a945e1032648e94aa180573cb",
+      "published_bytes": 719,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 prospective plan"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-633.json",
+      "sha256": "45ab55cf0cf76253edcace40b54cdc04ae992203a99ef9ef9a221e121342ea6a",
+      "bytes": 1689,
+      "git_blob": "b5897512b12e49d757fec560958e673e20b2a92f",
+      "preserved_bytes": "recovered/urban-bucket-059/45ab55cf0cf76253edcace40b54cdc04ae992203a99ef9ef9a221e121342ea6a.gz",
+      "published_sha256": "45ab55cf0cf76253edcace40b54cdc04ae992203a99ef9ef9a221e121342ea6a",
+      "published_bytes": 1689,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 prospective plan"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-605.json",
+      "sha256": "86415446c8c71fb8d4fc3029c36932cb322bf62f5c32fb906dcb1acb878d8503",
+      "bytes": 10848,
+      "git_blob": "56782c72819747835d9830fb0402ad7415fd8459",
+      "preserved_bytes": "recovered/urban-bucket-059/86415446c8c71fb8d4fc3029c36932cb322bf62f5c32fb906dcb1acb878d8503.gz",
+      "published_sha256": "86415446c8c71fb8d4fc3029c36932cb322bf62f5c32fb906dcb1acb878d8503",
+      "published_bytes": 10848,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens supporting receipt; no additional personal body-read credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-629.json",
+      "sha256": "46619d1dffd8235dfae9222e1ff269499d9c6f909e774d2e8bc42d17800a4557",
+      "bytes": 3631,
+      "git_blob": "24b1786063ada3d4c92570d227566671c7a52e0f",
+      "preserved_bytes": "recovered/urban-bucket-059/46619d1dffd8235dfae9222e1ff269499d9c6f909e774d2e8bc42d17800a4557.gz",
+      "published_sha256": "46619d1dffd8235dfae9222e1ff269499d9c6f909e774d2e8bc42d17800a4557",
+      "published_bytes": 3631,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens supporting receipt; no additional personal body-read credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-630.json",
+      "sha256": "9986136eaf9f4360a5baa92f2a7b50e16ef74b062422222a175104c622f2fa22",
+      "bytes": 4585,
+      "git_blob": "9e7ba27995d71d0818860752c17dabfacbcaba6f",
+      "preserved_bytes": "recovered/urban-bucket-059/9986136eaf9f4360a5baa92f2a7b50e16ef74b062422222a175104c622f2fa22.gz",
+      "published_sha256": "9986136eaf9f4360a5baa92f2a7b50e16ef74b062422222a175104c622f2fa22",
+      "published_bytes": 4585,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens supporting receipt; no additional personal body-read credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-632.json",
+      "sha256": "daaa006fcbc940c34bb129fa15b360627fcf7aa5437aebe0b4a11b88ce8feb6c",
+      "bytes": 3425,
+      "git_blob": "e00bd440d30251a986fa053464e7293dc2a505a0",
+      "preserved_bytes": "recovered/urban-bucket-059/daaa006fcbc940c34bb129fa15b360627fcf7aa5437aebe0b4a11b88ce8feb6c.gz",
+      "published_sha256": "daaa006fcbc940c34bb129fa15b360627fcf7aa5437aebe0b4a11b88ce8feb6c",
+      "published_bytes": 3425,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-633.json",
+      "sha256": "dbc7af3e610db7c342e1fdfae173505f7b24c4c2bf9e903bbc892f5977e07255",
+      "bytes": 8817,
+      "git_blob": "ebf1c273b6f0628380fee3f97889be5dfb97d5d8",
+      "preserved_bytes": "recovered/urban-bucket-059/dbc7af3e610db7c342e1fdfae173505f7b24c4c2bf9e903bbc892f5977e07255.gz",
+      "published_sha256": "dbc7af3e610db7c342e1fdfae173505f7b24c4c2bf9e903bbc892f5977e07255",
+      "published_bytes": 8817,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-755.json",
+      "sha256": "89ac731a47c19769ecc57288947ac729bc742bd19e8c6daf810de46b4f227d79",
+      "bytes": 1258,
+      "git_blob": "6896e858d843598f4d88b58c581393ce6dd5bd39",
+      "preserved_bytes": "recovered/urban-bucket-059/89ac731a47c19769ecc57288947ac729bc742bd19e8c6daf810de46b4f227d79.gz",
+      "published_sha256": "89ac731a47c19769ecc57288947ac729bc742bd19e8c6daf810de46b4f227d79",
+      "published_bytes": 1258,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens supporting registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-804.json",
+      "sha256": "ba6abb8e3ff56e8c8858406996ca70374a4c8cb764ccfdaaa2d61641693b2b62",
+      "bytes": 1149,
+      "git_blob": "effdd38d8b2a86f93d0373e9095106474c2de400",
+      "preserved_bytes": "recovered/urban-bucket-059/ba6abb8e3ff56e8c8858406996ca70374a4c8cb764ccfdaaa2d61641693b2b62.gz",
+      "published_sha256": "ba6abb8e3ff56e8c8858406996ca70374a4c8cb764ccfdaaa2d61641693b2b62",
+      "published_bytes": 1149,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens supporting registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-805.json",
+      "sha256": "e7529f2bd29845f60973cb826da0adafeb350e622722e47bb948b1ab894872fb",
+      "bytes": 1167,
+      "git_blob": "c32134e77e23f178157fbdf78f26bd831d94e7a4",
+      "preserved_bytes": "recovered/urban-bucket-059/e7529f2bd29845f60973cb826da0adafeb350e622722e47bb948b1ab894872fb.gz",
+      "published_sha256": "e7529f2bd29845f60973cb826da0adafeb350e622722e47bb948b1ab894872fb",
+      "published_bytes": 1167,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens supporting registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-810.json",
+      "sha256": "5ffc42c549f66ec446b3fe19ca51e23540c06dc70fe7e51ed9e92d5b662e5cf5",
+      "bytes": 1160,
+      "git_blob": "09d64b201fa50669fe9eaacc842d98d6d09b0ca8",
+      "preserved_bytes": "recovered/urban-bucket-059/5ffc42c549f66ec446b3fe19ca51e23540c06dc70fe7e51ed9e92d5b662e5cf5.gz",
+      "published_sha256": "5ffc42c549f66ec446b3fe19ca51e23540c06dc70fe7e51ed9e92d5b662e5cf5",
+      "published_bytes": 1160,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration; future role1906 retains original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-811.json",
+      "sha256": "9d8f7a5278c767b6e7ce85797b31d518649c9d6c33a614383cc497614c60ab9b",
+      "bytes": 1204,
+      "git_blob": "76e56a346f0e0badd171f0d562e44f3e176573ed",
+      "preserved_bytes": "recovered/urban-bucket-059/9d8f7a5278c767b6e7ce85797b31d518649c9d6c33a614383cc497614c60ab9b.gz",
+      "published_sha256": "9d8f7a5278c767b6e7ce85797b31d518649c9d6c33a614383cc497614c60ab9b",
+      "published_bytes": 1204,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration; future role1906 retains original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-812.json",
+      "sha256": "564c516200e51f6e64e53dd489daafa80f73c9b63759968598061e2877fe1716",
+      "bytes": 1186,
+      "git_blob": "f65c78b9820b8ff24fc165dc92499a502b8824be",
+      "preserved_bytes": "recovered/urban-bucket-059/564c516200e51f6e64e53dd489daafa80f73c9b63759968598061e2877fe1716.gz",
+      "published_sha256": "564c516200e51f6e64e53dd489daafa80f73c9b63759968598061e2877fe1716",
+      "published_bytes": 1186,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration; future role1906 retains original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-813.json",
+      "sha256": "fcff15f43f5e2bb8a78b1dd7d6d2f665ec04f61bcf69491fe24b754368d79f74",
+      "bytes": 1196,
+      "git_blob": "f9568b97bf90bb1e0b6ffeee77cb89b6867fa7c9",
+      "preserved_bytes": "recovered/urban-bucket-059/fcff15f43f5e2bb8a78b1dd7d6d2f665ec04f61bcf69491fe24b754368d79f74.gz",
+      "published_sha256": "fcff15f43f5e2bb8a78b1dd7d6d2f665ec04f61bcf69491fe24b754368d79f74",
+      "published_bytes": 1196,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration; future role1906 retains original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-632.json",
+      "sha256": "17eee1db8ec59ce363bf69585a5713f494a08b0bfde5bc44d431d5556a6546ac",
+      "bytes": 840,
+      "git_blob": "c43396695117d5f767699805e21f300f1162fc0d",
+      "preserved_bytes": "recovered/urban-bucket-059/17eee1db8ec59ce363bf69585a5713f494a08b0bfde5bc44d431d5556a6546ac.gz",
+      "published_sha256": "17eee1db8ec59ce363bf69585a5713f494a08b0bfde5bc44d431d5556a6546ac",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-633.json",
+      "sha256": "71a031134054a1fe6225a8439af1ad16372f6f0f84ebcab0ac090d125d7bcf0f",
+      "bytes": 840,
+      "git_blob": "ce67c143f107511fe124964e120829c624f718c2",
+      "preserved_bytes": "recovered/urban-bucket-059/71a031134054a1fe6225a8439af1ad16372f6f0f84ebcab0ac090d125d7bcf0f.gz",
+      "published_sha256": "71a031134054a1fe6225a8439af1ad16372f6f0f84ebcab0ac090d125d7bcf0f",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-632.json",
+      "sha256": "38da0bdd8b9ae738392e8496d2fcf2ceafff6665b3ac4631a087bb3144d30517",
+      "bytes": 558,
+      "git_blob": "351cc5770704598436e8e017a069a11888049dcc",
+      "preserved_bytes": "recovered/urban-bucket-059/38da0bdd8b9ae738392e8496d2fcf2ceafff6665b3ac4631a087bb3144d30517.gz",
+      "published_sha256": "38da0bdd8b9ae738392e8496d2fcf2ceafff6665b3ac4631a087bb3144d30517",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-633.json",
+      "sha256": "cfa6f8b13b15a14c144d2adf781035834d54143a93c4a8e521b73d95767531b1",
+      "bytes": 558,
+      "git_blob": "0bc547b6e6e39944cfb8a3c23bcde233efcf6ae6",
+      "preserved_bytes": "recovered/urban-bucket-059/cfa6f8b13b15a14c144d2adf781035834d54143a93c4a8e521b73d95767531b1.gz",
+      "published_sha256": "cfa6f8b13b15a14c144d2adf781035834d54143a93c4a8e521b73d95767531b1",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1569",
+        "/entries/1570",
+        "/entries/1571",
+        "/entries/1572"
+      ],
+      "qualification": "Earlier pending families remain open, not checkpoint3821."
+    },
+    {
+      "file": "ASSESSMENT-GRADE-BOUNDED-95E.json",
+      "pointers": [
+        "/recovered_historical_records"
+      ],
+      "qualification": "Original Segovb631 and Adler290 receipts, including roles1902–1905, remain independently attributed in the prior published checkpoint."
+    }
+  ],
+  "historical_attribution_qualification": "Segovb632/633 retain their historic ranges and qualifications; 633 also includes future1906 and same-lens source reuse with no new personal reads. Adler290 and Segovb631 remain in the prior assessment. No ordered Lens1 credit is assigned here to role1906. Role1907 requires its exact-EOF qualification before any later read credit. Source equality does not fill unrecorded historic metadata.",
+  "remaining": "Continue original1906 and qualified1907, all13 lenses, producer extents, capacity and support/scene native dependencies. Original3821 final ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

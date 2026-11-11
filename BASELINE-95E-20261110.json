@@ -5622,8 +5622,36 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-GRADE-BOUNDED-95E.json"
+      },
+      {
+        "id": "REVIEW-URBAN-BUCKET-SPAN-CAPACITY-001",
+        "lens": 1,
+        "additional_current_lenses": [
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; source-derived resource-bound candidate",
+        "classification": "An admitted urban extent needs a defined spatial indexing work and storage bound at the owner that expands patch bounding boxes into cells.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1570",
+          "baseline-059/queue.json#/entries/1571",
+          "segovb/READ-L12-632.json",
+          "adler/READ-L11-290.json",
+          "ADLER-L11-CITY-PATCH-GEOMETRY-ADMISSION"
+        ],
+        "relationship_qualification": "Different source-reasoned first contract from degenerate Market containment and raster allocation. Earlier Segovb632 left patch producer and work cap unresolved; no historical unique increment or checkpoint3821 attribution.",
+        "discovery": "partial; source formula and leaf admission established for symbolic input, full producer, spatial extent and allocation policy remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-URBAN-BUCKET-CAPACITY-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1151.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1155.json"
 }
