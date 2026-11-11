@@ -1,0 +1,786 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original roles1868–1876, admitted landform bounds, nonfault and fault prework, and scoped door/seed connections.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1868-1876.json",
+  "git_membership_evidence": "LANDFORM-BOUNDS-HISTORICAL-GIT-PROOFS.json",
+  "historical_current_diff": {
+    "path": "main-advance-95e/landform-bounds-evidence/runtime-6533-to-95e.diff",
+    "sha256": "834c1a3b74de9d12f789e6827e5336b44527b2bc1e057b4e3d4c7bcf5dfac43e",
+    "bytes": 1851,
+    "qualification": "Read-only Git diff of historical6533 and current95e runtime config; both complete bodies separately preserved."
+  },
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/volumetric_terrain.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1ed9bffbcdb0200bccb84e7ffd4df69765261b43",
+      "sha256": "7623a9336cbe4a4c30650bd451893f1769952e1d29b6cd4c18e6c4f23780887e",
+      "bytes": 20430,
+      "lines": 526,
+      "ranges": [
+        [
+          1,
+          57
+        ],
+        [
+          159,
+          218
+        ],
+        [
+          220,
+          362
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landform-bounds-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current source ranges inspected; complete bytes preserved. No terrain, query, simulation, mesh, native physics or product function ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/volumetric_terrain/recipe.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4316aed04dad6574def44b14293e8a962c66f2d9",
+      "sha256": "fcaf87702a89d958728884e2576a2f981d6a15f491e9fab4586e483f9527df2f",
+      "bytes": 8089,
+      "lines": 217,
+      "ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landform-bounds-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current source ranges inspected; complete bytes preserved. No terrain, query, simulation, mesh, native physics or product function ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/volumetric_terrain/surface_recipe.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "464e07c2d631f6c3bd8352f58d4e498d2dbae93c",
+      "sha256": "62dd60826db3c1d29b8ec6160d09985646410cb2b2b612e36b5370b3df1d891e",
+      "bytes": 19785,
+      "lines": 490,
+      "ranges": [
+        [
+          1,
+          180
+        ],
+        [
+          190,
+          255
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landform-bounds-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current source ranges inspected; complete bytes preserved. No terrain, query, simulation, mesh, native physics or product function ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/volumetric_terrain/support.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0269eb4a8b5c39f71793bf10189d8ae91656d857",
+      "sha256": "bba6cc80f38ff3d02d8c7fced6c2f8b6a18271b18b4d115a260a97453c2c3923",
+      "bytes": 660,
+      "lines": 17,
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landform-bounds-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current source ranges inspected; complete bytes preserved. No terrain, query, simulation, mesh, native physics or product function ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/volumetric_terrain/resistance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9f41e6b8e31aa79e53e24839e7bb47828b714bac",
+      "sha256": "775f5d7a035eea6e401828aeceab320737bbaf8286024f65b9e65153a24d7f3b",
+      "bytes": 4548,
+      "lines": 114,
+      "ranges": [
+        [
+          1,
+          114
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landform-bounds-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current source ranges inspected; complete bytes preserved. No terrain, query, simulation, mesh, native physics or product function ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/volumetric_terrain/error.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cfe623c8d2d652e355c40f50593b9ceaf15e2c97",
+      "sha256": "e3616e905943b4275f23b767ac43c8a4f19c1661ddcaef93914bbead401ab7a9",
+      "bytes": 1501,
+      "lines": 40,
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landform-bounds-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current source ranges inspected; complete bytes preserved. No terrain, query, simulation, mesh, native physics or product function ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/terrain_transition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7623bca1628d33cacbec84d7a2e40e87d40a3d8a",
+      "sha256": "df252469b9538a750abdbc7646c7cb240e14f41a73eb79e640670ab4be6dda90",
+      "bytes": 7862,
+      "lines": 200,
+      "ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landform-bounds-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current source ranges inspected; complete bytes preserved. No terrain, query, simulation, mesh, native physics or product function ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_fault.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "41d26a90972c22aa4978b1331821890d443664aa",
+      "sha256": "085f2292af89c720e0646faf910738d1adeca305f58bafc09e4caa9404870c05",
+      "bytes": 1148,
+      "lines": 36,
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landform-bounds-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current source ranges inspected; complete bytes preserved. No terrain, query, simulation, mesh, native physics or product function ran."
+    },
+    {
+      "path": "crates/fabelgeist-determinism/src/seed.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "67b30be6deac7b4173d1a9dd21d0c4dcfd1e87d4",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "bytes": 7283,
+      "lines": 213,
+      "ranges": [
+        [
+          1,
+          117
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landform-bounds-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current source ranges inspected; complete bytes preserved. No terrain, query, simulation, mesh, native physics or product function ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/doors.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7e1b479a4c1beaa245d39f1b64cef2ca8d38124e",
+      "sha256": "676d9b173c594a21fd92761c7737e160d1c19c5c17a5efd8cadd784c51cb6c33",
+      "bytes": 23116,
+      "lines": 672,
+      "ranges": [
+        [
+          1,
+          114
+        ],
+        [
+          323,
+          388
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landform-bounds-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current source ranges inspected; complete bytes preserved. No terrain, query, simulation, mesh, native physics or product function ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/windows.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "641ec9ece51e5fd869a6e139bf2ce791500e6720",
+      "sha256": "1558b154ebeb2ec83990f857600744dc6086859d467f5cfbaa974c04e6f3859d",
+      "bytes": 11140,
+      "lines": 294,
+      "ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landform-bounds-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current source ranges inspected; complete bytes preserved. No terrain, query, simulation, mesh, native physics or product function ran."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-COMBAT-CONFIG-ERROR-95E.json",
+    "ASSESSMENT-SAMPLED-SUPPORT-95E.json",
+    "ASSESSMENT-ANIMATION-EVALUATION-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Recipe and dispatch",
+      "trace": "Quantized landforms validate a near-unit tangent, 1–20m relief, 4–50m half length, 3–20m half width and collar relationships. Scene source validates the recipe against playable terrain; the extraction dispatcher separates FaultScarp from other fields. Height sampling clamps to the terrain edge then requests required support.",
+      "remaining": "Conditional late-side guard candidates do not prove any scene or query was accepted or executed; actual support and field behavior remain independently open."
+    },
+    {
+      "contract": "Door exemptions",
+      "trace": "A successful inside-door grab grants a per-character entity exemption and inserts the door into the character-controller filter. The scheduled passage update retains both while within the passage and removes both on revoke; windows instead toggle their own controller state. The core collision hook checks either collider side for an exemption.",
+      "remaining": "Native collision hook guarantees, entity teardown, all grab callers and config policy for existing dimensions remain open; no simulated door behavior is claimed."
+    },
+    {
+      "contract": "Seed identity and geology",
+      "trace": "StreamId requires a nonempty static purpose; seed derivation length-frames root and name and fixed-width little-endian context before taking a64-bit seed. Basalt, carbonate and granite use different stated purposes. Erosion variants describe procedural geological realizations.",
+      "remaining": "No global namespace uniqueness or hash collision impossibility follows from different strings. Do not turn authored geology into observed bedding or landform evidence."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-EROSION-SIDE-GUARD-LATE-001",
+      "lens": 4,
+      "additional_current_lenses": [
+        1,
+        3,
+        7,
+        8,
+        11,
+        12,
+        13
+      ],
+      "severity": "unassigned; bounded unnecessary preprocessing before known rejection",
+      "first_contract": "An already oversized horizontal extraction lattice should reach its size rejection before scanning its samples.",
+      "trace": "Use a hypothetical detail recipe with half_length_cm=5000, half_width_cm=1000, collar_cm=250, relief_cm=600, tangent=[10000,0], origin=[0,0], and a valid sandstone Massive surface. The shown parameter and collar checks admit these values and a centered ordinary heightfield overlaps the recipe. The input, heightfield, support queries and product were not constructed or executed. For a nonfault erosion kind, voxel spacing is0.5m, radius is ceil((50+2)/0.5)*0.5+0.5=52.5m, and side is round(2*52.5/0.5)+1=211. The source performs a 211×211 height sampling loop before checking side>195. If all support queries succeed it performs 44,521 queries and then returns ErosionVoxelGridBound without marching.",
+      "safeguards_and_limits": "The recipe constrains half length to at most50m and spacing to at least0.5m, so this example is bounded and is not an unbounded allocation claim. A support error can exit earlier, and no wall-clock time, normal generated recipe, complete scene or runtime outcome was measured. The owner must decide whether the side limit is intended to constrain only meshing or also preprocessing. Preserve the distinct vertical bound, support error and ordinary accepted geometry.",
+      "connected_repair_dependencies": [
+        "At the owning nonfault extractor, decide whether to reject a known oversized side before support sampling while retaining the vertical check after actual height range is known.",
+        "Trace producer choices and resource policy; keep this branch distinct from the fault-scarp prework question until exact aliases and error precedence are resolved.",
+        "Specify later accepted-boundary and oversized examples without running product validation here."
+      ],
+      "historical_related_candidates": [
+        "baseline-059/queue.json#/entries/1552",
+        "segovb/READ-L12-615.json"
+      ],
+      "accepted_historical_unique_count_change": 0,
+      "discovery": "partial; finite admitted-parameter arithmetic and code order established, earlier failure precedence and intended resource policy open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-FAULT-SIDE-GUARD-LATE-001",
+      "lens": 4,
+      "additional_current_lenses": [
+        1,
+        3,
+        7,
+        8,
+        11,
+        12,
+        13
+      ],
+      "severity": "unassigned; bounded fault preprocessing before known rejection",
+      "first_contract": "A known oversized fault lattice should not require a full fixed erosion pass before size rejection if the side limit governs preprocessing.",
+      "trace": "Use a hypothetical detail recipe with half_length_cm=5000, half_width_cm=1000, collar_cm=250, relief_cm=600, tangent=[10000,0], origin=[0,0], and a valid sandstone Massive surface. The shown parameter and collar checks admit these values and a centered ordinary heightfield overlaps the recipe. The input, heightfield, support queries and product were not constructed or executed. For FaultScarp, the source radius is ceil((50+1.25)/0.5)*0.5+0.5=52m and side is round(2*52/0.5)+1=209. The code constructs the surface and executes a 224-step erosion loop before checking side>195. Conditional on successful initial support samples and completion of that work, two full 209×209 per-cell closure passes occur per step: 19,569,088 cell visits in total, then VoxelGridBound is returned. This is static integer/source reasoning only; no product operation ran.",
+      "safeguards_and_limits": "Quantized admitted dimensions bound this example to209 per side and fixed224 steps; no runtime time, actual scene admission, producer prevalence or exploit is established. Per-cell branches may do less work, and a support failure can return before the loop. The separate nonfault path and vertical-size check have their own first contracts and error precedence.",
+      "connected_repair_dependencies": [
+        "Decide the fault extractor size guard policy and consider checking the known side before surface allocation and erosion, retaining typed support and vertical-range diagnostics.",
+        "Assess producer prevalence, normal-size and edge semantics and exact relationship to the nonfault guard independently.",
+        "Document later authorized checks for a permitted side, an oversized side and support-failure precedence."
+      ],
+      "historical_related_candidates": [
+        "baseline-059/queue.json#/entries/1552",
+        "segovb/READ-L12-615.json"
+      ],
+      "accepted_historical_unique_count_change": 0,
+      "discovery": "partial; bounded static loop count and late side guard established, error precedence and policy open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-284.json",
+      "sha256": "f6c4af2da479575576aa3991b65059f34c8e9c189a059c5c7201fc262cb25922",
+      "bytes": 13817,
+      "git_blob": "c68a6d3cd23a60071396853f660e7eba3e374afb",
+      "preserved_bytes": "recovered/landform-bounds-059/f6c4af2da479575576aa3991b65059f34c8e9c189a059c5c7201fc262cb25922.gz",
+      "published_sha256": "f6c4af2da479575576aa3991b65059f34c8e9c189a059c5c7201fc262cb25922",
+      "published_bytes": 13817,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-712.json",
+      "sha256": "f649863e213b242b6c6406148057eb5ec40d9d3e150e20487156bc095d694fd0",
+      "bytes": 664,
+      "git_blob": "80d1ed0fc57f9e63ee83c4f9ac5d0a953b99cb89",
+      "preserved_bytes": "recovered/landform-bounds-059/f649863e213b242b6c6406148057eb5ec40d9d3e150e20487156bc095d694fd0.gz",
+      "published_sha256": "f649863e213b242b6c6406148057eb5ec40d9d3e150e20487156bc095d694fd0",
+      "published_bytes": 664,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-713.json",
+      "sha256": "1c1cc265e9417d692e359cffa15a783c6883177c540ea1cea07e77192784802f",
+      "bytes": 674,
+      "git_blob": "c0bd34a09084399f765780e9a193ef4e0e5f4ba0",
+      "preserved_bytes": "recovered/landform-bounds-059/1c1cc265e9417d692e359cffa15a783c6883177c540ea1cea07e77192784802f.gz",
+      "published_sha256": "1c1cc265e9417d692e359cffa15a783c6883177c540ea1cea07e77192784802f",
+      "published_bytes": 674,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-714.json",
+      "sha256": "93fca1119f65b353a8feab1ffb26b306c2290c18a45f7537521eccee7ea2f689",
+      "bytes": 680,
+      "git_blob": "4745e6f9573af0125f68d793fe5bbe4cdd14c9e8",
+      "preserved_bytes": "recovered/landform-bounds-059/93fca1119f65b353a8feab1ffb26b306c2290c18a45f7537521eccee7ea2f689.gz",
+      "published_sha256": "93fca1119f65b353a8feab1ffb26b306c2290c18a45f7537521eccee7ea2f689",
+      "published_bytes": 680,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-715.json",
+      "sha256": "fe5b13d373ca45b86ae40e7b8139513ad52cb17b552c71b7490ff6a4ae364754",
+      "bytes": 683,
+      "git_blob": "e615a280f0ab1df5b2bd5d1ac34add18169d84fd",
+      "preserved_bytes": "recovered/landform-bounds-059/fe5b13d373ca45b86ae40e7b8139513ad52cb17b552c71b7490ff6a4ae364754.gz",
+      "published_sha256": "fe5b13d373ca45b86ae40e7b8139513ad52cb17b552c71b7490ff6a4ae364754",
+      "published_bytes": 683,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-716.json",
+      "sha256": "ccc974f9c445a5fef7e712ef115c443cfca4a9643015a890c8fe3bf709993745",
+      "bytes": 681,
+      "git_blob": "6ef4ef6bcc54d97e8c98c30c8f56b48677b341d1",
+      "preserved_bytes": "recovered/landform-bounds-059/ccc974f9c445a5fef7e712ef115c443cfca4a9643015a890c8fe3bf709993745.gz",
+      "published_sha256": "ccc974f9c445a5fef7e712ef115c443cfca4a9643015a890c8fe3bf709993745",
+      "published_bytes": 681,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-717.json",
+      "sha256": "8473f572439b815fecc5ab865f2ffd84b2694b38d51e6609916f9523f96b2aa7",
+      "bytes": 679,
+      "git_blob": "670e46902bcb5ab3a82b88651dcac22a8964606c",
+      "preserved_bytes": "recovered/landform-bounds-059/8473f572439b815fecc5ab865f2ffd84b2694b38d51e6609916f9523f96b2aa7.gz",
+      "published_sha256": "8473f572439b815fecc5ab865f2ffd84b2694b38d51e6609916f9523f96b2aa7",
+      "published_bytes": 679,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-284.json",
+      "sha256": "f71dee4d28e47d63910aa3d952b809884048e06047e88abc1e1a09761d1ae44e",
+      "bytes": 668,
+      "git_blob": "d29fee6b0ccb5c1183748c4284d141401f4e97c4",
+      "preserved_bytes": "recovered/landform-bounds-059/f71dee4d28e47d63910aa3d952b809884048e06047e88abc1e1a09761d1ae44e.gz",
+      "published_sha256": "f71dee4d28e47d63910aa3d952b809884048e06047e88abc1e1a09761d1ae44e",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-284.json",
+      "sha256": "118294ddc244f7ee2a2eacb32844a85ef7c96599b86442f855e75bb8fe213e59",
+      "bytes": 54365,
+      "git_blob": "ebdfb566dc3ee973aa5c4759d9b583404da26ee5",
+      "preserved_bytes": "recovered/landform-bounds-059/118294ddc244f7ee2a2eacb32844a85ef7c96599b86442f855e75bb8fe213e59.gz",
+      "published_sha256": "118294ddc244f7ee2a2eacb32844a85ef7c96599b86442f855e75bb8fe213e59",
+      "published_bytes": 54365,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 verification"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-614.json",
+      "sha256": "9adb2d9cb4a0c6a34bd5fa017c07b3197b019b09bce350fa6be2672b51dc543f",
+      "bytes": 2172,
+      "git_blob": "0a2b667630c8f185c13be95460411df8bfcc3303",
+      "preserved_bytes": "recovered/landform-bounds-059/9adb2d9cb4a0c6a34bd5fa017c07b3197b019b09bce350fa6be2672b51dc543f.gz",
+      "published_sha256": "9adb2d9cb4a0c6a34bd5fa017c07b3197b019b09bce350fa6be2672b51dc543f",
+      "published_bytes": 2172,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 plan"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-615.json",
+      "sha256": "e8d78d2a99d04e5b5266aaab7265b611bd6896658330c06a5261f6a43fe21d4b",
+      "bytes": 718,
+      "git_blob": "f3658e1b939c07677e97f5e69b5cdf5203dd37aa",
+      "preserved_bytes": "recovered/landform-bounds-059/e8d78d2a99d04e5b5266aaab7265b611bd6896658330c06a5261f6a43fe21d4b.gz",
+      "published_sha256": "e8d78d2a99d04e5b5266aaab7265b611bd6896658330c06a5261f6a43fe21d4b",
+      "published_bytes": 718,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 plan"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-616.json",
+      "sha256": "2959297a61bbd895a43f9e398d88dfc61e77c0472f87e33931a57b0708d8575b",
+      "bytes": 2196,
+      "git_blob": "d7910fd40c8e9732cfa8cd038890512912710f43",
+      "preserved_bytes": "recovered/landform-bounds-059/2959297a61bbd895a43f9e398d88dfc61e77c0472f87e33931a57b0708d8575b.gz",
+      "published_sha256": "2959297a61bbd895a43f9e398d88dfc61e77c0472f87e33931a57b0708d8575b",
+      "published_bytes": 2196,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 plan"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-614.json",
+      "sha256": "e0bf9c75917090efa409d92ad48d5e45fcc8eadd8f5b7ab3931b5a47a56d80d0",
+      "bytes": 6506,
+      "git_blob": "876f000be0eff48741307b5ce5ae5274d9b7dcbb",
+      "preserved_bytes": "recovered/landform-bounds-059/e0bf9c75917090efa409d92ad48d5e45fcc8eadd8f5b7ab3931b5a47a56d80d0.gz",
+      "published_sha256": "e0bf9c75917090efa409d92ad48d5e45fcc8eadd8f5b7ab3931b5a47a56d80d0",
+      "published_bytes": 6506,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-615.json",
+      "sha256": "5363144b9cf51172e528a3bf78ff0cf6108515e07aae87f1b87b52fb99b2012c",
+      "bytes": 2845,
+      "git_blob": "33d62a1f71a3f0e0f57ece5a59432d724ed7514c",
+      "preserved_bytes": "recovered/landform-bounds-059/5363144b9cf51172e528a3bf78ff0cf6108515e07aae87f1b87b52fb99b2012c.gz",
+      "published_sha256": "5363144b9cf51172e528a3bf78ff0cf6108515e07aae87f1b87b52fb99b2012c",
+      "published_bytes": 2845,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-616.json",
+      "sha256": "c1c6d0dae0b02c954853f01ec80b4af237ea3eae8810d8e33edcb7bd2a82a6a0",
+      "bytes": 5722,
+      "git_blob": "85deb8deebdf739cc8129c334ec9da5dbcd381b9",
+      "preserved_bytes": "recovered/landform-bounds-059/c1c6d0dae0b02c954853f01ec80b4af237ea3eae8810d8e33edcb7bd2a82a6a0.gz",
+      "published_sha256": "c1c6d0dae0b02c954853f01ec80b4af237ea3eae8810d8e33edcb7bd2a82a6a0",
+      "published_bytes": 5722,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-775.json",
+      "sha256": "7009d76ead8846c4557ac3617f929638823cfa053725f4f273cd8af9f3f9cf80",
+      "bytes": 1189,
+      "git_blob": "a221ae9914070ae13e75d61e533ed374f8646556",
+      "preserved_bytes": "recovered/landform-bounds-059/7009d76ead8846c4557ac3617f929638823cfa053725f4f273cd8af9f3f9cf80.gz",
+      "published_sha256": "7009d76ead8846c4557ac3617f929638823cfa053725f4f273cd8af9f3f9cf80",
+      "published_bytes": 1189,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-776.json",
+      "sha256": "99fa02842bf628e23182deb9cdd24a641eb86d42fe379f327b0bec1172f33fea",
+      "bytes": 1185,
+      "git_blob": "4973fc2329e442e11ba355f93903782276ecede7",
+      "preserved_bytes": "recovered/landform-bounds-059/99fa02842bf628e23182deb9cdd24a641eb86d42fe379f327b0bec1172f33fea.gz",
+      "published_sha256": "99fa02842bf628e23182deb9cdd24a641eb86d42fe379f327b0bec1172f33fea",
+      "published_bytes": 1185,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-777.json",
+      "sha256": "f4f85a6581a09277a3fc202e14c4ae7fef81ca49b8e1b7b0e38583c9bbdf32bb",
+      "bytes": 1183,
+      "git_blob": "1f64aaf5ad010d6f7450e8a9595c3bf60afa1277",
+      "preserved_bytes": "recovered/landform-bounds-059/f4f85a6581a09277a3fc202e14c4ae7fef81ca49b8e1b7b0e38583c9bbdf32bb.gz",
+      "published_sha256": "f4f85a6581a09277a3fc202e14c4ae7fef81ca49b8e1b7b0e38583c9bbdf32bb",
+      "published_bytes": 1183,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-778.json",
+      "sha256": "3f76d246d54110d34a99e810ae8df21a2196652867adbe7649d6794a60a7910c",
+      "bytes": 1153,
+      "git_blob": "76058876fc596c800de8ad4ada22cb7d19859de5",
+      "preserved_bytes": "recovered/landform-bounds-059/3f76d246d54110d34a99e810ae8df21a2196652867adbe7649d6794a60a7910c.gz",
+      "published_sha256": "3f76d246d54110d34a99e810ae8df21a2196652867adbe7649d6794a60a7910c",
+      "published_bytes": 1153,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-779.json",
+      "sha256": "6eff69ec2b00cf552c3466a62d636beba41357a15d16f27e7556f4e13cdba31f",
+      "bytes": 1167,
+      "git_blob": "3b2e322973af843e273256de023e160713db316d",
+      "preserved_bytes": "recovered/landform-bounds-059/6eff69ec2b00cf552c3466a62d636beba41357a15d16f27e7556f4e13cdba31f.gz",
+      "published_sha256": "6eff69ec2b00cf552c3466a62d636beba41357a15d16f27e7556f4e13cdba31f",
+      "published_bytes": 1167,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-780.json",
+      "sha256": "b06e3eff0a8e89272776ed270fe34ff2c86822b2b64151cdd7fa7e5f529e639d",
+      "bytes": 1169,
+      "git_blob": "56678e3223f55e57b04d4a329ab717c937dfdbc5",
+      "preserved_bytes": "recovered/landform-bounds-059/b06e3eff0a8e89272776ed270fe34ff2c86822b2b64151cdd7fa7e5f529e639d.gz",
+      "published_sha256": "b06e3eff0a8e89272776ed270fe34ff2c86822b2b64151cdd7fa7e5f529e639d",
+      "published_bytes": 1169,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-781.json",
+      "sha256": "c1d8de793016955daa115e080f290d0d26bff30180557a06d41d686b4483e37f",
+      "bytes": 1175,
+      "git_blob": "18fee15602cac45be492206b48c19c027fd688fd",
+      "preserved_bytes": "recovered/landform-bounds-059/c1d8de793016955daa115e080f290d0d26bff30180557a06d41d686b4483e37f.gz",
+      "published_sha256": "c1d8de793016955daa115e080f290d0d26bff30180557a06d41d686b4483e37f",
+      "published_bytes": 1175,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-782.json",
+      "sha256": "b0b2f89e34044762557285dfdc4bc6d8035bd18d59475d4b09057ab0e9006ba2",
+      "bytes": 1171,
+      "git_blob": "b617de7746263700b9777405b13e2387e3eaaa30",
+      "preserved_bytes": "recovered/landform-bounds-059/b0b2f89e34044762557285dfdc4bc6d8035bd18d59475d4b09057ab0e9006ba2.gz",
+      "published_sha256": "b0b2f89e34044762557285dfdc4bc6d8035bd18d59475d4b09057ab0e9006ba2",
+      "published_bytes": 1171,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-783.json",
+      "sha256": "839bb73148ba4076e1a8bd19aa7778402d6896a1461db6ae1bb3e636b3471f27",
+      "bytes": 1167,
+      "git_blob": "b809ac194e779453d4b50a00527afc052697bee8",
+      "preserved_bytes": "recovered/landform-bounds-059/839bb73148ba4076e1a8bd19aa7778402d6896a1461db6ae1bb3e636b3471f27.gz",
+      "published_sha256": "839bb73148ba4076e1a8bd19aa7778402d6896a1461db6ae1bb3e636b3471f27",
+      "published_bytes": 1167,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-614.json",
+      "sha256": "eebece051742b57154387c495b0602e3b7e5e4c7f7fee257bf650d84c83dcf6d",
+      "bytes": 840,
+      "git_blob": "240ab35307a8f1a37a07fb2ace3ee091e64f6f77",
+      "preserved_bytes": "recovered/landform-bounds-059/eebece051742b57154387c495b0602e3b7e5e4c7f7fee257bf650d84c83dcf6d.gz",
+      "published_sha256": "eebece051742b57154387c495b0602e3b7e5e4c7f7fee257bf650d84c83dcf6d",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-615.json",
+      "sha256": "aa9ff8d55318706b0f845f7c3aeeed2236cddf32633a4d86b55f749099e2b226",
+      "bytes": 840,
+      "git_blob": "d0a09f3e935ea7a98ae43de0796f46b1ec986dfc",
+      "preserved_bytes": "recovered/landform-bounds-059/aa9ff8d55318706b0f845f7c3aeeed2236cddf32633a4d86b55f749099e2b226.gz",
+      "published_sha256": "aa9ff8d55318706b0f845f7c3aeeed2236cddf32633a4d86b55f749099e2b226",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-616.json",
+      "sha256": "219d9f1c35fb5c0a7783f9ea26540820bf6709b3fbedb3d347538059cabca3d5",
+      "bytes": 840,
+      "git_blob": "642a62ca079175dfcea64fad5cba675589b1de4e",
+      "preserved_bytes": "recovered/landform-bounds-059/219d9f1c35fb5c0a7783f9ea26540820bf6709b3fbedb3d347538059cabca3d5.gz",
+      "published_sha256": "219d9f1c35fb5c0a7783f9ea26540820bf6709b3fbedb3d347538059cabca3d5",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-614.json",
+      "sha256": "21a509eb76f56c9b1dd679ad3a753192399566a9dd83c186c189066416ef5fdf",
+      "bytes": 558,
+      "git_blob": "30f060f2761a673195e56c8c430e4b6f5745b5fb",
+      "preserved_bytes": "recovered/landform-bounds-059/21a509eb76f56c9b1dd679ad3a753192399566a9dd83c186c189066416ef5fdf.gz",
+      "published_sha256": "21a509eb76f56c9b1dd679ad3a753192399566a9dd83c186c189066416ef5fdf",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-615.json",
+      "sha256": "b58eb939bf13f3fb5c06b8cce1f4fec2d9f9e071ba8732a1605ffc86d7f1aac5",
+      "bytes": 558,
+      "git_blob": "1c0f3ce839ca859602c59b133a5aef75d7b51ee0",
+      "preserved_bytes": "recovered/landform-bounds-059/b58eb939bf13f3fb5c06b8cce1f4fec2d9f9e071ba8732a1605ffc86d7f1aac5.gz",
+      "published_sha256": "b58eb939bf13f3fb5c06b8cce1f4fec2d9f9e071ba8732a1605ffc86d7f1aac5",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-616.json",
+      "sha256": "c499f21d361738aff0a27a4d373fc54e79e92a17a28bde6c50e4a58f8c09a3bc",
+      "bytes": 558,
+      "git_blob": "6e3890510fd712169a7eae43e0dd904140691a64",
+      "preserved_bytes": "recovered/landform-bounds-059/c499f21d361738aff0a27a4d373fc54e79e92a17a28bde6c50e4a58f8c09a3bc.gz",
+      "published_sha256": "c499f21d361738aff0a27a4d373fc54e79e92a17a28bde6c50e4a58f8c09a3bc",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    }
+  ],
+  "prior_preserved_independent_receipts": {
+    "adler/READ-L11-283.json": "ASSESSMENT-COMBAT-CONFIG-ERROR-95E.json",
+    "qualification": "Original independent Lens11 includes historical1868–1870 and remains separately attributed; no new ordered credit."
+  },
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1550",
+        "/entries/1551",
+        "/entries/1552",
+        "/entries/1553",
+        "/entries/1558"
+      ],
+      "qualification": "Original059 pending obligations; no assumed alias or checkpoint3821 attribution."
+    }
+  ],
+  "historical_attribution_qualification": "Original Segovb614–616 own full fresh historical ranges, independent Adler283/284 retain their own ranges. Historical runtime71 differs from current98 and does not establish the later IK cache. No source equality fills a missing row-level revision or transfers earlier records into checkpoint3821.",
+  "remaining": "Continue original1877 and all13 lenses, supported recipe/scene prevalence, product resource policy, native collision and seed contracts, error precedence and exact aliases. Original3821 final ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

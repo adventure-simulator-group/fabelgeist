@@ -1,0 +1,387 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1868,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Explicit current equality is per role; it does not transfer lens verdict or fill a missing revision-as-recorded.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1868",
+      "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "lines": 66,
+      "new_personal_read_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "LANDFORM-BOUNDS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+        "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+        "bytes": 3223,
+        "lines": 66,
+        "git_blob": "7d549460870d2e41d86f1ef10932d2b099a58084",
+        "preserved_bytes": "main-advance-95e/landform-bounds-evidence/current-1868.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            66
+          ]
+        ],
+        "qualification": "Role1870 current98-line snapshot body was separately read and differs from historical71-line body. Other current roles match; only specified current ranges read separately. No test, generation or simulation was run."
+      },
+      "qualification": "Complete historical Lens1 body read at this identity; original Segovb and Adler evidence retains distinct authorship and exact ranges."
+    },
+    {
+      "original_index": 1869,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Explicit current equality is per role; it does not transfer lens verdict or fill a missing revision-as-recorded.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1869",
+      "sha256": "af87991f5cb3f8fd2a6398ea5135c5daacd24c7b9c2b23181ebecec7bc516ad3",
+      "lines": 112,
+      "new_personal_read_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "LANDFORM-BOUNDS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+        "sha256": "af87991f5cb3f8fd2a6398ea5135c5daacd24c7b9c2b23181ebecec7bc516ad3",
+        "bytes": 4630,
+        "lines": 112,
+        "git_blob": "d86dec4eb0cf74caa453290cd3575561371a01ad",
+        "preserved_bytes": "main-advance-95e/landform-bounds-evidence/current-1869.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            59
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            112
+          ]
+        ],
+        "qualification": "Role1870 current98-line snapshot body was separately read and differs from historical71-line body. Other current roles match; only specified current ranges read separately. No test, generation or simulation was run."
+      },
+      "qualification": "Complete historical Lens1 body read at this identity; original Segovb and Adler evidence retains distinct authorship and exact ranges."
+    },
+    {
+      "original_index": 1870,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Explicit current equality is per role; it does not transfer lens verdict or fill a missing revision-as-recorded.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1870",
+      "sha256": "5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970",
+      "lines": 71,
+      "new_personal_read_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "LANDFORM-BOUNDS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+        "sha256": "39a9e16f5913535b637c6b4fd26ef5d4d2f900fc7ea5ae4f1f2eb790d6dff28f",
+        "bytes": 3309,
+        "lines": 98,
+        "git_blob": "a9e2ddafa154aea5bd420ff42968d491ca726344",
+        "preserved_bytes": "main-advance-95e/landform-bounds-evidence/current-1870.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "current_personal_ranges": [
+          [
+            1,
+            98
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [],
+        "qualification": "Role1870 current98-line snapshot body was separately read and differs from historical71-line body. Other current roles match; only specified current ranges read separately. No test, generation or simulation was run."
+      },
+      "qualification": "Complete historical Lens1 body read at this identity; original Segovb and Adler evidence retains distinct authorship and exact ranges."
+    },
+    {
+      "original_index": 1871,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/doors.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Explicit current equality is per role; it does not transfer lens verdict or fill a missing revision-as-recorded.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1871",
+      "sha256": "daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+      "lines": 132,
+      "new_personal_read_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "LANDFORM-BOUNDS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/doors.rs",
+        "sha256": "daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+        "bytes": 3837,
+        "lines": 132,
+        "git_blob": "abe8d99a2bdbadf47b4be72ff873a00e7a91fae3",
+        "preserved_bytes": "main-advance-95e/landform-bounds-evidence/current-1871.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            132
+          ]
+        ],
+        "qualification": "Role1870 current98-line snapshot body was separately read and differs from historical71-line body. Other current roles match; only specified current ranges read separately. No test, generation or simulation was run."
+      },
+      "qualification": "Complete historical Lens1 body read at this identity; original Segovb and Adler evidence retains distinct authorship and exact ranges."
+    },
+    {
+      "original_index": 1872,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/erosional_terrain.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Explicit current equality is per role; it does not transfer lens verdict or fill a missing revision-as-recorded.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1872",
+      "sha256": "c95efbf7c798d1e7570da38a0082bd99661cc4958f1dcb6818126dc30faf2d88",
+      "lines": 395,
+      "new_personal_read_ranges": [
+        [
+          1,
+          395
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "LANDFORM-BOUNDS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/erosional_terrain.rs",
+        "sha256": "c95efbf7c798d1e7570da38a0082bd99661cc4958f1dcb6818126dc30faf2d88",
+        "bytes": 15538,
+        "lines": 395,
+        "git_blob": "6b3a37034bfaf67d010826f9972277a9e4b97547",
+        "preserved_bytes": "main-advance-95e/landform-bounds-evidence/current-1872.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            395
+          ]
+        ],
+        "qualification": "Role1870 current98-line snapshot body was separately read and differs from historical71-line body. Other current roles match; only specified current ranges read separately. No test, generation or simulation was run."
+      },
+      "qualification": "Complete historical Lens1 body read at this identity; original Segovb and Adler evidence retains distinct authorship and exact ranges."
+    },
+    {
+      "original_index": 1873,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/erosional_terrain/basalt.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Explicit current equality is per role; it does not transfer lens verdict or fill a missing revision-as-recorded.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1873",
+      "sha256": "fefc6bc76814a799129733d42c9a58b2fc8eb417a549d35c106dfe48b12fa6c0",
+      "lines": 18,
+      "new_personal_read_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "LANDFORM-BOUNDS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/erosional_terrain/basalt.rs",
+        "sha256": "fefc6bc76814a799129733d42c9a58b2fc8eb417a549d35c106dfe48b12fa6c0",
+        "bytes": 804,
+        "lines": 18,
+        "git_blob": "fe6b7471418c36617b9fb32d902aa15cc6c09e13",
+        "preserved_bytes": "main-advance-95e/landform-bounds-evidence/current-1873.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            18
+          ]
+        ],
+        "qualification": "Role1870 current98-line snapshot body was separately read and differs from historical71-line body. Other current roles match; only specified current ranges read separately. No test, generation or simulation was run."
+      },
+      "qualification": "Complete historical Lens1 body read at this identity; original Segovb and Adler evidence retains distinct authorship and exact ranges."
+    },
+    {
+      "original_index": 1874,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/erosional_terrain/carbonate.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Explicit current equality is per role; it does not transfer lens verdict or fill a missing revision-as-recorded.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1874",
+      "sha256": "50c4644d1c77c5c6ee85b83372994d7100c8294dcc5553574a20503748885416",
+      "lines": 35,
+      "new_personal_read_ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "LANDFORM-BOUNDS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/erosional_terrain/carbonate.rs",
+        "sha256": "50c4644d1c77c5c6ee85b83372994d7100c8294dcc5553574a20503748885416",
+        "bytes": 1354,
+        "lines": 35,
+        "git_blob": "2fbb7be34a302d4b3ef7ea43b94ba2dbbdcfd6ab",
+        "preserved_bytes": "main-advance-95e/landform-bounds-evidence/current-1874.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            35
+          ]
+        ],
+        "qualification": "Role1870 current98-line snapshot body was separately read and differs from historical71-line body. Other current roles match; only specified current ranges read separately. No test, generation or simulation was run."
+      },
+      "qualification": "Complete historical Lens1 body read at this identity; original Segovb and Adler evidence retains distinct authorship and exact ranges."
+    },
+    {
+      "original_index": 1875,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/erosional_terrain/granite.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Explicit current equality is per role; it does not transfer lens verdict or fill a missing revision-as-recorded.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1875",
+      "sha256": "edac5e0f451e979b94a408567152ae143aed8f04ec056c874bda7e0d5377575a",
+      "lines": 65,
+      "new_personal_read_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "LANDFORM-BOUNDS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/erosional_terrain/granite.rs",
+        "sha256": "edac5e0f451e979b94a408567152ae143aed8f04ec056c874bda7e0d5377575a",
+        "bytes": 2481,
+        "lines": 65,
+        "git_blob": "05d476e4a6ee270e300bff80542b75cfadc203cb",
+        "preserved_bytes": "main-advance-95e/landform-bounds-evidence/current-1875.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            65
+          ]
+        ],
+        "qualification": "Role1870 current98-line snapshot body was separately read and differs from historical71-line body. Other current roles match; only specified current ranges read separately. No test, generation or simulation was run."
+      },
+      "qualification": "Complete historical Lens1 body read at this identity; original Segovb and Adler evidence retains distinct authorship and exact ranges."
+    },
+    {
+      "original_index": 1876,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/erosional_terrain/slump.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Explicit current equality is per role; it does not transfer lens verdict or fill a missing revision-as-recorded.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1876",
+      "sha256": "075f69b1e924975c15a53ab61cb95e2da98e849aad132968872ab0b214771b19",
+      "lines": 30,
+      "new_personal_read_ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "LANDFORM-BOUNDS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/erosional_terrain/slump.rs",
+        "sha256": "075f69b1e924975c15a53ab61cb95e2da98e849aad132968872ab0b214771b19",
+        "bytes": 1320,
+        "lines": 30,
+        "git_blob": "d4d769d376f8ae5731d7149cd4e4db873bef4b9d",
+        "preserved_bytes": "main-advance-95e/landform-bounds-evidence/current-1876.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            30
+          ]
+        ],
+        "qualification": "Role1870 current98-line snapshot body was separately read and differs from historical71-line body. Other current roles match; only specified current ranges read separately. No test, generation or simulation was run."
+      },
+      "qualification": "Complete historical Lens1 body read at this identity; original Segovb and Adler evidence retains distinct authorship and exact ranges."
+    }
+  ],
+  "observations": [
+    "Complete historical procedural/ragdoll config, snapshot, doors, erosion field and four geological field bodies read to actual EOF.",
+    "The current runtime snapshot differs and was separately read through98 lines; original71-line source cannot establish the later inverse-kinematics cache.",
+    "MuscleRelease Never and separate rock/landform variants are deliberate semantic modes, not compatibility paths. Geological fields are procedural realizations, not observations or executed tests."
+  ],
+  "qualification": "Personal historical Lens1 source reads, independently read current runtime and bounded current owner traces. Original059 evidence is not checkpoint3821.",
+  "next_original_role": 1877
+}
