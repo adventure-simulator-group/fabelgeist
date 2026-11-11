@@ -1,0 +1,938 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2158–2162, connected economy tail, original calendar arithmetic finding, and selected geographic and economy callers.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2158-2162.json",
+  "git_membership_evidence": "CALENDAR-ECONOMY-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-core/src/strategic_schedule.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "00912abaa99cd109ae11c652fa04099875ea1047",
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "bytes": 48824,
+      "lines": 1363,
+      "ranges": [
+        [
+          123,
+          136
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calendar-economy-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current supporting ranges credited; complete bytes preserved. No future ordered role, independent lens, product build, test or runtime credit."
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f7978724b74a070ff2f5f2c00324276d753a5015",
+      "sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+      "bytes": 12334,
+      "lines": 364,
+      "ranges": [
+        [
+          104,
+          174
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calendar-economy-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current supporting ranges credited; complete bytes preserved. No future ordered role, independent lens, product build, test or runtime credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "965aec5634dad55bab94097ddccbf54049135848",
+      "sha256": "f63df87344c6f358a0bcaa63481d349415e8e5481acb42031232d17cf20db125",
+      "bytes": 23560,
+      "lines": 651,
+      "ranges": [
+        [
+          284,
+          345
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calendar-economy-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current supporting ranges credited; complete bytes preserved. No future ordered role, independent lens, product build, test or runtime credit."
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "457b4b0f8a3ef81218680f80fa91573f8faaaaf3",
+      "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "bytes": 172137,
+      "lines": 4796,
+      "ranges": [
+        [
+          1979,
+          1997
+        ],
+        [
+          2062,
+          2113
+        ],
+        [
+          2129,
+          2190
+        ],
+        [
+          2246,
+          2267
+        ],
+        [
+          2319,
+          2334
+        ],
+        [
+          3873,
+          3901
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calendar-economy-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current supporting ranges credited; complete bytes preserved. No future ordered role, independent lens, product build, test or runtime credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/world_import.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bdf15701efea4303425b67cfc3453ec2b8944e32",
+      "sha256": "cc83d5f3e3c415a12dc0ced11a5e9271a2b115d3ed5ac9703d1a8b8ae9728d22",
+      "bytes": 41257,
+      "lines": 1159,
+      "ranges": [
+        [
+          33,
+          68
+        ],
+        [
+          108,
+          130
+        ],
+        [
+          411,
+          437
+        ],
+        [
+          522,
+          719
+        ],
+        [
+          736,
+          832
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calendar-economy-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current supporting ranges credited; complete bytes preserved. No future ordered role, independent lens, product build, test or runtime credit."
+    },
+    {
+      "path": "crates/adventuresim-world-import/src/validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8886f57ebf1f921f3f28d01ce67f01b594612691",
+      "sha256": "4258958e343d0eb53afa52ccd4e56172a56baf3719da65240a7f535e1e27993f",
+      "bytes": 44513,
+      "lines": 1145,
+      "ranges": [
+        [
+          152,
+          164
+        ],
+        [
+          328,
+          365
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calendar-economy-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current supporting ranges credited; complete bytes preserved. No future ordered role, independent lens, product build, test or runtime credit."
+    },
+    {
+      "path": "crates/adventuresim-world-import/src/builder.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9a96257963f451d8192b0e02ed3ae1a546b9a453",
+      "sha256": "57bd71f00e947ce96a29c30fe9f0f1dc07eac6ebd46701c43016e2f36df9d2d7",
+      "bytes": 5056,
+      "lines": 147,
+      "ranges": [
+        [
+          110,
+          145
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calendar-economy-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current supporting ranges credited; complete bytes preserved. No future ordered role, independent lens, product build, test or runtime credit."
+    },
+    {
+      "path": "crates/adventuresim-world-import/src/sources/viabundus/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4f4e6e614d4b09676d6022ec8791c7653f8a7f94",
+      "sha256": "028470879368328c9831eacc24b3d0ca65e050049c48f63ea15fc8a0aaf50c88",
+      "bytes": 21487,
+      "lines": 620,
+      "ranges": [
+        [
+          239,
+          265
+        ],
+        [
+          479,
+          486
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calendar-economy-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current supporting ranges credited; complete bytes preserved. No future ordered role, independent lens, product build, test or runtime credit."
+    },
+    {
+      "path": "crates/adventuresim-world-import/src/sources/economies.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "46d202374f8cd2c69823033458795665369b9f4d",
+      "sha256": "9a577de6faa9d0063391a110303609ea8506f9e71395ad4864b010dfa515f454",
+      "bytes": 5007,
+      "lines": 133,
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calendar-economy-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current supporting ranges credited; complete bytes preserved. No future ordered role, independent lens, product build, test or runtime credit."
+    },
+    {
+      "path": "crates/adventuresim-world-import/src/main.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "64d175518f6fa86cde8b76c6ec219b29548183ea",
+      "sha256": "da3dac48cf0bb76bda8fadc0c37748dbdfc7dffc59d6ce377cdffe56057d939f",
+      "bytes": 91005,
+      "lines": 2133,
+      "ranges": [
+        [
+          590,
+          642
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calendar-economy-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current supporting ranges credited; complete bytes preserved. No future ordered role, independent lens, product build, test or runtime credit."
+    },
+    {
+      "path": "crates/adventuresim-world-import/src/terrain_feature_validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b8a507dc80a58202b20b94a8c950fab47ef5fb91",
+      "sha256": "fddef2d72e01c330d4ad4584303119064c4d7629d43bf7ed6489b246d20147af",
+      "bytes": 2155,
+      "lines": 57,
+      "ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calendar-economy-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current supporting ranges credited; complete bytes preserved. No future ordered role, independent lens, product build, test or runtime credit."
+    },
+    {
+      "path": "crates/adventuresim-terrain/src/road_pack.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d0c4d6a3e65fefbd650374acd530cc30649033a5",
+      "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "bytes": 12472,
+      "lines": 344,
+      "ranges": [
+        [
+          178,
+          193
+        ],
+        [
+          197,
+          220
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calendar-economy-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current supporting ranges credited; complete bytes preserved. No future ordered role, independent lens, product build, test or runtime credit."
+    },
+    {
+      "path": "crates/adventuresim-world-import/src/error.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e309874226871e80dc4a1d74d1df0fd6b796d1ca",
+      "sha256": "e68abbef1439219462c4e52da5e419ce9c1757906d9fe4156abd420e348055b6",
+      "bytes": 2070,
+      "lines": 65,
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calendar-economy-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current supporting ranges credited; complete bytes preserved. No future ordered role, independent lens, product build, test or runtime credit."
+    }
+  ],
+  "native_semantics_evidence": [
+    {
+      "archive": "native-evidence/serde-derive-1.0.229/serde_derive-1.0.229.crate",
+      "archive_sha256": "e7a5d71263a5a7d47b41f6b3f06ba276f10cc18b0931f1799f710578e2309348",
+      "member": "serde_derive-1.0.229/src/de.rs",
+      "member_sha256": "a04fdb321ce47b479b42b2dd0ca1cfd57db88e06451d7dc95303c582fedc135c",
+      "personally_inspected_ranges": [
+        [
+          306,
+          312
+        ],
+        [
+          434,
+          440
+        ]
+      ],
+      "qualification": "Pinned macro source matches Cargo.lock from earlier checkpoint; no macro expansion, deserialization or native schema proof."
+    },
+    {
+      "path": "native-evidence/rust-nightly-2026-07-13/reference/expressions/operator-expr.html.gz",
+      "content_encoding": "gzip",
+      "sha256_uncompressed": "d51cc1160b3f46b63b0189e0bfed536581e30dea52b56b18908ff413b83a758c",
+      "personally_inspected_ranges": [
+        [
+          335,
+          349
+        ]
+      ],
+      "qualification": "Previously inspected pinned overflow reference; deployment profile remains unknown."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-BESTIARY-ADMISSION-95E.json",
+    "ASSESSMENT-ROAD-BASIS-POINTS-95E.json",
+    "ASSESSMENT-L1-STRATEGIC-CALENDAR.json"
+  ],
+  "observations": [
+    {
+      "contract": "Daily-share multiplication saturates before division",
+      "trace": "StrategicMinute::cumulative_daily_share_minutes computes saturating_mul(share)/1440. For a default all-zero daily schedule, leisure is1440. Let start=floor((2^64-1)/1440)+1 =12810238940076078 and end=start+1; both products exceed u64, so both cumulative results are floor((2^64-1)/1440) and restorative_leisure_minutes subtracts equal values to return0. The mathematically intended all-leisure interval is1 and both start/end and the correct cumulative amounts fit u64. The settlement rest source uses this value for injury recovery.",
+      "remaining": "This is symbolic integer reasoning, not an executed function, rest, test or runtime outcome. The example is roughly24.4 billion calendar years after epoch; actual clock admission, practical reachability, and all time-family aliases remain open. Original Adler338 q132 already identified premature saturation; the specific selected consumer and example are newly traced."
+    },
+    {
+      "contract": "Raw population level crosses a later arithmetic owner",
+      "trace": "The compiler source maps Viabundus population to1..5 and its world validator later rejects levels outside1..5. The public infer_settlement_economy accepts i32 and evaluates u16::try_from(population_level.max(1)).unwrap_or(1) * 85 before saturating additions. For772, the mathematical product65620 exceeds u16::MAX; under enabled integer overflow checks that multiplication panics. For values above65535 conversion selects1 instead. Database settlement import stores the raw i32 after its other checks, and finish_world_data_import later recomputes economy after industry checks; the inspected importer body has no population-level range check. Compiler world semantics also invokes economy re-inference before its later level validation.",
+      "remaining": "No crafted import, payload, database write, calculation, panic, profile or runtime ran. Actual other admission constraints, transaction behavior, deployed overflow profile and reachability remain open. With a constructor-valid industry profile the selected score path is conditional on earlier checks; do not generalize outcomes without overflow checks. Original Adler338 noted arithmetic risk but did not report ordinary reachability or increase its accepted unique count."
+    },
+    {
+      "contract": "Derived meat abundance after a gap-fill entry",
+      "trace": "For population_level<=1 and a valid industry profile containing derived dairy or hides, the first industry loop adds Dairy or Hides rather than Meat. Gap fill inserts Meat at abundance1 with DeterministicGapFill; the later explicit dairy/hides branch adds Meat at abundance3 with DerivedFromCanonicalEvidence. The add closure updates an existing abundance by max but leaves the earlier provenance unchanged, so the resulting source-level entry pairs3 with DeterministicGapFill. The serializer exports that provenance, and both compiler and database final checks compare against the same inference.",
+      "remaining": "This is a hypothetical source trace, not an executed world or actual dataset match. Grazing inference can produce dairy/hides, but a real small settlement matching all conditions is unproved. The intended provenance semantics may mean category origin rather than the evidence for final abundance; resolve that policy before prescribing a change. Adler338 historical disposition said all derived additions precede gap fill; line289 demonstrates an exception, so the earlier conclusion is qualified, not silently rewritten."
+    },
+    {
+      "contract": "Economy error ownership",
+      "trace": "SettlementEconomyProfile::validate returns String for unsupported rules/score and for invalid canonical collections. infer_settlement_economy propagates that String. The world compiler wraps it in its generic Error::Validation(String) with settlement and operation context; the database finalizer propagates String through its native result.",
+      "remaining": "The two predicates and callers are real source observations; whether an error from the canonical inference constructor can actually occur, final native presentation, common ownership with other validation errors and all aliases require further discovery. Original Lens12 q1806 was an open error-owner question, not a historical accepted defect."
+    },
+    {
+      "contract": "Calendar and geographic checked ports",
+      "trace": "CalendarYear Serde uses try_from i32 and its positivity constructor; pinned serde_derive source implements try_from by deserializing i32 then calling TryFrom. This selected Serde path is distinct from the transparent basis-point deserialization bypass. WGS84 axes use explicit custom Deserialize and checked constructors. RoadLine checks native points against terrain bounds, then converts to checked WGS84 E7; inclusive rectangles permit equal extents and explicitly exclude antimeridian crossing.",
+      "remaining": "Native SpacetimeDB admission and all coordinate/bounds consumers remain open; no decoder, geometry or product executed. Native terrain projection intentionally allows continuous out-of-coverage intermediate samples. No extra check is prescribed without its actual contract."
+    }
+  ],
+  "reconnected_historical_findings": [
+    {
+      "id": "ADLER-L11-CALENDAR-DAILY-SHARE-ARITHMETIC",
+      "queue": 132,
+      "qualification": "Original Adler338 finding reconnected; no historical accepted-count or checkpoint3821 change."
+    }
+  ],
+  "new_current_candidates": [
+    {
+      "id": "REVIEW-ECONOMY-POPULATION-LEVEL-ADMISSION-95E",
+      "qualification": "Conditional raw population admission and arithmetic risk; selected compiler path bounds levels1–5."
+    },
+    {
+      "id": "REVIEW-ECONOMY-MEAT-PROVENANCE-95E",
+      "qualification": "Newly assessed stock provenance policy question correcting an exception to an earlier historical conclusion."
+    },
+    {
+      "id": "RECONSTRUCTED-L12-ECONOMY-ERROR-QUESTION",
+      "qualification": "Reconstructed from original open q1806; not a recovered historical finding ID or proven runtime error."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-325.json",
+      "sha256": "013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b",
+      "bytes": 14487,
+      "git_blob": "0727226370cf6e317b0b0b399143af1d60dab423",
+      "preserved_bytes": "recovered/calendar-economy-059/013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b.gz",
+      "published_sha256": "013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b",
+      "published_bytes": 14487,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-326.json",
+      "sha256": "33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506",
+      "bytes": 17595,
+      "git_blob": "37209f8639a30afb09ce02f25762823a60f84b12",
+      "preserved_bytes": "recovered/calendar-economy-059/33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506.gz",
+      "published_sha256": "33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506",
+      "published_bytes": 17595,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-327.json",
+      "sha256": "af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea",
+      "bytes": 21125,
+      "git_blob": "b1ff53cd461863a08e8170f7451b9abbb6e081ef",
+      "preserved_bytes": "recovered/calendar-economy-059/af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea.gz",
+      "published_sha256": "af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea",
+      "published_bytes": 21125,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-328.json",
+      "sha256": "6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea",
+      "bytes": 27452,
+      "git_blob": "e267554248f8329c0f4ec09a8026cdc70c705e26",
+      "preserved_bytes": "recovered/calendar-economy-059/6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea.gz",
+      "published_sha256": "6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea",
+      "published_bytes": 27452,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-329.json",
+      "sha256": "96435d21ad085e10d2bdbc88546e33a8178568ae4f19f336881e92328a737c9b",
+      "bytes": 22456,
+      "git_blob": "fa8502f3db92aa4c3078db978f1662cede4baf11",
+      "preserved_bytes": "recovered/calendar-economy-059/96435d21ad085e10d2bdbc88546e33a8178568ae4f19f336881e92328a737c9b.gz",
+      "published_sha256": "96435d21ad085e10d2bdbc88546e33a8178568ae4f19f336881e92328a737c9b",
+      "published_bytes": 22456,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-330.json",
+      "sha256": "149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9",
+      "bytes": 11067,
+      "git_blob": "92e69019423222de343906ffbdf10758743816d3",
+      "preserved_bytes": "recovered/calendar-economy-059/149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9.gz",
+      "published_sha256": "149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9",
+      "published_bytes": 11067,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-331.json",
+      "sha256": "04949d7ef33a8bad3b57301cba959878bb05911c851b453237b9f7ba06ef2938",
+      "bytes": 18061,
+      "git_blob": "3d3dfaa6da80c4dd1f87de4cebc7d2d4ca6af48d",
+      "preserved_bytes": "recovered/calendar-economy-059/04949d7ef33a8bad3b57301cba959878bb05911c851b453237b9f7ba06ef2938.gz",
+      "published_sha256": "04949d7ef33a8bad3b57301cba959878bb05911c851b453237b9f7ba06ef2938",
+      "published_bytes": 18061,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-332.json",
+      "sha256": "a2942c160b5546001a9d22f86f20bad9bc76ae84b18e1aed05dd6e31ce48ce17",
+      "bytes": 19279,
+      "git_blob": "7cd7cbdfc96edad375a8557ca4cfc842ac016484",
+      "preserved_bytes": "recovered/calendar-economy-059/a2942c160b5546001a9d22f86f20bad9bc76ae84b18e1aed05dd6e31ce48ce17.gz",
+      "published_sha256": "a2942c160b5546001a9d22f86f20bad9bc76ae84b18e1aed05dd6e31ce48ce17",
+      "published_bytes": 19279,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-333.json",
+      "sha256": "7719d05a7605a4af7fe01978edd0fc9921382a4d8231ddcef27ddcd695b417b2",
+      "bytes": 11860,
+      "git_blob": "cd4ba47186f20cd9ec174beae4bf3ca1c9c80bbc",
+      "preserved_bytes": "recovered/calendar-economy-059/7719d05a7605a4af7fe01978edd0fc9921382a4d8231ddcef27ddcd695b417b2.gz",
+      "published_sha256": "7719d05a7605a4af7fe01978edd0fc9921382a4d8231ddcef27ddcd695b417b2",
+      "published_bytes": 11860,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-334.json",
+      "sha256": "8cf83e31315f0acc9ffe7280ed7f9d4616ec7355e919f7e8a8420ec32c0cfdcb",
+      "bytes": 15252,
+      "git_blob": "6b3497c6889858a09aa3da87f2bcff57ca8cb22d",
+      "preserved_bytes": "recovered/calendar-economy-059/8cf83e31315f0acc9ffe7280ed7f9d4616ec7355e919f7e8a8420ec32c0cfdcb.gz",
+      "published_sha256": "8cf83e31315f0acc9ffe7280ed7f9d4616ec7355e919f7e8a8420ec32c0cfdcb",
+      "published_bytes": 15252,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-335.json",
+      "sha256": "c99c88d7c82f1c70c621cb3193f1ba4ed0a86b5fc2541b8e7989b328119e4af9",
+      "bytes": 23129,
+      "git_blob": "177099df66cc6ca9051b8c72421afd1680f8e950",
+      "preserved_bytes": "recovered/calendar-economy-059/c99c88d7c82f1c70c621cb3193f1ba4ed0a86b5fc2541b8e7989b328119e4af9.gz",
+      "published_sha256": "c99c88d7c82f1c70c621cb3193f1ba4ed0a86b5fc2541b8e7989b328119e4af9",
+      "published_bytes": 23129,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-336.json",
+      "sha256": "7129b3efe6e0d7c307cd32ffa4eec6e09ab99ad00383437986f70d6b3a94af85",
+      "bytes": 11573,
+      "git_blob": "633c5904872e62cbfa3ad647c18f209cb61a4da7",
+      "preserved_bytes": "recovered/calendar-economy-059/7129b3efe6e0d7c307cd32ffa4eec6e09ab99ad00383437986f70d6b3a94af85.gz",
+      "published_sha256": "7129b3efe6e0d7c307cd32ffa4eec6e09ab99ad00383437986f70d6b3a94af85",
+      "published_bytes": 11573,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-337.json",
+      "sha256": "c025fca54695d1c80db55dedd69a042ceb3befb5779c0db26a229f224b0576d1",
+      "bytes": 14118,
+      "git_blob": "01662cefc50ccf57c6550d14bde65ac9a7267e14",
+      "preserved_bytes": "recovered/calendar-economy-059/c025fca54695d1c80db55dedd69a042ceb3befb5779c0db26a229f224b0576d1.gz",
+      "published_sha256": "c025fca54695d1c80db55dedd69a042ceb3befb5779c0db26a229f224b0576d1",
+      "published_bytes": 14118,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-338.json",
+      "sha256": "b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c",
+      "bytes": 14866,
+      "git_blob": "e2cb145ed01f79ca3573e725d230e15701b9c56c",
+      "preserved_bytes": "recovered/calendar-economy-059/b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c.gz",
+      "published_sha256": "b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c",
+      "published_bytes": 14866,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original independent Lens11 receipt; retain its earlier stock-provenance conclusion as historical and qualify its later correction"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1012.json",
+      "sha256": "99d4e265daa4415e29896337606e00d8a113e960e3af382c109e7f41cefd1c82",
+      "bytes": 826,
+      "git_blob": "f48592203c9654be01511cfae620d82d038fd165",
+      "preserved_bytes": "recovered/calendar-economy-059/99d4e265daa4415e29896337606e00d8a113e960e3af382c109e7f41cefd1c82.gz",
+      "published_sha256": "99d4e265daa4415e29896337606e00d8a113e960e3af382c109e7f41cefd1c82",
+      "published_bytes": 826,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective Adler registration"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1013.json",
+      "sha256": "3ae40ceeb5aaf5f788b9be88bde11e9cf3353cbe80e50af10eee854501aca95a",
+      "bytes": 829,
+      "git_blob": "c99c1a45c6e97b841ed8d4352e93fc16c247e363",
+      "preserved_bytes": "recovered/calendar-economy-059/3ae40ceeb5aaf5f788b9be88bde11e9cf3353cbe80e50af10eee854501aca95a.gz",
+      "published_sha256": "3ae40ceeb5aaf5f788b9be88bde11e9cf3353cbe80e50af10eee854501aca95a",
+      "published_bytes": 829,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective Adler registration"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1014.json",
+      "sha256": "724af87173face5b8d71232636e4fc6fd3d26572719f72c57282fd8f73e0c0f5",
+      "bytes": 833,
+      "git_blob": "44fc0f0d99267a82613a726c76f705ed052acb68",
+      "preserved_bytes": "recovered/calendar-economy-059/724af87173face5b8d71232636e4fc6fd3d26572719f72c57282fd8f73e0c0f5.gz",
+      "published_sha256": "724af87173face5b8d71232636e4fc6fd3d26572719f72c57282fd8f73e0c0f5",
+      "published_bytes": 833,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective Adler registration"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1015.json",
+      "sha256": "4afe85c9cacfe1d8c6d2a00138cc782a9909bdc5dd034b3d36d20d2eecee6cce",
+      "bytes": 845,
+      "git_blob": "ae95a6b5e81d4d300eaa044320cea3f96fa6adca",
+      "preserved_bytes": "recovered/calendar-economy-059/4afe85c9cacfe1d8c6d2a00138cc782a9909bdc5dd034b3d36d20d2eecee6cce.gz",
+      "published_sha256": "4afe85c9cacfe1d8c6d2a00138cc782a9909bdc5dd034b3d36d20d2eecee6cce",
+      "published_bytes": 845,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective Adler registration"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1016.json",
+      "sha256": "cf026e64e15928eda9b2cca37747b8017416dbeded28797326c36449bbf5eec7",
+      "bytes": 825,
+      "git_blob": "d68643e4b875b033f6c650a3b9922c961212be94",
+      "preserved_bytes": "recovered/calendar-economy-059/cf026e64e15928eda9b2cca37747b8017416dbeded28797326c36449bbf5eec7.gz",
+      "published_sha256": "cf026e64e15928eda9b2cca37747b8017416dbeded28797326c36449bbf5eec7",
+      "published_bytes": 825,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective Adler registration"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1019.json",
+      "sha256": "54cd295d154000e54ead341579cd2ba31f47a91b979e50b81abb935a4cc32ea2",
+      "bytes": 975,
+      "git_blob": "1209d50694fec42bfea285b10473513c3dab76c7",
+      "preserved_bytes": "recovered/calendar-economy-059/54cd295d154000e54ead341579cd2ba31f47a91b979e50b81abb935a4cc32ea2.gz",
+      "published_sha256": "54cd295d154000e54ead341579cd2ba31f47a91b979e50b81abb935a4cc32ea2",
+      "published_bytes": 975,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective Adler registration"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-338.json",
+      "sha256": "13dfbe269190e3b7f2b804b707cb386e52e57f94bee3f8c13b051de85840c70c",
+      "bytes": 668,
+      "git_blob": "005368097a53bddc4dd1b939bd991b587d687a92",
+      "preserved_bytes": "recovered/calendar-economy-059/13dfbe269190e3b7f2b804b707cb386e52e57f94bee3f8c13b051de85840c70c.gz",
+      "published_sha256": "13dfbe269190e3b7f2b804b707cb386e52e57f94bee3f8c13b051de85840c70c",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-338.json",
+      "sha256": "dc7046d165249a2557ed6c32c8207153499c485e8bf2e254a5d51ec8f74910ea",
+      "bytes": 56609,
+      "git_blob": "6b39800cccb2a1f1883c836cfc6ef8b361029722",
+      "preserved_bytes": "recovered/calendar-economy-059/dc7046d165249a2557ed6c32c8207153499c485e8bf2e254a5d51ec8f74910ea.gz",
+      "published_sha256": "dc7046d165249a2557ed6c32c8207153499c485e8bf2e254a5d51ec8f74910ea",
+      "published_bytes": 56609,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-720.json",
+      "sha256": "294b089ba4d166295dc5c3c47d6d1d154333ada4efaccaf16d9c8d198d87438c",
+      "bytes": 9929,
+      "git_blob": "b0aa6b9d43631d8b2070cab797b2f73cf682f7cd",
+      "preserved_bytes": "recovered/calendar-economy-059/294b089ba4d166295dc5c3c47d6d1d154333ada4efaccaf16d9c8d198d87438c.gz",
+      "published_sha256": "294b089ba4d166295dc5c3c47d6d1d154333ada4efaccaf16d9c8d198d87438c",
+      "published_bytes": 9929,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-721.json",
+      "sha256": "d688ebc8d08e09c323176ece2d4f3380f9b276694f3bc13cea13dc36c0985bef",
+      "bytes": 8223,
+      "git_blob": "6de9d24997d3236ec1e986ee4933bbefb1d64972",
+      "preserved_bytes": "recovered/calendar-economy-059/d688ebc8d08e09c323176ece2d4f3380f9b276694f3bc13cea13dc36c0985bef.gz",
+      "published_sha256": "d688ebc8d08e09c323176ece2d4f3380f9b276694f3bc13cea13dc36c0985bef",
+      "published_bytes": 8223,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-106.json",
+      "sha256": "4626b33da76f282c3b61a3b8580d6c528289e6c7f0a5e9f660268303025e89f3",
+      "bytes": 765,
+      "git_blob": "70cce7935548ddc95ecc41ccd15d1773961c22f3",
+      "preserved_bytes": "recovered/calendar-economy-059/4626b33da76f282c3b61a3b8580d6c528289e6c7f0a5e9f660268303025e89f3.gz",
+      "published_sha256": "4626b33da76f282c3b61a3b8580d6c528289e6c7f0a5e9f660268303025e89f3",
+      "published_bytes": 765,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective delegated registration, including future language scope"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-107.json",
+      "sha256": "f63c462dfe617263465aec38e0dd889db3db160982df44c78156cdca3bf42515",
+      "bytes": 771,
+      "git_blob": "d0f7dd0f6829bf6283f88d19e8ad4fe95833ba9a",
+      "preserved_bytes": "recovered/calendar-economy-059/f63c462dfe617263465aec38e0dd889db3db160982df44c78156cdca3bf42515.gz",
+      "published_sha256": "f63c462dfe617263465aec38e0dd889db3db160982df44c78156cdca3bf42515",
+      "published_bytes": 771,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective delegated registration, including future language scope"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-108.json",
+      "sha256": "bfb139abe33d566c9db80ea47e8d0d0fc18698e317e6719a8630d1c74d1f4093",
+      "bytes": 783,
+      "git_blob": "828464c5450b60c13851dba4624d92ca7e444fc9",
+      "preserved_bytes": "recovered/calendar-economy-059/bfb139abe33d566c9db80ea47e8d0d0fc18698e317e6719a8630d1c74d1f4093.gz",
+      "published_sha256": "bfb139abe33d566c9db80ea47e8d0d0fc18698e317e6719a8630d1c74d1f4093",
+      "published_bytes": 783,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective delegated registration, including future language scope"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-109.json",
+      "sha256": "195d41a701c936a5d822e3457226bedd42246908410ee0469d62d2ece0f3a72b",
+      "bytes": 807,
+      "git_blob": "9fbbccec35c1ace013e35a351a0b5dc2e0f6e84e",
+      "preserved_bytes": "recovered/calendar-economy-059/195d41a701c936a5d822e3457226bedd42246908410ee0469d62d2ece0f3a72b.gz",
+      "published_sha256": "195d41a701c936a5d822e3457226bedd42246908410ee0469d62d2ece0f3a72b",
+      "published_bytes": 807,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective delegated registration, including future language scope"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-110.json",
+      "sha256": "3d5d53ac6940e8f5a232ccd42e533fb5d147d690c3da34c31ea31ceb00fc0e0e",
+      "bytes": 772,
+      "git_blob": "f8811d874581aec8b23b75619d6b21d4c13a1a5c",
+      "preserved_bytes": "recovered/calendar-economy-059/3d5d53ac6940e8f5a232ccd42e533fb5d147d690c3da34c31ea31ceb00fc0e0e.gz",
+      "published_sha256": "3d5d53ac6940e8f5a232ccd42e533fb5d147d690c3da34c31ea31ceb00fc0e0e",
+      "published_bytes": 772,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective delegated registration, including future language scope"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-111.json",
+      "sha256": "4200fca4c2e87f6c5d093262ded56f52ee3818bd75ede0abb25fce02b47bc795",
+      "bytes": 810,
+      "git_blob": "4d883c66715241fcbdab15c55257967022e11a32",
+      "preserved_bytes": "recovered/calendar-economy-059/4200fca4c2e87f6c5d093262ded56f52ee3818bd75ede0abb25fce02b47bc795.gz",
+      "published_sha256": "4200fca4c2e87f6c5d093262ded56f52ee3818bd75ede0abb25fce02b47bc795",
+      "published_bytes": 810,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective delegated registration, including future language scope"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-112-CONNECTED-LANGUAGE-GAPS.json",
+      "sha256": "e8a1b8a978e999b04acb67f91f2e8d477eebc49e81fa36e410e7c523317171cd",
+      "bytes": 1358,
+      "git_blob": "2204b8f223072b9d1f39763c81058654deae8add",
+      "preserved_bytes": "recovered/calendar-economy-059/e8a1b8a978e999b04acb67f91f2e8d477eebc49e81fa36e410e7c523317171cd.gz",
+      "published_sha256": "e8a1b8a978e999b04acb67f91f2e8d477eebc49e81fa36e410e7c523317171cd",
+      "published_bytes": 1358,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective delegated registration, including future language scope",
+        "Original connected gap registration, no future-role credit"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-720.json",
+      "sha256": "04cfa27a533456bba2f2e298fdcc1d4ab006cb8395f2ce74e53ab786ad79e7e8",
+      "bytes": 11772,
+      "git_blob": "e260cc283a594db06d61bdb22c400d93bd7c479b",
+      "preserved_bytes": "recovered/calendar-economy-059/04cfa27a533456bba2f2e298fdcc1d4ab006cb8395f2ce74e53ab786ad79e7e8.gz",
+      "published_sha256": "04cfa27a533456bba2f2e298fdcc1d4ab006cb8395f2ce74e53ab786ad79e7e8",
+      "published_bytes": 11772,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption; delegated Lens12 reader and zero root rereads"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-721.json",
+      "sha256": "1d97422cdece3165f31fab385d373e846984b0571919f0774a1f591fe0d2bfa5",
+      "bytes": 9675,
+      "git_blob": "b15977ed36c1a614331496e7c445edec663ff358",
+      "preserved_bytes": "recovered/calendar-economy-059/1d97422cdece3165f31fab385d373e846984b0571919f0774a1f591fe0d2bfa5.gz",
+      "published_sha256": "1d97422cdece3165f31fab385d373e846984b0571919f0774a1f591fe0d2bfa5",
+      "published_bytes": 9675,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption; delegated Lens12 reader and zero root rereads"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-720.json",
+      "sha256": "fa0c5d9805d531c1cf5c1dffa7228d4e0d69e59a3d4a1ae22419292976869d2a",
+      "bytes": 2410,
+      "git_blob": "913bf412c585a9cbe88a6a920e30491a6bec061b",
+      "preserved_bytes": "recovered/calendar-economy-059/fa0c5d9805d531c1cf5c1dffa7228d4e0d69e59a3d4a1ae22419292976869d2a.gz",
+      "published_sha256": "fa0c5d9805d531c1cf5c1dffa7228d4e0d69e59a3d4a1ae22419292976869d2a",
+      "published_bytes": 2410,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-721.json",
+      "sha256": "c30df1a48904fecd1ae6b5a4a67f3439bdf2b8c8b7c4ad0428cddcdedba63f12",
+      "bytes": 2049,
+      "git_blob": "04e18347854fa910b593ec232106c5e507be8fee",
+      "preserved_bytes": "recovered/calendar-economy-059/c30df1a48904fecd1ae6b5a4a67f3439bdf2b8c8b7c4ad0428cddcdedba63f12.gz",
+      "published_sha256": "c30df1a48904fecd1ae6b5a4a67f3439bdf2b8c8b7c4ad0428cddcdedba63f12",
+      "published_bytes": 2049,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-720.json",
+      "sha256": "ed01e7686f021884637b3536cf7038698dd7203748d33f6e5ed233459c1687be",
+      "bytes": 667,
+      "git_blob": "40a82a63fea6d57001c4fc1493f87bc0bcc34fbe",
+      "preserved_bytes": "recovered/calendar-economy-059/ed01e7686f021884637b3536cf7038698dd7203748d33f6e5ed233459c1687be.gz",
+      "published_sha256": "ed01e7686f021884637b3536cf7038698dd7203748d33f6e5ed233459c1687be",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original adoption verification"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-721.json",
+      "sha256": "1357731bea4bd64665003272c5061dabb834752483f1db67415e64e8725a6514",
+      "bytes": 667,
+      "git_blob": "a9586e022eaf2c7b9c847fc6f8d6993a200875ae",
+      "preserved_bytes": "recovered/calendar-economy-059/1357731bea4bd64665003272c5061dabb834752483f1db67415e64e8725a6514.gz",
+      "published_sha256": "1357731bea4bd64665003272c5061dabb834752483f1db67415e64e8725a6514",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original adoption verification"
+      ],
+      "qualification": "Original revision, author, personal/reused scopes and obligations retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "L12 adoptions720/721 preserve delegate, zero root rereads, future language partial scope and zero accepted count change. Adler338 original disposition retained, with its stock-order conclusion explicitly qualified by current source. No3821 promotion.",
+  "remaining": "Continue2163 and other registered source identities; actual clock horizon, imported level and stock occurrence, native codec, aliases, policy and all13 lenses remain open. Original3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

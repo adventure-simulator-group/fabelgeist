@@ -1,0 +1,381 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2158,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/calendar.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working body matches committed6533 and95e at this exact identity; no independent reviewer or other-lens credit follows.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2158",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 450,
+          "read_ranges": [
+            [
+              1,
+              698
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+          "row": 10,
+          "read_ranges": [
+            [
+              1,
+              698
+            ]
+          ]
+        }
+      ],
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "lines": 698,
+      "new_personal_read_ranges": [
+        [
+          1,
+          698
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "CALENDAR-ECONOMY-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-STRATEGIC-CALENDAR.json",
+          "ranges": [
+            [
+              1,
+              112
+            ],
+            [
+              245,
+              260
+            ],
+            [
+              320,
+              330
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-TRAVEL-FILTH-REMAINDER.json",
+          "ranges": [
+            [
+              1,
+              15
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-world-schema/src/calendar.rs",
+        "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+        "bytes": 25367,
+        "lines": 698,
+        "git_blob": "3bb463487d89fa1040b72d7708f7e641d5e61cec",
+        "preserved_bytes": "main-advance-95e/calendar-economy-evidence/current-2158.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            698
+          ]
+        ],
+        "qualification": "Full body read at historical identity; identical current bytes add no second reviewer or independent other-lens credit."
+      },
+      "qualification": "Each original supplier range and reviewer attribution is retained separately from this session full-body read.",
+      "repeated_prior_current_ranges": [
+        [
+          1,
+          112
+        ],
+        [
+          245,
+          260
+        ],
+        [
+          320,
+          330
+        ]
+      ],
+      "newly_inspected_complement_ranges": [
+        [
+          113,
+          244
+        ],
+        [
+          261,
+          319
+        ],
+        [
+          331,
+          698
+        ]
+      ]
+    },
+    {
+      "original_index": 2159,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/coordinates.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working body matches committed6533 and95e at this exact identity; no independent reviewer or other-lens credit follows.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2159",
+      "original_supplier_scopes": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+          "row": 38,
+          "read_ranges": [
+            [
+              1,
+              210
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 364,
+          "read_ranges": [
+            [
+              1,
+              512
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 701,
+          "read_ranges": [
+            [
+              1,
+              512
+            ]
+          ]
+        }
+      ],
+      "sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+      "lines": 512,
+      "new_personal_read_ranges": [
+        [
+          1,
+          512
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "CALENDAR-ECONOMY-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-world-schema/src/coordinates.rs",
+        "sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+        "bytes": 17358,
+        "lines": 512,
+        "git_blob": "849913f70d004956fd8f5cac10586a132b2cc458",
+        "preserved_bytes": "main-advance-95e/calendar-economy-evidence/current-2159.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            512
+          ]
+        ],
+        "qualification": "Full body read at historical identity; identical current bytes add no second reviewer or independent other-lens credit."
+      },
+      "qualification": "Each original supplier range and reviewer attribution is retained separately from this session full-body read."
+    },
+    {
+      "original_index": 2160,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working body matches committed6533 and95e at this exact identity; no independent reviewer or other-lens credit follows.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2160",
+      "original_supplier_scopes": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+          "row": 39,
+          "read_ranges": [
+            [
+              1,
+              49
+            ]
+          ]
+        }
+      ],
+      "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+      "lines": 49,
+      "new_personal_read_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "CALENDAR-ECONOMY-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+        "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+        "bytes": 1838,
+        "lines": 49,
+        "git_blob": "d998e0b7a40ac3797222caa9452efdb663e9fcf4",
+        "preserved_bytes": "main-advance-95e/calendar-economy-evidence/current-2160.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            49
+          ]
+        ],
+        "qualification": "Full body read at historical identity; identical current bytes add no second reviewer or independent other-lens credit."
+      },
+      "qualification": "Each original supplier range and reviewer attribution is retained separately from this session full-body read."
+    },
+    {
+      "original_index": 2161,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/coordinates/terrain_projection.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working body matches committed6533 and95e at this exact identity; no independent reviewer or other-lens credit follows.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2161",
+      "original_supplier_scopes": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+          "row": 124,
+          "read_ranges": [
+            [
+              1,
+              83
+            ]
+          ]
+        }
+      ],
+      "sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+      "lines": 83,
+      "new_personal_read_ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "CALENDAR-ECONOMY-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-world-schema/src/coordinates/terrain_projection.rs",
+        "sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+        "bytes": 3275,
+        "lines": 83,
+        "git_blob": "a3480a8d35b44ece820f1740c764c643334d52aa",
+        "preserved_bytes": "main-advance-95e/calendar-economy-evidence/current-2161.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            83
+          ]
+        ],
+        "qualification": "Full body read at historical identity; identical current bytes add no second reviewer or independent other-lens credit."
+      },
+      "qualification": "Each original supplier range and reviewer attribution is retained separately from this session full-body read."
+    },
+    {
+      "original_index": 2162,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/economy.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working body matches committed6533 and95e at this exact identity; no independent reviewer or other-lens credit follows.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2162",
+      "original_supplier_scopes": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 653,
+          "read_ranges": [
+            [
+              1,
+              145
+            ]
+          ]
+        }
+      ],
+      "sha256": "ce7c60b4dca374b058a50d845ac3171642869aa47fc95b7873ac27392bff308e",
+      "lines": 358,
+      "new_personal_read_ranges": [
+        [
+          1,
+          358
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "CALENDAR-ECONOMY-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-world-schema/src/economy.rs",
+        "sha256": "ce7c60b4dca374b058a50d845ac3171642869aa47fc95b7873ac27392bff308e",
+        "bytes": 12943,
+        "lines": 358,
+        "git_blob": "a8ce46f80cd3de64b26d577890cf5aae757a7e98",
+        "preserved_bytes": "main-advance-95e/calendar-economy-evidence/current-2162.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            358
+          ]
+        ],
+        "qualification": "Full body read at historical identity; identical current bytes add no second reviewer or independent other-lens credit."
+      },
+      "qualification": "Each original supplier range and reviewer attribution is retained separately from this session full-body read.",
+      "connected_range_registration": {
+        "path": "REGISTRATION-L01-2162-CONNECTED-146-358.json",
+        "sha256": "e27fb0b48e9cc4a394ec0b27a55aeddfde03a410a41782f23d923747d7c46b30",
+        "ranges": [
+          [
+            146,
+            358
+          ]
+        ],
+        "qualification": "Initial exploratory display preceded this local registration; listed connected range was displayed again after registration. Original ordered supplier range remains1–145. Local timing is not independent attestation."
+      }
+    }
+  ],
+  "observations": [
+    "All five historical bodies personally displayed through actual EOF; test code read as source only. Calendar2158 had earlier partial current observations which are preserved and not counted twice. Economy2162 registry supplier was scoped1–145; connected146–358 was originally displayed, then registered and independently reread, with this local timing qualification.",
+    "Root Lens12 adoption720/721 preserves delegated reviewer, original scopes and registrations, zero root personal rereads and zero accepted unique-count change; role2163 in the latter receipt retains its original partial scope and no new role credit. Adler338 independently read all five. Its assertion that all derived stock additions precede gap fill is preserved as a historical conclusion and corrected by the later line289 derived meat addition. No historical unique-count adjustment is invented."
+  ],
+  "qualification": "Supplier scopes, connected extensions and reviewer attributions remain separate; no checkpoint3821 claim.",
+  "next_original_role": 2163
+}
