@@ -1,0 +1,349 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    5,
+    8,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Four further historical bodies and bounded source/native qualification of rig binding and bind-transform lifecycle.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1389-1392.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9d20e485651cedabc0b3a980b476ba73949ccc0c",
+      "sha256": "754a5ea02732df10071edad99a78c5fc1524236ac1232401129c06da611834ee",
+      "bytes": 5565,
+      "lines": 118,
+      "ranges": [
+        [
+          20,
+          63
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rig-lifecycle-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No scene, viewer, fixture, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/loading.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9cc8f25516d91650f9eb528c16bb1fa971a511da",
+      "sha256": "eacc5fba1f6e67621c9d3e473d7556c5cf66ba140e3f1c80431b5568de9fda07",
+      "bytes": 13401,
+      "lines": 390,
+      "ranges": [
+        [
+          190,
+          301
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rig-lifecycle-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No scene, viewer, fixture, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/bind_pose.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "209e93a6ccfaaec0b42f61a6ae056a9202edfbef",
+      "sha256": "18362beeb59c79ca73d1ea84c897ce75b45074c2fd0e099999cabc707f058e12",
+      "bytes": 1461,
+      "lines": 48,
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rig-lifecycle-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No scene, viewer, fixture, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/rig_identity.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8f9cc1a3f4cad4fa9e649a33bfeceb4b69113f62",
+      "sha256": "207d7aff4743dc30e8fd603dd02ca0e9dd83863ac4c65bc53e208949767a7b64",
+      "bytes": 2343,
+      "lines": 84,
+      "ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rig-lifecycle-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No scene, viewer, fixture, test or runtime probe ran."
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          1537,
+          1540
+        ],
+        [
+          1785,
+          1788
+        ],
+        [
+          3043,
+          3046
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rig-lifecycle-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No scene, viewer, fixture, test or runtime probe ran."
+    }
+  ],
+  "existing_contract_connections": [
+    {
+      "id": "Q-L12-6674ce26db9ad5b8c379",
+      "relationship": "Bounded current continuation of an earlier Lens12 rig-lifecycle question; the earlier reviewer and source revision remain distinct, with no new counted defect.",
+      "source_trace": "The client attaches a WorldAssetRoot beneath an AnimationRigScene, discovers the named skeleton hierarchy and adds AuthoredRigJoint identities. bind_humanoid_bones selects Added<AuthoredRigJoint> without MhrBone and walks up to 64 ancestors to find an AnimationRigScene. The Update chain orders binding, cache_humanoid_rigs, capture_authored_bind_transforms and capture_humanoid_rig_axes. The axis capture queues its one-shot SoleAxisCaptured marker before attempting to mutate the owner HumanoidRig, so an actual absent owner rig at that instant would leave no axis written and suppress that foot on subsequent runs.",
+      "native_narrowing": "Pinned Bevy ECS source documents that chain inserts deferred-application points between ordered systems with deferred parameters. On the normal ordered path this narrows the hypothesis that a cache insertion is merely still queued when axis capture runs. Pinned Bevy world-serialization source writes a queued world asset and sets its instance parent in one exclusive spawner call; the default main order runs SpawnScene after Update, so a normally completed asset spawn precedes the next Update rather than requiring a system to observe a half-parented world. These are scoped native/source observations, not a proof of every asset, scheduling override, error, reload or owner lifetime.",
+      "open_questions": "The actual completed scene hierarchy, changes to owner or rig after first binding, duplicate/reparent/hot-reload paths, added/removed component timing, and availability of the owner when axis capture runs remain unproved. The marker-before-write conditional must not be promoted into a real race without such a supported sequence.",
+      "discovery": "partial",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "RELATED-BIND-TRANSFORM-ADDED-FILTER-QUESTION",
+      "relationship": "Related temporal admission question recorded separately from rig-axis state; not a newly counted finding or established alias.",
+      "source_trace": "capture_authored_bind_transforms selects Added<Transform> without AuthoredBindTransform and records a local bind only if its current ancestor walk finds an AnimationRigScene. Bevy Added filters retain changes since the system last ran. If a node is seen without the rig ancestor and gains that ancestor only after the relevant run, with no new Transform addition, this query alone will not retry it; downstream sole-axis capture requires AuthoredBindTransform.",
+      "qualification": "That is a conditional component-lifecycle argument only. The normal WorldAssetRoot path above writes and parents the scene together in the exclusive SpawnScene call, which narrows the hypothesized timing gap. Supported late reparenting, partial scene spawn, external component producers and reload policy have not been established; do not infer a player-visible missing bind or equate this with the separate marker-before-write question.",
+      "discovery": "partial",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "native_evidence": [
+    {
+      "manifest": "native-evidence/bevy_ecs-0.19.1/MANIFEST.json",
+      "members": [
+        "bevy_ecs-0.19.1/src/query/filter.rs",
+        "bevy_ecs-0.19.1/src/schedule/config.rs"
+      ],
+      "qualification": "Pinned source semantics; schedule settings and every producer not exhaustively resolved."
+    },
+    {
+      "manifest": "native-evidence/bevy_app-0.19.1/MANIFEST.json",
+      "members": [
+        "bevy_app-0.19.1/src/main_schedule.rs"
+      ],
+      "qualification": "Default schedule order, which an application may change."
+    },
+    {
+      "manifest": "native-evidence/bevy_world_serialization-0.19.1/MANIFEST.json",
+      "members": [
+        "bevy_world_serialization-0.19.1/src/lib.rs",
+        "bevy_world_serialization-0.19.1/src/world_asset.rs",
+        "bevy_world_serialization-0.19.1/src/world_asset_spawner.rs"
+      ],
+      "qualification": "Scoped normal spawner source; individual assets and every failure/reload path remain open."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1184 through /entries/1187"
+      ],
+      "qualification": "Earlier Lens12 questions retain original scope; this partial connection does not close actual asset/native/alias obligations."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-394.json",
+      "sha256": "fcade727a6c6049ede02871ccbb55ea4169e486b69ae6d56611d84ad9dd48fd4",
+      "bytes": 734,
+      "git_blob": "5b28e229045ed847b3d2729e9c5040ec19c34756",
+      "preserved_bytes": "recovered/rig-lifecycle-059/fcade727a6c6049ede02871ccbb55ea4169e486b69ae6d56611d84ad9dd48fd4.gz",
+      "published_sha256": "fcade727a6c6049ede02871ccbb55ea4169e486b69ae6d56611d84ad9dd48fd4",
+      "published_bytes": 734,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-395.json",
+      "sha256": "9f85637672e7a9459af2e382535ff8ca7bfb1904f4e8ab7dcfe3a72eabad4cdd",
+      "bytes": 1725,
+      "git_blob": "c7e142b198ca7191beffc3a280b4ea15734c01d5",
+      "preserved_bytes": "recovered/rig-lifecycle-059/9f85637672e7a9459af2e382535ff8ca7bfb1904f4e8ab7dcfe3a72eabad4cdd.gz",
+      "published_sha256": "9f85637672e7a9459af2e382535ff8ca7bfb1904f4e8ab7dcfe3a72eabad4cdd",
+      "published_bytes": 1725,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-394.json",
+      "sha256": "a9bcb01939c254eec1063ab9c7dbd9cd6e2412e5431c6f5b713a97dd73535371",
+      "bytes": 13092,
+      "git_blob": "4f1b0b68d312e3cb6ed634f19e4bf639bfde790d",
+      "preserved_bytes": "recovered/rig-lifecycle-059/a9bcb01939c254eec1063ab9c7dbd9cd6e2412e5431c6f5b713a97dd73535371.gz",
+      "published_sha256": "a9bcb01939c254eec1063ab9c7dbd9cd6e2412e5431c6f5b713a97dd73535371",
+      "published_bytes": 13092,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-395.json",
+      "sha256": "bb3f6d9e08a8cf5ef25f38cd1cc7846007cdcc8f1a8fbd4df63967ce7b431410",
+      "bytes": 12719,
+      "git_blob": "491865ae58d403c017daa525fddeb85689f0326e",
+      "preserved_bytes": "recovered/rig-lifecycle-059/bb3f6d9e08a8cf5ef25f38cd1cc7846007cdcc8f1a8fbd4df63967ce7b431410.gz",
+      "published_sha256": "bb3f6d9e08a8cf5ef25f38cd1cc7846007cdcc8f1a8fbd4df63967ce7b431410",
+      "published_bytes": 12719,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-296.json",
+      "sha256": "d89a73da69fb0d2e5f08aba32fb89f15c4caabbdc9468ca58e68c5add76a1b8f",
+      "bytes": 1265,
+      "git_blob": "0ce02cedd50e617c64a60040923f06aaab63265c",
+      "preserved_bytes": "recovered/rig-lifecycle-059/d89a73da69fb0d2e5f08aba32fb89f15c4caabbdc9468ca58e68c5add76a1b8f.gz",
+      "published_sha256": "d89a73da69fb0d2e5f08aba32fb89f15c4caabbdc9468ca58e68c5add76a1b8f",
+      "published_bytes": 1265,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-297.json",
+      "sha256": "770fd4c908708b079f5cfdd8c14fbdf4464df2f13575e352510440eff5e96caf",
+      "bytes": 1215,
+      "git_blob": "b6ca9601f509881ea6b277266ce30c9c8a01ad57",
+      "preserved_bytes": "recovered/rig-lifecycle-059/770fd4c908708b079f5cfdd8c14fbdf4464df2f13575e352510440eff5e96caf.gz",
+      "published_sha256": "770fd4c908708b079f5cfdd8c14fbdf4464df2f13575e352510440eff5e96caf",
+      "published_bytes": 1215,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-298.json",
+      "sha256": "06da0dccd0e07b32faf8f5ef9375f81f8a1af24ff2c0826cf9c6fb113f1be3b7",
+      "bytes": 1207,
+      "git_blob": "41a3ea194ed83b95203a43320e428fe7de2ee1c5",
+      "preserved_bytes": "recovered/rig-lifecycle-059/06da0dccd0e07b32faf8f5ef9375f81f8a1af24ff2c0826cf9c6fb113f1be3b7.gz",
+      "published_sha256": "06da0dccd0e07b32faf8f5ef9375f81f8a1af24ff2c0826cf9c6fb113f1be3b7",
+      "published_bytes": 1207,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-299.json",
+      "sha256": "fae782690354e79171437e107ca3233d25722a63c077031af639421e8aa8b1b5",
+      "bytes": 1223,
+      "git_blob": "e98c024f67a372860827d40c6006b2c4536495f6",
+      "preserved_bytes": "recovered/rig-lifecycle-059/fae782690354e79171437e107ca3233d25722a63c077031af639421e8aa8b1b5.gz",
+      "published_sha256": "fae782690354e79171437e107ca3233d25722a63c077031af639421e8aa8b1b5",
+      "published_bytes": 1223,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-394.json",
+      "sha256": "6f88b2da3297dfc18c99d76ff24b7377f21a231c01f6bcba1a07758ac6ae792e",
+      "bytes": 840,
+      "git_blob": "da26bad10f85d0e996c67a71f6ebe01814094a5f",
+      "preserved_bytes": "recovered/rig-lifecycle-059/6f88b2da3297dfc18c99d76ff24b7377f21a231c01f6bcba1a07758ac6ae792e.gz",
+      "published_sha256": "6f88b2da3297dfc18c99d76ff24b7377f21a231c01f6bcba1a07758ac6ae792e",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-395.json",
+      "sha256": "2060d33c331463b93dcdc9d66ce65ac2887957dd35a298563c021922be494586",
+      "bytes": 840,
+      "git_blob": "cbb100d0bdb5b679782cc9b4fb46a3c63db0c5dc",
+      "preserved_bytes": "recovered/rig-lifecycle-059/2060d33c331463b93dcdc9d66ce65ac2887957dd35a298563c021922be494586.gz",
+      "published_sha256": "2060d33c331463b93dcdc9d66ce65ac2887957dd35a298563c021922be494586",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-394.json",
+      "sha256": "7849262a2c896251b1976d7910ab7edeb26cf4c99a2adac46d5f3773d0f14042",
+      "bytes": 558,
+      "git_blob": "42226564244e224e7e90822fda19a037f467e834",
+      "preserved_bytes": "recovered/rig-lifecycle-059/7849262a2c896251b1976d7910ab7edeb26cf4c99a2adac46d5f3773d0f14042.gz",
+      "published_sha256": "7849262a2c896251b1976d7910ab7edeb26cf4c99a2adac46d5f3773d0f14042",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-395.json",
+      "sha256": "320a029435b39f58c7b1a5390f08a6a849549745b7af0c1fb400d2c19955a3b3",
+      "bytes": 558,
+      "git_blob": "58d4f735a5903049fdd405e5b9f4183303655b7f",
+      "preserved_bytes": "recovered/rig-lifecycle-059/320a029435b39f58c7b1a5390f08a6a849549745b7af0c1fb400d2c19955a3b3.gz",
+      "published_sha256": "320a029435b39f58c7b1a5390f08a6a849549745b7af0c1fb400d2c19955a3b3",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    }
+  ],
+  "remaining": "Actual supported scene and owner lifecycle, bind reparenting, duplicates, native poses, exact aliases and thirteen independent lenses remain open. Checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
