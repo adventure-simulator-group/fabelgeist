@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-0104.json`).
+2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-0134.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -190,6 +190,10 @@ question through seeded kin and the outbreak exception. Ordinary player-visible
 reachability and qualifying-family policy remain open.
 `ASSESSMENT-L09-POINT-PREVENTION-95E.json` records the conditional covered-zero
 versus missing-history ambiguity and selected current-minute food/water paths.
+`ASSESSMENT-L04-BELIEF-REVISION-95E.json` and
+`ASSESSMENT-L05-TESTIMONY-CORRECTION-95E.json` revisit distinct earlier
+belief-revision and correction contracts. Selected generated producer bounds
+and the unresolved developer correction policy are recorded separately.
 `ASSESSMENT-L09-INVESTIGATION-RECEIPT-95E.json` revisits the earlier
 receipt-owner finding and its dialogue-origin mode. A malformed history
 example is conditional; actual native admission remains unproved.
@@ -249,8 +253,10 @@ projections and source-test reads without expanding current semantic coverage.
 herbal preparation and measured inventory without expanding current coverage.
 `ASSESSMENT-L01-HISTORICAL-1119.json` records the historical inventory
 container body, which differs from the separately preserved 95e source.
-`ASSESSMENT-L01-HISTORICAL-1120-1122.json` records historical foraging,
+`ASSESSMENT-L01-HISTORICAL-1120-1122.json` records historical investigation
 action, provenance and route sources without expanding current coverage.
+`ASSESSMENT-L01-HISTORICAL-1123-1125.json` records historical investigation
+capability, claim and geometry sources without expanding current coverage.
 `ASSESSMENT-L05-SCHEDULE-AGGREGATE-95E.json` records a possible schedule
 aggregate strengthening. Both selected production callers supply matching
 organization minutes; no invalid native schedule was established.

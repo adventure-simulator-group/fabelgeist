@@ -1,0 +1,386 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "source_reasoning": "Static source and source-test inspection, symbolic arithmetic and recovered evidence verification only; no product, database, compiler, fixture, test or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/claims.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "261a5d088cff73b14c947fa8d85d039c9a80ea79",
+      "sha256": "19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+      "bytes": 65781,
+      "lines": 1771,
+      "ranges": [
+        [
+          120,
+          145
+        ],
+        [
+          780,
+          810
+        ],
+        [
+          875,
+          920
+        ],
+        [
+          1000,
+          1130
+        ],
+        [
+          1240,
+          1350
+        ],
+        [
+          1644,
+          1755
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/belief-source-trace/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4359a97ae3781a18dff6a45594152fd03fd35b91",
+      "sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "bytes": 47311,
+      "lines": 1399,
+      "ranges": [
+        [
+          808,
+          842
+        ],
+        [
+          1170,
+          1210
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/belief-source-trace/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_generation/projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "20e160d016e79a9e59e0f4ed20d1cd373f7981f8",
+      "sha256": "2ef4a66455b4f4fb0790abfcc0e0ca9ff70e312d140170fbf47b9f880e79fb87",
+      "bytes": 19252,
+      "lines": 506,
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/belief-source-trace/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_generation/assembly.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6bf9af89bd643c5f72ef92b42615c0ae9eb6e065",
+      "sha256": "a54013572d9b0b6a8385c70e2aac6dbd516dfd40a72e87ede1c8ab6e9ea48ff7",
+      "bytes": 61438,
+      "lines": 1443,
+      "ranges": [
+        [
+          1,
+          45
+        ],
+        [
+          230,
+          440
+        ],
+        [
+          800,
+          870
+        ],
+        [
+          960,
+          1095
+        ],
+        [
+          1375,
+          1435
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/belief-source-trace/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/developer_quest.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "405f69b7b59fb65034d1f9acd82832de303085d6",
+      "sha256": "c81518557455da223c56b59f0003647eac72633ee5d4e681786aad20fa31de78",
+      "bytes": 98762,
+      "lines": 2492,
+      "ranges": [
+        [
+          1,
+          85
+        ],
+        [
+          135,
+          220
+        ],
+        [
+          440,
+          485
+        ],
+        [
+          585,
+          630
+        ],
+        [
+          1155,
+          1240
+        ],
+        [
+          1450,
+          1530
+        ],
+        [
+          1710,
+          1795
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/belief-source-trace/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_generation/validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1ac5dd5745378840c1655104fb71ec238b33fda0",
+      "sha256": "a58991cdececa54b76db9d44b4f5dd1702ef3c8d132e37350fcba62b5bf9e827",
+      "bytes": 48415,
+      "lines": 1121,
+      "ranges": [
+        [
+          685,
+          880
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/belief-source-trace/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_generation/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "848dadf550fbd4a7ed4126d4c53c5c5a4493c4fd",
+      "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "bytes": 41036,
+      "lines": 1230,
+      "ranges": [
+        [
+          715,
+          780
+        ],
+        [
+          900,
+          955
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/belief-source-trace/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/investigation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "db292e533405f8ea4a313f742cae6b25ec7808d9",
+      "sha256": "670a2ae0df206f175978278ad2644e91d75c22a88cfa1ef89759171da672147b",
+      "bytes": 37029,
+      "lines": 1154,
+      "ranges": [
+        [
+          475,
+          525
+        ],
+        [
+          625,
+          725
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/belief-source-trace/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "273eafd632bcd254869f05ba77a9b7be4cf94d72",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "bytes": 51546,
+      "lines": 1586,
+      "ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/belief-source-trace/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f81d693da7d589fb8295931442850ca28946dd94",
+      "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+      "bytes": 117342,
+      "lines": 2973,
+      "ranges": [
+        [
+          2370,
+          2510
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/belief-source-trace/09.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "search_evidence": {
+    "path": "main-advance-95e/belief-writer-search.txt",
+    "sha256": "e8ab2856cf11c5f4f1ca8fc4182592b95ac1024f6c4f90c55801ce84c7c9c4c3",
+    "bytes": 1207,
+    "lines": 8,
+    "query": "git grep selected exact claim-staging and native receipt/revision-construction spellings at pinned revision under the SpacetimeDB module",
+    "qualification": "Includes definitions and source tests; differently formatted inserts, aliases, indirect and external producers are not excluded."
+  },
+  "historical_source_assessment": "ASSESSMENT-L01-HISTORICAL-1123-1125.json",
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-258.json",
+      "sha256": "5395beb4561f9a43af10d5798f246bc3d375ead143cd54ca6f38ad01e6e73f03",
+      "bytes": 20039,
+      "git_blob": "e75fed6c3009843ff6bd0a1ca880b6bc659b49cc",
+      "preserved_bytes": "recovered/belief-contract-059/5395beb4561f9a43af10d5798f246bc3d375ead143cd54ca6f38ad01e6e73f03.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier root adoption, delegated read, prior partial, registration, verification or proposal. This bounded set is not a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-259.json",
+      "sha256": "4bcd5fc368c6f8a7f5e47540f2a5a5942924df7a9121a9aa82412fbdcaad69fb",
+      "bytes": 15779,
+      "git_blob": "695a628b00cdb6a619d813ebd4bd414b28c06a41",
+      "preserved_bytes": "recovered/belief-contract-059/4bcd5fc368c6f8a7f5e47540f2a5a5942924df7a9121a9aa82412fbdcaad69fb.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier root adoption, delegated read, prior partial, registration, verification or proposal. This bounded set is not a complete transitive support chain or checkpoint 3821 authority."
+    }
+  ],
+  "recovered_historical_support": [
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-260.json",
+      "sha256": "20df7590c29af823de632658f49c3e8ec7c6a9a358ab266e7dd19a174dbfe155",
+      "bytes": 14634,
+      "git_blob": "724252e2118ca102fcb3a69bc745b39546cb61a0",
+      "preserved_bytes": "recovered/belief-contract-059/20df7590c29af823de632658f49c3e8ec7c6a9a358ab266e7dd19a174dbfe155.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier root adoption, delegated read, prior partial, registration, verification or proposal. This bounded set is not a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VERIFY-PL13-260.json",
+      "sha256": "619c5fe2812cc2e52eba119a5d36d04ef610ab6e18f490b3e1b5573911fcc769",
+      "bytes": 1111,
+      "git_blob": "39bcfd938d3277e874ef1957b33b24feb00fd307",
+      "preserved_bytes": "recovered/belief-contract-059/619c5fe2812cc2e52eba119a5d36d04ef610ab6e18f490b3e1b5573911fcc769.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier root adoption, delegated read, prior partial, registration, verification or proposal. This bounded set is not a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-255-262.json",
+      "sha256": "6b0e12d60d51b0e35ee07269573cfea1ab8bd39b2ee90f0b34a7d8849f28a0d5",
+      "bytes": 144439,
+      "git_blob": "536dc27f3279b304ca3ec99ead8a8f4dbfc4b50c",
+      "preserved_bytes": "recovered/belief-contract-059/6b0e12d60d51b0e35ee07269573cfea1ab8bd39b2ee90f0b34a7d8849f28a0d5.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier root adoption, delegated read, prior partial, registration, verification or proposal. This bounded set is not a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "parallel-l13-20261029/REGISTRATION-PL13-260.json",
+      "sha256": "67df3738bbbc8e28964d084607ec3345c1aa30be970450b2b598c52b691a3392",
+      "bytes": 2552,
+      "git_blob": "13b6fecaf11c7b05ceb8073ad2a87cb4ed470222",
+      "preserved_bytes": "recovered/belief-contract-059/67df3738bbbc8e28964d084607ec3345c1aa30be970450b2b598c52b691a3392.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier root adoption, delegated read, prior partial, registration, verification or proposal. This bounded set is not a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-260-PARTIAL-001.json",
+      "sha256": "bf8fac42fbfbe556e25478ffa942f4b18afa4ec956c3b8022bf0e1fa7bc0f914",
+      "bytes": 1960,
+      "git_blob": "8514398070eeee2a4e3e94a896df223eb68847bd",
+      "preserved_bytes": "recovered/belief-contract-059/bf8fac42fbfbe556e25478ffa942f4b18afa4ec956c3b8022bf0e1fa7bc0f914.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier root adoption, delegated read, prior partial, registration, verification or proposal. This bounded set is not a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-261.json",
+      "sha256": "474f3e12c4c35a63c04a86ec3b1b000f2feb22d1f9be086d9db772e23c5cb70b",
+      "bytes": 11554,
+      "git_blob": "74745351601aa53256e0b98ccbf75a5f5a385a63",
+      "preserved_bytes": "recovered/belief-contract-059/474f3e12c4c35a63c04a86ec3b1b000f2feb22d1f9be086d9db772e23c5cb70b.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier root adoption, delegated read, prior partial, registration, verification or proposal. This bounded set is not a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VERIFY-PL13-261.json",
+      "sha256": "9fc368be34d5c4f23591469871db1f19ca9f8c1a22aa2a4e73de4a4725c0fe43",
+      "bytes": 940,
+      "git_blob": "94223891a5ecaae4067a35acf9f8749afb585a7e",
+      "preserved_bytes": "recovered/belief-contract-059/9fc368be34d5c4f23591469871db1f19ca9f8c1a22aa2a4e73de4a4725c0fe43.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier root adoption, delegated read, prior partial, registration, verification or proposal. This bounded set is not a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "parallel-l13-20261029/REGISTRATION-PL13-261.json",
+      "sha256": "171a77aaeea8ad2195bbbe37cfcae71ad6c24ecc9357f35c71f77cb5df92247d",
+      "bytes": 968,
+      "git_blob": "e46102b6a65401e9bc7b2c2067eeed8aa3eacaf9",
+      "preserved_bytes": "recovered/belief-contract-059/171a77aaeea8ad2195bbbe37cfcae71ad6c24ecc9357f35c71f77cb5df92247d.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier root adoption, delegated read, prior partial, registration, verification or proposal. This bounded set is not a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-261-PARTIAL-001.json",
+      "sha256": "8da17e721d2e1112535701d4ff0f8ef0564ab5a235e13c7eac9a27aa62426e65",
+      "bytes": 1867,
+      "git_blob": "2cc409cfe32275d53705d1a40c4592eefe55ca0a",
+      "preserved_bytes": "recovered/belief-contract-059/8da17e721d2e1112535701d4ff0f8ef0564ab5a235e13c7eac9a27aa62426e65.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier root adoption, delegated read, prior partial, registration, verification or proposal. This bounded set is not a complete transitive support chain or checkpoint 3821 authority."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/351",
+      "qualification": "Earlier correction-identity question, no accepted unique finding."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/352",
+      "qualification": "Earlier narrowing question, no accepted unique finding."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/353",
+      "qualification": "Earlier model-source qualification, separately attributed to role 1127; no current independent-lens transfer."
+    }
+  ],
+  "lens": 4,
+  "scope": "Selected native belief revision arithmetic and bounded generated/developer producers; full operations lens remains open.",
+  "candidates": [
+    {
+      "id": "PL13-260-BELIEF-REVISION-COUNT-NARROWING-PENDING",
+      "severity": "unassigned; source-established arithmetic narrowing, supported exhaustion unproved",
+      "classification": "Independent 95e revisit of the earlier conditional belief-revision count narrowing, not a new unique historical defect.",
+      "trace": "Both selected claim-reception and sharing paths count existing revisions for an owner and belief, use usize saturating_add(1), cast to u16, and place the result both in the revision row and its compound primary key. On ordinary platforms where usize can represent these counts, 65,535 rows yield revision 0; 65,536 rows yield revision 1, repeating the first ordinary revision key if that earlier row remains. This is integer conversion reasoning, not an observed native insertion, database constraint result or transaction.",
+      "producer_and_limits": "The selected ordinary generated-case assembly creates two witnesses with three or four primary testimony entries and one secondary entry; the outbreak assembly creates one per witness. The selected developer compiler recursively limits each authoring array to 64 and all repeated items to 512 and rejects structural diagnostics even when implausibility is allowed. Authority validation requires replay against the ordinary generator or developer compiler. For selected generated testimony within a fixed generation context, observer/witness/index determines the receipt ID and an existing safe receipt skips restaging; correction must match owner, case and proposition. These facts bound the selected single-case producers, not every possible historical or native source and not a global proof of revision count. Repeating an unchanged belief share returns on an existing semantic receipt, while a changed source revision creates a different recipient belief ID. Other producers, changed-payload paths, history import and native state remain open.",
+      "connected_repair": "After the audit gate, decide an explicit exhaustion/identity policy at the authoritative revision owner, use checked or sufficiently wide sequencing without silent key reuse, and reconcile claim and sharing paths, stored key width, replay and correction provenance. Do not add compatibility shims.",
+      "later_acceptance": "After separately authorized implementation and validation, cover zero, first revision, representable boundary and exhaustion, preserved previous revision linkage, receipt replay and sharing identities, and any supported bulk or imported history.",
+      "discovery": "partial; supported high-count production, all writers, share-payload transitions, native policy and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

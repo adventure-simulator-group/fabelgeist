@@ -1509,8 +1509,38 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L09-INVESTIGATION-RECEIPT-95E.json"
+      },
+      {
+        "id": "PL13-260-BELIEF-REVISION-COUNT-NARROWING-PENDING",
+        "lens": 4,
+        "severity": "unassigned; source-established arithmetic narrowing, supported exhaustion unproved",
+        "classification": "Independent 95e revisit of the earlier conditional belief-revision count narrowing, not a new unique historical defect.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/2339",
+          "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/352"
+        ],
+        "relationship_qualification": "Same earlier conditional contract independently revisited at 95e; earlier work accepted no unique finding and its original source and attribution are retained. The two contracts have distinct first failures.",
+        "discovery": "partial; supported high-count production, all writers, share-payload transitions, native policy and aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L04-BELIEF-REVISION-95E.json"
+      },
+      {
+        "id": "PL13-260-INVESTIGATION-CORRECTION-PROPOSITION-IDENTITY-PENDING",
+        "lens": 5,
+        "severity": "unassigned; conditional cross-proposition correction policy and admission",
+        "classification": "Independent 95e revisit of the earlier authored correction identity question, separate from revision narrowing and not a new unique historical defect.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/2338",
+          "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/351"
+        ],
+        "relationship_qualification": "Same earlier conditional contract independently revisited at 95e; earlier work accepted no unique finding and its original source and attribution are retained. The two contracts have distinct first failures.",
+        "discovery": "partial; authored correction policy, full developer validity, native reachability, rollback and aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L05-TESTIMONY-CORRECTION-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0055.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0134.json"
 }
