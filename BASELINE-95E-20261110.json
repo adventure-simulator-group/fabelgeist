@@ -6049,8 +6049,33 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-GROUND-CONTACT-DISTANCE-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-DISPATCHER-PORT-ALLOCATION-EXHAUSTION",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          4,
+          6,
+          7,
+          8,
+          11,
+          13
+        ],
+        "severity": "unassigned; conditional port exhaustion and Rust overflow mode",
+        "classification": "Original059 dispatcher next-port increment can exceed u16 range before request validation when the current value is 65535.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/265",
+          "segovb/READ-L12-669.json",
+          "adler/READ-L11-308.json"
+        ],
+        "relationship_qualification": "Same original059 identifier and attribution; not an additional historical finding or checkpoint3821 record.",
+        "discovery": "partial; exact same current source and bounded callback path, no actual event/build or aliases",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DISPATCHER-ADMISSION-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1249.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1252.json"
 }
