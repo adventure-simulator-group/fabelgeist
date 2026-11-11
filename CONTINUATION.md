@@ -181,9 +181,14 @@ from 95e; the newer fraction operations are not covered by that read. Build
 and test source was inspected only.
 `ASSESSMENT-L01-HISTORICAL-1031-1040.json` preserves dialogue and plant
 generator source reads. Test source was inspected only.
+`ASSESSMENT-L04-PLANT-MESH-COMPOSITION-95E.json` narrows an earlier
+public mesh composition concern to selected bounded flower and instanced
+presentation paths; no renderer failure was established.
 `ASSESSMENT-L05-DIALOGUE-PRIORITY-95E.json` records a conditional
 authoring preflight gap and the selected runtime ambiguity error. The
 inspected current equal-priority groups use disjoint fact values.
+`ASSESSMENT-L01-HISTORICAL-1041-1050.json` preserves fungus, habitat
+and mesh source reads. Test source was inspected only.
 `ASSESSMENT-L05-SCHEDULE-AGGREGATE-95E.json` records a possible schedule
 aggregate strengthening. Both selected production callers supply matching
 organization minutes; no invalid native schedule was established.

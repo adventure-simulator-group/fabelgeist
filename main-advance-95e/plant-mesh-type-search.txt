@@ -1,0 +1,29 @@
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/README.md:32:`FlowerParameters::generate` returns indexed `PlantMesh` data rooted at Y=0
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/README.md:33:in metres. `PlantMesh::into_bevy` uploads the same geometry used by the
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/flower/geometry.rs:2:use crate::{PlantLod, PlantMesh};
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/flower/geometry.rs:12:pub(super) fn generate(p: &FlowerParameters, seed: Seed, lod: PlantLod) -> PlantMesh {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/flower/geometry.rs:26:fn shoot(p: &FlowerParameters, phase: f32, lod: PlantLod, reduction: usize) -> PlantMesh {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/flower/geometry.rs:27:    let mut mesh = PlantMesh::default();
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/flower/geometry.rs:64:        let mut flower = PlantMesh::default();
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/flower/geometry.rs:76:fn ribbon(mesh: &mut PlantMesh, a: Vec3, b: Vec3, radius: f32, pigment: crate::Pigment) {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/flower/geometry.rs:83:    mesh: &mut PlantMesh,
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/flower/geometry.rs:134:    mesh: &mut PlantMesh,
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/flower/geometry.rs:217:fn petals(mesh: &mut PlantMesh, p: &FlowerParameters, rows: usize, angle: f32) {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/flower/geometry.rs:239:fn bell(mesh: &mut PlantMesh, p: &FlowerParameters, lod: PlantLod, phase: f32) {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/flower/mod.rs:6:use crate::{GenerationError, Pigment, PlantLod, PlantMesh, parameters::bounded};
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/flower/mod.rs:98:    pub fn generate(&self, seed: Seed, detail: PlantLod) -> Result<PlantMesh, GenerationError> {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/flower/tests.rs:78:        let extent = |m: &PlantMesh| m.positions.iter().map(|v| v[1]).fold(0.0, f32::max);
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/fungus/geometry.rs:2:use crate::{PlantLod, PlantMesh};
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/fungus/geometry.rs:79:pub(super) fn generate(p: &FungusParameters, seed: Seed, detail: PlantLod) -> PlantMesh {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/fungus/geometry.rs:80:    let mut mesh = PlantMesh::default();
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/fungus/geometry.rs:127:fn veil(mesh: &mut PlantMesh, profile: &Profile, n: usize) {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/fungus/geometry.rs:150:fn ornaments(mesh: &mut PlantMesh, profile: &Profile, seed: Seed, detail: PlantLod) {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/fungus/mod.rs:6:use crate::{GenerationError, Pigment, PlantLod, PlantMesh, parameters::bounded};
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/fungus/mod.rs:117:    pub fn generate(&self, seed: Seed, detail: PlantLod) -> Result<PlantMesh, GenerationError> {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/lib.rs:9:pub use mesh::{PlantLod, PlantMesh};
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/mesh.rs:39:pub struct PlantMesh {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/mesh.rs:45:impl PlantMesh {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/species.rs:2:    GenerationError, PlantLod, PlantMesh, flower::FlowerSpecies, fungus::FungusSpecies,
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/species.rs:26:    pub fn generate(self, seed: Seed, detail: PlantLod) -> Result<PlantMesh, GenerationError> {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/viewer/recipe.rs:3:    GenerationError, PlantMesh,
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-plant-generator/src/viewer/recipe.rs:58:    ) -> Result<PlantMesh, GenerationError> {

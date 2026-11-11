@@ -1,0 +1,289 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 4,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected plant mesh composition and flower generation bounds, tactical instancing, viewer conversion and earlier delegated evidence. The operations lens remains incomplete.",
+  "source_reasoning": "Static source reading, source-derived integer bounds and historical evidence recovery only; no generation, mesh, Bevy, build, test or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-plant-generator/src/mesh.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "01e6916bbc034d5462772af5a20a028cb5e629cc",
+      "sha256": "399bccce261a43c8d5333f82c29055d43c4d8200a896856fe0a020f5fdbc83b7",
+      "bytes": 5653,
+      "lines": 164,
+      "ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/plant-mesh-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-plant-generator/src/flower/geometry.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d53311de5572510633164c14b6815b8f51c13c03",
+      "sha256": "dafe7238b919cf1a908c2b419957324da29f30e3f3b505be20f54d8303161cc8",
+      "bytes": 9567,
+      "lines": 261,
+      "ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/plant-mesh-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-plant-generator/src/flower/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "adc1fe1d507530cf4ec98f41886279dff097fa27",
+      "sha256": "83c15bd86ae01aa5de6426169bfd4477ce693e0219aef61c0f9090fd25475432",
+      "bytes": 3631,
+      "lines": 102,
+      "ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/plant-mesh-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-plant-generator/src/parameters.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "41a85c7388e218f3f1767cd8b9991aa91c03a683",
+      "sha256": "35fbc88c4b1f0ad37667c3884bfc1839cc97fec15ecffe725aba5f1e096b52fe",
+      "bytes": 1096,
+      "lines": 41,
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/plant-mesh-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-plant-generator/src/species.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "579f55bc147691c9ae88d8af9d93e3b16871f4f4",
+      "sha256": "ee7ccc523ddb649b30adf8e75f5de0476d5a743c622ef0b271a5a7c2df758ab2",
+      "bytes": 1586,
+      "lines": 44,
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/plant-mesh-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9e4e965e521f810478d3fa8106e39be6ef855225",
+      "sha256": "5397178ad53d019142d2791f701111ec168b2b1636e053a1085ce9bf1b6af35a",
+      "bytes": 8409,
+      "lines": 232,
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/plant-mesh-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants/lod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f34431b4c24da1bdf276ba46e5f36e9b864daa93",
+      "sha256": "ed647cd71017f84b64945f398ad873fce7a452384db4b485eaafb29ba4de70a8",
+      "bytes": 4559,
+      "lines": 140,
+      "ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/plant-mesh-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-plant-generator/src/viewer/recipe.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "03722dc105d067e743e1c984dec716c6e8e1aa8b",
+      "sha256": "737948e69d20a10db0d1674d42befec8fccae79a74844a3abd6c7d448e5f30d6",
+      "bytes": 2910,
+      "lines": 90,
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/plant-mesh-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-plant-generator/src/viewer/main.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bebe79a11c74b5299e0625c52fae079d6f99ce26",
+      "sha256": "a82177376083409276cc58189b2edcc8320c03798f8ff1f29d5009a8c1b214e6",
+      "bytes": 6195,
+      "lines": 215,
+      "ranges": [
+        [
+          175,
+          210
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/plant-mesh-sources/08.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "search_evidence": [
+    {
+      "path": "main-advance-95e/plant-mesh-append-search.txt",
+      "sha256": "1496efd27c001bcf244bbc0e578af42ee84f5b18e9344d51981c804d5cb4158b",
+      "bytes": 297,
+      "query": "git grep -n -F mesh.append( in crates",
+      "qualification": "Exact spelling and stated tracked scopes only; aliases, other variable names, external and indirect callers remain open."
+    },
+    {
+      "path": "main-advance-95e/plant-mesh-into-bevy-search.txt",
+      "sha256": "a648789fb4366fca6221e81b40d913d795e90e927a159bd01e32db0f6e74aee4",
+      "bytes": 354,
+      "query": "git grep -n -F into_bevy() in crates/adventuresim-plant-generator, crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants",
+      "qualification": "Exact spelling and stated tracked scopes only; aliases, other variable names, external and indirect callers remain open."
+    },
+    {
+      "path": "main-advance-95e/plant-mesh-type-search.txt",
+      "sha256": "2fb75d061dd9b97764ac9714d4dc8dfbd8f7cd4db66dfcdd066055ece41a2a1d",
+      "bytes": 4733,
+      "query": "git grep -n -F PlantMesh in crates",
+      "qualification": "Exact spelling and stated tracked scopes only; aliases, other variable names, external and indirect callers remain open."
+    }
+  ],
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-224.json",
+      "sha256": "3e62e2e3380550c865e32f62c58203bf4d9690e61d541463cf4cab287ed4659d",
+      "bytes": 10401,
+      "git_blob": "96ef30f466aea7e3492e05fa4e8a728aa74714b6",
+      "preserved_bytes": "recovered/plant-mesh-059/3e62e2e3380550c865e32f62c58203bf4d9690e61d541463cf4cab287ed4659d.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support, preserving original attribution; no checkpoint 3821 or other-lens transfer."
+    }
+  ],
+  "recovered_historical_support": [
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-226.json",
+      "sha256": "0f8d32c55ec2786c79ebf2f8bea1e5024a3f785bc4a3f0afb8206505baeecd9b",
+      "bytes": 6424,
+      "git_blob": "0410b4e0adf08a994d0ecdd9df88e9cb783e77b2",
+      "preserved_bytes": "recovered/plant-mesh-059/0f8d32c55ec2786c79ebf2f8bea1e5024a3f785bc4a3f0afb8206505baeecd9b.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support, preserving original attribution; no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VERIFY-PL13-226.json",
+      "sha256": "73d1c57f1f8e188a422518afb3e7172725929b2ca391816fa773fd07de9c7510",
+      "bytes": 628,
+      "git_blob": "39dd13efc7f48a6f80bae7c72fe3731f9f4c1bda",
+      "preserved_bytes": "recovered/plant-mesh-059/73d1c57f1f8e188a422518afb3e7172725929b2ca391816fa773fd07de9c7510.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support, preserving original attribution; no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-224-226.json",
+      "sha256": "20c8f740be8baaa6ad13e7f31798afc4d8fd362f79d17586e9ec0be4d7943566",
+      "bytes": 14593,
+      "git_blob": "650fa8fe29504dfb265629490c78fc6de27e8951",
+      "preserved_bytes": "recovered/plant-mesh-059/20c8f740be8baaa6ad13e7f31798afc4d8fd362f79d17586e9ec0be4d7943566.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support, preserving original attribution; no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/REGISTRATION-PL13-226.json",
+      "sha256": "d5882995276af152d2fd29702a5d9a1fef85478ea9e6888ce298273dd0a69115",
+      "bytes": 2481,
+      "git_blob": "c02dc4a474bf74d27b2237a42e45eef23c0c3058",
+      "preserved_bytes": "recovered/plant-mesh-059/d5882995276af152d2fd29702a5d9a1fef85478ea9e6888ce298273dd0a69115.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support, preserving original attribution; no checkpoint 3821 or other-lens transfer."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/310",
+      "qualification": "Earlier PL13-226 already observed this public composition concern and left current/native callers pending; zero historical unique findings and no checkpoint 3821 promotion."
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 1037,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/flower/geometry.rs",
+      "historical_sha256": "dafe7238b919cf1a908c2b419957324da29f30e3f3b505be20f54d8303161cc8",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1031-1040.json",
+      "qualification": "Separate full historical Lens 1 read and current byte comparison; no transfer to the delegated reader, aggregate/operations closure or checkpoint 3821."
+    },
+    {
+      "original_index": 1038,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/flower/mod.rs",
+      "historical_sha256": "83c15bd86ae01aa5de6426169bfd4477ce693e0219aef61c0f9090fd25475432",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1031-1040.json",
+      "qualification": "Separate full historical Lens 1 read and current byte comparison; no transfer to the delegated reader, aggregate/operations closure or checkpoint 3821."
+    },
+    {
+      "original_index": 1048,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/lod_tests.rs",
+      "historical_sha256": "61629eb0962893806bfe10ea6ac6da724bada40435a910e83b5891512f86dd1c",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1041-1050.json",
+      "qualification": "Separate full historical Lens 1 read and current byte comparison; no transfer to the delegated reader, aggregate/operations closure or checkpoint 3821."
+    },
+    {
+      "original_index": 1049,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/mesh.rs",
+      "historical_sha256": "399bccce261a43c8d5333f82c29055d43c4d8200a896856fe0a020f5fdbc83b7",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1041-1050.json",
+      "qualification": "Separate full historical Lens 1 read and current byte comparison; no transfer to the delegated reader, aggregate/operations closure or checkpoint 3821."
+    },
+    {
+      "original_index": 1050,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/parameters.rs",
+      "historical_sha256": "35fbc88c4b1f0ad37667c3884bfc1839cc97fec15ecffe725aba5f1e096b52fe",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1041-1050.json",
+      "qualification": "Separate full historical Lens 1 read and current byte comparison; no transfer to the delegated reader, aggregate/operations closure or checkpoint 3821."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-PLANT-MESH-PUBLIC-COMPOSITION-001",
+      "severity": "unassigned; possible public mesh invariant strengthening, selected generated flower path bounded",
+      "classification": "Previously identified unchecked public mesh vectors, index rebasing and transform inputs; no established first-party upload failure.",
+      "trace": "PlantMesh exposes positions, normals, colors and indices as independent public vectors. append casts the destination position count to u32, rebases every supplied source index with unchecked addition, transforms source positions by the supplied quaternion and scale, and rotates normals without validating the inputs. into_bevy forwards those vectors and indices to Bevy mesh-building methods without local shape or index checks. The original 059 delegate had already identified these same raw composition concerns and did not accept a unique finding.",
+      "conditional_counterexample": "A hypothetical public PlantMesh value with one position, empty normal and color vectors and index 1 is representable even though the three attribute lengths disagree and the index is outside its position range. Appending or converting such a value has no local guard in the selected methods. This is a source-level API example only: no mesh, Bevy builder, renderer, upload, panic or product code was run.",
+      "selected_flower_bound": "For admitted flower parameters, the selected generator caps a shoot at eight heads, twelve leaves and five sampled leaflets per leaf. A deliberately loose vertex bound before the triangle-budget retry is 24 stem vertices + 480 leaf vertices + 56 lateral-head stem vertices + eight times (720 petal + 28 center + 24 stamen vertices) = 6736. These bounds follow from the largest source sampling dimensions, with low-detail and fused-bell cases below the same allowance. Each flower append uses an internally built corolla, scale 1.0 and rotation constructors; this selected bounded path cannot approach u32 index capacity by that count. The arithmetic is symbolic and does not execute generation or establish every geometric invariant.",
+      "native_and_viewer_scope": "The inspected tactical SpecimenCache generates one mesh per species and detail, converts each to Bevy, then shares handles across separately transformed instances. The selected viewer rebuild likewise converts a validated generated recipe mesh. Those paths do not demonstrate a bad public mesh or aggregate cell append. The exact mesh.append( search also finds an unrelated tactical city-layout mesh type, and the scoped into_bevy() search finds the selected tactical and viewer conversions; neither search excludes aliases, other spellings or external consumers.",
+      "historical_attribution": "The exact checkpoint 059 PL13-226 delegate read the earlier mesh and source tests, observed unchecked public vectors, casts and transforms, left actual composition callers and bounds pending, and accepted zero unique findings. The delegate, root adoption and directly referenced support retain their original bytes and attribution; this selected 95e trace is not checkpoint 3821 evidence.",
+      "safeguards_and_limits": "The selected flower path uses bounded authored input and internally generated source geometry, and selected tactical rendering reuses per-species mesh handles. No arbitrary mesh producer, negative or nonfinite transform, native bad geometry, renderer behavior or user impact is established. Public API contract, other consumers, full mesh invariants and native admission remain open.",
+      "connected_repair": "If PlantMesh is intended to certify renderable geometry, centralize its ownership and enforce aligned attributes, in-range rebased indices and supported transforms at all construction and mutation boundaries; preserve valid generated geometry and the separate instancing path. Trace all first-party and external producers, normal semantics and native upload before choosing an implementation.",
+      "later_acceptance": "Only after separate authorization for implementation and product validation, cover malformed attributes and indices, arithmetic boundaries, unsupported transforms, generated maximum organ counts, valid detail budgets, viewer and tactical presentation.",
+      "discovery": "partial; public contract, other callers, renderer admission and historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}
