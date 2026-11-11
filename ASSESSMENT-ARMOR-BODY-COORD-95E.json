@@ -1,0 +1,1170 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2179–2183 historical bodies, separate current versions, original shared morph metadata finding and selected body/coordinate-field producer and shader source excerpts.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2179-2183.json",
+  "git_membership_evidence": "ARMOR-BODY-COORD-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-character-creator/src/device_torso.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "15ec98043e3a8db4ca337c248d6d8bcde72e3fe2",
+      "sha256": "78af7acbb8b527b1d3f6ee10c15b101334e9423e7da77ad40283325c2e9579a5",
+      "bytes": 12195,
+      "lines": 342,
+      "ranges": [
+        [
+          200,
+          285
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/armor-body-coord-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No future original-role, independent reviewer or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/bracer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "761fcec9c86cd23131d49aecb388ca810b9f5c54",
+      "sha256": "2fd643dd2bc33e9b844cdd3c185c7ca9d474fe5ca773d8759d54854129ce64ef",
+      "bytes": 4269,
+      "lines": 119,
+      "ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/armor-body-coord-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No future original-role, independent reviewer or other-lens credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/body_cloth.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1e90c65520c19612361435f1d2fd538e91092259",
+      "sha256": "6dd1a2bb0527db75e6809e3842805462247c98db6556af3c837f386c356f59ac",
+      "bytes": 3299,
+      "lines": 86,
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/armor-body-coord-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No future original-role, independent reviewer or other-lens credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/body_cloth.wgsl",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e11b44bcceb867e043da7cdbbccbce63162fdcf6",
+      "sha256": "804683ea3810a65de30e68b29f367749ea6ea33b3cbcd417dc6ef52bf1fb568d",
+      "bytes": 348,
+      "lines": 6,
+      "ranges": [
+        [
+          1,
+          6
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/armor-body-coord-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No future original-role, independent reviewer or other-lens credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/body_cloth_extrusion.wgsl",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a8f17c4aed80af53fc73e24967538acc762c443d",
+      "sha256": "d741b2942f9384ae94d1fe1620beeb8ba325ee048df1c893957a8573b623795d",
+      "bytes": 350,
+      "lines": 6,
+      "ranges": [
+        [
+          1,
+          6
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/armor-body-coord-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No future original-role, independent reviewer or other-lens credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part/shell_kernels.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c2b510dcb2f26be989d7a137623f691cc730017e",
+      "sha256": "a1f1ae3247fb038af464594b5dd662206c6bd31797e6f7c82d1da8b1c18364c0",
+      "bytes": 7910,
+      "lines": 237,
+      "ranges": [
+        [
+          130,
+          200
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/armor-body-coord-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No future original-role, independent reviewer or other-lens credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part/layout.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2df5e7139a1230cb2478492b85d203fa22842198",
+      "sha256": "82a6a4729b279187a9e7012181e5b85601f4ab3924c707d3243816168a83bc62",
+      "bytes": 10650,
+      "lines": 311,
+      "ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/armor-body-coord-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No future original-role, independent reviewer or other-lens credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c25d6c84f410e31676bdd1bfe2a5c9ee06b1e5ab",
+      "sha256": "8028b8d116319efad8f496411b9d503f9536f443df917ddab8951d6c0bc27a29",
+      "bytes": 15380,
+      "lines": 399,
+      "ranges": [
+        [
+          1,
+          120
+        ],
+        [
+          135,
+          185
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/armor-body-coord-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No future original-role, independent reviewer or other-lens credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/recipe.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5b7a171ce6c0d3a54251b18bb7f0c2f55a006b54",
+      "sha256": "47f60d1bea5f969747b095c3b6383a20ecc5761131c85306d60211d3dd904bee",
+      "bytes": 6563,
+      "lines": 188,
+      "ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/armor-body-coord-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No future original-role, independent reviewer or other-lens credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/shell_plan.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8e0b4c88895860ea03e6abac4ad43d3635757321",
+      "sha256": "9633486e811f70b72f53994c453b650937f50e40c01021779089fbf4c86159ba",
+      "bytes": 6295,
+      "lines": 177,
+      "ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/armor-body-coord-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No future original-role, independent reviewer or other-lens credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/skirt.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ba9941e0695c1c9db6398935875b5edc6efbdd9e",
+      "sha256": "1d5f3ecf5cfb03740d713f07c7501e80251111f536c97b47406945939ef4b7c2",
+      "bytes": 7823,
+      "lines": 199,
+      "ranges": [
+        [
+          30,
+          70
+        ],
+        [
+          170,
+          199
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/armor-body-coord-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No future original-role, independent reviewer or other-lens credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/skirt_extrusion.wgsl",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "af136c3eb2777a1723fe2d6589695939beba0b1b",
+      "sha256": "867c1e9785593c3c876cb51edd85e781be32b52e791452f251fecd4d31382dec",
+      "bytes": 2194,
+      "lines": 44,
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/armor-body-coord-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No future original-role, independent reviewer or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/body_cloth_plan.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "549c96007d9bcbce74a8d0564fe6cf1be0d781b7",
+      "sha256": "ed03fb038be60644eb643167faa3800dab68f3ad4e5c80b244d04039ed19a9bf",
+      "bytes": 6852,
+      "lines": 178,
+      "ranges": [
+        [
+          120,
+          178
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/armor-body-coord-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No future original-role, independent reviewer or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/cloth_ribbon_plan.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3bb267346241783284ca2492783a2070665176a4",
+      "sha256": "f944d1d64d7f0f0c3eea8c440c8e54531e941542ea1f46c21faa8fb51f23122d",
+      "bytes": 6366,
+      "lines": 172,
+      "ranges": [
+        [
+          95,
+          135
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/armor-body-coord-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No future original-role, independent reviewer or other-lens credit."
+    }
+  ],
+  "native_semantics_evidence": [
+    {
+      "path": "native-evidence/rust-nightly-2026-07-13/reference/expressions/operator-expr.html.gz",
+      "content_encoding": "gzip",
+      "sha256_uncompressed": "d51cc1160b3f46b63b0189e0bfed536581e30dea52b56b18908ff413b83a758c",
+      "source_locator": "#r-expr.as.numeric.int-as-float",
+      "qualification": "Personally inspected Rust reference casting rule, no cast executed."
+    },
+    {
+      "path": "native-evidence/rust-nightly-2026-07-13/library/core/src/primitive_docs.rs.gz",
+      "content_encoding": "gzip",
+      "sha256_uncompressed": "339d21cb6a937245e38a5d09e84b329b1c6c11a6bc35eeb829fc18cd644c8e3b",
+      "personally_inspected_ranges": [
+        [
+          1170,
+          1182
+        ]
+      ],
+      "qualification": "Personally inspected binary32 documentation, no floating-point operation."
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Body and breastplate morph readback",
+      "trace": "GpuBody::new checks nonempty vertex count, matching normal/UV/skin-array lengths, joint-count equality and face index bounds, before uploading raw body data and converting counts to u32. DeviceBreastplate records morph position/normal buffers without names and later zips recorded slots with a separate names slice; each mapped mesh checks its normal status in read_mesh. With two recorded morphs and one name, the second pair and its per-mesh status are omitted by that zip after shared status/readback. The selected character-creator caller loops over input.morphs to record, then collects names from the same ordered input before read.",
+      "remaining": "Conditional source control-flow only; no body, GPU, staged read, morph or export ran. Selected caller does not demonstrate mismatch; other callers and readback failures remain open. Original Adler344 explicitly extended q137 to breastplate, so preserve one connected family and both source owners."
+    },
+    {
+      "contract": "Body surface finite-value admission",
+      "trace": "GpuBody::new checks structural lengths, indices and joint-count alignment but does not inspect component finiteness or normalize the f32 positions, normals, UVs or weights before issuing uploads. The selected public character-creator bracer path first checks domain and structural agreement and then passes body arrays to GpuBody::new; its shown input validator also does not perform finite checks. Assuming all structural and rig-family requirements hold, a position containing NaN reaches the upload call in source control flow.",
+      "remaining": "No input, float operation, upload, kernel, output or test ran. Actual producer constraints and downstream GPU/status checks remain open; no malformed published mesh is asserted. This is related to historical skin-weight q167/q175, not established as the same contract or alias."
+    },
+    {
+      "contract": "Coordinate field revision and fitted garment boundaries",
+      "trace": "Original coord2183 had Normal, AngleWeightedNormal and Radial extrusion and a geometric kernel. Current adds FieldNormal and FieldAngleWeightedNormal, a kernel field capability, per-carrier tagged kind/direction writes, and a check rejecting field shell extrusion with a geometric-only kernel. PartBuild reserves five words per carrier; the shell kernel reads fitted directions for field modes and flags invalid/nonfinite/zero vectors or unknown tags. Selected body cloth uses a field-capable kernel and FieldNormal; selected skirt uses a field-capable kernel and chooses field weighting, and its source explicitly retains geometric extrusion for free or mixed points.",
+      "remaining": "Source and WGSL inspection only: no shader compilation, validation, dispatch or fit ran. Allocation arithmetic, all stage-order dependencies, actual shader outputs and other consumers remain open. The selected mixed-field geometric path is documented behavior, not automatically a fallback defect."
+    },
+    {
+      "contract": "Body-cloth integer ordinal encoded in f32",
+      "trace": "record_body_cloth accepts public u32 layer point_count, validates local index bounds and finite positive geometry parameters, then forms coordinates with each global point ordinal as f32. Both body-cloth vertex and fitted-extrusion shader sources cast coord.x back to u32 to address the fitted point table. In binary32, the integer 16777217 is halfway between representable 16777216 and16777218; Rust integer-to-float casts use ties-to-even, so this ordinal rounds to16777216. If a point table and the accumulated layers reach that ordinal and all necessary allocation/device limits permit recording, it addresses the preceding point rather than preserving its identity.",
+      "remaining": "No large layer, cast, allocation, GPU, shader or output ran; this is exact source/spec reasoning conditional on a very large input. Real source mesh limits, prior layer accumulation, device buffers and whether such inputs are supported remain open; separate u32 accumulation overflow is also unassessed. No claim that ordinary garments are affected."
+    }
+  ],
+  "reconnected_historical_findings": [
+    {
+      "id": "ADLER-L11-BRACER-MORPH-METADATA-ADMISSION",
+      "queue": 137,
+      "qualification": "Original Adler344 explicitly extends existing343 bracer family to breastplate; this assessment adds selected current source and caller without inventing an independent finding."
+    }
+  ],
+  "new_current_candidates": [
+    {
+      "id": "REVIEW-ARMOR-BODY-SURFACE-ADMISSION-95E",
+      "qualification": "Conditional finite-value input admission question, related to but not automatically identical with prior skin-weight contracts."
+    },
+    {
+      "id": "REVIEW-BODY-CLOTH-ORDINAL-PRECISION-95E",
+      "qualification": "Exact large-ordinal precision question; allocation, source input support and device limits unverified."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-325.json",
+      "sha256": "013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b",
+      "bytes": 14487,
+      "git_blob": "0727226370cf6e317b0b0b399143af1d60dab423",
+      "preserved_bytes": "recovered/armor-body-coord-059/013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b.gz",
+      "published_sha256": "013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b",
+      "published_bytes": 14487,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-326.json",
+      "sha256": "33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506",
+      "bytes": 17595,
+      "git_blob": "37209f8639a30afb09ce02f25762823a60f84b12",
+      "preserved_bytes": "recovered/armor-body-coord-059/33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506.gz",
+      "published_sha256": "33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506",
+      "published_bytes": 17595,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-327.json",
+      "sha256": "af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea",
+      "bytes": 21125,
+      "git_blob": "b1ff53cd461863a08e8170f7451b9abbb6e081ef",
+      "preserved_bytes": "recovered/armor-body-coord-059/af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea.gz",
+      "published_sha256": "af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea",
+      "published_bytes": 21125,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-328.json",
+      "sha256": "6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea",
+      "bytes": 27452,
+      "git_blob": "e267554248f8329c0f4ec09a8026cdc70c705e26",
+      "preserved_bytes": "recovered/armor-body-coord-059/6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea.gz",
+      "published_sha256": "6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea",
+      "published_bytes": 27452,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-329.json",
+      "sha256": "96435d21ad085e10d2bdbc88546e33a8178568ae4f19f336881e92328a737c9b",
+      "bytes": 22456,
+      "git_blob": "fa8502f3db92aa4c3078db978f1662cede4baf11",
+      "preserved_bytes": "recovered/armor-body-coord-059/96435d21ad085e10d2bdbc88546e33a8178568ae4f19f336881e92328a737c9b.gz",
+      "published_sha256": "96435d21ad085e10d2bdbc88546e33a8178568ae4f19f336881e92328a737c9b",
+      "published_bytes": 22456,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-330.json",
+      "sha256": "149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9",
+      "bytes": 11067,
+      "git_blob": "92e69019423222de343906ffbdf10758743816d3",
+      "preserved_bytes": "recovered/armor-body-coord-059/149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9.gz",
+      "published_sha256": "149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9",
+      "published_bytes": 11067,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-331.json",
+      "sha256": "04949d7ef33a8bad3b57301cba959878bb05911c851b453237b9f7ba06ef2938",
+      "bytes": 18061,
+      "git_blob": "3d3dfaa6da80c4dd1f87de4cebc7d2d4ca6af48d",
+      "preserved_bytes": "recovered/armor-body-coord-059/04949d7ef33a8bad3b57301cba959878bb05911c851b453237b9f7ba06ef2938.gz",
+      "published_sha256": "04949d7ef33a8bad3b57301cba959878bb05911c851b453237b9f7ba06ef2938",
+      "published_bytes": 18061,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-332.json",
+      "sha256": "a2942c160b5546001a9d22f86f20bad9bc76ae84b18e1aed05dd6e31ce48ce17",
+      "bytes": 19279,
+      "git_blob": "7cd7cbdfc96edad375a8557ca4cfc842ac016484",
+      "preserved_bytes": "recovered/armor-body-coord-059/a2942c160b5546001a9d22f86f20bad9bc76ae84b18e1aed05dd6e31ce48ce17.gz",
+      "published_sha256": "a2942c160b5546001a9d22f86f20bad9bc76ae84b18e1aed05dd6e31ce48ce17",
+      "published_bytes": 19279,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-333.json",
+      "sha256": "7719d05a7605a4af7fe01978edd0fc9921382a4d8231ddcef27ddcd695b417b2",
+      "bytes": 11860,
+      "git_blob": "cd4ba47186f20cd9ec174beae4bf3ca1c9c80bbc",
+      "preserved_bytes": "recovered/armor-body-coord-059/7719d05a7605a4af7fe01978edd0fc9921382a4d8231ddcef27ddcd695b417b2.gz",
+      "published_sha256": "7719d05a7605a4af7fe01978edd0fc9921382a4d8231ddcef27ddcd695b417b2",
+      "published_bytes": 11860,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-334.json",
+      "sha256": "8cf83e31315f0acc9ffe7280ed7f9d4616ec7355e919f7e8a8420ec32c0cfdcb",
+      "bytes": 15252,
+      "git_blob": "6b3497c6889858a09aa3da87f2bcff57ca8cb22d",
+      "preserved_bytes": "recovered/armor-body-coord-059/8cf83e31315f0acc9ffe7280ed7f9d4616ec7355e919f7e8a8420ec32c0cfdcb.gz",
+      "published_sha256": "8cf83e31315f0acc9ffe7280ed7f9d4616ec7355e919f7e8a8420ec32c0cfdcb",
+      "published_bytes": 15252,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-335.json",
+      "sha256": "c99c88d7c82f1c70c621cb3193f1ba4ed0a86b5fc2541b8e7989b328119e4af9",
+      "bytes": 23129,
+      "git_blob": "177099df66cc6ca9051b8c72421afd1680f8e950",
+      "preserved_bytes": "recovered/armor-body-coord-059/c99c88d7c82f1c70c621cb3193f1ba4ed0a86b5fc2541b8e7989b328119e4af9.gz",
+      "published_sha256": "c99c88d7c82f1c70c621cb3193f1ba4ed0a86b5fc2541b8e7989b328119e4af9",
+      "published_bytes": 23129,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-336.json",
+      "sha256": "7129b3efe6e0d7c307cd32ffa4eec6e09ab99ad00383437986f70d6b3a94af85",
+      "bytes": 11573,
+      "git_blob": "633c5904872e62cbfa3ad647c18f209cb61a4da7",
+      "preserved_bytes": "recovered/armor-body-coord-059/7129b3efe6e0d7c307cd32ffa4eec6e09ab99ad00383437986f70d6b3a94af85.gz",
+      "published_sha256": "7129b3efe6e0d7c307cd32ffa4eec6e09ab99ad00383437986f70d6b3a94af85",
+      "published_bytes": 11573,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-337.json",
+      "sha256": "c025fca54695d1c80db55dedd69a042ceb3befb5779c0db26a229f224b0576d1",
+      "bytes": 14118,
+      "git_blob": "01662cefc50ccf57c6550d14bde65ac9a7267e14",
+      "preserved_bytes": "recovered/armor-body-coord-059/c025fca54695d1c80db55dedd69a042ceb3befb5779c0db26a229f224b0576d1.gz",
+      "published_sha256": "c025fca54695d1c80db55dedd69a042ceb3befb5779c0db26a229f224b0576d1",
+      "published_bytes": 14118,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-338.json",
+      "sha256": "b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c",
+      "bytes": 14866,
+      "git_blob": "e2cb145ed01f79ca3573e725d230e15701b9c56c",
+      "preserved_bytes": "recovered/armor-body-coord-059/b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c.gz",
+      "published_sha256": "b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c",
+      "published_bytes": 14866,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-339.json",
+      "sha256": "aa62072636a689b7b935b74dd02ee506a51dc7820336932aa148467d4d55b763",
+      "bytes": 6833,
+      "git_blob": "f30dff7da2604497d37978130eb835b365fc4f33",
+      "preserved_bytes": "recovered/armor-body-coord-059/aa62072636a689b7b935b74dd02ee506a51dc7820336932aa148467d4d55b763.gz",
+      "published_sha256": "aa62072636a689b7b935b74dd02ee506a51dc7820336932aa148467d4d55b763",
+      "published_bytes": 6833,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-340.json",
+      "sha256": "ef09a5f829cb7a1cbefc03ef0f345a2ad535dbedd4e3f9a916b0f4fcc8fd8916",
+      "bytes": 8777,
+      "git_blob": "52ef60a72862f9c7260c4bd4312d6031771d395b",
+      "preserved_bytes": "recovered/armor-body-coord-059/ef09a5f829cb7a1cbefc03ef0f345a2ad535dbedd4e3f9a916b0f4fcc8fd8916.gz",
+      "published_sha256": "ef09a5f829cb7a1cbefc03ef0f345a2ad535dbedd4e3f9a916b0f4fcc8fd8916",
+      "published_bytes": 8777,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-341.json",
+      "sha256": "dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba",
+      "bytes": 19496,
+      "git_blob": "16c3ce74bf3d77eac3003c6b461bcdc72a99a6c6",
+      "preserved_bytes": "recovered/armor-body-coord-059/dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba.gz",
+      "published_sha256": "dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba",
+      "published_bytes": 19496,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-342.json",
+      "sha256": "8dec39a7f93142facae0912454ab6829d6fabcd685e250362025d3cae3a47f6c",
+      "bytes": 6922,
+      "git_blob": "8f7d49f37cd084d0544e74223bdfb3f38fedcb52",
+      "preserved_bytes": "recovered/armor-body-coord-059/8dec39a7f93142facae0912454ab6829d6fabcd685e250362025d3cae3a47f6c.gz",
+      "published_sha256": "8dec39a7f93142facae0912454ab6829d6fabcd685e250362025d3cae3a47f6c",
+      "published_bytes": 6922,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-343.json",
+      "sha256": "51746dab003209e5540f5f4ba79ea193ca0680791cd060142bfc4326e0597903",
+      "bytes": 15835,
+      "git_blob": "d00c3a915d6cfcd5c8863bbc98964c6a3d6df510",
+      "preserved_bytes": "recovered/armor-body-coord-059/51746dab003209e5540f5f4ba79ea193ca0680791cd060142bfc4326e0597903.gz",
+      "published_sha256": "51746dab003209e5540f5f4ba79ea193ca0680791cd060142bfc4326e0597903",
+      "published_bytes": 15835,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original independent Lens11 receipt preserving same bracer and breastplate family",
+        "Original qualified same-lens context",
+        "Original059 queue137 directly referenced evidence; original revision and scope retained",
+        "Original059 queue137 directly referenced evidence; original revision and scope retained",
+        "Original059 queue137 directly referenced evidence; original revision and scope retained",
+        "Original059 queue137 directly referenced evidence; original revision and scope retained",
+        "Original059 queue137 directly referenced evidence; original revision and scope retained",
+        "Original059 queue137 directly referenced evidence; original revision and scope retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-344.json",
+      "sha256": "06277a8162c76e19b86d48deaf31a10caf5801007fd3b11928f0070836b75702",
+      "bytes": 15189,
+      "git_blob": "bd313a98e130ebc0cf6415fab33ab87d75e292b2",
+      "preserved_bytes": "recovered/armor-body-coord-059/06277a8162c76e19b86d48deaf31a10caf5801007fd3b11928f0070836b75702.gz",
+      "published_sha256": "06277a8162c76e19b86d48deaf31a10caf5801007fd3b11928f0070836b75702",
+      "published_bytes": 15189,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original independent Lens11 receipt preserving same bracer and breastplate family"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-353.json",
+      "sha256": "379300f02147011e3c4507c285801623bd889f810ad737b27d81529f39fd88d7",
+      "bytes": 16575,
+      "git_blob": "1f874d91c884fc7123f61ba5ad71a296b2c555c9",
+      "preserved_bytes": "recovered/armor-body-coord-059/379300f02147011e3c4507c285801623bd889f810ad737b27d81529f39fd88d7.gz",
+      "published_sha256": "379300f02147011e3c4507c285801623bd889f810ad737b27d81529f39fd88d7",
+      "published_bytes": 16575,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue143 directly referenced evidence; original revision and scope retained",
+        "Original059 queue143 directly referenced evidence; original revision and scope retained",
+        "Original059 queue143 directly referenced evidence; original revision and scope retained",
+        "Original059 queue143 directly referenced evidence; original revision and scope retained",
+        "Original059 queue143 directly referenced evidence; original revision and scope retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-371.json",
+      "sha256": "eca8734bb5f3ba20dab718022ddd3fb8d9a62bd04ab3f285aacb3d83c86c8d5e",
+      "bytes": 8581,
+      "git_blob": "f4f9f156a8825c55726cdeb27b03bb9d478fc0c1",
+      "preserved_bytes": "recovered/armor-body-coord-059/eca8734bb5f3ba20dab718022ddd3fb8d9a62bd04ab3f285aacb3d83c86c8d5e.gz",
+      "published_sha256": "eca8734bb5f3ba20dab718022ddd3fb8d9a62bd04ab3f285aacb3d83c86c8d5e",
+      "published_bytes": 8581,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue167 directly referenced evidence; original revision and scope retained",
+        "Original059 queue167 directly referenced evidence; original revision and scope retained",
+        "Original059 queue167 directly referenced evidence; original revision and scope retained",
+        "Original059 queue167 directly referenced evidence; original revision and scope retained",
+        "Original059 queue167 directly referenced evidence; original revision and scope retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-374.json",
+      "sha256": "c3b528015ea7f58a4b96389e4f2324ca3204f1ebb9b2d49c578158da694b893c",
+      "bytes": 12621,
+      "git_blob": "4fcf38ae302e8968719f1e38a105da9c274f2121",
+      "preserved_bytes": "recovered/armor-body-coord-059/c3b528015ea7f58a4b96389e4f2324ca3204f1ebb9b2d49c578158da694b893c.gz",
+      "published_sha256": "c3b528015ea7f58a4b96389e4f2324ca3204f1ebb9b2d49c578158da694b893c",
+      "published_bytes": 12621,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue175 directly referenced evidence; original revision and scope retained",
+        "Original059 queue175 directly referenced evidence; original revision and scope retained",
+        "Original059 queue175 directly referenced evidence; original revision and scope retained",
+        "Original059 queue175 directly referenced evidence; original revision and scope retained",
+        "Original059 queue175 directly referenced evidence; original revision and scope retained",
+        "Original059 queue175 directly referenced evidence; original revision and scope retained",
+        "Original059 queue175 directly referenced evidence; original revision and scope retained",
+        "Original059 queue175 directly referenced evidence; original revision and scope retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1032.json",
+      "sha256": "014ff66a4a988d0372124571028cf300039a0cfde446d73ee9bcefad13e059e4",
+      "bytes": 747,
+      "git_blob": "a608a1b2e9d1db1ac0b1c0f9bc1755010c73d222",
+      "preserved_bytes": "recovered/armor-body-coord-059/014ff66a4a988d0372124571028cf300039a0cfde446d73ee9bcefad13e059e4.gz",
+      "published_sha256": "014ff66a4a988d0372124571028cf300039a0cfde446d73ee9bcefad13e059e4",
+      "published_bytes": 747,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1033.json",
+      "sha256": "272101f9316b049bf3f7c290daa0b28978747dc50121cac98d03acc9ed2afd5b",
+      "bytes": 748,
+      "git_blob": "3c9759299f2493b965117a8977c7e25047802ebb",
+      "preserved_bytes": "recovered/armor-body-coord-059/272101f9316b049bf3f7c290daa0b28978747dc50121cac98d03acc9ed2afd5b.gz",
+      "published_sha256": "272101f9316b049bf3f7c290daa0b28978747dc50121cac98d03acc9ed2afd5b",
+      "published_bytes": 748,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1034.json",
+      "sha256": "ed4003c70abc334eaa062ed058c50c89052f7c558a23e98984a6df4c852fc34b",
+      "bytes": 743,
+      "git_blob": "57b34c575313a11e5871f840f8a546ecb7ac245f",
+      "preserved_bytes": "recovered/armor-body-coord-059/ed4003c70abc334eaa062ed058c50c89052f7c558a23e98984a6df4c852fc34b.gz",
+      "published_sha256": "ed4003c70abc334eaa062ed058c50c89052f7c558a23e98984a6df4c852fc34b",
+      "published_bytes": 743,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1035.json",
+      "sha256": "77c6e93de308ec8407c667e67ac72ca736978b95dbb270c577fafa4c6e87f563",
+      "bytes": 745,
+      "git_blob": "e6bc81b4b08574443d111bba0638e0a2eb9f4183",
+      "preserved_bytes": "recovered/armor-body-coord-059/77c6e93de308ec8407c667e67ac72ca736978b95dbb270c577fafa4c6e87f563.gz",
+      "published_sha256": "77c6e93de308ec8407c667e67ac72ca736978b95dbb270c577fafa4c6e87f563",
+      "published_bytes": 745,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1036.json",
+      "sha256": "32f1db0bc3654fddd7147e722675a6db731fa8e4e1a814463ee1029d297b5b07",
+      "bytes": 747,
+      "git_blob": "44f4c8797433a4dcb1dddea10c6e305c55fed402",
+      "preserved_bytes": "recovered/armor-body-coord-059/32f1db0bc3654fddd7147e722675a6db731fa8e4e1a814463ee1029d297b5b07.gz",
+      "published_sha256": "32f1db0bc3654fddd7147e722675a6db731fa8e4e1a814463ee1029d297b5b07",
+      "published_bytes": 747,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1037.json",
+      "sha256": "269873f8e30dd126e55d536b1b624d9ee46a4eac783f61eea842b3f6cd50ea30",
+      "bytes": 749,
+      "git_blob": "13fe73c70185cf582d81faaa7e8a7fa37dd243eb",
+      "preserved_bytes": "recovered/armor-body-coord-059/269873f8e30dd126e55d536b1b624d9ee46a4eac783f61eea842b3f6cd50ea30.gz",
+      "published_sha256": "269873f8e30dd126e55d536b1b624d9ee46a4eac783f61eea842b3f6cd50ea30",
+      "published_bytes": 749,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1038.json",
+      "sha256": "9e71381de45ecaf1b1aad78705a2177ef643dba5529d062ef095050545ff0d7e",
+      "bytes": 758,
+      "git_blob": "d955880054f07c5ae8ca5ee20259a84d2dbde35d",
+      "preserved_bytes": "recovered/armor-body-coord-059/9e71381de45ecaf1b1aad78705a2177ef643dba5529d062ef095050545ff0d7e.gz",
+      "published_sha256": "9e71381de45ecaf1b1aad78705a2177ef643dba5529d062ef095050545ff0d7e",
+      "published_bytes": 758,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1039.json",
+      "sha256": "a56c51319135d34e4c343bb6e6dce27aa1abe756dc2e2aec23437b5c87731739",
+      "bytes": 748,
+      "git_blob": "2184103eef8444f12c9060917f56948131b57d6c",
+      "preserved_bytes": "recovered/armor-body-coord-059/a56c51319135d34e4c343bb6e6dce27aa1abe756dc2e2aec23437b5c87731739.gz",
+      "published_sha256": "a56c51319135d34e4c343bb6e6dce27aa1abe756dc2e2aec23437b5c87731739",
+      "published_bytes": 748,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1040.json",
+      "sha256": "83df2fd9bea9005beaf285d50cefe53ca4ebca995c12de2c7c83f9ca8c33ecb4",
+      "bytes": 748,
+      "git_blob": "c30a4173f4f792a681166c1c7b7d7e9c20cd5504",
+      "preserved_bytes": "recovered/armor-body-coord-059/83df2fd9bea9005beaf285d50cefe53ca4ebca995c12de2c7c83f9ca8c33ecb4.gz",
+      "published_sha256": "83df2fd9bea9005beaf285d50cefe53ca4ebca995c12de2c7c83f9ca8c33ecb4",
+      "published_bytes": 748,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1041.json",
+      "sha256": "5c8e512df23b05237c754dd759c011de24394cf536d60c667eb16c4f9a70222d",
+      "bytes": 751,
+      "git_blob": "eaae9cb0d87885f9658074105b4f2a1334909f37",
+      "preserved_bytes": "recovered/armor-body-coord-059/5c8e512df23b05237c754dd759c011de24394cf536d60c667eb16c4f9a70222d.gz",
+      "published_sha256": "5c8e512df23b05237c754dd759c011de24394cf536d60c667eb16c4f9a70222d",
+      "published_bytes": 751,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1042.json",
+      "sha256": "765f953eb7471845250c7044d6a8ed71cccf6a7a4bdd623c24622904420a9ec2",
+      "bytes": 758,
+      "git_blob": "1c0d3c771873d258d983348422551b41885215a6",
+      "preserved_bytes": "recovered/armor-body-coord-059/765f953eb7471845250c7044d6a8ed71cccf6a7a4bdd623c24622904420a9ec2.gz",
+      "published_sha256": "765f953eb7471845250c7044d6a8ed71cccf6a7a4bdd623c24622904420a9ec2",
+      "published_bytes": 758,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-343.json",
+      "sha256": "d80d4f459aa32754f6ef17aadaf63c9cff5d9837f9ef72a0a5ace36aac5a4f16",
+      "bytes": 668,
+      "git_blob": "8fb163508d147003302566e5fca1c0ffc6c444b0",
+      "preserved_bytes": "recovered/armor-body-coord-059/d80d4f459aa32754f6ef17aadaf63c9cff5d9837f9ef72a0a5ace36aac5a4f16.gz",
+      "published_sha256": "d80d4f459aa32754f6ef17aadaf63c9cff5d9837f9ef72a0a5ace36aac5a4f16",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-344.json",
+      "sha256": "1fbeae2cde229616ea20c1b7d4fda13cf9abef913a2f2279bd3e378e5027bf98",
+      "bytes": 657,
+      "git_blob": "8cdbc19f9e6a83b3bd350ac04a27528677e1df7e",
+      "preserved_bytes": "recovered/armor-body-coord-059/1fbeae2cde229616ea20c1b7d4fda13cf9abef913a2f2279bd3e378e5027bf98.gz",
+      "published_sha256": "1fbeae2cde229616ea20c1b7d4fda13cf9abef913a2f2279bd3e378e5027bf98",
+      "published_bytes": 657,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-343.json",
+      "sha256": "f113907401607b4363d683ee155240de799ac1278798e40cd974c78863a67191",
+      "bytes": 35374,
+      "git_blob": "d3b9df40e91c39757681a186f3f490bde12c0167",
+      "preserved_bytes": "recovered/armor-body-coord-059/f113907401607b4363d683ee155240de799ac1278798e40cd974c78863a67191.gz",
+      "published_sha256": "f113907401607b4363d683ee155240de799ac1278798e40cd974c78863a67191",
+      "published_bytes": 35374,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-344.json",
+      "sha256": "93d0cb7e0f3a8d64b739751e5265de8eab15faf7036d13f868285c423ef53b05",
+      "bytes": 35030,
+      "git_blob": "f426898ccf4f4d6c0f77cfc483ecbdd39e6f572d",
+      "preserved_bytes": "recovered/armor-body-coord-059/93d0cb7e0f3a8d64b739751e5265de8eab15faf7036d13f868285c423ef53b05.gz",
+      "published_sha256": "93d0cb7e0f3a8d64b739751e5265de8eab15faf7036d13f868285c423ef53b05",
+      "published_bytes": 35030,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-726.json",
+      "sha256": "3bd477d38973b101507f4af313847f3245761fa06e0660557836468cdad5eb1d",
+      "bytes": 9204,
+      "git_blob": "c444cc3596be429a30ec30390555cffd8be4a548",
+      "preserved_bytes": "recovered/armor-body-coord-059/3bd477d38973b101507f4af313847f3245761fa06e0660557836468cdad5eb1d.gz",
+      "published_sha256": "3bd477d38973b101507f4af313847f3245761fa06e0660557836468cdad5eb1d",
+      "published_bytes": 9204,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-727.json",
+      "sha256": "7e2af8807fa35d180bdd704421dd13834aaf70ba1c5851a658fab5f07059ccd6",
+      "bytes": 11714,
+      "git_blob": "d0c7feff257506ba60e9711ed08cfd714fb8f750",
+      "preserved_bytes": "recovered/armor-body-coord-059/7e2af8807fa35d180bdd704421dd13834aaf70ba1c5851a658fab5f07059ccd6.gz",
+      "published_sha256": "7e2af8807fa35d180bdd704421dd13834aaf70ba1c5851a658fab5f07059ccd6",
+      "published_bytes": 11714,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-128.json",
+      "sha256": "ba3a725b9318be2040ec260347e5908f6a1e506fb0db98a7884577a0261e70b9",
+      "bytes": 739,
+      "git_blob": "3c193b69a0460c26f9a308b7e9c2c4790f718754",
+      "preserved_bytes": "recovered/armor-body-coord-059/ba3a725b9318be2040ec260347e5908f6a1e506fb0db98a7884577a0261e70b9.gz",
+      "published_sha256": "ba3a725b9318be2040ec260347e5908f6a1e506fb0db98a7884577a0261e70b9",
+      "published_bytes": 739,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-129.json",
+      "sha256": "f6153a7f259478c2c48dc78d03cbdecf10e36bd10dfd278cb152e9bd75a08e0a",
+      "bytes": 747,
+      "git_blob": "3ea2629403d4f3bff051f8cffe676e65c2e0457c",
+      "preserved_bytes": "recovered/armor-body-coord-059/f6153a7f259478c2c48dc78d03cbdecf10e36bd10dfd278cb152e9bd75a08e0a.gz",
+      "published_sha256": "f6153a7f259478c2c48dc78d03cbdecf10e36bd10dfd278cb152e9bd75a08e0a",
+      "published_bytes": 747,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-130.json",
+      "sha256": "5c368d2fae58e2fe58bb2b966411e79f7c5e417ca792fdf3929e11e744e7b120",
+      "bytes": 751,
+      "git_blob": "d8cd90928d4ea43c4fe46831dd404381211c9657",
+      "preserved_bytes": "recovered/armor-body-coord-059/5c368d2fae58e2fe58bb2b966411e79f7c5e417ca792fdf3929e11e744e7b120.gz",
+      "published_sha256": "5c368d2fae58e2fe58bb2b966411e79f7c5e417ca792fdf3929e11e744e7b120",
+      "published_bytes": 751,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-131.json",
+      "sha256": "65240587630a5005fcf46fb2d20b3182e8b436f831a4b8441177d24418f8938d",
+      "bytes": 769,
+      "git_blob": "d64fe6c2d48fe66cd66dd82471176540f2cce1bc",
+      "preserved_bytes": "recovered/armor-body-coord-059/65240587630a5005fcf46fb2d20b3182e8b436f831a4b8441177d24418f8938d.gz",
+      "published_sha256": "65240587630a5005fcf46fb2d20b3182e8b436f831a4b8441177d24418f8938d",
+      "published_bytes": 769,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-132.json",
+      "sha256": "e93b64fcf74641dbb082a800bffb048c7a9ed5932ab2f5d81d14621f2b2e57fd",
+      "bytes": 749,
+      "git_blob": "9f661b80b53287f9859d008c55081f2982aee6fd",
+      "preserved_bytes": "recovered/armor-body-coord-059/e93b64fcf74641dbb082a800bffb048c7a9ed5932ab2f5d81d14621f2b2e57fd.gz",
+      "published_sha256": "e93b64fcf74641dbb082a800bffb048c7a9ed5932ab2f5d81d14621f2b2e57fd",
+      "published_bytes": 749,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-133.json",
+      "sha256": "bd1eeac33c84437ccaf88d967e7590573fc2bf38f5c69e79ffad36299cb4933d",
+      "bytes": 749,
+      "git_blob": "209170b684735d47f16edb5ea38ecd83c445d6e1",
+      "preserved_bytes": "recovered/armor-body-coord-059/bd1eeac33c84437ccaf88d967e7590573fc2bf38f5c69e79ffad36299cb4933d.gz",
+      "published_sha256": "bd1eeac33c84437ccaf88d967e7590573fc2bf38f5c69e79ffad36299cb4933d",
+      "published_bytes": 749,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-134.json",
+      "sha256": "9aab4d75698c04a456f4a4ab49a692e0c824e1629fe2dd7719caa1b22db9b542",
+      "bytes": 755,
+      "git_blob": "a18465f3ae5cb5f6def8f46f49b8efd60a99481e",
+      "preserved_bytes": "recovered/armor-body-coord-059/9aab4d75698c04a456f4a4ab49a692e0c824e1629fe2dd7719caa1b22db9b542.gz",
+      "published_sha256": "9aab4d75698c04a456f4a4ab49a692e0c824e1629fe2dd7719caa1b22db9b542",
+      "published_bytes": 755,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-726.json",
+      "sha256": "fbf915bf5bdff09626d14be76fe138868940f1b2c7942e357fb08851050a9532",
+      "bytes": 10662,
+      "git_blob": "2ca81741b0f66fd337553ada3f61c5c3d5f88d45",
+      "preserved_bytes": "recovered/armor-body-coord-059/fbf915bf5bdff09626d14be76fe138868940f1b2c7942e357fb08851050a9532.gz",
+      "published_sha256": "fbf915bf5bdff09626d14be76fe138868940f1b2c7942e357fb08851050a9532",
+      "published_bytes": 10662,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption of delegated Lens12 evidence; zero root rereads"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-727.json",
+      "sha256": "124f151cb598b275e88eba620d7e22780d49366cc8a248aa712d80489dd37a7a",
+      "bytes": 13557,
+      "git_blob": "f47eabf8c8e992aa3c2fccba31a3cff2967c8986",
+      "preserved_bytes": "recovered/armor-body-coord-059/124f151cb598b275e88eba620d7e22780d49366cc8a248aa712d80489dd37a7a.gz",
+      "published_sha256": "124f151cb598b275e88eba620d7e22780d49366cc8a248aa712d80489dd37a7a",
+      "published_bytes": 13557,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption of delegated Lens12 evidence; zero root rereads"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-726.json",
+      "sha256": "9b1adb9a6a275ab6f01b98fb4b2030236c46c41d62e1abf78b89b28c0f3a3202",
+      "bytes": 2025,
+      "git_blob": "762c64d034f3f3500630d68ebd26363836330114",
+      "preserved_bytes": "recovered/armor-body-coord-059/9b1adb9a6a275ab6f01b98fb4b2030236c46c41d62e1abf78b89b28c0f3a3202.gz",
+      "published_sha256": "9b1adb9a6a275ab6f01b98fb4b2030236c46c41d62e1abf78b89b28c0f3a3202",
+      "published_bytes": 2025,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-727.json",
+      "sha256": "fe53eefbb5105f35de6969295adee4c4448e6fcf7be2fc9acb91ef7229ea83cc",
+      "bytes": 2410,
+      "git_blob": "2739bbca4540c4fafd2d32f38f82772b0513b0f5",
+      "preserved_bytes": "recovered/armor-body-coord-059/fe53eefbb5105f35de6969295adee4c4448e6fcf7be2fc9acb91ef7229ea83cc.gz",
+      "published_sha256": "fe53eefbb5105f35de6969295adee4c4448e6fcf7be2fc9acb91ef7229ea83cc",
+      "published_bytes": 2410,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-726.json",
+      "sha256": "81cacc36d252f701b4163a50e12b66918670023a9aaa0cc5a7171799018aa4b3",
+      "bytes": 667,
+      "git_blob": "9ee0d746d8aa9cdc0c0b2543b45448f7fce99c44",
+      "preserved_bytes": "recovered/armor-body-coord-059/81cacc36d252f701b4163a50e12b66918670023a9aaa0cc5a7171799018aa4b3.gz",
+      "published_sha256": "81cacc36d252f701b4163a50e12b66918670023a9aaa0cc5a7171799018aa4b3",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original adoption verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-727.json",
+      "sha256": "aa3c4b5607b6713c20466173eadd022960617c4066ff7c1a1df4e9daaa365a57",
+      "bytes": 667,
+      "git_blob": "652ae65226186130cbd90267021220dd08b73f1f",
+      "preserved_bytes": "recovered/armor-body-coord-059/aa3c4b5607b6713c20466173eadd022960617c4066ff7c1a1df4e9daaa365a57.gz",
+      "published_sha256": "aa3c4b5607b6713c20466173eadd022960617c4066ff7c1a1df4e9daaa365a57",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original adoption verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "Original Lens12 adoptions726/727 preserve delegated attribution and zero root rereads; independent Adler343/344 retain their historical full scopes and unique-count0. The changed coord2183 is a new separately read current source, not retroactive review.",
+  "remaining": "Continue original2184 and all thirteen lenses, all body producers/consumers, capacity limits and aliases. Original3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

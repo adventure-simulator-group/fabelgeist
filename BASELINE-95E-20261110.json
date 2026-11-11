@@ -8693,13 +8693,16 @@
         "historical_related_records": [
           "baseline-059/queue.json#/entries/137"
         ],
-        "relationship_qualification": "Conditional two-record/one-name reasoning; no GPU, readback, failure or real mismatch. Selected caller is evidence against assuming normal occurrence.",
-        "discovery": "partial; public recording/readback, staging and selected caller traced; other callers, device semantics and aliases open",
+        "relationship_qualification": "Conditional two-record/one-name reasoning; no GPU, readback, failure or real mismatch. Selected caller is evidence against assuming normal occurrence. Original Adler344 extended this family to breastplate; its selected current caller also records and names the same ordered input. No duplicate historical finding or actual mismatch.",
+        "discovery": "partial; public recording/readback, staging and selected caller traced; other callers, device semantics and aliases open; selected breastplate owner and caller added in ASSESSMENT-ARMOR-BODY-COORD-95E.json",
         "connected_repair_direction": "Keep each morph identity paired with its recorded mesh or admit equal cardinality before mapping, preserving order and error checks.",
         "future_acceptance": "After audit and authorization, cover missing/extra names, failed morph statuses and valid ordered topology.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-ARMOR-CONSTRUCTION-95E.json"
+        "record": "ASSESSMENT-ARMOR-CONSTRUCTION-95E.json",
+        "additional_current_records": [
+          "ASSESSMENT-ARMOR-BODY-COORD-95E.json"
+        ]
       },
       {
         "id": "ADLER-L11-TILE-TEMPLATE-HOLE-ADMISSION",
@@ -8744,8 +8747,55 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-ARMOR-CONSTRUCTION-95E.json"
+      },
+      {
+        "id": "REVIEW-ARMOR-BODY-SURFACE-ADMISSION-95E",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          4,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; raw body input policy",
+        "classification": "Selected body upload and bracer-input checks do not inspect finite float components before the upload call.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/167",
+          "baseline-059/queue.json#/entries/175"
+        ],
+        "relationship_qualification": "Conditional NaN example with all structural and rig conditions assumed; related skin-weight producer questions remain distinct and actual downstream behavior is untested.",
+        "discovery": "partial; source structure and selected public input path traced; upstream bounds, device checks, other consumers and exact aliases open",
+        "connected_repair_direction": "Establish appropriate body position, normal, UV and weight admission at the actual canonical boundary, coordinating with existing rig influence contracts.",
+        "future_acceptance": "After audit and authorization, cover valid geometry, nonfinite components, weights and canonical producer behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-ARMOR-BODY-COORD-95E.json"
+      },
+      {
+        "id": "REVIEW-BODY-CLOTH-ORDINAL-PRECISION-95E",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          3,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; very large input conditional",
+        "classification": "A body-cloth point ordinal beyond binary32 exact integer precision can be rounded before the shader converts it back to a table index.",
+        "historical_related_records": [],
+        "relationship_qualification": "Source and pinned Rust casting rule imply 16777217 maps to16777216; requires a very large accumulated point table and sufficient device resources. No actual input, cast or device behavior observed.",
+        "discovery": "partial; current ordinal producer, shader consumer and selected source-table producers traced; accepted size bounds, allocation capacity, other consumers and aliases open",
+        "connected_repair_direction": "Preserve exact point identity through the native boundary or establish an explicit representable input limit at the canonical producer.",
+        "future_acceptance": "After audit and authorization, cover the exact representability boundary, supported mesh limits and normal fitted cloth.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-ARMOR-BODY-COORD-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1534.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1539.json"
 }
