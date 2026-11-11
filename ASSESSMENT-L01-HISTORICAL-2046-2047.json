@@ -1,0 +1,92 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2046,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/doors.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working body matches committed6533 and95e for this exact role; no other reviewer or lens credit follows.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2046",
+      "sha256": "676d9b173c594a21fd92761c7737e160d1c19c5c17a5efd8cadd784c51cb6c33",
+      "lines": 672,
+      "new_personal_read_ranges": [
+        [
+          1,
+          672
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GATE-HANDEDNESS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/doors.rs",
+        "sha256": "676d9b173c594a21fd92761c7737e160d1c19c5c17a5efd8cadd784c51cb6c33",
+        "bytes": 23116,
+        "lines": 672,
+        "git_blob": "7e1b479a4c1beaa245d39f1b64cef2ca8d38124e",
+        "preserved_bytes": "main-advance-95e/gate-handedness-evidence/current-2046.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            672
+          ]
+        ],
+        "qualification": "Complete historical body personally read; identical current content does not supply another independent reviewer or other-lens credit."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; original reviewers and earlier source observations remain separately attributed."
+    },
+    {
+      "original_index": 2047,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/doors/gate_tests.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working body matches committed6533 and95e for this exact role; no other reviewer or lens credit follows.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2047",
+      "sha256": "b2f9e246b2d68e862f6c8fea96ceccacb559e6fa33edf26af6224836fdc57d4c",
+      "lines": 100,
+      "new_personal_read_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GATE-HANDEDNESS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/doors/gate_tests.rs",
+        "sha256": "b2f9e246b2d68e862f6c8fea96ceccacb559e6fa33edf26af6224836fdc57d4c",
+        "bytes": 3260,
+        "lines": 100,
+        "git_blob": "6fc3d078ae0f7b85423cd153beb82311d7f2435b",
+        "preserved_bytes": "main-advance-95e/gate-handedness-evidence/current-2047.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            100
+          ]
+        ],
+        "qualification": "Complete historical body personally read; identical current content does not supply another independent reviewer or other-lens credit."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; original reviewers and earlier source observations remain separately attributed."
+    }
+  ],
+  "observations": [
+    "Full historical server doors and included gate-test bodies personally read through EOF. Authored tests, the referenced compound fixture, generation and physics were not run.",
+    "Both bodies match95e. Original Segovb688 and Adler319 personal ranges and separately delegated physical-p16 role2529 remain separately attributed; root adoption858 expressly has zero root personal rereads."
+  ],
+  "qualification": "Historical Lens1 personal bodies and selected current observations only; no checkpoint3821 claim.",
+  "next_original_role": 2048
+}

@@ -7100,8 +7100,33 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-MELEE-REJECTION-LIFECYCLE-95E.json"
+      },
+      {
+        "id": "REVIEW-GATE-RIGHT-HINGE-INTERACTION-OFFSET-001",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          3,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; source-derived gate interaction geometry",
+        "classification": "For a right-hinged CityGate, server spawn computes the doorway centre one full leaf width beyond the closed centre. In the axis-aligned symbolic 1.6m gate example, an actor one metre inside at the closed centre fails the 1.4m lateral grab threshold; no gameplay, physics, scene generation or test ran.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1739",
+          "baseline-059/queue.json#/entries/1741"
+        ],
+        "relationship_qualification": "New bounded95e source-level handedness trace linked to earlier open obligations; no historical unique-count or3821 claim.",
+        "discovery": "partial; source algebra and authored constants establish the selected mismatch; admitted scene, actor access, exact aliases and runtime effect remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GATE-HANDEDNESS-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1351.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1357.json"
 }

@@ -1,0 +1,1196 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2046–2047, right-hinged property gate geometry, doorway interaction, diagnostic and observer error boundaries.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2046-2047.json",
+  "git_membership_evidence": "GATE-HANDEDNESS-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2f153d59e12485f5e84875debc40e1749ca1d294",
+      "sha256": "8d64dedb165f7ed83c658f1f3126c264e7d67aef759ccaeed83843d99190c86b",
+      "bytes": 2847,
+      "lines": 93,
+      "ranges": [
+        [
+          36,
+          67
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-handedness-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compound/boundary.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e62670beef11b1362236688c88f6aa1ba9ed8585",
+      "sha256": "d9fb76fe3c22007ad7491c759dc3d5f4d6a2e9725cb73b08f6a349eade427d5e",
+      "bytes": 10716,
+      "lines": 266,
+      "ranges": [
+        [
+          10,
+          18
+        ],
+        [
+          181,
+          205
+        ],
+        [
+          211,
+          265
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-handedness-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/property.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ad894a6f76bdab9bb22efc9324cd481f3a115853",
+      "sha256": "ae34cb221f0a7fec0c9c65d49e88822262a16c26c965566e735cc95b510741de",
+      "bytes": 7123,
+      "lines": 203,
+      "ranges": [
+        [
+          9,
+          13
+        ],
+        [
+          164,
+          199
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-handedness-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/tests.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f84ed2e85774e30634a05ba6580440af0a01e835",
+      "sha256": "67946474ebe620503ea68436fee879f0a10ad3475522c5be211d33d787a10074",
+      "bytes": 10706,
+      "lines": 303,
+      "ranges": [
+        [
+          50,
+          77
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-handedness-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/property/handedness_tests.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "62fb8c43149e3a0a2dbfbc18a05c41c52af87351",
+      "sha256": "f41fca98399a19869386e27461d20b58338b534bf26227fd0c2e4e3f5ca1e528",
+      "bytes": 3523,
+      "lines": 77,
+      "ranges": [
+        [
+          3,
+          33
+        ],
+        [
+          46,
+          58
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-handedness-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "123ae6d6c21a6f42ed510109e85cc63bf93d4ab3",
+      "sha256": "aab7cbd205fd372d7542412ed9898345ccc87e83c548b9988a46424d4b88c2af",
+      "bytes": 10809,
+      "lines": 270,
+      "ranges": [
+        [
+          70,
+          151
+        ],
+        [
+          154,
+          208
+        ],
+        [
+          210,
+          225
+        ],
+        [
+          254,
+          264
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-handedness-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_coordinates/window.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b1d784c5db2742f603eb914bfedcbd2e2c3c3930",
+      "sha256": "9e148e80284c8a960dc0fe0495783563bae67ec6bbf07abbdf6f82ff8edf5601",
+      "bytes": 5906,
+      "lines": 136,
+      "ranges": [
+        [
+          11,
+          59
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-handedness-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/doors.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "abe8d99a2bdbadf47b4be72ff873a00e7a91fae3",
+      "sha256": "daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+      "bytes": 3837,
+      "lines": 132,
+      "ranges": [
+        [
+          9,
+          28
+        ],
+        [
+          46,
+          84
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-handedness-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/openings.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e56d2e58e57f9f834ca79d9010361aabae0ad3a5",
+      "sha256": "e2b631050589329c5b243b414c9ad77d1d394827829ee277f288072d2c460314",
+      "bytes": 2960,
+      "lines": 99,
+      "ranges": [
+        [
+          22,
+          72
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-handedness-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/boundaries.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7f858c971a117575076916f10cb829c271247f6f",
+      "sha256": "41530ea3d8197242c6c5cc79ac9a35b31b9df76287a57aae530247553f3e2f2b",
+      "bytes": 1481,
+      "lines": 46,
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-handedness-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/windows.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "641ec9ece51e5fd869a6e139bf2ce791500e6720",
+      "sha256": "1558b154ebeb2ec83990f857600744dc6086859d467f5cfbaa974c04e6f3859d",
+      "bytes": 11140,
+      "lines": 294,
+      "ranges": [
+        [
+          30,
+          83
+        ],
+        [
+          86,
+          128
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-handedness-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/scene_setup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9e956c461ae0c6ac17177f6280b47b7f44d451b2",
+      "sha256": "509b65bb9f1ea69a74c597bd8571a0868c3503a9f6d4d9fd741d75488adf71a3",
+      "bytes": 2424,
+      "lines": 63,
+      "ranges": [
+        [
+          5,
+          16
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-handedness-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/main.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "23d8c064b65c7242f7226fef57a6303aa3556413",
+      "sha256": "a52f98db1a5b753a3b5f3d54348ffa36df35e266644e667489c8a1784508b150",
+      "bytes": 28081,
+      "lines": 726,
+      "ranges": [
+        [
+          128,
+          167
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-handedness-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/equipment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "572b8fbbc7128b2450769629c320ad2ae9bea463",
+      "sha256": "294ef27435a3d5286f596695c442fb8bd28041af6d7b9ab24a27e1d8c4d2526f",
+      "bytes": 39728,
+      "lines": 1126,
+      "ranges": [
+        [
+          224,
+          245
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-handedness-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/doors.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "935e163f5ec9531e902575c1bcbb277c9fe3558d",
+      "sha256": "117277d2c1a3694f567606dcd0e8207f647755a386fdabfca098aa8597a6e1b7",
+      "bytes": 11431,
+      "lines": 295,
+      "ranges": [
+        [
+          19,
+          34
+        ],
+        [
+          119,
+          207
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-handedness-evidence/support-14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e3f275dc4b938f000cc010be82743b1cb5169457",
+      "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+      "bytes": 4747,
+      "lines": 140,
+      "ranges": [
+        [
+          62,
+          87
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-handedness-evidence/support-15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c978fd6aa670b852e2f9fb36c5c4967c6ab9f2c0",
+      "sha256": "4ccc1188de7d5f8bdbf63b71160b8557f76fb524ae47f924381325da11198ee8",
+      "bytes": 3347,
+      "lines": 105,
+      "ranges": [
+        [
+          8,
+          17
+        ],
+        [
+          91,
+          104
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-handedness-evidence/support-16.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "50e1c31321297a19b2c3b240c4a540bfbd0c7153",
+      "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "bytes": 5142,
+      "lines": 142,
+      "ranges": [
+        [
+          10,
+          29
+        ],
+        [
+          40,
+          76
+        ],
+        [
+          84,
+          97
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-handedness-evidence/support-17.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    }
+  ],
+  "native_source_evidence": [
+    {
+      "manifest": "native-evidence/bevy_ecs-0.19.1/MANIFEST.json",
+      "archive": "native-evidence/bevy_ecs-0.19.1/bevy_ecs-0.19.1.crate",
+      "member": "bevy_ecs-0.19.1/src/observer/runner.rs",
+      "sha256": "e8a6dca4f1ae317b6653d6f1c5fdf175fdb6ed42a5d4a6125730bc9e716f43dd",
+      "bytes": 6815,
+      "personally_inspected_ranges": [
+        [
+          101,
+          123
+        ]
+      ],
+      "previously_indexed_member": false,
+      "qualification": "New source-only reading of exact lock-pinned archive member. Whole archive is already preserved; no Bevy, product, simulation or test ran."
+    },
+    {
+      "manifest": "native-evidence/bevy_ecs-0.19.1/MANIFEST.json",
+      "archive": "native-evidence/bevy_ecs-0.19.1/bevy_ecs-0.19.1.crate",
+      "member": "bevy_ecs-0.19.1/src/error/handler.rs",
+      "sha256": "800c43a7bcf3956170973151045546484c9546e3bb50635f9fab8cba7fed353d",
+      "bytes": 5503,
+      "personally_inspected_ranges": [
+        [
+          104,
+          120
+        ],
+        [
+          127,
+          146
+        ],
+        [
+          184,
+          187
+        ]
+      ],
+      "previously_indexed_member": false,
+      "qualification": "New source-only reading of exact lock-pinned archive member. Whole archive is already preserved; no Bevy, product, simulation or test ran."
+    },
+    {
+      "manifest": "native-evidence/bevy_ecs-0.19.1/MANIFEST.json",
+      "archive": "native-evidence/bevy_ecs-0.19.1/bevy_ecs-0.19.1.crate",
+      "member": "bevy_ecs-0.19.1/src/error/bevy_error.rs",
+      "sha256": "ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "bytes": 20851,
+      "personally_inspected_ranges": [
+        [
+          7,
+          21
+        ],
+        [
+          399,
+          415
+        ]
+      ],
+      "previously_indexed_member": false,
+      "qualification": "New source-only reading of exact lock-pinned archive member. Whole archive is already preserved; no Bevy, product, simulation or test ran."
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Right-hinged gate doorway and passage geometry",
+      "trace": "PropertySide::Right has sign +1. CityGate::door sets hinge to C + tangent * width / 2 while retaining closed centre C and tangent. GateDatum passes these X/Z positions and tangent through. spawn_door computes doorway = hinge + tangent * width / 2 for both hinge sides. Thus, for right hinge, doorway = C + tangent * width in exact real arithmetic; the left side produces C. Both SceneDoor and DoorController receive this same displaced doorway. City boundary construction uses hinge = passage_side.opposite() and width 1.6m. For axis-aligned orientation, an actor one metre inside at C has signed depth -1 and lateral distance 1.6m, while the allowed lateral distance is 0.8 + 0.6 = 1.4m. The source therefore rejects the grab under those preconditions. A previously exempt actor at that same position fails within_passage and would be revoked on the selected fixed-update branch.",
+      "remaining": "This is symbolic source reasoning, not an executed function, generated scene, actor, collision, motor result or product incident. Normal authored f32 roundoff is immaterial to the 0.2m margin for the axis-aligned example; actual scene admission and actor accessibility are not proven. Source tests express both passage orientations but were not run. Preserve opposite-side inward swing, established door placement, collision and exemption policy in any future repair."
+    },
+    {
+      "contract": "Right-hinge diagnostic",
+      "trace": "At closed identity rotation and position C, report_unseated_doors computes the leaf hinge as C - tangent * half-width unconditionally. Its controller expression reconstructs the actual right hinge C + tangent * half-width. For width 1.6m the resulting symbolic separation is 1.6m, above the 0.03m warning threshold, although that comparison alone does not establish physical joint failure.",
+      "remaining": "Position and Rotation components at those values, diagnostic execution and native physics behavior are unobserved. This is a related symptom of the handedness mismatch, not a separate demonstrated physics defect."
+    },
+    {
+      "contract": "Fallible scene assembly and error handler",
+      "trace": "Building doors collect all converted poses before their spawn loop; each spawn independently calculates and admits its doorway position before queuing its own leaf. After doors, window compilation and per-window datum conversion occur; a later window error can follow earlier queued door or window commands. The Bevy0.19.1 observer runner invokes the error handler before queue_deferred. Generic BevyError conversion sets Panic severity; the default fallback matches severity to panic. If a nonpanicking handler is in force, the runner proceeds to queue_deferred. No matching fallback-handler override was found by Git text search in crates, which does not establish every plugin or external application configuration.",
+      "remaining": "No actual malformed plan, overflow, custom handler, command, scene or error was observed. A later queued-prefix effect cannot be asserted for the ordinary default panic path. Gate and building source admission and cleanup policy remain open."
+    },
+    {
+      "contract": "Independent values and expiry",
+      "trace": "Current server source constructs SceneDoor and DoorController geometry from one local datum; selected passage iteration only visits extant controllers, while exemptions are sets of Bevy Entity values on characters. No desynchronizing geometry mutation was found in selected server text search; no lifecycle cleanup proof follows from that search.",
+      "remaining": "Entity generation, external mutation, delete/reload and retained filters are not fully traced. A transient leak or wrong collision has not been established."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-GATE-RIGHT-HINGE-INTERACTION-OFFSET-001",
+      "kind": "source-derived gate handedness and interaction geometry",
+      "qualification": "For a right-hinged CityGate, server spawn computes the doorway centre one full leaf width beyond the closed centre. In the axis-aligned symbolic 1.6m gate example, an actor one metre inside at the closed centre fails the 1.4m lateral grab threshold; no gameplay, physics, scene generation or test ran.",
+      "queues": [
+        1739,
+        1741
+      ]
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-266.json",
+      "sha256": "b72d261271583a8c9d18c8e7401745cd081b355ea69a23cd2ebe9cc56e5aa50a",
+      "bytes": 11596,
+      "git_blob": "8fb4a75254ad50ef93152dafb03677a1d25854c2",
+      "preserved_bytes": "recovered/gate-handedness-059/b72d261271583a8c9d18c8e7401745cd081b355ea69a23cd2ebe9cc56e5aa50a.gz",
+      "published_sha256": "c1bebcccd563a3de4bcc2976b619fad936696f68a806a4c1dd24e323e33fc8ad",
+      "published_bytes": 11596,
+      "redacted_local_path_occurrences": 5,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-267.json",
+      "sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e",
+      "bytes": 22626,
+      "git_blob": "b0b7fae53ef99de5954a3fa93d47a3da655bfd19",
+      "preserved_bytes": "recovered/gate-handedness-059/e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e.gz",
+      "published_sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e",
+      "published_bytes": 22626,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-270.json",
+      "sha256": "e5fc1e7d3ea75134cd2ec3785060ee0ea21c6dea35d52a566d4b64c00d13b85b",
+      "bytes": 12533,
+      "git_blob": "0fc8807de8dab2af10b28e06017fd45f39b61b2a",
+      "preserved_bytes": "recovered/gate-handedness-059/e5fc1e7d3ea75134cd2ec3785060ee0ea21c6dea35d52a566d4b64c00d13b85b.gz",
+      "published_sha256": "e5fc1e7d3ea75134cd2ec3785060ee0ea21c6dea35d52a566d4b64c00d13b85b",
+      "published_bytes": 12533,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-271.json",
+      "sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba",
+      "bytes": 11760,
+      "git_blob": "6215e73adce4e51c62992d37dd261190433a79ea",
+      "preserved_bytes": "recovered/gate-handedness-059/52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba.gz",
+      "published_sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba",
+      "published_bytes": 11760,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-279.json",
+      "sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7",
+      "bytes": 9700,
+      "git_blob": "30bff15c9967db3e6f6f3c7727bef93f7ce5c919",
+      "preserved_bytes": "recovered/gate-handedness-059/d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7.gz",
+      "published_sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7",
+      "published_bytes": 9700,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "bytes": 15035,
+      "git_blob": "45ee5dcfa447994407de51ae6b68f85de63c1ac4",
+      "preserved_bytes": "recovered/gate-handedness-059/bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3.gz",
+      "published_sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "published_bytes": 15035,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-285.json",
+      "sha256": "0d7c09d69692f80ea7776c9a37ad41ae65c269cb1be0f7beb5fec90f2a0cf98b",
+      "bytes": 13286,
+      "git_blob": "68f8f1e9df6d011c7f8e63b3d7827a313fac89a6",
+      "preserved_bytes": "recovered/gate-handedness-059/0d7c09d69692f80ea7776c9a37ad41ae65c269cb1be0f7beb5fec90f2a0cf98b.gz",
+      "published_sha256": "0d7c09d69692f80ea7776c9a37ad41ae65c269cb1be0f7beb5fec90f2a0cf98b",
+      "published_bytes": 13286,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29",
+      "bytes": 6941,
+      "git_blob": "84f8363af8a5a6f039846f29fc14e050b87737cf",
+      "preserved_bytes": "recovered/gate-handedness-059/88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29.gz",
+      "published_sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29",
+      "published_bytes": 6941,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f",
+      "bytes": 15183,
+      "git_blob": "bc06bba74b5bf5a40366ea8765844e638608e231",
+      "preserved_bytes": "recovered/gate-handedness-059/a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f.gz",
+      "published_sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f",
+      "published_bytes": 15183,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-293.json",
+      "sha256": "fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b",
+      "bytes": 13832,
+      "git_blob": "e0d57c8d63b43f7316a36c36887ecedae0af0d74",
+      "preserved_bytes": "recovered/gate-handedness-059/fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b.gz",
+      "published_sha256": "fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b",
+      "published_bytes": 13832,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-301.json",
+      "sha256": "6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e",
+      "bytes": 12478,
+      "git_blob": "8a66f0a027598f95f575b11171cb359c9314a6aa",
+      "preserved_bytes": "recovered/gate-handedness-059/6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e.gz",
+      "published_sha256": "6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e",
+      "published_bytes": 12478,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-302.json",
+      "sha256": "42d85fb7de2c99f3d01504cba8d628c336d9796cac25447e26817f57323726f8",
+      "bytes": 7451,
+      "git_blob": "508d1a77265adb8920c00b2ba0e81d774483a069",
+      "preserved_bytes": "recovered/gate-handedness-059/42d85fb7de2c99f3d01504cba8d628c336d9796cac25447e26817f57323726f8.gz",
+      "published_sha256": "42d85fb7de2c99f3d01504cba8d628c336d9796cac25447e26817f57323726f8",
+      "published_bytes": 7451,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-303.json",
+      "sha256": "9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99",
+      "bytes": 7583,
+      "git_blob": "f947e14e1d4038d2b61fdb68dd1b4956d1ed72dd",
+      "preserved_bytes": "recovered/gate-handedness-059/9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99.gz",
+      "published_sha256": "9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99",
+      "published_bytes": 7583,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-304.json",
+      "sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2",
+      "bytes": 6729,
+      "git_blob": "5466efc73a0ea970be2f052c22ee776d9212a9f6",
+      "preserved_bytes": "recovered/gate-handedness-059/94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2.gz",
+      "published_sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2",
+      "published_bytes": 6729,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-313.json",
+      "sha256": "57a04e8df6a0c4b920158c92f7cccfe232f064761af94730510e9f903346db53",
+      "bytes": 17334,
+      "git_blob": "b41dd856071fb91562cde19343a12eadc3625865",
+      "preserved_bytes": "recovered/gate-handedness-059/57a04e8df6a0c4b920158c92f7cccfe232f064761af94730510e9f903346db53.gz",
+      "published_sha256": "57a04e8df6a0c4b920158c92f7cccfe232f064761af94730510e9f903346db53",
+      "published_bytes": 17334,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-314.json",
+      "sha256": "f336b3ab6181da73a064644c64794ec75e4242df0b4f7b895c0fcb15e29ecfd0",
+      "bytes": 10708,
+      "git_blob": "4a3e29709ecfbfe85e759a85a1caa1fef95c772e",
+      "preserved_bytes": "recovered/gate-handedness-059/f336b3ab6181da73a064644c64794ec75e4242df0b4f7b895c0fcb15e29ecfd0.gz",
+      "published_sha256": "f336b3ab6181da73a064644c64794ec75e4242df0b4f7b895c0fcb15e29ecfd0",
+      "published_bytes": 10708,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-315.json",
+      "sha256": "68c75afc5380aa60ca581eefa97cfe36aebcc540f3750f057ac3c45cae41b050",
+      "bytes": 14714,
+      "git_blob": "0d0cb53feee510953a06a8dd902de837cf7cf8a7",
+      "preserved_bytes": "recovered/gate-handedness-059/68c75afc5380aa60ca581eefa97cfe36aebcc540f3750f057ac3c45cae41b050.gz",
+      "published_sha256": "68c75afc5380aa60ca581eefa97cfe36aebcc540f3750f057ac3c45cae41b050",
+      "published_bytes": 14714,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-316.json",
+      "sha256": "47242e89369ded0443a81ddd160d35a1a5c7ce1d272c4a0c2da499ba57c150e7",
+      "bytes": 14101,
+      "git_blob": "39b53e0c3c04950afb869deb4a0a499a3fcf5d50",
+      "preserved_bytes": "recovered/gate-handedness-059/47242e89369ded0443a81ddd160d35a1a5c7ce1d272c4a0c2da499ba57c150e7.gz",
+      "published_sha256": "47242e89369ded0443a81ddd160d35a1a5c7ce1d272c4a0c2da499ba57c150e7",
+      "published_bytes": 14101,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-317.json",
+      "sha256": "5801cd803cf8ebff1797b5571c56b0a2d1a00fc534dd847d5fd97a01cad36cd1",
+      "bytes": 9801,
+      "git_blob": "dcd6fd45bf080eaa1a48cb9498c3e695ffaeb872",
+      "preserved_bytes": "recovered/gate-handedness-059/5801cd803cf8ebff1797b5571c56b0a2d1a00fc534dd847d5fd97a01cad36cd1.gz",
+      "published_sha256": "5801cd803cf8ebff1797b5571c56b0a2d1a00fc534dd847d5fd97a01cad36cd1",
+      "published_bytes": 9801,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-318.json",
+      "sha256": "32707985195045901c315ee055171daede0e511e453b79148b272017e543f5c7",
+      "bytes": 8685,
+      "git_blob": "a49f57aef689de6907dbf44b04820f8a92ec7ecd",
+      "preserved_bytes": "recovered/gate-handedness-059/32707985195045901c315ee055171daede0e511e453b79148b272017e543f5c7.gz",
+      "published_sha256": "32707985195045901c315ee055171daede0e511e453b79148b272017e543f5c7",
+      "published_bytes": 8685,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-319.json",
+      "sha256": "b2840c0ddbd62f97d8f4f7a5aad6fe9df9d8c6b1764ba19e9fee6457c0a7e8c6",
+      "bytes": 17497,
+      "git_blob": "39e3804d77b22963ac55e801e91b59ceca5839e6",
+      "preserved_bytes": "recovered/gate-handedness-059/b2840c0ddbd62f97d8f4f7a5aad6fe9df9d8c6b1764ba19e9fee6457c0a7e8c6.gz",
+      "published_sha256": "b2840c0ddbd62f97d8f4f7a5aad6fe9df9d8c6b1764ba19e9fee6457c0a7e8c6",
+      "published_bytes": 17497,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-890.json",
+      "sha256": "7e7786187b4a212f591061e63613cbb36ca2918605f6c46ff171a9e21ad4f1d3",
+      "bytes": 684,
+      "git_blob": "fd4403a24d941d9b7eaee7bdd6193ce6b28d3354",
+      "preserved_bytes": "recovered/gate-handedness-059/7e7786187b4a212f591061e63613cbb36ca2918605f6c46ff171a9e21ad4f1d3.gz",
+      "published_sha256": "7e7786187b4a212f591061e63613cbb36ca2918605f6c46ff171a9e21ad4f1d3",
+      "published_bytes": 684,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-891.json",
+      "sha256": "5d9a8cd9c2836c1cbe8208e24d379e8f1935f66596477d647ad019438e4b8af1",
+      "bytes": 695,
+      "git_blob": "4f04c7d46549c10b81534fb80c872a7abc62f291",
+      "preserved_bytes": "recovered/gate-handedness-059/5d9a8cd9c2836c1cbe8208e24d379e8f1935f66596477d647ad019438e4b8af1.gz",
+      "published_sha256": "5d9a8cd9c2836c1cbe8208e24d379e8f1935f66596477d647ad019438e4b8af1",
+      "published_bytes": 695,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-892.json",
+      "sha256": "05817d5613bb551710b27d23ea57a660daec734e1b5a9f5e5ac4c5b667842355",
+      "bytes": 677,
+      "git_blob": "16d40a1adfd95aecd8a205b1a6644cffa448bd67",
+      "preserved_bytes": "recovered/gate-handedness-059/05817d5613bb551710b27d23ea57a660daec734e1b5a9f5e5ac4c5b667842355.gz",
+      "published_sha256": "05817d5613bb551710b27d23ea57a660daec734e1b5a9f5e5ac4c5b667842355",
+      "published_bytes": 677,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-893.json",
+      "sha256": "a21234b4729c2e67ffcac3d5b2eec727f6a5681ecf71b9073d473b355be0eafc",
+      "bytes": 701,
+      "git_blob": "2ea5090d73312e6fe2bca881995e9e10e0a9a6ea",
+      "preserved_bytes": "recovered/gate-handedness-059/a21234b4729c2e67ffcac3d5b2eec727f6a5681ecf71b9073d473b355be0eafc.gz",
+      "published_sha256": "a21234b4729c2e67ffcac3d5b2eec727f6a5681ecf71b9073d473b355be0eafc",
+      "published_bytes": 701,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-894.json",
+      "sha256": "f187b1fa6cfa7e084e494d8c185751cb350fc3f59e289c098fc560cbfd647d59",
+      "bytes": 701,
+      "git_blob": "7cf5eaf76af1a752237dc19d4d31338c62305aa2",
+      "preserved_bytes": "recovered/gate-handedness-059/f187b1fa6cfa7e084e494d8c185751cb350fc3f59e289c098fc560cbfd647d59.gz",
+      "published_sha256": "f187b1fa6cfa7e084e494d8c185751cb350fc3f59e289c098fc560cbfd647d59",
+      "published_bytes": 701,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-895.json",
+      "sha256": "474682beecf75fdeb8979f35fdf35f209dd794404ec723bd4c248b51e93013b8",
+      "bytes": 694,
+      "git_blob": "41c293fd761d560ab1da510f8a061d32265a6a0d",
+      "preserved_bytes": "recovered/gate-handedness-059/474682beecf75fdeb8979f35fdf35f209dd794404ec723bd4c248b51e93013b8.gz",
+      "published_sha256": "474682beecf75fdeb8979f35fdf35f209dd794404ec723bd4c248b51e93013b8",
+      "published_bytes": 694,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-896.json",
+      "sha256": "8e1730e4e707b2faa20dac0eff844698885d7bcfa3c59f0eeb48ac259e9e0dc2",
+      "bytes": 699,
+      "git_blob": "d78395533126620c4fe7f17fde897b65d22ead77",
+      "preserved_bytes": "recovered/gate-handedness-059/8e1730e4e707b2faa20dac0eff844698885d7bcfa3c59f0eeb48ac259e9e0dc2.gz",
+      "published_sha256": "8e1730e4e707b2faa20dac0eff844698885d7bcfa3c59f0eeb48ac259e9e0dc2",
+      "published_bytes": 699,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-897.json",
+      "sha256": "304d0f5496985e8e9af29cde771fd889dc3f8f775dbbac38028a12241c929dc1",
+      "bytes": 698,
+      "git_blob": "51ea21c35f5b7ee1af1b2c097d982c862cb2dc7a",
+      "preserved_bytes": "recovered/gate-handedness-059/304d0f5496985e8e9af29cde771fd889dc3f8f775dbbac38028a12241c929dc1.gz",
+      "published_sha256": "304d0f5496985e8e9af29cde771fd889dc3f8f775dbbac38028a12241c929dc1",
+      "published_bytes": 698,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-319.json",
+      "sha256": "066bc9e7269baf56a8c9eb518cdaa5901fe8988981893c694194e0248028183d",
+      "bytes": 690,
+      "git_blob": "4eb681ef53465bc12f6cdb4cd2caf9db8156d9c4",
+      "preserved_bytes": "recovered/gate-handedness-059/066bc9e7269baf56a8c9eb518cdaa5901fe8988981893c694194e0248028183d.gz",
+      "published_sha256": "066bc9e7269baf56a8c9eb518cdaa5901fe8988981893c694194e0248028183d",
+      "published_bytes": 690,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-319.json",
+      "sha256": "67a126673e04d3e943150c4d1c8094b02a70104ffd457b6abe39d7d218a10adb",
+      "bytes": 31513,
+      "git_blob": "00f9f74ee44d13b0deda07c4349d31811e2d3d9d",
+      "preserved_bytes": "recovered/gate-handedness-059/67a126673e04d3e943150c4d1c8094b02a70104ffd457b6abe39d7d218a10adb.gz",
+      "published_sha256": "67a126673e04d3e943150c4d1c8094b02a70104ffd457b6abe39d7d218a10adb",
+      "published_bytes": 31513,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-857-864.json",
+      "sha256": "49a5db6fccfbd32772468e60ec04f5ae0573895435d180ce0d4042e7e0f8c511",
+      "bytes": 228500,
+      "git_blob": "24f3989b355aa29bf8ed7c4ad65f91a68046865c",
+      "preserved_bytes": "recovered/gate-handedness-059/49a5db6fccfbd32772468e60ec04f5ae0573895435d180ce0d4042e7e0f8c511.gz",
+      "published_sha256": "49a5db6fccfbd32772468e60ec04f5ae0573895435d180ce0d4042e7e0f8c511",
+      "published_bytes": 228500,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original validated proposal bundle"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-857.json",
+      "sha256": "ec18f2cb69702e74edfffe8bdd0b707799ba74b9cfe40a89183feccf644ff1c7",
+      "bytes": 20643,
+      "git_blob": "0671d0c4016e71024441b675daf3b5231f8628d9",
+      "preserved_bytes": "recovered/gate-handedness-059/ec18f2cb69702e74edfffe8bdd0b707799ba74b9cfe40a89183feccf644ff1c7.gz",
+      "published_sha256": "ec18f2cb69702e74edfffe8bdd0b707799ba74b9cfe40a89183feccf644ff1c7",
+      "published_bytes": 20643,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated predecessor proposal"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-858.json",
+      "sha256": "a3549bd6a4d54b329d9a9d9ca1c638da0bb1a778f13769fd812a7e203e71a1f7",
+      "bytes": 14601,
+      "git_blob": "a07a4168fa0b87dcf8fb97325044fa90485b4e92",
+      "preserved_bytes": "recovered/gate-handedness-059/a3549bd6a4d54b329d9a9d9ca1c638da0bb1a778f13769fd812a7e203e71a1f7.gz",
+      "published_sha256": "a3549bd6a4d54b329d9a9d9ca1c638da0bb1a778f13769fd812a7e203e71a1f7",
+      "published_bytes": 14601,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-558.json",
+      "sha256": "a48f638f7f1200696ae0ed6254177b93c0a59e8dda5924b72b5a8708a9deed9e",
+      "bytes": 7617,
+      "git_blob": "6507c6d824e75c03e7cc96fa05dfd6b4630ff76b",
+      "preserved_bytes": "recovered/gate-handedness-059/a48f638f7f1200696ae0ed6254177b93c0a59e8dda5924b72b5a8708a9deed9e.gz",
+      "published_sha256": "a48f638f7f1200696ae0ed6254177b93c0a59e8dda5924b72b5a8708a9deed9e",
+      "published_bytes": 7617,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-559.json",
+      "sha256": "703b7a53cc89f756eca53eb9e9e379b6ce28d81e984210d240cb3a80182c2a95",
+      "bytes": 7696,
+      "git_blob": "1eb2449eb95c03c9c16367348ff8c8395b2538c8",
+      "preserved_bytes": "recovered/gate-handedness-059/703b7a53cc89f756eca53eb9e9e379b6ce28d81e984210d240cb3a80182c2a95.gz",
+      "published_sha256": "703b7a53cc89f756eca53eb9e9e379b6ce28d81e984210d240cb3a80182c2a95",
+      "published_bytes": 7696,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-560.json",
+      "sha256": "6f6e2021f9ec22cf57226e0faabdc7cb9c766c906bfadad9f13863fc493bb7df",
+      "bytes": 18214,
+      "git_blob": "9073342cc2a140d7ad347aed916229a88f74834f",
+      "preserved_bytes": "recovered/gate-handedness-059/6f6e2021f9ec22cf57226e0faabdc7cb9c766c906bfadad9f13863fc493bb7df.gz",
+      "published_sha256": "6f6e2021f9ec22cf57226e0faabdc7cb9c766c906bfadad9f13863fc493bb7df",
+      "published_bytes": 18214,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/preflight-l12-bundle-001-PROPOSAL.py",
+      "sha256": "d8455cd4234499fbb07e16bf91ea3506ce221e395b6d7647c9c62a586d3808ea",
+      "bytes": 12001,
+      "git_blob": "29b31070334c8858711193f4141c7e3a09f15b9e",
+      "preserved_bytes": "recovered/gate-handedness-059/d8455cd4234499fbb07e16bf91ea3506ce221e395b6d7647c9c62a586d3808ea.gz",
+      "published_sha256": "d8455cd4234499fbb07e16bf91ea3506ce221e395b6d7647c9c62a586d3808ea",
+      "published_bytes": 12001,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original adoption preflight reference"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-evidence-helper-history-20261029/root_l12_bundle857_864_adopt_v6.py",
+      "sha256": "208627a906f477e3d6813627eaf66d81524f0502e496ac0bc3c6c3446f172422",
+      "bytes": 18318,
+      "git_blob": "730a315453bf280f39cde5064189b87d47fe9dcd",
+      "preserved_bytes": "recovered/gate-handedness-059/208627a906f477e3d6813627eaf66d81524f0502e496ac0bc3c6c3446f172422.gz",
+      "published_sha256": "208627a906f477e3d6813627eaf66d81524f0502e496ac0bc3c6c3446f172422",
+      "published_bytes": 18318,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original adoption preflight reference"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-688.json",
+      "sha256": "6a588f27a6aa69908a4b8ca6445dba447ae4e86a7dc73f458fe470accdb74380",
+      "bytes": 1194,
+      "git_blob": "4e4cfc5599476e1e73a5cde5bde6763dd4677d21",
+      "preserved_bytes": "recovered/gate-handedness-059/6a588f27a6aa69908a4b8ca6445dba447ae4e86a7dc73f458fe470accdb74380.gz",
+      "published_sha256": "6a588f27a6aa69908a4b8ca6445dba447ae4e86a7dc73f458fe470accdb74380",
+      "published_bytes": 1194,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective plan"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-688.json",
+      "sha256": "e333bfd1804c2e08848a141b809cbe45d4928a926dd8a9e1a82779230ee8fb91",
+      "bytes": 6289,
+      "git_blob": "2bef9d3f4f768d684a4f94a88952850d3240581c",
+      "preserved_bytes": "recovered/gate-handedness-059/e333bfd1804c2e08848a141b809cbe45d4928a926dd8a9e1a82779230ee8fb91.gz",
+      "published_sha256": "e333bfd1804c2e08848a141b809cbe45d4928a926dd8a9e1a82779230ee8fb91",
+      "published_bytes": 6289,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-858.json",
+      "sha256": "6f762db943b5bbe54b9412c25749956d6dc943ea7d3623ec92ef43868c0019fa",
+      "bytes": 12591,
+      "git_blob": "29fa9ce284f083d662fb00b950d96049b7d15587",
+      "preserved_bytes": "recovered/gate-handedness-059/6f762db943b5bbe54b9412c25749956d6dc943ea7d3623ec92ef43868c0019fa.gz",
+      "published_sha256": "6f762db943b5bbe54b9412c25749956d6dc943ea7d3623ec92ef43868c0019fa",
+      "published_bytes": 12591,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption of delegated Lens12 evidence, zero root personal reread"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-953.json",
+      "sha256": "b30594e736af5435e1a3f4d3966b14c5b94314e274e5c5008bd2499a8ca8639a",
+      "bytes": 1142,
+      "git_blob": "77b32148311b1dd732d46ba08821629bc8ca5b75",
+      "preserved_bytes": "recovered/gate-handedness-059/b30594e736af5435e1a3f4d3966b14c5b94314e274e5c5008bd2499a8ca8639a.gz",
+      "published_sha256": "b30594e736af5435e1a3f4d3966b14c5b94314e274e5c5008bd2499a8ca8639a",
+      "published_bytes": 1142,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-954.json",
+      "sha256": "df930a30a6228403cb0c9a59124fefe50bcaf52ea7c9cec159da4654fa5b2757",
+      "bytes": 1164,
+      "git_blob": "5a934f66235595cc029feff4fe6422c95dc27de5",
+      "preserved_bytes": "recovered/gate-handedness-059/df930a30a6228403cb0c9a59124fefe50bcaf52ea7c9cec159da4654fa5b2757.gz",
+      "published_sha256": "df930a30a6228403cb0c9a59124fefe50bcaf52ea7c9cec159da4654fa5b2757",
+      "published_bytes": 1164,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-688.json",
+      "sha256": "cff9f52299929418bc0f75dc46e6741fbd691f0cf64abe65a9ced5b6fc251df8",
+      "bytes": 840,
+      "git_blob": "49990217b3611bd039e9b4bf552b6796d2464414",
+      "preserved_bytes": "recovered/gate-handedness-059/cff9f52299929418bc0f75dc46e6741fbd691f0cf64abe65a9ced5b6fc251df8.gz",
+      "published_sha256": "cff9f52299929418bc0f75dc46e6741fbd691f0cf64abe65a9ced5b6fc251df8",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-858.json",
+      "sha256": "82e7ea2d693457e15e55da6109842b85a38e2c3884bca648728369a5657edc03",
+      "bytes": 1896,
+      "git_blob": "8cf33a84081ec2c44bfe3c384090b013ad84ad93",
+      "preserved_bytes": "recovered/gate-handedness-059/82e7ea2d693457e15e55da6109842b85a38e2c3884bca648728369a5657edc03.gz",
+      "published_sha256": "82e7ea2d693457e15e55da6109842b85a38e2c3884bca648728369a5657edc03",
+      "published_bytes": 1896,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption state"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-688.json",
+      "sha256": "b4e12dd615bf5fce05e8da450207e1dc373a0623d9e169a63d22854176ac4774",
+      "bytes": 558,
+      "git_blob": "48ac63d8a3cf49fc7fee59d226660f928f0a74a9",
+      "preserved_bytes": "recovered/gate-handedness-059/b4e12dd615bf5fce05e8da450207e1dc373a0623d9e169a63d22854176ac4774.gz",
+      "published_sha256": "b4e12dd615bf5fce05e8da450207e1dc373a0623d9e169a63d22854176ac4774",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original verification"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-858.json",
+      "sha256": "27840a748788fb9c96aea1e792556c7820554451042752100e991002f1a2a2d5",
+      "bytes": 935,
+      "git_blob": "8d2ec9fc335dfb898c4d7231e53ea2e3dbcd1bff",
+      "preserved_bytes": "recovered/gate-handedness-059/27840a748788fb9c96aea1e792556c7820554451042752100e991002f1a2a2d5.gz",
+      "published_sha256": "27840a748788fb9c96aea1e792556c7820554451042752100e991002f1a2a2d5",
+      "published_bytes": 935,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption verification"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "Segovb688 and Adler319 retain original personal ranges. Root-adopted Lens12 batch858 explicitly preserves delegated reviewer ranges and zero root personal rereads; physical-p16 role2529 labels f82 transport-only despite its matching f82 Git blob. No current or3821 credit is transferred.",
+  "remaining": "Continue original2048; independently trace scene admission, actor reachability, native physics and all13 lenses, exact aliases and connected records. Original3821 final ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
