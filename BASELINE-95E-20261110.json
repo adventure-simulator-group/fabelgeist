@@ -8103,8 +8103,58 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-MAP-IMPORT-95E.json"
+      },
+      {
+        "id": "ADLER-L11-ROAD-INFERENCE-TERRAIN-ERROR-ADMISSION",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          6,
+          8,
+          12
+        ],
+        "severity": "unassigned; conditional source-error omission",
+        "classification": "Original road inference finding reconnected: all terrain planning errors are treated as skipped links, including fallible cell/pack errors.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/130",
+          "REVIEW-MAP-RELIEF-SAMPLE-ERROR-001"
+        ],
+        "relationship_qualification": "Distinct planning and relief operations can both suppress terrain failures; shared error ownership does not prove identical defects. Original Adler337 count unchanged; no3821 attribution.",
+        "discovery": "partial; selected planning, lazy chunk errors and inference consumer traced; actual failing candidate, final world consequences and aliases remain open",
+        "connected_repair_direction": "Distinguish expected NoRoute from source, I/O and integrity failures at road inference, coordinating terrain error ownership.",
+        "future_acceptance": "After authorization, cover NoRoute, invalid or failing source chunks, successful alternate candidates and final report behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-ROAD-BASIS-POINTS-95E.json"
+      },
+      {
+        "id": "ADLER-L11-BASIS-POINTS-WIRE-ADMISSION",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          2,
+          3,
+          4,
+          8,
+          10,
+          13
+        ],
+        "severity": "unassigned; conditional Serde admission bypass",
+        "classification": "Original basis-point finding reconnected: transparent derived Serde construction can admit underlying values outside the checked constructor range; complement can underflow with checks enabled.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/131"
+        ],
+        "relationship_qualification": "Pinned Serde macro source supports this specific path; SpacetimeDB schema route, actual payloads and compiler profile remain open. Original Adler337 count unchanged; no3821 attribution.",
+        "discovery": "partial; unsigned/signed constructors, derived Serde path, selected wrapper and consumer traced; native generated schema, all producers and aliases remain open",
+        "connected_repair_direction": "Route every supported wire admission through the existing bounded owners while preserving legitimate serialized form and explicit saturation operations.",
+        "future_acceptance": "After authorization, cover boundary and out-of-range signed/unsigned values through each supported deserializer and dependent operations.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-ROAD-BASIS-POINTS-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1503.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1505.json"
 }
