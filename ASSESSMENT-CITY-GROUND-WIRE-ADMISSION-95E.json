@@ -1,0 +1,1044 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Five original city-ground roles, bounded current packed worker product, cache identity, reflection and pinned native Mesh semantics.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1662-1666.json",
+  "git_membership_evidence": "CITY-GROUND-WIRE-HISTORICAL-GIT-PROOFS.json",
+  "historical_lock_excerpt": {
+    "original_index": 497,
+    "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "path": "Cargo.lock",
+    "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+    "git_blob": "2e82d62d2638cd900b066a73f0d91082106c3677",
+    "lines": 13102,
+    "personally_inspected_ranges": [
+      [
+        2480,
+        2483
+      ]
+    ],
+    "archive": "recovered/original-registry-source-archive/objects.tar.gz",
+    "qualification": "Only bevy_mesh version/checksum excerpt inspected; historical role497 remains metadata-partial and no other-lens credit is inferred."
+  },
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/geometry_transport/binary.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0688373d8753d13121cf3601220e71d772727762",
+      "sha256": "a6b0b87d7f69728aac681f6741072c670b7e1a2fa1231881e37baf3fdc2804af",
+      "bytes": 2266,
+      "lines": 54,
+      "ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-ground-wire-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No worker, serializer, cache, asset, shader, browser, product, runtime or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/generation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "94d2130447371ebc6e6b526458079cae80ce7743",
+      "sha256": "80f83fdedc32c9d2a9c8f95d7a84c1d83972310ac6fe93cdb87201a7d8e14c37",
+      "bytes": 2962,
+      "lines": 89,
+      "ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-ground-wire-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No worker, serializer, cache, asset, shader, browser, product, runtime or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/generation/worker_products.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ef3d33e04f6d1758c5d445a92a7719cc8fdcc47c",
+      "sha256": "c3f678338ff7c06487580632000b48d3948022da0a3c8845056df88a34efab63",
+      "bytes": 2641,
+      "lines": 67,
+      "ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-ground-wire-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No worker, serializer, cache, asset, shader, browser, product, runtime or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/generation/wasm.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e7851dd314aa959cf71a87ef4d5a1f9f47d9d6b9",
+      "sha256": "0a41df378f9ee30c826e6902365d1400622895612dc9f55b337a3bbe0085880d",
+      "bytes": 2611,
+      "lines": 73,
+      "ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-ground-wire-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No worker, serializer, cache, asset, shader, browser, product, runtime or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/generation/city.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "49612ff7401702a64e3afef48a3e99f6aa98757f",
+      "sha256": "dc50098c2f04955e49c7bc30582a809addb65cbd3e8107c64e282b585cdedb50",
+      "bytes": 3773,
+      "lines": 103,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-ground-wire-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No worker, serializer, cache, asset, shader, browser, product, runtime or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/generation/ownership.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3cb64f24d48b29dc5b3969259f653ae48e8c916e",
+      "sha256": "e778ced99ff655e2f55ac67e0faf0e8152899f9552b0210670c232b48483ea4f",
+      "bytes": 9992,
+      "lines": 320,
+      "ranges": [
+        [
+          180,
+          203
+        ],
+        [
+          224,
+          287
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-ground-wire-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No worker, serializer, cache, asset, shader, browser, product, runtime or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/preparation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b65e4139f27eed658cf200bad4f07f02338daab7",
+      "sha256": "35db8b8b632500bacb59de9fffe065979e5da709c52dbaf0ea4d80ae6847af12",
+      "bytes": 5096,
+      "lines": 115,
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-ground-wire-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No worker, serializer, cache, asset, shader, browser, product, runtime or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/geographic_ground.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f5e30e73ff3b26b453926ba16a636f87def2d62d",
+      "sha256": "36fbbccfd07c690a076b96d31d91f0a27008633fbd0b0b7f2e99566acde4c840",
+      "bytes": 1461,
+      "lines": 36,
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-ground-wire-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No worker, serializer, cache, asset, shader, browser, product, runtime or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/focused.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "294ab903cdbc460c814826786a1ff7cb31a2e5ab",
+      "sha256": "d1bb5a38bc3cecf8703fb9165e1c290037f3ae5d346d3285a7f34e256458c83e",
+      "bytes": 4689,
+      "lines": 144,
+      "ranges": [
+        [
+          1,
+          144
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-ground-wire-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No worker, serializer, cache, asset, shader, browser, product, runtime or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/city/installation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9d98bf36158aa5cd1bddf0347722d34a71c7c019",
+      "sha256": "554d9dc7e4d33ae4301f1c7c1e94e30a5c47bfb5803febcb6d536a407419b33a",
+      "bytes": 3889,
+      "lines": 115,
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-ground-wire-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No worker, serializer, cache, asset, shader, browser, product, runtime or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/strategic-web/static/strategic-generation.js",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4148239cc39ceec068ddab31d4380eeb4cd485d0",
+      "sha256": "990b58405ed9b2c9110031b9c0cfa98557a4803f43ed2cff46e64afa9d136101",
+      "bytes": 5602,
+      "lines": 117,
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-ground-wire-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No worker, serializer, cache, asset, shader, browser, product, runtime or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/strategic-web/static/strategic-generation-cache.js",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "27563ccb36aadade802258143b23dad5efe4f672",
+      "sha256": "5ce851ecb4b60148f94dac775fbe3b697124460e9fc73e35f3bd4641118f2162",
+      "bytes": 8610,
+      "lines": 193,
+      "ranges": [
+        [
+          1,
+          193
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-ground-wire-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No worker, serializer, cache, asset, shader, browser, product, runtime or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/strategic-web/UNIFIED_RENDERER.md",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cea3f35b484ad293522d79b077fc1d27957bafb1",
+      "sha256": "c00a2ebac0991ef2e3f05bc24ab27ccc93d672f9e8306b426d8c34bb6fabb2cb",
+      "bytes": 38393,
+      "lines": 609,
+      "ranges": [
+        [
+          48,
+          76
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-ground-wire-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No worker, serializer, cache, asset, shader, browser, product, runtime or other-lens execution/credit inferred."
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          2312,
+          2315
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/city-ground-wire-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No worker, serializer, cache, asset, shader, browser, product, runtime or other-lens execution/credit inferred."
+    }
+  ],
+  "earlier_historical_source_identities": [
+    {
+      "original_index": 1667,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/streaming.rs",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "90cb292cda48fd9f01d10205004aea74f606b3a6d497c9c2eae6fdf298e3a9f3",
+      "bytes": 4803,
+      "lines": 140,
+      "git_blob": "ebcdb21833cb06e1300c59e188956ce5561401f2",
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "earlier_attribution": "Adler Lens11 READ240 and Segovb Lens12 READ528 at6533; exact scope retained in original receipt.",
+      "new_personal_historical_full_read": false,
+      "additional_original_frontier_credit": 0,
+      "qualification": "Future historical role identity-proved only at this checkpoint; no new ordered historical role or checkpoint3821 credit."
+    },
+    {
+      "original_index": 1668,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/support.rs",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "16f0b13d745982af2531eea71ae383e868ab6846571b1428db7552b05c019305",
+      "bytes": 15539,
+      "lines": 404,
+      "git_blob": "9fa7da5e486f604d1ee383d6a492d7bcfa828104",
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "earlier_attribution": "Adler Lens11 READ240 at6533; exact scope retained in original receipt.",
+      "new_personal_historical_full_read": false,
+      "additional_original_frontier_credit": 0,
+      "qualification": "Future historical role identity-proved only at this checkpoint; no new ordered historical role or checkpoint3821 credit."
+    },
+    {
+      "original_index": 1669,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/support/index.rs",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "0d1996b54836de12fe00be92ed1b3205d0fd644d038497946bd7f6f158f3d671",
+      "bytes": 4622,
+      "lines": 132,
+      "git_blob": "58a45f8c337b4f24a7f642996d6a25c537b44f3c",
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "earlier_attribution": "Adler Lens11 READ240 at6533; exact scope retained in original receipt.",
+      "new_personal_historical_full_read": false,
+      "additional_original_frontier_credit": 0,
+      "qualification": "Future historical role identity-proved only at this checkpoint; no new ordered historical role or checkpoint3821 credit."
+    },
+    {
+      "original_index": 1670,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic.rs",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "3195a4f45a963f88a33777e7b530ca7f8804383461ac655219685b184c2f428f",
+      "bytes": 3648,
+      "lines": 127,
+      "git_blob": "d8edb106f0a2cc1fd5a7c61bf10f588c743ad63e",
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "earlier_attribution": "Adler Lens11 READ240 at6533; exact scope retained in original receipt.",
+      "new_personal_historical_full_read": false,
+      "additional_original_frontier_credit": 0,
+      "qualification": "Future historical role identity-proved only at this checkpoint; no new ordered historical role or checkpoint3821 credit."
+    },
+    {
+      "original_index": 1671,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic/mask.rs",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "fad483542b55d8c03320f7821e731f040ab8d531131f55fce69bb448321463ef",
+      "bytes": 6745,
+      "lines": 175,
+      "git_blob": "1e5d6b06c6691a21b808c89cef21021f45767c81",
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "earlier_attribution": "Adler Lens11 READ240 at6533; exact scope retained in original receipt.",
+      "new_personal_historical_full_read": false,
+      "additional_original_frontier_credit": 0,
+      "qualification": "Future historical role identity-proved only at this checkpoint; no new ordered historical role or checkpoint3821 credit."
+    }
+  ],
+  "native_source_evidence": {
+    "manifest": "native-evidence/bevy_mesh-0.19.1/MANIFEST.json",
+    "member": "bevy_mesh-0.19.1/src/mesh.rs",
+    "personally_inspected_ranges": [
+      [
+        350,
+        409
+      ],
+      [
+        895,
+        960
+      ],
+      [
+        1207,
+        1267
+      ]
+    ],
+    "qualification": "Archive SHA-256 matches both raw6533 and current95e Cargo.lock excerpts. Feature resolution, serialization and execution were not performed."
+  },
+  "observations": [
+    {
+      "contract": "Normal source-side array correlation",
+      "trace": "Each accepted clipped point appends UV, activity, footprint, position and normal in the same loop; this is substantive counterevidence against assuming an ordinary builder produces mismatched lengths.",
+      "remaining": "All producer mutations and deserialization boundaries are not yet exhaustively reconciled."
+    },
+    {
+      "contract": "Error and lifecycle scope",
+      "trace": "Focused paving calls prepared.meshes before creating its paving mask, materials or entities; the map admission despawns its new root on installation failure. The owner cache stores an Arc-wrapped error after a failed upload attempt.",
+      "remaining": "Previously allocated terrain asset handles, native resource lifecycle, cache regeneration and supported failure outcomes remain unexecuted and open."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "Q-L12-ba25fccbf4ff81c29772",
+      "lens": 12,
+      "classification": "Recovered059 Segovb SurfaceVertices array-admission question newly reassessed at95e; no new historical finding or checkpoint3821 attribution.",
+      "canonical_owner": "The serialized PreparedCityGround SurfaceVertices arrays and their worker-product-to-native-Mesh admission boundary.",
+      "first_failed_contract": "Derived deserialization admits each packed vertex buffer independently, while the normal producer relies on their equal lengths and complete triangle groups before a usable Mesh is built.",
+      "trace": "Segovb Lens12 READ527 at6533 already distinguished the normal single-point producer loop, which appends all five arrays together, from independent derived Deserialize fields and left receiver/native admission and actual reachability open. At95e the binary field decoder rejects bytes that end within an element but does not compare sibling arrays or enforce complete triangles. wasm_receive_job passes bytes to worker_products::receive; after CBOR decoding it checks the ticket owner and RegionalCity product document/graphics identity, then stages the product without a SurfaceVertices aggregate check. SurfaceVertices::build inserts the arrays into a TriangleList mesh. PreparedCityGround::meshes caches its result separately per presentation owner and the map path passes the mesh through geographic_ground::reflected.",
+      "symbolic_example": "For a hypothetical otherwise valid product with three positions, two normals and three UV, footprint and activity entries, each packed field has a whole number of elements (36,24,24,48,24 bytes respectively). Assuming CBOR shape, ticket, document and graphics are otherwise valid, the inspected field-level decoder has no cross-array rejection and the identity check does not inspect these lengths. The exact Cargo.lock-pinned Bevy Mesh source counts the minimum attribute length, here2; reflected then constructs indices0..2, and pinned invert_winding returns AbruptIndicesEnd for a TriangleList index count not divisible by3. The per-owner OnceLock stores that error. These are source expressions and symbolic counts only; no payload, decoding, mesh, worker, asset or runtime was created.",
+      "counterevidence": "The normal in-process builder appends all five arrays in one point loop, so its own generated geometry is correlated. IndexedDB entries are gzip size-bounded and checked by a content checksum; cache keys include format, executable revision and job. The ordinary worker generates and serializes its own product before receipt, and the client rejects decode errors and document/graphics mismatches. No supported normal producer emitting mismatched arrays, stale cache, corruption, hostile message, actual error or persistent failure was observed. A self-consistent hypothetical payload is a conditional admission question, not proof a checksum-valid cache becomes corrupt.",
+      "consumer_qualification": "The JS cache retry for decode/mismatch is around wasm_receive_job; a later hypothetical map winding failure is classified at focused installation, after the receipt stage, and the inspected source does not show that retry handling it. Focused installation reports a ground error and despawns its just-created root on failure; asset lifetime and user-visible behavior remain open.",
+      "dependencies": [
+        "Determine the actual trust and ownership contract of worker and persistent cache bytes and whether any supported producer can generate or retain inconsistent fields.",
+        "Trace all deserialization/consumers and define aggregate finite, equal-length, triangle-count, capacity and asset-lifetime admission once at the correct owner.",
+        "Compare exact historical q1385/q1387 and other prepared asset admission findings before deduplication."
+      ],
+      "acceptance_requirements": [
+        "Every supported decoded paving product either preserves correlated complete finite vertex arrays before native upload or rejects the product at the documented admission boundary. Preserve deterministic geometry, per-owner winding and cache integrity semantics."
+      ],
+      "discovery": "partial; recovered pending question and symbolic native source outcome traced; trusted producers, actual payload and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1384",
+        "/entries/1385",
+        "/entries/1386",
+        "/entries/1387",
+        "/entries/1388"
+      ],
+      "qualification": "Bounded partial reassessments only; producer trust, actual inputs, exact aliases and independent lenses remain open. No checkpoint3821 transfer."
+    },
+    {
+      "file": "ASSESSMENT-REGIONAL-SAMPLE-ADMISSION-95E.json",
+      "qualification": "Earlier Adler READ239 and original future-role non-credit preserved."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047",
+      "bytes": 29295,
+      "git_blob": "12f78ab54e0ca5709963ce605b8f843a317b34bf",
+      "preserved_bytes": "recovered/city-ground-wire-059/ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047.gz",
+      "published_sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047",
+      "published_bytes": 29295,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-215.json",
+      "sha256": "79af28f93aa97f541d149b9f7f806ae6692316ad9abb364c4390223c7f8431ac",
+      "bytes": 11750,
+      "git_blob": "fbe4f308b78f40fd7504dc32c0a426653743263b",
+      "preserved_bytes": "recovered/city-ground-wire-059/79af28f93aa97f541d149b9f7f806ae6692316ad9abb364c4390223c7f8431ac.gz",
+      "published_sha256": "79af28f93aa97f541d149b9f7f806ae6692316ad9abb364c4390223c7f8431ac",
+      "published_bytes": 11750,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-216.json",
+      "sha256": "d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7",
+      "bytes": 20180,
+      "git_blob": "752ede0dde7695e901a75a8b65cc5dadf3beffa1",
+      "preserved_bytes": "recovered/city-ground-wire-059/d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7.gz",
+      "published_sha256": "d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7",
+      "published_bytes": 20180,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-217.json",
+      "sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5",
+      "bytes": 13360,
+      "git_blob": "a9e0ca18553110bab06d2b4e360d644d4b4908d8",
+      "preserved_bytes": "recovered/city-ground-wire-059/7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5.gz",
+      "published_sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5",
+      "published_bytes": 13360,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-218.json",
+      "sha256": "5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca",
+      "bytes": 28862,
+      "git_blob": "95edfc8fdd908cdbab5fffe854ef97f8864d31cb",
+      "preserved_bytes": "recovered/city-ground-wire-059/5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca.gz",
+      "published_sha256": "5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca",
+      "published_bytes": 28862,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-219.json",
+      "sha256": "2b8699438fc65c9fc4e17d5f991b958f358e08f5a71da036bf69cff932af55e5",
+      "bytes": 21212,
+      "git_blob": "0536d442e7e82cc0140fcf14eb0f50fe1c3b3eee",
+      "preserved_bytes": "recovered/city-ground-wire-059/2b8699438fc65c9fc4e17d5f991b958f358e08f5a71da036bf69cff932af55e5.gz",
+      "published_sha256": "2b8699438fc65c9fc4e17d5f991b958f358e08f5a71da036bf69cff932af55e5",
+      "published_bytes": 21212,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-221.json",
+      "sha256": "5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42",
+      "bytes": 10621,
+      "git_blob": "25bb8a4a591ee3909127f214e44fb93350adcbea",
+      "preserved_bytes": "recovered/city-ground-wire-059/5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42.gz",
+      "published_sha256": "5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42",
+      "published_bytes": 10621,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-228.json",
+      "sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801",
+      "bytes": 12598,
+      "git_blob": "90a28ed99ca21b61895e44f56d29f3abad161731",
+      "preserved_bytes": "recovered/city-ground-wire-059/b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801.gz",
+      "published_sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801",
+      "published_bytes": 12598,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-229.json",
+      "sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e",
+      "bytes": 7769,
+      "git_blob": "d563e583ecc5c2413b2d14a29bc66e12b00f68a4",
+      "preserved_bytes": "recovered/city-ground-wire-059/2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e.gz",
+      "published_sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e",
+      "published_bytes": 7769,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-230.json",
+      "sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec",
+      "bytes": 13714,
+      "git_blob": "20c134892a8bebb3d8e9924ab9f9b646884583d8",
+      "preserved_bytes": "recovered/city-ground-wire-059/0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec.gz",
+      "published_sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec",
+      "published_bytes": 13714,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-231.json",
+      "sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f",
+      "bytes": 28619,
+      "git_blob": "933b2f20628d6089414bb9e1cd52abc5a9b51384",
+      "preserved_bytes": "recovered/city-ground-wire-059/482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f.gz",
+      "published_sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f",
+      "published_bytes": 28619,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-233.json",
+      "sha256": "4831bc7c2c30cab943473a81129fa0cdeb2f6feba0c07a277d09a6626a4f88f2",
+      "bytes": 19400,
+      "git_blob": "b6d53cc4ad9ab3120b059d081bf8239919b03dd2",
+      "preserved_bytes": "recovered/city-ground-wire-059/4831bc7c2c30cab943473a81129fa0cdeb2f6feba0c07a277d09a6626a4f88f2.gz",
+      "published_sha256": "4831bc7c2c30cab943473a81129fa0cdeb2f6feba0c07a277d09a6626a4f88f2",
+      "published_bytes": 19400,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-234.json",
+      "sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136",
+      "bytes": 14490,
+      "git_blob": "bc0f773eeb8695793e91db5321f4a69482370794",
+      "preserved_bytes": "recovered/city-ground-wire-059/422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136.gz",
+      "published_sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136",
+      "published_bytes": 14490,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-235.json",
+      "sha256": "8fa6c851be9577703b6739e7ed069c47cc16d0d5e5a1feeded4eb69e23744509",
+      "bytes": 18811,
+      "git_blob": "36a766aac5ad6c9426d59d658ed3a8d73a60d2f4",
+      "preserved_bytes": "recovered/city-ground-wire-059/8fa6c851be9577703b6739e7ed069c47cc16d0d5e5a1feeded4eb69e23744509.gz",
+      "published_sha256": "8fa6c851be9577703b6739e7ed069c47cc16d0d5e5a1feeded4eb69e23744509",
+      "published_bytes": 18811,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-236.json",
+      "sha256": "e5f6ce8d6aa743c46567aea00a814ebd27847aa5643b5f66fbce064067767f48",
+      "bytes": 18188,
+      "git_blob": "87fe5a523b60caf394c0c69c8e52a2980136d13b",
+      "preserved_bytes": "recovered/city-ground-wire-059/e5f6ce8d6aa743c46567aea00a814ebd27847aa5643b5f66fbce064067767f48.gz",
+      "published_sha256": "e5f6ce8d6aa743c46567aea00a814ebd27847aa5643b5f66fbce064067767f48",
+      "published_bytes": 18188,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-237.json",
+      "sha256": "b132641c48544d2335f37f895b480f9d3f98c7d296c9ab57cfa9e79803344ff4",
+      "bytes": 18097,
+      "git_blob": "80c9f2860e085b80089da3bc4dfe00436f589898",
+      "preserved_bytes": "recovered/city-ground-wire-059/b132641c48544d2335f37f895b480f9d3f98c7d296c9ab57cfa9e79803344ff4.gz",
+      "published_sha256": "b132641c48544d2335f37f895b480f9d3f98c7d296c9ab57cfa9e79803344ff4",
+      "published_bytes": 18097,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-238.json",
+      "sha256": "ff62639e9259786232e9eab399b36b48563b4ceae9f0a2c0d9042b1a8b8ab601",
+      "bytes": 15331,
+      "git_blob": "c02f740d171a766a74ccfab52113c2948d26de63",
+      "preserved_bytes": "recovered/city-ground-wire-059/ff62639e9259786232e9eab399b36b48563b4ceae9f0a2c0d9042b1a8b8ab601.gz",
+      "published_sha256": "ff62639e9259786232e9eab399b36b48563b4ceae9f0a2c0d9042b1a8b8ab601",
+      "published_bytes": 15331,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-239.json",
+      "sha256": "6ae50c701936dbd39c003b6df17c69c3d0faf2fd885ca78e5254c6d405fa6801",
+      "bytes": 15279,
+      "git_blob": "f4a0932b9ef082898caf43158e14e04c7abbb098",
+      "preserved_bytes": "recovered/city-ground-wire-059/6ae50c701936dbd39c003b6df17c69c3d0faf2fd885ca78e5254c6d405fa6801.gz",
+      "published_sha256": "6ae50c701936dbd39c003b6df17c69c3d0faf2fd885ca78e5254c6d405fa6801",
+      "published_bytes": 15279,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-240.json",
+      "sha256": "892541eaabed917f78fb696be9de6488aeb1fe6a48f7ce004ff393339cd37230",
+      "bytes": 16467,
+      "git_blob": "a85d71c7da5943a8b0ebda5d3e807a7727c829c5",
+      "preserved_bytes": "recovered/city-ground-wire-059/892541eaabed917f78fb696be9de6488aeb1fe6a48f7ce004ff393339cd37230.gz",
+      "published_sha256": "892541eaabed917f78fb696be9de6488aeb1fe6a48f7ce004ff393339cd37230",
+      "published_bytes": 16467,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler Lens11 receipt at6533"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-499.json",
+      "sha256": "b1c11d82ab581d9e6a7593cbe3ec6fce0b39544f24f82bd60523135c060dae28",
+      "bytes": 774,
+      "git_blob": "4f3e6bd239da54917eeeadee370f4fd6d1355654",
+      "preserved_bytes": "recovered/city-ground-wire-059/b1c11d82ab581d9e6a7593cbe3ec6fce0b39544f24f82bd60523135c060dae28.gz",
+      "published_sha256": "b1c11d82ab581d9e6a7593cbe3ec6fce0b39544f24f82bd60523135c060dae28",
+      "published_bytes": 774,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-500.json",
+      "sha256": "741635650f6ed7c7ed598cba837ab56c4292a175c7efa0fc32581c12e2f863ce",
+      "bytes": 762,
+      "git_blob": "d39c781d1cd85dc228f07c9758cd053c718f7795",
+      "preserved_bytes": "recovered/city-ground-wire-059/741635650f6ed7c7ed598cba837ab56c4292a175c7efa0fc32581c12e2f863ce.gz",
+      "published_sha256": "741635650f6ed7c7ed598cba837ab56c4292a175c7efa0fc32581c12e2f863ce",
+      "published_bytes": 762,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-501.json",
+      "sha256": "8af3c197cb4dade83a256b1864d0318e4918685bdeb0304a353fc41f0f3944a0",
+      "bytes": 760,
+      "git_blob": "6707d13d1488d5d7c538c69a31d3cd093d94e48e",
+      "preserved_bytes": "recovered/city-ground-wire-059/8af3c197cb4dade83a256b1864d0318e4918685bdeb0304a353fc41f0f3944a0.gz",
+      "published_sha256": "8af3c197cb4dade83a256b1864d0318e4918685bdeb0304a353fc41f0f3944a0",
+      "published_bytes": 760,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-502.json",
+      "sha256": "68d7b7d1b7d43b2df7fa045e7a305ba497000eb87ef234fe7e3088691f489518",
+      "bytes": 766,
+      "git_blob": "a39c1cc93f78cb80481bb5fa0b5d0cbe740cc65d",
+      "preserved_bytes": "recovered/city-ground-wire-059/68d7b7d1b7d43b2df7fa045e7a305ba497000eb87ef234fe7e3088691f489518.gz",
+      "published_sha256": "68d7b7d1b7d43b2df7fa045e7a305ba497000eb87ef234fe7e3088691f489518",
+      "published_bytes": 766,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-503.json",
+      "sha256": "8fd38a1dde7803d4543016dc9d1bdfbbb9d5eac01c801e254052bae0d62e8a7a",
+      "bytes": 760,
+      "git_blob": "dfffd16ea69b618d7663ea8859a277d9d38a320e",
+      "preserved_bytes": "recovered/city-ground-wire-059/8fd38a1dde7803d4543016dc9d1bdfbbb9d5eac01c801e254052bae0d62e8a7a.gz",
+      "published_sha256": "8fd38a1dde7803d4543016dc9d1bdfbbb9d5eac01c801e254052bae0d62e8a7a",
+      "published_bytes": 760,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-504.json",
+      "sha256": "5e402a1829261a4bb65aa95af94e84ad578a09043b44b75a9d6069326ff0036e",
+      "bytes": 765,
+      "git_blob": "79cae361de093aa8765a6a3ba2eab832049e14c9",
+      "preserved_bytes": "recovered/city-ground-wire-059/5e402a1829261a4bb65aa95af94e84ad578a09043b44b75a9d6069326ff0036e.gz",
+      "published_sha256": "5e402a1829261a4bb65aa95af94e84ad578a09043b44b75a9d6069326ff0036e",
+      "published_bytes": 765,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-240.json",
+      "sha256": "22f2bf2175dbbb6893350e917feea44c494aff85ea050c6a58e31f97b6170af7",
+      "bytes": 668,
+      "git_blob": "34069d465a0e96e194a4c261900a538a6cc39e44",
+      "preserved_bytes": "recovered/city-ground-wire-059/22f2bf2175dbbb6893350e917feea44c494aff85ea050c6a58e31f97b6170af7.gz",
+      "published_sha256": "22f2bf2175dbbb6893350e917feea44c494aff85ea050c6a58e31f97b6170af7",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 state"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-240.json",
+      "sha256": "98dc7252cd71bbcf610e30a1080f9973fc8d4a34d58e9e19d297366b7f3b0dce",
+      "bytes": 34471,
+      "git_blob": "a0ac302d8b10134bb28b8408af0191f19ac65029",
+      "preserved_bytes": "recovered/city-ground-wire-059/98dc7252cd71bbcf610e30a1080f9973fc8d4a34d58e9e19d297366b7f3b0dce.gz",
+      "published_sha256": "98dc7252cd71bbcf610e30a1080f9973fc8d4a34d58e9e19d297366b7f3b0dce",
+      "published_bytes": 34471,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-527.json",
+      "sha256": "d5a0a4e8b120bc74e18f57a7688319892fa5b03f4d03598c37dd1ad9249315df",
+      "bytes": 1745,
+      "git_blob": "ba138dd9cdd419517731277f7363b7d862613a15",
+      "preserved_bytes": "recovered/city-ground-wire-059/d5a0a4e8b120bc74e18f57a7688319892fa5b03f4d03598c37dd1ad9249315df.gz",
+      "published_sha256": "d5a0a4e8b120bc74e18f57a7688319892fa5b03f4d03598c37dd1ad9249315df",
+      "published_bytes": 1745,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-528.json",
+      "sha256": "944d4e811a463ab2820a6aec9550db96b14ce6e63b4c73bf5fa9a24f41871108",
+      "bytes": 1762,
+      "git_blob": "5e5b9f7b052648bb183bec3db9889c8c1d1b041f",
+      "preserved_bytes": "recovered/city-ground-wire-059/944d4e811a463ab2820a6aec9550db96b14ce6e63b4c73bf5fa9a24f41871108.gz",
+      "published_sha256": "944d4e811a463ab2820a6aec9550db96b14ce6e63b4c73bf5fa9a24f41871108",
+      "published_bytes": 1762,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-527.json",
+      "sha256": "1b7e7589ce6a0889409eae47ee9017c996351ebc451007c4668c62cb3328548a",
+      "bytes": 12641,
+      "git_blob": "6ad3094d40f8bd86b902e1808ea071b3939400d1",
+      "preserved_bytes": "recovered/city-ground-wire-059/1b7e7589ce6a0889409eae47ee9017c996351ebc451007c4668c62cb3328548a.gz",
+      "published_sha256": "1b7e7589ce6a0889409eae47ee9017c996351ebc451007c4668c62cb3328548a",
+      "published_bytes": 12641,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Segovb Lens12 receipt at6533"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-528.json",
+      "sha256": "d722276bd3fea0635eac96fd805135153536498827283a1a40907bef08e9b246",
+      "bytes": 12920,
+      "git_blob": "916115bb4bc07f2ea486e0a2f0a04ca73f83dfcc",
+      "preserved_bytes": "recovered/city-ground-wire-059/d722276bd3fea0635eac96fd805135153536498827283a1a40907bef08e9b246.gz",
+      "published_sha256": "d722276bd3fea0635eac96fd805135153536498827283a1a40907bef08e9b246",
+      "published_bytes": 12920,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Segovb Lens12 receipt at6533"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-569.json",
+      "sha256": "feff94688aed6429ce829f1d5e303d3b3b81b90b0ae1313ef9a58cb0e0dba40d",
+      "bytes": 1201,
+      "git_blob": "f8330ae4331088bcd40b8391c740cda95507c319",
+      "preserved_bytes": "recovered/city-ground-wire-059/feff94688aed6429ce829f1d5e303d3b3b81b90b0ae1313ef9a58cb0e0dba40d.gz",
+      "published_sha256": "feff94688aed6429ce829f1d5e303d3b3b81b90b0ae1313ef9a58cb0e0dba40d",
+      "published_bytes": 1201,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-570.json",
+      "sha256": "e6a1006f74cb8a7bd5ae825748cba4218c6a8b082b499a0a2f7c28280962fe35",
+      "bytes": 1193,
+      "git_blob": "2c41ed18dd0930f871b4ac3d3e662ff238a9a913",
+      "preserved_bytes": "recovered/city-ground-wire-059/e6a1006f74cb8a7bd5ae825748cba4218c6a8b082b499a0a2f7c28280962fe35.gz",
+      "published_sha256": "e6a1006f74cb8a7bd5ae825748cba4218c6a8b082b499a0a2f7c28280962fe35",
+      "published_bytes": 1193,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-571.json",
+      "sha256": "965f26ae4eb2775850c5f4fea942bf1557f06748070d07cc891033d79e244468",
+      "bytes": 1203,
+      "git_blob": "7d13c8e56f8e03d7482c67000828a427d505d9ab",
+      "preserved_bytes": "recovered/city-ground-wire-059/965f26ae4eb2775850c5f4fea942bf1557f06748070d07cc891033d79e244468.gz",
+      "published_sha256": "965f26ae4eb2775850c5f4fea942bf1557f06748070d07cc891033d79e244468",
+      "published_bytes": 1203,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-572.json",
+      "sha256": "b9a39bec4637a870810c3623819793f6b6c04d91bde3cdccaae3ade1817c7206",
+      "bytes": 1246,
+      "git_blob": "5c0badb0973396d688d26840b5ddfcf4c5bc8d8d",
+      "preserved_bytes": "recovered/city-ground-wire-059/b9a39bec4637a870810c3623819793f6b6c04d91bde3cdccaae3ade1817c7206.gz",
+      "published_sha256": "b9a39bec4637a870810c3623819793f6b6c04d91bde3cdccaae3ade1817c7206",
+      "published_bytes": 1246,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-573.json",
+      "sha256": "e8fb2953bb0b7371ff86117ecbba69b2ed7241d175e42351aaf06d4c425d3b4e",
+      "bytes": 1272,
+      "git_blob": "61d0986c6578147544a37036b3af561c558de096",
+      "preserved_bytes": "recovered/city-ground-wire-059/e8fb2953bb0b7371ff86117ecbba69b2ed7241d175e42351aaf06d4c425d3b4e.gz",
+      "published_sha256": "e8fb2953bb0b7371ff86117ecbba69b2ed7241d175e42351aaf06d4c425d3b4e",
+      "published_bytes": 1272,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-574.json",
+      "sha256": "8aef3a4e946ba22c01b52dec4d08c806a4e41c5ecf85c415758e102651bb6b20",
+      "bytes": 1248,
+      "git_blob": "78df8152076ddb423c712fb34925003829b961d6",
+      "preserved_bytes": "recovered/city-ground-wire-059/8aef3a4e946ba22c01b52dec4d08c806a4e41c5ecf85c415758e102651bb6b20.gz",
+      "published_sha256": "8aef3a4e946ba22c01b52dec4d08c806a4e41c5ecf85c415758e102651bb6b20",
+      "published_bytes": 1248,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-527.json",
+      "sha256": "44c8a08f771ef1d8ac813c6c5c72bfbe8fb043ed71f614d91cac4d375b3b3e5a",
+      "bytes": 840,
+      "git_blob": "09293b7b6c0162af21b240a7ad7b61697772e5d7",
+      "preserved_bytes": "recovered/city-ground-wire-059/44c8a08f771ef1d8ac813c6c5c72bfbe8fb043ed71f614d91cac4d375b3b3e5a.gz",
+      "published_sha256": "44c8a08f771ef1d8ac813c6c5c72bfbe8fb043ed71f614d91cac4d375b3b3e5a",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-528.json",
+      "sha256": "0591f62ff121322c6236da5164687636646469d33582073a6bc288da0519c0fe",
+      "bytes": 840,
+      "git_blob": "48b87ed3b92cfc5a3cecd8aba6ec066047f34d76",
+      "preserved_bytes": "recovered/city-ground-wire-059/0591f62ff121322c6236da5164687636646469d33582073a6bc288da0519c0fe.gz",
+      "published_sha256": "0591f62ff121322c6236da5164687636646469d33582073a6bc288da0519c0fe",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-527.json",
+      "sha256": "dc386072c59af2c657e1b324981307cc751df066419a44725d2b5d724952bf49",
+      "bytes": 558,
+      "git_blob": "7c7155f48e42e931203d064bb8bb6b114e95289c",
+      "preserved_bytes": "recovered/city-ground-wire-059/dc386072c59af2c657e1b324981307cc751df066419a44725d2b5d724952bf49.gz",
+      "published_sha256": "dc386072c59af2c657e1b324981307cc751df066419a44725d2b5d724952bf49",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-528.json",
+      "sha256": "fa4e1c7afc863abe6dd45b1a2c7b48af249d1d2053b1d7455d6f97070d5fa77e",
+      "bytes": 558,
+      "git_blob": "d69a8b6bd0a56595eb338d35058b21053d622a84",
+      "preserved_bytes": "recovered/city-ground-wire-059/fa4e1c7afc863abe6dd45b1a2c7b48af249d1d2053b1d7455d6f97070d5fa77e.gz",
+      "published_sha256": "fa4e1c7afc863abe6dd45b1a2c7b48af249d1d2053b1d7455d6f97070d5fa77e",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    }
+  ],
+  "remaining": "Trace actual worker/cache producer trust, all product validation and native lifetimes, original1667 onward, all13 lenses, semantic queue and aliases. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
