@@ -1,0 +1,130 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2279,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2279",
+      "original_locator": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 540,
+          "read_ranges": [
+            [
+              1,
+              484
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "lines": 484,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GPU-PASS-PIPELINE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2279-2280.json",
+        "sha256": "efc2d9195b820354a7e2beb8f45fe6bd82f441b33e2653f81f9faf5a8ab43fac"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          484
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 body2280 was displayed separately from changed95e body after local registration; identical2279 uses its complete current display and independently verified byte equality. Historical reviewer attribution is not transferred.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+        "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+        "bytes": 21838,
+        "lines": 484,
+        "git_blob": "a39503e1db512795dfc92e29b6bf39f87491eef0",
+        "preserved_bytes": "main-advance-95e/gpu-pass-pipeline-evidence/current-2279.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            484
+          ]
+        ],
+        "qualification": "Current full body displayed after registration. Changed2280 old and current source bodies were displayed separately, and no product code was executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim."
+    },
+    {
+      "original_index": 2280,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2280",
+      "original_locator": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 221,
+          "read_ranges": [
+            [
+              1,
+              187
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204",
+      "lines": 187,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GPU-PASS-PIPELINE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2279-2280.json",
+        "sha256": "efc2d9195b820354a7e2beb8f45fe6bd82f441b33e2653f81f9faf5a8ab43fac"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 body2280 was displayed separately from changed95e body after local registration; identical2279 uses its complete current display and independently verified byte equality. Historical reviewer attribution is not transferred.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+        "sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128",
+        "bytes": 6761,
+        "lines": 189,
+        "git_blob": "ec503606414cf21d4181fad00f2723f12615ac0a",
+        "preserved_bytes": "main-advance-95e/gpu-pass-pipeline-evidence/current-2280.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "current_personal_ranges": [
+          [
+            1,
+            189
+          ]
+        ],
+        "qualification": "Current full body displayed after registration. Changed2280 old and current source bodies were displayed separately, and no product code was executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim."
+    }
+  ],
+  "observations": [
+    "Original6533 pass2279 full484 equals current95e bytes. Original6533 pipeline2280 full187 and current95e full189 differ and were separately displayed after prospective registration. Earlier current support ranges in ASSESSMENT-KERNEL-95E.json retain their own bounded attribution.",
+    "Original rig suppliers, Adler363 and Lens12 delegate749 independently read each historical role in full; root adoption recorded zero personal rereads and zero accepted unique-count change.",
+    "Separately, earlier Lens11 delegate626 personally read four complete e275 shader/reflection/pipeline sources; exact e275 Git paths and byte equality to95e are independently bound in GPU-PASS-PIPELINE-OLD-L11-GIT-PROOFS.json. Root adoption did not claim personal e275 rereads, no other-lens coverage transferred, and latest-target reconciliation remained false. Delegate627 and628 retain their own native/consumer scope.",
+    "Earlier Lens12 connected TEAM004 source roles2635–2636 were independently registered/read and adopted with zero ordered credit; locator qualifications are preserved. Current bounded support views do not advance those future ordered roles. No shader, device, macro, GPU, tests or product ran. Local registration time is not independently attested."
+  ],
+  "qualification": "Original rig/Adler/delegate scopes, earlier separate e275 Lens11 source evidence, prior current support and new full displays remain distinct; no checkpoint3821 claim.",
+  "next_original_role": 2281
+}

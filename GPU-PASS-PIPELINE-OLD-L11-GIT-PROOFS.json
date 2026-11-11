@@ -1,0 +1,286 @@
+{
+  "schema": "726-exact-git-tree-path-membership-v1",
+  "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "root_tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+  "shared_commit_and_tree_objects": "COLOR-OLD-L3-GIT-PROOFS.json",
+  "additional_shared_tree_objects": [
+    "HOST-FLOAT-OLD-L11-GIT-PROOFS.json",
+    "READBACK-SORT-OLD-GIT-PROOFS.json",
+    "DETERMINISM-OLD-L1-GIT-PROOFS.json"
+  ],
+  "additional_tree_objects": {
+    "bb6e3964d67309b57fe7f316e7866adb7e94ef3f": {
+      "git_object": "bb6e3964d67309b57fe7f316e7866adb7e94ef3f",
+      "type": "tree",
+      "sha256": "f8c0c697f51c57f29f8c4ee200034aa199a33dee901b3bd98ac0f6d71a6efb58",
+      "bytes": 181,
+      "preserved_bytes": "main-advance-95e/gpu-pass-pipeline-evidence/e275-git-objects/bb6e3964d67309b57fe7f316e7866adb7e94ef3f.tree.gz"
+    },
+    "8fd83ad489459acbbc8dda549bb81e54ad04ac13": {
+      "git_object": "8fd83ad489459acbbc8dda549bb81e54ad04ac13",
+      "type": "tree",
+      "sha256": "6603f06ab694efe17315ac69ce30b40642f0633cb20b3d02f247e14b052c9525",
+      "bytes": 137,
+      "preserved_bytes": "main-advance-95e/gpu-pass-pipeline-evidence/e275-git-objects/8fd83ad489459acbbc8dda549bb81e54ad04ac13.tree.gz"
+    },
+    "481a3448a1e746f5bbbc51918fd4139826b0129f": {
+      "git_object": "481a3448a1e746f5bbbc51918fd4139826b0129f",
+      "type": "tree",
+      "sha256": "c47806761684c26fcd6214c264c143c3685da1a2108df9dddce25dedb2792ce1",
+      "bytes": 64,
+      "preserved_bytes": "main-advance-95e/gpu-pass-pipeline-evidence/e275-git-objects/481a3448a1e746f5bbbc51918fd4139826b0129f.tree.gz"
+    },
+    "6bf7fdedb04b270f10e1b05fa49e47cdc6f21905": {
+      "git_object": "6bf7fdedb04b270f10e1b05fa49e47cdc6f21905",
+      "type": "tree",
+      "sha256": "596ebe34a38928b9b5512134801d6d863ba0e343f511a59a07cad680bd9d9850",
+      "bytes": 323,
+      "preserved_bytes": "main-advance-95e/gpu-pass-pipeline-evidence/e275-git-objects/6bf7fdedb04b270f10e1b05fa49e47cdc6f21905.tree.gz"
+    },
+    "484903c9b6e914208eabbf45335af455838ecc4f": {
+      "git_object": "484903c9b6e914208eabbf45335af455838ecc4f",
+      "type": "tree",
+      "sha256": "7a291c82df053edb59986823c735375bbd6a52717e6afee38eca30347729cdb0",
+      "bytes": 182,
+      "preserved_bytes": "main-advance-95e/gpu-pass-pipeline-evidence/e275-git-objects/484903c9b6e914208eabbf45335af455838ecc4f.tree.gz"
+    },
+    "3594eb1c1279aeed340fff4ba8a809848a872cd2": {
+      "git_object": "3594eb1c1279aeed340fff4ba8a809848a872cd2",
+      "type": "tree",
+      "sha256": "264a53ec84855adb30aff5a4c074af9cd18aa9d4c798f9bceecfc983031b40ff",
+      "bytes": 120,
+      "preserved_bytes": "main-advance-95e/gpu-pass-pipeline-evidence/e275-git-objects/3594eb1c1279aeed340fff4ba8a809848a872cd2.tree.gz"
+    }
+  },
+  "paths": {
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs": {
+      "chain": [
+        {
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+          "name": "crates",
+          "mode": "40000",
+          "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "name": "fabelgeist-gpu",
+          "mode": "40000",
+          "child": "bb6e3964d67309b57fe7f316e7866adb7e94ef3f"
+        },
+        {
+          "tree": "bb6e3964d67309b57fe7f316e7866adb7e94ef3f",
+          "name": "src",
+          "mode": "40000",
+          "child": "8fd83ad489459acbbc8dda549bb81e54ad04ac13"
+        },
+        {
+          "tree": "8fd83ad489459acbbc8dda549bb81e54ad04ac13",
+          "name": "data",
+          "mode": "40000",
+          "child": "481a3448a1e746f5bbbc51918fd4139826b0129f"
+        },
+        {
+          "tree": "481a3448a1e746f5bbbc51918fd4139826b0129f",
+          "name": "gpu",
+          "mode": "40000",
+          "child": "6bf7fdedb04b270f10e1b05fa49e47cdc6f21905"
+        },
+        {
+          "tree": "6bf7fdedb04b270f10e1b05fa49e47cdc6f21905",
+          "name": "compute",
+          "mode": "40000",
+          "child": "484903c9b6e914208eabbf45335af455838ecc4f"
+        },
+        {
+          "tree": "484903c9b6e914208eabbf45335af455838ecc4f",
+          "name": "pipeline",
+          "mode": "40000",
+          "child": "3594eb1c1279aeed340fff4ba8a809848a872cd2"
+        },
+        {
+          "tree": "3594eb1c1279aeed340fff4ba8a809848a872cd2",
+          "name": "reflection.rs",
+          "mode": "100644",
+          "child": "103f467e787fc9e1a5b78fd86da38db23f340b17"
+        }
+      ],
+      "git_blob": "103f467e787fc9e1a5b78fd86da38db23f340b17",
+      "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+      "bytes": 7584,
+      "lines": 209,
+      "preserved_bytes": "main-advance-95e/gpu-pass-pipeline-evidence/e275-source-fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe.gz",
+      "content_encoding": "gzip",
+      "current95e_identical": true,
+      "qualification": "Prior Lens11 delegate personally read this complete e275 source under READ-L11-626; root adoption had zero personal rereads. Current source equality verified without retroactively claiming a root e275 read."
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs": {
+      "chain": [
+        {
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+          "name": "crates",
+          "mode": "40000",
+          "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "name": "fabelgeist-gpu",
+          "mode": "40000",
+          "child": "bb6e3964d67309b57fe7f316e7866adb7e94ef3f"
+        },
+        {
+          "tree": "bb6e3964d67309b57fe7f316e7866adb7e94ef3f",
+          "name": "src",
+          "mode": "40000",
+          "child": "8fd83ad489459acbbc8dda549bb81e54ad04ac13"
+        },
+        {
+          "tree": "8fd83ad489459acbbc8dda549bb81e54ad04ac13",
+          "name": "data",
+          "mode": "40000",
+          "child": "481a3448a1e746f5bbbc51918fd4139826b0129f"
+        },
+        {
+          "tree": "481a3448a1e746f5bbbc51918fd4139826b0129f",
+          "name": "gpu",
+          "mode": "40000",
+          "child": "6bf7fdedb04b270f10e1b05fa49e47cdc6f21905"
+        },
+        {
+          "tree": "6bf7fdedb04b270f10e1b05fa49e47cdc6f21905",
+          "name": "compute",
+          "mode": "40000",
+          "child": "484903c9b6e914208eabbf45335af455838ecc4f"
+        },
+        {
+          "tree": "484903c9b6e914208eabbf45335af455838ecc4f",
+          "name": "pipeline",
+          "mode": "40000",
+          "child": "3594eb1c1279aeed340fff4ba8a809848a872cd2"
+        },
+        {
+          "tree": "3594eb1c1279aeed340fff4ba8a809848a872cd2",
+          "name": "compute_shader.rs",
+          "mode": "100644",
+          "child": "8489b7ec8a3a2489915ba9b617aaecd46a7b9ab2"
+        }
+      ],
+      "git_blob": "8489b7ec8a3a2489915ba9b617aaecd46a7b9ab2",
+      "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+      "bytes": 2849,
+      "lines": 84,
+      "preserved_bytes": "main-advance-95e/gpu-pass-pipeline-evidence/e275-source-4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878.gz",
+      "content_encoding": "gzip",
+      "current95e_identical": true,
+      "qualification": "Prior Lens11 delegate personally read this complete e275 source under READ-L11-626; root adoption had zero personal rereads. Current source equality verified without retroactively claiming a root e275 read."
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs": {
+      "chain": [
+        {
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+          "name": "crates",
+          "mode": "40000",
+          "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "name": "fabelgeist-gpu",
+          "mode": "40000",
+          "child": "bb6e3964d67309b57fe7f316e7866adb7e94ef3f"
+        },
+        {
+          "tree": "bb6e3964d67309b57fe7f316e7866adb7e94ef3f",
+          "name": "src",
+          "mode": "40000",
+          "child": "8fd83ad489459acbbc8dda549bb81e54ad04ac13"
+        },
+        {
+          "tree": "8fd83ad489459acbbc8dda549bb81e54ad04ac13",
+          "name": "data",
+          "mode": "40000",
+          "child": "481a3448a1e746f5bbbc51918fd4139826b0129f"
+        },
+        {
+          "tree": "481a3448a1e746f5bbbc51918fd4139826b0129f",
+          "name": "gpu",
+          "mode": "40000",
+          "child": "6bf7fdedb04b270f10e1b05fa49e47cdc6f21905"
+        },
+        {
+          "tree": "6bf7fdedb04b270f10e1b05fa49e47cdc6f21905",
+          "name": "compute",
+          "mode": "40000",
+          "child": "484903c9b6e914208eabbf45335af455838ecc4f"
+        },
+        {
+          "tree": "484903c9b6e914208eabbf45335af455838ecc4f",
+          "name": "pipeline",
+          "mode": "40000",
+          "child": "3594eb1c1279aeed340fff4ba8a809848a872cd2"
+        },
+        {
+          "tree": "3594eb1c1279aeed340fff4ba8a809848a872cd2",
+          "name": "mod.rs",
+          "mode": "100644",
+          "child": "ec503606414cf21d4181fad00f2723f12615ac0a"
+        }
+      ],
+      "git_blob": "ec503606414cf21d4181fad00f2723f12615ac0a",
+      "sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128",
+      "bytes": 6761,
+      "lines": 189,
+      "preserved_bytes": "main-advance-95e/gpu-pass-pipeline-evidence/e275-source-33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128.gz",
+      "content_encoding": "gzip",
+      "current95e_identical": true,
+      "qualification": "Prior Lens11 delegate personally read this complete e275 source under READ-L11-626; root adoption had zero personal rereads. Current source equality verified without retroactively claiming a root e275 read."
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/shader.rs": {
+      "chain": [
+        {
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+          "name": "crates",
+          "mode": "40000",
+          "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "name": "fabelgeist-gpu",
+          "mode": "40000",
+          "child": "bb6e3964d67309b57fe7f316e7866adb7e94ef3f"
+        },
+        {
+          "tree": "bb6e3964d67309b57fe7f316e7866adb7e94ef3f",
+          "name": "src",
+          "mode": "40000",
+          "child": "8fd83ad489459acbbc8dda549bb81e54ad04ac13"
+        },
+        {
+          "tree": "8fd83ad489459acbbc8dda549bb81e54ad04ac13",
+          "name": "data",
+          "mode": "40000",
+          "child": "481a3448a1e746f5bbbc51918fd4139826b0129f"
+        },
+        {
+          "tree": "481a3448a1e746f5bbbc51918fd4139826b0129f",
+          "name": "gpu",
+          "mode": "40000",
+          "child": "6bf7fdedb04b270f10e1b05fa49e47cdc6f21905"
+        },
+        {
+          "tree": "6bf7fdedb04b270f10e1b05fa49e47cdc6f21905",
+          "name": "shader.rs",
+          "mode": "100644",
+          "child": "18c495f577677d2813ce6007489fdec391c673fc"
+        }
+      ],
+      "git_blob": "18c495f577677d2813ce6007489fdec391c673fc",
+      "sha256": "d43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a",
+      "bytes": 1887,
+      "lines": 73,
+      "preserved_bytes": "main-advance-95e/gpu-pass-pipeline-evidence/e275-source-d43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a.gz",
+      "content_encoding": "gzip",
+      "current95e_identical": true,
+      "qualification": "Prior Lens11 delegate personally read this complete e275 source under READ-L11-626; root adoption had zero personal rereads. Current source equality verified without retroactively claiming a root e275 read."
+    }
+  },
+  "qualification": "Exact e275 source paths for earlier delegated Lens11 626; equal current bytes do not transfer historical attribution or lens verdicts."
+}

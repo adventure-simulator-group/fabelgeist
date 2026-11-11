@@ -1,0 +1,1623 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2279–2280 compute-pass and pipeline bodies, prior historical and e275 reviewer records, selected reflection, native layout and scope source.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2279-2280.json",
+  "git_membership_evidence": "GPU-PASS-PIPELINE-HISTORICAL-GIT-PROOFS.json",
+  "prior_e275_git_membership_evidence": "GPU-PASS-PIPELINE-OLD-L11-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "103f467e787fc9e1a5b78fd86da38db23f340b17",
+      "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+      "bytes": 7584,
+      "lines": 209,
+      "ranges": [
+        [
+          1,
+          75
+        ],
+        [
+          75,
+          141
+        ],
+        [
+          113,
+          197
+        ],
+        [
+          185,
+          209
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gpu-pass-pipeline-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original-role and other-lens credit are not transferred."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8489b7ec8a3a2489915ba9b617aaecd46a7b9ab2",
+      "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+      "bytes": 2849,
+      "lines": 84,
+      "ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gpu-pass-pipeline-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original-role and other-lens credit are not transferred."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "18c495f577677d2813ce6007489fdec391c673fc",
+      "sha256": "d43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a",
+      "bytes": 1887,
+      "lines": 73,
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gpu-pass-pipeline-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original-role and other-lens credit are not transferred."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c3ec2cf4c80e2a7506a197a3c49995fe88c10be4",
+      "sha256": "e88c8b37e80959ef7b47ce22d914becb64f57221b2adf497036ebd98881eef95",
+      "bytes": 12835,
+      "lines": 303,
+      "ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gpu-pass-pipeline-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original-role and other-lens credit are not transferred."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7d3ea629daf9df09dd78005e4fa3c0e8090241fe",
+      "sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+      "bytes": 924,
+      "lines": 27,
+      "ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gpu-pass-pipeline-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original-role and other-lens credit are not transferred."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9716f938f35b1f40c552344ada1d9b73adfc1ad5",
+      "sha256": "14ac95339951ceb8b50cc3ab9452c251bbbce6122ebd7206a3961c406ff74858",
+      "bytes": 13112,
+      "lines": 323,
+      "ranges": [
+        [
+          94,
+          122
+        ],
+        [
+          254,
+          277
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gpu-pass-pipeline-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original-role and other-lens credit are not transferred."
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          11521,
+          11524
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gpu-pass-pipeline-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original-role and other-lens credit are not transferred."
+    }
+  ],
+  "native_reference_sources": [
+    {
+      "manifest": "native-evidence/wgpu-29.0.4/MANIFEST.json",
+      "archive": "native-evidence/wgpu-29.0.4/wgpu-29.0.4.crate",
+      "archive_sha256": "76e8840e1ba2881d4cbb18d2147627a56af426ff064c0401eb0c8410c6325d07",
+      "member": "wgpu-29.0.4/src/api/pipeline_layout.rs",
+      "member_sha256": "d23904fbd62e81c737a3a6b8fe6c9d00447c55ebe7fe31979c19f948559d827d",
+      "member_bytes": 1919,
+      "personally_inspected_ranges": [
+        [
+          26,
+          45
+        ]
+      ],
+      "qualification": "Exact previously published current Cargo-locked archive reused; bounded source views do not establish a GPU invocation."
+    },
+    {
+      "manifest": "native-evidence/wgpu-29.0.4/MANIFEST.json",
+      "archive": "native-evidence/wgpu-29.0.4/wgpu-29.0.4.crate",
+      "archive_sha256": "76e8840e1ba2881d4cbb18d2147627a56af426ff064c0401eb0c8410c6325d07",
+      "member": "wgpu-29.0.4/src/api/device.rs",
+      "member_sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "member_bytes": 32771,
+      "personally_inspected_ranges": [
+        [
+          839,
+          875
+        ]
+      ],
+      "qualification": "Exact previously published current Cargo-locked archive reused; bounded source views do not establish a GPU invocation."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-KERNEL-95E.json",
+    "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Changed pipeline observation policy",
+      "trace": "Historical6533 get_or_create_pipeline_validated takes a boolean blocking_validation and conditionally pushes a native scope; 95e takes ValidationObservation and calls start_scope. Current borrowed contexts select Uncaptured, while newly owned native contexts select BlockingScopes. The separate current ValidationScopeError retains native/poll types, but this pipeline still stores a popped native error as String and ignores its poll result.",
+      "remaining": "Original353 and earlier source review already documented the retained-string cause; current observation variants are not evidence every caller shares a policy. Historical and current pipeline bodies differ and are independently preserved. No pipeline, validation scope or GPU ran."
+    },
+    {
+      "contract": "Separate matrix packers",
+      "trace": "The public bind helper and ComputePass.record each have separate Mat3 arms with the same coarse offset+member.size guard, member.size/3 stride and three-by-three f32 element writes. The prior conditional 12-byte member/block and Mat3 mismatch therefore has the same source-level out-of-bounds request at each distinct operation.",
+      "remaining": "Original151 and delegate2331 already identified ABI and Mat3 admission as open; the helper and compute-pass sites remain distinct, and the cached fast packer is not asserted to share this precise operation. No reflection, shader, buffer or slice ran."
+    },
+    {
+      "contract": "Sparse native group identity",
+      "trace": "ReflectedInterface accumulates groups in a BTreeMap keyed by actual group number, then pushes only present layouts and reflection records into compact vectors. ComputePipeline publishes the dense vector to the native PipelineLayoutDescriptor, whose pinned wgpu source says array position names the set number. ComputePass uses the retained original index to get a layout, then later binds built groups by enumeration position.",
+      "remaining": "Original370 and earlier independently attributed Lens11 626/627 already identified the same first compaction failure and native position rule; the hypothetical sparse group is conditional on supported shader policy and earlier validation may reject before record. No shader, device or native operation ran."
+    },
+    {
+      "contract": "Multiple uniforms and resource capabilities",
+      "trace": "GroupBuilder.uniform overwrites a single uniform_binding and uniform_buffer_size for every uniform resource in a group while accumulating members and layout entries. Image reflection matches dimension and class while discarding other image fields, hard-codes multisampled false, selects WriteOnly for any STORE bit, and classifies all samplers as Filtering.",
+      "remaining": "Earlier e275 Lens11 delegate626 explicitly recorded these distinct questions. They are conditional on admitted multiple blocks or texture/sampler features; the API may deliberately restrict supported shader shapes. No shader, reflection or GPU ran, and no shared remedy implies aliasing these different operations."
+    },
+    {
+      "contract": "Shader, layout and cache identity",
+      "trace": "ComputeShader exposes code and module separately; ComputePipeline.prepare reflects the code, while pipeline creation uses the module. ComputePipeline exposes shader, layouts and reflection, and Clone shares pipeline_cache. The cache key hashes only entry_point and returns a hit before reading device, module or layouts.",
+      "remaining": "Original Adler150 qualification and earlier e275 Lens11 delegate626 already raised mutable shader and cache identity. Public divergent values or cross-device use are conditional, with actual producer ownership and intended immutable lifecycle unresolved. No pipeline, device, mutation or cache lookup ran."
+    },
+    {
+      "contract": "Cache and validation observation",
+      "trace": "On cache hit get_or_create_pipeline_validated returns before reading validation_observation or starting a scope. Consequently an earlier cached result obtained under Uncaptured is returned to a later BlockingScopes call without a new creation scope. Current context sources use both policies for different device ownership.",
+      "remaining": "This is an observation-state policy question, not proof an invalid pipeline exists or a later caller requires retroactive validation. Actual sharing across contexts and error handling remain open. No device or validation ran."
+    },
+    {
+      "contract": "Poisoned validation lock and native scope cleanup",
+      "trace": "ComputePass.record checks retained validation errors only inside if let Ok(lock), so a poisoned lock bypasses that check. ComputePipeline.compile separately converts lock poisoning to an error. Pinned wgpu ErrorScopeGuard Drop pops a scope even if shader.module is missing and the function returns early.",
+      "remaining": "The pass path is conditional on a poisoned lock and any meaningful retained error, with no panic/poison observed. The suspected leaked-scope claim is rejected for the inspected wgpu version; dropped captured errors and all other exits remain separate questions."
+    },
+    {
+      "contract": "Separate historical error reasons",
+      "trace": "Historical queue339–351 and354–358 separately name missing pipeline/reflection/layout and resource/type conditions, plus pipeline cache/lock/module/entry/reflection conditions. Current source still expresses those selected first checks as separate anyhow prose.",
+      "remaining": "Preserve each original identity and distinguish it from same-worded errors in the separate bind helper; shared repair machinery does not establish aliases. Actual caller need for structured reasons and global aliases remain open. No error ran."
+    }
+  ],
+  "reconnected_historical_findings": [
+    {
+      "id": "SEGOVB-L12-GPU-PASS-PIPELINE-MISSING-REASON",
+      "queue": 339,
+      "qualification": "Original distinct pass/pipeline reason or sparse layout identity; preserve original historical and earlier e275 reviewer attribution."
+    },
+    {
+      "id": "SEGOVB-L12-GPU-PASS-REFLECTION-MISSING-REASON",
+      "queue": 340,
+      "qualification": "Original distinct pass/pipeline reason or sparse layout identity; preserve original historical and earlier e275 reviewer attribution."
+    },
+    {
+      "id": "SEGOVB-L12-GPU-PASS-LAYOUT-MISSING-REASON",
+      "queue": 341,
+      "qualification": "Original distinct pass/pipeline reason or sparse layout identity; preserve original historical and earlier e275 reviewer attribution."
+    },
+    {
+      "id": "SEGOVB-L12-GPU-PASS-BUFFER-PARAMETER-MISSING-REASON",
+      "queue": 342,
+      "qualification": "Original distinct pass/pipeline reason or sparse layout identity; preserve original historical and earlier e275 reviewer attribution."
+    },
+    {
+      "id": "SEGOVB-L12-GPU-PASS-BUFFER-PARAMETER-KIND-REASON",
+      "queue": 343,
+      "qualification": "Original distinct pass/pipeline reason or sparse layout identity; preserve original historical and earlier e275 reviewer attribution."
+    },
+    {
+      "id": "SEGOVB-L12-GPU-PASS-TEXTURE-PARAMETER-MISSING-REASON",
+      "queue": 344,
+      "qualification": "Original distinct pass/pipeline reason or sparse layout identity; preserve original historical and earlier e275 reviewer attribution."
+    },
+    {
+      "id": "SEGOVB-L12-GPU-PASS-TEXTURE-PARAMETER-KIND-REASON",
+      "queue": 345,
+      "qualification": "Original distinct pass/pipeline reason or sparse layout identity; preserve original historical and earlier e275 reviewer attribution."
+    },
+    {
+      "id": "SEGOVB-L12-GPU-PASS-TEXTURE-FORMAT-REASON",
+      "queue": 346,
+      "qualification": "Original distinct pass/pipeline reason or sparse layout identity; preserve original historical and earlier e275 reviewer attribution."
+    },
+    {
+      "id": "SEGOVB-L12-GPU-PASS-TEXTURE-DIMENSION-REASON",
+      "queue": 347,
+      "qualification": "Original distinct pass/pipeline reason or sparse layout identity; preserve original historical and earlier e275 reviewer attribution."
+    },
+    {
+      "id": "SEGOVB-L12-GPU-PASS-TEXTURE-VIEW-MISSING-REASON",
+      "queue": 348,
+      "qualification": "Original distinct pass/pipeline reason or sparse layout identity; preserve original historical and earlier e275 reviewer attribution."
+    },
+    {
+      "id": "SEGOVB-L12-GPU-PASS-SAMPLER-PARAMETER-MISSING-REASON",
+      "queue": 349,
+      "qualification": "Original distinct pass/pipeline reason or sparse layout identity; preserve original historical and earlier e275 reviewer attribution."
+    },
+    {
+      "id": "SEGOVB-L12-GPU-PASS-SAMPLER-RESOURCE-MISSING-REASON",
+      "queue": 350,
+      "qualification": "Original distinct pass/pipeline reason or sparse layout identity; preserve original historical and earlier e275 reviewer attribution."
+    },
+    {
+      "id": "SEGOVB-L12-GPU-PASS-SAMPLER-PARAMETER-KIND-REASON",
+      "queue": 351,
+      "qualification": "Original distinct pass/pipeline reason or sparse layout identity; preserve original historical and earlier e275 reviewer attribution."
+    },
+    {
+      "id": "SEGOVB-L12-GPU-PIPELINE-CACHE-LOCK-REASON",
+      "queue": 354,
+      "qualification": "Original distinct pass/pipeline reason or sparse layout identity; preserve original historical and earlier e275 reviewer attribution."
+    },
+    {
+      "id": "SEGOVB-L12-GPU-PIPELINE-SHADER-MODULE-MISSING-REASON",
+      "queue": 355,
+      "qualification": "Original distinct pass/pipeline reason or sparse layout identity; preserve original historical and earlier e275 reviewer attribution."
+    },
+    {
+      "id": "SEGOVB-L12-GPU-PIPELINE-COMPUTE-ENTRY-MISSING-REASON",
+      "queue": 356,
+      "qualification": "Original distinct pass/pipeline reason or sparse layout identity; preserve original historical and earlier e275 reviewer attribution."
+    },
+    {
+      "id": "SEGOVB-L12-GPU-PIPELINE-COMPILE-REFLECTION-MISSING-REASON",
+      "queue": 357,
+      "qualification": "Original distinct pass/pipeline reason or sparse layout identity; preserve original historical and earlier e275 reviewer attribution."
+    },
+    {
+      "id": "SEGOVB-L12-GPU-PIPELINE-VALIDATION-LOCK-REASON",
+      "queue": 358,
+      "qualification": "Original distinct pass/pipeline reason or sparse layout identity; preserve original historical and earlier e275 reviewer attribution."
+    },
+    {
+      "id": "SEGOVB-L12-GPU-REFLECTION-SPARSE-GROUP-LAYOUT-POSITION",
+      "queue": 370,
+      "qualification": "Original distinct pass/pipeline reason or sparse layout identity; preserve original historical and earlier e275 reviewer attribution."
+    }
+  ],
+  "new_current_candidates": [
+    {
+      "id": "REVIEW-GPU-PIPELINE-CACHE-INPUT-IDENTITY-95E",
+      "qualification": "Current source refinement or previously raised conditional owner/policy question; no product execution and no global alias determination."
+    },
+    {
+      "id": "REVIEW-GPU-SHADER-SOURCE-MODULE-COHERENCE-95E",
+      "qualification": "Current source refinement or previously raised conditional owner/policy question; no product execution and no global alias determination."
+    },
+    {
+      "id": "REVIEW-GPU-REFLECTION-MULTIPLE-UNIFORMS-95E",
+      "qualification": "Current source refinement or previously raised conditional owner/policy question; no product execution and no global alias determination."
+    },
+    {
+      "id": "REVIEW-GPU-REFLECTION-ARRAYED-IMAGE-95E",
+      "qualification": "Current source refinement or previously raised conditional owner/policy question; no product execution and no global alias determination."
+    },
+    {
+      "id": "REVIEW-GPU-REFLECTION-MULTISAMPLED-IMAGE-95E",
+      "qualification": "Current source refinement or previously raised conditional owner/policy question; no product execution and no global alias determination."
+    },
+    {
+      "id": "REVIEW-GPU-REFLECTION-STORAGE-ACCESS-95E",
+      "qualification": "Current source refinement or previously raised conditional owner/policy question; no product execution and no global alias determination."
+    },
+    {
+      "id": "REVIEW-GPU-REFLECTION-SAMPLER-KIND-95E",
+      "qualification": "Current source refinement or previously raised conditional owner/policy question; no product execution and no global alias determination."
+    },
+    {
+      "id": "REVIEW-GPU-PIPELINE-CACHE-OBSERVATION-95E",
+      "qualification": "Current source refinement or previously raised conditional owner/policy question; no product execution and no global alias determination."
+    },
+    {
+      "id": "REVIEW-GPU-PASS-VALIDATION-LOCK-95E",
+      "qualification": "Current source refinement or previously raised conditional owner/policy question; no product execution and no global alias determination."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-354.json",
+      "sha256": "f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2",
+      "bytes": 12620,
+      "git_blob": "bec980cdd0cb93891828d4b5a7a690c936ae6b37",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2.gz",
+      "published_sha256": "f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2",
+      "published_bytes": 12620,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-355.json",
+      "sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "bytes": 15195,
+      "git_blob": "3bf9dd51f997220de36ab9528a052022572cb545",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207.gz",
+      "published_sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "published_bytes": 15195,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-356.json",
+      "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "bytes": 24598,
+      "git_blob": "15a9edc19d117a4470ab7e4837f4c3e753517b00",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c.gz",
+      "published_sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "published_bytes": 24598,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original059 queue150 directly referenced historical evidence",
+        "Original059 queue150 directly referenced historical evidence",
+        "Original059 queue150 directly referenced historical evidence",
+        "Original059 queue150 directly referenced historical evidence",
+        "Original059 queue150 directly referenced historical evidence",
+        "Original059 queue150 directly referenced historical evidence",
+        "Original059 queue150 directly referenced historical evidence",
+        "Original059 queue150 directly referenced historical evidence",
+        "Original059 queue150 directly referenced historical evidence",
+        "Original059 queue150 directly referenced historical evidence",
+        "Original059 queue150 directly referenced historical evidence",
+        "Original059 queue150 directly referenced historical evidence",
+        "Original059 queue150 directly referenced historical evidence",
+        "Original059 queue151 directly referenced historical evidence",
+        "Original059 queue151 directly referenced historical evidence",
+        "Original059 queue151 directly referenced historical evidence",
+        "Original059 queue151 directly referenced historical evidence",
+        "Original059 queue151 directly referenced historical evidence",
+        "Original059 queue151 directly referenced historical evidence",
+        "Original059 queue151 directly referenced historical evidence",
+        "Original059 queue151 directly referenced historical evidence",
+        "Original059 queue151 directly referenced historical evidence",
+        "Original059 queue151 directly referenced historical evidence",
+        "Original059 queue151 directly referenced historical evidence",
+        "Original059 queue151 directly referenced historical evidence",
+        "Original059 queue151 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-357.json",
+      "sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "bytes": 8858,
+      "git_blob": "b94f820a6f2779d892638a70cec91d691ea25e25",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6.gz",
+      "published_sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "published_bytes": 8858,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-358.json",
+      "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d",
+      "bytes": 14390,
+      "git_blob": "b0548779064b890ccda7b7f09995c3d954394767",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d.gz",
+      "published_sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d",
+      "published_bytes": 14390,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-359.json",
+      "sha256": "510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f",
+      "bytes": 5718,
+      "git_blob": "534c71620b715e73261570e4933aed838ffde588",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f.gz",
+      "published_sha256": "510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f",
+      "published_bytes": 5718,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-360.json",
+      "sha256": "6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9",
+      "bytes": 10355,
+      "git_blob": "dcbb2f5ad255bfc9555a54bd65200f84331b3302",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9.gz",
+      "published_sha256": "6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9",
+      "published_bytes": 10355,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-361.json",
+      "sha256": "a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31",
+      "bytes": 14000,
+      "git_blob": "744f0ca5c64ce4a66244ce8881b1975b4a58a4d5",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31.gz",
+      "published_sha256": "a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31",
+      "published_bytes": 14000,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-362.json",
+      "sha256": "eac4ba1b74b56e05ab2e57a8722b895d135f64232c40bf11f008aadb264a1b6c",
+      "bytes": 5840,
+      "git_blob": "1b262e91e7425b0aca6dd8b573570702374af696",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/eac4ba1b74b56e05ab2e57a8722b895d135f64232c40bf11f008aadb264a1b6c.gz",
+      "published_sha256": "eac4ba1b74b56e05ab2e57a8722b895d135f64232c40bf11f008aadb264a1b6c",
+      "published_bytes": 5840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-363.json",
+      "sha256": "655ae24929bef717417d071eb4bd754ce35be0eba987589cefd11e693dfe2e2e",
+      "bytes": 17910,
+      "git_blob": "f2e0003dcbc1d7a451a6c51df2dfc89fbf3c22ef",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/655ae24929bef717417d071eb4bd754ce35be0eba987589cefd11e693dfe2e2e.gz",
+      "published_sha256": "655ae24929bef717417d071eb4bd754ce35be0eba987589cefd11e693dfe2e2e",
+      "published_bytes": 17910,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler full historical receipt"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1135.json",
+      "sha256": "1f14fc9ae5b4b01d78cfeb8ac470b8317d588bf5ec6cd363f2496208c78e3caa",
+      "bytes": 796,
+      "git_blob": "6be9baf70dfae8da45e65ec9bd21583228a5fb7a",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/1f14fc9ae5b4b01d78cfeb8ac470b8317d588bf5ec6cd363f2496208c78e3caa.gz",
+      "published_sha256": "1f14fc9ae5b4b01d78cfeb8ac470b8317d588bf5ec6cd363f2496208c78e3caa",
+      "published_bytes": 796,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1136.json",
+      "sha256": "7abcfa30ab9f5a40e67b36a5512dccc9576edefa09bdd7d5a29555664aebd098",
+      "bytes": 800,
+      "git_blob": "d137a37043c040ab85b129bd161254b31f4fcfce",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/7abcfa30ab9f5a40e67b36a5512dccc9576edefa09bdd7d5a29555664aebd098.gz",
+      "published_sha256": "7abcfa30ab9f5a40e67b36a5512dccc9576edefa09bdd7d5a29555664aebd098",
+      "published_bytes": 800,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1137.json",
+      "sha256": "003a016b5ef335173099001ef3d61347fc67da917a1a220fe876d4c4cab77557",
+      "bytes": 798,
+      "git_blob": "e77b328447911aac2c60f824a7c5a3c029abe713",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/003a016b5ef335173099001ef3d61347fc67da917a1a220fe876d4c4cab77557.gz",
+      "published_sha256": "003a016b5ef335173099001ef3d61347fc67da917a1a220fe876d4c4cab77557",
+      "published_bytes": 798,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1138.json",
+      "sha256": "e6d76771a586d8641643cd11aab95578ccd54999b569ce674dd19f2606f4d917",
+      "bytes": 798,
+      "git_blob": "10912eb3a72e71f1336583cd453eb27dac3729a3",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/e6d76771a586d8641643cd11aab95578ccd54999b569ce674dd19f2606f4d917.gz",
+      "published_sha256": "e6d76771a586d8641643cd11aab95578ccd54999b569ce674dd19f2606f4d917",
+      "published_bytes": 798,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1139.json",
+      "sha256": "65ff575b4c8b3f66d16259627ecd00cf44681e59c7bb796ca7de7c7c3e699c73",
+      "bytes": 806,
+      "git_blob": "8cdac2396d2feed11771aa80799673fe8b899aa1",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/65ff575b4c8b3f66d16259627ecd00cf44681e59c7bb796ca7de7c7c3e699c73.gz",
+      "published_sha256": "65ff575b4c8b3f66d16259627ecd00cf44681e59c7bb796ca7de7c7c3e699c73",
+      "published_bytes": 806,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1140.json",
+      "sha256": "aefbc0ca92e4cb6048eff2664a67da5df236171eb3fd6fe675373f9d8b48153d",
+      "bytes": 799,
+      "git_blob": "c643bad8b8afa4b611625a389cc1a465ece56510",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/aefbc0ca92e4cb6048eff2664a67da5df236171eb3fd6fe675373f9d8b48153d.gz",
+      "published_sha256": "aefbc0ca92e4cb6048eff2664a67da5df236171eb3fd6fe675373f9d8b48153d",
+      "published_bytes": 799,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1141.json",
+      "sha256": "273c2ac3d52c017f8452cf876bbd5bed441efa28f4d2b60b221795a8537c30b9",
+      "bytes": 806,
+      "git_blob": "de2bd4a5edd7a6cb8e478a9db4bd000c65175b30",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/273c2ac3d52c017f8452cf876bbd5bed441efa28f4d2b60b221795a8537c30b9.gz",
+      "published_sha256": "273c2ac3d52c017f8452cf876bbd5bed441efa28f4d2b60b221795a8537c30b9",
+      "published_bytes": 806,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1142.json",
+      "sha256": "1adb3a792e26f737101858776208c02ff1fd17e773fdd48295a31a07530bfeb7",
+      "bytes": 791,
+      "git_blob": "6584aa4dda363bc54bf78e5f85e3b0c3fa8dcbb6",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/1adb3a792e26f737101858776208c02ff1fd17e773fdd48295a31a07530bfeb7.gz",
+      "published_sha256": "1adb3a792e26f737101858776208c02ff1fd17e773fdd48295a31a07530bfeb7",
+      "published_bytes": 791,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1143.json",
+      "sha256": "f96be6fd5eb2e651b0835c8d6aa4047ea661e6ad2609edc2954e88e921394937",
+      "bytes": 799,
+      "git_blob": "1db1e23b4b62f2274a3e3810ed1f0eab000afbba",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/f96be6fd5eb2e651b0835c8d6aa4047ea661e6ad2609edc2954e88e921394937.gz",
+      "published_sha256": "f96be6fd5eb2e651b0835c8d6aa4047ea661e6ad2609edc2954e88e921394937",
+      "published_bytes": 799,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-363.json",
+      "sha256": "be3c03fe57d8f3a01261555a99a0fe79765050ac28c2b1a8caaa6ded67ff51aa",
+      "bytes": 701,
+      "git_blob": "dbdab535a0b132ff2e71c7e20852e0246d6a1a6b",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/be3c03fe57d8f3a01261555a99a0fe79765050ac28c2b1a8caaa6ded67ff51aa.gz",
+      "published_sha256": "be3c03fe57d8f3a01261555a99a0fe79765050ac28c2b1a8caaa6ded67ff51aa",
+      "published_bytes": 701,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-363.json",
+      "sha256": "32e8617efbc946541436dff7efbc3e313e6acba459bd836c0e57b13695457947",
+      "bytes": 40038,
+      "git_blob": "4bc4ecf9f44f0f658dc8b0cd0393e85b065b9afe",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/32e8617efbc946541436dff7efbc3e313e6acba459bd836c0e57b13695457947.gz",
+      "published_sha256": "32e8617efbc946541436dff7efbc3e313e6acba459bd836c0e57b13695457947",
+      "published_bytes": 40038,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-093.json",
+      "sha256": "46eb3de0e8b31ad6fd38b9b838e80377db421830beb434118aacc8c2305f3f11",
+      "bytes": 3415,
+      "git_blob": "86b3c255f793c584c3669860addb88bbf73e9861",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/46eb3de0e8b31ad6fd38b9b838e80377db421830beb434118aacc8c2305f3f11.gz",
+      "published_sha256": "46eb3de0e8b31ad6fd38b9b838e80377db421830beb434118aacc8c2305f3f11",
+      "published_bytes": 3415,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Prior prospective source plan"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-094.json",
+      "sha256": "c6d4cba6d30c9f8e3fdd65f9ade1331ea8951a0bcd6df58239d6bb854ebdb93b",
+      "bytes": 2938,
+      "git_blob": "68702ea800d9711a16289342eb949805cb345287",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/c6d4cba6d30c9f8e3fdd65f9ade1331ea8951a0bcd6df58239d6bb854ebdb93b.gz",
+      "published_sha256": "6fba03e72b5f0595fca98dc0b20720c71953720cda76d5bc67cc97ac39b56120",
+      "published_bytes": 2765,
+      "redacted_local_path_occurrences": 2,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Prior prospective source plan"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-095.json",
+      "sha256": "fce826ae10ad01931f7a5f114393ec33a4f9a99af60973830a3d24a4f430d212",
+      "bytes": 2512,
+      "git_blob": "3461b95a5d4b58359987c7e2f0bd4f1122b95d03",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/fce826ae10ad01931f7a5f114393ec33a4f9a99af60973830a3d24a4f430d212.gz",
+      "published_sha256": "fce826ae10ad01931f7a5f114393ec33a4f9a99af60973830a3d24a4f430d212",
+      "published_bytes": 2512,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Prior prospective source plan"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/READ-090.json",
+      "sha256": "d6ae6a1ebb98b88fd55a15955dc367caa6b598fcc79dc947b8cb4d5aa3c8b85a",
+      "bytes": 10219,
+      "git_blob": "1f3c6a67c09aaca84ed4b5f18a768e1648b534af",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/d6ae6a1ebb98b88fd55a15955dc367caa6b598fcc79dc947b8cb4d5aa3c8b85a.gz",
+      "published_sha256": "d6ae6a1ebb98b88fd55a15955dc367caa6b598fcc79dc947b8cb4d5aa3c8b85a",
+      "published_bytes": 10219,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Prior e275 delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/READ-091.json",
+      "sha256": "bd8eb961212f84f87053447d21c5b31d43bfcfa4207d6bea66427d710b3d7bb3",
+      "bytes": 11616,
+      "git_blob": "4b8320d9fbe3e9b6cc7f7f80ffc55ea86ea710b7",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/bd8eb961212f84f87053447d21c5b31d43bfcfa4207d6bea66427d710b3d7bb3.gz",
+      "published_sha256": "139f1505f48675fc4afbfaeee9c3954749e69624dd9acbf4d63d07bcfb3b3e21",
+      "published_bytes": 11443,
+      "redacted_local_path_occurrences": 2,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Prior e275 delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/READ-092.json",
+      "sha256": "e24a7c407631d72c2f4a4fd49f20b17c52162d2afe0021c768824065adf83042",
+      "bytes": 9675,
+      "git_blob": "c1deef422848b330c853c8deca9f8366e6674fdf",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/e24a7c407631d72c2f4a4fd49f20b17c52162d2afe0021c768824065adf83042.gz",
+      "published_sha256": "e24a7c407631d72c2f4a4fd49f20b17c52162d2afe0021c768824065adf83042",
+      "published_bytes": 9675,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Prior e275 delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/VERIFY-090.json",
+      "sha256": "a4969ed91a41311200b082cf0c35697c79b89cccab9129eb6bdf1d7d8530cca3",
+      "bytes": 805,
+      "git_blob": "a2c0b9066a78e9e03f6ad68d93c08b2a06a4fcf7",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/a4969ed91a41311200b082cf0c35697c79b89cccab9129eb6bdf1d7d8530cca3.gz",
+      "published_sha256": "a4969ed91a41311200b082cf0c35697c79b89cccab9129eb6bdf1d7d8530cca3",
+      "published_bytes": 805,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Prior delegated verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/VERIFY-091.json",
+      "sha256": "b3476515cf5286b6b704b86a0a2dc8309074cbc792de794f45fb9b21086c8d57",
+      "bytes": 986,
+      "git_blob": "7a4b4db4bc6a6a2df47095b074a94fe49795b0ec",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/b3476515cf5286b6b704b86a0a2dc8309074cbc792de794f45fb9b21086c8d57.gz",
+      "published_sha256": "b3476515cf5286b6b704b86a0a2dc8309074cbc792de794f45fb9b21086c8d57",
+      "published_bytes": 986,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Prior delegated verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/VERIFY-092.json",
+      "sha256": "801976fd1d00997feb992006f4ce4d74433d071f4e244113945c1eaea4e44c38",
+      "bytes": 702,
+      "git_blob": "05225c051579fd4765ae7e1f9d1aaa64eaf7310e",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/801976fd1d00997feb992006f4ce4d74433d071f4e244113945c1eaea4e44c38.gz",
+      "published_sha256": "801976fd1d00997feb992006f4ce4d74433d071f4e244113945c1eaea4e44c38",
+      "published_bytes": 702,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Prior delegated verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-865-872.json",
+      "sha256": "eb560c13f7fae40f5a450feb3d98a9c6c14775a070631f561a48feb8271f4111",
+      "bytes": 127118,
+      "git_blob": "fccb889d933da9547450667ebdb72a1810a12ff7",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/eb560c13f7fae40f5a450feb3d98a9c6c14775a070631f561a48feb8271f4111.gz",
+      "published_sha256": "eb560c13f7fae40f5a450feb3d98a9c6c14775a070631f561a48feb8271f4111",
+      "published_bytes": 127118,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-873-880-v2.json",
+      "sha256": "2a3f9a9f27f2b0488fa9e0ed16d254573a78ed6c42b5b8bb9c619d26e61b34df",
+      "bytes": 161225,
+      "git_blob": "f65305cc664923e2468734806b8b139a49a0240c",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/2a3f9a9f27f2b0488fa9e0ed16d254573a78ed6c42b5b8bb9c619d26e61b34df.gz",
+      "published_sha256": "d3e495a630bc4b871a92509bacfbdbf7bc81a09dd807a5762e952083da2c3345",
+      "published_bytes": 160383,
+      "redacted_local_path_occurrences": 10,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-740.json",
+      "sha256": "9855f241e3f695bea19fcf0ed15b28d48f70bdec9b9c89a5d7f2f5b5ba6d1e28",
+      "bytes": 21674,
+      "git_blob": "ab6becb9dafd9ce71bf4455405b62e4add52f49e",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/9855f241e3f695bea19fcf0ed15b28d48f70bdec9b9c89a5d7f2f5b5ba6d1e28.gz",
+      "published_sha256": "9855f241e3f695bea19fcf0ed15b28d48f70bdec9b9c89a5d7f2f5b5ba6d1e28",
+      "published_bytes": 21674,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-741.json",
+      "sha256": "0d0f60a95eee15694e7434de8a61069c3312c3a77a7d0a59023b7d1168c7f871",
+      "bytes": 14462,
+      "git_blob": "d1bccf69616b475b48bc4c0d10030c1885aee067",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/0d0f60a95eee15694e7434de8a61069c3312c3a77a7d0a59023b7d1168c7f871.gz",
+      "published_sha256": "0d0f60a95eee15694e7434de8a61069c3312c3a77a7d0a59023b7d1168c7f871",
+      "published_bytes": 14462,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-748.json",
+      "sha256": "60e17991fd6792d27eeb55f444f1ec138aa949e2f0659efcc5d17e10b74e9cb7",
+      "bytes": 49355,
+      "git_blob": "a362e94ce709b99c4fe8c6db2640426901ae7cf2",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/60e17991fd6792d27eeb55f444f1ec138aa949e2f0659efcc5d17e10b74e9cb7.gz",
+      "published_sha256": "60e17991fd6792d27eeb55f444f1ec138aa949e2f0659efcc5d17e10b74e9cb7",
+      "published_bytes": 49355,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-749.json",
+      "sha256": "faacc76f3739556c9abf074427dd358ae0e3fa41170ade9c8f0419557938dada",
+      "bytes": 54170,
+      "git_blob": "bfe116e40ae6462698f06afac4015250093e1e3e",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/faacc76f3739556c9abf074427dd358ae0e3fa41170ade9c8f0419557938dada.gz",
+      "published_sha256": "faacc76f3739556c9abf074427dd358ae0e3fa41170ade9c8f0419557938dada",
+      "published_bytes": 54170,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate proposal",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-865.json",
+      "sha256": "2b4747313712490dbb67ebded104bd3b0b5c4e6b9d53181dbab4ce3d4a3789e6",
+      "bytes": 11726,
+      "git_blob": "50b93d1ff02ccf8e506663da64f3da612eca6d53",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/2b4747313712490dbb67ebded104bd3b0b5c4e6b9d53181dbab4ce3d4a3789e6.gz",
+      "published_sha256": "2b4747313712490dbb67ebded104bd3b0b5c4e6b9d53181dbab4ce3d4a3789e6",
+      "published_bytes": 11726,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-867.json",
+      "sha256": "bbb120232639b85ecf3acb119f2fd2130dc0c980a078b120359aa096b49b37ce",
+      "bytes": 9188,
+      "git_blob": "7d662c3e80e76c4b5bb81bb63d984b3cb4ccaeaf",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/bbb120232639b85ecf3acb119f2fd2130dc0c980a078b120359aa096b49b37ce.gz",
+      "published_sha256": "bbb120232639b85ecf3acb119f2fd2130dc0c980a078b120359aa096b49b37ce",
+      "published_bytes": 9188,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-749-WGSL-WRITER-OWNERSHIP.json",
+      "sha256": "b3035e5315d485169d13f45fa385344ba3248f15c6cd549ccd5584e34773ba60",
+      "bytes": 3347,
+      "git_blob": "b6bf0ea2a33c5f8154e3627f432669733348c648",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/b3035e5315d485169d13f45fa385344ba3248f15c6cd549ccd5584e34773ba60.gz",
+      "published_sha256": "b3035e5315d485169d13f45fa385344ba3248f15c6cd549ccd5584e34773ba60",
+      "published_bytes": 3347,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original connected shader/reflection proof"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-873-FASTPATH-EXACT-REUSE.json",
+      "sha256": "ddf8a5cf10c03d3106a14e4621bbcae273376955dc79af9c6d2bba19277c3e90",
+      "bytes": 5317,
+      "git_blob": "e0fffc38042674ab9b0c05e7a3c1ed7d79c431aa",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/ddf8a5cf10c03d3106a14e4621bbcae273376955dc79af9c6d2bba19277c3e90.gz",
+      "published_sha256": "ddf8a5cf10c03d3106a14e4621bbcae273376955dc79af9c6d2bba19277c3e90",
+      "published_bytes": 5317,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-ORIGINAL2635-WINDOWS.json",
+      "sha256": "230f934ab874e43ac808fbb96f9f0b04cf95072c45ba86d8bf069d83e6506688",
+      "bytes": 1791,
+      "git_blob": "7c23b6e46d60523689c86af64033e9a95c727c1d",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/230f934ab874e43ac808fbb96f9f0b04cf95072c45ba86d8bf069d83e6506688.gz",
+      "published_sha256": "230f934ab874e43ac808fbb96f9f0b04cf95072c45ba86d8bf069d83e6506688",
+      "published_bytes": 1791,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original source locator qualification",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-ORIGINAL2636-WINDOWS.json",
+      "sha256": "e854d5b5932c8b1c63ba6fbb6def7da924a0f57791ee0a18e7e7fb03fe92908f",
+      "bytes": 1773,
+      "git_blob": "bdbdcf7acb7155dc4245f026a30341e20e221d6a",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/e854d5b5932c8b1c63ba6fbb6def7da924a0f57791ee0a18e7e7fb03fe92908f.gz",
+      "published_sha256": "e854d5b5932c8b1c63ba6fbb6def7da924a0f57791ee0a18e7e7fb03fe92908f",
+      "published_bytes": 1773,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original source locator qualification",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFIED-REUSE-PAR-L12-873-GPU-PARAMETER-OWNERS.json",
+      "sha256": "1f89792dcb18202d97da6821264a6d08dc9ba6ff0ed6ac02c81ac5b9dc20814c",
+      "bytes": 54820,
+      "git_blob": "fffcb8f68ad7e1e5380031bd04a7d77fa87c704c",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/1f89792dcb18202d97da6821264a6d08dc9ba6ff0ed6ac02c81ac5b9dc20814c.gz",
+      "published_sha256": "1f89792dcb18202d97da6821264a6d08dc9ba6ff0ed6ac02c81ac5b9dc20814c",
+      "published_bytes": 54820,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-749-SHADER-REFLECTION.json",
+      "sha256": "ae1d2c8357b4daa0cc747d392b133a32b449a8c7dabb7501015c5c93b4ba68c5",
+      "bytes": 14887,
+      "git_blob": "5e9b0c5c4737432784eba96d4aae31d7214d3038",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/ae1d2c8357b4daa0cc747d392b133a32b449a8c7dabb7501015c5c93b4ba68c5.gz",
+      "published_sha256": "ae1d2c8357b4daa0cc747d392b133a32b449a8c7dabb7501015c5c93b4ba68c5",
+      "published_bytes": 14887,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original connected shader/reflection proof",
+        "Original delegated connected receipt",
+        "Original delegated connected receipt",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-197.json",
+      "sha256": "76cc22d5e5b09d0dc234b84422b549a70167cdd112b61e53298e335fa20fb00f",
+      "bytes": 774,
+      "git_blob": "4fc8e0825480e18d0e90ad03bbced3b9d784c6c7",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/76cc22d5e5b09d0dc234b84422b549a70167cdd112b61e53298e335fa20fb00f.gz",
+      "published_sha256": "76cc22d5e5b09d0dc234b84422b549a70167cdd112b61e53298e335fa20fb00f",
+      "published_bytes": 774,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-198.json",
+      "sha256": "28fd93b2110b8abb13aa2528b913518a081b39bc5849367bb52428ebc7c050f4",
+      "bytes": 773,
+      "git_blob": "a21f8c6adc90ab1c583cedc4f2d0390933ec0078",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/28fd93b2110b8abb13aa2528b913518a081b39bc5849367bb52428ebc7c050f4.gz",
+      "published_sha256": "28fd93b2110b8abb13aa2528b913518a081b39bc5849367bb52428ebc7c050f4",
+      "published_bytes": 773,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-233.json",
+      "sha256": "36596738d433d0a5671ef6697e099958f5a8450c3b9bf26e5a5c9d0547cc3782",
+      "bytes": 1058,
+      "git_blob": "42127b0e72e64192641b433b7b81ee7efd59878b",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/36596738d433d0a5671ef6697e099958f5a8450c3b9bf26e5a5c9d0547cc3782.gz",
+      "published_sha256": "36596738d433d0a5671ef6697e099958f5a8450c3b9bf26e5a5c9d0547cc3782",
+      "published_bytes": 1058,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-238.json",
+      "sha256": "22cb4cb2902950f3eeda633bd5cebadf70c47bd3e66f5b89ace6c92834e8f152",
+      "bytes": 1070,
+      "git_blob": "019a4e0fa90aa0d35666f86b8c28f24751a38a0f",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/22cb4cb2902950f3eeda633bd5cebadf70c47bd3e66f5b89ace6c92834e8f152.gz",
+      "published_sha256": "22cb4cb2902950f3eeda633bd5cebadf70c47bd3e66f5b89ace6c92834e8f152",
+      "published_bytes": 1070,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate prospective registration",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-239.json",
+      "sha256": "9a5b419dfda25c0c3131ca2ac2137542a0b1607e0067a858c6dd21738fb6d82f",
+      "bytes": 1076,
+      "git_blob": "dc5b6cabe9085d4700bea0c92b2007460d584773",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/9a5b419dfda25c0c3131ca2ac2137542a0b1607e0067a858c6dd21738fb6d82f.gz",
+      "published_sha256": "9a5b419dfda25c0c3131ca2ac2137542a0b1607e0067a858c6dd21738fb6d82f",
+      "published_bytes": 1076,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate prospective registration",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-240.json",
+      "sha256": "9906a5e1baeebebb994fb8652d33749a0a3e9d2b215ae7ca5b55b37f58c079f8",
+      "bytes": 1064,
+      "git_blob": "f7d57bc38164abbd56fe8d1a7aa3bb02c9dfd8df",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/9906a5e1baeebebb994fb8652d33749a0a3e9d2b215ae7ca5b55b37f58c079f8.gz",
+      "published_sha256": "9906a5e1baeebebb994fb8652d33749a0a3e9d2b215ae7ca5b55b37f58c079f8",
+      "published_bytes": 1064,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate prospective registration",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-241.json",
+      "sha256": "2a094d7393b5b85057955dd251745eb211c68997ed17b8b2a75ad2b622b30eb5",
+      "bytes": 1078,
+      "git_blob": "fdfa472af27af16d2e2f402046f7ddabee392de6",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/2a094d7393b5b85057955dd251745eb211c68997ed17b8b2a75ad2b622b30eb5.gz",
+      "published_sha256": "2a094d7393b5b85057955dd251745eb211c68997ed17b8b2a75ad2b622b30eb5",
+      "published_bytes": 1078,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-242.json",
+      "sha256": "2730e34a660220add7aa8f41d65ae9faf371a967fef79b5dc01092ee0c6a4ed9",
+      "bytes": 1046,
+      "git_blob": "8248c0178a2916a96e7678594ff25dc2c49dce0a",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/2730e34a660220add7aa8f41d65ae9faf371a967fef79b5dc01092ee0c6a4ed9.gz",
+      "published_sha256": "2730e34a660220add7aa8f41d65ae9faf371a967fef79b5dc01092ee0c6a4ed9",
+      "published_bytes": 1046,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate prospective registration",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-243-CONNECTED-ORIGINAL2635.json",
+      "sha256": "ecc02b4bd6a32cc936ecb000b9ba97462c25a046250518cb34548116ef7d6f1c",
+      "bytes": 1297,
+      "git_blob": "3e395a34cd4c0c82daf485ae248d2638b3e45e6e",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/ecc02b4bd6a32cc936ecb000b9ba97462c25a046250518cb34548116ef7d6f1c.gz",
+      "published_sha256": "ecc02b4bd6a32cc936ecb000b9ba97462c25a046250518cb34548116ef7d6f1c",
+      "published_bytes": 1297,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original connected prospective source registration",
+        "Original connected registration",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-244-CONNECTED-ORIGINAL2636.json",
+      "sha256": "a9d1e5b6a014bae96b1ee5a30d0a4ebb54bcca4fb85167293ded931f28feab57",
+      "bytes": 1291,
+      "git_blob": "d9c45bdeb2102f9107e05ba372d49dabd744dcf0",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/a9d1e5b6a014bae96b1ee5a30d0a4ebb54bcca4fb85167293ded931f28feab57.gz",
+      "published_sha256": "a9d1e5b6a014bae96b1ee5a30d0a4ebb54bcca4fb85167293ded931f28feab57",
+      "published_bytes": 1291,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original connected prospective source registration",
+        "Original connected registration",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L11-626.json",
+      "sha256": "43af7e02933bdae1ec14174e1de8785187c9eeabc7a4bc861d76a1e7ca956a54",
+      "bytes": 13158,
+      "git_blob": "066237e4a3474c17842c9b1065879d5b79d199d8",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/43af7e02933bdae1ec14174e1de8785187c9eeabc7a4bc861d76a1e7ca956a54.gz",
+      "published_sha256": "43af7e02933bdae1ec14174e1de8785187c9eeabc7a4bc861d76a1e7ca956a54",
+      "published_bytes": 13158,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Prior independent Lens11 delegated e275 source/native receipt; preserve agent attribution",
+        "Original059 finding370 connected source and alias evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L11-627.json",
+      "sha256": "6969cf4e94b44b6ef6338a29de20d531576c975ca428d846cdfd8994f762a921",
+      "bytes": 13314,
+      "git_blob": "d41ec29334840e3e778a2bb219c46199c41e36c1",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/6969cf4e94b44b6ef6338a29de20d531576c975ca428d846cdfd8994f762a921.gz",
+      "published_sha256": "6abcc72665620eaa2731f6284b70df88301a46928a5e3f60224694dc8b39da43",
+      "published_bytes": 13141,
+      "redacted_local_path_occurrences": 2,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Prior independent Lens11 delegated e275 source/native receipt; preserve agent attribution",
+        "Original059 finding370 connected source and alias evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L11-628.json",
+      "sha256": "74b55748161b029994c644be0545dd5cc79f55d09368d1cd91699848b55f2dcf",
+      "bytes": 12079,
+      "git_blob": "04fb653965b1ce893406d3ae531d94b88a715224",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/74b55748161b029994c644be0545dd5cc79f55d09368d1cd91699848b55f2dcf.gz",
+      "published_sha256": "74b55748161b029994c644be0545dd5cc79f55d09368d1cd91699848b55f2dcf",
+      "published_bytes": 12079,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Prior independent Lens11 delegated e275 source/native receipt; preserve agent attribution"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-740.json",
+      "sha256": "31a7fe720b8a5efbda8688242f9c0b4f68a8c06978b4139c7f7b3e10f18adb33",
+      "bytes": 16433,
+      "git_blob": "82b2e62737038b85ebfafca8b7a788dbaed2a026",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/31a7fe720b8a5efbda8688242f9c0b4f68a8c06978b4139c7f7b3e10f18adb33.gz",
+      "published_sha256": "31a7fe720b8a5efbda8688242f9c0b4f68a8c06978b4139c7f7b3e10f18adb33",
+      "published_bytes": 16433,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-741.json",
+      "sha256": "dc7237e08cd1a81a11255bf086b37eb14d12b9726e401d2c413f90449c54750b",
+      "bytes": 11190,
+      "git_blob": "07f8fe808ea74a3435551000682abde68361dba0",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/dc7237e08cd1a81a11255bf086b37eb14d12b9726e401d2c413f90449c54750b.gz",
+      "published_sha256": "dc7237e08cd1a81a11255bf086b37eb14d12b9726e401d2c413f90449c54750b",
+      "published_bytes": 11190,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-748.json",
+      "sha256": "70154592ccbcb328569d1da867c6f9c3d79f3c55c4e24bd3444bd4de07a682c1",
+      "bytes": 14885,
+      "git_blob": "a6b750e7ec678ae9a8fd85c0ec8951df7d5b5c3f",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/70154592ccbcb328569d1da867c6f9c3d79f3c55c4e24bd3444bd4de07a682c1.gz",
+      "published_sha256": "70154592ccbcb328569d1da867c6f9c3d79f3c55c4e24bd3444bd4de07a682c1",
+      "published_bytes": 14885,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-749.json",
+      "sha256": "6ebe7a3d59b6ac45d8caef4d98ec80cec3451f039f7ebc01160114aadb9bed4e",
+      "bytes": 15671,
+      "git_blob": "a247634ac2e6918dfbd667f57fc023ef756b8369",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/6ebe7a3d59b6ac45d8caef4d98ec80cec3451f039f7ebc01160114aadb9bed4e.gz",
+      "published_sha256": "6ebe7a3d59b6ac45d8caef4d98ec80cec3451f039f7ebc01160114aadb9bed4e",
+      "published_bytes": 15671,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption of delegate historical source; zero root rereads",
+        "Original059 queue339 directly referenced historical evidence",
+        "Original059 queue339 directly referenced historical evidence",
+        "Original059 queue339 directly referenced historical evidence",
+        "Original059 queue339 directly referenced historical evidence",
+        "Original059 queue339 directly referenced historical evidence",
+        "Original059 queue340 directly referenced historical evidence",
+        "Original059 queue340 directly referenced historical evidence",
+        "Original059 queue340 directly referenced historical evidence",
+        "Original059 queue340 directly referenced historical evidence",
+        "Original059 queue340 directly referenced historical evidence",
+        "Original059 queue341 directly referenced historical evidence",
+        "Original059 queue341 directly referenced historical evidence",
+        "Original059 queue341 directly referenced historical evidence",
+        "Original059 queue341 directly referenced historical evidence",
+        "Original059 queue341 directly referenced historical evidence",
+        "Original059 queue342 directly referenced historical evidence",
+        "Original059 queue342 directly referenced historical evidence",
+        "Original059 queue342 directly referenced historical evidence",
+        "Original059 queue342 directly referenced historical evidence",
+        "Original059 queue342 directly referenced historical evidence",
+        "Original059 queue343 directly referenced historical evidence",
+        "Original059 queue343 directly referenced historical evidence",
+        "Original059 queue343 directly referenced historical evidence",
+        "Original059 queue343 directly referenced historical evidence",
+        "Original059 queue343 directly referenced historical evidence",
+        "Original059 queue344 directly referenced historical evidence",
+        "Original059 queue344 directly referenced historical evidence",
+        "Original059 queue344 directly referenced historical evidence",
+        "Original059 queue344 directly referenced historical evidence",
+        "Original059 queue344 directly referenced historical evidence",
+        "Original059 queue345 directly referenced historical evidence",
+        "Original059 queue345 directly referenced historical evidence",
+        "Original059 queue345 directly referenced historical evidence",
+        "Original059 queue345 directly referenced historical evidence",
+        "Original059 queue345 directly referenced historical evidence",
+        "Original059 queue346 directly referenced historical evidence",
+        "Original059 queue346 directly referenced historical evidence",
+        "Original059 queue346 directly referenced historical evidence",
+        "Original059 queue346 directly referenced historical evidence",
+        "Original059 queue346 directly referenced historical evidence",
+        "Original059 queue347 directly referenced historical evidence",
+        "Original059 queue347 directly referenced historical evidence",
+        "Original059 queue347 directly referenced historical evidence",
+        "Original059 queue347 directly referenced historical evidence",
+        "Original059 queue347 directly referenced historical evidence",
+        "Original059 queue348 directly referenced historical evidence",
+        "Original059 queue348 directly referenced historical evidence",
+        "Original059 queue348 directly referenced historical evidence",
+        "Original059 queue348 directly referenced historical evidence",
+        "Original059 queue348 directly referenced historical evidence",
+        "Original059 queue349 directly referenced historical evidence",
+        "Original059 queue349 directly referenced historical evidence",
+        "Original059 queue349 directly referenced historical evidence",
+        "Original059 queue349 directly referenced historical evidence",
+        "Original059 queue349 directly referenced historical evidence",
+        "Original059 queue350 directly referenced historical evidence",
+        "Original059 queue350 directly referenced historical evidence",
+        "Original059 queue350 directly referenced historical evidence",
+        "Original059 queue350 directly referenced historical evidence",
+        "Original059 queue350 directly referenced historical evidence",
+        "Original059 queue351 directly referenced historical evidence",
+        "Original059 queue351 directly referenced historical evidence",
+        "Original059 queue351 directly referenced historical evidence",
+        "Original059 queue351 directly referenced historical evidence",
+        "Original059 queue351 directly referenced historical evidence",
+        "Original059 queue352 directly referenced historical evidence",
+        "Original059 queue352 directly referenced historical evidence",
+        "Original059 queue352 directly referenced historical evidence",
+        "Original059 queue352 directly referenced historical evidence",
+        "Original059 queue352 directly referenced historical evidence",
+        "Original059 queue353 directly referenced historical evidence",
+        "Original059 queue353 directly referenced historical evidence",
+        "Original059 queue353 directly referenced historical evidence",
+        "Original059 queue353 directly referenced historical evidence",
+        "Original059 queue353 directly referenced historical evidence",
+        "Original059 queue354 directly referenced historical evidence",
+        "Original059 queue354 directly referenced historical evidence",
+        "Original059 queue354 directly referenced historical evidence",
+        "Original059 queue354 directly referenced historical evidence",
+        "Original059 queue354 directly referenced historical evidence",
+        "Original059 queue355 directly referenced historical evidence",
+        "Original059 queue355 directly referenced historical evidence",
+        "Original059 queue355 directly referenced historical evidence",
+        "Original059 queue355 directly referenced historical evidence",
+        "Original059 queue355 directly referenced historical evidence",
+        "Original059 queue356 directly referenced historical evidence",
+        "Original059 queue356 directly referenced historical evidence",
+        "Original059 queue356 directly referenced historical evidence",
+        "Original059 queue356 directly referenced historical evidence",
+        "Original059 queue356 directly referenced historical evidence",
+        "Original059 queue357 directly referenced historical evidence",
+        "Original059 queue357 directly referenced historical evidence",
+        "Original059 queue357 directly referenced historical evidence",
+        "Original059 queue357 directly referenced historical evidence",
+        "Original059 queue357 directly referenced historical evidence",
+        "Original059 queue358 directly referenced historical evidence",
+        "Original059 queue358 directly referenced historical evidence",
+        "Original059 queue358 directly referenced historical evidence",
+        "Original059 queue358 directly referenced historical evidence",
+        "Original059 queue358 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-CONNECTED-TEAM-004.json",
+      "sha256": "5819092ffecdc6495aeb3da3ef87d34f843027de8cc1e7190956eb2e05f70f7f",
+      "bytes": 23940,
+      "git_blob": "679f1bbec93ed608ba813b9af9ce785904631f82",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/5819092ffecdc6495aeb3da3ef87d34f843027de8cc1e7190956eb2e05f70f7f.gz",
+      "published_sha256": "5819092ffecdc6495aeb3da3ef87d34f843027de8cc1e7190956eb2e05f70f7f",
+      "published_bytes": 23940,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption of independently registered delegated future shader/reflection views; zero ordered credit",
+        "Original059 queue370 directly referenced historical evidence",
+        "Original059 queue370 directly referenced historical evidence",
+        "Original059 queue370 directly referenced historical evidence",
+        "Original059 queue370 directly referenced historical evidence",
+        "Original059 queue370 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence",
+        "Original059 queue2331 directly referenced historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L11-626.json",
+      "sha256": "42f3dd7ac928ec6937552c0dad074f3ff563b5ebf296ffbd2c4f4d1f25d490f7",
+      "bytes": 668,
+      "git_blob": "55311400eedbc6598adf84614b076ba6d49de508",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/42f3dd7ac928ec6937552c0dad074f3ff563b5ebf296ffbd2c4f4d1f25d490f7.gz",
+      "published_sha256": "42f3dd7ac928ec6937552c0dad074f3ff563b5ebf296ffbd2c4f4d1f25d490f7",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Prior Lens11 verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L11-627.json",
+      "sha256": "5c0f54d1c9c5318abd2a2be3545165ebf33995b3fd0588dabc4073338a1f6517",
+      "bytes": 668,
+      "git_blob": "f6ee9626d8ca95e76eaa5193fcb3969ffd2cd29d",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/5c0f54d1c9c5318abd2a2be3545165ebf33995b3fd0588dabc4073338a1f6517.gz",
+      "published_sha256": "5c0f54d1c9c5318abd2a2be3545165ebf33995b3fd0588dabc4073338a1f6517",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Prior Lens11 verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L11-628.json",
+      "sha256": "e4ef672c99eb4b99e0bb81f2ab2bb56c3048cd64999a241c53fba8c7e4d64201",
+      "bytes": 668,
+      "git_blob": "724c6e67486e7107f7e5621bf157fc52b10a46f9",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/e4ef672c99eb4b99e0bb81f2ab2bb56c3048cd64999a241c53fba8c7e4d64201.gz",
+      "published_sha256": "e4ef672c99eb4b99e0bb81f2ab2bb56c3048cd64999a241c53fba8c7e4d64201",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Prior Lens11 verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-749.json",
+      "sha256": "1cb3a9d84b751fe311a8588a3b22c100fa3df1aeeaa6ef603c7a07dfdbe7a389",
+      "bytes": 2795,
+      "git_blob": "2ecb679cff3c87d4420a14e064e726299ee88e62",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/1cb3a9d84b751fe311a8588a3b22c100fa3df1aeeaa6ef603c7a07dfdbe7a389.gz",
+      "published_sha256": "1cb3a9d84b751fe311a8588a3b22c100fa3df1aeeaa6ef603c7a07dfdbe7a389",
+      "published_bytes": 2795,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L11-626.json",
+      "sha256": "24e21a01d79e4b7d48aabb420c22026f0f971765ed347bc8fb162dc3cc6cae70",
+      "bytes": 407,
+      "git_blob": "e6f129e99eb703d24f647b1f5fab332f26410991",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/24e21a01d79e4b7d48aabb420c22026f0f971765ed347bc8fb162dc3cc6cae70.gz",
+      "published_sha256": "24e21a01d79e4b7d48aabb420c22026f0f971765ed347bc8fb162dc3cc6cae70",
+      "published_bytes": 407,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Prior Lens11 verification or state",
+        "Original059 finding370 connected source and alias evidence exact verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L11-627.json",
+      "sha256": "e1fd07851925750d523708676ddfcad13c5d1e1616d4ae03c0995cb791aa23e8",
+      "bytes": 407,
+      "git_blob": "e474b812963209a65068fbb3a785e706ad2e1f29",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/e1fd07851925750d523708676ddfcad13c5d1e1616d4ae03c0995cb791aa23e8.gz",
+      "published_sha256": "e1fd07851925750d523708676ddfcad13c5d1e1616d4ae03c0995cb791aa23e8",
+      "published_bytes": 407,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Prior Lens11 verification or state",
+        "Original059 finding370 connected source and alias evidence exact verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L11-628.json",
+      "sha256": "ed7a1a15dbdfec9a0102afe9136cf8cd4ac4bd3c56408e1bd04903e56fef3917",
+      "bytes": 407,
+      "git_blob": "41c608605c971794ffbd090da8b386c62aaf4c02",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/ed7a1a15dbdfec9a0102afe9136cf8cd4ac4bd3c56408e1bd04903e56fef3917.gz",
+      "published_sha256": "ed7a1a15dbdfec9a0102afe9136cf8cd4ac4bd3c56408e1bd04903e56fef3917",
+      "published_bytes": 407,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Prior Lens11 verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-749.json",
+      "sha256": "dc0ffc2114b5f5f180180be6325b2509e6c269736463f4b4529691925e93870f",
+      "bytes": 667,
+      "git_blob": "14318ecb23b8e54099e51d602b5416582686be21",
+      "preserved_bytes": "recovered/gpu-pass-pipeline-059/dc0ffc2114b5f5f180180be6325b2509e6c269736463f4b4529691925e93870f.gz",
+      "published_sha256": "dc0ffc2114b5f5f180180be6325b2509e6c269736463f4b4529691925e93870f",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "Original rig/Adler363/delegate749 historical full reads and connected future2635–2636 delegate source reads are distinct from earlier e275 Lens11 626–628 and from fresh95e displays; root historical adoption had zero rereads and no ordered or cross-lens credit.",
+  "remaining": "Continue original2281 and all thirteen lenses. Supported shader group/resource policy, actual cache and device ownership, runtime errors, exact aliases and queue reconciliation remain open. Original3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

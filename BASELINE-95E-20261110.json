@@ -9591,7 +9591,10 @@
         "future_acceptance": "After audit and authorization, cover same-device borrowed contexts, distinct devices, races and normal shared-cache reuse.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-KERNEL-95E.json"
+        "record": "ASSESSMENT-KERNEL-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ]
       },
       {
         "id": "ADLER-L11-UNIFORM-ABI-ADMISSION",
@@ -9621,7 +9624,8 @@
         "validation": "not performed",
         "record": "ASSESSMENT-KERNEL-95E.json",
         "further_current_evidence": [
-          "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+          "ASSESSMENT-GPU-BIND-BUFFER-95E.json",
+          "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
         ],
         "further_evidence_qualification": "Original ABI parent identity remains; current public helper Mat3 slice example is conditional and separate from actual ComputePass and cached packers."
       },
@@ -9649,7 +9653,10 @@
         "future_acceptance": "After audit and authorization, cover positive and zero logical sizes, checked replacement and standard/cached binding outcomes.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-KERNEL-95E.json"
+        "record": "ASSESSMENT-KERNEL-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ]
       },
       {
         "id": "REVIEW-COMPUTE-TYPED-FAILURE-FAMILY-95E",
@@ -9814,7 +9821,10 @@
         "future_acceptance": "After audit and authorization, cover native causes, progress failures, cache reuse and uncaptured-device policy.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-KERNEL-95E.json"
+        "record": "ASSESSMENT-KERNEL-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ]
       },
       {
         "id": "REVIEW-GPU-SHADER-PARSE-CAUSES-95E",
@@ -11823,7 +11833,11 @@
         "future_acceptance": "After audit and authorization, cover matched matrices, mismatched short members and standard/cached path contracts separately.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "further_evidence_qualification": "The separate ComputePass.record Mat3 arm has the same conditional short-member slice arithmetic; this does not establish a real valid shader input or transfer the result to the cached packer."
       },
       {
         "id": "REVIEW-GPU-BUFFER-METADATA-AUTHORITY-95E",
@@ -11850,8 +11864,714 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-PASS-PIPELINE-MISSING-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "ComputePass.record pipeline OptionNone emitsclosedprose at50",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/339",
+          "segovb/READ-L12-749.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Original separately named pass or pipeline first predicate is retained independently, including from similarly named helper errors. Source uses closed-reason prose; no global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; native callers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming boundary needs an owned reason while retaining this exact operation and useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently under the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-PASS-REFLECTION-MISSING-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "ComputePass.record reflection OptionNone emitsclosedprose at68",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/340",
+          "segovb/READ-L12-749.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Original separately named pass or pipeline first predicate is retained independently, including from similarly named helper errors. Source uses closed-reason prose; no global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; native callers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming boundary needs an owned reason while retaining this exact operation and useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently under the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-PASS-LAYOUT-MISSING-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "ComputePass.record bindgrouplayoutindexabsent emitsclosedprose at77",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/341",
+          "segovb/READ-L12-749.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Original separately named pass or pipeline first predicate is retained independently, including from similarly named helper errors. Source uses closed-reason prose; no global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; native callers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming boundary needs an owned reason while retaining this exact operation and useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently under the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-PASS-BUFFER-PARAMETER-MISSING-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "ComputePass.record bufferparameternameabsent emitsclosedprose at224",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/342",
+          "segovb/READ-L12-749.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Original separately named pass or pipeline first predicate is retained independently, including from similarly named helper errors. Source uses closed-reason prose; no global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; native callers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming boundary needs an owned reason while retaining this exact operation and useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently under the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-PASS-BUFFER-PARAMETER-KIND-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "ComputePass.record parameter notBuffer emitsclosedprose at245",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/343",
+          "segovb/READ-L12-749.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Original separately named pass or pipeline first predicate is retained independently, including from similarly named helper errors. Source uses closed-reason prose; no global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; native callers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming boundary needs an owned reason while retaining this exact operation and useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently under the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-PASS-TEXTURE-PARAMETER-MISSING-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "ComputePass.record textureparameterabsent emitsclosedprose at256",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/344",
+          "segovb/READ-L12-749.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Original separately named pass or pipeline first predicate is retained independently, including from similarly named helper errors. Source uses closed-reason prose; no global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; native callers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming boundary needs an owned reason while retaining this exact operation and useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently under the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-PASS-TEXTURE-PARAMETER-KIND-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "ComputePass.record parameter notsupportedtexture emitsclosedprose at356",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/345",
+          "segovb/READ-L12-749.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Original separately named pass or pipeline first predicate is retained independently, including from similarly named helper errors. Source uses closed-reason prose; no global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; native callers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming boundary needs an owned reason while retaining this exact operation and useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently under the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-PASS-TEXTURE-FORMAT-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "ComputePass.record nativeformatmismatch notallowedcounterpart emitsclosedprose at395",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/346",
+          "segovb/READ-L12-749.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Original separately named pass or pipeline first predicate is retained independently, including from similarly named helper errors. Source uses closed-reason prose; no global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; native callers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming boundary needs an owned reason while retaining this exact operation and useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently under the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-PASS-TEXTURE-DIMENSION-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "ComputePass.record nativeviewdimensionmismatch emitsclosedprose at405",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/347",
+          "segovb/READ-L12-749.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Original separately named pass or pipeline first predicate is retained independently, including from similarly named helper errors. Source uses closed-reason prose; no global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; native callers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming boundary needs an owned reason while retaining this exact operation and useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently under the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-PASS-TEXTURE-VIEW-MISSING-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "ComputePass.record texturewrapperviewNone emitsclosedprose at415",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/348",
+          "segovb/READ-L12-749.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Original separately named pass or pipeline first predicate is retained independently, including from similarly named helper errors. Source uses closed-reason prose; no global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; native callers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming boundary needs an owned reason while retaining this exact operation and useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently under the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-PASS-SAMPLER-PARAMETER-MISSING-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "ComputePass.record samplerparameterabsent emitsclosedprose at430",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/349",
+          "segovb/READ-L12-749.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Original separately named pass or pipeline first predicate is retained independently, including from similarly named helper errors. Source uses closed-reason prose; no global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; native callers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming boundary needs an owned reason while retaining this exact operation and useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently under the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-PASS-SAMPLER-RESOURCE-MISSING-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "ComputePass.record samplernativeresourceNone emitsclosedprose at444",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/350",
+          "segovb/READ-L12-749.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Original separately named pass or pipeline first predicate is retained independently, including from similarly named helper errors. Source uses closed-reason prose; no global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; native callers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming boundary needs an owned reason while retaining this exact operation and useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently under the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-PASS-SAMPLER-PARAMETER-KIND-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "ComputePass.record parameter notSampler emitsclosedprose at450",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/351",
+          "segovb/READ-L12-749.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Original separately named pass or pipeline first predicate is retained independently, including from similarly named helper errors. Source uses closed-reason prose; no global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; native callers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming boundary needs an owned reason while retaining this exact operation and useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently under the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-PIPELINE-CACHE-LOCK-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "ComputePipeline cache Mutexpoison error converted to prose emitsclosedtext at70",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/354",
+          "segovb/READ-L12-749.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Original separately named pass or pipeline first predicate is retained independently, including from similarly named helper errors. Source uses closed-reason prose; no global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; native callers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming boundary needs an owned reason while retaining this exact operation and useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently under the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-PIPELINE-SHADER-MODULE-MISSING-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "ComputePipeline shader.moduleNone emitsclosedtext at89",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/355",
+          "segovb/READ-L12-749.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Original separately named pass or pipeline first predicate is retained independently, including from similarly named helper errors. Source uses closed-reason prose; no global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; native callers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming boundary needs an owned reason while retaining this exact operation and useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently under the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-PIPELINE-COMPUTE-ENTRY-MISSING-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "ComputePipeline no nativecomputeentrypoint emitsclosedtext at135",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/356",
+          "segovb/READ-L12-749.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Original separately named pass or pipeline first predicate is retained independently, including from similarly named helper errors. Source uses closed-reason prose; no global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; native callers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming boundary needs an owned reason while retaining this exact operation and useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently under the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-PIPELINE-COMPILE-REFLECTION-MISSING-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "ComputePipeline compile reflectionNone emitsclosedtext at171",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/357",
+          "segovb/READ-L12-749.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Original separately named pass or pipeline first predicate is retained independently, including from similarly named helper errors. Source uses closed-reason prose; no global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; native callers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming boundary needs an owned reason while retaining this exact operation and useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently under the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-PIPELINE-VALIDATION-LOCK-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "ComputePipeline validation Mutex poisonconverted to prose emitsclosedtext at180",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/358",
+          "segovb/READ-L12-749.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Original separately named pass or pipeline first predicate is retained independently, including from similarly named helper errors. Source uses closed-reason prose; no global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; native callers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming boundary needs an owned reason while retaining this exact operation and useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently under the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-REFLECTION-SPARSE-GROUP-LAYOUT-POSITION",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; reflected group position",
+        "classification": "Sparse reflected shader groups are compacted into layout vector positions that can differ from their retained native group numbers.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/370",
+          "segovb/READ-L12-CONNECTED-TEAM-004.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+          "segovb/READ-L11-626.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+          "segovb/READ-L11-627.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Original delegate and an independent e275 Lens11 reviewer already documented the same first compaction contract. Earlier e275 sources are Git-bound and byte-identical to selected current source; attribution and no ordered/cross-lens credit remain separate. No shader or GPU ran.",
+        "discovery": "partial; current producer, native positional descriptor and pass recipient traced; supported sparse shader policy and aliases open",
+        "connected_repair_direction": "Preserve native group positions or explicitly reject unsupported group shapes before constructing the interface.",
+        "future_acceptance": "After audit and authorization, cover admitted contiguous and sparse groups through the actual layout and dispatch boundary.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "REVIEW-GPU-PIPELINE-CACHE-INPUT-IDENTITY-95E",
+        "lens": 6,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; pipeline cache identity",
+        "classification": "The shared ComputePipeline cache keys only an entry-point hash although device, shader module and layouts are separate inputs or mutable public state.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/150",
+          "segovb/READ-L11-626.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Original Adler150 qualification and the earlier independent e275 reviewer already raised this standard-pipeline cache scope. It is a distinct lookup operation from the KernelCache source-key cache; no collision, mutation, cross-device use or GPU ran.",
+        "discovery": "partial; current cache key, hit order and public shared state traced; actual producer lifetimes, device identity and aliases open",
+        "connected_repair_direction": "Bind cached pipeline identity to the owning device, shader, layout and exact entry point or enforce an immutable lifecycle that makes those facts invariant.",
+        "future_acceptance": "After audit and authorization, cover same-input reuse, permitted clone mutations and device/layout distinctions under the selected contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "REVIEW-GPU-SHADER-SOURCE-MODULE-COHERENCE-95E",
+        "lens": 6,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; shader source/module coherence",
+        "classification": "Public ComputeShader code and native module can diverge, while reflection reads code and pipeline creation uses module.",
+        "historical_related_records": [
+          "segovb/READ-L11-626.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+          "segovb/READ-L12-CONNECTED-TEAM-004.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Earlier e275 reviewer already raised this separately from cache identity and sparse groups. The mismatch requires independently changed or constructed public state; ordinary producer validity is not established. No shader or pipeline ran.",
+        "discovery": "partial; public fields and respective reflection/module consumers traced; actual producers and immutable admission policy open",
+        "connected_repair_direction": "Make shader source, native module and reflected interface one admitted coherent owner or explicitly control their mutation lifecycle.",
+        "future_acceptance": "After audit and authorization, cover valid shader construction and rejected or reconciled mismatched state.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "REVIEW-GPU-REFLECTION-MULTIPLE-UNIFORMS-95E",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          4,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; multiple uniform blocks",
+        "classification": "Reflection stores one uniform binding and size per group while accumulating layout entries and members for every encountered uniform resource.",
+        "historical_related_records": [
+          "segovb/READ-L11-626.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+          "segovb/READ-L12-CONNECTED-TEAM-004.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Earlier independent reviewers already raised this conditional aggregate loss. It depends on whether multiple uniform blocks per group are supported; it is distinct from sparse group positioning. No shader or GPU ran.",
+        "discovery": "partial; selected reflection producer and pass consumer traced; supported shader shape and native policy open",
+        "connected_repair_direction": "Represent all supported uniform bindings or explicitly reject unsupported multiple-block groups at admission.",
+        "future_acceptance": "After audit and authorization, cover one and multiple uniform resources under the chosen shader contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "REVIEW-GPU-REFLECTION-ARRAYED-IMAGE-95E",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          4,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; reflected resource capability",
+        "classification": "reflection passes dimension and class without retaining the image arrayed property",
+        "historical_related_records": [
+          "segovb/READ-L11-626.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+          "segovb/READ-L12-CONNECTED-TEAM-004.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Earlier reviewers already raised the arrayed image policy question. This is conditional on a shader using that capability and is a distinct first source choice; native support and aliases remain open. No shader, reflection or GPU ran.",
+        "discovery": "partial; current reflection operation traced; supported shader feature subset and actual caller needs open",
+        "connected_repair_direction": "Preserve arrayed image metadata when supported, or reject that unsupported shader shape explicitly at admission.",
+        "future_acceptance": "After audit and authorization, cover the chosen arrayed image support and rejection policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "REVIEW-GPU-REFLECTION-MULTISAMPLED-IMAGE-95E",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          4,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; reflected resource capability",
+        "classification": "texture layout is always created with multisampled false",
+        "historical_related_records": [
+          "segovb/READ-L11-626.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+          "segovb/READ-L12-CONNECTED-TEAM-004.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Earlier reviewers already raised the multisampled image policy question. This is conditional on a shader using that capability and is a distinct first source choice; native support and aliases remain open. No shader, reflection or GPU ran.",
+        "discovery": "partial; current reflection operation traced; supported shader feature subset and actual caller needs open",
+        "connected_repair_direction": "Preserve multisampled image metadata when supported, or reject that unsupported shader shape explicitly at admission.",
+        "future_acceptance": "After audit and authorization, cover the chosen multisampled image support and rejection policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "REVIEW-GPU-REFLECTION-STORAGE-ACCESS-95E",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          4,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; reflected resource capability",
+        "classification": "any STORE access selects WriteOnly, even when READ is also present",
+        "historical_related_records": [
+          "segovb/READ-L11-626.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+          "segovb/READ-L12-CONNECTED-TEAM-004.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Earlier reviewers already raised the read/write storage image policy question. This is conditional on a shader using that capability and is a distinct first source choice; native support and aliases remain open. No shader, reflection or GPU ran.",
+        "discovery": "partial; current reflection operation traced; supported shader feature subset and actual caller needs open",
+        "connected_repair_direction": "Preserve read/write storage image metadata when supported, or reject that unsupported shader shape explicitly at admission.",
+        "future_acceptance": "After audit and authorization, cover the chosen read/write storage image support and rejection policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "REVIEW-GPU-REFLECTION-SAMPLER-KIND-95E",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          4,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; reflected resource capability",
+        "classification": "sampler bindings are always classified Filtering",
+        "historical_related_records": [
+          "segovb/READ-L11-626.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+          "segovb/READ-L12-CONNECTED-TEAM-004.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Earlier reviewers already raised the sampler kind policy question. This is conditional on a shader using that capability and is a distinct first source choice; native support and aliases remain open. No shader, reflection or GPU ran.",
+        "discovery": "partial; current reflection operation traced; supported shader feature subset and actual caller needs open",
+        "connected_repair_direction": "Preserve sampler kind metadata when supported, or reject that unsupported shader shape explicitly at admission.",
+        "future_acceptance": "After audit and authorization, cover the chosen sampler kind support and rejection policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "REVIEW-GPU-PIPELINE-CACHE-OBSERVATION-95E",
+        "lens": 6,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; cache observation state",
+        "classification": "A pipeline cache hit returns before consulting the requested validation-observation policy.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/150",
+          "baseline-059/queue.json#/entries/353",
+          "segovb/READ-L11-626.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+        ],
+        "relationship_qualification": "Conditional on reuse across observation modes; it does not establish an invalid pipeline or a requirement to retroactively observe one. Earlier e275 cache identity review remains separately attributed. No native validation ran.",
+        "discovery": "partial; cache hit order and both current observation modes traced; actual shared lifetimes and intended policy open",
+        "connected_repair_direction": "Define whether observation state belongs to a cached pipeline contract and how later callers distinguish unobserved from observed creation.",
+        "future_acceptance": "After audit and authorization, cover reuse under each supported observation mode and intended error presentation.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "REVIEW-GPU-PASS-VALIDATION-LOCK-95E",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          12
+        ],
+        "severity": "unassigned; pass validation lock",
+        "classification": "ComputePass.record skips its retained pipeline-error check when the validation mutex is poisoned.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/353",
+          "baseline-059/queue.json#/entries/358"
+        ],
+        "relationship_qualification": "Conditional on a poisoned lock and relevant pipeline state; compile has a separate lock-error branch. No lock, error or product ran.",
+        "discovery": "partial; pass and compile lock branches traced; poison recovery and alias policy open",
+        "connected_repair_direction": "Define a consistent failure or recovery policy for unavailable validation state at each pipeline boundary.",
+        "future_acceptance": "After audit and authorization, cover poisoned-state handling separately from normal pipeline validation failures.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1710.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1746.json"
 }
