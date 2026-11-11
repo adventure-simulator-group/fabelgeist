@@ -1,0 +1,80 @@
+--- historical-1458/crates/adventuresim-tactical-client/src/browser_runtime.rs
++++ 95e/crates/adventuresim-tactical-client/src/browser_runtime.rs
+@@ -21,9 +21,7 @@
+ 
+ use crate::weapon_preview_material::preview_material;
+ 
+-use crate::{
+-    Args, player::LocalCharacterId, presentation::TacticalGameplayCamera, ui::TacticalUiRoot,
+-};
++use crate::{Args, player::LocalCharacterId, presentation::TacticalGameplayCamera};
+ 
+ static COMMANDS: OnceLock<Mutex<VecDeque<BrowserCommand>>> = OnceLock::new();
+ 
+@@ -64,6 +62,12 @@
+         character_id: u64,
+     },
+     ExitTactical,
++    /// The loading screen's Retry button.
++    RetryTacticalLoad,
++    /// A click on the equipment slot HUD.
++    PressSlotHud {
++        press: crate::equipment::SlotHudPress,
++    },
+ }
+ 
+ #[derive(Debug, Deserialize)]
+@@ -142,7 +146,11 @@
+             .add_systems(Update, forge_view::sync)
+             .add_systems(
+                 Update,
+-                (drain_browser_commands, sync_tactical_ui_visibility),
++                (
++                    drain_browser_commands,
++                    sync_tactical_hud_visibility,
++                    dismiss_loading_outside_tactical,
++                ),
+             )
+             .add_systems(
+                 PostUpdate,
+@@ -280,6 +288,8 @@
+                 }
+                 *mode = BrowserMode::Strategic;
+             }
++            BrowserCommand::RetryTacticalLoad => commands.trigger(crate::loading_screen::RetryLoad),
++            BrowserCommand::PressSlotHud { press } => commands.trigger(press),
+         }
+     }
+ }
+@@ -436,17 +446,22 @@
+     serde_json::to_string(&quote).map_err(|error| error.to_string())
+ }
+ 
+-fn sync_tactical_ui_visibility(
++/// The page keeps the tactical HUD while the canvas shows strategic scenes,
++/// hidden.
++fn sync_tactical_hud_visibility(mode: Res<BrowserMode>) {
++    if mode.is_changed() {
++        crate::hud::visible(*mode == BrowserMode::Tactical);
++    }
++}
++
++fn dismiss_loading_outside_tactical(
+     mode: Res<BrowserMode>,
+-    mut roots: Query<&mut Visibility, With<TacticalUiRoot>>,
++    screen: Option<ResMut<crate::loading_screen::LoadingScreen>>,
+ ) {
+-    let visibility = if *mode == BrowserMode::Tactical {
+-        Visibility::Inherited
+-    } else {
+-        Visibility::Hidden
+-    };
+-    for mut current in &mut roots {
+-        *current = visibility;
++    if *mode != BrowserMode::Tactical
++        && let Some(mut screen) = screen
++    {
++        screen.dismiss();
+     }
+ }
+ 

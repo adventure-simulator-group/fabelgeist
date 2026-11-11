@@ -1,0 +1,169 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1457,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/audio_config.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact historical identity, not a claim of committed-tree equivalence.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1457",
+      "sha256": "d1111aa5bdab4e1897a07e82062d8ffc5ffbed8a0790fa75a4c0c482d2e36063",
+      "lines": 206,
+      "new_personal_read_ranges": [
+        [
+          1,
+          206
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-AUDIO-CONFIG.json",
+          "ranges": [
+            [
+              10,
+              64
+            ],
+            [
+              66,
+              76
+            ],
+            [
+              79,
+              185
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/audio_config.rs",
+        "sha256": "d1111aa5bdab4e1897a07e82062d8ffc5ffbed8a0790fa75a4c0c482d2e36063",
+        "bytes": 6918,
+        "lines": 206,
+        "git_blob": "16ce888e3db00ded133ce059dd4c13711cbebc70",
+        "preserved_bytes": "main-advance-95e/browser-command-evidence/current-1457.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Current bytes bind only bounded current-source connections; original reviewer, snapshot and prior scope remain separately attributed; no checkpoint 3821 transfer."
+      },
+      "qualification": "Full original historical source personally read through actual EOF, including test source as text only. No browser, network, audio, camera, test or runtime probe ran. Earlier reviewers retain original attribution and revision."
+    },
+    {
+      "original_index": 1458,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/browser_runtime.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact historical identity, not a claim of committed-tree equivalence.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1458",
+      "sha256": "afb6d3b0ff97037051e1fae2f1c9340a31fe07a1b34a6bc244d0110010c429d3",
+      "lines": 507,
+      "new_personal_read_ranges": [
+        [
+          1,
+          507
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/browser_runtime.rs",
+        "sha256": "83c7e8a4696ea53dca63deabee935561888354229cc8b71e92be800b592f98d7",
+        "bytes": 17179,
+        "lines": 522,
+        "git_blob": "9b453eb2ed0b42e7680846a4c1b877c7dacc08a4",
+        "preserved_bytes": "main-advance-95e/browser-command-evidence/current-1458.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "qualification": "Current bytes bind only bounded current-source connections; original reviewer, snapshot and prior scope remain separately attributed; no checkpoint 3821 transfer.",
+        "diff": "main-advance-95e/browser-command-evidence/original-1458-to-95e.diff",
+        "diff_sha256": "e6d832ec44cb079fb0fb4c614dc99584c39eca6423e2bb8b12419bfdb4a3123e",
+        "difference": "Current browser runtime adds RetryTacticalLoad and PressSlotHud commands and changes tactical HUD/loading visibility; the original remains 507 lines. The queue/drain and forge-yaw source path connected below remains present."
+      },
+      "qualification": "Full original historical source personally read through actual EOF, including test source as text only. No browser, network, audio, camera, test or runtime probe ran. Earlier reviewers retain original attribution and revision."
+    },
+    {
+      "original_index": 1459,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/browser_runtime/forge_view.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact historical identity, not a claim of committed-tree equivalence.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/1459",
+      "sha256": "be717339d13100a2187fb5bbe385c1c074f5625fb45e7e40254f2f35f40551f3",
+      "lines": 44,
+      "new_personal_read_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/browser_runtime/forge_view.rs",
+        "sha256": "be717339d13100a2187fb5bbe385c1c074f5625fb45e7e40254f2f35f40551f3",
+        "bytes": 1423,
+        "lines": 44,
+        "git_blob": "ad7b1ffa19d9e1272f4cd3c38f5eb78691d90e2f",
+        "preserved_bytes": "main-advance-95e/browser-command-evidence/current-1459.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Current bytes bind only bounded current-source connections; original reviewer, snapshot and prior scope remain separately attributed; no checkpoint 3821 transfer."
+      },
+      "qualification": "Full original historical source personally read through actual EOF, including test source as text only. No browser, network, audio, camera, test or runtime probe ran. Earlier reviewers retain original attribution and revision."
+    },
+    {
+      "original_index": 1460,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact historical identity, not a claim of committed-tree equivalence.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1460",
+      "sha256": "4d7aab7742753836f2384c8cd1095148537193d23ba45c3f5bac3762dabc6fa9",
+      "lines": 185,
+      "new_personal_read_ranges": [
+        [
+          1,
+          185
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/camera.rs",
+        "sha256": "7458faa2bbc799f1a3b25f1b7013348d181d66b08ff8006aeb71a5bca3e059bd",
+        "bytes": 5996,
+        "lines": 185,
+        "git_blob": "c76e8a840d7f5dae47601b39f85600514b1afc5a",
+        "preserved_bytes": "main-advance-95e/browser-command-evidence/current-1460.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "qualification": "Current bytes bind only bounded current-source connections; original reviewer, snapshot and prior scope remain separately attributed; no checkpoint 3821 transfer.",
+        "diff": "main-advance-95e/browser-command-evidence/original-1460-to-95e.diff",
+        "diff_sha256": "e245d6e2b80e952eee67f1ff219dd9f0078032f3d9b8b3447e80ecb93f08bdc3",
+        "difference": "Current camera module changes config visibility/reexports and adds a debug-toggle log; the original remains separately retained."
+      },
+      "qualification": "Full original historical source personally read through actual EOF, including test source as text only. No browser, network, audio, camera, test or runtime probe ran. Earlier reviewers retain original attribution and revision."
+    }
+  ],
+  "observations": [
+    "Four historical audio, browser runtime, forge view and tactical camera bodies personally read through actual EOF, including test source as text only. Roles 1457 and 1459 match 95e; roles 1458 and 1460 differ and exact current source and diffs are retained.",
+    "Role 1457 had a previous bounded current-source observation; its prior ranges and attribution are preserved verbatim with this distinct historical body read.",
+    "Earlier independent segovb Lens12 batches 428–430 and adler Lens11 batches 206/212 retain their own reviewer, snapshot and scope; zero accepted unique count and no current reconciliation were recorded. Batch 430 also records future role 1461, and 212 separately reinspected audio with zero original credit; neither is credited here as a new historical role.",
+    "No browser, network, audio, camera, test or runtime probe ran."
+  ],
+  "remaining": "Continue role 1461; complete command producers, lifecycle, numeric/scene consumers, aliases, overlays and thirteen independent lenses remain open."
+}

@@ -1,0 +1,29 @@
+--- historical-1460/crates/adventuresim-tactical-client/src/camera.rs
++++ 95e/crates/adventuresim-tactical-client/src/camera.rs
+@@ -10,16 +10,15 @@
+ pub use adventuresim_tactical_core::animation::ResponseShapingTime;
+ use aim::update_camera_aim;
+ use collision::{CameraHit, CameraVolumeDebug};
+-pub(crate) use config::authored_metres;
+ pub use config::{CameraProfile, CameraRigConfig};
+ use rig::update_camera_rig;
+ use rig_history::CameraRigState;
+ use values::ScreenError;
+-pub use values::{CameraError, CameraResult, FramingOffset, MuzzleOffset, ScreenWindow};
++pub use values::{CameraError, CameraResult, ScreenWindow};
+ 
+ mod aim;
+ pub(crate) mod collision;
+-mod config;
++pub(crate) mod config;
+ mod rig;
+ mod rig_history;
+ mod smoothing;
+@@ -143,6 +142,7 @@
+ ) {
+     if keyboard.just_pressed(KeyCode::F6) {
+         enabled.0 = !enabled.0;
++        info!(enabled = enabled.0, "Camera rig debug toggled");
+     }
+ }
+ 

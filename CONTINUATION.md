@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-0530.json`).
+2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-0534.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -269,6 +269,10 @@ action, provenance and route sources without expanding current coverage.
 capability, claim and geometry sources without expanding current coverage.
 `ASSESSMENT-L01-HISTORICAL-1126-1127.json` records historical investigation
 module composition and evidence state without expanding current coverage.
+`ASSESSMENT-BROWSER-COMMAND-CANVAS-95E.json` records conditional queued
+lifecycle and subpixel rectangle cases and reconnects two earlier findings.
+`ASSESSMENT-L01-HISTORICAL-1457-1460.json` preserves four historical reads
+and exact current differences for the browser and camera modules.
 `ASSESSMENT-ART-DEMO-RESIDENCY-95E.json` reconnects an earlier texture
 failure finding to the current loading and browser status source.
 `ASSESSMENT-L01-HISTORICAL-1449-1456.json` preserves eight historical
