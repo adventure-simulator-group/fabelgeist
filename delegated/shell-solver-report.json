@@ -1,0 +1,520 @@
+{
+  "schema": "726-delegated-source-family-audit-v1",
+  "agent": "/root/mhr_character",
+  "scope": "Original roles 2343–2346 and separately registered bounded current support; no ordered support credit or lens completion.",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "scope_qualification": "Each full ordered historical/current pair has identical exact bytes and independent prospective reads. The previous shell-contact broad-phase and solve views remain separately registered current support, not earlier ordered reads. Historical evidence retains its original source revision, reviewer, range and chronology; never checkpoint 3821 adoption.",
+  "original_role_paths": [
+    {
+      "index": 2343,
+      "path": "crates/fabelgeist-shell/src/surface_contact/broad_phase.rs",
+      "sha256": "7e110378e0a6c4c85508d64de1cee18757b4ae6db8c593e1d9301028bdf5ddb7",
+      "lines": 73
+    },
+    {
+      "index": 2344,
+      "path": "crates/fabelgeist-shell/src/surface_contact/solve.rs",
+      "sha256": "3391f999990a711fa2e38f73c7585057b1101305aab1cef5cf0b52119146d93b",
+      "lines": 309
+    },
+    {
+      "index": 2345,
+      "path": "crates/fabelgeist-shell/src/topology.rs",
+      "sha256": "98444936697b73035be3e07e0464a3e4a031ad0b1f28084275206b1b8ae7eb91",
+      "lines": 427
+    },
+    {
+      "index": 2346,
+      "path": "crates/fabelgeist-shell/src/wgsl.rs",
+      "sha256": "e724670ea98957037a3fed9a6057929b2f48be87f2c217e5a01b59649a050ccc",
+      "lines": 361
+    }
+  ],
+  "findings": [
+    {
+      "id": "SHELL-GRID-RADIUS-SPACING-DIVERGENCE",
+      "status": "source-backed conditional missed candidate in GPU self-collision; no execution",
+      "producer_to_consumer": "SelfCollision::new derives private spacing=2×radius. Public radius can be directly mutated without updating spacing; set_radius would update both and mark the grid unbuilt. record computes inverse_spacing from retained spacing and separately sends current radius. The shader hashes using inverse_spacing, searches only offsets -1..1, verifies exact cell membership, and tests separation against 2×radius. Rebuilding the grid does not fix the inconsistent spacing.",
+      "symbolic_example": "Initial radius 2^-10 yields spacing 2^-9. Change public radius directly to 2^-6. Distinct dynamic non-neighbor particles at x=0 and x=2^-7 are within the new diameter 2^-5 but occupy old-grid cells 0 and 4; neither can appear in the other’s 27-cell search, even if buckets hash-collide, because exact cell equality is checked. Mathematical reading only.",
+      "conditions": "Public direct radius mutation followed by enabled self-collision; assumes ordinary valid particle buffers and the two particles are otherwise eligible. This demonstrates the particle-sphere candidate path only; independently scheduled surface contact or other collisions may still act. Actual callers and intended mutation policy remain to be inventoried.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/selfcollision.rs",
+          "lines": [
+            [
+              37,
+              45
+            ],
+            [
+              135,
+              139
+            ],
+            [
+              154,
+              157
+            ],
+            [
+              166,
+              186
+            ],
+            [
+              198,
+              206
+            ],
+            [
+              238,
+              258
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/wgsl.rs",
+          "lines": [
+            [
+              224,
+              230
+            ],
+            [
+              260,
+              298
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/shell.rs",
+          "lines": [
+            [
+              33,
+              44
+            ],
+            [
+              191,
+              199
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "A concrete producer→retained state→native consumer facet of Q-L11-43a5c52e177d6e2b64ec, which explicitly called for SelfCollision radius/spacing public mutation and WGSL trace. Do not close its separate table-count, adjacency, outer-layer or native error obligations.",
+      "future_repair_direction": "Give radius/spacing one enforced authority or an atomic admitted update that rebuilds dependent grid state; trace all mutation APIs and preserve explicit valid radius changes and intentional 27-cell coverage."
+    },
+    {
+      "id": "SHELL-BENDING-SCALE-CUTOFF",
+      "status": "source-level conditional small nondegenerate hinge omitted; supported scale unresolved",
+      "producer_to_consumer": "ShellMesh::new derives BendQuad points then keeps each bend only if topology::bending_weights returns Some. The function rejects minor-vector norm <1e-12 after constructing an orthonormal plane basis; this is an absolute area-like threshold and not restricted to exactly degenerate geometry.",
+      "symbolic_example": "For s=2^-22, let the hinge be (0,0,0)→(s,0,0) and wings (s/2,s/2,0),(s/2,-s/2,0). Each triangle has strictly positive area s²/4. The chosen first basis is the x axis, and the plane-basis tests have squared lengths s² and s²/4, both >1e-24. Each of the four signed minors has magnitude s²/2, so their norm is s²=2^-44 <1e-12 and returns None. With density 1024, each positive corner mass exceeds the separate 1e-12 kg inverse-mass cutoff; all raw coordinates/density are finite. No fixture or computation was executed.",
+      "conditions": "Approximately 0.24 micrometre hinge length, much smaller than ordinary garment scales; source-local mesh admission has no minimum scale. Actual supported asset scale and expected geometry-error policy need confirmation. This is not a reason to force a bend for truly collapsed or collinear geometry.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/topology.rs",
+          "lines": [
+            [
+              45,
+              83
+            ],
+            [
+              129,
+              166
+            ],
+            [
+              167,
+              234
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/mesh.rs",
+          "lines": [
+            [
+              33,
+              73
+            ],
+            [
+              85,
+              127
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/dynamics/mass.rs",
+          "lines": [
+            [
+              85,
+              103
+            ],
+            [
+              136,
+              157
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Q-L12-ecc1905cee4fdbdbbfa9 and REVIEW-L3-SHELL-TOPOLOGY-INDEX-AND-DENSITY-ADMISSION preserve legitimate degenerate None and call for the actual mesh producer; this case is nondegenerate and supplies a narrowly scoped threshold question, not a claim earlier authors considered or accepted it.",
+      "future_repair_direction": "Establish supported world-scale and required error bound, then make a robust scale-aware degeneracy/admission decision; preserve intentional nonmanifold/no-bend behavior, massless/prescribed modes, signed weights and constraint order."
+    },
+    {
+      "id": "SHELL-SELF-COLLISION-FIXED-POINT-QUANTIZATION",
+      "status": "source-level numerical lower-resolution boundary, no GPU execution",
+      "producer_to_consumer": "The self-collision shader turns each correction component into i32(delta×2^20), counts contributors even if a component becomes zero, and converts the average back to position units. ShellMaterial accepts every finite positive thickness locally, while Shell derives collision radius as half thickness.",
+      "symbolic_example": "For two coincident disconnected, non-neighbor dynamic particles of equal positive inverse mass, thickness 2^-21 and an initially cleared correction accumulator, the antisymmetric fallback gives each correction magnitude 2^-22. The fixed-point conversion input is ±2^-2; integer truncation gives zero, so this isolated particle-sphere pass applies no displacement despite a positive interaction depth. These values are f32-representable. No WGSL was compiled, dispatched, or tested.",
+      "conditions": "Submicrometre thickness and the isolated pair described; other correction contributors or the independent host surface solver can change the outcome. Whether such a scale is supported and the acceptable physical quantization are open. This is not an overflow claim.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/wgsl.rs",
+          "lines": [
+            [
+              196,
+              203
+            ],
+            [
+              233,
+              246
+            ],
+            [
+              267,
+              319
+            ],
+            [
+              327,
+              359
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/lib.rs",
+          "lines": [
+            [
+              18,
+              47
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/selfcollision.rs",
+          "lines": [
+            [
+              37,
+              44
+            ],
+            [
+              135,
+              139
+            ],
+            [
+              166,
+              186
+            ],
+            [
+              238,
+              267
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/shell.rs",
+          "lines": [
+            [
+              139,
+              145
+            ],
+            [
+              253,
+              290
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Q-L12-ecc1905cee4fdbdbbfa9 already asks about fixed-point native i32 and contributor/range contracts but reports no runtime overflow witness; this is a different lower-resolution/quantization facet, with no runtime result. RIG-PPS-023 preserves fixed accumulator layout as a native contract.",
+      "future_repair_direction": "Specify physical input range and maximum permitted collision error relative to thickness and contributor count, then choose an appropriate representation or explicit admission; preserve symmetric fallback, averaging and valid pinned behavior."
+    },
+    {
+      "id": "SHELL-STATIC-MASS-RESIZE-FACET",
+      "status": "previously assessed connected current-source finding, independently reread",
+      "producer_to_consumer": "With a nonempty static surface, public SurfaceContacts::solve resizes input inverse masses to the combined dynamic+static length before solve_inner compares lengths. Missing dynamic entries become PINNED; extra entries can be used for static vertices or truncated. The inner equal-length check cannot see the original mismatch.",
+      "conditions": "Malformed direct-public input; ordinary ShellMesh validates equal lengths. No claim of normal GPU-buffer corruption or an observed runtime failure.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+          "lines": [
+            [
+              157,
+              190
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/surface_contact/solve.rs",
+          "lines": [
+            [
+              16,
+              31
+            ],
+            [
+              238,
+              276
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/mesh.rs",
+          "lines": [
+            [
+              85,
+              102
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Connect to prior packet SHELL-CONTACT-STATIC-MASS-EXTENT and SEGOVB-L12-CONNECTED-SURFACE-SOLVE-MASS-EXTENT-ADMISSION; not an automatic second ledger issue.",
+      "future_repair_direction": "Admit the dynamic topology/position/previous/mass aggregate before appending exactly prescribed static masses; decide invalid-input representation at the actual boundary."
+    }
+  ],
+  "historical_contract_dispositions": [
+    {
+      "ids": [
+        "SEGOVB-L12-CONNECTED-SURFACE-SOLVE-TOPOLOGY-EXTENT-ADMISSION",
+        "SEGOVB-L12-CONNECTED-SURFACE-SOLVE-PREVIOUS-EXTENT-ADMISSION",
+        "SEGOVB-L12-CONNECTED-SURFACE-SOLVE-MASS-EXTENT-ADMISSION",
+        "SEGOVB-L12-CONNECTED-SURFACE-SOLVE-MASS-VALIDITY-ADMISSION",
+        "SEGOVB-L12-CONNECTED-SURFACE-SOLVE-POSITION-FINITE-ADMISSION"
+      ],
+      "disposition": "The exact inner assertions still occur; static mass resize qualifies the upstream original-array mass-length case. Input extent and native readback ownership remain connected work.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/surface_contact/solve.rs",
+          "lines": [
+            [
+              16,
+              34
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+          "lines": [
+            [
+              123,
+              140
+            ],
+            [
+              157,
+              190
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "ids": [
+        "REVIEW-L3-SHELL-TOPOLOGY-INDEX-AND-DENSITY-ADMISSION"
+      ],
+      "disposition": "Public vertex_masses indexes direct caller-supplied triangle IDs with no local count check. ShellMesh::new first checks positive finite density, finite positions and all triangle membership before computing masses; ShellMesh::validate checks later aggregate values. Preserve direct-public input issue separately from the protected ordinary constructor.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/topology.rs",
+          "lines": [
+            [
+              94,
+              115
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/mesh.rs",
+          "lines": [
+            [
+              33,
+              53
+            ],
+            [
+              73,
+              83
+            ],
+            [
+              85,
+              127
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "ids": [
+        "L2-SHELL-TOPOLOGY-NATIVE-MASS-CLASSIFICATION"
+      ],
+      "disposition": "ParticleMass and ParticleInverseMass remain distinct existing owners; their semantics are not interchangeable. ParticleMass::inverse_mass explicitly pins every value ≤1e-12 kg, including positive values, so the documentation’s informal massless description is not a proof every positive mass becomes dynamic. Actual accepted physical mass range and intended low-mass behavior remain open.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/topology.rs",
+          "lines": [
+            [
+              118,
+              126
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/dynamics/mass.rs",
+          "lines": [
+            [
+              77,
+              103
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "ids": [
+        "Q-L12-48b9c2f6d55c6d6a9f48"
+      ],
+      "disposition": "The typed EffectiveInverseMass owner uses contact activity ≤1e-12 as inactive, while a ParticleInverseMass is dynamic whenever nonzero. Both policies can coexist only under their actual supported mass-scale and contact rules; do not infer NaN reachability or alias distinct thresholds without producer evidence.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/dynamics/mass.rs",
+          "lines": [
+            [
+              43,
+              58
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/dynamics/projection.rs",
+          "lines": [
+            [
+              77,
+              101
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/surface_contact/solve.rs",
+          "lines": [
+            [
+              268,
+              279
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "lens_perspectives": [
+    {
+      "lens": 1,
+      "name": "producer propagation",
+      "assessment": "RIG-PPS-023 records typed inverse mass/gradient through contact correction; static clearance remains raw with distinct nonnegative zero policy. No blanket existing-owner loss shown. Public radius travels separately from retained spacing."
+    },
+    {
+      "lens": 2,
+      "name": "existing owners",
+      "assessment": "Typed particle mass/inverse mass, gradient and effective response have distinct meanings; earlier rig supplier saw topology only 1–235. Existing owner fit does not prove dynamic aggregate or scale invariant."
+    },
+    {
+      "lens": 3,
+      "name": "admission",
+      "assessment": "Normal ShellMesh constructor checks density, finite positions and triangle membership before topology masses; public vertex_masses and surface solve have separate admission boundaries. Avoid promoting any invalid direct call into an ordinary constructor failure."
+    },
+    {
+      "lens": 4,
+      "name": "invariant operations",
+      "assessment": "Radius/spacing direct mutation breaks the spatial-search relation; numerical hinge and fixed-point cutoffs have scoped mathematical counterexamples. Source alone establishes no device behavior."
+    },
+    {
+      "lens": 5,
+      "name": "aggregate states",
+      "assessment": "Dynamic positions, previous, mass, topology and static vertices form an aggregate; static preprocessing may hide original mass length. Hash diameter and spacing must maintain their search coverage relationship."
+    },
+    {
+      "lens": 6,
+      "name": "type ownership",
+      "assessment": "SelfCollision owns both radius and spacing, while topology owns hinge classification; the 774 rig label assigns audit source responsibility, not product repair ownership. Determine shared mass/error boundaries centrally."
+    },
+    {
+      "lens": 7,
+      "name": "redundant authority",
+      "assessment": "Radius plus cached spacing duplicate one scalar relationship and can diverge. FixedBounds caches bounds intentionally; source construction orders dynamic then fixed faces and sorted edge indices produce the fixed suffix."
+    },
+    {
+      "lens": 8,
+      "name": "behavior preservation",
+      "assessment": "Retain deliberate nonmanifold/no-hinge and genuine degenerate cases, exact-zero prescribed mass, separate static clearance, collision adjacency exclusion, safe-budget CCD and native weight packing. No runtime parity assertion."
+    },
+    {
+      "lens": 9,
+      "name": "enum shapes",
+      "assessment": "ParticleMobility already separates prescribed/dynamic; fallibility and policy for approximate degeneracy and contact quantization need independent decisions. No new enum shown necessary."
+    },
+    {
+      "lens": 10,
+      "name": "derivability",
+      "assessment": "BendQuad already derives basic traits, and no necessary manual implementation removal is demonstrated in these bounded sources."
+    },
+    {
+      "lens": 11,
+      "name": "type granularity",
+      "assessment": "Effective contact response and individual mobility use different thresholds; nonnegative static clearance differs from positive thickness; signed affine gradient differs from unsigned mass. Do not impose one universal positivity rule."
+    },
+    {
+      "lens": 12,
+      "name": "raw strings",
+      "assessment": "Preserve distinct historical topology/mass/previous/position admission contracts and their source-specific error representation. Shader bindings and native source identifiers are native interface names, not unqualified semantic-string findings."
+    },
+    {
+      "lens": 13,
+      "name": "raw primitives",
+      "assessment": "Hinge basis/norm thresholds and WGSL fixed-scale/tolerance literals have materially different dimensions and limits; 27-cell radius relation and fixed-point scale are connected to producer admission. Avoid blanket magic-number changes."
+    }
+  ],
+  "nonfindings_and_open_questions": [
+    "Under set_static_surface’s actual construction, dynamic faces precede static faces and edges are sorted by numeric endpoints; fixed suffix offsets do not by themselves establish mixed-order failure. Replacement reconstructs cached bounds.",
+    "zero host interval, zero iterations, invalid/nonpositive solve thickness no-op, zero mass prescribed behavior, nonmanifold no bending, exact coincident fallback and budget exhaustion returning a contact are explicit distinct policies. This audit does not deem them intrinsically defective.",
+    "No unsupported duplicate hash-collision correction claim: the shader checks the exact neighboring cell even when buckets collide.",
+    "The shader has a return for small bend magnitude even with its documented nonzero rest parameter. Actual ShellMesh rest producer is measured from current geometry; whether a supported crease with zero current magnitude is meaningful is unresolved. No claim of ordinary bad crease behavior.",
+    "GPU fixed-point overflow, float-to-integer edge semantics outside the small in-range example, buffer initialization and atomic backend behavior remain native-contract questions; no shader execution or runtime proof.",
+    "All source tests were read as text only. No validity assertion follows from their presence. The historical personal reads at source boundaries and incomplete tail qualifications below are not transferred across lenses."
+  ],
+  "historical_provenance": {
+    "old_059_l11": "READ-L11-376 records fresh original ranges 2343 1–73, 2344 1–309, 2345 1–235 of EOF427, and 2346 1–361, with registrations ADLER-1208–1211. A separate registered within-scope extension ADLER-1212 covers topology 236–427, with zero new ordered source identity/frontier credit. Preserve original attribution, scopes and revision.",
+    "old_059_l12": "READ-L12-773 attributes broad_phase full 1–73 to /root/lens12_frontier, registered PAR-L12-311. READ-L12-774 attributes solve full 1–309, topology only 1–235 of EOF427, and wgsl full 1–361 to that subagent after PAR-L12-312/313/314. Root adoption has root_personal_rereads=[]; do not credit the subagent for unread topology tail or root for those bodies.",
+    "old_l2_l3": "L2-SHELL-TOPOLOGY-NATIVE-MASS-CLASSIFICATION used topology 1–235 inherited same-lens rig supplier plus root fresh 236–427, not an original root full personal read. REVIEW-L3-SHELL-TOPOLOGY-INDEX-AND-DENSITY-ADMISSION records root personal full 1–427 at 6533 and an independently qualified later e2755a7 same-hash scope revisit. These remain their own historical records and are not 3821 or 95e evidence.",
+    "old_774": "rig additional-sources zero-based rows 92 broad_phase 1–73, 76 solve 1–309, 228 topology 1–235 only, 209 wgsl 1–361; producer RIG-PPS-023 covers broad_phase, solve and wgsl; RIG-PPS-028 covers topology only 1–235. Exact originals and different path-normalized exports are archived and hash-checked separately. No assignment transfer to product ownership or whole-lens clearance.",
+    "recovery_limit": "Checkpoint 3821 original ledger and queue remain missing. Complete historical 059 queue and registry are preserved as transport-compressed original bytes; subset JSON records are reconstructed navigation only. No historical adoption/status is silently promoted."
+  },
+  "evidence_paths": [
+    "registration.json",
+    "read-receipt.json",
+    "support-registration.json",
+    "support-read-receipt.json",
+    "prior-support-index.json",
+    "git-proofs.json",
+    "historical-registry-subset.json",
+    "historical-queue-subset.json",
+    "historical-059-index.json",
+    "older-774/INDEX.json"
+  ],
+  "work_restriction": "Only source inspection, archival, hash/Git membership and evidence-only verification; no product repair, build, test, fixture, runtime probe, simulation, shader compilation or execution, or product validation."
+}

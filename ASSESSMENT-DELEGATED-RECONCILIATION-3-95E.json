@@ -1,0 +1,929 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-3.json",
+  "source_roles": "ASSESSMENT-DELEGATED-SOURCE-ROLES-3.json",
+  "delegated_observations": [
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/math-units-report.json",
+      "finding": {
+        "id": "REVIEW-HAIR-SHAPE-KNOBS-NAN-001",
+        "classification": "existing current conditional candidate; not a new unique historical finding",
+        "source": [
+          "crates/adventuresim-character-creator/src/hair/shape.rs:68-115,136-202,205-227",
+          "crates/fabelgeist-math/src/units.rs:3-6,10-20,52-68",
+          "prior-current/ASSESSMENT-L01-HAIR-ADMISSION-95E.json"
+        ],
+        "trace": "HairShape serde conversion checks documented ranges, while public ShapeKnobs and with_knobs clamp programmatic input; the prior current assessment preserves source evidence for NaN surviving the clamp and later propagation into a Metres value. Metres faithfully accepts it under its declared unit-only policy; it is not the first violated invariant. Actual UI NaN production, player effect and all aliases remain unestablished.",
+        "history": "Related 059 ledger /segovb_continuation/lens13/delegated_connected_contracts_pending_alias/193 is a connected contract, not a verified queue index; PL13-110 shape-admission numeric inventory is related. The separate PL13-110-HEAD-PLACEMENT-INVERTIBILITY candidate is not this finding. Prior/current provenance and original revision remain unchanged.",
+        "future_repair_direction": "After audit and separate implementation authorization, establish finite policy at the real programmatic HairShape admission while preserving admitted finite values and intentional signed quantities. Scope and acceptance remain central decisions.",
+        "repair": "not started",
+        "validation": "not performed"
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/math-units-report.json",
+      "finding": {
+        "id": "DELEGATE-HAIR-OPERATION-EXISTING-OWNERS",
+        "classification": "earlier delegated source migration candidate, not an additional unique finding",
+        "source": [
+          "reference/prior-hair-ops-report.json",
+          "crates/fabelgeist-hair/src/look/groom.rs:13-74,86-130,135-193",
+          "crates/fabelgeist-math/src/units.rs:3-6,52-120"
+        ],
+        "trace": "Typed Look values are extracted to primitive fields retained by hair Op records before CPU/GPU computation. Some scalar extraction at actual numerical or external boundary is legitimate; compare each retained field and connected native consumer.",
+        "future_repair_direction": "If central reconciliation accepts a migration, retain fitted existing units through composite state without inventing global numeric bounds or changing arithmetic order, random seeds or native behavior. Native policies and all operation roles remain open.",
+        "repair": "not started",
+        "validation": "not performed"
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/math-units-report.json",
+      "finding": {
+        "id": "OBS-MATH-FACADE-DEPENDENCY-WORDING",
+        "classification": "bounded wording discrepancy, previously noticed by historical Lens12 delegate761; not automatically a unique issue",
+        "source": [
+          "crates/fabelgeist-math/src/lib.rs:3-5",
+          "crates/fabelgeist-math/Cargo.toml:8-14",
+          "historical/parallel-l12-20261029/PROPOSAL-L12-761.json"
+        ],
+        "trace": "Facade says it is kept free of dependencies; manifest directly declares unconditional serde and bytemuck plus optional wgpu and empty default features. If the intended claim is freedom from particular engine or application dependencies, prose should say so. No dependency resolution or enabled feature behavior was examined.",
+        "future_repair_direction": "Clarify the wording after deciding the intended claim; do not infer that required crates should be removed.",
+        "repair": "not started",
+        "validation": "not performed"
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/mhr-layout-report.json",
+      "finding": {
+        "id": "public-parameter-column-membership",
+        "classification": "A source-level public API membership weakness; earlier cross-table risk already observed. No independent unique finding count asserted.",
+        "relationships": [
+          "Adler READ-L11-372 role2323 explicitly noted foreign table columns in the historical matrix",
+          "Original Lens12 delegate READ-L12-767 role2323 observed that a column from another table is not tied to a specific transform",
+          "059 q2410 and q2414 retain narrower owner/test-source qualifications; exact cross-family aliases remain open"
+        ],
+        "trace": "ModelParameterTable<T> and ModelParameterColumn are public reexports. push returns an ordinal; resize can shrink that same table; Index and IndexMut immediately use the stored ordinal as a Vec index. A column obtained from a table then retained after shrinking that table to zero is no longer a member. ModelParameterRow::get checks numeric length, but a same-index column obtained from a different transform can still select an unrelated coefficient because the ordinal carries no transform identity.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/lib.rs",
+            "lines": [
+              [
+                30,
+                43
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model_def.rs",
+            "lines": [
+              [
+                10,
+                14
+              ],
+              [
+                93,
+                106
+              ],
+              [
+                128,
+                135
+              ],
+              [
+                378,
+                388
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model_def/layout.rs",
+            "lines": [
+              [
+                20,
+                26
+              ],
+              [
+                40,
+                50
+              ],
+              [
+                206,
+                224
+              ],
+              [
+                231,
+                239
+              ],
+              [
+                248,
+                269
+              ],
+              [
+                272,
+                296
+              ]
+            ]
+          }
+        ],
+        "limits": "These are representable public inputs and symbolic outcomes, not an observed caller, actual constructed fixture or runtime panic. Normal parse_parameter_sets resolves a name from the same transform and indexes a table allocated to that transform's count, so no ordinary-parser mismatch is established. Whether cross-instance misuse merits an owning view/API change requires caller and policy review.",
+        "future_repair": "Provide checked table access for unproven/stale ordinals and an owning name/column iteration or equivalent source-aware selection where actual cross-transform association matters. Preserve normal insertion order and first-duplicate policy; do not impose unnecessary instance branding."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/mhr-layout-report.json",
+      "finding": {
+        "id": "public-parent-cycle",
+        "classification": "Existing historical source finding reconnected to public current API and ordinary producer.",
+        "relationships": [
+          "059 q433 SEGOVB-L12-CONNECTED-MHR-FK-CYCLE-ADMISSION",
+          "Existing current REVIEW-FBX-MHR-CYCLIC-JOINT-GRAPH-95E concerns a distinct malformed FBX source cycle"
+        ],
+        "trace": "The exported skel_state::prefix_multiplication_levels accepts a public RigJointTable<Option<RigJointOrdinal>>. With one element whose parent is ordinal zero, its ancestor walk repeatedly selects itself and appends to a Vec, with no cycle check. The ordinary SkeletonBuilder appends a parent before its children and, for a terminating visit, supplies prior ordinals; an arbitrary public table can bypass that producer.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/lib.rs",
+            "lines": [
+              [
+                38,
+                43
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/skel_state.rs",
+            "lines": [
+              [
+                123,
+                138
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-rig/src/table.rs",
+            "lines": [
+              [
+                8,
+                14
+              ],
+              [
+                44,
+                55
+              ],
+              [
+                88,
+                101
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/character/skeleton.rs",
+            "lines": [
+              [
+                69,
+                70
+              ],
+              [
+                101,
+                119
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model/rig.rs",
+            "lines": [
+              [
+                8,
+                13
+              ]
+            ]
+          }
+        ],
+        "limits": "Static representable case only: no parent table was constructed or algorithm run. A cyclic FBX graph can fail earlier in recursive builder traversal and is a different route; duplicate graph identities and actual callers remain separately open.",
+        "future_repair": "Admit acyclic parent relationships at the actual public topology boundary or make invalid topology unrepresentable, with bounded error handling. Preserve valid roots, branches and ordinal order."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/mhr-layout-report.json",
+      "finding": {
+        "id": "public-parent-membership",
+        "classification": "Existing historical source finding reconnected to public current API and receiving table.",
+        "relationships": [
+          "059 q434 SEGOVB-L12-CONNECTED-MHR-FK-PARENT-MEMBERSHIP-ADMISSION",
+          "059 q433 is related cycle admission but a distinct malformed topology"
+        ],
+        "trace": "For a one-row parent table containing Some(ordinal 1), the walk first obtains the parent then indexes parents[1] on the next iteration. RigJointOrdinal is a role, not proof of membership, and RigJointTable Index uses unchecked Vec access for an unproven ordinal; its get API is available for checked membership.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/skel_state.rs",
+            "lines": [
+              [
+                123,
+                135
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-rig/src/table.rs",
+            "lines": [
+              [
+                44,
+                55
+              ],
+              [
+                94,
+                101
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/character/skeleton.rs",
+            "lines": [
+              [
+                101,
+                119
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/lib.rs",
+            "lines": [
+              [
+                38,
+                43
+              ]
+            ]
+          }
+        ],
+        "limits": "Symbolic input only; no table or runtime operation executed. Normal terminating builder creates each child after its own parent and does not establish this failure for ordinary imported data.",
+        "future_repair": "Check each parent against the exact receiving table before ancestor traversal or admit validated topology, preserving the parent/child index interpretation."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/mhr-layout-report.json",
+      "finding": {
+        "id": "prefix-first-empty-level",
+        "classification": "Rejected suspicion by source and mathematical reasoning; original delegate had already recorded same qualification.",
+        "relationships": [
+          "Original READ-L12-768 delegate role2325 explicitly explained all intermediate depths of a tree exist"
+        ],
+        "trace": "For any finite acyclic parent forest with maximum depth D, every integer depth 0 through D appears along a maximum-depth chain. For each bit level l with 2^l <= D there is therefore a node at depth 2^l whose depth has bit l set; the collected source list cannot first become empty while a higher bit remains. When the bit is set, the selected ancestor index is between 0 and depth−1.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/skel_state.rs",
+            "lines": [
+              [
+                123,
+                157
+              ]
+            ]
+          }
+        ],
+        "limits": "Proof assumes finite acyclic, in-range parent topology; q433/q434 concern inputs that violate that premise. No implementation or simulation was executed.",
+        "future_repair": "No fix for the first-empty break under these assumptions; preserve valid scan behavior when addressing topology admission."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/mhr-layout-report.json",
+      "finding": {
+        "id": "layout-matrix-historical-guards",
+        "classification": "Positive current source qualification for previously historical failures.",
+        "relationships": [
+          "059 q431 SEGOVB-L12-CONNECTED-MHR-MATRIX-SHRINK-EXTENT-ADMISSION",
+          "059 q432 SEGOVB-L12-CONNECTED-MHR-MATRIX-TRANSPOSE-EXTENT-ADMISSION",
+          "Earlier independent model-family current support trace"
+        ],
+        "trace": "The 6533 layout had a public ParameterMatrix with unchecked sizes and direct public shrink/transpose calls. At 95e it resides in a pub(crate) module; zeros admits checked row and tensor extents, append_columns rejects a width smaller than the previous width, and tensor_transpose rejects a prefix larger than the matrix.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model_def/layout.rs",
+            "lines": [
+              [
+                8,
+                16
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model_def/layout/matrix.rs",
+            "lines": [
+              [
+                11,
+                17
+              ],
+              [
+                40,
+                54
+              ],
+              [
+                103,
+                130
+              ]
+            ]
+          }
+        ],
+        "limits": "Only those specific source guards and visibility were checked, not allocation failure, all consumers, complete repair, historical q closure or runtime behavior. Historical and current test source were read but not run.",
+        "future_repair": "Retain checked construction and typed errors while centrally reconciling original identities and residual ordinal/instance associations."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/mhr-layout-report.json",
+      "finding": {
+        "id": "public-skeleton-tensor-shape",
+        "classification": "Original delegated reviewer's public-input/shape question connected to current exports; open policy, not proven ordinary-path failure.",
+        "relationships": [
+          "Original READ-L12-768 role2325 explicitly noted normalized quaternion and tensor channel/shape preconditions",
+          "Related q575 Q-L11-413facc1ac8d60c72293 retains actual Character/transform/prefix/native Burn ownership pending"
+        ],
+        "trace": "Public tensor helpers narrow quaternion channels 0–3, Euler channels 0–2 and skeleton-state channels 0–7; rank-3 Tensor alone does not encode the channel extent or normalized-quaternion precondition. Mhr normally reshapes joint parameters to seven channels and constructs transform state from its pose/scale path before applying helpers.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/lib.rs",
+            "lines": [
+              [
+                38,
+                43
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/skel_state.rs",
+            "lines": [
+              [
+                21,
+                28
+              ],
+              [
+                31,
+                44
+              ],
+              [
+                58,
+                62
+              ],
+              [
+                75,
+                81
+              ],
+              [
+                97,
+                120
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "lines": [
+              [
+                373,
+                392
+              ]
+            ]
+          }
+        ],
+        "limits": "No malformed tensor, backend or native validation was constructed or executed. Documentation already states intended channel layouts and normalized input, so policy must decide whether direct callers require checked admission; do not label canonical model construction a demonstrated failure.",
+        "future_repair": "Assess a checked public aggregate or explicit fallible boundary if untrusted direct callers are supported; preserve valid tensor/native math and documented units."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/mhr-layout-report.json",
+      "finding": {
+        "id": "layout-test-source-contract",
+        "classification": "Historical and current test-source evidence; no test results.",
+        "relationships": [
+          "059 q2414 REVIEW-L11-MHR-PARAMETER-TABLE-TEST-OWNER",
+          "059 q169 ADLER-L11-MHR-EXPRESSION-OFFSETS",
+          "059 q168 ADLER-L11-MHR-LIMIT-ADMISSION"
+        ],
+        "trace": "Current test source asserts joint/parameter ordering, scaled coefficient references, duplicate coefficient accumulation, one bare constant, valid set/limit handling, and appended zero columns. Compared with 6533, assertions are adapted to source-owned row access rather than raw joint row construction. A test of a single constant and a separate test of coefficient-only referenced rows do not establish multiple-constant or scaled-reference-offset behavior.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model_def/tests.rs",
+            "lines": [
+              [
+                18,
+                81
+              ],
+              [
+                83,
+                126
+              ]
+            ]
+          }
+        ],
+        "limits": "These are source assertions only, not executed tests or proof of behavior. No fixture was constructed or changed. Historical 143-line and current 126-line test bodies remain separately archived.",
+        "future_repair": "For later authorized acceptance, preserve authored intended ordering and assess the identified unsupported expressions and invalid limit cases through the proper review workflow."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/physics-contact-report.json",
+      "finding": {
+        "id": "ADLER-L11-BOX-MEDIAL-NORMAL-PARITY",
+        "kind": "recovered historical finding, newly assessed",
+        "historical_relationship": "059 queue index 174 and original Adler READ-L11-373; historical finding not a new unique count.",
+        "evidence": [
+          "crates/fabelgeist-physics/src/wgsl.rs:77-98,164-193",
+          "crates/fabelgeist-physics/src/collider.rs:172-195",
+          "crates/fabelgeist-math/src/vector/vec3.rs:187-211",
+          "native-sign-contracts.json"
+        ],
+        "condition_and_reasoning": "For identity rotation and box center local (0,0,0), distinct half-extents (1,2,3), the nearest face selects x; WGSL sign(0)=0 makes the inside normal zero, while Rust signum of either signed zero gives a unit signed x. For a movable particle with previous=position, the analytic response consumes this zero normal and produces no displacement even for positive separation.",
+        "limits": "This is a source plus official language-contract inference, not executed host/device behavior. The viewed Rust standard-library docs were 1.99.1, not proven to be the pinned project compiler. Signed-zero and tied-face selection policy, actual producers, and device conformance remain open.",
+        "future_repair_and_acceptance": "Choose one deterministic finite outward normal for interior medial-axis points and preserve it across CPU/GPU implementations, including signed zero and tied faces; later check actual host and shader results for center, axes and neighboring points when validation is authorized."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/physics-contact-report.json",
+      "finding": {
+        "id": "SEGOVB-L12-CONNECTED-PHYSICS-COLLIDER-NATIVE-COUNT-ADMISSION",
+        "kind": "recovered historical finding, conditional new source reasoning",
+        "historical_relationship": "059 queue index 479; /root/lens12_frontier historical personal connected read in READ-L12-CONNECTED-TEAM-006. No alias claimed with q480 or buffer q157.",
+        "evidence": [
+          "crates/fabelgeist-physics/src/contact/count.rs:18-45",
+          "crates/fabelgeist-physics/src/contact.rs:71-89",
+          "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs:127-150",
+          "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs:1-58"
+        ],
+        "condition_and_reasoning": "On a 64-bit host, a symbolic host count 2^32+1 narrows to 1 in fit and is treated as retained against initial capacity 16. An upload is passed to Buffer::write, whose Rust body has no length check and calls the native queue path; bind also narrows the count. Separately, count 2^31+1 triggers growth, rounds to 2^32 then narrows to 0. These are arithmetic inferences on representable integer values only; no vector was allocated.",
+        "limits": "Ordinary producers, actual memory and device limits, native queue validation/outcome, and feasible product reachability were not established. The host example does not claim a successful out-of-bounds GPU write. q157 ADLER-L11-BUFFER-WRITE-EXTENT-ADMISSION is a connected shared boundary, not proof of alias or replacement for count admission.",
+        "future_repair_and_acceptance": "Carry full cardinality to a checked native count/capacity boundary, reject unsupported sizes before state mutation or upload, and admit every upload against its live logical byte extent. Later verify boundary values and one shared admitted count through allocation, bind and dispatch."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/physics-contact-report.json",
+      "finding": {
+        "id": "SEGOVB-L12-CONNECTED-PHYSICS-COLLIDER-CAPACITY-ERROR-STATE",
+        "kind": "historical hypothesis with newly narrowed outcome",
+        "historical_relationship": "059 queue index 480, preserve its original larger-than-old-buffer hypothetical and open reconciliation; related to q479, not automatically identical.",
+        "evidence": [
+          "crates/fabelgeist-physics/src/contact.rs:71-89",
+          "crates/fabelgeist-physics/src/contact/count.rs:25-45",
+          "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs:22-37",
+          "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs:119-133"
+        ],
+        "condition_and_reasoning": "Capacity is assigned before Buffer::new returns. For the symbolic 64-bit count 2^31+1, capacity rounds to 2^32 and truncates to zero; Buffer::new explicitly returns Err for zero bytes before its native allocation. The previous list and buffer remain, but the stored capacity becomes zero, an underestimate.",
+        "limits": "The inspected Buffer::new contains only the explicit zero-byte returned-Err branch; native allocate_native returns a buffer, not a Result. No assertion is made about panic, uncaptured device errors, or other native failures. This examined Err path does not establish the earlier hypothetical larger-than-live capacity or that an underestimate causes a later overrun.",
+        "future_repair_and_acceptance": "Compute and validate new capacity and allocation together, then commit buffer and associated capacity transactionally. Once validation is authorized, check failure leaves old aggregate coherent as well as successful growth."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/physics-contact-report.json",
+      "finding": {
+        "id": "physics-contact-capsule-nonzero-short-segment",
+        "kind": "newly assessed conditional candidate; alias unconfirmed",
+        "historical_relationship": "READ-L12-769 and Adler373 described a truly degenerate capsule as a deliberate sphere policy. This finite nonzero segment is a distinct conditional question; do not relabel that original nonfinding.",
+        "evidence": [
+          "crates/fabelgeist-physics/src/collider.rs:27-33,73-88,153-170",
+          "crates/fabelgeist-physics/src/wgsl.rs:58-74,179-190",
+          "crates/AGENTS.md: numerical-presence and owned-error-budget guidance"
+        ],
+        "condition_and_reasoning": "For a=(0,0,0), b=(0,2^-24,0), radius 2^-28 and point b, with zero collider thickness and particle radius, the exactly representable nonzero squared segment length 2^-48 is below 1e-12. Both source branches set t=0. The host formula computes 2^-24-2^-28=15*2^-28 positive while the geometric segment-swept capsule distance at b is -2^-28. The analytic shader thus has negative penetration in the mathematical model and omits correction.",
+        "limits": "This is symbolic static arithmetic; no capsule, fixture or shader was executed. GPU floating operation accuracy/conformance, actual input scale, producer reachability and supported minimum geometry scale remain unknown. Zero-axis sphere semantics remain legitimate.",
+        "future_repair_and_acceptance": "Retain an explicit true-zero-segment mode; establish a justified supported scale and robust nearest-point computation for nonzero segments, with an owned error budget rather than an unmotivated cutoff. Later compare host and shader against geometric reference cases around the supported scale and endpoint."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/physics-contact-report.json",
+      "finding": {
+        "id": "physics-contact-closed-mesh-swept-candidates",
+        "kind": "newly assessed conditional candidate; acceptance policy open",
+        "historical_relationship": "Adler READ-L11-373 expressly warned swept AABB is not proof of continuous trajectory handling and left collision trajectory acceptance pending. This further static example does not retroactively claim that Adler proved a runtime tunneling defect.",
+        "evidence": [
+          "crates/fabelgeist-physics/src/wgsl.rs:284-310,325-369",
+          "crates/fabelgeist-bvh/src/gpu/shaders.rs:433-480"
+        ],
+        "condition_and_reasoning": "Take a symbolic closed, outward-wound cube with faces at z=+1 and -1, shell 0<thickness<1, and a movable point whose previous position is (0.25,0,+2) and final position is (0.25,0,-2). Assume a valid shallow BVH returns both intersecting face triangles. The swept box includes them, but nearest to the final position is the back face at z=-1; its outward normal is -z, the side is positive, distance is 1 >= thickness, and the shader returns without correction although the path crossed the cube.",
+        "limits": "No fixture, GPU execution, simulated trajectory, practical substep displacement, or BVH instance was created. Deep-tree stack behavior is outside this example. The intended supported collision trajectory and producer displacement bounds need a design decision.",
+        "future_repair_and_acceptance": "Define the supported per-substep traversal and contact policy; if crossings must be stopped, retain path/entry-side evidence or a bounded continuous contact decision rather than choosing solely the nearest final surface. Later check outside-to-outside, inside, moving-surface and thin-shell cases with valid BVH candidates."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/physics-contact-report.json",
+      "finding": {
+        "id": "Q-L12-ea05afd0207ea4a3a80d",
+        "kind": "recovered question, bounded current analysis",
+        "historical_relationship": "059 queue index 1853 and READ-L12-769; no change to original resolution or unique count.",
+        "evidence": [
+          "crates/fabelgeist-physics/src/contact.rs:151-203",
+          "crates/fabelgeist-xpbd/src/wgsl.rs:113-115,165-166",
+          "crates/fabelgeist-garment-fit/src/lib.rs:375-485"
+        ],
+        "condition_and_reasoning": "record_push_out records positions-to-previous even if mesh is None; record_mesh then does nothing. It also bypasses enabled, consistently with its separately documented static-recovery role. The copy does not directly write velocity. If submitted between prediction and finalize, the previous-position change could influence subsequent final velocity.",
+        "limits": "Scheduling and callers are not sufficiently established for an ordinary reset or product defect. A source path-only search found the API in its owner and physics test source, not a proof there are no indirect/external consumers. Fit host clear_body is a separate path.",
+        "future_repair_and_acceptance": "Set explicit no-mesh and disabled recovery semantics and scheduling ownership before changing anything. Later exercise no-mesh, disabled and intended recovery timing without changing ordinary stepping semantics."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/physics-contact-report.json",
+      "finding": {
+        "id": "SEGOVB-L12-PHYSICS-COLLIDER-UPDATE-COUNT-REASON",
+        "kind": "recovered finding/question, not a new unique count",
+        "historical_relationship": "059 queue index 435. Separate semantic diagnostics concern from cardinality narrowing and shared buffer admission.",
+        "evidence": [
+          "crates/fabelgeist-physics/src/contact.rs:92-105",
+          "crates/fabelgeist-physics/src/contact/count.rs:5-16"
+        ],
+        "condition_and_reasoning": "update_colliders compares complete host counts and formats mismatch to prose, losing an explicit structured held/provided error value at that boundary.",
+        "limits": "No caller failure or requirement to parse prose has been established; owner and error policy require central reconciliation.",
+        "future_repair_and_acceptance": "If typed recovery is desired, preserve held/provided count and native causes in a domain-owned structured error, while keeping useful diagnostics."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/physics-contact-report.json",
+      "finding": {
+        "id": "physics-mesh-post-admission-resource-coherence",
+        "kind": "open representability question",
+        "historical_relationship": "059 queue index 477 is initial mesh-triangle-index diagnostic ownership, which is related but not an automatic alias for later public resource replacement.",
+        "evidence": [
+          "crates/fabelgeist-physics/src/mesh.rs:21-71,95-152"
+        ],
+        "condition_and_reasoning": "MeshCollider::new rejects empty triangles and indices outside positions at construction. Positions, triangles, bounds, bvh and surface are exposed publicly while counts are private, so post-admission replacement can represent stale resource/count/BVH relationships.",
+        "limits": "No actual caller, stale device buffer or failure was demonstrated; write_positions asks callers to refit as an explicit contract. Native resource identity and intended public mutation policy remain open.",
+        "future_repair_and_acceptance": "Trace intended writers and define aggregate ownership, refit and resource/count synchronization. Later verify any admitted replacement maintains required geometry, counts and BVH identity."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/shell-contact-report.json",
+      "finding": {
+        "id": "SHELL-CONTACT-FIXED-SURFACE-FLAG",
+        "status": "source-established behavior; intended coupling remains an owner policy question",
+        "producer_to_consumer": "Public Shell::set_collision_surface installs obstacle positions/faces/clearance solely into private SurfaceContacts. In positive-interval interleaved stepping, project_host_contacts calls that entire solver only if public self_collision.enabled is true. Therefore an installed fixed triangle-surface route is skipped when that self-collision flag is false.",
+        "conditions": "Installed fixed surface, a positive host interval and iterations, self_collision.enabled false. Separate Collisions GPU/outer-layer routes may be configured and remain available; this trace does not claim all collision is absent or decide whether coupling is intended.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/shell.rs",
+            "lines": [
+              [
+                19,
+                30
+              ],
+              [
+                33,
+                48
+              ],
+              [
+                147,
+                175
+              ],
+              [
+                253,
+                290
+              ],
+              [
+                344,
+                370
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+            "lines": [
+              [
+                68,
+                86
+              ],
+              [
+                95,
+                102
+              ],
+              [
+                123,
+                140
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/selfcollision.rs",
+            "lines": [
+              [
+                19,
+                48
+              ],
+              [
+                160,
+                174
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Q-L12-a6453dca0eb01ea0a5da already records no-self-collision as a legitimate mode and preserves the host schedule; the interaction with separately installed fixed triangles is a specific conditional owner/policy question, not an automatic distinct global finding. Earlier RIG-PPS-023 traces the static clearance producer through Shell/SurfaceContacts. No source change in the three ordered bodies.",
+        "future_repair_direction": "Decide explicit authority for fixed obstacle processing versus cloth self-collision; if independent, route/control the fixed-surface path separately while preserving zero host interval, optional outer layer, prescribed masses, and separately configured GPU colliders. Verify caller expectations later."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/shell-contact-report.json",
+      "finding": {
+        "id": "SHELL-CONTACT-STATIC-MASS-EXTENT",
+        "status": "source-established conditional aggregate admission gap",
+        "producer_to_consumer": "With nonempty static_positions, public solve copies the caller inverse masses, appends static positions, then resizes the mass vector to the combined length using PINNED before solve_inner asserts lengths. A missing dynamic mass is padded as prescribed; extra supplied masses up to the obstacle count are interpreted as dynamic masses for static vertices, and still more are truncated. Thus the inner equal-length check sees the transformed vector rather than the input mismatch.",
+        "conditions": "Malformed direct-public solve call with inverse_masses length unequal to dynamic positions length and at least one static position; actual input validity and impact depend on caller. Dynamic entries supplied by the ordinary ShellMesh construction route are already length-checked. No runtime or native-buffer mismatch claimed.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+            "lines": [
+              [
+                15,
+                21
+              ],
+              [
+                68,
+                86
+              ],
+              [
+                157,
+                190
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/surface_contact/solve.rs",
+            "lines": [
+              [
+                16,
+                34
+              ],
+              [
+                50,
+                57
+              ],
+              [
+                74,
+                96
+              ],
+              [
+                238,
+                276
+              ],
+              [
+                300,
+                305
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/mesh.rs",
+            "lines": [
+              [
+                85,
+                115
+              ],
+              [
+                131,
+                133
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/shell.rs",
+            "lines": [
+              [
+                75,
+                89
+              ],
+              [
+                147,
+                164
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Related to SEGOVB-L12-CONNECTED-SURFACE-SOLVE-MASS-EXTENT-ADMISSION, READ-L12-774 and Q-L12-ecc1905cee4fdbdbbfa9: these record the inner equal-length assertion. The pre-assert static-surface resize is a distinct first-failure facet, not proof of an unrelated canonical owner; reconcile centrally rather than duplicate automatically.",
+        "future_repair_direction": "At the public dynamic aggregate boundary, check positions, previous, masses, retained topology and representable static extent before appending exactly prescribed static masses; preserve intentional static zero mass, ordinary valid mode, and direct API invalid-input policy. Check all producers and error ownership later."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/shell-contact-report.json",
+      "finding": {
+        "id": "SHELL-TOPOLOGY-EXPOSED-AFTER-ADMISSION",
+        "status": "source-established conditional public-state divergence, historically recorded",
+        "producer_to_consumer": "Shell::new validates mesh then clones triangles into both public Shell.triangles and private SurfaceContacts. Public mutation or replacing public particles can break their relation; read_mesh directly indexes read-back positions with current public triangle indices, and outer-layer projection consumes that public list while surface contacts retain original faces.",
+        "conditions": "After successful construction, caller mutates/replaces public state. Out-of-range triangle can panic if the readback succeeds; a valid changed list can be inconsistent with retained solver topology. No unsupported claim that canonical constructor admits invalid indices.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/shell.rs",
+            "lines": [
+              [
+                33,
+                52
+              ],
+              [
+                75,
+                89
+              ],
+              [
+                147,
+                164
+              ],
+              [
+                303,
+                330
+              ],
+              [
+                344,
+                367
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+            "lines": [
+              [
+                15,
+                42
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/mesh.rs",
+            "lines": [
+              [
+                85,
+                115
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Explicitly recorded in READ-L12-772 and Q-L12-a6453dca0eb01ea0a5da. Our bounded read supplies the previously requested actual mesh validator: its initial face and seam membership checks protect Shell::new. Preserve history and connect this retained-state mutation facet, rather than inventing a duplicate.",
+        "future_repair_direction": "Assign one authoritative admitted topology/particle extent or a coordinated mutation operation that rebuilds all affected retained consumers; preserve mesh export and collision behavior for valid topology."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/shell-contact-report.json",
+      "finding": {
+        "id": "SHELL-CCD-NONZERO-SPEED-CUTOFF",
+        "status": "source-level mathematical counterexample to internal sweep contract; actual end-to-end impact remains open",
+        "producer_to_consumer": "Internal CCD first samples initial separation, then returns None when maximum relative displacement is at most 1e-15, even when nonzero movement closes the initial clearance gap. All inputs and clearance in the example below are finite f32; ShellMaterial permits any positive finite thickness, and the surface solve admits positive finite thickness.",
+        "symbolic_example": "For a stationary triangle with vertices (-1,-1,0), (1,-1,0), (0,1,0), move its interior point vertically from z=3·2^-53 to z=−3·2^-53. Let clearance be 2·2^-53 (thickness 4·2^-53). The initial distance is 3·2^-53 > clearance, relative travel is 6·2^-53 < 1e-15, and the point passes through z=0; the stated branch returns None. This is mathematical source reasoning, not a constructed/run fixture.",
+        "conditions": "Very small representable world-space scale, unrestricted by the examined local finite/positive admission. It establishes a missed private sweep event, not an observed missed surface collision: resolve deliberately falls back to end proximity after None and can still project. Actual allowed physical scale, broad-phase and full-consumer policy require further review.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/ccd.rs",
+            "lines": [
+              [
+                1,
+                6
+              ],
+              [
+                64,
+                79
+              ],
+              [
+                129,
+                145
+              ],
+              [
+                175,
+                212
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/surface_contact/solve.rs",
+            "lines": [
+              [
+                25,
+                34
+              ],
+              [
+                238,
+                264
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/lib.rs",
+            "lines": [
+              [
+                18,
+                48
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Q-L12-a6453dca0eb01ea0a5da names exact zero speed as intentional and says no numerical proof was established. A nonzero movement under the hard cutoff is not the same as exact zero; do not overwrite that historical claim or assert a historical reviewer ran this example. Earlier RIG-PPS-023 preserved CCD safe-budget behavior and precision requirements.",
+        "future_repair_direction": "Either prove and enforce an admitted scale-relative/no-crossing speed bound tied to the actual gap, or maintain conservative sweep behavior for any representable nonzero displacement; preserve true zero speed, finite budgets returning Some(last safe contact), degenerate geometry and proximity policy."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/shell-contact-report.json",
+      "finding": {
+        "id": "SHELL-CCD-NEAR-PARALLEL-PROXIMITY",
+        "status": "source-level conditional numerical under-resolution; geometric-domain policy open",
+        "producer_to_consumer": "For nonzero nearly parallel edges, the determinant threshold forces the first segment parameter s=0. That endpoint-only selection can overestimate the true separation when the closest points lie inside both segments. The resulting estimate is also the CCD initial distance.",
+        "symbolic_example": "Let e=2^-48, z=2^-60; edges A=(0,0,0) to B=(1,0,0) and C=(0,-e/2,z) to D=(1,e/2,z). All components are f32-representable. Their true closest distance is z at their midpoints. The source determinant is e²=2^-96 < 1e-28·aa·cc with aa≈cc≈1, so it sets s=0 and obtains separation approximately e/2, much larger than z. With stationary edges and clearance 2^-55, the sample exceeds clearance and the zero-speed branch returns None, though true separation is below clearance. Mathematical reasoning only; no fixture or numeric program was run.",
+        "conditions": "Extremely near-parallel nondegenerate geometry; no general claim that a physically supported garment can or does reach this regime. Geometric centerlines do not intersect, but configured contact shells overlap initially; the SurfaceContacts untangled-start policy may restrict intended use. The endpoint fallback and coupled contacts need separate consumer proof.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/ccd.rs",
+            "lines": [
+              [
+                100,
+                126
+              ],
+              [
+                129,
+                145
+              ],
+              [
+                175,
+                212
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+            "lines": [
+              [
+                157,
+                161
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/surface_contact/solve.rs",
+            "lines": [
+              [
+                238,
+                264
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Older Q-L12-a6453dca0eb01ea0a5da preserves explicit degenerate-edge and finite-fallback modes but does not prove nearest-point accuracy for nonzero near-parallel edges; no whole-family conclusion or evidence transfer.",
+        "future_repair_direction": "Prove or constrain an acceptable scale/angle/contact error bound and ensure an overestimate cannot invalidate conservative advancement; preserve legitimate degenerate and parallel cases."
+      }
+    }
+  ],
+  "central_decisions": [
+    "Math unit wrappers expressly own dimensions without finite or range policy; UnitInterval, SignedLength and PositiveLength have distinct refined contracts. Do not tighten generic Metres or Ratio merely because a consumer needs stronger admission.",
+    "The math report’s q193 refers to recovered ledger pointer /segovb_continuation/lens13/delegated_connected_contracts_pending_alias/193, not verified queue entry193. PL13-110 shape-admission inventory and PL13-110-HEAD-PLACEMENT-INVERTIBILITY are distinct; retain each provenance.",
+    "The projection FOV=4 example refines q1267 as an unsupported-input policy question; q53 has a different negative-profile-distance predicate and is not declared an alias.",
+    "q431/q432 historical direct-public matrix failure remains guarded at 95e by private checked matrix paths; public stale/foreign model columns are a separate membership question. q433/q434 cycle and out-of-range parent identities remain distinct from malformed FBX traversal.",
+    "q480’s inspected zero-capacity error path leaves the old buffer and list with underreported capacity: it does not establish the earlier hypothetical overreported capacity, a later overflow, or a native allocation error.",
+    "Physics WGSL original Lens12 delegate personally read tail386–413 as separate connected support, although its frontier receipt covered only 1–385. Both scopes and zero ordered credit are retained.",
+    "A fixed shell surface is skipped in the particular disabled-self-collision host route; other collider paths and intended coupling remain open. Static surface preprocessing of a malformed mass extent is a facet of q444, not a duplicate by default. ShellMesh initial validation protects normal constructor face/seam membership and empty mesh before later checks.",
+    "Finite tiny-capsule, CCD speed and near-parallel examples are symbolic, scale-conditional questions; the latter two do not establish end-to-end missed surface contact because proximity fallback and the admitted geometry policy remain open. Mesh swept-candidate example assumes BVH delivery and does not demonstrate GPU behavior.",
+    "The earliest original 774 tree, normalized transfer manifest and historical-family f82 variants retain distinct paths and bytes as shown by DELEGATED-CHECKPOINT-3-QUALIFICATION.json. Redacted public copies are reconstructed, not byte-identical originals.",
+    "No whole lens, full queue reconciliation, independent unique bug count, product implementation or validation is claimed."
+  ],
+  "open": "All producer, consumer, native and policy boundaries, exact aliases and mandatory independent-lens populations remain open.",
+  "repair": "not started",
+  "validation": "not performed"
+}

@@ -1,0 +1,91 @@
+{
+  "schema": "726-delegated-prospective-source-registration-v1",
+  "created_utc": "2026-11-11 19:12:10 UTC",
+  "clock_source": "clock__curr_time",
+  "reader": "current-session delegate rig_identity, physics contact scope",
+  "registration": "prospective before full source displays. Historical and current bodies verified byte-identical; original WGSL producer evidence covers only 1\u2013385, not tail386\u2013413.",
+  "ordered_current_roles": [
+    2327,
+    2328,
+    2329
+  ],
+  "entries": [
+    {
+      "original_role": 2327,
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-physics/Cargo.toml",
+      "sha256": "91c93380a6b93e8f00e036cca5dc7da6e4752393a6b5e07c4baa69881c545a12",
+      "git_blob": "a4dab07900848d5ab9549a3d95f6354232368d0a",
+      "bytes": 686,
+      "planned_full_read": [
+        1,
+        21
+      ]
+    },
+    {
+      "original_role": 2327,
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/fabelgeist-physics/Cargo.toml",
+      "sha256": "91c93380a6b93e8f00e036cca5dc7da6e4752393a6b5e07c4baa69881c545a12",
+      "git_blob": "a4dab07900848d5ab9549a3d95f6354232368d0a",
+      "bytes": 686,
+      "planned_full_read": [
+        1,
+        21
+      ]
+    },
+    {
+      "original_role": 2328,
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-physics/src/contact.rs",
+      "sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+      "git_blob": "e433eefec37485a3b5e26e9f4047525cb1c97e4d",
+      "bytes": 8967,
+      "planned_full_read": [
+        1,
+        261
+      ]
+    },
+    {
+      "original_role": 2328,
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/fabelgeist-physics/src/contact.rs",
+      "sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+      "git_blob": "e433eefec37485a3b5e26e9f4047525cb1c97e4d",
+      "bytes": 8967,
+      "planned_full_read": [
+        1,
+        261
+      ]
+    },
+    {
+      "original_role": 2329,
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-physics/src/wgsl.rs",
+      "sha256": "a1f915887fcad485606bdc80aae9a12f5224233a774693b02d40df0f1d1ebb95",
+      "git_blob": "a8ac42559744595feacf342ba3227aac6516b839",
+      "bytes": 14023,
+      "planned_full_read": [
+        1,
+        413
+      ]
+    },
+    {
+      "original_role": 2329,
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/fabelgeist-physics/src/wgsl.rs",
+      "sha256": "a1f915887fcad485606bdc80aae9a12f5224233a774693b02d40df0f1d1ebb95",
+      "git_blob": "a8ac42559744595feacf342ba3227aac6516b839",
+      "bytes": 14023,
+      "planned_full_read": [
+        1,
+        413
+      ]
+    }
+  ],
+  "constraints": [
+    "source inspection and static reasoning only",
+    "no shader execution, product builds, tests, simulations, fixtures, runtime probes or repairs",
+    "historical revision and attributions retained; no checkpoint3821 promotion"
+  ]
+}

@@ -1,0 +1,430 @@
+{
+  "schema": "726-delegated-source-family-audit-v1",
+  "agent": "/root/mhr_character",
+  "scope": "Original roles 2352–2353; connected independently registered current support. No ordered-role credit for support, no other-agent read or lens completion claimed.",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "scope_qualification": "Assigned historical/current pairs are separately archived, prospectively registered and personally read full, with identical SHA-256 and Git blob identities. The earlier shell-contact Shell read is preserved separately and reread as support. Historical sources and findings retain original attribution and revision; no checkpoint 3821 claim.",
+  "original_role_paths": [
+    {
+      "index": 2352,
+      "path": "crates/fabelgeist-xpbd/src/solver.rs",
+      "sha256": "a7918c0ebe5c6fa1de3ea8bd7bc9eb76f4983ecc9c2d83d8d7063c46a334afde",
+      "lines": 280
+    },
+    {
+      "index": 2353,
+      "path": "crates/fabelgeist-xpbd/src/wgsl.rs",
+      "sha256": "4487bcbbd210e05e934aa372373cb6095e69edcb35fa8e33b26d90b7baf93c15",
+      "lines": 301
+    }
+  ],
+  "findings": [
+    {
+      "id": "XPBD-SUBSTEP-ADMISSION-AND-SQUARE-RANGE",
+      "status": "historically recorded admission problem, independently assessed current, with additional mathematical range condition",
+      "producer_to_consumer": "Solver::record_step and step_interleaved return for delta≤0, empty particles or substeps=0 but do not reject NaN and do not validate the computed delta/substeps. Public record_substep directly forwards any f32 to predict, hook, constraint solve and finalize. WGSL computes compliance/(h*h) and final velocity delta/h. Shell::step_interleaved excludes nonfinite/nonpositive frame delta, then divides by max(substeps,1) without a second h-range check.",
+      "symbolic_examples": "Under ordinary IEEE binary32 round-to-nearest, the smallest positive f32 frame duration 2^-149 divided by 2 rounds to zero. Independently, h=2^-80 is positive and normal in f32, but h²=2^-160 is smaller than the smallest f32 subnormal and rounds to zero. Neither example was executed. WGSL floating-point compilation and device behavior require independent native evidence; do not infer a specific Infinity, NaN, trap or observed solver outcome.",
+      "conditions": "Public direct invalid time or a positive frame/substep beyond representable arithmetic range; actual producer scale and device semantics remain open. Zero particles, zero substeps and nonpositive frame delta have explicit no-op semantics in generic frame APIs and must not be reinterpreted automatically.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/solver.rs",
+          "lines": [
+            [
+              136,
+              183
+            ],
+            [
+              199,
+              218
+            ],
+            [
+              236,
+              277
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/wgsl.rs",
+          "lines": [
+            [
+              30,
+              69
+            ],
+            [
+              141,
+              166
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/constraint.rs",
+          "lines": [
+            [
+              258,
+              285
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/shell.rs",
+          "lines": [
+            [
+              253,
+              285
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Matches ADLER-L11-XPBD-SUBSTEP-ADMISSION and SEGOVB-L12-CONNECTED-XPBD-SUBSTEP-ADMISSION, with Q-L12-48b9c2f6d55c6d6a9f48 preserving frame-vs-direct policy distinctions and underflow concern. h² is an additional connected arithmetic requirement; merely admitting a positive h does not automatically establish a representable nonzero square. Central agent decides canonical aliases and existing current work.",
+      "future_repair_direction": "Resolve one time owner and all public producers, requiring a finite positive substep and a supported compliance/finalization numerical range at each actual boundary; preserve zero-frame/empty/substeps-zero mode choices, hook ordering, lambda resets and normal valid scheduling."
+    },
+    {
+      "id": "XPBD-SPRING-DAMPING-UNCONSUMED",
+      "status": "historically recorded source contract confirmed, public input route independently traced",
+      "producer_to_consumer": "Public ConstraintSet::spring advertises damping and accepts one raw four-float parameter per edge after a count check; it reorders and attaches all four fields. SPRING documents z as damping, but its solve reads x, y and w only, so changing z alone leaves the shader source calculation unchanged.",
+      "conditions": "The admitted public parameter has a nonzero z intended as damping; public external callers can supply it. Bounded literal-path search for ConstraintSet::spring found its constructor/error string, a test source and a fixture path only within crates; that is not a complete call graph and proves neither absent aliases/external callers nor a production invocation. No shader or test execution.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/constraint.rs",
+          "lines": [
+            [
+              118,
+              145
+            ],
+            [
+              258,
+              285
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/wgsl.rs",
+          "lines": [
+            [
+              217,
+              268
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Connect ADLER-L11-XPBD-SPRING-DAMPING-CONTROL and SEGOVB-L12-CONNECTED-XPBD-SPRING-DAMPING-CONSUMER; these retain an actual producer/policy question. This source inspection establishes the public constructor route but not a non-test producer or dynamic outcome.",
+      "future_repair_direction": "Determine the supported per-spring damping law and producer policy, then carry the admitted control to an appropriate relative-motion response while preserving zero damping, bump stops, edge ordering and other constraint behavior."
+    },
+    {
+      "id": "XPBD-HOOKCHAIN-AFTER-SOLVE-FORWARDING",
+      "status": "historical public-composition finding independently traced in current support",
+      "producer_to_consumer": "Solver calls hook.record before constraint sweeps and hook.after_solve afterward. HookChain::record forwards to inner hooks, but HookChain has no after_solve override and therefore receives the trait’s default no-op; inner custom hooks’ after_solve methods are not invoked through that chain.",
+      "conditions": "A user passes HookChain containing a hook whose after_solve is nontrivial. A bounded literal-path search found HookChain construction spelling in a test source only and after_solve implementations in Solver trait and the private ShellHook; this does not exclude alternate syntax, external implementations or consumers. Shell uses its own ShellHook directly, so no claim that its after_solve is skipped.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/solver.rs",
+          "lines": [
+            [
+              64,
+              84
+            ],
+            [
+              157,
+              183
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-physics/src/contact.rs",
+          "lines": [
+            [
+              234,
+              258
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/shell.rs",
+          "lines": [
+            [
+              269,
+              285
+            ],
+            [
+              385,
+              406
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Same first failed public composition contract as SEGOVB-L12-CONNECTED-HOOK-CHAIN-AFTER-SOLVE-PROPAGATION; L12-769 and 776 retain the original personal source attribution. No duplicate assumed.",
+      "future_repair_direction": "Define and forward the complete hook lifecycle in order with the correct error propagation; preserve optional/default hooks and ShellHook’s own ordering."
+    },
+    {
+      "id": "XPBD-NEGATIVE-SPEED-CAP-ADMISSION",
+      "status": "conditional source-level public setting behavior; supported input policy and alias open",
+      "producer_to_consumer": "SolverSettings.max_speed is an unconstrained public f32, and constructor retains settings without a numeric validity check. PREDICT checks speed>max_speed and speed>0 then multiplies velocity by max_speed/speed.",
+      "symbolic_example": "With a nonzero velocity (1,0,0), zero gravity and damping, and max_speed=-2, the cap formula scales by -2 and reverses velocity while increasing its magnitude to 2. This is a source/mathematical consequence, not shader execution.",
+      "conditions": "A negative cap is directly supplied or later assigned; actual application producers and valid configuration policy were not exhaustively audited. Positive/zero caps, damping and gravity each need independent semantics.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/solver.rs",
+          "lines": [
+            [
+              29,
+              59
+            ],
+            [
+              112,
+              133
+            ],
+            [
+              236,
+              259
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/wgsl.rs",
+          "lines": [
+            [
+              113,
+              137
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Related to the earlier RIG-PPS-023 inventory of raw SolverSettings speed/damping and the broader admission/semantic-owner reconciliation, without an established exact canonical alias in this packet. The 059 role bodies are byte-identical but historical reviewers did not claim this specific witness.",
+      "future_repair_direction": "Establish finite nonnegative speed-cap admission or an explicit alternative policy at all construction and mutation boundaries; preserve supported zero and positive behavior and all registered producers."
+    },
+    {
+      "id": "XPBD-SPEED-CAP-FINALIZATION-BOUNDARY",
+      "status": "source-established phase distinction, intended meaning of ceiling unresolved",
+      "producer_to_consumer": "The speed cap acts during PREDICT before hooks and constraints change positions. FINALIZE then derives velocity from the complete corrected displacement divided by substep, with no second cap. Therefore the setting does not itself bound the final stored speed after a positional correction.",
+      "symbolic_example": "Two equal dynamic particles initially at rest 2 m apart, zero-rest zero-compliance distance constraint, h=0.5 s, gravity and damping zero, and max_speed=1 m/s: the source equations move each particle 1 m toward the other and reconstruct speeds of 2 m/s. These algebraic inputs are not an executed fixture. Shell source independently establishes zero-rest seam construction; no claim this exact configuration occurs in production.",
+      "conditions": "Constraint or hook correction contributes more than max_speed×h displacement; other independent limits may apply. Whether the name is intended as an incoming integration cap or as a final invariant is an owner policy question.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/solver.rs",
+          "lines": [
+            [
+              29,
+              46
+            ],
+            [
+              157,
+              183
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/wgsl.rs",
+          "lines": [
+            [
+              122,
+              137
+            ],
+            [
+              141,
+              166
+            ],
+            [
+              170,
+              213
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/shell.rs",
+          "lines": [
+            [
+              100,
+              112
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Connect to RIG-PPS-023 raw speed producer inventory and the same settings owner as the negative-input facet, but do not merge the two first contracts automatically or attribute this example to historical review.",
+      "future_repair_direction": "Specify whether the cap governs integration input or final reconstructed state; if a final bound is required, coordinate corrections, velocities and hook semantics rather than silently discarding physically relevant constraints."
+    }
+  ],
+  "historical_contract_dispositions": [
+    {
+      "ids": [
+        "SEGOVB-L12-XPBD-SPRING-RECORD-COUNT-REASON",
+        "SEGOVB-L12-XPBD-ATTACHMENT-COUNT-REASON",
+        "SEGOVB-L12-XPBD-RAW-ATTACHMENT-MULTIPLE-REASON"
+      ],
+      "disposition": "Bounded support confirms the distinct length/multiplicity checks and prose error paths. Preserve individual failure predicates, concrete producers and native errors; do not count these support source reads as ordered 2349 credit.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/constraint.rs",
+          "lines": [
+            [
+              118,
+              145
+            ],
+            [
+              162,
+              190
+            ],
+            [
+              193,
+              218
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "ids": [
+        "Q-L12-48b9c2f6d55c6d6a9f48"
+      ],
+      "disposition": "Generic frame substeps=0 is a no-op; Shell interleaved normalizes to at least one. Solver iterations=0 is normalized to one. These are distinct existing policies, not a compatibility defect merely from disagreement. Exact zero distance deliberately has no direction; the <1e-9 branch also includes nonzero very small distances, whose intended tolerance and scale remain an open numerical question.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/solver.rs",
+          "lines": [
+            [
+              136,
+              152
+            ],
+            [
+              173,
+              179
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/shell.rs",
+          "lines": [
+            [
+              253,
+              264
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/wgsl.rs",
+          "lines": [
+            [
+              192,
+              202
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "lens_perspectives": [
+    {
+      "lens": 1,
+      "name": "producer propagation",
+      "assessment": "Raw frame/substep values flow through generic solver, hook, constraint uniforms and native equations; Spring z is supplied and retained but not consumed. Existing migrated owners and exact producers require central reconciliation."
+    },
+    {
+      "lens": 2,
+      "name": "existing owners",
+      "assessment": "Actual elapsed-time, speed and compliance owner definitions were not inspected in this bounded slice. A native f32 is not automatically an excuse for raw first-party control; avoid claiming a fitting existing owner without its policy."
+    },
+    {
+      "lens": 3,
+      "name": "admission",
+      "assessment": "Public direct substep and mutable settings permit broader numeric states than the documented operations need; generic frame no-op modes and Shell frame checks are distinct."
+    },
+    {
+      "lens": 4,
+      "name": "invariant operations",
+      "assessment": "Even positive finite f32 h can yield unrepresentable h²; frame division can underflow h. Arithmetic examples are symbolic and device float behavior remains unverified."
+    },
+    {
+      "lens": 5,
+      "name": "aggregate states",
+      "assessment": "Frame duration, substep count, computed h and compliance arithmetic form one cross-field contract. Solver settings and phase order determine whether speed caps apply before or after corrections."
+    },
+    {
+      "lens": 6,
+      "name": "type ownership",
+      "assessment": "Solver owns scheduling; ConstraintSet owns attached spring records; HookChain owns composition. Earlier supplier rig was a source responsibility, not a transfer of any of these repair owners."
+    },
+    {
+      "lens": 7,
+      "name": "redundant authority",
+      "assessment": "The same duration is recomputed independently by generic and Shell interleaved APIs with distinct zero-count rules; align physical invariants while preserving their intentional scheduler policies."
+    },
+    {
+      "lens": 8,
+      "name": "behavior preservation",
+      "assessment": "Preserve no-op empty/nonpositive generic frames, generic zero substeps versus Shell max-one choice, minimum one iteration, ordering of predict/hook/clear/sweep/after/finalize, zero pinned mass and already defined coincidence behavior; no runtime parity claim."
+    },
+    {
+      "lens": 9,
+      "name": "enum shapes",
+      "assessment": "The public hook lifecycle has distinct pre- and post-solve obligations; the trait default makes omission representable. There is no demonstrated need to replace a boolean or introduce an enum for its own sake."
+    },
+    {
+      "lens": 10,
+      "name": "derivability",
+      "assessment": "SolverSettings already derives Clone, Copy and Debug; no necessary manual trait or serialization simplification established."
+    },
+    {
+      "lens": 11,
+      "name": "type granularity",
+      "assessment": "Frame duration, substep duration, squared duration and compliance per substep are related but not identical; signed gravity differs from nonnegative speed ceiling and damping policy. Spring z is a separate damping control, not the global drag factor."
+    },
+    {
+      "lens": 12,
+      "name": "raw strings",
+      "assessment": "Historical error strings in spring/count/attachment boundaries carry different predicates; preserve those causes. Shader buffer names are actual native binding identifiers rather than unqualified magic-string findings."
+    },
+    {
+      "lens": 13,
+      "name": "raw primitives",
+      "assessment": "Retain dimensions and rationale for 1e-12 denominator guard, 1e-9 distance degeneracy and numerical f32 limits. Their error/scale bounds are open; do not replace unrelated literals uniformly."
+    }
+  ],
+  "nonfindings_and_open_questions": [
+    "WGSL source and test source were only read, never compiled, dispatched or run. Mathematical examples are reasoning and not product validation.",
+    "SPRING’s globally supplied damping is not proven absent from every other subsystem; its documented per-spring z is specifically unused in this shader source.",
+    "Finite positive frame checks alone do not prove bounded constraint indices, buffer extent, native GPU float behavior, or correctness of custom hooks. Those producers/consumers need their own registered assessment.",
+    "The zero-rest seam source is a real producer, but no claim is made that any in-tree asset reaches the numerical speed-cap example.",
+    "Exact zero distance is intentionally left unresolved by DISTANCE, and zero inverse mass is intentionally prescribed. The threshold includes small nonzero distances, but an acceptable geometric scale/policy is not proven here.",
+    "Literal path-name searches are limited to exact spellings in the crates subtree; no statement rules out aliases, different syntax, external callers, dynamically assembled code or calls outside the searched path.",
+    "The first byte of the original WGSL Rust source includes a UTF-8 BOM; exact source bytes are retained and no normalization is performed."
+  ],
+  "historical_provenance": {
+    "old_059_l11": "READ-L11-377 records pr-working solver 1–280 with REGISTRATION-ADLER-1218 and WGSL 1–301 with REGISTRATION-ADLER-1219, exact original hashes. READ-L11-373 retains original physics/contact 1–261 support and ADLER-1188. Original scope is its own lens/revision only.",
+    "old_059_l12": "READ-L12-776 attributes full solver 1–280 and WGSL 1–301 to subagent /root/lens12_frontier at 6533 with PAR-L12-320/321; root_personal_rereads=[] and adoption numbers do not turn these into root reads. READ-L12-769 and 775 retain distinct historical contact and constraint support attribution and ranges.",
+    "old_774": "Rig supplier additional-sources zero-based row116 solver 1–280; WGSL row121 72–183 only and row207 1–301. RIG-PPS-023 separately records solver 1–280 and WGSL ranges 72–183 plus 1–301 and raw time/settings propagation. Exact originals and path-normalized exports are separately hash checked. Historical scope is not 3821 or new ordered credit.",
+    "current_support": "constraint.rs, physics/contact.rs, physics/lib.rs and shell/shell.rs are independently registered current support only; do not claim ordered credit for them or adopt the neighboring XPBD dynamics agent’s work. Earlier Shell role 2341 read retained under prior-shell-read.",
+    "recovery_limit": "Original checkpoint 3821 final ledger/queue remain missing. Complete original 059 queue and original registry preserved in compressed transport; derived subsets are navigation records only. No historical status is promoted to 3821."
+  },
+  "evidence_paths": [
+    "registration.json",
+    "read-receipt.json",
+    "support-registration.json",
+    "support-read-receipt.json",
+    "prior-support-index.json",
+    "source-name-search.json",
+    "git-proofs.json",
+    "historical-059-index.json",
+    "historical-registry-subset.json",
+    "historical-queue-subset.json",
+    "older-774/INDEX.json"
+  ],
+  "work_restriction": "Source inspection and evidence-only hashing/verification. No repairs, product builds, tests, fixtures, simulations, runtime probes, shader compilation/execution or product validation."
+}

@@ -1,0 +1,29 @@
+{
+  "schema": "726-checkpoint-four-central-provenance-qualification-v1",
+  "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "qualification": "Two original 774 continuation registration records were absent at the bounded local paths checked by the delegate but recovered as exact f82 Git blobs and retained unredacted in the XPBD dynamics packet. A source-range registration records a plan, not proof of a personal read or of later coverage. This recovery does not restore the missing checkpoint3821 ledger or queue. Other 774 historical-family and adler-original transport paths remain distinct as in DELEGATED-CHECKPOINT-3-QUALIFICATION.json.",
+  "recovered_original_registration_records": [
+    {
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/admission03/source-range-registration.jsonl",
+      "bytes": 126879,
+      "sha256": "24fb01a82c91de97fd9895740404dc79a73877fcd79a846c832c45cbf2495bdb",
+      "git_blob": "7666160672c27040c65e39e4d526726e6a4f1719",
+      "preserved_bytes": "historical-774/continuation/rig/admission03/source-range-registration.jsonl",
+      "local_older_original_status": "absent-at-checked-local-path",
+      "qualification": "Historical adler-original recovered as exact f82 Git blob; local older copy independently byte-compared only when present. f82 is transport, not source revision."
+    },
+    {
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+      "bytes": 39747,
+      "sha256": "8770f5b2d71c63d66c9fb8035fd73c4dab9c7a8a1bf67063bbe55831b1c7187b",
+      "git_blob": "836037c6cb364b18c6a15b833fb2f46b30e4c35f",
+      "preserved_bytes": "historical-774/continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+      "local_older_original_status": "absent-at-checked-local-path",
+      "qualification": "Historical adler-original recovered as exact f82 Git blob; local older copy independently byte-compared only when present. f82 is transport, not source revision."
+    }
+  ],
+  "evidence": "DELEGATED-EVIDENCE-CHECKPOINT-4.json",
+  "status": "Original transport paths and hashes verified; no source-read or checkpoint3821 credit inferred."
+}
