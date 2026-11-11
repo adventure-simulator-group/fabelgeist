@@ -1,0 +1,19 @@
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/water_source.rs:27:pub struct OutbreakWaterFlow {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/water_source.rs:40:pub enum OutbreakWaterFlowError {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/water_source.rs:47:impl OutbreakWaterFlow {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/water_source.rs:76:    ) -> Result<(u64, u64, u64), OutbreakWaterFlowError> {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/water_source.rs:80:                .ok_or(OutbreakWaterFlowError::ReplayCollision);
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/water_source.rs:83:            return Err(OutbreakWaterFlowError::Closed);
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/water_source.rs:88:            return Err(OutbreakWaterFlowError::InsufficientWater);
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/water_source.rs:95:            .ok_or(OutbreakWaterFlowError::InsufficientWater)?;
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/water_source.rs:121:    ) -> Result<Self, OutbreakWaterFlowError> {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/water_source.rs:123:            return Err(OutbreakWaterFlowError::InvalidFraction);
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs:1138:        use adventuresim_core::water_source::{OutbreakWaterFlow, OutbreakWaterFlowError};
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs:1139:        let mut source = OutbreakWaterFlow::new(500_000);
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs:1144:            Err(OutbreakWaterFlowError::ReplayCollision)
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs:1146:        let mut pot = OutbreakWaterFlow::new(0);
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs:1152:        pot.cook_all(1, 10_000);
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs:1154:        let mut serving = pot.split_food(1, 2).unwrap();
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs:1173:            Err(OutbreakWaterFlowError::Closed)
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs:1180:        let mut clean = OutbreakWaterFlow::new(500_000);
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs:1182:        let mut tainted = OutbreakWaterFlow::new(500_000);

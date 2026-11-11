@@ -1312,6 +1312,20 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L05-SCHEDULE-AGGREGATE-95E.json"
+      },
+      {
+        "id": "REVIEW-WATER-MODEL-ERROR-ATOMICITY-001",
+        "lens": 4,
+        "severity": "unassigned; source-established model error-atomicity gap with bounded test-only direct caller evidence",
+        "classification": "isolated water-flow model can mutate volume before a checked load error",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/307"
+        ],
+        "relationship_qualification": "Delegated PL13-215 already identified this model ordering and related arithmetic with zero historical unique findings; current exact-spelling caller evidence is test-only and does not establish a production database incident.",
+        "discovery": "partial; model API policy, indirect/external callers and connected aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L04-WATER-MODEL-ATOMICITY-95E.json"
       }
     ]
   },

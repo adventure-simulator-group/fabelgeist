@@ -172,6 +172,13 @@ current authored corpus. Decoder features and actual runtime remain open.
 `ASSESSMENT-L04-FOLLOWUP-WEIGHT-TOTAL-95E.json` extends the earlier
 sampler-overflow question with a pinned dependency and current authored
 weight bound. The hypothetical context and historical attribution remain open.
+`ASSESSMENT-L04-WATER-MODEL-ATOMICITY-95E.json` traces the earlier
+isolated model error path. The located direct use is test source, and no
+production database incident or execution is claimed.
+`ASSESSMENT-L01-HISTORICAL-1021-1030.json` preserves threat, water,
+weather, world-event and dialogue source reads. Historical role 1022 differs
+from 95e; the newer fraction operations are not covered by that read. Build
+and test source was inspected only.
 `ASSESSMENT-L05-SCHEDULE-AGGREGATE-95E.json` records a possible schedule
 aggregate strengthening. Both selected production callers supply matching
 organization minutes; no invalid native schedule was established.

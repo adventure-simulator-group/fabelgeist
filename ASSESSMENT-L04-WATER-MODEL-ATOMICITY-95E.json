@@ -1,0 +1,147 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 4,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected isolated OutbreakWaterFlow draw error path and exact-spelling tracked callers. Production material and water authority are separate and not cleared.",
+  "source_reasoning": "Static source reading and symbolic integer comparisons only; no flow model, fixture, simulator, product build, test or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/water_source.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "606e35daa5f8af491f4af5363619cf5f265663e8",
+      "sha256": "2892720bfed0f3280e91d03da01cf985b234731e8f08d449a76bf97f7cfdb556",
+      "bytes": 17263,
+      "lines": 500,
+      "ranges": [
+        [
+          1,
+          500
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/water-model-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/investigation_eval/report.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f61a39cd09b33c559e7a1f115255ba7b217f31ad",
+      "sha256": "9973408d3a3ebff65189a41a0537488dcf4ba9f88b667672e09543fc90318db4",
+      "bytes": 59967,
+      "lines": 1659,
+      "ranges": [
+        [
+          1080,
+          1185
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/water-model-sources/01.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "search_evidence": {
+    "path": "main-advance-95e/water-model-search.txt",
+    "sha256": "32c9dfe4159d34d99de723d5fa7103e23a9ae8b8fccd312a682c0ff94de20143",
+    "bytes": 2931,
+    "query": "git grep -n -E OutbreakWaterFlow, cook_all and split_food at the pinned revision over tracked paths",
+    "qualification": "Exact spellings only; aliases, re-exports, indirect calls and external consumers are not ruled out. The located use is within a cfg(test) module, whose assertions were not executed."
+  },
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-213.json",
+      "sha256": "8f63bae3dfd24e221ec5d20f8c7f7066ccfebc92c686665e827202b5a99d0409",
+      "bytes": 8729,
+      "git_blob": "779f99b412de43ddee996448ae5ff833e55551b3",
+      "preserved_bytes": "recovered/water-model-059/8f63bae3dfd24e221ec5d20f8c7f7066ccfebc92c686665e827202b5a99d0409.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced support. The partial records the 1–460 prefix and the final receipt attributes the fresh 461–500 tail; no checkpoint 3821 or other-lens transfer."
+    }
+  ],
+  "recovered_historical_support": [
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-215.json",
+      "sha256": "46127505f3a196f175098bfe997f010a5a02145119a802b09c1ba65937194562",
+      "bytes": 4587,
+      "git_blob": "72c3f47ac7270e36bb9a24d6ed077194b9570570",
+      "preserved_bytes": "recovered/water-model-059/46127505f3a196f175098bfe997f010a5a02145119a802b09c1ba65937194562.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced support. The partial records the 1–460 prefix and the final receipt attributes the fresh 461–500 tail; no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VERIFY-PL13-215.json",
+      "sha256": "ca45e0c5e68ab44259142b4c7f32eec265da6cec14eeea4eb67cc8f8d03812e0",
+      "bytes": 628,
+      "git_blob": "7bc2f3d190a053b4433de65c65e9f5b8ae15c86d",
+      "preserved_bytes": "recovered/water-model-059/ca45e0c5e68ab44259142b4c7f32eec265da6cec14eeea4eb67cc8f8d03812e0.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced support. The partial records the 1–460 prefix and the final receipt attributes the fresh 461–500 tail; no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/REGISTRATION-PL13-215.json",
+      "sha256": "458f1ea21cf401242dea1067b8a962b577d4b0cc35775fee8c4bb2110912426d",
+      "bytes": 912,
+      "git_blob": "d8913e287d13e2a33a20e50b518f032a778a279c",
+      "preserved_bytes": "recovered/water-model-059/458f1ea21cf401242dea1067b8a962b577d4b0cc35775fee8c4bb2110912426d.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced support. The partial records the 1–460 prefix and the final receipt attributes the fresh 461–500 tail; no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-215-217.json",
+      "sha256": "03e90675c3b269fbbd83583cae8c97828e94f38e5debad77f6d2bf33ead61bc8",
+      "bytes": 12469,
+      "git_blob": "acb3924f4342cdfdd8cb4ce5022c45b563e999bc",
+      "preserved_bytes": "recovered/water-model-059/03e90675c3b269fbbd83583cae8c97828e94f38e5debad77f6d2bf33ead61bc8.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced support. The partial records the 1–460 prefix and the final receipt attributes the fresh 461–500 tail; no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-215-PARTIAL-001.json",
+      "sha256": "82e07e56c8bd31b0677129d11204814e678a0477a884f4997d1e23298f6e93b8",
+      "bytes": 1869,
+      "git_blob": "714e7347c748e08348890d98c41c3c717d50464f",
+      "preserved_bytes": "recovered/water-model-059/82e07e56c8bd31b0677129d11204814e678a0477a884f4997d1e23298f6e93b8.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced support. The partial records the 1–460 prefix and the final receipt attributes the fresh 461–500 tail; no checkpoint 3821 or other-lens transfer."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/307",
+      "qualification": "PL13-215 explicitly identified mutation before checked contaminant addition and unchecked model arithmetic, left actual simulator use and bounds open, and accepted no historical unique finding. Its 1–460 partial and 461–500 fresh tail remain attributed to the original delegated reader."
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 1023,
+      "source_id": "pr-working:crates/adventuresim-core/src/water_source.rs",
+      "historical_sha256": "2892720bfed0f3280e91d03da01cf985b234731e8f08d449a76bf97f7cfdb556",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1021-1030.json",
+      "qualification": "Separate full historical Lens 1 source read; no delegated or current lens transfer."
+    },
+    {
+      "original_index": 320,
+      "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs",
+      "historical_sha256": "9973408d3a3ebff65189a41a0537488dcf4ba9f88b667672e09543fc90318db4",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-320.json",
+      "qualification": "Earlier separate full historical source read; exact current hash matches, but test source is not executed evidence."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-WATER-MODEL-ERROR-ATOMICITY-001",
+      "severity": "unassigned; source-established model error-atomicity gap with bounded test-only direct caller evidence",
+      "classification": "Previously documented isolated helper contract gap, not a production database or gameplay failure.",
+      "trace": "draw checks the replay and source-open conditions, computes conserved source and holding volumes, writes both volume fields, and only then performs checked_add on the holding contaminant load. Overflow returns InsufficientWater before inserting a receipt, leaving the two volume writes in the in-memory model.",
+      "conditional_counterexample": "Symbolically start a new model with source volume 2, draw 1 with load u64::MAX, then draw 1 with load 1 under a different request ID. The first addition fits; on the second, source and holding volumes are assigned 0 and 2 before u64::MAX + 1 fails. The load remains u64::MAX and the second receipt is absent. This is a constructed API case, not an executed model, generated fixture, or observed failure.",
+      "caller_evidence": "At the pinned revision, exact-spelling tracked search found this owner and one direct use in the investigation evaluation report source inside its cfg(test) module. That source uses small fixed volumes, load 12000000, cook fraction 1/10000 and split 1/2. The source assertions were not run and do not establish runtime behavior; exact spelling does not exclude aliases, external users or indirect calls.",
+      "safeguards_and_limits": "The shared conserved_collection helper itself checks positive amount, source availability and destination addition before returning new values. Production material/collection APIs have separate authority and are not shown to call this model. No native transaction, persisted volume, actual product incident or exploit is claimed. The same model also has unchecked transfer, cooking and splitting arithmetic and a cooking denominator; their actual supported input policy remains open.",
+      "connected_repair": "If the model remains a supported reusable contract, compute every fallible result before assigning state or otherwise make error returns atomic, and define/validate fraction denominators, representable arithmetic and overflow policy across draw, transfer, cook, split and consume. Keep exact replay/collision, conservation and distinction from production material authority. Reconcile PL13-215 and other model/consumer aliases before choosing the shared remedy.",
+      "later_acceptance": "Only after separate authorization for implementation and product validation, cover overflow after a valid prior draw, no state or receipt changes on error, zero denominators, representable fractional splits, exact replay and the intended isolated caller bounds.",
+      "discovery": "partial; supported model API policy, aliases and all consumers remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}
