@@ -1,0 +1,574 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    4,
+    5,
+    7,
+    8,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Nine additional historical bodies and a conditional raised-guard swing reach operation.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1375-1383.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/tests.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "30646f99a550e7f139dc54ce3293c94b8372b9f4",
+      "sha256": "fef4e30bfd57aaca8dbbda3417f5f2ac5f67e6d03d6eaaa49e0f9726794fe525",
+      "bytes": 137032,
+      "lines": 3461,
+      "ranges": [
+        [
+          58,
+          137
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/guard-reach-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test source was not executed."
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          2292,
+          2302
+        ],
+        [
+          5420,
+          5423
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/guard-reach-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test source was not executed."
+    }
+  ],
+  "related_current_coordinator": "ASSESSMENT-L01-HISTORICAL-1370-1374.json#/historical_source_roles/0; current 95e source bytes retained, with exactly two documented differences from the personally read historical coordinator.",
+  "conditional_findings": [
+    {
+      "id": "REVIEW-GUARD-SWING-VERTICAL-REACH-001",
+      "lens": 4,
+      "severity": "unassigned; conditional source-level operation, supported scenario unproved",
+      "classification": "Newly assessed local arithmetic counterexample linked to an earlier Lens12 reach question; not a demonstrated gameplay or rendering defect.",
+      "trace": "ValidatedGuardTargets checks finite targets, hips and finite native reach; the actual raised coordinator constructs Extended reach from measured nonnegative upper and lower segments. For a swinging leg, when horizontal distance exceeds maximum reach, constrain_guard_swing_to_reach reduces only the horizontal offset and leaves target.y unchanged. If the absolute vertical offset also exceeds the reach, the resulting target cannot be inside the reach sphere. The later analytic two-bone solver independently clamps its target distance, so the invalid reach claim is not evidence of an out-of-reach solved endpoint.",
+      "symbolic_example": "Take hip=(0,0,0), upper=lower=0.5 metres, and a finite swing request=(2,-2,0), with the other leg finite. Extended reach is 1.0-0.0001 metres, below 1 metre. The horizontal branch is selected; its computed horizontal budget is sqrt(max(reach²-4,0))=0, so pinned glam Vec2 clamp_length_max returns zero and the returned finite swing target is (0,-2,0), still 2 metres from the hip. The 95e check therefore admits a finite target outside the stated reach. This is algebra over selected source and pinned native code, not an executed fixture.",
+      "qualification": "The validation type documents finite requests and intentionally leaves support feet unchanged; do not claim it promises every leg is reachable. The documentation separately says a swing target is lifted inside reach and describes a radial fallback. The actual rig, terrain height and server-authored swing geometry that could produce this two-axis overextension have not been established; the shipped assets and visual effect were not inspected or run. The analytic solver may safely clamp it; native transform application, intended vertical/horizontal trajectory tradeoff, error policy and duplicate relationships remain open.",
+      "connected_repair": "Decide the supported swing-target contract. If such geometry is valid and exact reach is required, project or reject the full three-dimensional swing consistently and align its documentation, retained diagnostic targets and downstream solve; preserve independently owned support contacts and ordinary reachable swing paths.",
+      "later_acceptance": "After separate implementation and validation authorization if needed, cover both-axis vertical overextension, ordinary within-reach swings and fixed support on a supported rig/terrain, and compare requested, solved and propagated endpoints.",
+      "discovery": "partial; actual source producer and policy open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "native_evidence": [
+    {
+      "manifest": "native-evidence/glam-0.32.1/MANIFEST.json",
+      "archive_member": "glam-0.32.1/src/f32/vec2.rs",
+      "personally_inspected_ranges": [
+        [
+          917,
+          925
+        ]
+      ],
+      "qualification": "Pinned Cargo.lock bevy_math 0.19.1 resolves glam 0.32.1; archive bytes and lock checksum verified, feature/runtime execution unperformed."
+    },
+    {
+      "manifest": "native-evidence/bevy_math-0.19.1/MANIFEST.json",
+      "archive_member": "bevy_math-0.19.1/src/lib.rs",
+      "personally_inspected_ranges": [
+        [
+          103,
+          103
+        ]
+      ],
+      "qualification": "The math crate reexports glam; no feature-resolution or engine execution claim."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1170 through /entries/1178"
+      ],
+      "qualification": "Earlier Lens12 questions preserve original scope; selected bodies and arithmetic do not close producer/native/alias obligations."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-387.json",
+      "sha256": "c026156d65053dbc3916f7b3a9742e3c0b2086a79a31f75487bb6448f4d6ee7b",
+      "bytes": 1239,
+      "git_blob": "13587b521eb90d1c18ad935417db4f756eab9876",
+      "preserved_bytes": "recovered/guard-reach-059/c026156d65053dbc3916f7b3a9742e3c0b2086a79a31f75487bb6448f4d6ee7b.gz",
+      "published_sha256": "c026156d65053dbc3916f7b3a9742e3c0b2086a79a31f75487bb6448f4d6ee7b",
+      "published_bytes": 1239,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-388.json",
+      "sha256": "7e8fdd66717c3363b9421d0b45a6d6c650044f66100dd7eded8facf405588a19",
+      "bytes": 1232,
+      "git_blob": "8cd8170d7a2c73f8eee3ea8062ddad3b67ac1887",
+      "preserved_bytes": "recovered/guard-reach-059/7e8fdd66717c3363b9421d0b45a6d6c650044f66100dd7eded8facf405588a19.gz",
+      "published_sha256": "7e8fdd66717c3363b9421d0b45a6d6c650044f66100dd7eded8facf405588a19",
+      "published_bytes": 1232,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-389.json",
+      "sha256": "34bb9db315045783b09beec0e523d2993484b74022c955db537d50b71c59e879",
+      "bytes": 1242,
+      "git_blob": "1de856c36f8c308421d6e66e98fce9c6a0a07cc0",
+      "preserved_bytes": "recovered/guard-reach-059/34bb9db315045783b09beec0e523d2993484b74022c955db537d50b71c59e879.gz",
+      "published_sha256": "34bb9db315045783b09beec0e523d2993484b74022c955db537d50b71c59e879",
+      "published_bytes": 1242,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-390.json",
+      "sha256": "cccc6ede172bc9ad5a438126b053205149dffd992a8e12dfe51728a06f883074",
+      "bytes": 1243,
+      "git_blob": "d28c6ffe0c4fbbc1127beefe1f681ff04351b4e4",
+      "preserved_bytes": "recovered/guard-reach-059/cccc6ede172bc9ad5a438126b053205149dffd992a8e12dfe51728a06f883074.gz",
+      "published_sha256": "cccc6ede172bc9ad5a438126b053205149dffd992a8e12dfe51728a06f883074",
+      "published_bytes": 1243,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-391.json",
+      "sha256": "520a3d0c62eb9da9c1406730f0afdb1e8b401f24911f697f42a7f6a53b7b2466",
+      "bytes": 1747,
+      "git_blob": "9de61e22987d33bd5d5ca85ab3f0f8d6d2883a3d",
+      "preserved_bytes": "recovered/guard-reach-059/520a3d0c62eb9da9c1406730f0afdb1e8b401f24911f697f42a7f6a53b7b2466.gz",
+      "published_sha256": "520a3d0c62eb9da9c1406730f0afdb1e8b401f24911f697f42a7f6a53b7b2466",
+      "published_bytes": 1747,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-387.json",
+      "sha256": "85b6241735ccf93c0591959c9035bfb1b0e8a0533772e3ced8c88ec0fc9159bc",
+      "bytes": 9066,
+      "git_blob": "e0f068e010d997c4640460cbb1d808ff62160a17",
+      "preserved_bytes": "recovered/guard-reach-059/85b6241735ccf93c0591959c9035bfb1b0e8a0533772e3ced8c88ec0fc9159bc.gz",
+      "published_sha256": "85b6241735ccf93c0591959c9035bfb1b0e8a0533772e3ced8c88ec0fc9159bc",
+      "published_bytes": 9066,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-388.json",
+      "sha256": "429c4bfe9a89c4842432f75767cf24a7a3c7deb81e6bb8d46bf3b0536cac20f2",
+      "bytes": 9231,
+      "git_blob": "384c50047cff672c38ad68d5ab7c2bfc7b92822f",
+      "preserved_bytes": "recovered/guard-reach-059/429c4bfe9a89c4842432f75767cf24a7a3c7deb81e6bb8d46bf3b0536cac20f2.gz",
+      "published_sha256": "429c4bfe9a89c4842432f75767cf24a7a3c7deb81e6bb8d46bf3b0536cac20f2",
+      "published_bytes": 9231,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-389.json",
+      "sha256": "37b8e6c0466fdb63e277a5ba0336038efb9b585760b86a3c1bd57f44b1def889",
+      "bytes": 9321,
+      "git_blob": "967db5c6de25ff30367e142436aad494779be2e4",
+      "preserved_bytes": "recovered/guard-reach-059/37b8e6c0466fdb63e277a5ba0336038efb9b585760b86a3c1bd57f44b1def889.gz",
+      "published_sha256": "37b8e6c0466fdb63e277a5ba0336038efb9b585760b86a3c1bd57f44b1def889",
+      "published_bytes": 9321,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-390.json",
+      "sha256": "8cf52a64d716ccf59f71e745644e01ae69d5ddb69ce0e67997e9df03efee3cc0",
+      "bytes": 9159,
+      "git_blob": "039a42b52c949e8ec7469d0ee4699651a0c97ea4",
+      "preserved_bytes": "recovered/guard-reach-059/8cf52a64d716ccf59f71e745644e01ae69d5ddb69ce0e67997e9df03efee3cc0.gz",
+      "published_sha256": "8cf52a64d716ccf59f71e745644e01ae69d5ddb69ce0e67997e9df03efee3cc0",
+      "published_bytes": 9159,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-391.json",
+      "sha256": "a11c4e2c63ffb0a92f6fbf99becdad40bd7684cf298e56f43d9a4bfcf4a55d15",
+      "bytes": 12016,
+      "git_blob": "0b4c67348c777734286c0de0af1819eb0f7ec65c",
+      "preserved_bytes": "recovered/guard-reach-059/a11c4e2c63ffb0a92f6fbf99becdad40bd7684cf298e56f43d9a4bfcf4a55d15.gz",
+      "published_sha256": "a11c4e2c63ffb0a92f6fbf99becdad40bd7684cf298e56f43d9a4bfcf4a55d15",
+      "published_bytes": 12016,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-281.json",
+      "sha256": "56086a33a26bac7d2a2abd0274b0bbd3910987d7fd87b763d8f3ae6fa01819b3",
+      "bytes": 1219,
+      "git_blob": "8cb80e48bb476204af2ae848d289054337da4388",
+      "preserved_bytes": "recovered/guard-reach-059/56086a33a26bac7d2a2abd0274b0bbd3910987d7fd87b763d8f3ae6fa01819b3.gz",
+      "published_sha256": "56086a33a26bac7d2a2abd0274b0bbd3910987d7fd87b763d8f3ae6fa01819b3",
+      "published_bytes": 1219,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-282.json",
+      "sha256": "e25a9e613e183e1ba609a1014147138f1b512910e46a43aac32451eaaf1c17dc",
+      "bytes": 1241,
+      "git_blob": "3614f3edb6cd5a56dce023b3dd64be64c2e2d390",
+      "preserved_bytes": "recovered/guard-reach-059/e25a9e613e183e1ba609a1014147138f1b512910e46a43aac32451eaaf1c17dc.gz",
+      "published_sha256": "e25a9e613e183e1ba609a1014147138f1b512910e46a43aac32451eaaf1c17dc",
+      "published_bytes": 1241,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-283.json",
+      "sha256": "fef4bd58f4ac6f8c75fa695cface28d360b7de7b56db5962981c3c4e14b5c3ff",
+      "bytes": 1200,
+      "git_blob": "c1f71ea0492997128517b62f18f35746ca45ff5f",
+      "preserved_bytes": "recovered/guard-reach-059/fef4bd58f4ac6f8c75fa695cface28d360b7de7b56db5962981c3c4e14b5c3ff.gz",
+      "published_sha256": "fef4bd58f4ac6f8c75fa695cface28d360b7de7b56db5962981c3c4e14b5c3ff",
+      "published_bytes": 1200,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-284.json",
+      "sha256": "ddb772729f8de3b71cc7028800f71acd227fa247e0f31bda49700c3c587b6f05",
+      "bytes": 1202,
+      "git_blob": "a7ed8886371cac613a37b8ae5c89c6fa741d7326",
+      "preserved_bytes": "recovered/guard-reach-059/ddb772729f8de3b71cc7028800f71acd227fa247e0f31bda49700c3c587b6f05.gz",
+      "published_sha256": "ddb772729f8de3b71cc7028800f71acd227fa247e0f31bda49700c3c587b6f05",
+      "published_bytes": 1202,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-285.json",
+      "sha256": "c862b797565cce93545799e5c8ca53be2ef2cc21d9264c19bba18321c35d1177",
+      "bytes": 1237,
+      "git_blob": "d2b16e333c6255ba231bac6eba40bf53930636c0",
+      "preserved_bytes": "recovered/guard-reach-059/c862b797565cce93545799e5c8ca53be2ef2cc21d9264c19bba18321c35d1177.gz",
+      "published_sha256": "c862b797565cce93545799e5c8ca53be2ef2cc21d9264c19bba18321c35d1177",
+      "published_bytes": 1237,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-286.json",
+      "sha256": "63e8ad569bcdf8d020a28d02bdb5d2911b4ae7e5b7c60af7920b6581a2fcf376",
+      "bytes": 1219,
+      "git_blob": "2712ffad5ffb3286097ab8e7d2873831033a51ee",
+      "preserved_bytes": "recovered/guard-reach-059/63e8ad569bcdf8d020a28d02bdb5d2911b4ae7e5b7c60af7920b6581a2fcf376.gz",
+      "published_sha256": "63e8ad569bcdf8d020a28d02bdb5d2911b4ae7e5b7c60af7920b6581a2fcf376",
+      "published_bytes": 1219,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-287.json",
+      "sha256": "94ad531e36aad68668df44c4a6c461be8bb49d39680b76c182a4bcd57f4a3095",
+      "bytes": 1204,
+      "git_blob": "cc1714acb5b9a84cac1d7e21d99e45735478e453",
+      "preserved_bytes": "recovered/guard-reach-059/94ad531e36aad68668df44c4a6c461be8bb49d39680b76c182a4bcd57f4a3095.gz",
+      "published_sha256": "94ad531e36aad68668df44c4a6c461be8bb49d39680b76c182a4bcd57f4a3095",
+      "published_bytes": 1204,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-288.json",
+      "sha256": "2c709a972909edc3bcca834f957cfbd8b1fdb8a8da8af7ab4608b235edcd4058",
+      "bytes": 1228,
+      "git_blob": "df4292f621a54d228e31af4ce83800267fe27c21",
+      "preserved_bytes": "recovered/guard-reach-059/2c709a972909edc3bcca834f957cfbd8b1fdb8a8da8af7ab4608b235edcd4058.gz",
+      "published_sha256": "2c709a972909edc3bcca834f957cfbd8b1fdb8a8da8af7ab4608b235edcd4058",
+      "published_bytes": 1228,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-289.json",
+      "sha256": "94e8d612e24c62da046972efc6ea865a1067d79e30ae05ca797142901de8e0db",
+      "bytes": 1235,
+      "git_blob": "578cbf584709ec2d6b0b1d4b7bd6623d92770adf",
+      "preserved_bytes": "recovered/guard-reach-059/94e8d612e24c62da046972efc6ea865a1067d79e30ae05ca797142901de8e0db.gz",
+      "published_sha256": "94e8d612e24c62da046972efc6ea865a1067d79e30ae05ca797142901de8e0db",
+      "published_bytes": 1235,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-290.json",
+      "sha256": "66a46a9192b63e5c06e6894b7ed585b51f1f591e98dbcbfd05431c2245774199",
+      "bytes": 1227,
+      "git_blob": "0e3a0775fa9513f2408f7ecd50a57bfa19440009",
+      "preserved_bytes": "recovered/guard-reach-059/66a46a9192b63e5c06e6894b7ed585b51f1f591e98dbcbfd05431c2245774199.gz",
+      "published_sha256": "66a46a9192b63e5c06e6894b7ed585b51f1f591e98dbcbfd05431c2245774199",
+      "published_bytes": 1227,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-291.json",
+      "sha256": "76739be6e7987e3f2ca12b27f0676ebe229c190e41a9accf919dc3e3bcff5f81",
+      "bytes": 1245,
+      "git_blob": "58bd72426610afcfebaaa7f1bb2bf6b09c0a72f3",
+      "preserved_bytes": "recovered/guard-reach-059/76739be6e7987e3f2ca12b27f0676ebe229c190e41a9accf919dc3e3bcff5f81.gz",
+      "published_sha256": "76739be6e7987e3f2ca12b27f0676ebe229c190e41a9accf919dc3e3bcff5f81",
+      "published_bytes": 1245,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-387.json",
+      "sha256": "eec400decbda98d58383015a25250d1814de44b3d0f58fb007216988befde1d1",
+      "bytes": 840,
+      "git_blob": "6fd2eca7e46fdfeb4e55ac2463a7d65c622c4166",
+      "preserved_bytes": "recovered/guard-reach-059/eec400decbda98d58383015a25250d1814de44b3d0f58fb007216988befde1d1.gz",
+      "published_sha256": "eec400decbda98d58383015a25250d1814de44b3d0f58fb007216988befde1d1",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-388.json",
+      "sha256": "88defa598b126e651a4326f895cb8810edb9cb1d7f2407ed5eca879c42cd22e1",
+      "bytes": 840,
+      "git_blob": "cb83870f2cda9b6aae3ce9e31c54b82a5d3a7536",
+      "preserved_bytes": "recovered/guard-reach-059/88defa598b126e651a4326f895cb8810edb9cb1d7f2407ed5eca879c42cd22e1.gz",
+      "published_sha256": "88defa598b126e651a4326f895cb8810edb9cb1d7f2407ed5eca879c42cd22e1",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-389.json",
+      "sha256": "87d156458f33b27925d84021eee36f523f9e49878c66c7cbedc2476ad73674ba",
+      "bytes": 840,
+      "git_blob": "63085514d6d605d7cd6ea8c9b724d38acf34c07c",
+      "preserved_bytes": "recovered/guard-reach-059/87d156458f33b27925d84021eee36f523f9e49878c66c7cbedc2476ad73674ba.gz",
+      "published_sha256": "87d156458f33b27925d84021eee36f523f9e49878c66c7cbedc2476ad73674ba",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-390.json",
+      "sha256": "216ddee8e9f9881468ea78838bb8d41417d8101d721d7bd2dd91a279c6207cb0",
+      "bytes": 840,
+      "git_blob": "710a49f11c8111223b22dd52967bba2b16c9d02e",
+      "preserved_bytes": "recovered/guard-reach-059/216ddee8e9f9881468ea78838bb8d41417d8101d721d7bd2dd91a279c6207cb0.gz",
+      "published_sha256": "216ddee8e9f9881468ea78838bb8d41417d8101d721d7bd2dd91a279c6207cb0",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-391.json",
+      "sha256": "3c8ac5fdf7af66f3f7b9d92b573f7f788b68bf35e3cb1993524fb9b0c2404828",
+      "bytes": 840,
+      "git_blob": "2b699c45ceb2166e2016687afb9a24b1cff14201",
+      "preserved_bytes": "recovered/guard-reach-059/3c8ac5fdf7af66f3f7b9d92b573f7f788b68bf35e3cb1993524fb9b0c2404828.gz",
+      "published_sha256": "3c8ac5fdf7af66f3f7b9d92b573f7f788b68bf35e3cb1993524fb9b0c2404828",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-387.json",
+      "sha256": "6af45ea8152a02bd833c8ad639cb5ad065581fd511a7d41f4d83401987256a28",
+      "bytes": 558,
+      "git_blob": "463b26a27a107b0814ac67bcf94261274e6fa010",
+      "preserved_bytes": "recovered/guard-reach-059/6af45ea8152a02bd833c8ad639cb5ad065581fd511a7d41f4d83401987256a28.gz",
+      "published_sha256": "6af45ea8152a02bd833c8ad639cb5ad065581fd511a7d41f4d83401987256a28",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-388.json",
+      "sha256": "8eef06122ea28d6f7fc018601d5a662b7d893517a757ac0158bed0225e7c51a6",
+      "bytes": 558,
+      "git_blob": "46978e643785b2395b25b2a3972e449dc45bc1eb",
+      "preserved_bytes": "recovered/guard-reach-059/8eef06122ea28d6f7fc018601d5a662b7d893517a757ac0158bed0225e7c51a6.gz",
+      "published_sha256": "8eef06122ea28d6f7fc018601d5a662b7d893517a757ac0158bed0225e7c51a6",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-389.json",
+      "sha256": "dde809d251225fbbc0852946512fbe8aa94c2741c6e88eb55846063b47a9aa2d",
+      "bytes": 558,
+      "git_blob": "6f057e2f9740e8e8aa108477b6415cb25373ee32",
+      "preserved_bytes": "recovered/guard-reach-059/dde809d251225fbbc0852946512fbe8aa94c2741c6e88eb55846063b47a9aa2d.gz",
+      "published_sha256": "dde809d251225fbbc0852946512fbe8aa94c2741c6e88eb55846063b47a9aa2d",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-390.json",
+      "sha256": "459fdc51455c0e021f3cb750e8d83f30eee5b3b9725dbd4c74a3faed078e80d9",
+      "bytes": 558,
+      "git_blob": "def26224f60a282c85c995f32ae11192730a0f98",
+      "preserved_bytes": "recovered/guard-reach-059/459fdc51455c0e021f3cb750e8d83f30eee5b3b9725dbd4c74a3faed078e80d9.gz",
+      "published_sha256": "459fdc51455c0e021f3cb750e8d83f30eee5b3b9725dbd4c74a3faed078e80d9",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-391.json",
+      "sha256": "9df7ad012540228dd7f6baa4184516fb69330cbb1898e00f2deb1291c68c4574",
+      "bytes": 558,
+      "git_blob": "c7473f4087abdeddf3559d82c19df7f4ed7fc496",
+      "preserved_bytes": "recovered/guard-reach-059/9df7ad012540228dd7f6baa4184516fb69330cbb1898e00f2deb1291c68c4574.gz",
+      "published_sha256": "9df7ad012540228dd7f6baa4184516fb69330cbb1898e00f2deb1291c68c4574",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    }
+  ],
+  "remaining": "Actual supported swing geometry, solver/native application and retained contacts, exact alias relationships and thirteen independent lenses remain open. Checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
