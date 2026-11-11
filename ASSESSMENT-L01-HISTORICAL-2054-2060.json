@@ -1,0 +1,327 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2054,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/furniture.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working body matches committed6533 for this exact role; changed95e is distinct where indicated.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2054",
+      "sha256": "f3ec5409fb24d23dcf6c786fe44145ef7a58ece8c335ab6eefaa665eb6b48a7b",
+      "lines": 60,
+      "new_personal_read_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "ITERATION-CLOCKS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/furniture.rs",
+        "sha256": "f3ec5409fb24d23dcf6c786fe44145ef7a58ece8c335ab6eefaa665eb6b48a7b",
+        "bytes": 2106,
+        "lines": 60,
+        "git_blob": "8ff80b309080e5f1f5f32ef3127dfa2fc55c7f87",
+        "preserved_bytes": "main-advance-95e/iteration-clocks-evidence/current-2054.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            60
+          ]
+        ],
+        "qualification": "Identical bytes read through historical role, not another reviewer or lens credit."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; original reviewer and earlier observations remain separately attributed."
+    },
+    {
+      "original_index": 2055,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working body matches committed6533 for this exact role; changed95e is distinct where indicated.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2055",
+      "sha256": "812c3b491db93ba51220e73ebe4aef93934ff80abeb3f7d4e2af796c598ce1b7",
+      "lines": 648,
+      "new_personal_read_ranges": [
+        [
+          1,
+          648
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "ITERATION-CLOCKS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/iteration.rs",
+        "sha256": "6a7c0f94142f4921348b6ce263465973968879d77cb1b0880ef647a72402a3be",
+        "bytes": 24076,
+        "lines": 649,
+        "git_blob": "b958d10442f73b18c46f5e12869eeecaabc09f0b",
+        "preserved_bytes": "main-advance-95e/iteration-clocks-evidence/current-2055.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "current_personal_ranges": [
+          [
+            1,
+            104
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [],
+        "qualification": "Changed current body separately preserved; only current lines1–104 personally read here. Historical full-body read does not transfer to changed95e.",
+        "read_only_unified_diff": {
+          "path": "main-advance-95e/iteration-clocks-evidence/historical-current.diff.gz",
+          "sha256": "dc7e66eb10416dc555188ab4568c3dad728849c903449b88db62a2f3fcb70757",
+          "bytes": 1049,
+          "qualification": "Deterministic textual diff between the separately preserved source bodies; source inspection only."
+        }
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; original reviewer and earlier observations remain separately attributed."
+    },
+    {
+      "original_index": 2056,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/clock.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working body matches committed6533 for this exact role; changed95e is distinct where indicated.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2056",
+      "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+      "lines": 29,
+      "new_personal_read_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "ITERATION-CLOCKS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-ITERATION-TIMEOUT.json",
+          "ranges": [
+            [
+              1,
+              29
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/iteration/clock.rs",
+        "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+        "bytes": 1076,
+        "lines": 29,
+        "git_blob": "28523a2547a70c8a34d682c05d79ce8d99aef1f2",
+        "preserved_bytes": "main-advance-95e/iteration-clocks-evidence/current-2056.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            29
+          ]
+        ],
+        "qualification": "Identical bytes read through historical role, not another reviewer or lens credit."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; original reviewer and earlier observations remain separately attributed.",
+      "prior_worklist_observation_revision_qualification": "Prior worklist cited a c100 predecessor observation; byte equality does not transfer independent95e personal read credit."
+    },
+    {
+      "original_index": 2057,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/equipment.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working body matches committed6533 for this exact role; changed95e is distinct where indicated.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2057",
+      "sha256": "ca4439b826717b1d61d7efd26d33a4538f66c8fc5527e32d8e7d9768b71e7074",
+      "lines": 163,
+      "new_personal_read_ranges": [
+        [
+          1,
+          163
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "ITERATION-CLOCKS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/iteration/equipment.rs",
+        "sha256": "ca4439b826717b1d61d7efd26d33a4538f66c8fc5527e32d8e7d9768b71e7074",
+        "bytes": 6430,
+        "lines": 163,
+        "git_blob": "6b0d326ea39e5ed1fce99e7e9740433ab99e5a17",
+        "preserved_bytes": "main-advance-95e/iteration-clocks-evidence/current-2057.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            163
+          ]
+        ],
+        "qualification": "Identical bytes read through historical role, not another reviewer or lens credit."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; original reviewer and earlier observations remain separately attributed."
+    },
+    {
+      "original_index": 2058,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/logging.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working body matches committed6533 for this exact role; changed95e is distinct where indicated.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2058",
+      "sha256": "9b544bf84edcca32609b26242d2794c3800a45618c40cef1aa5f4d6965225b88",
+      "lines": 427,
+      "new_personal_read_ranges": [
+        [
+          1,
+          427
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "ITERATION-CLOCKS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-ITERATION-TIMEOUT.json",
+          "ranges": [
+            [
+              157,
+              184
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/iteration/logging.rs",
+        "sha256": "9b544bf84edcca32609b26242d2794c3800a45618c40cef1aa5f4d6965225b88",
+        "bytes": 14020,
+        "lines": 427,
+        "git_blob": "0d6be6ec2693ce2faa3a551dc1c5a69f409779d0",
+        "preserved_bytes": "main-advance-95e/iteration-clocks-evidence/current-2058.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            427
+          ]
+        ],
+        "qualification": "Identical bytes read through historical role, not another reviewer or lens credit."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; original reviewer and earlier observations remain separately attributed.",
+      "prior_worklist_observation_revision_qualification": "Prior worklist cited a c100 predecessor observation; byte equality does not transfer independent95e personal read credit."
+    },
+    {
+      "original_index": 2059,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/logging/decisions.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working body matches committed6533 for this exact role; changed95e is distinct where indicated.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2059",
+      "sha256": "1e132304f3127343f18a77a99b9d18205c3057788ce99700525a0d16e27a8768",
+      "lines": 89,
+      "new_personal_read_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "ITERATION-CLOCKS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/iteration/logging/decisions.rs",
+        "sha256": "1e132304f3127343f18a77a99b9d18205c3057788ce99700525a0d16e27a8768",
+        "bytes": 3174,
+        "lines": 89,
+        "git_blob": "0c5d126fce8860c69eb59f9e0c71c3148783f91b",
+        "preserved_bytes": "main-advance-95e/iteration-clocks-evidence/current-2059.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            89
+          ]
+        ],
+        "qualification": "Identical bytes read through historical role, not another reviewer or lens credit."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; original reviewer and earlier observations remain separately attributed."
+    },
+    {
+      "original_index": 2060,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working body matches committed6533 for this exact role; changed95e is distinct where indicated.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2060",
+      "sha256": "a61ef59cb4da06988229325123ef72662197b3c568ea9822b2d27ee6cb1d7616",
+      "lines": 167,
+      "new_personal_read_ranges": [
+        [
+          1,
+          167
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "ITERATION-CLOCKS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs",
+        "sha256": "a61ef59cb4da06988229325123ef72662197b3c568ea9822b2d27ee6cb1d7616",
+        "bytes": 6727,
+        "lines": 167,
+        "git_blob": "34600de8b903bc261aef21df17939fc900c23c03",
+        "preserved_bytes": "main-advance-95e/iteration-clocks-evidence/current-2060.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            167
+          ]
+        ],
+        "qualification": "Identical bytes read through historical role, not another reviewer or lens credit."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; original reviewer and earlier observations remain separately attributed."
+    }
+  ],
+  "observations": [
+    "Full historical furniture, iteration, iteration clock, equipment and three logging bodies personally read through EOF. Source tests read only; no duel, world, generation, viewer or test ran.",
+    "Original2055 loop uses local64Hz; current95e imports30Hz and has distinct bytes. Original2056/2058 prior worklist observations cite c100, not95e. Segovb690–693 and Adler320 retain independent original personal ranges; reused2055/2017/2010/etc carry zero fresh reads in later batches."
+  ],
+  "qualification": "Historical Lens1 personal bodies and selected current observations only; no checkpoint3821 claim.",
+  "next_original_role": 2061
+}

@@ -1,0 +1,407 @@
+{
+  "schema": "726-exact-git-tree-path-membership-v1",
+  "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "shared_commit_and_tree_objects": "EQUIPMENT-HISTORICAL-GIT-PROOFS.json",
+  "additional_shared_tree_objects": [
+    "RUNTIME-FIT-HISTORICAL-GIT-PROOFS.json",
+    "MESH-RIG-HISTORICAL-GIT-PROOFS.json",
+    "SLOT-AUDIO-HISTORICAL-GIT-PROOFS.json",
+    "PLAYER-TRACE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-BOUNDARY-HISTORICAL-GIT-PROOFS.json",
+    "CITY-GPU-HISTORICAL-GIT-PROOFS.json",
+    "CITY-STREAMING-HISTORICAL-GIT-PROOFS.json",
+    "CLOUD-HISTORICAL-GIT-PROOFS.json",
+    "GRAPHICS-HISTORICAL-GIT-PROOFS.json",
+    "GENERATION-HISTORICAL-GIT-PROOFS.json",
+    "WORKER-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-HISTORICAL-GIT-PROOFS.json",
+    "GRASS-CHUNK-HISTORICAL-GIT-PROOFS.json",
+    "LITTER-HISTORICAL-GIT-PROOFS.json",
+    "PEBBLE-HISTORICAL-GIT-PROOFS.json",
+    "PLANT-HISTORICAL-GIT-PROOFS.json",
+    "INTERIOR-HISTORICAL-GIT-PROOFS.json",
+    "ROCK-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SHOOT-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SKELETON-HISTORICAL-GIT-PROOFS.json",
+    "TREE-CROWN-HISTORICAL-GIT-PROOFS.json",
+    "TREE-ASSET-HISTORICAL-GIT-PROOFS.json",
+    "TREE-STREAM-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SCENE-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-MAP-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-SURFACE-HISTORICAL-GIT-PROOFS.json",
+    "SKY-TIME-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-LANDFORM-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-CONTACT-HISTORICAL-GIT-PROOFS.json",
+    "VENUE-TERRAIN-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-SELECTED-LOD-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-CARD-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-SURFACE-HISTORICAL-GIT-PROOFS.json",
+    "OWNED-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-ORIGIN-QUALIFICATION-GIT-PROOFS.json",
+    "VISTA-ZERO-RING-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-SAMPLE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-GROUND-WIRE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-TRAFFIC-CONTEXT-HISTORICAL-GIT-PROOFS.json",
+    "ROAD-WEATHER-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-VIEW-RETENTION-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-ADAPTER-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-STATUS-CENSUS-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-CAMERA-LIFECYCLE-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-REPLACEMENT-HISTORICAL-GIT-PROOFS.json",
+    "CAPTURE-PERSISTENCE-HISTORICAL-GIT-PROOFS.json",
+    "LITTER-CLEARANCE-HISTORICAL-GIT-PROOFS.json",
+    "CATALOG-ROW-HISTORICAL-GIT-PROOFS.json",
+    "WEIGH-HOUSE-HISTORICAL-GIT-PROOFS.json",
+    "PLANT-LOD-ROOT-HISTORICAL-GIT-PROOFS.json",
+    "VIEW-SPEC-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-METRIC-HISTORICAL-GIT-PROOFS.json",
+    "SKY-CAPTURE-HISTORICAL-GIT-PROOFS.json",
+    "WHEEL-CURRENT-HISTORICAL-GIT-PROOFS.json",
+    "CALIBRATION-BOUND-HISTORICAL-GIT-PROOFS.json",
+    "ANIMATION-EVALUATION-HISTORICAL-GIT-PROOFS.json",
+    "LANDING-SETTLE-HISTORICAL-GIT-PROOFS.json",
+    "GAIT-PROFILE-HISTORICAL-GIT-PROOFS.json",
+    "PACK-RESPONSE-HISTORICAL-GIT-PROOFS.json",
+    "SEMANTIC-NAMES-HISTORICAL-GIT-PROOFS.json",
+    "ACTION-STATE-HISTORICAL-GIT-PROOFS.json",
+    "TURN-INTENT-HISTORICAL-GIT-PROOFS.json",
+    "HOME-IDENTITY-HISTORICAL-GIT-PROOFS.json",
+    "GATE-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+    "GARDEN-HISTORICAL-GIT-PROOFS.json",
+    "GROUNDING-HISTORICAL-GIT-PROOFS.json",
+    "FOUNDATION-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-CUTFACE-HISTORICAL-GIT-PROOFS.json",
+    "GEOGRAPHY-GRADE-HISTORICAL-GIT-PROOFS.json",
+    "SUPPORT-INTERVAL-HISTORICAL-GIT-PROOFS.json",
+    "SAMPLED-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-FIXTURES-HISTORICAL-GIT-PROOFS.json",
+    "MOVEMENT-REPORT-HISTORICAL-GIT-PROOFS.json",
+    "MARKET-GEOMETRY-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-CONFIG-HISTORICAL-GIT-PROOFS.json",
+    "LANDFORM-BOUNDS-HISTORICAL-GIT-PROOFS.json",
+    "INVENTORY-CACHE-HISTORICAL-GIT-PROOFS.json",
+    "MARCHING-ADMISSION-HISTORICAL-GIT-PROOFS.json",
+    "QUICKSTEP-FORCE-HISTORICAL-GIT-PROOFS.json",
+    "PRONE-EFFORT-HISTORICAL-GIT-PROOFS.json",
+    "CONDITION-REGIONAL-HISTORICAL-GIT-PROOFS.json",
+    "SHORT-ROUTE-HISTORICAL-GIT-PROOFS.json",
+    "GRADE-BOUNDED-HISTORICAL-GIT-PROOFS.json",
+    "URBAN-BUCKET-HISTORICAL-GIT-PROOFS.json",
+    "ROUNDED-POLYGON-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-CARDINALITY-HISTORICAL-GIT-PROOFS.json",
+    "SCENE-WEATHER-HISTORICAL-GIT-PROOFS.json",
+    "FURNITURE-VISTA-HISTORICAL-GIT-PROOFS.json",
+    "INTERIOR-INSTALL-HISTORICAL-GIT-PROOFS.json",
+    "GARDEN-CLEARANCE-HISTORICAL-GIT-PROOFS.json",
+    "RECIPE-ROAD-HISTORICAL-GIT-PROOFS.json",
+    "TRANSITION-VISTA-HISTORICAL-GIT-PROOFS.json",
+    "LANDFORM-OVERLAP-HISTORICAL-GIT-PROOFS.json",
+    "LANDFORM-CODEC-HISTORICAL-GIT-PROOFS.json",
+    "CLIENT-ENDPOINT-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-DIAGNOSTICS-HISTORICAL-GIT-PROOFS.json",
+    "GROUNDING-REPORT-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-STAGE-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-CONTACT-HISTORICAL-GIT-PROOFS.json",
+    "DISPATCHER-HISTORICAL-GIT-PROOFS.json",
+    "SCENE-MATERIALIZATION-HISTORICAL-GIT-PROOFS.json",
+    "GEOLOGY-ESTABLISHMENT-HISTORICAL-GIT-PROOFS.json",
+    "MELEE-REPORT-HISTORICAL-GIT-PROOFS.json",
+    "MELEE-AGGREGATION-HISTORICAL-GIT-PROOFS.json",
+    "BOT-BEHAVIOR-HISTORICAL-GIT-PROOFS.json",
+    "BOT-REACTION-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-BOUNDARY-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-AUTHORITY-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-CONSEQUENCE-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-IMPACT-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-INGRESS-HISTORICAL-GIT-PROOFS.json",
+    "MELEE-LIFECYCLE-HISTORICAL-GIT-PROOFS.json",
+    "GATE-HANDEDNESS-HISTORICAL-GIT-PROOFS.json",
+    "EQUIPMENT-TOPOLOGY-HISTORICAL-GIT-PROOFS.json"
+  ],
+  "root_tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+  "additional_tree_objects": {
+    "a88e17faf2cae8655a6017dc133523a51f24a1cf": {
+      "git_object": "a88e17faf2cae8655a6017dc133523a51f24a1cf",
+      "type": "tree",
+      "sha256": "055828f79543fd7ffaf9546edfbcaeb4a4ed08a53729e871b8f11dc6801c34f8",
+      "bytes": 148,
+      "preserved_bytes": "main-advance-95e/iteration-clocks-evidence/git-objects/a88e17faf2cae8655a6017dc133523a51f24a1cf.tree.gz"
+    },
+    "86c844022a1f88e0d353b916cdb9ed62bf88dfd8": {
+      "git_object": "86c844022a1f88e0d353b916cdb9ed62bf88dfd8",
+      "type": "tree",
+      "sha256": "ebc5f089cf7b4c1b8228fe9266b9842c8a64b15594cfa2d3fd0262bc7f9ce1a6",
+      "bytes": 81,
+      "preserved_bytes": "main-advance-95e/iteration-clocks-evidence/git-objects/86c844022a1f88e0d353b916cdb9ed62bf88dfd8.tree.gz"
+    }
+  },
+  "paths": {
+    "crates/adventuresim-tactical-server/src/furniture.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-server",
+          "mode": "40000",
+          "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+        },
+        {
+          "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+          "name": "src",
+          "mode": "40000",
+          "child": "37162e086b885f355f6758a9249dd223932c4672"
+        },
+        {
+          "tree": "37162e086b885f355f6758a9249dd223932c4672",
+          "name": "furniture.rs",
+          "mode": "100644",
+          "child": "8ff80b309080e5f1f5f32ef3127dfa2fc55c7f87"
+        }
+      ],
+      "git_blob": "8ff80b309080e5f1f5f32ef3127dfa2fc55c7f87",
+      "sha256": "f3ec5409fb24d23dcf6c786fe44145ef7a58ece8c335ab6eefaa665eb6b48a7b",
+      "bytes": 2106,
+      "lines": 60
+    },
+    "crates/adventuresim-tactical-server/src/iteration.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-server",
+          "mode": "40000",
+          "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+        },
+        {
+          "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+          "name": "src",
+          "mode": "40000",
+          "child": "37162e086b885f355f6758a9249dd223932c4672"
+        },
+        {
+          "tree": "37162e086b885f355f6758a9249dd223932c4672",
+          "name": "iteration.rs",
+          "mode": "100644",
+          "child": "56c81652948fea6d92a1765df9cc40939d5797a5"
+        }
+      ],
+      "git_blob": "56c81652948fea6d92a1765df9cc40939d5797a5",
+      "sha256": "812c3b491db93ba51220e73ebe4aef93934ff80abeb3f7d4e2af796c598ce1b7",
+      "bytes": 24072,
+      "lines": 648
+    },
+    "crates/adventuresim-tactical-server/src/iteration/clock.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-server",
+          "mode": "40000",
+          "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+        },
+        {
+          "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+          "name": "src",
+          "mode": "40000",
+          "child": "37162e086b885f355f6758a9249dd223932c4672"
+        },
+        {
+          "tree": "37162e086b885f355f6758a9249dd223932c4672",
+          "name": "iteration",
+          "mode": "40000",
+          "child": "a88e17faf2cae8655a6017dc133523a51f24a1cf"
+        },
+        {
+          "tree": "a88e17faf2cae8655a6017dc133523a51f24a1cf",
+          "name": "clock.rs",
+          "mode": "100644",
+          "child": "28523a2547a70c8a34d682c05d79ce8d99aef1f2"
+        }
+      ],
+      "git_blob": "28523a2547a70c8a34d682c05d79ce8d99aef1f2",
+      "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+      "bytes": 1076,
+      "lines": 29
+    },
+    "crates/adventuresim-tactical-server/src/iteration/equipment.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-server",
+          "mode": "40000",
+          "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+        },
+        {
+          "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+          "name": "src",
+          "mode": "40000",
+          "child": "37162e086b885f355f6758a9249dd223932c4672"
+        },
+        {
+          "tree": "37162e086b885f355f6758a9249dd223932c4672",
+          "name": "iteration",
+          "mode": "40000",
+          "child": "a88e17faf2cae8655a6017dc133523a51f24a1cf"
+        },
+        {
+          "tree": "a88e17faf2cae8655a6017dc133523a51f24a1cf",
+          "name": "equipment.rs",
+          "mode": "100644",
+          "child": "6b0d326ea39e5ed1fce99e7e9740433ab99e5a17"
+        }
+      ],
+      "git_blob": "6b0d326ea39e5ed1fce99e7e9740433ab99e5a17",
+      "sha256": "ca4439b826717b1d61d7efd26d33a4538f66c8fc5527e32d8e7d9768b71e7074",
+      "bytes": 6430,
+      "lines": 163
+    },
+    "crates/adventuresim-tactical-server/src/iteration/logging.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-server",
+          "mode": "40000",
+          "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+        },
+        {
+          "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+          "name": "src",
+          "mode": "40000",
+          "child": "37162e086b885f355f6758a9249dd223932c4672"
+        },
+        {
+          "tree": "37162e086b885f355f6758a9249dd223932c4672",
+          "name": "iteration",
+          "mode": "40000",
+          "child": "a88e17faf2cae8655a6017dc133523a51f24a1cf"
+        },
+        {
+          "tree": "a88e17faf2cae8655a6017dc133523a51f24a1cf",
+          "name": "logging.rs",
+          "mode": "100644",
+          "child": "0d6be6ec2693ce2faa3a551dc1c5a69f409779d0"
+        }
+      ],
+      "git_blob": "0d6be6ec2693ce2faa3a551dc1c5a69f409779d0",
+      "sha256": "9b544bf84edcca32609b26242d2794c3800a45618c40cef1aa5f4d6965225b88",
+      "bytes": 14020,
+      "lines": 427
+    },
+    "crates/adventuresim-tactical-server/src/iteration/logging/decisions.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-server",
+          "mode": "40000",
+          "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+        },
+        {
+          "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+          "name": "src",
+          "mode": "40000",
+          "child": "37162e086b885f355f6758a9249dd223932c4672"
+        },
+        {
+          "tree": "37162e086b885f355f6758a9249dd223932c4672",
+          "name": "iteration",
+          "mode": "40000",
+          "child": "a88e17faf2cae8655a6017dc133523a51f24a1cf"
+        },
+        {
+          "tree": "a88e17faf2cae8655a6017dc133523a51f24a1cf",
+          "name": "logging",
+          "mode": "40000",
+          "child": "86c844022a1f88e0d353b916cdb9ed62bf88dfd8"
+        },
+        {
+          "tree": "86c844022a1f88e0d353b916cdb9ed62bf88dfd8",
+          "name": "decisions.rs",
+          "mode": "100644",
+          "child": "0c5d126fce8860c69eb59f9e0c71c3148783f91b"
+        }
+      ],
+      "git_blob": "0c5d126fce8860c69eb59f9e0c71c3148783f91b",
+      "sha256": "1e132304f3127343f18a77a99b9d18205c3057788ce99700525a0d16e27a8768",
+      "bytes": 3174,
+      "lines": 89
+    },
+    "crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-server",
+          "mode": "40000",
+          "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+        },
+        {
+          "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+          "name": "src",
+          "mode": "40000",
+          "child": "37162e086b885f355f6758a9249dd223932c4672"
+        },
+        {
+          "tree": "37162e086b885f355f6758a9249dd223932c4672",
+          "name": "iteration",
+          "mode": "40000",
+          "child": "a88e17faf2cae8655a6017dc133523a51f24a1cf"
+        },
+        {
+          "tree": "a88e17faf2cae8655a6017dc133523a51f24a1cf",
+          "name": "logging",
+          "mode": "40000",
+          "child": "86c844022a1f88e0d353b916cdb9ed62bf88dfd8"
+        },
+        {
+          "tree": "86c844022a1f88e0d353b916cdb9ed62bf88dfd8",
+          "name": "resolution.rs",
+          "mode": "100644",
+          "child": "34600de8b903bc261aef21df17939fc900c23c03"
+        }
+      ],
+      "git_blob": "34600de8b903bc261aef21df17939fc900c23c03",
+      "sha256": "a61ef59cb4da06988229325123ef72662197b3c568ea9822b2d27ee6cb1d7616",
+      "bytes": 6727,
+      "lines": 167
+    }
+  },
+  "qualification": "Raw6533 Git chains bind original2054–2060. Original2055 differs at95e and is never credited as identical; the remaining roles match individually."
+}
