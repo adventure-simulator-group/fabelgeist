@@ -1,0 +1,482 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original roles1816–1822 and the public admitted settlement cut-face to terrain collision source chain.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1816-1822.json",
+  "git_membership_evidence": "TERRAIN-CUTFACE-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8a54b1049b5593d0d06440ec8bda5f08f28c4ef8",
+      "sha256": "2661ce950659807c47c0de4fdc769ba1ba79825c47ba2985fcec32d7e4f38390",
+      "bytes": 20452,
+      "lines": 553,
+      "ranges": [
+        [
+          91,
+          115
+        ],
+        [
+          274,
+          286
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/cutface-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges inspected; full bytes preserved. No native terrain, physics, asset or test execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene/property_support.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1391ac3030047ba89477fe576c06de1e7493f7b0",
+      "sha256": "4eb5b88b6059d622bb8663f784c3cd8eab5289a4928d2c51ab38031acc6a354a",
+      "bytes": 7361,
+      "lines": 181,
+      "ranges": [
+        [
+          14,
+          32
+        ],
+        [
+          110,
+          140
+        ],
+        [
+          144,
+          180
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/cutface-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges inspected; full bytes preserved. No native terrain, physics, asset or test execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/terrain_collision.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2fa4044303d8f1b9d4b4034f696215ecdee43c4d",
+      "sha256": "faee49ad384b0820c1a89f3956a9a356ba1df53ce2f8bcc29047e8c99c2c3ce5",
+      "bytes": 2569,
+      "lines": 75,
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/cutface-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges inspected; full bytes preserved. No native terrain, physics, asset or test execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/mesh/grid.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f62390145f2ace932dd996a7fdd0c7bc804758e6",
+      "sha256": "8c28100b68a4934760fdb6e468d601a8a4f29890d5ee8837120d992250b837f3",
+      "bytes": 9896,
+      "lines": 279,
+      "ranges": [
+        [
+          1,
+          230
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/cutface-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges inspected; full bytes preserved. No native terrain, physics, asset or test execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/mesh.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a6aa458398cc478a0f5b0fc9d5734b81522e0abc",
+      "sha256": "d126f49c7be7d94e3c1e6bd19e6479542f155aaee7fedfccaa1c471706eed66e",
+      "bytes": 8835,
+      "lines": 242,
+      "ranges": [
+        [
+          122,
+          135
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/cutface-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges inspected; full bytes preserved. No native terrain, physics, asset or test execution."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-FOUNDATION-VOLUME-95E.json",
+    "ASSESSMENT-GROUNDING-BOUNDARY-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Prepared query and optional faces",
+      "trace": "The query index covers each natural and foundation support triangle exactly once and validates child/source references before retained use. The prepared cache preserves each source index and maps it to GroundTriangle::new; a rejected unmeasurable face becomes None and is skipped. Finite degenerate source faces are explicitly described as no-hit, but determinant-threshold and privileged producer semantics remain independent.",
+      "remaining": "Do not treat a missing prepared plane as proof of a lost valid support or globally claim all rejected faces harmless."
+    },
+    {
+      "contract": "Floor basis and modeled physical policies",
+      "trace": "floor_shift zips original and private basis support triangles and computes affine controls; its initial infinite interval is a local solver intermediate, with selected shift admitted through SignedLength. Mesh generation uses the same horizontal plan cuts but retaining faces and stair/profile data have separate behavior; exact equality of every original/basis support topology is not established by this bounded inspection. Highest unbound surface and ceiling-constrained support are explicit different query roles.",
+      "remaining": "Trace all mesh, stair, profile and source intersection producers before resolving zip correspondence or numeric edge cases."
+    },
+    {
+      "contract": "Test evidence only",
+      "trace": "Settlement source tests specify physical member ownership, retaining-edge levels, source topology and collision checks; they depend on fixture loading, native codecs and raycasts. Source assertions are not evidence those fixtures or behaviors ran.",
+      "remaining": "Inspect assets and native implementations independently; no product test, raycast or fixture generation."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "Q-L12-2675d00ebe7ed868d3ad",
+      "lens": 12,
+      "additional_current_lenses": [
+        1,
+        3,
+        5,
+        7,
+        8
+      ],
+      "severity": "unassigned; conditional admitted cut-face collision omission",
+      "first_contract": "A cut face retained as physical owned terrain should participate in its collision output whenever that accepted terrain contains the face, subject to the documented native terrain policy.",
+      "trace": "Construct only as a source-level example: choose a nonzero property and valid nonempty distinct PropertyMembers; call PropertyFoundationMesh::from_prisms with no cells and a finite nondegenerate vertical cut triangle [(0,0,0),(1,0,0),(0,1,0)]. The shown foundation validator accepts empty canonical topology and finite cut positions. BoundedSettlementTerrain::from_foundations with that foundation, no natural triangles and a positive finite contact tolerance validates source geometry; SupportQueryIndex::compile builds an empty index because there are no natural or support triangles, and its validator accepts zero references for those empty sources. The retained surface presentation iterator includes the cut face. Its colliders method first maps the empty foundation to ContactOnly, then adds the natural-and-cut-face mesh only when natural triangles are nonempty, leaving no colliders for this example. SceneTerrain::with_property_surface can retain the surface and the no-landform/no-prepared-patch server branch requests terrain.colliders.",
+      "safeguards_and_limits": "No foundation, terrain, serialization, collider, game server, raycast or runtime was constructed or executed. This is a current reassessment of original059 pending q1506, not a historical accepted finding or checkpoint3821 restoration. The normal settlement compiler derives foundations and cuts from admitted support/source intersections; whether it can produce empty natural triangles with nonempty cuts is not established. Prepared landform/transition collision uses a separate path that includes cut faces in its source mesh, subject to collar filtering. The independent BoundedPropertyTerrain early return is related but its valid producer is not established; do not equate it as an alias merely because of a similar gate.",
+      "connected_repair_dependencies": [
+        "Determine whether the public accepted from_foundations surface is required to provide physical cut-face collision, and trace normal source/scene/landform consumers and all direct constructors.",
+        "If accepted cut faces must collide, build the natural/cut mesh when either collection has faces while preserving winding, capacity, ContactOnly cells, terrain ownership and the distinct landform-transition path.",
+        "Keep the single-property terrain case and prior boundary all-contact wire case distinct until exact first-contract and alias evidence is established; later test the finite constructed case and normal scenarios only when product validation is authorized."
+      ],
+      "historical_related_candidates": [
+        "baseline-059/queue.json#/entries/1506",
+        "baseline-059/queue.json#/entries/1511",
+        "baseline-059/queue.json#/entries/1504",
+        "baseline-059/queue.json#/entries/1499",
+        "segovb/READ-L12-596.json",
+        "ASSESSMENT-FOUNDATION-VOLUME-95E.json"
+      ],
+      "accepted_historical_unique_count_change": 0,
+      "discovery": "partial; source-only public admission and no-landform omission chain established, normal producer and exact alias status open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1499",
+        "/entries/1502",
+        "/entries/1503",
+        "/entries/1504",
+        "/entries/1505",
+        "/entries/1506",
+        "/entries/1507",
+        "/entries/1508",
+        "/entries/1509",
+        "/entries/1510",
+        "/entries/1511"
+      ],
+      "qualification": "Original059 pending records and previous author/revision are not checkpoint3821; exact aliases remain open."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-595.json",
+      "sha256": "4cc260acd1605f949cbe48d186af99fe39d83ef59d81d1c710bf76e698a85b02",
+      "bytes": 1769,
+      "git_blob": "9a23627b5fae192fecd866c57ac9db2b281fe88c",
+      "preserved_bytes": "recovered/cutface-059/4cc260acd1605f949cbe48d186af99fe39d83ef59d81d1c710bf76e698a85b02.gz",
+      "published_sha256": "4cc260acd1605f949cbe48d186af99fe39d83ef59d81d1c710bf76e698a85b02",
+      "published_bytes": 1769,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 plan"
+      ],
+      "qualification": "Original author, lens, revision, ranges, same-lens reuse and pending obligations retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-596.json",
+      "sha256": "7b3053b5ba0469da9810b36e56e35a5e856f66d56fd72bac18299fa6438eec19",
+      "bytes": 1263,
+      "git_blob": "7ecfe4f1955b8414a782d892ad78d85224d466dc",
+      "preserved_bytes": "recovered/cutface-059/7b3053b5ba0469da9810b36e56e35a5e856f66d56fd72bac18299fa6438eec19.gz",
+      "published_sha256": "7b3053b5ba0469da9810b36e56e35a5e856f66d56fd72bac18299fa6438eec19",
+      "published_bytes": 1263,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 plan"
+      ],
+      "qualification": "Original author, lens, revision, ranges, same-lens reuse and pending obligations retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-597.json",
+      "sha256": "bcee686d0c093ad5fd9bef0601864b1a88f3227639760bc2b1569ec26ccb3a88",
+      "bytes": 1276,
+      "git_blob": "7cc4e7c95f3079fcffc17351c96c3f6addea47a0",
+      "preserved_bytes": "recovered/cutface-059/bcee686d0c093ad5fd9bef0601864b1a88f3227639760bc2b1569ec26ccb3a88.gz",
+      "published_sha256": "bcee686d0c093ad5fd9bef0601864b1a88f3227639760bc2b1569ec26ccb3a88",
+      "published_bytes": 1276,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 plan"
+      ],
+      "qualification": "Original author, lens, revision, ranges, same-lens reuse and pending obligations retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/READ-L12-595.json",
+      "sha256": "839b0de89f7361831532dddc8dcdaee5743987f80df5a8b9213e3ba8e765c5f3",
+      "bytes": 11878,
+      "git_blob": "9c366c566cedf2d7b9ef7400c76a5099343e51c1",
+      "preserved_bytes": "recovered/cutface-059/839b0de89f7361831532dddc8dcdaee5743987f80df5a8b9213e3ba8e765c5f3.gz",
+      "published_sha256": "839b0de89f7361831532dddc8dcdaee5743987f80df5a8b9213e3ba8e765c5f3",
+      "published_bytes": 11878,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision, ranges, same-lens reuse and pending obligations retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/READ-L12-596.json",
+      "sha256": "898f050b7e417a4765358f8ac32a7ed08db5e6deca8f98232f64d0ecfefc6d39",
+      "bytes": 10490,
+      "git_blob": "cff94b84e201435681ced926817d203931d98c95",
+      "preserved_bytes": "recovered/cutface-059/898f050b7e417a4765358f8ac32a7ed08db5e6deca8f98232f64d0ecfefc6d39.gz",
+      "published_sha256": "898f050b7e417a4765358f8ac32a7ed08db5e6deca8f98232f64d0ecfefc6d39",
+      "published_bytes": 10490,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb Lens12 receipt",
+        "Original same-lens receipt, no fresh read"
+      ],
+      "qualification": "Original author, lens, revision, ranges, same-lens reuse and pending obligations retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/READ-L12-597.json",
+      "sha256": "baf75f97f5243229130dc46ffe1bea119c240ca7cc3485fa2a9288270400df72",
+      "bytes": 9892,
+      "git_blob": "210a7b239775c67ba1877a535d572ddaaea033c1",
+      "preserved_bytes": "recovered/cutface-059/baf75f97f5243229130dc46ffe1bea119c240ca7cc3485fa2a9288270400df72.gz",
+      "published_sha256": "baf75f97f5243229130dc46ffe1bea119c240ca7cc3485fa2a9288270400df72",
+      "published_bytes": 9892,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision, ranges, same-lens reuse and pending obligations retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-723.json",
+      "sha256": "635699e8a18efec2ad18c3edd6f79fcddf6af53c6081395299b095bca4829e5e",
+      "bytes": 1258,
+      "git_blob": "180b304dfada37e94ae213413e72b915ae8c9cf9",
+      "preserved_bytes": "recovered/cutface-059/635699e8a18efec2ad18c3edd6f79fcddf6af53c6081395299b095bca4829e5e.gz",
+      "published_sha256": "635699e8a18efec2ad18c3edd6f79fcddf6af53c6081395299b095bca4829e5e",
+      "published_bytes": 1258,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision, ranges, same-lens reuse and pending obligations retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-724.json",
+      "sha256": "e7b63b3f24b3e70a8401a8d65d44e40a3036122684026146fea498a3348b8c2d",
+      "bytes": 1252,
+      "git_blob": "5d40f6a0d5c97084c5e0f1f8f1444744b4a4611a",
+      "preserved_bytes": "recovered/cutface-059/e7b63b3f24b3e70a8401a8d65d44e40a3036122684026146fea498a3348b8c2d.gz",
+      "published_sha256": "e7b63b3f24b3e70a8401a8d65d44e40a3036122684026146fea498a3348b8c2d",
+      "published_bytes": 1252,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision, ranges, same-lens reuse and pending obligations retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-725.json",
+      "sha256": "7cdd3f2d8eae41d2c42a2e5e2f8602871a0ed7efe0ff7ad38ab90a67cf7cab2f",
+      "bytes": 1258,
+      "git_blob": "5cc9ceeb1a02f56fde496b04bfa5426466748a07",
+      "preserved_bytes": "recovered/cutface-059/7cdd3f2d8eae41d2c42a2e5e2f8602871a0ed7efe0ff7ad38ab90a67cf7cab2f.gz",
+      "published_sha256": "7cdd3f2d8eae41d2c42a2e5e2f8602871a0ed7efe0ff7ad38ab90a67cf7cab2f",
+      "published_bytes": 1258,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision, ranges, same-lens reuse and pending obligations retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-726.json",
+      "sha256": "ec00bf3f1ba8d698dbdfa9038c816095c1aca6a97096cfa2d98a7d826fe99126",
+      "bytes": 1243,
+      "git_blob": "a430296e360d7f726e46dd3d14940d9b81259d4b",
+      "preserved_bytes": "recovered/cutface-059/ec00bf3f1ba8d698dbdfa9038c816095c1aca6a97096cfa2d98a7d826fe99126.gz",
+      "published_sha256": "ec00bf3f1ba8d698dbdfa9038c816095c1aca6a97096cfa2d98a7d826fe99126",
+      "published_bytes": 1243,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision, ranges, same-lens reuse and pending obligations retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-727.json",
+      "sha256": "b59b6b90be515d6270f32c33912b8661b7fc6e34f731e17f0b3649f2d2b25ae7",
+      "bytes": 1255,
+      "git_blob": "fd291483b8c9b7467030e50576966ede88dbaa12",
+      "preserved_bytes": "recovered/cutface-059/b59b6b90be515d6270f32c33912b8661b7fc6e34f731e17f0b3649f2d2b25ae7.gz",
+      "published_sha256": "b59b6b90be515d6270f32c33912b8661b7fc6e34f731e17f0b3649f2d2b25ae7",
+      "published_bytes": 1255,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration",
+        "Original same-lens registration"
+      ],
+      "qualification": "Original author, lens, revision, ranges, same-lens reuse and pending obligations retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-728.json",
+      "sha256": "d64b655cf4c011bd01923ab770e67546da49ca120617b45a9c68408a4c5840d1",
+      "bytes": 1276,
+      "git_blob": "7f9de8700b19765f7cc845e30c2b2aadfa9153c3",
+      "preserved_bytes": "recovered/cutface-059/d64b655cf4c011bd01923ab770e67546da49ca120617b45a9c68408a4c5840d1.gz",
+      "published_sha256": "d64b655cf4c011bd01923ab770e67546da49ca120617b45a9c68408a4c5840d1",
+      "published_bytes": 1276,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision, ranges, same-lens reuse and pending obligations retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-729.json",
+      "sha256": "7677563e5b614ab7299f19ed8f320c32dfff2345a0d1b89331d9d6a78faf00b4",
+      "bytes": 1260,
+      "git_blob": "5e0760e070e3c01a78f5fa775515809bce85ccd8",
+      "preserved_bytes": "recovered/cutface-059/7677563e5b614ab7299f19ed8f320c32dfff2345a0d1b89331d9d6a78faf00b4.gz",
+      "published_sha256": "7677563e5b614ab7299f19ed8f320c32dfff2345a0d1b89331d9d6a78faf00b4",
+      "published_bytes": 1260,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision, ranges, same-lens reuse and pending obligations retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/STATE-L12-595.json",
+      "sha256": "969f30f6e931d004abe9c2fb4adc51bb22152d1ad4cd0b87eddd4a7b988052e8",
+      "bytes": 840,
+      "git_blob": "c6225234b3899a82addefc5caafbbb0e618aaeb6",
+      "preserved_bytes": "recovered/cutface-059/969f30f6e931d004abe9c2fb4adc51bb22152d1ad4cd0b87eddd4a7b988052e8.gz",
+      "published_sha256": "969f30f6e931d004abe9c2fb4adc51bb22152d1ad4cd0b87eddd4a7b988052e8",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision, ranges, same-lens reuse and pending obligations retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/STATE-L12-596.json",
+      "sha256": "fd9b0781bf1dbb5376546b56eb9a5d5441d03a70dce141de58163f1c00b19f4b",
+      "bytes": 840,
+      "git_blob": "36bfc328116878151817f37bad78dcdb27dadd96",
+      "preserved_bytes": "recovered/cutface-059/fd9b0781bf1dbb5376546b56eb9a5d5441d03a70dce141de58163f1c00b19f4b.gz",
+      "published_sha256": "fd9b0781bf1dbb5376546b56eb9a5d5441d03a70dce141de58163f1c00b19f4b",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision, ranges, same-lens reuse and pending obligations retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/STATE-L12-597.json",
+      "sha256": "83b913c794fe87a7c625d9ce17cf121c0a203661020f1c1ba60f73819ffedcc8",
+      "bytes": 840,
+      "git_blob": "18fc9359ea8c837f7f8c5e22f2cb8496f88e264f",
+      "preserved_bytes": "recovered/cutface-059/83b913c794fe87a7c625d9ce17cf121c0a203661020f1c1ba60f73819ffedcc8.gz",
+      "published_sha256": "83b913c794fe87a7c625d9ce17cf121c0a203661020f1c1ba60f73819ffedcc8",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision, ranges, same-lens reuse and pending obligations retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-595.json",
+      "sha256": "a566befb637dd519b273ef8ce96c64d4f5a5e26e506d7ceba085771592bef6f1",
+      "bytes": 558,
+      "git_blob": "a205a4012b1d15376e86a594fb6f741a8f59b555",
+      "preserved_bytes": "recovered/cutface-059/a566befb637dd519b273ef8ce96c64d4f5a5e26e506d7ceba085771592bef6f1.gz",
+      "published_sha256": "a566befb637dd519b273ef8ce96c64d4f5a5e26e506d7ceba085771592bef6f1",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision, ranges, same-lens reuse and pending obligations retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-596.json",
+      "sha256": "fa47df69929e1beb6db7ef51d8ada68aaa166bda4ddadc740ab435e781516d2f",
+      "bytes": 558,
+      "git_blob": "7cab281224a4b9ca8992061151708812ae6997ff",
+      "preserved_bytes": "recovered/cutface-059/fa47df69929e1beb6db7ef51d8ada68aaa166bda4ddadc740ab435e781516d2f.gz",
+      "published_sha256": "fa47df69929e1beb6db7ef51d8ada68aaa166bda4ddadc740ab435e781516d2f",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision, ranges, same-lens reuse and pending obligations retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-597.json",
+      "sha256": "8ebf8b63ca91524154f527b18b3364419f2c961a9fcfe636abf0c72b75b93a01",
+      "bytes": 558,
+      "git_blob": "417481692f7d2a29330d413e6f5acda693081d6b",
+      "preserved_bytes": "recovered/cutface-059/8ebf8b63ca91524154f527b18b3364419f2c961a9fcfe636abf0c72b75b93a01.gz",
+      "published_sha256": "8ebf8b63ca91524154f527b18b3364419f2c961a9fcfe636abf0c72b75b93a01",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision, ranges, same-lens reuse and pending obligations retained; not checkpoint3821."
+    }
+  ],
+  "remaining": "Continue original1823 and all13 independent lenses, native geometry, transport, actual production paths and prior aliases. Original3821 final ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

@@ -1,0 +1,466 @@
+{
+  "schema": "726-exact-git-tree-path-membership-v1",
+  "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "shared_commit_and_tree_objects": "EQUIPMENT-HISTORICAL-GIT-PROOFS.json",
+  "additional_shared_tree_objects": [
+    "RUNTIME-FIT-HISTORICAL-GIT-PROOFS.json",
+    "MESH-RIG-HISTORICAL-GIT-PROOFS.json",
+    "SLOT-AUDIO-HISTORICAL-GIT-PROOFS.json",
+    "PLAYER-TRACE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-BOUNDARY-HISTORICAL-GIT-PROOFS.json",
+    "CITY-GPU-HISTORICAL-GIT-PROOFS.json",
+    "CITY-STREAMING-HISTORICAL-GIT-PROOFS.json",
+    "CLOUD-HISTORICAL-GIT-PROOFS.json",
+    "GRAPHICS-HISTORICAL-GIT-PROOFS.json",
+    "GENERATION-HISTORICAL-GIT-PROOFS.json",
+    "WORKER-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-HISTORICAL-GIT-PROOFS.json",
+    "GRASS-CHUNK-HISTORICAL-GIT-PROOFS.json",
+    "LITTER-HISTORICAL-GIT-PROOFS.json",
+    "PEBBLE-HISTORICAL-GIT-PROOFS.json",
+    "PLANT-HISTORICAL-GIT-PROOFS.json",
+    "INTERIOR-HISTORICAL-GIT-PROOFS.json",
+    "ROCK-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SHOOT-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SKELETON-HISTORICAL-GIT-PROOFS.json",
+    "TREE-CROWN-HISTORICAL-GIT-PROOFS.json",
+    "TREE-ASSET-HISTORICAL-GIT-PROOFS.json",
+    "TREE-STREAM-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SCENE-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-MAP-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-SURFACE-HISTORICAL-GIT-PROOFS.json",
+    "SKY-TIME-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-LANDFORM-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-CONTACT-HISTORICAL-GIT-PROOFS.json",
+    "VENUE-TERRAIN-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-SELECTED-LOD-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-CARD-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-SURFACE-HISTORICAL-GIT-PROOFS.json",
+    "OWNED-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-ORIGIN-QUALIFICATION-GIT-PROOFS.json",
+    "VISTA-ZERO-RING-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-SAMPLE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-GROUND-WIRE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-TRAFFIC-CONTEXT-HISTORICAL-GIT-PROOFS.json",
+    "ROAD-WEATHER-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-VIEW-RETENTION-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-ADAPTER-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-STATUS-CENSUS-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-CAMERA-LIFECYCLE-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-REPLACEMENT-HISTORICAL-GIT-PROOFS.json",
+    "CAPTURE-PERSISTENCE-HISTORICAL-GIT-PROOFS.json",
+    "LITTER-CLEARANCE-HISTORICAL-GIT-PROOFS.json",
+    "CATALOG-ROW-HISTORICAL-GIT-PROOFS.json",
+    "WEIGH-HOUSE-HISTORICAL-GIT-PROOFS.json",
+    "PLANT-LOD-ROOT-HISTORICAL-GIT-PROOFS.json",
+    "VIEW-SPEC-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-METRIC-HISTORICAL-GIT-PROOFS.json",
+    "SKY-CAPTURE-HISTORICAL-GIT-PROOFS.json",
+    "WHEEL-CURRENT-HISTORICAL-GIT-PROOFS.json",
+    "CALIBRATION-BOUND-HISTORICAL-GIT-PROOFS.json",
+    "ANIMATION-EVALUATION-HISTORICAL-GIT-PROOFS.json",
+    "LANDING-SETTLE-HISTORICAL-GIT-PROOFS.json",
+    "GAIT-PROFILE-HISTORICAL-GIT-PROOFS.json",
+    "PACK-RESPONSE-HISTORICAL-GIT-PROOFS.json",
+    "SEMANTIC-NAMES-HISTORICAL-GIT-PROOFS.json",
+    "ACTION-STATE-HISTORICAL-GIT-PROOFS.json",
+    "TURN-INTENT-HISTORICAL-GIT-PROOFS.json",
+    "HOME-IDENTITY-HISTORICAL-GIT-PROOFS.json",
+    "GATE-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+    "GARDEN-HISTORICAL-GIT-PROOFS.json",
+    "GROUNDING-HISTORICAL-GIT-PROOFS.json",
+    "FOUNDATION-HISTORICAL-GIT-PROOFS.json"
+  ],
+  "root_tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+  "additional_tree_objects": {
+    "a7b794011052ede86b76c7e76209f8dc36962e2d": {
+      "git_object": "a7b794011052ede86b76c7e76209f8dc36962e2d",
+      "sha256": "6fb17dad9196f1fe8ebd30e3be804a118b051de756198774396829c1593a05fa",
+      "bytes": 104,
+      "preserved_bytes": "main-advance-95e/cutface-evidence/git-objects/a7b794011052ede86b76c7e76209f8dc36962e2d.tree.gz"
+    },
+    "fc1cd964e899c0bf9c28732210b82c4691e566eb": {
+      "git_object": "fc1cd964e899c0bf9c28732210b82c4691e566eb",
+      "sha256": "57c5f54c58882ac98315cdd6a1655bb440c99c1ec5d22d523c29987dd28e57f3",
+      "bytes": 115,
+      "preserved_bytes": "main-advance-95e/cutface-evidence/git-objects/fc1cd964e899c0bf9c28732210b82c4691e566eb.tree.gz"
+    }
+  },
+  "paths": {
+    "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/constraints.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-core",
+          "mode": "40000",
+          "child": "3fe0cfb87459b703c06dc04308d3982a6f95f7ff"
+        },
+        {
+          "tree": "3fe0cfb87459b703c06dc04308d3982a6f95f7ff",
+          "name": "src",
+          "mode": "40000",
+          "child": "74e923708e7f8c27bde91287fbd8f4a43d8431c4"
+        },
+        {
+          "tree": "74e923708e7f8c27bde91287fbd8f4a43d8431c4",
+          "name": "city_layout",
+          "mode": "40000",
+          "child": "4f517a49e597914d57c974244a21a290fa2e82cc"
+        },
+        {
+          "tree": "4f517a49e597914d57c974244a21a290fa2e82cc",
+          "name": "grounding",
+          "mode": "40000",
+          "child": "8f061d82157f3c15444dfc4b99bb85a0d5d2e8b1"
+        },
+        {
+          "tree": "8f061d82157f3c15444dfc4b99bb85a0d5d2e8b1",
+          "name": "foundations",
+          "mode": "40000",
+          "child": "409ebe8cd7d0566865a0662fc5c8060adce413c4"
+        },
+        {
+          "tree": "409ebe8cd7d0566865a0662fc5c8060adce413c4",
+          "name": "constraints.rs",
+          "mode": "100644",
+          "child": "b426f75343ba06d2c2ec48b0aea5a5e71191e03e"
+        }
+      ],
+      "git_blob": "b426f75343ba06d2c2ec48b0aea5a5e71191e03e",
+      "sha256": "09c5be604238aa229f500445a67b533b8ef1d012d81e5627dd8b5aeeb7825fc9",
+      "bytes": 4981,
+      "lines": 141
+    },
+    "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-core",
+          "mode": "40000",
+          "child": "3fe0cfb87459b703c06dc04308d3982a6f95f7ff"
+        },
+        {
+          "tree": "3fe0cfb87459b703c06dc04308d3982a6f95f7ff",
+          "name": "src",
+          "mode": "40000",
+          "child": "74e923708e7f8c27bde91287fbd8f4a43d8431c4"
+        },
+        {
+          "tree": "74e923708e7f8c27bde91287fbd8f4a43d8431c4",
+          "name": "city_layout",
+          "mode": "40000",
+          "child": "4f517a49e597914d57c974244a21a290fa2e82cc"
+        },
+        {
+          "tree": "4f517a49e597914d57c974244a21a290fa2e82cc",
+          "name": "grounding",
+          "mode": "40000",
+          "child": "8f061d82157f3c15444dfc4b99bb85a0d5d2e8b1"
+        },
+        {
+          "tree": "8f061d82157f3c15444dfc4b99bb85a0d5d2e8b1",
+          "name": "foundations",
+          "mode": "40000",
+          "child": "409ebe8cd7d0566865a0662fc5c8060adce413c4"
+        },
+        {
+          "tree": "409ebe8cd7d0566865a0662fc5c8060adce413c4",
+          "name": "geometry.rs",
+          "mode": "100644",
+          "child": "67021b396081bf9c19a79cdf71aeaef17b368108"
+        }
+      ],
+      "git_blob": "67021b396081bf9c19a79cdf71aeaef17b368108",
+      "sha256": "35462629537232e291556fb180d6092e157ed718cf492f6a448d1c1c142cf0cb",
+      "bytes": 9153,
+      "lines": 242
+    },
+    "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/replacement.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-core",
+          "mode": "40000",
+          "child": "3fe0cfb87459b703c06dc04308d3982a6f95f7ff"
+        },
+        {
+          "tree": "3fe0cfb87459b703c06dc04308d3982a6f95f7ff",
+          "name": "src",
+          "mode": "40000",
+          "child": "74e923708e7f8c27bde91287fbd8f4a43d8431c4"
+        },
+        {
+          "tree": "74e923708e7f8c27bde91287fbd8f4a43d8431c4",
+          "name": "city_layout",
+          "mode": "40000",
+          "child": "4f517a49e597914d57c974244a21a290fa2e82cc"
+        },
+        {
+          "tree": "4f517a49e597914d57c974244a21a290fa2e82cc",
+          "name": "grounding",
+          "mode": "40000",
+          "child": "8f061d82157f3c15444dfc4b99bb85a0d5d2e8b1"
+        },
+        {
+          "tree": "8f061d82157f3c15444dfc4b99bb85a0d5d2e8b1",
+          "name": "foundations",
+          "mode": "40000",
+          "child": "409ebe8cd7d0566865a0662fc5c8060adce413c4"
+        },
+        {
+          "tree": "409ebe8cd7d0566865a0662fc5c8060adce413c4",
+          "name": "replacement.rs",
+          "mode": "100644",
+          "child": "cfd3bcc8f9008389488fc107af6c93f46325fd6d"
+        }
+      ],
+      "git_blob": "cfd3bcc8f9008389488fc107af6c93f46325fd6d",
+      "sha256": "b75aba1e567b755f62e7882e2ad69001c5ad5fc8923d0b9a8430a4ffcebf0f32",
+      "bytes": 6062,
+      "lines": 152
+    },
+    "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-core",
+          "mode": "40000",
+          "child": "3fe0cfb87459b703c06dc04308d3982a6f95f7ff"
+        },
+        {
+          "tree": "3fe0cfb87459b703c06dc04308d3982a6f95f7ff",
+          "name": "src",
+          "mode": "40000",
+          "child": "74e923708e7f8c27bde91287fbd8f4a43d8431c4"
+        },
+        {
+          "tree": "74e923708e7f8c27bde91287fbd8f4a43d8431c4",
+          "name": "city_layout",
+          "mode": "40000",
+          "child": "4f517a49e597914d57c974244a21a290fa2e82cc"
+        },
+        {
+          "tree": "4f517a49e597914d57c974244a21a290fa2e82cc",
+          "name": "grounding",
+          "mode": "40000",
+          "child": "8f061d82157f3c15444dfc4b99bb85a0d5d2e8b1"
+        },
+        {
+          "tree": "8f061d82157f3c15444dfc4b99bb85a0d5d2e8b1",
+          "name": "foundations",
+          "mode": "40000",
+          "child": "409ebe8cd7d0566865a0662fc5c8060adce413c4"
+        },
+        {
+          "tree": "409ebe8cd7d0566865a0662fc5c8060adce413c4",
+          "name": "settlement.rs",
+          "mode": "100644",
+          "child": "7b20a13f624a0724a0b5071b01fcd036d4835597"
+        }
+      ],
+      "git_blob": "7b20a13f624a0724a0b5071b01fcd036d4835597",
+      "sha256": "73463b02d4801103755fe0b5ed7fe7251892415ba3b7352dcce9b9634b454e8f",
+      "bytes": 17257,
+      "lines": 420
+    },
+    "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/query.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-core",
+          "mode": "40000",
+          "child": "3fe0cfb87459b703c06dc04308d3982a6f95f7ff"
+        },
+        {
+          "tree": "3fe0cfb87459b703c06dc04308d3982a6f95f7ff",
+          "name": "src",
+          "mode": "40000",
+          "child": "74e923708e7f8c27bde91287fbd8f4a43d8431c4"
+        },
+        {
+          "tree": "74e923708e7f8c27bde91287fbd8f4a43d8431c4",
+          "name": "city_layout",
+          "mode": "40000",
+          "child": "4f517a49e597914d57c974244a21a290fa2e82cc"
+        },
+        {
+          "tree": "4f517a49e597914d57c974244a21a290fa2e82cc",
+          "name": "grounding",
+          "mode": "40000",
+          "child": "8f061d82157f3c15444dfc4b99bb85a0d5d2e8b1"
+        },
+        {
+          "tree": "8f061d82157f3c15444dfc4b99bb85a0d5d2e8b1",
+          "name": "foundations",
+          "mode": "40000",
+          "child": "409ebe8cd7d0566865a0662fc5c8060adce413c4"
+        },
+        {
+          "tree": "409ebe8cd7d0566865a0662fc5c8060adce413c4",
+          "name": "settlement",
+          "mode": "40000",
+          "child": "a7b794011052ede86b76c7e76209f8dc36962e2d"
+        },
+        {
+          "tree": "a7b794011052ede86b76c7e76209f8dc36962e2d",
+          "name": "query.rs",
+          "mode": "100644",
+          "child": "83d612b92546e41e5e8aa2b8c6d361a25205f2df"
+        }
+      ],
+      "git_blob": "83d612b92546e41e5e8aa2b8c6d361a25205f2df",
+      "sha256": "df8bdf7862fa0f4e105fc553679c0bc6c4555bf21001b8d1ae52c3f9f166fba7",
+      "bytes": 12948,
+      "lines": 322
+    },
+    "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/query/prepared.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-core",
+          "mode": "40000",
+          "child": "3fe0cfb87459b703c06dc04308d3982a6f95f7ff"
+        },
+        {
+          "tree": "3fe0cfb87459b703c06dc04308d3982a6f95f7ff",
+          "name": "src",
+          "mode": "40000",
+          "child": "74e923708e7f8c27bde91287fbd8f4a43d8431c4"
+        },
+        {
+          "tree": "74e923708e7f8c27bde91287fbd8f4a43d8431c4",
+          "name": "city_layout",
+          "mode": "40000",
+          "child": "4f517a49e597914d57c974244a21a290fa2e82cc"
+        },
+        {
+          "tree": "4f517a49e597914d57c974244a21a290fa2e82cc",
+          "name": "grounding",
+          "mode": "40000",
+          "child": "8f061d82157f3c15444dfc4b99bb85a0d5d2e8b1"
+        },
+        {
+          "tree": "8f061d82157f3c15444dfc4b99bb85a0d5d2e8b1",
+          "name": "foundations",
+          "mode": "40000",
+          "child": "409ebe8cd7d0566865a0662fc5c8060adce413c4"
+        },
+        {
+          "tree": "409ebe8cd7d0566865a0662fc5c8060adce413c4",
+          "name": "settlement",
+          "mode": "40000",
+          "child": "a7b794011052ede86b76c7e76209f8dc36962e2d"
+        },
+        {
+          "tree": "a7b794011052ede86b76c7e76209f8dc36962e2d",
+          "name": "query",
+          "mode": "40000",
+          "child": "fc1cd964e899c0bf9c28732210b82c4691e566eb"
+        },
+        {
+          "tree": "fc1cd964e899c0bf9c28732210b82c4691e566eb",
+          "name": "prepared.rs",
+          "mode": "100644",
+          "child": "cf1c6720d83d3476da2d491ef88e4e0c7e8062b4"
+        }
+      ],
+      "git_blob": "cf1c6720d83d3476da2d491ef88e4e0c7e8062b4",
+      "sha256": "33ddca39e36f0f095f87736f1200a55a65bc0fc7d99ed0a0f92494bc92f4b985",
+      "bytes": 2993,
+      "lines": 83
+    },
+    "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/tests.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-core",
+          "mode": "40000",
+          "child": "3fe0cfb87459b703c06dc04308d3982a6f95f7ff"
+        },
+        {
+          "tree": "3fe0cfb87459b703c06dc04308d3982a6f95f7ff",
+          "name": "src",
+          "mode": "40000",
+          "child": "74e923708e7f8c27bde91287fbd8f4a43d8431c4"
+        },
+        {
+          "tree": "74e923708e7f8c27bde91287fbd8f4a43d8431c4",
+          "name": "city_layout",
+          "mode": "40000",
+          "child": "4f517a49e597914d57c974244a21a290fa2e82cc"
+        },
+        {
+          "tree": "4f517a49e597914d57c974244a21a290fa2e82cc",
+          "name": "grounding",
+          "mode": "40000",
+          "child": "8f061d82157f3c15444dfc4b99bb85a0d5d2e8b1"
+        },
+        {
+          "tree": "8f061d82157f3c15444dfc4b99bb85a0d5d2e8b1",
+          "name": "foundations",
+          "mode": "40000",
+          "child": "409ebe8cd7d0566865a0662fc5c8060adce413c4"
+        },
+        {
+          "tree": "409ebe8cd7d0566865a0662fc5c8060adce413c4",
+          "name": "settlement",
+          "mode": "40000",
+          "child": "a7b794011052ede86b76c7e76209f8dc36962e2d"
+        },
+        {
+          "tree": "a7b794011052ede86b76c7e76209f8dc36962e2d",
+          "name": "tests.rs",
+          "mode": "100644",
+          "child": "49abf6dc41f597e554ce33f6ec09e11fbb542b61"
+        }
+      ],
+      "git_blob": "49abf6dc41f597e554ce33f6ec09e11fbb542b61",
+      "sha256": "a79667760aff1f020c5a0a9c92213a755852b225e44b534cd88de28e57e69d46",
+      "bytes": 15605,
+      "lines": 392
+    }
+  },
+  "qualification": "Raw Git chains bind6533 roles1816–1822; no later-checkpoint or independent-lens transfer."
+}
