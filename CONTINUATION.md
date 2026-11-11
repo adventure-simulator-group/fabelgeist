@@ -3,7 +3,8 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10. Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
+2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-0104.json`).
+Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
 lenses and the connected repair ledger remain open; no implementation or
@@ -219,6 +220,8 @@ weapon-carry source reads. The historical carry source differs from 95e.
 fear and continuity source reads without expanding current semantic coverage.
 `ASSESSMENT-L01-HISTORICAL-1090-1092.json` records the historical corpse,
 autopsy context and draw reads without expanding current semantic coverage.
+`ASSESSMENT-L01-HISTORICAL-1093-1097.json` records the historical disease,
+adapters and equipment-law reads without expanding current semantic coverage.
 `ASSESSMENT-L05-SCHEDULE-AGGREGATE-95E.json` records a possible schedule
 aggregate strengthening. Both selected production callers supply matching
 organization minutes; no invalid native schedule was established.
