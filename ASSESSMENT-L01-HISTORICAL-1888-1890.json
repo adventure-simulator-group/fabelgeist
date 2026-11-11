@@ -1,0 +1,164 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1888,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Current equality or difference is per role; neither supplies an unrecorded historical revision or a different lens verdict.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1888",
+      "sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+      "lines": 522,
+      "new_personal_read_ranges": [
+        [
+          1,
+          522
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "PRONE-EFFORT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+        "sha256": "ada76a964c72b64d6bd3671a8ca2bde134da787f339914cc2091bd7994fac722",
+        "bytes": 20762,
+        "lines": 523,
+        "git_blob": "004d3a47a975cf703c81a4140b1ff577283f895d",
+        "preserved_bytes": "main-advance-95e/prone-effort-evidence/current-1888.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "current_personal_ranges": [
+          [
+            1,
+            523
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [],
+        "qualification": "The changed1888 current file was independently read to EOF; for equal1889 and1890 the complete historic content was personally read, with only separately listed current re-reads. Fixtures are source, never executed."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity. Segovb, Adler and Lens8 receipts retain their own author, range, revision and independent lens credit."
+    },
+    {
+      "original_index": 1889,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Current equality or difference is per role; neither supplies an unrecorded historical revision or a different lens verdict.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1889",
+      "sha256": "10c98a5fec7f36e1567f37c82b15e65c990d8412f2a1a1a9f67982adaef10223",
+      "lines": 81,
+      "new_personal_read_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "PRONE-EFFORT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+        "sha256": "10c98a5fec7f36e1567f37c82b15e65c990d8412f2a1a1a9f67982adaef10223",
+        "bytes": 2644,
+        "lines": 81,
+        "git_blob": "a30be241781b55fbf063e7cc55f8ef812e9f090a",
+        "preserved_bytes": "main-advance-95e/prone-effort-evidence/current-1889.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            81
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            81
+          ]
+        ],
+        "qualification": "The changed1888 current file was independently read to EOF; for equal1889 and1890 the complete historic content was personally read, with only separately listed current re-reads. Fixtures are source, never executed."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity. Segovb, Adler and Lens8 receipts retain their own author, range, revision and independent lens credit."
+    },
+    {
+      "original_index": 1890,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Current equality or difference is per role; neither supplies an unrecorded historical revision or a different lens verdict.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1890",
+      "sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "lines": 640,
+      "new_personal_read_ranges": [
+        [
+          1,
+          640
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "PRONE-EFFORT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-SOUND.json",
+          "ranges": "90-109"
+        },
+        {
+          "assessment": "ASSESSMENT-L1-WHEEL-CUTOFF.json",
+          "ranges": [
+            [
+              165,
+              215
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-TACTICAL-ENTRY-IDENTITY.json",
+          "ranges": [
+            [
+              100,
+              116
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/player.rs",
+        "sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+        "bytes": 21008,
+        "lines": 640,
+        "git_blob": "9d9a7fe4d0da49a45fcc5127992f0c91fdd92c2b",
+        "preserved_bytes": "main-advance-95e/prone-effort-evidence/current-1890.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            640
+          ]
+        ],
+        "qualification": "The changed1888 current file was independently read to EOF; for equal1889 and1890 the complete historic content was personally read, with only separately listed current re-reads. Fixtures are source, never executed."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity. Segovb, Adler and Lens8 receipts retain their own author, range, revision and independent lens credit."
+    }
+  ],
+  "observations": [
+    "Complete historic movement-speed, quickstep and tactical-player source and fixture bodies read to actual EOF; fixtures were not executed.",
+    "Current movement-speed source adds a checked UnitInterval around the same smoothstep expression; separately read current523-line body and old522-line body, do not infer unconditional identical floating-point outcomes.",
+    "Tactical player supplies one live combat fatigue path and intentionally separates limb injury and physical burden; identity, dimensions, skills, native serialization and all lifecycle owners remain open."
+  ],
+  "qualification": "Personal historical Lens1 reads, independently read current ranges and bounded current traces; earlier Lens8, Lens11 and Lens12 evidence is separately attributed and is not checkpoint3821.",
+  "next_original_role": 1891
+}

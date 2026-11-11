@@ -5510,8 +5510,35 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-QUICKSTEP-FORCE-95E.json"
+      },
+      {
+        "id": "REVIEW-PRONE-AIM-RETAINED-EFFORT-001",
+        "lens": 7,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          6,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; source-derived conditional divergence between admitted intent and suppressed motor input",
+        "classification": "The movement exertion authority needs an explicit rule for a movement request that the authoritative posture owner suppresses before the motor.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1561",
+          "baseline-059/queue.json#/entries/1563",
+          "segovb/READ-L12-623.json",
+          "adler/READ-L11-288.json"
+        ],
+        "relationship_qualification": "New bounded current question connected to two original059 pending families; no historical unique increment or checkpoint3821 attribution, alias status open.",
+        "discovery": "partial; source chain and bounded symbolic example identified, actual execution, policy, scheduling and exact aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-PRONE-EFFORT-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1133.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1138.json"
 }

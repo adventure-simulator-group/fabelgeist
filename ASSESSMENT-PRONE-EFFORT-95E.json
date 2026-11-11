@@ -1,0 +1,758 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original roles1888–1890 and actual prone aim input, transformed controller input, retained movement effort and single fatigue consumer.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1888-1890.json",
+  "git_membership_evidence": "PRONE-EFFORT-HISTORICAL-GIT-PROOFS.json",
+  "historical_current_diff": {
+    "path": "main-advance-95e/prone-effort-evidence/movement-speed-6533-to-95e.diff",
+    "sha256": "8cf3f1618e20170ca16fd4d755d25ecb2b0cd7b97b8f1bdc4487c56364e30674",
+    "bytes": 1309,
+    "qualification": "Exact Git textual diff between6533 and95e for movement_speed.rs; both complete bodies preserved separately."
+  },
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "edf3021d5b8d198a7d04dbc1d60f77a1fafbbc0f",
+      "sha256": "06bd726fb8282af0ad5c1f54f64b1bfe383842e284e948a6226240178de4b6bb",
+      "bytes": 3152,
+      "lines": 97,
+      "ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/prone-effort-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config parsed, client, request, entity, physics, combat state or product function was run."
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/fatigue.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "76810b6057bd6a1206cb4d84dc4e4f6495c96991",
+      "sha256": "823dc22517760aafcf6f7107becb2e1d9c647c685bfe5022f7865d7739cb52f5",
+      "bytes": 8871,
+      "lines": 263,
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/prone-effort-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config parsed, client, request, entity, physics, combat state or product function was run."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/condition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5bf3afe1a222832e72c09014f44843936291d9a5",
+      "sha256": "543fe525702b8245d56a704a028a74138144789cf48c888b58704897bb6be7bf",
+      "bytes": 5752,
+      "lines": 160,
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/prone-effort-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config parsed, client, request, entity, physics, combat state or product function was run."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "db736322a183dd20ff67d70a96242eb9d28bd126",
+      "sha256": "847551347ed20961db50cd3ef65998a772b1d732f26b4810f4ccb725685547ba",
+      "bytes": 39026,
+      "lines": 1148,
+      "ranges": [
+        [
+          478,
+          508
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/prone-effort-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config parsed, client, request, entity, physics, combat state or product function was run."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5bd51b919223279623bc728d4356e092e27c0448",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "bytes": 132880,
+      "lines": 3497,
+      "ranges": [
+        [
+          193,
+          197
+        ],
+        [
+          300,
+          320
+        ],
+        [
+          559,
+          705
+        ],
+        [
+          735,
+          775
+        ],
+        [
+          1086,
+          1217
+        ],
+        [
+          1373,
+          1417
+        ],
+        [
+          1515,
+          1562
+        ],
+        [
+          1564,
+          1616
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/prone-effort-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config parsed, client, request, entity, physics, combat state or product function was run."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ddbb471042ffdc77b0b8c7e16b1e184b1a98963e",
+      "sha256": "423abf723a262ebe836e619d7ae78e7307715eeb0a6df531a58967134d312e74",
+      "bytes": 71704,
+      "lines": 2067,
+      "ranges": [
+        [
+          1260,
+          1282
+        ],
+        [
+          1431,
+          1452
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/prone-effort-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config parsed, client, request, entity, physics, combat state or product function was run."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e5b226a281ab8a70a73b4fa8c4ec836382d5de0c",
+      "sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "bytes": 72173,
+      "lines": 1738,
+      "ranges": [
+        [
+          332,
+          425
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/prone-effort-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config parsed, client, request, entity, physics, combat state or product function was run."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/main.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "23d8c064b65c7242f7226fef57a6303aa3556413",
+      "sha256": "a52f98db1a5b753a3b5f3d54348ffa36df35e266644e667489c8a1784508b150",
+      "bytes": 28081,
+      "lines": 726,
+      "ranges": [
+        [
+          155,
+          198
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/prone-effort-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config parsed, client, request, entity, physics, combat state or product function was run."
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/client.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4e95000315470b399ee50b29e716000f78abd030",
+      "sha256": "7efcd68002b4980f4d901f87a84c47dc0f697e35551b4fb3a13bc6ce80a1e770",
+      "bytes": 53907,
+      "lines": 1514,
+      "ranges": [
+        [
+          97,
+          165
+        ],
+        [
+          233,
+          299
+        ],
+        [
+          326,
+          361
+        ],
+        [
+          409,
+          448
+        ],
+        [
+          483,
+          510
+        ],
+        [
+          533,
+          536
+        ],
+        [
+          626,
+          659
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/prone-effort-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config parsed, client, request, entity, physics, combat state or product function was run."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/player.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ad8ef59e860df91568bb704b4e061e843dcb2447",
+      "sha256": "e58cbe13aa543aebd82995383e999d55e0e47b9885396f958282313316f4e37c",
+      "bytes": 33413,
+      "lines": 944,
+      "ranges": [
+        [
+          430,
+          480
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/prone-effort-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config parsed, client, request, entity, physics, combat state or product function was run."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/ingress.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "89fec648992f7d805e4ebc7797a3447b336fc9c5",
+      "sha256": "7b8e51061494a9d8a04960207b16657e3494be1831663d62e911f8a690429d3a",
+      "bytes": 41432,
+      "lines": 1210,
+      "ranges": [
+        [
+          155,
+          210
+        ],
+        [
+          422,
+          450
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/prone-effort-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config parsed, client, request, entity, physics, combat state or product function was run."
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          1,
+          21
+        ],
+        [
+          73,
+          78
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/prone-effort-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config parsed, client, request, entity, physics, combat state or product function was run."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-QUICKSTEP-FORCE-95E.json",
+    "ASSESSMENT-L01-RANGED-FATIGUE-95E.json",
+    "ASSESSMENT-L1-TACTICAL-ENTRY-IDENTITY.json"
+  ],
+  "observations": [
+    {
+      "contract": "Earlier lateral and fatigue helper question",
+      "trace": "ordinary_controller_speed scales by its received radial input and handles Prone and Supine together. The server first transforms downed movement into body-local input with the configured lateral scale, and applies a separate half scale for negative Supine longitudinal input; it substitutes roll motion and stops Prone Aim or other posture transition as described in source. The separately exported tactical_movement_exhaustion_change_per_second uses the Prone-only compiled lateral and effort constants. A crates-source symbol search found its definition, reexports and same-file authored test uses, but no direct internal production invocation.",
+      "remaining": "The transform needs controller and transform components, and quickstep/roll/posture branches change inputs. Public consumers outside searched crates, macro aliases, all client prediction and native movement remain open; no finding based solely on the unscaled helper argument or no-call inference."
+    },
+    {
+      "contract": "Current fatigue and player projection",
+      "trace": "update_tactical_combat_state passes retained AuthoritativeMovementIntent and pace to update_fatigue, which derives upright effort using actual skeleton guard and adds combat_movement_fatigue_per_second to the same state.fatigue. Connected-player projection admits body mass through BodyMassKg, projects health/skills/attributes and initializes the same fatigue from strategic baseline. The melee and ranged start observers pass presentation.attack_curve into configure_attack_curve.",
+      "remaining": "Player admission, enemy scaling, dimension/health/skill validity, all attack producers and native replication are not exhausted. The retained input is intentional packet-loss authority; neither an extra pool nor any direct pre-incapacitation speed penalty follows from this trace."
+    },
+    {
+      "contract": "Historical/current source delta",
+      "trace": "At6533 tactical_jog_speed computes the inline smoothstep expression; at95e it invokes checked UnitInterval admission and smoothstep around the same expression. The old and current files were independently read, preserved and diffed; current UnitInterval verifies finite result within [0,1].",
+      "remaining": "Exact f32 outcomes at all near-endpoint values and NaN/infinity behavior are not proved. Other source differences, other roles and independent lens closure require their own evidence."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-PRONE-AIM-RETAINED-EFFORT-001",
+      "lens": 7,
+      "additional_current_lenses": [
+        1,
+        3,
+        4,
+        6,
+        8,
+        11,
+        12,
+        13
+      ],
+      "severity": "unassigned; source-derived conditional divergence between admitted intent and suppressed motor input",
+      "first_contract": "The movement exertion authority needs an explicit rule for a movement request that the authoritative posture owner suppresses before the motor.",
+      "trace": "The ordinary client binds WASD to the movement action, independently selects sprint from held shift while moving, and submits movement, pace and requested raised guard together. Given a conscious prone player with lowered skeleton guard, no roll/transition, downed_align false and a finite full-length sprint request with raised guard, server admission retains the movement in AuthoritativeMovementIntent and sets camera facing Aim. set_weapon_guard cannot newly raise a downed stance, so the skeleton guard stays Lowered. In the scheduled fixed-step restore, prone Aim replaces the motor accumulator movement with None before ApplyCharacterMotor; the ordinary controller speed branch therefore requests zero. Separately, Update fatigue reads the retained nonzero intent and uses the lowered-guard upright sprint helper, considers moving true and skips rest recovery. For a hypothetical 70kg unloaded, healthy character with each leg strength3 and endurance1, the source formulas give idealized sprint8 and jog1.8 m/s; committed source tuning gives a strictly positive movement fatigue rate (ideal real-arithmetic approximation about0.082 per second). The one general fatigue field is used. No request, player, config, fixed step, product calculation or game was run.",
+      "safeguards_and_limits": "The source schedules condition in Update and restore in FixedPostUpdate, so no exact ordering, elapsed frame count, actual physical immobility or runtime accumulation is claimed; previous velocity, camera-driven roll, body transition, native input events and other motion can intervene. The example assumes all listed state and valid projected attributes and uses real arithmetic to illustrate the sign, not a native floating-point result. Whether effort against an intentionally suppressed movement request should accrue is a product policy question; trying to move while blocked need not always be free. User-visible exhaustion and actual controls remain unvalidated. The q1561 historical helper mismatch is not automatically the same defect: downed_tank_controller_input applies the configured lateral scale before the controller, and the exported historical exhaustion helper is not the actual server fatigue producer found in a crates-source symbol search.",
+      "connected_repair_dependencies": [
+        "Determine intended cost of attempted versus motor-admitted movement while prone aiming, rolling, turning, transitioning, blocked or carrying weight; trace authoritative and client state across fixed/update schedules and all producers.",
+        "If the intended contract excludes suppressed effort, choose a shared authoritative exertion input or explicit action policy without charging fatigue from arbitrary external velocity. Preserve weapon, defense, dodge and strenuous movement contributions in the one visible fatigue pool, the incapacitation cutoff, and physical mass and limb penalties.",
+        "Later authorized verification should cover admitted prone-aim movement with lowered skeleton guard, stationary recovery and movement intent, non-aim prone and supine directional motion, rolls/transitions and ordinary sprint while preserving strategic/tactical authority."
+      ],
+      "historical_related_candidates": [
+        "baseline-059/queue.json#/entries/1561",
+        "baseline-059/queue.json#/entries/1563",
+        "segovb/READ-L12-623.json",
+        "adler/READ-L11-288.json"
+      ],
+      "accepted_historical_unique_count_change": 0,
+      "discovery": "partial; source chain and bounded symbolic example identified, actual execution, policy, scheduling and exact aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-234.json",
+      "sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136",
+      "bytes": 14490,
+      "git_blob": "bc0f773eeb8695793e91db5321f4a69482370794",
+      "preserved_bytes": "recovered/prone-effort-059/422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136.gz",
+      "published_sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136",
+      "published_bytes": 14490,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Earlier Adler same-lens receipt cited as historic context; no new current credit"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771",
+      "bytes": 17171,
+      "git_blob": "f0e945891587ec93a64192c5c32065748eb5995b",
+      "preserved_bytes": "recovered/prone-effort-059/eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771.gz",
+      "published_sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771",
+      "published_bytes": 17171,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Earlier Adler same-lens receipt cited as historic context; no new current credit"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-263.json",
+      "sha256": "4f1c40badf291a83880e79502db8094ed6db7327de7dfed77acc077b49a562f1",
+      "bytes": 10408,
+      "git_blob": "a9cfdde732d28ca26801c9b7b6cd682fefdf931e",
+      "preserved_bytes": "recovered/prone-effort-059/4f1c40badf291a83880e79502db8094ed6db7327de7dfed77acc077b49a562f1.gz",
+      "published_sha256": "4f1c40badf291a83880e79502db8094ed6db7327de7dfed77acc077b49a562f1",
+      "published_bytes": 10408,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Earlier Adler same-lens receipt cited as historic context; no new current credit"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-264.json",
+      "sha256": "0cce59f4f0ec5dcd14ae822d7e0ef92e2e84ea33b356364a56bd0b04f368f9bc",
+      "bytes": 9143,
+      "git_blob": "4b9b8fd967505e5e07c2cfb659eb08f225c16b9f",
+      "preserved_bytes": "recovered/prone-effort-059/0cce59f4f0ec5dcd14ae822d7e0ef92e2e84ea33b356364a56bd0b04f368f9bc.gz",
+      "published_sha256": "0cce59f4f0ec5dcd14ae822d7e0ef92e2e84ea33b356364a56bd0b04f368f9bc",
+      "published_bytes": 9143,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Earlier Adler same-lens receipt cited as historic context; no new current credit"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "bytes": 15035,
+      "git_blob": "45ee5dcfa447994407de51ae6b68f85de63c1ac4",
+      "preserved_bytes": "recovered/prone-effort-059/bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3.gz",
+      "published_sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "published_bytes": 15035,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Earlier Adler same-lens receipt cited as historic context; no new current credit"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-283.json",
+      "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8",
+      "bytes": 16199,
+      "git_blob": "af46a230b77aa7f4c26f30c588438d00ba14507e",
+      "preserved_bytes": "recovered/prone-effort-059/21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8.gz",
+      "published_sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8",
+      "published_bytes": 16199,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Earlier Adler same-lens receipt cited as historic context; no new current credit"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-284.json",
+      "sha256": "f6c4af2da479575576aa3991b65059f34c8e9c189a059c5c7201fc262cb25922",
+      "bytes": 13817,
+      "git_blob": "c68a6d3cd23a60071396853f660e7eba3e374afb",
+      "preserved_bytes": "recovered/prone-effort-059/f6c4af2da479575576aa3991b65059f34c8e9c189a059c5c7201fc262cb25922.gz",
+      "published_sha256": "f6c4af2da479575576aa3991b65059f34c8e9c189a059c5c7201fc262cb25922",
+      "published_bytes": 13817,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Earlier Adler same-lens receipt cited as historic context; no new current credit"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-285.json",
+      "sha256": "0d7c09d69692f80ea7776c9a37ad41ae65c269cb1be0f7beb5fec90f2a0cf98b",
+      "bytes": 13286,
+      "git_blob": "68f8f1e9df6d011c7f8e63b3d7827a313fac89a6",
+      "preserved_bytes": "recovered/prone-effort-059/0d7c09d69692f80ea7776c9a37ad41ae65c269cb1be0f7beb5fec90f2a0cf98b.gz",
+      "published_sha256": "0d7c09d69692f80ea7776c9a37ad41ae65c269cb1be0f7beb5fec90f2a0cf98b",
+      "published_bytes": 13286,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Earlier Adler same-lens receipt cited as historic context; no new current credit"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-286.json",
+      "sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de",
+      "bytes": 12115,
+      "git_blob": "f0857f21383fa7232908947c1df1dd955d94cf4a",
+      "preserved_bytes": "recovered/prone-effort-059/58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de.gz",
+      "published_sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de",
+      "published_bytes": 12115,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Earlier Adler same-lens receipt cited as historic context; no new current credit"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29",
+      "bytes": 6941,
+      "git_blob": "84f8363af8a5a6f039846f29fc14e050b87737cf",
+      "preserved_bytes": "recovered/prone-effort-059/88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29.gz",
+      "published_sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29",
+      "published_bytes": 6941,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Earlier Adler same-lens receipt cited as historic context; no new current credit"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f",
+      "bytes": 15183,
+      "git_blob": "bc06bba74b5bf5a40366ea8765844e638608e231",
+      "preserved_bytes": "recovered/prone-effort-059/a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f.gz",
+      "published_sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f",
+      "published_bytes": 15183,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-729.json",
+      "sha256": "1fd009912adc47169c678cebd6188231217160e1789f83adcb48f0d992ce1d3b",
+      "bytes": 685,
+      "git_blob": "7129d2dd897abc2f5380e4938f13f7326da32337",
+      "preserved_bytes": "recovered/prone-effort-059/1fd009912adc47169c678cebd6188231217160e1789f83adcb48f0d992ce1d3b.gz",
+      "published_sha256": "1fd009912adc47169c678cebd6188231217160e1789f83adcb48f0d992ce1d3b",
+      "published_bytes": 685,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; future roles retain original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-730.json",
+      "sha256": "85ce112e08bff8baef3e3917abfefd46e9fec44279ff751e28e7ed605ff48a05",
+      "bytes": 665,
+      "git_blob": "551f6b3c667c3977934f3f0587bfa703fefde899",
+      "preserved_bytes": "recovered/prone-effort-059/85ce112e08bff8baef3e3917abfefd46e9fec44279ff751e28e7ed605ff48a05.gz",
+      "published_sha256": "85ce112e08bff8baef3e3917abfefd46e9fec44279ff751e28e7ed605ff48a05",
+      "published_bytes": 665,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; future roles retain original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-731.json",
+      "sha256": "02a20a4a9508530cd8952c2b904e50a9fd4612d8610817bb40f59ef327f9bbca",
+      "bytes": 655,
+      "git_blob": "a5101a6642f0d17088ca442131300f50f0c6f0a9",
+      "preserved_bytes": "recovered/prone-effort-059/02a20a4a9508530cd8952c2b904e50a9fd4612d8610817bb40f59ef327f9bbca.gz",
+      "published_sha256": "02a20a4a9508530cd8952c2b904e50a9fd4612d8610817bb40f59ef327f9bbca",
+      "published_bytes": 655,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; future roles retain original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-732.json",
+      "sha256": "2498b966cefd47bd32d81d8dae360be855a60a9650ff3846930e5870f1fbde82",
+      "bytes": 682,
+      "git_blob": "1f43df7514c159bed6e1dab5d8ede9f06ea7876e",
+      "preserved_bytes": "recovered/prone-effort-059/2498b966cefd47bd32d81d8dae360be855a60a9650ff3846930e5870f1fbde82.gz",
+      "published_sha256": "2498b966cefd47bd32d81d8dae360be855a60a9650ff3846930e5870f1fbde82",
+      "published_bytes": 682,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; future roles retain original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-733.json",
+      "sha256": "72ceadb91d294a47998a7ac61f706330ee96069c0f8a7c75283d1bbfe6075f0d",
+      "bytes": 682,
+      "git_blob": "f0b59a20d6a248fc19bb4e7d5a559458c860bc4c",
+      "preserved_bytes": "recovered/prone-effort-059/72ceadb91d294a47998a7ac61f706330ee96069c0f8a7c75283d1bbfe6075f0d.gz",
+      "published_sha256": "72ceadb91d294a47998a7ac61f706330ee96069c0f8a7c75283d1bbfe6075f0d",
+      "published_bytes": 682,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; future roles retain original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-734.json",
+      "sha256": "20163da640f45fc10d737cfe9c70f6de74a12481a83c63812f1bac37814cadff",
+      "bytes": 679,
+      "git_blob": "43fa6ca2fcb5a5482fd07a456764db9fed732dd1",
+      "preserved_bytes": "recovered/prone-effort-059/20163da640f45fc10d737cfe9c70f6de74a12481a83c63812f1bac37814cadff.gz",
+      "published_sha256": "20163da640f45fc10d737cfe9c70f6de74a12481a83c63812f1bac37814cadff",
+      "published_bytes": 679,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; future roles retain original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-735.json",
+      "sha256": "6fa3678382165a88dbb56794bdbb63f2af16645dd8f12c0a23be85af9b539b63",
+      "bytes": 681,
+      "git_blob": "958bbdca8f68c24d827cd7863366a9e1877cbf5f",
+      "preserved_bytes": "recovered/prone-effort-059/6fa3678382165a88dbb56794bdbb63f2af16645dd8f12c0a23be85af9b539b63.gz",
+      "published_sha256": "6fa3678382165a88dbb56794bdbb63f2af16645dd8f12c0a23be85af9b539b63",
+      "published_bytes": 681,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; future roles retain original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-288.json",
+      "sha256": "871c0db31eb09900bb30f91a8a4e6ed354dcd578fda49871fe04df04020026ef",
+      "bytes": 679,
+      "git_blob": "40eb023fa2f1d7b7a6836200aa6328325565ed38",
+      "preserved_bytes": "recovered/prone-effort-059/871c0db31eb09900bb30f91a8a4e6ed354dcd578fda49871fe04df04020026ef.gz",
+      "published_sha256": "871c0db31eb09900bb30f91a8a4e6ed354dcd578fda49871fe04df04020026ef",
+      "published_bytes": 679,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-288.json",
+      "sha256": "ae386cbb0705fa2b3e3a5239982f8b52aa7c0c0b06286bac14d26fbe6c028823",
+      "bytes": 38771,
+      "git_blob": "0ee936efc08be621398beade6a9af18b332de8c2",
+      "preserved_bytes": "recovered/prone-effort-059/ae386cbb0705fa2b3e3a5239982f8b52aa7c0c0b06286bac14d26fbe6c028823.gz",
+      "published_sha256": "ae386cbb0705fa2b3e3a5239982f8b52aa7c0c0b06286bac14d26fbe6c028823",
+      "published_bytes": 38771,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 verification"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-624.json",
+      "sha256": "f16d8e470e20f53895c3218cb26a3d49e19818addefcaefc6b9972638aadaff1",
+      "bytes": 1190,
+      "git_blob": "b04c6d5e2189334607513c8d78fbfbeb61b22c72",
+      "preserved_bytes": "recovered/prone-effort-059/f16d8e470e20f53895c3218cb26a3d49e19818addefcaefc6b9972638aadaff1.gz",
+      "published_sha256": "f16d8e470e20f53895c3218cb26a3d49e19818addefcaefc6b9972638aadaff1",
+      "published_bytes": 1190,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 plan"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-624.json",
+      "sha256": "47be35e5f6275902ed03f61fc4b32094f27ec16ea08c18e887f064ee9d4b7b12",
+      "bytes": 4940,
+      "git_blob": "19611fa82f4151133e8a4325934cd584b52d3375",
+      "preserved_bytes": "recovered/prone-effort-059/47be35e5f6275902ed03f61fc4b32094f27ec16ea08c18e887f064ee9d4b7b12.gz",
+      "published_sha256": "47be35e5f6275902ed03f61fc4b32094f27ec16ea08c18e887f064ee9d4b7b12",
+      "published_bytes": 4940,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-796.json",
+      "sha256": "b78bfa6888abedd2357aef8508f72fbfd44e3173563fdcd1e276c9f8b3212cd3",
+      "bytes": 1166,
+      "git_blob": "f728c240abbd67f8109541f72a72b627718e3b84",
+      "preserved_bytes": "recovered/prone-effort-059/b78bfa6888abedd2357aef8508f72fbfd44e3173563fdcd1e276c9f8b3212cd3.gz",
+      "published_sha256": "b78bfa6888abedd2357aef8508f72fbfd44e3173563fdcd1e276c9f8b3212cd3",
+      "published_bytes": 1166,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-797.json",
+      "sha256": "afee8856c86928bcc40f0bed28d70e2d68bc2306dc15a95cae8de46997ef709f",
+      "bytes": 1146,
+      "git_blob": "3df414306cb54937e181bd1d716d9d073984bb0a",
+      "preserved_bytes": "recovered/prone-effort-059/afee8856c86928bcc40f0bed28d70e2d68bc2306dc15a95cae8de46997ef709f.gz",
+      "published_sha256": "afee8856c86928bcc40f0bed28d70e2d68bc2306dc15a95cae8de46997ef709f",
+      "published_bytes": 1146,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-624.json",
+      "sha256": "e3611fceb2538225d7e5ba835d090c8b117ad32c93fa58375b08684eee8edeb7",
+      "bytes": 840,
+      "git_blob": "3f9bf96d93b609f07b95a8cc4559ec283eada278",
+      "preserved_bytes": "recovered/prone-effort-059/e3611fceb2538225d7e5ba835d090c8b117ad32c93fa58375b08684eee8edeb7.gz",
+      "published_sha256": "e3611fceb2538225d7e5ba835d090c8b117ad32c93fa58375b08684eee8edeb7",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-624.json",
+      "sha256": "172e5fa3ea3e8b68e6189b186ee5ecf56cedcab27b5ef646ffdbf8c1947a56f4",
+      "bytes": 558,
+      "git_blob": "49b64d559a45f3cfca44e8855c1e039b1e0451af",
+      "preserved_bytes": "recovered/prone-effort-059/172e5fa3ea3e8b68e6189b186ee5ecf56cedcab27b5ef646ffdbf8c1947a56f4.gz",
+      "published_sha256": "172e5fa3ea3e8b68e6189b186ee5ecf56cedcab27b5ef646ffdbf8c1947a56f4",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1561",
+        "/entries/1562",
+        "/entries/1563"
+      ],
+      "qualification": "Original059 pending contracts; no inferred alias or checkpoint3821 state."
+    }
+  ],
+  "historical_attribution_qualification": "Segovb623 was directly preserved in the previous quickstep assessment; Segovb624 and Adler288 retain their own historical revisions and ranges. Adler288 includes historic later roles1891–1894, with no new ordered Lens1 credit. Lens8 batch015 and all eight head/delta objects are directly preserved in the quickstep assessment and retain independent attribution. Cited older same-lens receipts preserve their own prior records and do not transfer current credit.",
+  "remaining": "Continue original1891, independent lenses, client/server/native scheduling, actual input and game policy, player source admissions and exact aliases. Original3821 final ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
