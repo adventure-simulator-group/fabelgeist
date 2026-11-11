@@ -1,0 +1,503 @@
+{
+  "schema": "delegated-source-audit-report-v1",
+  "agent": "/root/hair_ops",
+  "generated_utc": "2026-11-11 20:01:26 UTC",
+  "scope": "Bounded reassessment of original roles 2372, 2373 and 2375 across thirteen audit questions. Not a complete lens, audit population, checkpoint, or ledger.",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "source_equality": "All three assigned exact full source objects are byte-identical at both revisions. This does not establish equality of connected owners or product behavior.",
+  "registration": {
+    "path": "registration.json",
+    "sha256": "2ad327feb2717667bfe7a884586dd58d755af11b2f6b7306dbf6a01275bd39f6"
+  },
+  "role_records": [
+    {
+      "original_index": 2372,
+      "path": "crates/strategic-web/src/routes/scene_assets.rs",
+      "current_source": "source/95e6-scene_assets.rs",
+      "historical_source": "source/6533-scene_assets.rs",
+      "fresh_personally_displayed_body_ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "unread_assigned_ranges": []
+    },
+    {
+      "original_index": 2373,
+      "path": "crates/strategic-web/src/routes/scene_equipment.rs",
+      "current_source": "source/95e6-scene_equipment.rs",
+      "historical_source": "source/6533-scene_equipment.rs",
+      "fresh_personally_displayed_body_ranges": [
+        [
+          1,
+          160
+        ],
+        [
+          161,
+          306
+        ]
+      ],
+      "unread_assigned_ranges": []
+    },
+    {
+      "original_index": 2375,
+      "path": "crates/strategic-web/src/routes/settlements/encumbrance.rs",
+      "current_source": "source/95e6-encumbrance.rs",
+      "historical_source": "source/6533-encumbrance.rs",
+      "fresh_personally_displayed_body_ranges": [
+        [
+          1,
+          160
+        ],
+        [
+          161,
+          320
+        ],
+        [
+          321,
+          484
+        ]
+      ],
+      "unread_assigned_ranges": []
+    }
+  ],
+  "prior_personal_scope": "No earlier same-agent registration of these three assigned bodies found in prior delegate registration packets. Prior <LOCAL_PATH_0> read data.rs as an assigned source; this task freshly registered and read only data.rs support ranges reported below. No previous read is transferred.",
+  "support": [
+    {
+      "registration": "support-registration-01.json",
+      "sha256": "e7eb8155b443b9c2d49f54f4e26bd9fb2b099af14ebadb7a1ee914d6fc0d9f31",
+      "actual_personal_ranges": {
+        "crates/strategic-web/src/routes/scene_preparation.rs": [
+          [
+            1,
+            106
+          ]
+        ],
+        "crates/strategic-web/src/routes/data.rs": [
+          [
+            1,
+            54
+          ],
+          [
+            151,
+            173
+          ]
+        ],
+        "crates/strategic-web/src/routes/settlements/mod.rs": [
+          [
+            1,
+            65
+          ]
+        ],
+        "crates/strategic-web/src/routes/settlements/rest.rs": [
+          [
+            370,
+            388
+          ]
+        ],
+        "crates/strategic-web/src/routes/settlements/rendering.rs": [
+          [
+            65,
+            115
+          ],
+          [
+            185,
+            215
+          ]
+        ],
+        "crates/strategic-web/src/routes/settlements/party/training_activity.rs": [
+          [
+            275,
+            365
+          ],
+          [
+            400,
+            453
+          ]
+        ],
+        "crates/adventuresim-core/src/equipment.rs": [
+          [
+            460,
+            520
+          ]
+        ],
+        "crates/adventuresim-core/src/equipment_presentation.rs": [
+          [
+            1,
+            48
+          ]
+        ],
+        "crates/adventuresim-core/src/strategic_schedule.rs": [
+          [
+            295,
+            375
+          ]
+        ],
+        "crates/strategic-web/static/strategic-scene-request.js": [
+          [
+            1,
+            80
+          ]
+        ],
+        "crates/strategic-web/static/strategic-scene.js": [
+          [
+            70,
+            130
+          ]
+        ],
+        "crates/strategic-web/src/routes/parties.rs": [
+          [
+            425,
+            485
+          ],
+          [
+            480,
+            530
+          ]
+        ]
+      },
+      "qualification": "Full objects registered prospectively; only listed ranges were displayed and assessed; no ordered-role or other-lens credit."
+    },
+    {
+      "registration": "support-registration-02.json",
+      "sha256": "185d8cb097b07fbb77693ea1391cb9e9ae473ad56edee472ad5011d54b6a899c",
+      "actual_personal_ranges": {
+        "crates/strategic-web/src/templates/settlement/trade/inventory.rs": [
+          [
+            1,
+            48
+          ]
+        ],
+        "crates/strategic-web/src/routes/settlements/router.rs": [
+          [
+            112,
+            169
+          ]
+        ],
+        "crates/strategic-web/src/routes/settlements/medical.rs": [
+          [
+            150,
+            185
+          ]
+        ]
+      },
+      "qualification": "Full objects registered prospectively; only listed ranges were displayed and assessed; no ordered-role or other-lens credit."
+    }
+  ],
+  "rules": "Applied user-provided root guide, crates/AGENTS.md, strategic-web AGENTS (reference/strategic-web-AGENTS-95e.md), bespoke-audit and thirteen focused lens skills. Source only; no implementation or product validation.",
+  "historical_manifest": {
+    "path": "historical-manifest.json",
+    "sha256": "26d87f531df717434351e51900f36a76f4dd7ec2cd70ee09b972b73ab87ee2a1",
+    "scope": "29 exact records copied from read-only original extraction and independently checked against original transport manifest; preservation of original timestamps, authors, ranges and status."
+  },
+  "reference_archives": {
+    "path": "reference/manifest.json",
+    "sha256": "01f9696eec3e1893ec3433bfd9ce2d8fd285e5d29b5f13b429cf557398ea792a"
+  },
+  "historical_attribution": [
+    {
+      "original_index": 2372,
+      "record": "reference/registry.json.gz /files/2372",
+      "reviewers": "root producer ROOT-PP-DISPATCHER-023; root owner ROOT-OWNER-FINAL-ASSIGNED-SOURCE-071 and ROOT-OWNER-CLIENT-SOURCE-CLOSURE-083; root ROOT-PPS-TERRAIN-DISPATCH-WEB-037; native NATIVE-PS-ROOT-TERRAIN-SOURCE-PACKET-015",
+      "ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "qualification": "Different named original role proofs retain their original lens and scopes; producer owner-fit delta pending."
+    },
+    {
+      "original_index": 2373,
+      "record": "reference/registry.json.gz /files/2373",
+      "reviewers": "rig owner RIG-OWNER-FINAL-RECEIVERS-089; rig producer RIG-PPS-030",
+      "ranges": [
+        [
+          1,
+          306
+        ]
+      ],
+      "qualification": "Separate original producer and owner scope proofs; no implied other-lens or later checkpoint credit."
+    },
+    {
+      "original_index": 2375,
+      "record": "reference/registry.json.gz /files/2375",
+      "reviewers": "camera CAM-PPS-CLINICAL-RECEIVERS-045 and rig RIG-PPS-035",
+      "ranges": [
+        [
+          296,
+          314
+        ]
+      ],
+      "additional_rig_RIG_PPS_038_ranges": [
+        [
+          350,
+          484
+        ]
+      ],
+      "rig_RIG_ADMISSION03_REGISTER_109_ranges": [
+        [
+          315,
+          349
+        ]
+      ],
+      "qualification": "Each source range belongs to its named proof; last is separately registered direct admission route. No historical whole-file claim."
+    },
+    {
+      "record": "historical/adler/READ-L11-384.json",
+      "reviewer": "Adler Lens11",
+      "role_2372": [
+        [
+          1,
+          121
+        ]
+      ],
+      "role_2373": [
+        [
+          1,
+          306
+        ]
+      ],
+      "role_2375": [
+        [
+          296,
+          484
+        ]
+      ],
+      "verification_head_as_recorded": "b97bcedc262f91de07635c69cd1a4fc4f9a7d13f",
+      "qualification": "Old verification HEAD is a receipt context, not the current 95e revision. Adler explicitly linked equipment observer/date and separate mutable reads to 379; current/all20 and native policy remained open. No old role credit is expanded to 1–295 of encumbrance."
+    },
+    {
+      "record": "historical/segovb/READ-L12-786.json",
+      "reviewer": "delegated /root/lens12_frontier personal source reads; segovb root adoption, root_personal_rereads=[]",
+      "role_2372_fresh": [
+        [
+          1,
+          121
+        ]
+      ],
+      "role_2373_fresh": [
+        [
+          1,
+          306
+        ]
+      ],
+      "frozen_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "qualification": "Original delegated credit and predecessor locator qualification preserved."
+    },
+    {
+      "record": "historical/segovb/READ-L12-787.json",
+      "reviewer": "delegated /root/lens12_frontier personal source reads; segovb root adoption, root_personal_rereads=[]",
+      "role_2375_fresh": [
+        [
+          296,
+          484
+        ]
+      ],
+      "frozen_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "qualification": "REGISTRATION-PAR-L12-359 exact Windows locator qualification is a path-specific interpretation, not additional body coverage. Separate q501–509 are camp travel-provision causes, not findings in 2375."
+    },
+    {
+      "record": "historical/parallel-l12-20261029/READ-CONNECTED-PAR-L12-787-CAMP-APPEARANCE-OWNERS.json",
+      "reviewer": "/root/lens12_frontier",
+      "rest_rs_fresh_connected_ranges": [
+        [
+          378,
+          395
+        ]
+      ],
+      "equipment_presentation_rs_fresh_connected_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "qualification": "Independently prospectively registered connected reads. segovb/READ-L12-CONNECTED-TEAM-007 adoption records source-agent attribution and no root personal rereads; q510 identifies the shared query_single error collapse."
+    }
+  ],
+  "historical_queue": [
+    {
+      "index": 179,
+      "id": "ADLER-L11-OBSERVER-FRONTIER-SNAPSHOT",
+      "status_as_recovered": "open-reconciliation",
+      "record": "reference/queue-059.json.gz /entries/179",
+      "receipt_as_recorded": "../../adler/READ-L11-379.json"
+    },
+    {
+      "index": 191,
+      "id": "ADLER-L11-STRATEGIC-CAPABILITY-PROJECTION-ADMISSION",
+      "status_as_recovered": "open-reconciliation",
+      "record": "reference/queue-059.json.gz /entries/191",
+      "receipt_as_recorded": "../../adler/READ-L11-384.json"
+    },
+    {
+      "index": 201,
+      "id": "ADLER-L11-PROFILE-PARTY-LEADER-IDENTITY",
+      "status_as_recovered": "open-reconciliation",
+      "record": "reference/queue-059.json.gz /entries/201",
+      "receipt_as_recorded": "../../adler/READ-L11-393.json"
+    },
+    {
+      "index": 510,
+      "id": "SEGOVB-L12-QUERY-SINGLE-OBSERVATION-ERROR-DISCARD",
+      "status_as_recovered": "open-reconciliation",
+      "record": "reference/queue-059.json.gz /entries/510",
+      "receipt_as_recorded": "../../segovb/READ-L12-CONNECTED-TEAM-007.json"
+    },
+    {
+      "index": 552,
+      "id": "Q-L11-166d8c725fa6521a3142",
+      "status_as_recovered": "open-evidence-or-disposition",
+      "record": "reference/queue-059.json.gz /entries/552",
+      "receipt_as_recorded": null
+    },
+    {
+      "index": 1563,
+      "id": "Q-L12-b0f1f9efd53a0c86df44",
+      "status_as_recovered": "open-evidence-or-disposition",
+      "record": "reference/queue-059.json.gz /entries/1563",
+      "receipt_as_recorded": null
+    },
+    {
+      "index": 1714,
+      "id": "Q-L12-7ddf77a28c24dd72075c",
+      "status_as_recovered": "open-evidence-or-disposition",
+      "record": "reference/queue-059.json.gz /entries/1714",
+      "receipt_as_recorded": null
+    }
+  ],
+  "findings_and_relationships": [
+    {
+      "id": "ADLER-L11-OBSERVER-FRONTIER-SNAPSHOT",
+      "classification": "Historical q179 and Adler 384 explicit scene-equipment connection, freshly reconnected at current revision; no new independent uniqueness claim.",
+      "references": [
+        "crates/strategic-web/src/routes/scene_equipment.rs:31-95,97-166,190-201",
+        "crates/strategic-web/src/routes/data.rs:10-48,151-171",
+        "crates/strategic-web/src/routes/settlements/encumbrance.rs:356-417",
+        "crates/strategic-web/static/strategic-scene.js:101-118"
+      ],
+      "condition": "Equipment route authorizes requested characters using session grants, same party, same settlement, or party join request, then queries current equipment/inventory/occupancy and generates an appearance; unlike the separately inspected data helper and party roster it performs no subject-versus-observer time check or common snapshot in its body. A target ahead of observer and admitted by route policy could therefore expose a later equipment appearance, conditional on data, access and intended observer-time policy. Separate reads also do not demonstrate coherent snapshots.",
+      "qualification": "Old Adler already connected these exact kinds of scene-equipment source/date risk to q179. The helper says shared-current co-location may require equal frontiers; it does not itself prove timing of all inventory updates. This is static, no observed disclosure, no blanket ban on intended session/party grants, and no proof that public rendered equipment shares mutable Character policy.",
+      "future_repair_direction": "Determine per-appearance identity, observer-time and authorization policy, and whether shared snapshot or date-versioned facts are required; preserve legitimate session grants, actor identity and intentional present-tense views. Reconcile q179 centrally."
+    },
+    {
+      "id": "ADLER-L11-STRATEGIC-CAPABILITY-PROJECTION-ADMISSION",
+      "classification": "Earlier q191 retained; current actual native consumers add bounded context.",
+      "references": [
+        "crates/strategic-web/src/routes/settlements/encumbrance.rs:296-354",
+        "crates/adventuresim-core/src/strategic_schedule.rs:298-365",
+        "crates/strategic-web/src/routes/settlements/medical.rs:150-168",
+        "crates/strategic-web/src/routes/parties.rs:452-470"
+      ],
+      "condition": "Capability refresh result is discarded and the subsequent query error becomes None; surgery consumer maps None to 0. A training occupancy query failure becomes empty, and each inventory or catalog query failure or absent row is skipped. The normal CombatTrainingProfile::from_equipped_hands is still returned; the empty-hand default has no weapon or block demand and nonzero other weights. Recruitment loads the profile for applicants.",
+      "qualification": "A failed refresh followed by a successful read may return an older stored capability, not necessarily no row; unknown actual refresh and replication policies remain. A genuinely unarmed character and genuinely absent capability are distinct from read failure. No runtime impact or gameplay acceptance asserted.",
+      "future_repair_direction": "Carry unavailable/absent/refreshed distinctions and per-source context to owners; preserve legitimate unarmed profile and medically safe uncertainty handling. Existing q191 is retained, not replaced."
+    },
+    {
+      "id": "REVIEW-STRATEGIC-ENCUMBRANCE-INPUT-AVAILABILITY-95E",
+      "classification": "Newly assessed conditional aggregate summary completeness across assigned 2375:1-295, which prior role receipts did not credit. Related to q510 query_single and q191 availability, but exact alias/canonical ownership remains central.",
+      "references": [
+        "crates/strategic-web/src/routes/settlements/encumbrance.rs:19-212,215-277",
+        "crates/strategic-web/src/routes/settlements/rest.rs:378-382",
+        "crates/strategic-web/src/routes/settlements/router.rs:123-168",
+        "crates/adventuresim-core/src/equipment.rs:469-517",
+        "crates/strategic-web/src/routes/settlements/rendering.rs:90-114,188-210",
+        "crates/strategic-web/src/routes/settlements/party/training_activity.rs:289-324,425-449",
+        "crates/strategic-web/src/templates/settlement/trade/inventory.rs:11-43"
+      ],
+      "first_failure": "Failed per-member inventory, food lot, physical object, containment, or liquid queries are replaced with empty vectors; query_single erases failed versus absent attributes/limbs/condition. get_active_character likewise maps an inventory query failure to empty. Missing condition gives body mass 0; missing either attribute or limbs gives capacity 0; an absent catalog item gives stack weight 0, and absent food lots use catalog mass. These partial/default inputs become a normal EncumbranceSummary and are passed to inventory pages whose meter renders numeric load, capacity and penalty.",
+      "qualification": "Each first cause remains distinct: q510 is exact query_single native error-to-Option site; q191 concerns capability/training; food lot, liquid, object and catalog branches have different fallback semantics. Valid empty inventories and zero values may be legitimate; an omitted component may cause an under- or over-estimate, including full penalty for zero capacity. Neither a production query failure, actual incorrect displayed number, nor combat/gameplay impairment is observed. Original q552/q1563/q1714 concern broader condition/wheel contract and are not automatic aliases.",
+      "future_repair_direction": "Define required versus legitimately absent inputs and preserve query errors and completeness through shared aggregate and presentation boundary; distinguish unknown from zero, retain no-party/personal behavior, custody and intended display. Trace all consumers and authorities before dedup. No implementation or product validation."
+    },
+    {
+      "id": "ADLER-L11-PROFILE-PARTY-LEADER-IDENTITY",
+      "classification": "Historical q201 connected context only, no additional finding in assigned bodies.",
+      "references": [
+        "crates/strategic-web/src/routes/settlements/encumbrance.rs:356-407,482-483"
+      ],
+      "condition": "This helper resolves leader separately then sorts visible members leader-first; failures and observer filtering can remove the leader or result in no leader id. q201 concerns downstream inference from display order; the downstream profile UI has not been newly inspected here.",
+      "future_repair_direction": "Preserve explicit leader authority through observed membership projection and review downstream policy rather than treating sorted first item as proof; centrally reconcile with prior q201."
+    },
+    {
+      "id": "REVIEW-STRATEGIC-EQUIPMENT-OMISSION-READINESS-001",
+      "classification": "Existing current assessment related, not automatically same as source admission or observer-time problem.",
+      "record": "reference/prior-assessment-equipment-preview-95e.json",
+      "qualification": "Earlier current assessment concerns an unrecognized item disappearing during strategic scene rendering while readiness may pass. Current route passes raw item and placement strings; no new renderer/source catalog body was displayed here and no independent rendering failure claimed."
+    }
+  ],
+  "nonfindings_and_open_questions": [
+    "scene_assets.rs checks requested settlement against session actor, rejects invalid WGS84 coordinates, requires terrain, and holds a two-permit semaphore across blocking scene generation. Waiting request count is not bounded by this semaphore. ensure_catalog is a called side effect and its body was not inspected; no tick-state persistence claim follows.",
+    "scene_preparation.rs reads WorldClock and converts the official epoch/current wall time into a shared minute; absent clock or query error returns unavailable. Whether the scene should use a personal observer time is a separate design question, not a defect established by this read.",
+    "scene_equipment.rs parses the entire comma-separated ID list as u64, caps count at 256 and rejects any missing/invisible requested ID. It filters personal objects to selected character/item, requires expected occupancy anchor payload fields, and accepts only 32-byte design hashes. Semantic design-hash/recipe version, dangling attachment graphs, projection consistency, and authorization policy remain open.",
+    "Typed EquipmentAnchorKind/AppearanceAnchor and shared core EquipmentChannel preserve a relevant shape; PresentationId string preserves database integer range across JavaScript. Existing empty/default input modes and held-item retrieval need domain policy, not speculative blanket type replacements.",
+    "Encumbrance body mass uses BodyMassKg::try_new(...).expect for an existing condition. Invalid stored body mass could panic, but no malformed admitted producer or actual invalid row is established. Finite clamping and capacity rules are separate from availability.",
+    "Party roster life projection deliberately avoids revealing future death when chronology read fails; whether treating currently dead rows as alive can affect a specific authorized output requires chronology and privacy policy, not inference from source alone.",
+    "All test modules were read only. No test, product build, browser, runtime probe, simulation, shader or implementation was performed."
+  ],
+  "lens_notes": [
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Traced scene equipment to browser fetch and encumbrance through inventory page meter; full client renderer and DB projection producers remain open."
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "WGS84CoordinateE7, StrategicMinute, BodyMassKg, OperationalCustody, typed anchors and shared EncumbranceSummary have real owners; source reference, availability and snapshot authority need coordinated ownership."
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Appearance IDs are strings for JS integer fidelity; item/placement and authority/date are different facts. Avoid collapsing optional absence, inaccessible state and failed reads."
+    },
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "WGS84, every requested numeric ID, occupancy shape and hash length are locally admitted; q191 and aggregate input cases require unavailable/absent distinction."
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "Load/capacity aggregation uses shared finite normalization and explicit custody traversal. No valid arithmetic or nonfinite producer defect is inferred; missing inputs can still look valid."
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "Anchor enum and typed channel preserve different equipment shapes; validate actual graph integrity and semantic owner separately."
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Character, inventory, equipment and chronological reads are separate; availability completeness and a coherent observer snapshot are aggregate constraints, not established runtime races."
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "256 caps request count, 2 bounds concurrent blocking builds, 1000 converts ml to kg. Their policy limits and ordering differ; no new finding merely from literals."
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "Scene identity/key and appearance item/placement/attachment point have distinct producers; HTML labels and fixed SQL are boundaries, not automatically bespoke migrations. Native failure details through query_single q510 remain open."
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "Existing shared coordinate, chronology, equipment and mass owners are used locally. Follow native projection contracts and lifecycle before proposing more types."
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "Authorization combines actor, grants, party and settlement projections; party leader sorting is not explicit leader authority. q179/q201 and true authority owners remain separate."
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "Any future change must preserve actor/party permissions, valid empty inventory, wrapped information privacy, real unknown state, requested settlement guards and single encumbrance presentation. No compatibility shims."
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "No separate derivation finding from these bodies; automatically derived serializers must not bypass valid ID, anchor payload, semantic or error checks."
+    }
+  ],
+  "status": {
+    "assigned_role_source_display_complete": true,
+    "complete_thirteen_lens_audit": false,
+    "current_reconciled_by_delegate": false,
+    "historical_checkpoint_3821_reconstructed": false,
+    "repair_ledger_owned_by": "central agent",
+    "implementation_started": false,
+    "product_validation_started": false,
+    "limitations": "Only assigned source bodies and explicitly displayed current support ranges; previous reviewer scopes are not expanded and q501–509 camp causes remain separate. Historical checkpoint3821 ledger and queue remain missing."
+  }
+}

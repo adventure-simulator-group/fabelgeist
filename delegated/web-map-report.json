@@ -1,0 +1,548 @@
+{
+  "schema": "726-delegated-web-map-report-v1",
+  "created_utc": "2026-11-11 19:59:25 UTC",
+  "status": "bounded newly assessed evidence; current entire repository thirteen-lens audit incomplete; no implementation or validation",
+  "baseline": {
+    "current_working_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "historical_774_transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "checkpoint3821": "Original final ledger/queue unavailable; historical source, 059 records and 774 transport remain earlier records and are not promoted."
+  },
+  "scope": "Roles 2364-2368 only, plus bounded current support registered independently. Source-only reasoning; no repairs, build, tests, product runs, probes, simulations or fixtures. No entire-lens or ownership credit.",
+  "registrations": {
+    "registration.json": {
+      "sha256": "11e718371e42acce0383f0781bab304efb455ca826bc231c7a55be1b04ca7032"
+    },
+    "support-registration.json": {
+      "sha256": "2a73fae840f9645c718b494e93670c6ba9925321a437a1235607a0553c188f02"
+    },
+    "historical-support-6533-registration.json": {
+      "sha256": "4040e75ece901fb0cc46a05786a911ac5bda97a9e52748c381f8e738e3ac8d76"
+    }
+  },
+  "original_roles": [
+    {
+      "original_role": 2364,
+      "path": "crates/strategic-web/src/routes/map_city.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/src/routes/map_city.rs",
+      "historical_source": "sources/6533/crates/strategic-web/src/routes/map_city.rs",
+      "current_sha256": "0591bb0d7a55e0b190ce5aeb1c59894a0fc12e19348e7258c711b2e489f77a1d",
+      "historical_sha256": "0591bb0d7a55e0b190ce5aeb1c59894a0fc12e19348e7258c711b2e489f77a1d",
+      "git_blob": "a3072dc01405eaa9e5b120a1c6d8a83122ea18e6",
+      "byte_identical": true,
+      "actual_personally_displayed_ranges_current": [
+        [
+          1,
+          118
+        ]
+      ],
+      "actual_personally_displayed_ranges_historical": [
+        [
+          1,
+          118
+        ]
+      ],
+      "reader": "current-session delegate /root/rig_identity",
+      "historical_registry_scope": "affected_unchanged_reached_contract"
+    },
+    {
+      "original_role": 2365,
+      "path": "crates/strategic-web/src/routes/map_environment.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/src/routes/map_environment.rs",
+      "historical_source": "sources/6533/crates/strategic-web/src/routes/map_environment.rs",
+      "current_sha256": "92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+      "historical_sha256": "92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+      "git_blob": "be1a691f939b4691f4830b8f4eea7c9ae0c6ca3e",
+      "byte_identical": true,
+      "actual_personally_displayed_ranges_current": [
+        [
+          1,
+          93
+        ]
+      ],
+      "actual_personally_displayed_ranges_historical": [
+        [
+          1,
+          93
+        ]
+      ],
+      "reader": "current-session delegate /root/rig_identity",
+      "historical_registry_scope": "affected_unchanged_reached_contract"
+    },
+    {
+      "original_role": 2366,
+      "path": "crates/strategic-web/src/routes/map_environment/connection_window.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/src/routes/map_environment/connection_window.rs",
+      "historical_source": "sources/6533/crates/strategic-web/src/routes/map_environment/connection_window.rs",
+      "current_sha256": "968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+      "historical_sha256": "968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+      "git_blob": "3d05a0312de09f4ee9af3fff7975bbb260ce6f0d",
+      "byte_identical": true,
+      "actual_personally_displayed_ranges_current": [
+        [
+          1,
+          142
+        ]
+      ],
+      "actual_personally_displayed_ranges_historical": [
+        [
+          1,
+          142
+        ]
+      ],
+      "reader": "current-session delegate /root/rig_identity",
+      "historical_registry_scope": "materially_reached_producer_contract"
+    },
+    {
+      "original_role": 2367,
+      "path": "crates/strategic-web/src/routes/map_environment/connection_window/simplification.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/src/routes/map_environment/connection_window/simplification.rs",
+      "historical_source": "sources/6533/crates/strategic-web/src/routes/map_environment/connection_window/simplification.rs",
+      "current_sha256": "7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+      "historical_sha256": "7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+      "git_blob": "f6df9fe650932948450d0f4c33cfa0b999fa4415",
+      "byte_identical": true,
+      "actual_personally_displayed_ranges_current": [
+        [
+          1,
+          52
+        ]
+      ],
+      "actual_personally_displayed_ranges_historical": [
+        [
+          1,
+          52
+        ]
+      ],
+      "reader": "current-session delegate /root/rig_identity",
+      "historical_registry_scope": "materially_reached_producer_contract"
+    },
+    {
+      "original_role": 2368,
+      "path": "crates/strategic-web/src/routes/map_environment/roads.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/src/routes/map_environment/roads.rs",
+      "historical_source": "sources/6533/crates/strategic-web/src/routes/map_environment/roads.rs",
+      "current_sha256": "b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+      "historical_sha256": "b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+      "git_blob": "b0dfeb5cc7439bece0c1df8e4b6eda9b3c3c47d6",
+      "byte_identical": true,
+      "actual_personally_displayed_ranges_current": [
+        [
+          1,
+          55
+        ]
+      ],
+      "actual_personally_displayed_ranges_historical": [
+        [
+          1,
+          55
+        ]
+      ],
+      "reader": "current-session delegate /root/rig_identity",
+      "historical_registry_scope": "affected_unchanged_reached_contract"
+    }
+  ],
+  "support_source_reads": [
+    {
+      "path": "crates/adventuresim-world-schema/src/coordinates.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+      "source": "support/crates/adventuresim-world-schema/src/coordinates.rs",
+      "personally_displayed_ranges_current": [
+        [
+          1,
+          200
+        ],
+        [
+          240,
+          340
+        ],
+        [
+          426,
+          434
+        ]
+      ],
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_bytes_preserved": "historical-support-6533/crates/adventuresim-world-schema/src/coordinates.rs",
+      "historical_sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_read_ranges": [],
+      "credit": "Supporting contract only; no original role or other-lens coverage credit."
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+      "source": "support/crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+      "personally_displayed_ranges_current": [
+        [
+          1,
+          49
+        ]
+      ],
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_bytes_preserved": "historical-support-6533/crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+      "historical_sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_read_ranges": [],
+      "credit": "Supporting contract only; no original role or other-lens coverage credit."
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/coordinates/terrain_projection.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+      "source": "support/crates/adventuresim-world-schema/src/coordinates/terrain_projection.rs",
+      "personally_displayed_ranges_current": [
+        [
+          1,
+          83
+        ]
+      ],
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_bytes_preserved": "historical-support-6533/crates/adventuresim-world-schema/src/coordinates/terrain_projection.rs",
+      "historical_sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_read_ranges": [],
+      "credit": "Supporting contract only; no original role or other-lens coverage credit."
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/regional_connection.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "a84314de9ab9f0068a70c3d18dbd18a5a66fef2426d695c5a5f0efce67f0b5af",
+      "source": "support/crates/adventuresim-world-schema/src/regional_connection.rs",
+      "personally_displayed_ranges_current": [
+        [
+          1,
+          47
+        ]
+      ],
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_bytes_preserved": "historical-support-6533/crates/adventuresim-world-schema/src/regional_connection.rs",
+      "historical_sha256": "a84314de9ab9f0068a70c3d18dbd18a5a66fef2426d695c5a5f0efce67f0b5af",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_read_ranges": [],
+      "credit": "Supporting contract only; no original role or other-lens coverage credit."
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/source_package.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+      "source": "support/crates/adventuresim-world-schema/src/source_package.rs",
+      "personally_displayed_ranges_current": [
+        [
+          1,
+          53
+        ]
+      ],
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_bytes_preserved": "historical-support-6533/crates/adventuresim-world-schema/src/source_package.rs",
+      "historical_sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_read_ranges": [],
+      "credit": "Supporting contract only; no original role or other-lens coverage credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/regional_environment.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+      "source": "support/crates/adventuresim-tactical-core/src/regional_environment.rs",
+      "personally_displayed_ranges_current": [
+        [
+          1,
+          104
+        ]
+      ],
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_bytes_preserved": "historical-support-6533/crates/adventuresim-tactical-core/src/regional_environment.rs",
+      "historical_sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_read_ranges": [],
+      "credit": "Supporting contract only; no original role or other-lens coverage credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/regional_terrain.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+      "source": "support/crates/adventuresim-tactical-core/src/regional_terrain.rs",
+      "personally_displayed_ranges_current": [
+        [
+          1,
+          112
+        ]
+      ],
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_bytes_preserved": "historical-support-6533/crates/adventuresim-tactical-core/src/regional_terrain.rs",
+      "historical_sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_read_ranges": [],
+      "credit": "Supporting contract only; no original role or other-lens coverage credit."
+    },
+    {
+      "path": "crates/adventuresim-terrain/src/road_pack.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "source": "support/crates/adventuresim-terrain/src/road_pack.rs",
+      "personally_displayed_ranges_current": [
+        [
+          1,
+          344
+        ]
+      ],
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_bytes_preserved": "historical-support-6533/crates/adventuresim-terrain/src/road_pack.rs",
+      "historical_sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_read_ranges": [],
+      "credit": "Supporting contract only; no original role or other-lens coverage credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server-dispatcher/src/regional_terrain.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+      "source": "support/crates/adventuresim-tactical-server-dispatcher/src/regional_terrain.rs",
+      "personally_displayed_ranges_current": [
+        [
+          1,
+          57
+        ]
+      ],
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_bytes_preserved": "historical-support-6533/crates/adventuresim-tactical-server-dispatcher/src/regional_terrain.rs",
+      "historical_sha256": "22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_read_ranges": [],
+      "credit": "Supporting contract only; no original role or other-lens coverage credit."
+    },
+    {
+      "path": "crates/strategic-web/src/routes/scene_preparation.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "2026085b97d3c1ec02293a284c90bef4592dcc203e9e621207da39309adee8ec",
+      "source": "support/crates/strategic-web/src/routes/scene_preparation.rs",
+      "personally_displayed_ranges_current": [
+        [
+          1,
+          106
+        ]
+      ],
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_bytes_preserved": "historical-support-6533/crates/strategic-web/src/routes/scene_preparation.rs",
+      "historical_sha256": "2026085b97d3c1ec02293a284c90bef4592dcc203e9e621207da39309adee8ec",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_read_ranges": [],
+      "credit": "Supporting contract only; no original role or other-lens coverage credit."
+    }
+  ],
+  "recovered_history": {
+    "original_059": "Exact verified records in history-manifest.json: Adler READ/VERIFY/STATE-L11-381 plus prospective registrations 1232\u20131236; historical Adler personally read roles 2364\u20132368 fully at 6533, new unique count 0, current reconciliation false, validated false. Batch also includes 2363; unrelated forage finding must not be credited to these map roles.",
+    "delegated_059": "Lens12 READ-L12-782 reports subagent /root/lens12_frontier prospectively personally read roles 2364\u20132368 at 6533 under PAR-L12-346\u2013350, full exact ranges; root_personal_rereads empty, adopted registration numbers are not root reads, accepted unique delta 0, current_source_reconciled false. Preserve PROP/VERIFY/STATE and Windows qualifications.",
+    "older_774": "Original root owner coverage physical JSONL lines 324/325/326 and 509/510/511 (zero-based rows 323/324/325 and 508/509/510) for roles 2364/2365/2368, ROOT-OWNER-FINAL-ASSIGNED-SOURCE-071 and second set additionally ROOT-OWNER-CLIENT-SOURCE-CLOSURE-083. ROOT-PPS-TERRAIN-DISPATCH-WEB-037 root traces physical line 37 has /source_proofs/3 and /4 for 2366/2367 and /40,/41,/42 for 2364/2365/2368; NATIVE-PS-ROOT-TERRAIN-SOURCE-PACKET-015 native traces physical line 15 has /related_current_reads/3,/4 for 2366/2367 and /source_reads/24,/25,/26 for 2364/2365/2368. Registry owner_fit_delta_status stays incomplete_explicit_contract_comparison_required; producer_role_accounted_with_findings; owner-fit_delta_pending. The raw original and separately preserved historical-family-execution variants are not interchangeable.",
+    "identity": "Original rows 2366\u20132367 record Windows snapshot path spellings; source_id and individual historical qualifications resolve their exact Git path. Their original materially_reached_producer_contract limit stays intact even though this session personally read both full bodies.",
+    "reconstruction": "registry-selection-reconstructed.json selects original rows unchanged from exact original-registry.json.gz; it is newly reconstructed, not an original document or checkpoint3821 ledger. 059 queue/ledger full exact bytes and original transport manifest retained compressed.",
+    "links": "history-manifest.json, original-transport-manifest.json.gz, git-proofs.json and original records in historical-059/ and historical-774/.",
+    "connected_historical_repairs": [
+      {
+        "source": "774 ROOT-PPS-TERRAIN-DISPATCH-WEB-037 root traces line 37; NATIVE-PS-ROOT-TERRAIN-SOURCE-PACKET-015 native traces line 15",
+        "status": "historical outstanding proposal; not validated, ownership unchanged, no later-lens clearance",
+        "relationship": "Root source-identity/content/geometry/scene digest roles and TerrainPack retained authority; keep checked WGS through build_imported_scene, CLI and web until the numeric projection; retain typed helper causes to outer boundaries. These connect to this audit and its identity and coordinate investigations, but are not asserted exact aliases for WEB-MAP-01/02/03.",
+        "preserved_constraints": "Keep original native f64 source geometry/hash precision before E7 presentation, terrain holes, source extent, routing and clock authority, and error/order behavior. Camera and rig retain their own historically claimed scopes; 774 native supplier proof transfers neither repair ownership nor coverage."
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "WEB-MAP-01",
+      "kind": "conditional presentation policy and source-derived correctness concern",
+      "title": "Simplification before clipping can erase an entire short boundary crossing",
+      "evidence": [
+        "crates/strategic-web/src/routes/map_environment/connection_window.rs:52-82,113-142",
+        "crates/strategic-web/src/routes/map_environment/connection_window/simplification.rs:6-50",
+        "crates/adventuresim-tactical-core/src/regional_terrain.rs:8,61-72",
+        "crates/adventuresim-world-schema/src/coordinates/terrain_projection.rs:6,52-81",
+        "crates/adventuresim-terrain/src/road_pack.rs:107-115,197-248"
+      ],
+      "static_reasoning": "At equatorial origin, Neighborhood scale has 30 m spacing, 960 m half-window and 3 m simplification tolerance. A hypothetical admitted polyline with E7 (longitude, latitude) coordinates [(-86300,-300),(-86100,0),(-86300,300)] has local east offsets -960.6916,-958.4652,-960.6916 m and north offsets -3.3396,0,3.3396 m. Its bounding rectangle intersects the window, and its center vertex lies inside. The center is 2.2264 m from the chord joining outside endpoints, so simplification drops it; the resulting chord is wholly west of the window, and clipping yields no connection.",
+      "conditions": "Assume matching final terrain/source and geometry/content digest for an admitted package covering these geographic points. The contract currently describes physical presentation error, not an explicit requirement to retain every sub-cell boundary crossing; need a policy decision before calling it a defect. Source routing and source digest are not modified.",
+      "future_direction": "Decide whether sub-tolerance boundary crossings must be preserved; if so, design boundary-aware approximation or clip before simplifying, preserving connected piece and point-cap policies, and later validate under authorized product work.",
+      "relationships": [
+        "059 queue Q-L12-89cc9e903cae772dd0fc / q1866 concerns related regional environment and geometry contracts; no alias or closure asserted.",
+        "Adler 059 L11-381 recognized intended simplify-before-clip display tolerance; this mathematical case refines the later presentation-policy question."
+      ]
+    },
+    {
+      "id": "WEB-MAP-02",
+      "kind": "conditional source identity and authority question",
+      "title": "Terrain-linked road geometry digest omits displayed connection classification",
+      "evidence": [
+        "crates/adventuresim-terrain/src/road_pack.rs:19-20,81-104,117-164,178-193,278-303,324-333",
+        "crates/strategic-web/src/routes/map_environment/connection_window.rs:72-108",
+        "crates/strategic-web/src/routes/map_environment.rs:40-79"
+      ],
+      "static_reasoning": "The terrain-matched geometry digest is serialized from line point arrays alone. Binary decoding reads a valid kind tag into each line, and capture retains that kind in the returned RegionalConnection. The payload hash covers the tag but is declared by the road manifest itself, while manifest source and geometry are compared with terrain. Thus two hypothetical coherent package/manifest pairs with identical terrain-linked coordinates and source identity but distinct valid kind tags can each meet their own declared content digest and yield different presentation classification.",
+      "conditions": "This is a semantic identity gap only if classification must be determined by the same authoritative source identity; it may be intentionally independently mutable presentation data. Assumes separately matching valid content hashes and terrain, and says nothing about malicious modification, existing artifacts, or cryptographic breakage. No binary, hash, or package was generated or executed.",
+      "future_direction": "Determine the authority and immutability contract for kind; if bound to the source, incorporate classification in the authoritative identity and coordinate future producer/consumer acceptance as one connected repair, with no compatibility shims.",
+      "relationships": [
+        "059 q1866 regional data/source contract; q1644 Q-L12-370b4d9e2db93added14 stage-content provenance; q279 SEGOVB-L12-TERRAIN-SOURCE-DIGEST-PROPAGATION: related, identity/alias unresolved."
+      ]
+    },
+    {
+      "id": "WEB-MAP-03",
+      "kind": "conditional work-bound concern",
+      "title": "Selected source line can require quadratic simplification work before output bounds",
+      "evidence": [
+        "crates/adventuresim-terrain/src/road_pack.rs:19-26,111-115,178-193,285-305",
+        "crates/strategic-web/src/routes/map_environment/connection_window.rs:72-82,104-108",
+        "crates/strategic-web/src/routes/map_environment/connection_window/simplification.rs:13-45",
+        "crates/adventuresim-tactical-core/src/regional_environment.rs:8-9,48-56",
+        "crates/strategic-web/src/routes/map_environment.rs:60-79"
+      ],
+      "static_reasoning": "Admission caps the whole package at 1,000,000 source points and 50,000 lines but imposes no smaller per-line cap. Every intersecting line is completely projected and simplified before clipping and before the regional output point cap. The iterative simplifier scans each retained interval; if repeated farthest-point splits are near an end, its comparison count can grow quadratically in the line size. Two capture permits cap concurrent captures, not cost per selected line.",
+      "conditions": "Worst-case conditional source-level complexity only; actual available road geometry, chosen viewport, split pattern, latency, and operational work budget have not been examined or measured. No fixtures, product execution or timing were used.",
+      "future_direction": "Establish source-shape and interactive work budget. If required, design bounded simplification or preprocessed spatial segmentation while preserving source identity, clipping continuity and accepted presentation error; validate only after the explicit stop is lifted.",
+      "relationships": [
+        "Adler 059 READ-L11-381 specifically left package point caps and worst-case simplifier work unresolved; this connects the personally inspected 95e package bound to that question without declaring a new historical alias.",
+        "059 q1866 concerns regional source/capacity contracts; related, not an asserted alias."
+      ]
+    }
+  ],
+  "nonfindings": [
+    {
+      "text": "Regional rectangles explicitly exclude antimeridian-crossing bounds; clamping by itself does not prove an accidental wrap defect.",
+      "refs": [
+        "crates/adventuresim-world-schema/src/coordinates/bounds.rs:4-5",
+        "crates/strategic-web/src/routes/map_environment/connection_window.rs:57-66"
+      ]
+    },
+    {
+      "text": "Native continuous projection permits intermediates outside WGS84 or source bounds, with coverage handled by terrain lookup; no out-of-bounds defect inferred from this design alone.",
+      "refs": [
+        "crates/adventuresim-world-schema/src/coordinates/terrain_projection.rs:1-10",
+        "crates/strategic-web/src/routes/map_environment/connection_window.rs:57-66"
+      ]
+    },
+    {
+      "text": "RegionalConnection admits at least two distinct positions and removes consecutive duplicates; RegionalEnvironment checks aggregate point and line caps using checked addition. WindowOutput is local and discarded after an error, so its increment before Err does not establish corrupt retained state.",
+      "refs": [
+        "crates/adventuresim-tactical-core/src/regional_environment.rs:8-9,48-82",
+        "crates/strategic-web/src/routes/map_environment/connection_window.rs:26-49"
+      ]
+    },
+    {
+      "text": "Lazy road load retains an empty slot on admission failure for retry; a resident package with mismatched source is rejected, and poison is a typed ownership error.",
+      "refs": [
+        "crates/strategic-web/src/routes/map_environment/roads.rs:18-55"
+      ]
+    },
+    {
+      "text": "The HTTP capture has typed source and scale, coordinate admission, semaphore try-acquire and explicit no-store while sampling revision is absent; no cache or unbounded queued-task finding inferred.",
+      "refs": [
+        "crates/strategic-web/src/routes/map_environment.rs:25-31,38-87"
+      ]
+    },
+    {
+      "text": "The city route checks a selected existing authenticated character and settlement variant; profile reads operators and names. Neither this nor the environment route lacking a Session extractor proves missing authorization without the product knowledge and disclosure policy.",
+      "refs": [
+        "crates/strategic-web/src/routes/map_city.rs:34-82",
+        "crates/strategic-web/src/routes/scene_preparation.rs:15-76",
+        "crates/strategic-web/src/routes/map_environment.rs:38-41"
+      ]
+    },
+    {
+      "text": "The simplifier uses an explicit work stack, preserving endpoints; no recursion-stack overflow is asserted.",
+      "refs": [
+        "crates/strategic-web/src/routes/map_environment/connection_window/simplification.rs:10-16,42-50"
+      ]
+    }
+  ],
+  "open_questions": [
+    "Is any sub-cell window-boundary excursion required to be rendered, or may the documented physical display tolerance omit it?",
+    "Does RegionalConnectionKind derive from and participate in immutable authoritative source identity, or may it legitimately vary between matching-geometry road packages?",
+    "What source line length, distribution and per-request work budget are actually supported, and does production data approach the conditional worst case?",
+    "What character/world knowledge and disclosure rules apply to selected settlement profiles and public terrain, including router-level middleware?",
+    "How are dateline and polar windows handled under the explicit non-antimeridian regional-source contract?",
+    "Are 059 q1866, q1644, q279 and q17 related work one or multiple exact repair families? Central reconciliation required; do not predeclare aliases."
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "producer_propagation",
+      "status": "bounded partial only; no whole-lens completion or historical credit transfer",
+      "assessment": "Source identity is typed through the web handler; kind survives road decode to DTO, but whether classification belongs to canonical source identity remains conditional WEB-MAP-02."
+    },
+    {
+      "lens": "existing_type_owners",
+      "status": "bounded partial only; no whole-lens completion or historical credit transfer",
+      "assessment": "SourcePackageDigest, StrategicPlaceId, WGS84 coordinate/bounds, NativeTerrainOffset and RegionalConnectionKind are already used at relevant boundaries; no proven replacement from these scoped bodies."
+    },
+    {
+      "lens": "admission_contracts",
+      "status": "bounded partial only; no whole-lens completion or historical credit transfer",
+      "assessment": "Source and content match, terrain purpose, road point bounds, DTO lengths, coordinate checks and failures were examined; semantic authority and actual package availability remain open."
+    },
+    {
+      "lens": "invariant_operations",
+      "status": "bounded partial only; no whole-lens completion or historical credit transfer",
+      "assessment": "Projection and physical simplification examined; WEB-MAP-01 identifies a boundary topology loss under an explicit tolerance, without alleging routing mutation."
+    },
+    {
+      "lens": "aggregate_states",
+      "status": "bounded partial only; no whole-lens completion or historical credit transfer",
+      "assessment": "Road cache ties one resident pack to terrain source and rejects mismatch; DTO aggregate caps are checked. Source/geometry versus kind binding remains the WEB-MAP-02 policy question."
+    },
+    {
+      "lens": "type_ownership",
+      "status": "bounded partial only; no whole-lens completion or historical credit transfer",
+      "assessment": "Coordinate and kind ownership appears intentional in these bodies. The road classification authority and producer/source identity relationship requires broader owner contracts."
+    },
+    {
+      "lens": "redundant_authority",
+      "status": "bounded partial only; no whole-lens completion or historical credit transfer",
+      "assessment": "Content digest, geometry digest and source digest bind different facts; missing kind in terrain-linked geometry may be deliberate independent authority (WEB-MAP-02), not assumed duplicate truth."
+    },
+    {
+      "lens": "behavior_preservation",
+      "status": "bounded partial only; no whole-lens completion or historical credit transfer",
+      "assessment": "No refactor occurred; source algebra gives a bounded possible changed presentation vs full geometry in WEB-MAP-01. Existing routing remains unchanged."
+    },
+    {
+      "lens": "enum_shapes",
+      "status": "bounded partial only; no whole-lens completion or historical credit transfer",
+      "assessment": "RegionalTerrainScale and RegionalConnectionKind are closed variants; kind is carried with its polyline. No supported bool/payload remodeling from bounded reads."
+    },
+    {
+      "lens": "derivability",
+      "status": "bounded partial only; no whole-lens completion or historical credit transfer",
+      "assessment": "Serde try_from wrappers perform meaningful admission; no redundant manual trait implementation needing a separate finding identified in scoped code."
+    },
+    {
+      "lens": "type_granularity",
+      "status": "bounded partial only; no whole-lens completion or historical credit transfer",
+      "assessment": "Continuous numerical offsets are deliberately separate from checked geographic WGS84 points; geographic region excludes antimeridian rectangles. Whether kind shares source identity remains open."
+    },
+    {
+      "lens": "magic_strings",
+      "status": "bounded partial only; no whole-lens completion or historical credit transfer",
+      "assessment": "Routes, HTTP cache/log strings and file constants are native boundaries; string literals alone are not a bespoke-type defect."
+    },
+    {
+      "lens": "magic_numbers",
+      "status": "bounded partial only; no whole-lens completion or historical credit transfer",
+      "assessment": "0.1 cell fraction is named physical display policy, 30 m is typed scale choice, and point/concurrency capacities are named; repeated whole-line work can exceed desired latency under WEB-MAP-03, conditional on workload."
+    }
+  ],
+  "limitations": [
+    "All ten current support source bodies were personally inspected only at the ranges listed; their historical bytes match the current bytes but were not personally displayed under the historical registration.",
+    "Current and historical assigned source bodies were displayed independently after prospective registration.",
+    "Static mathematical reasoning only; no runnable or simulated fixture, product builds, tests, runtime probes, network, shaders or repair.",
+    "Final checkpoint3821 ledger and queue absent; exact historical evidence is not the later checkpoint.",
+    "Original local evidence stays untouched; Git-transport records retain original attribution and use transport commit only for membership."
+  ]
+}

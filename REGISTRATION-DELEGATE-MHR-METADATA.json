@@ -1,0 +1,153 @@
+{
+  "schema": "726-delegated-prospective-source-registration-v1",
+  "registered_clock_before_write_utc": "2026-11-11 19:40:55 UTC",
+  "agent": "/root/mhr_character",
+  "purpose": "Read full metadata manifests and README, plus lock header only; prospective lock package-index metadata scan may identify later bounded ranges, which require separate registration before display.",
+  "lock_scope_qualification": "Archive whole exact lock bytes, but no full-body personal-read or current coverage claim; later displayed ranges must be prospectively registered and their personal receipt retained.",
+  "sources": [
+    {
+      "kind": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "original_role_index": 2312,
+      "path": "crates/fabelgeist-mesh/Cargo.toml",
+      "source_file": "current-2312.source",
+      "git_blob_sha1": "e8b37ba9e754adea2735690dc7aed1fed802d8b5",
+      "sha256": "8f645b6fbb63fc80d2fbea4f2c149da1843aaf914f2a4b55d65c3f5036de8cef",
+      "bytes": 895,
+      "lines": 25,
+      "planned_display_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "personal_full_body_read_planned": true
+    },
+    {
+      "kind": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "original_role_index": 2313,
+      "path": "crates/fabelgeist-mhr/Cargo.lock",
+      "source_file": "current-2313.source",
+      "git_blob_sha1": "cc02815fb3e3bea312c2ebdd8e75c44d3c6adeff",
+      "sha256": "74e0c31df7a087fda809c487cdb7ce84ca5d0831e6c9274b7eed3fce2b1bb25c",
+      "bytes": 170907,
+      "lines": 7102,
+      "planned_display_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "personal_full_body_read_planned": false
+    },
+    {
+      "kind": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "original_role_index": 2314,
+      "path": "crates/fabelgeist-mhr/Cargo.toml",
+      "source_file": "current-2314.source",
+      "git_blob_sha1": "7a5e96330ff4f702bdae4a790387f67a654ebfd5",
+      "sha256": "7ac1a547fd9fbe280e15a57c5fa465a28452d70d52496a967233ed7b273c2c46",
+      "bytes": 932,
+      "lines": 31,
+      "planned_display_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "personal_full_body_read_planned": true
+    },
+    {
+      "kind": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "original_role_index": 2315,
+      "path": "crates/fabelgeist-mhr/README.md",
+      "source_file": "current-2315.source",
+      "git_blob_sha1": "d3810b7c5b1e6f0f151273ff12925461c87e5c3f",
+      "sha256": "2e0afe7dfd02e87b5d79ce5c81d27654a6b55ca4a0ea2b56b8ef0014c9ec380c",
+      "bytes": 7601,
+      "lines": 144,
+      "planned_display_ranges": [
+        [
+          1,
+          144
+        ]
+      ],
+      "personal_full_body_read_planned": true
+    },
+    {
+      "kind": "historical",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "original_role_index": 2312,
+      "path": "crates/fabelgeist-mesh/Cargo.toml",
+      "source_file": "historical-2312.source",
+      "git_blob_sha1": "e8b37ba9e754adea2735690dc7aed1fed802d8b5",
+      "sha256": "8f645b6fbb63fc80d2fbea4f2c149da1843aaf914f2a4b55d65c3f5036de8cef",
+      "bytes": 895,
+      "lines": 25,
+      "planned_display_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "personal_full_body_read_planned": true
+    },
+    {
+      "kind": "historical",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "original_role_index": 2313,
+      "path": "crates/fabelgeist-mhr/Cargo.lock",
+      "source_file": "historical-2313.source",
+      "git_blob_sha1": "f91e358266c20ea9458919eef49e28c10b420824",
+      "sha256": "45961a0c74b57fb81e9429abc14d387a4e4a00ba18a771c17b0fd5e4ea09eaf4",
+      "bytes": 170674,
+      "lines": 7093,
+      "planned_display_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "personal_full_body_read_planned": false
+    },
+    {
+      "kind": "historical",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "original_role_index": 2314,
+      "path": "crates/fabelgeist-mhr/Cargo.toml",
+      "source_file": "historical-2314.source",
+      "git_blob_sha1": "f20b95f42ce756f9dd8461c8dd711920e49896f1",
+      "sha256": "55bc5dad2b9cc29b536931350e93450876d6fd3ea3f9e8a105e6a32fa4b765d7",
+      "bytes": 768,
+      "lines": 25,
+      "planned_display_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "personal_full_body_read_planned": true
+    },
+    {
+      "kind": "historical",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "original_role_index": 2315,
+      "path": "crates/fabelgeist-mhr/README.md",
+      "source_file": "historical-2315.source",
+      "git_blob_sha1": "506a793cbdf39f8b2bf09455120fa4fe76b63178",
+      "sha256": "2f55f036aa8e477333adc25d8fd8c50685a6648e6e9966c76c1e227bd5607ea7",
+      "bytes": 6833,
+      "lines": 154,
+      "planned_display_ranges": [
+        [
+          1,
+          154
+        ]
+      ],
+      "personal_full_body_read_planned": true
+    }
+  ]
+}

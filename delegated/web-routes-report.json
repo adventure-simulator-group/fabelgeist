@@ -1,0 +1,559 @@
+{
+  "schema": "726-delegated-source-family-audit-v1",
+  "agent": "/root/mhr_character",
+  "scope": "Original role 2363 foraging.rs and 2369 missions.rs, full separately displayed historical and current source bodies; independently registered bounded support only. All thirteen perspectives are bounded assessments, not whole-lens completion. Central agent retains ownership of baseline, reconciliation, ordered accounting and repair ledger.",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "roles": [
+    {
+      "original_role": 2363,
+      "path": "crates/strategic-web/src/routes/foraging.rs",
+      "lines": 849,
+      "sha256_both_revisions": "53f53a7e7a04ffb7a52a677421b41ebba0b7f934c94822eb08f4bf9333c34836",
+      "git_blob": "ecebac5a2cb152b3530dbece550e9f9732c1f463",
+      "actual_personal_reads": "historical and current each full 1–849, in two independently displayed chunks"
+    },
+    {
+      "original_role": 2369,
+      "path": "crates/strategic-web/src/routes/missions.rs",
+      "lines": 340,
+      "sha256_both_revisions": "c4a54e247cf699583c7874b9ad0b29861fa8ea3b0d48b1572e10d52d19f83e1e",
+      "git_blob": "05c551d60fe66dfd80fc318a6c0a7077e6082d4a",
+      "actual_personal_reads": "historical and current each full 1–340"
+    }
+  ],
+  "findings_and_reconciliations": [
+    {
+      "id": "WEB-FORAGE-RECEIPT-HANDLE",
+      "classification": "Previously recorded actionable conditional failure: q183 with q469/q473 distinct failure facets",
+      "trace": "Web generates a fresh opaque request and calls the reducer; after a successful call, query error or missing projected receipt goes through String error and generic redirect without the request ID. The visible error form can be resubmitted and a new request ID minted. The backend keeps request-keyed immutable authority, checks exact replay before mutable state, projects a gateway receipt and increments generation on the success path. The web therefore loses the very identity by which the already submitted attempt could be recovered or exactly replayed.",
+      "conditions_and_limits": "The immediate query errors or returns None after reducer success, or transport outcome is ambiguous; actual transaction, HTTP timing, retry sequence and projection availability were not executed. We do not infer that every receipt is delayed or every retry commits.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/foraging.rs",
+          "lines": [
+            [
+              232,
+              256
+            ],
+            [
+              382,
+              398
+            ],
+            [
+              466,
+              528
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-stdb-module/src/foraging.rs",
+          "lines": [
+            [
+              55,
+              77
+            ],
+            [
+              212,
+              245
+            ],
+            [
+              791,
+              847
+            ],
+            [
+              1103,
+              1161
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/spacetimedb/client.rs",
+          "lines": [
+            [
+              21,
+              29
+            ],
+            [
+              141,
+              150
+            ],
+            [
+              192,
+              218
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Exact q183 ADLER-L11-FORAGE-COMPLETION-RECEIPT-IDENTITY; q469 and q473 distinguish query-cause erasure and absent-receipt reason. Preserve 6533 historical Adler/L12 receipts.",
+      "future_repair_direction": "Carry the original request identity and submission/confirmation state through the route and durable recovery flow; reconcile exact replay input and authorization with the backend owner. Preserve generic sanitized public feedback and distinguish no receipt from no submitted action.",
+      "later_acceptance_criteria": "A completed action with missing or failed receipt query retains an authorized recovery handle, and recovery cannot inadvertently submit a different search; exact replay preserves its request inputs and distinct failure causes."
+    },
+    {
+      "id": "WEB-MISSION-CANCEL-OUTCOME",
+      "classification": "Previously recorded actionable outcome loss: q187",
+      "trace": "Cancellation verifies viewer party membership, then ignores the returned Result and any Executed versus Requested outcome before redirecting home. The shared helper returns errors, executes a leader action, or persists a member request and returns Requested; the pending page offers a Cancel Mission control.",
+      "conditions_and_limits": "Error, member request, or successful execution may all reach the same route redirect. Whether home independently shows current status, actual backend authorization and preferred feedback policy are not established. No cancellation was executed.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/missions.rs",
+          "lines": [
+            [
+              195,
+              242
+            ],
+            [
+              282,
+              289
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/mod.rs",
+          "lines": [
+            [
+              52,
+              57
+            ],
+            [
+              225,
+              248
+            ],
+            [
+              291,
+              316
+            ],
+            [
+              318,
+              348
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/mission.rs",
+          "lines": [
+            [
+              82,
+              95
+            ],
+            [
+              160,
+              168
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Exact q187 ADLER-L11-MISSION-CANCEL-OUTCOME; READ-L11-382, READ-L12-783 and original delegate proposal remain historical, not new checkpoint evidence.",
+      "future_repair_direction": "Preserve and map the typed action outcome and its error at the cancellation boundary; keep same-party checks and delegated leader policy.",
+      "later_acceptance_criteria": "Failure, requested and executed responses each have an intentional distinguishable outcome without exposing private error text; unauthorized viewers cannot cancel."
+    },
+    {
+      "id": "WEB-FORAGE-UNLICENSED-UNKNOWN",
+      "classification": "Conditional presentation correctness; policy/alias reconciliation open",
+      "trace": "Presentation, membership and minute queries convert query failure to missing/empty; advisory calculation treats that as an empty privilege set. Source rows then label otherwise available licensed sources Unlicensed and describe selection as poaching. The backend independently computes actual privilege from its own authority.",
+      "conditions_and_limits": "Any of the three advisory reads fails while the actual authoritative license is valid. This concerns a misleading advisory cue, not proof the reducer will classify the attempt as illegal or that data became unavailable in a real run.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/foraging.rs",
+          "lines": [
+            [
+              127,
+              192
+            ],
+            [
+              194,
+              225
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-stdb-module/src/foraging.rs",
+          "lines": [
+            [
+              187,
+              209
+            ],
+            [
+              848,
+              851
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Related to q183/q466–475 only by the shared foraging boundary and failure distinction; no exact historical alias established.",
+      "future_repair_direction": "Retain an unavailable/unknown advisory state distinct from confirmed unlicensed; preserve authoritative backend evaluation and intentional selectable poaching.",
+      "later_acceptance_criteria": "With unavailable advisory data, do not assert unlicensed; confirmed active matching privileges and confirmed absence retain their correct UI and reducer behavior."
+    },
+    {
+      "id": "WEB-FORAGE-NOTICED-INFAMY-CUE",
+      "classification": "Conditional cross-owner discrepancy; connected historical q913/q914",
+      "trace": "Backend maps illegal plus any stealth result other than Some(true) to noticed. It computes infamy from a failed stealth result but calls the world event only when the character has a current settlement. The receipt carries no explicit proof of the event and the web displays “Local Infamy increased” for noticed. Vicinity supports a camp path when no settlement or case site exists.",
+      "conditions_and_limits": "A committed illegal search is noticed yet no applicable infamy event is committed, e.g. a qualifying no-current-settlement camp attempt with failed stealth, or a zero-time interrupted result with no stealth result. Reachability of each precondition, event semantics, all other side effects and nonsettlement design policy remain unproven; no product execution occurred.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/vicinity.rs",
+          "lines": [
+            [
+              20,
+              43
+            ],
+            [
+              65,
+              104
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-stdb-module/src/foraging.rs",
+          "lines": [
+            [
+              128,
+              162
+            ],
+            [
+              212,
+              229
+            ],
+            [
+              675,
+              711
+            ],
+            [
+              929,
+              959
+            ],
+            [
+              1022,
+              1024
+            ],
+            [
+              1077,
+              1102
+            ],
+            [
+              1103,
+              1123
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/foraging.rs",
+          "lines": [
+            [
+              780,
+              812
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/foraging.rs",
+          "lines": [
+            [
+              292,
+              312
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "q913 Q-L12-b155f540c8c26c15c922 asks for the legal-outcome reader; q914 Q-L12-b1869a82258c03fc1c62 asks for noticed illegal event scope and nonsettlement policy. Neither historical open question alone establishes this exact UI symptom; central alias determination remains open.",
+      "future_repair_direction": "Define authoritative outcome for notice separately from confirmed reputation mutation, then derive display from the actual committed consequence; settle nonsettlement and interrupted-search policy together.",
+      "later_acceptance_criteria": "The status never claims an infamy increase when none was committed; preserve legal/unnoticed outcomes and intended interruption and location policy."
+    },
+    {
+      "id": "WEB-FORAGE-PRIVILEGE-MAPPING",
+      "classification": "Redundant authority with a conditional future drift; not a present mapping disagreement",
+      "trace": "Web and backend independently encode identical ForageSource-to-Privilege matches, including no privilege for HarmfulBeasts. The web mapping labels licensed state and the backend mapping drives actual violation calculation.",
+      "conditions_and_limits": "Both mappings match now. A one-sided future change could make the advisory label disagree with authoritative classification; actual changes and runtime mismatch have not occurred.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/foraging.rs",
+          "lines": [
+            [
+              113,
+              125
+            ],
+            [
+              194,
+              225
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-stdb-module/src/foraging.rs",
+          "lines": [
+            [
+              187,
+              209
+            ],
+            [
+              848,
+              851
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/foraging.rs",
+          "lines": [
+            [
+              67,
+              94
+            ],
+            [
+              116,
+              122
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "q210 and q474 concern typed source propagation, a connected but not proven identical remedy. Historical rig RIG-OWNER-WEB-TERRAIN-FORAGE-082 assessed the related source/privilege owner with its own scope.",
+      "future_repair_direction": "Move this exact source-to-privilege policy to a coherent shared owner, keeping UI assessment advisory and backend evaluation authoritative.",
+      "later_acceptance_criteria": "All five mappings remain identical at both uses, including the intentionally unlicensed HarmfulBeasts case; unknown data remains distinct from unlicensed."
+    },
+    {
+      "id": "WEB-FORAGE-RETURN-FRAGMENT",
+      "classification": "Previously recorded conditional query composition: q184",
+      "trace": "The return URL validator rejects schemes, authorities, control characters, backslash and network-path prefixes; its source fixture expresses support for a local URL with query and fragment. Forage redirects append ? or & to the entire accepted return string, so a fragment-bearing accepted value would put the new text after the fragment marker.",
+      "conditions_and_limits": "Conditional on the native Uri parser accepting such a return string and a caller providing it; the source fixture expresses intent but was not run, and no browser or URI library behavior was probed. Ordinary fragment-free returns remain unaffected.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/mod.rs",
+          "lines": [
+            [
+              127,
+              165
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/foraging.rs",
+          "lines": [
+            [
+              263,
+              268
+            ],
+            [
+              284,
+              289
+            ],
+            [
+              466,
+              475
+            ],
+            [
+              521,
+              526
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Exact historical q184 ADLER-L11-FORAGE-RETURN-QUERY-FRAGMENT and READ-L11-382. No new count or actual caller reachability inferred.",
+      "future_repair_direction": "Use the canonical local URL/query composition owner to place result fields before a preserved fragment while retaining local destination checks.",
+      "later_acceptance_criteria": "Allowed path/query/fragment combinations preserve existing pieces and place result/error fields in the server-visible query; unsafe redirects remain rejected."
+    },
+    {
+      "id": "WEB-FORAGE-SOURCE-AND-ERROR-OWNERS",
+      "classification": "Earlier connected propagation and error facets, not one merged failure",
+      "trace": "The UI emits typed ForageSource IDs, form decoding retains Vec<String>, and reducer validates/sorts source strings then returns raw strings before re-admitting them in rights/resolve code. Four web SpacetimeError boundaries are converted to String; internal reason values and public allowlisted feedback are currently separate concerns.",
+      "conditions_and_limits": "Unknown, duplicate and empty selections are deliberately left for authoritative rejection; no assumption that all invalid sources are supported or that backend diagnostics should be disclosed. Four typed-error source cuts remain distinct. Native serializer and deeper producer paths are not exhaustively assessed.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/foraging.rs",
+          "lines": [
+            [
+              46,
+              93
+            ],
+            [
+              194,
+              225
+            ],
+            [
+              270,
+              289
+            ],
+            [
+              316,
+              325
+            ],
+            [
+              466,
+              526
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/foraging.rs",
+          "lines": [
+            [
+              67,
+              94
+            ],
+            [
+              116,
+              122
+            ],
+            [
+              393,
+              425
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-stdb-module/src/foraging.rs",
+          "lines": [
+            [
+              172,
+              209
+            ],
+            [
+              791,
+              808
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/spacetimedb/client.rs",
+          "lines": [
+            [
+              21,
+              29
+            ],
+            [
+              141,
+              150
+            ],
+            [
+              192,
+              218
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "q210 and q474 identify source readmission/propagation; q466–473 preserve distinct typed causes and missing reasons, q475 tracks feedback identity. Do not collapse independent origins into one first failure.",
+      "future_repair_direction": "Plan typed source propagation at the native form and reducer boundaries while preserving authoritative duplicate/empty/invalid rejection; retain typed internal failure and use one sanitized public feedback projection.",
+      "later_acceptance_criteria": "Accepted typed sources survive internal flow without repeated semantic reconstruction; input order/duplicate and empty rejection semantics remain intentional, private causes are retained and external messages remain safe."
+    }
+  ],
+  "nonfindings_and_open_questions": [
+    "Missions status and cancel perform the same-party comparison before displaying a ready/pending view or invoking cancellation; viewer character ID is set only after that guard. This does not prove all native authority or eliminate races.",
+    "The Err branch returns before outcome.unwrap() in enter_mission; this remains a strict source-style concern under repository rules, not an ordinary Err panic demonstration.",
+    "Backend receipt items and quantities are pushed together in the inspected success construction and projected as parallel arrays; web zip would truncate a mismatched pair if a malformed row were admitted, but no malformed writer or reachable mismatch is shown.",
+    "Hours are parsed as u8 then widened and multiplied by 60 without u64 overflow; core rejects minutes outside one to 24 whole hours. Duplicate/empty source lists are intentionally retained for authoritative validation. Native form and JSON values are explicit boundary formats.",
+    "Advisory query failures are not proof that the backend rejects licensed activity. Poaching is intentionally selectable, and open-water foraging is intentionally rejected; preserve both policies.",
+    "new_id uses wall clock microseconds and no local collision prevention, but actual concurrent uniqueness and backend handling remain unresolved; previous web-data report and READ-L11-379 / READ-L12-779 already record this question. Do not merge it with the distinct counter-plus-hash forage request ID.",
+    "Privacy/error classification for mission entry query failures, semantic owners for mission/party/scene identities, actual query latency, native source authority and all callers remain open. No clearance, repair, validation, current-wide alias or cross-lens verdict is implied.",
+    "The two assessed route bytes are unchanged between 6533 and 95e. That fact does not prove all supporting owners or runtime behavior stayed unchanged."
+  ],
+  "lens_perspectives": [
+    {
+      "lens": 1,
+      "name": "producer propagation",
+      "assessment": "ForageSource is encoded for native HTML then retained as raw form strings and re-admitted in reducer/core. Existing typed owner and duplicate/empty authority constrain a migration. Mission IDs and source context retain additional unresolved owner chains."
+    },
+    {
+      "lens": 2,
+      "name": "existing owners",
+      "assessment": "ForageSource and Privilege fit source identity and license categories; request IDs have idempotency semantics distinct from mission IDs and raw SHA digests. Do not force SocialActionId or grant wrappers without matching policy."
+    },
+    {
+      "lens": 3,
+      "name": "admission contracts",
+      "assessment": "HTTP parser bounds size/counts and scalar duplicates; authoritative core duration/source validation is separate. Backend checks exact lowercase request ID while UI receipt lookup admits uppercase as hex; emitted IDs are lowercase, and no production mismatch is established."
+    },
+    {
+      "lens": 4,
+      "name": "invariant operations",
+      "assessment": "u8 hours widened before multiplication cannot overflow u64. Web loses request identity after a post-submit receipt failure; exact backend replay uses retained identity and input. Transaction timing and retry behavior remain unverified."
+    },
+    {
+      "lens": 5,
+      "name": "aggregate states",
+      "assessment": "Action completion, request handle and receipt belong together through recovery. Receipt arrays are built with paired pushes in the selected backend path, but the type admits independently sized vectors; malformed-row reachability remains open."
+    },
+    {
+      "lens": 6,
+      "name": "type ownership",
+      "assessment": "Shared ForageSource and Privilege are established; the same source-privilege mapping is duplicated across UI and authority. Backend remains sole legality authority; no sharing of authorization decisions is proposed."
+    },
+    {
+      "lens": 7,
+      "name": "redundant authority",
+      "assessment": "Two identical privilege-mapping tables could drift; advisory data can also be stale relative to authority, which remains an independent time-sensitive observation rather than automatic duplicate state."
+    },
+    {
+      "lens": 8,
+      "name": "behavior preservation",
+      "assessment": "Assigned route bytes are identical across revisions. Preserve local URL validation, source duplicate/empty rejection, unlicensed choices, same-party access, exact replay and final sanitized feedback; identical route bytes do not establish dependent code identity."
+    },
+    {
+      "lens": 9,
+      "name": "enum shapes",
+      "assessment": "Mission outcome distinguishes Executed/Requested but route drops both, and forage advisory needs known/unknown distinction. Do not blindly merge independent mission status and error axes or change wire format."
+    },
+    {
+      "lens": 10,
+      "name": "derivability",
+      "assessment": "ForageForm derives Debug/Eq; wire attestation derives Serialize and StatusQuery Deserialize. No manual trait implementation in the assigned files is shown removable; avoid weakening native boundary validation."
+    },
+    {
+      "lens": 11,
+      "name": "type granularity",
+      "assessment": "Current opaque forage request, mission ID, party ID, source ID, terrain package digest and URL/feedback code have distinct roles. Avoid treating equivalent string storage or same hash width as shared authority."
+    },
+    {
+      "lens": 12,
+      "name": "raw strings",
+      "assessment": "Forage source and feedback keys carry semantic roles internally; native HTML/JSON/SQL/route/display strings are real boundaries. Distinguish existing q466–475 errors and propagation from allowed sanitized final text."
+    },
+    {
+      "lens": 13,
+      "name": "raw primitives",
+      "assessment": "Body/pair/source caps, u8 hours, minute conversion, integer elapsed-hours display, SHA input and character IDs have separate meanings and boundaries. Verify interruption precision and identity/grant propagation before prescribing a common numeric owner."
+    }
+  ],
+  "historical_provenance": {
+    "adler_059": "READ-L11-381 / REGISTRATION-ADLER-1231 claims fresh 6533 pr-working foraging 1–849 and READ-L11-382 / REGISTRATION-ADLER-1237 claims fresh missions 1–340; source hashes match both separately archived current and historical bodies. Retain original reviewer and historical scope.",
+    "lens12_059": "PROPOSAL-L12-781 and READ-L12-781 attribute 6533 foraging 1–849 to /root/lens12_frontier with REGISTRATION-PAR-L12-345; PROPOSAL-L12-783 and READ-L12-783 similarly attribute missions 1–340 with REGISTRATION-PAR-L12-351. Root personal rereads are [] and adoption does not create a fresh root read.",
+    "earlier_backend_and_l13": "READ-L12-245 records own historical full backend 1–1381 and timing 1–43 with registrations 021/022; q210 remains open. READ-PL13-254 / REGISTRATION-PL13-254 and READ-L13-PARALLEL-252 retain that delegate’s independent backend/time evidence and q2322 capability question, not this agent’s full read.",
+    "prior_95e_support": "/root/hair_ops previously read missions 1–170 under strategic-web/support-registration-03 and separately 75–112 under web-data/support-registration-01; those are independent prior bounded support scopes, not this agent’s ordered reads. Their exact source bodies, report and registrations are copied under prior-traces.",
+    "older_774": "Original rig coverage zero-based rows 559 and 555 record 1–849 and 1–340 respectively, historical owner-lens supplier source proofs RIG-OWNER-WEB-TERRAIN-FORAGE-082 and RIG-OWNER-WEB-GRANTED-IDENTITY-081. RIG-PPS-021 separately records foraging 1–85,117–326,327–380,382–465,466–533,611–724,796–849 and missions 1–239,306–340. Preserve recorded historical pr-working identities, original supplier and downstream qualifications; no repair-ownership transfer. Original and path-normalized 774 exports are individually hashed and separately archived.",
+    "recovery_limits": "Original 059 queue, registry and transport manifest retained losslessly; selected extracts are derived navigation only. Their statuses, reviewers and older revisions are not checkpoint3821 records. The missing final 3821 queue remains unconstructed."
+  },
+  "evidence_paths": [
+    "registration.json",
+    "read-receipt.json",
+    "support-registration.json",
+    "support-symbol-locations.json",
+    "support-read-receipt.json",
+    "git-proofs.json",
+    "historical-059-index.json",
+    "historical-queue-selected.json",
+    "historical-registry-selected.json",
+    "reference/",
+    "older-774-index.json",
+    "older-774-export-manifest.json",
+    "prior-traces/"
+  ],
+  "restriction": "Source inspection and evidence-only verification. No product edits, repairs, product builds, tests, browsers, probes, fixtures, simulations, shader execution or product validation."
+}

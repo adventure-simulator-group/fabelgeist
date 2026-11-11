@@ -122,7 +122,42 @@ for role in roles:
             if not matched:
                 raise ValueError('unmatched bounded evidence link')
     if status == 'lock-metadata-partial':
-        if role['assessment'] != 'LOCKFILE-DELTA.json':
+        if role['assessment'] == 'ASSESSMENT-DELEGATED-MHR-LOCK-95E.json':
+            doc = json.loads((root / role['assessment']).read_text())
+            if (doc['original_index'] != role['original_index']
+                    or doc['source_id'] != role['source_id']
+                    or doc['historical_sha256'] != role['historical_sha256']
+                    or doc['historical_lines'] != len(objects[role['historical_sha256']].splitlines())):
+                raise ValueError('partial lock historical identity mismatch')
+            cp = json.loads((root / doc['evidence_checkpoint']).read_text())
+            bundle = next(x for x in cp['bundles'] if x['archive'] == doc['evidence_archive'])
+            raw_archive = (root / bundle['archive']).read_bytes()
+            if hashlib.sha256(raw_archive).hexdigest() != bundle['archive_sha256']:
+                raise ValueError('partial lock bundle mismatch')
+            with tarfile.open(root / bundle['archive'], 'r:gz') as lock_archive:
+                current = lock_archive.extractfile('current-2313.source').read()
+            current_inventory = json.loads((root / 'MAIN-ADVANCE-95E.json').read_text())['trees']['current']['path']
+            current_paths = {}
+            for line in (root / current_inventory).read_text().splitlines():
+                head, path = line.split('\t', 1)
+                current_paths[path] = head.split()[2]
+            if (hashlib.sha256(current).hexdigest() != doc['current_sha256']
+                    or git_blob(current) != doc['current_git_blob']
+                    or doc['current_git_blob'] != current_paths[role['source_id'].split(':', 1)[1]]
+                    or len(current.splitlines()) != doc['current_lines']):
+                raise ValueError('partial lock current identity mismatch')
+            for prefix in ('historical', 'current'):
+                intervals = sorted(doc[prefix + '_personal_ranges'] + doc[prefix + '_unread_ranges'])
+                cursor = 1
+                for lo, hi in intervals:
+                    if lo != cursor or hi < lo:
+                        raise ValueError('partial lock range gap or overlap')
+                    cursor = hi + 1
+                if (cursor != doc[prefix + '_lines'] + 1
+                        or sum(hi - lo + 1 for lo, hi in doc[prefix + '_unread_ranges']) != doc[prefix + '_unread_lines']
+                        or doc[prefix + '_unread_lines'] == 0):
+                    raise ValueError('partial lock unread accounting mismatch')
+        elif role['assessment'] != 'LOCKFILE-DELTA.json':
             raise ValueError('unexpected lock assessment')
     elif status == 'full-historical-body-trace-open':
         name = role['historical_assessment']

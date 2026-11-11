@@ -1,0 +1,435 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-5.json",
+  "source_roles": "ASSESSMENT-DELEGATED-SOURCE-ROLES-5.json",
+  "partial_lock": "ASSESSMENT-DELEGATED-MHR-LOCK-95E.json",
+  "delegated_observations": [
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-data-report.json",
+      "finding": {
+        "ids": [
+          "ADLER-L11-OBSERVER-FRONTIER-SNAPSHOT"
+        ],
+        "queue": "reference/queue-059.json.gz /entries/179",
+        "classification": "Earlier qualified race candidate independently traced at 95e; no new historical finding.",
+        "source": [
+          "routes/data.rs:24-36,39-48,55-91,151-170",
+          "live.rs:183-205,372-406,495-527",
+          "routes/characters.rs:52-76"
+        ],
+        "trace": "Clock queries establish a subject/observer relation before a later cached public Character and separate HTTP private case-site read; selected condition endpoint further queries equal frontiers before later data use. Live cache readiness requires an applied subscription and is cleared on connection failures, but these sources do not show a shared snapshot across HTTP clock, cache and private query. A subject advance between check and read is a conditional interleaving, not observed future-state disclosure.",
+        "future_repair_direction": "Determine actual SDK/database snapshot and update contracts and all relevant call sites; if a coherent gate is required, couple authorized frontier and returned facts without weakening intentional life-only access. Preserve original q179 and reconcile aliases centrally.",
+        "repair": "not started",
+        "validation": "not performed"
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-data-report.json",
+      "finding": {
+        "ids": [
+          "SEGOVB-L12-STRATEGIC-TERRAIN-PURPOSE-REASON"
+        ],
+        "queue": "reference/queue-059.json.gz /entries/457",
+        "classification": "Earlier Lens12 structured-reason question reconnected; no inferred second defect or compatibility requirement.",
+        "source": [
+          "regional_source.rs:6-29",
+          "adventuresim-terrain/src/lib.rs:322-408,410-432",
+          "routes/travel.rs:153-164,319-400",
+          "main.rs:94-103"
+        ],
+        "trace": "TerrainPack::load validates manifest/digests/ranges and returns its native errors. admit_terrain requires TerrainPurpose::Final using anyhow ensure prose; load_terrain logs the error and supplies None. Startup registers no digest and capability 0 for None. The inspected UI destination builder marks None/failed planning as straight-line estimate, rather than asserting it is a terrain route; actual route initiation/transport policy remains separately open, including q185. No package was opened or planner run.",
+        "future_repair_direction": "Decide whether wrong-purpose needs a distinct structured admission reason until final startup diagnostics while preserving native I/O causes, explicit unavailable capability and intentionally labeled estimates.",
+        "repair": "not started",
+        "validation": "not performed"
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-data-report.json",
+      "finding": {
+        "ids": [
+          "SEGOVB-L12-STRATEGIC-CASE-SITE-CAUSE-ERASURE"
+        ],
+        "queue": "reference/queue-059.json.gz /entries/458",
+        "classification": "Earlier Lens12 typed-cause loss independently reconnected at 95e.",
+        "source": [
+          "routes/data.rs:77-89",
+          "adventuresim-core/src/strategic_place.rs:17-35,43-57,424-453",
+          "strategic-web/src/spacetimedb/client.rs:21-29"
+        ],
+        "trace": "Generated private case-site value passes CaseSiteId::try_new; invalid component yields PlaceIdentityError::InvalidComponent, which is formatted into SpacetimeError::Spacetime(String). The text contains context but the original typed cause is no longer retained; no malformed backend row or user-visible error is asserted.",
+        "future_repair_direction": "After authorization, propagate a contextual typed cause through the owning DB/application error boundary; reconcile actual callers and related q181 life-only dependency rather than preserving legacy error prose.",
+        "repair": "not started",
+        "validation": "not performed"
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-data-report.json",
+      "finding": {
+        "ids": [
+          "DELEGATE-MEDICAL-GAP-EVENT-DISCLOSURE-95E"
+        ],
+        "classification": "New conditional source-only disclosure-policy candidate; not a historical finding or automatically accepted unique issue.",
+        "source": [
+          "adventuresim-stdb-module/src/disease.rs:255-335,500-520",
+          "routes/settlements/party/inventory_medical.rs:707-764",
+          "medical.rs:127-145,210-223",
+          "routes/parties.rs:355-405,452-572",
+          "templates/recruitment.rs:318-367",
+          "templates/settlement/character_details.rs:39-67",
+          "templates/settlement/character_health.rs:884-891,920-985,1018-1058"
+        ],
+        "condition_and_trace": "Backend chart observations are bounded by joint personal clocks and insert explicit gaps for separated presence spans; chart-derived known_interventions is empty at observation band 0 and otherwise filtered at each observation minute. The web history query grants full patient administration rows after any authorized chart row (or for self), sanitize retains all, and the notebook renders administration start/stop names whenever each timestamp lies between first and last readings, without checking gaps or observation band. For two separated observed spans and an administration event in the intervening gap, source control flow renders that event inside the interval labeled Not in party. The recruitment panel supplies a nonself applicant medical presentation to character_stats_panel and the notebook; party stats is another caller. No real patient record, participant sequence, output or runtime disclosure was observed. The currently implemented any-observation rule might be an intentional broader history policy, so establish that contract before severity or acceptance.",
+        "historical_relationships": "Relates to q193 history availability, q198 timeline reference date and q179 chronology only by adjacent family; none is automatically this gap/observation-band admission predicate. Adler391 personally read the timeline and kept privacy/recipient conditions pending; preserve that attribution and no 3821 promotion. Exact aliases and other authorized-history policies remain open.",
+        "future_repair_direction": "Clarify whether full treatment history is granted after any observation or whether events require an authorized observer/time/band. If restricted, derive per-event visible history from the authoritative observation/presence evidence before it reaches the presentation, including gaps and boundary endpoints; preserve self-view, time semantics, typed dosage and existing privacy boundaries. Record later acceptance as source-appropriate scenarios only after implementation and product validation are separately authorized.",
+        "repair": "not started",
+        "validation": "not performed"
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-data-report.json",
+      "finding": {
+        "ids": [
+          "DELEGATE-LIFE-ONLY-CASE-SITE-DEPENDENCY-95E"
+        ],
+        "classification": "New conditional source-only error-path and unnecessary dependency candidate; no runtime failure proven.",
+        "source": [
+          "routes/data.rs:55-91,94-148,174-193",
+          "routes/dialogue.rs:770-807,850-894",
+          "strategic-web/src/spacetimedb/client.rs:21-29",
+          "adventuresim-core/src/strategic_place.rs:17-35,43-57"
+        ],
+        "condition_and_trace": "The documented life-only helper calls full character(), which requires an unrelated private case-site SQL query and validates its identity before the helper can project death chronology. If this query fails or its identity is invalid, dialogue endpoints log the error and choose alive=true. When a death predates the observer and clock/death sources would otherwise be available, this independent case-site error prevents evaluating that chronology and takes the alive branch. No backend fault, dead NPC visibility, exploit or ordinary behavior observed; callers deliberately avoid exposing unconfirmed future death.",
+        "historical_relationships": "Touches q181 NPC presence/observer-clock availability and q458 case-site structured cause, but different first failed dependency; q179 snapshot is separate. Adler379 noted life-only purpose and uncertainty but did not prove this current caller path. Preserve historical attribution and central alias decisions.",
+        "future_repair_direction": "Consider a life-only source read that does not depend on case-site identity, and model unavailable chronology separately under the agreed observer-safe error policy; retain protection against revealing a subject's future death.",
+        "repair": "not started",
+        "validation": "not performed"
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-data-report.json",
+      "finding": {
+        "ids": [
+          "ADLER-L11-MEDICAL-HISTORY-AVAILABILITY",
+          "SEGOVB-L12-CONNECTED-MEDICAL-BACKEND-DOSE-ADMISSION"
+        ],
+        "queue": "reference/queue-059.json.gz /entries/193 and /entries/459",
+        "classification": "Adjacent prior delegate work retained; not a new issue from active selection.",
+        "trace": "medical.rs:98–116 re-admits backend raw dose and earlier support showed normal writers pass typed bounded dose; current active() consumes already-sanitized records. Authorized history fetch errors are collapsed to empty by inventory_medical.rs:728–736 before active(); see previous strategic-web report. Neither history failure nor dose-admission question is caused by active() itself.",
+        "repair": "not started",
+        "validation": "not performed"
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/crate-metadata-report.json",
+      "finding": {
+        "id": "REVIEW-L11-NPZ-OWN-CRATE-NATIVE-LOCK-AUTHORITY",
+        "kind": "recovered 059 scoped nonfinding, newly verified exact evidence",
+        "historical_relationship": "059 queue index 2309 has disposition rejected-suspicion-source-qualified, limited to the named child lock/native scope, with all-lens closure false and repair/runtime not passed. Original Lens11 READ-172 planned e275 manifest 1–26, lock 2159–2168/3263–3270/4304–4308 and native locator 1–531; segovb READ-L11-708 records historical adoption. No historical read is attributed to this delegate.",
+        "source": [
+          "crates/fabelgeist-numpy-storage/Cargo.toml:8-20",
+          "crates/fabelgeist-numpy-storage/Cargo.lock:2099-2108,4305-4308",
+          "Cargo.toml:51-60",
+          "crates/fabelgeist-numpy-storage/src/zip.rs:1-4,86-106,160-181",
+          "historical-059/parallel-l11-20261029/READ-172.json",
+          "historical-059/parallel-l11-20261029/PLAN-192.json"
+        ],
+        "condition_and_reasoning": "The 95e child manifest declares an independent workspace and exact rawzip =0.5.2; the root workspace excludes this crate. The actual child lock records rawzip 0.5.2 checksum ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c. Its full lock SHA-256 33fe471032dbeeb221003b375f903a389269e9e7cfcf37d1118e2035870e3d89 equals the e275 lock identified by the earlier receipt. This delegate verified the copied historical rawzip archive matches that checksum and five copied source members match exact archived bytes. Current source names rawzip for ZIP framing and flate2 for decoding.",
+        "limits": "The archive checksum is verified against the project lock; no registry signature or external provenance conclusion. This delegate did not display native rawzip bodies or execute Cargo, dependency resolution, parser, fixtures or product. Earlier receipt READ-172 packet-time unread fields are preserved; later READ-173–176 report further distinct reads and must not be collapsed into the earlier packet. The lock source represents recorded dependency selection, not an actual build or feature-unification proof.",
+        "future_repair_acceptance": "No repair for the rejected native-lock suspicion on this evidence; retain independent unread native/consumer and all-lens obligations. Any future dependency changes should preserve reviewed lock identity and source context, with product verification only after authorization."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/crate-metadata-report.json",
+      "finding": {
+        "id": "Q-L12-2c82e856b141c0404e5b",
+        "kind": "recovered tactical duplicate-name question, newly traced current support",
+        "historical_relationship": "059 queue index 1284 leaves AuthoredRigJoint/MhrBone uniqueness and equipment binding policy pending. The 6533-to-95e tactical skin support body changed, so this current trace is a new assessment, not a reassignment of the historical review or proof of an exact new finding alias.",
+        "source": [
+          "crates/fabelgeist-rig/README.md:7-11,29-33",
+          "crates/fabelgeist-rig/src/lib.rs:126-144",
+          "crates/adventuresim-tactical-client/src/animation/loading.rs:277-299",
+          "crates/adventuresim-tactical-client/src/animation/rig_identity.rs:7-12,20-38",
+          "crates/adventuresim-tactical-client/src/equipment/skin.rs:14-35"
+        ],
+        "condition_and_reasoning": "The documented first-match ordinal follows index_in/require_in and is supported by their source. Tactical equipment instead builds a per-owner HashMap from cached exact names to Bevy entities. If two queried bones for the same owner have the same label, the later insertion replaces the earlier entry and subsequent lookup selects the retained entity; there is no ordinal tie-break in this path.",
+        "limits": "Requires duplicate same-owner labels to reach the tactical query; ordinary scene admission and ECS iteration/order policy were not fully established. Do not claim the README scoped index_in statement is false, or that a runtime misbinding was observed.",
+        "future_repair_acceptance": "Establish whether tactical admission rejects duplicate names or retains explicit ordered joint identity through equipment binding. Later exercise the chosen duplicate policy with the actual scene/rig lifecycle and correct owner."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/crate-metadata-report.json",
+      "finding": {
+        "id": "rig-readme-identity-vs-application-ownership",
+        "kind": "documentation qualification and open owner reconciliation",
+        "historical_relationship": "Original 059 segovb READ-L12-770 explicitly marked README lines 42–43 as application-policy language rather than proof that shared names own parent/weight/animation state. Prior Adler READ-L11-374 preserved open labels and first-match semantics.",
+        "source": [
+          "crates/fabelgeist-rig/README.md:3-43",
+          "crates/fabelgeist-rig/src/lib.rs:17-19,30-48,109-150",
+          "crates/fabelgeist-rig/src/table.rs:8-14,48-54,94-106",
+          "crates/fabelgeist-rig/src/skin.rs:11-25,112-124,226-237",
+          "crates/adventuresim-character-creator/src/export/skeleton.rs:4-16,28-29,57-68",
+          "crates/adventuresim-tactical-client/src/animation/rig_identity.rs:7-38"
+        ],
+        "condition_and_reasoning": "Current source supports exact string identity, first-match lookup, typed order and checked native u32 packing. RigJointTable does not prove that two columns belong to the same rig; export retains parent values in a separate table, RigInfluences holds weights, and tactical role classification is application-owned. The README final paragraph should be read with these owner boundaries rather than as proof that the label type validates an entire skeleton.",
+        "limits": "This is a qualified wording/ownership question, not proof that the text causes a product failure or that all application consumers satisfy the contract. Full call graph, packed data coherence and alias decisions remain open.",
+        "future_repair_acceptance": "If the connected audit finds ambiguous owner expectations, make the README explicitly identify which type retains each value and which application validates cross-column membership; keep exact open-label and checked-encoding semantics."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/crate-metadata-report.json",
+      "finding": {
+        "id": "ADLER-L11-RIG-INFLUENCE-NORMALIZATION",
+        "kind": "recovered finding relevant to documented skin-weight boundary",
+        "historical_relationship": "059 q175 and q436 SEGOVB-L12-CONNECTED-RIG-STRONGEST-FOUR-ZERO-SUM-POLICY remain historical records with central alias reconciliation; prior separate rig-skin report is supplemental, not this delegate’s source-read credit.",
+        "source": [
+          "crates/fabelgeist-rig/src/skin.rs:19-25,79-99",
+          "crates/fabelgeist-rig/README.md:34-43"
+        ],
+        "condition_and_reasoning": "Current strongest_four aggregates raw f32 weights and divides retained values by their sum without checking finite positive normalization. With a nonempty influence row whose weights are all zero, the source reaches zero divided by zero if called.",
+        "limits": "No execution, malformed input creation or ordinary application producer proven. Empty WIDTH=0 has no division loop and should not be conflated with a nonempty zero-sum row.",
+        "future_repair_acceptance": "Define finite admissible weights, duplicate handling and zero-sum policy at the owning skin boundary before division, with later product validation separate."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/crate-metadata-report.json",
+      "finding": {
+        "id": "crate-metadata-target-declarations",
+        "kind": "nonfinding and source-trace limitations",
+        "historical_relationship": "059 adler READ-L11-375/377 and Lens12 READ-L12-771/775 recorded manifest metadata only; no implementation coverage or runtime execution transferred.",
+        "source": [
+          "crates/fabelgeist-timer/Cargo.toml:8-12",
+          "crates/fabelgeist-timer/src/lib.rs:4-8",
+          "crates/fabelgeist-shell/Cargo.toml:8-24",
+          "crates/fabelgeist-xpbd/Cargo.toml:8-21"
+        ],
+        "condition_and_reasoning": "Timer manifest selects gloo-timers for wasm32 and Tokio time otherwise, and timer source contains matching target-gated sleep calls. Shell and XPBD declare the GPU, compute and math dependencies and native tests as development dependencies.",
+        "limits": "Declarations and source branches do not prove feature resolution, compilation, platform timing behavior or native/test execution. The dependencies do not themselves close XPBD q176/q177 or shell numerical/identity contracts.",
+        "future_repair_acceptance": "No metadata-specific repair established. Preserve each platform branch and dependency boundary while connected implementation contracts are assessed separately."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/mhr-metadata-report.json",
+      "finding": {
+        "id": "MHR-DOC-NORMAL-CLAIM",
+        "status": "documentation/source qualification, connected to prior current numerical finding",
+        "trace": "Current README states output normals are accumulated from deformed triangles and normalized. Mhr::vertex_normals indeed accumulates face cross products, but returns a zero normal for an unreferenced vertex and divides by max(length,1e-12); a tiny nonzero accumulated normal can thus remain non-unit. MhrOutput similarly says unit normals.",
+        "conditions": "An unreferenced/degenerate vertex or unusually tiny nonzero accumulated area; ordinary asset geometry and GPU backend behavior were not validated. Symbolic tiny right-triangle witness and numeric precision limits were previously recorded in model-tiny-triangle-normal, not re-executed here. Do not claim every output is non-unit.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/README.md",
+            "lines": [
+              [
+                6,
+                9
+              ],
+              [
+                19,
+                23
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "lines": [
+              [
+                52,
+                61
+              ],
+              [
+                396,
+                452
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Prior local mhr-model report model-tiny-triangle-normal already owns the numeric aspect; this is the README/API wording relationship, not a separate automatically unique product finding. Earlier 059 Q-L12-2544938d5b3d61f1c490 asked for README normal reconciliation; its historical README is a different 6533 body.",
+        "future_repair_direction": "Document the actual zero/tiny-normal behavior and resolve the existing numerical owner/scale policy together; preserve intentional zero for unreferenced geometry."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/mhr-metadata-report.json",
+      "finding": {
+        "id": "MHR-FORWARD-PARAMETER-DOC",
+        "status": "source/documentation discrepancy conditional on admitted non-204 model",
+        "trace": "Current README gives model_parameters [batch,P] and says P comes from admitted model. The checked model count is captured from parsed ParameterTransform and forward compares input width against it. The nearby Mhr::forward API comment still says [batch,204], although that number is not the source-enforced width.",
+        "conditions": "A successfully admitted definition has P other than 204; actual released asset value and ability to run an alternate model were not tested. The source evidence does not imply the released MHR asset has a non-204 count.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/README.md",
+            "lines": [
+              [
+                11,
+                28
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "lines": [
+              [
+                222,
+                230
+              ],
+              [
+                254,
+                257
+              ],
+              [
+                276,
+                316
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model_def.rs",
+            "lines": [
+              [
+                44,
+                51
+              ],
+              [
+                93,
+                95
+              ],
+              [
+                147,
+                157
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "REVIEW-L11-MHR-README-ROLE-QUALIFICATIONS assessed the e275 README exact body (same bytes as 95e) and Q-L12-2544938d5b3d61f1c490 retains actual model/README reconciliation; preserve its original reviewer and revision. Global alias inventory remains open.",
+        "future_repair_direction": "Align the function comment with the admitted model parameter count while retaining released-model context and the existing dynamic-width validation."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/mhr-metadata-report.json",
+      "finding": {
+        "id": "MHR-URI-ERROR-SOURCE-ERASURE",
+        "status": "historical distinct first-failure records independently reconnected to current support",
+        "trace": "When both direct and nested asset reads fail, from_uri formats both errors into a new anyhow message; their original typed branch errors are no longer in that new error chain. It also formats String::from_utf8’s FromUtf8Error into a new message. The bounded FS source shows read_bytes can propagate errors from a project DirectoryEntry/FileEntry; its NativeFile implementation itself formats the std::io error earlier.",
+        "conditions": "Only a branch error that still has a structured cause at the MHR boundary can be lost there; native providers may have already erased a cause. Both locations and rendered diagnostics remain in the message. No file, browser or network operation was run.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "lines": [
+              [
+                120,
+                155
+              ],
+              [
+                158,
+                176
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-fs/src/lib.rs",
+            "lines": [
+              [
+                20,
+                36
+              ],
+              [
+                62,
+                80
+              ],
+              [
+                635,
+                685
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Exact recorded q421 SEGOVB-L12-MHR-ASSET-FALLBACK-CAUSES-ERASURE and q422 SEGOVB-L12-MHR-DEFINITION-UTF8-CAUSE-ERASURE, connected to broader q173 ADLER-L11-MHR-LOAD-ERROR-OWNERSHIP; q311/q312 record independent upstream FS first failures. Do not merge distinct first cuts or assert a new count.",
+        "future_repair_direction": "Preserve both attempted locations and both actual branch causes in a structured failure, and retain the concrete UTF-8 source; reconcile upstream FS cause ownership separately."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/mhr-metadata-report.json",
+      "finding": {
+        "id": "MHR-URI-ASSET-COHORT-QUESTION",
+        "status": "source-established per-file lookup behavior; same-cohort policy unresolved",
+        "trace": "from_files selects one asset directory by the model-definition file before opening the FBX and other inputs. from_uri instead tries direct and nested locations independently for each file, so successful inputs may come from a mixture of the base and its assets/ child. Subsequent count checks do not by themselves prove all files originate from the same authored rig.",
+        "conditions": "Some requested files exist in the base and others only in its nested assets/ directory, and both individual reads succeed. Whether this is a supported composition or an unwanted mismatch requires owner policy and actual producer evidence; no particular asset or runtime failure is claimed.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "lines": [
+              [
+                105,
+                118
+              ],
+              [
+                120,
+                155
+              ],
+              [
+                158,
+                189
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/README.md",
+            "lines": [
+              [
+                25,
+                36
+              ],
+              [
+                49,
+                53
+              ],
+              [
+                70,
+                73
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Connected to existing Q-L12-88ec94bbbe49252b389b URI composition and q170 ADLER-L11-MHR-MODEL-SHAPE-LIFETIME, but no exact identity/duplicate is established. README documents available inputs, not an explicit cross-directory identity guarantee.",
+        "future_repair_direction": "Decide whether a model load must bind to one selected source directory or an explicitly admitted asset cohort, then trace URI producers and preserve supported parent/assets layouts."
+      }
+    }
+  ],
+  "central_decisions": [
+    "For role2313 the new delegate personally displayed only 195/7093 historical and 198/7102 current lock lines. Exact whole bytes and metadata indexing are not a full read. Earlier 6533 Adler370 and Lens12 delegate762 full lock reads and e275 Lens11 1–150 retain their own authors and revisions.",
+    "q2309 is the historical NPZ child-lock scoped rejected suspicion, not source role2309. The 95e child lock matches the e275 lock and its rawzip archive checksum and five exact members verify; this is not build, dependency-resolution, signature, native body-read or runtime evidence. The 059 provenance member is publicly path-redacted and its exact original is recoverable from pinned 059 transport.",
+    "The strategic character snapshot q179 remains a conditional interleaving question: cache readiness does not itself prove a shared snapshot with the separately queried clocks or private location; no disclosure is observed.",
+    "A treatment event between two chart observations is selected for display using only the first/last range, including a recorded observation gap. Whether that event may be revealed in the gap or at an insufficient observation band is an open policy question, not an established runtime disclosure; q193 failure-vs-empty and q459 dose admission remain distinct.",
+    "The life-only projection calls a broader character query including private case-site validation, and selected dialogue callers choose alive on any resulting error. This remains conditional on failing that unrelated read and actual chronology; relate q181/q458 without automatic alias or observed outcome.",
+    "Rig first-match documentation is correct for index_in; tactical equipment constructs a name-to-entity map with a potentially different duplicate policy. q1284 remains a distinct producer/admission question and actual duplicate reachability is unproved.",
+    "MHR README/API normal wording relates to the existing tiny-triangle-normal row, not a new automatic unique finding. Its forward comment says fixed 204 while current admission uses model-specific P; this is a conditional documentation question, not a tensor result.",
+    "MHR URI reads can select direct or nested assets independently for each file; whether same-cohort identity is required remains open. q421/q422 and upstream q311/q312 preserve their distinct erased-cause contracts and actual first-failure boundaries.",
+    "No whole lens, queue closure, product implementation, build, dependency resolution, tests, shader execution or validation is claimed."
+  ],
+  "open": "Actual accepted data, observer access policy, producer/consumer inventory, native outcome and global aliases remain open.",
+  "repair": "not started",
+  "validation": "not performed"
+}
