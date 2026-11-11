@@ -1,0 +1,829 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 12,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected 95e role-privilege authoring, local equipment and global forage contracts, plus exact tracked authored inventory. Complete raw-string and other independent lenses remain open.",
+  "source_reasoning": "Pinned source inspection, read-only parsing of tracked JSON-formatted content, and historical evidence-byte verification only. No product build, test, runtime, database or browser probe.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/organization.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5effbe40ad10f9f71153c63747ab71509af58da9",
+      "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "bytes": 45348,
+      "lines": 1251,
+      "ranges": [
+        [
+          89,
+          125
+        ],
+        [
+          139,
+          172
+        ],
+        [
+          397,
+          406
+        ],
+        [
+          418,
+          425
+        ],
+        [
+          450,
+          465
+        ],
+        [
+          487,
+          496
+        ],
+        [
+          627,
+          632
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/local-role-privilege-sources/00.source.gz",
+      "content_encoding": "gzip",
+      "method": "Selected source ranges personally inspected; raw tracked file preserved."
+    },
+    {
+      "path": "crates/adventuresim-core/src/organization_catalog_validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a4f4bfa4a68da2b3fea953bc1032ad2078354874",
+      "sha256": "45b87fa13f86c8805f2b4f974fd1f629f5da068a07b3b7c4af17115aaa339846",
+      "bytes": 35810,
+      "lines": 986,
+      "ranges": [
+        [
+          270,
+          375
+        ],
+        [
+          650,
+          655
+        ],
+        [
+          703,
+          720
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/local-role-privilege-sources/01.source.gz",
+      "content_encoding": "gzip",
+      "method": "Selected source ranges personally inspected; raw tracked file preserved."
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "61fccd9b8df98aba9a0b7085fe635c88ff7d82c6",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+      "bytes": 19279,
+      "lines": 511,
+      "ranges": [
+        [
+          390,
+          455
+        ],
+        [
+          496,
+          510
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/local-role-privilege-sources/02.source.gz",
+      "content_encoding": "gzip",
+      "method": "Selected source ranges personally inspected; raw tracked file preserved."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/organization.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bbd4dfb70b690c8bceaa16e27a11f7866fc4034d",
+      "sha256": "39842ba122cf2240e36f267f8db415dd2b54bfcc0dbd2478e813ef3c374a9645",
+      "bytes": 23187,
+      "lines": 655,
+      "ranges": [
+        [
+          23,
+          58
+        ],
+        [
+          116,
+          143
+        ],
+        [
+          447,
+          484
+        ],
+        [
+          486,
+          563
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/local-role-privilege-sources/03.source.gz",
+      "content_encoding": "gzip",
+      "method": "Selected source ranges personally inspected; raw tracked file preserved."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/organization/membership.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d954bb100cdb106b92c5f57df0d28a1551dea390",
+      "sha256": "0d33ff33d3e12486c22e7724790e4c745f5f6e603ec06302c7e9fa161e3597a5",
+      "bytes": 903,
+      "lines": 25,
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/local-role-privilege-sources/04.source.gz",
+      "content_encoding": "gzip",
+      "method": "Selected source ranges personally inspected; raw tracked file preserved."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/social_roles.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9f932d5fe1ba4d394d6fa3ae59f52c0d8bd7c4c2",
+      "sha256": "328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+      "bytes": 18976,
+      "lines": 579,
+      "ranges": [
+        [
+          312,
+          351
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/local-role-privilege-sources/05.source.gz",
+      "content_encoding": "gzip",
+      "method": "Selected source ranges personally inspected; raw tracked file preserved."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/equipment_law.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c49725ae4c2a09c3c554d12ec4e4022477ffe7af",
+      "sha256": "0b9934bea4ea2409d1927ae01c670626d26a700fc2a8c268e9aa8d21c9faa90e",
+      "bytes": 2715,
+      "lines": 81,
+      "ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/local-role-privilege-sources/06.source.gz",
+      "content_encoding": "gzip",
+      "method": "Selected source ranges personally inspected; raw tracked file preserved."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+      "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "bytes": 138251,
+      "lines": 3968,
+      "ranges": [
+        [
+          2880,
+          2924
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/local-role-privilege-sources/07.source.gz",
+      "content_encoding": "gzip",
+      "method": "Selected source ranges personally inspected; raw tracked file preserved."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/foraging.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9523f3ecf9fdcc8b065c4fd202f5f9bd9d9864b9",
+      "sha256": "be82a5ef7905b05d68bba4d61d5173cba6011c51ee8504da85d697bb2d80df84",
+      "bytes": 50003,
+      "lines": 1381,
+      "ranges": [
+        [
+          629,
+          647
+        ],
+        [
+          830,
+          851
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/local-role-privilege-sources/08.source.gz",
+      "content_encoding": "gzip",
+      "method": "Selected source ranges personally inspected; raw tracked file preserved."
+    },
+    {
+      "path": "content/organizations/catalog.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "490e536a7ef3ed6b19e920d481ff139bd1059bf7",
+      "sha256": "1457f8e23a2ceffdf62cfef0e8f3070ac12bcd0e96ad2fb863f54f6f2339e2b2",
+      "bytes": 105361,
+      "lines": 2250,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/local-role-privilege-sources/09.source.gz",
+      "content_encoding": "gzip",
+      "method": "Tracked content parsed as JSON for the specified inventory, not claimed as a full personal source read."
+    },
+    {
+      "path": "content/organizations/social-roles.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f67028034aef7116a074cd402f69c0f20df20b43",
+      "sha256": "340447cc0877c5203b1be9c26e7510cb134028cab75d8acf277a18cbc998734b",
+      "bytes": 12466,
+      "lines": 349,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/local-role-privilege-sources/10.source.gz",
+      "content_encoding": "gzip",
+      "method": "Tracked content parsed as JSON for the specified inventory, not claimed as a full personal source read."
+    },
+    {
+      "path": "content/settlement-policies.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "782d72603f8184bbe481368101cc231f219fa64d",
+      "sha256": "fd1281ec7583a1d2c68fbcb8097752a52410935c2dd2333cade33c02db354eb7",
+      "bytes": 105,
+      "lines": 7,
+      "ranges": [
+        [
+          1,
+          7
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/local-role-privilege-sources/11.source.gz",
+      "content_encoding": "gzip",
+      "method": "Selected source ranges personally inspected; raw tracked file preserved."
+    }
+  ],
+  "authoring_inventory": {
+    "scope": "Exactly the two tracked direct content/organizations YAML files found in the pinned Git tree and selected by build source; byte content parsed as JSON for field inventory, not product catalog execution. Does not account for untracked files or other revisions.",
+    "files": [
+      {
+        "path": "content/organizations/catalog.yaml",
+        "organization_count": 19,
+        "role_count": 51,
+        "organizations": [
+          {
+            "id": "merchant_guild",
+            "privileges": [],
+            "roles": [
+              {
+                "id": "apprentice",
+                "privileges": []
+              },
+              {
+                "id": "journeyman",
+                "privileges": []
+              },
+              {
+                "id": "master",
+                "privileges": []
+              }
+            ]
+          },
+          {
+            "id": "weaponsmith_guild",
+            "privileges": [],
+            "roles": [
+              {
+                "id": "apprentice",
+                "privileges": []
+              },
+              {
+                "id": "journeyman",
+                "privileges": []
+              },
+              {
+                "id": "master",
+                "privileges": []
+              }
+            ]
+          },
+          {
+            "id": "armourers_guild",
+            "privileges": [],
+            "roles": [
+              {
+                "id": "apprentice",
+                "privileges": []
+              },
+              {
+                "id": "journeyman",
+                "privileges": []
+              },
+              {
+                "id": "master",
+                "privileges": []
+              }
+            ]
+          },
+          {
+            "id": "tailors_guild",
+            "privileges": [],
+            "roles": [
+              {
+                "id": "apprentice",
+                "privileges": []
+              },
+              {
+                "id": "journeyman",
+                "privileges": []
+              },
+              {
+                "id": "master",
+                "privileges": []
+              }
+            ]
+          },
+          {
+            "id": "herbalists_fellowship",
+            "privileges": [],
+            "roles": [
+              {
+                "id": "learner",
+                "privileges": []
+              },
+              {
+                "id": "herbalist",
+                "privileges": []
+              },
+              {
+                "id": "elder_herbalist",
+                "privileges": []
+              }
+            ]
+          },
+          {
+            "id": "physicians_college",
+            "privileges": [],
+            "roles": [
+              {
+                "id": "student",
+                "privileges": []
+              },
+              {
+                "id": "physician",
+                "privileges": []
+              },
+              {
+                "id": "master_physician",
+                "privileges": []
+              }
+            ]
+          },
+          {
+            "id": "surgeons_guild",
+            "privileges": [],
+            "roles": [
+              {
+                "id": "apprentice",
+                "privileges": []
+              },
+              {
+                "id": "surgeon",
+                "privileges": []
+              },
+              {
+                "id": "master_surgeon",
+                "privileges": []
+              }
+            ]
+          },
+          {
+            "id": "cooks_guild",
+            "privileges": [],
+            "roles": [
+              {
+                "id": "apprentice",
+                "privileges": []
+              },
+              {
+                "id": "journeyman",
+                "privileges": []
+              },
+              {
+                "id": "master",
+                "privileges": []
+              }
+            ]
+          },
+          {
+            "id": "roman_catholic_learned_chapter",
+            "privileges": [],
+            "roles": [
+              {
+                "id": "novice",
+                "privileges": []
+              },
+              {
+                "id": "cleric",
+                "privileges": []
+              },
+              {
+                "id": "doctor",
+                "privileges": []
+              }
+            ]
+          },
+          {
+            "id": "reformed_learned_chapter",
+            "privileges": [],
+            "roles": [
+              {
+                "id": "hearer",
+                "privileges": []
+              },
+              {
+                "id": "reader",
+                "privileges": []
+              },
+              {
+                "id": "teacher",
+                "privileges": []
+              }
+            ]
+          },
+          {
+            "id": "orthodox_learned_brotherhood",
+            "privileges": [],
+            "roles": [
+              {
+                "id": "novice",
+                "privileges": []
+              },
+              {
+                "id": "reader",
+                "privileges": []
+              },
+              {
+                "id": "teacher",
+                "privileges": []
+              }
+            ]
+          },
+          {
+            "id": "lutheran_learned_visitation",
+            "privileges": [],
+            "roles": [
+              {
+                "id": "hearer",
+                "privileges": []
+              },
+              {
+                "id": "reader",
+                "privileges": []
+              },
+              {
+                "id": "visitor",
+                "privileges": []
+              }
+            ]
+          },
+          {
+            "id": "anglican_learned_fellowship",
+            "privileges": [],
+            "roles": [
+              {
+                "id": "reader",
+                "privileges": []
+              }
+            ]
+          },
+          {
+            "id": "islamic_learned_fellowship",
+            "privileges": [],
+            "roles": [
+              {
+                "id": "student",
+                "privileges": []
+              }
+            ]
+          },
+          {
+            "id": "jewish_learned_fellowship",
+            "privileges": [],
+            "roles": [
+              {
+                "id": "student",
+                "privileges": []
+              }
+            ]
+          },
+          {
+            "id": "hunt_pale_lantern",
+            "privileges": [
+              "bear_arms",
+              "wear_armor"
+            ],
+            "roles": [
+              {
+                "id": "watcher",
+                "privileges": []
+              },
+              {
+                "id": "hunter",
+                "privileges": []
+              },
+              {
+                "id": "huntmaster",
+                "privileges": []
+              }
+            ]
+          },
+          {
+            "id": "order_saint_george",
+            "privileges": [
+              "bear_arms",
+              "wear_armor"
+            ],
+            "roles": [
+              {
+                "id": "sergeant",
+                "privileges": []
+              },
+              {
+                "id": "knight",
+                "privileges": []
+              },
+              {
+                "id": "commander",
+                "privileges": []
+              }
+            ]
+          },
+          {
+            "id": "lodge_hart_king",
+            "privileges": [
+              "bear_arms",
+              "forage_low_game",
+              "forage_fish",
+              "forage_plants"
+            ],
+            "roles": [
+              {
+                "id": "under_warden",
+                "privileges": []
+              },
+              {
+                "id": "warden",
+                "privileges": []
+              },
+              {
+                "id": "master",
+                "privileges": [
+                  "forage_high_game"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "test_catholic_polearm_cooks",
+            "privileges": [],
+            "roles": [
+              {
+                "id": "spoon_bearer",
+                "privileges": []
+              },
+              {
+                "id": "keeper_of_the_long_spoon",
+                "privileges": []
+              },
+              {
+                "id": "keeper_of_the_silver_spoon",
+                "privileges": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "content/organizations/social-roles.yaml",
+        "organization_count": 6,
+        "role_count": 8,
+        "organizations": [
+          {
+            "id": "house_habsburg",
+            "privileges": [],
+            "roles": [
+              {
+                "id": "house_member",
+                "privileges": []
+              },
+              {
+                "id": "prince",
+                "privileges": []
+              }
+            ]
+          },
+          {
+            "id": "habsburg_crown_lordships",
+            "privileges": [],
+            "roles": [
+              {
+                "id": "serf",
+                "privileges": []
+              }
+            ]
+          },
+          {
+            "id": "settlement_civic_community",
+            "privileges": [],
+            "roles": [
+              {
+                "id": "free_resident",
+                "privileges": []
+              },
+              {
+                "id": "citizen",
+                "privileges": []
+              }
+            ]
+          },
+          {
+            "id": "local_noble_house",
+            "privileges": [],
+            "roles": [
+              {
+                "id": "house_member",
+                "privileges": []
+              }
+            ]
+          },
+          {
+            "id": "local_lordship",
+            "privileges": [],
+            "roles": [
+              {
+                "id": "serf",
+                "privileges": []
+              }
+            ]
+          },
+          {
+            "id": "common_family",
+            "privileges": [],
+            "roles": [
+              {
+                "id": "family_member",
+                "privileges": []
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "total_organizations": 25,
+    "total_roles": 59,
+    "role_entries_with_bear_arms_or_wear_armor": [],
+    "tracked_settlement_policies": [
+      {
+        "settlement_id": "viabundus-2337",
+        "restrict_arms": true,
+        "restrict_armor": true
+      }
+    ],
+    "qualification": "An empty tracked role-level list limits present impact; no conclusion about all other privilege semantics, full validation or runtime state."
+  },
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/952",
+      "ledger_pointer": "/segovb_continuation/lens12/pending_connected_contracts/62",
+      "qualification": "Older 059 open question bundles role privileges, requirement ownership and custody. Preserve original attribution and do not treat this partial source trace as closure or 3821 authority."
+    },
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1141-1147.json",
+      "qualification": "The seven historical role bodies were personally read for Lens1 only. Same bytes at 95e do not confer current or other-lens coverage."
+    },
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-227-229.json",
+      "qualification": "Earlier historical organization body reading has its own physical-p16 attribution and open policy scope; no alias or current coverage is inferred."
+    },
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-195-201.json",
+      "qualification": "Earlier historical equipment-law body reading has its own physical-p16 attribution and open caller scope."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-262.json",
+      "sha256": "4e3ba454ab70248ff8155039096aee920ff197321a6614c9ad8f72a4c664bfd1",
+      "bytes": 1676,
+      "git_blob": "fbd1ea23056229b0a4554ed1afbcdcf8394adc19",
+      "preserved_bytes": "recovered/local-role-privilege-059/4e3ba454ab70248ff8155039096aee920ff197321a6614c9ad8f72a4c664bfd1.gz",
+      "published_sha256": "4e3ba454ab70248ff8155039096aee920ff197321a6614c9ad8f72a4c664bfd1",
+      "published_bytes": 1676,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/READ-L12-262.json",
+      "sha256": "748982fa66f7166e0b4b4463b75da2e4eb914d886a3b388a32b6bf8998d2797d",
+      "bytes": 15430,
+      "git_blob": "20d6029a3e6a81ecb0fa56e8fe2875b39a8bca6e",
+      "preserved_bytes": "recovered/local-role-privilege-059/748982fa66f7166e0b4b4463b75da2e4eb914d886a3b388a32b6bf8998d2797d.gz",
+      "published_sha256": "748982fa66f7166e0b4b4463b75da2e4eb914d886a3b388a32b6bf8998d2797d",
+      "published_bytes": 15430,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-052.json",
+      "sha256": "4614a14543acf91f611dd3f396bece49e2c2020ff5d67d1044b3b8e24e661788",
+      "bytes": 1197,
+      "git_blob": "c06bca951153d3bed8739f56a0fcb1ad49edadb0",
+      "preserved_bytes": "recovered/local-role-privilege-059/4614a14543acf91f611dd3f396bece49e2c2020ff5d67d1044b3b8e24e661788.gz",
+      "published_sha256": "4614a14543acf91f611dd3f396bece49e2c2020ff5d67d1044b3b8e24e661788",
+      "published_bytes": 1197,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-053.json",
+      "sha256": "0deaea171696d2484eac023edd5e0298e3f7f1e0465932f60ff94f0621b65539",
+      "bytes": 1193,
+      "git_blob": "8d9ea221978a56cdd646689b57241f14cf133c77",
+      "preserved_bytes": "recovered/local-role-privilege-059/0deaea171696d2484eac023edd5e0298e3f7f1e0465932f60ff94f0621b65539.gz",
+      "published_sha256": "0deaea171696d2484eac023edd5e0298e3f7f1e0465932f60ff94f0621b65539",
+      "published_bytes": 1193,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-054.json",
+      "sha256": "bda4c90084ecbc29f8114433e6c8cf330ccf9052b4c6b42e3556e9d6d9dcc741",
+      "bytes": 1213,
+      "git_blob": "6b631aed4b22ce14c3eec3d8a8270975b2b9b83f",
+      "preserved_bytes": "recovered/local-role-privilege-059/bda4c90084ecbc29f8114433e6c8cf330ccf9052b4c6b42e3556e9d6d9dcc741.gz",
+      "published_sha256": "bda4c90084ecbc29f8114433e6c8cf330ccf9052b4c6b42e3556e9d6d9dcc741",
+      "published_bytes": 1213,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/STATE-L12-262.json",
+      "sha256": "185b81ac6f9b852e58839bf1e6f920ac74e2a76ac8822aa783d98df6043a2b81",
+      "bytes": 839,
+      "git_blob": "25952ed08f7d8e6cbf94afaa01b9c9518bf7ec32",
+      "preserved_bytes": "recovered/local-role-privilege-059/185b81ac6f9b852e58839bf1e6f920ac74e2a76ac8822aa783d98df6043a2b81.gz",
+      "published_sha256": "185b81ac6f9b852e58839bf1e6f920ac74e2a76ac8822aa783d98df6043a2b81",
+      "published_bytes": 839,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-262.json",
+      "sha256": "069c388743baf0db18f5054e49655e0e1724bcb763e6028e0d5ec896bebd98d6",
+      "bytes": 557,
+      "git_blob": "831247506da71f09ff5715df51cd5f9174254ad5",
+      "preserved_bytes": "recovered/local-role-privilege-059/069c388743baf0db18f5054e49655e0e1724bcb763e6028e0d5ec896bebd98d6.gz",
+      "published_sha256": "069c388743baf0db18f5054e49655e0e1724bcb763e6028e0d5ec896bebd98d6",
+      "published_bytes": 557,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-LOCAL-ROLE-EQUIPMENT-001",
+      "severity": "unassigned; conditional role-only authoring contract; no role-only arms or armor grant exists in the tracked catalog at 95e",
+      "classification": "New selected 95e source assessment of an earlier open privilege-role question; not an assertion of currently affected players or a final unique-defect count.",
+      "first_failed_contract": "The selected validator recognizes the same privilege tokens in organization and role privilege arrays, and the core definition states that role privileges add to organization privileges. Local presented_privilege checks only the organization array and active membership; it does not consult the canonical assigned role. Equipment law consumes that local boolean for restricted arms, shields and armor. Thus, if a role-only gear grant is otherwise admitted and assigned to a dues-current member who presents a locally recognized organization in a restrictive settlement, the local check rejects that entitlement even though the core role-aware predicate would grant it.",
+      "conditional_limits": "This is source reasoning about a hypothetical role-only gear configuration. The selected privilege-array validation permits the tokens but no entire hypothetical catalog, role assignment, runtime deployment or player state was built, validated or observed. The exact tracked source inventory has 25 organizations and 59 roles, none with a role-level bear_arms or wear_armor value; current org-level values and settlement policy are recorded separately. The intended policy for role-level local equipment rights remains open. No current player impact is asserted.",
+      "policy_distinction": "Global foraging uses the canonical role-aware helper and intentionally does not require local recognition. Local equipment requires local recognition. A resolution must retain that distinction; global and local presentation are not interchangeable.",
+      "connected_repair": "After the audit gate, decide explicitly whether role-only gear rights are intended. If supported, reconcile local recognition with the canonical assigned role, dues-current membership and inherited organization rights, while retaining local/global mode distinction and equipment enforcement behavior. If deliberately unsupported, reconcile the authoring and semantic contract with that policy without a compatibility path. Inspect all producers, aliases and consumers before selecting a final owner. No implementation has begun.",
+      "later_acceptance": "After separately authorized implementation and validation, evaluate recognized and unrecognized settlements, valid and absent role assignment, current and lapsed membership, organization-wide and role-only rights, non-granting roles and equipment enforcement; include the global-foraging distinction. None ran.",
+      "discovery": "partial; actual intended local-role policy, complete catalog admission, other callers, historical aliases and the other obligations of 059 queue record 952 remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Decide intended local-role equipment policy, reconcile all role assignment, catalog admission, other callers and historical aliases, plus all other 059 queue 952 obligations and the thirteen lenses. Original final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

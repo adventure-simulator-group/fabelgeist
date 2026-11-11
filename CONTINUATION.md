@@ -269,6 +269,11 @@ action, provenance and route sources without expanding current coverage.
 capability, claim and geometry sources without expanding current coverage.
 `ASSESSMENT-L01-HISTORICAL-1126-1127.json` records historical investigation
 module composition and evidence state without expanding current coverage.
+`ASSESSMENT-L12-LOCAL-ROLE-PRIVILEGE-95E.json` records a conditional
+role-only equipment privilege mismatch and the exact tracked catalog inventory;
+no current role carries those equipment grants.
+`ASSESSMENT-L01-HISTORICAL-1141-1147.json` separately records seven historical
+source-body reads.
 `ASSESSMENT-L12-CORRECTION-FRONTIER-95E.json` revisits the earlier public
 disclosure correction-reference mismatch and its historical-visibility
 readers. `ASSESSMENT-L01-HISTORICAL-1139-1140.json` records separate
