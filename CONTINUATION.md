@@ -160,6 +160,12 @@ remains open; source tests and fixtures were not run.
 `ASSESSMENT-L04-LOCAL-PROBLEM-CAPS-95E.json` records the mixed-sign
 cap-order counterexample and selected trade consumers. The cap policy,
 supported coexistence and earlier 059 attribution remain explicit.
+`ASSESSMENT-L04-COOKING-WATER-PRECISION-95E.json` traces a conditional
+large-vessel rounding mismatch, exact water provenance and current authored
+capacity bounds. Earlier delegated water questions retain attribution.
+`ASSESSMENT-L01-HISTORICAL-954-960.json` preserves frozen material,
+mission, morale, NPC and organization reads, including earlier bounded
+attribution. No independent current lens closes from these reads.
 `ASSESSMENT-L01-HISTORICAL-948-953.json` records separate frozen knowledge,
 leadership, life, speed and local-problem source reads. The speed snapshot
 differs from the current body; independent lenses remain open.

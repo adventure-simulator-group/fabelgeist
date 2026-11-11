@@ -1195,6 +1195,21 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L04-LOCAL-PROBLEM-CAPS-95E.json"
+      },
+      {
+        "id": "REVIEW-COOKING-WATER-EXACT-VOLUME-001",
+        "lens": 4,
+        "severity": "unassigned; current authored cooking vessels are below the demonstrated precision threshold",
+        "classification": "bounded exact cooking-water volume and binary32 conversion question",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/334",
+          "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/346"
+        ],
+        "relationship_qualification": "The two earlier delegated records left broad connected volume, provenance and native bounds open; the selected 95e precision example is newly assessed, not an accepted historical finding or restored 3821 record.",
+        "discovery": "partial; supported larger vessels, chronology and historical aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L04-COOKING-WATER-PRECISION-95E.json"
       }
     ]
   },
