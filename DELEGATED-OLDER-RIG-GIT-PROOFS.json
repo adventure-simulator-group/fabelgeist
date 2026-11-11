@@ -1,0 +1,178 @@
+{
+  "schema": "726-exact-git-tree-path-membership-v1",
+  "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "shared_commit_and_tree_objects": "recovered/older-774-git-objects/MANIFEST.json",
+  "additional_shared_tree_objects": [
+    "OLDER-MAP-QUALIFICATION-GIT-PROOFS.json",
+    "OLDER-INVENTORY-QUALIFICATION-GIT-PROOFS.json",
+    "OLDER-REGIONAL-QUALIFICATION-GIT-PROOFS.json",
+    "FBX-OLDER-F82-GIT-PROOFS.json"
+  ],
+  "root_tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+  "additional_tree_objects": {
+    "bdd069e5d3e0c3333d2473e585303787a96e3c57": {
+      "git_object": "bdd069e5d3e0c3333d2473e585303787a96e3c57",
+      "type": "tree",
+      "sha256": "960d60934b4fb964f147588aa8e6af98f5959a72a8e8a0d924081ac897a1cac3",
+      "bytes": 19353,
+      "preserved_bytes": "recovered/delegated-older-rig-774/git-objects/bdd069e5d3e0c3333d2473e585303787a96e3c57.tree.gz"
+    },
+    "aedb49fc4e9e88985437e252701f2395007d8f6b": {
+      "git_object": "aedb49fc4e9e88985437e252701f2395007d8f6b",
+      "type": "tree",
+      "sha256": "785782afa8ba6657106aa68672e04c6a97521c143ed906f81f8688a5093d1e98",
+      "bytes": 1202,
+      "preserved_bytes": "recovered/delegated-older-rig-774/git-objects/aedb49fc4e9e88985437e252701f2395007d8f6b.tree.gz"
+    },
+    "2430d7032ac8a360de64029ae63b9071bcb5b1c2": {
+      "git_object": "2430d7032ac8a360de64029ae63b9071bcb5b1c2",
+      "type": "tree",
+      "sha256": "68919f910f903c34ce53b9f71835084d35f42a0d73f54808dbee5a641257ca0a",
+      "bytes": 818,
+      "preserved_bytes": "recovered/delegated-older-rig-774/git-objects/2430d7032ac8a360de64029ae63b9071bcb5b1c2.tree.gz"
+    },
+    "719a0036d66d07c99376a3a24c0eb5e83a0886e6": {
+      "git_object": "719a0036d66d07c99376a3a24c0eb5e83a0886e6",
+      "type": "tree",
+      "sha256": "1e08ec829415e78631f0f37c400beb0ffce16da252038598c1e06f149ec794de",
+      "bytes": 127,
+      "preserved_bytes": "recovered/delegated-older-rig-774/git-objects/719a0036d66d07c99376a3a24c0eb5e83a0886e6.tree.gz"
+    },
+    "379d7f5ebafe183a1fc7c7503edf92592dd71f36": {
+      "git_object": "379d7f5ebafe183a1fc7c7503edf92592dd71f36",
+      "type": "tree",
+      "sha256": "010dfde47c853355fe7e907dded9a6a02d9ae478b2da199c1d5d3bd81ab2ca4a",
+      "bytes": 5297,
+      "preserved_bytes": "recovered/delegated-older-rig-774/git-objects/379d7f5ebafe183a1fc7c7503edf92592dd71f36.tree.gz"
+    },
+    "cbc01ad03df137182465ccca37252c9a5be2f310": {
+      "git_object": "cbc01ad03df137182465ccca37252c9a5be2f310",
+      "type": "tree",
+      "sha256": "29e9140f865e1e0c91c8d73908362500073ed5f44420ddb63265274a162a3290",
+      "bytes": 357,
+      "preserved_bytes": "recovered/delegated-older-rig-774/git-objects/cbc01ad03df137182465ccca37252c9a5be2f310.tree.gz"
+    },
+    "0be3e50b28c513e2520825f3850a129ea78dc9a6": {
+      "git_object": "0be3e50b28c513e2520825f3850a129ea78dc9a6",
+      "type": "tree",
+      "sha256": "158579ff617686930385005cc168d1fe74d1c16f70789e394e85d856037364b9",
+      "bytes": 867,
+      "preserved_bytes": "recovered/delegated-older-rig-774/git-objects/0be3e50b28c513e2520825f3850a129ea78dc9a6.tree.gz"
+    }
+  },
+  "paths": {
+    "handoff/774/historical-family-execution/final-acceptance-20261021/wave-01/audit-producer-propagation/rig/sources.json": {
+      "chain": [
+        {
+          "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+          "name": "handoff",
+          "mode": "40000",
+          "child": "91a77f1fdceefea3dd01dfde76fd19949c588083"
+        },
+        {
+          "tree": "91a77f1fdceefea3dd01dfde76fd19949c588083",
+          "name": "774",
+          "mode": "40000",
+          "child": "70cda9939284355c2264b601322aacba9399e65e"
+        },
+        {
+          "tree": "70cda9939284355c2264b601322aacba9399e65e",
+          "name": "historical-family-execution",
+          "mode": "40000",
+          "child": "bdd069e5d3e0c3333d2473e585303787a96e3c57"
+        },
+        {
+          "tree": "bdd069e5d3e0c3333d2473e585303787a96e3c57",
+          "name": "final-acceptance-20261021",
+          "mode": "40000",
+          "child": "aedb49fc4e9e88985437e252701f2395007d8f6b"
+        },
+        {
+          "tree": "aedb49fc4e9e88985437e252701f2395007d8f6b",
+          "name": "wave-01",
+          "mode": "40000",
+          "child": "2430d7032ac8a360de64029ae63b9071bcb5b1c2"
+        },
+        {
+          "tree": "2430d7032ac8a360de64029ae63b9071bcb5b1c2",
+          "name": "audit-producer-propagation",
+          "mode": "40000",
+          "child": "719a0036d66d07c99376a3a24c0eb5e83a0886e6"
+        },
+        {
+          "tree": "719a0036d66d07c99376a3a24c0eb5e83a0886e6",
+          "name": "rig",
+          "mode": "40000",
+          "child": "379d7f5ebafe183a1fc7c7503edf92592dd71f36"
+        },
+        {
+          "tree": "379d7f5ebafe183a1fc7c7503edf92592dd71f36",
+          "name": "sources.json",
+          "mode": "100644",
+          "child": "73dd760e7d0d999822da62af6c9aa7717bd424cc"
+        }
+      ],
+      "git_blob": "73dd760e7d0d999822da62af6c9aa7717bd424cc",
+      "sha256": "cc222da7f619e1710a4a748e8ab9b55708727a4f4d6a7a1176a5c462a99c324b",
+      "bytes": 196662,
+      "bundle_member": "historical-774/audit-producer-propagation/rig/sources.json"
+    },
+    "handoff/774/historical-family-execution/final-acceptance-20261021/wave-01/audit-existing-type-owners/rig/coverage.jsonl": {
+      "chain": [
+        {
+          "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+          "name": "handoff",
+          "mode": "40000",
+          "child": "91a77f1fdceefea3dd01dfde76fd19949c588083"
+        },
+        {
+          "tree": "91a77f1fdceefea3dd01dfde76fd19949c588083",
+          "name": "774",
+          "mode": "40000",
+          "child": "70cda9939284355c2264b601322aacba9399e65e"
+        },
+        {
+          "tree": "70cda9939284355c2264b601322aacba9399e65e",
+          "name": "historical-family-execution",
+          "mode": "40000",
+          "child": "bdd069e5d3e0c3333d2473e585303787a96e3c57"
+        },
+        {
+          "tree": "bdd069e5d3e0c3333d2473e585303787a96e3c57",
+          "name": "final-acceptance-20261021",
+          "mode": "40000",
+          "child": "aedb49fc4e9e88985437e252701f2395007d8f6b"
+        },
+        {
+          "tree": "aedb49fc4e9e88985437e252701f2395007d8f6b",
+          "name": "wave-01",
+          "mode": "40000",
+          "child": "2430d7032ac8a360de64029ae63b9071bcb5b1c2"
+        },
+        {
+          "tree": "2430d7032ac8a360de64029ae63b9071bcb5b1c2",
+          "name": "audit-existing-type-owners",
+          "mode": "40000",
+          "child": "cbc01ad03df137182465ccca37252c9a5be2f310"
+        },
+        {
+          "tree": "cbc01ad03df137182465ccca37252c9a5be2f310",
+          "name": "rig",
+          "mode": "40000",
+          "child": "0be3e50b28c513e2520825f3850a129ea78dc9a6"
+        },
+        {
+          "tree": "0be3e50b28c513e2520825f3850a129ea78dc9a6",
+          "name": "coverage.jsonl",
+          "mode": "100644",
+          "child": "257d12056f39cb4ab2520bdfcb70fffbc940f9d4"
+        }
+      ],
+      "git_blob": "257d12056f39cb4ab2520bdfcb70fffbc940f9d4",
+      "sha256": "77178019c52b79087c5c69a67e85861bd5c94a35aadd2947f955bb5057d17cc9",
+      "bytes": 978453,
+      "bundle_member": "historical-774/audit-existing-type-owners/rig/coverage.jsonl"
+    }
+  },
+  "qualification": "These exact older supplier and producer records are bound to f82; they are earlier historical evidence only and not 059 transport, checkpoint3821 or fresh source reads."
+}

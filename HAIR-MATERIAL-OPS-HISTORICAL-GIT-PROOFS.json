@@ -1,0 +1,409 @@
+{
+  "schema": "726-exact-git-tree-path-membership-v1",
+  "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "shared_commit_and_tree_objects": "EQUIPMENT-HISTORICAL-GIT-PROOFS.json",
+  "additional_shared_tree_objects": [
+    "RUNTIME-FIT-HISTORICAL-GIT-PROOFS.json",
+    "MESH-RIG-HISTORICAL-GIT-PROOFS.json",
+    "SLOT-AUDIO-HISTORICAL-GIT-PROOFS.json",
+    "PLAYER-TRACE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-BOUNDARY-HISTORICAL-GIT-PROOFS.json",
+    "CITY-GPU-HISTORICAL-GIT-PROOFS.json",
+    "CITY-STREAMING-HISTORICAL-GIT-PROOFS.json",
+    "CLOUD-HISTORICAL-GIT-PROOFS.json",
+    "GRAPHICS-HISTORICAL-GIT-PROOFS.json",
+    "GENERATION-HISTORICAL-GIT-PROOFS.json",
+    "WORKER-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-HISTORICAL-GIT-PROOFS.json",
+    "GRASS-CHUNK-HISTORICAL-GIT-PROOFS.json",
+    "LITTER-HISTORICAL-GIT-PROOFS.json",
+    "PEBBLE-HISTORICAL-GIT-PROOFS.json",
+    "PLANT-HISTORICAL-GIT-PROOFS.json",
+    "INTERIOR-HISTORICAL-GIT-PROOFS.json",
+    "ROCK-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SHOOT-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SKELETON-HISTORICAL-GIT-PROOFS.json",
+    "TREE-CROWN-HISTORICAL-GIT-PROOFS.json",
+    "TREE-ASSET-HISTORICAL-GIT-PROOFS.json",
+    "TREE-STREAM-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SCENE-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-MAP-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-SURFACE-HISTORICAL-GIT-PROOFS.json",
+    "SKY-TIME-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-LANDFORM-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-CONTACT-HISTORICAL-GIT-PROOFS.json",
+    "VENUE-TERRAIN-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-SELECTED-LOD-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-CARD-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-SURFACE-HISTORICAL-GIT-PROOFS.json",
+    "OWNED-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-ORIGIN-QUALIFICATION-GIT-PROOFS.json",
+    "VISTA-ZERO-RING-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-SAMPLE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-GROUND-WIRE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-TRAFFIC-CONTEXT-HISTORICAL-GIT-PROOFS.json",
+    "ROAD-WEATHER-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-VIEW-RETENTION-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-ADAPTER-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-STATUS-CENSUS-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-CAMERA-LIFECYCLE-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-REPLACEMENT-HISTORICAL-GIT-PROOFS.json",
+    "CAPTURE-PERSISTENCE-HISTORICAL-GIT-PROOFS.json",
+    "LITTER-CLEARANCE-HISTORICAL-GIT-PROOFS.json",
+    "CATALOG-ROW-HISTORICAL-GIT-PROOFS.json",
+    "WEIGH-HOUSE-HISTORICAL-GIT-PROOFS.json",
+    "PLANT-LOD-ROOT-HISTORICAL-GIT-PROOFS.json",
+    "VIEW-SPEC-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-METRIC-HISTORICAL-GIT-PROOFS.json",
+    "SKY-CAPTURE-HISTORICAL-GIT-PROOFS.json",
+    "WHEEL-CURRENT-HISTORICAL-GIT-PROOFS.json",
+    "CALIBRATION-BOUND-HISTORICAL-GIT-PROOFS.json",
+    "ANIMATION-EVALUATION-HISTORICAL-GIT-PROOFS.json",
+    "LANDING-SETTLE-HISTORICAL-GIT-PROOFS.json",
+    "GAIT-PROFILE-HISTORICAL-GIT-PROOFS.json",
+    "PACK-RESPONSE-HISTORICAL-GIT-PROOFS.json",
+    "SEMANTIC-NAMES-HISTORICAL-GIT-PROOFS.json",
+    "ACTION-STATE-HISTORICAL-GIT-PROOFS.json",
+    "TURN-INTENT-HISTORICAL-GIT-PROOFS.json",
+    "HOME-IDENTITY-HISTORICAL-GIT-PROOFS.json",
+    "GATE-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+    "GARDEN-HISTORICAL-GIT-PROOFS.json",
+    "GROUNDING-HISTORICAL-GIT-PROOFS.json",
+    "FOUNDATION-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-CUTFACE-HISTORICAL-GIT-PROOFS.json",
+    "GEOGRAPHY-GRADE-HISTORICAL-GIT-PROOFS.json",
+    "SUPPORT-INTERVAL-HISTORICAL-GIT-PROOFS.json",
+    "SAMPLED-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-FIXTURES-HISTORICAL-GIT-PROOFS.json",
+    "MOVEMENT-REPORT-HISTORICAL-GIT-PROOFS.json",
+    "MARKET-GEOMETRY-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-CONFIG-HISTORICAL-GIT-PROOFS.json",
+    "LANDFORM-BOUNDS-HISTORICAL-GIT-PROOFS.json",
+    "INVENTORY-CACHE-HISTORICAL-GIT-PROOFS.json",
+    "MARCHING-ADMISSION-HISTORICAL-GIT-PROOFS.json",
+    "QUICKSTEP-FORCE-HISTORICAL-GIT-PROOFS.json",
+    "PRONE-EFFORT-HISTORICAL-GIT-PROOFS.json",
+    "CONDITION-REGIONAL-HISTORICAL-GIT-PROOFS.json",
+    "SHORT-ROUTE-HISTORICAL-GIT-PROOFS.json",
+    "GRADE-BOUNDED-HISTORICAL-GIT-PROOFS.json",
+    "URBAN-BUCKET-HISTORICAL-GIT-PROOFS.json",
+    "ROUNDED-POLYGON-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-CARDINALITY-HISTORICAL-GIT-PROOFS.json",
+    "SCENE-WEATHER-HISTORICAL-GIT-PROOFS.json",
+    "FURNITURE-VISTA-HISTORICAL-GIT-PROOFS.json",
+    "INTERIOR-INSTALL-HISTORICAL-GIT-PROOFS.json",
+    "GARDEN-CLEARANCE-HISTORICAL-GIT-PROOFS.json",
+    "RECIPE-ROAD-HISTORICAL-GIT-PROOFS.json",
+    "TRANSITION-VISTA-HISTORICAL-GIT-PROOFS.json",
+    "LANDFORM-OVERLAP-HISTORICAL-GIT-PROOFS.json",
+    "LANDFORM-CODEC-HISTORICAL-GIT-PROOFS.json",
+    "CLIENT-ENDPOINT-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-DIAGNOSTICS-HISTORICAL-GIT-PROOFS.json",
+    "GROUNDING-REPORT-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-STAGE-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-CONTACT-HISTORICAL-GIT-PROOFS.json",
+    "DISPATCHER-HISTORICAL-GIT-PROOFS.json",
+    "SCENE-MATERIALIZATION-HISTORICAL-GIT-PROOFS.json",
+    "GEOLOGY-ESTABLISHMENT-HISTORICAL-GIT-PROOFS.json",
+    "MELEE-REPORT-HISTORICAL-GIT-PROOFS.json",
+    "MELEE-AGGREGATION-HISTORICAL-GIT-PROOFS.json",
+    "BOT-BEHAVIOR-HISTORICAL-GIT-PROOFS.json",
+    "BOT-REACTION-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-BOUNDARY-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-AUTHORITY-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-CONSEQUENCE-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-IMPACT-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-INGRESS-HISTORICAL-GIT-PROOFS.json",
+    "MELEE-LIFECYCLE-HISTORICAL-GIT-PROOFS.json",
+    "GATE-HANDEDNESS-HISTORICAL-GIT-PROOFS.json",
+    "EQUIPMENT-TOPOLOGY-HISTORICAL-GIT-PROOFS.json",
+    "ITERATION-CLOCKS-HISTORICAL-GIT-PROOFS.json",
+    "MISSION-ENROLLMENT-HISTORICAL-GIT-PROOFS.json",
+    "RECONNECT-CONTINUITY-HISTORICAL-GIT-PROOFS.json",
+    "STARTUP-SUBSCRIPTION-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-ADMISSION-HISTORICAL-GIT-PROOFS.json",
+    "WEAPON-CONSTRUCTION-HISTORICAL-GIT-PROOFS.json",
+    "WEAPON-IDENTITY-HISTORICAL-GIT-PROOFS.json",
+    "WEAPON-FRAMES-HISTORICAL-GIT-PROOFS.json",
+    "WEAPON-ORNAMENT-HISTORICAL-GIT-PROOFS.json",
+    "SHIELD-FORGE-HISTORICAL-GIT-PROOFS.json",
+    "PLATE-DIMENSIONS-HISTORICAL-GIT-PROOFS.json",
+    "GUARD-BINDINGS-HISTORICAL-GIT-PROOFS.json",
+    "SHAFT-ADMISSION-HISTORICAL-GIT-PROOFS.json",
+    "MAP-IMPORT-HISTORICAL-GIT-PROOFS.json",
+    "ROAD-BASIS-HISTORICAL-GIT-PROOFS.json",
+    "BESTIARY-HISTORICAL-GIT-PROOFS.json",
+    "CALENDAR-ECONOMY-HISTORICAL-GIT-PROOFS.json",
+    "LANGUAGE-HISTORICAL-GIT-PROOFS.json",
+    "WORLD-SCHEMA-HISTORICAL-GIT-PROOFS.json",
+    "NAME-CATALOG-HISTORICAL-GIT-PROOFS.json",
+    "ARMOR-CONSTRUCTION-HISTORICAL-GIT-PROOFS.json",
+    "ARMOR-BODY-COORD-HISTORICAL-GIT-PROOFS.json",
+    "HELMET-FOOTWEAR-HISTORICAL-GIT-PROOFS.json",
+    "LIMB-METAL-HISTORICAL-GIT-PROOFS.json",
+    "ORNAMENT-TEXTURE-HISTORICAL-GIT-PROOFS.json",
+    "PAULDRON-PART-HISTORICAL-GIT-PROOFS.json",
+    "STAGING-TASSETS-HISTORICAL-GIT-PROOFS.json",
+    "TILING-GRID-HISTORICAL-GIT-PROOFS.json",
+    "TRIM-HISTORICAL-GIT-PROOFS.json",
+    "BVH-CLOTH-HISTORICAL-GIT-PROOFS.json",
+    "COLOR-HISTORICAL-GIT-PROOFS.json",
+    "HOST-FLOAT-HISTORICAL-GIT-PROOFS.json",
+    "KERNEL-HISTORICAL-GIT-PROOFS.json",
+    "READBACK-SORT-HISTORICAL-GIT-PROOFS.json",
+    "DETERMINISM-HISTORICAL-GIT-PROOFS.json",
+    "FBX-HISTORICAL-GIT-PROOFS.json",
+    "FILESYSTEM-HISTORICAL-GIT-PROOFS.json",
+    "GARMENT-DESIGN-HISTORICAL-GIT-PROOFS.json",
+    "GARMENT-MEASUREMENT-HISTORICAL-GIT-PROOFS.json",
+    "GARMENT-FIT-HISTORICAL-GIT-PROOFS.json",
+    "GEOMETRY-OWNERS-HISTORICAL-GIT-PROOFS.json",
+    "GPU-BIND-BUFFER-HISTORICAL-GIT-PROOFS.json",
+    "GPU-PASS-PIPELINE-HISTORICAL-GIT-PROOFS.json",
+    "GPU-PARAMETERS-CONTEXT-HISTORICAL-GIT-PROOFS.json",
+    "HAIR-GROWTH-HISTORICAL-GIT-PROOFS.json",
+    "HAIR-GPU-GROW-HISTORICAL-GIT-PROOFS.json",
+    "HAIR-GUIDES-HISTORICAL-GIT-PROOFS.json",
+    "HAIR-GPU-MODULE-HISTORICAL-GIT-PROOFS.json",
+    "HAIRDO-GROOM-HISTORICAL-GIT-PROOFS.json",
+    "HAIR-LOOK-HISTORICAL-GIT-PROOFS.json",
+    "LOOK-RANDOM-HISTORICAL-GIT-PROOFS.json"
+  ],
+  "root_tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+  "additional_tree_objects": {
+    "e7cbefdc0aff1b94bb610374e193964151a75574": {
+      "git_object": "e7cbefdc0aff1b94bb610374e193964151a75574",
+      "type": "tree",
+      "sha256": "281330c8ef901e43b1a0b03ae12bed5c858e7478b132757ffab102692c4a5c69",
+      "bytes": 336,
+      "preserved_bytes": "main-advance-95e/hair-material-ops-evidence/git-objects/e7cbefdc0aff1b94bb610374e193964151a75574.tree.gz"
+    },
+    "1fe9e9c09ce4d78a09d54ea884c4167840995a54": {
+      "git_object": "1fe9e9c09ce4d78a09d54ea884c4167840995a54",
+      "type": "tree",
+      "sha256": "623b08aab1fc6fbd7ba8a6106493bb1610a19f853d8c52ec2c66009a3d382417",
+      "bytes": 337,
+      "preserved_bytes": "main-advance-95e/hair-material-ops-evidence/git-objects/1fe9e9c09ce4d78a09d54ea884c4167840995a54.tree.gz"
+    },
+    "4d7301d7d8b31e815c5ef761e08879d62ced9d25": {
+      "git_object": "4d7301d7d8b31e815c5ef761e08879d62ced9d25",
+      "type": "tree",
+      "sha256": "7f834e13f806025009322ba1d5ee2d3e2b735e24527d447a31eec3f0dc30d7e9",
+      "bytes": 7338,
+      "preserved_bytes": "main-advance-95e/hair-material-ops-evidence/git-objects/4d7301d7d8b31e815c5ef761e08879d62ced9d25.tree.gz"
+    }
+  },
+  "paths": {
+    "crates/fabelgeist-hair/src/material.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "fabelgeist-hair",
+          "mode": "40000",
+          "child": "23df7f4ab0311795012eaabc5ec6b1c41d4c7138"
+        },
+        {
+          "tree": "23df7f4ab0311795012eaabc5ec6b1c41d4c7138",
+          "name": "src",
+          "mode": "40000",
+          "child": "af71accb661b13ba145fc8723f0dfa048046ada8"
+        },
+        {
+          "tree": "af71accb661b13ba145fc8723f0dfa048046ada8",
+          "name": "material.rs",
+          "mode": "100644",
+          "child": "e3e96ce1dbbe03f061cf06c800ffc552a7ceba12"
+        }
+      ],
+      "git_blob": "e3e96ce1dbbe03f061cf06c800ffc552a7ceba12",
+      "sha256": "20fdf72de21b47f4596eb6538d58a2d89aeb5217a8b797ca53730c769b5d5b1e",
+      "bytes": 7955,
+      "lines": 225
+    },
+    "crates/fabelgeist-hair/src/ops/clump.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "fabelgeist-hair",
+          "mode": "40000",
+          "child": "23df7f4ab0311795012eaabc5ec6b1c41d4c7138"
+        },
+        {
+          "tree": "23df7f4ab0311795012eaabc5ec6b1c41d4c7138",
+          "name": "src",
+          "mode": "40000",
+          "child": "af71accb661b13ba145fc8723f0dfa048046ada8"
+        },
+        {
+          "tree": "af71accb661b13ba145fc8723f0dfa048046ada8",
+          "name": "ops",
+          "mode": "40000",
+          "child": "e7cbefdc0aff1b94bb610374e193964151a75574"
+        },
+        {
+          "tree": "e7cbefdc0aff1b94bb610374e193964151a75574",
+          "name": "clump.rs",
+          "mode": "100644",
+          "child": "b7e0af8cf36833eb2d2b16691aa58aac3317ca4a"
+        }
+      ],
+      "git_blob": "b7e0af8cf36833eb2d2b16691aa58aac3317ca4a",
+      "sha256": "90e08b44226041af9172a4908ad63bbb12e23de7f658949938e36c49ba6b6687",
+      "bytes": 9513,
+      "lines": 233
+    },
+    "crates/fabelgeist-hair/src/ops/curl.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "fabelgeist-hair",
+          "mode": "40000",
+          "child": "23df7f4ab0311795012eaabc5ec6b1c41d4c7138"
+        },
+        {
+          "tree": "23df7f4ab0311795012eaabc5ec6b1c41d4c7138",
+          "name": "src",
+          "mode": "40000",
+          "child": "af71accb661b13ba145fc8723f0dfa048046ada8"
+        },
+        {
+          "tree": "af71accb661b13ba145fc8723f0dfa048046ada8",
+          "name": "ops",
+          "mode": "40000",
+          "child": "e7cbefdc0aff1b94bb610374e193964151a75574"
+        },
+        {
+          "tree": "e7cbefdc0aff1b94bb610374e193964151a75574",
+          "name": "curl.rs",
+          "mode": "100644",
+          "child": "e1a91a5e0c1e739d80a8f1a6727819c1ba699a66"
+        }
+      ],
+      "git_blob": "e1a91a5e0c1e739d80a8f1a6727819c1ba699a66",
+      "sha256": "e27a356a7d2a2f5b421639e8bc129c21e1606db45b44e64d291539c5bb9be8b8",
+      "bytes": 4939,
+      "lines": 141
+    },
+    "crates/fabelgeist-hair/src/ops/mod.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "fabelgeist-hair",
+          "mode": "40000",
+          "child": "23df7f4ab0311795012eaabc5ec6b1c41d4c7138"
+        },
+        {
+          "tree": "23df7f4ab0311795012eaabc5ec6b1c41d4c7138",
+          "name": "src",
+          "mode": "40000",
+          "child": "af71accb661b13ba145fc8723f0dfa048046ada8"
+        },
+        {
+          "tree": "af71accb661b13ba145fc8723f0dfa048046ada8",
+          "name": "ops",
+          "mode": "40000",
+          "child": "e7cbefdc0aff1b94bb610374e193964151a75574"
+        },
+        {
+          "tree": "e7cbefdc0aff1b94bb610374e193964151a75574",
+          "name": "mod.rs",
+          "mode": "100644",
+          "child": "821bdd314616d8df693871c2d086ca00ec3a4a96"
+        }
+      ],
+      "git_blob": "821bdd314616d8df693871c2d086ca00ec3a4a96",
+      "sha256": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+      "bytes": 12699,
+      "lines": 347
+    },
+    "crates/adventuresim-character-creator/src/hair.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-character-creator",
+          "mode": "40000",
+          "child": "1fe9e9c09ce4d78a09d54ea884c4167840995a54"
+        },
+        {
+          "tree": "1fe9e9c09ce4d78a09d54ea884c4167840995a54",
+          "name": "src",
+          "mode": "40000",
+          "child": "4d7301d7d8b31e815c5ef761e08879d62ced9d25"
+        },
+        {
+          "tree": "4d7301d7d8b31e815c5ef761e08879d62ced9d25",
+          "name": "hair.rs",
+          "mode": "100644",
+          "child": "ec9746055921cf7e8c4d7c9d7eaebd0e5cf998eb"
+        }
+      ],
+      "git_blob": "ec9746055921cf7e8c4d7c9d7eaebd0e5cf998eb",
+      "sha256": "a9d4f30809a845df7b5e43bac564eb66824d90bb6cfed878e96c6afae8ff332c",
+      "bytes": 5369,
+      "lines": 177
+    },
+    "crates/adventuresim-character-creator/src/hair_color_controls.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-character-creator",
+          "mode": "40000",
+          "child": "1fe9e9c09ce4d78a09d54ea884c4167840995a54"
+        },
+        {
+          "tree": "1fe9e9c09ce4d78a09d54ea884c4167840995a54",
+          "name": "src",
+          "mode": "40000",
+          "child": "4d7301d7d8b31e815c5ef761e08879d62ced9d25"
+        },
+        {
+          "tree": "4d7301d7d8b31e815c5ef761e08879d62ced9d25",
+          "name": "hair_color_controls.rs",
+          "mode": "100644",
+          "child": "b24bfbcce1ed7c7534cbf08034084c63ac4a6bc5"
+        }
+      ],
+      "git_blob": "b24bfbcce1ed7c7534cbf08034084c63ac4a6bc5",
+      "sha256": "7aaf0085bbbefc5bb45e1c9ab08a02513fb086c84d83a295c5c314b3b42b7a92",
+      "bytes": 5992,
+      "lines": 196
+    }
+  },
+  "qualification": "Raw6533 Git path chains bind original2296–2298 and registered connected supports, all byte-identical to current95e bodies."
+}
