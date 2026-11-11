@@ -6941,8 +6941,135 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-COMBAT-IMPACT-DEFENSE-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-RANGED-MISS-HIT-PAYLOAD-OWNERSHIP",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; historical shape and outside-test rule, no reachable zero panic",
+        "classification": "Original reviewer and accepted historical count retained; legitimate miss and dry fire behavior preserved, no zero-input panic.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/272",
+          "baseline-059/queue.json#/entries/1721",
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/SEGOVB-L12-RANGED-MISS-HIT-PAYLOAD-OWNERSHIP",
+          "segovb/READ-L12-687.json"
+        ],
+        "relationship_qualification": "Original059 finding independently reassessed; historical unique count and reviewer attribution unchanged, never3821.",
+        "discovery": "partial; selected producer, state and consumers inspected; native lifecycle, supported admission, policy and aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-COMBAT-INGRESS-ACTIONS-95E.json"
+      },
+      {
+        "id": "REVIEW-DODGE-REPEATED-INTENT-WORK-001",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional source behavior or rule case; actual runtime and policy open",
+        "classification": "An additional admitted intent during the same active dodge can charge work and refresh pending time; the initial player acknowledgment is necessary and actual duplication/behavior remains unobserved.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/815",
+          "baseline-059/queue.json#/entries/821"
+        ],
+        "relationship_qualification": "New bounded95e source assessment linked to original pending obligations where cited; no historical unique-count change or3821 promotion.",
+        "discovery": "partial; selected producer, state and consumers inspected; native lifecycle, supported admission, policy and aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-COMBAT-INGRESS-ACTIONS-95E.json"
+      },
+      {
+        "id": "REVIEW-SIMULTANEOUS-MELEE-DECISION-SEED-001",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional source behavior or rule case; actual runtime and policy open",
+        "classification": "Same native start instant makes different actors share the selected reciprocal decision seed; independence policy and actual simultaneous opportunities are unproved.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1728"
+        ],
+        "relationship_qualification": "New bounded95e source assessment linked to original pending obligations where cited; no historical unique-count change or3821 promotion.",
+        "discovery": "partial; selected producer, state and consumers inspected; native lifecycle, supported admission, policy and aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-COMBAT-INGRESS-ACTIONS-95E.json"
+      },
+      {
+        "id": "REVIEW-MELEE-START-MISSING-STATE-001",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional source behavior or rule case; actual runtime and policy open",
+        "classification": "A partially composed actor can start without adjusted recovery or charge; normal projection supplies combat state and successful unpaid damage is not shown.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1729"
+        ],
+        "relationship_qualification": "New bounded95e source assessment linked to original pending obligations where cited; no historical unique-count change or3821 promotion.",
+        "discovery": "partial; selected producer, state and consumers inspected; native lifecycle, supported admission, policy and aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-COMBAT-INGRESS-ACTIONS-95E.json"
+      },
+      {
+        "id": "REVIEW-TARGETING-MELEE-PRECISION-EXPECT-001",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional source behavior or rule case; actual runtime and policy open",
+        "classification": "Validated finite targeting precision reaches a production expect, with no reachable nonfinite witness on that selected route; AI precision is a distinct field and admission gap.",
+        "historical_related_records": [],
+        "relationship_qualification": "New bounded95e source assessment linked to original pending obligations where cited; no historical unique-count change or3821 promotion.",
+        "discovery": "partial; selected producer, state and consumers inspected; native lifecycle, supported admission, policy and aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-COMBAT-INGRESS-ACTIONS-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1341.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1346.json"
 }

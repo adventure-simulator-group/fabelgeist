@@ -1,0 +1,1411 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2035–2039 and ranged miss, defensive acknowledgment, melee start and deterministic identity contracts.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2035-2039.json",
+  "git_membership_evidence": "COMBAT-INGRESS-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5bd51b919223279623bc728d4356e092e27c0448",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "bytes": 132880,
+      "lines": 3497,
+      "ranges": [
+        [
+          726,
+          765
+        ],
+        [
+          1244,
+          1296
+        ],
+        [
+          1335,
+          1366
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-ingress-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/player.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ad8ef59e860df91568bb704b4e061e843dcb2447",
+      "sha256": "e58cbe13aa543aebd82995383e999d55e0e47b9885396f958282313316f4e37c",
+      "bytes": 33413,
+      "lines": 944,
+      "ranges": [
+        [
+          744,
+          767
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-ingress-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bot/defense.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d505f8b3d095da9fa0fbf8e788bca803e5423fe9",
+      "sha256": "4eca0fbb28b320a2c62d9351bc7ce4331d2b0d011abe8ad74a6f10b62071884e",
+      "bytes": 8725,
+      "lines": 287,
+      "ranges": [
+        [
+          230,
+          285
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-ingress-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/message.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7f5b151b3531fe4c3eacb339d903b28ef514a25e",
+      "sha256": "61261c4055cee33ac91c6cdac317996352c4997f93cbd692a93448656a2db2eb",
+      "bytes": 15949,
+      "lines": 475,
+      "ranges": [
+        [
+          5,
+          13
+        ],
+        [
+          350,
+          369
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-ingress-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/replication.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8a61e133ac0e6d5caa491738795d94e3431b68a2",
+      "sha256": "44cf2776eaa433b9291858b34b3996df4fc9dde3def2980ebe83788b5f36fb3e",
+      "bytes": 10254,
+      "lines": 242,
+      "ranges": [
+        [
+          72,
+          86
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-ingress-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/protocol.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "25aad130cf09fc30d0f1643f7f0f888f271bbad9",
+      "sha256": "bdc79a977759c6bc89210af417c605af95bdf23d383bcf29a3e1f49552590c6a",
+      "bytes": 3135,
+      "lines": 86,
+      "ranges": [
+        [
+          7,
+          32
+        ],
+        [
+          48,
+          86
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-ingress-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/authority.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4c120856814dddd0e362ba0c5c3d1447b8878f7c",
+      "sha256": "083b8b2af667eddfbb85c778a24dd9794d2b6729a5990f1334f922fa5b2a3730",
+      "bytes": 22323,
+      "lines": 674,
+      "ranges": [
+        [
+          21,
+          40
+        ],
+        [
+          196,
+          225
+        ],
+        [
+          302,
+          337
+        ],
+        [
+          562,
+          621
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-ingress-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/defense.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "86b56c1b59ef2dc60abf602ca03a97afcff2b888",
+      "sha256": "68cb46b9efe6c4f44ba41fe4386c02fa7000314c52d6e10b7d33fa9742290d8e",
+      "bytes": 9410,
+      "lines": 255,
+      "ranges": [
+        [
+          117,
+          171
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-ingress-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/ranged.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "505e63ed13cb8b9f929648d1e373b3e42803cf99",
+      "sha256": "1a644ecf10b57c8e5f34d503a9002cd71bd5ecdf4736d1dd689925c65a91f10e",
+      "bytes": 10459,
+      "lines": 325,
+      "ranges": [
+        [
+          85,
+          119
+        ],
+        [
+          230,
+          279
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-ingress-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bot/offense/phase.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3ae9504947618fa2d8baec5b03da02f2d04ddb05",
+      "sha256": "3319be254a488cfacf2abfcea4c143c419090ebcd9b778b4dabdec7c95b85bb5",
+      "bytes": 11893,
+      "lines": 370,
+      "ranges": [
+        [
+          342,
+          365
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-ingress-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/player/combat_state.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0d7f18a63279bccc60edfc24de24dfb42c0482ae",
+      "sha256": "bfc02321b1d2716ffaf92d38902b547713a76a9de7a350ece7f35449e9dddf37",
+      "bytes": 7093,
+      "lines": 211,
+      "ranges": [
+        [
+          1,
+          59
+        ],
+        [
+          85,
+          100
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-ingress-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ddbb471042ffdc77b0b8c7e16b1e184b1a98963e",
+      "sha256": "423abf723a262ebe836e619d7ae78e7307715eeb0a6df531a58967134d312e74",
+      "bytes": 71704,
+      "lines": 2067,
+      "ranges": [
+        [
+          565,
+          608
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-ingress-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat/attack_key.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bf0af30030096091a4c2d4739e43bd7d53654834",
+      "sha256": "0c195d5b16f4846e5d0e043e5864a0b65328387495a88af8a48719234aacd063",
+      "bytes": 750,
+      "lines": 23,
+      "ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-ingress-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/fabelgeist-determinism/src/seed.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "67b30be6deac7b4173d1a9dd21d0c4dcfd1e87d4",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "bytes": 7283,
+      "lines": 213,
+      "ranges": [
+        [
+          1,
+          20
+        ],
+        [
+          49,
+          70
+        ],
+        [
+          110,
+          116
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-ingress-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/fabelgeist-determinism/src/stream.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c59d8a7720881fba266c80112e82880e4422e074",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "bytes": 5688,
+      "lines": 169,
+      "ranges": [
+        [
+          30,
+          41
+        ],
+        [
+          82,
+          84
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-ingress-evidence/support-14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4b64e4d89c6af0bf3bda86b5083fcc77108de4fe",
+      "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+      "bytes": 31826,
+      "lines": 779,
+      "ranges": [
+        [
+          417,
+          420
+        ],
+        [
+          564,
+          586
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-ingress-evidence/support-15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b890bfd0f628b3aae3d417cb8d0a4070bf7b3117",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "bytes": 12051,
+      "lines": 192,
+      "ranges": [
+        [
+          123,
+          127
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-ingress-evidence/support-16.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-COMBAT-AUTHORITY-PROVENANCE-95E.json",
+    "ASSESSMENT-COMBAT-IMPACT-DEFENSE-95E.json",
+    "ASSESSMENT-BOT-REACTION-CONFIG-95E.json",
+    "ASSESSMENT-PLAYER-QUICKSTEP-TRACE-95E.json",
+    "ASSESSMENT-L01-RANGED-FATIGUE-95E.json",
+    "ASSESSMENT-L01-UNARMED-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Ranged miss shape",
+      "trace": "Native CompleteMiss carries no hit payload. Its handler creates an internal RangedAttackIntent with target None, dummy Chest and ReportedPrecision::new(0).expect; the validator selects ValidatedRangedImpact::Miss and the authorized resolver consumes ammunition for a miss but only cooldown for dry fire. CompleteHit rejects nonfinite incoming precision; finite negative and greater-than-one values remain deliberately valid.",
+      "remaining": "Original SEGOVB-L12-RANGED-MISS-HIT-PAYLOAD-OWNERSHIP retains its author, accepted-count history and separate first contract. No panic is possible from literal zero alone. Do not classify a legitimate miss as a failure or merge it with the AI config admission issue."
+    },
+    {
+      "contract": "Existing dodge acknowledgment and repeated intent",
+      "trace": "For a normal player quickstep, player projection first starts the skeleton and actuator and queues one DefendIntent. The selected already-Dodge branch accepts that acknowledgment and charges the one action workload. If an additional valid Dodge intent is subsequently processed while that same skeleton action is still Dodge, the branch again accepts without beginning another action, invokes charge_work if the view/state exist, and queues a PendingDefenderResponse with a fresh timestamp.",
+      "remaining": "On deferred application the same component is replaced; a later timestamp can change whether the selected melee pending-response timing qualifies, conditional on the attacker timing and application order. The ordinary client sends sequenced quicksteps and only sends Roll directly; registered native Dodge requests and AI are separate producers. No duplicate delivery, actor, fatigue increase, defense result or runtime event was observed. Preserve the one legitimate acknowledgment and player-visible single fatigue pool."
+    },
+    {
+      "contract": "Observed attack key and deterministic decision",
+      "trace": "ObservedMeleeStart derives both key and sample tick from the same rounded global Time sample. Two different actors started at the same Time therefore receive the same key and CombatInstant. If both later satisfy reciprocal-opportunity gates, seed derivation receives the same key bytes, same stream name and same start-nanosecond context; the deterministic RNG starts with the same seed and draw, independent of actor identity.",
+      "remaining": "This is symbolic equality from source, with no RNG draw or gameplay run. Authority state is per entity and selected logs normally include the actor, so no global collision consequence is assumed. Whether independent behavioral variation or actor-distinct attack identity is required, and actual simultaneous actors, are open."
+    },
+    {
+      "contract": "Partial actor melee start",
+      "trace": "The selected on_melee_attack_started requires skeleton, tactical view and authority but not a TacticalCombatState. With all other start gates satisfied and the state absent, recovery uses the unadjusted base, work charging returns early, and the accepted start can publish authority/pending and any admitted lunge. Normal strategic player projection inserts TacticalCombatState alongside player data.",
+      "remaining": "Completion has separate state admission, so no successful unpaid hit follows from this source trace. Actual supported actor composition/removal, snapshot and scheduler lifecycles remain unproved; no incomplete actor or movement ran."
+    },
+    {
+      "contract": "Configured melee precision rule",
+      "trace": "The client melee-start handler converts config.targeting.reported_hit_precision with ReportedPrecision::new(...).expect. The validated config explicitly requires that field finite, so this selected validated route has no missing precision witness, but the production expect violates crates/AGENTS.md.",
+      "remaining": "This targeting field is not the separate ai.offense.hit_precision field with missing validation. Other direct resource construction and global aliases remain open; preserve all finite precision values."
+    },
+    {
+      "contract": "Melee start and lunge lifecycle",
+      "trace": "Preparation admits recovery, arrival and sample timing before skeleton start; a CannotArrive plan intentionally converts target and body to None. The same key, target, body and precision flow to private authority and queued pending contact. A no-target/no-body contact clears authority as a miss; an actionable contact is emitted later for separate live revalidation.",
+      "remaining": "Lunge queries may be absent and a missed target is legitimate; native command application, lunge physics, complete actor lifecycle and other lenses remain open. Authored tests were read but never run."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "SEGOVB-L12-RANGED-MISS-HIT-PAYLOAD-OWNERSHIP",
+      "kind": "recovered historic shape/rule finding independently reassessed at95e",
+      "queues": [
+        272,
+        1721
+      ],
+      "qualification": "Original reviewer and accepted historical count retained; legitimate miss and dry fire behavior preserved, no zero-input panic."
+    },
+    {
+      "id": "REVIEW-DODGE-REPEATED-INTENT-WORK-001",
+      "kind": "conditional additional accepted defensive intent",
+      "queues": [
+        815,
+        821
+      ],
+      "qualification": "An additional admitted intent during the same active dodge can charge work and refresh pending time; the initial player acknowledgment is necessary and actual duplication/behavior remains unobserved."
+    },
+    {
+      "id": "REVIEW-SIMULTANEOUS-MELEE-DECISION-SEED-001",
+      "kind": "conditional source-derived identity and random-correlation policy",
+      "queues": [
+        1728
+      ],
+      "qualification": "Same native start instant makes different actors share the selected reciprocal decision seed; independence policy and actual simultaneous opportunities are unproved."
+    },
+    {
+      "id": "REVIEW-MELEE-START-MISSING-STATE-001",
+      "kind": "conditional actor-admission and work policy",
+      "queues": [
+        1729
+      ],
+      "qualification": "A partially composed actor can start without adjusted recovery or charge; normal projection supplies combat state and successful unpaid damage is not shown."
+    },
+    {
+      "id": "REVIEW-TARGETING-MELEE-PRECISION-EXPECT-001",
+      "kind": "current validated-field outside-test rule case",
+      "queues": [],
+      "qualification": "Validated finite targeting precision reaches a production expect, with no reachable nonfinite witness on that selected route; AI precision is a distinct field and admission gap."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771",
+      "bytes": 17171,
+      "git_blob": "f0e945891587ec93a64192c5c32065748eb5995b",
+      "preserved_bytes": "recovered/combat-ingress-059/eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771.gz",
+      "published_sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771",
+      "published_bytes": 17171,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without new personal credit"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/READ-L11-260.json",
+      "sha256": "66cbf28eb925ba2a800167bcb9f85717c2018e594dc51b8c30e7d3887c394440",
+      "bytes": 15078,
+      "git_blob": "a48f8733c2c4465f9b259bb33c0b6822b00858ca",
+      "preserved_bytes": "recovered/combat-ingress-059/66cbf28eb925ba2a800167bcb9f85717c2018e594dc51b8c30e7d3887c394440.gz",
+      "published_sha256": "66cbf28eb925ba2a800167bcb9f85717c2018e594dc51b8c30e7d3887c394440",
+      "published_bytes": 15078,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without new personal credit"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/READ-L11-262.json",
+      "sha256": "3a60c1fb5aacb7b88257fa2298849eda1d831eb145f1c8b9351ffaf2bd3a0f6d",
+      "bytes": 8472,
+      "git_blob": "10ae48359d230ab18b56b8bc790039915fd2b6ad",
+      "preserved_bytes": "recovered/combat-ingress-059/3a60c1fb5aacb7b88257fa2298849eda1d831eb145f1c8b9351ffaf2bd3a0f6d.gz",
+      "published_sha256": "3a60c1fb5aacb7b88257fa2298849eda1d831eb145f1c8b9351ffaf2bd3a0f6d",
+      "published_bytes": 8472,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without new personal credit"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/READ-L11-265.json",
+      "sha256": "b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374",
+      "bytes": 8630,
+      "git_blob": "ee988ea2ae34edc4ae4b93853692d48df29003cc",
+      "preserved_bytes": "recovered/combat-ingress-059/b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374.gz",
+      "published_sha256": "b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374",
+      "published_bytes": 8630,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without new personal credit"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/READ-L11-271.json",
+      "sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba",
+      "bytes": 11760,
+      "git_blob": "6215e73adce4e51c62992d37dd261190433a79ea",
+      "preserved_bytes": "recovered/combat-ingress-059/52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba.gz",
+      "published_sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba",
+      "published_bytes": 11760,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without new personal credit"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "bytes": 15035,
+      "git_blob": "45ee5dcfa447994407de51ae6b68f85de63c1ac4",
+      "preserved_bytes": "recovered/combat-ingress-059/bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3.gz",
+      "published_sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "published_bytes": 15035,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without new personal credit"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/READ-L11-283.json",
+      "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8",
+      "bytes": 16199,
+      "git_blob": "af46a230b77aa7f4c26f30c588438d00ba14507e",
+      "preserved_bytes": "recovered/combat-ingress-059/21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8.gz",
+      "published_sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8",
+      "published_bytes": 16199,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without new personal credit"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/READ-L11-285.json",
+      "sha256": "0d7c09d69692f80ea7776c9a37ad41ae65c269cb1be0f7beb5fec90f2a0cf98b",
+      "bytes": 13286,
+      "git_blob": "68f8f1e9df6d011c7f8e63b3d7827a313fac89a6",
+      "preserved_bytes": "recovered/combat-ingress-059/0d7c09d69692f80ea7776c9a37ad41ae65c269cb1be0f7beb5fec90f2a0cf98b.gz",
+      "published_sha256": "0d7c09d69692f80ea7776c9a37ad41ae65c269cb1be0f7beb5fec90f2a0cf98b",
+      "published_bytes": 13286,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without new personal credit"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29",
+      "bytes": 6941,
+      "git_blob": "84f8363af8a5a6f039846f29fc14e050b87737cf",
+      "preserved_bytes": "recovered/combat-ingress-059/88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29.gz",
+      "published_sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29",
+      "published_bytes": 6941,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without new personal credit"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f",
+      "bytes": 15183,
+      "git_blob": "bc06bba74b5bf5a40366ea8765844e638608e231",
+      "preserved_bytes": "recovered/combat-ingress-059/a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f.gz",
+      "published_sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f",
+      "published_bytes": 15183,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without new personal credit"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/READ-L11-301.json",
+      "sha256": "6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e",
+      "bytes": 12478,
+      "git_blob": "8a66f0a027598f95f575b11171cb359c9314a6aa",
+      "preserved_bytes": "recovered/combat-ingress-059/6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e.gz",
+      "published_sha256": "6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e",
+      "published_bytes": 12478,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without new personal credit"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/READ-L11-302.json",
+      "sha256": "42d85fb7de2c99f3d01504cba8d628c336d9796cac25447e26817f57323726f8",
+      "bytes": 7451,
+      "git_blob": "508d1a77265adb8920c00b2ba0e81d774483a069",
+      "preserved_bytes": "recovered/combat-ingress-059/42d85fb7de2c99f3d01504cba8d628c336d9796cac25447e26817f57323726f8.gz",
+      "published_sha256": "42d85fb7de2c99f3d01504cba8d628c336d9796cac25447e26817f57323726f8",
+      "published_bytes": 7451,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without new personal credit"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/READ-L11-303.json",
+      "sha256": "9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99",
+      "bytes": 7583,
+      "git_blob": "f947e14e1d4038d2b61fdb68dd1b4956d1ed72dd",
+      "preserved_bytes": "recovered/combat-ingress-059/9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99.gz",
+      "published_sha256": "9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99",
+      "published_bytes": 7583,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without new personal credit"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/READ-L11-304.json",
+      "sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2",
+      "bytes": 6729,
+      "git_blob": "5466efc73a0ea970be2f052c22ee776d9212a9f6",
+      "preserved_bytes": "recovered/combat-ingress-059/94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2.gz",
+      "published_sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2",
+      "published_bytes": 6729,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without new personal credit"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/READ-L11-311.json",
+      "sha256": "439ffb9271af8848734d56228d9dad8f33cbb0a0a531fc16bc5cef4f2a907182",
+      "bytes": 9853,
+      "git_blob": "ba23ac9d50ba8cfabacc43b96b65a51272786616",
+      "preserved_bytes": "recovered/combat-ingress-059/439ffb9271af8848734d56228d9dad8f33cbb0a0a531fc16bc5cef4f2a907182.gz",
+      "published_sha256": "439ffb9271af8848734d56228d9dad8f33cbb0a0a531fc16bc5cef4f2a907182",
+      "published_bytes": 9853,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without new personal credit"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/READ-L11-312.json",
+      "sha256": "4b668a59e6178be6bf3ceffd3a8f96de526c42128ffb7ec710768523dd6c73c5",
+      "bytes": 11309,
+      "git_blob": "f7209701bce0993d6c46760340940c88cfe8e1cb",
+      "preserved_bytes": "recovered/combat-ingress-059/4b668a59e6178be6bf3ceffd3a8f96de526c42128ffb7ec710768523dd6c73c5.gz",
+      "published_sha256": "4b668a59e6178be6bf3ceffd3a8f96de526c42128ffb7ec710768523dd6c73c5",
+      "published_bytes": 11309,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without new personal credit"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/READ-L11-313.json",
+      "sha256": "57a04e8df6a0c4b920158c92f7cccfe232f064761af94730510e9f903346db53",
+      "bytes": 17334,
+      "git_blob": "b41dd856071fb91562cde19343a12eadc3625865",
+      "preserved_bytes": "recovered/combat-ingress-059/57a04e8df6a0c4b920158c92f7cccfe232f064761af94730510e9f903346db53.gz",
+      "published_sha256": "57a04e8df6a0c4b920158c92f7cccfe232f064761af94730510e9f903346db53",
+      "published_bytes": 17334,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without new personal credit"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/READ-L11-314.json",
+      "sha256": "f336b3ab6181da73a064644c64794ec75e4242df0b4f7b895c0fcb15e29ecfd0",
+      "bytes": 10708,
+      "git_blob": "4a3e29709ecfbfe85e759a85a1caa1fef95c772e",
+      "preserved_bytes": "recovered/combat-ingress-059/f336b3ab6181da73a064644c64794ec75e4242df0b4f7b895c0fcb15e29ecfd0.gz",
+      "published_sha256": "f336b3ab6181da73a064644c64794ec75e4242df0b4f7b895c0fcb15e29ecfd0",
+      "published_bytes": 10708,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without new personal credit"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/READ-L11-315.json",
+      "sha256": "68c75afc5380aa60ca581eefa97cfe36aebcc540f3750f057ac3c45cae41b050",
+      "bytes": 14714,
+      "git_blob": "0d0cb53feee510953a06a8dd902de837cf7cf8a7",
+      "preserved_bytes": "recovered/combat-ingress-059/68c75afc5380aa60ca581eefa97cfe36aebcc540f3750f057ac3c45cae41b050.gz",
+      "published_sha256": "68c75afc5380aa60ca581eefa97cfe36aebcc540f3750f057ac3c45cae41b050",
+      "published_bytes": 14714,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without new personal credit"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/READ-L11-316.json",
+      "sha256": "47242e89369ded0443a81ddd160d35a1a5c7ce1d272c4a0c2da499ba57c150e7",
+      "bytes": 14101,
+      "git_blob": "39b53e0c3c04950afb869deb4a0a499a3fcf5d50",
+      "preserved_bytes": "recovered/combat-ingress-059/47242e89369ded0443a81ddd160d35a1a5c7ce1d272c4a0c2da499ba57c150e7.gz",
+      "published_sha256": "47242e89369ded0443a81ddd160d35a1a5c7ce1d272c4a0c2da499ba57c150e7",
+      "published_bytes": 14101,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-879.json",
+      "sha256": "f774961b20ab2f6e0eb4b2cef89da4e0bd014c8a1cb0054ab4830144ebbb249d",
+      "bytes": 682,
+      "git_blob": "0ba84e22355503c3ab7b70a32df3417bfb07a3ab",
+      "preserved_bytes": "recovered/combat-ingress-059/f774961b20ab2f6e0eb4b2cef89da4e0bd014c8a1cb0054ab4830144ebbb249d.gz",
+      "published_sha256": "f774961b20ab2f6e0eb4b2cef89da4e0bd014c8a1cb0054ab4830144ebbb249d",
+      "published_bytes": 682,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-880.json",
+      "sha256": "ee9cee451e7dc0dd3b2ba03d7bfe13fa236955da3ff0f3ed1c753b17a8f9efae",
+      "bytes": 694,
+      "git_blob": "2799a382e36fb6c607a087ba31f1a9de19816ace",
+      "preserved_bytes": "recovered/combat-ingress-059/ee9cee451e7dc0dd3b2ba03d7bfe13fa236955da3ff0f3ed1c753b17a8f9efae.gz",
+      "published_sha256": "ee9cee451e7dc0dd3b2ba03d7bfe13fa236955da3ff0f3ed1c753b17a8f9efae",
+      "published_bytes": 694,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-881.json",
+      "sha256": "13d07a01bcb29642b167241b2662989454ebea94d8b9e44bdadb0099b2a82149",
+      "bytes": 699,
+      "git_blob": "f6ff76249eea9b7d34e5e27a97e4fa463f8bbcfe",
+      "preserved_bytes": "recovered/combat-ingress-059/13d07a01bcb29642b167241b2662989454ebea94d8b9e44bdadb0099b2a82149.gz",
+      "published_sha256": "13d07a01bcb29642b167241b2662989454ebea94d8b9e44bdadb0099b2a82149",
+      "published_bytes": 699,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-882.json",
+      "sha256": "06cea4ce114abab2fa8555f97a4798e485ba4363c171f7caefab4ab496e26cb8",
+      "bytes": 702,
+      "git_blob": "b31730594b3f4657a93b5342108ac7cf13696b90",
+      "preserved_bytes": "recovered/combat-ingress-059/06cea4ce114abab2fa8555f97a4798e485ba4363c171f7caefab4ab496e26cb8.gz",
+      "published_sha256": "06cea4ce114abab2fa8555f97a4798e485ba4363c171f7caefab4ab496e26cb8",
+      "published_bytes": 702,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-883.json",
+      "sha256": "95578ce9fd04e2fa7326cf85e8ab71c55eaf592335e039f48cecf4d26c78e21c",
+      "bytes": 699,
+      "git_blob": "0a18a44c551b52a7c786d788686146f7a7bac563",
+      "preserved_bytes": "recovered/combat-ingress-059/95578ce9fd04e2fa7326cf85e8ab71c55eaf592335e039f48cecf4d26c78e21c.gz",
+      "published_sha256": "95578ce9fd04e2fa7326cf85e8ab71c55eaf592335e039f48cecf4d26c78e21c",
+      "published_bytes": 699,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/STATE-L11-316.json",
+      "sha256": "88cfbf559a0faab6060fbad4832a79e764724c1f6a95c7fd45a48fe42117b9b8",
+      "bytes": 657,
+      "git_blob": "c94cf6daa21653928906e7d7a9e11e1c435c8c3e",
+      "preserved_bytes": "recovered/combat-ingress-059/88cfbf559a0faab6060fbad4832a79e764724c1f6a95c7fd45a48fe42117b9b8.gz",
+      "published_sha256": "88cfbf559a0faab6060fbad4832a79e764724c1f6a95c7fd45a48fe42117b9b8",
+      "published_bytes": 657,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-316.json",
+      "sha256": "d995534763aa8d24426af6584d1417370981c6f37c9ea32352dd08b0ed28e879",
+      "bytes": 64855,
+      "git_blob": "929c04af5c33e7d97a7d018037f8066ea0dae318",
+      "preserved_bytes": "recovered/combat-ingress-059/d995534763aa8d24426af6584d1417370981c6f37c9ea32352dd08b0ed28e879.gz",
+      "published_sha256": "d995534763aa8d24426af6584d1417370981c6f37c9ea32352dd08b0ed28e879",
+      "published_bytes": 64855,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-045.json",
+      "sha256": "9cdaca8509587189b370ddb3bc130013f7dbdbbdda98b310aa3b69738937335a",
+      "bytes": 6169,
+      "git_blob": "292f513bda8509ee5e9ba2e1f431bda9d5d2c395",
+      "preserved_bytes": "recovered/combat-ingress-059/9cdaca8509587189b370ddb3bc130013f7dbdbbdda98b310aa3b69738937335a.gz",
+      "published_sha256": "9cdaca8509587189b370ddb3bc130013f7dbdbbdda98b310aa3b69738937335a",
+      "published_bytes": 6169,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original e275 root personal Lens1 receipt, never95e credit"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-047.json",
+      "sha256": "48f95349570591b964f986e7de7a55b2b7631aeda173130bdcb20a192dd92b44",
+      "bytes": 10627,
+      "git_blob": "d1b48a17a6d64101e837848b29fa5131ce45e770",
+      "preserved_bytes": "recovered/combat-ingress-059/48f95349570591b964f986e7de7a55b2b7631aeda173130bdcb20a192dd92b44.gz",
+      "published_sha256": "48f95349570591b964f986e7de7a55b2b7631aeda173130bdcb20a192dd92b44",
+      "published_bytes": 10627,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original e275 root personal Lens1 receipt, never95e credit"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/REGISTRATION-ROOT-L1-CURRENT-045.json",
+      "sha256": "8cda8b98c663e51769ed468d6bff4e4fbd1c2274c17d1f42c3e89025a77a7617",
+      "bytes": 2230,
+      "git_blob": "6acca9a28607e5c9e9b9ce0ec7fbbf1b89717679",
+      "preserved_bytes": "recovered/combat-ingress-059/8cda8b98c663e51769ed468d6bff4e4fbd1c2274c17d1f42c3e89025a77a7617.gz",
+      "published_sha256": "8cda8b98c663e51769ed468d6bff4e4fbd1c2274c17d1f42c3e89025a77a7617",
+      "published_bytes": 2230,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original e275 prospective registration"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/REGISTRATION-ROOT-L1-CURRENT-047.json",
+      "sha256": "5a1b1100601e12ec5d3a52548ccaeb1e9b0146993944eb56e6ec3851624d267b",
+      "bytes": 4184,
+      "git_blob": "cb019d4a2372cf33507857514a55754d98cd8cfe",
+      "preserved_bytes": "recovered/combat-ingress-059/5a1b1100601e12ec5d3a52548ccaeb1e9b0146993944eb56e6ec3851624d267b.gz",
+      "published_sha256": "5a1b1100601e12ec5d3a52548ccaeb1e9b0146993944eb56e6ec3851624d267b",
+      "published_bytes": 4184,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original e275 prospective registration"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/VERIFY-ROOT-L1-CURRENT-045.json",
+      "sha256": "d65550ed8d66e9030e08308801a685d5eac87fb849a983a7ea90a62253efad78",
+      "bytes": 533,
+      "git_blob": "bf605059ae6ffc766a8b9fbd780875bce92d177a",
+      "preserved_bytes": "recovered/combat-ingress-059/d65550ed8d66e9030e08308801a685d5eac87fb849a983a7ea90a62253efad78.gz",
+      "published_sha256": "d65550ed8d66e9030e08308801a685d5eac87fb849a983a7ea90a62253efad78",
+      "published_bytes": 533,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original e275 verification"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/VERIFY-ROOT-L1-CURRENT-047.json",
+      "sha256": "8f943e22b5924d809d2a21ebfbf19d2f3420ca380ad5d5f6042d6928ad937ce5",
+      "bytes": 533,
+      "git_blob": "9bc5d2e6d1804286240765828cc78540b039b2ff",
+      "preserved_bytes": "recovered/combat-ingress-059/8f943e22b5924d809d2a21ebfbf19d2f3420ca380ad5d5f6042d6928ad937ce5.gz",
+      "published_sha256": "8f943e22b5924d809d2a21ebfbf19d2f3420ca380ad5d5f6042d6928ad937ce5",
+      "published_bytes": 533,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original e275 verification"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-683.json",
+      "sha256": "ca45f191ddc1a3f718e83bbc57d40c8ed09b1303a89b8e0e1fe1e026703ced30",
+      "bytes": 719,
+      "git_blob": "48a81f8a65bee7dcc241c5a8673a07dadee575fc",
+      "preserved_bytes": "recovered/combat-ingress-059/ca45f191ddc1a3f718e83bbc57d40c8ed09b1303a89b8e0e1fe1e026703ced30.gz",
+      "published_sha256": "ca45f191ddc1a3f718e83bbc57d40c8ed09b1303a89b8e0e1fe1e026703ced30",
+      "published_bytes": 719,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective plan"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-684.json",
+      "sha256": "2a73cb9e800fd0be4e182a02cd6a2979cfe8fcdd8e77bd8df032bdb796939a52",
+      "bytes": 1220,
+      "git_blob": "a88ae70f6cc45e6bb645cf5eaa8bc65c93bd18cc",
+      "preserved_bytes": "recovered/combat-ingress-059/2a73cb9e800fd0be4e182a02cd6a2979cfe8fcdd8e77bd8df032bdb796939a52.gz",
+      "published_sha256": "2a73cb9e800fd0be4e182a02cd6a2979cfe8fcdd8e77bd8df032bdb796939a52",
+      "published_bytes": 1220,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective plan"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-685.json",
+      "sha256": "6096d13c00fe644375ed0f02b27a23fea76d35e01e1395a8f998cab7e3b85657",
+      "bytes": 1211,
+      "git_blob": "cfe296502b9dc6e5241def248057cc83f74b6e54",
+      "preserved_bytes": "recovered/combat-ingress-059/6096d13c00fe644375ed0f02b27a23fea76d35e01e1395a8f998cab7e3b85657.gz",
+      "published_sha256": "6096d13c00fe644375ed0f02b27a23fea76d35e01e1395a8f998cab7e3b85657",
+      "published_bytes": 1211,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective plan"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-687.json",
+      "sha256": "8e72964dbf5834a3ac85f43aaad0aa260e9d2ecd2ffc0cd2655f0691b64f3c8d",
+      "bytes": 2180,
+      "git_blob": "7f44c440b8475f42106d87c7fc3f3409b83b44ba",
+      "preserved_bytes": "recovered/combat-ingress-059/8e72964dbf5834a3ac85f43aaad0aa260e9d2ecd2ffc0cd2655f0691b64f3c8d.gz",
+      "published_sha256": "8e72964dbf5834a3ac85f43aaad0aa260e9d2ecd2ffc0cd2655f0691b64f3c8d",
+      "published_bytes": 2180,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective plan"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/READ-L12-435.json",
+      "sha256": "519a929a29008009af958848413f904018f3c5289b44ccd7246c35472cbb9d41",
+      "bytes": 6063,
+      "git_blob": "70449e993ff85428a29f78d4854dcc1dda64ab1b",
+      "preserved_bytes": "recovered/combat-ingress-059/519a929a29008009af958848413f904018f3c5289b44ccd7246c35472cbb9d41.gz",
+      "published_sha256": "519a929a29008009af958848413f904018f3c5289b44ccd7246c35472cbb9d41",
+      "published_bytes": 6063,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens receipt"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/READ-L12-680.json",
+      "sha256": "197d4e55f5b45469ee2e6c4dd4d98b55aab063ac7e5c5f2ec7aad108720518f8",
+      "bytes": 11530,
+      "git_blob": "9df03481ab6fd53d6cd09cfb4c0719ff31e5b8f4",
+      "preserved_bytes": "recovered/combat-ingress-059/197d4e55f5b45469ee2e6c4dd4d98b55aab063ac7e5c5f2ec7aad108720518f8.gz",
+      "published_sha256": "197d4e55f5b45469ee2e6c4dd4d98b55aab063ac7e5c5f2ec7aad108720518f8",
+      "published_bytes": 11530,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens receipt"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/READ-L12-683.json",
+      "sha256": "f83c1b835aa609a6cb4666b488a8688b737865c388f75c0fdd6fcdcc4ee217d5",
+      "bytes": 8241,
+      "git_blob": "e368a2f9460434a1243709617bd6d23ad8d8272b",
+      "preserved_bytes": "recovered/combat-ingress-059/f83c1b835aa609a6cb4666b488a8688b737865c388f75c0fdd6fcdcc4ee217d5.gz",
+      "published_sha256": "f83c1b835aa609a6cb4666b488a8688b737865c388f75c0fdd6fcdcc4ee217d5",
+      "published_bytes": 8241,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt",
+        "Original qualified same-lens receipt"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/READ-L12-684.json",
+      "sha256": "890d340d4288b7aacaa9ba25c880a994cc14d9c8f013945cb845d9752f71d6e7",
+      "bytes": 7684,
+      "git_blob": "e4b49bf9b174a2abb9097ac5530048adef6af21a",
+      "preserved_bytes": "recovered/combat-ingress-059/890d340d4288b7aacaa9ba25c880a994cc14d9c8f013945cb845d9752f71d6e7.gz",
+      "published_sha256": "890d340d4288b7aacaa9ba25c880a994cc14d9c8f013945cb845d9752f71d6e7",
+      "published_bytes": 7684,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/READ-L12-685.json",
+      "sha256": "efed4938a8d46f009c718c62b097afba4c9c56a594041f5832e422c282c5a098",
+      "bytes": 6803,
+      "git_blob": "1d10aedcef1f649beede7caa89cfb29f60901055",
+      "preserved_bytes": "recovered/combat-ingress-059/efed4938a8d46f009c718c62b097afba4c9c56a594041f5832e422c282c5a098.gz",
+      "published_sha256": "efed4938a8d46f009c718c62b097afba4c9c56a594041f5832e422c282c5a098",
+      "published_bytes": 6803,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/READ-L12-687.json",
+      "sha256": "d5e1aac627f160d08446de188b701f14a82be1c9e23669575d86e56bc69496a2",
+      "bytes": 15016,
+      "git_blob": "ad083caa946d677b71e95f25558d14117ec08369",
+      "preserved_bytes": "recovered/combat-ingress-059/d5e1aac627f160d08446de188b701f14a82be1c9e23669575d86e56bc69496a2.gz",
+      "published_sha256": "d5e1aac627f160d08446de188b701f14a82be1c9e23669575d86e56bc69496a2",
+      "published_bytes": 15016,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-377.json",
+      "sha256": "fe8dd333fd854f1f49c4182d4c027a630f7886346aa48843ff59588c266c1b2d",
+      "bytes": 1199,
+      "git_blob": "108b7dad2bd18e0c89683e4c6a955623a7781441",
+      "preserved_bytes": "recovered/combat-ingress-059/fe8dd333fd854f1f49c4182d4c027a630f7886346aa48843ff59588c266c1b2d.gz",
+      "published_sha256": "fe8dd333fd854f1f49c4182d4c027a630f7886346aa48843ff59588c266c1b2d",
+      "published_bytes": 1199,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens registration"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-934.json",
+      "sha256": "f38302ac60a4d687b57dcaf6d95f5fe39e73d137ec793a70d97c39fb29bf319b",
+      "bytes": 1158,
+      "git_blob": "0daf135ca9ae038f1d27f5220ad1bce86d177f42",
+      "preserved_bytes": "recovered/combat-ingress-059/f38302ac60a4d687b57dcaf6d95f5fe39e73d137ec793a70d97c39fb29bf319b.gz",
+      "published_sha256": "f38302ac60a4d687b57dcaf6d95f5fe39e73d137ec793a70d97c39fb29bf319b",
+      "published_bytes": 1158,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens registration"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-942.json",
+      "sha256": "240859f5c24443583ada7db2ef93a150d1fe8ae58da9468179eaad5f0a68497d",
+      "bytes": 1181,
+      "git_blob": "8cd4f2697156bec527aecf9c6891753492d0bc66",
+      "preserved_bytes": "recovered/combat-ingress-059/240859f5c24443583ada7db2ef93a150d1fe8ae58da9468179eaad5f0a68497d.gz",
+      "published_sha256": "240859f5c24443583ada7db2ef93a150d1fe8ae58da9468179eaad5f0a68497d",
+      "published_bytes": 1181,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration",
+        "Original qualified same-lens registration"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-943.json",
+      "sha256": "d69db67b3500d7779b61038ea91d3e29213d2f06f66d5975e60ed9d9b66b1088",
+      "bytes": 1177,
+      "git_blob": "712e5c9090175546ebb17d43e4c3d9e13f02659a",
+      "preserved_bytes": "recovered/combat-ingress-059/d69db67b3500d7779b61038ea91d3e29213d2f06f66d5975e60ed9d9b66b1088.gz",
+      "published_sha256": "d69db67b3500d7779b61038ea91d3e29213d2f06f66d5975e60ed9d9b66b1088",
+      "published_bytes": 1177,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-944.json",
+      "sha256": "62481d7892eb7fd8f1cb1bd9c14d4cdff21eed2ace5a36580d7235c9ac116cd3",
+      "bytes": 1163,
+      "git_blob": "621dc8bea073e58d2940b7149a464b8d5f55ed7c",
+      "preserved_bytes": "recovered/combat-ingress-059/62481d7892eb7fd8f1cb1bd9c14d4cdff21eed2ace5a36580d7235c9ac116cd3.gz",
+      "published_sha256": "62481d7892eb7fd8f1cb1bd9c14d4cdff21eed2ace5a36580d7235c9ac116cd3",
+      "published_bytes": 1163,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-945.json",
+      "sha256": "5cf5cdce3b3372a82feede39d6b7d9540938609493d30a6cbfac161f944b7c5e",
+      "bytes": 1163,
+      "git_blob": "5bead0862b59cf5f160fc6cc54cb99cfc48d9880",
+      "preserved_bytes": "recovered/combat-ingress-059/5cf5cdce3b3372a82feede39d6b7d9540938609493d30a6cbfac161f944b7c5e.gz",
+      "published_sha256": "5cf5cdce3b3372a82feede39d6b7d9540938609493d30a6cbfac161f944b7c5e",
+      "published_bytes": 1163,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-946.json",
+      "sha256": "7bb62ab97ea41df8b15718a8876d5f6e784c653e1b8e36dd71e69e9b7d0130de",
+      "bytes": 1157,
+      "git_blob": "1015f90468369819233af2b5bcb5bc314aea6a9c",
+      "preserved_bytes": "recovered/combat-ingress-059/7bb62ab97ea41df8b15718a8876d5f6e784c653e1b8e36dd71e69e9b7d0130de.gz",
+      "published_sha256": "7bb62ab97ea41df8b15718a8876d5f6e784c653e1b8e36dd71e69e9b7d0130de",
+      "published_bytes": 1157,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-949.json",
+      "sha256": "ac64c11f22a9d3c43647437b3796c9ce5b5159033d30bdd6ee1617eeff974b01",
+      "bytes": 1179,
+      "git_blob": "81cfe6a3520af0adef9f8c8dc5e9128c94814f2a",
+      "preserved_bytes": "recovered/combat-ingress-059/ac64c11f22a9d3c43647437b3796c9ce5b5159033d30bdd6ee1617eeff974b01.gz",
+      "published_sha256": "ac64c11f22a9d3c43647437b3796c9ce5b5159033d30bdd6ee1617eeff974b01",
+      "published_bytes": 1179,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-950.json",
+      "sha256": "aa001b8b675b4e70a6dd667ebb81134f17ec513eb9f41573e95a4c838c70a8ba",
+      "bytes": 1167,
+      "git_blob": "7169427d364b0bd0cf126b0da9135ff5a8d5f1da",
+      "preserved_bytes": "recovered/combat-ingress-059/aa001b8b675b4e70a6dd667ebb81134f17ec513eb9f41573e95a4c838c70a8ba.gz",
+      "published_sha256": "aa001b8b675b4e70a6dd667ebb81134f17ec513eb9f41573e95a4c838c70a8ba",
+      "published_bytes": 1167,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-951.json",
+      "sha256": "244da12e08b2908d6bd369e171d5f6e7a8cb7806f620a3239d869aba6ee884ac",
+      "bytes": 1165,
+      "git_blob": "d70f13c8ef34a0465473b9ae293be57b5c04a226",
+      "preserved_bytes": "recovered/combat-ingress-059/244da12e08b2908d6bd369e171d5f6e7a8cb7806f620a3239d869aba6ee884ac.gz",
+      "published_sha256": "244da12e08b2908d6bd369e171d5f6e7a8cb7806f620a3239d869aba6ee884ac",
+      "published_bytes": 1165,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-952.json",
+      "sha256": "17e434b7c1d420a1977c5188f41957c0dc35d2be279d2c8c2bf935d31b33279e",
+      "bytes": 1181,
+      "git_blob": "54d763d2926c4f83f0e7d2383b7390575fd10858",
+      "preserved_bytes": "recovered/combat-ingress-059/17e434b7c1d420a1977c5188f41957c0dc35d2be279d2c8c2bf935d31b33279e.gz",
+      "published_sha256": "17e434b7c1d420a1977c5188f41957c0dc35d2be279d2c8c2bf935d31b33279e",
+      "published_bytes": 1181,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/STATE-L1-CURRENT-045.json",
+      "sha256": "8c6bcf824f44b7e53f5074fe5fc90659080bd601d077811f413947587c39285b",
+      "bytes": 1768,
+      "git_blob": "a6a27a9258d68e859896b459c49a9d4de3d87498",
+      "preserved_bytes": "recovered/combat-ingress-059/8c6bcf824f44b7e53f5074fe5fc90659080bd601d077811f413947587c39285b.gz",
+      "published_sha256": "8c6bcf824f44b7e53f5074fe5fc90659080bd601d077811f413947587c39285b",
+      "published_bytes": 1768,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original e275 state"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/STATE-L1-CURRENT-047.json",
+      "sha256": "c9cc6fbf5f69582cd459540683b8f4363d3f9631d9d270c45ba4346226d05407",
+      "bytes": 1830,
+      "git_blob": "8f194b39e21d8711a8ccf24d5a3d8ff3359befbd",
+      "preserved_bytes": "recovered/combat-ingress-059/c9cc6fbf5f69582cd459540683b8f4363d3f9631d9d270c45ba4346226d05407.gz",
+      "published_sha256": "c9cc6fbf5f69582cd459540683b8f4363d3f9631d9d270c45ba4346226d05407",
+      "published_bytes": 1830,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original e275 state"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/STATE-L12-683.json",
+      "sha256": "5dc9024265b65cb5d020fb5a7427e229698e4afb87c93a245f8aa1ede369307e",
+      "bytes": 840,
+      "git_blob": "636dfbc6b35f869bbb191f29792cdc6f68ac84aa",
+      "preserved_bytes": "recovered/combat-ingress-059/5dc9024265b65cb5d020fb5a7427e229698e4afb87c93a245f8aa1ede369307e.gz",
+      "published_sha256": "5dc9024265b65cb5d020fb5a7427e229698e4afb87c93a245f8aa1ede369307e",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/STATE-L12-684.json",
+      "sha256": "1e2a840d8ae5d1bc1dab5c649f0108c0e30a009393b22b045884a94c2e378e20",
+      "bytes": 840,
+      "git_blob": "2b344b519ec5702301ae3427944f626fdc01e1f1",
+      "preserved_bytes": "recovered/combat-ingress-059/1e2a840d8ae5d1bc1dab5c649f0108c0e30a009393b22b045884a94c2e378e20.gz",
+      "published_sha256": "1e2a840d8ae5d1bc1dab5c649f0108c0e30a009393b22b045884a94c2e378e20",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/STATE-L12-685.json",
+      "sha256": "8bda314f6fccd12d2c2a872cb3b0dcb04516b1d99aca5de4b46e25276266cc78",
+      "bytes": 840,
+      "git_blob": "014977270f1c54d79eb35bfb38ae4c048fcf5ec3",
+      "preserved_bytes": "recovered/combat-ingress-059/8bda314f6fccd12d2c2a872cb3b0dcb04516b1d99aca5de4b46e25276266cc78.gz",
+      "published_sha256": "8bda314f6fccd12d2c2a872cb3b0dcb04516b1d99aca5de4b46e25276266cc78",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/STATE-L12-687.json",
+      "sha256": "caec7d009f70b9a09a274dc854be725577ca0b56622d3f92fdaa85e3ccdb0ba6",
+      "bytes": 840,
+      "git_blob": "aec8a17e64c03b4ed3f28ca4a354d6eacdbae103",
+      "preserved_bytes": "recovered/combat-ingress-059/caec7d009f70b9a09a274dc854be725577ca0b56622d3f92fdaa85e3ccdb0ba6.gz",
+      "published_sha256": "caec7d009f70b9a09a274dc854be725577ca0b56622d3f92fdaa85e3ccdb0ba6",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-683.json",
+      "sha256": "22c4cd364326956132e06fa9431848b0c2f5901ddd880d3170ccf2ba8428d5dd",
+      "bytes": 558,
+      "git_blob": "f55bb47d58956235964280860b63e12026f3732b",
+      "preserved_bytes": "recovered/combat-ingress-059/22c4cd364326956132e06fa9431848b0c2f5901ddd880d3170ccf2ba8428d5dd.gz",
+      "published_sha256": "22c4cd364326956132e06fa9431848b0c2f5901ddd880d3170ccf2ba8428d5dd",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original verification"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-684.json",
+      "sha256": "a9d1b75063082c61168120259d4679ce8f1f68a30d9c3144fbd9da83ff6ba281",
+      "bytes": 558,
+      "git_blob": "542f7994c82e91fe84738b8f63019e5406754a12",
+      "preserved_bytes": "recovered/combat-ingress-059/a9d1b75063082c61168120259d4679ce8f1f68a30d9c3144fbd9da83ff6ba281.gz",
+      "published_sha256": "a9d1b75063082c61168120259d4679ce8f1f68a30d9c3144fbd9da83ff6ba281",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original verification"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-685.json",
+      "sha256": "ec4cd811d82c358df2ba1af8b51265b37a02d6da67777410d26fdcb72e041b7e",
+      "bytes": 558,
+      "git_blob": "6aa8b1f5e775ac749bb20a1161c591971944fe74",
+      "preserved_bytes": "recovered/combat-ingress-059/ec4cd811d82c358df2ba1af8b51265b37a02d6da67777410d26fdcb72e041b7e.gz",
+      "published_sha256": "ec4cd811d82c358df2ba1af8b51265b37a02d6da67777410d26fdcb72e041b7e",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original verification"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-687.json",
+      "sha256": "1f7373cc03d386167e615d0ec27fedd3c0139f4c19150e6ed461ff8db18d00f0",
+      "bytes": 558,
+      "git_blob": "cfd4ed0930c349fe0edbc708c72b4475dc141736",
+      "preserved_bytes": "recovered/combat-ingress-059/1f7373cc03d386167e615d0ec27fedd3c0139f4c19150e6ed461ff8db18d00f0.gz",
+      "published_sha256": "1f7373cc03d386167e615d0ec27fedd3c0139f4c19150e6ed461ff8db18d00f0",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original verification"
+      ],
+      "qualification": "Original author, revision, personal/reused ranges and pending obligations retained; no checkpoint3821 promotion."
+    }
+  ],
+  "historical_attribution_qualification": "Segovb683/684/685/687, Adler316 and earlier root e275 receipts retain their original authors, revision and read/reuse scopes. Earlier c100 lunge observation remains predecessor evidence despite byte equality. Original miss finding and earlier pending obligations are not promoted to3821.",
+  "remaining": "Continue original2040, native actor admission, actual input and command lifecycle, seed identity policy, all13 lenses and aliases. Original3821 final ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
