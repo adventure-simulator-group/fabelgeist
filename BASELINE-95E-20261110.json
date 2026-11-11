@@ -3319,8 +3319,23 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-EQUIPMENT-PREVIEW-READINESS-95E.json"
+      },
+      {
+        "id": "ADLER-L11-RIG-INFLUENCE-NORMALIZATION",
+        "lens": 11,
+        "severity": "unassigned; malformed weight input conditional, shared public reducer source contract",
+        "classification": "Previously recorded 059 historical finding, independently reconnected to 95e; not a new historical finding or additional proven unique issue.",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-RIG-INFLUENCE-NORMALIZATION",
+          "baseline-059/queue.json#/entries/175"
+        ],
+        "relationship_qualification": "Same previously recorded normalization finding, newly re-assessed against bounded 95e source. The earlier exporter safeguard and separate FBX input first failure remain distinct. No additional historical unique count asserted; final checkpoint 3821 and global aliases remain unavailable.",
+        "discovery": "partial; actual malformed producer admission, all consumers, native behavior and exact global aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-EQUIPMENT-MESH-RIG-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0600.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0605.json"
 }
