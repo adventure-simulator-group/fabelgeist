@@ -1,0 +1,1712 @@
+{
+  "schema": "726-historical-revision-claim-comparison-v1",
+  "scope": "Exactly the15 rows in original PL13-007 and PL13-009; no generalization to unexamined receipts or other source roles.",
+  "recorded_revision_claim": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "older_revision_with_identical_paths_and_bytes": "039329518e264f19206cf5b0b98d177433f40c17",
+  "revisions": {
+    "039329518e264f19206cf5b0b98d177433f40c17": {
+      "commit": {
+        "git_object": "039329518e264f19206cf5b0b98d177433f40c17",
+        "type": "commit",
+        "sha256": "3fc10977edb30d043bd0a451093ccff317436d884ddfc96da5c9c517566df6c0",
+        "bytes": 410,
+        "preserved_bytes": "recovered/physical-p16-revision-comparison/git-objects/039329518e264f19206cf5b0b98d177433f40c17.commit.gz"
+      },
+      "root_tree": "f4372e37d274215ab03ed1f16e947f9d7eaf244f",
+      "paths": {
+        "crates/adventuresim-tactical-server/src/combat.rs": {
+          "chain": [
+            {
+              "tree": "f4372e37d274215ab03ed1f16e947f9d7eaf244f",
+              "name": "crates",
+              "mode": "40000",
+              "child": "eb6253a9858670040f557db62b273f8448abe6a6"
+            },
+            {
+              "tree": "eb6253a9858670040f557db62b273f8448abe6a6",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "730258b00a6cc544ece5ce77869a854e9ab5e489"
+            },
+            {
+              "tree": "730258b00a6cc544ece5ce77869a854e9ab5e489",
+              "name": "src",
+              "mode": "40000",
+              "child": "533cdecf9c00048aa842b7266cd8f7178609a63f"
+            },
+            {
+              "tree": "533cdecf9c00048aa842b7266cd8f7178609a63f",
+              "name": "combat.rs",
+              "mode": "100644",
+              "child": "f05db255f7d1c29ee2f9a8870473d623dac845e4"
+            }
+          ],
+          "present": true,
+          "git_blob": "f05db255f7d1c29ee2f9a8870473d623dac845e4",
+          "sha256": "a21f436f16e7c331c844e120198460cd485a9342d6d9c41ff79fc039c913e0c5",
+          "bytes": 40236,
+          "lines": 1165
+        },
+        "crates/adventuresim-tactical-server/src/combat/authority.rs": {
+          "chain": [
+            {
+              "tree": "f4372e37d274215ab03ed1f16e947f9d7eaf244f",
+              "name": "crates",
+              "mode": "40000",
+              "child": "eb6253a9858670040f557db62b273f8448abe6a6"
+            },
+            {
+              "tree": "eb6253a9858670040f557db62b273f8448abe6a6",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "730258b00a6cc544ece5ce77869a854e9ab5e489"
+            },
+            {
+              "tree": "730258b00a6cc544ece5ce77869a854e9ab5e489",
+              "name": "src",
+              "mode": "40000",
+              "child": "533cdecf9c00048aa842b7266cd8f7178609a63f"
+            },
+            {
+              "tree": "533cdecf9c00048aa842b7266cd8f7178609a63f",
+              "name": "combat",
+              "mode": "40000",
+              "child": "139849969604908484ac3d1a6ff9dbee5c1c2cd5"
+            },
+            {
+              "tree": "139849969604908484ac3d1a6ff9dbee5c1c2cd5",
+              "name": "authority.rs",
+              "mode": "100644",
+              "child": "08d97232deb8de938a4fa4bc12e33e777397aecc"
+            }
+          ],
+          "present": true,
+          "git_blob": "08d97232deb8de938a4fa4bc12e33e777397aecc",
+          "sha256": "115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+          "bytes": 22727,
+          "lines": 672
+        },
+        "crates/adventuresim-tactical-server/src/combat/authority/clock.rs": {
+          "chain": [
+            {
+              "tree": "f4372e37d274215ab03ed1f16e947f9d7eaf244f",
+              "name": "crates",
+              "mode": "40000",
+              "child": "eb6253a9858670040f557db62b273f8448abe6a6"
+            },
+            {
+              "tree": "eb6253a9858670040f557db62b273f8448abe6a6",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "730258b00a6cc544ece5ce77869a854e9ab5e489"
+            },
+            {
+              "tree": "730258b00a6cc544ece5ce77869a854e9ab5e489",
+              "name": "src",
+              "mode": "40000",
+              "child": "533cdecf9c00048aa842b7266cd8f7178609a63f"
+            },
+            {
+              "tree": "533cdecf9c00048aa842b7266cd8f7178609a63f",
+              "name": "combat",
+              "mode": "40000",
+              "child": "139849969604908484ac3d1a6ff9dbee5c1c2cd5"
+            },
+            {
+              "tree": "139849969604908484ac3d1a6ff9dbee5c1c2cd5",
+              "name": "authority",
+              "mode": "40000",
+              "child": "a273dacce2fbc254f2b15aaae97cf3ae0054a15a"
+            },
+            {
+              "tree": "a273dacce2fbc254f2b15aaae97cf3ae0054a15a",
+              "name": "clock.rs",
+              "mode": "100644",
+              "child": "6e9dc1c104f98b845d1bca5cdab4981d9c9a8f11"
+            }
+          ],
+          "present": true,
+          "git_blob": "6e9dc1c104f98b845d1bca5cdab4981d9c9a8f11",
+          "sha256": "e2a1bd81fce6833b5da2be52e337c95192e41486450c4b1fa3260f684965d6d4",
+          "bytes": 1662,
+          "lines": 62
+        },
+        "crates/adventuresim-tactical-server/src/combat/authority/ranged.rs": {
+          "chain": [
+            {
+              "tree": "f4372e37d274215ab03ed1f16e947f9d7eaf244f",
+              "name": "crates",
+              "mode": "40000",
+              "child": "eb6253a9858670040f557db62b273f8448abe6a6"
+            },
+            {
+              "tree": "eb6253a9858670040f557db62b273f8448abe6a6",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "730258b00a6cc544ece5ce77869a854e9ab5e489"
+            },
+            {
+              "tree": "730258b00a6cc544ece5ce77869a854e9ab5e489",
+              "name": "src",
+              "mode": "40000",
+              "child": "533cdecf9c00048aa842b7266cd8f7178609a63f"
+            },
+            {
+              "tree": "533cdecf9c00048aa842b7266cd8f7178609a63f",
+              "name": "combat",
+              "mode": "40000",
+              "child": "139849969604908484ac3d1a6ff9dbee5c1c2cd5"
+            },
+            {
+              "tree": "139849969604908484ac3d1a6ff9dbee5c1c2cd5",
+              "name": "authority",
+              "mode": "40000",
+              "child": "a273dacce2fbc254f2b15aaae97cf3ae0054a15a"
+            },
+            {
+              "tree": "a273dacce2fbc254f2b15aaae97cf3ae0054a15a",
+              "name": "ranged.rs",
+              "mode": "100644",
+              "child": "23a2af61c71cc94aaf68f91d7f7d914ab4221c93"
+            }
+          ],
+          "present": true,
+          "git_blob": "23a2af61c71cc94aaf68f91d7f7d914ab4221c93",
+          "sha256": "d35702462831557e7e11e2ea5120640b22819bc95b1bc85858cbfc7d5e95d20c",
+          "bytes": 1548,
+          "lines": 54
+        },
+        "crates/adventuresim-tactical-server/src/combat/ingress/attack_start.rs": {
+          "chain": [
+            {
+              "tree": "f4372e37d274215ab03ed1f16e947f9d7eaf244f",
+              "name": "crates",
+              "mode": "40000",
+              "child": "eb6253a9858670040f557db62b273f8448abe6a6"
+            },
+            {
+              "tree": "eb6253a9858670040f557db62b273f8448abe6a6",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "730258b00a6cc544ece5ce77869a854e9ab5e489"
+            },
+            {
+              "tree": "730258b00a6cc544ece5ce77869a854e9ab5e489",
+              "name": "src",
+              "mode": "40000",
+              "child": "533cdecf9c00048aa842b7266cd8f7178609a63f"
+            },
+            {
+              "tree": "533cdecf9c00048aa842b7266cd8f7178609a63f",
+              "name": "combat",
+              "mode": "40000",
+              "child": "139849969604908484ac3d1a6ff9dbee5c1c2cd5"
+            },
+            {
+              "tree": "139849969604908484ac3d1a6ff9dbee5c1c2cd5",
+              "name": "ingress",
+              "mode": "40000",
+              "child": "b24b1cb67d35d1bdc9332b7aed42bb2725d868a9"
+            },
+            {
+              "tree": "b24b1cb67d35d1bdc9332b7aed42bb2725d868a9",
+              "name": "attack_start.rs",
+              "mode": "100644",
+              "child": "f2f74522988128fd1c8fbc457700e6e4a451e32e"
+            }
+          ],
+          "present": true,
+          "git_blob": "f2f74522988128fd1c8fbc457700e6e4a451e32e",
+          "sha256": "d0d569ebb258a1695be5f608854f31be959f905e0e7d67fa0cdb9b374b7c2b26",
+          "bytes": 9328,
+          "lines": 292
+        },
+        "crates/adventuresim-tactical-server/src/combat/ingress/lunge.rs": {
+          "chain": [
+            {
+              "tree": "f4372e37d274215ab03ed1f16e947f9d7eaf244f",
+              "name": "crates",
+              "mode": "40000",
+              "child": "eb6253a9858670040f557db62b273f8448abe6a6"
+            },
+            {
+              "tree": "eb6253a9858670040f557db62b273f8448abe6a6",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "730258b00a6cc544ece5ce77869a854e9ab5e489"
+            },
+            {
+              "tree": "730258b00a6cc544ece5ce77869a854e9ab5e489",
+              "name": "src",
+              "mode": "40000",
+              "child": "533cdecf9c00048aa842b7266cd8f7178609a63f"
+            },
+            {
+              "tree": "533cdecf9c00048aa842b7266cd8f7178609a63f",
+              "name": "combat",
+              "mode": "40000",
+              "child": "139849969604908484ac3d1a6ff9dbee5c1c2cd5"
+            },
+            {
+              "tree": "139849969604908484ac3d1a6ff9dbee5c1c2cd5",
+              "name": "ingress",
+              "mode": "40000",
+              "child": "b24b1cb67d35d1bdc9332b7aed42bb2725d868a9"
+            },
+            {
+              "tree": "b24b1cb67d35d1bdc9332b7aed42bb2725d868a9",
+              "name": "lunge.rs",
+              "mode": "100644",
+              "child": "2ec7d4bb8cef55d95aea7078344d7057c3f24bf2"
+            }
+          ],
+          "present": true,
+          "git_blob": "2ec7d4bb8cef55d95aea7078344d7057c3f24bf2",
+          "sha256": "266a1dafe1f65fe3bb52d1d0cc91a35eb3ac61bd95c23db020c31708bcd64846",
+          "bytes": 11735,
+          "lines": 287
+        },
+        "crates/adventuresim-tactical-server/src/combat/ingress/timing.rs": {
+          "chain": [
+            {
+              "tree": "f4372e37d274215ab03ed1f16e947f9d7eaf244f",
+              "name": "crates",
+              "mode": "40000",
+              "child": "eb6253a9858670040f557db62b273f8448abe6a6"
+            },
+            {
+              "tree": "eb6253a9858670040f557db62b273f8448abe6a6",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "730258b00a6cc544ece5ce77869a854e9ab5e489"
+            },
+            {
+              "tree": "730258b00a6cc544ece5ce77869a854e9ab5e489",
+              "name": "src",
+              "mode": "40000",
+              "child": "533cdecf9c00048aa842b7266cd8f7178609a63f"
+            },
+            {
+              "tree": "533cdecf9c00048aa842b7266cd8f7178609a63f",
+              "name": "combat",
+              "mode": "40000",
+              "child": "139849969604908484ac3d1a6ff9dbee5c1c2cd5"
+            },
+            {
+              "tree": "139849969604908484ac3d1a6ff9dbee5c1c2cd5",
+              "name": "ingress",
+              "mode": "40000",
+              "child": "b24b1cb67d35d1bdc9332b7aed42bb2725d868a9"
+            },
+            {
+              "tree": "b24b1cb67d35d1bdc9332b7aed42bb2725d868a9",
+              "name": "timing.rs",
+              "mode": "100644",
+              "child": "282aa9615e6f19263a12d03bb2b37ff5c71659d8"
+            }
+          ],
+          "present": true,
+          "git_blob": "282aa9615e6f19263a12d03bb2b37ff5c71659d8",
+          "sha256": "8e06350841fdbea99a6cf45ab7c1aca53485273d5b07a064c11ee956cee446f7",
+          "bytes": 5549,
+          "lines": 168
+        },
+        "crates/adventuresim-tactical-server/src/combat/ingress/work.rs": {
+          "chain": [
+            {
+              "tree": "f4372e37d274215ab03ed1f16e947f9d7eaf244f",
+              "name": "crates",
+              "mode": "40000",
+              "child": "eb6253a9858670040f557db62b273f8448abe6a6"
+            },
+            {
+              "tree": "eb6253a9858670040f557db62b273f8448abe6a6",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "730258b00a6cc544ece5ce77869a854e9ab5e489"
+            },
+            {
+              "tree": "730258b00a6cc544ece5ce77869a854e9ab5e489",
+              "name": "src",
+              "mode": "40000",
+              "child": "533cdecf9c00048aa842b7266cd8f7178609a63f"
+            },
+            {
+              "tree": "533cdecf9c00048aa842b7266cd8f7178609a63f",
+              "name": "combat",
+              "mode": "40000",
+              "child": "139849969604908484ac3d1a6ff9dbee5c1c2cd5"
+            },
+            {
+              "tree": "139849969604908484ac3d1a6ff9dbee5c1c2cd5",
+              "name": "ingress",
+              "mode": "40000",
+              "child": "b24b1cb67d35d1bdc9332b7aed42bb2725d868a9"
+            },
+            {
+              "tree": "b24b1cb67d35d1bdc9332b7aed42bb2725d868a9",
+              "name": "work.rs",
+              "mode": "100644",
+              "child": "ea9117bf8aa6ba065688bae4db3347b097385f2b"
+            }
+          ],
+          "present": true,
+          "git_blob": "ea9117bf8aa6ba065688bae4db3347b097385f2b",
+          "sha256": "6be424d70d473190c8983c7f8657d117cf7aedd39c7e13c8e3d0cd6021d8a3fa",
+          "bytes": 1524,
+          "lines": 50
+        },
+        "crates/adventuresim-tactical-server/src/combat/melee.rs": {
+          "chain": [
+            {
+              "tree": "f4372e37d274215ab03ed1f16e947f9d7eaf244f",
+              "name": "crates",
+              "mode": "40000",
+              "child": "eb6253a9858670040f557db62b273f8448abe6a6"
+            },
+            {
+              "tree": "eb6253a9858670040f557db62b273f8448abe6a6",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "730258b00a6cc544ece5ce77869a854e9ab5e489"
+            },
+            {
+              "tree": "730258b00a6cc544ece5ce77869a854e9ab5e489",
+              "name": "src",
+              "mode": "40000",
+              "child": "533cdecf9c00048aa842b7266cd8f7178609a63f"
+            },
+            {
+              "tree": "533cdecf9c00048aa842b7266cd8f7178609a63f",
+              "name": "combat",
+              "mode": "40000",
+              "child": "139849969604908484ac3d1a6ff9dbee5c1c2cd5"
+            },
+            {
+              "tree": "139849969604908484ac3d1a6ff9dbee5c1c2cd5",
+              "name": "melee.rs",
+              "mode": "100644",
+              "child": "e583a26db462cd66a99ae4cf603d7006032f40ad"
+            }
+          ],
+          "present": true,
+          "git_blob": "e583a26db462cd66a99ae4cf603d7006032f40ad",
+          "sha256": "6fd64503e79c60d080ad7322bfdd270e451887f48d89c80898c47cd161532727",
+          "bytes": 13606,
+          "lines": 363
+        },
+        "crates/adventuresim-tactical-server/src/combat/melee/active_defense.rs": {
+          "chain": [
+            {
+              "tree": "f4372e37d274215ab03ed1f16e947f9d7eaf244f",
+              "name": "crates",
+              "mode": "40000",
+              "child": "eb6253a9858670040f557db62b273f8448abe6a6"
+            },
+            {
+              "tree": "eb6253a9858670040f557db62b273f8448abe6a6",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "730258b00a6cc544ece5ce77869a854e9ab5e489"
+            },
+            {
+              "tree": "730258b00a6cc544ece5ce77869a854e9ab5e489",
+              "name": "src",
+              "mode": "40000",
+              "child": "533cdecf9c00048aa842b7266cd8f7178609a63f"
+            },
+            {
+              "tree": "533cdecf9c00048aa842b7266cd8f7178609a63f",
+              "name": "combat",
+              "mode": "40000",
+              "child": "139849969604908484ac3d1a6ff9dbee5c1c2cd5"
+            },
+            {
+              "tree": "139849969604908484ac3d1a6ff9dbee5c1c2cd5",
+              "name": "melee",
+              "mode": "40000",
+              "child": "04646f0255150bac2eacbf5fdfe9261461eb9e64"
+            },
+            {
+              "tree": "04646f0255150bac2eacbf5fdfe9261461eb9e64",
+              "name": "active_defense.rs",
+              "mode": "100644",
+              "child": "a4243bb58fe6f6f84a23070ee8e4a8f8b579afe6"
+            }
+          ],
+          "present": true,
+          "git_blob": "a4243bb58fe6f6f84a23070ee8e4a8f8b579afe6",
+          "sha256": "291b5d7171d5674bc929189b672bf92ee1b1348b9866f526f65d4377c8fbedbe",
+          "bytes": 6594,
+          "lines": 186
+        },
+        "crates/adventuresim-tactical-server/src/combat/melee/geometry.rs": {
+          "chain": [
+            {
+              "tree": "f4372e37d274215ab03ed1f16e947f9d7eaf244f",
+              "name": "crates",
+              "mode": "40000",
+              "child": "eb6253a9858670040f557db62b273f8448abe6a6"
+            },
+            {
+              "tree": "eb6253a9858670040f557db62b273f8448abe6a6",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "730258b00a6cc544ece5ce77869a854e9ab5e489"
+            },
+            {
+              "tree": "730258b00a6cc544ece5ce77869a854e9ab5e489",
+              "name": "src",
+              "mode": "40000",
+              "child": "533cdecf9c00048aa842b7266cd8f7178609a63f"
+            },
+            {
+              "tree": "533cdecf9c00048aa842b7266cd8f7178609a63f",
+              "name": "combat",
+              "mode": "40000",
+              "child": "139849969604908484ac3d1a6ff9dbee5c1c2cd5"
+            },
+            {
+              "tree": "139849969604908484ac3d1a6ff9dbee5c1c2cd5",
+              "name": "melee",
+              "mode": "40000",
+              "child": "04646f0255150bac2eacbf5fdfe9261461eb9e64"
+            },
+            {
+              "tree": "04646f0255150bac2eacbf5fdfe9261461eb9e64",
+              "name": "geometry.rs",
+              "mode": "100644",
+              "child": "88163a261e3730d1ad716af4cda24334f4d7ede2"
+            }
+          ],
+          "present": true,
+          "git_blob": "88163a261e3730d1ad716af4cda24334f4d7ede2",
+          "sha256": "0e6bff7b2a9b88f916e90495f72d65ce3e854b21a05b6a59d30a684174dfe957",
+          "bytes": 5562,
+          "lines": 137
+        },
+        "crates/adventuresim-tactical-server/src/combat/melee/outcome.rs": {
+          "chain": [
+            {
+              "tree": "f4372e37d274215ab03ed1f16e947f9d7eaf244f",
+              "name": "crates",
+              "mode": "40000",
+              "child": "eb6253a9858670040f557db62b273f8448abe6a6"
+            },
+            {
+              "tree": "eb6253a9858670040f557db62b273f8448abe6a6",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "730258b00a6cc544ece5ce77869a854e9ab5e489"
+            },
+            {
+              "tree": "730258b00a6cc544ece5ce77869a854e9ab5e489",
+              "name": "src",
+              "mode": "40000",
+              "child": "533cdecf9c00048aa842b7266cd8f7178609a63f"
+            },
+            {
+              "tree": "533cdecf9c00048aa842b7266cd8f7178609a63f",
+              "name": "combat",
+              "mode": "40000",
+              "child": "139849969604908484ac3d1a6ff9dbee5c1c2cd5"
+            },
+            {
+              "tree": "139849969604908484ac3d1a6ff9dbee5c1c2cd5",
+              "name": "melee",
+              "mode": "40000",
+              "child": "04646f0255150bac2eacbf5fdfe9261461eb9e64"
+            },
+            {
+              "tree": "04646f0255150bac2eacbf5fdfe9261461eb9e64",
+              "name": "outcome.rs",
+              "mode": "100644",
+              "child": "b0abdab946bf4d48b812463afb3221312fb89bcc"
+            }
+          ],
+          "present": true,
+          "git_blob": "b0abdab946bf4d48b812463afb3221312fb89bcc",
+          "sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+          "bytes": 4251,
+          "lines": 129
+        },
+        "crates/adventuresim-tactical-server/src/combat/protocol.rs": {
+          "chain": [
+            {
+              "tree": "f4372e37d274215ab03ed1f16e947f9d7eaf244f",
+              "name": "crates",
+              "mode": "40000",
+              "child": "eb6253a9858670040f557db62b273f8448abe6a6"
+            },
+            {
+              "tree": "eb6253a9858670040f557db62b273f8448abe6a6",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "730258b00a6cc544ece5ce77869a854e9ab5e489"
+            },
+            {
+              "tree": "730258b00a6cc544ece5ce77869a854e9ab5e489",
+              "name": "src",
+              "mode": "40000",
+              "child": "533cdecf9c00048aa842b7266cd8f7178609a63f"
+            },
+            {
+              "tree": "533cdecf9c00048aa842b7266cd8f7178609a63f",
+              "name": "combat",
+              "mode": "40000",
+              "child": "139849969604908484ac3d1a6ff9dbee5c1c2cd5"
+            },
+            {
+              "tree": "139849969604908484ac3d1a6ff9dbee5c1c2cd5",
+              "name": "protocol.rs",
+              "mode": "100644",
+              "child": "25aad130cf09fc30d0f1643f7f0f888f271bbad9"
+            }
+          ],
+          "present": true,
+          "git_blob": "25aad130cf09fc30d0f1643f7f0f888f271bbad9",
+          "sha256": "bdc79a977759c6bc89210af417c605af95bdf23d383bcf29a3e1f49552590c6a",
+          "bytes": 3135,
+          "lines": 86
+        },
+        "crates/adventuresim-tactical-server/src/combat/ranged.rs": {
+          "chain": [
+            {
+              "tree": "f4372e37d274215ab03ed1f16e947f9d7eaf244f",
+              "name": "crates",
+              "mode": "40000",
+              "child": "eb6253a9858670040f557db62b273f8448abe6a6"
+            },
+            {
+              "tree": "eb6253a9858670040f557db62b273f8448abe6a6",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "730258b00a6cc544ece5ce77869a854e9ab5e489"
+            },
+            {
+              "tree": "730258b00a6cc544ece5ce77869a854e9ab5e489",
+              "name": "src",
+              "mode": "40000",
+              "child": "533cdecf9c00048aa842b7266cd8f7178609a63f"
+            },
+            {
+              "tree": "533cdecf9c00048aa842b7266cd8f7178609a63f",
+              "name": "combat",
+              "mode": "40000",
+              "child": "139849969604908484ac3d1a6ff9dbee5c1c2cd5"
+            },
+            {
+              "tree": "139849969604908484ac3d1a6ff9dbee5c1c2cd5",
+              "name": "ranged.rs",
+              "mode": "100644",
+              "child": "2925c784cb9895def3156453b4dd4248fe915aa8"
+            }
+          ],
+          "present": true,
+          "git_blob": "2925c784cb9895def3156453b4dd4248fe915aa8",
+          "sha256": "e960a4f52cd7fa6f8d28da2983c5f066e216f0b74828295faa41b66bd436659e",
+          "bytes": 10863,
+          "lines": 335
+        },
+        "crates/adventuresim-tactical-server/src/combat/ranged/outcome.rs": {
+          "chain": [
+            {
+              "tree": "f4372e37d274215ab03ed1f16e947f9d7eaf244f",
+              "name": "crates",
+              "mode": "40000",
+              "child": "eb6253a9858670040f557db62b273f8448abe6a6"
+            },
+            {
+              "tree": "eb6253a9858670040f557db62b273f8448abe6a6",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "730258b00a6cc544ece5ce77869a854e9ab5e489"
+            },
+            {
+              "tree": "730258b00a6cc544ece5ce77869a854e9ab5e489",
+              "name": "src",
+              "mode": "40000",
+              "child": "533cdecf9c00048aa842b7266cd8f7178609a63f"
+            },
+            {
+              "tree": "533cdecf9c00048aa842b7266cd8f7178609a63f",
+              "name": "combat",
+              "mode": "40000",
+              "child": "139849969604908484ac3d1a6ff9dbee5c1c2cd5"
+            },
+            {
+              "tree": "139849969604908484ac3d1a6ff9dbee5c1c2cd5",
+              "name": "ranged",
+              "mode": "40000",
+              "child": "dcc44c4dbd7ebd9b2b664c352991537090b9478d"
+            },
+            {
+              "tree": "dcc44c4dbd7ebd9b2b664c352991537090b9478d",
+              "name": "outcome.rs",
+              "mode": "100644",
+              "child": "68b8593dac2b6d0ee1a2bf951caeb29f201cd32b"
+            }
+          ],
+          "present": true,
+          "git_blob": "68b8593dac2b6d0ee1a2bf951caeb29f201cd32b",
+          "sha256": "666e7ae0d0aaeeed9b53efc70bf96befd2ffbbfdc84adf176db63126431658f5",
+          "bytes": 3443,
+          "lines": 105
+        }
+      }
+    },
+    "f82adcabd9d89c4fa2dd7f99253a45297a0681ee": {
+      "commit": {
+        "git_object": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "type": "commit",
+        "sha256": "5d6c9edbf5f66b805778c133c87f147e79e828fe3bf681dbc52c269b27999281",
+        "bytes": 516,
+        "preserved_bytes": "recovered/physical-p16-revision-comparison/git-objects/f82adcabd9d89c4fa2dd7f99253a45297a0681ee.commit.gz"
+      },
+      "root_tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+      "paths": {
+        "crates/adventuresim-tactical-server/src/combat.rs": {
+          "chain": [
+            {
+              "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+              "name": "crates",
+              "mode": "40000",
+              "child": "487bf8e9d69990bb5240c4311c3abab6f8fdb093"
+            },
+            {
+              "tree": "487bf8e9d69990bb5240c4311c3abab6f8fdb093",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+            },
+            {
+              "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+              "name": "src",
+              "mode": "40000",
+              "child": "37162e086b885f355f6758a9249dd223932c4672"
+            },
+            {
+              "tree": "37162e086b885f355f6758a9249dd223932c4672",
+              "name": "combat.rs",
+              "mode": "100644",
+              "child": "db736322a183dd20ff67d70a96242eb9d28bd126"
+            }
+          ],
+          "present": true,
+          "git_blob": "db736322a183dd20ff67d70a96242eb9d28bd126",
+          "sha256": "847551347ed20961db50cd3ef65998a772b1d732f26b4810f4ccb725685547ba",
+          "bytes": 39026,
+          "lines": 1148,
+          "preserved_bytes": "recovered/physical-p16-revision-comparison/f82-381.source.gz",
+          "content_encoding": "gzip"
+        },
+        "crates/adventuresim-tactical-server/src/combat/authority.rs": {
+          "chain": [
+            {
+              "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+              "name": "crates",
+              "mode": "40000",
+              "child": "487bf8e9d69990bb5240c4311c3abab6f8fdb093"
+            },
+            {
+              "tree": "487bf8e9d69990bb5240c4311c3abab6f8fdb093",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+            },
+            {
+              "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+              "name": "src",
+              "mode": "40000",
+              "child": "37162e086b885f355f6758a9249dd223932c4672"
+            },
+            {
+              "tree": "37162e086b885f355f6758a9249dd223932c4672",
+              "name": "combat",
+              "mode": "40000",
+              "child": "bb66b434346305c68df5c348acec639386b5cc3b"
+            },
+            {
+              "tree": "bb66b434346305c68df5c348acec639386b5cc3b",
+              "name": "authority.rs",
+              "mode": "100644",
+              "child": "4c120856814dddd0e362ba0c5c3d1447b8878f7c"
+            }
+          ],
+          "present": true,
+          "git_blob": "4c120856814dddd0e362ba0c5c3d1447b8878f7c",
+          "sha256": "083b8b2af667eddfbb85c778a24dd9794d2b6729a5990f1334f922fa5b2a3730",
+          "bytes": 22323,
+          "lines": 674,
+          "preserved_bytes": "recovered/physical-p16-revision-comparison/f82-382.source.gz",
+          "content_encoding": "gzip"
+        },
+        "crates/adventuresim-tactical-server/src/combat/authority/clock.rs": {
+          "chain": [
+            {
+              "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+              "name": "crates",
+              "mode": "40000",
+              "child": "487bf8e9d69990bb5240c4311c3abab6f8fdb093"
+            },
+            {
+              "tree": "487bf8e9d69990bb5240c4311c3abab6f8fdb093",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+            },
+            {
+              "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+              "name": "src",
+              "mode": "40000",
+              "child": "37162e086b885f355f6758a9249dd223932c4672"
+            },
+            {
+              "tree": "37162e086b885f355f6758a9249dd223932c4672",
+              "name": "combat",
+              "mode": "40000",
+              "child": "bb66b434346305c68df5c348acec639386b5cc3b"
+            },
+            {
+              "tree": "bb66b434346305c68df5c348acec639386b5cc3b",
+              "name": "authority",
+              "mode": "40000",
+              "child": "a273dacce2fbc254f2b15aaae97cf3ae0054a15a"
+            },
+            {
+              "tree": "a273dacce2fbc254f2b15aaae97cf3ae0054a15a",
+              "name": "clock.rs",
+              "mode": "100644",
+              "child": "6e9dc1c104f98b845d1bca5cdab4981d9c9a8f11"
+            }
+          ],
+          "present": true,
+          "git_blob": "6e9dc1c104f98b845d1bca5cdab4981d9c9a8f11",
+          "sha256": "e2a1bd81fce6833b5da2be52e337c95192e41486450c4b1fa3260f684965d6d4",
+          "bytes": 1662,
+          "lines": 62,
+          "preserved_bytes": "recovered/physical-p16-revision-comparison/f82-383.source.gz",
+          "content_encoding": "gzip"
+        },
+        "crates/adventuresim-tactical-server/src/combat/authority/ranged.rs": {
+          "chain": [
+            {
+              "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+              "name": "crates",
+              "mode": "40000",
+              "child": "487bf8e9d69990bb5240c4311c3abab6f8fdb093"
+            },
+            {
+              "tree": "487bf8e9d69990bb5240c4311c3abab6f8fdb093",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+            },
+            {
+              "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+              "name": "src",
+              "mode": "40000",
+              "child": "37162e086b885f355f6758a9249dd223932c4672"
+            },
+            {
+              "tree": "37162e086b885f355f6758a9249dd223932c4672",
+              "name": "combat",
+              "mode": "40000",
+              "child": "bb66b434346305c68df5c348acec639386b5cc3b"
+            },
+            {
+              "tree": "bb66b434346305c68df5c348acec639386b5cc3b",
+              "name": "authority",
+              "mode": "40000",
+              "child": "a273dacce2fbc254f2b15aaae97cf3ae0054a15a"
+            },
+            {
+              "tree": "a273dacce2fbc254f2b15aaae97cf3ae0054a15a",
+              "name": "ranged.rs",
+              "mode": "100644",
+              "child": "23a2af61c71cc94aaf68f91d7f7d914ab4221c93"
+            }
+          ],
+          "present": true,
+          "git_blob": "23a2af61c71cc94aaf68f91d7f7d914ab4221c93",
+          "sha256": "d35702462831557e7e11e2ea5120640b22819bc95b1bc85858cbfc7d5e95d20c",
+          "bytes": 1548,
+          "lines": 54,
+          "preserved_bytes": "recovered/physical-p16-revision-comparison/f82-384.source.gz",
+          "content_encoding": "gzip"
+        },
+        "crates/adventuresim-tactical-server/src/combat/ingress/attack_start.rs": {
+          "chain": [
+            {
+              "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+              "name": "crates",
+              "mode": "40000",
+              "child": "487bf8e9d69990bb5240c4311c3abab6f8fdb093"
+            },
+            {
+              "tree": "487bf8e9d69990bb5240c4311c3abab6f8fdb093",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+            },
+            {
+              "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+              "name": "src",
+              "mode": "40000",
+              "child": "37162e086b885f355f6758a9249dd223932c4672"
+            },
+            {
+              "tree": "37162e086b885f355f6758a9249dd223932c4672",
+              "name": "combat",
+              "mode": "40000",
+              "child": "bb66b434346305c68df5c348acec639386b5cc3b"
+            },
+            {
+              "tree": "bb66b434346305c68df5c348acec639386b5cc3b",
+              "name": "ingress",
+              "mode": "40000",
+              "child": "f9cd4600046bc47c894de033a0e6885d6e4fcdb2"
+            },
+            {
+              "tree": "f9cd4600046bc47c894de033a0e6885d6e4fcdb2",
+              "name": "attack_start.rs",
+              "mode": "100644",
+              "child": "9b27d1e66f8b25e30a0a1d74ca1507c701632868"
+            }
+          ],
+          "present": true,
+          "git_blob": "9b27d1e66f8b25e30a0a1d74ca1507c701632868",
+          "sha256": "d00a98bfffa50eabd877d4ec5d96667e98aa85c161639a074f7f3ec2a4046aa7",
+          "bytes": 9291,
+          "lines": 295,
+          "preserved_bytes": "recovered/physical-p16-revision-comparison/f82-389.source.gz",
+          "content_encoding": "gzip"
+        },
+        "crates/adventuresim-tactical-server/src/combat/ingress/lunge.rs": {
+          "chain": [
+            {
+              "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+              "name": "crates",
+              "mode": "40000",
+              "child": "487bf8e9d69990bb5240c4311c3abab6f8fdb093"
+            },
+            {
+              "tree": "487bf8e9d69990bb5240c4311c3abab6f8fdb093",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+            },
+            {
+              "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+              "name": "src",
+              "mode": "40000",
+              "child": "37162e086b885f355f6758a9249dd223932c4672"
+            },
+            {
+              "tree": "37162e086b885f355f6758a9249dd223932c4672",
+              "name": "combat",
+              "mode": "40000",
+              "child": "bb66b434346305c68df5c348acec639386b5cc3b"
+            },
+            {
+              "tree": "bb66b434346305c68df5c348acec639386b5cc3b",
+              "name": "ingress",
+              "mode": "40000",
+              "child": "f9cd4600046bc47c894de033a0e6885d6e4fcdb2"
+            },
+            {
+              "tree": "f9cd4600046bc47c894de033a0e6885d6e4fcdb2",
+              "name": "lunge.rs",
+              "mode": "100644",
+              "child": "11f421d7e66d1003923972430fa8cd4f1280cb72"
+            }
+          ],
+          "present": true,
+          "git_blob": "11f421d7e66d1003923972430fa8cd4f1280cb72",
+          "sha256": "6ce3ba9b4f6c1fef1cd90580466b74bde537c4ec2dac0f1cecec0fcda437c12b",
+          "bytes": 10303,
+          "lines": 298,
+          "preserved_bytes": "recovered/physical-p16-revision-comparison/f82-390.source.gz",
+          "content_encoding": "gzip"
+        },
+        "crates/adventuresim-tactical-server/src/combat/ingress/timing.rs": {
+          "chain": [
+            {
+              "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+              "name": "crates",
+              "mode": "40000",
+              "child": "487bf8e9d69990bb5240c4311c3abab6f8fdb093"
+            },
+            {
+              "tree": "487bf8e9d69990bb5240c4311c3abab6f8fdb093",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+            },
+            {
+              "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+              "name": "src",
+              "mode": "40000",
+              "child": "37162e086b885f355f6758a9249dd223932c4672"
+            },
+            {
+              "tree": "37162e086b885f355f6758a9249dd223932c4672",
+              "name": "combat",
+              "mode": "40000",
+              "child": "bb66b434346305c68df5c348acec639386b5cc3b"
+            },
+            {
+              "tree": "bb66b434346305c68df5c348acec639386b5cc3b",
+              "name": "ingress",
+              "mode": "40000",
+              "child": "f9cd4600046bc47c894de033a0e6885d6e4fcdb2"
+            },
+            {
+              "tree": "f9cd4600046bc47c894de033a0e6885d6e4fcdb2",
+              "name": "timing.rs",
+              "mode": "100644",
+              "child": "282aa9615e6f19263a12d03bb2b37ff5c71659d8"
+            }
+          ],
+          "present": true,
+          "git_blob": "282aa9615e6f19263a12d03bb2b37ff5c71659d8",
+          "sha256": "8e06350841fdbea99a6cf45ab7c1aca53485273d5b07a064c11ee956cee446f7",
+          "bytes": 5549,
+          "lines": 168,
+          "preserved_bytes": "recovered/physical-p16-revision-comparison/f82-391.source.gz",
+          "content_encoding": "gzip"
+        },
+        "crates/adventuresim-tactical-server/src/combat/ingress/work.rs": {
+          "chain": [
+            {
+              "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+              "name": "crates",
+              "mode": "40000",
+              "child": "487bf8e9d69990bb5240c4311c3abab6f8fdb093"
+            },
+            {
+              "tree": "487bf8e9d69990bb5240c4311c3abab6f8fdb093",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+            },
+            {
+              "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+              "name": "src",
+              "mode": "40000",
+              "child": "37162e086b885f355f6758a9249dd223932c4672"
+            },
+            {
+              "tree": "37162e086b885f355f6758a9249dd223932c4672",
+              "name": "combat",
+              "mode": "40000",
+              "child": "bb66b434346305c68df5c348acec639386b5cc3b"
+            },
+            {
+              "tree": "bb66b434346305c68df5c348acec639386b5cc3b",
+              "name": "ingress",
+              "mode": "40000",
+              "child": "f9cd4600046bc47c894de033a0e6885d6e4fcdb2"
+            },
+            {
+              "tree": "f9cd4600046bc47c894de033a0e6885d6e4fcdb2",
+              "name": "work.rs",
+              "mode": "100644",
+              "child": "ea9117bf8aa6ba065688bae4db3347b097385f2b"
+            }
+          ],
+          "present": true,
+          "git_blob": "ea9117bf8aa6ba065688bae4db3347b097385f2b",
+          "sha256": "6be424d70d473190c8983c7f8657d117cf7aedd39c7e13c8e3d0cd6021d8a3fa",
+          "bytes": 1524,
+          "lines": 50,
+          "preserved_bytes": "recovered/physical-p16-revision-comparison/f82-392.source.gz",
+          "content_encoding": "gzip"
+        },
+        "crates/adventuresim-tactical-server/src/combat/melee.rs": {
+          "chain": [
+            {
+              "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+              "name": "crates",
+              "mode": "40000",
+              "child": "487bf8e9d69990bb5240c4311c3abab6f8fdb093"
+            },
+            {
+              "tree": "487bf8e9d69990bb5240c4311c3abab6f8fdb093",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+            },
+            {
+              "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+              "name": "src",
+              "mode": "40000",
+              "child": "37162e086b885f355f6758a9249dd223932c4672"
+            },
+            {
+              "tree": "37162e086b885f355f6758a9249dd223932c4672",
+              "name": "combat",
+              "mode": "40000",
+              "child": "bb66b434346305c68df5c348acec639386b5cc3b"
+            },
+            {
+              "tree": "bb66b434346305c68df5c348acec639386b5cc3b",
+              "name": "melee.rs",
+              "mode": "100644",
+              "child": "d0eb217d6cf8558fc2040438f8632dec03a3bb19"
+            }
+          ],
+          "present": true,
+          "git_blob": "d0eb217d6cf8558fc2040438f8632dec03a3bb19",
+          "sha256": "fe64843450cc6ba428fd3c9c1fec3a5fcb5b65b3cbf3a5c21997548d3a355dd6",
+          "bytes": 17181,
+          "lines": 473,
+          "preserved_bytes": "recovered/physical-p16-revision-comparison/f82-393.source.gz",
+          "content_encoding": "gzip"
+        },
+        "crates/adventuresim-tactical-server/src/combat/melee/active_defense.rs": {
+          "chain": [
+            {
+              "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+              "name": "crates",
+              "mode": "40000",
+              "child": "487bf8e9d69990bb5240c4311c3abab6f8fdb093"
+            },
+            {
+              "tree": "487bf8e9d69990bb5240c4311c3abab6f8fdb093",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+            },
+            {
+              "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+              "name": "src",
+              "mode": "40000",
+              "child": "37162e086b885f355f6758a9249dd223932c4672"
+            },
+            {
+              "tree": "37162e086b885f355f6758a9249dd223932c4672",
+              "name": "combat",
+              "mode": "40000",
+              "child": "bb66b434346305c68df5c348acec639386b5cc3b"
+            },
+            {
+              "tree": "bb66b434346305c68df5c348acec639386b5cc3b",
+              "name": "melee",
+              "mode": "40000",
+              "child": "6bc92b6d537997b69f9ed3ee661f6bc94ffcf323"
+            },
+            {
+              "tree": "6bc92b6d537997b69f9ed3ee661f6bc94ffcf323",
+              "name": "active_defense.rs",
+              "mode": "100644",
+              "child": "a4243bb58fe6f6f84a23070ee8e4a8f8b579afe6"
+            }
+          ],
+          "present": true,
+          "git_blob": "a4243bb58fe6f6f84a23070ee8e4a8f8b579afe6",
+          "sha256": "291b5d7171d5674bc929189b672bf92ee1b1348b9866f526f65d4377c8fbedbe",
+          "bytes": 6594,
+          "lines": 186,
+          "preserved_bytes": "recovered/physical-p16-revision-comparison/f82-394.source.gz",
+          "content_encoding": "gzip"
+        },
+        "crates/adventuresim-tactical-server/src/combat/melee/geometry.rs": {
+          "chain": [
+            {
+              "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+              "name": "crates",
+              "mode": "40000",
+              "child": "487bf8e9d69990bb5240c4311c3abab6f8fdb093"
+            },
+            {
+              "tree": "487bf8e9d69990bb5240c4311c3abab6f8fdb093",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+            },
+            {
+              "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+              "name": "src",
+              "mode": "40000",
+              "child": "37162e086b885f355f6758a9249dd223932c4672"
+            },
+            {
+              "tree": "37162e086b885f355f6758a9249dd223932c4672",
+              "name": "combat",
+              "mode": "40000",
+              "child": "bb66b434346305c68df5c348acec639386b5cc3b"
+            },
+            {
+              "tree": "bb66b434346305c68df5c348acec639386b5cc3b",
+              "name": "melee",
+              "mode": "40000",
+              "child": "6bc92b6d537997b69f9ed3ee661f6bc94ffcf323"
+            }
+          ],
+          "missing_at_tree": "6bc92b6d537997b69f9ed3ee661f6bc94ffcf323",
+          "missing_component": "geometry.rs",
+          "unresolved_suffix": [
+            "geometry.rs"
+          ],
+          "present": false
+        },
+        "crates/adventuresim-tactical-server/src/combat/melee/outcome.rs": {
+          "chain": [
+            {
+              "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+              "name": "crates",
+              "mode": "40000",
+              "child": "487bf8e9d69990bb5240c4311c3abab6f8fdb093"
+            },
+            {
+              "tree": "487bf8e9d69990bb5240c4311c3abab6f8fdb093",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+            },
+            {
+              "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+              "name": "src",
+              "mode": "40000",
+              "child": "37162e086b885f355f6758a9249dd223932c4672"
+            },
+            {
+              "tree": "37162e086b885f355f6758a9249dd223932c4672",
+              "name": "combat",
+              "mode": "40000",
+              "child": "bb66b434346305c68df5c348acec639386b5cc3b"
+            },
+            {
+              "tree": "bb66b434346305c68df5c348acec639386b5cc3b",
+              "name": "melee",
+              "mode": "40000",
+              "child": "6bc92b6d537997b69f9ed3ee661f6bc94ffcf323"
+            },
+            {
+              "tree": "6bc92b6d537997b69f9ed3ee661f6bc94ffcf323",
+              "name": "outcome.rs",
+              "mode": "100644",
+              "child": "b0abdab946bf4d48b812463afb3221312fb89bcc"
+            }
+          ],
+          "present": true,
+          "git_blob": "b0abdab946bf4d48b812463afb3221312fb89bcc",
+          "sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+          "bytes": 4251,
+          "lines": 129,
+          "preserved_bytes": "recovered/physical-p16-revision-comparison/f82-396.source.gz",
+          "content_encoding": "gzip"
+        },
+        "crates/adventuresim-tactical-server/src/combat/protocol.rs": {
+          "chain": [
+            {
+              "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+              "name": "crates",
+              "mode": "40000",
+              "child": "487bf8e9d69990bb5240c4311c3abab6f8fdb093"
+            },
+            {
+              "tree": "487bf8e9d69990bb5240c4311c3abab6f8fdb093",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+            },
+            {
+              "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+              "name": "src",
+              "mode": "40000",
+              "child": "37162e086b885f355f6758a9249dd223932c4672"
+            },
+            {
+              "tree": "37162e086b885f355f6758a9249dd223932c4672",
+              "name": "combat",
+              "mode": "40000",
+              "child": "bb66b434346305c68df5c348acec639386b5cc3b"
+            },
+            {
+              "tree": "bb66b434346305c68df5c348acec639386b5cc3b",
+              "name": "protocol.rs",
+              "mode": "100644",
+              "child": "25aad130cf09fc30d0f1643f7f0f888f271bbad9"
+            }
+          ],
+          "present": true,
+          "git_blob": "25aad130cf09fc30d0f1643f7f0f888f271bbad9",
+          "sha256": "bdc79a977759c6bc89210af417c605af95bdf23d383bcf29a3e1f49552590c6a",
+          "bytes": 3135,
+          "lines": 86,
+          "preserved_bytes": "recovered/physical-p16-revision-comparison/f82-397.source.gz",
+          "content_encoding": "gzip"
+        },
+        "crates/adventuresim-tactical-server/src/combat/ranged.rs": {
+          "chain": [
+            {
+              "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+              "name": "crates",
+              "mode": "40000",
+              "child": "487bf8e9d69990bb5240c4311c3abab6f8fdb093"
+            },
+            {
+              "tree": "487bf8e9d69990bb5240c4311c3abab6f8fdb093",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+            },
+            {
+              "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+              "name": "src",
+              "mode": "40000",
+              "child": "37162e086b885f355f6758a9249dd223932c4672"
+            },
+            {
+              "tree": "37162e086b885f355f6758a9249dd223932c4672",
+              "name": "combat",
+              "mode": "40000",
+              "child": "bb66b434346305c68df5c348acec639386b5cc3b"
+            },
+            {
+              "tree": "bb66b434346305c68df5c348acec639386b5cc3b",
+              "name": "ranged.rs",
+              "mode": "100644",
+              "child": "505e63ed13cb8b9f929648d1e373b3e42803cf99"
+            }
+          ],
+          "present": true,
+          "git_blob": "505e63ed13cb8b9f929648d1e373b3e42803cf99",
+          "sha256": "1a644ecf10b57c8e5f34d503a9002cd71bd5ecdf4736d1dd689925c65a91f10e",
+          "bytes": 10459,
+          "lines": 325,
+          "preserved_bytes": "recovered/physical-p16-revision-comparison/f82-398.source.gz",
+          "content_encoding": "gzip"
+        },
+        "crates/adventuresim-tactical-server/src/combat/ranged/outcome.rs": {
+          "chain": [
+            {
+              "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+              "name": "crates",
+              "mode": "40000",
+              "child": "487bf8e9d69990bb5240c4311c3abab6f8fdb093"
+            },
+            {
+              "tree": "487bf8e9d69990bb5240c4311c3abab6f8fdb093",
+              "name": "adventuresim-tactical-server",
+              "mode": "40000",
+              "child": "15877347ab9a17394bad1d2f368c6c911373ab75"
+            },
+            {
+              "tree": "15877347ab9a17394bad1d2f368c6c911373ab75",
+              "name": "src",
+              "mode": "40000",
+              "child": "37162e086b885f355f6758a9249dd223932c4672"
+            },
+            {
+              "tree": "37162e086b885f355f6758a9249dd223932c4672",
+              "name": "combat",
+              "mode": "40000",
+              "child": "bb66b434346305c68df5c348acec639386b5cc3b"
+            },
+            {
+              "tree": "bb66b434346305c68df5c348acec639386b5cc3b",
+              "name": "ranged",
+              "mode": "40000",
+              "child": "120dba24037f727cd83ec292752a4642c7356940"
+            },
+            {
+              "tree": "120dba24037f727cd83ec292752a4642c7356940",
+              "name": "outcome.rs",
+              "mode": "100644",
+              "child": "96ef1037e3b5a6f235888ea71e9ca15dff32a6db"
+            }
+          ],
+          "present": true,
+          "git_blob": "96ef1037e3b5a6f235888ea71e9ca15dff32a6db",
+          "sha256": "f45632053e10a52d5ea4a1ecf1259f323c55fa091f9de58a92e8894815c55cc8",
+          "bytes": 3428,
+          "lines": 105,
+          "preserved_bytes": "recovered/physical-p16-revision-comparison/f82-399.source.gz",
+          "content_encoding": "gzip"
+        }
+      }
+    }
+  },
+  "tree_objects": {
+    "f4372e37d274215ab03ed1f16e947f9d7eaf244f": {
+      "git_object": "f4372e37d274215ab03ed1f16e947f9d7eaf244f",
+      "type": "tree",
+      "sha256": "71096dc7999e0379e1d8f8caf084d0fa77c92eaabff11dfc474b8ac9b2cdd416",
+      "bytes": 1635,
+      "preserved_bytes": "recovered/physical-p16-revision-comparison/git-objects/f4372e37d274215ab03ed1f16e947f9d7eaf244f.tree.gz"
+    },
+    "eb6253a9858670040f557db62b273f8448abe6a6": {
+      "git_object": "eb6253a9858670040f557db62b273f8448abe6a6",
+      "type": "tree",
+      "sha256": "8d4c4eed821adbd5429751840dc116689d1a63fb7d7a1bea15d2d41479029612",
+      "bytes": 2434,
+      "preserved_bytes": "recovered/physical-p16-revision-comparison/git-objects/eb6253a9858670040f557db62b273f8448abe6a6.tree.gz"
+    },
+    "730258b00a6cc544ece5ce77869a854e9ab5e489": {
+      "git_object": "730258b00a6cc544ece5ce77869a854e9ab5e489",
+      "type": "tree",
+      "sha256": "c2ded6c256bef07a004b29cf9d8bdb13abbd090db6b6a46ce900323195eff38f",
+      "bytes": 68,
+      "preserved_bytes": "recovered/physical-p16-revision-comparison/git-objects/730258b00a6cc544ece5ce77869a854e9ab5e489.tree.gz"
+    },
+    "533cdecf9c00048aa842b7266cd8f7178609a63f": {
+      "git_object": "533cdecf9c00048aa842b7266cd8f7178609a63f",
+      "type": "tree",
+      "sha256": "f5893049f3dc84700ae6ee896896f49c9b7230339e9fd448a5528012a859c8f8",
+      "bytes": 1122,
+      "preserved_bytes": "recovered/physical-p16-revision-comparison/git-objects/533cdecf9c00048aa842b7266cd8f7178609a63f.tree.gz"
+    },
+    "500ca728b94674afda6b91f8f01b4ed084825a28": {
+      "git_object": "500ca728b94674afda6b91f8f01b4ed084825a28",
+      "type": "tree",
+      "sha256": "402652e824220cc3d8bf45a5eb4a04e04f7de1b22b29f0f023ec0ffcbf0be90d",
+      "bytes": 1669,
+      "preserved_bytes": "recovered/physical-p16-revision-comparison/git-objects/500ca728b94674afda6b91f8f01b4ed084825a28.tree.gz"
+    },
+    "487bf8e9d69990bb5240c4311c3abab6f8fdb093": {
+      "git_object": "487bf8e9d69990bb5240c4311c3abab6f8fdb093",
+      "type": "tree",
+      "sha256": "887e1e1b37603c153653882edfd48cbaa349f8b7f730d813c70753a9b42ed35e",
+      "bytes": 2434,
+      "preserved_bytes": "recovered/physical-p16-revision-comparison/git-objects/487bf8e9d69990bb5240c4311c3abab6f8fdb093.tree.gz"
+    },
+    "15877347ab9a17394bad1d2f368c6c911373ab75": {
+      "git_object": "15877347ab9a17394bad1d2f368c6c911373ab75",
+      "type": "tree",
+      "sha256": "50c25d868106dc58e7a0e540b2a3d8bb2cb089a657b85e5649de2c0346f139e1",
+      "bytes": 68,
+      "preserved_bytes": "recovered/physical-p16-revision-comparison/git-objects/15877347ab9a17394bad1d2f368c6c911373ab75.tree.gz"
+    },
+    "37162e086b885f355f6758a9249dd223932c4672": {
+      "git_object": "37162e086b885f355f6758a9249dd223932c4672",
+      "type": "tree",
+      "sha256": "130f07f791f533178e219ff8badfbee77a8810efc49f3bd2e1b198f1d89b12df",
+      "bytes": 1122,
+      "preserved_bytes": "recovered/physical-p16-revision-comparison/git-objects/37162e086b885f355f6758a9249dd223932c4672.tree.gz"
+    },
+    "139849969604908484ac3d1a6ff9dbee5c1c2cd5": {
+      "git_object": "139849969604908484ac3d1a6ff9dbee5c1c2cd5",
+      "type": "tree",
+      "sha256": "7f313a7a12f6cf647a37b0fbd1f8eee0ef0c1b59c10c3cee967dab63badab496",
+      "bytes": 594,
+      "preserved_bytes": "recovered/physical-p16-revision-comparison/git-objects/139849969604908484ac3d1a6ff9dbee5c1c2cd5.tree.gz"
+    },
+    "bb66b434346305c68df5c348acec639386b5cc3b": {
+      "git_object": "bb66b434346305c68df5c348acec639386b5cc3b",
+      "type": "tree",
+      "sha256": "2933eb07216ddb7a1dffdd675f4b364fc42cc92b3dbf2be86e0d970d391f7104",
+      "bytes": 594,
+      "preserved_bytes": "recovered/physical-p16-revision-comparison/git-objects/bb66b434346305c68df5c348acec639386b5cc3b.tree.gz"
+    },
+    "a273dacce2fbc254f2b15aaae97cf3ae0054a15a": {
+      "git_object": "a273dacce2fbc254f2b15aaae97cf3ae0054a15a",
+      "type": "tree",
+      "sha256": "4b485f9cbbfd78a391f238fbece7354a27e6da19b1214a49d620fac97334bcf0",
+      "bytes": 73,
+      "preserved_bytes": "recovered/physical-p16-revision-comparison/git-objects/a273dacce2fbc254f2b15aaae97cf3ae0054a15a.tree.gz"
+    },
+    "b24b1cb67d35d1bdc9332b7aed42bb2725d868a9": {
+      "git_object": "b24b1cb67d35d1bdc9332b7aed42bb2725d868a9",
+      "type": "tree",
+      "sha256": "c5d942f4f5c4044da0705164324796d58bc604252c430491d91bd4046192a674",
+      "bytes": 151,
+      "preserved_bytes": "recovered/physical-p16-revision-comparison/git-objects/b24b1cb67d35d1bdc9332b7aed42bb2725d868a9.tree.gz"
+    },
+    "f9cd4600046bc47c894de033a0e6885d6e4fcdb2": {
+      "git_object": "f9cd4600046bc47c894de033a0e6885d6e4fcdb2",
+      "type": "tree",
+      "sha256": "ab4ff70e6291b962e0ef2a28338ef1aa8a7672e2b1490a70c5a84984b3c42c8c",
+      "bytes": 151,
+      "preserved_bytes": "recovered/physical-p16-revision-comparison/git-objects/f9cd4600046bc47c894de033a0e6885d6e4fcdb2.tree.gz"
+    },
+    "04646f0255150bac2eacbf5fdfe9261461eb9e64": {
+      "git_object": "04646f0255150bac2eacbf5fdfe9261461eb9e64",
+      "type": "tree",
+      "sha256": "bd4e1eec0b3f72fbec99e45a60af2e34b93965a04e4a507347e155f4969254be",
+      "bytes": 122,
+      "preserved_bytes": "recovered/physical-p16-revision-comparison/git-objects/04646f0255150bac2eacbf5fdfe9261461eb9e64.tree.gz"
+    },
+    "6bc92b6d537997b69f9ed3ee661f6bc94ffcf323": {
+      "git_object": "6bc92b6d537997b69f9ed3ee661f6bc94ffcf323",
+      "type": "tree",
+      "sha256": "f7d1dbb0d9d1811061dd8f3afba12ee2bcb9bcc220930e637e04528189de80b0",
+      "bytes": 83,
+      "preserved_bytes": "recovered/physical-p16-revision-comparison/git-objects/6bc92b6d537997b69f9ed3ee661f6bc94ffcf323.tree.gz"
+    },
+    "dcc44c4dbd7ebd9b2b664c352991537090b9478d": {
+      "git_object": "dcc44c4dbd7ebd9b2b664c352991537090b9478d",
+      "type": "tree",
+      "sha256": "4e330ba6bf8801ab9455935aa07d41ccda7c7b81c4eb64ecf6f6d275d7e0dabe",
+      "bytes": 38,
+      "preserved_bytes": "recovered/physical-p16-revision-comparison/git-objects/dcc44c4dbd7ebd9b2b664c352991537090b9478d.tree.gz"
+    },
+    "120dba24037f727cd83ec292752a4642c7356940": {
+      "git_object": "120dba24037f727cd83ec292752a4642c7356940",
+      "type": "tree",
+      "sha256": "a9bfba10c4015af5b9e073a34afa92279b17230445f20aebffb843ca69b9cfe9",
+      "bytes": 38,
+      "preserved_bytes": "recovered/physical-p16-revision-comparison/git-objects/120dba24037f727cd83ec292752a4642c7356940.tree.gz"
+    }
+  },
+  "comparisons": [
+    {
+      "original_index": 381,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat.rs",
+      "original_receipt": "parallel-l13-20261029/READ-PL13-007.json",
+      "revision_label_as_recorded": "physical-p16 f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact",
+      "recorded_sha256": "a21f436f16e7c331c844e120198460cd485a9342d6d9c41ff79fc039c913e0c5",
+      "recorded_lines": 1165,
+      "original_source_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "older_committed_revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "older_committed_body_matches_recorded": true,
+      "claimed_committed_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "claimed_committed_body_present": true,
+      "claimed_committed_body_matches_recorded": false,
+      "claimed_committed_sha256": "847551347ed20961db50cd3ef65998a772b1d732f26b4810f4ccb725685547ba",
+      "claimed_committed_lines": 1148,
+      "qualification": "Membership at039 is independent evidence of identical bytes, not proof of the reviewer workspace revision. Retain the original f82 label and unresolved provenance; no attribution or3821 promotion."
+    },
+    {
+      "original_index": 382,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/authority.rs",
+      "original_receipt": "parallel-l13-20261029/READ-PL13-007.json",
+      "revision_label_as_recorded": "physical-p16 f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact",
+      "recorded_sha256": "115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+      "recorded_lines": 672,
+      "original_source_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "older_committed_revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "older_committed_body_matches_recorded": true,
+      "claimed_committed_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "claimed_committed_body_present": true,
+      "claimed_committed_body_matches_recorded": false,
+      "claimed_committed_sha256": "083b8b2af667eddfbb85c778a24dd9794d2b6729a5990f1334f922fa5b2a3730",
+      "claimed_committed_lines": 674,
+      "qualification": "Membership at039 is independent evidence of identical bytes, not proof of the reviewer workspace revision. Retain the original f82 label and unresolved provenance; no attribution or3821 promotion."
+    },
+    {
+      "original_index": 383,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/authority/clock.rs",
+      "original_receipt": "parallel-l13-20261029/READ-PL13-007.json",
+      "revision_label_as_recorded": "physical-p16 f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact",
+      "recorded_sha256": "e2a1bd81fce6833b5da2be52e337c95192e41486450c4b1fa3260f684965d6d4",
+      "recorded_lines": 62,
+      "original_source_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "older_committed_revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "older_committed_body_matches_recorded": true,
+      "claimed_committed_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "claimed_committed_body_present": true,
+      "claimed_committed_body_matches_recorded": true,
+      "claimed_committed_sha256": "e2a1bd81fce6833b5da2be52e337c95192e41486450c4b1fa3260f684965d6d4",
+      "claimed_committed_lines": 62,
+      "qualification": "Membership at039 is independent evidence of identical bytes, not proof of the reviewer workspace revision. Retain the original f82 label and unresolved provenance; no attribution or3821 promotion."
+    },
+    {
+      "original_index": 384,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/authority/ranged.rs",
+      "original_receipt": "parallel-l13-20261029/READ-PL13-007.json",
+      "revision_label_as_recorded": "physical-p16 f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact",
+      "recorded_sha256": "d35702462831557e7e11e2ea5120640b22819bc95b1bc85858cbfc7d5e95d20c",
+      "recorded_lines": 54,
+      "original_source_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "older_committed_revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "older_committed_body_matches_recorded": true,
+      "claimed_committed_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "claimed_committed_body_present": true,
+      "claimed_committed_body_matches_recorded": true,
+      "claimed_committed_sha256": "d35702462831557e7e11e2ea5120640b22819bc95b1bc85858cbfc7d5e95d20c",
+      "claimed_committed_lines": 54,
+      "qualification": "Membership at039 is independent evidence of identical bytes, not proof of the reviewer workspace revision. Retain the original f82 label and unresolved provenance; no attribution or3821 promotion."
+    },
+    {
+      "original_index": 389,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/attack_start.rs",
+      "original_receipt": "parallel-l13-20261029/READ-PL13-009.json",
+      "revision_label_as_recorded": "physical-p16 f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact",
+      "recorded_sha256": "d0d569ebb258a1695be5f608854f31be959f905e0e7d67fa0cdb9b374b7c2b26",
+      "recorded_lines": 292,
+      "original_source_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "older_committed_revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "older_committed_body_matches_recorded": true,
+      "claimed_committed_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "claimed_committed_body_present": true,
+      "claimed_committed_body_matches_recorded": false,
+      "claimed_committed_sha256": "d00a98bfffa50eabd877d4ec5d96667e98aa85c161639a074f7f3ec2a4046aa7",
+      "claimed_committed_lines": 295,
+      "qualification": "Membership at039 is independent evidence of identical bytes, not proof of the reviewer workspace revision. Retain the original f82 label and unresolved provenance; no attribution or3821 promotion."
+    },
+    {
+      "original_index": 390,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/lunge.rs",
+      "original_receipt": "parallel-l13-20261029/READ-PL13-009.json",
+      "revision_label_as_recorded": "physical-p16 f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact",
+      "recorded_sha256": "266a1dafe1f65fe3bb52d1d0cc91a35eb3ac61bd95c23db020c31708bcd64846",
+      "recorded_lines": 287,
+      "original_source_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "older_committed_revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "older_committed_body_matches_recorded": true,
+      "claimed_committed_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "claimed_committed_body_present": true,
+      "claimed_committed_body_matches_recorded": false,
+      "claimed_committed_sha256": "6ce3ba9b4f6c1fef1cd90580466b74bde537c4ec2dac0f1cecec0fcda437c12b",
+      "claimed_committed_lines": 298,
+      "qualification": "Membership at039 is independent evidence of identical bytes, not proof of the reviewer workspace revision. Retain the original f82 label and unresolved provenance; no attribution or3821 promotion."
+    },
+    {
+      "original_index": 391,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/timing.rs",
+      "original_receipt": "parallel-l13-20261029/READ-PL13-009.json",
+      "revision_label_as_recorded": "physical-p16 f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact",
+      "recorded_sha256": "8e06350841fdbea99a6cf45ab7c1aca53485273d5b07a064c11ee956cee446f7",
+      "recorded_lines": 168,
+      "original_source_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "older_committed_revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "older_committed_body_matches_recorded": true,
+      "claimed_committed_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "claimed_committed_body_present": true,
+      "claimed_committed_body_matches_recorded": true,
+      "claimed_committed_sha256": "8e06350841fdbea99a6cf45ab7c1aca53485273d5b07a064c11ee956cee446f7",
+      "claimed_committed_lines": 168,
+      "qualification": "Membership at039 is independent evidence of identical bytes, not proof of the reviewer workspace revision. Retain the original f82 label and unresolved provenance; no attribution or3821 promotion."
+    },
+    {
+      "original_index": 392,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/work.rs",
+      "original_receipt": "parallel-l13-20261029/READ-PL13-009.json",
+      "revision_label_as_recorded": "physical-p16 f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact",
+      "recorded_sha256": "6be424d70d473190c8983c7f8657d117cf7aedd39c7e13c8e3d0cd6021d8a3fa",
+      "recorded_lines": 50,
+      "original_source_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "older_committed_revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "older_committed_body_matches_recorded": true,
+      "claimed_committed_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "claimed_committed_body_present": true,
+      "claimed_committed_body_matches_recorded": true,
+      "claimed_committed_sha256": "6be424d70d473190c8983c7f8657d117cf7aedd39c7e13c8e3d0cd6021d8a3fa",
+      "claimed_committed_lines": 50,
+      "qualification": "Membership at039 is independent evidence of identical bytes, not proof of the reviewer workspace revision. Retain the original f82 label and unresolved provenance; no attribution or3821 promotion."
+    },
+    {
+      "original_index": 393,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee.rs",
+      "original_receipt": "parallel-l13-20261029/READ-PL13-009.json",
+      "revision_label_as_recorded": "physical-p16 f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact",
+      "recorded_sha256": "6fd64503e79c60d080ad7322bfdd270e451887f48d89c80898c47cd161532727",
+      "recorded_lines": 363,
+      "original_source_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "older_committed_revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "older_committed_body_matches_recorded": true,
+      "claimed_committed_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "claimed_committed_body_present": true,
+      "claimed_committed_body_matches_recorded": false,
+      "claimed_committed_sha256": "fe64843450cc6ba428fd3c9c1fec3a5fcb5b65b3cbf3a5c21997548d3a355dd6",
+      "claimed_committed_lines": 473,
+      "qualification": "Membership at039 is independent evidence of identical bytes, not proof of the reviewer workspace revision. Retain the original f82 label and unresolved provenance; no attribution or3821 promotion."
+    },
+    {
+      "original_index": 394,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/active_defense.rs",
+      "original_receipt": "parallel-l13-20261029/READ-PL13-009.json",
+      "revision_label_as_recorded": "physical-p16 f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact",
+      "recorded_sha256": "291b5d7171d5674bc929189b672bf92ee1b1348b9866f526f65d4377c8fbedbe",
+      "recorded_lines": 186,
+      "original_source_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "older_committed_revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "older_committed_body_matches_recorded": true,
+      "claimed_committed_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "claimed_committed_body_present": true,
+      "claimed_committed_body_matches_recorded": true,
+      "claimed_committed_sha256": "291b5d7171d5674bc929189b672bf92ee1b1348b9866f526f65d4377c8fbedbe",
+      "claimed_committed_lines": 186,
+      "qualification": "Membership at039 is independent evidence of identical bytes, not proof of the reviewer workspace revision. Retain the original f82 label and unresolved provenance; no attribution or3821 promotion."
+    },
+    {
+      "original_index": 395,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/geometry.rs",
+      "original_receipt": "parallel-l13-20261029/READ-PL13-009.json",
+      "revision_label_as_recorded": "physical-p16 f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact",
+      "recorded_sha256": "0e6bff7b2a9b88f916e90495f72d65ce3e854b21a05b6a59d30a684174dfe957",
+      "recorded_lines": 137,
+      "original_source_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "older_committed_revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "older_committed_body_matches_recorded": true,
+      "claimed_committed_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "claimed_committed_body_present": false,
+      "claimed_committed_body_matches_recorded": false,
+      "claimed_committed_sha256": null,
+      "claimed_committed_lines": null,
+      "qualification": "Membership at039 is independent evidence of identical bytes, not proof of the reviewer workspace revision. Retain the original f82 label and unresolved provenance; no attribution or3821 promotion."
+    },
+    {
+      "original_index": 396,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+      "original_receipt": "parallel-l13-20261029/READ-PL13-009.json",
+      "revision_label_as_recorded": "physical-p16 f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact",
+      "recorded_sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+      "recorded_lines": 129,
+      "original_source_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "older_committed_revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "older_committed_body_matches_recorded": true,
+      "claimed_committed_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "claimed_committed_body_present": true,
+      "claimed_committed_body_matches_recorded": true,
+      "claimed_committed_sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+      "claimed_committed_lines": 129,
+      "qualification": "Membership at039 is independent evidence of identical bytes, not proof of the reviewer workspace revision. Retain the original f82 label and unresolved provenance; no attribution or3821 promotion."
+    },
+    {
+      "original_index": 397,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/protocol.rs",
+      "original_receipt": "parallel-l13-20261029/READ-PL13-009.json",
+      "revision_label_as_recorded": "physical-p16 f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact",
+      "recorded_sha256": "bdc79a977759c6bc89210af417c605af95bdf23d383bcf29a3e1f49552590c6a",
+      "recorded_lines": 86,
+      "original_source_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "older_committed_revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "older_committed_body_matches_recorded": true,
+      "claimed_committed_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "claimed_committed_body_present": true,
+      "claimed_committed_body_matches_recorded": true,
+      "claimed_committed_sha256": "bdc79a977759c6bc89210af417c605af95bdf23d383bcf29a3e1f49552590c6a",
+      "claimed_committed_lines": 86,
+      "qualification": "Membership at039 is independent evidence of identical bytes, not proof of the reviewer workspace revision. Retain the original f82 label and unresolved provenance; no attribution or3821 promotion."
+    },
+    {
+      "original_index": 398,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ranged.rs",
+      "original_receipt": "parallel-l13-20261029/READ-PL13-009.json",
+      "revision_label_as_recorded": "physical-p16 f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact",
+      "recorded_sha256": "e960a4f52cd7fa6f8d28da2983c5f066e216f0b74828295faa41b66bd436659e",
+      "recorded_lines": 335,
+      "original_source_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "older_committed_revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "older_committed_body_matches_recorded": true,
+      "claimed_committed_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "claimed_committed_body_present": true,
+      "claimed_committed_body_matches_recorded": false,
+      "claimed_committed_sha256": "1a644ecf10b57c8e5f34d503a9002cd71bd5ecdf4736d1dd689925c65a91f10e",
+      "claimed_committed_lines": 325,
+      "qualification": "Membership at039 is independent evidence of identical bytes, not proof of the reviewer workspace revision. Retain the original f82 label and unresolved provenance; no attribution or3821 promotion."
+    },
+    {
+      "original_index": 399,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ranged/outcome.rs",
+      "original_receipt": "parallel-l13-20261029/READ-PL13-009.json",
+      "revision_label_as_recorded": "physical-p16 f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact",
+      "recorded_sha256": "666e7ae0d0aaeeed9b53efc70bf96befd2ffbbfdc84adf176db63126431658f5",
+      "recorded_lines": 105,
+      "original_source_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "older_committed_revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "older_committed_body_matches_recorded": true,
+      "claimed_committed_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "claimed_committed_body_present": true,
+      "claimed_committed_body_matches_recorded": false,
+      "claimed_committed_sha256": "f45632053e10a52d5ea4a1ecf1259f323c55fa091f9de58a92e8894815c55cc8",
+      "claimed_committed_lines": 105,
+      "qualification": "Membership at039 is independent evidence of identical bytes, not proof of the reviewer workspace revision. Retain the original f82 label and unresolved provenance; no attribution or3821 promotion."
+    }
+  ],
+  "qualification": "Eight recorded source identities do not match the committed tree at the claimed f82 revision, including one absent path; seven match. All15 match the independently verified039 committed path and bytes. The receipt may describe an overlay or may contain a label error; neither explanation nor the actual historical workspace revision has been proved. Original author, ranges and claimed label are preserved. No checkpoint3821 or fresh reviewer credit is inferred."
+}

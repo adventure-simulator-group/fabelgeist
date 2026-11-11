@@ -6714,8 +6714,58 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-BOT-REACTION-CONFIG-95E.json"
+      },
+      {
+        "id": "PL13-ACTIVE-WINDUP-EXPECT",
+        "lens": 13,
+        "additional_current_lenses": [
+          3,
+          4,
+          6,
+          11,
+          12
+        ],
+        "severity": "unassigned; established outside-test rule and conditional representation contract, no proved reachable panic",
+        "classification": "Private paired melee windup and active metadata use a production expect despite the outside-test rule; selected API methods preserve the pair, so no reachable panic is established.",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/17",
+          "baseline-059/queue.json#/entries/1708",
+          "segovb/READ-L13-PARALLEL-005.json",
+          "segovb/READ-L12-680.json"
+        ],
+        "relationship_qualification": "Original delegated proposal newly rechecked at95e, with historical attribution and zero accepted historical unique-count change preserved; exact aliases remain open and no checkpoint3821 attribution.",
+        "discovery": "partial; selected API/producer source supports correlation; all callers, native lifecycle, policy and exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-COMBAT-AUTHORITY-PROVENANCE-95E.json"
+      },
+      {
+        "id": "PL13-RANGED-GEOMETRY-BUNDLE",
+        "lens": 13,
+        "additional_current_lenses": [
+          3,
+          4,
+          6,
+          11,
+          12
+        ],
+        "severity": "unassigned; established outside-test rule and conditional representation contract, no proved reachable panic",
+        "classification": "Ranged target geometry is represented by independent Options and two production expects; the selected actual producer supplies correlated fields, so no ordinary missing-geometry panic is established.",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/20",
+          "baseline-059/queue.json#/entries/1708",
+          "segovb/READ-L13-PARALLEL-005.json",
+          "segovb/READ-L12-680.json",
+          "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/31",
+          "segovb/READ-L13-PARALLEL-007.json"
+        ],
+        "relationship_qualification": "Original delegated proposal newly rechecked at95e, with historical attribution and zero accepted historical unique-count change preserved; exact aliases remain open and no checkpoint3821 attribution.",
+        "discovery": "partial; selected API/producer source supports correlation; all callers, native lifecycle, policy and exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-COMBAT-AUTHORITY-PROVENANCE-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1327.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1332.json"
 }
