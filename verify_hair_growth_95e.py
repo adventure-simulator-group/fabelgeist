@@ -56,7 +56,16 @@ for item in a['recovered_historical_records']:
 assert len(records)==23
 adler=json.loads(records['adler/READ-L11-364.json']);x=next(r for r in adler['sources'] if r['original_index']==2285);assert x['fresh_reads']==x['scope']==[[1,400]] and x['sha256']==roles[0]['sha256'] and adler['accepted_unique_count_change']==0 and not adler['current_reconciled']
 delegate=json.loads(records['segovb/READ-L12-750.json']);x=next(r for r in delegate['rows'] if r['original_index']==2285);assert x['fresh_personal_body_reads']==x['assessed_ranges']==[[1,400]] and x['source_sha256']==roles[0]['sha256'] and 'Subagent /root/lens12_frontier' in x['attribution'] and delegate['root_personal_rereads']==[] and delegate['accepted_unique_count_change']==0
-assert work['roles'][2286]['status']=='unassessed' and work['roles'][2288]['status']=='unassessed'
+# A later separately registered read may advance a role without changing the
+# earlier connected-support attribution recorded in this checkpoint.
+for later_index in (2286,2288):
+ row=work['roles'][later_index]
+ if row['status']!='unassessed':
+  assert row['status']=='full-historical-body-trace-open'
+  later=load(row['historical_assessment'])
+  item=next(x for x in later['historical_source_roles'] if x['original_index']==later_index)
+  assert item['prior_role_status']=='unassessed' and item['local_registration']['path']
+
 q=load('RECONCILIATION-059.json')['entries'];old=load('baseline-059/queue.json')['entries'];ledger=load('BASELINE-95E-20261110.json')['newly_assessed_ledger']['entries'];assert q[1835]['contract_id']==old[1835]['contract_id'] and q[1835]['current_reconciliation'].startswith('partial ') and name in q[1835]['current_reconciliation']
 for finding in a['new_current_candidates']:
  row=next(x for x in ledger if x['id']==finding['id']);assert row['record']==name and row['repair']=='not started' and row['validation']=='not performed'

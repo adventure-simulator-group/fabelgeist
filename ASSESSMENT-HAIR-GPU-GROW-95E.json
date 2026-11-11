@@ -1,0 +1,1345 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2286 GPU groom source and selected CPU/native-shader producers, admission, consumer and historical evidence.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2286.json",
+  "git_membership_evidence": "HAIR-GPU-GROW-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/grow/input.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c8687ab150cb37ea8cf5eb8f18968a292b0d58e3",
+      "sha256": "79df824a0c6fc00d93e45308c1d6f5a24ecb35216bab4b22b51d271d96a6f9e3",
+      "bytes": 648,
+      "lines": 22,
+      "ranges": [
+        [
+          1,
+          22
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-gpu-grow-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges credited; complete bytes preserved. Future original roles, including gpu/mod.rs, remain unassessed."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/ops/interpolate.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3c00e9a36f6a7921fc81560569cef0fcc450ae05",
+      "sha256": "695c1097efb81ad14d92b7d55949e67524b0e3949da155df54fac940c6f5b92a",
+      "bytes": 17509,
+      "lines": 433,
+      "ranges": [
+        [
+          1,
+          94
+        ],
+        [
+          105,
+          170
+        ],
+        [
+          173,
+          265
+        ],
+        [
+          265,
+          288
+        ],
+        [
+          285,
+          403
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-gpu-grow-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges credited; complete bytes preserved. Future original roles, including gpu/mod.rs, remain unassessed."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/wgsl/groom.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5fc60ed49f2ce2bc347d41224dd71c74b04b10f8",
+      "sha256": "955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2",
+      "bytes": 52735,
+      "lines": 1609,
+      "ranges": [
+        [
+          112,
+          403
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-gpu-grow-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges credited; complete bytes preserved. Future original roles, including gpu/mod.rs, remain unassessed."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/groom.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "394134ff71049b7b25d4d02441daa71a00064875",
+      "sha256": "083ab47dd800216d8bbcd584b64aa7851587f5e88bd459c449d0d429793f23cf",
+      "bytes": 2539,
+      "lines": 79,
+      "ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-gpu-grow-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges credited; complete bytes preserved. Future original roles, including gpu/mod.rs, remain unassessed."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/parameters.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d291a2c969f6ba78254d7a22598e52a4e093dfc2",
+      "sha256": "e8ddc101f1ef8295f3ab1943b4cae0257e483fd9fb67e2255bf614c1e51557e2",
+      "bytes": 3550,
+      "lines": 140,
+      "ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-gpu-grow-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges credited; complete bytes preserved. Future original roles, including gpu/mod.rs, remain unassessed."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6cafcad781fdd255ade99a8d4a8d8a143ce4dca9",
+      "sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+      "bytes": 61718,
+      "lines": 1562,
+      "ranges": [
+        [
+          1,
+          85
+        ],
+        [
+          120,
+          145
+        ],
+        [
+          518,
+          554
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-gpu-grow-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges credited; complete bytes preserved. Future original roles, including gpu/mod.rs, remain unassessed."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/scalp.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "dfe3c6b201df280bc59ca776faf45be17e67871a",
+      "sha256": "64a5cc8196a567a3b4d071c355bc491a23956d815c57d4805277bf15b1135304",
+      "bytes": 15902,
+      "lines": 412,
+      "ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-gpu-grow-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges credited; complete bytes preserved. Future original roles, including gpu/mod.rs, remain unassessed."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "de8206991f810737256c56cc36f956de328408a0",
+      "sha256": "d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7",
+      "bytes": 13294,
+      "lines": 408,
+      "ranges": [
+        [
+          1,
+          50
+        ],
+        [
+          233,
+          261
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-gpu-grow-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges credited; complete bytes preserved. Future original roles, including gpu/mod.rs, remain unassessed."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/rng.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8dab19c6a25f37ab5a25319331e80c46adf86b0f",
+      "sha256": "84f8d24277715741f39370e332b06b8a111193ae2d3e8602e115b1f6410913bd",
+      "bytes": 4990,
+      "lines": 168,
+      "ranges": [
+        [
+          108,
+          126
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-gpu-grow-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges credited; complete bytes preserved. Future original roles, including gpu/mod.rs, remain unassessed."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f2d57a25a6d4cd258a207b2f7896f6c9e8231c59",
+      "sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "bytes": 1801,
+      "lines": 47,
+      "ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-gpu-grow-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges credited; complete bytes preserved. Future original roles, including gpu/mod.rs, remain unassessed."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-HAIR-GROWTH-95E.json",
+    "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Image density mask",
+      "trace": "Public Interpolate.density supports Image with dimensions and values, and its CPU consumer samples it. GPU input admission selects the first Interpolate without inspecting density. GPU record_roots maps only Balding specially; every other variant becomes balding=0 and no image payload enters the roots shader. With an all-zero 1x1 image, zero edge and zero patchiness, the CPU density sample is zero while the GPU shader initializes keep_here to one.",
+      "remaining": "This source-backed difference concerns an explicitly supplied Image on public GpuGroomer.grow; ordinary Look.groom produces Uniform or Balding in the selected source. No GPU, random generator or sampler was run. Historical q163/q373 concern image storage extent, a separate first contract; preserve both and resolve exact aliases independently."
+    },
+    {
+      "contract": "Guide retention, exclusion and sampling",
+      "trace": "CPU Interpolate appends guides when keep_guides, drops roots within distance_to_guides, and uses poisson to control spacing and attempts. The GPU grow source has no references to those three fields; it creates strand outputs from compacted candidates and keeps guides separately in GpuGroom.guides. The roots shader always uses area-stratified low-discrepancy sampling, which GPU module docs explicitly describe.",
+      "remaining": "The public arbitrary Groom API accepts these settings; selected Look producers and intended approximation policy need whole-population tracing. Each missing control is a distinct conditional behavior question; no CPU or GPU execution. Systematic GPU sampling itself is documented, not claimed accidental."
+    },
+    {
+      "contract": "Parting-compatible interpolation fallback",
+      "trace": "CPU interpolation searches only compatible guide groups and skips a root when none are found. GPU interp_select first searches compatible groups, then performs a second sweep without the compatibility filter when the first found zero.",
+      "remaining": "Conditional on a root with no compatible but at least one incompatible guide. Historical q164 concerns a different CPU GuideMap/clump fallback; the shared authorization principle is related but the first operation is not automatically an alias. No selection or shader ran."
+    },
+    {
+      "contract": "Root count and scan",
+      "trace": "Interpolate.count is an unrestricted usize and record_roots converts max(count,1) to u32 for candidate generation and scan. Compaction instead receives interpolate.count as u32, while count from the scan determines later allocation and dispatch. PrefixSum documents an exclusive scan, and read_words copies the word at n.",
+      "remaining": "For count=0, one candidate is generated but compaction is given zero; if that candidate is kept and prior GPU steps succeed, the later scanned count can be one without a compacted candidate. No scan, allocation, readback or dispatch ran. Earlier native failures or support policy may intervene."
+    },
+    {
+      "contract": "Fixed-width and grid extent arithmetic",
+      "trace": "Groom.points is public usize; Look.PointsPerStrand also wraps an unrestricted usize. GPU grow casts max(points,2) to u32 and multiplies count*points as u32 after only a strand-count limit. record_map multiplies three u32 dimensions in u64 before testing its threshold; GpuScalp exposes public root bounds. Symbolically 3000000 cubed exceeds u64::MAX.",
+      "remaining": "Original delegate751 already raised both count/product and map-grid questions. The examples require large admitted inputs and any earlier allocations/native operations must succeed; architecture width, profile behavior, finite bounds policy and exact aliases remain open. No arithmetic in product code ran."
+    },
+    {
+      "contract": "Historical first cuts and shader identity",
+      "trace": "CPU image sampling still indexes values[y*width+x] after only zero-dimension handling, as original q163/q373 separately recorded. Hair GPU macros and parting_parameters produce native shader parameter names into PassParameters; Orient also maps Growth through Growth::ALL independently of guide packing.",
+      "remaining": "Preserve both original image-shape identities until exact alias resolution. q317/2331 concern open shader identifier propagation; a GPU-specific closed list is not assumed. The previously recorded Growth ordinal mapping is extended by this distinct Orient producer, not counted as a separate issue."
+    }
+  ],
+  "reconnected_historical_findings": [
+    {
+      "id": "ADLER-L11-HAIR-DENSITY-SHAPE-ADMISSION",
+      "queue": 163,
+      "qualification": "Original CPU image storage identity preserved separately; current source only partially traced and GPU image omission is a distinct first contract."
+    },
+    {
+      "id": "SEGOVB-L12-CONNECTED-HAIR-DENSITY-IMAGE-EXTENT-ADMISSION",
+      "queue": 373,
+      "qualification": "Original CPU image storage identity preserved separately; current source only partially traced and GPU image omission is a distinct first contract."
+    }
+  ],
+  "new_current_candidates": [
+    {
+      "id": "REVIEW-HAIR-GPU-IMAGE-DENSITY-95E",
+      "qualification": "Conditional current source finding or policy question; prior delegate751 observations retain original attribution."
+    },
+    {
+      "id": "REVIEW-HAIR-GPU-KEEP-GUIDES-95E",
+      "qualification": "Conditional current source finding or policy question; prior delegate751 observations retain original attribution."
+    },
+    {
+      "id": "REVIEW-HAIR-GPU-GUIDE-DISTANCE-95E",
+      "qualification": "Conditional current source finding or policy question; prior delegate751 observations retain original attribution."
+    },
+    {
+      "id": "REVIEW-HAIR-GPU-POISSON-MODE-95E",
+      "qualification": "Conditional current source finding or policy question; prior delegate751 observations retain original attribution."
+    },
+    {
+      "id": "REVIEW-HAIR-GPU-PARTING-FALLBACK-95E",
+      "qualification": "Conditional current source finding or policy question; prior delegate751 observations retain original attribution."
+    },
+    {
+      "id": "REVIEW-HAIR-GPU-ZERO-ROOT-COUNT-95E",
+      "qualification": "Conditional current source finding or policy question; prior delegate751 observations retain original attribution."
+    },
+    {
+      "id": "REVIEW-HAIR-GPU-COUNT-EXTENT-95E",
+      "qualification": "Conditional current source finding or policy question; prior delegate751 observations retain original attribution."
+    },
+    {
+      "id": "REVIEW-HAIR-GPU-MAP-GRID-EXTENT-95E",
+      "qualification": "Conditional current source finding or policy question; prior delegate751 observations retain original attribution."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-354.json",
+      "sha256": "f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2",
+      "bytes": 12620,
+      "git_blob": "bec980cdd0cb93891828d4b5a7a690c936ae6b37",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2.gz",
+      "published_sha256": "f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2",
+      "published_bytes": 12620,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-355.json",
+      "sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "bytes": 15195,
+      "git_blob": "3bf9dd51f997220de36ab9528a052022572cb545",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207.gz",
+      "published_sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "published_bytes": 15195,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-356.json",
+      "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "bytes": 24598,
+      "git_blob": "15a9edc19d117a4470ab7e4837f4c3e753517b00",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c.gz",
+      "published_sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "published_bytes": 24598,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-357.json",
+      "sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "bytes": 8858,
+      "git_blob": "b94f820a6f2779d892638a70cec91d691ea25e25",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6.gz",
+      "published_sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "published_bytes": 8858,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-358.json",
+      "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d",
+      "bytes": 14390,
+      "git_blob": "b0548779064b890ccda7b7f09995c3d954394767",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d.gz",
+      "published_sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d",
+      "published_bytes": 14390,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-359.json",
+      "sha256": "510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f",
+      "bytes": 5718,
+      "git_blob": "534c71620b715e73261570e4933aed838ffde588",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f.gz",
+      "published_sha256": "510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f",
+      "published_bytes": 5718,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-360.json",
+      "sha256": "6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9",
+      "bytes": 10355,
+      "git_blob": "dcbb2f5ad255bfc9555a54bd65200f84331b3302",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9.gz",
+      "published_sha256": "6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9",
+      "published_bytes": 10355,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-361.json",
+      "sha256": "a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31",
+      "bytes": 14000,
+      "git_blob": "744f0ca5c64ce4a66244ce8881b1975b4a58a4d5",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31.gz",
+      "published_sha256": "a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31",
+      "published_bytes": 14000,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-362.json",
+      "sha256": "eac4ba1b74b56e05ab2e57a8722b895d135f64232c40bf11f008aadb264a1b6c",
+      "bytes": 5840,
+      "git_blob": "1b262e91e7425b0aca6dd8b573570702374af696",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/eac4ba1b74b56e05ab2e57a8722b895d135f64232c40bf11f008aadb264a1b6c.gz",
+      "published_sha256": "eac4ba1b74b56e05ab2e57a8722b895d135f64232c40bf11f008aadb264a1b6c",
+      "published_bytes": 5840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-363.json",
+      "sha256": "655ae24929bef717417d071eb4bd754ce35be0eba987589cefd11e693dfe2e2e",
+      "bytes": 17910,
+      "git_blob": "f2e0003dcbc1d7a451a6c51df2dfc89fbf3c22ef",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/655ae24929bef717417d071eb4bd754ce35be0eba987589cefd11e693dfe2e2e.gz",
+      "published_sha256": "655ae24929bef717417d071eb4bd754ce35be0eba987589cefd11e693dfe2e2e",
+      "published_bytes": 17910,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-364.json",
+      "sha256": "8b39f65b50bb03918f855fe7aa29c444817b1e3ce47a9900e1a135b5222b2c86",
+      "bytes": 10812,
+      "git_blob": "404f67ba8ba50a9362cb5324a4c268a374d6d52d",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/8b39f65b50bb03918f855fe7aa29c444817b1e3ce47a9900e1a135b5222b2c86.gz",
+      "published_sha256": "8b39f65b50bb03918f855fe7aa29c444817b1e3ce47a9900e1a135b5222b2c86",
+      "published_bytes": 10812,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Historical source, verification or state",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-365.json",
+      "sha256": "1290ed4828cfb712f340ab43721dfb1adb581bcb91426418e72004248fdb7864",
+      "bytes": 7835,
+      "git_blob": "57a2729dd95be00d6d34525cd548ee9f307a08f5",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/1290ed4828cfb712f340ab43721dfb1adb581bcb91426418e72004248fdb7864.gz",
+      "published_sha256": "1290ed4828cfb712f340ab43721dfb1adb581bcb91426418e72004248fdb7864",
+      "published_bytes": 7835,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-366.json",
+      "sha256": "c1bde972fa539c28ed68b8b6e5b95659af52c690bbee8af7dbe2bf5518868b64",
+      "bytes": 11710,
+      "git_blob": "fca86575e16670b1c6631575ffb9383af2f46e09",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/c1bde972fa539c28ed68b8b6e5b95659af52c690bbee8af7dbe2bf5518868b64.gz",
+      "published_sha256": "c1bde972fa539c28ed68b8b6e5b95659af52c690bbee8af7dbe2bf5518868b64",
+      "published_bytes": 11710,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-367.json",
+      "sha256": "e7c0a64202f59defbb55467dc557fde442a40c869e798135d5fc1d8646f978a9",
+      "bytes": 6844,
+      "git_blob": "560785613fef75c09f3ac71bc8e8bdca4ac8fa77",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/e7c0a64202f59defbb55467dc557fde442a40c869e798135d5fc1d8646f978a9.gz",
+      "published_sha256": "e7c0a64202f59defbb55467dc557fde442a40c869e798135d5fc1d8646f978a9",
+      "published_bytes": 6844,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-368.json",
+      "sha256": "37707aa7ce133dfff2b9abfb87be2ea27498666958f992d3bffe1bf75889481d",
+      "bytes": 9880,
+      "git_blob": "c78d248081d0ec55c0acbf57a9092a41a0f96998",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/37707aa7ce133dfff2b9abfb87be2ea27498666958f992d3bffe1bf75889481d.gz",
+      "published_sha256": "37707aa7ce133dfff2b9abfb87be2ea27498666958f992d3bffe1bf75889481d",
+      "published_bytes": 9880,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Historical source, verification or state",
+        "Original059 queue163 linked evidence",
+        "Original059 queue163 linked evidence",
+        "Original059 queue163 linked evidence",
+        "Original059 queue163 linked evidence",
+        "Original059 queue164 linked evidence",
+        "Original059 queue164 linked evidence",
+        "Original059 queue164 linked evidence",
+        "Original059 queue164 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1144.json",
+      "sha256": "73bb20e1818e634f5c2307a98d384edea5414fe3b48991117f46521ca3571c84",
+      "bytes": 786,
+      "git_blob": "45e115191bffc9b2ec297c67cba438bad4b33166",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/73bb20e1818e634f5c2307a98d384edea5414fe3b48991117f46521ca3571c84.gz",
+      "published_sha256": "73bb20e1818e634f5c2307a98d384edea5414fe3b48991117f46521ca3571c84",
+      "published_bytes": 786,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1145.json",
+      "sha256": "588b31f6bbf5579a31af7a71200006e462fa6c1464242f8e54d0c5e4aa570c12",
+      "bytes": 785,
+      "git_blob": "796997a377b4b9022c743d472d430f8d2f3cfb37",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/588b31f6bbf5579a31af7a71200006e462fa6c1464242f8e54d0c5e4aa570c12.gz",
+      "published_sha256": "588b31f6bbf5579a31af7a71200006e462fa6c1464242f8e54d0c5e4aa570c12",
+      "published_bytes": 785,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1146.json",
+      "sha256": "b0916163f5960b4d2369c850459d68f1fb10e5099aaa15bf61e00eb6bc825f0a",
+      "bytes": 787,
+      "git_blob": "af7f7cf4cdbb2333d6ec346d9b286b89614ca80a",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/b0916163f5960b4d2369c850459d68f1fb10e5099aaa15bf61e00eb6bc825f0a.gz",
+      "published_sha256": "b0916163f5960b4d2369c850459d68f1fb10e5099aaa15bf61e00eb6bc825f0a",
+      "published_bytes": 787,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1147.json",
+      "sha256": "f34b44d4f97913f8b0a02fbc9e926675699d233e6c5fbc07bb1892f68f3ea89a",
+      "bytes": 793,
+      "git_blob": "d11c68c4aac6d78e7324b07110edc0ed0d2820bb",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/f34b44d4f97913f8b0a02fbc9e926675699d233e6c5fbc07bb1892f68f3ea89a.gz",
+      "published_sha256": "f34b44d4f97913f8b0a02fbc9e926675699d233e6c5fbc07bb1892f68f3ea89a",
+      "published_bytes": 793,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1160.json",
+      "sha256": "dd771debbd2036fb6b995f0e244d2e7fd7a023c210c41a8f22763a933b105c91",
+      "bytes": 897,
+      "git_blob": "50de904bd03bef86b11ad906a2b420183c8e1409",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/dd771debbd2036fb6b995f0e244d2e7fd7a023c210c41a8f22763a933b105c91.gz",
+      "published_sha256": "dd771debbd2036fb6b995f0e244d2e7fd7a023c210c41a8f22763a933b105c91",
+      "published_bytes": 897,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1161.json",
+      "sha256": "ccefc3b8bed07c81d5bfa6f7c426bb2f959f9596bf6ba49929af2c2fd5743429",
+      "bytes": 900,
+      "git_blob": "dda1b1c1a9be48eeb0cab37fbca214e4845c2f09",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/ccefc3b8bed07c81d5bfa6f7c426bb2f959f9596bf6ba49929af2c2fd5743429.gz",
+      "published_sha256": "ccefc3b8bed07c81d5bfa6f7c426bb2f959f9596bf6ba49929af2c2fd5743429",
+      "published_bytes": 900,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1162.json",
+      "sha256": "05b8caf76d9c98ef1211e2ae0729854760ebd462d5308dcb6c27476429676b3b",
+      "bytes": 892,
+      "git_blob": "b6853bb36b8f43c4564084a2361519b8521c3f79",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/05b8caf76d9c98ef1211e2ae0729854760ebd462d5308dcb6c27476429676b3b.gz",
+      "published_sha256": "05b8caf76d9c98ef1211e2ae0729854760ebd462d5308dcb6c27476429676b3b",
+      "published_bytes": 892,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1168.json",
+      "sha256": "24fff3db58c874fdf0b369bf868500da638a78c28f7d04cfa11797b77ce7a508",
+      "bytes": 892,
+      "git_blob": "7bd6f9147350bf5b61be8be6e07ca9a8600c0356",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/24fff3db58c874fdf0b369bf868500da638a78c28f7d04cfa11797b77ce7a508.gz",
+      "published_sha256": "24fff3db58c874fdf0b369bf868500da638a78c28f7d04cfa11797b77ce7a508",
+      "published_bytes": 892,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-364.json",
+      "sha256": "0a4c7690f423c3463792d63b7fe0cbf40220fb2ca4af8f982c871cd1b2bcc990",
+      "bytes": 646,
+      "git_blob": "7339e4b37c24b7bf5ccc3bc07a275a1ded6a55a3",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/0a4c7690f423c3463792d63b7fe0cbf40220fb2ca4af8f982c871cd1b2bcc990.gz",
+      "published_sha256": "0a4c7690f423c3463792d63b7fe0cbf40220fb2ca4af8f982c871cd1b2bcc990",
+      "published_bytes": 646,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Historical source, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-368.json",
+      "sha256": "020bf92f0551af37806e1c9cf7fa895a80476d8712d27f2395075a741b7e1078",
+      "bytes": 635,
+      "git_blob": "d8994a473a2477801d5ade7cd1ea466a3d7f0280",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/020bf92f0551af37806e1c9cf7fa895a80476d8712d27f2395075a741b7e1078.gz",
+      "published_sha256": "020bf92f0551af37806e1c9cf7fa895a80476d8712d27f2395075a741b7e1078",
+      "published_bytes": 635,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Historical source, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-364.json",
+      "sha256": "113f140910554dd8074b24a43f4e4c4a2fba37273675e8c00ec21b78890fadb8",
+      "bytes": 35135,
+      "git_blob": "a19a4300d695363f57bdd1895c9af9d9917bdd98",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/113f140910554dd8074b24a43f4e4c4a2fba37273675e8c00ec21b78890fadb8.gz",
+      "published_sha256": "113f140910554dd8074b24a43f4e4c4a2fba37273675e8c00ec21b78890fadb8",
+      "published_bytes": 35135,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Historical source, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-368.json",
+      "sha256": "d444fe7001352c05ec9411b358f6273c7d2f478161d3d61861fbcf4db6da9fd3",
+      "bytes": 35226,
+      "git_blob": "522164db4d41608c61d1966187cec3c99430c9ad",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/d444fe7001352c05ec9411b358f6273c7d2f478161d3d61861fbcf4db6da9fd3.gz",
+      "published_sha256": "d444fe7001352c05ec9411b358f6273c7d2f478161d3d61861fbcf4db6da9fd3",
+      "published_bytes": 35226,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Historical source, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-865-872.json",
+      "sha256": "eb560c13f7fae40f5a450feb3d98a9c6c14775a070631f561a48feb8271f4111",
+      "bytes": 127118,
+      "git_blob": "fccb889d933da9547450667ebdb72a1810a12ff7",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/eb560c13f7fae40f5a450feb3d98a9c6c14775a070631f561a48feb8271f4111.gz",
+      "published_sha256": "eb560c13f7fae40f5a450feb3d98a9c6c14775a070631f561a48feb8271f4111",
+      "published_bytes": 127118,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-873-880-v2.json",
+      "sha256": "2a3f9a9f27f2b0488fa9e0ed16d254573a78ed6c42b5b8bb9c619d26e61b34df",
+      "bytes": 161225,
+      "git_blob": "f65305cc664923e2468734806b8b139a49a0240c",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/2a3f9a9f27f2b0488fa9e0ed16d254573a78ed6c42b5b8bb9c619d26e61b34df.gz",
+      "published_sha256": "d3e495a630bc4b871a92509bacfbdbf7bc81a09dd807a5762e952083da2c3345",
+      "published_bytes": 160383,
+      "redacted_local_path_occurrences": 10,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-740.json",
+      "sha256": "9855f241e3f695bea19fcf0ed15b28d48f70bdec9b9c89a5d7f2f5b5ba6d1e28",
+      "bytes": 21674,
+      "git_blob": "ab6becb9dafd9ce71bf4455405b62e4add52f49e",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/9855f241e3f695bea19fcf0ed15b28d48f70bdec9b9c89a5d7f2f5b5ba6d1e28.gz",
+      "published_sha256": "9855f241e3f695bea19fcf0ed15b28d48f70bdec9b9c89a5d7f2f5b5ba6d1e28",
+      "published_bytes": 21674,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-741.json",
+      "sha256": "0d0f60a95eee15694e7434de8a61069c3312c3a77a7d0a59023b7d1168c7f871",
+      "bytes": 14462,
+      "git_blob": "d1bccf69616b475b48bc4c0d10030c1885aee067",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/0d0f60a95eee15694e7434de8a61069c3312c3a77a7d0a59023b7d1168c7f871.gz",
+      "published_sha256": "0d0f60a95eee15694e7434de8a61069c3312c3a77a7d0a59023b7d1168c7f871",
+      "published_bytes": 14462,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-748.json",
+      "sha256": "60e17991fd6792d27eeb55f444f1ec138aa949e2f0659efcc5d17e10b74e9cb7",
+      "bytes": 49355,
+      "git_blob": "a362e94ce709b99c4fe8c6db2640426901ae7cf2",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/60e17991fd6792d27eeb55f444f1ec138aa949e2f0659efcc5d17e10b74e9cb7.gz",
+      "published_sha256": "60e17991fd6792d27eeb55f444f1ec138aa949e2f0659efcc5d17e10b74e9cb7",
+      "published_bytes": 49355,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-749.json",
+      "sha256": "faacc76f3739556c9abf074427dd358ae0e3fa41170ade9c8f0419557938dada",
+      "bytes": 54170,
+      "git_blob": "bfe116e40ae6462698f06afac4015250093e1e3e",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/faacc76f3739556c9abf074427dd358ae0e3fa41170ade9c8f0419557938dada.gz",
+      "published_sha256": "faacc76f3739556c9abf074427dd358ae0e3fa41170ade9c8f0419557938dada",
+      "published_bytes": 54170,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-751.json",
+      "sha256": "b3e231d20b65266a2063965bbfcc6357c33e2c87fe80b8b80ae03abeee1f3824",
+      "bytes": 5736,
+      "git_blob": "baaa9366842de5adc5b937f6e24939c89fbd8a7f",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/b3e231d20b65266a2063965bbfcc6357c33e2c87fe80b8b80ae03abeee1f3824.gz",
+      "published_sha256": "b3e231d20b65266a2063965bbfcc6357c33e2c87fe80b8b80ae03abeee1f3824",
+      "published_bytes": 5736,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-757.json",
+      "sha256": "a5a717833e6b85ff64e8b9c9da69cb45640fbf071bfe05565ae5c32ccbb07e47",
+      "bytes": 10759,
+      "git_blob": "b43ffb00e28a5f3f50ce23e311edf121a0522323",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/a5a717833e6b85ff64e8b9c9da69cb45640fbf071bfe05565ae5c32ccbb07e47.gz",
+      "published_sha256": "a5a717833e6b85ff64e8b9c9da69cb45640fbf071bfe05565ae5c32ccbb07e47",
+      "published_bytes": 10759,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-865.json",
+      "sha256": "2b4747313712490dbb67ebded104bd3b0b5c4e6b9d53181dbab4ce3d4a3789e6",
+      "bytes": 11726,
+      "git_blob": "50b93d1ff02ccf8e506663da64f3da612eca6d53",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/2b4747313712490dbb67ebded104bd3b0b5c4e6b9d53181dbab4ce3d4a3789e6.gz",
+      "published_sha256": "2b4747313712490dbb67ebded104bd3b0b5c4e6b9d53181dbab4ce3d4a3789e6",
+      "published_bytes": 11726,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-867.json",
+      "sha256": "bbb120232639b85ecf3acb119f2fd2130dc0c980a078b120359aa096b49b37ce",
+      "bytes": 9188,
+      "git_blob": "7d662c3e80e76c4b5bb81bb63d984b3cb4ccaeaf",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/bbb120232639b85ecf3acb119f2fd2130dc0c980a078b120359aa096b49b37ce.gz",
+      "published_sha256": "bbb120232639b85ecf3acb119f2fd2130dc0c980a078b120359aa096b49b37ce",
+      "published_bytes": 9188,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-873-FASTPATH-EXACT-REUSE.json",
+      "sha256": "ddf8a5cf10c03d3106a14e4621bbcae273376955dc79af9c6d2bba19277c3e90",
+      "bytes": 5317,
+      "git_blob": "e0fffc38042674ab9b0c05e7a3c1ed7d79c431aa",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/ddf8a5cf10c03d3106a14e4621bbcae273376955dc79af9c6d2bba19277c3e90.gz",
+      "published_sha256": "ddf8a5cf10c03d3106a14e4621bbcae273376955dc79af9c6d2bba19277c3e90",
+      "published_bytes": 5317,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-ORIGINAL2635-WINDOWS.json",
+      "sha256": "230f934ab874e43ac808fbb96f9f0b04cf95072c45ba86d8bf069d83e6506688",
+      "bytes": 1791,
+      "git_blob": "7c23b6e46d60523689c86af64033e9a95c727c1d",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/230f934ab874e43ac808fbb96f9f0b04cf95072c45ba86d8bf069d83e6506688.gz",
+      "published_sha256": "230f934ab874e43ac808fbb96f9f0b04cf95072c45ba86d8bf069d83e6506688",
+      "published_bytes": 1791,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-ORIGINAL2636-WINDOWS.json",
+      "sha256": "e854d5b5932c8b1c63ba6fbb6def7da924a0f57791ee0a18e7e7fb03fe92908f",
+      "bytes": 1773,
+      "git_blob": "bdbdcf7acb7155dc4245f026a30341e20e221d6a",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/e854d5b5932c8b1c63ba6fbb6def7da924a0f57791ee0a18e7e7fb03fe92908f.gz",
+      "published_sha256": "e854d5b5932c8b1c63ba6fbb6def7da924a0f57791ee0a18e7e7fb03fe92908f",
+      "published_bytes": 1773,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFIED-REUSE-PAR-L12-873-GPU-PARAMETER-OWNERS.json",
+      "sha256": "1f89792dcb18202d97da6821264a6d08dc9ba6ff0ed6ac02c81ac5b9dc20814c",
+      "bytes": 54820,
+      "git_blob": "fffcb8f68ad7e1e5380031bd04a7d77fa87c704c",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/1f89792dcb18202d97da6821264a6d08dc9ba6ff0ed6ac02c81ac5b9dc20814c.gz",
+      "published_sha256": "1f89792dcb18202d97da6821264a6d08dc9ba6ff0ed6ac02c81ac5b9dc20814c",
+      "published_bytes": 54820,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-749-SHADER-REFLECTION.json",
+      "sha256": "ae1d2c8357b4daa0cc747d392b133a32b449a8c7dabb7501015c5c93b4ba68c5",
+      "bytes": 14887,
+      "git_blob": "5e9b0c5c4737432784eba96d4aae31d7214d3038",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/ae1d2c8357b4daa0cc747d392b133a32b449a8c7dabb7501015c5c93b4ba68c5.gz",
+      "published_sha256": "ae1d2c8357b4daa0cc747d392b133a32b449a8c7dabb7501015c5c93b4ba68c5",
+      "published_bytes": 14887,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-197.json",
+      "sha256": "76cc22d5e5b09d0dc234b84422b549a70167cdd112b61e53298e335fa20fb00f",
+      "bytes": 774,
+      "git_blob": "4fc8e0825480e18d0e90ad03bbced3b9d784c6c7",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/76cc22d5e5b09d0dc234b84422b549a70167cdd112b61e53298e335fa20fb00f.gz",
+      "published_sha256": "76cc22d5e5b09d0dc234b84422b549a70167cdd112b61e53298e335fa20fb00f",
+      "published_bytes": 774,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-198.json",
+      "sha256": "28fd93b2110b8abb13aa2528b913518a081b39bc5849367bb52428ebc7c050f4",
+      "bytes": 773,
+      "git_blob": "a21f8c6adc90ab1c583cedc4f2d0390933ec0078",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/28fd93b2110b8abb13aa2528b913518a081b39bc5849367bb52428ebc7c050f4.gz",
+      "published_sha256": "28fd93b2110b8abb13aa2528b913518a081b39bc5849367bb52428ebc7c050f4",
+      "published_bytes": 773,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-233.json",
+      "sha256": "36596738d433d0a5671ef6697e099958f5a8450c3b9bf26e5a5c9d0547cc3782",
+      "bytes": 1058,
+      "git_blob": "42127b0e72e64192641b433b7b81ee7efd59878b",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/36596738d433d0a5671ef6697e099958f5a8450c3b9bf26e5a5c9d0547cc3782.gz",
+      "published_sha256": "36596738d433d0a5671ef6697e099958f5a8450c3b9bf26e5a5c9d0547cc3782",
+      "published_bytes": 1058,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-238.json",
+      "sha256": "22cb4cb2902950f3eeda633bd5cebadf70c47bd3e66f5b89ace6c92834e8f152",
+      "bytes": 1070,
+      "git_blob": "019a4e0fa90aa0d35666f86b8c28f24751a38a0f",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/22cb4cb2902950f3eeda633bd5cebadf70c47bd3e66f5b89ace6c92834e8f152.gz",
+      "published_sha256": "22cb4cb2902950f3eeda633bd5cebadf70c47bd3e66f5b89ace6c92834e8f152",
+      "published_bytes": 1070,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-239.json",
+      "sha256": "9a5b419dfda25c0c3131ca2ac2137542a0b1607e0067a858c6dd21738fb6d82f",
+      "bytes": 1076,
+      "git_blob": "dc5b6cabe9085d4700bea0c92b2007460d584773",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/9a5b419dfda25c0c3131ca2ac2137542a0b1607e0067a858c6dd21738fb6d82f.gz",
+      "published_sha256": "9a5b419dfda25c0c3131ca2ac2137542a0b1607e0067a858c6dd21738fb6d82f",
+      "published_bytes": 1076,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-240.json",
+      "sha256": "9906a5e1baeebebb994fb8652d33749a0a3e9d2b215ae7ca5b55b37f58c079f8",
+      "bytes": 1064,
+      "git_blob": "f7d57bc38164abbd56fe8d1a7aa3bb02c9dfd8df",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/9906a5e1baeebebb994fb8652d33749a0a3e9d2b215ae7ca5b55b37f58c079f8.gz",
+      "published_sha256": "9906a5e1baeebebb994fb8652d33749a0a3e9d2b215ae7ca5b55b37f58c079f8",
+      "published_bytes": 1064,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-242.json",
+      "sha256": "2730e34a660220add7aa8f41d65ae9faf371a967fef79b5dc01092ee0c6a4ed9",
+      "bytes": 1046,
+      "git_blob": "8248c0178a2916a96e7678594ff25dc2c49dce0a",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/2730e34a660220add7aa8f41d65ae9faf371a967fef79b5dc01092ee0c6a4ed9.gz",
+      "published_sha256": "2730e34a660220add7aa8f41d65ae9faf371a967fef79b5dc01092ee0c6a4ed9",
+      "published_bytes": 1046,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-243-CONNECTED-ORIGINAL2635.json",
+      "sha256": "ecc02b4bd6a32cc936ecb000b9ba97462c25a046250518cb34548116ef7d6f1c",
+      "bytes": 1297,
+      "git_blob": "3e395a34cd4c0c82daf485ae248d2638b3e45e6e",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/ecc02b4bd6a32cc936ecb000b9ba97462c25a046250518cb34548116ef7d6f1c.gz",
+      "published_sha256": "ecc02b4bd6a32cc936ecb000b9ba97462c25a046250518cb34548116ef7d6f1c",
+      "published_bytes": 1297,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-244-CONNECTED-ORIGINAL2636.json",
+      "sha256": "a9d1e5b6a014bae96b1ee5a30d0a4ebb54bcca4fb85167293ded931f28feab57",
+      "bytes": 1291,
+      "git_blob": "d9c45bdeb2102f9107e05ba372d49dabd744dcf0",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/a9d1e5b6a014bae96b1ee5a30d0a4ebb54bcca4fb85167293ded931f28feab57.gz",
+      "published_sha256": "a9d1e5b6a014bae96b1ee5a30d0a4ebb54bcca4fb85167293ded931f28feab57",
+      "published_bytes": 1291,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-247.json",
+      "sha256": "818224ade3900cb13f8a25dd72fbc702d1470f39e002b26d0a334b25324e60ca",
+      "bytes": 881,
+      "git_blob": "1dbf802ca49240397e55578c19ad0ce58718bbe3",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/818224ade3900cb13f8a25dd72fbc702d1470f39e002b26d0a334b25324e60ca.gz",
+      "published_sha256": "818224ade3900cb13f8a25dd72fbc702d1470f39e002b26d0a334b25324e60ca",
+      "published_bytes": 881,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-260.json",
+      "sha256": "56c246ad9abf4594ee51d36e499b4e7c4da7b13a36877c886847bccd58001409",
+      "bytes": 813,
+      "git_blob": "1252a5ab62ea0d7362db320400009478ae6a4330",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/56c246ad9abf4594ee51d36e499b4e7c4da7b13a36877c886847bccd58001409.gz",
+      "published_sha256": "56c246ad9abf4594ee51d36e499b4e7c4da7b13a36877c886847bccd58001409",
+      "published_bytes": 813,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-261.json",
+      "sha256": "bb9cc91d89ff876eec91b2ace5be74831cb527f59035c6bdaab4b19918a75992",
+      "bytes": 819,
+      "git_blob": "8c55d6182b754766c1886b07feb3d3b34031bd33",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/bb9cc91d89ff876eec91b2ace5be74831cb527f59035c6bdaab4b19918a75992.gz",
+      "published_sha256": "bb9cc91d89ff876eec91b2ace5be74831cb527f59035c6bdaab4b19918a75992",
+      "published_bytes": 819,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-740.json",
+      "sha256": "31a7fe720b8a5efbda8688242f9c0b4f68a8c06978b4139c7f7b3e10f18adb33",
+      "bytes": 16433,
+      "git_blob": "82b2e62737038b85ebfafca8b7a788dbaed2a026",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/31a7fe720b8a5efbda8688242f9c0b4f68a8c06978b4139c7f7b3e10f18adb33.gz",
+      "published_sha256": "31a7fe720b8a5efbda8688242f9c0b4f68a8c06978b4139c7f7b3e10f18adb33",
+      "published_bytes": 16433,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-741.json",
+      "sha256": "dc7237e08cd1a81a11255bf086b37eb14d12b9726e401d2c413f90449c54750b",
+      "bytes": 11190,
+      "git_blob": "07f8fe808ea74a3435551000682abde68361dba0",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/dc7237e08cd1a81a11255bf086b37eb14d12b9726e401d2c413f90449c54750b.gz",
+      "published_sha256": "dc7237e08cd1a81a11255bf086b37eb14d12b9726e401d2c413f90449c54750b",
+      "published_bytes": 11190,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-748.json",
+      "sha256": "70154592ccbcb328569d1da867c6f9c3d79f3c55c4e24bd3444bd4de07a682c1",
+      "bytes": 14885,
+      "git_blob": "a6b750e7ec678ae9a8fd85c0ec8951df7d5b5c3f",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/70154592ccbcb328569d1da867c6f9c3d79f3c55c4e24bd3444bd4de07a682c1.gz",
+      "published_sha256": "70154592ccbcb328569d1da867c6f9c3d79f3c55c4e24bd3444bd4de07a682c1",
+      "published_bytes": 14885,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue317 linked evidence",
+        "Original059 queue317 linked evidence",
+        "Original059 queue317 linked evidence",
+        "Original059 queue317 linked evidence",
+        "Original059 queue317 linked evidence",
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-749.json",
+      "sha256": "6ebe7a3d59b6ac45d8caef4d98ec80cec3451f039f7ebc01160114aadb9bed4e",
+      "bytes": 15671,
+      "git_blob": "a247634ac2e6918dfbd667f57fc023ef756b8369",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/6ebe7a3d59b6ac45d8caef4d98ec80cec3451f039f7ebc01160114aadb9bed4e.gz",
+      "published_sha256": "6ebe7a3d59b6ac45d8caef4d98ec80cec3451f039f7ebc01160114aadb9bed4e",
+      "published_bytes": 15671,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-751.json",
+      "sha256": "09713f90a2d7b2894b2fa2476ce430f9a69d80307749a182d0b38be0457a40b7",
+      "bytes": 6108,
+      "git_blob": "2629e0c705da3aa6a8c45ce213733d36c213f4a1",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/09713f90a2d7b2894b2fa2476ce430f9a69d80307749a182d0b38be0457a40b7.gz",
+      "published_sha256": "09713f90a2d7b2894b2fa2476ce430f9a69d80307749a182d0b38be0457a40b7",
+      "published_bytes": 6108,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Historical source, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-757.json",
+      "sha256": "423372983ed29c4858d5d037fcef84431ea656aa70eb5c29507d699e39555fe0",
+      "bytes": 7002,
+      "git_blob": "60d2ac7882dfb0ac15002513c6e988a49fe7210e",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/423372983ed29c4858d5d037fcef84431ea656aa70eb5c29507d699e39555fe0.gz",
+      "published_sha256": "423372983ed29c4858d5d037fcef84431ea656aa70eb5c29507d699e39555fe0",
+      "published_bytes": 7002,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Historical source, verification or state",
+        "Original059 queue373 linked evidence",
+        "Original059 queue373 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-CONNECTED-TEAM-004.json",
+      "sha256": "5819092ffecdc6495aeb3da3ef87d34f843027de8cc1e7190956eb2e05f70f7f",
+      "bytes": 23940,
+      "git_blob": "679f1bbec93ed608ba813b9af9ce785904631f82",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/5819092ffecdc6495aeb3da3ef87d34f843027de8cc1e7190956eb2e05f70f7f.gz",
+      "published_sha256": "5819092ffecdc6495aeb3da3ef87d34f843027de8cc1e7190956eb2e05f70f7f",
+      "published_bytes": 23940,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence",
+        "Original059 queue2331 linked evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-751.json",
+      "sha256": "f2a80760ba43aff69b20b615e38f5d268d20109413fff4bda38c6cbe0dc00257",
+      "bytes": 1255,
+      "git_blob": "47727496d77cbb9d06bbdcee110ade7c7c231cac",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/f2a80760ba43aff69b20b615e38f5d268d20109413fff4bda38c6cbe0dc00257.gz",
+      "published_sha256": "f2a80760ba43aff69b20b615e38f5d268d20109413fff4bda38c6cbe0dc00257",
+      "published_bytes": 1255,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Historical source, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-757.json",
+      "sha256": "de2182ed2c324ba809c256a05fe53fbe133ccde87e88c23a93363b31f78083bc",
+      "bytes": 1640,
+      "git_blob": "a3ebda11dabe21cd20a77f1280a267a8541c0dce",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/de2182ed2c324ba809c256a05fe53fbe133ccde87e88c23a93363b31f78083bc.gz",
+      "published_sha256": "de2182ed2c324ba809c256a05fe53fbe133ccde87e88c23a93363b31f78083bc",
+      "published_bytes": 1640,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Historical source, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-751.json",
+      "sha256": "539f6ea5ea6c831c8998ec9f956f8037081caf63c9e863c17500763fa236ae3c",
+      "bytes": 667,
+      "git_blob": "be10833bf846c9226a2ee178e7f0252e4ee29376",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/539f6ea5ea6c831c8998ec9f956f8037081caf63c9e863c17500763fa236ae3c.gz",
+      "published_sha256": "539f6ea5ea6c831c8998ec9f956f8037081caf63c9e863c17500763fa236ae3c",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Historical source, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-757.json",
+      "sha256": "c5ce53f29ad13b69195f3c410f18fa3dc3e440d975baf8941de28fb3faee5efc",
+      "bytes": 667,
+      "git_blob": "442f03e3c91a3fbafd9e51fa620b68dae07edc43",
+      "preserved_bytes": "recovered/hair-gpu-grow-059/c5ce53f29ad13b69195f3c410f18fa3dc3e440d975baf8941de28fb3faee5efc.gz",
+      "published_sha256": "c5ce53f29ad13b69195f3c410f18fa3dc3e440d975baf8941de28fb3faee5efc",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Historical source, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "Rig supplier/producer, Adler364, delegate751, and the separate Adler368/delegate757 image/group records remain distinct. Root adoption is not a root historical reread.",
+  "remaining": "Continue original2287 and all thirteen lenses; all producer populations, GPU support policy, exact aliases and affected consumers require further review. Original3821 queue and ledger remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

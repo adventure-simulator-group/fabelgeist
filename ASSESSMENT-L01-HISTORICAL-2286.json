@@ -1,0 +1,94 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2286,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2286",
+      "original_locator": "crates/fabelgeist-hair/src/gpu/grow.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 50,
+          "read_ranges": [
+            [
+              1,
+              310
+            ]
+          ]
+        },
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 183,
+          "read_ranges": [
+            [
+              1,
+              876
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-011",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              310
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+      "lines": 876,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "HAIR-GPU-GROW-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2286.json",
+        "sha256": "90d110daf25eeb8650f3a2fde3dcbcd1814704c033fa49d013d69d39b0b1162d"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          876
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 and current95e role2286 are byte-identical; complete current body displayed after local registration. Historical reviewer attribution is not transferred.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-hair/src/gpu/grow.rs",
+        "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+        "bytes": 34174,
+        "lines": 876,
+        "git_blob": "8edf6ab1f9c277d2a75276993d33a7a3e80f1d3a",
+        "preserved_bytes": "main-advance-95e/hair-gpu-grow-evidence/current-2286.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            876
+          ]
+        ],
+        "qualification": "Current full body displayed after registration. The identical historical body is bound by its hash and Git tree; no product code was executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim."
+    }
+  ],
+  "observations": [
+    "Original6533 GPU grow role2286 is byte-identical to current95e. The complete876-line body was displayed after local registration.",
+    "Original rig supplier recorded both a1–310 partial read and a separate1–876 full read; producer supplement RIG-PPS-011 read1–310 with owner-fit delta pending. Adler364 and original Lens12 delegate751 independently read the historical body fully. Original root adoption records zero personal rereads, zero accepted unique change and no cross-lens transfer.",
+    "Original delegate751 already identified conditional count/point conversion and product overflow, map-grid extent overflow and the shader/name propagation dependency; those are not newly invented historical findings. Adler364 expressly kept root shader and input admission pending. Earlier Adler368 and delegate757 retain their separate image-shape and guide-group source scopes."
+  ],
+  "qualification": "Original supplier, producer, Adler and delegate scopes, historical and current source evidence remain distinct; no checkpoint3821 promotion or extra role credit. Local registration time is not independently attested.",
+  "next_original_role": 2287
+}
