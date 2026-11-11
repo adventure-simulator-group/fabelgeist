@@ -1,0 +1,120 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1221,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1221",
+      "sha256": "9fc4780022d9229014f92e14ea895c8d0a07a7aca3cbb61dbe87957cc6190c7e",
+      "lines": 687,
+      "new_personal_read_ranges": [
+        [
+          1,
+          687
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "9fc4780022d9229014f92e14ea895c8d0a07a7aca3cbb61dbe87957cc6190c7e",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1222,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation/spokesman.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1222",
+      "sha256": "859e2cce6e284240050cd19aadc0485b78d976c29aa738ca1c0c08734696b03d",
+      "lines": 27,
+      "new_personal_read_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "859e2cce6e284240050cd19aadc0485b78d976c29aa738ca1c0c08734696b03d",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1223,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/hostile_surrender.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1223",
+      "sha256": "f1b6b291bd216720319051244c99925d2f4797fef16883a2f37d1bbb6350d2ba",
+      "lines": 417,
+      "new_personal_read_ranges": [
+        [
+          1,
+          417
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "f1b6b291bd216720319051244c99925d2f4797fef16883a2f37d1bbb6350d2ba",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1224,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/incidents.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1224",
+      "sha256": "9358dd5b0a17f5f01f321c614d3c3309139134a24febfb634a9e6fa19eb0d622",
+      "lines": 703,
+      "new_personal_read_ranges": [
+        [
+          1,
+          703
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "9358dd5b0a17f5f01f321c614d3c3309139134a24febfb634a9e6fa19eb0d622",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    }
+  ],
+  "observations": [
+    "The frozen hostile-negotiation, spokesman, hostile-surrender and incident source bodies were personally read in full, including source tests without execution. The physical-p16 roles 283–286 are separate historical identities and retain their own bytes and previous qualifications.",
+    "Earlier Lens12 batches 297–298 independently recorded full body ranges for these four pr-working identities, with no accepted unique-count increase, no current-source reconciliation, no other-lens transfer and no completed implementation gate. Their direct receipts, plans, registrations, states and verifications are independently checked against the original transport manifest and preserved with their original attributions.",
+    "The separately recorded 95e incident-handoff trace is bounded current work. Hash identity with the frozen source bodies does not credit other lenses, complete source-family reconciliation or establish missing checkpoint 3821 authority."
+  ],
+  "remaining": "Continue original role 1225. Incident producers, exact sources, caller and post-resolution policy, independent lenses, connected families and aliases remain open."
+}

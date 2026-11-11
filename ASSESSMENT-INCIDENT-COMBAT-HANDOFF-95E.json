@@ -1,0 +1,499 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected incident creation, case provenance, tactical/autoresolve, web pin and private activity-kind boundaries at 95e; no product execution.",
+  "source_reasoning": "Pinned source inspection and evidence-byte verification only. Historical source tests were read without execution; no product build, test, simulation, runtime, database or browser probe.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/incidents.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "97602f7bf8961bf96a6698dc6c2600d6a9eeb036",
+      "sha256": "9358dd5b0a17f5f01f321c614d3c3309139134a24febfb634a9e6fa19eb0d622",
+      "bytes": 23893,
+      "lines": 703,
+      "ranges": [
+        [
+          1,
+          258
+        ],
+        [
+          260,
+          327
+        ],
+        [
+          329,
+          517
+        ],
+        [
+          522,
+          703
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/incident-handoff-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "273eafd632bcd254869f05ba77a9b7be4cf94d72",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "bytes": 51546,
+      "lines": 1586,
+      "ranges": [
+        [
+          432,
+          480
+        ],
+        [
+          1367,
+          1460
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/incident-handoff-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/world_actor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5ab4eab5c647aa4a85852ccb5e88038431f535da",
+      "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "bytes": 51100,
+      "lines": 1353,
+      "ranges": [
+        [
+          350,
+          419
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/incident-handoff-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4359a97ae3781a18dff6a45594152fd03fd35b91",
+      "sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "bytes": 47311,
+      "lines": 1399,
+      "ranges": [
+        [
+          1077,
+          1158
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/incident-handoff-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/sites.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1195e0eb4a8d55de4cb66ee8549342f720b345bf",
+      "sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+      "bytes": 21969,
+      "lines": 617,
+      "ranges": [
+        [
+          1,
+          85
+        ],
+        [
+          288,
+          355
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/incident-handoff-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/sites/provenance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9ead6555439859aa91d6f86ee2002308833e2fe6",
+      "sha256": "daffad8de81538d7a0bef0700cf95fbfccd01dae12ad483427b9b0246c4f29d2",
+      "bytes": 3415,
+      "lines": 95,
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/incident-handoff-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/custody_objectives.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "59c7882b45f9590acd8edcf1e156a609f33bf7ee",
+      "sha256": "7274d8bedc95fa40cee64bda7b7dda0c32b6d02aa01e44e754f77e1bd171bc5b",
+      "bytes": 59463,
+      "lines": 1677,
+      "ranges": [
+        [
+          1419,
+          1540
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/incident-handoff-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f81d693da7d589fb8295931442850ca28946dd94",
+      "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+      "bytes": 117342,
+      "lines": 2973,
+      "ranges": [
+        [
+          105,
+          150
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/incident-handoff-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/tactical.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "564d5e5dbbd90ce101316dedcb53d77c251034f4",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "bytes": 53585,
+      "lines": 1515,
+      "ranges": [
+        [
+          678,
+          760
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/incident-handoff-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/quests.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "930f0ade0ae2988b8774ccdc1e2da315c0c5c816",
+      "sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+      "bytes": 69463,
+      "lines": 2102,
+      "ranges": [
+        [
+          710,
+          727
+        ],
+        [
+          902,
+          965
+        ],
+        [
+          1468,
+          1510
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/incident-handoff-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/missions.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "05c551d60fe66dfd80fc318a6c0a7077e6082d4a",
+      "sha256": "c4a54e247cf699583c7874b9ad0b29861fa8ea3b0d48b1572e10d52d19f83e1e",
+      "bytes": 11052,
+      "lines": 340,
+      "ranges": [
+        [
+          30,
+          108
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/incident-handoff-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/expedition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ff85a1c1b1d18ce534fdaf60e278e52878e955c6",
+      "sha256": "a77ae88e526acb661515b4069d678cd7b7e42f278d4e8fc4cb2f1a317440246a",
+      "bytes": 53745,
+      "lines": 1273,
+      "ranges": [
+        [
+          760,
+          885
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/incident-handoff-sources/11.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/tests/combat_party.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6cce3ddd8de847142dc68bb9a052fa0676b858fe",
+      "sha256": "ee11ec26eaaac5ed24e2ddddc78f35322c7c7e41e743b5f995728597e316306d",
+      "bytes": 30849,
+      "lines": 920,
+      "ranges": [
+        [
+          681,
+          719
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/incident-handoff-sources/12.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_place.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3b5577ab4ed4a6b743f800a6255da755b1d0ff71",
+      "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+      "bytes": 34905,
+      "lines": 998,
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/incident-handoff-sources/13.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/237",
+      "qualification": "Same earlier activity incident kind-string dispatch contract, not a new historical defect."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/989",
+      "qualification": "Broad earlier incident/surrender source, native UI, hostile and post-fine questions; only selected current handoff assessed."
+    },
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-285-286.json",
+      "qualification": "Separate earlier physical-p16 historical bodies and open lifecycle; not current source credit."
+    },
+    {
+      "file": "ASSESSMENT-L01-ARREST-SNAPSHOT-95E.json",
+      "qualification": "Separate bounded current pending-arrest snapshot safeguard, not an automatic alias."
+    },
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1221-1224.json",
+      "qualification": "Four separately attributed historical Lens1 body reads; no other-lens transfer."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-297.json",
+      "sha256": "df39cc74c8789e69327769e4d12129ce0586e2e16260bafe885b8907ba39dc8e",
+      "bytes": 1231,
+      "git_blob": "ae5bf1c0ecd2fdf28a97f3377e35afebbdfa00ca",
+      "preserved_bytes": "recovered/incident-handoff-059/df39cc74c8789e69327769e4d12129ce0586e2e16260bafe885b8907ba39dc8e.gz",
+      "published_sha256": "df39cc74c8789e69327769e4d12129ce0586e2e16260bafe885b8907ba39dc8e",
+      "published_bytes": 1231,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source role, attribution and pending contracts; no 3821 authority, current semantic transfer or transitive recovery."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-298.json",
+      "sha256": "289ecc3688b6ff605f8a966b5e157783733111f0054263995a7386f53251cff8",
+      "bytes": 1211,
+      "git_blob": "c3f48fbd6352237c6ef13b392e5d93e64d5e7866",
+      "preserved_bytes": "recovered/incident-handoff-059/289ecc3688b6ff605f8a966b5e157783733111f0054263995a7386f53251cff8.gz",
+      "published_sha256": "289ecc3688b6ff605f8a966b5e157783733111f0054263995a7386f53251cff8",
+      "published_bytes": 1211,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source role, attribution and pending contracts; no 3821 authority, current semantic transfer or transitive recovery."
+    },
+    {
+      "original_path": "segovb/READ-L12-297.json",
+      "sha256": "d9c9014dc7ef93ed7c49e7ae2ae50bd78b8dec6c084d736a2c1cce8794e48f91",
+      "bytes": 11957,
+      "git_blob": "7fe55e8a1b940f62f7b592708e61f32f8a756fa6",
+      "preserved_bytes": "recovered/incident-handoff-059/d9c9014dc7ef93ed7c49e7ae2ae50bd78b8dec6c084d736a2c1cce8794e48f91.gz",
+      "published_sha256": "d9c9014dc7ef93ed7c49e7ae2ae50bd78b8dec6c084d736a2c1cce8794e48f91",
+      "published_bytes": 11957,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source role, attribution and pending contracts; no 3821 authority, current semantic transfer or transitive recovery."
+    },
+    {
+      "original_path": "segovb/READ-L12-298.json",
+      "sha256": "afce34484ae16a5277c773ea8c14d5e276b8495dde8884cff26f1d14da18e662",
+      "bytes": 14908,
+      "git_blob": "0b9112f4ad8c1b425cb45dae0b5237297e2584d0",
+      "preserved_bytes": "recovered/incident-handoff-059/afce34484ae16a5277c773ea8c14d5e276b8495dde8884cff26f1d14da18e662.gz",
+      "published_sha256": "afce34484ae16a5277c773ea8c14d5e276b8495dde8884cff26f1d14da18e662",
+      "published_bytes": 14908,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source role, attribution and pending contracts; no 3821 authority, current semantic transfer or transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-128.json",
+      "sha256": "697703d7fd7acc347363f216e703c9c9912981d256e41f989a05dad195447090",
+      "bytes": 1183,
+      "git_blob": "d7ac54c4edbebe99dd5bc109abb4136243877a35",
+      "preserved_bytes": "recovered/incident-handoff-059/697703d7fd7acc347363f216e703c9c9912981d256e41f989a05dad195447090.gz",
+      "published_sha256": "697703d7fd7acc347363f216e703c9c9912981d256e41f989a05dad195447090",
+      "published_bytes": 1183,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source role, attribution and pending contracts; no 3821 authority, current semantic transfer or transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-129.json",
+      "sha256": "5c311ad4a52ffc56bd6fc81be6a6561982d9b8c9dc5f248cea1720fcb3512873",
+      "bytes": 1201,
+      "git_blob": "aaa739d1679dd517f9148613e1fcbdceb7e8472b",
+      "preserved_bytes": "recovered/incident-handoff-059/5c311ad4a52ffc56bd6fc81be6a6561982d9b8c9dc5f248cea1720fcb3512873.gz",
+      "published_sha256": "5c311ad4a52ffc56bd6fc81be6a6561982d9b8c9dc5f248cea1720fcb3512873",
+      "published_bytes": 1201,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source role, attribution and pending contracts; no 3821 authority, current semantic transfer or transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-130.json",
+      "sha256": "f19a736dd29f633b32afa4d64b9cc19557e14d5b30016b97c1822b7c6fde4e49",
+      "bytes": 1181,
+      "git_blob": "4fcc63d60eb17236bb358a3f4a628f15c91ffb92",
+      "preserved_bytes": "recovered/incident-handoff-059/f19a736dd29f633b32afa4d64b9cc19557e14d5b30016b97c1822b7c6fde4e49.gz",
+      "published_sha256": "f19a736dd29f633b32afa4d64b9cc19557e14d5b30016b97c1822b7c6fde4e49",
+      "published_bytes": 1181,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source role, attribution and pending contracts; no 3821 authority, current semantic transfer or transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-131.json",
+      "sha256": "fb91314d29fb9ac86e2751dbd3f4604a410928b7c76575c90fe720476694ac5d",
+      "bytes": 1165,
+      "git_blob": "047af1240f7e79f7439c3a7f9e041cb2c8e63c0e",
+      "preserved_bytes": "recovered/incident-handoff-059/fb91314d29fb9ac86e2751dbd3f4604a410928b7c76575c90fe720476694ac5d.gz",
+      "published_sha256": "fb91314d29fb9ac86e2751dbd3f4604a410928b7c76575c90fe720476694ac5d",
+      "published_bytes": 1165,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source role, attribution and pending contracts; no 3821 authority, current semantic transfer or transitive recovery."
+    },
+    {
+      "original_path": "segovb/STATE-L12-297.json",
+      "sha256": "7eb5f0935e8bcd23e5db54bcef871fa122cf94be5e0134b27eb94f982be07465",
+      "bytes": 840,
+      "git_blob": "0966aeb2382e59b62bc001655a534556f1abe7a0",
+      "preserved_bytes": "recovered/incident-handoff-059/7eb5f0935e8bcd23e5db54bcef871fa122cf94be5e0134b27eb94f982be07465.gz",
+      "published_sha256": "7eb5f0935e8bcd23e5db54bcef871fa122cf94be5e0134b27eb94f982be07465",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source role, attribution and pending contracts; no 3821 authority, current semantic transfer or transitive recovery."
+    },
+    {
+      "original_path": "segovb/STATE-L12-298.json",
+      "sha256": "4f7251845cb2a117c1a713ac283db14bb249831fc9d0c8cc39d5a0e5294a434f",
+      "bytes": 840,
+      "git_blob": "1da938494615a280e2af75e86090abb316973559",
+      "preserved_bytes": "recovered/incident-handoff-059/4f7251845cb2a117c1a713ac283db14bb249831fc9d0c8cc39d5a0e5294a434f.gz",
+      "published_sha256": "4f7251845cb2a117c1a713ac283db14bb249831fc9d0c8cc39d5a0e5294a434f",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source role, attribution and pending contracts; no 3821 authority, current semantic transfer or transitive recovery."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-297.json",
+      "sha256": "275cc281a1dcab57ca431773c200b8350bad644cfcaf26d0b3677fd20c87d384",
+      "bytes": 558,
+      "git_blob": "07716c1c2493bac49f4ea6c1bda536a55627c0ee",
+      "preserved_bytes": "recovered/incident-handoff-059/275cc281a1dcab57ca431773c200b8350bad644cfcaf26d0b3677fd20c87d384.gz",
+      "published_sha256": "275cc281a1dcab57ca431773c200b8350bad644cfcaf26d0b3677fd20c87d384",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source role, attribution and pending contracts; no 3821 authority, current semantic transfer or transitive recovery."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-298.json",
+      "sha256": "78425c61e29713ee9904e70c108f0db6e8c1a083519073b2e3dbc594470a4828",
+      "bytes": 558,
+      "git_blob": "a75e80b22072bbbbfb026ff6ff2ad343c9db82c5",
+      "preserved_bytes": "recovered/incident-handoff-059/78425c61e29713ee9904e70c108f0db6e8c1a083519073b2e3dbc594470a4828.gz",
+      "published_sha256": "78425c61e29713ee9904e70c108f0db6e8c1a083519073b2e3dbc594470a4828",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source role, attribution and pending contracts; no 3821 authority, current semantic transfer or transitive recovery."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-INCIDENT-COMBAT-AUTHORITY-HANDOFF-001",
+      "lens": 1,
+      "severity": "unassigned; source-established conditional handoff failure for a successfully created incident without separately supplied case provenance",
+      "classification": "New bounded 95e behavior and authority trace; related to the earlier open incident/UI/hostile contracts but no established historical alias or unique-count change.",
+      "trace": "create_strategic_incident, after location and pending/dedupe checks, writes an incident-named CaseSiteAuthority, materializes an Active hostile group and roster, creates the pending StrategicIncident, and moves each living member and the party to that new site. The selected creator, hostile materializer, roster writer and occupancy setter do not create a matching CaseAuthority or an InvestigationLead. The incident site stores incident_id as its case_id. The exact source path is conditional on successful creation and on no separate producer already supplying the matching case/lead; collisions, other writers, transactions and every incident mode remain open.",
+      "first_failed_contract": "If the incident site has no matching CaseAuthority, case_site_provenance_view and case_site_provenance_reducer both return None before classifying manual/generated cases. backend_case_site_pins requires an exact lead and that view provenance, so no pin can be emitted for that site under this condition. The selected web case-site enemy page requires that pin, and its tactical entry route also requires an active contract and matching pin. The native tactical-server request rejects missing provenance before binding; native autoresolve calls ensure_bound_mission_authority, whose fresh-mission path first requires exact_case_site_for_observer, which itself requires reducer provenance and an exact lead. Other earlier actor, scene, geography, readiness or mission-id guards may reject first. Therefore these selected current paths cannot enter that incident fight without an independently supplied valid authority, even though source-authored raiding/thievery descriptions describe a fight-or-flee choice. This is a source/control-flow conclusion, not a created incident, page observation or executed battle.",
+      "safeguards_and_limits": "A source-only test specifies incident-owned lifecycle without quest side effects; it was read, not run. The repair must not fabricate a quest or overwrite the party active contract to satisfy a gate. Existing authority surrender can settle an arrest, while travel can avoid a pending interruption; selected simulation logic pays an affordable projected arrest then tracks origin for return. Those alternatives do not establish every intended player-facing incident outcome, ordinary web reachability, live state, or a complete post-fine hostile lifecycle.",
+      "connected_repair": "After all remaining incident producers, public projections, web/direct callers, authorization, hostile roster, mission/resolution transitions, transaction semantics and intended rules are audited, give incident combat an explicit coherent authority and public handoff compatible with its non-quest lifecycle. Preserve source identity and the one-pending/dedupe gates, ordinary quest privacy, no quest side effects, tactical/transient boundary, avoidance and charge-scoped surrender; reconcile how party and hostile state finish together. Do not invent schema or implementation before audit completion.",
+      "discovery": "partial; separate authority producers, ordinary reachable incident states, all fight/flight/surrender paths, post-resolution lifecycle and historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "SEGOVB-L12-ACTIVITY-INCIDENT-KIND-TEXT-DISPATCH",
+      "lens": 12,
+      "severity": "unassigned; private closed-vocabulary representation roundtrip, no invalid canonical variant or runtime incident demonstrated",
+      "classification": "95e revisit of the same earlier 059 Lens12 contract, not a new unique historical defect.",
+      "trace": "maybe_trigger_activity_incident chooses one of four authored private outcome tuples using the raw labels raiding, thievery, carousing_disorder and authority_arrest; it later matches those strings into the existing IncidentKind plus a string kind_key before building IncidentSpec and writing incident state. The wildcard maps any unrecognized label to AuthorityArrest, but the selected producer emits only the four shown labels; no unexpected label is asserted reachable. The separate religious producer uses IncidentKind::Religious directly.",
+      "connected_repair": "After tracing all incident/reputation/offense/source consumers, carry an appropriate existing admitted IncidentKind or constrained subset from selection to IncidentSpec and derive each required external text spelling explicitly at its actual boundary. Preserve the distinct RNG hash inputs, source-id and reputation/offense spellings, ordering and risk predicates; do not equate these vocabularies merely because their text matches. Also retain the authority-arrest charge snapshot and pending-incident semantics.",
+      "discovery": "partial; all owners, external codecs, aliases and independent lenses remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Find every producer and permissible authority handoff and reconcile incident, quest, hostile and player behavior; all independent lenses and final 3821 ledger/queue remain open.",
+  "repair": "not started",
+  "validation": "not performed"
+}

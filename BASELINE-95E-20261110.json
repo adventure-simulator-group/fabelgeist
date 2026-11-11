@@ -2000,8 +2000,39 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L03-PARTY-ACTOR-95E.json"
+      },
+      {
+        "id": "REVIEW-INCIDENT-COMBAT-AUTHORITY-HANDOFF-001",
+        "lens": 1,
+        "severity": "unassigned; source-established conditional handoff failure for a successfully created incident without separately supplied case provenance",
+        "classification": "New bounded 95e behavior and authority trace; related to the earlier open incident/UI/hostile contracts but no established historical alias or unique-count change.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/989",
+          "ASSESSMENT-L01-HISTORICAL-285-286.json",
+          "ASSESSMENT-L01-ARREST-SNAPSHOT-95E.json"
+        ],
+        "relationship_qualification": "Historical source, attribution and acceptance limits retained; no current or other-lens transfer and no checkpoint 3821 authority.",
+        "discovery": "partial; separate authority producers, ordinary reachable incident states, all fight/flight/surrender paths, post-resolution lifecycle and historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-INCIDENT-COMBAT-HANDOFF-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-ACTIVITY-INCIDENT-KIND-TEXT-DISPATCH",
+        "lens": 12,
+        "severity": "unassigned; private closed-vocabulary representation roundtrip, no invalid canonical variant or runtime incident demonstrated",
+        "classification": "95e revisit of the same earlier 059 Lens12 contract, not a new unique historical defect.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/237",
+          "segovb/READ-L12-298.json via ASSESSMENT-INCIDENT-COMBAT-HANDOFF-95E.json"
+        ],
+        "relationship_qualification": "Historical source, attribution and acceptance limits retained; no current or other-lens transfer and no checkpoint 3821 authority.",
+        "discovery": "partial; all owners, external codecs, aliases and independent lenses remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-INCIDENT-COMBAT-HANDOFF-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0249.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0254.json"
 }
