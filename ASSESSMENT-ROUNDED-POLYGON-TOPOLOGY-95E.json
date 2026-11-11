@@ -1,0 +1,810 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original roles1906–1909, exact inherited EOF qualification, finite coordinate admissions and rounded floor polygon topology.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1906-1909.json",
+  "git_membership_evidence": "ROUNDED-POLYGON-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e3f275dc4b938f000cc010be82743b1cb5169457",
+      "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+      "bytes": 4747,
+      "lines": 140,
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rounded-polygon-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No polygon, transform, support mesh, scene, renderer, game or source test ran."
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "74f867e9f76d9f60dae0c7545e59b174f7ba66a5",
+      "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+      "bytes": 1026,
+      "lines": 28,
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rounded-polygon-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No polygon, transform, support mesh, scene, renderer, game or source test ran."
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/spatial_geometry/bounds.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "56ac7196a6cd62b5906f7c2d234aeb685f4df39e",
+      "sha256": "7760db42bc6a6c39f285ff6b2fdacbf6ff98b481d2385630e6bfbbb56a18a786",
+      "bytes": 3660,
+      "lines": 98,
+      "ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rounded-polygon-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No polygon, transform, support mesh, scene, renderer, game or source test ran."
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/plan_geometry.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cb2bed2cdcc749234530f8848d40e46e9654a1da",
+      "sha256": "a767ca4e45d2c04ddf94d1f23452ecbb3a5c6c864bc8ce63fc673e6f39e5b92b",
+      "bytes": 11702,
+      "lines": 341,
+      "ranges": [
+        [
+          116,
+          161
+        ],
+        [
+          226,
+          245
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rounded-polygon-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No polygon, transform, support mesh, scene, renderer, game or source test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "76183b03fb13e09dd65710d069792cab55e02cc3",
+      "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+      "bytes": 16151,
+      "lines": 438,
+      "ranges": [
+        [
+          27,
+          85
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rounded-polygon-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No polygon, transform, support mesh, scene, renderer, game or source test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/region.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2ab1b2cbd19486a8da34436b528fbfad4cbabff0",
+      "sha256": "0776d212c25f4a233acb887f1fa0e5318c494cff1121dfb5125e6f5105d3d409",
+      "bytes": 4332,
+      "lines": 121,
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rounded-polygon-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No polygon, transform, support mesh, scene, renderer, game or source test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/tests.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ba2a5e7b620dc53eb588649e344166692fb7032f",
+      "sha256": "418f05f73a7de5b68da774e1b2ae4ab2fd20f011803ed19fb013b2e5cf7379b7",
+      "bytes": 6521,
+      "lines": 185,
+      "ranges": [
+        [
+          91,
+          146
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rounded-polygon-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No polygon, transform, support mesh, scene, renderer, game or source test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/mesh.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a6aa458398cc478a0f5b0fc9d5734b81522e0abc",
+      "sha256": "d126f49c7be7d94e3c1e6bd19e6479542f155aaee7fedfccaa1c471706eed66e",
+      "bytes": 8835,
+      "lines": 242,
+      "ranges": [
+        [
+          138,
+          152
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rounded-polygon-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No polygon, transform, support mesh, scene, renderer, game or source test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/single.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0033a4f40f3c9173361f81017ae1f791490f2f34",
+      "sha256": "328feb3454948dd70bc97472745b9766b0dee5d91302c0a5de0ea7d0464d8813",
+      "bytes": 4531,
+      "lines": 115,
+      "ranges": [
+        [
+          21,
+          103
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rounded-polygon-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No polygon, transform, support mesh, scene, renderer, game or source test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/single/bearing.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "af00d1ce9c1266febecdc6625082e505a4cb04a6",
+      "sha256": "2f03defda63188c2d3cda5491164f2ed5c6366a272ca14509e1a899f51c92ba2",
+      "bytes": 2503,
+      "lines": 66,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rounded-polygon-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No polygon, transform, support mesh, scene, renderer, game or source test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/single_support/bearing.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "42e66f9e10984f7fe2df7afa08ac8eabd5e6ac99",
+      "sha256": "5db120967f3ce76c383d0df942a245b87dc2d8767b5d1073f0c881cf9177aa86",
+      "bytes": 2723,
+      "lines": 69,
+      "ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rounded-polygon-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No polygon, transform, support mesh, scene, renderer, game or source test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/single_support.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f2de6e26034c1262304bbce3efc1ba038aa161f7",
+      "sha256": "9927367b2d5cebf2b639c1f364a023b1ce1c4125733db42eee5a6f72b8f3bfa8",
+      "bytes": 3737,
+      "lines": 89,
+      "ranges": [
+        [
+          35,
+          87
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rounded-polygon-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No polygon, transform, support mesh, scene, renderer, game or source test ran."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-URBAN-BUCKET-CAPACITY-95E.json",
+    "ASSESSMENT-SAMPLED-SUPPORT-95E.json",
+    "ASSESSMENT-L01-POLYGON-PRECISION-95E.json",
+    "ASSESSMENT-GATE-AND-SUPPORT-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Exact role1907 EOF",
+      "trace": "The pinned 6533 source has122 lines. Original Segovb qualification and independent Adler291 distinguish two inherited 1–155 owner-proof metadata fields from the existing1–122 body; nonexistent123–155 has zero credit. Adler records its failed raw748 EOF check before body output and subsequent effective755 registration.",
+      "remaining": "This qualification does not transfer reviewer credit or modify any earlier proof, source identity, other inherited exception, or checkpoint3821."
+    },
+    {
+      "contract": "Position and frame admission",
+      "trace": "Position<F>::from_metres checks each component; its Deserialize calls that constructor, translated rechecks arithmetic, and SpatialBounds::union selects componentwise minima/maxima from already admitted positions. ScenePlanPoint::from(Position<Scene>) projects x/z, relying on that strong owner. Datum point conversions shown construct checked Position results.",
+      "remaining": "Reflection, all writes and actual native frame/consumer paths remain independent obligations. No nonfinite Position bypass is asserted."
+    },
+    {
+      "contract": "Rounded polygon",
+      "trace": "Exact ordered polygon admission checks all edges, while a rounded rigid projection checks represented positive area and distinctness but intentionally retains small bends. The dyadic translation illustration has a material turn inversion at a large finite offset; the selected floor path can fan such outlines subject to independently unproved upstream conditions.",
+      "remaining": "No complete accepted scene, recipe, allocation, native support or executed test. The source fixture for a tiny intentional bend is counterevidence to a blanket exact-revalidation proposal."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-ROUNDED-POLYGON-TOPOLOGY-001",
+      "lens": 1,
+      "additional_current_lenses": [
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        11,
+        12,
+        13
+      ],
+      "severity": "unassigned; source-derived large-coordinate topology candidate",
+      "first_contract": "A represented physical floor outline must have a topology compatible with its later convex fan, or its supported projection domain and consumer policy must explicitly account for rounding-induced inversions.",
+      "classification": "New current source assessment; no historical unique-count increment. A deliberate small-bend policy exists and is preserved.",
+      "trace": "Take the strictly convex counterclockwise points A=(0,0), B=(4,0), C=(4,2), D=(161/64,81/64). All coordinates are exactly representable binary32. Their consecutive exact cross products are 8, 95/32, 1/32 and 81/16, so the shown ordered PlanPolygon constructor accepts the finite, distinct, positive-area shape under its arithmetic. A finite translation by (2^23,2^23) is accepted as PlanDisplacement. Under ordinary round-to-nearest binary32 addition, subtracting the common translation from the represented result gives A=(0,0), B=(4,0), C=(4,2), D=(3,1): the two fractional components of D round to3 and1. The resulting double signed area is6, all vertices remain distinct, and the C→D→A turn is −2, so from_rigid_projection admits a represented concave outline. No constructor, translation, floating operation or product was executed; this is exact dyadic/rounding reasoning from the pinned source.",
+      "consumer_and_safeguards": "FloorRegion::from_scene rechecks the exact convex constructor and would reject these translated vertices; do not claim that path accepts them. FloorRegion::from_architectural retains the original convex source and reconstructs the rounded projection without the exact recheck. Under the explicit assumption that the selected native sin_cos(0) returns the identity, an architectural polygon with these coordinates, zero origin, identity orientation and centre (2^23,2^23) has the same represented outline. The selected single-building recipe path creates that kind of region; if a complete valid recipe, placement, floor request and all intervening checks reach convex_floor, its fan contains triangles A-B-C and A-C-D. The second lies inside the first and has opposite signed orientation, so the geometric fan covers the concavity rather than exactly the polygon. Source test rounded_architectural_edges_keep_union_coverage_without_masking_missing_faces documents an intentional small rounded-bend use case; its assertions were not executed. The much larger 2^23m position, actual recipe shape, sin_cos backend, whole-scene support, admission/coverage guards, native triangle winding and user impact are unproved. Ordinary city generation may constrain positions and has not been shown to produce this input.",
+      "connected_repair_dependencies": [
+        "Trace supported architectural footprint coordinates, projection and translations, complete scene/bearing admissions and native consumers before deciding whether to restrict range, reject material inversions, use a topology-preserving representation or change triangulation.",
+        "Preserve the intentional existing small-bend and authored-projection transport semantics; do not automatically re-hull or classify its mode as compatibility code. Keep the mixed-scale exact PlanPolygon false-degenerate finding separate unless first-contract alias proof is obtained.",
+        "Later authorized verification should include ordinary projected authored bends, the large-offset dyadic example, collinear and truly collapsed cases, all floor/mesh/transport owners, and native winding and support semantics. None was run."
+      ],
+      "historical_related_candidates": [
+        "baseline-059/queue.json#/entries/1575",
+        "segovb/READ-L12-635.json",
+        "adler/READ-L11-291.json",
+        "ASSESSMENT-L01-POLYGON-PRECISION-95E.json"
+      ],
+      "accepted_historical_unique_count_change": 0,
+      "discovery": "partial; exact public translation and qualified architectural/fan source chain, supported inputs and actual physical behavior remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-267.json",
+      "sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e",
+      "bytes": 22626,
+      "git_blob": "b0b7fae53ef99de5954a3fa93d47a3da655bfd19",
+      "preserved_bytes": "recovered/rounded-polygon-059/e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e.gz",
+      "published_sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e",
+      "published_bytes": 22626,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-274.json",
+      "sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91",
+      "bytes": 9944,
+      "git_blob": "e072050becf60dde23ac603c52ac4b125de87408",
+      "preserved_bytes": "recovered/rounded-polygon-059/7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91.gz",
+      "published_sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91",
+      "published_bytes": 9944,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-279.json",
+      "sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7",
+      "bytes": 9700,
+      "git_blob": "30bff15c9967db3e6f6f3c7727bef93f7ce5c919",
+      "preserved_bytes": "recovered/rounded-polygon-059/d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7.gz",
+      "published_sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7",
+      "published_bytes": 9700,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "bytes": 15035,
+      "git_blob": "45ee5dcfa447994407de51ae6b68f85de63c1ac4",
+      "preserved_bytes": "recovered/rounded-polygon-059/bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3.gz",
+      "published_sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "published_bytes": 15035,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-286.json",
+      "sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de",
+      "bytes": 12115,
+      "git_blob": "f0857f21383fa7232908947c1df1dd955d94cf4a",
+      "preserved_bytes": "recovered/rounded-polygon-059/58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de.gz",
+      "published_sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de",
+      "published_bytes": 12115,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29",
+      "bytes": 6941,
+      "git_blob": "84f8363af8a5a6f039846f29fc14e050b87737cf",
+      "preserved_bytes": "recovered/rounded-polygon-059/88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29.gz",
+      "published_sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29",
+      "published_bytes": 6941,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f",
+      "bytes": 15183,
+      "git_blob": "bc06bba74b5bf5a40366ea8765844e638608e231",
+      "preserved_bytes": "recovered/rounded-polygon-059/a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f.gz",
+      "published_sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f",
+      "published_bytes": 15183,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-289.json",
+      "sha256": "28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0",
+      "bytes": 13932,
+      "git_blob": "492f7a3770c7692e16bb1d1a6c1004a0817290db",
+      "preserved_bytes": "recovered/rounded-polygon-059/28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0.gz",
+      "published_sha256": "28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0",
+      "published_bytes": 13932,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-290.json",
+      "sha256": "16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a",
+      "bytes": 12417,
+      "git_blob": "36c15abc3fc414b93ef16c17a4a8076ad21c0fef",
+      "preserved_bytes": "recovered/rounded-polygon-059/16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a.gz",
+      "published_sha256": "16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a",
+      "published_bytes": 12417,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-291.json",
+      "sha256": "88a366a9e9b9c27fa28af39f5c4ce5561d70e8c1974fb5d08dbdad55479dbba1",
+      "bytes": 27097,
+      "git_blob": "3ad1e5257b2f549ce6fc40c59088c5b05fbf1467",
+      "preserved_bytes": "recovered/rounded-polygon-059/88a366a9e9b9c27fa28af39f5c4ce5561d70e8c1974fb5d08dbdad55479dbba1.gz",
+      "published_sha256": "88a366a9e9b9c27fa28af39f5c4ce5561d70e8c1974fb5d08dbdad55479dbba1",
+      "published_bytes": 27097,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt including separate EOF qualification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-747.json",
+      "sha256": "018218f86df57a55e0a4cb63c8a6b112c52d5d707773287a900831145e24b9df",
+      "bytes": 706,
+      "git_blob": "2cafae519646a248e1aa8fc8b2bb8ac5516ddaca",
+      "preserved_bytes": "recovered/rounded-polygon-059/018218f86df57a55e0a4cb63c8a6b112c52d5d707773287a900831145e24b9df.gz",
+      "published_sha256": "018218f86df57a55e0a4cb63c8a6b112c52d5d707773287a900831145e24b9df",
+      "published_bytes": 706,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; future roles1910–1913 retain original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-748.json",
+      "sha256": "03fe68917621f72269b419f70d205fcb0cce81949b2d8913fb1343369963e684",
+      "bytes": 693,
+      "git_blob": "33bd1686658291e897fc86d7717d2657ec689421",
+      "preserved_bytes": "recovered/rounded-polygon-059/03fe68917621f72269b419f70d205fcb0cce81949b2d8913fb1343369963e684.gz",
+      "published_sha256": "03fe68917621f72269b419f70d205fcb0cce81949b2d8913fb1343369963e684",
+      "published_bytes": 693,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original attempted raw155 registration; historic receipt says failed EOF assertion before body output, zero body credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-749.json",
+      "sha256": "60ad536f73c9962bda0faac28178dfd56b572751eb15aeeb7a52a3254e24560e",
+      "bytes": 713,
+      "git_blob": "72e9311ba39fcf673ba3d7e28bb250716dd4bc79",
+      "preserved_bytes": "recovered/rounded-polygon-059/60ad536f73c9962bda0faac28178dfd56b572751eb15aeeb7a52a3254e24560e.gz",
+      "published_sha256": "60ad536f73c9962bda0faac28178dfd56b572751eb15aeeb7a52a3254e24560e",
+      "published_bytes": 713,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; future roles1910–1913 retain original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-750.json",
+      "sha256": "a7b2fdfaf41ffd2b12755f57e276e5e83f52508d2fa862bce52aedd3e291416e",
+      "bytes": 701,
+      "git_blob": "143140218a9f10a05c42fdb5a7ef8304275c3f2b",
+      "preserved_bytes": "recovered/rounded-polygon-059/a7b2fdfaf41ffd2b12755f57e276e5e83f52508d2fa862bce52aedd3e291416e.gz",
+      "published_sha256": "a7b2fdfaf41ffd2b12755f57e276e5e83f52508d2fa862bce52aedd3e291416e",
+      "published_bytes": 701,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; future roles1910–1913 retain original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-751.json",
+      "sha256": "98bac691cddf561f82f95655eac220623b683e6f1755b25a22f65f30a7951e3d",
+      "bytes": 719,
+      "git_blob": "b71cc0920f6dd012f44254b2b60985479487cd74",
+      "preserved_bytes": "recovered/rounded-polygon-059/98bac691cddf561f82f95655eac220623b683e6f1755b25a22f65f30a7951e3d.gz",
+      "published_sha256": "98bac691cddf561f82f95655eac220623b683e6f1755b25a22f65f30a7951e3d",
+      "published_bytes": 719,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; future roles1910–1913 retain original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-752.json",
+      "sha256": "3afb21401c1478a5e10c8182d69a4923fe34490a161c3f3a933af229b296d680",
+      "bytes": 715,
+      "git_blob": "d662e7f17f4a9727c390340877139d2d46059302",
+      "preserved_bytes": "recovered/rounded-polygon-059/3afb21401c1478a5e10c8182d69a4923fe34490a161c3f3a933af229b296d680.gz",
+      "published_sha256": "3afb21401c1478a5e10c8182d69a4923fe34490a161c3f3a933af229b296d680",
+      "published_bytes": 715,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; future roles1910–1913 retain original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-753.json",
+      "sha256": "83f00382bbacabb4ba62e075449f6437a78506544c7a55dd524487b60f2f5d47",
+      "bytes": 712,
+      "git_blob": "69483b9e53696efe5a50383c67923ee64beeafcf",
+      "preserved_bytes": "recovered/rounded-polygon-059/83f00382bbacabb4ba62e075449f6437a78506544c7a55dd524487b60f2f5d47.gz",
+      "published_sha256": "83f00382bbacabb4ba62e075449f6437a78506544c7a55dd524487b60f2f5d47",
+      "published_bytes": 712,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; future roles1910–1913 retain original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-754.json",
+      "sha256": "221ff73a5d29478a5876a470986bef275b586a637bc5d4eeab162b7d3a320033",
+      "bytes": 699,
+      "git_blob": "d6e69c876aca98a3bd7a91c404729b8fe5783e48",
+      "preserved_bytes": "recovered/rounded-polygon-059/221ff73a5d29478a5876a470986bef275b586a637bc5d4eeab162b7d3a320033.gz",
+      "published_sha256": "221ff73a5d29478a5876a470986bef275b586a637bc5d4eeab162b7d3a320033",
+      "published_bytes": 699,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; future roles1910–1913 retain original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-755.json",
+      "sha256": "fc977f6e5b1ceadb7287fa4b97096dc98de75b6f1d48281615dfa9a5a98a3d8e",
+      "bytes": 11869,
+      "git_blob": "089579256c96756c6d8b657e2db7dd0b94cfe9c5",
+      "preserved_bytes": "recovered/rounded-polygon-059/fc977f6e5b1ceadb7287fa4b97096dc98de75b6f1d48281615dfa9a5a98a3d8e.gz",
+      "published_sha256": "fc977f6e5b1ceadb7287fa4b97096dc98de75b6f1d48281615dfa9a5a98a3d8e",
+      "published_bytes": 11869,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; future roles1910–1913 retain original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-291.json",
+      "sha256": "116fc87aeeaa5803bb60e93c89a4865355b2ace8bc8cf2e1a858d8ec32027dd8",
+      "bytes": 690,
+      "git_blob": "69c1291df2df1d9b554accc1c50c50fbb40006ec",
+      "preserved_bytes": "recovered/rounded-polygon-059/116fc87aeeaa5803bb60e93c89a4865355b2ace8bc8cf2e1a858d8ec32027dd8.gz",
+      "published_sha256": "116fc87aeeaa5803bb60e93c89a4865355b2ace8bc8cf2e1a858d8ec32027dd8",
+      "published_bytes": 690,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-291.json",
+      "sha256": "4fc68f0fde37c346adeb381a7dcf98a40bcab3a553da04bac70cdd46498779b7",
+      "bytes": 45767,
+      "git_blob": "70d80998956fc2c8e6558b3f332bddd4ec4f5c4e",
+      "preserved_bytes": "recovered/rounded-polygon-059/4fc68f0fde37c346adeb381a7dcf98a40bcab3a553da04bac70cdd46498779b7.gz",
+      "published_sha256": "4fc68f0fde37c346adeb381a7dcf98a40bcab3a553da04bac70cdd46498779b7",
+      "published_bytes": 45767,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-634.json",
+      "sha256": "b076986e0d9314174440680b05d5d6094275e77cb3ea120f546ab1e8077f6d27",
+      "bytes": 718,
+      "git_blob": "49c357cc7751e5ccad84fc1ce263aa4ba45697ba",
+      "preserved_bytes": "recovered/rounded-polygon-059/b076986e0d9314174440680b05d5d6094275e77cb3ea120f546ab1e8077f6d27.gz",
+      "published_sha256": "b076986e0d9314174440680b05d5d6094275e77cb3ea120f546ab1e8077f6d27",
+      "published_bytes": 718,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 prospective plan"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-635.json",
+      "sha256": "b59389717f26fa36cb26d412104142ef5f40cc82d45c31f78842de6d15b29bc3",
+      "bytes": 1219,
+      "git_blob": "ab3a780d0f47b16a0c98194719f7c39b5757fc54",
+      "preserved_bytes": "recovered/rounded-polygon-059/b59389717f26fa36cb26d412104142ef5f40cc82d45c31f78842de6d15b29bc3.gz",
+      "published_sha256": "b59389717f26fa36cb26d412104142ef5f40cc82d45c31f78842de6d15b29bc3",
+      "published_bytes": 1219,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 prospective plan"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/QUALIFICATION-L12-ORIGINAL1907-EOF-001.json",
+      "sha256": "fb627e887850b7b065b53fcbad28735405c529e4c9e31040c0733c5f214c039b",
+      "bytes": 2367,
+      "git_blob": "5490ef02b8e9507eaeb6c63c9dbc63a6f3ad0d06",
+      "preserved_bytes": "recovered/rounded-polygon-059/fb627e887850b7b065b53fcbad28735405c529e4c9e31040c0733c5f214c039b.gz",
+      "published_sha256": "fb627e887850b7b065b53fcbad28735405c529e4c9e31040c0733c5f214c039b",
+      "published_bytes": 2367,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original exact two-field EOF qualification, no body credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-634.json",
+      "sha256": "98536f6bec9ea1ee788da54846266967bb1a83a798a93085b7c6ad1d378f3b8e",
+      "bytes": 2920,
+      "git_blob": "f881eae0fd5664c0f3ca143a99c1865e3abd390f",
+      "preserved_bytes": "recovered/rounded-polygon-059/98536f6bec9ea1ee788da54846266967bb1a83a798a93085b7c6ad1d378f3b8e.gz",
+      "published_sha256": "98536f6bec9ea1ee788da54846266967bb1a83a798a93085b7c6ad1d378f3b8e",
+      "published_bytes": 2920,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-635.json",
+      "sha256": "1d11aa7311535c2ba545df24463e102a01669dc8d2ef5b323906d17c576046ff",
+      "bytes": 5072,
+      "git_blob": "f8d21027cc1a1cf3415329e38572a1d9b96fa1b4",
+      "preserved_bytes": "recovered/rounded-polygon-059/1d11aa7311535c2ba545df24463e102a01669dc8d2ef5b323906d17c576046ff.gz",
+      "published_sha256": "1d11aa7311535c2ba545df24463e102a01669dc8d2ef5b323906d17c576046ff",
+      "published_bytes": 5072,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-814.json",
+      "sha256": "e8f4825913016312cc7297c3f574a0408fee783c6de413693c914b460f53358d",
+      "bytes": 1179,
+      "git_blob": "2e7ab18b823d33df77d89003c42c754cef81430b",
+      "preserved_bytes": "recovered/rounded-polygon-059/e8f4825913016312cc7297c3f574a0408fee783c6de413693c914b460f53358d.gz",
+      "published_sha256": "e8f4825913016312cc7297c3f574a0408fee783c6de413693c914b460f53358d",
+      "published_bytes": 1179,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-815.json",
+      "sha256": "4d2a7b343f942af74f6ae9125e99901256f4686ccc0d6871ccaad300ceb54088",
+      "bytes": 1188,
+      "git_blob": "ee895414b66c2afd53873eb826c1a257b8e55fde",
+      "preserved_bytes": "recovered/rounded-polygon-059/4d2a7b343f942af74f6ae9125e99901256f4686ccc0d6871ccaad300ceb54088.gz",
+      "published_sha256": "4d2a7b343f942af74f6ae9125e99901256f4686ccc0d6871ccaad300ceb54088",
+      "published_bytes": 1188,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-816.json",
+      "sha256": "1756fad82476bfa6dc2f4c0ed172148591fb250e0803dc22ca4e702285b5d5b2",
+      "bytes": 1188,
+      "git_blob": "7e65b040c80ccbdffb43c6e5153f25b0ff537ce0",
+      "preserved_bytes": "recovered/rounded-polygon-059/1756fad82476bfa6dc2f4c0ed172148591fb250e0803dc22ca4e702285b5d5b2.gz",
+      "published_sha256": "1756fad82476bfa6dc2f4c0ed172148591fb250e0803dc22ca4e702285b5d5b2",
+      "published_bytes": 1188,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-634.json",
+      "sha256": "305778febc7204d6a27f653906a7b0b40a4f4995f9c33085784a8e39f317d17a",
+      "bytes": 840,
+      "git_blob": "9df7d0eff36f0219a36ba38f17415843e22baece",
+      "preserved_bytes": "recovered/rounded-polygon-059/305778febc7204d6a27f653906a7b0b40a4f4995f9c33085784a8e39f317d17a.gz",
+      "published_sha256": "305778febc7204d6a27f653906a7b0b40a4f4995f9c33085784a8e39f317d17a",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-635.json",
+      "sha256": "9e92e7c91cf751cb4919f46f64d12e4fd70d857df5e26c5302c484ee9118d9a5",
+      "bytes": 840,
+      "git_blob": "65a986960052ffb5f44393fcd04b2addeb791dfd",
+      "preserved_bytes": "recovered/rounded-polygon-059/9e92e7c91cf751cb4919f46f64d12e4fd70d857df5e26c5302c484ee9118d9a5.gz",
+      "published_sha256": "9e92e7c91cf751cb4919f46f64d12e4fd70d857df5e26c5302c484ee9118d9a5",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-634.json",
+      "sha256": "d4b9b9533d221b7c85d876f0ade43291a5345b33014b9a122447e928d6e1e0ea",
+      "bytes": 558,
+      "git_blob": "e3708f5b81d2e21e2de74482f54e2db936706eec",
+      "preserved_bytes": "recovered/rounded-polygon-059/d4b9b9533d221b7c85d876f0ade43291a5345b33014b9a122447e928d6e1e0ea.gz",
+      "published_sha256": "d4b9b9533d221b7c85d876f0ade43291a5345b33014b9a122447e928d6e1e0ea",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-635.json",
+      "sha256": "e54f1e9d8ff0b55ae4cfa428473023fc5d31e8e131010f33ea7af6cd604157be",
+      "bytes": 558,
+      "git_blob": "c9dcb2e4c34c545462e119bd8d7c7dfe9010a15e",
+      "preserved_bytes": "recovered/rounded-polygon-059/e54f1e9d8ff0b55ae4cfa428473023fc5d31e8e131010f33ea7af6cd604157be.gz",
+      "published_sha256": "e54f1e9d8ff0b55ae4cfa428473023fc5d31e8e131010f33ea7af6cd604157be",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1572",
+        "/entries/1573",
+        "/entries/1574",
+        "/entries/1575",
+        "/entries/1576"
+      ],
+      "qualification": "Earlier pending contracts remain open, not checkpoint3821."
+    },
+    {
+      "file": "ASSESSMENT-URBAN-BUCKET-CAPACITY-95E.json",
+      "pointers": [
+        "/recovered_historical_records"
+      ],
+      "qualification": "Original Segovb633 includes historical role1906 and retains its reviewer attribution only."
+    }
+  ],
+  "historical_attribution_qualification": "Segovb634/635 and Adler291 retain historic ranges and exact EOF restrictions. Adler291 includes future roles1910–1913, with original reviewer credit only. Earlier Segovb633 role1906 is preserved in the preceding assessment. No later original role gains current Lens1 credit by this receipt. No checkpoint3821 evidence is manufactured.",
+  "remaining": "Continue original1910, all13 lenses, supported polygon projection domain and complete support consumers, finite Position producer and reflection paths, native backend and aliases. Original3821 final ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

@@ -5650,8 +5650,36 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-URBAN-BUCKET-CAPACITY-95E.json"
+      },
+      {
+        "id": "REVIEW-ROUNDED-POLYGON-TOPOLOGY-001",
+        "lens": 1,
+        "additional_current_lenses": [
+          2,
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; source-derived large-coordinate topology candidate",
+        "classification": "A represented physical floor outline must have a topology compatible with its later convex fan, or its supported projection domain and consumer policy must explicitly account for rounding-induced inversions.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1575",
+          "segovb/READ-L12-635.json",
+          "adler/READ-L11-291.json",
+          "ASSESSMENT-L01-POLYGON-PRECISION-95E.json"
+        ],
+        "relationship_qualification": "Prior Segovb635 explicitly preserved deliberate small-bend policy and left actual bad shape/native consequences pending. This new large-offset dyadic source case is distinct from the exact mixed-scale area rejection candidate unless first-contract alias proof is found. No historical unique increment or checkpoint3821 attribution.",
+        "discovery": "partial; exact public translation and qualified architectural/fan source chain, supported inputs and actual physical behavior remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-ROUNDED-POLYGON-TOPOLOGY-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1155.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1159.json"
 }
