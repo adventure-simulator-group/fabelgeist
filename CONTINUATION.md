@@ -239,6 +239,8 @@ without expanding current semantic coverage.
 food source reads without expanding current semantic coverage.
 `ASSESSMENT-L01-HISTORICAL-1109-1113.json` records historical preparation,
 projections and source-test reads without expanding current semantic coverage.
+`ASSESSMENT-L01-HISTORICAL-1114-1118.json` records historical foraging,
+herbal preparation and measured inventory without expanding current coverage.
 `ASSESSMENT-L05-SCHEDULE-AGGREGATE-95E.json` records a possible schedule
 aggregate strengthening. Both selected production callers supply matching
 organization minutes; no invalid native schedule was established.
