@@ -1586,6 +1586,78 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L02-GENERATED-AUTHORITY-95E.json"
+      },
+      {
+        "id": "REVIEW-INVENTORY-STABLE-QUANTITY-001",
+        "lens": 4,
+        "severity": "unassigned; source-established invariant break if the described authorized reducer call succeeds",
+        "classification": "A stable physical object and its backing inventory row can disagree on individual versus stack quantity after a quantity mutation.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/218",
+          "baseline-059/queue.json#/entries/946",
+          "baseline-059/queue.json#/entries/947",
+          "ASSESSMENT-L01-HISTORICAL-220-223.json",
+          "ASSESSMENT-L01-HISTORICAL-300.json"
+        ],
+        "relationship_qualification": "Existing grant-error erasure is explicitly revisited under its retained identifier. Stable-row mutation, missing actor admission and measured exhaustion have distinct selected first failures; wider historical alias and family reconciliation remains open.",
+        "discovery": "partial; all item classes, supported call paths, old aliases and transaction/cascade policy remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-INVENTORY-MUTATION-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-INVENTORY-GRANT-ERROR-ERASURE",
+        "lens": 1,
+        "severity": "unassigned; source-established false-success path conditional on successful native row insertion",
+        "classification": "95e revisit of the earlier grant-error erasure, now with a specific missing-definition initializer failure after row insertion; not a new unique historical defect.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/218",
+          "baseline-059/queue.json#/entries/946",
+          "baseline-059/queue.json#/entries/947",
+          "ASSESSMENT-L01-HISTORICAL-220-223.json",
+          "ASSESSMENT-L01-HISTORICAL-300.json"
+        ],
+        "relationship_qualification": "Existing grant-error erasure is explicitly revisited under its retained identifier. Stable-row mutation, missing actor admission and measured exhaustion have distinct selected first failures; wider historical alias and family reconciliation remains open.",
+        "discovery": "partial; complete caller inventory, exact alias and native constraints/transaction policy remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-INVENTORY-MUTATION-95E.json"
+      },
+      {
+        "id": "REVIEW-INVENTORY-REDUCER-ACTOR-ADMISSION-001",
+        "lens": 3,
+        "severity": "unassigned; source-established missing application actor check conditional on external access",
+        "classification": "The remotely exposed inventory quantity reducer checks that a target character exists and is alive but does not check the sender against the strategic gateway or simulation owner.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/218",
+          "baseline-059/queue.json#/entries/946",
+          "baseline-059/queue.json#/entries/947",
+          "ASSESSMENT-L01-HISTORICAL-220-223.json",
+          "ASSESSMENT-L01-HISTORICAL-300.json"
+        ],
+        "relationship_qualification": "Existing grant-error erasure is explicitly revisited under its retained identifier. Stable-row mutation, missing actor admission and measured exhaustion have distinct selected first failures; wider historical alias and family reconciliation remains open.",
+        "discovery": "partial; deployment ACL, intended reducer exposure, related caller/global aliases and actor-policy owner remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-INVENTORY-MUTATION-95E.json"
+      },
+      {
+        "id": "REVIEW-MEASURED-EXHAUSTION-OBJECT-001",
+        "lens": 5,
+        "severity": "unassigned; conditional retained-object/containment inconsistency after complete measured consumption",
+        "classification": "Measured row exhaustion deletes the amount and inventory row without the explicit physical-object reconciliation used by other consumption paths.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/218",
+          "baseline-059/queue.json#/entries/946",
+          "baseline-059/queue.json#/entries/947",
+          "ASSESSMENT-L01-HISTORICAL-220-223.json",
+          "ASSESSMENT-L01-HISTORICAL-300.json"
+        ],
+        "relationship_qualification": "Existing grant-error erasure is explicitly revisited under its retained identifier. Stable-row mutation, missing actor admission and measured exhaustion have distinct selected first failures; wider historical alias and family reconciliation remains open.",
+        "discovery": "partial; host cascade, all measured consumers, supported nested sequences and prior aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-INVENTORY-MUTATION-95E.json"
       }
     ]
   },

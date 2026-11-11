@@ -269,6 +269,11 @@ action, provenance and route sources without expanding current coverage.
 capability, claim and geometry sources without expanding current coverage.
 `ASSESSMENT-L01-HISTORICAL-1126-1127.json` records historical investigation
 module composition and evidence state without expanding current coverage.
+`ASSESSMENT-INVENTORY-MUTATION-95E.json` traces stable-object quantity,
+grant error, actor admission and measured exhaustion contracts. Each
+finding states its source-only preconditions and unverified boundaries.
+`ASSESSMENT-L01-HISTORICAL-1136-1138.json` records separate earlier item
+and module source bodies; test and fixture code was not run.
 `ASSESSMENT-L01-HISTORICAL-1134-1135.json` records earlier investigation
 source-test bodies without claiming test execution or other-lens coverage.
 `ASSESSMENT-L01-HISTORICAL-1130-1133.json` records earlier site and

@@ -1,0 +1,771 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "lenses": [
+    1,
+    3,
+    4,
+    5
+  ],
+  "scope": "Selected personal inventory grant/mutation, custody, actor admission and measured consumption. Every lens and the connected repair ledger remain incomplete.",
+  "source_reasoning": "Pinned source inspection, tracked authored data parsing, symbolic arithmetic and recovered evidence-byte verification only; no product build, test, generated fixture, database, browser or runtime probe.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/item.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa",
+      "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "bytes": 34605,
+      "lines": 957,
+      "ranges": [
+        [
+          40,
+          58
+        ],
+        [
+          77,
+          151
+        ],
+        [
+          182,
+          288
+        ],
+        [
+          322,
+          408
+        ],
+        [
+          413,
+          438
+        ],
+        [
+          458,
+          516
+        ],
+        [
+          518,
+          561
+        ],
+        [
+          563,
+          719
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-mutation-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "80bf707f3d64af1fe32e630ff811e7b1fe790957",
+      "sha256": "572d3f806ee5f017d597ba5041922e8efc94056e40b22c69a2d9251cebe1c765",
+      "bytes": 50615,
+      "lines": 1430,
+      "ranges": [
+        [
+          1,
+          112
+        ],
+        [
+          183,
+          196
+        ],
+        [
+          231,
+          260
+        ],
+        [
+          603,
+          766
+        ],
+        [
+          914,
+          930
+        ],
+        [
+          932,
+          1003
+        ],
+        [
+          1013,
+          1037
+        ],
+        [
+          1069,
+          1117
+        ],
+        [
+          1258,
+          1368
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-mutation-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_container/object_lookup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6392be9abac49ce8f6bfe66aa11bb9964c14b7ce",
+      "sha256": "d3fa07b94a49cbd1c54ba90e00a9e76cad9b757990279309e2abf171466ac28a",
+      "bytes": 1987,
+      "lines": 56,
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-mutation-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/object_custody.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d5aef64ef75ca9b2094925d4cc07ec11d6e7f788",
+      "sha256": "a9bb1a3335b7d10b135f817c54c903577af4b2df12ca9d1c10a9ca52d48b2d5c",
+      "bytes": 19253,
+      "lines": 501,
+      "ranges": [
+        [
+          160,
+          217
+        ],
+        [
+          317,
+          388
+        ],
+        [
+          390,
+          400
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-mutation-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "358fb3e0656253372229a74997eaee186fdf9ecf",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "bytes": 7706,
+      "lines": 241,
+      "ranges": [
+        [
+          1,
+          61
+        ],
+        [
+          90,
+          160
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-mutation-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5940310a9bf4b0b9cfb4b400f34ec2418f08c99b",
+      "sha256": "0366036a85f92aec26b1e205aa69edeb41afe565c118d2d5335e5cbb2ee4e983",
+      "bytes": 15554,
+      "lines": 445,
+      "ranges": [
+        [
+          141,
+          165
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-mutation-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/filth.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bc1c06067719a1dc4616de1737a938f03a4b6bd9",
+      "sha256": "5b1b42cf0757533e9b4591a203615729ea9ebd91da1891cadabb8bde74dec69a",
+      "bytes": 24935,
+      "lines": 769,
+      "ranges": [
+        [
+          359,
+          410
+        ],
+        [
+          445,
+          517
+        ],
+        [
+          575,
+          629
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-mutation-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/smithing.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8e1caf0ff581f66e34d198f3e2fafbf28cac6662",
+      "sha256": "aecea90ad65fd73946a24653499fdfe07a626491543cb20c57f5e70ae82e4d49",
+      "bytes": 4455,
+      "lines": 119,
+      "ranges": [
+        [
+          1,
+          54
+        ],
+        [
+          56,
+          71
+        ],
+        [
+          86,
+          118
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-mutation-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/camp_rest.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2f77dc4548feaff836aa0bd9a7096a98bf8a49db",
+      "sha256": "0b7a5ed8ec44cf760ca6c39a180bf3290b7342aa430e790aa1a48a2a69f16f5a",
+      "bytes": 14946,
+      "lines": 378,
+      "ranges": [
+        [
+          15,
+          72
+        ],
+        [
+          101,
+          115
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-mutation-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "965aec5634dad55bab94097ddccbf54049135848",
+      "sha256": "f63df87344c6f358a0bcaa63481d349415e8e5481acb42031232d17cf20db125",
+      "bytes": 23560,
+      "lines": 651,
+      "ranges": [
+        [
+          295,
+          310
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-mutation-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/surgery.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "833a18f053639bb556b66cddfb3b9af6fd5c34a6",
+      "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+      "bytes": 50861,
+      "lines": 1435,
+      "ranges": [
+        [
+          1055,
+          1073
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-mutation-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/condition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bdc470d795940aee28e60528b56120a9e09ba232",
+      "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "bytes": 92654,
+      "lines": 2627,
+      "ranges": [
+        [
+          443,
+          501
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-mutation-sources/11.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "752847f13a84a9a9a3f561341a2f230636c7e374",
+      "sha256": "ff33eb4a42abbfa737b312019fdfc7c457688d66bd84fb81af2364ed30fa9cfe",
+      "bytes": 39483,
+      "lines": 1029,
+      "ranges": [
+        [
+          388,
+          414
+        ],
+        [
+          948,
+          965
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-mutation-sources/12.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "273eafd632bcd254869f05ba77a9b7be4cf94d72",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "bytes": 51546,
+      "lines": 1586,
+      "ranges": [
+        [
+          940,
+          965
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-mutation-sources/13.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+      "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "bytes": 138251,
+      "lines": 3968,
+      "ranges": [
+        [
+          317,
+          330
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-mutation-sources/14.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/change_inventory_item_reducer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "afdc969fbf3a071aaf45e750083b632506f9be8e",
+      "sha256": "61fd26ed24743a97adcfe339598f59c3289d36de023e14f492eae13c817d2856",
+      "bytes": 3116,
+      "lines": 91,
+      "ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-mutation-sources/15.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/filth.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d375d693fb5a8498ff2be7303d023d088035c8bb",
+      "sha256": "a9e459f3c532b5661b495beff45dbdabd7946cf34bacf8e05f0d852d0f36e446",
+      "bytes": 19699,
+      "lines": 631,
+      "ranges": [
+        [
+          1,
+          10
+        ],
+        [
+          285,
+          327
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-mutation-sources/16.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/inventory_measurement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "04c4ebb609cb7b6dbfddf9dab719bda285f3676a",
+      "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+      "bytes": 26593,
+      "lines": 804,
+      "ranges": [
+        [
+          30,
+          50
+        ],
+        [
+          89,
+          100
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-mutation-sources/17.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/item_references.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7f92fd2fa9ed3769c3ca46be3f8bceece3ceee65",
+      "sha256": "e794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b",
+      "bytes": 2356,
+      "lines": 76,
+      "ranges": [
+        [
+          35,
+          42
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-mutation-sources/18.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/items/catalog.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "047ffe1d42128b056f5c1b97106a7ed23d26263f",
+      "sha256": "2be8ff76fb41fc3e7872a3006e3f6201722bfd2c1ca372c4397db465a5772c50",
+      "bytes": 221503,
+      "lines": 9828,
+      "ranges": [
+        [
+          6001,
+          6015
+        ],
+        [
+          6775,
+          6796
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-mutation-sources/19.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "authored_content_inventory": {
+    "source": "content/items/catalog.yaml",
+    "source_sha256": "2be8ff76fb41fc3e7872a3006e3f6201722bfd2c1ca372c4397db465a5772c50",
+    "qualification": "Read-only parsing of tracked authored JSON-subset YAML; no catalog compile, fixture, database or runtime result.",
+    "selected": {
+      "waterskin": {
+        "id": "waterskin",
+        "display_name": "Waterskin",
+        "weight_kg": 0.5,
+        "exterior_volume_ml": 4500,
+        "base_value": 2,
+        "tags": [
+          "container",
+          "water_container",
+          "travel_provision"
+        ],
+        "presentation": {
+          "icon": "waterskin"
+        },
+        "kind": "container",
+        "slot": "none",
+        "capabilities": {
+          "container": {
+            "capacity_ml": 4000
+          }
+        }
+      },
+      "soft_soap": {
+        "id": "soft_soap",
+        "display_name": "Soft soap",
+        "weight_kg": 0.25,
+        "exterior_volume_ml": 313,
+        "base_value": 3,
+        "tags": [
+          "simple",
+          "soap",
+          "surgery_supply"
+        ],
+        "presentation": {
+          "icon": "help"
+        },
+        "kind": "simple"
+      }
+    }
+  },
+  "native_source": {
+    "manifest": "native-evidence/spacetimedb-2.6.1/MANIFEST.json",
+    "members": {
+      "src/lib.rs": [
+        [
+          457,
+          466
+        ],
+        [
+          528,
+          530
+        ]
+      ],
+      "src/table.rs": [
+        [
+          358,
+          375
+        ]
+      ]
+    },
+    "qualification": "Pinned SDK source describes remote reducers, successful transaction commit and single-index delete. It does not establish deployment access controls, host cascade/hooks, actual feature resolution or an executed transaction."
+  },
+  "historical_sources": [
+    {
+      "path": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/218",
+        "/entries/946",
+        "/entries/947"
+      ],
+      "qualification": "Earlier grant-erasure and open raw-ID/actor-admission contracts; retain original attribution, revision, zero unique-count changes and open scope."
+    },
+    {
+      "path": "ASSESSMENT-L01-HISTORICAL-220-223.json",
+      "qualification": "Earlier physical-p16 historical actor-authorization question; scope/revision differs and is not proof of misuse."
+    },
+    {
+      "path": "ASSESSMENT-L01-HISTORICAL-300.json",
+      "qualification": "Earlier source-only soap/containment question; distinct original scope and attribution."
+    },
+    {
+      "path": "ASSESSMENT-L01-HISTORICAL-1136-1138.json",
+      "qualification": "Full historical roles 1136–1138 read independently; no cross-lens credit from hash equality."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "parallel-l11-20261029/PLAN-140.json",
+      "sha256": "f19b386596e78250a9c664eb9c7ffd585ccb07160b74ca42def34925ad2d3616",
+      "bytes": 2695,
+      "git_blob": "1191ef0758b7e0076ef657c5d165f81fbeeaaea7",
+      "preserved_bytes": "recovered/inventory-mutation-059/f19b386596e78250a9c664eb9c7ffd585ccb07160b74ca42def34925ad2d3616.gz",
+      "published_sha256": "f19b386596e78250a9c664eb9c7ffd585ccb07160b74ca42def34925ad2d3616",
+      "published_bytes": 2695,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier plan"
+      ],
+      "qualification": "Earlier 059 record with original attribution, scope and revisions. Direct linked support only; neither transitive completion nor checkpoint 3821 authority or new personal body credit."
+    },
+    {
+      "original_path": "parallel-l11-20261029/READ-123.json",
+      "sha256": "376decbe536bf86a880ee4141994f7577348702adab7d2b23fb4f5dbaf5203b8",
+      "bytes": 10260,
+      "git_blob": "a44c5dd0d3225c52c4797403b63f46aa678c90bf",
+      "preserved_bytes": "recovered/inventory-mutation-059/376decbe536bf86a880ee4141994f7577348702adab7d2b23fb4f5dbaf5203b8.gz",
+      "published_sha256": "376decbe536bf86a880ee4141994f7577348702adab7d2b23fb4f5dbaf5203b8",
+      "published_bytes": 10260,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier delegate proposal"
+      ],
+      "qualification": "Earlier 059 record with original attribution, scope and revisions. Direct linked support only; neither transitive completion nor checkpoint 3821 authority or new personal body credit."
+    },
+    {
+      "original_path": "parallel-l11-20261029/VERIFY-123.json",
+      "sha256": "2c40d13091455694adbeffc1599d9a423d93cb9ff0a53c6eda2f9ec145670bdd",
+      "bytes": 702,
+      "git_blob": "506aae184b0e04859a9e238a1e6b195d5241a803",
+      "preserved_bytes": "recovered/inventory-mutation-059/2c40d13091455694adbeffc1599d9a423d93cb9ff0a53c6eda2f9ec145670bdd.gz",
+      "published_sha256": "2c40d13091455694adbeffc1599d9a423d93cb9ff0a53c6eda2f9ec145670bdd",
+      "published_bytes": 702,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier delegate verification"
+      ],
+      "qualification": "Earlier 059 record with original attribution, scope and revisions. Direct linked support only; neither transitive completion nor checkpoint 3821 authority or new personal body credit."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-258.json",
+      "sha256": "af6fd49c7e6ff1880ddf583d4de6846fc4237ee38e7317b32cb0c0719ae8877d",
+      "bytes": 1185,
+      "git_blob": "6de00fa2dbb981d0d022b313359eff0db510d6fe",
+      "preserved_bytes": "recovered/inventory-mutation-059/af6fd49c7e6ff1880ddf583d4de6846fc4237ee38e7317b32cb0c0719ae8877d.gz",
+      "published_sha256": "af6fd49c7e6ff1880ddf583d4de6846fc4237ee38e7317b32cb0c0719ae8877d",
+      "published_bytes": 1185,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier plan"
+      ],
+      "qualification": "Earlier 059 record with original attribution, scope and revisions. Direct linked support only; neither transitive completion nor checkpoint 3821 authority or new personal body credit."
+    },
+    {
+      "original_path": "segovb/READ-L11-659.json",
+      "sha256": "e0b4dc137f5038000e1ea53ab320f851b8aa3f3efb21b381cc85a72968477808",
+      "bytes": 12733,
+      "git_blob": "92904d39abc43db2539ed406ada417488587d62e",
+      "preserved_bytes": "recovered/inventory-mutation-059/e0b4dc137f5038000e1ea53ab320f851b8aa3f3efb21b381cc85a72968477808.gz",
+      "published_sha256": "e0b4dc137f5038000e1ea53ab320f851b8aa3f3efb21b381cc85a72968477808",
+      "published_bytes": 12733,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier root receipt"
+      ],
+      "qualification": "Earlier 059 record with original attribution, scope and revisions. Direct linked support only; neither transitive completion nor checkpoint 3821 authority or new personal body credit."
+    },
+    {
+      "original_path": "segovb/READ-L12-258.json",
+      "sha256": "85b062d8901ce56cc08fc99811faf20f2e0bbfe994527e6443913ccf26122c38",
+      "bytes": 16294,
+      "git_blob": "0968c7bdc2fe04c5d0035a33889ddf536511778d",
+      "preserved_bytes": "recovered/inventory-mutation-059/85b062d8901ce56cc08fc99811faf20f2e0bbfe994527e6443913ccf26122c38.gz",
+      "published_sha256": "85b062d8901ce56cc08fc99811faf20f2e0bbfe994527e6443913ccf26122c38",
+      "published_bytes": 16294,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier root receipt"
+      ],
+      "qualification": "Earlier 059 record with original attribution, scope and revisions. Direct linked support only; neither transitive completion nor checkpoint 3821 authority or new personal body credit."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-043.json",
+      "sha256": "139b719e5d2b79a5bee71c9a733332c27870badbb667fc3712dd37ac0963d804",
+      "bytes": 1201,
+      "git_blob": "86870a5aa9394f2a40a8b0371e3636e8ebc27f4b",
+      "preserved_bytes": "recovered/inventory-mutation-059/139b719e5d2b79a5bee71c9a733332c27870badbb667fc3712dd37ac0963d804.gz",
+      "published_sha256": "139b719e5d2b79a5bee71c9a733332c27870badbb667fc3712dd37ac0963d804",
+      "published_bytes": 1201,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier registration"
+      ],
+      "qualification": "Earlier 059 record with original attribution, scope and revisions. Direct linked support only; neither transitive completion nor checkpoint 3821 authority or new personal body credit."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-044.json",
+      "sha256": "64794a6c258aed53ff10916d73097401cd8ae92da702a187fcd868371674c488",
+      "bytes": 1231,
+      "git_blob": "327432cf22b748847fd930e3c1aa9e430aca037d",
+      "preserved_bytes": "recovered/inventory-mutation-059/64794a6c258aed53ff10916d73097401cd8ae92da702a187fcd868371674c488.gz",
+      "published_sha256": "64794a6c258aed53ff10916d73097401cd8ae92da702a187fcd868371674c488",
+      "published_bytes": 1231,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier registration"
+      ],
+      "qualification": "Earlier 059 record with original attribution, scope and revisions. Direct linked support only; neither transitive completion nor checkpoint 3821 authority or new personal body credit."
+    },
+    {
+      "original_path": "segovb/STATE-L11-659.json",
+      "sha256": "e0fdb20d3df2d0614482202065da05b86ec7fc9525e419e4f6563d7e194b4122",
+      "bytes": 668,
+      "git_blob": "262d67a43a9f93afdc5a71df6931992c4072b2ba",
+      "preserved_bytes": "recovered/inventory-mutation-059/e0fdb20d3df2d0614482202065da05b86ec7fc9525e419e4f6563d7e194b4122.gz",
+      "published_sha256": "e0fdb20d3df2d0614482202065da05b86ec7fc9525e419e4f6563d7e194b4122",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier root state"
+      ],
+      "qualification": "Earlier 059 record with original attribution, scope and revisions. Direct linked support only; neither transitive completion nor checkpoint 3821 authority or new personal body credit."
+    },
+    {
+      "original_path": "segovb/STATE-L12-258.json",
+      "sha256": "d83500ef0154a9b60f23f69d21dbae22ec8e3551cf4cfd742859c10bbd921309",
+      "bytes": 839,
+      "git_blob": "1f33336c4a9289e4a581caf7cd9c2493b4b4d71c",
+      "preserved_bytes": "recovered/inventory-mutation-059/d83500ef0154a9b60f23f69d21dbae22ec8e3551cf4cfd742859c10bbd921309.gz",
+      "published_sha256": "d83500ef0154a9b60f23f69d21dbae22ec8e3551cf4cfd742859c10bbd921309",
+      "published_bytes": 839,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier root state"
+      ],
+      "qualification": "Earlier 059 record with original attribution, scope and revisions. Direct linked support only; neither transitive completion nor checkpoint 3821 authority or new personal body credit."
+    },
+    {
+      "original_path": "segovb/VERIFY-L11-659.json",
+      "sha256": "ab2ba01684c8326025f937a63f6e8c689c1fdde118ffe25b7fb3352b277c37df",
+      "bytes": 407,
+      "git_blob": "d818d740e81dcd56c7259e4170176f4743596d56",
+      "preserved_bytes": "recovered/inventory-mutation-059/ab2ba01684c8326025f937a63f6e8c689c1fdde118ffe25b7fb3352b277c37df.gz",
+      "published_sha256": "ab2ba01684c8326025f937a63f6e8c689c1fdde118ffe25b7fb3352b277c37df",
+      "published_bytes": 407,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier root verification"
+      ],
+      "qualification": "Earlier 059 record with original attribution, scope and revisions. Direct linked support only; neither transitive completion nor checkpoint 3821 authority or new personal body credit."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-258.json",
+      "sha256": "2914d933d7f73ce5e66b60389be2fbb2b0609217705e6064580af49d05b9da87",
+      "bytes": 557,
+      "git_blob": "0edbcb63d9554afe6c5ebd36578daed663cb6561",
+      "preserved_bytes": "recovered/inventory-mutation-059/2914d933d7f73ce5e66b60389be2fbb2b0609217705e6064580af49d05b9da87.gz",
+      "published_sha256": "2914d933d7f73ce5e66b60389be2fbb2b0609217705e6064580af49d05b9da87",
+      "published_bytes": 557,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier root verification"
+      ],
+      "qualification": "Earlier 059 record with original attribution, scope and revisions. Direct linked support only; neither transitive completion nor checkpoint 3821 authority or new personal body credit."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-INVENTORY-STABLE-QUANTITY-001",
+      "lens": 4,
+      "severity": "unassigned; source-established invariant break if the described authorized reducer call succeeds",
+      "classification": "A stable physical object and its backing inventory row can disagree on individual versus stack quantity after a quantity mutation.",
+      "trace": "The authored waterskin is a non-durable container with 4000 ml capacity. The selected projection sets its container capacity and does not mark it repairable; measured-item admission excludes this item. A successful checked grant creates an individual quantity-one row and a stable physical object. Given that row and object, a positive change_inventory_item by one enters the non-durable, non-measured branch, finds the existing row, checked-adds one and updates it to quantity two without removing or reconciling its object. The separate custody authority requires every present personal physical object to have exactly one matching row of quantity one, so resolving that object then returns a custody-conflict error. The intentional empty-container merge path checks emptiness/nesting/condition and deletes both applicable object identities after stacking; it is distinct and does not justify this unguarded update.",
+      "effect_and_limits": "The generated reducer binding exposes the mutation request. If the changed row remains present and a later operation resolves its object, that operation fails the custody check. fill_carried_waterskins iterates every waterskin object and resolves each before comparing requested custody, so encountering that invalid object can return an error even for another custody; settlement arrival/replenishment and departure preparation call the helper. This is source reasoning under stated call and state preconditions, not an observed gameplay event, actual transaction trace, global runtime availability or assertion that every call reaches the row. For deletion, the same reducer has direct non-durable row-deletion branches without the object-subtree cleanup helper; host cascade and affected-object reachability remain separate questions.",
+      "connected_repair": "After audit completion reconcile the generic quantity reducer, stable per-object grant, deliberate empty-container stacking, custody resolution and all actual contents/condition/amount/weapon/food side rows. Preserve legitimate fungible stacks, quantity zero, checked overflow, nested and nonempty container behavior and atomic failure; do not simply delete identities for nonempty objects.",
+      "later_acceptance": "After separately authorized work, assess positive and negative changes for empty, filled and nested containers, measured/food/medication/durable items, fungible stacks, quantity bounds and actor authorization, plus downstream custody and cross-owner refill behavior. Nothing was executed.",
+      "discovery": "partial; all item classes, supported call paths, old aliases and transaction/cascade policy remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "SEGOVB-L12-INVENTORY-GRANT-ERROR-ERASURE",
+      "lens": 1,
+      "severity": "unassigned; source-established false-success path conditional on successful native row insertion",
+      "classification": "95e revisit of the earlier grant-error erasure, now with a specific missing-definition initializer failure after row insertion; not a new unique historical defect.",
+      "trace": "For an ID absent from the item table and food definitions, positive quantity, a living character and no pre-existing matching row, is_measured_item is false and requires_stable_object is false. add_inventory_item_checked inserts a nonindividual InventoryItem row first; initialize_personal_weapon then looks up the missing item definition and returns Err. add_inventory_item converts that error to None; the generic positive branch of change_inventory_item ignores the return and ends Ok. The pinned SpacetimeDB reducer documentation states successful outer reducer returns commit its transaction; the source contains no error propagation or row cleanup in this branch. If the row insert succeeds and no independent native constraint or external policy intercepts it, the error is swallowed and a row with a missing item definition is committed.",
+      "effect_and_limits": "This directly addresses the earlier 059 question whether a positive initializer error can reach a success-bearing caller. It is an illustrative static path using an absent catalog/table ID, not a database invocation, observed invalid record, proof of allowed unknown-item policy or global transaction/constraint audit. Earlier valid-zero behavior remains distinct. Native table/host constraints, all other callers and failure cases still need reconciliation.",
+      "connected_repair": "Carry the actual checked grant error through each success-bearing caller and decide deliberate unknown-definition admission before mutation; connect inventory row, object, weapon, amount and food initialization under one coherent native transaction. Preserve legitimate zero/no-row semantics and remove obsolete erasing APIs directly where the final contract requires.",
+      "later_acceptance": "After authorized repair and validation, cover unknown and valid definitions, post-row initializer failures, zero grants and all currency/trade callers with the appropriate existing native gates. No gate was run.",
+      "discovery": "partial; complete caller inventory, exact alias and native constraints/transaction policy remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-INVENTORY-REDUCER-ACTOR-ADMISSION-001",
+      "lens": 3,
+      "severity": "unassigned; source-established missing application actor check conditional on external access",
+      "classification": "The remotely exposed inventory quantity reducer checks that a target character exists and is alive but does not check the sender against the strategic gateway or simulation owner.",
+      "trace": "change_inventory_item is marked reducer and its generated client binding accepts character ID, item ID and signed quantity. Its complete body calls require_living_character, which looks up the character and checks alive, and contains no sender or strategic-character authorization. The existing require_strategic_character_authority owner specifically checks the registered gateway identity or ownership of a disposable simulation character; the adjacent container mutation uses a gateway guard. Pinned SpacetimeDB reducer documentation says reducers can be invoked remotely by clients. For a connected sender allowed to invoke this endpoint, the selected source does not distinguish a caller authorized for the target character before changing its inventory.",
+      "effect_and_limits": "If deployment/network/reducer permissions permit an unrelated sender and a valid target character ID is supplied, the body itself has no identity gate before positive or negative inventory mutation. No endpoint, account, attacker, network policy or live state was probed, and no actual unauthorized access or loss is claimed. Determine intended exposure and global access policy before deciding final authorization owner.",
+      "connected_repair": "After the discovery gate decide whether this reducer is a supported player mutation, privileged development operation or should be removed; enforce the same actual sender/character authority and item/custody invariants at the chosen boundary. Do not retain an unguarded compatibility route.",
+      "later_acceptance": "After separate authorization, assess authorized gateway, owning and non-owning simulation senders, ordinary unrelated clients, alive/dead/missing targets and any intentional administration path using existing gates. Nothing was run.",
+      "discovery": "partial; deployment ACL, intended reducer exposure, related caller/global aliases and actor-policy owner remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-MEASURED-EXHAUSTION-OBJECT-001",
+      "lens": 5,
+      "severity": "unassigned; conditional retained-object/containment inconsistency after complete measured consumption",
+      "classification": "Measured row exhaustion deletes the amount and inventory row without the explicit physical-object reconciliation used by other consumption paths.",
+      "trace": "A successful checked soft-soap grant is measured and receives quantity-one inventory, amount and physical-object records. The wash planner selects personal or party soap by inventory row and remaining fraction. One whole is 1,000,000 fraction micros, soap supplies 25 cleansing points, and the source computes 40,000 micros per point; a selected full 25-point wash requests the whole. The measured consume function deletes its amount and inventory row when no fraction remains. The selected washing and smithing callers do not invoke reconcile_consumed_row or delete_carried_object_for_row; the physical object and any containment edge have no explicit cleanup in this path. Alcohol and food consumption separately call reconciliation. The pinned SDK index-delete source targets the specified index and row, while full host cascade/trigger semantics are not independently established.",
+      "effect_and_limits": "If the successful transaction commits and no native cascade or external hook removes the linked records, resolving the retained object later reports its backing row missing. For an already nested soap object, its edge can remain; graph construction includes retained objects and edges, and a subsequent explicit child removal requires resolved custody. These are conditional source consequences, not an observed wash, proof that a particular game session used nested soap, a native cascade test, or a claim about all measured consumers.",
+      "connected_repair": "Reconcile measured-material exhaustion with stable object identity and containment in washing, surgery, smithing, change-inventory, alcohol and food; preflight physical accessibility and exact custody, preserve partial fractions and transactional ordering, and use one appropriate canonical cleanup policy. Keep different actor/quantity/erasure failures separate even if functions overlap.",
+      "later_acceptance": "After authorized repair, assess full and partial consumption in personal and party custody, nested and fireplace-rooted items, no-object/fungible cases, valid removal, rollback and the actual native table behavior using existing project gates. No test, build, database or probe ran.",
+      "discovery": "partial; host cascade, all measured consumers, supported nested sequences and prior aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Complete all original and current source populations and independent lenses, reconcile every relevant historical alias and the connected repair ledger. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
