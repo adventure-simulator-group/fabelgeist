@@ -1,0 +1,527 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    8,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected settlement repair and activity requested-versus-elapsed metrics, repair codec and typed economy conversion; no product execution.",
+  "source_reasoning": "Pinned source inspection and evidence-byte verification only. No database, simulator, fixture, source test or runtime was executed.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/settlement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "19240e5d15f58c7516f10c54fe78e136ecd7b21a",
+      "sha256": "652eac9d7899ae0a71dea77f7d1b4cd40beef647afa972cf51ee85de57f5acf9",
+      "bytes": 89463,
+      "lines": 2043,
+      "ranges": [
+        [
+          1,
+          22
+        ],
+        [
+          1080,
+          1102
+        ],
+        [
+          1122,
+          1169
+        ],
+        [
+          1195,
+          1240
+        ],
+        [
+          1532,
+          1630
+        ],
+        [
+          1719,
+          1753
+        ],
+        [
+          1894,
+          1966
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/settlement-wait-evidence/00.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; no product execution."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/settlement_activity.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "069c500749974943899b443c46eb90ec2c245626",
+      "sha256": "d63da6e7d914ed703ad1850a7f61871078405ae1ed305e011d36cb54e8f45636",
+      "bytes": 16024,
+      "lines": 427,
+      "ranges": [
+        [
+          1,
+          27
+        ],
+        [
+          67,
+          83
+        ],
+        [
+          98,
+          153
+        ],
+        [
+          181,
+          222
+        ],
+        [
+          249,
+          265
+        ],
+        [
+          296,
+          359
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/settlement-wait-evidence/01.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; no product execution."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/report.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b04c0d1164ed4c81b863c05dc4a11959d422e29c",
+      "sha256": "73996e2153ad432112dc56113c74b29200ad3ab6dbb85e236343407ccbec39d7",
+      "bytes": 6140,
+      "lines": 172,
+      "ranges": [
+        [
+          70,
+          89
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/settlement-wait-evidence/02.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; no product execution."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "965aec5634dad55bab94097ddccbf54049135848",
+      "sha256": "f63df87344c6f358a0bcaa63481d349415e8e5481acb42031232d17cf20db125",
+      "bytes": 23560,
+      "lines": 651,
+      "ranges": [
+        [
+          45,
+          66
+        ],
+        [
+          312,
+          349
+        ],
+        [
+          375,
+          392
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/settlement-wait-evidence/03.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; no product execution."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/surgery.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "833a18f053639bb556b66cddfb3b9af6fd5c34a6",
+      "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+      "bytes": 50861,
+      "lines": 1435,
+      "ranges": [
+        [
+          381,
+          435
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/settlement-wait-evidence/04.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; no product execution."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/disease.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b3f5435464866afdfb3cb48e059be0251a65408d",
+      "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+      "bytes": 101966,
+      "lines": 2950,
+      "ranges": [
+        [
+          1825,
+          1864
+        ],
+        [
+          1925,
+          1939
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/settlement-wait-evidence/05.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; no product execution."
+    },
+    {
+      "path": "crates/adventuresim-core/src/durability.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6f06c6eddec598916ce434decfa5fc0a5e97b527",
+      "sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "bytes": 15617,
+      "lines": 454,
+      "ranges": [
+        [
+          11,
+          50
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/settlement-wait-evidence/06.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; no product execution."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/repair.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b38ce0ebc126d7e780dfbdcd10eae48cd6719969",
+      "sha256": "121a3412ae887fe1eec8fdf53acc1d66a0e091bc4d5d68593f16f0c13b270c09",
+      "bytes": 24120,
+      "lines": 724,
+      "ranges": [
+        [
+          90,
+          110
+        ],
+        [
+          280,
+          295
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/settlement-wait-evidence/07.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; no product execution."
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/economy.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a8ce46f80cd3de64b26d577890cf5aae757a7e98",
+      "sha256": "ce7c60b4dca374b058a50d845ac3171642869aa47fc95b7873ac27392bff308e",
+      "bytes": 12943,
+      "lines": 358,
+      "ranges": [
+        [
+          83,
+          140
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/settlement-wait-evidence/08.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; no product execution."
+    },
+    {
+      "path": "crates/adventuresim-core/src/settlement_economy.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f2f262e9f5178c85553e6c5ce96797ec7a4084b9",
+      "sha256": "5ebaaf60d766322d2dc8bbd0cf1a54b0c790793a11d1d3f7b98e139861a3c54e",
+      "bytes": 17699,
+      "lines": 552,
+      "ranges": [
+        [
+          82,
+          180
+        ],
+        [
+          240,
+          275
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/settlement-wait-evidence/09.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; no product execution."
+    },
+    {
+      "path": "crates/adventuresim-core/src/organization.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5effbe40ad10f9f71153c63747ab71509af58da9",
+      "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "bytes": 45348,
+      "lines": 1251,
+      "ranges": [
+        [
+          575,
+          602
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/settlement-wait-evidence/10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; no product execution."
+    }
+  ],
+  "safeguards": [
+    "The repair wait loop recomputes remaining from ready_at and the observed current character clock after health handling; a clipped request does not itself prove incorrect retrieval or a nonterminating loop.",
+    "The medical-rest branch explicitly measures before/after personal time and keeps separate sponsored requested and elapsed metrics; those established units do not automatically settle the distinct investigation or repair metric policy.",
+    "For selected repair submissions, typed CatalogItemKind and SettlementService determine the service; the helper’s service text is sent as the native reducer argument, and native parsing returns existing core RepairService. No inspected private comparison consumes that text before the boundary. Other callers, owner fit and all aliases remain open.",
+    "The simulator derives a typed economy profile, copying service, specialization and stock fields before validation. The selected shared storefront predicates consume service and stock; selected NPC tabs use service availability and chapter location. The placeholder tier and source provenance are not thereby proven equivalent for every other consumer."
+  ],
+  "historical_records": [
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1290-1291.json",
+      "qualification": "Two distinct full personal historical reads and four prior independently attributed partials."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1079",
+        "/entries/1081",
+        "/entries/1082"
+      ],
+      "qualification": "Earlier broad pending questions retain their exact scope; distinct metrics are not global aliases."
+    },
+    {
+      "file": "ASSESSMENT-SIMULATION-WAIT-QUEUE-LINKS-95E.json",
+      "qualification": "Separate investigation-wait requested-versus-elapsed policy question."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PARTIAL-L12-342-001.json",
+      "sha256": "2209d878352c423b10e93b15dce68be9af877ab69e3840c89bc71e31a3704343",
+      "bytes": 5811,
+      "git_blob": "0c88ee247f4f20b7efb77dc851a63c9e5f527ba9",
+      "preserved_bytes": "recovered/settlement-wait-059/2209d878352c423b10e93b15dce68be9af877ab69e3840c89bc71e31a3704343.gz",
+      "published_sha256": "2209d878352c423b10e93b15dce68be9af877ab69e3840c89bc71e31a3704343",
+      "published_bytes": 5811,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individually unread tails and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-342-002.json",
+      "sha256": "99783b1c4f4f51c0f33a1d5cc81857793d837adfa22a9708daf85e6b44730ec7",
+      "bytes": 5814,
+      "git_blob": "92b3cb756afcea7470cd89cb8ac1ef0cea8a4043",
+      "preserved_bytes": "recovered/settlement-wait-059/99783b1c4f4f51c0f33a1d5cc81857793d837adfa22a9708daf85e6b44730ec7.gz",
+      "published_sha256": "99783b1c4f4f51c0f33a1d5cc81857793d837adfa22a9708daf85e6b44730ec7",
+      "published_bytes": 5814,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individually unread tails and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-342-003.json",
+      "sha256": "14ddbd8f99088b1039baf8a550297fe0aa9391b1e0c9f8a24ab025ae0daf98c5",
+      "bytes": 5321,
+      "git_blob": "8ce990048a721f130130680362c2c061baa3be4c",
+      "preserved_bytes": "recovered/settlement-wait-059/14ddbd8f99088b1039baf8a550297fe0aa9391b1e0c9f8a24ab025ae0daf98c5.gz",
+      "published_sha256": "14ddbd8f99088b1039baf8a550297fe0aa9391b1e0c9f8a24ab025ae0daf98c5",
+      "published_bytes": 5321,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individually unread tails and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-342-004-EOF.json",
+      "sha256": "58323ac6d6b5ffda33c5d8e3f18b335fc428bac19ef242537a6c0bc834c5f1b4",
+      "bytes": 4067,
+      "git_blob": "aefd9ab26c6f0e4b33eee6b7d1f8edcd54456915",
+      "preserved_bytes": "recovered/settlement-wait-059/58323ac6d6b5ffda33c5d8e3f18b335fc428bac19ef242537a6c0bc834c5f1b4.gz",
+      "published_sha256": "58323ac6d6b5ffda33c5d8e3f18b335fc428bac19ef242537a6c0bc834c5f1b4",
+      "published_bytes": 4067,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individually unread tails and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-342.json",
+      "sha256": "4ca7d4c9f6a659ecedc885b1330ff63a1d5582269a77cad0a0cf4864a19c3296",
+      "bytes": 723,
+      "git_blob": "66b3980cf0ba1cad754499ed30ea37ec8fbeb0ba",
+      "preserved_bytes": "recovered/settlement-wait-059/4ca7d4c9f6a659ecedc885b1330ff63a1d5582269a77cad0a0cf4864a19c3296.gz",
+      "published_sha256": "4ca7d4c9f6a659ecedc885b1330ff63a1d5582269a77cad0a0cf4864a19c3296",
+      "published_bytes": 723,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individually unread tails and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-343.json",
+      "sha256": "f1e2cf938b17549d53c4cc41db1d577e1e92e17bad9a681b887971054b1c1cde",
+      "bytes": 730,
+      "git_blob": "7daeacd13f18fa1df525ca313673ec6467dcd4bb",
+      "preserved_bytes": "recovered/settlement-wait-059/f1e2cf938b17549d53c4cc41db1d577e1e92e17bad9a681b887971054b1c1cde.gz",
+      "published_sha256": "f1e2cf938b17549d53c4cc41db1d577e1e92e17bad9a681b887971054b1c1cde",
+      "published_bytes": 730,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individually unread tails and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-342.json",
+      "sha256": "e4bbdb6dab07d1edef5d040f403a73174c5e9548f3fa83a565854fcbb8372778",
+      "bytes": 10083,
+      "git_blob": "b4fd19234d920b3d22ce7c217245e7993ff352ea",
+      "preserved_bytes": "recovered/settlement-wait-059/e4bbdb6dab07d1edef5d040f403a73174c5e9548f3fa83a565854fcbb8372778.gz",
+      "published_sha256": "e4bbdb6dab07d1edef5d040f403a73174c5e9548f3fa83a565854fcbb8372778",
+      "published_bytes": 10083,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individually unread tails and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-343.json",
+      "sha256": "b01f4ffa6259694c9162eb1abd354aac758c89834851889402c41a52e40b128b",
+      "bytes": 8402,
+      "git_blob": "87f470f2eef8fb05051a3b78848b8f3a020d58c2",
+      "preserved_bytes": "recovered/settlement-wait-059/b01f4ffa6259694c9162eb1abd354aac758c89834851889402c41a52e40b128b.gz",
+      "published_sha256": "b01f4ffa6259694c9162eb1abd354aac758c89834851889402c41a52e40b128b",
+      "published_bytes": 8402,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individually unread tails and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-197.json",
+      "sha256": "5e3566e0072f15b9919f352e30c9311fdd3b3713afbc6fcd20ce8c747de5bf08",
+      "bytes": 1215,
+      "git_blob": "3170ffe37ee779809a95e8134858296ab06d7899",
+      "preserved_bytes": "recovered/settlement-wait-059/5e3566e0072f15b9919f352e30c9311fdd3b3713afbc6fcd20ce8c747de5bf08.gz",
+      "published_sha256": "5e3566e0072f15b9919f352e30c9311fdd3b3713afbc6fcd20ce8c747de5bf08",
+      "published_bytes": 1215,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier prospective registration"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individually unread tails and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-198.json",
+      "sha256": "c90d1e1e09b3f31cf1ba91ef7d4f303db8e3fb6f99fb3dee3610c2226d3e7a10",
+      "bytes": 1188,
+      "git_blob": "69ca511a97b49394e07efd951612cf0e37ad289e",
+      "preserved_bytes": "recovered/settlement-wait-059/c90d1e1e09b3f31cf1ba91ef7d4f303db8e3fb6f99fb3dee3610c2226d3e7a10.gz",
+      "published_sha256": "c90d1e1e09b3f31cf1ba91ef7d4f303db8e3fb6f99fb3dee3610c2226d3e7a10",
+      "published_bytes": 1188,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier prospective registration"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individually unread tails and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-342.json",
+      "sha256": "ddf89ea52193d2688e937109fd601e15625d697821f81ffcb0dbce09a3c82671",
+      "bytes": 840,
+      "git_blob": "7d137c4b7fdb028626bedbdbd26fa28e4739a1b2",
+      "preserved_bytes": "recovered/settlement-wait-059/ddf89ea52193d2688e937109fd601e15625d697821f81ffcb0dbce09a3c82671.gz",
+      "published_sha256": "ddf89ea52193d2688e937109fd601e15625d697821f81ffcb0dbce09a3c82671",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individually unread tails and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-343.json",
+      "sha256": "a6d7e5173e765864f9dd0f2b4507ba1ba53b563c5a952d86c168908ab3eeba6d",
+      "bytes": 840,
+      "git_blob": "998131943c8f4e651f736d0427f6047570606647",
+      "preserved_bytes": "recovered/settlement-wait-059/a6d7e5173e765864f9dd0f2b4507ba1ba53b563c5a952d86c168908ab3eeba6d.gz",
+      "published_sha256": "a6d7e5173e765864f9dd0f2b4507ba1ba53b563c5a952d86c168908ab3eeba6d",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individually unread tails and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-342.json",
+      "sha256": "c47e98f1382eedbebce05f1eebd27f7f59f0ed1791d855aa81b0424632ca0f93",
+      "bytes": 558,
+      "git_blob": "01fd9d4a7fd2de3e8d526b68107c5948e21ce95f",
+      "preserved_bytes": "recovered/settlement-wait-059/c47e98f1382eedbebce05f1eebd27f7f59f0ed1791d855aa81b0424632ca0f93.gz",
+      "published_sha256": "c47e98f1382eedbebce05f1eebd27f7f59f0ed1791d855aa81b0424632ca0f93",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individually unread tails and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-343.json",
+      "sha256": "bf5715079ce881152b9bb62ea8b1131cf497948898d090b0e3bdbcf70a93db0c",
+      "bytes": 558,
+      "git_blob": "68d69497103f66b36c679e7630b8efc7cfadce60",
+      "preserved_bytes": "recovered/settlement-wait-059/bf5715079ce881152b9bb62ea8b1131cf497948898d090b0e3bdbcf70a93db0c.gz",
+      "published_sha256": "bf5715079ce881152b9bb62ea8b1131cf497948898d090b0e3bdbcf70a93db0c",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individually unread tails and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-SIM-REPAIR-WAIT-REQUESTED-METRIC-001",
+      "lens": 8,
+      "severity": "unassigned; conditional measurement and policy question",
+      "classification": "New bounded current source trace related to, but not identical to, the earlier investigation-wait metric question.",
+      "trace": "For an affordable pending repair, maintain_equipment requests at most one day of settlement rest, and after successful callback increments repair_wait_minutes and emits minutes using the requested wait. It then observes death, invokes medical recovery if alive, and recomputes remaining time from the authoritative ready_at and current personal clock; it does not blindly subtract the request. The selected native settlement rest can clip the requested interval to injury/disease boundaries, writes the settled elapsed amount to the character clock, and returns unit to the callback; a terminal path may return successful unit after an earlier boundary. Conditional on a successful request R that commits with personal clock advance E<R, this metric/event records R, not E, before death or further medical care is observed. No such accepted clip, actual transaction, infinite loop or intended elapsed-metric promise is established.",
+      "connected_repair": "Determine whether repair_wait_minutes measures requested intervals or actual personal waiting; if elapsed is intended, use a measured authoritative clock delta and label requested intervals separately, retaining terminal and post-wait medical behavior. Evaluate an explicit no-progress policy separately if a supported living zero-elapsed success is found.",
+      "discovery": "partial; supported clipped/terminal reachability, transaction/cache behavior, report readers and exact aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-SIM-ACTIVITY-DAY-CLIPPED-COUNT-001",
+      "lens": 8,
+      "severity": "unassigned; conditional report-count and policy question",
+      "classification": "New bounded current activity counter trace; not automatically an alias of the repair or investigation wait counters.",
+      "trace": "settlement_activity_day requests one full day of settlement rest, then after successful callback and a same-settlement check reads an after observation, emits a completed activity event with before/after clock delta, and increments activity_days by one before the next health check. The native rest path may clip at terminal injury or disease boundaries. Conditional on a successful clipped request whose party remains at the original settlement and after observation succeeds, activity_days increments once even when the observed personal elapsed interval is less than one day. Whether the field counts completed requests or complete elapsed days is not documented in the selected definition, and no admitted clipped activity or runtime outcome is claimed.",
+      "connected_repair": "Determine whether the report counts requested activity cycles or full elapsed days. Preserve the useful observed clock delta and, if full-day semantics are required, track actual elapsed activity with explicit partial/terminal handling rather than counting an accepted request as a day.",
+      "discovery": "partial; admitted clipped state, same-location and after-observation conditions, report consumers, policy and exact aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Actual accepted clipping, native transaction and clock propagation, metric and report policy, full economy consumers, all earlier family obligations, exact aliases and all independent lenses remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

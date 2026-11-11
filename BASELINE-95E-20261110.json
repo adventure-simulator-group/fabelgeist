@@ -2626,7 +2626,8 @@
         "validation": "not performed",
         "record": "ASSESSMENT-SIMULATION-WAIT-QUEUE-LINKS-95E.json",
         "related_current_traces": [
-          "ASSESSMENT-SIM-JOURNEY-MASS-95E.json: journey camp separately derives and emits requested and actual rest; its journey/terminal clock policy is not automatically an investigation-wait measurement."
+          "ASSESSMENT-SIM-JOURNEY-MASS-95E.json: journey camp separately derives and emits requested and actual rest; its journey/terminal clock policy is not automatically an investigation-wait measurement.",
+          "ASSESSMENT-SETTLEMENT-WAIT-METRICS-95E.json: medical rest records requested and actual personal clock delta; repair-wait and activity-day counters are distinct source contracts."
         ]
       },
       {
@@ -2722,8 +2723,40 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-COVERAGE-TRUST-RECOVERED-LOCATOR-95E.json"
+      },
+      {
+        "id": "REVIEW-SIM-REPAIR-WAIT-REQUESTED-METRIC-001",
+        "lens": 8,
+        "severity": "unassigned; conditional measurement and policy question",
+        "classification": "New bounded current source trace related to, but not identical to, the earlier investigation-wait metric question.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1079 (different wait metric)",
+          "baseline-059/queue.json#/entries/1081 (repair subset)",
+          "segovb/READ-L12-342.json via ASSESSMENT-SETTLEMENT-WAIT-METRICS-95E.json"
+        ],
+        "relationship_qualification": "Earlier records retain their original revision, attribution and individually unread-tail qualifications. Related metrics and broad questions are distinct contracts, not global aliases.",
+        "discovery": "partial; supported clipped/terminal reachability, transaction/cache behavior, report readers and exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-SETTLEMENT-WAIT-METRICS-95E.json"
+      },
+      {
+        "id": "REVIEW-SIM-ACTIVITY-DAY-CLIPPED-COUNT-001",
+        "lens": 8,
+        "severity": "unassigned; conditional report-count and policy question",
+        "classification": "New bounded current activity counter trace; not automatically an alias of the repair or investigation wait counters.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1079 (related elapsed-time policy)",
+          "baseline-059/queue.json#/entries/1081 (activity and native clock subset)",
+          "segovb/READ-L12-342.json via ASSESSMENT-SETTLEMENT-WAIT-METRICS-95E.json"
+        ],
+        "relationship_qualification": "Earlier records retain their original revision, attribution and individually unread-tail qualifications. Related metrics and broad questions are distinct contracts, not global aliases.",
+        "discovery": "partial; admitted clipped state, same-location and after-observation conditions, report consumers, policy and exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-SETTLEMENT-WAIT-METRICS-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0344.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0348.json"
 }
