@@ -1,0 +1,681 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 12,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected residence/spouse leisure-source classification, bounded-cap selection and current condition projection at 95e; full source families, other lenses and all aliases remain open.",
+  "source_reasoning": "Pinned source inspection, symbolic values and historical evidence-byte verification only. No product build, test, runtime, database or browser probe.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/residence.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "226209e879e08a5e427736402b7e0edd9f618d3f",
+      "sha256": "df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+      "bytes": 49683,
+      "lines": 1455,
+      "ranges": [
+        [
+          1,
+          1455
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/residence-leisure-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/residence/acquisition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a84b6d6681297e7579c9ccb2602338a037344c59",
+      "sha256": "0670403c3803ddc826babcb20784e88c5165152e9c2bbd986b4e0ef33d40580d",
+      "bytes": 3325,
+      "lines": 99,
+      "ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/residence-leisure-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/residence/occupancy.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4b3cc72ecc77f0335cd5ecda773c70b3fe86afd6",
+      "sha256": "181a2ef44cc12c8b3d6393ed41ebe9a8e616923413382af26ffe28b090789d41",
+      "bytes": 8676,
+      "lines": 282,
+      "ranges": [
+        [
+          1,
+          282
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/residence-leisure-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/residence/properties.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "99a8a95a4eb9460f51e1bf4617d57d57dc692564",
+      "sha256": "80864f0168cb8abf7dcd17c08ea7405e6124f2968ad6eb83dbca7e0a5aab4e26",
+      "bytes": 13026,
+      "lines": 377,
+      "ranges": [
+        [
+          1,
+          377
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/residence-leisure-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/residence/view.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a77320a9cacbc10368dbca3f5f41b7ae239eafd3",
+      "sha256": "b481076a43b5a9e15f7ee78deb63fb3e81cf97989061300fa34168d9182c6053",
+      "bytes": 2149,
+      "lines": 57,
+      "ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/residence-leisure-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/reproduction.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a88774f8e1b31e4a0820206684471d8154ee9d48",
+      "sha256": "52318f2d0b66c1d88adaa38059b677829f263cfe6f2033fc92c2c59f6671563c",
+      "bytes": 23628,
+      "lines": 690,
+      "ranges": [
+        [
+          110,
+          430
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/residence-leisure-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/marriage.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6181873c7c538b9efe2dfcd6fec548ec61ba5578",
+      "sha256": "707052669ad21da99362ea13fe18eefef9b2ee79c0cea3da8f4350da05068031",
+      "bytes": 16999,
+      "lines": 481,
+      "ranges": [
+        [
+          1,
+          160
+        ],
+        [
+          170,
+          481
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/residence-leisure-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/family.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b6699e06a7d607c12662906017129627e02c5676",
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "bytes": 8876,
+      "lines": 267,
+      "ranges": [
+        [
+          215,
+          267
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/residence-leisure-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/courtship.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b749ba524c9cb1644888d798b9403cba17f72ea2",
+      "sha256": "3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+      "bytes": 24389,
+      "lines": 685,
+      "ranges": [
+        [
+          1,
+          180
+        ],
+        [
+          599,
+          685
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/residence-leisure-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/commitments.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "245a87d8379577dde4ef2a030132edcde24d7c1c",
+      "sha256": "ec754c7ccdd1dee1a7441ab99e805a8b36102e4db96b24cf221c0c3c369b48cc",
+      "bytes": 11826,
+      "lines": 332,
+      "ranges": [
+        [
+          202,
+          305
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/residence-leisure-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/courtship.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a45eb1d2ea770e3e33a7bf9401c7e2937892e69a",
+      "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+      "bytes": 40371,
+      "lines": 1153,
+      "ranges": [
+        [
+          1,
+          35
+        ],
+        [
+          125,
+          150
+        ],
+        [
+          210,
+          245
+        ],
+        [
+          370,
+          490
+        ],
+        [
+          890,
+          970
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/residence-leisure-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/morale.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c385a3e0e7d8d977f3e459fc2656227661069a53",
+      "sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "bytes": 19555,
+      "lines": 527,
+      "ranges": [
+        [
+          300,
+          350
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/residence-leisure-sources/11.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_schedule.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "00912abaa99cd109ae11c652fa04099875ea1047",
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "bytes": 48824,
+      "lines": 1363,
+      "ranges": [
+        [
+          185,
+          240
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/residence-leisure-sources/12.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/condition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bdc470d795940aee28e60528b56120a9e09ba232",
+      "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "bytes": 92654,
+      "lines": 2627,
+      "ranges": [
+        [
+          50,
+          95
+        ],
+        [
+          760,
+          835
+        ],
+        [
+          1110,
+          1220
+        ],
+        [
+          1380,
+          1465
+        ],
+        [
+          1510,
+          1585
+        ],
+        [
+          1690,
+          1810
+        ],
+        [
+          1980,
+          2120
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/residence-leisure-sources/13.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+      "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "bytes": 138251,
+      "lines": 3968,
+      "ranges": [
+        [
+          875,
+          935
+        ],
+        [
+          1020,
+          1090
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/residence-leisure-sources/14.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/social.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1fe72b59d2f12138fc8062fe6905d67fa9f536b8",
+      "sha256": "a09342196732b00b8520e9a446aa9fdef60e8fd44a439032ebdadc21e6e8e4c5",
+      "bytes": 134286,
+      "lines": 3800,
+      "ranges": [
+        [
+          3120,
+          3230
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/residence-leisure-sources/15.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/224",
+      "contract_id": "SEGOVB-L12-RESIDENCE-LEISURE-SOURCE-DISPATCH",
+      "qualification": "Earlier Lens12 typed-kind versus raw-prefix candidate and its unresolved first-event/current/former-pair qualification; this is the same prior contract, not a new historical defect."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/965",
+      "ledger_pointer": "/segovb_continuation/lens12/pending_connected_contracts/75",
+      "qualification": "Earlier residence source, occupancy, recovery and wedding questions. The selected morale trace is a partial answer only."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/966",
+      "qualification": "Earlier acquisition, capacity and newborn question; selected property/occupancy bodies are inspected, not the complete native policy."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/967",
+      "qualification": "Earlier property, census and view questions; this body read is not full semantic reconciliation."
+    },
+    {
+      "file": "ASSESSMENT-L01-WEDDING-CAPACITY-95E.json",
+      "qualification": "The existing separately assessed wedding post-write capacity/caught-error case remains distinct and is not recounted by this residence body read."
+    },
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1180-1187.json",
+      "qualification": "Eight frozen roles independently personally read for Lens1; current 95e and earlier Lens12 traces remain separately attributed."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-274.json",
+      "sha256": "fa34057c87e0c6c6f8a19f197a20782436c67634d7e454f9f2f79ff69b2ee0a4",
+      "bytes": 708,
+      "git_blob": "2495d6d68089b03680bc8b24afb55ea9b3e0b8b0",
+      "preserved_bytes": "recovered/residence-leisure-059/fa34057c87e0c6c6f8a19f197a20782436c67634d7e454f9f2f79ff69b2ee0a4.gz",
+      "published_sha256": "fa34057c87e0c6c6f8a19f197a20782436c67634d7e454f9f2f79ff69b2ee0a4",
+      "published_bytes": 708,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-275.json",
+      "sha256": "ce0b304cacfff07567682aea5d63bc5a4db0cc7228dfbe97763e73c50114b6a8",
+      "bytes": 1692,
+      "git_blob": "10ab77b916182f3132d42f1448f3154609ae0566",
+      "preserved_bytes": "recovered/residence-leisure-059/ce0b304cacfff07567682aea5d63bc5a4db0cc7228dfbe97763e73c50114b6a8.gz",
+      "published_sha256": "ce0b304cacfff07567682aea5d63bc5a4db0cc7228dfbe97763e73c50114b6a8",
+      "published_bytes": 1692,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-276.json",
+      "sha256": "7acde593988c7dec888b744161bd738387821002544947a9b806fd68db0879e6",
+      "bytes": 2192,
+      "git_blob": "6d39a281c85700a154af14aba357bf57463bc96a",
+      "preserved_bytes": "recovered/residence-leisure-059/7acde593988c7dec888b744161bd738387821002544947a9b806fd68db0879e6.gz",
+      "published_sha256": "7acde593988c7dec888b744161bd738387821002544947a9b806fd68db0879e6",
+      "published_bytes": 2192,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/READ-L12-274.json",
+      "sha256": "20caaf2311b90ab2629d2dcd9d5f30618bfd9155df6be933e303e6b0c8a12b83",
+      "bytes": 12863,
+      "git_blob": "23d33c5254b9868665f79a4676b25fd457f0268c",
+      "preserved_bytes": "recovered/residence-leisure-059/20caaf2311b90ab2629d2dcd9d5f30618bfd9155df6be933e303e6b0c8a12b83.gz",
+      "published_sha256": "20caaf2311b90ab2629d2dcd9d5f30618bfd9155df6be933e303e6b0c8a12b83",
+      "published_bytes": 12863,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/READ-L12-275.json",
+      "sha256": "862202581fcf26ebda3fcd00b7fd75476884e6cffda23f16071ca5af1c47057d",
+      "bytes": 12060,
+      "git_blob": "a3341f3a2296923de0fb05f59bf60d3b2a4babc1",
+      "preserved_bytes": "recovered/residence-leisure-059/862202581fcf26ebda3fcd00b7fd75476884e6cffda23f16071ca5af1c47057d.gz",
+      "published_sha256": "862202581fcf26ebda3fcd00b7fd75476884e6cffda23f16071ca5af1c47057d",
+      "published_bytes": 12060,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/READ-L12-276.json",
+      "sha256": "1271fd694a7ff54a564dce1061097b4eb91c9d6bd2667c0b1c0721dc5b535477",
+      "bytes": 17204,
+      "git_blob": "7c81672bd16f26fc3731a3803d27d3e1233325b2",
+      "preserved_bytes": "recovered/residence-leisure-059/1271fd694a7ff54a564dce1061097b4eb91c9d6bd2667c0b1c0721dc5b535477.gz",
+      "published_sha256": "1271fd694a7ff54a564dce1061097b4eb91c9d6bd2667c0b1c0721dc5b535477",
+      "published_bytes": 17204,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-087.json",
+      "sha256": "8777f1096d689da55256a34b86c588ddc0b6a31b45e9e0c7301ec0990da7850f",
+      "bytes": 1233,
+      "git_blob": "cd1f76bed8fd543d8aa7d16494afea9636c332e7",
+      "preserved_bytes": "recovered/residence-leisure-059/8777f1096d689da55256a34b86c588ddc0b6a31b45e9e0c7301ec0990da7850f.gz",
+      "published_sha256": "8777f1096d689da55256a34b86c588ddc0b6a31b45e9e0c7301ec0990da7850f",
+      "published_bytes": 1233,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-088.json",
+      "sha256": "bd736fd2dfd75ff2ac32ac1cf0cdee26b8a0c9db7042ed45ee5e27080b36361a",
+      "bytes": 1197,
+      "git_blob": "aa7e7c51e0810f1be959f93229c16b14b0aa237b",
+      "preserved_bytes": "recovered/residence-leisure-059/bd736fd2dfd75ff2ac32ac1cf0cdee26b8a0c9db7042ed45ee5e27080b36361a.gz",
+      "published_sha256": "bd736fd2dfd75ff2ac32ac1cf0cdee26b8a0c9db7042ed45ee5e27080b36361a",
+      "published_bytes": 1197,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-089.json",
+      "sha256": "b91bd7ba4a64caa5a18d24b86b550848fde5aea3c0eb2061cfe11c1d92abbac4",
+      "bytes": 1207,
+      "git_blob": "fa3757358539f14cf5482c8f33974bceb5f7c042",
+      "preserved_bytes": "recovered/residence-leisure-059/b91bd7ba4a64caa5a18d24b86b550848fde5aea3c0eb2061cfe11c1d92abbac4.gz",
+      "published_sha256": "b91bd7ba4a64caa5a18d24b86b550848fde5aea3c0eb2061cfe11c1d92abbac4",
+      "published_bytes": 1207,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-090.json",
+      "sha256": "21dc87b1b67051c1c8f449ae8201f51734fde83b08f26e6b9cc707ceba5badbf",
+      "bytes": 1195,
+      "git_blob": "f4f5ec194251f436f588c1b87a22c1f8dc6c7682",
+      "preserved_bytes": "recovered/residence-leisure-059/21dc87b1b67051c1c8f449ae8201f51734fde83b08f26e6b9cc707ceba5badbf.gz",
+      "published_sha256": "21dc87b1b67051c1c8f449ae8201f51734fde83b08f26e6b9cc707ceba5badbf",
+      "published_bytes": 1195,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-091.json",
+      "sha256": "0b5adfeebc460032143d486bc2cf3e16a34dd8adeb230618c16c19be00e4d245",
+      "bytes": 1213,
+      "git_blob": "184daa834ee39d680dff445cd1e63344ed7b206c",
+      "preserved_bytes": "recovered/residence-leisure-059/0b5adfeebc460032143d486bc2cf3e16a34dd8adeb230618c16c19be00e4d245.gz",
+      "published_sha256": "0b5adfeebc460032143d486bc2cf3e16a34dd8adeb230618c16c19be00e4d245",
+      "published_bytes": 1213,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-092.json",
+      "sha256": "b4ab10960d2d14383d7ec58bfebd8b830d2d244ebcbdbe1decc60f3f41b66169",
+      "bytes": 1233,
+      "git_blob": "767f948ff86c6081b48b201a16e9b7d361da1eb8",
+      "preserved_bytes": "recovered/residence-leisure-059/b4ab10960d2d14383d7ec58bfebd8b830d2d244ebcbdbe1decc60f3f41b66169.gz",
+      "published_sha256": "b4ab10960d2d14383d7ec58bfebd8b830d2d244ebcbdbe1decc60f3f41b66169",
+      "published_bytes": 1233,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-093.json",
+      "sha256": "2a9fcb5f26829015632e0ab5de03f6ee760ce94b86b47363c88f4d84bcf9d6bd",
+      "bytes": 1245,
+      "git_blob": "5b026e1256bfdacc1c53cc8deacd7b30ff2bb33d",
+      "preserved_bytes": "recovered/residence-leisure-059/2a9fcb5f26829015632e0ab5de03f6ee760ce94b86b47363c88f4d84bcf9d6bd.gz",
+      "published_sha256": "2a9fcb5f26829015632e0ab5de03f6ee760ce94b86b47363c88f4d84bcf9d6bd",
+      "published_bytes": 1245,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-094.json",
+      "sha256": "34cd1f5436b61cea301ddad04aee16b20f91156895a97bdd85742376ce595cd2",
+      "bytes": 1199,
+      "git_blob": "db519d05f0055f037a4509f821236e90f1d44079",
+      "preserved_bytes": "recovered/residence-leisure-059/34cd1f5436b61cea301ddad04aee16b20f91156895a97bdd85742376ce595cd2.gz",
+      "published_sha256": "34cd1f5436b61cea301ddad04aee16b20f91156895a97bdd85742376ce595cd2",
+      "published_bytes": 1199,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/STATE-L12-274.json",
+      "sha256": "c309cc844abcc3f77df18984c524ec7768540495420137b5513b92f6415762f5",
+      "bytes": 839,
+      "git_blob": "8185760a840232c8d36830308d73c7a923766e5c",
+      "preserved_bytes": "recovered/residence-leisure-059/c309cc844abcc3f77df18984c524ec7768540495420137b5513b92f6415762f5.gz",
+      "published_sha256": "c309cc844abcc3f77df18984c524ec7768540495420137b5513b92f6415762f5",
+      "published_bytes": 839,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/STATE-L12-275.json",
+      "sha256": "d3c310892af812c9e9f01e04c40826dc8fb104cfdc0e003fda07c6b006e820ee",
+      "bytes": 839,
+      "git_blob": "114c4a39be301289d63b0dc6fd904ba00f594263",
+      "preserved_bytes": "recovered/residence-leisure-059/d3c310892af812c9e9f01e04c40826dc8fb104cfdc0e003fda07c6b006e820ee.gz",
+      "published_sha256": "d3c310892af812c9e9f01e04c40826dc8fb104cfdc0e003fda07c6b006e820ee",
+      "published_bytes": 839,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/STATE-L12-276.json",
+      "sha256": "381d557180ca8e66a1d5439572c363ec6f16b7948e5302340edc03741515391b",
+      "bytes": 839,
+      "git_blob": "852526b65b27e21b36b2c57cc4efb88aeba75024",
+      "preserved_bytes": "recovered/residence-leisure-059/381d557180ca8e66a1d5439572c363ec6f16b7948e5302340edc03741515391b.gz",
+      "published_sha256": "381d557180ca8e66a1d5439572c363ec6f16b7948e5302340edc03741515391b",
+      "published_bytes": 839,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-274.json",
+      "sha256": "e4a3064e83e2688896bab40dd87d0dc52f6e1e53830f7025278726f70a0bdb93",
+      "bytes": 557,
+      "git_blob": "7efcec1b10f894de0463b12a52afbb0a9578fd83",
+      "preserved_bytes": "recovered/residence-leisure-059/e4a3064e83e2688896bab40dd87d0dc52f6e1e53830f7025278726f70a0bdb93.gz",
+      "published_sha256": "e4a3064e83e2688896bab40dd87d0dc52f6e1e53830f7025278726f70a0bdb93",
+      "published_bytes": 557,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-275.json",
+      "sha256": "ea4adeaf224c9c3680e0124d2bf541791a7892dd6d391bd1d7c118c4bd62cec7",
+      "bytes": 557,
+      "git_blob": "1408f586ee187649fb1b592a62e657676f0eac50",
+      "preserved_bytes": "recovered/residence-leisure-059/ea4adeaf224c9c3680e0124d2bf541791a7892dd6d391bd1d7c118c4bd62cec7.gz",
+      "published_sha256": "ea4adeaf224c9c3680e0124d2bf541791a7892dd6d391bd1d7c118c4bd62cec7",
+      "published_bytes": 557,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-276.json",
+      "sha256": "a16883929de29228dedd1e2c843523f490d2bf90ccff41616fa8b423b08fd4e5",
+      "bytes": 557,
+      "git_blob": "9735b8f274c9007d3f4c644e41b5d57ba151f834",
+      "preserved_bytes": "recovered/residence-leisure-059/a16883929de29228dedd1e2c843523f490d2bf90ccff41616fa8b423b08fd4e5.gz",
+      "published_sha256": "a16883929de29228dedd1e2c843523f490d2bf90ccff41616fa8b423b08fd4e5",
+      "published_bytes": 557,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "SEGOVB-L12-RESIDENCE-LEISURE-SOURCE-DISPATCH",
+      "severity": "unassigned; duplicate raw-prefix semantic classification, with mismatched-kind or arbitrary-source admission unestablished",
+      "classification": "95e source revisit of the same earlier 059 Lens12 contract, not a new unique historical defect.",
+      "trace": "MoraleEvent stores typed MoraleEventKind and optional raw source_id. The spouse producer constructs a canonical ordered-pair spouse-leisure source and writes typed SpouseLeisure through the fixed-event upsert; residence writes typed ResidenceLeisure with its own character source. The residence producer chooses a spouse counterpart by parsing a manually duplicated spouse-leisure prefix and accepting any nonempty remainder, without consulting event.kind or checking the pair coordinate. The selected canonical producer associates the correct kind and prefix, so this establishes duplicated classification ownership but not an admitted forged or mismatched native event.",
+      "connected_repair": "After the audit, decide canonical typed event-kind and source/pair identity ownership across producers, retained rows and consumers. Do not preserve invalid data or create compatibility fallbacks; separately resolve counterpart selection and expiry.",
+      "later_acceptance": "After separately authorized work inspect all admitted writers and typed kind/source combinations, canonical pairs, expired and current values and downstream condition projection. No product validation ran.",
+      "discovery": "partial; all writers, aliases, native admission and malformed-event reachability remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-RESIDENCE-STALE-SPOUSE-SELECTION-001",
+      "severity": "unassigned; conditional source-derived combined-cap bypass when an expired matching event precedes a live different-pair event",
+      "classification": "New bounded current source question about selecting only the first spouse event; connected to but distinct from the earlier raw-prefix classification contract. No production incident or unique historical defect is claimed.",
+      "first_failed_contract": "The core contract says the residence and spouse refreshable sources cannot exceed 16000 milli-morale combined and the refresh must reserve the other source still live at the supplied minute. Residence selects the first spouse-prefixed event before the core helper checks expiry, instead of selecting the applicable live counterpart. The spouse producer stores one source per ordered pair and fixed upsert matches only that exact source; ending a marriage removes participant and kinship markers but the selected resolution code does not remove that surviving character's old morale event.",
+      "conditional_example": "Assume an old pair's expired event remains first in the character-index iteration and a different pair's canonical event is live at 12000 milli, the residence value is absent or expired, and a positive residence refresh earns 8000 milli. The selected old event contributes zero to the helper because expired, so residence may be stored at 8000 rather than the 4000 room remaining under the 16000 cap. The stored live new-pair and residence magnitudes then total 20000 before decay and other morale-source ranking. This is symbolic source reasoning, not an executed fixture. Actual index order, numerical state, eligible schedule, other writers and a supported end-to-remarriage sequence are not established. A later spouse refresh sees the residence event and may reduce the pair's next stored value.",
+      "source_boundaries": "Marriage end is an authenticated operation with an exclusive temporal scope; it marks resolved time, removes participant and spouse kinship rows, and does not delete the survivor's morale rows in that function. Courtship conflict checks effective historical intervals and wedding reservation checks active participant markers; one year's notice separates a newly reserved wedding from its ceremony, whereas a spouse event lasts 30 days. Thus old-pair expiration is plausible in a later marriage, but the complete admissible sequence and iteration ordering remain open. The only located morale deletions are selected character deletion and guarded social demo cleanup; no general cleanup claim is made without the remaining audit.",
+      "actual_consumers": "Condition projection iterates all retained character morale events, computes source-specific or ordinary linear decay, converts kind to projected source and ranks positive/negative sources before summing and updating the strategic condition. Thus stored 20000 is not claimed as displayed or net morale. Residence bonus is sourced from realized settlement leisure and active residence; positive earnings and an applicable live counterpart are required.",
+      "connected_repair": "After completing the audit, establish the intended lifecycle of former-pair events and one canonical live spouse counterpart at each effective minute. Reconcile both spouse and residence updates with the cap, all writers, pair identity, chronological backdating, expiry, source ranks, death and subsequent marriage without substituting string classification for identity. Keep this selection issue distinct from the raw-prefix contract.",
+      "later_acceptance": "After separately authorized repair and product validation, evaluate former expired and live pair events in both iterator orders, former spouse resolution and subsequent marriage, same-pair refreshes, both source-update orders, decay/expiry boundaries, delayed personal frontiers and source projection. None ran.",
+      "discovery": "partial; production-admitted sequence, iterator ordering, concrete amounts, all native writers and exact aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Reconcile full morale writer/source-kind and native admission, all pair and time behavior, NPC housing recovery, census association, residence visibility policy, other lenses and exact aliases. Original final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

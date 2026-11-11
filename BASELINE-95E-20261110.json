@@ -1764,6 +1764,38 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L13-WEDDING-HISTORY-PROJECTION-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-RESIDENCE-LEISURE-SOURCE-DISPATCH",
+        "lens": 12,
+        "severity": "unassigned; duplicate raw-prefix semantic classification, with mismatched-kind or arbitrary-source admission unestablished",
+        "classification": "95e source revisit of the same earlier 059 Lens12 contract, not a new unique historical defect.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/224",
+          "baseline-059/queue.json#/entries/965",
+          "segovb/READ-L12-274.json via ASSESSMENT-L12-RESIDENCE-LEISURE-95E.json"
+        ],
+        "relationship_qualification": "Raw-prefix issue revisits the same 059 contract. First-event expiry selection has a distinct conditional first failure; no earlier unique-count change, admitted malformed source, iterator ordering or runtime impact is inferred. Other historical obligations remain open.",
+        "discovery": "partial; all writers, aliases, native admission and malformed-event reachability remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L12-RESIDENCE-LEISURE-95E.json"
+      },
+      {
+        "id": "REVIEW-RESIDENCE-STALE-SPOUSE-SELECTION-001",
+        "lens": 12,
+        "severity": "unassigned; conditional source-derived combined-cap bypass when an expired matching event precedes a live different-pair event",
+        "classification": "New bounded current source question about selecting only the first spouse event; connected to but distinct from the earlier raw-prefix classification contract. No production incident or unique historical defect is claimed.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/224",
+          "baseline-059/queue.json#/entries/965",
+          "segovb/READ-L12-274.json via ASSESSMENT-L12-RESIDENCE-LEISURE-95E.json"
+        ],
+        "relationship_qualification": "Raw-prefix issue revisits the same 059 contract. First-event expiry selection has a distinct conditional first failure; no earlier unique-count change, admitted malformed source, iterator ordering or runtime impact is inferred. Other historical obligations remain open.",
+        "discovery": "partial; production-admitted sequence, iterator ordering, concrete amounts, all native writers and exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L12-RESIDENCE-LEISURE-95E.json"
       }
     ]
   },

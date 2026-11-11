@@ -269,6 +269,10 @@ action, provenance and route sources without expanding current coverage.
 capability, claim and geometry sources without expanding current coverage.
 `ASSESSMENT-L01-HISTORICAL-1126-1127.json` records historical investigation
 module composition and evidence state without expanding current coverage.
+`ASSESSMENT-L12-RESIDENCE-LEISURE-95E.json` revisits the earlier raw-source
+classification question and records a conditional stale-counterpart cap gap;
+the supported sequence and event iteration order remain unverified.
+`ASSESSMENT-L01-HISTORICAL-1180-1187.json` records separate historical reads.
 `ASSESSMENT-L01-ARREST-SNAPSHOT-95E.json` records a bounded pending-incident
 guard and the remaining replay and fingerprint questions.
 `ASSESSMENT-L01-HISTORICAL-1173-1179.json` records separate historical reads.
