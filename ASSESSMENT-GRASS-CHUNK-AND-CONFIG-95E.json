@@ -1,0 +1,773 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Eight historical grass renderer bodies, exact current differences/absence and bounded chunk culling and configuration sources.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1554-1561.json",
+  "git_membership_evidence": "GRASS-CHUNK-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5c4c2ec877cde64942136a8291aa2da4daf047d8",
+      "sha256": "4b39a948e24517a32a421b021307c7d1d7dad7a152be348ac952a3c88384f961",
+      "bytes": 12365,
+      "lines": 404,
+      "ranges": [
+        [
+          75,
+          155
+        ],
+        [
+          210,
+          404
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-chunk-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, shader, native renderer or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/terrain/ground_map.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "eb8b95ce6553421faea0b5a29a01753dd2245b0e",
+      "sha256": "bbf75ad65cfa71106ead637d07a5e9459e19e1d02733186f198acdb94db447f7",
+      "bytes": 9917,
+      "lines": 258,
+      "ranges": [
+        [
+          1,
+          258
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-chunk-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, shader, native renderer or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fb87281b6d59a62b947474f3648ba23bbeb0316a",
+      "sha256": "d375436ca9d226ccb6fbc5b65afcaf94a6b9c3e4bfa90fc1016da8cb958a7281",
+      "bytes": 48519,
+      "lines": 1237,
+      "ranges": [
+        [
+          1,
+          1237
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-chunk-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, shader, native renderer or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cc4d0bdb0c0fdcf7414346724edafa2761d760f7",
+      "sha256": "dd3f753b18f0a5cded3e1ca32d8b29e77544d81f5c82f425d47a1908ad12d92d",
+      "bytes": 3716,
+      "lines": 98,
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-chunk-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, shader, native renderer or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/instance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "688a42369ae698c708e5dc662f3477c30e7b06e9",
+      "sha256": "e57c77ecdf7c28448ded39296a49ae590ed4c612021b0ae39736d8345dae8e3c",
+      "bytes": 3636,
+      "lines": 116,
+      "ranges": [
+        [
+          1,
+          116
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-chunk-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, shader, native renderer or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/spawn.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c61a2fba7df041157f3252dcb19ddfe48d46f466",
+      "sha256": "dceb4f65084d06e5c58c2e7b00a86e4968b5ca6a3fa22598be3bfb280fa15a99",
+      "bytes": 4577,
+      "lines": 127,
+      "ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-chunk-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, shader, native renderer or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/material.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c28f1e3a035c9b8ce82e4417a34671e5d474cbd5",
+      "sha256": "ba64b44296e4a3d2b837c0e4cd45829df6e9441d4647049f6e76cbe6b9c54961",
+      "bytes": 3765,
+      "lines": 103,
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-chunk-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, shader, native renderer or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/pipeline.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1df4705a2360e27c1e2e6df035b44c7796b16e50",
+      "sha256": "91bf014c938918e186cb9bfc5d5d563f6f9718c3afa85db2d8c1e9b45fdabdbd",
+      "bytes": 5315,
+      "lines": 152,
+      "ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-chunk-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, shader, native renderer or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/queue.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4b944b2547013ee17b98fab2772ee3cadafcf32e",
+      "sha256": "e171e3975a749c9ff6e528d1af5daf3c3b1eabac43e8c9b71807b5dc8c6cbc18",
+      "bytes": 6924,
+      "lines": 201,
+      "ranges": [
+        [
+          1,
+          201
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-chunk-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, shader, native renderer or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/draw.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5ffe97b7df3303b43d155dd7a54a02c556583f8c",
+      "sha256": "fbf96c0e6ddbe1f00e12b1e74da3fb6cb129075a860617e548b95871ed8f5dba",
+      "bytes": 6973,
+      "lines": 211,
+      "ranges": [
+        [
+          1,
+          211
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-chunk-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, shader, native renderer or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/chunk_instancing.wgsl",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "009295b130b9b3155ce0ba21ce88be11e657f176",
+      "sha256": "60c8e5c5834d130987b0a37fd09ffee945b4908a863589b8db5bcee69f86a57a",
+      "bytes": 2571,
+      "lines": 68,
+      "ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-chunk-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, shader, native renderer or tests executed."
+    },
+    {
+      "path": "assets/shaders/tactical_grass_instanced.wgsl",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b66979570a6266a80f9139a1f01a27bf24e6e44e",
+      "sha256": "5a36ad0ba47fdd18d71e59e9898a83c74a9dcea55d8f4beae223c691aa3a4c2e",
+      "bytes": 13328,
+      "lines": 305,
+      "ranges": [
+        [
+          1,
+          260
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-chunk-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, shader, native renderer or tests executed."
+    },
+    {
+      "path": "assets/config/tactical-graphics.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "96d5c86b2ed38ad5d747bea3b101d8e83e5da7e2",
+      "sha256": "ef88013b1a81f49e88c66271de95bd21136c29c8bdd0db0b73fdf036c0d11249",
+      "bytes": 2151,
+      "lines": 91,
+      "ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-chunk-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, shader, native renderer or tests executed."
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          1632,
+          1640
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/grass-chunk-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, shader, native renderer or tests executed."
+    }
+  ],
+  "search_evidence": [
+    {
+      "command": [
+        "git",
+        "grep",
+        "-n",
+        "-e",
+        "cover_mask_feather_m",
+        "-e",
+        "root_stratum_side",
+        "-e",
+        "width_compensation",
+        "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "--"
+      ],
+      "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "preserved_bytes": "main-advance-95e/grass-chunk-evidence/config-search.txt.gz",
+      "content_encoding": "gzip",
+      "sha256": "3bc8862b206638644f1a4ec431061b926f9202c342474b070d92057dedd17a00",
+      "bytes": 4698,
+      "qualification": "Exact literal Git tree search output from stated commit. Search hits aid tracing; absence of a literal does not prove absence of indirect behavior or independent semantic coverage. Public commit and full tree inventory permit reproduction."
+    },
+    {
+      "command": [
+        "git",
+        "grep",
+        "-n",
+        "-e",
+        "fitted_batch_aabb",
+        "-e",
+        "culling::metadata",
+        "-e",
+        "ground_scatter_reach",
+        "-e",
+        "ChunkInstancingPlugin",
+        "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "--",
+        "crates/adventuresim-tactical-client/src/presentation"
+      ],
+      "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "preserved_bytes": "main-advance-95e/grass-chunk-evidence/culling-search.txt.gz",
+      "content_encoding": "gzip",
+      "sha256": "b94f945fe345b17c3038123d59726dd59402631670e37329aa74fb47f8039ee8",
+      "bytes": 1921,
+      "qualification": "Exact literal Git tree search output from stated commit. Search hits aid tracing; absence of a literal does not prove absence of indirect behavior or independent semantic coverage. Public commit and full tree inventory permit reproduction."
+    }
+  ],
+  "native_evidence": [
+    {
+      "manifest": "native-evidence/bevy_camera-0.19.1/MANIFEST.json",
+      "member": "bevy_camera-0.19.1/src/visibility/mod.rs",
+      "sha256": "a100645a33d31cf5949bcf0c0045309bdf6777563523847aa449ecdacc82454c",
+      "ranges": [
+        [
+          748,
+          855
+        ]
+      ],
+      "qualification": "Exact lock-checksum-bound crate archive source, no native execution."
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Historical versus current renderer",
+      "trace": "At6533 grass used retained Eidolon GPU batches, animated culling metadata and per-view GPU compute; 95e uses ChunkInstance, per-cell entities, NoAutoAabb, CPU frustum/range visibility, chunk shader bindings and draw_indexed. Original culling.rs and view_culling.rs are absent in the verified95e tree; shadows no longer have GrassShadowTiers config and chunk entities explicitly carry NotShadowCaster.",
+      "remaining": "Do not import historical GPU pipeline findings, shadow options, native behavior or current verdicts without separate evidence. Native visibility/rendering was not run."
+    },
+    {
+      "contract": "Configuration and animated bounds",
+      "trace": "See four independently qualified current questions below; literal search is navigation rather than complete semantic proof. Shipped default feather and tier compensation values match the hard-coded paths, and culling depends on actual population, deformation, camera and visibility.",
+      "remaining": "Exact alias relationships, intended controls, product reachability and further current producer/consumer coverage remain open."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-GRASS-COVER-FEATHER-CONFIG-001",
+      "lens": 1,
+      "classification": "New current source finding: a parsed, validated graphics setting is not passed to the current grass cover raster consumer; no rendering or altered configuration was executed.",
+      "first_failed_contract": "The retained grass cover feather setting has no demonstrated effect on the grass cover mask it names.",
+      "canonical_owner": "Grass transition configuration and grass_cover_mask_pixels distance-field radius.",
+      "trace": "GrassTransitionConfig declares cover_mask_feather_m and validate requires it positive; checked-in YAML supplies 4.8. grass_cover_mask_pixels receives only ground and seed and computes radius from hard-coded 4.8 metres. A literal tree search finds the setting only in configuration declaration/validation and YAML; it cannot rule out indirect behavior by itself. The current default coincides with the fixed value.",
+      "dependencies": [
+        "Trace all configuration owners and decide whether feather is supported tuning or an obsolete field to remove under the clean-schema rule.",
+        "Keep the separate leaf-litter distance calculation and raster capacity issue distinct."
+      ],
+      "acceptance_requirements": [
+        "The final configuration contract has one authoritative supported feather value or removes the inert field; ordinary 4.8-metre behavior remains intentional."
+      ],
+      "discovery": "partial; direct producer/consumer disconnect and literal search recorded, policy and aliases open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    },
+    {
+      "id": "REVIEW-GRASS-WIDTH-COMPENSATION-CONFIG-001",
+      "lens": 1,
+      "classification": "New current source finding: declared tier compensation controls do not feed the selected grass material calculation.",
+      "first_failed_contract": "Retained per-tier compensation values and limit are not used by the current width-compensation producer.",
+      "canonical_owner": "GrassTierConfig and GrassMeshLod width compensation feeding TacticalGrassInstancedMaterial params.",
+      "trace": "GrassTierConfig declares width_compensation and width_compensation_limit; YAML supplies tier-specific values. GrassMeshLod::width_compensation takes only LOD and density, returns constants for Near, NearEdge and Vista, and clamps Far to hard-coded 1.65; diagnostics material passes that calculated value to params.w. Literal tree search finds field names in configuration/YAML but no direct field consumption. Shipped values match or closely match these constants, so divergence needs a non-default value.",
+      "dependencies": [
+        "Resolve whether these are supported author controls or stale data left by renderer change; trace all current renderer/material aliases.",
+        "Keep source-level seed-head shader geometry issue and topology capacity independently connected."
+      ],
+      "acceptance_requirements": [
+        "The supported tuning has one authoritative owner, or inert fields are removed, preserving intended tier transitions."
+      ],
+      "discovery": "partial; source disconnect and default narrowing documented, intended configuration policy and aliases open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    },
+    {
+      "id": "REVIEW-GRASS-ROOT-STRATUM-CONFIG-001",
+      "lens": 1,
+      "classification": "New current source question: validated root stratum data is retained but not read by the current placement/selection path.",
+      "first_failed_contract": "The declared tier root-stratum setting is validated but has no direct consumer in current grass selection.",
+      "canonical_owner": "GrassTierConfig root-stratum policy versus current tuft and fixed 32-root LOD selection.",
+      "trace": "root_stratum_side is an optional tier setting and validation requires a nonzero divisor of32; the YAML assigns Far4 and Vista8. The source-tree literal search finds no direct use beyond declaration, validation and YAML. The 32-root selector hard-codes Far4 and Vista8, while the only production blade_count call is for Far width compensation; grass_tuft_mesh uses its configured native blade side. Whether current root-stratum data is obsolete or intended to control an active representation is unresolved.",
+      "dependencies": [
+        "Trace all grass selection and other renderer callers to determine the intended representation and exact alias with width compensation.",
+        "Do not preserve an obsolete compatibility field solely because historical source used it."
+      ],
+      "acceptance_requirements": [
+        "One clear final schema and selection owner matches supported behavior, without maintaining a misleading unused control."
+      ],
+      "discovery": "partial; direct-field use and fixed selector traced, policy and all callers open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    },
+    {
+      "id": "REVIEW-GRASS-CHUNK-DEFORMATION-BOUNDS-001",
+      "lens": 4,
+      "classification": "New conditional current source question: the chunk culling bound does not explicitly include shader wind or player deformation; no culled scene or visual result observed.",
+      "first_failed_contract": "Chunk bounds should conservatively cover supported animated grass vertices when CPU frustum culling uses them.",
+      "canonical_owner": "InstanceReach and Cell::bounds for grass chunks, together with grass material/shader deformation.",
+      "trace": "Current grass batches pass horizontal reach equal to configured_tuft_footprint_metres, above1.5 and below0.3; Cell::bounds extends root positions by that reach and spawn marks NoAutoAabb. For the shipped Near tier the horizontal footprint is 1.81/12, about0.151m. The shader adds natural lean, wind and player interaction to visible blade curve positions; with the shipped minimum push0.7 and a stationary interactor within the fully weighted region, the interaction component alone is 0.62×0.7=0.434m along its push direction at a tip. It may be opposed or augmented by other terms, and actual blade/seed, chunk population and view are not established. The lock-matched Bevy camera source tests the entity AABB against the view frustum when CPU culling is enabled; the current queue only bins CPU-visible chunks.",
+      "safeguards": "Bounds are over all roots in each chunk, not a single root by default; padded distance bands, visibility, mesh shape, displacement cancellation and actual placement can prevent a visible error. Old6533 culling metadata included mesh/wind/push in a different GPU path, but that is historical and does not prove current behavior.",
+      "dependencies": [
+        "Establish an admitted emitted vertex, deformation, chunk boundary and supported camera for which the whole chunk AABB is rejected while a deformed vertex should be visible.",
+        "Trace all other chunk-instanced materials and their distinct motion/bounds contracts without merging them by shared type."
+      ],
+      "acceptance_requirements": [
+        "The chosen culling bound conservatively accounts for supported blade shape and deformation, or an explicit visibility policy justifies the omitted margin."
+      ],
+      "discovery": "partial; source-level bound/deformation mismatch and native culling gate, reachability and impact open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "ASSESSMENT-GROUND-RASTER-ADMISSION-95E.json",
+      "qualification": "Earlier adler219 and earlier segovb config-reuse receipt remain attributed and recoverable; ground radius and wire issues stay distinct."
+    },
+    {
+      "file": "ASSESSMENT-L01-GRASS-MESH-95E.json",
+      "qualification": "Prior current seed-head/shader issue remains separately connected, not merged by material or renderer."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1310",
+        "/entries/1311",
+        "/entries/1312",
+        "/entries/1313",
+        "/entries/1314",
+        "/entries/1315"
+      ],
+      "qualification": "All obligations remain partial; historical facts are not checkpoint3821."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-479.json",
+      "sha256": "109e9ccf97b3188447717cc8e6a5cd48b6dd914201c9e38407e50e2d5602b3ac",
+      "bytes": 746,
+      "git_blob": "f989f66c5a40b57f39cd43584e7a4be6e5afdb1f",
+      "preserved_bytes": "recovered/grass-chunk-059/109e9ccf97b3188447717cc8e6a5cd48b6dd914201c9e38407e50e2d5602b3ac.gz",
+      "published_sha256": "109e9ccf97b3188447717cc8e6a5cd48b6dd914201c9e38407e50e2d5602b3ac",
+      "published_bytes": 746,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original segovb Lens12 reviewer, 6533 scope, reuse and no-current-reconciliation qualifications remain; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-480.json",
+      "sha256": "5115f08cfa67116faddd2b7f3340fe4a226e90acf30aa9932058dba22c50c6a4",
+      "bytes": 2314,
+      "git_blob": "6c40a92d505beb211b2b11c8f5da7babb2b0a95e",
+      "preserved_bytes": "recovered/grass-chunk-059/5115f08cfa67116faddd2b7f3340fe4a226e90acf30aa9932058dba22c50c6a4.gz",
+      "published_sha256": "5115f08cfa67116faddd2b7f3340fe4a226e90acf30aa9932058dba22c50c6a4",
+      "published_bytes": 2314,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original segovb Lens12 reviewer, 6533 scope, reuse and no-current-reconciliation qualifications remain; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-481.json",
+      "sha256": "ea8c5b4c2b0a52cee46d1c26a29d34caca9f1ea71470c3e8f3aaae3cbe031359",
+      "bytes": 1797,
+      "git_blob": "185337c61df17547f2cca345790c06bae6bf29f0",
+      "preserved_bytes": "recovered/grass-chunk-059/ea8c5b4c2b0a52cee46d1c26a29d34caca9f1ea71470c3e8f3aaae3cbe031359.gz",
+      "published_sha256": "ea8c5b4c2b0a52cee46d1c26a29d34caca9f1ea71470c3e8f3aaae3cbe031359",
+      "published_bytes": 1797,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original segovb Lens12 reviewer, 6533 scope, reuse and no-current-reconciliation qualifications remain; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/READ-L12-469.json",
+      "sha256": "8d55fb8782dfcf049feacb429c1e990b65756f52e2a51a82a2e12cb99a40cc6d",
+      "bytes": 8793,
+      "git_blob": "d5b779d55f3b5dbf9ba9d3992fd21f67c07848da",
+      "preserved_bytes": "recovered/grass-chunk-059/8d55fb8782dfcf049feacb429c1e990b65756f52e2a51a82a2e12cb99a40cc6d.gz",
+      "published_sha256": "8d55fb8782dfcf049feacb429c1e990b65756f52e2a51a82a2e12cb99a40cc6d",
+      "published_bytes": 8793,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier qualified same-lens reused receipt",
+        "earlier qualified same-lens reused receipt"
+      ],
+      "qualification": "Original segovb Lens12 reviewer, 6533 scope, reuse and no-current-reconciliation qualifications remain; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/READ-L12-479.json",
+      "sha256": "497c0ac62cca15dc41612f6e7e0733769e49664e00beee8fe3cb21d32f6029bd",
+      "bytes": 8432,
+      "git_blob": "0845131b62dd7012207379c90d0c7dd96f2f4006",
+      "preserved_bytes": "recovered/grass-chunk-059/497c0ac62cca15dc41612f6e7e0733769e49664e00beee8fe3cb21d32f6029bd.gz",
+      "published_sha256": "497c0ac62cca15dc41612f6e7e0733769e49664e00beee8fe3cb21d32f6029bd",
+      "published_bytes": 8432,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original segovb Lens12 reviewer, 6533 scope, reuse and no-current-reconciliation qualifications remain; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/READ-L12-480.json",
+      "sha256": "822debb3b3f47d179fc2cf8e803a4d3202ec62681087cf2476fb3d72b1c1527f",
+      "bytes": 17409,
+      "git_blob": "a32d8dd3e9babfc4106e7a1990a021993ffa6523",
+      "preserved_bytes": "recovered/grass-chunk-059/822debb3b3f47d179fc2cf8e803a4d3202ec62681087cf2476fb3d72b1c1527f.gz",
+      "published_sha256": "822debb3b3f47d179fc2cf8e803a4d3202ec62681087cf2476fb3d72b1c1527f",
+      "published_bytes": 17409,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original segovb Lens12 reviewer, 6533 scope, reuse and no-current-reconciliation qualifications remain; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/READ-L12-481.json",
+      "sha256": "7af75de704805e69c48764db00aa7eabefa0ce778282b31e483e32e0f3fa1152",
+      "bytes": 10612,
+      "git_blob": "7213ca7e333e7d8e903c1db486ffb913dcb97fc5",
+      "preserved_bytes": "recovered/grass-chunk-059/7af75de704805e69c48764db00aa7eabefa0ce778282b31e483e32e0f3fa1152.gz",
+      "published_sha256": "7af75de704805e69c48764db00aa7eabefa0ce778282b31e483e32e0f3fa1152",
+      "published_bytes": 10612,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original segovb Lens12 reviewer, 6533 scope, reuse and no-current-reconciliation qualifications remain; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-437.json",
+      "sha256": "63703421ea4bba6b249fb4bf85d32bd86b3e581e2fcce5068027db0731980857",
+      "bytes": 1203,
+      "git_blob": "33a12d8a27dd3db4153772bff446de339072ec18",
+      "preserved_bytes": "recovered/grass-chunk-059/63703421ea4bba6b249fb4bf85d32bd86b3e581e2fcce5068027db0731980857.gz",
+      "published_sha256": "63703421ea4bba6b249fb4bf85d32bd86b3e581e2fcce5068027db0731980857",
+      "published_bytes": 1203,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier qualified same-lens reuse registration",
+        "earlier qualified same-lens reuse registration"
+      ],
+      "qualification": "Original segovb Lens12 reviewer, 6533 scope, reuse and no-current-reconciliation qualifications remain; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-461.json",
+      "sha256": "38d6caff9d0f8fd8dc3d0f246829609b2ebf4df69039ef9d32babf94e5defe4b",
+      "bytes": 1263,
+      "git_blob": "b9f710b74361a36b9c3f5334318ec1818a3761ab",
+      "preserved_bytes": "recovered/grass-chunk-059/38d6caff9d0f8fd8dc3d0f246829609b2ebf4df69039ef9d32babf94e5defe4b.gz",
+      "published_sha256": "38d6caff9d0f8fd8dc3d0f246829609b2ebf4df69039ef9d32babf94e5defe4b",
+      "published_bytes": 1263,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original segovb Lens12 reviewer, 6533 scope, reuse and no-current-reconciliation qualifications remain; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-462.json",
+      "sha256": "13ec1d311b6afd7ce97cdde6478d6fdd16d56eb32fc11d98644099d212e17b9f",
+      "bytes": 1258,
+      "git_blob": "bc65bf76d62a2ce4d665aab58ab8fcff25bc60b1",
+      "preserved_bytes": "recovered/grass-chunk-059/13ec1d311b6afd7ce97cdde6478d6fdd16d56eb32fc11d98644099d212e17b9f.gz",
+      "published_sha256": "13ec1d311b6afd7ce97cdde6478d6fdd16d56eb32fc11d98644099d212e17b9f",
+      "published_bytes": 1258,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original segovb Lens12 reviewer, 6533 scope, reuse and no-current-reconciliation qualifications remain; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-463.json",
+      "sha256": "ad19e3ab566ea49e82c84a710e6fa17b9b79572420ec9dc0462df9517869c4a5",
+      "bytes": 1258,
+      "git_blob": "089e1aa204b406061dcf8bcd78d7364c507bd97d",
+      "preserved_bytes": "recovered/grass-chunk-059/ad19e3ab566ea49e82c84a710e6fa17b9b79572420ec9dc0462df9517869c4a5.gz",
+      "published_sha256": "ad19e3ab566ea49e82c84a710e6fa17b9b79572420ec9dc0462df9517869c4a5",
+      "published_bytes": 1258,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original segovb Lens12 reviewer, 6533 scope, reuse and no-current-reconciliation qualifications remain; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-464.json",
+      "sha256": "d845dcba000c5c6c851de8d6751ff88bf3bccfbda7423774f36110d91b6d9fe6",
+      "bytes": 1266,
+      "git_blob": "31ae0f6f555b3e863926358082a86838efa3f09a",
+      "preserved_bytes": "recovered/grass-chunk-059/d845dcba000c5c6c851de8d6751ff88bf3bccfbda7423774f36110d91b6d9fe6.gz",
+      "published_sha256": "d845dcba000c5c6c851de8d6751ff88bf3bccfbda7423774f36110d91b6d9fe6",
+      "published_bytes": 1266,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original segovb Lens12 reviewer, 6533 scope, reuse and no-current-reconciliation qualifications remain; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-465.json",
+      "sha256": "ae112e03b273fe737f7a13881c53ebafb9d69eec99687d79a8c8b83bf63e4240",
+      "bytes": 1260,
+      "git_blob": "d173c22c5f4df8db9ff76df51402ee6cd9d74158",
+      "preserved_bytes": "recovered/grass-chunk-059/ae112e03b273fe737f7a13881c53ebafb9d69eec99687d79a8c8b83bf63e4240.gz",
+      "published_sha256": "ae112e03b273fe737f7a13881c53ebafb9d69eec99687d79a8c8b83bf63e4240",
+      "published_bytes": 1260,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original segovb Lens12 reviewer, 6533 scope, reuse and no-current-reconciliation qualifications remain; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-466.json",
+      "sha256": "6851938a3f2791de3192987833e2c2cab4a61eb3872dfda5540fceefa7c1d511",
+      "bytes": 1259,
+      "git_blob": "e12396903568a72c4214b97a363bf1e572f00a8d",
+      "preserved_bytes": "recovered/grass-chunk-059/6851938a3f2791de3192987833e2c2cab4a61eb3872dfda5540fceefa7c1d511.gz",
+      "published_sha256": "6851938a3f2791de3192987833e2c2cab4a61eb3872dfda5540fceefa7c1d511",
+      "published_bytes": 1259,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original segovb Lens12 reviewer, 6533 scope, reuse and no-current-reconciliation qualifications remain; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-467.json",
+      "sha256": "5945b03607ca78d315cb9f3216cc4fc23acf5127391596e18bc67043db46eb84",
+      "bytes": 1265,
+      "git_blob": "fd2969719e2371959814f578a1cdcbbbd6086cfd",
+      "preserved_bytes": "recovered/grass-chunk-059/5945b03607ca78d315cb9f3216cc4fc23acf5127391596e18bc67043db46eb84.gz",
+      "published_sha256": "5945b03607ca78d315cb9f3216cc4fc23acf5127391596e18bc67043db46eb84",
+      "published_bytes": 1265,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original segovb Lens12 reviewer, 6533 scope, reuse and no-current-reconciliation qualifications remain; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-468.json",
+      "sha256": "9bf1b21b8c0d22f7a94775e21a17fdac250ae73bc49e021dbc9ddf4d0612f347",
+      "bytes": 1273,
+      "git_blob": "ace2d782fbd801a85dee9134b1aefb6ebfdc4437",
+      "preserved_bytes": "recovered/grass-chunk-059/9bf1b21b8c0d22f7a94775e21a17fdac250ae73bc49e021dbc9ddf4d0612f347.gz",
+      "published_sha256": "9bf1b21b8c0d22f7a94775e21a17fdac250ae73bc49e021dbc9ddf4d0612f347",
+      "published_bytes": 1273,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original segovb Lens12 reviewer, 6533 scope, reuse and no-current-reconciliation qualifications remain; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/STATE-L12-479.json",
+      "sha256": "90dcac23e9d1413dacada4558955177d522f6a09daad00252a57dcabd90aa31a",
+      "bytes": 840,
+      "git_blob": "1eee6a92207d4ed5676a7a55fd585701a0651751",
+      "preserved_bytes": "recovered/grass-chunk-059/90dcac23e9d1413dacada4558955177d522f6a09daad00252a57dcabd90aa31a.gz",
+      "published_sha256": "90dcac23e9d1413dacada4558955177d522f6a09daad00252a57dcabd90aa31a",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Original segovb Lens12 reviewer, 6533 scope, reuse and no-current-reconciliation qualifications remain; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/STATE-L12-480.json",
+      "sha256": "b77c351d79e246cb4fbfd44ed93917ce4d4961b2df7e9cace58c9efe046f599e",
+      "bytes": 840,
+      "git_blob": "844572bbebca82d7d3af1fe3ad6d552b89423cd0",
+      "preserved_bytes": "recovered/grass-chunk-059/b77c351d79e246cb4fbfd44ed93917ce4d4961b2df7e9cace58c9efe046f599e.gz",
+      "published_sha256": "b77c351d79e246cb4fbfd44ed93917ce4d4961b2df7e9cace58c9efe046f599e",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Original segovb Lens12 reviewer, 6533 scope, reuse and no-current-reconciliation qualifications remain; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/STATE-L12-481.json",
+      "sha256": "2f7c69e8f4dea6483ce430497a7c33e2f3f069ac37b26d034f646c1ad6a9406a",
+      "bytes": 840,
+      "git_blob": "c613011d973dc36f1afe20f124358052a570acb5",
+      "preserved_bytes": "recovered/grass-chunk-059/2f7c69e8f4dea6483ce430497a7c33e2f3f069ac37b26d034f646c1ad6a9406a.gz",
+      "published_sha256": "2f7c69e8f4dea6483ce430497a7c33e2f3f069ac37b26d034f646c1ad6a9406a",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Original segovb Lens12 reviewer, 6533 scope, reuse and no-current-reconciliation qualifications remain; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-479.json",
+      "sha256": "959ef9c14141edece728edf023260f0b18f47db01f3cd7b735164c4ce44e0704",
+      "bytes": 558,
+      "git_blob": "86b82127d896413b0759e9bfeb988812e1cce9fc",
+      "preserved_bytes": "recovered/grass-chunk-059/959ef9c14141edece728edf023260f0b18f47db01f3cd7b735164c4ce44e0704.gz",
+      "published_sha256": "959ef9c14141edece728edf023260f0b18f47db01f3cd7b735164c4ce44e0704",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original segovb Lens12 reviewer, 6533 scope, reuse and no-current-reconciliation qualifications remain; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-480.json",
+      "sha256": "c98303f22f28050d8e798543772d442a4a8129fd78d2f7a15fe6445e32ed7dea",
+      "bytes": 558,
+      "git_blob": "de38b834c184fed0e0e5b308e1b76a53988f7e02",
+      "preserved_bytes": "recovered/grass-chunk-059/c98303f22f28050d8e798543772d442a4a8129fd78d2f7a15fe6445e32ed7dea.gz",
+      "published_sha256": "c98303f22f28050d8e798543772d442a4a8129fd78d2f7a15fe6445e32ed7dea",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original segovb Lens12 reviewer, 6533 scope, reuse and no-current-reconciliation qualifications remain; no checkpoint3821 promotion."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-481.json",
+      "sha256": "b050273709e4292c34ff30465af64a3fafe6a6c3630aa54a23e973b8d54bcb7a",
+      "bytes": 558,
+      "git_blob": "70ca6f8e91e139601090f41b4dba09ca3ed626dc",
+      "preserved_bytes": "recovered/grass-chunk-059/b050273709e4292c34ff30465af64a3fafe6a6c3630aa54a23e973b8d54bcb7a.gz",
+      "published_sha256": "b050273709e4292c34ff30465af64a3fafe6a6c3630aa54a23e973b8d54bcb7a",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original segovb Lens12 reviewer, 6533 scope, reuse and no-current-reconciliation qualifications remain; no checkpoint3821 promotion."
+    }
+  ],
+  "remaining": "Actual supported grass tuning, current culling geometry/time/view, framework scheduling and aliases, original1562 onward and all thirteen independent lenses remain open. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

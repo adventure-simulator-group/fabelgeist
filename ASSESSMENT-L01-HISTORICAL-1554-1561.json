@@ -1,0 +1,307 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1554,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals the 6533 committed blob; byte identity does not transfer reviewer or lens credit.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1554",
+      "sha256": "4ebc106478d263a859403c114c4711598dd570927f2706abf5e7123bc37a9c91",
+      "lines": 623,
+      "new_personal_read_ranges": [
+        [
+          1,
+          325
+        ],
+        [
+          326,
+          623
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GRASS-CHUNK-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs",
+        "status": "present",
+        "sha256": "183b62660fadacb8f9bfe9a7051edcdc191c695358a95f4d75054095e52fd999",
+        "bytes": 21998,
+        "lines": 548,
+        "git_blob": "1549d2533d927d16ef08afb6a54b6d89438076ca",
+        "preserved_bytes": "main-advance-95e/grass-chunk-evidence/current-1554.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "qualification": "Current body separately inspected; historical and other-lens reviewer credit remains distinct.",
+        "exact_diff": {
+          "preserved_bytes": "main-advance-95e/grass-chunk-evidence/diff-1554.txt.gz",
+          "sha256": "a5681def16ff03937555d2af62d1b6fb6253d7b79e0df7aaae3c86d8bc0748a3",
+          "bytes": 9970,
+          "content_encoding": "gzip"
+        }
+      },
+      "qualification": "Full historical body personally read through actual EOF. Current differing bodies or absence are separately identified. Tests, shaders, culling and rendering were not executed."
+    },
+    {
+      "original_index": 1555,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/batches.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals the 6533 committed blob; byte identity does not transfer reviewer or lens credit.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1555",
+      "sha256": "55a8f28f05846eea9e2cd7460a1a1aaecb83c64af31573ed82a2bb2f5bdaf196",
+      "lines": 86,
+      "new_personal_read_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GRASS-CHUNK-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/batches.rs",
+        "status": "present",
+        "sha256": "5c2a8b6a4e7d110c4aa81157d6df12213b70a7b2c18be7b500ac202500f2971e",
+        "bytes": 2765,
+        "lines": 79,
+        "git_blob": "482c0a1a855bfb0310b17d83c0ae7022d9bdf515",
+        "preserved_bytes": "main-advance-95e/grass-chunk-evidence/current-1555.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "qualification": "Current body separately inspected; historical and other-lens reviewer credit remains distinct.",
+        "exact_diff": {
+          "preserved_bytes": "main-advance-95e/grass-chunk-evidence/diff-1555.txt.gz",
+          "sha256": "961b796d8b19d0e6a654716714d5b32e3e3003aad9c964a88e849d8c54f30e73",
+          "bytes": 3889,
+          "content_encoding": "gzip"
+        }
+      },
+      "qualification": "Full historical body personally read through actual EOF. Current differing bodies or absence are separately identified. Tests, shaders, culling and rendering were not executed."
+    },
+    {
+      "original_index": 1556,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/culling.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals the 6533 committed blob; byte identity does not transfer reviewer or lens credit.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1556",
+      "sha256": "965ddf1af38c60ebc28657a7b9261fb5384998a97d57606ea70e49bbf2a6f5a2",
+      "lines": 54,
+      "new_personal_read_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GRASS-CHUNK-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/culling.rs",
+        "status": "absent in verified current Git tree",
+        "byte_identical": false,
+        "qualification": "Original 6533 body exists and is preserved; absence at95e is not a deleted historical snapshot or proof that a current owner is equivalent."
+      },
+      "qualification": "Full historical body personally read through actual EOF. Current differing bodies or absence are separately identified. Tests, shaders, culling and rendering were not executed."
+    },
+    {
+      "original_index": 1557,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/diagnostics.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals the 6533 committed blob; byte identity does not transfer reviewer or lens credit.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1557",
+      "sha256": "137a4589cc0b7945de4fb4d552dd9dab6a3e4f0d42f426b4d5d439881a0f7bb9",
+      "lines": 47,
+      "new_personal_read_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GRASS-CHUNK-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/diagnostics.rs",
+        "status": "present",
+        "sha256": "dc974667febacd592df441d70ddd03394c8afc93ec7d59ae54f7730b6dd1dcff",
+        "bytes": 1044,
+        "lines": 35,
+        "git_blob": "b07a1afd62fccf6bdab06280e18219c52aa4c55f",
+        "preserved_bytes": "main-advance-95e/grass-chunk-evidence/current-1557.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "qualification": "Current body separately inspected; historical and other-lens reviewer credit remains distinct.",
+        "exact_diff": {
+          "preserved_bytes": "main-advance-95e/grass-chunk-evidence/diff-1557.txt.gz",
+          "sha256": "221d25172b5cf5c5975d488e410c919c6c3d0895e5efd66b3b821bcc4d098a3b",
+          "bytes": 1083,
+          "content_encoding": "gzip"
+        }
+      },
+      "qualification": "Full historical body personally read through actual EOF. Current differing bodies or absence are separately identified. Tests, shaders, culling and rendering were not executed."
+    },
+    {
+      "original_index": 1558,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/material.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals the 6533 committed blob; byte identity does not transfer reviewer or lens credit.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1558",
+      "sha256": "254f470bded28494465ba373831b3e8c80ce627e4480f65c9a5b49e05988b459",
+      "lines": 88,
+      "new_personal_read_ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GRASS-CHUNK-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/material.rs",
+        "status": "present",
+        "sha256": "d1f1c82a4c8c3eca722ce058bb927c7987024e10e237fb54f96d931b6c0954dd",
+        "bytes": 2520,
+        "lines": 71,
+        "git_blob": "f9a4cfca96863a7247a547bd80ef673049da37f9",
+        "preserved_bytes": "main-advance-95e/grass-chunk-evidence/current-1558.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "qualification": "Current body separately inspected; historical and other-lens reviewer credit remains distinct.",
+        "exact_diff": {
+          "preserved_bytes": "main-advance-95e/grass-chunk-evidence/diff-1558.txt.gz",
+          "sha256": "f4e52ae979eb263cbbcc11e7d9d0952236350556572d10f639716db2de47d760",
+          "bytes": 1782,
+          "content_encoding": "gzip"
+        }
+      },
+      "qualification": "Full historical body personally read through actual EOF. Current differing bodies or absence are separately identified. Tests, shaders, culling and rendering were not executed."
+    },
+    {
+      "original_index": 1559,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/streams.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals the 6533 committed blob; byte identity does not transfer reviewer or lens credit.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/1559",
+      "sha256": "d2d6a5f0c533722ba0ce88a029935857b9e7a23ea1bb3a30dbd2844af3336ae8",
+      "lines": 7,
+      "new_personal_read_ranges": [
+        [
+          1,
+          7
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GRASS-CHUNK-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/streams.rs",
+        "status": "present",
+        "sha256": "d2d6a5f0c533722ba0ce88a029935857b9e7a23ea1bb3a30dbd2844af3336ae8",
+        "bytes": 428,
+        "lines": 7,
+        "git_blob": "65c98a213d5570999dcd64dea53851c6b3cd4fc2",
+        "preserved_bytes": "main-advance-95e/grass-chunk-evidence/current-1559.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Current body separately inspected; historical and other-lens reviewer credit remains distinct."
+      },
+      "qualification": "Full historical body personally read through actual EOF. Current differing bodies or absence are separately identified. Tests, shaders, culling and rendering were not executed."
+    },
+    {
+      "original_index": 1560,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/variation.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals the 6533 committed blob; byte identity does not transfer reviewer or lens credit.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1560",
+      "sha256": "26eeca7140343b37a83e417dd24a51470b41e153827cac511230b030e80a96cf",
+      "lines": 24,
+      "new_personal_read_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GRASS-CHUNK-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/variation.rs",
+        "status": "present",
+        "sha256": "26eeca7140343b37a83e417dd24a51470b41e153827cac511230b030e80a96cf",
+        "bytes": 831,
+        "lines": 24,
+        "git_blob": "e9a5bf764bb6c3d0d7c7a34cc5b409a499a0652c",
+        "preserved_bytes": "main-advance-95e/grass-chunk-evidence/current-1560.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Current body separately inspected; historical and other-lens reviewer credit remains distinct."
+      },
+      "qualification": "Full historical body personally read through actual EOF. Current differing bodies or absence are separately identified. Tests, shaders, culling and rendering were not executed."
+    },
+    {
+      "original_index": 1561,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/view_culling.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals the 6533 committed blob; byte identity does not transfer reviewer or lens credit.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1561",
+      "sha256": "6411bfc2ee44c3d991461d3817be5580974b682de88df4337e4beb492766407c",
+      "lines": 167,
+      "new_personal_read_ranges": [
+        [
+          1,
+          167
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GRASS-CHUNK-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/view_culling.rs",
+        "status": "absent in verified current Git tree",
+        "byte_identical": false,
+        "qualification": "Original 6533 body exists and is preserved; absence at95e is not a deleted historical snapshot or proof that a current owner is equivalent."
+      },
+      "qualification": "Full historical body personally read through actual EOF. Current differing bodies or absence are separately identified. Tests, shaders, culling and rendering were not executed."
+    }
+  ],
+  "observations": [
+    "Eight original instanced grass, batch, culling, diagnostics, material, named streams, variation and view-culling bodies personally read through actual EOF. Original1554 was read in two contiguous parts. All original bodies equal 6533 committed blobs; 1554/1555/1557/1558 differ at95e, 1559/1560 match, and current paths1556/1561 are absent. Exact diffs and current-source bytes are retained.",
+    "Earlier adler Lens11 batch219 independently reviewed1550–1561; segovb Lens12 batches479–481 independently reviewed1554–1561 with qualified config reuse. Prior reviewer attribution, original scopes, no current reconciliation and test-only source status remain distinct. Current chunk source inspection is not proof an old culling file survived or another lens closed."
+  ],
+  "remaining": "Continue at original1562, then original populations and all independent lenses. Current native visibility/rendering policy, supported geometry and aliases remain open."
+}

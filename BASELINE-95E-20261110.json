@@ -3675,8 +3675,72 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-GROUND-RASTER-ADMISSION-95E.json"
+      },
+      {
+        "id": "REVIEW-GRASS-COVER-FEATHER-CONFIG-001",
+        "lens": 1,
+        "severity": "unassigned; source finding or conditional policy/reachability question",
+        "classification": "New current source finding: a parsed, validated graphics setting is not passed to the current grass cover raster consumer; no rendering or altered configuration was executed.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1310",
+          "baseline-059/queue.json#/entries/1314",
+          "baseline-059/queue.json#/entries/1315"
+        ],
+        "relationship_qualification": "New 95e source trace connected to earlier open obligations; no historical unique count or checkpoint3821 transfer. Exact aliases and supported outcomes remain open.",
+        "discovery": "partial; direct producer/consumer disconnect and literal search recorded, policy and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GRASS-CHUNK-AND-CONFIG-95E.json"
+      },
+      {
+        "id": "REVIEW-GRASS-WIDTH-COMPENSATION-CONFIG-001",
+        "lens": 1,
+        "severity": "unassigned; source finding or conditional policy/reachability question",
+        "classification": "New current source finding: declared tier compensation controls do not feed the selected grass material calculation.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1310",
+          "baseline-059/queue.json#/entries/1314",
+          "baseline-059/queue.json#/entries/1315"
+        ],
+        "relationship_qualification": "New 95e source trace connected to earlier open obligations; no historical unique count or checkpoint3821 transfer. Exact aliases and supported outcomes remain open.",
+        "discovery": "partial; source disconnect and default narrowing documented, intended configuration policy and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GRASS-CHUNK-AND-CONFIG-95E.json"
+      },
+      {
+        "id": "REVIEW-GRASS-ROOT-STRATUM-CONFIG-001",
+        "lens": 1,
+        "severity": "unassigned; source finding or conditional policy/reachability question",
+        "classification": "New current source question: validated root stratum data is retained but not read by the current placement/selection path.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1310",
+          "baseline-059/queue.json#/entries/1314",
+          "baseline-059/queue.json#/entries/1315"
+        ],
+        "relationship_qualification": "New 95e source trace connected to earlier open obligations; no historical unique count or checkpoint3821 transfer. Exact aliases and supported outcomes remain open.",
+        "discovery": "partial; direct-field use and fixed selector traced, policy and all callers open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GRASS-CHUNK-AND-CONFIG-95E.json"
+      },
+      {
+        "id": "REVIEW-GRASS-CHUNK-DEFORMATION-BOUNDS-001",
+        "lens": 4,
+        "severity": "unassigned; source finding or conditional policy/reachability question",
+        "classification": "New conditional current source question: the chunk culling bound does not explicitly include shader wind or player deformation; no culled scene or visual result observed.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1310",
+          "baseline-059/queue.json#/entries/1314",
+          "baseline-059/queue.json#/entries/1315"
+        ],
+        "relationship_qualification": "New 95e source trace connected to earlier open obligations; no historical unique count or checkpoint3821 transfer. Exact aliases and supported outcomes remain open.",
+        "discovery": "partial; source-level bound/deformation mismatch and native culling gate, reachability and impact open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GRASS-CHUNK-AND-CONFIG-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0648.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0654.json"
 }
