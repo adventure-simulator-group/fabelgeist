@@ -1,0 +1,659 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Eleven original view/geometry roles and bounded current vista source admission, normal producers, extent observer and four additional fixture associations.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1731-1741.json",
+  "git_membership_evidence": "VISTA-METRIC-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ce5e205c98dc45232f19e7762729c8a9a59ebac4",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "bytes": 39530,
+      "lines": 1026,
+      "ranges": [
+        [
+          75,
+          85
+        ],
+        [
+          150,
+          164
+        ],
+        [
+          427,
+          468
+        ]
+      ],
+      "inspection": "source lines",
+      "preserved_bytes": "main-advance-95e/vista-metric-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated text ranges and/or JSON slug fields inspected; complete bytes retained. Product and source tests not executed. No historical or independent-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7a8109a7fbc6969b4d2ed502091b48a48ea78bd4",
+      "sha256": "3d97a798029ddc9f195aa209105f64070c55fb0172ef87a515e67fe945c735c9",
+      "bytes": 2908,
+      "lines": 64,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "inspection": "source lines",
+      "preserved_bytes": "main-advance-95e/vista-metric-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated text ranges and/or JSON slug fields inspected; complete bytes retained. Product and source tests not executed. No historical or independent-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/terrain_samples.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b45a3494a89213894d786b281bc4693736da2939",
+      "sha256": "d2ea661c716a406090f74c7caf955d7381bb8eee5f02850af42cd153b3fedd84",
+      "bytes": 3335,
+      "lines": 109,
+      "ranges": [
+        [
+          44,
+          93
+        ]
+      ],
+      "inspection": "source lines",
+      "preserved_bytes": "main-advance-95e/vista-metric-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated text ranges and/or JSON slug fields inspected; complete bytes retained. Product and source tests not executed. No historical or independent-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server-dispatcher/src/scene_input.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d2935bd735cfa600328abf870a8a4fdcccbdfcce",
+      "sha256": "03e1948b1e2d2492d4f2062ef4aebb1e6dc293f6e228bede4d15710785306b57",
+      "bytes": 40769,
+      "lines": 978,
+      "ranges": [
+        [
+          408,
+          445
+        ]
+      ],
+      "inspection": "source lines",
+      "preserved_bytes": "main-advance-95e/vista-metric-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated text ranges and/or JSON slug fields inspected; complete bytes retained. Product and source tests not executed. No historical or independent-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/bin/generate-scene-fixtures.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "69a068fcb551b3d10c1fa328a185ff433ff2c3ca",
+      "sha256": "3a9432cfc6a30402262e35b2283c4f0374c89801d23f387df6b207ad8803e06f",
+      "bytes": 26037,
+      "lines": 778,
+      "ranges": [
+        [
+          497,
+          535
+        ]
+      ],
+      "inspection": "source lines",
+      "preserved_bytes": "main-advance-95e/vista-metric-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated text ranges and/or JSON slug fields inspected; complete bytes retained. Product and source tests not executed. No historical or independent-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/vista_validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "414df5cb5de378e7e4249415473aacd1a7afc165",
+      "sha256": "69bc396775dea711240e1e39926dd2f45e6fa54e27ac600ec860754ceff478ba",
+      "bytes": 6423,
+      "lines": 184,
+      "ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "inspection": "source lines",
+      "preserved_bytes": "main-advance-95e/vista-metric-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated text ranges and/or JSON slug fields inspected; complete bytes retained. Product and source tests not executed. No historical or independent-lens credit inferred."
+    },
+    {
+      "path": "assets/tactical-scenes/gable-review.review.json",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5220fd873c534a220ceb6ec8b562506f47497582",
+      "sha256": "b6d571d2ca7746008959f84de4e4aeef597cfe29d78f5ead56ab582c91a49dcc",
+      "bytes": 2731,
+      "lines": 183,
+      "ranges": [],
+      "inspection": "JSON views[*].slug mechanically extracted; other fixture fields not personally inspected",
+      "preserved_bytes": "main-advance-95e/vista-metric-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated text ranges and/or JSON slug fields inspected; complete bytes retained. Product and source tests not executed. No historical or independent-lens credit inferred."
+    },
+    {
+      "path": "assets/tactical-scenes/garden-review.review.json",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "071aeb7f6bae5b725609e1394b7a2a81b92ff84a",
+      "sha256": "d0e5b093713933b12fa992ec64b7151f568c8c003f9f6aae71b92906607070ea",
+      "bytes": 949,
+      "lines": 69,
+      "ranges": [],
+      "inspection": "JSON views[*].slug mechanically extracted; other fixture fields not personally inspected",
+      "preserved_bytes": "main-advance-95e/vista-metric-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated text ranges and/or JSON slug fields inspected; complete bytes retained. Product and source tests not executed. No historical or independent-lens credit inferred."
+    },
+    {
+      "path": "assets/tactical-scenes/heating-review.review.json",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2386d9b6888597c0ad251fe685f40ef80489449f",
+      "sha256": "9b25f0330b1533d36b55dc136363c74e4bc83ddd036846cd50f395e5249a400c",
+      "bytes": 5573,
+      "lines": 363,
+      "ranges": [],
+      "inspection": "JSON views[*].slug mechanically extracted; other fixture fields not personally inspected",
+      "preserved_bytes": "main-advance-95e/vista-metric-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated text ranges and/or JSON slug fields inspected; complete bytes retained. Product and source tests not executed. No historical or independent-lens credit inferred."
+    },
+    {
+      "path": "assets/tactical-scenes/parish-review.review.json",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "977b756a392f9e6f2f89a5a5bcd43526b9d84745",
+      "sha256": "48ddba709ecb7a59e7131cb1523373d9f0c0ead57614dfb8d53cfa4286d0d97d",
+      "bytes": 7534,
+      "lines": 477,
+      "ranges": [],
+      "inspection": "JSON views[*].slug mechanically extracted; other fixture fields not personally inspected",
+      "preserved_bytes": "main-advance-95e/vista-metric-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated text ranges and/or JSON slug fields inspected; complete bytes retained. Product and source tests not executed. No historical or independent-lens credit inferred."
+    }
+  ],
+  "static_fixture_mapping": "ADDITIONAL-VIEW-FIXTURE-SLUG-INDEX-95E.json",
+  "earlier_current_viewer": "ASSESSMENT-L01-HISTORICAL-1699-COMPLETE.json",
+  "earlier_current_manifest": "ASSESSMENT-L01-HISTORICAL-1717-1719.json",
+  "observations": [
+    {
+      "contract": "Typed botanical view focus",
+      "trace": "Fungus review poses carry explicit FungusSpecies, and CapturePose::accepts_plant accepts only the corresponding PlantSpecies::Fungus for those poses. The viewer selects the nearest accepted anchor; generic Plant and PlantLod poses do not impose this fungus filter. Two community views use a FlyAgaric focus; this selects an anchor and does not by itself prove which other plants are visible. Isolated LOD views derive from the same catalogue while changing visibility-related flags.",
+      "remaining": "Availability of a selected species, scene lifecycle, rendering, actual imagery and the semantic policy for generic focus remain open."
+    },
+    {
+      "contract": "Further building fixture associations",
+      "trace": "The static gable, garden, heating and parish spec slugs and camera indices match their fixture view slugs and positions for15,4,29 and37 non-warmup views respectively. This supplements the four-profile static check in ASSESSMENT-VIEW-SPEC-FIXTURE-ASSOCIATION-95E.json.",
+      "remaining": "These four files complete the listed building-review profile slug/index comparison, not camera computation, fixture geometry, image correctness, all other capture profiles or native readiness."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-VISTA-WIDTH-DIAMETER-001",
+      "lens": 8,
+      "classification": "New95e conditional reporting question connected to Segovb560 original pending width-versus-depth and metric semantics; not a new historical finding.",
+      "first_failed_contract": "If the reported vista diameter is intended to describe the full supplied geographic extent and a rectangular vista can reach capture, computing it solely from width can understate the north–south span.",
+      "canonical_owner": "Vista source-grid shape, ring extent and the capture-report metric definition; decide whether the output should be one axis, maximum extent, bounds or another documented measure.",
+      "trace": "VistaCaptureGeometry::from_source updates diameter using max over (lod.width−1)×spacing, without using lod.depth or the ring origin for that field. It separately calculates width/depth-based sample coordinates for extrema. VistaSummary publishes geometry.diameter() as diameter_metres. The bounded source grid validator checks width and depth independently (each at least2), matching sample lengths, finite spacing and height/environment limits; the vista loop also checks ordered level and spacing, finite origin and total samples, but the shown checks do not require width==depth. VistaCaptureContract separately constructs expected x/z bounds from both dimensions and origin.",
+      "symbolic_example": "For a hypothetical single 3-by-9 grid at100m spacing, source arithmetic produces a200m width value and an800m north–south extent. With27 height/environment entries and a smaller preceding playable spacing, the dimension, sample-count and spacing-order checks shown can be satisfied. This is a numerical illustration, not a constructed or fully validated scene.",
+      "safeguards": "The inspected dispatcher city-vista producer requests square grids and sets width=depth=side; the inspected fixture generator likewise calls grid(side, side, ...), so those normal sources are counterevidence to claiming this occurs there. Complete scene validation includes grounding and other contracts, supported rectangular producers and any downstream interpretation of diameter remain unproved. A field named diameter might intentionally mean east–west width; no specification establishes the intended semantics here. No source input, scene, camera, manifest, output or test was run.",
+      "dependencies": [
+        "Trace all supported vista producers and complete scene admission, including grounding, for non-square or displaced rings.",
+        "Establish the intended report metric and consumers, including multiple origin-offset rings and whether source extents or another geometric measure is required.",
+        "Reconcile exact aliases and original Segovb560 pending scope without changing its6533 attribution."
+      ],
+      "acceptance_requirements": [
+        "Make the reported metric unambiguous and consistent with supported vista shapes and documented meaning.",
+        "Preserve checked geographic extrema and actual sampling locations; if square rings are a required invariant, establish it at their canonical admission owner rather than assuming it locally."
+      ],
+      "discovery": "partial; width-only source and rectangular local-check counterexample established; complete input reachability, product impact, meaning and aliases open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1322",
+        "/entries/1431",
+        "/entries/1436",
+        "/entries/1437",
+        "/entries/1438"
+      ],
+      "qualification": "Original059 entries remain distinct and only partially connected; no checkpoint3821 transfer."
+    },
+    {
+      "file": "ASSESSMENT-VIEW-SPEC-FIXTURE-ASSOCIATION-95E.json",
+      "qualification": "Earlier four-profile slug/index check and open producer/policy question remain intact."
+    },
+    {
+      "file": "ASSESSMENT-PLANT-LOD-ROOT-ASSOCIATION-95E.json",
+      "qualification": "Earlier plant root identity counterevidence and lifecycle limitations remain separate."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-558.json",
+      "sha256": "7e3ce199582f49b7733f81a8fe21f9ca46b290cd688d8f381f30324f8a24201d",
+      "bytes": 2264,
+      "git_blob": "7f27696732263aea7ae0b26aeeb37c5eb2fc2002",
+      "preserved_bytes": "recovered/vista-metric-059/7e3ce199582f49b7733f81a8fe21f9ca46b290cd688d8f381f30324f8a24201d.gz",
+      "published_sha256": "7e3ce199582f49b7733f81a8fe21f9ca46b290cd688d8f381f30324f8a24201d",
+      "published_bytes": 2264,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-559.json",
+      "sha256": "d72f1a29a57a8477b44048f975c305c94aa10e1f3918ed065ca71e2aa4af721f",
+      "bytes": 1762,
+      "git_blob": "2a470b9127f68c6bf7e1c0e63e959132acfba7bc",
+      "preserved_bytes": "recovered/vista-metric-059/d72f1a29a57a8477b44048f975c305c94aa10e1f3918ed065ca71e2aa4af721f.gz",
+      "published_sha256": "d72f1a29a57a8477b44048f975c305c94aa10e1f3918ed065ca71e2aa4af721f",
+      "published_bytes": 1762,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-560.json",
+      "sha256": "15ee62ba2a9b5297dc2a22de0d0a6a5341aa6d7274a63bd9d6c8ff6edd32fc83",
+      "bytes": 2266,
+      "git_blob": "d283f6a1a687d51876bf17f5658c3adbd8c7ad2f",
+      "preserved_bytes": "recovered/vista-metric-059/15ee62ba2a9b5297dc2a22de0d0a6a5341aa6d7274a63bd9d6c8ff6edd32fc83.gz",
+      "published_sha256": "15ee62ba2a9b5297dc2a22de0d0a6a5341aa6d7274a63bd9d6c8ff6edd32fc83",
+      "published_bytes": 2266,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-543.json",
+      "sha256": "42b41aaff4e286f1bee20a290f1837069b4c843713feddfaa782119b2ece45bb",
+      "bytes": 42071,
+      "git_blob": "316fadcf065d57e6c78673c8a66d2d3b819feda9",
+      "preserved_bytes": "recovered/vista-metric-059/42b41aaff4e286f1bee20a290f1837069b4c843713feddfaa782119b2ece45bb.gz",
+      "published_sha256": "42b41aaff4e286f1bee20a290f1837069b4c843713feddfaa782119b2ece45bb",
+      "published_bytes": 42071,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier same-lens receipt, no new credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-549.json",
+      "sha256": "1178b06e7dcc59a6903baeed4e7e500f6690fa47712dd706ed510ad83e841070",
+      "bytes": 9069,
+      "git_blob": "7e8619c8cb084a37284daa1ad6ace06aa788ef76",
+      "preserved_bytes": "recovered/vista-metric-059/1178b06e7dcc59a6903baeed4e7e500f6690fa47712dd706ed510ad83e841070.gz",
+      "published_sha256": "1178b06e7dcc59a6903baeed4e7e500f6690fa47712dd706ed510ad83e841070",
+      "published_bytes": 9069,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier same-lens receipt, no new credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-558.json",
+      "sha256": "537bc09ecfba57b9e02681567cdd752251ad4e0fd48fa3d66f9069449ee5a34e",
+      "bytes": 11167,
+      "git_blob": "7d7f055d5a693ca470415cf0d9ed675e1f595a90",
+      "preserved_bytes": "recovered/vista-metric-059/537bc09ecfba57b9e02681567cdd752251ad4e0fd48fa3d66f9069449ee5a34e.gz",
+      "published_sha256": "537bc09ecfba57b9e02681567cdd752251ad4e0fd48fa3d66f9069449ee5a34e",
+      "published_bytes": 11167,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-559.json",
+      "sha256": "d330f2339c76b3e975bdb1ba0a5855e1e88144683847fc11e48c0a7b6db0a7cd",
+      "bytes": 11823,
+      "git_blob": "f0cba4d55a97658b39d000ca33e90a885ab7aba9",
+      "preserved_bytes": "recovered/vista-metric-059/d330f2339c76b3e975bdb1ba0a5855e1e88144683847fc11e48c0a7b6db0a7cd.gz",
+      "published_sha256": "d330f2339c76b3e975bdb1ba0a5855e1e88144683847fc11e48c0a7b6db0a7cd",
+      "published_bytes": 11823,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-560.json",
+      "sha256": "21535f1b4fd7883e764db7d4281f1695a8035f2b45b494cc0e29ce190fbb8c68",
+      "bytes": 13117,
+      "git_blob": "a6fb15829b6a176da540d3442b468497b4323d97",
+      "preserved_bytes": "recovered/vista-metric-059/21535f1b4fd7883e764db7d4281f1695a8035f2b45b494cc0e29ce190fbb8c68.gz",
+      "published_sha256": "21535f1b4fd7883e764db7d4281f1695a8035f2b45b494cc0e29ce190fbb8c68",
+      "published_bytes": 13117,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-606.json",
+      "sha256": "639d55b7e5918087a2663bf7bb27df4c25ae90175a27829f053649b32f497dae",
+      "bytes": 1247,
+      "git_blob": "d151d4a11f21ba678fbcf7989f7138b8e2c00bac",
+      "preserved_bytes": "recovered/vista-metric-059/639d55b7e5918087a2663bf7bb27df4c25ae90175a27829f053649b32f497dae.gz",
+      "published_sha256": "639d55b7e5918087a2663bf7bb27df4c25ae90175a27829f053649b32f497dae",
+      "published_bytes": 1247,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-620.json",
+      "sha256": "16b6e92cd1a3e6e3b799e4cf4f50f9183643d7a05864ef83854fb29e647a1191",
+      "bytes": 1254,
+      "git_blob": "d0014a353e9d5030254e6e0656037b4d4dcc629c",
+      "preserved_bytes": "recovered/vista-metric-059/16b6e92cd1a3e6e3b799e4cf4f50f9183643d7a05864ef83854fb29e647a1191.gz",
+      "published_sha256": "16b6e92cd1a3e6e3b799e4cf4f50f9183643d7a05864ef83854fb29e647a1191",
+      "published_bytes": 1254,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-638.json",
+      "sha256": "39dbfa7e68cbbfdadedeef2ca792e47767ec56346a0cfd5c20a501715645c096",
+      "bytes": 1209,
+      "git_blob": "4a3638b73b926b806120b336688de94afb4c2d92",
+      "preserved_bytes": "recovered/vista-metric-059/39dbfa7e68cbbfdadedeef2ca792e47767ec56346a0cfd5c20a501715645c096.gz",
+      "published_sha256": "39dbfa7e68cbbfdadedeef2ca792e47767ec56346a0cfd5c20a501715645c096",
+      "published_bytes": 1209,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-639.json",
+      "sha256": "718a85eecb49e4983c360fcb4f678f46f28bba400f2de514e177f7fb1b322ed6",
+      "bytes": 1217,
+      "git_blob": "57de0162632ec3fb411b45cba66abc95024d6036",
+      "preserved_bytes": "recovered/vista-metric-059/718a85eecb49e4983c360fcb4f678f46f28bba400f2de514e177f7fb1b322ed6.gz",
+      "published_sha256": "718a85eecb49e4983c360fcb4f678f46f28bba400f2de514e177f7fb1b322ed6",
+      "published_bytes": 1217,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-640.json",
+      "sha256": "f82116b82ef63a0c49e417a5c4baec28adc11a5371757212cf5306bb69e0b35f",
+      "bytes": 1211,
+      "git_blob": "3f2cce33adc156b19afeac549f131857df79bfc8",
+      "preserved_bytes": "recovered/vista-metric-059/f82116b82ef63a0c49e417a5c4baec28adc11a5371757212cf5306bb69e0b35f.gz",
+      "published_sha256": "f82116b82ef63a0c49e417a5c4baec28adc11a5371757212cf5306bb69e0b35f",
+      "published_bytes": 1211,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-641.json",
+      "sha256": "992f5c67d64d84006609540981f0db02770aa99fd4a0f5efc35df24d6491e4fc",
+      "bytes": 1211,
+      "git_blob": "d9999d7862fdc335bed86a8652d9b097aea64406",
+      "preserved_bytes": "recovered/vista-metric-059/992f5c67d64d84006609540981f0db02770aa99fd4a0f5efc35df24d6491e4fc.gz",
+      "published_sha256": "992f5c67d64d84006609540981f0db02770aa99fd4a0f5efc35df24d6491e4fc",
+      "published_bytes": 1211,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-642.json",
+      "sha256": "9c0b7f43c92712e20105c9a303453bc892bafd71f6c5be4dba411f558ba3e398",
+      "bytes": 1232,
+      "git_blob": "2c061812cbd6971b40ca8d1814f1180a4e55efa1",
+      "preserved_bytes": "recovered/vista-metric-059/9c0b7f43c92712e20105c9a303453bc892bafd71f6c5be4dba411f558ba3e398.gz",
+      "published_sha256": "9c0b7f43c92712e20105c9a303453bc892bafd71f6c5be4dba411f558ba3e398",
+      "published_bytes": 1232,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-643.json",
+      "sha256": "feea4d13b48012818fc7678943a9cd202280932bb5329e0848d9346a90864f54",
+      "bytes": 1234,
+      "git_blob": "4645b783544d0d377c774bf5ac71f422cbf51186",
+      "preserved_bytes": "recovered/vista-metric-059/feea4d13b48012818fc7678943a9cd202280932bb5329e0848d9346a90864f54.gz",
+      "published_sha256": "feea4d13b48012818fc7678943a9cd202280932bb5329e0848d9346a90864f54",
+      "published_bytes": 1234,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-644.json",
+      "sha256": "5335e069dd20488c870d61482210186e3b91678415165328d4ff5f1efc1c9ffb",
+      "bytes": 1232,
+      "git_blob": "ed16b7e6caa43fa7b6d24ad6b64bf9c494849a1f",
+      "preserved_bytes": "recovered/vista-metric-059/5335e069dd20488c870d61482210186e3b91678415165328d4ff5f1efc1c9ffb.gz",
+      "published_sha256": "5335e069dd20488c870d61482210186e3b91678415165328d4ff5f1efc1c9ffb",
+      "published_bytes": 1232,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-645.json",
+      "sha256": "5e2047334f3b73d52a0e9c72e54b84ab3a98d94c543e79b247448199672fcca0",
+      "bytes": 1245,
+      "git_blob": "1dfd33dc4074c337aaff5289f03aa17b2c44a450",
+      "preserved_bytes": "recovered/vista-metric-059/5e2047334f3b73d52a0e9c72e54b84ab3a98d94c543e79b247448199672fcca0.gz",
+      "published_sha256": "5e2047334f3b73d52a0e9c72e54b84ab3a98d94c543e79b247448199672fcca0",
+      "published_bytes": 1245,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-646.json",
+      "sha256": "8fc8617f2a9228f1ab347dc17da4daef312f1d5209371229339c92c4c745b08d",
+      "bytes": 1253,
+      "git_blob": "ecfd24997df7a5d3174a06188b28ed385cde6a25",
+      "preserved_bytes": "recovered/vista-metric-059/8fc8617f2a9228f1ab347dc17da4daef312f1d5209371229339c92c4c745b08d.gz",
+      "published_sha256": "8fc8617f2a9228f1ab347dc17da4daef312f1d5209371229339c92c4c745b08d",
+      "published_bytes": 1253,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-647.json",
+      "sha256": "4106285b57cd66e46d2cd6dcd5d5b8ea37f2bd465159bc2e0261e1408066f71f",
+      "bytes": 1243,
+      "git_blob": "379ae7f66d10e91b9db3a791c2c0790b3e3328e5",
+      "preserved_bytes": "recovered/vista-metric-059/4106285b57cd66e46d2cd6dcd5d5b8ea37f2bd465159bc2e0261e1408066f71f.gz",
+      "published_sha256": "4106285b57cd66e46d2cd6dcd5d5b8ea37f2bd465159bc2e0261e1408066f71f",
+      "published_bytes": 1243,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-648.json",
+      "sha256": "cddafeb107597a27a0316d92f8018e8b5c53abdc8c955b8326e27be052be77ce",
+      "bytes": 1237,
+      "git_blob": "65b5f41a4e07c7f56eaa0f2392213ea1ebb9a97e",
+      "preserved_bytes": "recovered/vista-metric-059/cddafeb107597a27a0316d92f8018e8b5c53abdc8c955b8326e27be052be77ce.gz",
+      "published_sha256": "cddafeb107597a27a0316d92f8018e8b5c53abdc8c955b8326e27be052be77ce",
+      "published_bytes": 1237,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-558.json",
+      "sha256": "2a28faaee315c5a8f99d4d5127e1f514461d0ac1b839d820f5e59f68ffdd8f2e",
+      "bytes": 840,
+      "git_blob": "2419eecd27dd423746659fadc665b214966d65fa",
+      "preserved_bytes": "recovered/vista-metric-059/2a28faaee315c5a8f99d4d5127e1f514461d0ac1b839d820f5e59f68ffdd8f2e.gz",
+      "published_sha256": "2a28faaee315c5a8f99d4d5127e1f514461d0ac1b839d820f5e59f68ffdd8f2e",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-559.json",
+      "sha256": "e2a3d5e874a97588787ed08ae171c74ebec188c3b506bc3cd9bf16438912fe00",
+      "bytes": 840,
+      "git_blob": "c558507e0f9dc923ba96637c407b7a9e6a182784",
+      "preserved_bytes": "recovered/vista-metric-059/e2a3d5e874a97588787ed08ae171c74ebec188c3b506bc3cd9bf16438912fe00.gz",
+      "published_sha256": "e2a3d5e874a97588787ed08ae171c74ebec188c3b506bc3cd9bf16438912fe00",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-560.json",
+      "sha256": "a79630ad4d3fdc93e3a41480645541c91b9735939a27dcb57f339e25207eab96",
+      "bytes": 840,
+      "git_blob": "93cdb551ff5209adfc16d89ca68079185ab1b649",
+      "preserved_bytes": "recovered/vista-metric-059/a79630ad4d3fdc93e3a41480645541c91b9735939a27dcb57f339e25207eab96.gz",
+      "published_sha256": "a79630ad4d3fdc93e3a41480645541c91b9735939a27dcb57f339e25207eab96",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-558.json",
+      "sha256": "56abe32df5a83caf16adc85c99c7f0d60b2a8bd7f26f6abd81ac3d9d60e57d31",
+      "bytes": 558,
+      "git_blob": "eab8d5f64a11b76578b10e870023d02dfa8cedee",
+      "preserved_bytes": "recovered/vista-metric-059/56abe32df5a83caf16adc85c99c7f0d60b2a8bd7f26f6abd81ac3d9d60e57d31.gz",
+      "published_sha256": "56abe32df5a83caf16adc85c99c7f0d60b2a8bd7f26f6abd81ac3d9d60e57d31",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-559.json",
+      "sha256": "7f3cf3de6e46140041254b007a81b07dca4157f302a6d22b3dcaafc1d0e40f2e",
+      "bytes": 558,
+      "git_blob": "53df7ed8a2d19d5c281c7c2c630bbf019dbce193",
+      "preserved_bytes": "recovered/vista-metric-059/7f3cf3de6e46140041254b007a81b07dca4157f302a6d22b3dcaafc1d0e40f2e.gz",
+      "published_sha256": "7f3cf3de6e46140041254b007a81b07dca4157f302a6d22b3dcaafc1d0e40f2e",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-560.json",
+      "sha256": "c497401c713b65b8bb529bcec935768b23111d1a01853c43b763935a81e26d0e",
+      "bytes": 558,
+      "git_blob": "f3ef1a06de1634dbc382a9bfdd4d0d0f7ec28c1c",
+      "preserved_bytes": "recovered/vista-metric-059/c497401c713b65b8bb529bcec935768b23111d1a01853c43b763935a81e26d0e.gz",
+      "published_sha256": "c497401c713b65b8bb529bcec935768b23111d1a01853c43b763935a81e26d0e",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    }
+  ],
+  "remaining": "Continue original1742; establish supported vista grid shape and report semantics, native camera/render policies, aliases, all13 lenses and semantic queue. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
