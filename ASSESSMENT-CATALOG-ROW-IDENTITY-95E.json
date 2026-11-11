@@ -1,0 +1,311 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Four original interior/furniture roles and a bounded current catalogue row and camera identity trace.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1713-1716.json",
+  "git_membership_evidence": "CATALOG-ROW-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-building-generator/src/furniture.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9cf61d75ccd9e952f5f61d56e6bf6f44d733e810",
+      "sha256": "c4d1d8c287ce1d87edbe8441dd8e4d8b23e18bbcb01281607920d8c02cf77b28",
+      "bytes": 11895,
+      "lines": 345,
+      "ranges": [
+        [
+          55,
+          185
+        ],
+        [
+          226,
+          245
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/catalog-row-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/furniture/key.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8a67f11d2e8c37b87d8f5a054a327c00ee0466b3",
+      "sha256": "68560fd1d33b92db2a172c28b5f9c20be60302d1251f468f861368384fac6b34",
+      "bytes": 5165,
+      "lines": 174,
+      "ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/catalog-row-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0d82c29e143dad23be42b2699b2b00b229afc89c",
+      "sha256": "17a9a24f5d15cbd9db474bed73f9cecc39d1dddb1af6a7ff2d9d74a83ae13461",
+      "bytes": 14011,
+      "lines": 350,
+      "ranges": [
+        [
+          262,
+          284
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/catalog-row-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    }
+  ],
+  "current_viewer_assessment": "ASSESSMENT-L01-HISTORICAL-1699-COMPLETE.json",
+  "static_mapping": "CATALOG-ROW-MAPPING-95E.json",
+  "conditional_findings": [
+    {
+      "id": "REVIEW-FURNITURE-CATALOG-ROW-ASSOCIATION-001",
+      "lens": 4,
+      "severity": "unassigned; maintenance risk with no current label mismatch",
+      "classification": "New95e aggregate-association question connected to earlier Segovb549–550 pending scope; not a new historical finding.",
+      "canonical_owner": "A typed furniture-catalog review row that joins kind, view identity, label and camera placement.",
+      "first_failed_contract_or_question": "Current view names and camera subjects are joined only by a shared ordinal between independently authored constant arrays; neither array carries the typed association.",
+      "trace": [
+        "The parent defines45 CATALOG slug/label pairs and generates each CaptureViewSpec with CityExterior camera equal to that index. The catalog setup separately iterates FurnitureKind::INTERIOR, stages each kind and pushes its camera in that order. The viewer retains those catalog cameras, resolves the selected pose by camera index and names its capture and PNG with the view slug.",
+        "The current static comparison normalizes each kind name to kebab-case and matches all45 slugs, and compares five finish slugs to FinishableFurnitureKind::ALL. Current FurnitureVariant::ALL is Compact then Broad and FurnitureWoodState::ALL is Natural, Handled, Repaired, Painted. These are source-name checks, not proof of images or every human label.",
+        "A hypothetical source edit swapping only DiningTable and Bench in FurnitureKind::INTERIOR would preserve array lengths while the first view remains dining-table and index0 camera is staged for Bench. The inspected source tests check slug uniqueness, camera indices, framing and count but do not assert kind-to-slug association. This is a counterfactual source change, not an existing current mismatch or an executed test."
+      ],
+      "counterevidence": "The current declared order matches all compared slugs. Labels may be intentional editorial names, and future developers may already coordinate changes; no actual erroneous image, supported source change or runtime execution is asserted. Finish rows have a similar positional relationship but any exact alias and scope require further review; room rows use a different selection owner.",
+      "prior_attribution": "Segovb549–550 explicitly recorded the parallel association and left the canonical kind order and actual consumers pending at6533; this later95e trace and static comparison change no historical count.",
+      "connected_repair_dependencies": [
+        "After full audit and separate implementation authorization, make a single typed row own each kind, slug and label or otherwise enforce the exact association at construction, and derive staging and view selection from it.",
+        "Preserve intended variant/finish order, supported exhibition behavior, selected view names and independent room/finish semantics; reconcile exact aliases."
+      ],
+      "later_acceptance": [
+        "Changing a typed catalog kind cannot silently make a view slug or camera refer to another subject; the current45 rows and five finish rows retain intended subject associations."
+      ],
+      "discovery": "partial; current order and consumer chain inspected, future reorder counterfactual only; complete label semantics, finishes, room rows and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Interior camera missing modes",
+      "trace": "The typed archetype loop returns an error if any required building is absent before later hall/merchant expect calls; only two fixed angle variants are passed. A missing upper storey falls back to the ground storey as an authored capture choice.",
+      "remaining": "Generated plan/room invariants and rendering remain independently open; no source test or fixture ran."
+    },
+    {
+      "contract": "Catalog exhibition and staging",
+      "trace": "Catalog setup requires no pre-existing near instances, intentionally uses building ID zero for exhibition specimens, and propagates terrain and key/recipe errors. It stages each pair at its own terrain sample while framing one bay envelope.",
+      "remaining": "Actual fixture and terrain support, mutable layout failure lifecycle, distant-instance policy and emitted images remain unproved."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "segovb/READ-L12-549.json",
+      "qualification": "Earlier original6533 Lens12 parent view and row question."
+    },
+    {
+      "file": "segovb/READ-L12-550.json",
+      "qualification": "Earlier original6533 Lens12 catalog and finish staging review."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-549.json",
+      "sha256": "37dbf8b74a6d543ddeb96732b9b47a8e8165359244134e8269de35deedd72099",
+      "bytes": 1259,
+      "git_blob": "2189a93dd7a4b0e06e8a0183099ca3c9f3e2b872",
+      "preserved_bytes": "recovered/catalog-row-059/37dbf8b74a6d543ddeb96732b9b47a8e8165359244134e8269de35deedd72099.gz",
+      "published_sha256": "37dbf8b74a6d543ddeb96732b9b47a8e8165359244134e8269de35deedd72099",
+      "published_bytes": 1259,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-550.json",
+      "sha256": "90a960254c89d2948ae6ec774eb2adc3e67efaaa31ca1cdf2827de4db995dda5",
+      "bytes": 1284,
+      "git_blob": "38ff65ee137d1cd183559e87fa916411e321e027",
+      "preserved_bytes": "recovered/catalog-row-059/90a960254c89d2948ae6ec774eb2adc3e67efaaa31ca1cdf2827de4db995dda5.gz",
+      "published_sha256": "90a960254c89d2948ae6ec774eb2adc3e67efaaa31ca1cdf2827de4db995dda5",
+      "published_bytes": 1284,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-549.json",
+      "sha256": "1178b06e7dcc59a6903baeed4e7e500f6690fa47712dd706ed510ad83e841070",
+      "bytes": 9069,
+      "git_blob": "7e8619c8cb084a37284daa1ad6ace06aa788ef76",
+      "preserved_bytes": "recovered/catalog-row-059/1178b06e7dcc59a6903baeed4e7e500f6690fa47712dd706ed510ad83e841070.gz",
+      "published_sha256": "1178b06e7dcc59a6903baeed4e7e500f6690fa47712dd706ed510ad83e841070",
+      "published_bytes": 9069,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-550.json",
+      "sha256": "3197267f2bc93c0f2d4c4415ea076c5c407dbe73142cbd2186a679ef40a532ff",
+      "bytes": 8650,
+      "git_blob": "e843ec5a968ab95cb61524161cbc13cc9c43e6ed",
+      "preserved_bytes": "recovered/catalog-row-059/3197267f2bc93c0f2d4c4415ea076c5c407dbe73142cbd2186a679ef40a532ff.gz",
+      "published_sha256": "3197267f2bc93c0f2d4c4415ea076c5c407dbe73142cbd2186a679ef40a532ff",
+      "published_bytes": 8650,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-620.json",
+      "sha256": "16b6e92cd1a3e6e3b799e4cf4f50f9183643d7a05864ef83854fb29e647a1191",
+      "bytes": 1254,
+      "git_blob": "d0014a353e9d5030254e6e0656037b4d4dcc629c",
+      "preserved_bytes": "recovered/catalog-row-059/16b6e92cd1a3e6e3b799e4cf4f50f9183643d7a05864ef83854fb29e647a1191.gz",
+      "published_sha256": "16b6e92cd1a3e6e3b799e4cf4f50f9183643d7a05864ef83854fb29e647a1191",
+      "published_bytes": 1254,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-621.json",
+      "sha256": "5c5314f106348a20001dc21b23b7cfae59b05c65fb9d55e4c33f340a28ffd972",
+      "bytes": 1274,
+      "git_blob": "62e1f033df97ffb3658218b66ab2888f78b959f0",
+      "preserved_bytes": "recovered/catalog-row-059/5c5314f106348a20001dc21b23b7cfae59b05c65fb9d55e4c33f340a28ffd972.gz",
+      "published_sha256": "5c5314f106348a20001dc21b23b7cfae59b05c65fb9d55e4c33f340a28ffd972",
+      "published_bytes": 1274,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-622.json",
+      "sha256": "247776f56f006dfa5d47360b8cb80bd5169fc53174d6011f22b5ff31ab02c0f9",
+      "bytes": 1266,
+      "git_blob": "6283b60b37113ede715c82ba59fa6257281bda30",
+      "preserved_bytes": "recovered/catalog-row-059/247776f56f006dfa5d47360b8cb80bd5169fc53174d6011f22b5ff31ab02c0f9.gz",
+      "published_sha256": "247776f56f006dfa5d47360b8cb80bd5169fc53174d6011f22b5ff31ab02c0f9",
+      "published_bytes": 1266,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-623.json",
+      "sha256": "a3e2f80e70e17ef5ddd74eca8a295596f3f8eb6da1984e7eea6054d51cfa9918",
+      "bytes": 1266,
+      "git_blob": "d8bb3b664bccc6a759bf4303407999922b9dceb6",
+      "preserved_bytes": "recovered/catalog-row-059/a3e2f80e70e17ef5ddd74eca8a295596f3f8eb6da1984e7eea6054d51cfa9918.gz",
+      "published_sha256": "a3e2f80e70e17ef5ddd74eca8a295596f3f8eb6da1984e7eea6054d51cfa9918",
+      "published_bytes": 1266,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-549.json",
+      "sha256": "52448e727c25df44b6958336f24f1896219071440887b615b8e6c094243d962b",
+      "bytes": 840,
+      "git_blob": "7d0381d27bd9ed4ae5371621a5e52bc402959efa",
+      "preserved_bytes": "recovered/catalog-row-059/52448e727c25df44b6958336f24f1896219071440887b615b8e6c094243d962b.gz",
+      "published_sha256": "52448e727c25df44b6958336f24f1896219071440887b615b8e6c094243d962b",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-550.json",
+      "sha256": "12dd44fd3626557dd9c4caf8ec93c80eaeb84bc850fe19e01ff7d75a1b8ca367",
+      "bytes": 840,
+      "git_blob": "1c013049ef8a5d7f1e9c4f3a379443baf6b5914e",
+      "preserved_bytes": "recovered/catalog-row-059/12dd44fd3626557dd9c4caf8ec93c80eaeb84bc850fe19e01ff7d75a1b8ca367.gz",
+      "published_sha256": "12dd44fd3626557dd9c4caf8ec93c80eaeb84bc850fe19e01ff7d75a1b8ca367",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-549.json",
+      "sha256": "4d9b18487fb2d2c8da12babac07e61fcab1090f8157a0bfa2d1cf8e3d2fd1abc",
+      "bytes": 558,
+      "git_blob": "0861bcc8dd9df9f25768d1cf0ffe7ffb644ba7f7",
+      "preserved_bytes": "recovered/catalog-row-059/4d9b18487fb2d2c8da12babac07e61fcab1090f8157a0bfa2d1cf8e3d2fd1abc.gz",
+      "published_sha256": "4d9b18487fb2d2c8da12babac07e61fcab1090f8157a0bfa2d1cf8e3d2fd1abc",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-550.json",
+      "sha256": "65654fad4d4d81ad524c2c7fa6c6d3dbc0385ce5b1da3967f78eda7e443aeb85",
+      "bytes": 558,
+      "git_blob": "f01f261c47e0799953a65799f41e4930e5e8bdde",
+      "preserved_bytes": "recovered/catalog-row-059/65654fad4d4d81ad524c2c7fa6c6d3dbc0385ce5b1da3967f78eda7e443aeb85.gz",
+      "published_sha256": "65654fad4d4d81ad524c2c7fa6c6d3dbc0385ce5b1da3967f78eda7e443aeb85",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    }
+  ],
+  "remaining": "Continue original1717; inspect room selection, native fixture, image results, exact aliases, independent lenses and semantic queue. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
