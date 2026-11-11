@@ -4901,8 +4901,54 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-TURN-INTENT-95E.json"
+      },
+      {
+        "id": "REVIEW-HOME-PROPERTY-ID-DECODE-ADMISSION-001",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          5,
+          8,
+          10,
+          12
+        ],
+        "severity": "unassigned; source-level admission gap",
+        "classification": "A value presented as PropertyId should satisfy the same identity contract whether it is constructed directly or decoded, subject to the intended enclosing-catalog contract.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1473",
+          "ASSESSMENT-L01-HISTORICAL-987-994.json"
+        ],
+        "relationship_qualification": "Related original059 pending scope only; original author/revision, prior personal-read qualifications and zero historical unique count change retained; no checkpoint3821 claim.",
+        "discovery": "partial; direct decoder mismatch inferred, supported malformed consumer not established",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HOME-IDENTITY-95E.json"
+      },
+      {
+        "id": "Q-L12-c212b0e211a52d755161",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          2,
+          3,
+          7,
+          11
+        ],
+        "severity": "unassigned; identity ownership policy question",
+        "classification": "The settlement identity should preserve its intended validation and role from the physical city producer through the generated catalog, seed and registration boundaries.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1473",
+          "segovb/READ-L12-583.json",
+          "ASSESSMENT-L01-HISTORICAL-135-139.json",
+          "ASSESSMENT-L01-HISTORICAL-987-994.json"
+        ],
+        "relationship_qualification": "Related original059 pending scope only; original author/revision, prior personal-read qualifications and zero historical unique count change retained; no checkpoint3821 claim.",
+        "discovery": "partial; current owner chain connected, policy and exact prior same-lens qualification open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HOME-IDENTITY-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1021.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1025.json"
 }

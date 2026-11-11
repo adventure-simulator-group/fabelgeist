@@ -1,0 +1,740 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    5,
+    7,
+    8,
+    10,
+    11,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Five historical original roles, current error owner and bounded home identity/fixture source; pinned Serde source.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1790-1794.json",
+  "git_membership_evidence": "HOME-IDENTITY-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-core/src/settlement_property.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a04c1d64c6ff0f2364a88fa7caef29ea1d5cd5a2",
+      "sha256": "da9742eb9634c5f1b14cca267784dd6d55e2b08ff0434a6d1c265eaed145bdbf",
+      "bytes": 7688,
+      "lines": 226,
+      "ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/home-identity-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e source ranges personally inspected; full bytes preserved. Reading fixture and test code is not execution or transitive coverage."
+    },
+    {
+      "path": "crates/adventuresim-core/src/settlement_population/demographics.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bb81712785863e47d465e2328b382cc3dbb95017",
+      "sha256": "3e604f71e6a6d7875755c49f940f0111d1c75d75dae50344b335962f44f50202",
+      "bytes": 1130,
+      "lines": 36,
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/home-identity-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e source ranges personally inspected; full bytes preserved. Reading fixture and test code is not execution or transitive coverage."
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_place.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3b5577ab4ed4a6b743f800a6255da755b1d0ff71",
+      "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+      "bytes": 34905,
+      "lines": 998,
+      "ranges": [
+        [
+          1,
+          41
+        ],
+        [
+          207,
+          310
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/home-identity-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e source ranges personally inspected; full bytes preserved. Reading fixture and test code is not execution or transitive coverage."
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "11d15d656eba0778f47cbaf382fd9f5876715825",
+      "sha256": "58396f438d078eb49da6de8b6739ccddcc0c7240fb1f6ad8e62c35d7548fb98d",
+      "bytes": 7219,
+      "lines": 253,
+      "ranges": [
+        [
+          1,
+          180
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/home-identity-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e source ranges personally inspected; full bytes preserved. Reading fixture and test code is not execution or transitive coverage."
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "edf3021d5b8d198a7d04dbc1d60f77a1fafbbc0f",
+      "sha256": "06bd726fb8282af0ad5c1f54f64b1bfe383842e284e948a6226240178de4b6bb",
+      "bytes": 3152,
+      "lines": 97,
+      "ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/home-identity-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e source ranges personally inspected; full bytes preserved. Reading fixture and test code is not execution or transitive coverage."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server-dispatcher/src/settlement_properties.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d56416acb092e794cc473f3654adc2b18a191117",
+      "sha256": "ee0817b7eb9066e30058126b6103d70663e613c53d5ece008f5fe817bc7a0902",
+      "bytes": 5135,
+      "lines": 122,
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/home-identity-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e source ranges personally inspected; full bytes preserved. Reading fixture and test code is not execution or transitive coverage."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server-dispatcher/src/settlement_buildings.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f34c33c67d0eb8c2ff806ebe2794f5481bb78a05",
+      "sha256": "cd7c7620ecad6eea71eb5e453d882bce444f9308ab4f6d2cee08423609964585",
+      "bytes": 1614,
+      "lines": 42,
+      "ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/home-identity-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e source ranges personally inspected; full bytes preserved. Reading fixture and test code is not execution or transitive coverage."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server-dispatcher/src/scene_input.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d2935bd735cfa600328abf870a8a4fdcccbdfcce",
+      "sha256": "03e1948b1e2d2492d4f2062ef4aebb1e6dc293f6e228bede4d15710785306b57",
+      "bytes": 40769,
+      "lines": 978,
+      "ranges": [
+        [
+          447,
+          464
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/home-identity-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e source ranges personally inspected; full bytes preserved. Reading fixture and test code is not execution or transitive coverage."
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlement_properties.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5fbd3c9f5dcb6f2d4aa91631590e4327fce20df8",
+      "sha256": "3b35130cb49004e746b7981b9ac6a765bcc76bec3fc4ba1507a48e962080b773",
+      "bytes": 3097,
+      "lines": 87,
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/home-identity-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e source ranges personally inspected; full bytes preserved. Reading fixture and test code is not execution or transitive coverage."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/residence/properties.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "99a8a95a4eb9460f51e1bf4617d57d57dc692564",
+      "sha256": "80864f0168cb8abf7dcd17c08ea7405e6124f2968ad6eb83dbca7e0a5aab4e26",
+      "bytes": 13026,
+      "lines": 377,
+      "ranges": [
+        [
+          138,
+          180
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/home-identity-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e source ranges personally inspected; full bytes preserved. Reading fixture and test code is not execution or transitive coverage."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/world_import.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bdf15701efea4303425b67cfc3453ec2b8944e32",
+      "sha256": "cc83d5f3e3c415a12dc0ced11a5e9271a2b115d3ed5ac9703d1a8b8ae9728d22",
+      "bytes": 41257,
+      "lines": 1159,
+      "ranges": [
+        [
+          108,
+          145
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/home-identity-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e source ranges personally inspected; full bytes preserved. Reading fixture and test code is not execution or transitive coverage."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/properties.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "43281cd09ad426c8342fba8a60e3b1144143b38d",
+      "sha256": "f6b7e0173aefc53be5d5a32d2a1127e175f3101c199261306a1badca39d1c4bd",
+      "bytes": 6333,
+      "lines": 148,
+      "ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/home-identity-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e source ranges personally inspected; full bytes preserved. Reading fixture and test code is not execution or transitive coverage."
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/message.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7f5b151b3531fe4c3eacb339d903b28ef514a25e",
+      "sha256": "61261c4055cee33ac91c6cdac317996352c4997f93cbd692a93448656a2db2eb",
+      "bytes": 15949,
+      "lines": 475,
+      "ranges": [
+        [
+          34,
+          55
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/home-identity-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e source ranges personally inspected; full bytes preserved. Reading fixture and test code is not execution or transitive coverage."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/scene_setup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9e956c461ae0c6ac17177f6280b47b7f44d451b2",
+      "sha256": "509b65bb9f1ea69a74c597bd8571a0868c3503a9f6d4d9fd741d75488adf71a3",
+      "bytes": 2424,
+      "lines": 63,
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/home-identity-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e source ranges personally inspected; full bytes preserved. Reading fixture and test code is not execution or transitive coverage."
+    },
+    {
+      "path": "assets/tactical-scenes/heating-review.review.json",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2386d9b6888597c0ad251fe685f40ef80489449f",
+      "sha256": "9b25f0330b1533d36b55dc136363c74e4bc83ddd036846cd50f395e5249a400c",
+      "bytes": 5573,
+      "lines": 363,
+      "ranges": [
+        [
+          1,
+          125
+        ],
+        [
+          240,
+          265
+        ],
+        [
+          290,
+          320
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/home-identity-evidence/support-14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e source ranges personally inspected; full bytes preserved. Reading fixture and test code is not execution or transitive coverage."
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          9407,
+          9410
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/home-identity-evidence/support-15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e source ranges personally inspected; full bytes preserved. Reading fixture and test code is not execution or transitive coverage."
+    }
+  ],
+  "native_archive_members": [
+    {
+      "package": "serde_derive 1.0.229",
+      "archive": "native-evidence/serde-derive-1.0.229/serde_derive-1.0.229.crate",
+      "archive_sha256": "e7a5d71263a5a7d47b41f6b3f06ba276f10cc18b0931f1799f710578e2309348",
+      "member": "serde_derive-1.0.229/src/de.rs",
+      "member_sha256": "a04fdb321ce47b479b42b2dd0ca1cfd57db88e06451d7dc95303c582fedc135c",
+      "member_bytes": 34045,
+      "lines": 976,
+      "personal_ranges": [
+        [
+          306,
+          315
+        ],
+        [
+          383,
+          422
+        ]
+      ],
+      "qualification": "Selected source matches Cargo.lock checksum and locally installed member; source inference only, no feature resolution, expansion, parsing, serialization or product execution."
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Source fixtures and prior qualifications",
+      "trace": "Animation test source expects child main-hand swing to inherit parent offhand, and separately expects a held raised-guard request to remain moving with zero observed velocity. These are source assertions, not executed tests or proof of loaded assets. The historical 581 reviewer specifically reused its own1771 and1781 receipts without a fresh read; the current pack documentation and guard intent questions remain separate.",
+      "remaining": "Complete current content/native review and do not infer obsolete behavior from a legacy test module name."
+    },
+    {
+      "contract": "Error conversion",
+      "trace": "The current error owner adds NonIncreasingBounds and ZeroDivisor, maps the corresponding speed and fraction errors, and can reattribute generic variants through for_quantity. NativeRange and arithmetic Overflow are both mapped to animation Overflow in the observed source. Display prose is at a native diagnostic boundary.",
+      "remaining": "Inspect actual callers and policies before treating this coalescing or wording as a lost cause; no macro expansion ran."
+    },
+    {
+      "contract": "Heating and grounding fixture scope",
+      "trace": "The heating fixture uses a typed nine-entry building list, with town house8 and merchant house9; selected current review JSON views name those same numeric buildings. The earlier complete slug/index comparison is recorded in ASSESSMENT-VISTA-DIAMETER-AND-REVIEW-VIEWS-95E.json. Grounded source tests specify stable identity/elevation and error cases via an included JSON file.",
+      "remaining": "No fixture, generator, test, JSON asset for grounded layout, renderer or resulting scene was executed or inferred from source assertions."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-HOME-PROPERTY-ID-DECODE-ADMISSION-001",
+      "lens": 3,
+      "additional_current_lenses": [
+        1,
+        5,
+        8,
+        10,
+        12
+      ],
+      "severity": "unassigned; source-level admission gap",
+      "first_contract": "A value presented as PropertyId should satisfy the same identity contract whether it is constructed directly or decoded, subject to the intended enclosing-catalog contract.",
+      "trace": "PropertyId::new accepts only a nonempty bounded StrategicIdentityComponent and nonzero building ID, then creates a length-prefixed property string. PropertyId also derives Deserialize with serde(transparent) on its private String and has no visible custom decoder. The pinned serde_derive source chooses the inner field Deserialize and directly constructs the wrapper; under that derive, a standalone JSON string such as \"x\" can form a PropertyId although no PropertyId::new output has that form. GeneratedHomeCatalog::parse returns the decoded object without validation.",
+      "safeguards_and_limits": "This is static source and pinned-macro inference only: no feature resolution, macro expansion, JSON decode or product operation ran. The shown database registration finds the settlement and calls catalog.validate before registration; that validator recomputes every property ID with PropertyId::new, checks duplicates and other constraints. The shown tactical scene validator also validates the catalog before resolving homes. Other consumers and intentionally unvalidated parsing remain open; no accepted malformed persisted property, actual network input or user impact was observed.",
+      "connected_repair_dependencies": [
+        "Determine whether PropertyId itself or its validated enclosing catalog is the intended admission owner and trace all native decoding and retained consumers.",
+        "If the standalone type owns its identity guarantee, specify a complete unambiguous decoding policy, maintain the settlement/building scope and reject invalid identities without retaining backward-compatibility shims.",
+        "Keep registered-catalog verification, deterministic seed and duplicate/capacity checks connected; reconcile historical aliases before implementation."
+      ],
+      "historical_related_candidates": [
+        "baseline-059/queue.json#/entries/1473",
+        "ASSESSMENT-L01-HISTORICAL-987-994.json"
+      ],
+      "accepted_historical_unique_count_change": 0,
+      "discovery": "partial; direct decoder mismatch inferred, supported malformed consumer not established",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "Q-L12-c212b0e211a52d755161",
+      "lens": 12,
+      "additional_current_lenses": [
+        1,
+        2,
+        3,
+        7,
+        11
+      ],
+      "severity": "unassigned; identity ownership policy question",
+      "first_contract": "The settlement identity should preserve its intended validation and role from the physical city producer through the generated catalog, seed and registration boundaries.",
+      "trace": "The database Settlement primary key and SettlementSceneProfile use String; dispatcher and CitySceneLayout::generated_homes accept &str, derive the deterministic seed from its bytes and retain a String settlement_id in GeneratedHomeCatalog. PropertyId::new validates that same value using the existing generic StrategicIdentityComponent, then discards the typed value. The generated catalog validates its settlement, population, seed, property IDs and capacity; the database registration looks up the settlement row and calls validate before it publishes property records. StrategicPlaceId already carries the generic component for settlement scope but that type also represents other strategic IDs and is not a settlement-specific owner.",
+      "safeguards_and_limits": "A raw internal value and a generic component are not by themselves proof of confused identity, bad database state or a requirement to create a new type. Decide whether generic reuse, a settlement-specific owner or an explicit boundary is semantically appropriate after tracing all producers, supported ID namespace, serialization, schema and consumers. The original059 L12 pending contract is being reassessed, not promoted to checkpoint3821 or counted as a new historical finding. Earlier personal Lens1 reads of roles136/139/989/992 are not evidence that Segovb personally reread them under Lens12.",
+      "connected_repair_dependencies": [
+        "Trace actual settlement import and existence validation, scene profile creation, deterministic seeds, strategic place references, generated catalogs and native database/wire boundaries.",
+        "Choose an owner with explicit scope, validation and permitted namespace rather than a shadow type or raw aliases; preserve canonical byte encoding and deterministic relationship only where required by actual current design.",
+        "Reconcile prior inherited Lens12 evidence and all exact aliases; no compatibility shims, implementation or runtime checks at this stage."
+      ],
+      "historical_related_candidates": [
+        "baseline-059/queue.json#/entries/1473",
+        "segovb/READ-L12-583.json",
+        "ASSESSMENT-L01-HISTORICAL-135-139.json",
+        "ASSESSMENT-L01-HISTORICAL-987-994.json"
+      ],
+      "accepted_historical_unique_count_change": 0,
+      "discovery": "partial; current owner chain connected, policy and exact prior same-lens qualification open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/63",
+        "/entries/1465",
+        "/entries/1466",
+        "/entries/1468",
+        "/entries/1469",
+        "/entries/1470",
+        "/entries/1471",
+        "/entries/1472",
+        "/entries/1473"
+      ],
+      "qualification": "Original059 historical obligations and prior author/revision remain separate; no restored3821 or independent-lens transfer."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-581.json",
+      "sha256": "695718ee0ab6ede6222662b8daf924070c09d362c3e2d7a39fafa5f6a1ef61fc",
+      "bytes": 718,
+      "git_blob": "24428bed8f1671dcc67b5c7fa65c146dab16e221",
+      "preserved_bytes": "recovered/home-identity-059/695718ee0ab6ede6222662b8daf924070c09d362c3e2d7a39fafa5f6a1ef61fc.gz",
+      "published_sha256": "695718ee0ab6ede6222662b8daf924070c09d362c3e2d7a39fafa5f6a1ef61fc",
+      "published_bytes": 718,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original plan"
+      ],
+      "qualification": "Original author, lens, revision, range, same-lens reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-582.json",
+      "sha256": "f2625e558e4dce2b250064735f482aca4dcaae60e133f83a0290a1033bdb45f8",
+      "bytes": 1728,
+      "git_blob": "2402635d53f71ed92f2fa1af3f5bd2d292cb223a",
+      "preserved_bytes": "recovered/home-identity-059/f2625e558e4dce2b250064735f482aca4dcaae60e133f83a0290a1033bdb45f8.gz",
+      "published_sha256": "f2625e558e4dce2b250064735f482aca4dcaae60e133f83a0290a1033bdb45f8",
+      "published_bytes": 1728,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original plan"
+      ],
+      "qualification": "Original author, lens, revision, range, same-lens reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-583.json",
+      "sha256": "1ac48dd29357f87832740e67378a3a5fd6ee8f2fefdd2b25077c19501490a8d3",
+      "bytes": 725,
+      "git_blob": "36ae0dccdf55003a689f53e72c5f21dac55893b3",
+      "preserved_bytes": "recovered/home-identity-059/1ac48dd29357f87832740e67378a3a5fd6ee8f2fefdd2b25077c19501490a8d3.gz",
+      "published_sha256": "1ac48dd29357f87832740e67378a3a5fd6ee8f2fefdd2b25077c19501490a8d3",
+      "published_bytes": 725,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original plan"
+      ],
+      "qualification": "Original author, lens, revision, range, same-lens reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/READ-L12-572.json",
+      "sha256": "66a3002db73b1fa1cf40783c7187d886f61347b93005c3c6c9d8cf6d41c60a0f",
+      "bytes": 13880,
+      "git_blob": "fedbe387abe121abb9b0fe984b7af76ce32d7c70",
+      "preserved_bytes": "recovered/home-identity-059/66a3002db73b1fa1cf40783c7187d886f61347b93005c3c6c9d8cf6d41c60a0f.gz",
+      "published_sha256": "66a3002db73b1fa1cf40783c7187d886f61347b93005c3c6c9d8cf6d41c60a0f",
+      "published_bytes": 13880,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens receipt, no new read"
+      ],
+      "qualification": "Original author, lens, revision, range, same-lens reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/READ-L12-576.json",
+      "sha256": "ee690a710fad5c185fb3409d5034abd58b829b098030bf25c4adc7df00d6ed09",
+      "bytes": 7645,
+      "git_blob": "10f773a6382d3495458a16b7ee672686078fe0b1",
+      "preserved_bytes": "recovered/home-identity-059/ee690a710fad5c185fb3409d5034abd58b829b098030bf25c4adc7df00d6ed09.gz",
+      "published_sha256": "ee690a710fad5c185fb3409d5034abd58b829b098030bf25c4adc7df00d6ed09",
+      "published_bytes": 7645,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens receipt, no new read"
+      ],
+      "qualification": "Original author, lens, revision, range, same-lens reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/READ-L12-581.json",
+      "sha256": "263f087ce5194ea4b6decd9e0b8fe7c947a0777414fb1fdd2d451f72387e18e7",
+      "bytes": 9224,
+      "git_blob": "17660a2650dc0d00c1612b6a32d80c6f82cd4f43",
+      "preserved_bytes": "recovered/home-identity-059/263f087ce5194ea4b6decd9e0b8fe7c947a0777414fb1fdd2d451f72387e18e7.gz",
+      "published_sha256": "263f087ce5194ea4b6decd9e0b8fe7c947a0777414fb1fdd2d451f72387e18e7",
+      "published_bytes": 9224,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision, range, same-lens reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/READ-L12-582.json",
+      "sha256": "13d5704a8171692ad585522b932a4d5ca970005f270d3441125373915a6cf06f",
+      "bytes": 9743,
+      "git_blob": "c24cc6bafc05c65b7fd4e371b0cd6473a49607be",
+      "preserved_bytes": "recovered/home-identity-059/13d5704a8171692ad585522b932a4d5ca970005f270d3441125373915a6cf06f.gz",
+      "published_sha256": "13d5704a8171692ad585522b932a4d5ca970005f270d3441125373915a6cf06f",
+      "published_bytes": 9743,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision, range, same-lens reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/READ-L12-583.json",
+      "sha256": "f320a9a128e69ed9b9fe1dee699752d993ff1354ae3096d3f456a41a9b552d15",
+      "bytes": 5065,
+      "git_blob": "738640cad746f738af368857a55bdad1cef50fbb",
+      "preserved_bytes": "recovered/home-identity-059/f320a9a128e69ed9b9fe1dee699752d993ff1354ae3096d3f456a41a9b552d15.gz",
+      "published_sha256": "f320a9a128e69ed9b9fe1dee699752d993ff1354ae3096d3f456a41a9b552d15",
+      "published_bytes": 5065,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision, range, same-lens reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-678.json",
+      "sha256": "9c351bb961db7af4f3154eef7375759cc3349ccba2b05845dad5638d0864d278",
+      "bytes": 1193,
+      "git_blob": "9a905565dc9bdaff156900c3a8254a179c82837b",
+      "preserved_bytes": "recovered/home-identity-059/9c351bb961db7af4f3154eef7375759cc3349ccba2b05845dad5638d0864d278.gz",
+      "published_sha256": "9c351bb961db7af4f3154eef7375759cc3349ccba2b05845dad5638d0864d278",
+      "published_bytes": 1193,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens registration"
+      ],
+      "qualification": "Original author, lens, revision, range, same-lens reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-688.json",
+      "sha256": "03b6e612ef0dc5a701a71a4e047861c17b0adaac74dd4b4bd9bada4a4e9a6127",
+      "bytes": 1231,
+      "git_blob": "f5bd70e99032060945b419500be2bb27139a6dcd",
+      "preserved_bytes": "recovered/home-identity-059/03b6e612ef0dc5a701a71a4e047861c17b0adaac74dd4b4bd9bada4a4e9a6127.gz",
+      "published_sha256": "03b6e612ef0dc5a701a71a4e047861c17b0adaac74dd4b4bd9bada4a4e9a6127",
+      "published_bytes": 1231,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens registration"
+      ],
+      "qualification": "Original author, lens, revision, range, same-lens reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-697.json",
+      "sha256": "1cf23aa619d59b4c1840b2cd082323fed561d2e6c39ba331dd0a3c6d7a71cef4",
+      "bytes": 1220,
+      "git_blob": "9eb979e2dc9943241ee018bac21fd55bcfc590cf",
+      "preserved_bytes": "recovered/home-identity-059/1cf23aa619d59b4c1840b2cd082323fed561d2e6c39ba331dd0a3c6d7a71cef4.gz",
+      "published_sha256": "1cf23aa619d59b4c1840b2cd082323fed561d2e6c39ba331dd0a3c6d7a71cef4",
+      "published_bytes": 1220,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original registration"
+      ],
+      "qualification": "Original author, lens, revision, range, same-lens reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-698.json",
+      "sha256": "4cdce50b7f711bcc064c4a2e37dbed8621c13265e0b24c7fe1d772341410d3d5",
+      "bytes": 1264,
+      "git_blob": "29e2e6698c23545f8daffd7e39b75f321a3d1a8f",
+      "preserved_bytes": "recovered/home-identity-059/4cdce50b7f711bcc064c4a2e37dbed8621c13265e0b24c7fe1d772341410d3d5.gz",
+      "published_sha256": "4cdce50b7f711bcc064c4a2e37dbed8621c13265e0b24c7fe1d772341410d3d5",
+      "published_bytes": 1264,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original registration"
+      ],
+      "qualification": "Original author, lens, revision, range, same-lens reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-699.json",
+      "sha256": "e5da003f79ebac285b3cb63e4bee269dbc2d94e698bacdd9ff28822039e48679",
+      "bytes": 1292,
+      "git_blob": "baf2e3933ac3eb9bbe0b510cd0fa9770bd198402",
+      "preserved_bytes": "recovered/home-identity-059/e5da003f79ebac285b3cb63e4bee269dbc2d94e698bacdd9ff28822039e48679.gz",
+      "published_sha256": "e5da003f79ebac285b3cb63e4bee269dbc2d94e698bacdd9ff28822039e48679",
+      "published_bytes": 1292,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original registration"
+      ],
+      "qualification": "Original author, lens, revision, range, same-lens reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-700.json",
+      "sha256": "59b5ab9da34b64a71442455c4b2b4790a09c3659089329c08b1068e2fb2293b9",
+      "bytes": 1292,
+      "git_blob": "ec1725e11d7dedba466ba8a7c27b6a2728d48f9b",
+      "preserved_bytes": "recovered/home-identity-059/59b5ab9da34b64a71442455c4b2b4790a09c3659089329c08b1068e2fb2293b9.gz",
+      "published_sha256": "59b5ab9da34b64a71442455c4b2b4790a09c3659089329c08b1068e2fb2293b9",
+      "published_bytes": 1292,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original registration"
+      ],
+      "qualification": "Original author, lens, revision, range, same-lens reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-701.json",
+      "sha256": "ead50b40ddc368768e88260880db1dfabc893f57e02837d520a5594d45bfead5",
+      "bytes": 1167,
+      "git_blob": "f973f5de595bd4baf4974bb26b220d273f3e2ac2",
+      "preserved_bytes": "recovered/home-identity-059/ead50b40ddc368768e88260880db1dfabc893f57e02837d520a5594d45bfead5.gz",
+      "published_sha256": "ead50b40ddc368768e88260880db1dfabc893f57e02837d520a5594d45bfead5",
+      "published_bytes": 1167,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original registration"
+      ],
+      "qualification": "Original author, lens, revision, range, same-lens reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/STATE-L12-581.json",
+      "sha256": "34da0344224b5378189c3deed1e5a04d725a0157b3287a85a728c3b1b6335e0f",
+      "bytes": 840,
+      "git_blob": "6117310b861f486a54c2e41700f441d298aa2187",
+      "preserved_bytes": "recovered/home-identity-059/34da0344224b5378189c3deed1e5a04d725a0157b3287a85a728c3b1b6335e0f.gz",
+      "published_sha256": "34da0344224b5378189c3deed1e5a04d725a0157b3287a85a728c3b1b6335e0f",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original author, lens, revision, range, same-lens reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/STATE-L12-582.json",
+      "sha256": "9b9c5a4ddde829935cb56c24688ba7651f9f2ce47861f4ff66552346b62c6562",
+      "bytes": 840,
+      "git_blob": "9ef3f3540f3d53226a7adab75180a4216eb0d1d0",
+      "preserved_bytes": "recovered/home-identity-059/9b9c5a4ddde829935cb56c24688ba7651f9f2ce47861f4ff66552346b62c6562.gz",
+      "published_sha256": "9b9c5a4ddde829935cb56c24688ba7651f9f2ce47861f4ff66552346b62c6562",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original author, lens, revision, range, same-lens reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/STATE-L12-583.json",
+      "sha256": "62acca9cbe92039373251d19ea3cff15647564325d0686bcf2b7fd98627ae34a",
+      "bytes": 840,
+      "git_blob": "033b1027b30e131c12a726f4346e99eeeead72d5",
+      "preserved_bytes": "recovered/home-identity-059/62acca9cbe92039373251d19ea3cff15647564325d0686bcf2b7fd98627ae34a.gz",
+      "published_sha256": "62acca9cbe92039373251d19ea3cff15647564325d0686bcf2b7fd98627ae34a",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original author, lens, revision, range, same-lens reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-581.json",
+      "sha256": "a94baffadbde696f7fd7c00b952cce7e2ded5d06a27d8ba40ce09bf85214cba1",
+      "bytes": 558,
+      "git_blob": "ffb044eef47f72ffb1803b3d5364e07a7b1d84cb",
+      "preserved_bytes": "recovered/home-identity-059/a94baffadbde696f7fd7c00b952cce7e2ded5d06a27d8ba40ce09bf85214cba1.gz",
+      "published_sha256": "a94baffadbde696f7fd7c00b952cce7e2ded5d06a27d8ba40ce09bf85214cba1",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original verification"
+      ],
+      "qualification": "Original author, lens, revision, range, same-lens reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-582.json",
+      "sha256": "ef6fc2e7e7fbd539db5734f44720af731193c1677afbac10d442873b7652fc58",
+      "bytes": 558,
+      "git_blob": "e57237a90c1f50ee2f314dc707741e25df0d4d8e",
+      "preserved_bytes": "recovered/home-identity-059/ef6fc2e7e7fbd539db5734f44720af731193c1677afbac10d442873b7652fc58.gz",
+      "published_sha256": "ef6fc2e7e7fbd539db5734f44720af731193c1677afbac10d442873b7652fc58",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original verification"
+      ],
+      "qualification": "Original author, lens, revision, range, same-lens reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-583.json",
+      "sha256": "84c25b63f83d768673a434abb3efeb6000e2a4d24403bfda5a3a843e8aba665a",
+      "bytes": 558,
+      "git_blob": "1985d90ca1af5d414b015317259434b68230a51c",
+      "preserved_bytes": "recovered/home-identity-059/84c25b63f83d768673a434abb3efeb6000e2a4d24403bfda5a3a843e8aba665a.gz",
+      "published_sha256": "84c25b63f83d768673a434abb3efeb6000e2a4d24403bfda5a3a843e8aba665a",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original verification"
+      ],
+      "qualification": "Original author, lens, revision, range, same-lens reuse and pending dependencies retained; not checkpoint3821."
+    }
+  ],
+  "remaining": "Continue role1795 with locator qualification; all13 lenses, exact historical aliases and queue remain unfinished. Final original checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
