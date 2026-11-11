@@ -1,0 +1,652 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    8,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Frozen roles1798–1802, separately re-inspected historical asset527 versus current content, and bounded garden producer, admission, projection and presentation source.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1798-1802.json",
+  "git_membership_evidence": "GARDEN-HISTORICAL-GIT-PROOFS.json",
+  "historical_asset_527": {
+    "path": "content/tactical/garden-hazel-envelope.json",
+    "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "sha256": "1743fa13a7526af557706f78d50f5d61e3f8bcd8f82d5b1b2f3a0e6e1370bc65",
+    "bytes": 1301,
+    "lines": 77,
+    "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+    "earlier_lens1_record": "ASSESSMENT-L01-HISTORICAL-526-530.json",
+    "current_exact_diff": {
+      "preserved_bytes": "main-advance-95e/garden-evidence/asset-527.diff.gz",
+      "sha256": "2a3eca0b0648d12176d2e6bf346357731f36c526e8d0decfab4c6d7d3c5f9407",
+      "bytes": 2805
+    },
+    "qualification": "6533 original527 previously read at Lens1 and re-inspected; no Lens12 or3821 attribution. Current content differs and was independently read."
+  },
+  "current_supporting_sources": [
+    {
+      "path": "content/tactical/garden-hazel-envelope.json",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1e12fff68979cda57e1d6a53b382e3cd1728e2d7",
+      "sha256": "7a49ad28b8a21469ab00a862e1c757e65510ecd0599856658dd6018cbfe9410d",
+      "bytes": 1375,
+      "lines": 83,
+      "ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source or static content ranges personally inspected; full bytes preserved. Source tests and fixture references are not executed and their dependencies are not covered by reference."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/gardens.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e204fe0f447e7072e346703170f97325f2287217",
+      "sha256": "88cce4f821e3d6ebebb7c824257e51bab60d4f73fafbd0ebfb6b2ce93695eded",
+      "bytes": 7301,
+      "lines": 208,
+      "ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source or static content ranges personally inspected; full bytes preserved. Source tests and fixture references are not executed and their dependencies are not covered by reference."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/gardens/support.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "614d4f8b6114bd1fdd9513ea8e7a535ace849632",
+      "sha256": "b0b818220b4bf6eba139dfd10bc3dec1053a7d8e74f77eb1243e3c669ffab6cd",
+      "bytes": 3687,
+      "lines": 96,
+      "ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source or static content ranges personally inspected; full bytes preserved. Source tests and fixture references are not executed and their dependencies are not covered by reference."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/gardens.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0fca7a3994b3f5ba17c9662c48a6bdc13a7c2f07",
+      "sha256": "fa15867bf5cfac10143e8925f7002bb07b5515ad3511498d2b5cf7bc6af1dc43",
+      "bytes": 8046,
+      "lines": 227,
+      "ranges": [
+        [
+          1,
+          224
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source or static content ranges personally inspected; full bytes preserved. Source tests and fixture references are not executed and their dependencies are not covered by reference."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/packing/projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f6c543315188e73921916a882198533b59585c8e",
+      "sha256": "f1e2f3ad10d58cd21dd8f6c1815c1cdddd34553f57324914c6c4295f892c5b00",
+      "bytes": 5915,
+      "lines": 156,
+      "ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source or static content ranges personally inspected; full bytes preserved. Source tests and fixture references are not executed and their dependencies are not covered by reference."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/packing.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "120f4d2ca5b76816d885f4cbc978bc26484ef941",
+      "sha256": "7f8fc5a0658028dc5c5c82fc80338b54149093788af2eb5d1172802737bc6e27",
+      "bytes": 3248,
+      "lines": 99,
+      "ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source or static content ranges personally inspected; full bytes preserved. Source tests and fixture references are not executed and their dependencies are not covered by reference."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/packing.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0339b738f3220c5a617d81b56e9c7ed7528c3b87",
+      "sha256": "05fd75951536a8edf6ba332a523685de518b060c23a162c89115a822972c6bf1",
+      "bytes": 2947,
+      "lines": 82,
+      "ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source or static content ranges personally inspected; full bytes preserved. Source tests and fixture references are not executed and their dependencies are not covered by reference."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d5798b1ae1163ec011dd683e59073e410bef6f09",
+      "sha256": "9b3f27565c8d28137d2fd3aeccf3b629f069c538dda9185b742606f94947d8f6",
+      "bytes": 9602,
+      "lines": 255,
+      "ranges": [
+        [
+          102,
+          140
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source or static content ranges personally inspected; full bytes preserved. Source tests and fixture references are not executed and their dependencies are not covered by reference."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "76183b03fb13e09dd65710d069792cab55e02cc3",
+      "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+      "bytes": 16151,
+      "lines": 438,
+      "ranges": [
+        [
+          27,
+          94
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source or static content ranges personally inspected; full bytes preserved. Source tests and fixture references are not executed and their dependencies are not covered by reference."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ce5e205c98dc45232f19e7762729c8a9a59ebac4",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "bytes": 39530,
+      "lines": 1026,
+      "ranges": [
+        [
+          150,
+          173
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source or static content ranges personally inspected; full bytes preserved. Source tests and fixture references are not executed and their dependencies are not covered by reference."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7a8109a7fbc6969b4d2ed502091b48a48ea78bd4",
+      "sha256": "3d97a798029ddc9f195aa209105f64070c55fb0172ef87a515e67fe945c735c9",
+      "bytes": 2908,
+      "lines": 64,
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source or static content ranges personally inspected; full bytes preserved. Source tests and fixture references are not executed and their dependencies are not covered by reference."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/urban.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "770e2e6b38cbd651caef72242c2c1f98182a6d28",
+      "sha256": "0636460b78d2af66faa57a8483f4a89a9b99c84cd19c3f7f90615635734fe95b",
+      "bytes": 830,
+      "lines": 20,
+      "ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source or static content ranges personally inspected; full bytes preserved. Source tests and fixture references are not executed and their dependencies are not covered by reference."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/generation/supported.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fb361cce7e4baecc411cbe9ff3faab3ae49ced41",
+      "sha256": "951ac796fe6192eccfebbeca4317a11c29f0ac3697424ddc46973810d05db06b",
+      "bytes": 2242,
+      "lines": 56,
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source or static content ranges personally inspected; full bytes preserved. Source tests and fixture references are not executed and their dependencies are not covered by reference."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/generation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "487cb819ddb34f50834e990fbb194fabe417b8c8",
+      "sha256": "6dd07ed9db5b93386803c3c441f3e84c340a217626c86b423f59563deaf1c739",
+      "bytes": 7323,
+      "lines": 204,
+      "ranges": [
+        [
+          11,
+          55
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source or static content ranges personally inspected; full bytes preserved. Source tests and fixture references are not executed and their dependencies are not covered by reference."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/specimens.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e66f621cd4f88032ea4e26b5680769e0e45003bf",
+      "sha256": "fc7ff2bd7a82b647f3d159373a29f47dbed689557c87cfddb5d3a0233a064beb",
+      "bytes": 6450,
+      "lines": 147,
+      "ranges": [
+        [
+          1,
+          147
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-evidence/support-14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source or static content ranges personally inspected; full bytes preserved. Source tests and fixture references are not executed and their dependencies are not covered by reference."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/gardens.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b2eea97b9f7df0b1a8d48b8fd9be84cc221104a7",
+      "sha256": "7e332b82e1ad584bba7a995795f979c6bee626fcd8634621e5fa25dee193016a",
+      "bytes": 4253,
+      "lines": 118,
+      "ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-evidence/support-15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source or static content ranges personally inspected; full bytes preserved. Source tests and fixture references are not executed and their dependencies are not covered by reference."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/gardens/projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bccddfe356a8d9b1fe4ca16c190b0bb2cf6b17ad",
+      "sha256": "98e478109f0e20b5567acd408b5f0e3c03a50ef2de7576b43acda9918a15c4ad",
+      "bytes": 2176,
+      "lines": 72,
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-evidence/support-16.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source or static content ranges personally inspected; full bytes preserved. Source tests and fixture references are not executed and their dependencies are not covered by reference."
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/replication.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8a61e133ac0e6d5caa491738795d94e3431b68a2",
+      "sha256": "44cf2776eaa433b9291858b34b3996df4fc9dde3def2980ebe83788b5f36fb3e",
+      "bytes": 10254,
+      "lines": 242,
+      "ranges": [
+        [
+          45,
+          75
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-evidence/support-17.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source or static content ranges personally inspected; full bytes preserved. Source tests and fixture references are not executed and their dependencies are not covered by reference."
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/message.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7f5b151b3531fe4c3eacb339d903b28ef514a25e",
+      "sha256": "61261c4055cee33ac91c6cdac317996352c4997f93cbd692a93448656a2db2eb",
+      "bytes": 15949,
+      "lines": 475,
+      "ranges": [
+        [
+          34,
+          58
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-evidence/support-18.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source or static content ranges personally inspected; full bytes preserved. Source tests and fixture references are not executed and their dependencies are not covered by reference."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/scene_setup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9e956c461ae0c6ac17177f6280b47b7f44d451b2",
+      "sha256": "509b65bb9f1ea69a74c597bd8571a0868c3503a9f6d4d9fd741d75488adf71a3",
+      "bytes": 2424,
+      "lines": 63,
+      "ranges": [
+        [
+          18,
+          37
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-evidence/support-19.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source or static content ranges personally inspected; full bytes preserved. Source tests and fixture references are not executed and their dependencies are not covered by reference."
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Support fixture scopes",
+      "trace": "Frozen support tests specify population/seed matrices, immutable layout, duplicate IDs and neighboring terrain contact, but include two external JSON assets and diagnostics. Assertions are source-only specifications, and references do not establish asset or called-body coverage.",
+      "remaining": "Inspect assets, diagnostic helper, native grounding and consumer behavior independently; no fixture or test was executed."
+    },
+    {
+      "contract": "Garden validation ordering and partial mutation",
+      "trace": "validate_bounds rejects empty access before validate_access indexes [0], validates every access corridor before validate_plants unwraps it, and rejects plant scale above2 before world_hull. Garden translation mutates multiple fields before later fallible operations; the inspected GeneratedCityLayout::compile owns a local compiled layout and returns it only after finalize_packing succeeds, so this path does not return a partially packed result on error. Other callers and exact error reachability are not globally cleared.",
+      "remaining": "Inspect complete geometric kernels, other private callers and contracts; do not infer a panic, partial published layout or compatibility path."
+    },
+    {
+      "contract": "Envelope revisions and renderer source",
+      "trace": "Original6533 role527 contains geometry_revision1, 17 hull vertices and vertex_count97397; separately inspected95e content has geometry_revision4, 18 hull vertices, vertex_count97029 and the same declared seed. Current client source seeds the CommonHazel mesh from this envelope and assigns the shared wind-strength constant; its source test specifies mesh/hull comparisons but was not run. The envelope accessor uses include_str and expect, which do not independently prove structural validity, vertex provenance or shader displacement.",
+      "remaining": "Trace actual mesh and shader code, native conventions and same-lens historical receipt qualification. Bounded filename/hash/role search under only Adler and Segovb READ-L12 files found no direct527 receipt; this is not proof of global absence. No source render, mesh, asset generator or test ran."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "Q-L12-24d53e6298002ffe684f",
+      "lens": 12,
+      "additional_current_lenses": [
+        1,
+        3,
+        4,
+        5,
+        8,
+        13
+      ],
+      "severity": "unassigned; garden admission and operation policy question",
+      "first_contract": "The garden hull and presentation should receive geometry accepted by the applicable garden owner, while narrower root-membership projection remains explicit.",
+      "trace": "GardenPlantScale::new accepts any positive finite f32 and GardenPlantPlacement has public fields. With f32::MAX and the current envelope point whose x is approximately -1.5237, the f32 pre-rotation multiplication exceeds finite f32 range by source-level arithmetic; world_hull has no checked return. Separately SceneGarden::from_support checks ID bounds, unique plant IDs and positional root membership but does not call validate_geometry, and the renderer uses its scale. Public constructors and method signatures alone do not decide which layer owns aggregate acceptance.",
+      "safeguards_and_limits": "The actual generated garden uses STANDARD 0.75 and validates geometry; validate_geometry checks bounds before access and requires scale <=2 before hull construction. TacticalSceneInput::load/validate and prepare_supported_terrain route through urban garden validation before ordinary scene generation; the server vista helper obtains digest through input validation. SceneGarden::project explicitly says it binds roots only, and the client waits for matching terrain and rejects missing soil before publishing the collected roots. No malformed scene, decoded network packet, hull, transform, renderer or product operation was executed or observed. The arithmetic is a conditional static example, not evidence that supported production can admit it.",
+      "connected_repair_dependencies": [
+        "Determine the intended precondition and trusted ownership for public world_hull, SceneGarden::from_support, decoded components and vista events; trace all producer and consumer paths.",
+        "If raw callers need a finite hull guarantee, choose a checked operation or a stronger owner without changing accepted standard gardens or collapsing separate root and aggregate contracts.",
+        "Preserve ordered access validation, scale ceiling, exact plant identity and all-or-nothing root collection; reconcile same-first-contract aliases before any implementation."
+      ],
+      "historical_related_candidates": [
+        "baseline-059/queue.json#/entries/1479",
+        "baseline-059/queue.json#/entries/1480",
+        "segovb/READ-L12-586.json",
+        "segovb/READ-L12-587.json"
+      ],
+      "accepted_historical_unique_count_change": 0,
+      "discovery": "partial; bounded arithmetic and normal-path safeguards traced, supported reachability and owner policy open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1478",
+        "/entries/1479",
+        "/entries/1480",
+        "/entries/1481"
+      ],
+      "qualification": "Original059 pending contracts, author, revision and statuses remain separate; no restored3821."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-586.json",
+      "sha256": "59b8ee7fa1f7549ecd787449aa5dff15cbfaef2e0a4f52fd4f8c2497fcd5022d",
+      "bytes": 1734,
+      "git_blob": "551ee69ae2b949acd70c9bea4111457eb686179c",
+      "preserved_bytes": "recovered/garden-059/59b8ee7fa1f7549ecd787449aa5dff15cbfaef2e0a4f52fd4f8c2497fcd5022d.gz",
+      "published_sha256": "59b8ee7fa1f7549ecd787449aa5dff15cbfaef2e0a4f52fd4f8c2497fcd5022d",
+      "published_bytes": 1734,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 plan"
+      ],
+      "qualification": "Original author, lens, revision, ranges, reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-587.json",
+      "sha256": "7f2c691d17aeff298ab560619f31d00a026ff39282bb2e94b3e449f17d384214",
+      "bytes": 1223,
+      "git_blob": "2d2d2bbbc6c022c7d02071e095637a995fd50704",
+      "preserved_bytes": "recovered/garden-059/7f2c691d17aeff298ab560619f31d00a026ff39282bb2e94b3e449f17d384214.gz",
+      "published_sha256": "7f2c691d17aeff298ab560619f31d00a026ff39282bb2e94b3e449f17d384214",
+      "published_bytes": 1223,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 plan"
+      ],
+      "qualification": "Original author, lens, revision, ranges, reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/QUALIFICATION-L12-ORIGINAL1800-EOF-001.json",
+      "sha256": "a326489e8030e57611d9cfd592c4462f22ed64b5f329cf5151ca142c4b7f74d3",
+      "bytes": 4061,
+      "git_blob": "dcbdc43a654a895428637e208140e4cffcebe2dd",
+      "preserved_bytes": "recovered/garden-059/a326489e8030e57611d9cfd592c4462f22ed64b5f329cf5151ca142c4b7f74d3.gz",
+      "published_sha256": "a326489e8030e57611d9cfd592c4462f22ed64b5f329cf5151ca142c4b7f74d3",
+      "published_bytes": 4061,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original EOF qualification, nonexistent tail no body credit"
+      ],
+      "qualification": "Original author, lens, revision, ranges, reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/READ-L12-586.json",
+      "sha256": "fecc6fdc7b435753324e2bc0a66be7036acc026409a743707713c07ac2d02d41",
+      "bytes": 7762,
+      "git_blob": "565cd7b74fbe54765f985b0e8199fcc8cacf09ed",
+      "preserved_bytes": "recovered/garden-059/fecc6fdc7b435753324e2bc0a66be7036acc026409a743707713c07ac2d02d41.gz",
+      "published_sha256": "fecc6fdc7b435753324e2bc0a66be7036acc026409a743707713c07ac2d02d41",
+      "published_bytes": 7762,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb Lens12 receipt",
+        "Original same-lens receipt, no fresh read"
+      ],
+      "qualification": "Original author, lens, revision, ranges, reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/READ-L12-587.json",
+      "sha256": "873a806cb470f842bb2652dd25e3a4e6c5983478b2dc8501b1fc7e1f8168d5cb",
+      "bytes": 10381,
+      "git_blob": "8648991654b8fc1692ad65e60d9008d0f7a2edb7",
+      "preserved_bytes": "recovered/garden-059/873a806cb470f842bb2652dd25e3a4e6c5983478b2dc8501b1fc7e1f8168d5cb.gz",
+      "published_sha256": "873a806cb470f842bb2652dd25e3a4e6c5983478b2dc8501b1fc7e1f8168d5cb",
+      "published_bytes": 10381,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision, ranges, reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-705.json",
+      "sha256": "bc47c2c19ccf4dbbe38dccc8390a197f4e5472480f5942ed85574e9b8ceeb377",
+      "bytes": 1248,
+      "git_blob": "9e7d46f43066593ec55fe7ec1490b20e5c3651d9",
+      "preserved_bytes": "recovered/garden-059/bc47c2c19ccf4dbbe38dccc8390a197f4e5472480f5942ed85574e9b8ceeb377.gz",
+      "published_sha256": "bc47c2c19ccf4dbbe38dccc8390a197f4e5472480f5942ed85574e9b8ceeb377",
+      "published_bytes": 1248,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision, ranges, reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-706.json",
+      "sha256": "77cd74e768935a1fb591ef3630e55b4f3d09081e5a226e3043accc4099cfcad8",
+      "bytes": 1272,
+      "git_blob": "febac5f999d1b55536354bcc69935831726bc602",
+      "preserved_bytes": "recovered/garden-059/77cd74e768935a1fb591ef3630e55b4f3d09081e5a226e3043accc4099cfcad8.gz",
+      "published_sha256": "77cd74e768935a1fb591ef3630e55b4f3d09081e5a226e3043accc4099cfcad8",
+      "published_bytes": 1272,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision, ranges, reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-707.json",
+      "sha256": "9873aa251ed760d5ea7494024865e8cf05f2de44598124e455eb49aa1d9c369f",
+      "bytes": 1216,
+      "git_blob": "a4de6da9e1a5bc2a600b7cca3dda2ea622eb4dce",
+      "preserved_bytes": "recovered/garden-059/9873aa251ed760d5ea7494024865e8cf05f2de44598124e455eb49aa1d9c369f.gz",
+      "published_sha256": "9873aa251ed760d5ea7494024865e8cf05f2de44598124e455eb49aa1d9c369f",
+      "published_bytes": 1216,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration",
+        "Original same-lens registration"
+      ],
+      "qualification": "Original author, lens, revision, ranges, reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-708.json",
+      "sha256": "8d853c145c31005f54b5f75928463b1bd31a4ad06bde5849b0c6c0c7739e13af",
+      "bytes": 1214,
+      "git_blob": "324eea011fc927a40c7f8862ce63e088e3945817",
+      "preserved_bytes": "recovered/garden-059/8d853c145c31005f54b5f75928463b1bd31a4ad06bde5849b0c6c0c7739e13af.gz",
+      "published_sha256": "8d853c145c31005f54b5f75928463b1bd31a4ad06bde5849b0c6c0c7739e13af",
+      "published_bytes": 1214,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision, ranges, reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-709.json",
+      "sha256": "0167abdafb3f93c1ae3aa20b739b15a20d151919a8d59423b57b8924b92db659",
+      "bytes": 1212,
+      "git_blob": "79ab49dc54d5eb266e71bc8f37bf228ade2a5475",
+      "preserved_bytes": "recovered/garden-059/0167abdafb3f93c1ae3aa20b739b15a20d151919a8d59423b57b8924b92db659.gz",
+      "published_sha256": "0167abdafb3f93c1ae3aa20b739b15a20d151919a8d59423b57b8924b92db659",
+      "published_bytes": 1212,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision, ranges, reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/STATE-L12-586.json",
+      "sha256": "b9d8bb1398933e88fb7125715badd348a09e668ae4eea200da7ace9b0f924c01",
+      "bytes": 840,
+      "git_blob": "16db1bce1bf005eb1b2db7cfa8d191172f2dd5f7",
+      "preserved_bytes": "recovered/garden-059/b9d8bb1398933e88fb7125715badd348a09e668ae4eea200da7ace9b0f924c01.gz",
+      "published_sha256": "b9d8bb1398933e88fb7125715badd348a09e668ae4eea200da7ace9b0f924c01",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision, ranges, reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/STATE-L12-587.json",
+      "sha256": "026dfe86be09a811c079df97a03551f0c86af0afe7c9cda4d5012fd07654966e",
+      "bytes": 840,
+      "git_blob": "647e2328812394edce4846505464a5a307dbd1d0",
+      "preserved_bytes": "recovered/garden-059/026dfe86be09a811c079df97a03551f0c86af0afe7c9cda4d5012fd07654966e.gz",
+      "published_sha256": "026dfe86be09a811c079df97a03551f0c86af0afe7c9cda4d5012fd07654966e",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision, ranges, reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-586.json",
+      "sha256": "cb3cde85bab6582fad67db2b80ffddf107eef2e4caa8bd65c5eb99298af1aab8",
+      "bytes": 558,
+      "git_blob": "6c7cb194e85281d6f34868fa719c4e5771e6f476",
+      "preserved_bytes": "recovered/garden-059/cb3cde85bab6582fad67db2b80ffddf107eef2e4caa8bd65c5eb99298af1aab8.gz",
+      "published_sha256": "cb3cde85bab6582fad67db2b80ffddf107eef2e4caa8bd65c5eb99298af1aab8",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision, ranges, reuse and pending dependencies retained; not checkpoint3821."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-587.json",
+      "sha256": "089b87278fe5c54481d0f3225dcdd965b499802b42fccde3268bbe1d4579ed46",
+      "bytes": 558,
+      "git_blob": "83d65ec07a5897c65d073188f58f80b086ff160c",
+      "preserved_bytes": "recovered/garden-059/089b87278fe5c54481d0f3225dcdd965b499802b42fccde3268bbe1d4579ed46.gz",
+      "published_sha256": "089b87278fe5c54481d0f3225dcdd965b499802b42fccde3268bbe1d4579ed46",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision, ranges, reuse and pending dependencies retained; not checkpoint3821."
+    }
+  ],
+  "remaining": "Continue role1803 and all13 independent lenses, actual mesh/shader, consumers and aliases. Original final3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

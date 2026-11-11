@@ -273,6 +273,8 @@ module composition and evidence state without expanding current coverage.
 face admission, paving support and conditional small-face filtering.
 `ASSESSMENT-VISTA-SURFACE-FRAMES-95E.json` traces conditional owned
 surface origins and sampled-tree seam heights, preserving earlier attribution.
+`ASSESSMENT-GARDEN-ADMISSION-95E.json` distinguishes validated garden
+geometry from root projection and separately compares the historical envelope.
 `ASSESSMENT-GATE-AND-SUPPORT-95E.json` preserves the older gate trace
 and qualifies the conditional support diagnostic at the current revision.
 `ASSESSMENT-HOME-IDENTITY-95E.json` connects the settlement identity
