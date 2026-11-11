@@ -1,0 +1,270 @@
+{
+  "schema": "726-exact-git-tree-path-membership-v1",
+  "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "shared_commit_and_tree_objects": "EQUIPMENT-HISTORICAL-GIT-PROOFS.json",
+  "additional_shared_tree_objects": [
+    "RUNTIME-FIT-HISTORICAL-GIT-PROOFS.json",
+    "MESH-RIG-HISTORICAL-GIT-PROOFS.json",
+    "SLOT-AUDIO-HISTORICAL-GIT-PROOFS.json",
+    "PLAYER-TRACE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-BOUNDARY-HISTORICAL-GIT-PROOFS.json",
+    "CITY-GPU-HISTORICAL-GIT-PROOFS.json",
+    "CITY-STREAMING-HISTORICAL-GIT-PROOFS.json",
+    "CLOUD-HISTORICAL-GIT-PROOFS.json",
+    "GRAPHICS-HISTORICAL-GIT-PROOFS.json",
+    "GENERATION-HISTORICAL-GIT-PROOFS.json",
+    "WORKER-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-HISTORICAL-GIT-PROOFS.json",
+    "GRASS-CHUNK-HISTORICAL-GIT-PROOFS.json",
+    "LITTER-HISTORICAL-GIT-PROOFS.json",
+    "PEBBLE-HISTORICAL-GIT-PROOFS.json",
+    "PLANT-HISTORICAL-GIT-PROOFS.json",
+    "INTERIOR-HISTORICAL-GIT-PROOFS.json",
+    "ROCK-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SHOOT-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SKELETON-HISTORICAL-GIT-PROOFS.json",
+    "TREE-CROWN-HISTORICAL-GIT-PROOFS.json",
+    "TREE-ASSET-HISTORICAL-GIT-PROOFS.json",
+    "TREE-STREAM-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SCENE-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-MAP-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-SURFACE-HISTORICAL-GIT-PROOFS.json",
+    "SKY-TIME-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-LANDFORM-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-CONTACT-HISTORICAL-GIT-PROOFS.json",
+    "VENUE-TERRAIN-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-SELECTED-LOD-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-CARD-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-SURFACE-HISTORICAL-GIT-PROOFS.json",
+    "OWNED-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-ORIGIN-QUALIFICATION-GIT-PROOFS.json",
+    "VISTA-ZERO-RING-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-SAMPLE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-GROUND-WIRE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-TRAFFIC-CONTEXT-HISTORICAL-GIT-PROOFS.json",
+    "ROAD-WEATHER-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-VIEW-RETENTION-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-ADAPTER-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-STATUS-CENSUS-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-CAMERA-LIFECYCLE-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-REPLACEMENT-HISTORICAL-GIT-PROOFS.json",
+    "CAPTURE-PERSISTENCE-HISTORICAL-GIT-PROOFS.json",
+    "LITTER-CLEARANCE-HISTORICAL-GIT-PROOFS.json",
+    "CATALOG-ROW-HISTORICAL-GIT-PROOFS.json",
+    "WEIGH-HOUSE-HISTORICAL-GIT-PROOFS.json"
+  ],
+  "root_tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+  "additional_tree_objects": {
+    "06b09fc63e5583d91056dbcaa572515f03cbc9ed": {
+      "git_object": "06b09fc63e5583d91056dbcaa572515f03cbc9ed",
+      "sha256": "719304c45bfeb8018efb8fa12d048111a4d837d3e62395c9075ea5d9dc711ed7",
+      "bytes": 80,
+      "preserved_bytes": "main-advance-95e/plant-lod-root-evidence/git-objects/06b09fc63e5583d91056dbcaa572515f03cbc9ed.tree.gz"
+    }
+  },
+  "paths": {
+    "crates/adventuresim-tactical-client/src/tactical_scene_viewer/plant_lods.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "tactical_scene_viewer",
+          "mode": "40000",
+          "child": "0ca304b0cae2ffc6b8645409e7e0988e9bc134b8"
+        },
+        {
+          "tree": "0ca304b0cae2ffc6b8645409e7e0988e9bc134b8",
+          "name": "plant_lods.rs",
+          "mode": "100644",
+          "child": "60e111b58a7c102b061e35522e2ef3eb3c37b29b"
+        }
+      ],
+      "git_blob": "60e111b58a7c102b061e35522e2ef3eb3c37b29b",
+      "sha256": "36ec27846639fcd39472f076870256cb3a37ae29dfd489fe49f7e93cbe40d0a7",
+      "bytes": 3722,
+      "lines": 113
+    },
+    "crates/adventuresim-tactical-client/src/tactical_scene_viewer/setup_obstacles.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "tactical_scene_viewer",
+          "mode": "40000",
+          "child": "0ca304b0cae2ffc6b8645409e7e0988e9bc134b8"
+        },
+        {
+          "tree": "0ca304b0cae2ffc6b8645409e7e0988e9bc134b8",
+          "name": "setup_obstacles.rs",
+          "mode": "100644",
+          "child": "ad9d38114235b0e092453ea952a484b0f3643358"
+        }
+      ],
+      "git_blob": "ad9d38114235b0e092453ea952a484b0f3643358",
+      "sha256": "ed251a1127b90eec10478382e61cb9fc193e36c1d7c15104e43dfdefab03d3e4",
+      "bytes": 5866,
+      "lines": 166
+    },
+    "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "tactical_scene_viewer",
+          "mode": "40000",
+          "child": "0ca304b0cae2ffc6b8645409e7e0988e9bc134b8"
+        },
+        {
+          "tree": "0ca304b0cae2ffc6b8645409e7e0988e9bc134b8",
+          "name": "view_camera.rs",
+          "mode": "100644",
+          "child": "0d82c29e143dad23be42b2699b2b00b229afc89c"
+        }
+      ],
+      "git_blob": "0d82c29e143dad23be42b2699b2b00b229afc89c",
+      "sha256": "17a9a24f5d15cbd9db474bed73f9cecc39d1dddb1af6a7ff2d9d74a83ae13461",
+      "bytes": 14011,
+      "lines": 350
+    },
+    "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/landscape.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "tactical_scene_viewer",
+          "mode": "40000",
+          "child": "0ca304b0cae2ffc6b8645409e7e0988e9bc134b8"
+        },
+        {
+          "tree": "0ca304b0cae2ffc6b8645409e7e0988e9bc134b8",
+          "name": "view_camera",
+          "mode": "40000",
+          "child": "06b09fc63e5583d91056dbcaa572515f03cbc9ed"
+        },
+        {
+          "tree": "06b09fc63e5583d91056dbcaa572515f03cbc9ed",
+          "name": "landscape.rs",
+          "mode": "100644",
+          "child": "6bdf70f3203393b087863d033b0375b6a7bdd065"
+        }
+      ],
+      "git_blob": "6bdf70f3203393b087863d033b0375b6a7bdd065",
+      "sha256": "8a9fe4f5dd1a72f306edf38bf29bb147569abd3314d13ff00e9f3fc01fb8e66e",
+      "bytes": 4703,
+      "lines": 122
+    },
+    "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/placement.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "tactical_scene_viewer",
+          "mode": "40000",
+          "child": "0ca304b0cae2ffc6b8645409e7e0988e9bc134b8"
+        },
+        {
+          "tree": "0ca304b0cae2ffc6b8645409e7e0988e9bc134b8",
+          "name": "view_camera",
+          "mode": "40000",
+          "child": "06b09fc63e5583d91056dbcaa572515f03cbc9ed"
+        },
+        {
+          "tree": "06b09fc63e5583d91056dbcaa572515f03cbc9ed",
+          "name": "placement.rs",
+          "mode": "100644",
+          "child": "fa3bff6a7f22247bafc12d807e667b235038ff7a"
+        }
+      ],
+      "git_blob": "fa3bff6a7f22247bafc12d807e667b235038ff7a",
+      "sha256": "1d7e47c42a77acec3c103a59dbd02b3810eb0fed0afacbc35c1866908cc55e30",
+      "bytes": 2768,
+      "lines": 78
+    }
+  },
+  "qualification": "Raw Git objects prove6533 roles1720–1724. Earlier current-only support citations for1721 and1722 remain separate from this later original-role personal read."
+}

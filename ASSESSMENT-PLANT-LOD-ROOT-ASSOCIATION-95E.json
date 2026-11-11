@@ -1,0 +1,385 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Five original plant-observation/obstacle/camera roles and bounded current botanical site, native lifecycle and deterministic jitter source.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1720-1724.json",
+  "git_membership_evidence": "PLANT-LOD-ROOT-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9e4e965e521f810478d3fa8106e39be6ef855225",
+      "sha256": "5397178ad53d019142d2791f701111ec168b2b1636e053a1085ce9bf1b6af35a",
+      "bytes": 8409,
+      "lines": 232,
+      "ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/plant-lod-root-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants/lod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f34431b4c24da1bdf276ba46e5f36e9b864daa93",
+      "sha256": "ed647cd71017f84b64945f398ad873fce7a452384db4b485eaafb29ba4de70a8",
+      "bytes": 4559,
+      "lines": 140,
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/plant-lod-root-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/fabelgeist-determinism/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "41b943e1662a3f34e210f28bf171c579e8aaade0",
+      "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "bytes": 1971,
+      "lines": 58,
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/plant-lod-root-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/fabelgeist-determinism/src/stream.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c59d8a7720881fba266c80112e82880e4422e074",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "bytes": 5688,
+      "lines": 169,
+      "ranges": [
+        [
+          60,
+          90
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/plant-lod-root-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ce5e205c98dc45232f19e7762729c8a9a59ebac4",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "bytes": 39530,
+      "lines": 1026,
+      "ranges": [
+        [
+          75,
+          85
+        ],
+        [
+          427,
+          467
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/plant-lod-root-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/terrain_setup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3a7c48a46bad8ffcd5cb2749fb231c1038657639",
+      "sha256": "605a891675dea0c6b7e78611f683b07ec7314237294295b67910a0742ad6d259",
+      "bytes": 1131,
+      "lines": 40,
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/plant-lod-root-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/demo_lifecycle.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "38cdf5e0bc2df1376a350e64b742b0359cdbd050",
+      "sha256": "3790d136f55324b8e8719d006dd305f3c0b333896cef846d74644343725bf551",
+      "bytes": 5474,
+      "lines": 136,
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/plant-lod-root-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    }
+  ],
+  "current_viewer_assessment": "ASSESSMENT-L01-HISTORICAL-1699-COMPLETE.json",
+  "observations": [
+    {
+      "contract": "Plant LOD root association",
+      "trace": "The viewer picks an accepted-species PlantCaptureAnchor root and the observer selects PlantLodInstance entities whose transform translation is within squared distance 1e-8 of that root. Each retained row includes its species, LOD, per-camera VisibleEntities membership, native visibility-range result and CPU mesh index count. The observer has no explicit per-site or scene identity in this query.",
+      "counterevidence": "For one production scene, placements makes at most one site per 2m grid cell; each axis jitter lies from0.15 through0.85 cell units, because the deterministic inclusive unit sample is defined between0 and1. In exact real arithmetic, adjacent cell positions are separated by at least (1+0.15−0.85)×2=0.6m in a differing axis, far beyond the 0.0001m observer radius. Each site spawns its three deliberately co-located LOD tiers and one anchor. This rules out a simple arbitrary same-scene duplicate-site assumption under that ideal bound, not all floating-point behavior.",
+      "remaining": "Floating-point rounding at admitted world-coordinate limits, any extra plant producer or simultaneous scene population, actual lifecycle/schedule, entity membership and metric policy remain open. The ordinary viewer setup queues one terrain entity; clear_scene_entities explicitly removes GroundScatterLayer entities when called, except regional-map owners. No scene, duplicate, draw or cleanup was run."
+    },
+    {
+      "contract": "Supported obstacles before publication",
+      "trace": "CapturedObstacles::spawn collects every SupportedObstacle and required terrain height before spawning any native obstacle. Tree focus uses the same half-trunk-height constant as the generated centre and view-camera root reconstruction.",
+      "remaining": "Native command execution and all other producer and error paths remain independently open."
+    },
+    {
+      "contract": "Checked capture camera view",
+      "trace": "LookingAt admits checked position and target only after usable forward/up cross products; Fixed carries an explicit typed rotation whose orientation intentionally does not derive from its diagnostic target.",
+      "remaining": "All mutable writers, native Transform implementation and actual view/capture policies remain open."
+    }
+  ],
+  "new_unique_findings": [],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1322",
+        "/entries/1431"
+      ],
+      "qualification": "Original plant and observer scope partially connected; no semantic queue closure or other-lens credit."
+    },
+    {
+      "file": "ASSESSMENT-PLANT-WORK-AND-SPECIES-95E.json",
+      "qualification": "Earlier current plant work and species selection remains separate."
+    },
+    {
+      "file": "ASSESSMENT-LITTER-CAPTURE-CLEARANCE-95E.json",
+      "qualification": "Earlier current-only role1721 support did not confer original historical-role credit."
+    },
+    {
+      "file": "ASSESSMENT-CATALOG-ROW-IDENTITY-95E.json",
+      "qualification": "Earlier bounded current role1722 camera consumer did not confer original historical-role credit."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-553.json",
+      "sha256": "b22c2a17594510a5c23bb0d1ad246ed44694d2501bd89af6303796eb04527768",
+      "bytes": 1745,
+      "git_blob": "ceeb1d609c78077135ec0913570483e5e90f3420",
+      "preserved_bytes": "recovered/plant-lod-root-059/b22c2a17594510a5c23bb0d1ad246ed44694d2501bd89af6303796eb04527768.gz",
+      "published_sha256": "b22c2a17594510a5c23bb0d1ad246ed44694d2501bd89af6303796eb04527768",
+      "published_bytes": 1745,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-554.json",
+      "sha256": "4ac89434cf82f8c2fb905467c795b71db070754648e4c37cfd695475509a0028",
+      "bytes": 1257,
+      "git_blob": "bbb2991819c03cc16b91852b2a4b48123f318170",
+      "preserved_bytes": "recovered/plant-lod-root-059/4ac89434cf82f8c2fb905467c795b71db070754648e4c37cfd695475509a0028.gz",
+      "published_sha256": "4ac89434cf82f8c2fb905467c795b71db070754648e4c37cfd695475509a0028",
+      "published_bytes": 1257,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-553.json",
+      "sha256": "8555a8d8658113122dd9e3d77f3bc9e86d53fc77ce29935921ec7a3ab6165473",
+      "bytes": 10755,
+      "git_blob": "afeb953f0c341d312253d2e28fc987d698744876",
+      "preserved_bytes": "recovered/plant-lod-root-059/8555a8d8658113122dd9e3d77f3bc9e86d53fc77ce29935921ec7a3ab6165473.gz",
+      "published_sha256": "8555a8d8658113122dd9e3d77f3bc9e86d53fc77ce29935921ec7a3ab6165473",
+      "published_bytes": 10755,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-554.json",
+      "sha256": "ca57e4ab9b06a3deedafd63c07446b6c5061b066337b8b133c270728146c0f91",
+      "bytes": 6964,
+      "git_blob": "54739ad98d75742ae89ce25aefcad2bc1b828f43",
+      "preserved_bytes": "recovered/plant-lod-root-059/ca57e4ab9b06a3deedafd63c07446b6c5061b066337b8b133c270728146c0f91.gz",
+      "published_sha256": "ca57e4ab9b06a3deedafd63c07446b6c5061b066337b8b133c270728146c0f91",
+      "published_bytes": 6964,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-627.json",
+      "sha256": "1c8b91b5b9a335d666eb07d7e9299ae9e41f1a66a35ee73c1c41f2bed0fb39ac",
+      "bytes": 1250,
+      "git_blob": "020718520fe8909791efaec22e644fa21aa22e85",
+      "preserved_bytes": "recovered/plant-lod-root-059/1c8b91b5b9a335d666eb07d7e9299ae9e41f1a66a35ee73c1c41f2bed0fb39ac.gz",
+      "published_sha256": "1c8b91b5b9a335d666eb07d7e9299ae9e41f1a66a35ee73c1c41f2bed0fb39ac",
+      "published_bytes": 1250,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-628.json",
+      "sha256": "92de0fd5cf27e6b857d8ab6650063e9580d06d4bccee386c968c0b8de3775d00",
+      "bytes": 1260,
+      "git_blob": "5e9ea0d75e0e840b9a594ed21263395342f30275",
+      "preserved_bytes": "recovered/plant-lod-root-059/92de0fd5cf27e6b857d8ab6650063e9580d06d4bccee386c968c0b8de3775d00.gz",
+      "published_sha256": "92de0fd5cf27e6b857d8ab6650063e9580d06d4bccee386c968c0b8de3775d00",
+      "published_bytes": 1260,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-629.json",
+      "sha256": "f48a1024b2c82f17431af8b77fbed69a6f99e62ccae34f4274c99ecfb2d72213",
+      "bytes": 1252,
+      "git_blob": "b439ea08adce87490670fa92bb34082f6b7ca1ff",
+      "preserved_bytes": "recovered/plant-lod-root-059/f48a1024b2c82f17431af8b77fbed69a6f99e62ccae34f4274c99ecfb2d72213.gz",
+      "published_sha256": "f48a1024b2c82f17431af8b77fbed69a6f99e62ccae34f4274c99ecfb2d72213",
+      "published_bytes": 1252,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-630.json",
+      "sha256": "cc266b5f6537f9fffebbfc29a888ef69dbb3513ec3046a2e34059d1b4a6950b4",
+      "bytes": 1240,
+      "git_blob": "4ff9fffc09f89895f254b1d1b3fe0aaeeb7655fd",
+      "preserved_bytes": "recovered/plant-lod-root-059/cc266b5f6537f9fffebbfc29a888ef69dbb3513ec3046a2e34059d1b4a6950b4.gz",
+      "published_sha256": "cc266b5f6537f9fffebbfc29a888ef69dbb3513ec3046a2e34059d1b4a6950b4",
+      "published_bytes": 1240,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-631.json",
+      "sha256": "70f31ffcb4a3497b0ab1749c50077a272fa50c00df1789cbb4df80843d748bb1",
+      "bytes": 1238,
+      "git_blob": "fb1f7d806af25a859dfe8280192db5dbec12a07f",
+      "preserved_bytes": "recovered/plant-lod-root-059/70f31ffcb4a3497b0ab1749c50077a272fa50c00df1789cbb4df80843d748bb1.gz",
+      "published_sha256": "70f31ffcb4a3497b0ab1749c50077a272fa50c00df1789cbb4df80843d748bb1",
+      "published_bytes": 1238,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-553.json",
+      "sha256": "20ec9b9b2d7e9741356398e1342fc59f7b4e3348fd872dee63cf22536a161c0b",
+      "bytes": 840,
+      "git_blob": "620cd0341e8e0926c67f91071378cdad3d3d9d3a",
+      "preserved_bytes": "recovered/plant-lod-root-059/20ec9b9b2d7e9741356398e1342fc59f7b4e3348fd872dee63cf22536a161c0b.gz",
+      "published_sha256": "20ec9b9b2d7e9741356398e1342fc59f7b4e3348fd872dee63cf22536a161c0b",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-554.json",
+      "sha256": "7cccc0841927cce0b5ab0b391b9f0b1dbb313e0a32e9c30a76758da2f4fce7b6",
+      "bytes": 840,
+      "git_blob": "664272d7d981f77e8d6d853d6f136028e085c54e",
+      "preserved_bytes": "recovered/plant-lod-root-059/7cccc0841927cce0b5ab0b391b9f0b1dbb313e0a32e9c30a76758da2f4fce7b6.gz",
+      "published_sha256": "7cccc0841927cce0b5ab0b391b9f0b1dbb313e0a32e9c30a76758da2f4fce7b6",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-553.json",
+      "sha256": "fcabe3a2c7c51d7bb4a9921195381622817ff9e61bb32a20e8552c1c7e1386d8",
+      "bytes": 558,
+      "git_blob": "7482dd20fef104568430e4d83a0d14934029e9bf",
+      "preserved_bytes": "recovered/plant-lod-root-059/fcabe3a2c7c51d7bb4a9921195381622817ff9e61bb32a20e8552c1c7e1386d8.gz",
+      "published_sha256": "fcabe3a2c7c51d7bb4a9921195381622817ff9e61bb32a20e8552c1c7e1386d8",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-554.json",
+      "sha256": "fa9fc4c262683292b48b1508045cde6f0811315acb1805ee2077fa805610ea5f",
+      "bytes": 558,
+      "git_blob": "80a6775e172ea6c7ec77e42209571c66da20c1d2",
+      "preserved_bytes": "recovered/plant-lod-root-059/fa9fc4c262683292b48b1508045cde6f0811315acb1805ee2077fa805610ea5f.gz",
+      "published_sha256": "fa9fc4c262683292b48b1508045cde6f0811315acb1805ee2077fa805610ea5f",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    }
+  ],
+  "remaining": "Continue original1725; establish full floating-point/scene lifecycle policy, native visibility/camera semantics, all13 lenses and semantic queue. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
