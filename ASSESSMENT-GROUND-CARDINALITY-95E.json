@@ -1,0 +1,460 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original roles1910–1913, selected scene-ground cardinality chain, SceneVelocity and camera pose staging.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1910-1913.json",
+  "git_membership_evidence": "GROUND-CARDINALITY-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ce5e205c98dc45232f19e7762729c8a9a59ebac4",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "bytes": 39530,
+      "lines": 1026,
+      "ranges": [
+        [
+          252,
+          306
+        ],
+        [
+          313,
+          358
+        ],
+        [
+          361,
+          391
+        ],
+        [
+          427,
+          467
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ground-cardinality-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No scene, terrain, source test, camera, renderer or game ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7a8109a7fbc6969b4d2ed502091b48a48ea78bd4",
+      "sha256": "3d97a798029ddc9f195aa209105f64070c55fb0172ef87a515e67fe945c735c9",
+      "bytes": 2908,
+      "lines": 64,
+      "ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ground-cardinality-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No scene, terrain, source test, camera, renderer or game ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/generation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "487cb819ddb34f50834e990fbb194fabe417b8c8",
+      "sha256": "6dd07ed9db5b93386803c3c441f3e84c340a217626c86b423f59563deaf1c739",
+      "bytes": 7323,
+      "lines": 204,
+      "ranges": [
+        [
+          59,
+          76
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ground-cardinality-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No scene, terrain, source test, camera, renderer or game ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/generation/geographic.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6bba9b6f8d48e49b21a90f2213558e71a0894bbc",
+      "sha256": "b0a7c91fd0c9c09870ebcacd16ae968638ba3381e66e7d44b9ee6c7e6235236c",
+      "bytes": 3790,
+      "lines": 96,
+      "ranges": [
+        [
+          20,
+          45
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ground-cardinality-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No scene, terrain, source test, camera, renderer or game ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8a54b1049b5593d0d06440ec8bda5f08f28c4ef8",
+      "sha256": "2661ce950659807c47c0de4fdc769ba1ba79825c47ba2985fcec32d7e4f38390",
+      "bytes": 20452,
+      "lines": 553,
+      "ranges": [
+        [
+          93,
+          115
+        ],
+        [
+          199,
+          205
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ground-cardinality-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No scene, terrain, source test, camera, renderer or game ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene/admission.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6fa3f51f1e19db0e2af765358447300b6ffbe537",
+      "sha256": "c77986f9f9ff85cd6b4359792d8c28838b437942db2e61c92dc4104856e849cb",
+      "bytes": 3032,
+      "lines": 98,
+      "ranges": [
+        [
+          71,
+          84
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ground-cardinality-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No scene, terrain, source test, camera, renderer or game ran."
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "11d15d656eba0778f47cbaf382fd9f5876715825",
+      "sha256": "58396f438d078eb49da6de8b6739ccddcc0c7240fb1f6ad8e62c35d7548fb98d",
+      "bytes": 7219,
+      "lines": 253,
+      "ranges": [
+        [
+          8,
+          16
+        ],
+        [
+          108,
+          120
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ground-cardinality-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No scene, terrain, source test, camera, renderer or game ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/camera/smoothing.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f09495195e69012bc7efcebdde7cac6e193735b2",
+      "sha256": "6f9948b9cd1412b7351a88e92a460780579e7d89ad0a9ae6bbfb4dd99102842a",
+      "bytes": 9153,
+      "lines": 269,
+      "ranges": [
+        [
+          30,
+          65
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ground-cardinality-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No scene, terrain, source test, camera, renderer or game ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/camera/rig/observation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "38c9d27b5c7e87598570d9a58166493c8e2aad00",
+      "sha256": "a0a88df02f4d557950c09e55645900e75731a2817d9d422b636fe3126f062ef1",
+      "bytes": 6507,
+      "lines": 170,
+      "ranges": [
+        [
+          123,
+          158
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ground-cardinality-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No scene, terrain, source test, camera, renderer or game ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/camera/rig.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d63e4c8ad266ffd064e5a6ef95cc83e80a8b2cec",
+      "sha256": "1ec50b293b57a16a3f213a4e26d2a6a6f3d69500f61d3f586939745bc2978d01",
+      "bytes": 3128,
+      "lines": 97,
+      "ranges": [
+        [
+          82,
+          95
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ground-cardinality-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No scene, terrain, source test, camera, renderer or game ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/camera/rig_history.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d5dec33761ebcd8244c4730ca4ec92fefbb53d87",
+      "sha256": "6b8831f4120039b41df17cb9365f3d4e37f1db57259aa4e5573e0fd8c9f8e4ff",
+      "bytes": 3643,
+      "lines": 105,
+      "ranges": [
+        [
+          35,
+          58
+        ],
+        [
+          65,
+          88
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/ground-cardinality-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No scene, terrain, source test, camera, renderer or game ran."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-ROUNDED-POLYGON-TOPOLOGY-95E.json",
+    "ASSESSMENT-URBAN-BUCKET-CAPACITY-95E.json",
+    "ASSESSMENT-GRADE-BOUNDED-95E.json",
+    "ASSESSMENT-CAMERA-HISTORY-POLICY-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Selected terrain and environment cardinality",
+      "trace": "A crates-source textual search found the build_scene_ground definition, one import and one direct call from prepare_geographic_terrain. That path invokes validate_source first: validate_grid requires both source height and environment arrays to equal checked width×depth. At spacing≤2m upsampling clones both arrays; otherwise its nested width×depth loops push one height and one environment value per cell. Assuming upsampling returns normally, prepare_terrain receives mutable slices and does not resize them. The admitted SceneTerrain is built with those same dimensions and checks its derived grid depth. The ground producer maps one sample per environment item and indexes the terrain grid before the final from_samples check. These steps establish matching cardinality on this selected returned path rather than a demonstrated panic.",
+      "remaining": "No input, allocation, scene or product operation ran. Floating source-index behavior and errors during upsampling, generated or macro calls, any alternate caller outside the searched crates, all decode/uniform routes and exact aliases remain open. Do not transform this scoped safeguard into a global validity or product-success claim."
+    },
+    {
+      "contract": "Scene velocity and camera publication",
+      "trace": "SceneVelocity stores SignedSpeed components admitted through finite checks; the selected damp_focus constructs both checked position and velocity before returning. prepare_follow may mutate a prospective camera pose, but the caller prepares a fresh or cloned next history and commits it only on success. Profile blend advancement is separately committed before observation.",
+      "remaining": "Other speed writers and camera producer/consumer paths, potential profile-versus-observation failure policy and native arithmetic remain open. No actual camera frame or user impact was observed."
+    },
+    {
+      "contract": "Window datum and deterministic ground names",
+      "trace": "The scene window conversion forms its paired private leaf and native rotation within one fallible conversion, with source/opening context retained on error. The ground producer uses a named deterministic terrain tree-leaf-litter stream, typed terrain surface categories and a checked SceneGround factory.",
+      "remaining": "All renderer/physics recipients, native quaternion calculations, stream identity ownership and nonfactory SceneGround routes remain independent obligations. Source tests describe intended behavior only."
+    }
+  ],
+  "conditional_findings": [],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-636.json",
+      "sha256": "17086662d610d429ad870094c90081b4090ea0cc5797c6c01e26e53a1b743545",
+      "bytes": 1716,
+      "git_blob": "73d7b5a2f0a7c487257d364cac1b7cac5751ed34",
+      "preserved_bytes": "recovered/ground-cardinality-059/17086662d610d429ad870094c90081b4090ea0cc5797c6c01e26e53a1b743545.gz",
+      "published_sha256": "17086662d610d429ad870094c90081b4090ea0cc5797c6c01e26e53a1b743545",
+      "published_bytes": 1716,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 prospective plan"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-637.json",
+      "sha256": "d0313e95b102af7a70a1ccc7f03dec1c592aa921e2a9424ee6613173fa5843fc",
+      "bytes": 711,
+      "git_blob": "e54a4e33f5062e97a21c3b323822fcb81635da6c",
+      "preserved_bytes": "recovered/ground-cardinality-059/d0313e95b102af7a70a1ccc7f03dec1c592aa921e2a9424ee6613173fa5843fc.gz",
+      "published_sha256": "d0313e95b102af7a70a1ccc7f03dec1c592aa921e2a9424ee6613173fa5843fc",
+      "published_bytes": 711,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 prospective plan"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-636.json",
+      "sha256": "fba66ba002065e981c2f0e14fe62478af59c5280fc9e7ec81219ce7d1c00c97d",
+      "bytes": 5320,
+      "git_blob": "9cefa24b6d129849c7d9aa6a1e190f14bff3f8cb",
+      "preserved_bytes": "recovered/ground-cardinality-059/fba66ba002065e981c2f0e14fe62478af59c5280fc9e7ec81219ce7d1c00c97d.gz",
+      "published_sha256": "fba66ba002065e981c2f0e14fe62478af59c5280fc9e7ec81219ce7d1c00c97d",
+      "published_bytes": 5320,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-637.json",
+      "sha256": "5453f531a4e3a4a375c27fa72557253d3a2127799ab0078db0b0f68232f2fb6e",
+      "bytes": 3103,
+      "git_blob": "ab15b1aef7c64b22ba6c28ec5cc068d119e90b43",
+      "preserved_bytes": "recovered/ground-cardinality-059/5453f531a4e3a4a375c27fa72557253d3a2127799ab0078db0b0f68232f2fb6e.gz",
+      "published_sha256": "5453f531a4e3a4a375c27fa72557253d3a2127799ab0078db0b0f68232f2fb6e",
+      "published_bytes": 3103,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-817.json",
+      "sha256": "481c4e0f1a93adf94fcc80b90e1682aec7b552b365a12cf33c1366951d096fd4",
+      "bytes": 1182,
+      "git_blob": "5f1b5767fced4a8b879e010dd258e5febf0402a0",
+      "preserved_bytes": "recovered/ground-cardinality-059/481c4e0f1a93adf94fcc80b90e1682aec7b552b365a12cf33c1366951d096fd4.gz",
+      "published_sha256": "481c4e0f1a93adf94fcc80b90e1682aec7b552b365a12cf33c1366951d096fd4",
+      "published_bytes": 1182,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-818.json",
+      "sha256": "adcb01255d93205c1bdedcfe6286b568c80f89413487c8412c03c3d2f0418c87",
+      "bytes": 1170,
+      "git_blob": "427a242e8d26faf4835fe8b970885d5ee33131a8",
+      "preserved_bytes": "recovered/ground-cardinality-059/adcb01255d93205c1bdedcfe6286b568c80f89413487c8412c03c3d2f0418c87.gz",
+      "published_sha256": "adcb01255d93205c1bdedcfe6286b568c80f89413487c8412c03c3d2f0418c87",
+      "published_bytes": 1170,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-819.json",
+      "sha256": "99fb9c043dbc07c7350cc65c76f2e2557c70569c1396a56201ff3f5aa6243cf7",
+      "bytes": 1168,
+      "git_blob": "7504f617a34eea586585e4bcb23e8ba1c2bfbfe9",
+      "preserved_bytes": "recovered/ground-cardinality-059/99fb9c043dbc07c7350cc65c76f2e2557c70569c1396a56201ff3f5aa6243cf7.gz",
+      "published_sha256": "99fb9c043dbc07c7350cc65c76f2e2557c70569c1396a56201ff3f5aa6243cf7",
+      "published_bytes": 1168,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-820.json",
+      "sha256": "12d229e7239a4f5793dc97141a115386e06eb1aa8ce209599eeda0d427ec310b",
+      "bytes": 1158,
+      "git_blob": "d57a17a9e7c52a011f57126c62756cf8bfbd74f5",
+      "preserved_bytes": "recovered/ground-cardinality-059/12d229e7239a4f5793dc97141a115386e06eb1aa8ce209599eeda0d427ec310b.gz",
+      "published_sha256": "12d229e7239a4f5793dc97141a115386e06eb1aa8ce209599eeda0d427ec310b",
+      "published_bytes": 1158,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-636.json",
+      "sha256": "d1baec337ac05ff448cad38a71c816dcd30395cbaadb098af2f2892a95f01c82",
+      "bytes": 840,
+      "git_blob": "c400f6d8b84ca0e37315f4700b5a3d3017bd6dd6",
+      "preserved_bytes": "recovered/ground-cardinality-059/d1baec337ac05ff448cad38a71c816dcd30395cbaadb098af2f2892a95f01c82.gz",
+      "published_sha256": "d1baec337ac05ff448cad38a71c816dcd30395cbaadb098af2f2892a95f01c82",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-637.json",
+      "sha256": "b34b86f42f5dc041b248ab221d83a3492ba7df302e5844a057a6eb81214a85f3",
+      "bytes": 840,
+      "git_blob": "a1240506f84f789ce4b58ead6c2543ee553d2cb9",
+      "preserved_bytes": "recovered/ground-cardinality-059/b34b86f42f5dc041b248ab221d83a3492ba7df302e5844a057a6eb81214a85f3.gz",
+      "published_sha256": "b34b86f42f5dc041b248ab221d83a3492ba7df302e5844a057a6eb81214a85f3",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-636.json",
+      "sha256": "2689a5ad29db818a0cafd0d4cfb14ba97ff2fbe87ca2ec6c0965e0fc50b53fca",
+      "bytes": 558,
+      "git_blob": "1b29f6974d71d69bc39e2c21e444dedf0ed25011",
+      "preserved_bytes": "recovered/ground-cardinality-059/2689a5ad29db818a0cafd0d4cfb14ba97ff2fbe87ca2ec6c0965e0fc50b53fca.gz",
+      "published_sha256": "2689a5ad29db818a0cafd0d4cfb14ba97ff2fbe87ca2ec6c0965e0fc50b53fca",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-637.json",
+      "sha256": "419c981646cd774f7e70b611d3128c933deba05d84d0c45f54304ddeddeeb316",
+      "bytes": 558,
+      "git_blob": "a5f1ae8630ea292ffa4634b621f4d45cf7672639",
+      "preserved_bytes": "recovered/ground-cardinality-059/419c981646cd774f7e70b611d3128c933deba05d84d0c45f54304ddeddeeb316.gz",
+      "published_sha256": "419c981646cd774f7e70b611d3128c933deba05d84d0c45f54304ddeddeeb316",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1570",
+        "/entries/1576",
+        "/entries/1577",
+        "/entries/1578"
+      ],
+      "qualification": "Earlier pending families remain open, not checkpoint3821."
+    },
+    {
+      "file": "ASSESSMENT-ROUNDED-POLYGON-TOPOLOGY-95E.json",
+      "pointers": [
+        "/recovered_historical_records"
+      ],
+      "qualification": "Original Adler291 already includes roles1910–1913 under its historic reviewer attribution."
+    }
+  ],
+  "historical_attribution_qualification": "Segovb636/637 retain original full ranges and explicitly pending producer obligations. Adler291 is preserved in the preceding assessment; its earlier review is not current independent credit. Original059 is not final checkpoint3821.",
+  "remaining": "Continue original1914 and all13 lenses, other ground creation/transport, native camera/window consumers and exact aliases. Original3821 final ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
