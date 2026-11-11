@@ -1,0 +1,146 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    11
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Complete original role1699 and current95e viewer read, plus bounded pinned Bevy diagnostic source and two earlier Adler Lens11 questions.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1699-COMPLETE.json",
+  "historical_prior_partial": "ASSESSMENT-L01-HISTORICAL-1699-PARTIAL-001.json",
+  "current_source": {
+    "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+    "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "git_blob": "02b72d99ff5d4720f46bb5c2b3e2326bf15c6682",
+    "sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+    "bytes": 173981,
+    "lines": 4477,
+    "ranges": [
+      [
+        1,
+        400
+      ],
+      [
+        401,
+        800
+      ],
+      [
+        801,
+        1200
+      ],
+      [
+        1201,
+        1600
+      ],
+      [
+        1601,
+        2000
+      ],
+      [
+        2001,
+        2400
+      ],
+      [
+        2401,
+        2800
+      ],
+      [
+        2801,
+        3200
+      ],
+      [
+        3201,
+        3600
+      ],
+      [
+        3601,
+        4000
+      ],
+      [
+        4001,
+        4477
+      ]
+    ],
+    "preserved_bytes": "main-advance-95e/strategic-replacement-evidence/current-1699.source.gz"
+  },
+  "native_sources": [
+    "native-evidence/bevy_render-0.19.1/MANIFEST.json",
+    "native-evidence/bevy_diagnostic-0.19.1/MANIFEST.json"
+  ],
+  "earlier_receipt": {
+    "original_path": "adler/READ-L11-246.json",
+    "preserved_bytes": "recovered/tree-stream-059/183524b1c6e40a4c18926e43dd2c6bea50b919d422b1911d579fe0141ed6a9c5.gz",
+    "sha256": "183524b1c6e40a4c18926e43dd2c6bea50b919d422b1911d579fe0141ed6a9c5",
+    "qualification": "Exact recovered original receipt, attributed to Adler at6533; previous independent identity proof and this later personal read remain separate."
+  },
+  "existing_finding_connections": [
+    {
+      "id": "ADLER-L11-PERFORMANCE-DIAGNOSTIC-AGGREGATE-AUTHORITY",
+      "queue_pointer": "baseline-059/queue.json#/entries/93",
+      "historical_receipt": "adler/READ-L11-246.json",
+      "canonical_owner": "Checked render timing observation and aggregation with native metric and frame provenance suitable for the acceptance gate.",
+      "classification": "Earlier Adler6533 question partially reassessed against current95e viewer and pinned Bevy0.19.1 sources; no historical or checkpoint3821 promotion.",
+      "source_trace": [
+        "The viewer collects every finite DiagnosticsStore render/ value into a vector per string path, requiring at least half the requested sample-frame count for each path. It does not compare a measurement timestamp or frame identity.",
+        "The pinned bevy_diagnostic Diagnostic::value returns the latest history entry. Bevy render sync adds a diagnostic when a mapped frame callback is available, using an Instant at sync; the capture consumer does not inspect that Instant. If a value stays unchanged between collection ticks, the same stored measurement can be counted more than once, including across mode boundaries. No actual delayed or stale sample has been observed.",
+        "The viewer separately summarizes each path and sums every summary whose path ends elapsed_gpu; the sum feeds limiting_p95_ms and the measured 60 FPS gate. Pinned bevy_render constructs diagnostic paths from same-thread parent spans and marks available timestamp duration (end−begin) times timestamp_period_ns / 1e6 as milliseconds. This establishes how native paths can be nested, not which supported spans actually occur or are disjoint on any host.",
+        "The native documentation claims a platform restriction for timestamp queries, while the implementation checks device features and query limits. Treat the comment as source evidence with possible drift, not proof that a particular backend cannot provide timestamps.",
+        "One hypothetical arithmetic example, not measured data: on 20 aligned frames disjoint pass A takes10 ms only on frame1 and pass B takes10 ms only on frame2, with all other values0. The code’s rounded P95 index is18; each per-path sorted P95 is0, while sorted per-frame totals have 18 zeros and two tens, so total P95 is10 ms. Thus sum-of-P95 is not generally P95-of-sum even with disjoint synchronized paths."
+      ],
+      "first_failed_contract_or_question": "The acceptance aggregate lacks a demonstrated native topology, fresh shared frame identity and documented meaning as a total P95. The mathematical non-additivity is established; an actual incorrect benchmark gate is not.",
+      "counterevidence": "The report retains per-path diagnostics and wall timing, and missing GPU aggregate stays inconclusive; source does not show the supported path population, actual callback cadence, frame-level samples, target hardware, or policy choosing a deliberately conservative approximation. The example establishes neither real overlap nor a measured pass/fail error.",
+      "connected_repair_dependencies": [
+        "Determine the intended total-P95 versus approximation policy and exact supported diagnostic span set.",
+        "Associate fresh native measurements with frame identity and prove disjoint intervals, or measure a directly owned frame total; retain per-path summaries without labeling a sum of independent percentiles as measured total P95.",
+        "Keep unavailable, stale and incomplete GPU timing distinct from complete timing, and reassess all current aliases and hardware gates."
+      ],
+      "later_acceptance": [
+        "A conclusive gate uses a defined frame-level timing contract and does not count stale or incomplete observations as fresh independent frame evidence.",
+        "Per-pass summaries remain available and their aggregation semantics and units are explicit."
+      ],
+      "discovery": "partial; current source, native units/latest-value semantics and symbolic non-additivity connected; actual paths, samples, acceptance policy and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    },
+    {
+      "id": "ADLER-L11-PERFORMANCE-TARGET-IDENTITY-ADMISSION",
+      "queue_pointer": "baseline-059/queue.json#/entries/94",
+      "historical_receipt": "adler/READ-L11-246.json",
+      "canonical_owner": "Explicit target-hardware admission and the stated exact versus target-class policy.",
+      "classification": "Earlier Adler6533 question partially reassessed against current95e source; no historical or checkpoint3821 promotion.",
+      "source_trace": [
+        "The authored target describes a 13-inch base MacBook Air, Apple M5, 8-core GPU, 16 GiB unified memory and fanless cooling.",
+        "The host producer records OS, architecture, chip or CPU text, GPU text, memory and release flag. The matching predicate checks macos, aarch64, Apple M5 substrings in chip and GPU, and a leading numeric memory amount at least16. It does not observe or compare the target model, GPU core count or cooling fields.",
+        "The target acceptance result additionally requires a release build, render diagnostics and the measured gate. Missing profiler fields make the predicate false; comparative results remain possible."
+      ],
+      "first_failed_contract_or_question": "The classifier is broader than the exact descriptive target unless a broader target-class equivalence is the intended policy.",
+      "counterevidence": "The report itself refers to target-class hardware and policy may intentionally admit broader hosts. No native profiler was queried, no host or benchmark was run, and no false acceptance has been observed.",
+      "connected_repair_dependencies": [
+        "Establish authoritative target-class equivalence and native observable fields before deciding whether to tighten admission or correct the target description.",
+        "Preserve an inconclusive result for missing required evidence and comparative measurements for non-target hosts.",
+        "Reconcile all related source and hardware identity aliases."
+      ],
+      "later_acceptance": [
+        "The admission predicate and report agree on exact or target-class scope; missing required identity evidence cannot silently certify that scope."
+      ],
+      "discovery": "partial; current predicate and stated target connected; policy, native host evidence and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "remaining": "Actual renderer paths, callback cadence, diagnostic validity, hardware policy, native host fields and all aliases remain open; original role1700 and all13 lenses remain incomplete. No product repair, benchmark, capture, test or runtime probe ran.",
+  "repair": "not started",
+  "validation": "not performed",
+  "current_lock_evidence": {
+    "path": "Cargo.lock",
+    "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+    "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+    "preserved_bytes": "main-advance-95e/tree-stream-evidence/current-cargo-lock.source.gz",
+    "content_encoding": "gzip",
+    "new_personally_inspected_package": "bevy_diagnostic 0.19.1 checksum lines 1767–1770; bevy_render checksum verified mechanically",
+    "qualification": "The preserved current lock is shared with the earlier tree-stream trace; this package inspection does not complete any historical lock role or demonstrate enabled features."
+  }
+}

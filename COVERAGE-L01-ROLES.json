@@ -11,12 +11,12 @@
   "status_counts": {
     "unassessed": 1134,
     "lock-metadata-partial": 3,
-    "bounded-current-trace-only": 68,
+    "bounded-current-trace-only": 67,
     "assessed-nonapplicable": 3,
-    "full-historical-body-trace-open": 1639,
+    "full-historical-body-trace-open": 1640,
     "deleted-base-trace-open": 6
   },
-  "first_unfinished": "Lock roles39,497 and680 remain metadata-partial; original roles1697–1698 have now been read. Continue historical role1699 at line1601; independent lenses remain open.",
+  "first_unfinished": "Lock roles39,497 and680 remain metadata-partial; original role1699 was personally read through EOF. Continue historical role1700; independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -23266,7 +23266,7 @@
       "historical_sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
       "registry_pointer": "/files/1699",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
       "current_git_blob": "02b72d99ff5d4720f46bb5c2b3e2326bf15c6682",
       "current_observations": [
@@ -23300,7 +23300,7 @@
           ]
         }
       ],
-      "qualification": "Only cited current ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate.",
+      "qualification": "Complete historical viewer body personally inspected in the earlier prefix and subsequent continuation; current95e body separately read through EOF. Historical and current role scope, other lenses, aliases and native behavior remain open.",
       "historical_partial_observations": [
         {
           "assessment": "ASSESSMENT-L01-HISTORICAL-1699-PARTIAL-001.json",
@@ -23324,7 +23324,9 @@
           ]
         }
       ],
-      "historical_partial_qualification": "Historical lines1–1600 personally read; 1601–4477 remain unread by this reviewer. Original Segovb full read and prior current bounded traces remain independently attributed."
+      "historical_partial_qualification": "At the earlier replacement checkpoint only historical lines1–1600 had been personally read. The later continuation through4477 is separately documented; earlier reviewer attribution remains independent.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1699-COMPLETE.json",
+      "current_95e_full_assessment": "ASSESSMENT-L01-HISTORICAL-1699-COMPLETE.json"
     },
     {
       "original_index": 1700,
