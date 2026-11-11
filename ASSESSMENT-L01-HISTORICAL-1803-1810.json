@@ -1,0 +1,460 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1803,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; matching bytes do not transfer a lens verdict.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1803",
+      "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+      "lines": 407,
+      "new_personal_read_ranges": [
+        [
+          1,
+          407
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GROUNDING-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-STAIR-SUPPORT.json",
+          "ranges": [
+            [
+              77,
+              85
+            ],
+            [
+              112,
+              125
+            ],
+            [
+              150,
+              168
+            ],
+            [
+              172,
+              182
+            ],
+            [
+              201,
+              237
+            ],
+            [
+              269,
+              287
+            ],
+            [
+              304,
+              316
+            ],
+            [
+              379,
+              405
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+        "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+        "bytes": 14801,
+        "lines": 407,
+        "git_blob": "c7e7c3b49f7c88910d1b8eb460e723e125f788b3",
+        "preserved_bytes": "main-advance-95e/grounding-evidence/current-1803.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            77,
+            85
+          ],
+          [
+            112,
+            125
+          ],
+          [
+            150,
+            168
+          ],
+          [
+            172,
+            182
+          ],
+          [
+            201,
+            237
+          ],
+          [
+            269,
+            287
+          ],
+          [
+            304,
+            316
+          ],
+          [
+            379,
+            405
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            407
+          ]
+        ],
+        "qualification": "Current body equals exact full historical read; only listed ranges were separately current-inspected. Test source not executed."
+      },
+      "qualification": "Complete historical body read at this identity only; earlier partial current observations and separately attributed historical lenses remain open."
+    },
+    {
+      "original_index": 1804,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/access.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; matching bytes do not transfer a lens verdict.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1804",
+      "sha256": "cf8f7790613cc67bc1de9815eea5ef31cc30c35b571b64930902c42c8d0469ab",
+      "lines": 115,
+      "new_personal_read_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GROUNDING-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/access.rs",
+        "sha256": "cf8f7790613cc67bc1de9815eea5ef31cc30c35b571b64930902c42c8d0469ab",
+        "bytes": 3850,
+        "lines": 115,
+        "git_blob": "54ecad3e07f31ecd3e6eb5fa61c1b3779f673e92",
+        "preserved_bytes": "main-advance-95e/grounding-evidence/current-1804.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            115
+          ]
+        ],
+        "qualification": "Current body equals exact full historical read; only listed ranges were separately current-inspected. Test source not executed."
+      },
+      "qualification": "Complete historical body read at this identity only; earlier partial current observations and separately attributed historical lenses remain open."
+    },
+    {
+      "original_index": 1805,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/access/tests.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; matching bytes do not transfer a lens verdict.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/1805",
+      "sha256": "95d01208f51eef1ecd658d46f278a2653900f5d066b8dbd204b06f92568df4fa",
+      "lines": 92,
+      "new_personal_read_ranges": [
+        [
+          1,
+          92
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GROUNDING-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/access/tests.rs",
+        "sha256": "95d01208f51eef1ecd658d46f278a2653900f5d066b8dbd204b06f92568df4fa",
+        "bytes": 3196,
+        "lines": 92,
+        "git_blob": "282eb3667c17a7aadae77f7bd60304a9d4bd58fa",
+        "preserved_bytes": "main-advance-95e/grounding-evidence/current-1805.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            92
+          ]
+        ],
+        "qualification": "Current body equals exact full historical read; only listed ranges were separately current-inspected. Test source not executed."
+      },
+      "qualification": "Complete historical body read at this identity only; earlier partial current observations and separately attributed historical lenses remain open."
+    },
+    {
+      "original_index": 1806,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/boundaries.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; matching bytes do not transfer a lens verdict.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1806",
+      "sha256": "e66d93cefb4883a44af53783082b0b68b858239941caff7321c9e1f4def9c9d4",
+      "lines": 106,
+      "new_personal_read_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GROUNDING-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/boundaries.rs",
+        "sha256": "e66d93cefb4883a44af53783082b0b68b858239941caff7321c9e1f4def9c9d4",
+        "bytes": 4331,
+        "lines": 106,
+        "git_blob": "38a41f6a8e37cab8df6efbe2f10100061c3e43e2",
+        "preserved_bytes": "main-advance-95e/grounding-evidence/current-1806.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            106
+          ]
+        ],
+        "qualification": "Current body equals exact full historical read; only listed ranges were separately current-inspected. Test source not executed."
+      },
+      "qualification": "Complete historical body read at this identity only; earlier partial current observations and separately attributed historical lenses remain open."
+    },
+    {
+      "original_index": 1807,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/compound.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; matching bytes do not transfer a lens verdict.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1807",
+      "sha256": "22142125daa3ad166d22b90691982c18b7e3de421212d6d49f62079e9ec0b26b",
+      "lines": 304,
+      "new_personal_read_ranges": [
+        [
+          1,
+          304
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GROUNDING-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-STAIR-SUPPORT.json",
+          "ranges": [
+            [
+              110,
+              150
+            ],
+            [
+              225,
+              227
+            ],
+            [
+              270,
+              290
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/compound.rs",
+        "sha256": "22142125daa3ad166d22b90691982c18b7e3de421212d6d49f62079e9ec0b26b",
+        "bytes": 11034,
+        "lines": 304,
+        "git_blob": "f8dd66e3da1b119ad76575bb39182f0ac1358805",
+        "preserved_bytes": "main-advance-95e/grounding-evidence/current-1807.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            110,
+            150
+          ],
+          [
+            225,
+            227
+          ],
+          [
+            270,
+            290
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            304
+          ]
+        ],
+        "qualification": "Current body equals exact full historical read; only listed ranges were separately current-inspected. Test source not executed."
+      },
+      "qualification": "Complete historical body read at this identity only; earlier partial current observations and separately attributed historical lenses remain open."
+    },
+    {
+      "original_index": 1808,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/compound/profiles.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; matching bytes do not transfer a lens verdict.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1808",
+      "sha256": "6ab4bf585e63e8be980b2d6913fe980abd7d17f035499e321ada84e8b0bd2b0b",
+      "lines": 171,
+      "new_personal_read_ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GROUNDING-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-STAIR-SUPPORT.json",
+          "ranges": [
+            [
+              8,
+              43
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/compound/profiles.rs",
+        "sha256": "6ab4bf585e63e8be980b2d6913fe980abd7d17f035499e321ada84e8b0bd2b0b",
+        "bytes": 5807,
+        "lines": 171,
+        "git_blob": "f985b075eb0b2bcd495ad7a66925aa1fec00613f",
+        "preserved_bytes": "main-advance-95e/grounding-evidence/current-1808.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            8,
+            43
+          ],
+          [
+            105,
+            170
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            171
+          ]
+        ],
+        "qualification": "Current body equals exact full historical read; only listed ranges were separately current-inspected. Test source not executed."
+      },
+      "qualification": "Complete historical body read at this identity only; earlier partial current observations and separately attributed historical lenses remain open."
+    },
+    {
+      "original_index": 1809,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/diagnostic.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; matching bytes do not transfer a lens verdict.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1809",
+      "sha256": "520b5ce55ac4b5404d138e55e4d055f098d08b02377b7779dbc54bd970f3db62",
+      "lines": 233,
+      "new_personal_read_ranges": [
+        [
+          1,
+          233
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GROUNDING-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/diagnostic.rs",
+        "sha256": "520b5ce55ac4b5404d138e55e4d055f098d08b02377b7779dbc54bd970f3db62",
+        "bytes": 7491,
+        "lines": 233,
+        "git_blob": "fa7a43418fdda7ed2e88171c7ca2231db47a9552",
+        "preserved_bytes": "main-advance-95e/grounding-evidence/current-1809.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            233
+          ]
+        ],
+        "qualification": "Current body equals exact full historical read; only listed ranges were separately current-inspected. Test source not executed."
+      },
+      "qualification": "Complete historical body read at this identity only; earlier partial current observations and separately attributed historical lenses remain open."
+    },
+    {
+      "original_index": 1810,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; matching bytes do not transfer a lens verdict.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1810",
+      "sha256": "f9abcd66e159994c71c72f4cbf44f1562f9e72eb376d07cbef3f09f01cd2053b",
+      "lines": 263,
+      "new_personal_read_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GROUNDING-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure.rs",
+        "sha256": "f9abcd66e159994c71c72f4cbf44f1562f9e72eb376d07cbef3f09f01cd2053b",
+        "bytes": 9179,
+        "lines": 263,
+        "git_blob": "aa4e64e6039b0e334ebe5f19adc508436d5547ef",
+        "preserved_bytes": "main-advance-95e/grounding-evidence/current-1810.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            263
+          ]
+        ],
+        "qualification": "Current body equals exact full historical read; only listed ranges were separately current-inspected. Test source not executed."
+      },
+      "qualification": "Complete historical body read at this identity only; earlier partial current observations and separately attributed historical lenses remain open."
+    }
+  ],
+  "observations": [
+    "Grounding, access, access test, boundary interval, compound, profile, diagnostic and enclosure bodies read through EOF at6533;95e bodies match. The original1803/1807/1808 had separately documented prior bounded current observations that remain preserved.",
+    "Segovb588–591 are separate Lens12 receipts; 590 explicitly reuses its own earlier full1803 reading without a new body read. Prior independent Root Lens3 prism receipt has6533 attribution; its e275 current qualification was same-lens reuse without a fresh reread. Neither is newly credited as another lens or promoted to3821."
+  ],
+  "remaining": "Continue original1811 and all13 lenses, complete source/consumer/native contracts and aliases. Final3821 original ledger and queue remain missing."
+}
