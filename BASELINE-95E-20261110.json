@@ -4203,7 +4203,10 @@
         "discovery": "partial; symbolic source frame and historical context traced, supported producer and alias status open",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-VISTA-SURFACE-FRAMES-95E.json"
+        "record": "ASSESSMENT-VISTA-SURFACE-FRAMES-95E.json",
+        "additional_assessments": [
+          "ASSESSMENT-OWNED-GROUND-SUPPORT-95E.json"
+        ]
       },
       {
         "id": "REVIEW-VISTA-TREE-SAMPLED-SEAM-HEIGHT-001",
@@ -4221,8 +4224,26 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-VISTA-SURFACE-FRAMES-95E.json"
+      },
+      {
+        "id": "REVIEW-GROUND-SUPPORT-SMALL-TRIANGLE-001",
+        "lens": 7,
+        "severity": "unassigned; conditional geometric precision and support coverage question",
+        "classification": "New95e conditional source-derived support-filter and precision-policy question; no observed product result or checkpoint3821 finding.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1369",
+          "baseline-059/queue.json#/entries/1370",
+          "baseline-059/queue.json#/entries/1371",
+          "baseline-059/queue.json#/entries/1372",
+          "baseline-059/queue.json#/entries/1373"
+        ],
+        "relationship_qualification": "New95e bounded source assessment with earlier6533 support dependencies retained. Exact alias and accepted historical count unchanged; no checkpoint3821 transfer.",
+        "discovery": "partial; current source threshold, symbolic face and consumers traced; real incidence and tolerance policy open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-OWNED-GROUND-SUPPORT-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0820.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0823.json"
 }

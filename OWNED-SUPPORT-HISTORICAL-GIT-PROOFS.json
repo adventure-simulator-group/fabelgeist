@@ -1,0 +1,402 @@
+{
+  "schema": "726-exact-git-tree-path-membership-v1",
+  "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "shared_commit_and_tree_objects": "EQUIPMENT-HISTORICAL-GIT-PROOFS.json",
+  "additional_shared_tree_objects": [
+    "RUNTIME-FIT-HISTORICAL-GIT-PROOFS.json",
+    "MESH-RIG-HISTORICAL-GIT-PROOFS.json",
+    "SLOT-AUDIO-HISTORICAL-GIT-PROOFS.json",
+    "PLAYER-TRACE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-BOUNDARY-HISTORICAL-GIT-PROOFS.json",
+    "CITY-GPU-HISTORICAL-GIT-PROOFS.json",
+    "CITY-STREAMING-HISTORICAL-GIT-PROOFS.json",
+    "CLOUD-HISTORICAL-GIT-PROOFS.json",
+    "GRAPHICS-HISTORICAL-GIT-PROOFS.json",
+    "GENERATION-HISTORICAL-GIT-PROOFS.json",
+    "WORKER-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-HISTORICAL-GIT-PROOFS.json",
+    "GRASS-CHUNK-HISTORICAL-GIT-PROOFS.json",
+    "LITTER-HISTORICAL-GIT-PROOFS.json",
+    "PEBBLE-HISTORICAL-GIT-PROOFS.json",
+    "PLANT-HISTORICAL-GIT-PROOFS.json",
+    "INTERIOR-HISTORICAL-GIT-PROOFS.json",
+    "ROCK-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SHOOT-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SKELETON-HISTORICAL-GIT-PROOFS.json",
+    "TREE-CROWN-HISTORICAL-GIT-PROOFS.json",
+    "TREE-ASSET-HISTORICAL-GIT-PROOFS.json",
+    "TREE-STREAM-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SCENE-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-MAP-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-SURFACE-HISTORICAL-GIT-PROOFS.json",
+    "SKY-TIME-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-LANDFORM-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-CONTACT-HISTORICAL-GIT-PROOFS.json",
+    "VENUE-TERRAIN-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-SELECTED-LOD-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-CARD-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-SURFACE-HISTORICAL-GIT-PROOFS.json"
+  ],
+  "root_tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+  "additional_tree_objects": {
+    "372bc0923b46b9d0d0a8aa8a1b87c62a7709bfa6": {
+      "git_object": "372bc0923b46b9d0d0a8aa8a1b87c62a7709bfa6",
+      "sha256": "597b0e7c3482a627ce893a9ed5e771f93c437182caf34941eea41b1a0fe54eaa",
+      "bytes": 36,
+      "preserved_bytes": "main-advance-95e/owned-support-evidence/git-objects/372bc0923b46b9d0d0a8aa8a1b87c62a7709bfa6.tree.gz"
+    }
+  },
+  "paths": {
+    "crates/adventuresim-tactical-client/src/presentation/vista/owned/clip.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "vista",
+          "mode": "40000",
+          "child": "4a3b1325405011e111e263da399f9941b66384be"
+        },
+        {
+          "tree": "4a3b1325405011e111e263da399f9941b66384be",
+          "name": "owned",
+          "mode": "40000",
+          "child": "c2de4240bb7aa0b7accb2770a0c8b1e8ecbc05a3"
+        },
+        {
+          "tree": "c2de4240bb7aa0b7accb2770a0c8b1e8ecbc05a3",
+          "name": "clip.rs",
+          "mode": "100644",
+          "child": "b1a5ab9f0bef0f59641492df68b4a3a759e51d56"
+        }
+      ],
+      "git_blob": "b1a5ab9f0bef0f59641492df68b4a3a759e51d56",
+      "sha256": "4e14903e00a1840de0492898616f4971787fe47e206cf9aa86be0677cfceba62",
+      "bytes": 5649,
+      "lines": 173
+    },
+    "crates/adventuresim-tactical-client/src/presentation/vista/owned/exterior.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "vista",
+          "mode": "40000",
+          "child": "4a3b1325405011e111e263da399f9941b66384be"
+        },
+        {
+          "tree": "4a3b1325405011e111e263da399f9941b66384be",
+          "name": "owned",
+          "mode": "40000",
+          "child": "c2de4240bb7aa0b7accb2770a0c8b1e8ecbc05a3"
+        },
+        {
+          "tree": "c2de4240bb7aa0b7accb2770a0c8b1e8ecbc05a3",
+          "name": "exterior.rs",
+          "mode": "100644",
+          "child": "e8b8082fe6e557cc109bacde4656d5f1121cbf49"
+        }
+      ],
+      "git_blob": "e8b8082fe6e557cc109bacde4656d5f1121cbf49",
+      "sha256": "14bec49a7133afd8e2a87a8a4476e35a6d192e118f024ca9347d09995a8799a6",
+      "bytes": 7420,
+      "lines": 205
+    },
+    "crates/adventuresim-tactical-client/src/presentation/vista/owned/exterior/tests.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "vista",
+          "mode": "40000",
+          "child": "4a3b1325405011e111e263da399f9941b66384be"
+        },
+        {
+          "tree": "4a3b1325405011e111e263da399f9941b66384be",
+          "name": "owned",
+          "mode": "40000",
+          "child": "c2de4240bb7aa0b7accb2770a0c8b1e8ecbc05a3"
+        },
+        {
+          "tree": "c2de4240bb7aa0b7accb2770a0c8b1e8ecbc05a3",
+          "name": "exterior",
+          "mode": "40000",
+          "child": "372bc0923b46b9d0d0a8aa8a1b87c62a7709bfa6"
+        },
+        {
+          "tree": "372bc0923b46b9d0d0a8aa8a1b87c62a7709bfa6",
+          "name": "tests.rs",
+          "mode": "100644",
+          "child": "f3b4f1e0bcd650ff726eceaba106ca06653d5a31"
+        }
+      ],
+      "git_blob": "f3b4f1e0bcd650ff726eceaba106ca06653d5a31",
+      "sha256": "1455f521cb6c71612071972a6fabcf3c2f061a1535307613a39e5aa13796fc12",
+      "bytes": 10083,
+      "lines": 278
+    },
+    "crates/adventuresim-tactical-client/src/presentation/vista/owned/ground_support.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "vista",
+          "mode": "40000",
+          "child": "4a3b1325405011e111e263da399f9941b66384be"
+        },
+        {
+          "tree": "4a3b1325405011e111e263da399f9941b66384be",
+          "name": "owned",
+          "mode": "40000",
+          "child": "c2de4240bb7aa0b7accb2770a0c8b1e8ecbc05a3"
+        },
+        {
+          "tree": "c2de4240bb7aa0b7accb2770a0c8b1e8ecbc05a3",
+          "name": "ground_support.rs",
+          "mode": "100644",
+          "child": "9af298a0e3d6be15c76acc53688f4efc05d8fd2b"
+        }
+      ],
+      "git_blob": "9af298a0e3d6be15c76acc53688f4efc05d8fd2b",
+      "sha256": "7ac7dc7ee87995bdbce4474c3e4021af78fedc680be85307c28b0a1b9d7b8742",
+      "bytes": 902,
+      "lines": 24
+    },
+    "crates/adventuresim-tactical-client/src/presentation/vista/owned/landform_tests.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "vista",
+          "mode": "40000",
+          "child": "4a3b1325405011e111e263da399f9941b66384be"
+        },
+        {
+          "tree": "4a3b1325405011e111e263da399f9941b66384be",
+          "name": "owned",
+          "mode": "40000",
+          "child": "c2de4240bb7aa0b7accb2770a0c8b1e8ecbc05a3"
+        },
+        {
+          "tree": "c2de4240bb7aa0b7accb2770a0c8b1e8ecbc05a3",
+          "name": "landform_tests.rs",
+          "mode": "100644",
+          "child": "6faccf6bf4624ba3b0564a0b5799fc1102e9a9c1"
+        }
+      ],
+      "git_blob": "6faccf6bf4624ba3b0564a0b5799fc1102e9a9c1",
+      "sha256": "14b7c273b21771348ab17951483968e1e7af0202447adba841bc22efd5a66123",
+      "bytes": 3956,
+      "lines": 118
+    },
+    "crates/adventuresim-tactical-client/src/presentation/vista/owned/tests.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "vista",
+          "mode": "40000",
+          "child": "4a3b1325405011e111e263da399f9941b66384be"
+        },
+        {
+          "tree": "4a3b1325405011e111e263da399f9941b66384be",
+          "name": "owned",
+          "mode": "40000",
+          "child": "c2de4240bb7aa0b7accb2770a0c8b1e8ecbc05a3"
+        },
+        {
+          "tree": "c2de4240bb7aa0b7accb2770a0c8b1e8ecbc05a3",
+          "name": "tests.rs",
+          "mode": "100644",
+          "child": "0d626dd65d6cf204f26bcbd02ff2f52b15befac2"
+        }
+      ],
+      "git_blob": "0d626dd65d6cf204f26bcbd02ff2f52b15befac2",
+      "sha256": "faef758b3ef963184f891557add73e0e4cde021149d19e799f6b56c872e36c66",
+      "bytes": 14102,
+      "lines": 350
+    },
+    "crates/adventuresim-tactical-client/src/presentation/vista/pending.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "vista",
+          "mode": "40000",
+          "child": "4a3b1325405011e111e263da399f9941b66384be"
+        },
+        {
+          "tree": "4a3b1325405011e111e263da399f9941b66384be",
+          "name": "pending.rs",
+          "mode": "100644",
+          "child": "be5c9c4bed368de1233c303c009ec15d68549914"
+        }
+      ],
+      "git_blob": "be5c9c4bed368de1233c303c009ec15d68549914",
+      "sha256": "d23d3716ef9b634a101ce7e70d7f0b1e6be43de6e38ccf32c015ffacfb804aa2",
+      "bytes": 2954,
+      "lines": 83
+    }
+  },
+  "qualification": "Raw Git objects prove6533 source paths; future roles1652–1653 have no new personal historical role credit at this checkpoint."
+}
