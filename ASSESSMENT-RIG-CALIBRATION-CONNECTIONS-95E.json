@@ -1,0 +1,737 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    5,
+    7,
+    11,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Two earlier role/calibration findings and selected revision safeguards, connected to ten personally read historical source roles.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1340-1349.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9f3cc5b2c458a41bc49c82502a39d1159c1e8f13",
+      "sha256": "4b41d158f102b67dd8ec40b40179456bbb348084165de92c33cf57fd8981b5da",
+      "bytes": 73988,
+      "lines": 1894,
+      "ranges": [
+        [
+          330,
+          351
+        ],
+        [
+          1018,
+          1045
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rig-calibration-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; full source bytes retained for recovery. No asset, scenario, test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/rig_identity.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8f9cc1a3f4cad4fa9e649a33bfeceb4b69113f62",
+      "sha256": "207d7aff4743dc30e8fd603dd02ca0e9dd83863ac4c65bc53e208949767a7b64",
+      "bytes": 2343,
+      "lines": 84,
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rig-calibration-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; full source bytes retained for recovery. No asset, scenario, test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d5c5f185dee3d9d2e05b14aa7987550b9756dda0",
+      "sha256": "5da088286521af8e54c621b356ceb3fa949d3870c3748494352eda9016277bec",
+      "bytes": 17113,
+      "lines": 514,
+      "ranges": [
+        [
+          136,
+          205
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rig-calibration-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; full source bytes retained for recovery. No asset, scenario, test or product ran."
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "711237c82078c4612f9c01266e19254b47b7308a",
+      "sha256": "7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+      "bytes": 4369,
+      "lines": 155,
+      "ranges": [
+        [
+          17,
+          48
+        ],
+        [
+          109,
+          113
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rig-calibration-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; full source bytes retained for recovery. No asset, scenario, test or product ran."
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/names.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e32c8372ceeed04055ca0084b1a80deefce45bb2",
+      "sha256": "94146b1b91f11d9711a5439e607b357cd8bb2fe828de4763cb432f58b0225554",
+      "bytes": 5002,
+      "lines": 78,
+      "ranges": [
+        [
+          1,
+          12
+        ],
+        [
+          43,
+          47
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rig-calibration-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; full source bytes retained for recovery. No asset, scenario, test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/clip_revision.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "64093080a5f77695c48db6c5e2ee93fc487a2c96",
+      "sha256": "a5a0437f0f85693b6e9a31ae24c43d47025c035cb436d68bcc2015213703c6ec",
+      "bytes": 3391,
+      "lines": 100,
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rig-calibration-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; full source bytes retained for recovery. No asset, scenario, test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/clip_revision/events.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1b21159a05428d4d674c0d2170414288e4bc5078",
+      "sha256": "b9dac06a620f8567a5eeef7aaef43f241262a4a7268577eff9d3714e02445b07",
+      "bytes": 2740,
+      "lines": 78,
+      "ranges": [
+        [
+          27,
+          65
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rig-calibration-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; full source bytes retained for recovery. No asset, scenario, test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "37ce84a60849e27b7248e424638677cc1dbec945",
+      "sha256": "12d4b4e5ed4ce3940c78b7ee4420ec94e5efa83776b14d60afdbf2ba0d501f5d",
+      "bytes": 6458,
+      "lines": 190,
+      "ranges": [
+        [
+          75,
+          108
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rig-calibration-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; full source bytes retained for recovery. No asset, scenario, test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/loading.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9cc8f25516d91650f9eb528c16bb1fa971a511da",
+      "sha256": "eacc5fba1f6e67621c9d3e473d7556c5cf66ba140e3f1c80431b5568de9fda07",
+      "bytes": 13401,
+      "lines": 390,
+      "ranges": [
+        [
+          90,
+          115
+        ],
+        [
+          199,
+          223
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rig-calibration-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; full source bytes retained for recovery. No asset, scenario, test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9d20e485651cedabc0b3a980b476ba73949ccc0c",
+      "sha256": "754a5ea02732df10071edad99a78c5fc1524236ac1232401129c06da611834ee",
+      "bytes": 5565,
+      "lines": 118,
+      "ranges": [
+        [
+          37,
+          61
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rig-calibration-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; full source bytes retained for recovery. No asset, scenario, test or product ran."
+    }
+  ],
+  "existing_finding_connections": [
+    {
+      "id": "ADLER-L11-POSE-LEG-ROLE-REDECODING",
+      "relationship": "Same earlier conditional anatomical role/lookup question; no unique finding added.",
+      "trace": "Current RigJointName retains exact case-sensitive authored labels; AuthoredRigJoint classifies BoneRole by exact canonical-name equality. RigDefinition orders bindings by exact name and stores the resulting role. Terrain conformity instead looks up left/right chain names with eq_ignore_ascii_case, while contact calibration looks up exact L_FOOT/R_FOOT ordinals. If an admitted rig contains both L_UPLEG and l_upleg, the upper-case name sorts first, can match terrain selection, and is not the exact canonical thigh role.",
+      "guards_and_limits": "The example assumes both labels are admitted in the same actual rig and are selected before alternative ties. No base GLB, exported helper, hierarchy, transform, selected terrain solve or runtime mismatch was observed. Whether case-folded lookup is a deliberate policy and whether this topology is supported remain open. The separate zero-segment clamp operation is not an alias of this identity question.",
+      "connected_repair": "Establish one intended anatomical role witness across terrain selection, exact calibration and procedural IK while preserving open authored labels and explicitly intended query-specific matching. Trace actual asset admission and native consumers before deciding.",
+      "discovery": "partial",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "ADLER-L11-LOCOMOTION-ANCHOR-REPARAMETERIZATION",
+      "relationship": "Existing interpolation/calibration policy question; no unique finding added.",
+      "trace": "Current stride calibration bakes source clips, applies character offsets and fits walk/run contact curves; the current live sampler previously traced in ASSESSMENT-INERTIAL-COEFFICIENTS-95E.json uses sparse semantic anchors. Revision invalidation removes affected baked clips, measured strides and phase curves, and invalidates matching pose plans.",
+      "guards_and_limits": "A failed new measurement alone does not establish stale state because the source revision owner clears matching derived entries; source event delivery, native asset scheduling, the actual selected plan and complete source-versus-sparse calibration composition remain open. No measured slip or visible effect is claimed.",
+      "connected_repair": "Reconcile the intended calibration input with the actual runtime interpolation and preserve revision invalidation, typed phase/identity and valid unavailable-measurement modes.",
+      "discovery": "partial",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "additional_open_question": "The selected source stores the base-rig loading state and caches a rig definition by skeleton family; the revision routine examined here explicitly handles motion/grip clips and their derived caches. Supported base-rig source reload, scene replacement, binding invalidation, event scheduling and native WorldAsset semantics remain unassessed. The absence of an explicit branch in these selected bodies alone is not a demonstrated stale rig or a new defect.",
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointers": [
+        "/discovery_findings_and_dependencies/ADLER-L11-POSE-LEG-ROLE-REDECODING",
+        "/discovery_findings_and_dependencies/ADLER-L11-LOCOMOTION-ANCHOR-REPARAMETERIZATION"
+      ],
+      "qualification": "Earlier records retain their original revision, attribution, and open limitations."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/36",
+        "/entries/37",
+        "/entries/1135 through /entries/1144"
+      ],
+      "qualification": "Selected current source connections are partial only."
+    },
+    {
+      "file": "ASSESSMENT-POSE-LEG-BOUNDS-95E.json",
+      "qualification": "Related but distinct conditional arithmetic boundary."
+    },
+    {
+      "file": "ASSESSMENT-INERTIAL-COEFFICIENTS-95E.json",
+      "qualification": "Prior partial current locomotion policy and inertial-operation trace."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-180.json",
+      "sha256": "56ab041bbfd4a178b9742569b6eb09ed3fb4ecb03fda2ee820ed1fc239216504",
+      "bytes": 13388,
+      "git_blob": "a9cf726accbc36cb864746b815fe8440fe452b38",
+      "preserved_bytes": "recovered/rig-calibration-059/56ab041bbfd4a178b9742569b6eb09ed3fb4ecb03fda2ee820ed1fc239216504.gz",
+      "published_sha256": "56ab041bbfd4a178b9742569b6eb09ed3fb4ecb03fda2ee820ed1fc239216504",
+      "published_bytes": 13388,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier separately attributed role or calibration finding"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-181.json",
+      "sha256": "65fad80dc7c07e49a98ca90b75428b2947528b0110063b19cfe50d052cde9980",
+      "bytes": 10139,
+      "git_blob": "fc5c56a5dbfb825acc70c34173d17a5bd0620c39",
+      "preserved_bytes": "recovered/rig-calibration-059/65fad80dc7c07e49a98ca90b75428b2947528b0110063b19cfe50d052cde9980.gz",
+      "published_sha256": "65fad80dc7c07e49a98ca90b75428b2947528b0110063b19cfe50d052cde9980",
+      "published_bytes": 10139,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier separately attributed role or calibration finding"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-182.json",
+      "sha256": "0d8e30123eb097c6d4393d3066e8a1ece0ec941ee7d27b888a138f401ccbbff8",
+      "bytes": 16555,
+      "git_blob": "7c94f3d9f47f5d8a1a5b627e30d228c48f9d1732",
+      "preserved_bytes": "recovered/rig-calibration-059/0d8e30123eb097c6d4393d3066e8a1ece0ec941ee7d27b888a138f401ccbbff8.gz",
+      "published_sha256": "0d8e30123eb097c6d4393d3066e8a1ece0ec941ee7d27b888a138f401ccbbff8",
+      "published_bytes": 16555,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier separately attributed role or calibration finding"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-183.json",
+      "sha256": "426bfc6879a2392003e9159723fc9a12a568985a3312adfc7ebc1863bbad1cbe",
+      "bytes": 8600,
+      "git_blob": "a43e22725d03bb860921964fc0bb065a50675424",
+      "preserved_bytes": "recovered/rig-calibration-059/426bfc6879a2392003e9159723fc9a12a568985a3312adfc7ebc1863bbad1cbe.gz",
+      "published_sha256": "426bfc6879a2392003e9159723fc9a12a568985a3312adfc7ebc1863bbad1cbe",
+      "published_bytes": 8600,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier separately attributed role or calibration finding"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-371.json",
+      "sha256": "1da760943b9961caa92c9fcf38bf3842037ecd4b8c2a228de084bc5e29be394b",
+      "bytes": 1756,
+      "git_blob": "86787aae41044683a6a57fd750790d2485556992",
+      "preserved_bytes": "recovered/rig-calibration-059/1da760943b9961caa92c9fcf38bf3842037ecd4b8c2a228de084bc5e29be394b.gz",
+      "published_sha256": "1da760943b9961caa92c9fcf38bf3842037ecd4b8c2a228de084bc5e29be394b",
+      "published_bytes": 1756,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-372.json",
+      "sha256": "fb23eb5bda9a4233edf07dd8f4402533688de40f69d72a9e3ea54477cc1122e2",
+      "bytes": 2277,
+      "git_blob": "6fbe068f2cf8b8da8539812f81f71e7635038b25",
+      "preserved_bytes": "recovered/rig-calibration-059/fb23eb5bda9a4233edf07dd8f4402533688de40f69d72a9e3ea54477cc1122e2.gz",
+      "published_sha256": "fb23eb5bda9a4233edf07dd8f4402533688de40f69d72a9e3ea54477cc1122e2",
+      "published_bytes": 2277,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-373.json",
+      "sha256": "0f500df0da503aed1690ea4901a54c1b580aa654d372cc9bce65427e65f9cdb4",
+      "bytes": 1728,
+      "git_blob": "9ffa47e9d45e958ba99bb252b27c95725b14aee1",
+      "preserved_bytes": "recovered/rig-calibration-059/0f500df0da503aed1690ea4901a54c1b580aa654d372cc9bce65427e65f9cdb4.gz",
+      "published_sha256": "0f500df0da503aed1690ea4901a54c1b580aa654d372cc9bce65427e65f9cdb4",
+      "published_bytes": 1728,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-374.json",
+      "sha256": "43e024cfd1f1a23b673ea591659b4000877a2a35ab6a587fd89bd38071d1393d",
+      "bytes": 1243,
+      "git_blob": "aac2596eda48cc41a0be965afcef71b5f996e019",
+      "preserved_bytes": "recovered/rig-calibration-059/43e024cfd1f1a23b673ea591659b4000877a2a35ab6a587fd89bd38071d1393d.gz",
+      "published_sha256": "43e024cfd1f1a23b673ea591659b4000877a2a35ab6a587fd89bd38071d1393d",
+      "published_bytes": 1243,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-371.json",
+      "sha256": "974ebaf2d25f1b44cf592150881a5a6b19f582c43a9ea51061e4e44d97e722f3",
+      "bytes": 14980,
+      "git_blob": "05b49d927d0d10981dd4ddd7ce4cb071247b6ec8",
+      "preserved_bytes": "recovered/rig-calibration-059/974ebaf2d25f1b44cf592150881a5a6b19f582c43a9ea51061e4e44d97e722f3.gz",
+      "published_sha256": "974ebaf2d25f1b44cf592150881a5a6b19f582c43a9ea51061e4e44d97e722f3",
+      "published_bytes": 14980,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-372.json",
+      "sha256": "417d35e2ea09f8e4eb6028b68f6e19bc6df0f818b42037addecda07f6a1e6b1d",
+      "bytes": 14543,
+      "git_blob": "0e6761373b2807b12b13534170b0ef00247c6445",
+      "preserved_bytes": "recovered/rig-calibration-059/417d35e2ea09f8e4eb6028b68f6e19bc6df0f818b42037addecda07f6a1e6b1d.gz",
+      "published_sha256": "417d35e2ea09f8e4eb6028b68f6e19bc6df0f818b42037addecda07f6a1e6b1d",
+      "published_bytes": 14543,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-373.json",
+      "sha256": "efbe53e16901afbf512aa32af45b34bb131d8c0f494c6bd43d019abe677b5839",
+      "bytes": 13221,
+      "git_blob": "11d47b27bbf6b786834d84ae3f39da087c60e335",
+      "preserved_bytes": "recovered/rig-calibration-059/efbe53e16901afbf512aa32af45b34bb131d8c0f494c6bd43d019abe677b5839.gz",
+      "published_sha256": "efbe53e16901afbf512aa32af45b34bb131d8c0f494c6bd43d019abe677b5839",
+      "published_bytes": 13221,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-374.json",
+      "sha256": "80e84b62da5f326b1af6036a541086b22bd5ceda4bf19dbe9af7637c8e956497",
+      "bytes": 9987,
+      "git_blob": "3909448dc3a8c4a7f1b0b763229ca9615bc8562d",
+      "preserved_bytes": "recovered/rig-calibration-059/80e84b62da5f326b1af6036a541086b22bd5ceda4bf19dbe9af7637c8e956497.gz",
+      "published_sha256": "80e84b62da5f326b1af6036a541086b22bd5ceda4bf19dbe9af7637c8e956497",
+      "published_bytes": 9987,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-245.json",
+      "sha256": "b1f230ff5ca261893ac097af1edc06535ade04fe483825a8e0a30f384c1c0636",
+      "bytes": 1263,
+      "git_blob": "a5679d19e629584e62648eab28990d2ce2c14bd4",
+      "preserved_bytes": "recovered/rig-calibration-059/b1f230ff5ca261893ac097af1edc06535ade04fe483825a8e0a30f384c1c0636.gz",
+      "published_sha256": "b1f230ff5ca261893ac097af1edc06535ade04fe483825a8e0a30f384c1c0636",
+      "published_bytes": 1263,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-246.json",
+      "sha256": "d0e1a5b0e8e8106ca48f52a3e4763b92855a946ec40535d0dbc68cfdfc94e941",
+      "bytes": 1277,
+      "git_blob": "06d7bbc0e882086ea092e261f7dfff7258bc99ec",
+      "preserved_bytes": "recovered/rig-calibration-059/d0e1a5b0e8e8106ca48f52a3e4763b92855a946ec40535d0dbc68cfdfc94e941.gz",
+      "published_sha256": "d0e1a5b0e8e8106ca48f52a3e4763b92855a946ec40535d0dbc68cfdfc94e941",
+      "published_bytes": 1277,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-247.json",
+      "sha256": "a2272c4143523fa1d256c572c282c127211482e13e10e8c8883bd0691b2a8c93",
+      "bytes": 1273,
+      "git_blob": "0385bc97cfd8a4ed90d9fb8c3578d149570f2f15",
+      "preserved_bytes": "recovered/rig-calibration-059/a2272c4143523fa1d256c572c282c127211482e13e10e8c8883bd0691b2a8c93.gz",
+      "published_sha256": "a2272c4143523fa1d256c572c282c127211482e13e10e8c8883bd0691b2a8c93",
+      "published_bytes": 1273,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-248.json",
+      "sha256": "afefb10c38ad0bd850913e9b2bc65a58bec49cbdd491e7d8dc4091f6e53c6b04",
+      "bytes": 1294,
+      "git_blob": "b26c0d13950011d82d31c49f5dd473ad0de27292",
+      "preserved_bytes": "recovered/rig-calibration-059/afefb10c38ad0bd850913e9b2bc65a58bec49cbdd491e7d8dc4091f6e53c6b04.gz",
+      "published_sha256": "afefb10c38ad0bd850913e9b2bc65a58bec49cbdd491e7d8dc4091f6e53c6b04",
+      "published_bytes": 1294,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-249.json",
+      "sha256": "d8b96128cae7b86765d683e3a4413bf11ad02e2a054cfd4a0b92ddd11db5f341",
+      "bytes": 1320,
+      "git_blob": "3e3d35bcba85b65c03934b0c408570d6da481c14",
+      "preserved_bytes": "recovered/rig-calibration-059/d8b96128cae7b86765d683e3a4413bf11ad02e2a054cfd4a0b92ddd11db5f341.gz",
+      "published_sha256": "d8b96128cae7b86765d683e3a4413bf11ad02e2a054cfd4a0b92ddd11db5f341",
+      "published_bytes": 1320,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-250.json",
+      "sha256": "a2a032e745188a36ffc0dfcc9a4e5d252af7870c7f1e16e5f2090ca9305782e3",
+      "bytes": 1272,
+      "git_blob": "9726849ba676d2a00298553e0982b8f34b1629dd",
+      "preserved_bytes": "recovered/rig-calibration-059/a2a032e745188a36ffc0dfcc9a4e5d252af7870c7f1e16e5f2090ca9305782e3.gz",
+      "published_sha256": "a2a032e745188a36ffc0dfcc9a4e5d252af7870c7f1e16e5f2090ca9305782e3",
+      "published_bytes": 1272,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-251.json",
+      "sha256": "b5d16dad629f948f217111db89ae1b95ff18fc194d9f0544da86b4f3077c37ba",
+      "bytes": 1272,
+      "git_blob": "12ddc7592a86cb2b4f2a29ead993e6b0286f7730",
+      "preserved_bytes": "recovered/rig-calibration-059/b5d16dad629f948f217111db89ae1b95ff18fc194d9f0544da86b4f3077c37ba.gz",
+      "published_sha256": "b5d16dad629f948f217111db89ae1b95ff18fc194d9f0544da86b4f3077c37ba",
+      "published_bytes": 1272,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-252.json",
+      "sha256": "7bc8b1e6b74a4c99aceb31732b07c2f57cea7f747bfbd0c235de641dd48ea965",
+      "bytes": 1259,
+      "git_blob": "8d034f5162d6e208e0f3e9c8ed34c471c010c115",
+      "preserved_bytes": "recovered/rig-calibration-059/7bc8b1e6b74a4c99aceb31732b07c2f57cea7f747bfbd0c235de641dd48ea965.gz",
+      "published_sha256": "7bc8b1e6b74a4c99aceb31732b07c2f57cea7f747bfbd0c235de641dd48ea965",
+      "published_bytes": 1259,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-253.json",
+      "sha256": "c7a99e0679d6cdd3124f97f150f2919559dc370ee6f76acaac75745e54b082e1",
+      "bytes": 1279,
+      "git_blob": "b9c6d44669241d07d33a98ab03be9bca85aafd79",
+      "preserved_bytes": "recovered/rig-calibration-059/c7a99e0679d6cdd3124f97f150f2919559dc370ee6f76acaac75745e54b082e1.gz",
+      "published_sha256": "c7a99e0679d6cdd3124f97f150f2919559dc370ee6f76acaac75745e54b082e1",
+      "published_bytes": 1279,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-254.json",
+      "sha256": "4a08bc96370c310e618321022015e8caf59f9f4a59a3ba76226dd9be89844493",
+      "bytes": 1263,
+      "git_blob": "70ee99726e168a500757f98584529c9b6eccb776",
+      "preserved_bytes": "recovered/rig-calibration-059/4a08bc96370c310e618321022015e8caf59f9f4a59a3ba76226dd9be89844493.gz",
+      "published_sha256": "4a08bc96370c310e618321022015e8caf59f9f4a59a3ba76226dd9be89844493",
+      "published_bytes": 1263,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-255.json",
+      "sha256": "8cf258f5af53a558a65385ab7ed5a105fdc49680253b408892bd5d9b9b008103",
+      "bytes": 1290,
+      "git_blob": "64ec8a12af5c119dd641c1263cbce4dc7fd1aa54",
+      "preserved_bytes": "recovered/rig-calibration-059/8cf258f5af53a558a65385ab7ed5a105fdc49680253b408892bd5d9b9b008103.gz",
+      "published_sha256": "8cf258f5af53a558a65385ab7ed5a105fdc49680253b408892bd5d9b9b008103",
+      "published_bytes": 1290,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-256.json",
+      "sha256": "2fb9662b9edd28e9f4c0b2365a9e5fa2e987e291f9150556b27cb3118598f3d3",
+      "bytes": 1272,
+      "git_blob": "e5191527ca219e6bc0c3b03fa5529c5229a17224",
+      "preserved_bytes": "recovered/rig-calibration-059/2fb9662b9edd28e9f4c0b2365a9e5fa2e987e291f9150556b27cb3118598f3d3.gz",
+      "published_sha256": "2fb9662b9edd28e9f4c0b2365a9e5fa2e987e291f9150556b27cb3118598f3d3",
+      "published_bytes": 1272,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-371.json",
+      "sha256": "12ab873441f74f1a16e8b1424fa218cb7de768b9828e06bb051b0630b2864052",
+      "bytes": 840,
+      "git_blob": "52bad81b4f8322167eef9ee6a1c021968b51c108",
+      "preserved_bytes": "recovered/rig-calibration-059/12ab873441f74f1a16e8b1424fa218cb7de768b9828e06bb051b0630b2864052.gz",
+      "published_sha256": "12ab873441f74f1a16e8b1424fa218cb7de768b9828e06bb051b0630b2864052",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-372.json",
+      "sha256": "3d89aca6b58aae5e4fab34d2f956c67a8deedd09298e863a2dcc3a608612997e",
+      "bytes": 840,
+      "git_blob": "5e22450bb68ea400d0c5f0cf643e39b8fe870111",
+      "preserved_bytes": "recovered/rig-calibration-059/3d89aca6b58aae5e4fab34d2f956c67a8deedd09298e863a2dcc3a608612997e.gz",
+      "published_sha256": "3d89aca6b58aae5e4fab34d2f956c67a8deedd09298e863a2dcc3a608612997e",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-373.json",
+      "sha256": "301eb8e3b4bc971b1f5e74d9cf355ed629a3ac43348768ba507a307f9c2bbe4f",
+      "bytes": 840,
+      "git_blob": "3a92fdeefb06b58ca2841d3f18ee5a5576f51c26",
+      "preserved_bytes": "recovered/rig-calibration-059/301eb8e3b4bc971b1f5e74d9cf355ed629a3ac43348768ba507a307f9c2bbe4f.gz",
+      "published_sha256": "301eb8e3b4bc971b1f5e74d9cf355ed629a3ac43348768ba507a307f9c2bbe4f",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-374.json",
+      "sha256": "8f3b22e932565409c22e1144b77258506a9d955c9a17d80e17d7338eeaa9eae6",
+      "bytes": 840,
+      "git_blob": "3c3b1b36a9487232dc614dfc80117825502ba27d",
+      "preserved_bytes": "recovered/rig-calibration-059/8f3b22e932565409c22e1144b77258506a9d955c9a17d80e17d7338eeaa9eae6.gz",
+      "published_sha256": "8f3b22e932565409c22e1144b77258506a9d955c9a17d80e17d7338eeaa9eae6",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-371.json",
+      "sha256": "c35e2d5ac52cb336bcf09a6ddeff8d8424d7daeae99b30176f37ef9c9f8f6d2a",
+      "bytes": 558,
+      "git_blob": "bfa06c2031edb0d70d4ed3c473fe3f51d439cfa2",
+      "preserved_bytes": "recovered/rig-calibration-059/c35e2d5ac52cb336bcf09a6ddeff8d8424d7daeae99b30176f37ef9c9f8f6d2a.gz",
+      "published_sha256": "c35e2d5ac52cb336bcf09a6ddeff8d8424d7daeae99b30176f37ef9c9f8f6d2a",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-372.json",
+      "sha256": "2975fed3a38993637f113f2eb955c7da47be1691f9a6153595ffec11458cf449",
+      "bytes": 558,
+      "git_blob": "d0c843cc7ab3426d9a3cf4dd9ca2ae4b6ebfa60b",
+      "preserved_bytes": "recovered/rig-calibration-059/2975fed3a38993637f113f2eb955c7da47be1691f9a6153595ffec11458cf449.gz",
+      "published_sha256": "2975fed3a38993637f113f2eb955c7da47be1691f9a6153595ffec11458cf449",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-373.json",
+      "sha256": "191130292716c11279e7108b938b22c31c2f1ef6daf537f91a17dc1b33adc948",
+      "bytes": 558,
+      "git_blob": "073d502353e053e90a388f9381476bc7a0a62a6f",
+      "preserved_bytes": "recovered/rig-calibration-059/191130292716c11279e7108b938b22c31c2f1ef6daf537f91a17dc1b33adc948.gz",
+      "published_sha256": "191130292716c11279e7108b938b22c31c2f1ef6daf537f91a17dc1b33adc948",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-374.json",
+      "sha256": "3bf0abd314be3dabb5a5df2ead149e71a00e37e4781db29b91f06d9fa5401858",
+      "bytes": 558,
+      "git_blob": "171a05130324f709f5d93ce1480344138eeb960a",
+      "preserved_bytes": "recovered/rig-calibration-059/3bf0abd314be3dabb5a5df2ead149e71a00e37e4781db29b91f06d9fa5401858.gz",
+      "published_sha256": "3bf0abd314be3dabb5a5df2ead149e71a00e37e4781db29b91f06d9fa5401858",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and scope retained; no final checkpoint 3821 transfer."
+    }
+  ],
+  "new_unique_candidate_count": 0,
+  "remaining": "Actual authored rig/asset inputs, full native event and cache lifecycle, calibration composition, exact aliases and thirteen independent lenses remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
