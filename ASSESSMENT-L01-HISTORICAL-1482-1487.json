@@ -1,0 +1,224 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1482,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; this original body equals the 6533 committed-tree blob. Any changed 95e body remains separate.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1482",
+      "sha256": "6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c",
+      "lines": 143,
+      "new_personal_read_ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "RUNTIME-FIT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment.rs",
+        "sha256": "6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c",
+        "bytes": 4328,
+        "lines": 143,
+        "git_blob": "baa4d703d42972f53f071533ef579b237d46b536",
+        "preserved_bytes": "main-advance-95e/runtime-fit-evidence/current-1482.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Only stated current-source traces are credited. Historical review, later source changes and other lenses remain distinct."
+      },
+      "qualification": "Full original body personally read through actual EOF; test/fixture source was read as text only. Earlier reviewers, source revision and no-fresh-read qualifications remain distinct. No generation, renderer, asset, GPU, test or product runtime ran."
+    },
+    {
+      "original_index": 1483,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/body.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; this original body equals the 6533 committed-tree blob. Any changed 95e body remains separate.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1483",
+      "sha256": "fa65ba144131a0190348b38de97ef1fdcf28b5625f80f5b66ddd92a7d1ce3f82",
+      "lines": 229,
+      "new_personal_read_ranges": [
+        [
+          1,
+          229
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "RUNTIME-FIT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/body.rs",
+        "sha256": "fa65ba144131a0190348b38de97ef1fdcf28b5625f80f5b66ddd92a7d1ce3f82",
+        "bytes": 7838,
+        "lines": 229,
+        "git_blob": "f259239f2b5a49f7c57c494e2bdf0da18ff6002d",
+        "preserved_bytes": "main-advance-95e/runtime-fit-evidence/current-1483.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Only stated current-source traces are credited. Historical review, later source changes and other lenses remain distinct."
+      },
+      "qualification": "Full original body personally read through actual EOF; test/fixture source was read as text only. Earlier reviewers, source revision and no-fresh-read qualifications remain distinct. No generation, renderer, asset, GPU, test or product runtime ran."
+    },
+    {
+      "original_index": 1484,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; this original body equals the 6533 committed-tree blob. Any changed 95e body remains separate.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1484",
+      "sha256": "ea41899e503a9d300af874feb8f230532b8e8c1b9f6994c4c89b690746dfaf29",
+      "lines": 467,
+      "new_personal_read_ranges": [
+        [
+          1,
+          467
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "RUNTIME-FIT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation.rs",
+        "sha256": "8fd8eb2ebae7206be3aa38b846ff7258857b16f4508ac77e1979d0d9aa32c93d",
+        "bytes": 16086,
+        "lines": 469,
+        "git_blob": "cdbbd4ed0e444db23e913bda3c21cbcd7299be13",
+        "preserved_bytes": "main-advance-95e/runtime-fit-evidence/current-1484.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "qualification": "Only stated current-source traces are credited. Historical review, later source changes and other lenses remain distinct.",
+        "diff": "main-advance-95e/runtime-fit-evidence/original-1484-to-95e.diff",
+        "diff_sha256": "4565059b8f381ae332c3aebb43e7ca0fc0d9f25babbd56e829b9d5bb6b4c7ada"
+      },
+      "qualification": "Full original body personally read through actual EOF; test/fixture source was read as text only. Earlier reviewers, source revision and no-fresh-read qualifications remain distinct. No generation, renderer, asset, GPU, test or product runtime ran."
+    },
+    {
+      "original_index": 1485,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation_tests.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; this original body equals the 6533 committed-tree blob. Any changed 95e body remains separate.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1485",
+      "sha256": "8acbe54a829e4f8c3f5e3d2fc5b4efe91415a6ebf0ea601ed3d98c46f410d6e6",
+      "lines": 394,
+      "new_personal_read_ranges": [
+        [
+          1,
+          394
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "RUNTIME-FIT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation_tests.rs",
+        "sha256": "d82814af4d7f2f21af34388956620e05c701fcc8f1167bb20777ce8036bf6af3",
+        "bytes": 12112,
+        "lines": 395,
+        "git_blob": "2a437a5924174f603755fac2663a1351be84dfbf",
+        "preserved_bytes": "main-advance-95e/runtime-fit-evidence/current-1485.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "qualification": "Only stated current-source traces are credited. Historical review, later source changes and other lenses remain distinct.",
+        "diff": "main-advance-95e/runtime-fit-evidence/original-1485-to-95e.diff",
+        "diff_sha256": "ceff37fff58f9f0ac00c20aa896140781ca2869c1cbdd302ab22b01744701d08"
+      },
+      "qualification": "Full original body personally read through actual EOF; test/fixture source was read as text only. Earlier reviewers, source revision and no-fresh-read qualifications remain distinct. No generation, renderer, asset, GPU, test or product runtime ran."
+    },
+    {
+      "original_index": 1486,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; this original body equals the 6533 committed-tree blob. Any changed 95e body remains separate.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1486",
+      "sha256": "f57dcb58da364002292182c580ca197bfaa3ad85fc820f2dc6ce95d078b25dc0",
+      "lines": 193,
+      "new_personal_read_ranges": [
+        [
+          1,
+          193
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "RUNTIME-FIT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs",
+        "sha256": "4f2a0ea9d96dba2f493cb7bd317313f553b00f0e29ff1eb0c223c7eed02058f4",
+        "bytes": 6610,
+        "lines": 204,
+        "git_blob": "4f0d072b616243228cc88090377077236e01f27f",
+        "preserved_bytes": "main-advance-95e/runtime-fit-evidence/current-1486.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "qualification": "Only stated current-source traces are credited. Historical review, later source changes and other lenses remain distinct.",
+        "diff": "main-advance-95e/runtime-fit-evidence/original-1486-to-95e.diff",
+        "diff_sha256": "9ae26035a8f39f38ba7c1396ac69237599cc15c9c85a6350749b0f0ba84ba859"
+      },
+      "qualification": "Full original body personally read through actual EOF; test/fixture source was read as text only. Earlier reviewers, source revision and no-fresh-read qualifications remain distinct. No generation, renderer, asset, GPU, test or product runtime ran."
+    },
+    {
+      "original_index": 1487,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers_tests.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; this original body equals the 6533 committed-tree blob. Any changed 95e body remains separate.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1487",
+      "sha256": "3ffe851b3adc14ac721684061b3d858a69bdf83e8114530b5f8c2639cda5dcdd",
+      "lines": 62,
+      "new_personal_read_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "RUNTIME-FIT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers_tests.rs",
+        "sha256": "3ffe851b3adc14ac721684061b3d858a69bdf83e8114530b5f8c2639cda5dcdd",
+        "bytes": 2041,
+        "lines": 62,
+        "git_blob": "9ab006ac83284a298808c5f5db1311281283b220",
+        "preserved_bytes": "main-advance-95e/runtime-fit-evidence/current-1487.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Only stated current-source traces are credited. Historical review, later source changes and other lenses remain distinct."
+      },
+      "qualification": "Full original body personally read through actual EOF; test/fixture source was read as text only. Earlier reviewers, source revision and no-fresh-read qualifications remain distinct. No generation, renderer, asset, GPU, test or product runtime ran."
+    }
+  ],
+  "observations": [
+    "Six original runtime fitting, body, generation, fixture and layer bodies personally read through actual EOF. Roles 1482, 1483 and 1487 equal 95e; roles 1484–1486 differ and exact diffs are retained.",
+    "All six match their original 6533 committed blobs, independently tied to raw commit/tree objects. The 95e generation diff adds image asset access and moves outfit-layer calculation into a helper; the fixture diff adds image asset initialization; the layer diff adds the helper and changes support error accessors. No test or generation result follows.",
+    "Original role 1486 source uses support.selection.item() and support.selection.id where its local LayerSelection declares selection but not those members; 95e instead accesses the contained CatalogPlacement. This is a static historical source discrepancy, not a claimed observed compiler failure or proof that the current product builds.",
+    "Earlier segovb Lens12 batches 446/447 and adler Lens11 batch 211 retain their scope and zero accepted unique count change. Adler 211 records fresh_reads empty for roles 1493/1495, previously read out of order; no new role 1488–1495 body or other-lens credit is claimed.",
+    "No generation, renderer, asset, GPU, product test or runtime execution ran."
+  ],
+  "remaining": "Continue role 1488; remaining fit, skin and mesh producers/consumers, error aliases, original populations and all thirteen independent lenses remain open."
+}

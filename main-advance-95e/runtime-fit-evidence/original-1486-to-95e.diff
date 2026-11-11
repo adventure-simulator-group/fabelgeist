@@ -1,0 +1,31 @@
+--- historical-1486/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs
++++ 95e/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs
+@@ -122,6 +122,17 @@
+ }
+ 
+ impl generation::FitKey {
++    /// Resolve this article's lower garments from the wearer's admitted outfit.
++    pub(super) fn layers_for_outfit(
++        &self,
++        outfit: &Result<OutfitPlan, String>,
++    ) -> anyhow::Result<Vec<LayerSelection>> {
++        outfit
++            .as_ref()
++            .map_err(|error| anyhow::anyhow!("{error}"))?
++            .ancestors(&self.selection)
++    }
++
+     /// Recreate every direct support's full fit key. Its own lower surfaces
+     /// remain in the key; flat item IDs alone would reuse incorrectly seated
+     /// geometry after a garment underneath that support changes.
+@@ -182,8 +193,8 @@
+                 Some(Ok(_)) => {}
+                 Some(Err(error)) => bail!(
+                     "lower equipment {} {} failed: {error}",
+-                    support.selection.item().id,
+-                    support.selection.id
++                    support.selection.selection.item().id,
++                    support.selection.selection.definition().id
+                 ),
+                 None => return self.next_fit(&support),
+             }
