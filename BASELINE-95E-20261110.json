@@ -2971,8 +2971,23 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-TERRAIN-SEARCH-ABSENCE-95E.json"
+      },
+      {
+        "id": "REVIEW-RAGDOLL-MUSCLE-KICK-OVERFLOW-001",
+        "lens": 4,
+        "severity": "unassigned; conditional source-level arithmetic, supported native state unproved",
+        "classification": "New current-source muscle operation candidate linked to an earlier Lens12 contract; it is distinct from the earlier entry-seed admission finding but global alias reconciliation is incomplete.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1193 (earlier muscle/native contract)",
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-RAGDOLL-SEED-PREFLIGHT (earlier distinct entry-seed admission)"
+        ],
+        "relationship_qualification": "The earlier entry boundary and later control operation are separately identified; incomplete recovered checkpoint 3821 and all aliases prohibit a global nonduplication claim.",
+        "discovery": "partial; native state reachability, policy and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-MUSCLE-RESOLVER-CONNECTIONS-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0452.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0456.json"
 }

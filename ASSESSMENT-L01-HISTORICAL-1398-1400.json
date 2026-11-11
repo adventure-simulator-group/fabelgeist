@@ -1,0 +1,113 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1398,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/muscles.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1398",
+      "sha256": "4d66c5e28731d05a4ff8e3fb3489cbe7d05bec7c2e76af21c7e2d7a58d846998",
+      "lines": 275,
+      "new_personal_read_ranges": [
+        [
+          1,
+          275
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation/ragdoll/muscles.rs",
+        "sha256": "4d66c5e28731d05a4ff8e3fb3489cbe7d05bec7c2e76af21c7e2d7a58d846998",
+        "bytes": 9613,
+        "lines": 275,
+        "git_blob": "588bbfe560186b5b92cafe8b0cdf9f2955a2a82c",
+        "preserved_bytes": "main-advance-95e/muscle-resolver-evidence/current-1398.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Current and historical bytes are separately identified; equality or a scoped comparison does not grant another lens or runtime completion."
+      },
+      "qualification": "Full original historical source personally read through EOF, including test source as text only; no test, animation, scene, physics or runtime probe ran. Earlier reviewers retain original attribution and revision."
+    },
+    {
+      "original_index": 1399,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/resolver.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1399",
+      "sha256": "1b0873cd746e039bdbc6d22d4f55b28ffad8141f68f43fbdb9fb3be25eb7eeb0",
+      "lines": 217,
+      "new_personal_read_ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation/resolver.rs",
+        "sha256": "1b0873cd746e039bdbc6d22d4f55b28ffad8141f68f43fbdb9fb3be25eb7eeb0",
+        "bytes": 7524,
+        "lines": 217,
+        "git_blob": "ddf51156a0b3e658d98d1c7afb5bb30e29d25099",
+        "preserved_bytes": "main-advance-95e/muscle-resolver-evidence/current-1399.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Current and historical bytes are separately identified; equality or a scoped comparison does not grant another lens or runtime completion."
+      },
+      "qualification": "Full original historical source personally read through EOF, including test source as text only; no test, animation, scene, physics or runtime probe ran. Earlier reviewers retain original attribution and revision."
+    },
+    {
+      "original_index": 1400,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/resolver/span.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1400",
+      "sha256": "6d417f317e9d6c150d1b588395132d72996b5645a9ede00a68c0f2eeac51e433",
+      "lines": 143,
+      "new_personal_read_ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation/resolver/span.rs",
+        "sha256": "1d9e43caff202030a311c016c3c4809bb3ad83868d2ad5ba458b2645ab36b1e1",
+        "bytes": 4437,
+        "lines": 140,
+        "git_blob": "0e53f3e340a0c9753ecdd0a815bf72712363f12d",
+        "preserved_bytes": "main-advance-95e/muscle-resolver-evidence/current-1400.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "qualification": "Current and historical bytes are separately identified; equality or a scoped comparison does not grant another lens or runtime completion.",
+        "comparison_diff": "main-advance-95e/muscle-resolver-evidence/span-historical-to-95e.diff",
+        "difference_summary": "Historical extracted progress.fraction() and checked from_factor conversions; 95e retains UnitInterval and uses progress.complement()/BlendWeight::from. Other lines in this diff are context. This is an exact source change, not a blanket behavior-equivalence claim."
+      },
+      "qualification": "Full original historical source personally read through EOF, including test source as text only; no test, animation, scene, physics or runtime probe ran. Earlier reviewers retain original attribution and revision."
+    }
+  ],
+  "observations": [
+    "Three frozen ragdoll muscle, semantic resolver and span bodies personally read through EOF. Muscle and resolver originals equal 95e; the original 143-line span differs from 95e's 140-line span as shown by the retained exact diff.",
+    "Earlier Lens12 batches 398–399 and e275 Lens1 receipts 038–039 retain their own source revisions, attribution, stated partial ranges and zero cross-lens credit. The e275 span and resolver hashes happen to match 95e but their prior review is not reassigned to this new assessment.",
+    "No test, scene, animation, viewer or physics execution occurred."
+  ],
+  "remaining": "Continue role 1401; actual native physics and asset schedules, policy, exact aliases, overlays and thirteen independent lenses remain open."
+}

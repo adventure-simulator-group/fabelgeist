@@ -1,0 +1,944 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Three historical bodies, a conditional muscle arithmetic candidate and source-only resolver/readiness qualification.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1398-1400.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4a261f69f138b8a6b6636cfaa1c824d1e2e2b6a5",
+      "sha256": "cd54ed038a4131a947dff4db1a0310069b669800547e2f2b6456566e9c0ec4c4",
+      "bytes": 27162,
+      "lines": 810,
+      "ranges": [
+        [
+          160,
+          180
+        ],
+        [
+          285,
+          360
+        ],
+        [
+          365,
+          428
+        ],
+        [
+          492,
+          583
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/muscle-resolver-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No animation, physics, viewer, scene, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/loading.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9cc8f25516d91650f9eb528c16bb1fa971a511da",
+      "sha256": "eacc5fba1f6e67621c9d3e473d7556c5cf66ba140e3f1c80431b5568de9fda07",
+      "bytes": 13401,
+      "lines": 390,
+      "ranges": [
+        [
+          8,
+          31
+        ],
+        [
+          45,
+          88
+        ],
+        [
+          90,
+          163
+        ],
+        [
+          303,
+          379
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/muscle-resolver-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No animation, physics, viewer, scene, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/playback_contributions.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "20f3fb47aba4510c732f1ea609e1b05c0e62e5f4",
+      "sha256": "5c10fad61699ffe32bde91d9f48b833a2e6c42d30f7c77189f0da2a73a2823b1",
+      "bytes": 1400,
+      "lines": 43,
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/muscle-resolver-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No animation, physics, viewer, scene, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/playback_state.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6a76ef8c8664a1891bfcf9eb1a4d8356946b25b7",
+      "sha256": "e9898cf619d1bdfe9c8ad70bd80b0600961abfda3e5cd8158330df18b2c9424d",
+      "bytes": 4676,
+      "lines": 155,
+      "ranges": [
+        [
+          84,
+          105
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/muscle-resolver-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No animation, physics, viewer, scene, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/bind_pose.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "209e93a6ccfaaec0b42f61a6ae056a9202edfbef",
+      "sha256": "18362beeb59c79ca73d1ea84c897ce75b45074c2fd0e099999cabc707f058e12",
+      "bytes": 1461,
+      "lines": 48,
+      "ranges": [
+        [
+          31,
+          48
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/muscle-resolver-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No animation, physics, viewer, scene, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9f3cc5b2c458a41bc49c82502a39d1159c1e8f13",
+      "sha256": "4b41d158f102b67dd8ec40b40179456bbb348084165de92c33cf57fd8981b5da",
+      "bytes": 73988,
+      "lines": 1894,
+      "ranges": [
+        [
+          672,
+          683
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/muscle-resolver-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No animation, physics, viewer, scene, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8bdd33b05699f49ceb18ff2aa5c6adb8678f778e",
+      "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "bytes": 40632,
+      "lines": 1021,
+      "ranges": [
+        [
+          215,
+          238
+        ],
+        [
+          578,
+          604
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/muscle-resolver-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No animation, physics, viewer, scene, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/setup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8a2e1d8926486283727417e82ed35ffe81f07c91",
+      "sha256": "ca7571cd25d303d7ef2ca543a07674e3ba3ba58b4a9abb8bb3f234f03507f9cb",
+      "bytes": 3153,
+      "lines": 94,
+      "ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/muscle-resolver-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No animation, physics, viewer, scene, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a87b397fb6a6288c2c24a39e5af93e140fb0aab6",
+      "sha256": "96b6408758b0c8b82f49c210bb4acc352526519b3ba8a525b3500f045279af24",
+      "bytes": 19400,
+      "lines": 518,
+      "ranges": [
+        [
+          223,
+          253
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/muscle-resolver-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No animation, physics, viewer, scene, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/weighted.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1118986a2bc6f564e461ad4d76cef175f0b0d14b",
+      "sha256": "8453166436911f4394c507ec05f4e3bf3f52d0bb92cb9f388bb0cecbe64ceb7c",
+      "bytes": 2231,
+      "lines": 71,
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/muscle-resolver-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No animation, physics, viewer, scene, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/continuation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0096453e3fcdcf5cfc46ea0f100af72b22c5e361",
+      "sha256": "8eef3d57c8ab2e84bcf5c759b08a63f26957dd3f847a4810fd6786b9f9f725ac",
+      "bytes": 3304,
+      "lines": 92,
+      "ranges": [
+        [
+          1,
+          92
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/muscle-resolver-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No animation, physics, viewer, scene, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9d20e485651cedabc0b3a980b476ba73949ccc0c",
+      "sha256": "754a5ea02732df10071edad99a78c5fc1524236ac1232401129c06da611834ee",
+      "bytes": 5565,
+      "lines": 118,
+      "ranges": [
+        [
+          27,
+          68
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/muscle-resolver-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No animation, physics, viewer, scene, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/packs.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4170f14e51a5a6635cc7d1c357c9020d08198118",
+      "sha256": "b1fa6c0abdf46f0a491d49293683bcb7a67ad6270b717b82ddb056cdcc6bad1f",
+      "bytes": 7461,
+      "lines": 194,
+      "ranges": [
+        [
+          1,
+          31
+        ],
+        [
+          110,
+          193
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/muscle-resolver-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No animation, physics, viewer, scene, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "edf3021d5b8d198a7d04dbc1d60f77a1fafbbc0f",
+      "sha256": "06bd726fb8282af0ad5c1f54f64b1bfe383842e284e948a6226240178de4b6bb",
+      "bytes": 3152,
+      "lines": 97,
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/muscle-resolver-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No animation, physics, viewer, scene, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "318bc19a9b047c1e427668a1982d05434073a7da",
+      "sha256": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946",
+      "bytes": 7479,
+      "lines": 212,
+      "ranges": [
+        [
+          132,
+          174
+        ],
+        [
+          194,
+          198
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/muscle-resolver-evidence/support-14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No animation, physics, viewer, scene, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a6af10e5436c223765c54b58458beb7daa755097",
+      "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+      "bytes": 3696,
+      "lines": 107,
+      "ranges": [
+        [
+          96,
+          107
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/muscle-resolver-evidence/support-15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No animation, physics, viewer, scene, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c44f5525698a86c627c327b19f39fe82d8bbf3d7",
+      "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "bytes": 8238,
+      "lines": 217,
+      "ranges": [
+        [
+          34,
+          43
+        ],
+        [
+          61,
+          83
+        ],
+        [
+          177,
+          216
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/muscle-resolver-evidence/support-16.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No animation, physics, viewer, scene, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d86dec4eb0cf74caa453290cd3575561371a01ad",
+      "sha256": "af87991f5cb3f8fd2a6398ea5135c5daacd24c7b9c2b23181ebecec7bc516ad3",
+      "bytes": 4630,
+      "lines": 112,
+      "ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/muscle-resolver-evidence/support-17.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No animation, physics, viewer, scene, build, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4b64e4d89c6af0bf3bda86b5083fcc77108de4fe",
+      "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+      "bytes": 31826,
+      "lines": 779,
+      "ranges": [
+        [
+          65,
+          81
+        ],
+        [
+          625,
+          699
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/muscle-resolver-evidence/support-18.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No animation, physics, viewer, scene, build, test or runtime probe ran."
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          320,
+          346
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/muscle-resolver-evidence/support-19.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No animation, physics, viewer, scene, build, test or runtime probe ran."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-RAGDOLL-MUSCLE-KICK-OVERFLOW-001",
+      "lens": 4,
+      "severity": "unassigned; conditional source-level arithmetic, supported native state unproved",
+      "classification": "New current-source muscle operation candidate linked to an earlier Lens12 contract; it is distinct from the earlier entry-seed admission finding but global alias reconciliation is incomplete.",
+      "trace": "The transient client ragdoll stores muscle targets from the body seed rotations. The fixed-update muscle pass checks elapsed age and envelope, retrieves native parent and child rotations and angular velocities, forms a scaled-axis pose error, multiplies it by the admitted proportional gain, subtracts derivative response, scales by tone and elapsed time, then calls glam clamp_length_max. A NaN kick does not satisfy the <= small-threshold early return and is added to the selected native angular velocity components. This is subsequent physics presentation, not the authoritative tactical combat or fatigue state.",
+      "symbolic_example": "Suppose an admitted finite proportional gain near 2×10^38, shipped finite tone, derivative, maximum kick 60 rad/s, positive finite timestep and a non-pelvis joint whose finite pose error has an approximately 2-radian X component and zero relative spin. The first gain multiplication is approximately 4×10^38, exceeding finite f32 maximum. Under ordinary IEEE-754 arithmetic the product becomes infinity; multiplying by a positive finite step remains infinity. Pinned glam Vec3 clamp squares this value, takes the square root and divides infinity by infinity, producing NaN rather than a finite capped kick. Its NaN length does not meet the <= threshold, so the source mutation path can carry NaN into body angular velocity. This is symbolic source reasoning; no fixture, product code or physics step ran.",
+      "qualifications": "The type constructor accepts finite nonnegative gains and the inspected top-level config validation has no ragdoll-specific gain bound; the shipped gain is 600, not the hypothetical value. Scalar and SSE2 glam source both turn a valid unit quaternion into axis times angle; platform feature resolution and actual floating-point behavior were not run. No actual loaded extreme configuration, reachable 2-radian error relative to the entry target, solver schedule, resulting native physics behavior or player-visible effect is established. Joint limits, existing native invariants, all producer paths and exact aliases remain open. Age and envelope checks happen before mutation and must be retained.",
+      "first_failed_contract": "An admitted finite control coefficient and native input should not produce a nonfinite completed kick and mutate angular velocity merely because the magnitude cap is applied after overflow.",
+      "canonical_owner": "Ragdoll muscle update owns completed kick computation and publication to the native parent/child angular velocities.",
+      "connected_repair": "Establish supported config and native-state bounds. If this case is supported, admit the completed finite kick or use overflow-safe bounded arithmetic before any angular-velocity mutation; preserve the kinematic pelvis, equal/opposite non-pelvis split, existing envelope, damping and normal response. Coordinate with the earlier entry-seed preflight without conflating entry and subsequent control operations.",
+      "later_acceptance": "Only after separate authorization for implementation and validation, verify finite supported extremes, no partial mutation on rejected control output, normal finite kicks, both pelvis and dynamic-parent splits, and correct interaction with joint damping.",
+      "discovery": "partial; native state reachability, policy and aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "existing_contract_connections": [
+    {
+      "id": "Q-L12-7cfcddc9414b6b554933",
+      "relationship": "Partial continuation of the earlier span contract; exact prior attribution and e275 source retained, not a new counted finding.",
+      "trace": "Current UnitInterval admits finite fractions in [0,1]; complement computes 1-progress and From<UnitInterval> for BlendWeight retains the fraction. Current span applies checked scaling for both endpoints. If the second append fails after a first append, resolve_body returns Err and the actual evaluate_skeletons caller logs and continues before publishing the local target, so this path does not by itself prove retained partial playback. Missing end resolution falls back to the start anchor. If two resolved endpoints differ in pack or motion, an end-side matching reference takes precedence over a start-side matching reference; otherwise they remain separate endpoints.",
+      "qualification": "Historical role 1400 used checked from_factor conversions from projected f32; the exact diff and earlier e275 read are preserved. Equivalent output for every possible float, native clip, reference parity, other helper caller and asset state has not been established. Missing-start, explicit bind fallback, loaded library, weighted grip addition and capture readiness remain a separate question below, not automatically a failure.",
+      "discovery": "partial",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "RELATED-RESOLVED-PLAN-READINESS-QUESTION",
+      "relationship": "Source connection recorded as an unresolved conditional, not a new counted defect.",
+      "trace": "The pack library intentionally returns BindPoseT when the pack and semantic fallback chain have no clip. append_layer returns Ok without a contribution if the start anchor or requested gait parity cannot resolve; a span with an unavailable end falls back to its start. The actual caller can separately add a loaded right-hand grip for an equipped weapon. PlaybackContributions classifies a plan as bind only when all three collections are empty, and the capture readiness predicate is simply !is_bind. Thus, under the conditional combination of no resolved body contribution but a successfully appended grip, the readiness predicate does not itself witness a resolved body clip. Independently, load collection can admit grips and motion clips as their respective assets become ready.",
+      "limits": "The ordinary capture setup shown spawns a default player and optional armor; inspected setup and armor-spawn ranges do not establish a held weapon. No supported capture subject with that equipment, actual loading order, eventual screenshot/report success or user-visible failure has been proved. Other readiness gates, reachable semantics and all equipment producers remain open; intentionally empty bind and partial-layer plans are not automatically errors.",
+      "connected_repair": "First determine whether body-clip readiness is a required separate contract for an actual consumer. If so, preserve a body resolution/readiness witness independently of grip topology and retain deliberate BindPoseT and optional weapon behavior.",
+      "discovery": "unresolved conditional",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "ADLER-L11-LOCOMOTION-ANCHOR-REPARAMETERIZATION",
+      "relationship": "Earlier interpolation-policy finding already connected in two previous 95e assessments; this adds the full resolver source and preserves its original receipt without a new finding.",
+      "trace": "For Cycle samples the actual resolver computes a calibrated authored time, while WalkContact and RunContact retain the original wrapped physical phase. WeightedClip retains that phase independently of time and includes it in coalescing identity. Prior current assessments connect this path to the sparse sampler and preserve the unresolved linear-versus-cubic calibration policy.",
+      "limits": "The actual selected asset, final calibrated phase composition, readiness, capture and intended behavior remain open. No assertion of visible hold or runtime result.",
+      "discovery": "partial",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "related_current_source": [
+    "ASSESSMENT-RAGDOLL-SEED-ADMISSION-95E.json (different earlier entry-seed finding and current body/joint publication source)",
+    "ASSESSMENT-INERTIAL-COEFFICIENTS-95E.json (prior sparse sampling trace)",
+    "ASSESSMENT-RIG-CALIBRATION-CONNECTIONS-95E.json (prior calibration trace)"
+  ],
+  "native_evidence": [
+    {
+      "manifest": "native-evidence/glam-0.32.1/MANIFEST.json",
+      "members": [
+        "glam-0.32.1/src/f32/vec3.rs",
+        "glam-0.32.1/src/f32/scalar/quat.rs",
+        "glam-0.32.1/src/f32/sse2/quat.rs"
+      ],
+      "qualification": "Pinned source only; feature resolution, target arithmetic and native physics not executed."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/37",
+        "/entries/1193 through /entries/1195"
+      ],
+      "qualification": "Prior questions remain open; related current evidence does not close native/alias obligations."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointers": [
+        "/discovery_findings_and_dependencies/ADLER-L11-RAGDOLL-SEED-PREFLIGHT",
+        "/discovery_findings_and_dependencies/ADLER-L11-LOCOMOTION-ANCHOR-REPARAMETERIZATION"
+      ],
+      "qualification": "These earlier findings remain separately attributed; the new operation candidate is not a final-3821 alias claim."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-198.json",
+      "sha256": "e4012e75b26f5fc29410e92d361e299e4812206453c17fd86cb9c417ff25c794",
+      "bytes": 21600,
+      "git_blob": "70ee522c9156b50585fd73b22a4cd1aeca7673cb",
+      "preserved_bytes": "recovered/muscle-resolver-059/e4012e75b26f5fc29410e92d361e299e4812206453c17fd86cb9c417ff25c794.gz",
+      "published_sha256": "e4012e75b26f5fc29410e92d361e299e4812206453c17fd86cb9c417ff25c794",
+      "published_bytes": 21600,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original Lens11 receipt or state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-199.json",
+      "sha256": "78bc988036910554fd798e86c2f77b7fad2c670ba9c24b1fb956851e206dd76e",
+      "bytes": 11058,
+      "git_blob": "ed6f0bbb887ac72ae0cc029d073bda85c1a9516f",
+      "preserved_bytes": "recovered/muscle-resolver-059/78bc988036910554fd798e86c2f77b7fad2c670ba9c24b1fb956851e206dd76e.gz",
+      "published_sha256": "78bc988036910554fd798e86c2f77b7fad2c670ba9c24b1fb956851e206dd76e",
+      "published_bytes": 11058,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original Lens11 receipt or state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-198.json",
+      "sha256": "1cdcdf0fee418fd70561105870daaf015794bf2114323fe3bd9fb12118dd3e3f",
+      "bytes": 723,
+      "git_blob": "af7b8cd1abbf9305e124e52afa576f2f6dcdef49",
+      "preserved_bytes": "recovered/muscle-resolver-059/1cdcdf0fee418fd70561105870daaf015794bf2114323fe3bd9fb12118dd3e3f.gz",
+      "published_sha256": "1cdcdf0fee418fd70561105870daaf015794bf2114323fe3bd9fb12118dd3e3f",
+      "published_bytes": 723,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original Lens11 receipt or state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-199.json",
+      "sha256": "905355c8a267f752dfb4e96647e0c060214212d1ae4abe5f0cbfcf01511ffe83",
+      "bytes": 624,
+      "git_blob": "c087217486583d6cdc4123d1244b4678fa63439d",
+      "preserved_bytes": "recovered/muscle-resolver-059/905355c8a267f752dfb4e96647e0c060214212d1ae4abe5f0cbfcf01511ffe83.gz",
+      "published_sha256": "905355c8a267f752dfb4e96647e0c060214212d1ae4abe5f0cbfcf01511ffe83",
+      "published_bytes": 624,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original Lens11 receipt or state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-198.json",
+      "sha256": "291eb666a8fbbde065346bf0c0b6360016fa88403ee17e6b66ed0861e6252f63",
+      "bytes": 13775,
+      "git_blob": "fe2e9203d00bcd3af2083fc23f38860cbc5760bd",
+      "preserved_bytes": "recovered/muscle-resolver-059/291eb666a8fbbde065346bf0c0b6360016fa88403ee17e6b66ed0861e6252f63.gz",
+      "published_sha256": "291eb666a8fbbde065346bf0c0b6360016fa88403ee17e6b66ed0861e6252f63",
+      "published_bytes": 13775,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original Lens11 receipt or state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-038.json",
+      "sha256": "8f489fe80184626aede1d643eed2efa3907705126d677b832d06a3abe32f7d98",
+      "bytes": 7623,
+      "git_blob": "99d2d20cdb1942bf9247ee83ff6d2a71468a16c2",
+      "preserved_bytes": "recovered/muscle-resolver-059/8f489fe80184626aede1d643eed2efa3907705126d677b832d06a3abe32f7d98.gz",
+      "published_sha256": "8f489fe80184626aede1d643eed2efa3907705126d677b832d06a3abe32f7d98",
+      "published_bytes": 7623,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier e275 Lens1 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-039.json",
+      "sha256": "9e89fccf5761f5307f7a7170955f2557ca17121bc53ca16caf869a5833fd6b36",
+      "bytes": 6970,
+      "git_blob": "fdad6b8d3902c0c44063c102fa88cb499f4c0e35",
+      "preserved_bytes": "recovered/muscle-resolver-059/9e89fccf5761f5307f7a7170955f2557ca17121bc53ca16caf869a5833fd6b36.gz",
+      "published_sha256": "9e89fccf5761f5307f7a7170955f2557ca17121bc53ca16caf869a5833fd6b36",
+      "published_bytes": 6970,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier e275 Lens1 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/REGISTRATION-ROOT-L1-CURRENT-038.json",
+      "sha256": "0d10522594214bf54da4a022ca98c2534b64be5876ffeb198763175477a8e2c3",
+      "bytes": 3282,
+      "git_blob": "fbb78ae3ae1dff843098ced0b5f67c9121a59dff",
+      "preserved_bytes": "recovered/muscle-resolver-059/0d10522594214bf54da4a022ca98c2534b64be5876ffeb198763175477a8e2c3.gz",
+      "published_sha256": "0d10522594214bf54da4a022ca98c2534b64be5876ffeb198763175477a8e2c3",
+      "published_bytes": 3282,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier e275 registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/REGISTRATION-ROOT-L1-CURRENT-039.json",
+      "sha256": "81f54e38c84d98910b610fc541b5fc6b0e8024c9d3a39f0d8cad79bca5bebd78",
+      "bytes": 3244,
+      "git_blob": "fdccd533eb24da25ded8e27b85142f80a859eff8",
+      "preserved_bytes": "recovered/muscle-resolver-059/81f54e38c84d98910b610fc541b5fc6b0e8024c9d3a39f0d8cad79bca5bebd78.gz",
+      "published_sha256": "81f54e38c84d98910b610fc541b5fc6b0e8024c9d3a39f0d8cad79bca5bebd78",
+      "published_bytes": 3244,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier e275 registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/VERIFY-ROOT-L1-CURRENT-038.json",
+      "sha256": "5fb403ebfce8d441bacf10f5f37a3b4b7d21056cd4da177598cb4982250379ba",
+      "bytes": 533,
+      "git_blob": "caeacfc13985f7d42fec6bc4cf0cfbe3cf1ac149",
+      "preserved_bytes": "recovered/muscle-resolver-059/5fb403ebfce8d441bacf10f5f37a3b4b7d21056cd4da177598cb4982250379ba.gz",
+      "published_sha256": "5fb403ebfce8d441bacf10f5f37a3b4b7d21056cd4da177598cb4982250379ba",
+      "published_bytes": 533,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier e275 evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/VERIFY-ROOT-L1-CURRENT-039.json",
+      "sha256": "c62340113b30e5b24ef1e29143147d3d0d01e96ac185c5c264bb936f9137349a",
+      "bytes": 533,
+      "git_blob": "5b64e7c298922005fb7c32862af62678ef498218",
+      "preserved_bytes": "recovered/muscle-resolver-059/c62340113b30e5b24ef1e29143147d3d0d01e96ac185c5c264bb936f9137349a.gz",
+      "published_sha256": "c62340113b30e5b24ef1e29143147d3d0d01e96ac185c5c264bb936f9137349a",
+      "published_bytes": 533,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier e275 evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/objects/1b0873cd746e039bdbc6d22d4f55b28ffad8141f68f43fbdb9fb3be25eb7eeb0",
+      "sha256": "1b0873cd746e039bdbc6d22d4f55b28ffad8141f68f43fbdb9fb3be25eb7eeb0",
+      "bytes": 7524,
+      "git_blob": "ddf51156a0b3e658d98d1c7afb5bb30e29d25099",
+      "preserved_bytes": "recovered/muscle-resolver-059/1b0873cd746e039bdbc6d22d4f55b28ffad8141f68f43fbdb9fb3be25eb7eeb0.gz",
+      "published_sha256": "1b0873cd746e039bdbc6d22d4f55b28ffad8141f68f43fbdb9fb3be25eb7eeb0",
+      "published_bytes": 7524,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier e275 source object",
+        "earlier e275 source object"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/objects/1d9e43caff202030a311c016c3c4809bb3ad83868d2ad5ba458b2645ab36b1e1",
+      "sha256": "1d9e43caff202030a311c016c3c4809bb3ad83868d2ad5ba458b2645ab36b1e1",
+      "bytes": 4437,
+      "git_blob": "0e53f3e340a0c9753ecdd0a815bf72712363f12d",
+      "preserved_bytes": "recovered/muscle-resolver-059/1d9e43caff202030a311c016c3c4809bb3ad83868d2ad5ba458b2645ab36b1e1.gz",
+      "published_sha256": "1d9e43caff202030a311c016c3c4809bb3ad83868d2ad5ba458b2645ab36b1e1",
+      "published_bytes": 4437,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier e275 source object"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/objects/8453166436911f4394c507ec05f4e3bf3f52d0bb92cb9f388bb0cecbe64ceb7c",
+      "sha256": "8453166436911f4394c507ec05f4e3bf3f52d0bb92cb9f388bb0cecbe64ceb7c",
+      "bytes": 2231,
+      "git_blob": "1118986a2bc6f564e461ad4d76cef175f0b0d14b",
+      "preserved_bytes": "recovered/muscle-resolver-059/8453166436911f4394c507ec05f4e3bf3f52d0bb92cb9f388bb0cecbe64ceb7c.gz",
+      "published_sha256": "8453166436911f4394c507ec05f4e3bf3f52d0bb92cb9f388bb0cecbe64ceb7c",
+      "published_bytes": 2231,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier e275 source object"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/objects/93bf8878500fe7902fc616643b4678bfbc4c8f091c94dcd68b2a42a6ccb377af",
+      "sha256": "93bf8878500fe7902fc616643b4678bfbc4c8f091c94dcd68b2a42a6ccb377af",
+      "bytes": 21683,
+      "git_blob": "6bb0d3caeb294352afa98c2e75e041776d9ddc9c",
+      "preserved_bytes": "recovered/muscle-resolver-059/93bf8878500fe7902fc616643b4678bfbc4c8f091c94dcd68b2a42a6ccb377af.gz",
+      "published_sha256": "93bf8878500fe7902fc616643b4678bfbc4c8f091c94dcd68b2a42a6ccb377af",
+      "published_bytes": 21683,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier e275 source object"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/objects/e54bd673db78d4b343707613e348b7d7fb4f74d34b8a454fefe73f426145a045",
+      "sha256": "e54bd673db78d4b343707613e348b7d7fb4f74d34b8a454fefe73f426145a045",
+      "bytes": 10812,
+      "git_blob": "b1c06fb10a4034af5132474367304371b496bbe3",
+      "preserved_bytes": "recovered/muscle-resolver-059/e54bd673db78d4b343707613e348b7d7fb4f74d34b8a454fefe73f426145a045.gz",
+      "published_sha256": "e54bd673db78d4b343707613e348b7d7fb4f74d34b8a454fefe73f426145a045",
+      "published_bytes": 10812,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier e275 source object"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-398.json",
+      "sha256": "4621d85c70d8f15a016c9302ad14dcf9580f3952604ef0d4a4bd2c161c310c9a",
+      "bytes": 1219,
+      "git_blob": "9db54e675c2dd9848555cd6c0dc87329c06e75f6",
+      "preserved_bytes": "recovered/muscle-resolver-059/4621d85c70d8f15a016c9302ad14dcf9580f3952604ef0d4a4bd2c161c310c9a.gz",
+      "published_sha256": "4621d85c70d8f15a016c9302ad14dcf9580f3952604ef0d4a4bd2c161c310c9a",
+      "published_bytes": 1219,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-399.json",
+      "sha256": "b091f2950248668ef49c6d8bfc34cf5fb7604c5ad873529be9409c738f002c8c",
+      "bytes": 1214,
+      "git_blob": "33e86fb2a7c9b1bffd312cad09c80e0e0cbcbfda",
+      "preserved_bytes": "recovered/muscle-resolver-059/b091f2950248668ef49c6d8bfc34cf5fb7604c5ad873529be9409c738f002c8c.gz",
+      "published_sha256": "b091f2950248668ef49c6d8bfc34cf5fb7604c5ad873529be9409c738f002c8c",
+      "published_bytes": 1214,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-398.json",
+      "sha256": "e3cb7a41b68f7d5e7b5a3f5e486c695d17c7fc97817cdf46e4e4c1a43dbe83ec",
+      "bytes": 8969,
+      "git_blob": "a3302ad5e59ce02843639fed13cb078c1dfb664c",
+      "preserved_bytes": "recovered/muscle-resolver-059/e3cb7a41b68f7d5e7b5a3f5e486c695d17c7fc97817cdf46e4e4c1a43dbe83ec.gz",
+      "published_sha256": "e3cb7a41b68f7d5e7b5a3f5e486c695d17c7fc97817cdf46e4e4c1a43dbe83ec",
+      "published_bytes": 8969,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-399.json",
+      "sha256": "ba30fdcf422084b281c3523f0f921a476b24b9bd260a35e3458949da0df3efcb",
+      "bytes": 8963,
+      "git_blob": "2bf1f42f8823a5d2590aba227dd0f9df9de12156",
+      "preserved_bytes": "recovered/muscle-resolver-059/ba30fdcf422084b281c3523f0f921a476b24b9bd260a35e3458949da0df3efcb.gz",
+      "published_sha256": "ba30fdcf422084b281c3523f0f921a476b24b9bd260a35e3458949da0df3efcb",
+      "published_bytes": 8963,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-304.json",
+      "sha256": "69de85515cdf44da9bb06177049361699d79bd99da58bdeaf67a43d8a345131d",
+      "bytes": 1215,
+      "git_blob": "4a8a34faef953febebe3def69e243b514d34a346",
+      "preserved_bytes": "recovered/muscle-resolver-059/69de85515cdf44da9bb06177049361699d79bd99da58bdeaf67a43d8a345131d.gz",
+      "published_sha256": "69de85515cdf44da9bb06177049361699d79bd99da58bdeaf67a43d8a345131d",
+      "published_bytes": 1215,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-305.json",
+      "sha256": "b0e8248fb92ac93eb155b417d6e059bc6dbd68be2522eaa90c571618e762754a",
+      "bytes": 1223,
+      "git_blob": "7b69683d8024f383b159b3d29b4b2781b963a0a5",
+      "preserved_bytes": "recovered/muscle-resolver-059/b0e8248fb92ac93eb155b417d6e059bc6dbd68be2522eaa90c571618e762754a.gz",
+      "published_sha256": "b0e8248fb92ac93eb155b417d6e059bc6dbd68be2522eaa90c571618e762754a",
+      "published_bytes": 1223,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-306.json",
+      "sha256": "14f7c7c6d165f98a3cb83df9da8b1d5e66f431dc6f341be636c8cd7771cf5ea0",
+      "bytes": 1210,
+      "git_blob": "76471d3b15cc11120883df63e164c65af028fe2f",
+      "preserved_bytes": "recovered/muscle-resolver-059/14f7c7c6d165f98a3cb83df9da8b1d5e66f431dc6f341be636c8cd7771cf5ea0.gz",
+      "published_sha256": "14f7c7c6d165f98a3cb83df9da8b1d5e66f431dc6f341be636c8cd7771cf5ea0",
+      "published_bytes": 1210,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-307.json",
+      "sha256": "fbbb481a50ec6b203d46fae2357de1caa46e5b18c7fc4dbb162ff36f0ba0da6c",
+      "bytes": 1220,
+      "git_blob": "95d2de141234bd2f6bcc52fcf0dd1c76735a6ed1",
+      "preserved_bytes": "recovered/muscle-resolver-059/fbbb481a50ec6b203d46fae2357de1caa46e5b18c7fc4dbb162ff36f0ba0da6c.gz",
+      "published_sha256": "fbbb481a50ec6b203d46fae2357de1caa46e5b18c7fc4dbb162ff36f0ba0da6c",
+      "published_bytes": 1220,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L1-CURRENT-038.json",
+      "sha256": "52081953750b5f095078eb3a44e2f1814fd50c3c2741a9544ee857fb26449b63",
+      "bytes": 1383,
+      "git_blob": "6175567e35c4fb3b69e0a9295a83ea54f8877015",
+      "preserved_bytes": "recovered/muscle-resolver-059/52081953750b5f095078eb3a44e2f1814fd50c3c2741a9544ee857fb26449b63.gz",
+      "published_sha256": "52081953750b5f095078eb3a44e2f1814fd50c3c2741a9544ee857fb26449b63",
+      "published_bytes": 1383,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier e275 scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L1-CURRENT-039.json",
+      "sha256": "b9042cddd4782492c8f5b3b08d0a15ad570447f8c4c4e2803e612c673dc58086",
+      "bytes": 1327,
+      "git_blob": "79ea6ef6c009d319d668588b3f63c02128bba2a7",
+      "preserved_bytes": "recovered/muscle-resolver-059/b9042cddd4782492c8f5b3b08d0a15ad570447f8c4c4e2803e612c673dc58086.gz",
+      "published_sha256": "b9042cddd4782492c8f5b3b08d0a15ad570447f8c4c4e2803e612c673dc58086",
+      "published_bytes": 1327,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier e275 scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-398.json",
+      "sha256": "242ac4dc1a4dfb8ca0164533e7e4e64c92029e10ad1564ee63bd1f3cbf9b2628",
+      "bytes": 840,
+      "git_blob": "a299e51a88e3081175c43881a3a19bf9a80f077e",
+      "preserved_bytes": "recovered/muscle-resolver-059/242ac4dc1a4dfb8ca0164533e7e4e64c92029e10ad1564ee63bd1f3cbf9b2628.gz",
+      "published_sha256": "242ac4dc1a4dfb8ca0164533e7e4e64c92029e10ad1564ee63bd1f3cbf9b2628",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-399.json",
+      "sha256": "4202807c572f6691618a6b3ec3aaaa47d82e70f3621aa4267f361fae84166fc0",
+      "bytes": 840,
+      "git_blob": "ef0911446477cbc99df37f59becc8ddd71a508bb",
+      "preserved_bytes": "recovered/muscle-resolver-059/4202807c572f6691618a6b3ec3aaaa47d82e70f3621aa4267f361fae84166fc0.gz",
+      "published_sha256": "4202807c572f6691618a6b3ec3aaaa47d82e70f3621aa4267f361fae84166fc0",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-398.json",
+      "sha256": "760b8c840efb3b4a8d3b00bf1430686de282db0d8fa7a7e0bdce97987c57bfe0",
+      "bytes": 558,
+      "git_blob": "3b24646589438c4e379a05f66cf2b55a278dac9b",
+      "preserved_bytes": "recovered/muscle-resolver-059/760b8c840efb3b4a8d3b00bf1430686de282db0d8fa7a7e0bdce97987c57bfe0.gz",
+      "published_sha256": "760b8c840efb3b4a8d3b00bf1430686de282db0d8fa7a7e0bdce97987c57bfe0",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-399.json",
+      "sha256": "ba7c3348e2fefef3e2709a527f8246a6856d980bb7e77180d5ecc5740da40e96",
+      "bytes": 558,
+      "git_blob": "e05b4d25fd4fc9d5efbaf6f4cfd417becab6e9d6",
+      "preserved_bytes": "recovered/muscle-resolver-059/ba7c3348e2fefef3e2709a527f8246a6856d980bb7e77180d5ecc5740da40e96.gz",
+      "published_sha256": "ba7c3348e2fefef3e2709a527f8246a6856d980bb7e77180d5ecc5740da40e96",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    }
+  ],
+  "remaining": "Supported native states and asset/capture timing, exact policy and alias relationships and all thirteen lenses remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
