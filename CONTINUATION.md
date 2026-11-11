@@ -269,6 +269,9 @@ action, provenance and route sources without expanding current coverage.
 capability, claim and geometry sources without expanding current coverage.
 `ASSESSMENT-L01-HISTORICAL-1126-1127.json` records historical investigation
 module composition and evidence state without expanding current coverage.
+`ASSESSMENT-L13-WEDDING-HISTORY-PROJECTION-95E.json` revisits the earlier
+observer-history question with selected gateway consumers.
+`ASSESSMENT-L01-HISTORICAL-1163-1172.json` records separate historical reads.
 `ASSESSMENT-L07-WEDDING-FRONTIER-95E.json` records the conditional difference
 between the global wedding selector and canonical-world settlement.
 `ASSESSMENT-L01-HISTORICAL-1160-1162.json` records separate historical reads.
