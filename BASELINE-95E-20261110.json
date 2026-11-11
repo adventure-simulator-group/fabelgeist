@@ -5678,8 +5678,34 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-ROUNDED-POLYGON-TOPOLOGY-95E.json"
+      },
+      {
+        "id": "REVIEW-SCENE-WEATHER-TEMPERATURE-OVERFLOW-001",
+        "lens": 1,
+        "additional_current_lenses": [
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; source-derived conditional validation overflow",
+        "classification": "Scene weather validation should reject or safely compare every representable decoded temperature without overflowing before returning its typed validation result.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1579",
+          "segovb/READ-L12-638.json",
+          "adler/READ-L11-292.json"
+        ],
+        "relationship_qualification": "Original059 pending question described i16; exact historical and current owner source declares i32. The earlier record remains unchanged and the new i32 example is conditional. No historical unique increment or checkpoint3821 attribution.",
+        "discovery": "partial; public representable i32 overflow path under stated guards and profile established from source, actual producers and supported thermal policy remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-SCENE-WEATHER-ADMISSION-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1202.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1205.json"
 }
