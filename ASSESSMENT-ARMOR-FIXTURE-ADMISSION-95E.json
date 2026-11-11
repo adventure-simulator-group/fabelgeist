@@ -2,7 +2,8 @@
   "schema": "726-bounded-current-source-trace-v1",
   "lenses": [
     1,
-    6,
+    3,
+    4,
     8,
     12
   ],
@@ -684,14 +685,15 @@
     },
     {
       "id": "REVIEW-ARMOR-FIXTURE-ZERO-HEIGHT-CHART-001",
-      "lens": 6,
+      "lens": 4,
       "severity": "unassigned; conditional nonfinite fixture surface-coordinate admission",
       "classification": "New bounded source-derived arithmetic and aggregate-admission question; distinct producer and value from the earlier offline GLB body-normal export finding.",
       "trace": "The fixture builds a cylindrical surface chart using (y - low) / (high - low) and then embeds those coordinates in RuntimeBody. For any nonempty finite position set with a single y value, the numerator and denominator are both zero, giving a NaN v coordinate. A hypothetical nondegenerate triangle with positions (0,0,0), (1,0,0), (0,0,1) has this property. If a parsed skinned body reaches this chart with otherwise matching valid normals, indices, joints and weights, the selected RuntimeBody::validate checks lengths, joint counts and nonempty faces but does not check coordinate finiteness or vertical extent. The selected GpuBody::new similarly checks lengths and face indices before passing the texcoords to its upload boundary; no GPU execution, accepted GLB, successful upload or invalid rendered mesh is claimed. The canonical humanoid may satisfy the intended nonzero-height precondition; no evidence establishes that the shipped body triggers this.",
       "connected_repair": "Establish the supported body geometry admission at the earliest boundary and reject zero/invalid height or deliberately define a valid chart for it. Carry a finite, topology-consistent chart through RuntimeBody and the device boundary, preserving the ordinary nondegenerate canonical body and explicit error context. Coordinate with the separately recorded offline normal export and clothing-face findings without merging different first failures.",
       "discovery": "partial; GLB acceptance, other component/finite and topology producers, native device validation, intended fixture input scope and exact aliases remain open",
       "repair": "not started",
-      "validation": "not performed"
+      "validation": "not performed",
+      "classification_correction": "CLASSIFICATION-CORRECTION-ARMOR-CHART-95E.json"
     }
   ],
   "remaining": "Exact accepted GLB inputs, fixture support policy, all body and chart producers, full native device/error contracts, scoped visual review and aliases remain open. Final checkpoint 3821 ledger and queue remain missing.",

@@ -1,0 +1,687 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    4,
+    5,
+    8,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected validated client-only hit-spring tuning and arithmetic, with bounded animation source revision observations; no execution.",
+  "source_reasoning": "Pinned source inspection and symbolic f32 range/operation reasoning only, supported by newly preserved Rust numerical documentation. No configuration installation, hit, animation, test, rendering, product build or runtime probe.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9107cba3a3d24cb85558aa3c11067df21b1c7ac2",
+      "sha256": "14cc7dac87568e296696a1720be8620adc2c31b3451388d7e099e569d6608108",
+      "bytes": 16263,
+      "lines": 471,
+      "ranges": [
+        [
+          1,
+          471
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/bouncy-spring-evidence/00.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges or the explicitly inspected revision diff support bounded reasoning; no product or tests ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4a261f69f138b8a6b6636cfaa1c824d1e2e2b6a5",
+      "sha256": "cd54ed038a4131a947dff4db1a0310069b669800547e2f2b6456566e9c0ec4c4",
+      "bytes": 27162,
+      "lines": 810,
+      "ranges": [
+        [
+          477,
+          489
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/bouncy-spring-evidence/01.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges or the explicitly inspected revision diff support bounded reasoning; no product or tests ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4b64e4d89c6af0bf3bda86b5083fcc77108de4fe",
+      "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+      "bytes": 31826,
+      "lines": 779,
+      "ranges": [
+        [
+          95,
+          118
+        ],
+        [
+          417,
+          420
+        ],
+        [
+          652,
+          671
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/bouncy-spring-evidence/02.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges or the explicitly inspected revision diff support bounded reasoning; no product or tests ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a9e2ddafa154aea5bd420ff42968d491ca726344",
+      "sha256": "39a9e16f5913535b637c6b4fd26ef5d4d2f900fc7ea5ae4f1f2eb790d6dff28f",
+      "bytes": 3309,
+      "lines": 98,
+      "ranges": [
+        [
+          11,
+          21
+        ],
+        [
+          36,
+          56
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/bouncy-spring-evidence/03.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges or the explicitly inspected revision diff support bounded reasoning; no product or tests ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/client.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4e95000315470b399ee50b29e716000f78abd030",
+      "sha256": "7efcd68002b4980f4d901f87a84c47dc0f697e35551b4fb3a13bc6ce80a1e770",
+      "bytes": 53907,
+      "lines": 1514,
+      "ranges": [
+        [
+          51,
+          64
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/bouncy-spring-evidence/04.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges or the explicitly inspected revision diff support bounded reasoning; no product or tests ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/startup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "416b6c9007352d1fa110f10ed68f6b542484dbe0",
+      "sha256": "a2f5959d603a1f54ed2b719eb96e15c4101b6834d30aae545d19e8c4c3e46983",
+      "bytes": 4837,
+      "lines": 120,
+      "ranges": [
+        [
+          45,
+          66
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/bouncy-spring-evidence/05.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges or the explicitly inspected revision diff support bounded reasoning; no product or tests ran."
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          263,
+          270
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/bouncy-spring-evidence/06.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges or the explicitly inspected revision diff support bounded reasoning; no product or tests ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "37ce84a60849e27b7248e424638677cc1dbec945",
+      "sha256": "12d4b4e5ed4ce3940c78b7ee4420ec94e5efa83776b14d60afdbf2ba0d501f5d",
+      "bytes": 6458,
+      "lines": 190,
+      "ranges": [
+        [
+          62,
+          78
+        ],
+        [
+          130,
+          157
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/bouncy-spring-evidence/07.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges or the explicitly inspected revision diff support bounded reasoning; no product or tests ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/catalog.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "18f31afb0e6b8fe84d9a9f6e2fbb958149adaf1e",
+      "sha256": "8d8a70c663bdd8e62c8e4636ec414e979852b1f469bffc9e70331d5947c165a4",
+      "bytes": 11798,
+      "lines": 361,
+      "ranges": [
+        [
+          59,
+          70
+        ],
+        [
+          118,
+          154
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/bouncy-spring-evidence/08.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges or the explicitly inspected revision diff support bounded reasoning; no product or tests ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/examples/runtime_equipment_ports.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ec42db99c86256b71a10d679bd1630b6d54d997f",
+      "sha256": "58aa07332e266bc6397d1d0999e6017bdc1c6f0110ac8e787035c823b6c99750",
+      "bytes": 5038,
+      "lines": 147,
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/bouncy-spring-evidence/09.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges or the explicitly inspected revision diff support bounded reasoning; no product or tests ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/AGENTS.md",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e89cf174a7332b65711ceef0206accc6ca8a57fd",
+      "sha256": "f9633599a742ea38090fe2fb88e2dc464298d0ca4a70374f0851380e71e6910e",
+      "bytes": 3544,
+      "lines": 103,
+      "ranges": [
+        [
+          1,
+          10
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/bouncy-spring-evidence/10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current source ranges or the explicitly inspected revision diff support bounded reasoning; no product or tests ran."
+    }
+  ],
+  "native_evidence": [
+    {
+      "path": "native-evidence/rust-nightly-2026-07-13/MANIFEST.json",
+      "qualification": "Installed date-pinned Rust source documents f32 overflow and NaN comparisons; it does not prove the compiler used in any historical build."
+    }
+  ],
+  "symbolic_example": {
+    "frequency": "f32::MAX (finite and positive)",
+    "other_configuration": "assumed valid, including ordinary positive half-life",
+    "angular_frequency_expression": "TAU * frequency",
+    "intermediate": "positive infinity under the documented f32 overflow rule",
+    "spring_precondition": "zero finite offset, finite nonzero velocity and positive elapsed time",
+    "qualification": "Source-level conditional arithmetic; no floating-point code, Bevy system or product ran."
+  },
+  "safeguards": [
+    "The current committed YAML uses 3.0 Hz and the shared validator rejects nonfinite, negative or zero frequency/half-life and transmission above one. The example is not a claim about shipped default behavior.",
+    "Hit springs are a client-only presentation feature. Nonpositive elapsed time and at-rest springs are skipped; ragdoll/frozen state skips application. The transform update requires offset.length_squared() > 1e-8, so a NaN does not by itself prove that a transform was written.",
+    "The current cadence diff replaces raw lerp and inverse-lerp arithmetic with checked typed operations; native asset lifecycle and wider numerical guarantees remain open.",
+    "The current catalog diff retains MotionId in the unknown-motion error; all other producers, asset/native boundaries and exact aliases remain open.",
+    "The native equipment-ports example shares the fixture loader recorded separately; its timing and output checks remain source only and establish no GPU or visual result."
+  ],
+  "historical_records": [
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1310-1318.json",
+      "qualification": "Nine personal historical reads, with two changed current sources and earlier independent multi-role receipts."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1104",
+        "/entries/1105",
+        "/entries/1107",
+        "/entries/1109"
+      ],
+      "qualification": "Earlier independent timing, cadence, spring and catalog obligations remain partial."
+    },
+    {
+      "file": "ASSESSMENT-ARMOR-FIXTURE-ADMISSION-95E.json",
+      "qualification": "Distinct shared example loader input and chart questions; no automatic alias."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-357.json",
+      "sha256": "18c651124a62a508b4a43e714dec52f91e7686ad92de2adb1e90079968281237",
+      "bytes": 1714,
+      "git_blob": "f0a5c43aaec8667d28ddea0ad2cb3ec11361d082",
+      "preserved_bytes": "recovered/bouncy-spring-059/18c651124a62a508b4a43e714dec52f91e7686ad92de2adb1e90079968281237.gz",
+      "published_sha256": "18c651124a62a508b4a43e714dec52f91e7686ad92de2adb1e90079968281237",
+      "published_bytes": 1714,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-358.json",
+      "sha256": "893399efaf0e74fc4718b408e17b05cfe13acd4499bf97d2cc2314832635074d",
+      "bytes": 1214,
+      "git_blob": "f3c4bfea5926356e38a9f76b03e3da8e46b9092f",
+      "preserved_bytes": "recovered/bouncy-spring-059/893399efaf0e74fc4718b408e17b05cfe13acd4499bf97d2cc2314832635074d.gz",
+      "published_sha256": "893399efaf0e74fc4718b408e17b05cfe13acd4499bf97d2cc2314832635074d",
+      "published_bytes": 1214,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-359.json",
+      "sha256": "2119a2669c390f71293dd33defe12a5a837060c7c578521d709e951814ab7b00",
+      "bytes": 1215,
+      "git_blob": "6a9be928b12f3baf6f4d426a237113001c7479c6",
+      "preserved_bytes": "recovered/bouncy-spring-059/2119a2669c390f71293dd33defe12a5a837060c7c578521d709e951814ab7b00.gz",
+      "published_sha256": "2119a2669c390f71293dd33defe12a5a837060c7c578521d709e951814ab7b00",
+      "published_bytes": 1215,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-360.json",
+      "sha256": "f0900373c32b3ca59cb84681da0cee20e0afa025db6eae7accf48eb5b87962ee",
+      "bytes": 2204,
+      "git_blob": "79ad2ec11af6f75cdcd97212b90ae0dd8b83c267",
+      "preserved_bytes": "recovered/bouncy-spring-059/f0900373c32b3ca59cb84681da0cee20e0afa025db6eae7accf48eb5b87962ee.gz",
+      "published_sha256": "f0900373c32b3ca59cb84681da0cee20e0afa025db6eae7accf48eb5b87962ee",
+      "published_bytes": 2204,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-357.json",
+      "sha256": "9d9d208f771201ba355aa29d95f2af5314fb2dba8c3aaccf6b6ab0f14b77cdc6",
+      "bytes": 12375,
+      "git_blob": "592fcd061d0ea96deb647bf56a623a17e06aef3f",
+      "preserved_bytes": "recovered/bouncy-spring-059/9d9d208f771201ba355aa29d95f2af5314fb2dba8c3aaccf6b6ab0f14b77cdc6.gz",
+      "published_sha256": "9d9d208f771201ba355aa29d95f2af5314fb2dba8c3aaccf6b6ab0f14b77cdc6",
+      "published_bytes": 12375,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-358.json",
+      "sha256": "59d2a0f85bb41731bf86ef63e90cadf990d6f7420f56ccd30c95e9ba89dd6202",
+      "bytes": 9492,
+      "git_blob": "9ee3daeeb2872d0aca3171c36fa21e356b12d376",
+      "preserved_bytes": "recovered/bouncy-spring-059/59d2a0f85bb41731bf86ef63e90cadf990d6f7420f56ccd30c95e9ba89dd6202.gz",
+      "published_sha256": "59d2a0f85bb41731bf86ef63e90cadf990d6f7420f56ccd30c95e9ba89dd6202",
+      "published_bytes": 9492,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-359.json",
+      "sha256": "a2e1d1e607ac08bd29d7d312127d65a28df36ddce64d3aef63bf89c29e707d06",
+      "bytes": 10774,
+      "git_blob": "7125f01537d8c01fc7206cfb4511a4129692e062",
+      "preserved_bytes": "recovered/bouncy-spring-059/a2e1d1e607ac08bd29d7d312127d65a28df36ddce64d3aef63bf89c29e707d06.gz",
+      "published_sha256": "a2e1d1e607ac08bd29d7d312127d65a28df36ddce64d3aef63bf89c29e707d06",
+      "published_bytes": 10774,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-360.json",
+      "sha256": "a8d38ed6d9a63d52eb68665e742c0507bfcb8b855a820be75981f4ff4852e785",
+      "bytes": 16553,
+      "git_blob": "7b0a868081bca914e6715d769a10d1aee776bb36",
+      "preserved_bytes": "recovered/bouncy-spring-059/a8d38ed6d9a63d52eb68665e742c0507bfcb8b855a820be75981f4ff4852e785.gz",
+      "published_sha256": "a8d38ed6d9a63d52eb68665e742c0507bfcb8b855a820be75981f4ff4852e785",
+      "published_bytes": 16553,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-217.json",
+      "sha256": "3f64dce7401d14a6444fca717b6e2d13cd93b1eeacea86a32b667210d9ab9921",
+      "bytes": 1225,
+      "git_blob": "8968aec34013bbe9f91c8796d8801a1d3bb3d212",
+      "preserved_bytes": "recovered/bouncy-spring-059/3f64dce7401d14a6444fca717b6e2d13cd93b1eeacea86a32b667210d9ab9921.gz",
+      "published_sha256": "3f64dce7401d14a6444fca717b6e2d13cd93b1eeacea86a32b667210d9ab9921",
+      "published_bytes": 1225,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration and original role attribution"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-218.json",
+      "sha256": "2f65e64db23f68392089e5b2269313c109b9853cc4d1cadee28faccc5a5744b4",
+      "bytes": 1221,
+      "git_blob": "84a8b0466ecbf66001213c3fea290047f4b4606d",
+      "preserved_bytes": "recovered/bouncy-spring-059/2f65e64db23f68392089e5b2269313c109b9853cc4d1cadee28faccc5a5744b4.gz",
+      "published_sha256": "2f65e64db23f68392089e5b2269313c109b9853cc4d1cadee28faccc5a5744b4",
+      "published_bytes": 1221,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration and original role attribution"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-219.json",
+      "sha256": "94b248de5f3063a0a4eb801d8596187170c7330556ce8879e9d67cd9fde7f6ec",
+      "bytes": 1205,
+      "git_blob": "6ffc1365bcad10e26553ddfd451f29817af98627",
+      "preserved_bytes": "recovered/bouncy-spring-059/94b248de5f3063a0a4eb801d8596187170c7330556ce8879e9d67cd9fde7f6ec.gz",
+      "published_sha256": "94b248de5f3063a0a4eb801d8596187170c7330556ce8879e9d67cd9fde7f6ec",
+      "published_bytes": 1205,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration and original role attribution"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-220.json",
+      "sha256": "b66b4e996a5c7306ff300bd8dd22e00d20b88a5dac5d4f5a75c263f5912685d3",
+      "bytes": 1211,
+      "git_blob": "13e614965c1f55d42b1acd6671bbd93f2783fd7c",
+      "preserved_bytes": "recovered/bouncy-spring-059/b66b4e996a5c7306ff300bd8dd22e00d20b88a5dac5d4f5a75c263f5912685d3.gz",
+      "published_sha256": "b66b4e996a5c7306ff300bd8dd22e00d20b88a5dac5d4f5a75c263f5912685d3",
+      "published_bytes": 1211,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration and original role attribution"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-221.json",
+      "sha256": "c27737b9eb8d7eb2c548bc167a424517831504a6569f978b73d3b290d73e1353",
+      "bytes": 1207,
+      "git_blob": "2ecaaa23c7d5ecdfda0d1d34d8553e8a79372167",
+      "preserved_bytes": "recovered/bouncy-spring-059/c27737b9eb8d7eb2c548bc167a424517831504a6569f978b73d3b290d73e1353.gz",
+      "published_sha256": "c27737b9eb8d7eb2c548bc167a424517831504a6569f978b73d3b290d73e1353",
+      "published_bytes": 1207,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration and original role attribution"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-222.json",
+      "sha256": "e62d88914139f2f12df8a1b3e690d0a059e30294a168f1dd5c9c8ef73332e0fb",
+      "bytes": 1220,
+      "git_blob": "7910f584d304c32d85c9488f38431c08cf3410f7",
+      "preserved_bytes": "recovered/bouncy-spring-059/e62d88914139f2f12df8a1b3e690d0a059e30294a168f1dd5c9c8ef73332e0fb.gz",
+      "published_sha256": "e62d88914139f2f12df8a1b3e690d0a059e30294a168f1dd5c9c8ef73332e0fb",
+      "published_bytes": 1220,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration and original role attribution"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-223.json",
+      "sha256": "d497564f8a9f04fcf338b7560ee6fab9d30e71d0467e564e40733b88802f3f33",
+      "bytes": 1236,
+      "git_blob": "8b74a4ced8ac3c12e7cf399385c504835b1848d5",
+      "preserved_bytes": "recovered/bouncy-spring-059/d497564f8a9f04fcf338b7560ee6fab9d30e71d0467e564e40733b88802f3f33.gz",
+      "published_sha256": "d497564f8a9f04fcf338b7560ee6fab9d30e71d0467e564e40733b88802f3f33",
+      "published_bytes": 1236,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration and original role attribution"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-224.json",
+      "sha256": "7db441eae5df43623294d3afee812e4d1a1a75d9e2760755212d2e819345c971",
+      "bytes": 1228,
+      "git_blob": "72c31e4794a1b0fa13b1540b4ce62ba875f6b4ab",
+      "preserved_bytes": "recovered/bouncy-spring-059/7db441eae5df43623294d3afee812e4d1a1a75d9e2760755212d2e819345c971.gz",
+      "published_sha256": "7db441eae5df43623294d3afee812e4d1a1a75d9e2760755212d2e819345c971",
+      "published_bytes": 1228,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration and original role attribution"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-225.json",
+      "sha256": "5b71f40ec2fb700ffb6b650837a03aa5ddb31a9bc041713774d62443317aee5f",
+      "bytes": 1234,
+      "git_blob": "449b61ff754c08cec4f2e17b3e4cc5eb7273c1d2",
+      "preserved_bytes": "recovered/bouncy-spring-059/5b71f40ec2fb700ffb6b650837a03aa5ddb31a9bc041713774d62443317aee5f.gz",
+      "published_sha256": "5b71f40ec2fb700ffb6b650837a03aa5ddb31a9bc041713774d62443317aee5f",
+      "published_bytes": 1234,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration and original role attribution"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-226.json",
+      "sha256": "6918e46065907861e2d60c1af48ff0a2b25de3833a64e0617493da3faca8ba09",
+      "bytes": 1246,
+      "git_blob": "fb9fb49d1ccad09c2452c327632177fc4230473d",
+      "preserved_bytes": "recovered/bouncy-spring-059/6918e46065907861e2d60c1af48ff0a2b25de3833a64e0617493da3faca8ba09.gz",
+      "published_sha256": "6918e46065907861e2d60c1af48ff0a2b25de3833a64e0617493da3faca8ba09",
+      "published_bytes": 1246,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration and original role attribution"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-227.json",
+      "sha256": "280b31eea9034c4ffe3780d7faad4992e8e38179fa6ea46115e4977c7a5301c0",
+      "bytes": 1230,
+      "git_blob": "e89e3ae86fafa95853688d8d8e250e5df02e5c69",
+      "preserved_bytes": "recovered/bouncy-spring-059/280b31eea9034c4ffe3780d7faad4992e8e38179fa6ea46115e4977c7a5301c0.gz",
+      "published_sha256": "280b31eea9034c4ffe3780d7faad4992e8e38179fa6ea46115e4977c7a5301c0",
+      "published_bytes": 1230,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration and original role attribution"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-357.json",
+      "sha256": "82eeb57dd5ac5d8d9cda0dfa56751b990225d9704131d7abba47c9533c570c2b",
+      "bytes": 840,
+      "git_blob": "30f27aca2bae399a52891d9a81ebbadefcc3d4fe",
+      "preserved_bytes": "recovered/bouncy-spring-059/82eeb57dd5ac5d8d9cda0dfa56751b990225d9704131d7abba47c9533c570c2b.gz",
+      "published_sha256": "82eeb57dd5ac5d8d9cda0dfa56751b990225d9704131d7abba47c9533c570c2b",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-358.json",
+      "sha256": "b28bb26826f98f9ccf1d1b0b371da9b47658063b644211c3cb54f8bd0f52e7d9",
+      "bytes": 840,
+      "git_blob": "6d8fef9a68b61f87d0809a8ad15d81dc6b2cfb85",
+      "preserved_bytes": "recovered/bouncy-spring-059/b28bb26826f98f9ccf1d1b0b371da9b47658063b644211c3cb54f8bd0f52e7d9.gz",
+      "published_sha256": "b28bb26826f98f9ccf1d1b0b371da9b47658063b644211c3cb54f8bd0f52e7d9",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-359.json",
+      "sha256": "307ca40d23fcfbe4fd393d6a7c313e8dc99d502345083b2269ed0c44353e48d8",
+      "bytes": 840,
+      "git_blob": "816888bb3ab2303ea6c3aae911238d3bcdcdcb0b",
+      "preserved_bytes": "recovered/bouncy-spring-059/307ca40d23fcfbe4fd393d6a7c313e8dc99d502345083b2269ed0c44353e48d8.gz",
+      "published_sha256": "307ca40d23fcfbe4fd393d6a7c313e8dc99d502345083b2269ed0c44353e48d8",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-360.json",
+      "sha256": "21db1202edb13ee1937f8f9ccb20516898922d93d150a57bde90b0e917f17521",
+      "bytes": 840,
+      "git_blob": "5f1cb7f6758d237ca0a6439a799f25d7c6c36ea0",
+      "preserved_bytes": "recovered/bouncy-spring-059/21db1202edb13ee1937f8f9ccb20516898922d93d150a57bde90b0e917f17521.gz",
+      "published_sha256": "21db1202edb13ee1937f8f9ccb20516898922d93d150a57bde90b0e917f17521",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-357.json",
+      "sha256": "4fdd1e11fc141fb8d3bce1e0ff4de7240ce4a44e0f99f7fddd94382c37810d16",
+      "bytes": 558,
+      "git_blob": "f3c20727fce9041d6c09226d2fe4762da39d9dca",
+      "preserved_bytes": "recovered/bouncy-spring-059/4fdd1e11fc141fb8d3bce1e0ff4de7240ce4a44e0f99f7fddd94382c37810d16.gz",
+      "published_sha256": "4fdd1e11fc141fb8d3bce1e0ff4de7240ce4a44e0f99f7fddd94382c37810d16",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence-only verification"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-358.json",
+      "sha256": "1d4ea6cba2a0d536220ea856d1741b92a9fd112e6d9f9007297dfde1d70dbfd6",
+      "bytes": 558,
+      "git_blob": "1d1b635898899b05101c3250b38ca76196db92fc",
+      "preserved_bytes": "recovered/bouncy-spring-059/1d4ea6cba2a0d536220ea856d1741b92a9fd112e6d9f9007297dfde1d70dbfd6.gz",
+      "published_sha256": "1d4ea6cba2a0d536220ea856d1741b92a9fd112e6d9f9007297dfde1d70dbfd6",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence-only verification"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-359.json",
+      "sha256": "e6a4df05a4397406b63b9759176baaaf4670f6bfdbc508bb73a061a956c44078",
+      "bytes": 558,
+      "git_blob": "78e4f5a3c459c31ff31e670ab7d18912d1212bd7",
+      "preserved_bytes": "recovered/bouncy-spring-059/e6a4df05a4397406b63b9759176baaaf4670f6bfdbc508bb73a061a956c44078.gz",
+      "published_sha256": "e6a4df05a4397406b63b9759176baaaf4670f6bfdbc508bb73a061a956c44078",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence-only verification"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-360.json",
+      "sha256": "61e1fed8af7ab6d1511ea8190b6c9a964e007572c36f67c8e1ec3d83811a59da",
+      "bytes": 558,
+      "git_blob": "29fb5066cd401ea477a42f8010e4e8eb068e224d",
+      "preserved_bytes": "recovered/bouncy-spring-059/61e1fed8af7ab6d1511ea8190b6c9a964e007572c36f67c8e1ec3d83811a59da.gz",
+      "published_sha256": "61e1fed8af7ab6d1511ea8190b6c9a964e007572c36f67c8e1ec3d83811a59da",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence-only verification"
+      ],
+      "qualification": "Earlier independent lens, revision, attribution, population limits and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-BOUNCY-SPRING-FREQUENCY-OVERFLOW-001",
+      "lens": 4,
+      "severity": "unassigned; conditional nonfinite client presentation state",
+      "classification": "New bounded current validated-configuration to spring-operation trace, connected to the earlier explicitly open numeric question.",
+      "trace": "BouncyBonesConfig uses f32 leaves and the shared TacticalCombatConfig validator accepts any finite nonnegative frequency greater than zero; it imposes no upper frequency bound. Assuming all other fields pass validation, a configuration whose frequency_hz is f32::MAX meets that frequency check and can be installed through the validated runtime snapshot. spring_step multiplies it by the finite positive TAU, producing positive infinity under the preserved Rust f32 overflow contract before computing damped frequency and sin_cos. With a zero-offset, finite-nonzero-velocity spring and positive frame delta, the later spring.offset * damped includes zero times infinity; the operation can produce NaN and there is no finite check before the newly computed spring is stored. The spring is client-only presentation; the committed YAML frequency is 3.0 Hz, not the extreme example. No alternate configuration was installed, no hit occurred and no animation ran.",
+      "guards_and_limits": "The active system skips at-rest springs and nonpositive frame time, and the event producer requires a nonzero hit velocity. Offsets are clamped after the step; the transform walk applies an offset only when its squared length exceeds a threshold, so a NaN comparison does not itself demonstrate a NaN transform. Ragdolled or frozen rigs skip the transform walk. Exact platform trigonometry, glam operations, actual poisoned state persistence, observation and visual effect remain open. The separate `sin_cos` behavior at infinity is not assumed to be identical across all Rust targets.",
+      "connected_repair": "Make the shared validated server-supplied tuning and every spring transition preserve finite representable state: check relevant intermediate arithmetic or reject unrepresentable configuration at its owning shared admission, then prepare a complete finite spring update before replacing retained state. Preserve normal half-life, frequency, coupling, hit response, zero/rest behavior, frozen and ragdoll policy, and avoid adding client-local fallback tuning or hidden gameplay effects.",
+      "later_acceptance": "Only after separate implementation and product-validation authorization, cover a valid ordinary tuning and hit, large-but-finite tuning, zero/rest and finite extreme cases with controlled time, and the project-required native diagnostic for any live tactical defect.",
+      "discovery": "partial; supported authored extreme policy, hit/state construction, platform math and all spring producers/consumers, exact aliases and live presentation remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Admitted non-default configuration and spring state reachability, platform math, server/client synchronization, asset revisions, live visual consequences, exact aliases and all independent lenses remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
