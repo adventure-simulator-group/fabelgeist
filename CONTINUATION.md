@@ -204,6 +204,10 @@ tree material shader and puzzle module source reads. No viewer or shader ran.
 client binding source reads. No product code or binding generator ran.
 `ASSESSMENT-L01-HISTORICAL-1071-1075.json` preserves generated binding,
 alcohol and browser authority source reads. No product or binding generator ran.
+`ASSESSMENT-L01-HISTORICAL-1079-PARTIAL-001.json` records character
+source lines 1–420 only. Its 95e file differs; resume at historical line 421.
+`ASSESSMENT-L01-HISTORICAL-1076-1078.json` preserves capability and
+combat projection source reads. No combat model or source test ran.
 `ASSESSMENT-L05-SCHEDULE-AGGREGATE-95E.json` records a possible schedule
 aggregate strengthening. Both selected production callers supply matching
 organization minutes; no invalid native schedule was established.

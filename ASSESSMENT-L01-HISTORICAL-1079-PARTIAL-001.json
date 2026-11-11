@@ -1,0 +1,35 @@
+{
+  "schema": "726-historical-partial-source-read-v1",
+  "lens": 1,
+  "original_index": 1079,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+  "snapshot": "pr-working",
+  "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "snapshot_qualification": "PR head plus recorded working state; exact historical source hash controls identity.",
+  "historical_sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+  "lines": 3983,
+  "new_personal_read_ranges": [
+    [
+      1,
+      420
+    ]
+  ],
+  "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+  "current_comparison": {
+    "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+    "git_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+    "bytes": 138251,
+    "lines": 3968,
+    "byte_identical": false,
+    "preserved_bytes": "main-advance-95e/character-1079-current.source.gz",
+    "content_encoding": "gzip",
+    "qualification": "Historical and 95e bytes differ. This is a hash comparison only; no current semantic coverage or current behavior is inferred from the historical prefix."
+  },
+  "observations": [
+    "The historical prefix defines character and gateway views, starting claim and death authority, and the beginning of the death transition. The unread remainder, connected reducers, callers and all other lenses remain open.",
+    "The pinned current character file differs from this historical body; their evidence and any later conclusions must stay separate."
+  ],
+  "qualification": "Partial historical body only; no full-role, current-source, other-lens, alias or checkpoint 3821 credit.",
+  "next_unread_line": 421
+}

@@ -1,0 +1,90 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1076,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1076",
+      "sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+      "lines": 694,
+      "new_personal_read_ranges": [
+        [
+          1,
+          694
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "bounded-current-trace-only",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1077,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/combatant.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1077",
+      "sha256": "afba3aaeb15ab41fe36d35221b5269a784098863766c03ad61ecd6532204bdbc",
+      "lines": 111,
+      "new_personal_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "afba3aaeb15ab41fe36d35221b5269a784098863766c03ad61ecd6532204bdbc",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1078,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/equipment_projection.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1078",
+      "sha256": "f8b4732bf544887996ecaf8ffba647c00a6a7f4c4d88728b7b5ac094a689c6af",
+      "lines": 85,
+      "new_personal_read_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "bounded-current-trace-only",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "f8b4732bf544887996ecaf8ffba647c00a6a7f4c4d88728b7b5ac094a689c6af",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    }
+  ],
+  "observations": [
+    "Role 1076 projects strategic attributes, carried equipment, conditions and skills into capability and combat inputs. Roles 1077–1078 define selected combatant and weapon projections; source tests were read only.",
+    "Roles 1076 and 1078 retain their earlier bounded current-trace attributions. Historical bodies and byte comparisons do not complete the tactical boundary, other lenses, native consumers or checkpoint 3821.",
+    "Source tests, examples and fixtures were read only; no product, fixture, build, test or runtime probe ran."
+  ],
+  "remaining": "Continue at original role 1079; all independent lenses, connected scopes and historical aliases remain open."
+}
