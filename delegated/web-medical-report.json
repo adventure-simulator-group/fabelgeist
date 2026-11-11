@@ -1,0 +1,555 @@
+{
+  "schema": "726-delegated-web-medical-report-v1",
+  "created_utc": "2026-11-11 20:11:35 UTC",
+  "status": "bounded newly assessed evidence; entire thirteen-lens audit incomplete; no implementation or product validation",
+  "baseline": {
+    "current_working_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "older_774_transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "checkpoint3821": "Original final ledger and queue missing; 059/774 are earlier evidence and never promoted."
+  },
+  "scope": "Original roles 2376-2377 with separately registered current support; all findings source-only, no other-lens completion or unauthorized work. Tests appeared as source text and were not run.",
+  "registrations": {
+    "registration.json": {
+      "sha256": "c4b8a439ea3b3c36f6825ab01dd729723aa2de95867c593947f8a4b0a433581c"
+    },
+    "support-registration.json": {
+      "sha256": "f9119f98e9b363d16dfa9172a1eb4aa05c5fc34973aeaf11fb86d3db82d31a39"
+    },
+    "support-registration-2.json": {
+      "sha256": "52b0cb1c0976788b2ab44ef553d3f42e6c2b6aaf34626d23b5c481164c17e91d"
+    },
+    "historical-support-6533-registration.json": {
+      "sha256": "968b0588fa1084e49d9cbd34cc359af7fdfc3a7ad0205dc223f3bde53a1cc2df"
+    }
+  },
+  "original_roles": [
+    {
+      "original_role": 2376,
+      "path": "crates/strategic-web/src/routes/settlements/medical.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/src/routes/settlements/medical.rs",
+      "historical_source": "sources/6533/crates/strategic-web/src/routes/settlements/medical.rs",
+      "current_sha256": "4a65105b858f1a7597d6f005ffd1840aced5a93d6655837cb0ad03d4f1fdb502",
+      "historical_sha256": "4a65105b858f1a7597d6f005ffd1840aced5a93d6655837cb0ad03d4f1fdb502",
+      "git_blob": "ad523058a0a171d121e6767009bb6000a336105d",
+      "byte_identical": true,
+      "actual_personally_displayed_ranges_current": [
+        [
+          1,
+          567
+        ]
+      ],
+      "actual_personally_displayed_ranges_historical": [
+        [
+          1,
+          567
+        ]
+      ],
+      "reader": "current-session delegate /root/rig_identity",
+      "historical_registry_scope": "affected_unchanged_reached_contract"
+    },
+    {
+      "original_role": 2377,
+      "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+      "historical_source": "sources/6533/crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+      "current_sha256": "f2874ee749741d0ae6f0e3454f8e6da59b3b031b933580da15ec73a80ad33ed1",
+      "historical_sha256": "f2874ee749741d0ae6f0e3454f8e6da59b3b031b933580da15ec73a80ad33ed1",
+      "git_blob": "5150aade7681ef4e6b37589a698aa4faed0d06a1",
+      "byte_identical": true,
+      "actual_personally_displayed_ranges_current": [
+        [
+          1,
+          898
+        ]
+      ],
+      "actual_personally_displayed_ranges_historical": [
+        [
+          1,
+          898
+        ]
+      ],
+      "reader": "current-session delegate /root/rig_identity",
+      "historical_registry_scope": "materially_reached_owner_contract"
+    }
+  ],
+  "support_source_reads": [
+    {
+      "path": "crates/strategic-web/src/medical.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "c8ff9c47a5df84de241e85a1466c1e22dcbb7991c868d86d46f9cd4c9fd37651",
+      "current_source": "support/crates/strategic-web/src/medical.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "search_only_displayed_snippets": "symbol matches 7,18,39-46,50,58,69,79,85,116,127-129,134,170,174-175,179-180,210-222,226,325,345-346,349,362-366,368,387-388,423-426,430,433,435,439,443-445",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/medical.rs",
+      "historical_sha256": "c8ff9c47a5df84de241e85a1466c1e22dcbb7991c868d86d46f9cd4c9fd37651",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; prior reader work is separately attributed; no ordered role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/medical/administrations.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "44013b88072ffed197f1fb44e9b5de838612f08282374c95e9544cf6ed0fbfd2",
+      "current_source": "support/crates/strategic-web/src/medical/administrations.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "search_only_displayed_snippets": "none beyond body ranges",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/medical/administrations.rs",
+      "historical_sha256": "44013b88072ffed197f1fb44e9b5de838612f08282374c95e9544cf6ed0fbfd2",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; prior reader work is separately attributed; no ordered role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/templates/settlement/character_health.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "e2d0f9c9b380042b6620943eeb712aacad78d4b258feeff578329ce8891bdb24",
+      "current_source": "support/crates/strategic-web/src/templates/settlement/character_health.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          864,
+          1060
+        ],
+        [
+          1145,
+          1180
+        ]
+      ],
+      "search_only_displayed_snippets": "symbol matches in 139-155,196,686-708,745,855,884-1053,1083,1161-1166 and test-only 1844-2060",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/templates/settlement/character_health.rs",
+      "historical_sha256": "e2d0f9c9b380042b6620943eeb712aacad78d4b258feeff578329ce8891bdb24",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; prior reader work is separately attributed; no ordered role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/templates/settlement/character_health/notebook.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "ddcf5b6d32ce9793570df94471b1a5098b3bed2ea8bf83e36cc6f0381915183f",
+      "current_source": "support/crates/strategic-web/src/templates/settlement/character_health/notebook.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "search_only_displayed_snippets": "symbol matches 10,14,16",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/templates/settlement/character_health/notebook.rs",
+      "historical_sha256": "ddcf5b6d32ce9793570df94471b1a5098b3bed2ea8bf83e36cc6f0381915183f",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; prior reader work is separately attributed; no ordered role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/routes/data.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "2cba5629aedb862b8c04b750219bef16c9eba8b47116c75b3e8cda4cf21791bb",
+      "current_source": "support/crates/strategic-web/src/routes/data.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          125,
+          200
+        ]
+      ],
+      "search_only_displayed_snippets": "symbol match 151 and test-only 264,282",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/routes/data.rs",
+      "historical_sha256": "2cba5629aedb862b8c04b750219bef16c9eba8b47116c75b3e8cda4cf21791bb",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; prior reader work is separately attributed; no ordered role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/party/transfers.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "77739810b7f83db5b07c97e45d67f1ffe199c658b39c59a9abadb5665b00e162",
+      "current_source": "support/crates/strategic-web/src/routes/settlements/party/transfers.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "search_only_displayed_snippets": "none beyond body ranges",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/routes/settlements/party/transfers.rs",
+      "historical_sha256": "77739810b7f83db5b07c97e45d67f1ffe199c658b39c59a9abadb5665b00e162",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; prior reader work is separately attributed; no ordered role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/disease.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+      "current_source": "support/crates/adventuresim-stdb-module/src/disease.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          140,
+          275
+        ],
+        [
+          276,
+          340
+        ],
+        [
+          475,
+          545
+        ],
+        [
+          2070,
+          2125
+        ],
+        [
+          2125,
+          2215
+        ],
+        [
+          2255,
+          2325
+        ]
+      ],
+      "search_only_displayed_snippets": "symbol matches 145-235,276-327,501-541,1450,2080,2103,2137,2159,2267 and test-only 2575,2749,2940-2942",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-stdb-module/src/disease.rs",
+      "historical_sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; prior reader work is separately attributed; no ordered role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/surgery.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+      "current_source": "support/crates/adventuresim-stdb-module/src/surgery.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          800,
+          845
+        ],
+        [
+          875,
+          1030
+        ]
+      ],
+      "search_only_displayed_snippets": "symbol matches 812,897 and test-only 1179,1200",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-stdb-module/src/surgery.rs",
+      "historical_sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; prior reader work is separately attributed; no ordered role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-core/src/physiology.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "current_source": "support/crates/adventuresim-core/src/physiology.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          40,
+          80
+        ]
+      ],
+      "search_only_displayed_snippets": "symbol matches 56,902,937",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-core/src/physiology.rs",
+      "historical_sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; prior reader work is separately attributed; no ordered role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-core/src/surgery.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "c0b73f812166b3333b5611325539f8c850030c5db3ef7ff4b69b11c1bf9e34fd",
+      "current_source": "support/crates/adventuresim-core/src/surgery.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          125
+        ]
+      ],
+      "search_only_displayed_snippets": "none beyond body ranges",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-core/src/surgery.rs",
+      "historical_sha256": "c0b73f812166b3333b5611325539f8c850030c5db3ef7ff4b69b11c1bf9e34fd",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; prior reader work is separately attributed; no ordered role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/world_actor.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "current_source": "support/crates/adventuresim-stdb-module/src/world_actor.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          590,
+          745
+        ],
+        [
+          745,
+          960
+        ]
+      ],
+      "search_only_displayed_snippets": "symbol matches 121-122,593,697,762,816,905,939 and test-only 1292,1313,1343-1345",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-stdb-module/src/world_actor.rs",
+      "historical_sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; prior reader work is separately attributed; no ordered role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+      "current_source": "support/crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1945,
+          2040
+        ]
+      ],
+      "search_only_displayed_snippets": "symbol matches 1560,1835,1966 and test-only 316-321,371-387,449-460",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "historical_sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; prior reader work is separately attributed; no ordered role or other-lens credit."
+    }
+  ],
+  "recovered_history": {
+    "adler_059": "READ-L11-385: Adler personally read 2376 1-567 via replacement REG1249, superseding REG1245 which recorded raw 1-568; 568 does not exist. Role 2377 full 1-898 via REG1246. VERIFY explicitly has all_recorded_metadata_ranges_covered=false, effective=true for 2376; accepted unique delta0, current reconciled false, no validation. Two original camera metadata fields 462-568 are explicitly limited through 567, not globally normalized.",
+    "delegated_059": "READ-L12-788: /root/lens12_frontier personally read 2376 1-567 via PAR365, strict source-specific EOF qualification; root_personal_rereads empty. READ-L12-789: same subagent earlier personally read 1-390 under partial receipt with no ordered credit and newly read 391-898 via PAR367; union is full, not a fresh whole-file reread. Root adoption is not root personal read, accepted unique delta0, current reconciliation false and other-lens transfer false. Preserve new-finding IDs for distinct graph/medication first-cuts.",
+    "older_774": "Camera CAM-OWN-WEB-MEDICAL-106 camera coverage zero-based row423 physical line424 has null read_status, additional-sources row662 physical line663 explicitly complete 1-567. Rig RIG-OWNER-FINAL-RECEIVERS-089 additional-sources row240 physical line241 records 2377 51-375 only. Camera trace CAM-PPS-CLINICAL-RECEIVERS-045 physical line45 has /current_sources/6 2376 full and /additional_actual_source_proofs/14 2377 550-774; CAM-PPS-CORPSE-012 line12 /current_sources/7 for 2376 490-535. Rig RIG-PPS-030 line29 records 2377 51-375 and additional 1-50,376-898 with connected role only; RIG-PPS-034 line34 /fresh_current_source_reads/6 records 2376 full with receiver closure pending; RIG-PPS-035 line35 /fresh_current_source_reads/3 and /fresh_current_additional_source_reads/14 record clinical proof. Registry owner_fit_delta remains incomplete_explicit_contract_comparison_required; producer role accounted with findings; no implied later-lens clearance.",
+    "historical_ownership": "RIG-PPS-035 explicitly records prior root-transferred web sanitize, medical presentation, active/history and notebook receiver authority to rig, while camera retains DB surgery/disease/canonical cause, physical/rights and corpse UI. This is historical claim evidence, not a new transfer or decision by this delegate. Central owner resolves current repair ledger.",
+    "previous_current": "/root/hair_ops prior independent current reports 726-delegate-strategic-web, 726-delegate-web-data and 726-delegate-web-equipment are preserved with their original registrations and exact source artifacts under prior-current/. Their support ranges belong to that reader, not this delegate. Prior medical-history and gap candidates are linked without recounting.",
+    "reconstruction": "registry-selection-reconstructed.json selects exact rows unchanged from original-registry.json.gz; it is newly reconstructed, not original checkpoint3821 evidence. Full 059 queue/ledger and transport manifest are copied exactly. f82 is historical transport, not source revision.",
+    "pointers": "history-manifest.json; original 059, 774 originals and separate historical-family-execution variants remain exact in their own directories."
+  },
+  "findings_and_connected_questions": [
+    {
+      "id": "DELEGATE-WEB-MEDICAL-CONTEXT-CLAIM-95E",
+      "classification": "new current conditional source finding; not a historical finding, no inferred global alias",
+      "title": "Surgery POST omits the context claim required by the authoritative treatment decision",
+      "source": [
+        "crates/strategic-web/src/routes/settlements/medical.rs:19-71,179-220,223-230,283-317",
+        "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs:550-594",
+        "crates/strategic-web/src/routes/data.rs:151-171",
+        "crates/adventuresim-stdb-module/src/surgery.rs:812-820,897-966",
+        "crates/adventuresim-stdb-module/src/world_actor.rs:593-607,761-779,816-895"
+      ],
+      "trace": "For a nonself patient, the web surgery form and POST contain procedure, optional projectile, soap and action ID but always send None for both context reference and membership revision. The reducer maps that to no contextual claim. If the patient has any valid current contextual membership under its collection predicate, the decision returns Unavailable on a missing claim before checking the target preference or emergency rule. The same-settlement branch establishes co-presence independently; assuming the observed-character/location and other UI requirements hold, the dialog can be reached, yet the submitted treatment is rejected. The route logs the error and redirects without distinguishing it from success.",
+      "conditions": "Assumes a living authorized nonself actor/patient, a qualifying patient context membership, matching view and location, and all other admission conditions. Existence or frequency of this live state and practical player impact were not observed. Self treatment remains a separate allowed path; no unsupported authorization-bypass or data disclosure claim.",
+      "future_repair_direction": "Determine correct authorized contextual contact reference and membership revision at the actual presentation/action boundary; propagate them with the procedure and preserve exact stale-claim, consent, emergency, retry receipt and final authority checks. If a context cannot be represented, show an explicit unavailable state instead of submitting a guaranteed missing claim.",
+      "related_records": [
+        "059 q1006 Q-L12-a2ef7026a3b720bc1401 records unresolved surgery contextual-decision and current-owner questions.",
+        "059 q1872 Q-L12-2d961f568d7521b86062 records surgery co-location/context permission open.",
+        "774 RIG-PPS-035 describes exact context/revision receipt and retained permission semantics; old supplier/repair owner attributions remain historical. No asserted exact alias."
+      ]
+    },
+    {
+      "id": "ADLER-L11-MEDICAL-HISTORY-AVAILABILITY",
+      "classification": "existing 059 q193 finding independently reconnected by current delegate; not a new historical or unique issue",
+      "source": [
+        "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs:707-764",
+        "crates/strategic-web/src/medical.rs:127-145,210-223",
+        "crates/strategic-web/src/medical/administrations.rs:6-27",
+        "crates/strategic-web/src/templates/settlement/character_health.rs:866-891,1159-1172"
+      ],
+      "trace": "Chart failure returns MedicalPresentation unavailable. In the distinct path with visible history, a history query error becomes an empty vector; if patient time succeeds sanitize reports unavailable=false and no active medications, so the controls omit Current medication exactly as with genuinely empty history.",
+      "conditions": "Conditional on visible history, failed history query and successful chart/time; no actual database failure, missing medication, patient impact or unauthorized record observed. Self or presence of chart rows gate history; permission and empty cases remain distinct.",
+      "future_repair_direction": "Represent the failed history independently from an authoritative successful empty collection and propagate appropriate availability to the observer-safe presentation and controls, without weakening authorization.",
+      "related_records": [
+        "059 /entries/193; prior 95e /root/hair_ops report 726-delegate-strategic-web independently established the same trace. Preserve attribution and avoid duplicate counting."
+      ]
+    },
+    {
+      "id": "DELEGATE-MEDICAL-GAP-EVENT-DISCLOSURE-95E",
+      "classification": "previous /root/hair_ops current source candidate; independently reconnected here, not a new duplicate",
+      "source": [
+        "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs:707-739,764-773",
+        "crates/adventuresim-stdb-module/src/disease.rs:201-225,276-327,493-524",
+        "crates/strategic-web/src/medical.rs:127-145,170-180,210-223",
+        "crates/strategic-web/src/templates/settlement/character_health.rs:884-891,913-917,929-992,999-1057"
+      ],
+      "trace": "The backend inserts chart gaps for separated presence spans and its reading-level known interventions are empty at physiology band 0 and otherwise limited to active interventions at that observation. The web fetches all patient administrations when self or any authorized chart row exists, sanitize retains all, and the notebook shows start/stop names between first and last readings without a gap/band check. A hypothetical event in an intervening not-in-party gap meets those rendering predicates.",
+      "conditions": "Whether any-observation grants the complete history versus only individually observed interventions is an unsettled product/authorization contract. No actual person, record, output, security breach or runtime disclosure observed.",
+      "future_repair_direction": "Decide history visibility policy and, if time/band limited, filter by authorized observation/presence and preserve correct self-view, gap boundaries, current medication and typed times.",
+      "related_records": [
+        "Previous /root/hair_ops <LOCAL_PATH_0> established this candidate and separately traced recruitment caller; its reader attribution and registered scopes remain in prior-current/.",
+        "059 q193, q198, q179 are adjacent history availability, timeline reference and chronology families, not automatic aliases."
+      ]
+    },
+    {
+      "id": "ADLER-L11-MEDICAL-CONTEXT-OUTCOME-OBSERVABILITY",
+      "classification": "existing qualified outcome family extended by this assigned current route; alias unresolved",
+      "source": [
+        "crates/strategic-web/src/routes/settlements/medical.rs:283-317,362-385,388-405,408-425,434-458",
+        "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs:376-447,449-482,835-864",
+        "crates/adventuresim-stdb-module/src/surgery.rs:909-966,987-1016",
+        "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs:1965-1975"
+      ],
+      "trace": "Treatment and stop-preparation failures log and redirect; party deposit/withdraw iterate separate calls discarding individual results, and liquidation discards its reducer result. A malformed transfer form yields an empty entry vector; the inspected liquidation owner rejects empty input, rather than treating it as all inventory. The same redirect occurs after success or rejected calls.",
+      "conditions": "No assertion of an atomic bulk-transfer promise, actual mutation, failed call, irreversible loss or that an HTTP redirect claims success. Whether user-visible outcome and partial-success information are required remains open. Backend validation stays authoritative.",
+      "future_repair_direction": "Reconcile user-visible outcome/retry and, where needed, per-entry partial results with action owner and native permissions; preserve deterministic ordering and do not invent atomicity without policy.",
+      "related_records": [
+        "Adler READ-L11-385 explicitly associates bulk transfer, repair and treatment with an existing mission-outcome family; exact alias and ownership pending.",
+        "059 q1008 Q-L12-19b89d12377a335f43a4 includes surgery receipt/time, distinct from an automatic outcome alias."
+      ]
+    }
+  ],
+  "nonfindings": [
+    {
+      "text": "Surgery required patient injury, projectile, inventory, actor injury and item definition reads fail with explicit medical-unavailable output. Patient lookup and contextual query can still collapse error separately; do not conflate paths.",
+      "source": [
+        "crates/strategic-web/src/routes/settlements/medical.rs:5-16,47-113,145-157"
+      ]
+    },
+    {
+      "text": "Surgery reducer validates actor authority, togetherness, living patients, action ID and contextual decision; route and reducer deficiencies do not establish unauthorized treatment.",
+      "source": [
+        "crates/adventuresim-stdb-module/src/surgery.rs:897-966"
+      ]
+    },
+    {
+      "text": "Stop-preparation reducer looks up actual administration patient and invokes relationship/authority checks; path patient ID being used for redirect alone is not itself an authorization bypass.",
+      "source": [
+        "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs:835-864",
+        "crates/adventuresim-stdb-module/src/disease.rs:2080-2100,2267-2279"
+      ]
+    },
+    {
+      "text": "Standard medication uses self as patient, typed current profile, route, standard dose and no arbitrary browser dosage; unchecked/unknown-profile failures are distinct historical 059 q511 and q512 typed-reason issues.",
+      "source": [
+        "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs:163-207,218-276",
+        "crates/adventuresim-stdb-module/src/disease.rs:2137-2185"
+      ]
+    },
+    {
+      "text": "Empty liquidation selections are explicitly rejected by reducer; do not allege malformed selection sells all assets. Individual deposit/withdraw calls remain independently error-obscured.",
+      "source": [
+        "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs:376-447,449-471",
+        "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs:1965-1975"
+      ]
+    },
+    {
+      "text": "The active selector intentionally excludes stopped, out-of-window and unknown-profile records. Patient clock absence on stop falls back to administered_at in the reducer; whether such missing clock is reachable or fallback represents an acceptable chronology is open and was already noted by prior /root/hair_ops.",
+      "source": [
+        "crates/strategic-web/src/medical/administrations.rs:6-27",
+        "crates/adventuresim-stdb-module/src/disease.rs:2267-2301"
+      ]
+    },
+    {
+      "text": "No assumption that a random missing/malformed backend administration is reachable: normal administration requires a positive checked dose before persisting; other writers/storage require separate proof.",
+      "source": [
+        "crates/strategic-web/src/medical.rs:97-116",
+        "crates/adventuresim-stdb-module/src/disease.rs:2137-2215",
+        "crates/adventuresim-core/src/physiology.rs:54-69"
+      ]
+    }
+  ],
+  "open_questions": [
+    "Can a nonself patient with an active valid contextual membership and all UI co-location/visibility conditions reach ordinary surgery via the actual product flow, and which authorized contact token and revision should be passed?",
+    "Should an authorized observation grant full historical/current administration names, or only observed events with explicit presence/time/band limits?",
+    "How should chart, history, selected character, capability and other optional-data failures be exposed without disclosing private patient information?",
+    "Can patient time be absent after administration under legitimate database lifecycle, and what is the stop-time policy in that state?",
+    "What outcome and partial-success feedback belongs to treatment, stop, repair and bulk inventory actions; what retry/transaction rules apply?",
+    "What exact relationships and deduplication apply among 059 q32/q193/q198/q1006/q1008/q1872, earlier 774 source claims and the current conditional observations?"
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "producer_propagation",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Typed SurgeryProcedure and BodyRegion enter reducer; actual contextual claim is dropped at web action boundary. WEB-MEDICAL-CONTEXT identifies first-cut relationship."
+    },
+    {
+      "lens": "existing_type_owners",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Existing contextual claim, BodyRegion, SurgeryProcedure, DoseMilliunits and StrategicMinute have distinct owners; plan/transport must use rather than duplicate them."
+    },
+    {
+      "lens": "admission_contracts",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Reducer validates real actor, patient, body, claim and dose; ordinary web submission cannot provide needed context for qualifying patient. Historical dose expect remains conditional on backend row admission."
+    },
+    {
+      "lens": "invariant_operations",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Latest stop writes patient clock or fallback start; selected state and missing-clock policy open. No mutation or temporal case executed."
+    },
+    {
+      "lens": "aggregate_states",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Procedure and projectile/soap/action plus optional context/revision have relational meaning; absent claim and nonempty current memberships produce unavailable. History available/empty/error need separate state."
+    },
+    {
+      "lens": "type_ownership",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Original camera/rig ownership and current central assignment are distinct; no repair owner transfer inferred from this delegate."
+    },
+    {
+      "lens": "redundant_authority",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Clinical decision, route preflight and backend context view serve separate purposes but need coherent handoff; repeated use alone does not prove duplicate authority."
+    },
+    {
+      "lens": "behavior_preservation",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Surgery preserves retry, consent, emergency and stale-membership guards; a future fix must retain those behaviors and explicit partial outcomes."
+    },
+    {
+      "lens": "enum_shapes",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Procedure is closed enum. Context reference plus revision are paired options in backend and form currently omits both; a future boundary could represent the aggregate explicitly."
+    },
+    {
+      "lens": "derivability",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Serde adapters and sanitizer perform real admission/projection; no unsupported derive rewrite claimed."
+    },
+    {
+      "lens": "type_granularity",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Checked dose and observation bands are distinct roles, self versus observed history policies differ, and contextual treatment claim must not collapse into raw location."
+    },
+    {
+      "lens": "magic_strings",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "SATS, reducer names, SQL and HTTP labels are boundary strings; raw action and context identities have actual owners but no generic all-string defect inferred."
+    },
+    {
+      "lens": "magic_numbers",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Dose and time use owners, endpoint native integer IDs remain boundary ports. Equipment u16 count risk needs actual authoritative cardinality evidence; no numeric witness."
+    }
+  ],
+  "limitations": [
+    "All historical support blobs are byte-identical to current but were not personally displayed as historical bodies.",
+    "Both assigned bodies were personally displayed in both revisions after prospective registration; no invented line 568.",
+    "No repairs, product source edits, builds, tests, browser, runtime probes, simulations, synthetic fixtures or validation occurred.",
+    "Older native/P16 variant downstream contracts are not inferred from same source file hashes.",
+    "Original 059 final checkpoint3821 ledger and queue are not recovered; exact earlier sources and reconstructed records are clearly labelled."
+  ]
+}

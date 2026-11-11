@@ -1,0 +1,521 @@
+{
+  "schema": "delegated-source-audit-report-v1",
+  "agent": "/root/hair_ops",
+  "generated_utc": "2026-11-11 20:10:52 UTC",
+  "scope": "Bounded reassessment of original roles 2378–2380 across thirteen audit questions; not complete lens, audit population, checkpoint or ledger.",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "source_equality": "All three full assigned source objects are byte-identical at both revisions; does not imply equality of connected owners, data, or runtime behavior.",
+  "registration": {
+    "path": "registration.json",
+    "sha256": "a86920b042309dd10a2bf9b06484f83fc2b7b0af9fbda57f21fc6311026faad9"
+  },
+  "role_records": [
+    {
+      "original_index": 2378,
+      "path": "crates/strategic-web/src/routes/settlements/party/location_personal.rs",
+      "current_source": "source/95e6-location_personal.rs",
+      "historical_source": "source/6533-location_personal.rs",
+      "fresh_personally_displayed_body_ranges": [
+        [
+          1,
+          190
+        ],
+        [
+          191,
+          382
+        ]
+      ],
+      "unread_assigned_ranges": []
+    },
+    {
+      "original_index": 2379,
+      "path": "crates/strategic-web/src/routes/settlements/residences.rs",
+      "current_source": "source/95e6-residences.rs",
+      "historical_source": "source/6533-residences.rs",
+      "fresh_personally_displayed_body_ranges": [
+        [
+          1,
+          210
+        ],
+        [
+          211,
+          417
+        ]
+      ],
+      "unread_assigned_ranges": []
+    },
+    {
+      "original_index": 2380,
+      "path": "crates/strategic-web/src/routes/settlements/rest.rs",
+      "current_source": "source/95e6-rest.rs",
+      "historical_source": "source/6533-rest.rs",
+      "fresh_personally_displayed_body_ranges": [
+        [
+          1,
+          170
+        ],
+        [
+          171,
+          340
+        ],
+        [
+          341,
+          510
+        ],
+        [
+          511,
+          680
+        ],
+        [
+          681,
+          840
+        ]
+      ],
+      "unread_assigned_ranges": []
+    }
+  ],
+  "prior_personal_support": {
+    "registration": "reference/prior-web-equipment-support-registration-01.json",
+    "sha256": "e7eb8155b443b9c2d49f54f4e26bd9fb2b099af14ebadb7a1ee914d6fc0d9f31",
+    "report": "reference/prior-web-equipment-report.json",
+    "report_sha256": "3911a6128d6c0574a2b2ce122118db3084747efe04a773500c60a51b2c8210f5",
+    "rest_rs_prior_support_ranges": [
+      [
+        370,
+        388
+      ]
+    ],
+    "qualification": "Prior source support was already credited only in previous equipment audit; full fresh role read follows this packet registration and does not transfer past credit."
+  },
+  "support": [
+    {
+      "registration": "support-registration-01.json",
+      "sha256": "221473dcec06377b91eecc1a52a0b3c0588a11ddea6e9a282fe0331c09e0e84d",
+      "actual_personal_ranges": {
+        "crates/adventuresim-stdb-module/src/time/settlement_rest.rs": [
+          [
+            1,
+            90
+          ],
+          [
+            175,
+            255
+          ],
+          [
+            275,
+            420
+          ],
+          [
+            425,
+            490
+          ]
+        ],
+        "crates/adventuresim-stdb-module/src/residence.rs": [
+          [
+            240,
+            305
+          ]
+        ],
+        "crates/adventuresim-stdb-module/src/residence/acquisition.rs": [
+          [
+            1,
+            99
+          ]
+        ],
+        "crates/strategic-web/src/templates/settlement/rest.rs": [
+          [
+            50,
+            65
+          ],
+          [
+            170,
+            285
+          ]
+        ],
+        "crates/strategic-web/src/templates/settlement/chrome/residences.rs": [
+          [
+            260,
+            315
+          ]
+        ],
+        "crates/strategic-web/src/templates/settlement/character_skills.rs": [
+          [
+            575,
+            620
+          ],
+          [
+            806,
+            875
+          ]
+        ],
+        "crates/adventuresim-core/src/strategic_time.rs": [
+          [
+            1,
+            20
+          ]
+        ],
+        "crates/adventuresim-core/src/strategic_economy.rs": [
+          [
+            1,
+            42
+          ]
+        ],
+        "crates/strategic-web/src/routes/settlements/rest_preview.rs": [],
+        "crates/strategic-web/src/routes/settlements/encumbrance.rs": [
+          [
+            265,
+            278
+          ]
+        ],
+        "crates/strategic-web/src/routes/data.rs": [
+          [
+            10,
+            48
+          ]
+        ]
+      },
+      "qualification": "Full objects prospectively registered; only listed current ranges personally displayed. Prior same-agent data and encumbrance reads retain earlier scopes, not implicitly new support credit."
+    }
+  ],
+  "rules": "Applied user root guide, crates/AGENTS.md, strategic-web AGENTS (reference/strategic-web-AGENTS-95e.md), bespoke-audit and focused thirteen lens skills. Source only; no implementation or product validation.",
+  "historical_manifest": {
+    "path": "historical-manifest.json",
+    "sha256": "0baaccb2e9fdb35277d68289aad0dbfb30ec854b5553fb40a171642cba332f6f",
+    "scope": "37 exact original extracted records checked against original transport manifest; timestamps, attribution, ranges and statuses preserved."
+  },
+  "reference_archives": {
+    "path": "reference/manifest.json",
+    "sha256": "cdeed150b739f8405ab276f86c807799ac54c6aa90006d5a406334512625eb6d"
+  },
+  "historical_attribution": [
+    {
+      "original_index": 2378,
+      "record": "reference/registry.json.gz /files/2378",
+      "reviewers": "camera CAM-PPS-CLINICAL-RECEIVERS-045 and rig RIG-PPS-035",
+      "actual_ranges": [
+        [
+          86,
+          382
+        ]
+      ],
+      "requested_ranges_as_recorded": [
+        [
+          86,
+          390
+        ]
+      ],
+      "qualification": "Original requested endpoint exceeds actual EOF 382; both original requested limit and clipped actual read remain. No unrelated whole-file proof."
+    },
+    {
+      "original_index": 2379,
+      "record": "reference/registry.json.gz /files/2379",
+      "reviewers": "camera CAM-OWN-WEB-RESIDENCE-RECEIVER-119 and CAM-PPS-RESIDENCE-023",
+      "actual_ranges": [
+        [
+          1,
+          417
+        ]
+      ],
+      "qualification": "Separate owner and producer role evidence, owner-fit delta pending; no other-lens transfer."
+    },
+    {
+      "original_index": 2380,
+      "record": "reference/registry.json.gz /files/2380",
+      "reviewers": "rig RIG-PPS-038 producer and RIG-ADMISSION03-REGISTER-110",
+      "producer_ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "separate_admission_ranges": [
+        [
+          206,
+          377
+        ]
+      ],
+      "qualification": "Original roles do not imply later unrelated functions, tests or other lens credit."
+    },
+    {
+      "record": "historical/adler/READ-L11-385.json and READ-L11-386.json",
+      "reviewer": "Adler Lens11",
+      "role_2378_fresh": [
+        [
+          86,
+          382
+        ]
+      ],
+      "role_2379_fresh": [
+        [
+          1,
+          417
+        ]
+      ],
+      "role_2380_fresh": [
+        [
+          1,
+          377
+        ]
+      ],
+      "verification_head_as_recorded": "b97bcedc262f91de07635c69cd1a4fc4f9a7d13f",
+      "qualification": "This old verification HEAD is receipt context, not current 95e. Adler explicitly left rest_summary/tail and native owners pending; no old full-rest coverage."
+    },
+    {
+      "record": "historical/segovb/READ-L12-790.json, READ-L12-791.json, READ-L12-792.json",
+      "reviewer": "delegate /root/lens12_frontier personal reads, adopted by segovb; root_personal_rereads=[]",
+      "role_2378_fresh": [
+        [
+          86,
+          382
+        ]
+      ],
+      "role_2379_fresh": [
+        [
+          1,
+          417
+        ]
+      ],
+      "role_2380_fresh": [
+        [
+          1,
+          377
+        ]
+      ],
+      "frozen_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "qualification": "Original material ranges only; identity-specific EOF/Windows locators independently qualified, no other-lens transfer."
+    },
+    {
+      "record": "historical/parallel-l12-20261029/READ-CONNECTED-PAR-L12-790-LOCATION-LOOKUP.json",
+      "reviewer": "/root/lens12_frontier",
+      "fresh_connected_role_2378": [
+        [
+          1,
+          85
+        ]
+      ],
+      "qualification": "Separately prospectively registered connected read, union with original 86–382 covers body but no extra ordered role credit."
+    },
+    {
+      "record": "historical/parallel-l12-20261029/READ-CONNECTED-PAR-L12-787-CAMP-APPEARANCE-OWNERS.json and READ-CONNECTED-PAR-L12-792-REST-SUMMARY.json",
+      "reviewer": "/root/lens12_frontier",
+      "rest_rs_connected_ranges": [
+        [
+          378,
+          395
+        ],
+        [
+          396,
+          580
+        ]
+      ],
+      "qualification": "Two separately registered earlier connected reads: first prior TEAM007 future support, second rest-summary TEAM008. No additional ordered credit or retroactive original scope. Historical q2254 left 581–840 unread; this new delegation displays that tail. Adopted by segovb with no root personal rereads."
+    }
+  ],
+  "historical_queue": [
+    {
+      "index": 192,
+      "id": "ADLER-L11-STRATEGIC-CLOCK-PROJECTION-ADMISSION",
+      "status_as_recovered": "open-reconciliation",
+      "record": "reference/queue-059.json.gz /entries/192",
+      "receipt_as_recorded": "../../adler/READ-L11-385.json"
+    },
+    {
+      "index": 193,
+      "id": "ADLER-L11-MEDICAL-HISTORY-AVAILABILITY",
+      "status_as_recovered": "open-reconciliation",
+      "record": "reference/queue-059.json.gz /entries/193",
+      "receipt_as_recorded": "../../adler/READ-L11-385.json"
+    },
+    {
+      "index": 202,
+      "id": "ADLER-L11-REST-SUPPLY-AVAILABILITY",
+      "status_as_recovered": "open-reconciliation",
+      "record": "reference/queue-059.json.gz /entries/202",
+      "receipt_as_recorded": "../../adler/READ-L11-394.json"
+    },
+    {
+      "index": 510,
+      "id": "SEGOVB-L12-QUERY-SINGLE-OBSERVATION-ERROR-DISCARD",
+      "status_as_recovered": "open-reconciliation",
+      "record": "reference/queue-059.json.gz /entries/510",
+      "receipt_as_recorded": "../../segovb/READ-L12-CONNECTED-TEAM-007.json"
+    },
+    {
+      "index": 517,
+      "id": "SEGOVB-L12-RESIDENCE-CLOCK-OBSERVATION-ZERO-DEFAULT",
+      "status_as_recovered": "open-reconciliation",
+      "record": "reference/queue-059.json.gz /entries/517",
+      "receipt_as_recorded": "../../segovb/READ-L12-791.json"
+    },
+    {
+      "index": 527,
+      "id": "SEGOVB-L12-QUERY-LOCAL-REPUTATION-OBSERVATION-ERROR-DISCARD",
+      "status_as_recovered": "open-reconciliation",
+      "record": "reference/queue-059.json.gz /entries/527",
+      "receipt_as_recorded": "../../segovb/READ-L12-CONNECTED-TEAM-008.json"
+    },
+    {
+      "index": 1875,
+      "id": "Q-L12-b219ee521e801ad95a19",
+      "status_as_recovered": "open-evidence-or-disposition",
+      "record": "reference/queue-059.json.gz /entries/1875",
+      "receipt_as_recorded": null
+    },
+    {
+      "index": 1876,
+      "id": "Q-L12-016d0856baaa175ee642",
+      "status_as_recovered": "open-evidence-or-disposition",
+      "record": "reference/queue-059.json.gz /entries/1876",
+      "receipt_as_recorded": null
+    },
+    {
+      "index": 2254,
+      "id": "L12-CLOSURE-REST-QUERY-AND-NATIVE-SERVICE-CONTRACT",
+      "status_as_recovered": "open-granular-reconciliation",
+      "record": "reference/queue-059.json.gz /entries/2254",
+      "receipt_as_recorded": null
+    }
+  ],
+  "findings_and_relationships": [
+    {
+      "id": "SEGOVB-L12-RESIDENCE-CLOCK-OBSERVATION-ZERO-DEFAULT",
+      "classification": "Historical q517 exact cause and broader Adler q192 date-sensitive projection independently reconnected, not new unique IDs.",
+      "references": [
+        "crates/strategic-web/src/routes/settlements/residences.rs:110-175,177-204,220-258",
+        "crates/strategic-web/src/templates/settlement/chrome/residences.rs:282-290",
+        "crates/strategic-web/src/routes/settlements/party/location_personal.rs:154-159,195-209",
+        "crates/strategic-web/src/templates/settlement/character_skills.rs:806-828"
+      ],
+      "condition": "Residence read_family collapses clock query error and missing row into StrategicMinute::ZERO; that same minute gates offers by available_from and computes wedding/pregnancy days remaining. Personal activity view calls shared query_single then uses ZERO for missing/error before checking membership dues for profession previews. Known valid minute zero differs from unavailable chronology; exact result depends on authored dates and observed data.",
+      "qualification": "Separate location-personal use of q510 is related to q192 but should not automatically be equated to q517 exact residence site. Current ASSESSMENT-L01-RESIDENCE-CLOCK-95E covers a distinct extreme billing cursor candidate, not this display fallback. No missing-clock occurrence or runtime outcome asserted.",
+      "future_repair_direction": "Preserve authoritative known time vs absent/query error through date-dependent offers and family/activities with explicit UI policy; retain intentional valid zero. Central owns exact alias resolution."
+    },
+    {
+      "id": "REVIEW-REST-INN-REQUESTED-VS-ELAPSED-CHARGE-95E",
+      "classification": "Newly assessed source-derived conditional elapsed/requested accounting mismatch, first-failure and aliases subject to central reconciliation.",
+      "references": [
+        "crates/strategic-web/src/routes/settlements/rest.rs:241-268,295-334,417-490",
+        "crates/adventuresim-stdb-module/src/time/settlement_rest.rs:45-66,284-305,312-366",
+        "crates/adventuresim-core/src/strategic_economy.rs:27-35",
+        "crates/strategic-web/src/templates/settlement/rest.rs:245-264"
+      ],
+      "first_failure": "Successful inn reducer clips elapsed at injury/disease/settlement boundaries and charges inn_full_board_cost(elapsed), whereas rest_summary calls rest_spending_breakdown with requested_minutes and unconditionally presents inn_full_board_cost(requested_minutes) as full-board coin paid. If a successful stay is clipped across a billing-day boundary, the displayed full-board amount can exceed the actual charged amount. Funds preflight is based on the request, but settlement charge is based on elapsed.",
+      "qualification": "Condition requires a supported clip and successful return; no runtime witness, concrete elapsed or state reachability established. Existing q510/q527 are unavailable observation causes; q1876 and q2254 left native cost/consumer contract unresolved, not automatic aliases. Historical Lens12 read rest_summary 396–580 as connected support; this work traces actual reducer charge rather than claiming first historical summary read.",
+      "future_repair_direction": "Define authoritative committed rest-result/payment facts and tie displayed full-board charge to them, distinguishing request, actual elapsed and individual cost causes; preserve interrupted stay, authentic no-charge and user-safe errors. No repair or validation."
+    },
+    {
+      "id": "REVIEW-REST-SUMMARY-OBSERVATION-COMPLETENESS-95E",
+      "classification": "Conditional current summary completeness and semantics; exact q510 and q527 causes and earlier get_active_character fallback remain related, not automatic aliases.",
+      "references": [
+        "crates/strategic-web/src/routes/settlements/encumbrance.rs:265-277",
+        "crates/strategic-web/src/routes/settlements/rest.rs:241-251,295-334,378-400,417-472,492-558",
+        "crates/strategic-web/src/templates/settlement/rest.rs:245-273",
+        "crates/adventuresim-stdb-module/src/time/settlement_rest.rs:425-469"
+      ],
+      "condition": "get_active_character maps a failed inventory query to an empty list; rest maps absent before/after characters to empty too. One missing side can make unchanged currency look earned or spent. query_single maps failed/absent times, limbs and skills to None; rest_summary emits zero elapsed or empty healed/trained lists, and template labels the latter as no injuries needing treatment or no time remaining for downtime. q527 similarly permits missing before reputation to be subtracted as zero. Independently, net before/after currency cannot determine gross earnings and spending if both occur, and an empty list of >0.001 skill gains does not by itself prove that no downtime elapsed.",
+      "qualification": "Each unavailable input, valid empty inventory, no positive observable change and actual elapsed/transaction cause has its own identity. Actual query failures, currency co-occurrence, missing-skill row or resulting user display were not observed. Native training may be positive while no included skill delta qualifies; concrete supported case requires fuller schedule/producer trace.",
+      "future_repair_direction": "Model before/after observation completeness explicitly and use actual committed elapsed, treatment/training and economic evidence for affirmative claims; preserve valid absence. Reconcile exact q510/q527 and aggregate completeness with existing equipment input assessment."
+    },
+    {
+      "id": "REVIEW-REST-PATH-ACTOR-SETTLEMENT-BINDING-95E",
+      "classification": "Newly assessed conditional request/authority/presentation identity question, not a proven unauthorized cross-settlement write.",
+      "references": [
+        "crates/strategic-web/src/routes/settlements/rest.rs:170-203,241-268,295-334,358-370",
+        "crates/adventuresim-stdb-module/src/time/settlement_rest.rs:45-78,186-212",
+        "crates/strategic-web/src/templates/settlement/rest.rs:172-210,214-251"
+      ],
+      "condition": "HTTP handler resolves and checks the URL settlement id for public service availability, but passes actor, duration and service to native reducer without the URL settlement id. The reducer authorizes and requires the service/residence in the actor actual current settlement. The HTTP handler reads local reputation using the URL id and renders a result with the URL settlement. If actor is actually in a different settlement, and all native and URL service requirements happen to hold, the reducer rests at the actor location while result context uses the URL location.",
+      "qualification": "No actor movement, stale page, direct request or wrong-location display observed; normal UI reachability needs proof. Native current-location and authority checks limit the effect; no arbitrary location write inferred. Related q2254 native service owner unresolved; exact identity/dedup central.",
+      "future_repair_direction": "Set explicit action location binding and handle a mismatch before or at native atomic authority check; render committed location/reputation consistently, preserving route authorization and legitimate current actor behavior."
+    },
+    {
+      "id": "ADLER-L11-MEDICAL-HISTORY-AVAILABILITY",
+      "classification": "Earlier q193 cited only as a related personal page dependency; no new direct medical-history assessment.",
+      "references": [
+        "crates/strategic-web/src/routes/settlements/party/location_personal.rs:265-279"
+      ],
+      "qualification": "Personal page calls medical_presentation and queries injuries/projectiles separately; this read does not inspect their complete authorization/availability contracts and grants no medical-lens closure."
+    },
+    {
+      "id": "ADLER-L11-REST-SUPPLY-AVAILABILITY",
+      "classification": "Earlier q202 remains separate; its preview producers were not newly displayed.",
+      "references": [
+        "crates/strategic-web/src/routes/settlements/rest.rs:338-372"
+      ],
+      "qualification": "Post-rest soap preview is called for the result; no new supply or alcohol finding or read credit for registered-but-undisplayed rest_preview.rs."
+    }
+  ],
+  "nonfindings_and_open_questions": [
+    "LocationLookup separates unknown kind, not-found and failed data for resolve_location. Self page verifies active character and exact current location/ID; old connected source is preserved separately.",
+    "Residence rent/buy route checks exact property settlement/tier and uses typed ResidenceOperation/ResidenceTier; native acquisition requires actor authority, living state, available exact property, same current settlement and currency. Holding operations and full database transaction semantics remain outside inspected native ranges.",
+    "Safe generic housing/rest error messages intentionally suppress raw reducer text, with separate logging; no requirement to surface private error prose. Settlement query Err mapping to not-found remains an availability question, not demonstrated deletion.",
+    "Rest parser rejects zero/below-minimum and over-maximum; HH:MM uses checked multiplication/addition and wake-time equality. Days saturation is followed by maximum rejection in public helpers. Field shelter blank is rejected, not a default bivouac.",
+    "Current native residence status view is observer-time filtered and hides billing details for nonowners. Complete authority of family names/child projections and property offer generation is not established by these bounded reads.",
+    "No tests, product builds, browsers, runtime probes, simulations or implementations. Test functions were read solely as source; prior earlier current billing-clock assessment remains distinct."
+  ],
+  "lens_notes": [
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Traced requested and elapsed rest through native reducer charge and UI; full schedule, custody and event receipt producers remain open."
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "RestDurationError, typed service, LocationKind, ResidenceOperation/Tier and StrategicMinute own local distinctions; committed rest-result/payment authority and unknown-time ownership require review."
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Requested duration, elapsed time, full-board payment, net currency and a date observation represent different facts. Residence Current selector differs from a property tier."
+    },
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "Duration parser and native actor/service checks have explicit constraints; query error vs absent vs legitimate empty and path-to-current location admission remain unresolved."
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "Checked hours math and bounded days are visible; cost uses rounded elapsed native but requested duration in view. No claim of admitted overflow from saturated days."
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "RestServiceKind, ResidenceOperation and selector preserve branch meanings, while optional service None intentionally means residence. No blanket null/enum defect."
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Cross-query before/after observation completeness and URL settlement versus actor/reducer/summary relationship are not enforceable by independent field validity."
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "Typed StrategicMinute::ZERO is a valid time but cannot represent absent observation in q192/q517; 0.001 is a reporting threshold, not proof of zero elapsed downtime."
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "Typed operation parsing controls reducer routing; generic HTML error is deliberate privacy boundary. q510/q527 preserve actual query error causes rather than requiring raw human prose."
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "Existing StrategicMinute, WGS-style location identifiers, typed service and shared inn cost are used. Shared inn-cost function does not fix choosing requested instead of elapsed input."
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "URL settlement versus actual actor settlement and independent before/after observations require explicit source of truth; local display may not assume the URL names the reducer site."
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "Future changes must preserve observer privacy, typed validation, actual authorization, interrupted stay charging, valid zero/empty observations and safe final error presentation; no compatibility shims."
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "No distinct derivation/boilerplate finding established in these bodies; any generated parsing must preserve field-specific route admission and error ownership."
+    }
+  ],
+  "status": {
+    "assigned_role_source_display_complete": true,
+    "complete_thirteen_lens_audit": false,
+    "current_reconciled_by_delegate": false,
+    "historical_checkpoint_3821_reconstructed": false,
+    "repair_ledger_owned_by": "central agent",
+    "implementation_started": false,
+    "product_validation_started": false,
+    "limitations": "Only assigned source and explicitly displayed current supports assessed. Earlier reviewer ranges, statuses and connected proofs preserved. Checkpoint3821 final ledger and queue remain missing."
+  }
+}

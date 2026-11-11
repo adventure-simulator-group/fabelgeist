@@ -1,0 +1,450 @@
+{
+  "schema": "726-delegated-source-family-audit-v1",
+  "agent": "/root/mhr_character",
+  "scope": "Original roles 2397–2398 character details and summary, at both pinned source revisions. Full independently registered displays, separately bounded support, thirteen source-family perspectives only; central agent owns ordered-role accounting, alias reconciliation, repair ledger and publication.",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "roles": [
+    {
+      "original_role": 2397,
+      "path": "crates/strategic-web/src/templates/settlement/character_details.rs",
+      "lines": 1065,
+      "sha256_both_revisions": "20df400f0369e7c2cb2ed08d3bd943f6ec5ac1ce6ee3d4db328401632767f82f",
+      "git_blob": "8aca6fb872937ce7d1a1c18f29b3feb3638f18bf",
+      "personal_scope": "Both historical and current full source displays in registered chunks; source tests never executed."
+    },
+    {
+      "original_role": 2398,
+      "path": "crates/strategic-web/src/templates/settlement/character_details/summary.rs",
+      "lines": 56,
+      "sha256_both_revisions": "8296a4e8146021634980e305ecae90f3794704fc74dd9865c9be8d4de2a57a4e",
+      "git_blob": "9ecc45c86965c4d586ae77ce8c6e85c10b221030",
+      "personal_scope": "Both historical and current full source displays in registered chunks; source tests never executed."
+    }
+  ],
+  "findings_and_reconciliations": [
+    {
+      "id": "WEB-CHARACTER-NONE-PARTY-ACTION",
+      "classification": "Conditional misleading action; prior question now traced to route",
+      "trace": "The stats handler loads the active character, admits a separately observed character at matching current locations, and obtains parties independently from optional party IDs. The sheet considers active_character.party_id == selected.party_id sufficient to take the same-party branch; when distinct characters both have no party, the comparison is true and the empty active party takes the Request kick branch. Submitting routes to a RemovePartyMember command and logs errors.",
+      "conditions_and_limits": "Requires a distinct selectable observed subject, both party_id values None and current locations matching. Such input is representable and not excluded by the displayed route, but occurrence in actual data, normal links and downstream reducer acceptance were not established. No mutation, successful removal or authorization bypass is asserted.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+          "lines": [
+            [
+              526,
+              544
+            ],
+            [
+              569,
+              618
+            ],
+            [
+              676,
+              703
+            ],
+            [
+              485,
+              523
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/data.rs",
+          "lines": [
+            [
+              20,
+              36
+            ],
+            [
+              151,
+              171
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/character_details.rs",
+          "lines": [
+            [
+              369,
+              395
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/party_actions.rs",
+          "lines": [
+            [
+              8,
+              19
+            ],
+            [
+              145,
+              158
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Adler READ-L11-391 and /root/lens12_frontier PROPOSAL-L12-802 already explicitly flagged the two-None possibility, with route/reducer policy pending. The new 95e source trace establishes the route permits the input shape, not backend effect. Related q201 concerns different leadership reconstruction; central decides aliasing.",
+      "future_repair_direction": "Represent same-party only when both share an actual party identity, and align displayed actions with the authoritative membership and leadership contract; retain backend authorization.",
+      "later_acceptance_criteria": "An unaffiliated subject does not acquire a same-party removal offer solely because two IDs are absent; legitimate same-party leave/kick/request states preserve expected behavior and are independently authorized."
+    },
+    {
+      "id": "WEB-CHARACTER-STATS-ORGANIZATION-ABSENCE",
+      "classification": "Qualified producer/receiver loss; q3299 connected question",
+      "trace": "Both stats route patterns bind party_stats; the handler explicitly selects the active character for a matching character ID and passes to party_stats_page. That page always supplies empty organization memberships, no presentation and ZERO minute, while marking self as allowed to manage identity. For self at a settlement, the picker displays No organization and offers only the clear option because its choices came from that empty slice. For another character the display also receives empty data.",
+      "conditions_and_limits": "The self case requires a request to a stats endpoint for the active character at a settlement and an actual eligible/presented organization; handler code permits this shape but normal link incidence and actual data are not shown. Cross-character disclosure policy and intended identity presentation remain unresolved. Not a claim of reducer mutation.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/router.rs",
+          "lines": [
+            [
+              279,
+              281
+            ],
+            [
+              320,
+              325
+            ],
+            [
+              337,
+              339
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+          "lines": [
+            [
+              526,
+              544
+            ],
+            [
+              569,
+              579
+            ],
+            [
+              676,
+              703
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/character_details.rs",
+          "lines": [
+            [
+              399,
+              418
+            ],
+            [
+              489,
+              507
+            ],
+            [
+              532,
+              560
+            ],
+            [
+              596,
+              646
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Revisits q3299 REVIEW-L3-CHARACTER-DETAILS-PROJECTION-ADMISSION, which explicitly retained caller policy for these absent projections. Newly inspected current caller establishes fixed empty inputs even for the explicit self case; preserve the historical unresolved status and let central decide canonical relationship.",
+      "future_repair_direction": "Carry an authorized, availability-aware organization presentation to this route or render an explicitly unavailable/not-shown state under a documented disclosure policy; do not conflate absence with confirmed no organization.",
+      "later_acceptance_criteria": "For an eligible self membership the stats route shows the correct authorized choices/current presentation; unavailable and intentionally private data remain distinguishable from a confirmed empty state."
+    },
+    {
+      "id": "WEB-CHARACTER-SUMMARY-FAITH-THRESHOLD",
+      "classification": "Conditional source-level mismatch; policy question",
+      "trace": "The sheet converts the effective character-or-location religion string through OfficialReligion::from_id and the summary invokes the skill icon producer with that context. The producer chooses the contextual official religion ahead of strongest knowledge, but decides to emit a religion badge if any official religion clears the rank threshold; it labels and ranks the badge using the chosen contextual religion. A below-threshold contextual religion and another above-threshold religion therefore give a below-threshold labeled badge, with qualifying religions listed in its tooltip.",
+      "conditions_and_limits": "The rank combination and context must be admitted by real producers. The meaning intended for the badge and whether context should dominate threshold are not settled. The conclusion follows from source conditions; no product run or synthetic fixture was performed.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/character_details.rs",
+          "lines": [
+            [
+              139,
+              146
+            ],
+            [
+              281,
+              283
+            ],
+            [
+              409,
+              409
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/character_details/summary.rs",
+          "lines": [
+            [
+              4,
+              17
+            ],
+            [
+              19,
+              33
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/character_skills.rs",
+          "lines": [
+            [
+              34,
+              35
+            ],
+            [
+              133,
+              147
+            ],
+            [
+              191,
+              203
+            ],
+            [
+              332,
+              355
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Related to q2454 L2-CHARACTER-FAITH-TRAINING-OWNER-POLICY but distinct from automatically narrowing general faith to OfficialReligion. Nonofficial western_church/old_faith and unknown identities are intentionally recognized in display and must not be invalidated by this report. Central owns any alias decision.",
+      "future_repair_direction": "Decide whether the badge names the contextual faith or qualifying knowledge and align the admission predicate, label, rank and tooltip under that policy; retain distinct broad affiliation and official study semantics.",
+      "later_acceptance_criteria": "A below-threshold contextual faith with a different qualifying faith receives an intentional, accurately named/ranked summary; broader nonofficial affiliations and no-context cases remain supported."
+    },
+    {
+      "id": "WEB-CHARACTER-OBSERVER-COLOCATION",
+      "classification": "Current connected trace of recovered q179; chronology and snapshot unresolved",
+      "trace": "The subject lookup rejects mutable current character facts only when subject minute exceeds observer minute. Its own helper documentation says co-location or other shared-current facts additionally require equal frontiers. The stats route subsequently compares selected and active current locations but does not call the equal-frontier helper in the displayed path. It reads other current projections independently.",
+      "conditions_and_limits": "Requires different nonmissing frontiers with a subject not ahead and matching current locations; no real records, stale transition, snapshot race or disclosure was demonstrated. Equal-frontier admission alone would not prove atomic snapshot safety.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/data.rs",
+          "lines": [
+            [
+              20,
+              48
+            ],
+            [
+              151,
+              171
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+          "lines": [
+            [
+              569,
+              594
+            ],
+            [
+              619,
+              665
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Connected to historical q179 ADLER-L11-OBSERVER-FRONTIER-SNAPSHOT; the present view is a source-level route propagation, not a claim that the broader queue item is closed. Earlier medical/observer agents retain their own receipts.",
+      "future_repair_direction": "Define and enforce the observer-relative authority and shared snapshot for location and character projections, or explicitly represent unknown when reconstruction is impossible.",
+      "later_acceptance_criteria": "A subject at a different frontier cannot be presented as sharing current location without an authorized temporal basis, and subject data remain tied to the checked snapshot."
+    },
+    {
+      "id": "WEB-CHARACTER-LIMB-PROJECTION-UNAVAILABLE",
+      "classification": "Current corroboration of historical q197",
+      "trace": "The stats route collapses limb query errors into an empty vector and passes its first row as an optional projection. If attributes exist while limbs are absent, the health rail continues and substitutes 1.0 for all seven missing limb health fields.",
+      "conditions_and_limits": "The source establishes this substitution for a failed or empty projection with attributes present, but not its real-world frequency or actual database error. An intentionally absent preview may have a different contract from a live route.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+          "lines": [
+            [
+              619,
+              633
+            ],
+            [
+              676,
+              684
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/character_health.rs",
+          "lines": [
+            [
+              1179,
+              1198
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Directly connected to historical q197 ADLER-L11-LIMB-HEALTH-AVAILABILITY and Adler READ-L11-391. No new historical reader credit.",
+      "future_repair_direction": "Preserve unavailable versus known intact health through the live read and receiver, while keeping genuine preview semantics explicit.",
+      "later_acceptance_criteria": "A failed/missing live limb projection is visibly unknown, never rendered as confirmed full health; authorized complete limb data and intentional preview modes retain their meaning."
+    },
+    {
+      "id": "WEB-CHARACTER-MEDICATION-HISTORY-UNAVAILABLE",
+      "classification": "Current corroboration of historical q193",
+      "trace": "The medical query fails closed when observer chart or patient time is unavailable. But after authorizing administration-history access for self or an observer with chart rows, the medication-history query converts an error to an empty list, then sanitizes it as ordinary history. The presentation retains a single unavailable flag for the former errors.",
+      "conditions_and_limits": "Only the authorized history-query error case is in scope; no claim that all medical data is public or that the query actually failed. The chart and time fail-closed behavior is a nonfinding.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+          "lines": [
+            [
+              707,
+              764
+            ],
+            [
+              767,
+              773
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/medical.rs",
+          "lines": [
+            [
+              38,
+              47
+            ],
+            [
+              127,
+              139
+            ],
+            [
+              210,
+              223
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Directly connected to q193 ADLER-L11-MEDICAL-HISTORY-AVAILABILITY; maintain its original author and scope.",
+      "future_repair_direction": "Carry history availability separately from an authoritative empty history and keep observer-scoped access.",
+      "later_acceptance_criteria": "An authorized history query failure cannot appear as confirmed empty medication history; absent observer access and genuinely empty history remain distinct without disclosure."
+    }
+  ],
+  "nonfindings_and_open_questions": [
+    "The ignored _can_examine parameter alone does not establish unauthorized physiology disclosure: the chart query is explicitly keyed by observer and patient, and chart/time failures return unavailable. Injury/projectile inputs use separate broad queries and the health rail consumes them; whether those facts and surgery links are meant to be visible to all co-located observers, and how underlying server enforcement works, need a separately scoped policy and reducer trace.",
+    "The self personal route explicitly checks the selected character ID equals the session active character and supplies actual organization memberships, presentation and character minute. This differs from the separate stats route and bounds the organization finding; no claim that every self page loses the data.",
+    "The raw faith ID serves a broader display set than the closed official training set, including western_church, old_faith and unknown. Identity labels, static DOM/CSS classes and final native URLs are not automatically bespoke-type findings. Source test assertions were read only.",
+    "Personality is an optional receiver, while the two inspected ordinary route producers explicitly supply None. No private-trait disclosure follows merely from the reusable template accepting Some.",
+    "An empty icon list renders No notable capabilities and the producer returns an empty list when either attributes or skills is absent. The actual route collapses query failure to empty; distinguish data absence from a true no-notable result under the live-vs-preview policy. Existing owner/availability record identification and impact remain for central reconciliation.",
+    "Organization display validates active membership while the editable picker additionally checks dues and settlement recognition. Whether read-only historical presentation intentionally follows a different policy is unresolved.",
+    "Both assigned bodies are byte-identical at 6533 and 95e; this does not prove that transitive producers or runtime behavior are unchanged. No tests, fixtures, UI/browser or product behavior were executed."
+  ],
+  "lens_perspectives": [
+    {
+      "lens": 1,
+      "name": "producer propagation",
+      "assessment": "Distinct party absence, organization availability, subject-frontier and summary faith knowledge flow through shared views and receivers; source-supported connected observations retained above."
+    },
+    {
+      "lens": 2,
+      "name": "existing type owners",
+      "assessment": "OfficialReligion is a closed study owner but general faith strings include more identities; StrategicMinute and organization membership status already own distinct meanings. Resolve source admission before broad narrowing."
+    },
+    {
+      "lens": 3,
+      "name": "admission contracts",
+      "assessment": "The stats route admits same-ID self or an observed same-location subject. A target not ahead is weaker than the helper-documented equal frontier for shared current facts; q179 scope remains open."
+    },
+    {
+      "lens": 4,
+      "name": "invariant operations",
+      "assessment": "Optional party equality allows None == None and turns absence into asserted shared membership. The rank threshold on any faith does not guarantee the context faith rank qualifies."
+    },
+    {
+      "lens": 5,
+      "name": "aggregate states",
+      "assessment": "An editable self organization picker is combined with an empty slice, missing presentation and ZERO minute; live availability and absent authority cannot be inferred from these independent inputs."
+    },
+    {
+      "lens": 6,
+      "name": "type ownership",
+      "assessment": "Observer physiology and health presentation have separate owners; no unauthorized chart claim from ignored _can_examine. Canonical party membership and faith policy belong to actual producer/owner contracts."
+    },
+    {
+      "lens": 7,
+      "name": "redundant authority",
+      "assessment": "Template recomputes same-party status from optional IDs while separate party projections carry leadership; establish one available authoritative aggregate and retain backend validation."
+    },
+    {
+      "lens": 8,
+      "name": "behavior preservation",
+      "assessment": "Assigned source is byte-identical at both pinned revisions; preserve personal versus cross-character disclosure, legitimate previews, nonofficial faiths and party request semantics in future changes."
+    },
+    {
+      "lens": 9,
+      "name": "enum shapes",
+      "assessment": "SummaryIconKind has distinct Mask and Monogram payloads. More structural state may clarify unavailable/unknown versus empty and same-party, but no replacement enum is prescribed before producer policy."
+    },
+    {
+      "lens": 10,
+      "name": "derivability",
+      "assessment": "Observed presentation requires semantic methods and conditional rendering; source alone does not establish a safe derivation replacement. No broad trait or serialization boilerplate finding."
+    },
+    {
+      "lens": 11,
+      "name": "type granularity",
+      "assessment": "Distinguish general faith, official religion knowledge and contextual study selection; compare patient observer chronology and current availability without collapsing their differing contracts."
+    },
+    {
+      "lens": 12,
+      "name": "raw strings",
+      "assessment": "Service IDs and role IDs perform organization classification and require catalog-owner trace; faith display and native HTML, CSS and URLs have different boundaries. q2454 and q2256 remain qualified."
+    },
+    {
+      "lens": 13,
+      "name": "raw primitives",
+      "assessment": "Rank threshold is explicit but applied across one set then displayed using another selected member; ZERO minute and 1.0 health as live missing-data substitutes require availability policy, not blind primitive wrappers."
+    }
+  ],
+  "historical_provenance": {
+    "adler_059": "READ-L11-391: 2397 prospective registration ADLER-1269 fresh 1–485 plus explicit extension ADLER-1273 fresh 486–1065, 2398 ADLER-1270 fresh 1–56; other source rows remain their own reviewer. READ-L11-379 and -385 retain Adler observer and route actual scopes. No checkpoint3821 promotion.",
+    "lens12_059": "PROPOSAL-L12-802 and READ-L12-802 attribute 6533 full 2397:1–1065 and 2398:1–56 to /root/lens12_frontier; PAR-L12-392/393 prospective registration and exact Windows/EOF qualifications retained. Root adoption is not an extra root personal read. READ-L12-807 cites the earlier qualified row and does not duplicate it.",
+    "root_extensions_059": "READ-ROOT-L2-EXT-045-051 and READ-ROOT-L3-EXT-046-055 separately record root personal 6533 character_details.rs 1–1065 for their exact lenses and respective registrations. Later e275 read references are historical separate revision only; they do not establish 95e behavior or transfer coverage.",
+    "older_774": "Camera CAM-PPS-CLINICAL-RECEIVERS-045 line 45 additional_actual_source_proofs/17–18 and rig RIG-PPS-035 line 35 fresh_current_additional_source_reads/17–18 preserve each original supplier: character_details 1–485 and summary 1–56. Both requested summary 1–175, clipped to actual EOF 56; lines 57–175 do not exist. Both original local records and separately path-normalized exports are checked against the older export manifest. Their pr-working source attribution and limits remain unchanged; f82 transport is not source revision.",
+    "recovery_limits": "Original 059 queue, registry and transport manifest are retained; selected navigation records are reconstructed subsets, not the missing checkpoint3821 state. Exact 059 records are preserved and transport verified. No other reviewer’s body-read credit or repair ownership is transferred."
+  },
+  "evidence_paths": [
+    "registration.json",
+    "read-receipt.json",
+    "party-action-scan-registration.json",
+    "support-registration.json",
+    "support-registration-02.json",
+    "support-registration-03.json",
+    "support-read-receipt.json",
+    "git-proofs.json",
+    "historical-059-index.json",
+    "historical-queue-selected.json",
+    "historical-registry-selected.json",
+    "older-774-index.json",
+    "older-774-export-manifest.json",
+    "reference/",
+    "rules-evidence.json"
+  ],
+  "restriction": "Source inspection and evidence-only verification; no source edits, repairs, product builds, tests, browsers, probes, simulations, fixture execution or product validation."
+}

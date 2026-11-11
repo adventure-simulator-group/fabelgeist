@@ -1,0 +1,601 @@
+{
+  "schema": "delegated-source-audit-report-v1",
+  "agent": "/root/hair_ops",
+  "generated_utc": "2026-11-11 20:18:23 UTC",
+  "scope": "Bounded reassessment of original roles 2381 and 2383 through thirteen audit questions; not complete lens, audit population, checkpoint or repair ledger.",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "source_equality": "Both full assigned source objects are byte-identical at historic and current revisions. Connected owners, runtime state and historical read attribution are separate.",
+  "registration": {
+    "path": "registration.json",
+    "sha256": "68b80d44011305bf02b93bf9563b856872d966a21a5e89a44b737da5027db736"
+  },
+  "role_records": [
+    {
+      "original_index": 2381,
+      "path": "crates/strategic-web/src/routes/settlements/rest_preview.rs",
+      "current_source": "source/95e6-rest_preview.rs",
+      "historical_source": "source/6533-rest_preview.rs",
+      "fresh_personally_displayed_body_ranges": [
+        [
+          1,
+          120
+        ],
+        [
+          121,
+          233
+        ]
+      ],
+      "unread_assigned_ranges": []
+    },
+    {
+      "original_index": 2383,
+      "path": "crates/strategic-web/src/routes/travel.rs",
+      "current_source": "source/95e6-travel.rs",
+      "historical_source": "source/6533-travel.rs",
+      "fresh_personally_displayed_body_ranges": [
+        [
+          1,
+          170
+        ],
+        [
+          171,
+          340
+        ],
+        [
+          341,
+          510
+        ],
+        [
+          511,
+          696
+        ]
+      ],
+      "unread_assigned_ranges": []
+    }
+  ],
+  "prior_evidence": [
+    {
+      "record": "reference/prior-assessment-inventory-fraction.json",
+      "revision_as_recorded": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "role_2381_ranges_as_recorded": [
+        [
+          1,
+          15
+        ]
+      ],
+      "source": "reference/prior-rest-preview-c100.source.gz",
+      "qualification": "Earlier assessment personally bounded current trace; author field not stated in that assessment so no author invented. Its c100 source object is byte-identical to 6533/95e but original revision and 1–15 range remain exactly as recorded."
+    },
+    {
+      "record": "reference/prior-assessment-itinerary-clock-95e.json",
+      "role_2383_ranges_as_recorded": [
+        [
+          275,
+          301
+        ],
+        [
+          405,
+          464
+        ]
+      ],
+      "revision_as_recorded": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source": "reference/prior-travel-clock-95e.source.gz",
+      "qualification": "Earlier current support trace for MAX clock nonprogress; inspection provenance notes c100 checkout bytes and Git 95e equality. No source author field stated, no author invented."
+    },
+    {
+      "record": "reference/prior-web-residence-report.json",
+      "registration": "reference/prior-web-residence-support-registration-01.json",
+      "same_agent_earlier_rest_preview_personal_body_reads": [],
+      "qualification": "Earlier same agent registered preview as support but displayed none; this packet freshly reads role body after registration."
+    }
+  ],
+  "support": [
+    {
+      "registration": "support-registration-01.json",
+      "sha256": "191d4924e773bfcad1caf08bc6ab181c422361898a4cbb4da4e8dfe80b1badbb",
+      "actual_personal_ranges": {
+        "crates/adventuresim-terrain/src/lib.rs": [
+          [
+            438,
+            458
+          ],
+          [
+            610,
+            675
+          ]
+        ],
+        "crates/strategic-web/src/routes/travel/selected_terrain.rs": [
+          [
+            1,
+            50
+          ]
+        ],
+        "crates/strategic-web/src/routes/settlements/overview.rs": [
+          [
+            145,
+            205
+          ]
+        ],
+        "crates/strategic-web/src/routes/quests.rs": [
+          [
+            1175,
+            1220
+          ]
+        ],
+        "crates/strategic-web/src/routes/foraging.rs": [
+          [
+            315,
+            380
+          ],
+          [
+            470,
+            512
+          ]
+        ],
+        "crates/strategic-web/src/templates/settlement/rest.rs": [
+          [
+            100,
+            165
+          ]
+        ],
+        "crates/adventuresim-core/src/inventory_measurement.rs": [
+          [
+            20,
+            67
+          ]
+        ],
+        "crates/adventuresim-stdb-module/src/inventory_amount.rs": [
+          [
+            1,
+            111
+          ]
+        ],
+        "crates/adventuresim-stdb-module/src/filth.rs": [
+          [
+            445,
+            510
+          ],
+          [
+            664,
+            705
+          ]
+        ],
+        "crates/adventuresim-stdb-module/src/alcohol.rs": [
+          [
+            432,
+            475
+          ]
+        ],
+        "crates/adventuresim-core/src/strategic_time.rs": [
+          [
+            255,
+            340
+          ]
+        ],
+        "crates/adventuresim-world-schema/src/calendar.rs": []
+      }
+    },
+    {
+      "registration": "support-registration-02.json",
+      "sha256": "26c1b4a3e2d606802d202abdad22d45d57fe138422ddae9c36f981b3c6b9e435",
+      "actual_personal_ranges": {
+        "crates/adventuresim-stdb-module/src/foraging.rs": [
+          [
+            40,
+            55
+          ],
+          [
+            421,
+            465
+          ],
+          [
+            790,
+            910
+          ]
+        ]
+      }
+    },
+    {
+      "registration": "support-registration-03.json",
+      "sha256": "ea6c0e1f29bb4178ecacf54930f9af367cc24e822687435d8c7681e374979348",
+      "actual_personal_ranges": {
+        "crates/adventuresim-core/src/foraging.rs": [
+          [
+            218,
+            247
+          ],
+          [
+            300,
+            375
+          ]
+        ]
+      }
+    },
+    {
+      "registration": "support-registration-04.json",
+      "sha256": "adfe83f400e6fb8aca5671af9111870ddeb208b78e247d04428b8944d700308e",
+      "actual_personal_ranges": {
+        "crates/strategic-web/src/templates/settlement/travel.rs": [
+          [
+            375,
+            390
+          ],
+          [
+            420,
+            452
+          ],
+          [
+            530,
+            550
+          ]
+        ],
+        "crates/strategic-web/src/routes/settlements/camp.rs": [
+          [
+            935,
+            970
+          ]
+        ]
+      }
+    }
+  ],
+  "support_qualification": "All support source objects prospectively registered, only listed ranges displayed; no ordered role or other-lens credit. Earlier same-agent and other-agent supports retain their own attribution.",
+  "rules": "Applied user root guide, crates/AGENTS.md, strategic-web AGENTS (reference/strategic-web-AGENTS-95e.md), bespoke-audit and focused thirteen lens skills. Source-only; no implementation or product validation.",
+  "historical_manifest": {
+    "path": "historical-manifest.json",
+    "sha256": "5c93bb769cb49d3a9bdbd342b8579889b4b54d40348a24a6050ef385413632c0",
+    "scope": "19 exact original extracted records checked against original transport SHA-256, length and Git blob; reviewer, revision, scopes and status unchanged."
+  },
+  "reference_archives": {
+    "path": "reference/manifest.json",
+    "sha256": "c11d51bc809d68565c0721b9ea394dabcd8f3436e04590a7ab7cdcfb435b4916"
+  },
+  "historical_attribution": [
+    {
+      "original_index": 2381,
+      "record": "reference/registry.json.gz /files/2381",
+      "reviewer": "rig RIG-PPS-038 producer supplement",
+      "ranges": [
+        [
+          1,
+          233
+        ]
+      ],
+      "qualification": "Producer role accounted with findings; owner-fit delta pending; no other-lens transfer."
+    },
+    {
+      "original_index": 2383,
+      "record": "reference/registry.json.gz /files/2383",
+      "reviewers": "root ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073 1–155; camera CAM-OWN-ROUTE-SOURCE-054 145–180; rig RIG-OWNER-WEB-TERRAIN-FORAGE-082 1–696; root ROOT-PPS-TERRAIN-DISPATCH-WEB-037 and native NATIVE-PS-ROOT-TERRAIN-SOURCE-PACKET-015 25–87 and 110–315; rig RIG-PPS-021 1–34 and RIG-PPS-038 319–492",
+      "qualification": "Each historical supplier/range/lens remains separate; earlier rig RIG-SUPP-DIGEST-001 range35–210 has null source_read_status and must not be relabeled as full source proof."
+    },
+    {
+      "record": "historical/adler/READ-L11-386.json",
+      "reviewer": "Adler Lens11",
+      "role_2381": [
+        [
+          1,
+          233
+        ]
+      ],
+      "role_2383": [
+        [
+          1,
+          696
+        ]
+      ],
+      "verification_head_as_recorded": "b97bcedc262f91de07635c69cd1a4fc4f9a7d13f",
+      "qualification": "Historical verification HEAD is context, not current 95e. Adler explicitly recorded time-subset/max-or-zero, neighbor sample error, cache admission and marked fallback questions; native owners and aliases remained open."
+    },
+    {
+      "record": "historical/segovb/READ-L12-793.json and READ-L12-794.json",
+      "reviewer": "delegate /root/lens12_frontier personal source reads adopted by segovb; root_personal_rereads=[]",
+      "role_2381": [
+        [
+          1,
+          233
+        ]
+      ],
+      "role_2383": [
+        [
+          1,
+          696
+        ]
+      ],
+      "frozen_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "qualification": "Windows locator qualification for 2381 is source-specific and no fresh body credit. Older own-lens TerrainPack 2082 full body was qualified reuse, not a fresh 794 terrain read or new ordered count."
+    }
+  ],
+  "historical_queue": [
+    {
+      "index": 192,
+      "id": "ADLER-L11-STRATEGIC-CLOCK-PROJECTION-ADMISSION",
+      "status_as_recovered": "open-reconciliation",
+      "record": "reference/queue-059.json.gz /entries/192",
+      "receipt_as_recorded": "../../adler/READ-L11-385.json"
+    },
+    {
+      "index": 194,
+      "id": "ADLER-L11-TERRAIN-CACHE-ADMISSION-PARITY",
+      "status_as_recovered": "open-reconciliation",
+      "record": "reference/queue-059.json.gz /entries/194",
+      "receipt_as_recorded": "../../adler/READ-L11-386.json"
+    },
+    {
+      "index": 202,
+      "id": "ADLER-L11-REST-SUPPLY-AVAILABILITY",
+      "status_as_recovered": "open-reconciliation",
+      "record": "reference/queue-059.json.gz /entries/202",
+      "receipt_as_recorded": "../../adler/READ-L11-394.json"
+    },
+    {
+      "index": 518,
+      "id": "SEGOVB-L12-TERRAIN-PLANNER-FORAGE-TERRAIN-ERROR",
+      "status_as_recovered": "open-reconciliation",
+      "record": "reference/queue-059.json.gz /entries/518",
+      "receipt_as_recorded": "../../segovb/READ-L12-794.json"
+    },
+    {
+      "index": 519,
+      "id": "SEGOVB-L12-TERRAIN-PLANNER-FORAGE-OUTSIDE-PACKAGE-REASON",
+      "status_as_recovered": "open-reconciliation",
+      "record": "reference/queue-059.json.gz /entries/519",
+      "receipt_as_recorded": "../../segovb/READ-L12-794.json"
+    },
+    {
+      "index": 520,
+      "id": "SEGOVB-L12-TERRAIN-PLANNER-CACHE-LOOKUP-POISON-REASON",
+      "status_as_recovered": "open-reconciliation",
+      "record": "reference/queue-059.json.gz /entries/520",
+      "receipt_as_recorded": "../../segovb/READ-L12-794.json"
+    },
+    {
+      "index": 521,
+      "id": "SEGOVB-L12-TERRAIN-PLANNER-QUEUE-TIMEOUT-REASON",
+      "status_as_recovered": "open-reconciliation",
+      "record": "reference/queue-059.json.gz /entries/521",
+      "receipt_as_recorded": "../../segovb/READ-L12-794.json"
+    },
+    {
+      "index": 522,
+      "id": "SEGOVB-L12-TERRAIN-PLANNER-PERMIT-CLOSED-REASON",
+      "status_as_recovered": "open-reconciliation",
+      "record": "reference/queue-059.json.gz /entries/522",
+      "receipt_as_recorded": "../../segovb/READ-L12-794.json"
+    },
+    {
+      "index": 523,
+      "id": "SEGOVB-L12-TERRAIN-PLANNER-PLANNING-WAIT-TIMEOUT-REASON",
+      "status_as_recovered": "open-reconciliation",
+      "record": "reference/queue-059.json.gz /entries/523",
+      "receipt_as_recorded": "../../segovb/READ-L12-794.json"
+    },
+    {
+      "index": 524,
+      "id": "SEGOVB-L12-TERRAIN-PLANNER-WORKER-JOIN-CAUSE-ERASURE",
+      "status_as_recovered": "open-reconciliation",
+      "record": "reference/queue-059.json.gz /entries/524",
+      "receipt_as_recorded": "../../segovb/READ-L12-794.json"
+    },
+    {
+      "index": 525,
+      "id": "SEGOVB-L12-TERRAIN-PLANNER-PLANNING-TERRAIN-ERROR",
+      "status_as_recovered": "open-reconciliation",
+      "record": "reference/queue-059.json.gz /entries/525",
+      "receipt_as_recorded": "../../segovb/READ-L12-794.json"
+    },
+    {
+      "index": 526,
+      "id": "SEGOVB-L12-TERRAIN-PLANNER-CACHE-COMMIT-POISON-REASON",
+      "status_as_recovered": "open-reconciliation",
+      "record": "reference/queue-059.json.gz /entries/526",
+      "receipt_as_recorded": "../../segovb/READ-L12-794.json"
+    },
+    {
+      "index": 1878,
+      "id": "Q-L12-9eb4c86e63a6a73f90cf",
+      "status_as_recovered": "open-evidence-or-disposition",
+      "record": "reference/queue-059.json.gz /entries/1878",
+      "receipt_as_recorded": null
+    }
+  ],
+  "findings_and_relationships": [
+    {
+      "id": "ADLER-L11-REST-SUPPLY-AVAILABILITY",
+      "classification": "Previously recorded q202, independently traced to its current presentation and native rest behavior; no automatic new unique count.",
+      "references": [
+        "crates/strategic-web/src/routes/settlements/rest_preview.rs:17-72,85-180,182-233",
+        "crates/strategic-web/src/templates/settlement/rest.rs:105-160",
+        "crates/adventuresim-stdb-module/src/filth.rs:445-510,664-705",
+        "crates/adventuresim-stdb-module/src/alcohol.rs:432-475"
+      ],
+      "condition": "Failed filth, personal/shared inventory, amount, catalog or personality queries become ordinary empty vectors. Missing amounts make soap availability zero; missing filth can make available soap look unneeded; missing personality makes is_temperate false, so an otherwise admitted drinking candidate can be predicted to drink. Template states definite availability/consumption based on these plain values.",
+      "qualification": "Actual failures, item rows, nighttime rest and user-visible discrepancies unobserved. Valid empty inventory, no filth, correctly measured zero and deliberate temperance remain legitimate. Native per-person and party wash/actual evening consumption are distinct from preview; no transaction outcome is inferred.",
+      "future_repair_direction": "Carry per-source unavailable vs confirmed absence to the preview and use a truthful uncertainty state; retain native custody, personal/shared amounts, temperance and normal nightly-consumption policy. Reconcile q202 centrally."
+    },
+    {
+      "id": "ADLER-L11-TERRAIN-CACHE-ADMISSION-PARITY",
+      "classification": "Previously recorded q194 independently confirmed by native planner support; no new unique count.",
+      "references": [
+        "crates/strategic-web/src/routes/travel.rs:127-150,195-223,239-253",
+        "crates/adventuresim-terrain/src/lib.rs:618-658"
+      ],
+      "condition": "Cache key rounds and casts f64 coordinates before lookup and returns a hit before native TerrainPack validates finite and in-bounds endpoints. Therefore inputs that normalize to one key but have different admission can receive the same cached plan if a valid plan for that key was inserted.",
+      "qualification": "Requires an admitted valid cached route and a colliding inadmissible input; actual pack bounds, caller input and hit are unobserved. Intentional sub-metre normalization of two valid points is a separate policy, not automatically a defect. Weather key/profile and bounded immutable package behavior must remain correct.",
+      "future_repair_direction": "Validate semantic endpoints and native profile/weather before a hit or otherwise prove cache-key equivalence preserves admission, while retaining intended valid sub-metre equivalence and bounded caching."
+    },
+    {
+      "id": "REVIEW-FORAGE-NEIGHBOR-OBSERVATION-AVAILABILITY-95E",
+      "classification": "Current source extension of Adler and Lens12 q1878 explicitly pending neighbor sample policy; distinct from center-error q518/q519. Central determines alias and unique identity.",
+      "references": [
+        "crates/strategic-web/src/routes/travel.rs:168-192,467-470",
+        "crates/adventuresim-terrain/src/lib.rs:438-458",
+        "crates/strategic-web/src/routes/foraging.rs:327-379,470-505",
+        "crates/adventuresim-stdb-module/src/foraging.rs:40-55,421-465,791-900",
+        "crates/adventuresim-core/src/foraging.rs:230-245,343-370"
+      ],
+      "first_failure": "Eight nearby cell results are reduced via ok().flatten() and only successful water samples are counted. A sampling error or no covered cell is indistinguishable from observed nonwater. That count determines coastal (>=4) and wet-ground (1–3 unless center is wetland) booleans. Web includes those booleans in private terrain attestation; backend validates gateway, digest, location and normalized terrain but uses attested booleans in planning. Core habitat logic gates SeaCoast-only seaweed and RiverWetGround-only watercress on those booleans.",
+      "qualification": "A meaningful change requires unavailable samples to alter the category and otherwise accepted foraging; valid outside-package None may have an intentional edge policy distinct from Err. No concrete package failure, neighbor values, action, yield or runtime behavior observed. Source does not assert malicious attestation or bypass of gateway authority. Earlier q518/q519 cover center sample causes, not this neighbor reduction.",
+      "future_repair_direction": "Specify partial coverage versus failed sample policy, retain observation completeness through environment attestation and backend habitat authority, and decide when source eligibility is unknown versus confirmed absent. Preserve valid center/wetland, package edges and gateway/location checks."
+    },
+    {
+      "id": "ADLER-L11-STRATEGIC-CLOCK-PROJECTION-ADMISSION",
+      "classification": "Broader historical q192 and Adler 386 time-subset observation reconnected; do not automatically merge with other date sites.",
+      "references": [
+        "crates/strategic-web/src/routes/travel.rs:405-465",
+        "crates/strategic-web/src/routes/settlements/overview.rs:158-205",
+        "crates/strategic-web/src/routes/quests.rs:1178-1220",
+        "crates/strategic-web/src/routes/settlements/camp.rs:935-963",
+        "crates/strategic-web/src/templates/settlement/travel.rs:420-452,530-550"
+      ],
+      "condition": "Forecast requires attributes, limbs, stats and schedule for every listed party member, yet selects departure from only present time rows, defaulting ZERO if none. Both current callers replace failed times queries with empty, then pass the result. Missing the latest member time can produce an earlier forecast; total missing can use zero. Result supplies segments, dated camp intervals and planner data.",
+      "qualification": "The latest missing time need not change the max; user-visible impact depends on schedules, route, consumer and policy. No actual missing rows, error or product run. Adler 386 explicitly flagged this subset behavior with a 385 clock-family dependency. The separate previous REVIEW-ITINERARY-CLOCK-NONPROGRESS-001 concerns possible MAX-time nonprogress, not an automatic alias."
+    },
+    {
+      "id": "SEGOVB-L12-TERRAIN-PLANNER-ERROR-FAMILY",
+      "classification": "Nine distinct recovered q518–526 first cuts, current source unchanged; preserve separately and do not merge with q194 or neighbor case.",
+      "references": [
+        "crates/strategic-web/src/routes/travel.rs:168-177,213-228,249-257",
+        "crates/adventuresim-terrain/src/lib.rs:438-458,618-669"
+      ],
+      "individual_records": [
+        {
+          "index": 518,
+          "first_cut": "center TerrainPack.cell error -> String at176"
+        },
+        {
+          "index": 519,
+          "first_cut": "center Ok(None) -> outside-package prose at177"
+        },
+        {
+          "index": 520,
+          "first_cut": "cache lookup poison -> prose at217"
+        },
+        {
+          "index": 521,
+          "first_cut": "queue timeout -> prose at227"
+        },
+        {
+          "index": 522,
+          "first_cut": "permit closed -> prose at228"
+        },
+        {
+          "index": 523,
+          "first_cut": "planning wait timeout -> prose at251"
+        },
+        {
+          "index": 524,
+          "first_cut": "worker JoinError -> formatted String at252"
+        },
+        {
+          "index": 525,
+          "first_cut": "native plan error -> String at253"
+        },
+        {
+          "index": 526,
+          "first_cut": "cache commit poison -> prose at257"
+        }
+      ],
+      "qualification": "No actual errors or poisoned locks observed. Decision among typed cause, closed unavailable reason, and final boundary is per distinct owner; do not assume same wording proves aliases. Center no-coverage is separate from a neighboring sample error."
+    },
+    {
+      "id": "REVIEW-ITINERARY-CLOCK-NONPROGRESS-001",
+      "classification": "Earlier current conditional MAX clock assessment reconnected to exact web call, no independent finding added.",
+      "record": "reference/prior-assessment-itinerary-clock-95e.json",
+      "references": [
+        "crates/strategic-web/src/routes/travel.rs:435-448",
+        "crates/adventuresim-core/src/strategic_time.rs:255-313"
+      ],
+      "qualification": "The previously assessed saturated-clock nonprogress requires MAX start, positive movement and a valid window; supported production reachability is unproved. No execution or timeout probe."
+    },
+    {
+      "id": "conditional persisted consumable fraction admission",
+      "classification": "Earlier c100 current assessment reconnected with exact 95e source; no new finding or invented author.",
+      "record": "reference/prior-assessment-inventory-fraction.json",
+      "references": [
+        "crates/strategic-web/src/routes/settlements/rest_preview.rs:1-15,123-169",
+        "crates/adventuresim-core/src/inventory_measurement.rs:30-49",
+        "crates/adventuresim-stdb-module/src/inventory_amount.rs:13-30,49-66,90-109"
+      ],
+      "qualification": "An out-of-range stored u32 would reach expect and panic; inspected initializers use whole and consumption clamps/subtracts typed amounts. No invalid producer, actual invalid row, or runtime panic shown. The earlier record classified this conditional at c100 and read preview 1–15 only."
+    },
+    {
+      "id": "REVIEW-SAME-SNAPPED-NODE-ZERO-ROUTE-001",
+      "classification": "Earlier current separately assessed conditional short-route issue; no new renderer or planner execution.",
+      "record": "reference/prior-assessment-short-route-95e.json",
+      "qualification": "Distinct from q194 invalid-input cache admission and from allowed identical coordinates; full old qualifications preserved."
+    }
+  ],
+  "nonfindings_and_open_questions": [
+    "Neither missing terrain nor a failed forward/return terrain plan is silently presented as a real route in the inspected caller: destination carries uses_straight_line_estimate and template labels it. Reusing an already-mutated destination after later plan failure and actual travel initiation remain separate open contracts.",
+    "Planner has two owned permits and a bounded 128-entry FIFO cache; permit remains in blocking closure if outer wait times out. This does not prove native worker cancellation, a bound on queued request count or product latency.",
+    "Exact/visited destination knowledge maps to explicit display variants; approximate and unknown stages intentionally have no exact-site presentation. Do not infer disclosure from the enum or current source alone.",
+    "Filter/normalization of time, weather and public/party inventory rows and the shared strategic clock ownership need end-to-end evidence; calculations are advisory unless their actual consumer/authority is traced.",
+    "Soap preview and native wash prefer personal then shared quantities for the bounded paths shown; compare exact grouping, filth ordering, alcoholism evening/replay and all callers before claiming parity. Amount overflow and malformed persisted values require actual producer proof.",
+    "All original test bodies were read as source only. No product build, test, browser, runtime probe, simulation, shader or implementation was performed."
+  ],
+  "lens_notes": [
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Traced neighbor observations into private foraging attestation and native habitat availability; time preview to provision/DOM; supply preview to rest UI. Full lifecycle remains open."
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "ConsumableFractionMicros, StrategicMinute, typed terrain errors and knowledge stages have owners; observation availability and attested habitat authority need coordination."
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Center no coverage, neighbor read failure and confirmed nonwater have different semantics; personal/shared amount, soap points and inventory count are not interchangeable."
+    },
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "q194 cache path bypasses native endpoint validation on a hit; fraction expect is conditional on unproved invalid storage; times subset needs completeness policy."
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "Typed fraction clamps inspected consumption. Itinerary MAX nonprogress is separately recorded; no runtime or ordinary-world reachability proof."
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "Knowledge presentation and terrain causes retain distinct branches until their documented erasure; Option route, marked estimate and absent source should not be conflated."
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Partial party clocks and full party attributes create a forecast completeness condition; four-water threshold requires evidence from multiple geographic samples."
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "Sampling threshold and timeout/cache budgets are existing policies, not per se findings; their implications for failed samples and bounded behavior are separately traced."
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "q518–526 preserve nine exact native error/reason cuts; human display labels and URL strings are boundary values, not wholesale type failures."
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "Shared fixed-point and time types are present, but a typed value alone does not preserve known-versus-unknown at DB or observation boundaries."
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "Gateway attests location/terrain and backend validates context but consumes its habitat flags; authority, observation completeness and replan use must be reconciled, not assumed equivalent."
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "Any future correction must preserve valid empty supplies, temperance, intentional sub-metre route cache normalization, valid package edge policy and labeled estimates; no compatibility shims."
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "No separate derivation issue shown; data wrappers and serializers must retain admission, source identity and native error invariants."
+    }
+  ],
+  "status": {
+    "assigned_role_source_display_complete": true,
+    "complete_thirteen_lens_audit": false,
+    "current_reconciled_by_delegate": false,
+    "historical_checkpoint_3821_reconstructed": false,
+    "repair_ledger_owned_by": "central agent",
+    "implementation_started": false,
+    "product_validation_started": false,
+    "limitations": "Only assigned source and exact displayed supporting ranges assessed. Earlier c100, 95e and historical reviewer scopes remain distinct. Checkpoint3821 ledger and queue remain missing."
+  }
+}

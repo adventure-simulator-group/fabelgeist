@@ -1,0 +1,470 @@
+{
+  "schema": "726-delegated-source-family-audit-v1",
+  "agent": "/root/mhr_character",
+  "scope": "Original roles 2390–2393 strategic_map markers, module, producer and test source. Full personally displayed historical and current bodies, with separately registered bounded support and prior map-route packet preserved independently. Thirteen bounded perspectives do not constitute entire-lens coverage; central agent owns reconciliation, ledger and publication.",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "roles": [
+    {
+      "original_role": 2390,
+      "path": "crates/strategic-web/src/strategic_map/markers.rs",
+      "lines": 128,
+      "sha256_both_revisions": "74c56dc2aadba44b69db845d705119d4b89c11c65493a8612304db22fdb5ffd9",
+      "git_blob": "e0549501a739f9692fd154afb9d0d32a3da45f6b",
+      "personal_scope": "Historical and current full source displays; exact registered 200-line chunks matched actual receipts."
+    },
+    {
+      "original_role": 2391,
+      "path": "crates/strategic-web/src/strategic_map/mod.rs",
+      "lines": 140,
+      "sha256_both_revisions": "c1cf7a1a47911c667af5ab89e92db056582853dda007a1de915dc50b719df356",
+      "git_blob": "9c008898da549bc3b6709c60491ac19a52d1875a",
+      "personal_scope": "Historical and current full source displays; exact registered 200-line chunks matched actual receipts."
+    },
+    {
+      "original_role": 2392,
+      "path": "crates/strategic-web/src/strategic_map/producer.rs",
+      "lines": 225,
+      "sha256_both_revisions": "3c88e6a324ca00c4ea631521154a3321c669de52aee4fb6a8ccb551c1cb8c9d5",
+      "git_blob": "dbccd1ebfb9bfec91d3de56d904748f41794cbc6",
+      "personal_scope": "Historical and current full source displays; exact registered 200-line chunks matched actual receipts."
+    },
+    {
+      "original_role": 2393,
+      "path": "crates/strategic-web/src/strategic_map/tests.rs",
+      "lines": 225,
+      "sha256_both_revisions": "51682f60aaa9a1a8c7d42d7aceed7aa0eee5966260445b04c15b368a620a9bba",
+      "git_blob": "169c000c056371f0a8e0f78b2b2101f0dc592023",
+      "personal_scope": "Historical and current full source displays; exact registered 200-line chunks matched actual receipts."
+    }
+  ],
+  "findings_and_reconciliations": [
+    {
+      "id": "WEB-MAP-SELECTED-CROSS-KIND",
+      "classification": "Historical q1883, conditional representable identity mismatch; producer namespace reachability open",
+      "trace": "MapLink::href encodes only the bare settlement or case-site component in a single destination query key. The caller retains query.destination as raw String and chooses the first TravelDestination with that ID. The producer separately compares the same string to each settlement and case-site ID, while StrategicPlaceId preserves their kinds. If both visible kinds share a component, both markers become selected, and MapOverlay rejects DuplicateSelection; the map host renders an unavailable state.",
+      "conditions_and_limits": "Requires an admitted geographic settlement and observer-owned exact case site with the same raw component, both present in the map input. The identity constructors accept the same valid component syntax but actual production ID namespaces and occurrence are unproven. No runtime witness, generated fixture, or claim of actual collision was made.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/strategic_map/markers.rs",
+          "lines": [
+            [
+              89,
+              107
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/strategic_map/producer.rs",
+          "lines": [
+            [
+              83,
+              118
+            ],
+            [
+              139,
+              145
+            ],
+            [
+              152,
+              178
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/regional_map.rs",
+          "lines": [
+            [
+              94,
+              107
+            ],
+            [
+              156,
+              196
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/strategic_place.rs",
+          "lines": [
+            [
+              17,
+              35
+            ],
+            [
+              43,
+              57
+            ],
+            [
+              207,
+              244
+            ],
+            [
+              280,
+              283
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/overview.rs",
+          "lines": [
+            [
+              1,
+              4
+            ],
+            [
+              66,
+              75
+            ],
+            [
+              84,
+              94
+            ],
+            [
+              121,
+              134
+            ],
+            [
+              226,
+              234
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/travel.rs",
+          "lines": [
+            [
+              35,
+              61
+            ],
+            [
+              88,
+              100
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/strategic_map/mod.rs",
+          "lines": [
+            [
+              42,
+              51
+            ],
+            [
+              62,
+              66
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Exact related historical q1883 Q-L12-c04c89e00b6a45fa94d0 records the conditional untagged destination/same-component question. This assessment adds current caller and DuplicateSelection evidence; preserve historical author and no new accepted count.",
+      "future_repair_direction": "Determine whether cross-kind values can coincide in legitimate source data. If so, carry a canonical tagged place identity through URL selection, route lookup and map selection, with explicit native encoding at the adapter.",
+      "later_acceptance_criteria": "Distinct admitted settlement and case-site identities select one intended marker and corresponding destination even when their components coincide; observer and route authorization, escaped links and safe unavailable handling remain intact."
+    },
+    {
+      "id": "WEB-MAP-ROUTE-ENDPOINT-BINDING",
+      "classification": "Conditional aggregate contract and cache precision question",
+      "trace": "The map producer accepts selected marker and RoutePlan separately, converts each point to checked WGS84 microdegrees and validates only route point count through MapRoute::new. The template obtains a route by matching a raw destination ID, while the terrain route cache uses E5-rounded start/goal coordinates and returns an existing plan on a key hit. No endpoint-to-selected-marker proof is performed by the map overlay.",
+      "conditions_and_limits": "Two differing inputs must map to one cache key or an inconsistent RoutePlan must otherwise be supplied; whether the resulting approximation is acceptable and what endpoint precision belongs to presentation versus strategic authority are unresolved. Native planner output, real data, timing and resulting route were not executed.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/strategic_map/producer.rs",
+          "lines": [
+            [
+              111,
+              145
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/regional_map.rs",
+          "lines": [
+            [
+              52,
+              64
+            ],
+            [
+              223,
+              230
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/travel.rs",
+          "lines": [
+            [
+              35,
+              61
+            ],
+            [
+              88,
+              100
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/overview.rs",
+          "lines": [
+            [
+              121,
+              134
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/travel.rs",
+          "lines": [
+            [
+              127,
+              145
+            ],
+            [
+              195,
+              223
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Adjacent to existing q194 ADLER-L11-TERRAIN-CACHE-ADMISSION-PARITY, which concerns validation before cache hit, but endpoint accuracy is not automatically the same defect. Prior /root/rig_identity map-route WEB-MAP-01/02/03 have separate clipping, provenance and work-bound scopes.",
+      "future_repair_direction": "Define accepted route-to-marker association and quantization error policy, then retain route identity/endpoints through producer and cache as needed without unilaterally changing native source precision.",
+      "later_acceptance_criteria": "A displayed computed route corresponds to the intended current origin and selected place under a documented precision contract; an unrelated/malformed route cannot silently masquerade as that selection."
+    },
+    {
+      "id": "WEB-MAP-E7-QUANTIZATION",
+      "classification": "Source-established conversion-policy difference; cross-owner consequence open",
+      "trace": "Map case-site admission validates E7, converts to degree floats, then rounds to checked microdegrees. The existing from_e7 path divides signed E7 components by ten, truncating toward zero. For example, an E7 component of -9 produces -1 by degree-to-microdegree rounding but 0 by truncating conversion. A distinct authoritative travel weather path uses from_e7 before weather cell selection.",
+      "conditions_and_limits": "The example is exact source-level arithmetic, not a generated or executed fixture. Consumer meanings differ and a changed map pin does not by itself prove incorrect weather or identity; whether unified rounding is required remains open. A 1-microdegree difference can matter only where an applicable downstream boundary/policy makes it meaningful.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/strategic_map/producer.rs",
+          "lines": [
+            [
+              211,
+              225
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-world-schema/src/coordinates.rs",
+          "lines": [
+            [
+              58,
+              96
+            ],
+            [
+              118,
+              136
+            ],
+            [
+              205,
+              226
+            ],
+            [
+              242,
+              265
+            ],
+            [
+              281,
+              316
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+          "lines": [
+            [
+              51,
+              83
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/weather.rs",
+          "lines": [
+            [
+              173,
+              186
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Related to q133 travel geographic admission and q1564 regional geographic/coordinate consumer scope; no exact alias or current defect is asserted. Prior map-route agent separately read coordinates at 95e for roles 2364–2368; that earlier support remains theirs.",
+      "future_repair_direction": "Document and reconcile rounding versus truncation at the actual coordinate owners only if cross-consumer equivalence is required; retain intentional numerical and wire-boundary semantics.",
+      "later_acceptance_criteria": "Equivalent inputs obey the chosen documented conversion policy at each real consumer, with signed near-zero and cell-boundary behavior explicitly accounted for."
+    },
+    {
+      "id": "WEB-MAP-ADMISSION-FAILURE-SCOPE",
+      "classification": "Conditional failure policy, not proven ordinary invalid data",
+      "trace": "Any in-bounds settlement or site with an invalid canonical identity propagates a typed identity failure; duplicate place/current/selection or marker-count failure propagates from MapOverlay. The outer map returns one generic unavailable section, rather than rendering a partial set.",
+      "conditions_and_limits": "A bad/duplicate admitted row or oversized map input occurs. Actual producer uniqueness, authoritative data availability, error ordering and desired all-or-nothing policy remain open. The typed failure and absence of partial published overlay are source-established; no corruption or runtime incident is assumed.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/strategic_map/producer.rs",
+          "lines": [
+            [
+              65,
+              110
+            ],
+            [
+              139,
+              148
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/regional_map.rs",
+          "lines": [
+            [
+              94,
+              107
+            ],
+            [
+              156,
+              197
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/strategic_map/mod.rs",
+          "lines": [
+            [
+              31,
+              51
+            ],
+            [
+              62,
+              66
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Historical READ-L11-389 and READ-L12-799 left native overlay/caller admission open. Prior web-map route WEB-MAP-03 concerns earlier geometry work bounds, not necessarily this aggregate-count policy.",
+      "future_repair_direction": "Decide whether malformed nonselected entries should reject the whole map or be safely excluded; keep source, identity, observer and duplicate-selection authority in one coherent boundary.",
+      "later_acceptance_criteria": "Known invalid inputs have an intentional, observable and non-leaking outcome; no accidental partial overlay or silent identity substitution is introduced."
+    }
+  ],
+  "nonfindings_and_open_questions": [
+    "BackendCaseSitePin view is gateway-only and emits only corrected-free exact knowledge leads matching canonical site and coordinates; the web caller queries the session owner. For generated cases, the producer checks persisted site.name against generated safe_label and emits the public summary as display_title. This bounds the observed slice; complete policy for all manual descriptions and other consumers remains open.",
+    "Map case links use display_title and CaseSiteKnowledgePresentation, not site.name. Lower stages do not enter the geographic link set; current caller additionally supplies owner-filtered pins. No backend query or live disclosure was exercised.",
+    "MapRoute::new checks two to 65,536 points; MapOverlay checks marker count, kind/rank fit, distinct place, at most one current and at most one selected. These enforce local aggregate constraints but do not prove endpoint binding or source-policy decisions.",
+    "When supplied route is None, producer explicitly creates Estimate; equal checked microdegree origin suppresses route. Whether a distinct co-located place should ever show a computed loop is a policy question, not a demonstrated travel defect.",
+    "The host retains structured map admission errors to final log and serializes JSON after escaping less-than, greater-than and ampersand at the HTML script boundary. `with_query` inserts query before a fragment. Source assertions are not browser, license or accessibility validation.",
+    "The prior /root/rig_identity web-map packet assesses different roles 2364–2368 and conditional clipping, source-kind provenance, and simplification work. It supplies historical and supporting context only; its findings, scopes and reviewer attribution are not transferred to this agent.",
+    "All four assigned bodies are byte-identical between pinned 6533 and 95e, not a proof that transitive owners or product behavior stayed unchanged. Tests.rs and dispatcher fixture source were read only and were not executed."
+  ],
+  "lens_perspectives": [
+    {
+      "lens": 1,
+      "name": "producer propagation",
+      "assessment": "Canonical StrategicPlaceId survives into MapMarker and overlay, but the selection HTTP component erases place kind and reclassifies by equality in two collections; actual namespace constraints remain open (q1883)."
+    },
+    {
+      "lens": 2,
+      "name": "existing owners",
+      "assessment": "StrategicPlaceId, CaseSiteId, WGS84 coordinates, MapSpan and SourcePackageDigest carry distinct contracts. Reuse canonical place identity across selection only if actual input policy supports the change."
+    },
+    {
+      "lens": 3,
+      "name": "admission contracts",
+      "assessment": "Source digest, origin, E7, geographic coverage, marker rank, duplicate markers/current/selection and route length have checked boundaries; native source producer/actual cardinality are not exhausted."
+    },
+    {
+      "lens": 4,
+      "name": "invariant operations",
+      "assessment": "The map rounds E7 through f64 to microdegree while from_e7 truncates; checked route points and valid individual selections do not by themselves prove endpoint binding. Product impact remains conditional."
+    },
+    {
+      "lens": 5,
+      "name": "aggregate states",
+      "assessment": "MapOverlay rejects multiple current/selected and duplicate typed places; a selected marker and separately supplied route have no local endpoint correlation. Expected source/route/selection association is open."
+    },
+    {
+      "lens": 6,
+      "name": "type ownership",
+      "assessment": "Place referent, coordinate precision and source digest are owned in distinct lower layers; moving semantic selection to their canonical owner must preserve HTTP boundary and authority. No 774 supplier implies repair ownership."
+    },
+    {
+      "lens": 7,
+      "name": "redundant authority",
+      "assessment": "Selection is carried as one raw query then recomputed independently for destinations and typed markers; equality can diverge on cross-kind collision. Selected field is derived from links, not independent retained authority."
+    },
+    {
+      "lens": 8,
+      "name": "behavior preservation",
+      "assessment": "The four source bodies are identical at both selected revisions. Preserve source geography, observer knowledge, map error order, normalized/native precision, estimates and local URL query behavior during any later repair."
+    },
+    {
+      "lens": 9,
+      "name": "enum shapes",
+      "assessment": "MapMarkerEmphasis and rank are explicit variants; unavailable is a deliberate final UI state. No unsupported enum change is proposed for native HTTP query itself."
+    },
+    {
+      "lens": 10,
+      "name": "derivability",
+      "assessment": "MapInput serialization and MapOverlay/MapRoute checked deserialization use appropriate derives with validation. MapLink priority and href encode semantic classification and are not proved replaceable by blind derives."
+    },
+    {
+      "lens": 11,
+      "name": "type granularity",
+      "assessment": "Exact case-site versus settlement identity, source digest versus route content, WGS84 E7 versus microdegree and computed versus estimated route carry distinct meaning; do not merge by representation."
+    },
+    {
+      "lens": 12,
+      "name": "raw strings",
+      "assessment": "Raw destination query loses an existing place-kind distinction before application selection, while escaped labels, CSS, HTML and HTTP query names are native adapters; do not treat textual UI alone as a type defect."
+    },
+    {
+      "lens": 13,
+      "name": "raw primitives",
+      "assessment": "60,000-metre map span enters PositiveLength/MapSpan and is a display policy; E7-to-micro rounding and E5 cache key are different precision policies. Marker and route caps bound final DTO but not automatically pre-admission work."
+    }
+  ],
+  "historical_provenance": {
+    "adler_059": "READ-L11-389 and prospective REGISTRATION-ADLER-1261 through 1264 record the historical reviewer’s full 6533 bodies 1–128, 1–140, 1–225, 1–225, respectively; no current/later checkpoint attribution.",
+    "lens12_059": "PROPOSAL-L12-799 and root READ-L12-799 attribute 6533 full bodies to /root/lens12_frontier, registrations PAR-L12-384 through 387; root_personal_rereads=[]. TEAM-010 separately attributes strategic_place.rs 211–420 to that delegate, not a root read.",
+    "older_774": "Root owner additional-sources rows 125/126 retain full module/test proof; root coverage rows 327/512 retain full producer proof. ROOT-PPS-TERRAIN-DISPATCH-WEB-037 root source_proofs indices 7,47,44,48 and NATIVE-PS-ROOT-TERRAIN-SOURCE-PACKET-015 native related_current_reads/7 and source_reads/31,28,32 retain their 774 revision and original supplier attribution. Original local records and path-normalized f82 exports are separately preserved and manifest checked; f82 is a transport revision, not the historical source revision.",
+    "prior_current_map_route": "The exact complete earlier /root/rig_identity 95e packet for assigned roles 2364–2368 is preserved as prior-web-map-route-packet.tar.gz with its own MANIFEST, registrations, reports and source receipts. Its own support reads and three findings retain their author and scope and grant this assessment no source-read credit.",
+    "recovery_limits": "059 original queue, registry and transport manifest are losslessly retained; selected records are derived navigation only. Do not promote historical conclusions, statuses or reader scopes into missing checkpoint3821."
+  },
+  "evidence_paths": [
+    "registration.json",
+    "read-receipt.json",
+    "caller-scan-registration.json",
+    "coordinate-scan-registration.json",
+    "case-producer-scan-registration.json",
+    "support-registration.json",
+    "support-registration-02.json",
+    "support-registration-03.json",
+    "support-registration-04.json",
+    "support-read-receipt.json",
+    "git-proofs.json",
+    "historical-059-index.json",
+    "historical-queue-selected.json",
+    "historical-registry-selected.json",
+    "older-774-index.json",
+    "older-774-export-manifest.json",
+    "prior-web-map-route-packet.tar.gz",
+    "reference/",
+    "rules-evidence.json"
+  ],
+  "restriction": "Source inspection and evidence-only verification; no source edits, repairs, builds, tests, browsers, probes, simulations, product execution or validation."
+}

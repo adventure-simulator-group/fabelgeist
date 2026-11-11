@@ -1,0 +1,655 @@
+{
+  "schema": "726-delegated-web-quest-templates-report-v1",
+  "created_utc": "2026-11-11 20:33:20 UTC",
+  "status": "bounded source assessment; all thirteen repository-wide lenses incomplete; no implementation or product validation",
+  "baseline": {
+    "current_working_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "older_774_transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "checkpoint3821": "Original final ledger and queue unavailable; 059 and 774 are earlier records, never promoted."
+  },
+  "scope": "Original roles 2394\u20132396, with prospectively registered bounded current supporting source only. Test source bodies read as text but never run.",
+  "registrations": {
+    "registration.json": {
+      "sha256": "2524e7e635ef0b441344e7364fd3de6ab9260b95832eee7c1838c7a7106f5483"
+    },
+    "support-registration.json": {
+      "sha256": "1b484389d22dac792682a1db59468cbce02662bac793d5abb63fd38ee3fa954b"
+    },
+    "support-registration-2.json": {
+      "sha256": "df8240ffb960c4e4c70f75babdb038c53916af0ddacd85d946ab3477dedb30b9"
+    },
+    "historical-support-6533-registration.json": {
+      "sha256": "fc4a4b9ec9e615ba32632c1c8bdf312e4b08531dae060975b2e08530121b157f"
+    }
+  },
+  "original_roles": [
+    {
+      "original_role": 2394,
+      "path": "crates/strategic-web/src/templates/interface_help.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/src/templates/interface_help.rs",
+      "historical_source": "sources/6533/crates/strategic-web/src/templates/interface_help.rs",
+      "current_sha256": "c78ba1ba7989dbb10ddda4b92fd1118f802fa26bb36d5e5623449ffb567af9c9",
+      "historical_sha256": "c78ba1ba7989dbb10ddda4b92fd1118f802fa26bb36d5e5623449ffb567af9c9",
+      "git_blob": "a7039e20b4b2e2fcc8805658a59cbe8847271080",
+      "byte_identical": true,
+      "actual_personally_displayed_current_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "actual_personally_displayed_historical_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "reader": "current delegate /root/rig_identity; each revision separately displayed after prospective registration; no earlier reader or lens credit is transferred"
+    },
+    {
+      "original_role": 2395,
+      "path": "crates/strategic-web/src/templates/mission.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/src/templates/mission.rs",
+      "historical_source": "sources/6533/crates/strategic-web/src/templates/mission.rs",
+      "current_sha256": "77df6dfebbf56847588ce02dcb339e40ea550e5f67e05ce4611e2d538981fec1",
+      "historical_sha256": "77df6dfebbf56847588ce02dcb339e40ea550e5f67e05ce4611e2d538981fec1",
+      "git_blob": "1b3bab411fee6b62197141e4dc39248467c116db",
+      "byte_identical": true,
+      "actual_personally_displayed_current_ranges": [
+        [
+          1,
+          224
+        ]
+      ],
+      "actual_personally_displayed_historical_ranges": [
+        [
+          1,
+          224
+        ]
+      ],
+      "reader": "current delegate /root/rig_identity; each revision separately displayed after prospective registration; no earlier reader or lens credit is transferred"
+    },
+    {
+      "original_role": 2396,
+      "path": "crates/strategic-web/src/templates/quest.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/src/templates/quest.rs",
+      "historical_source": "sources/6533/crates/strategic-web/src/templates/quest.rs",
+      "current_sha256": "795707cb240810e0ed362225083f430b2e4eb47186cd95bc2fde5bbba43d3052",
+      "historical_sha256": "795707cb240810e0ed362225083f430b2e4eb47186cd95bc2fde5bbba43d3052",
+      "git_blob": "ffedd6cab340e8ac5986fa50cba60b5a66e19de9",
+      "byte_identical": true,
+      "actual_personally_displayed_current_ranges": [
+        [
+          1,
+          1067
+        ]
+      ],
+      "actual_personally_displayed_historical_ranges": [
+        [
+          1,
+          1067
+        ]
+      ],
+      "reader": "current delegate /root/rig_identity; each revision separately displayed after prospective registration; no earlier reader or lens credit is transferred"
+    }
+  ],
+  "support_source_reads": [
+    {
+      "path": "crates/strategic-web/src/routes/quests.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+      "current_source": "support/crates/strategic-web/src/routes/quests.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          490,
+          580
+        ],
+        [
+          1060,
+          1185
+        ],
+        [
+          1190,
+          1285
+        ],
+        [
+          1350,
+          1415
+        ],
+        [
+          1450,
+          1555
+        ],
+        [
+          1560,
+          1660
+        ]
+      ],
+      "search_only_displayed_snippets": "Additional prospectively registered symbol-search hits were displayed as snippets only and are not claimed as full-body reads; exact findings use the recorded body ranges.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/routes/quests.rs",
+      "historical_sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source contract only; whole archived bytes do not expand personal body reads, ordered role credit, or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/routes/missions.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "c4a54e247cf699583c7874b9ad0b29861fa8ea3b0d48b1572e10d52d19f83e1e",
+      "current_source": "support/crates/strategic-web/src/routes/missions.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          75,
+          160
+        ],
+        [
+          195,
+          242
+        ],
+        [
+          245,
+          295
+        ]
+      ],
+      "search_only_displayed_snippets": "Additional prospectively registered symbol-search hits were displayed as snippets only and are not claimed as full-body reads; exact findings use the recorded body ranges.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/routes/missions.rs",
+      "historical_sha256": "c4a54e247cf699583c7874b9ad0b29861fa8ea3b0d48b1572e10d52d19f83e1e",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source contract only; whole archived bytes do not expand personal body reads, ordered role credit, or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/static/party-trade.js",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "8bf14d47ad93735cea07acc1e20ad479d0edb2abffc2fd4cd3a6b2b1545c570f",
+      "current_source": "support/crates/strategic-web/static/party-trade.js",
+      "actual_current_personal_body_ranges": [
+        [
+          115,
+          160
+        ],
+        [
+          335,
+          410
+        ]
+      ],
+      "search_only_displayed_snippets": "Additional prospectively registered symbol-search hits were displayed as snippets only and are not claimed as full-body reads; exact findings use the recorded body ranges.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/static/party-trade.js",
+      "historical_sha256": "8bf14d47ad93735cea07acc1e20ad479d0edb2abffc2fd4cd3a6b2b1545c570f",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source contract only; whole archived bytes do not expand personal body reads, ordered role credit, or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/static/inventory-browser.js",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "dc0dbc9022b4f96fe45f8e6d2cac6d139142d26eff71d50160c714c53e9cffbb",
+      "current_source": "support/crates/strategic-web/static/inventory-browser.js",
+      "actual_current_personal_body_ranges": [
+        [
+          200,
+          470
+        ]
+      ],
+      "search_only_displayed_snippets": "Additional prospectively registered symbol-search hits were displayed as snippets only and are not claimed as full-body reads; exact findings use the recorded body ranges.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/static/inventory-browser.js",
+      "historical_sha256": "dc0dbc9022b4f96fe45f8e6d2cac6d139142d26eff71d50160c714c53e9cffbb",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source contract only; whole archived bytes do not expand personal body reads, ordered role credit, or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/static/strategic-renderer.js",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "c66112888fef6d6d7c5b597e2e6e89c9ab2223ca08b91af92e4366d6232b975d",
+      "current_source": "support/crates/strategic-web/static/strategic-renderer.js",
+      "actual_current_personal_body_ranges": [
+        [
+          220,
+          267
+        ]
+      ],
+      "search_only_displayed_snippets": "Additional prospectively registered symbol-search hits were displayed as snippets only and are not claimed as full-body reads; exact findings use the recorded body ranges.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/static/strategic-renderer.js",
+      "historical_sha256": "37325cf5d7929ee9c30e7443412975c9f522fbc48fb147dd754d77f8bda24f00",
+      "historical_byte_identical_to_current": false,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source contract only; whole archived bytes do not expand personal body reads, ordered role credit, or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/spacetimedb/types.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+      "current_source": "support/crates/strategic-web/src/spacetimedb/types.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          235,
+          275
+        ],
+        [
+          400,
+          440
+        ],
+        [
+          739,
+          810
+        ]
+      ],
+      "search_only_displayed_snippets": "Additional prospectively registered symbol-search hits were displayed as snippets only and are not claimed as full-body reads; exact findings use the recorded body ranges.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/spacetimedb/types.rs",
+      "historical_sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source contract only; whole archived bytes do not expand personal body reads, ordered role credit, or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/location_urls.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "4cdfe5103f103f2628c55f1f8d3f9dd407342458647215a44b5add07c03dcb14",
+      "current_source": "support/crates/strategic-web/src/location_urls.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "search_only_displayed_snippets": "Additional prospectively registered symbol-search hits were displayed as snippets only and are not claimed as full-body reads; exact findings use the recorded body ranges.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/location_urls.rs",
+      "historical_sha256": "4cdfe5103f103f2628c55f1f8d3f9dd407342458647215a44b5add07c03dcb14",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source contract only; whole archived bytes do not expand personal body reads, ordered role credit, or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/location_urls/patterns.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "cbe71f461a1ace891f293e332766a0d8028bbe81d0e8b9e2051fe74763ab7b78",
+      "current_source": "support/crates/strategic-web/src/location_urls/patterns.rs",
+      "actual_current_personal_body_ranges": [],
+      "search_only_displayed_snippets": "Additional prospectively registered symbol-search hits were displayed as snippets only and are not claimed as full-body reads; exact findings use the recorded body ranges.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/location_urls/patterns.rs",
+      "historical_sha256": "cbe71f461a1ace891f293e332766a0d8028bbe81d0e8b9e2051fe74763ab7b78",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source contract only; whole archived bytes do not expand personal body reads, ordered role credit, or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_place.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+      "current_source": "support/crates/adventuresim-core/src/strategic_place.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "search_only_displayed_snippets": "Additional prospectively registered symbol-search hits were displayed as snippets only and are not claimed as full-body reads; exact findings use the recorded body ranges.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-core/src/strategic_place.rs",
+      "historical_sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source contract only; whole archived bytes do not expand personal body reads, ordered role credit, or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/tactical.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "current_source": "support/crates/adventuresim-stdb-module/src/tactical.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          675,
+          710
+        ],
+        [
+          860,
+          985
+        ]
+      ],
+      "search_only_displayed_snippets": "Additional prospectively registered symbol-search hits were displayed as snippets only and are not claimed as full-body reads; exact findings use the recorded body ranges.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-stdb-module/src/tactical.rs",
+      "historical_sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source contract only; whole archived bytes do not expand personal body reads, ordered role credit, or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+      "current_source": "support/crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          120
+        ],
+        [
+          465,
+          565
+        ],
+        [
+          1290,
+          1415
+        ],
+        [
+          1580,
+          1665
+        ]
+      ],
+      "search_only_displayed_snippets": "Additional prospectively registered symbol-search hits were displayed as snippets only and are not claimed as full-body reads; exact findings use the recorded body ranges.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "historical_sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source contract only; whole archived bytes do not expand personal body reads, ordered role credit, or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/surgery.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+      "current_source": "support/crates/adventuresim-stdb-module/src/surgery.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          897,
+          966
+        ]
+      ],
+      "search_only_displayed_snippets": "Additional prospectively registered symbol-search hits were displayed as snippets only and are not claimed as full-body reads; exact findings use the recorded body ranges.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-stdb-module/src/surgery.rs",
+      "historical_sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source contract only; whole archived bytes do not expand personal body reads, ordered role credit, or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/medical.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "4a65105b858f1a7597d6f005ffd1840aced5a93d6655837cb0ad03d4f1fdb502",
+      "current_source": "support/crates/strategic-web/src/routes/settlements/medical.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          223,
+          230
+        ],
+        [
+          283,
+          317
+        ]
+      ],
+      "search_only_displayed_snippets": "Additional prospectively registered symbol-search hits were displayed as snippets only and are not claimed as full-body reads; exact findings use the recorded body ranges.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/routes/settlements/medical.rs",
+      "historical_sha256": "4a65105b858f1a7597d6f005ffd1840aced5a93d6655837cb0ad03d4f1fdb502",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source contract only; whole archived bytes do not expand personal body reads, ordered role credit, or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-core/src/mission.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
+      "current_source": "support/crates/adventuresim-core/src/mission.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "search_only_displayed_snippets": "Additional prospectively registered symbol-search hits were displayed as snippets only and are not claimed as full-body reads; exact findings use the recorded body ranges.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-core/src/mission.rs",
+      "historical_sha256": "998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source contract only; whole archived bytes do not expand personal body reads, ordered role credit, or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/world_actor.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "current_source": "support/crates/adventuresim-stdb-module/src/world_actor.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          745,
+          895
+        ]
+      ],
+      "search_only_displayed_snippets": "Additional prospectively registered symbol-search hits were displayed as snippets only and are not claimed as full-body reads; exact findings use the recorded body ranges.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-stdb-module/src/world_actor.rs",
+      "historical_sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source contract only; whole archived bytes do not expand personal body reads, ordered role credit, or other-lens credit."
+    }
+  ],
+  "recovered_history": {
+    "adler_059": "READ-L11-390 attributes 2394 lines 60\u201394 to Adler under REG1265 and the separately prospective mandatory extension 1\u201359,95\u2013119 to REG1268; their union completes 1\u2013119. 2395 1\u2013224 REG1266 and 2396 1\u20131067 REG1267 are fresh personal historical reads. Same receipt reinspected 2371 lines 1160\u20131243,1240\u20131411 under prior READ-L11-383 and REG1240, additional original frontier credit zero; prior full body evidence retained. Accepted unique delta 0, current_reconciled false, validated false.",
+    "delegated_059": "READ-L12-800 attributes role2394 full 1\u2013119 PAR388 and role2395 full 1\u2013224 PAR389 to /root/lens12_frontier, not root. READ-L12-801 attributes role2396 full 1\u20131067 PAR391 to the same delegate. Root personal rereads empty, accepted unique delta0, current_source_reconciled false and no other-lens transfer.",
+    "locator_qualifications": "Original registry 2394 path uses Windows SNAPSHOTS spelling while source_id identifies the Git path; PAR388 source-specific Windows qualification is retained. PAR391 also has a source-specific original2396 Windows qualification even though this registry row has a normalized path. Do not infer blanket normalization or coverage.",
+    "older_774": "Role2394 remains materially_reached_producer_contract: CAM-PPS-CLINICAL-RECEIVERS-045 /additional_actual_source_proofs/21 and RIG-PPS-035 /fresh_current_additional_source_reads/21 each record historical 60\u201394 only. Role2395 RIG-OWNER-WEB-GRANTED-IDENTITY-081 rig coverage zero-based row558 / physical line559 records full 1\u2013224; RIG-PPS-021 /fresh_current_source_reads/8 records only 1\u201399,176\u2013224. Separate supplemental-root-receivers-007 range100\u2013175 has null read_status and is not attributed as a read. Role2396 CAM-OWN-WEB-QUEST-108 camera coverage zero-based row426 / line427 has null read_status; camera additional-sources row665 / line666 is complete 1\u20131067; RIG-PPS-038 /fresh_current_source_reads/3 records full 1\u20131067 with receiver reconciliation pending.",
+    "continuation_774": "CONT-CAMERA-PP-008 continuation/camera/traces.jsonl physical line8 /exact_source_proofs/3 and RIG-CONT-PPS-WEB-REQUEST-RECONCILIATION-039 /source_dispositions/3 explicitly reuse RIG-PPS-038; neither is a new historical full-source read. Exact f82 continuation is transport, not product source or checkpoint3821.",
+    "historical_scope": "All registry owner_fit_delta statuses remain incomplete_explicit_contract_comparison_required. Fresh current assessments do not expand old scope or reassign repair ownership.",
+    "previous_current": "/root/mhr_character <LOCAL_PATH_0> gives mission 95e 1\u2013105 and 150\u2013180 under registration SHA 3dc3e29eac2d3f3978faa64d389702f8c2c4f8bc245afd4ac91dd2413c5926f5. /root/hair_ops strategic-web report support-registration-03 SHA 96455fb5cbb0b23fd6588c8d5ed4a574ea13a743e1efeb4b3c8813124d4f88b0 records mission 1\u201348 and quest 230\u2013265. Their exact reports, registrations and source artifacts are retained separately in prior-current. Earlier /root/rig_identity medical report is copied exactly and is not modified.",
+    "reconstruction": "registry-selection-reconstructed.json selects unchanged rows from exact original-registry.json.gz, not original checkpoint3821 evidence. Full earlier 059 ledger, queue and transport manifest preserved with original hashes.",
+    "historical_support": "Fourteen of fifteen current supports have byte-identical historical blobs; strategic-renderer.js differs: current c66112888fef6d6d7c5b597e2e6e89c9ab2223ca08b91af92e4366d6232b975d vs historical 37325cf5d7929ee9c30e7443412975c9f522fbc48fb147dd754d77f8bda24f00. No historical support bodies were personally displayed or claimed."
+  },
+  "findings_and_connected_questions": [
+    {
+      "id": "DELEGATE-QUEST-LOOT-TARGET-PARTY-ROW-AGGREGATION-95E",
+      "classification": "new current conditional source finding; aliases and central repair ownership unresolved",
+      "title": "Loot-to-target uses one party row instead of all same-item rows",
+      "source": [
+        "crates/strategic-web/src/templates/interface_help.rs:5-12",
+        "crates/strategic-web/src/routes/quests.rs:1102-1124,1144-1153,1381-1404,1452-1465",
+        "crates/strategic-web/src/templates/quest.rs:475-489,571-575",
+        "crates/strategic-web/static/party-trade.js:362-367,379-397",
+        "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs:481-512,534-559"
+      ],
+      "trace": "The interface key describes Target as the quantity to retain or acquire in this inventory. The quest route loads party inventory rows and the party leader scoped targets; the template maps each loot item to the first same-item party row and puts only that quantity in data-current. The target-mode handler calculates target minus this one row and staged quantity. Stable physical objects can be represented as multiple quantity-1 rows with the same item ID. For example, if the party already holds two separate same-item rows of quantity 1 and the target is 2, the template supplies current=1 and the target-mode calculation can stage one more from a nonempty corresponding loot row, although the total of those party rows is already 2. This is arithmetic from source, not a run or simulated fixture.",
+      "conditions": "Requires this target to mean aggregate item quantity across the relevant party rows, qualifying stable objects and a same-item available loot row, and selection of target mode. Whether nested/conditioned items count in the intended target and the actual reachability, frequency, browser behavior and successful authoritative transfer remain unverified. The normal battle drop producer inspected at inventory_trade.rs:1361\u20131396 combines dropped quantities by item_id; duplicate loot-row staging is not asserted as reachable. Currency/alcohol/food grouping uses separate component controls in inventory-browser.js:218\u2013299,302\u2013350,380\u2013444 and must be preserved; no blanket grouping claim.",
+      "future_repair_direction": "Reconcile the target owner and intended inclusion of physical, nested and measured objects, then compute the relevant aggregate safely and consistently with drafts and transfer admission. Preserve per-object identity, player choice, zero target behavior, and authoritatively validated transfers; any later verification waits for authorization.",
+      "relationships": [
+        "Adler 059 READ-L11-390 explicitly left actual loot DOM staging/native quantity and target-owner filtering pending. 059 q188 ADLER-L11-LOOT-PAIR-ADMISSION and q629 Q-L11-9ee5b5fc5bde0e9c4315 concern pair/empty-token admission, a distinct first cut until centrally reconciled. 059 q546 Q-L11-a822e43c64bf770b3e99 concerns target-save acknowledgment, not automatically this arithmetic. 774 RIG-PPS-038 /fresh_current_source_reads/3 reports a historical full quest source read; new assessment is not a retroactive historical finding."
+      ]
+    },
+    {
+      "id": "QUEST-COUNTERPARTY-BANDAGE-CONTEXT-CONTRAST-95E",
+      "classification": "newly assessed bounded cross-route evidence, narrows earlier conditional medical finding; not an independent broader-care finding",
+      "source": [
+        "crates/strategic-web/src/templates/quest.rs:358-407",
+        "crates/strategic-web/src/routes/quests.rs:503-541,1244-1267",
+        "crates/strategic-web/src/routes/settlements/medical.rs:223-230,283-317",
+        "crates/adventuresim-stdb-module/src/surgery.rs:897-925,949-965",
+        "crates/adventuresim-stdb-module/src/world_actor.rs:761-779,816-895"
+      ],
+      "trace": "The quest page projects a live counterparty contact reference, membership revision, decision and limb. For a living counterparty, a limb and Request or EmergencyTreatment decision, the quest form sends the contact reference and expected membership revision; its distinct handler calls treat_limb with both Some values and the procedure fixed to Bandage. The ordinary surgery form has no claim fields and its handler sends None for both. The reducer accepts paired valid claims and contextual treatment requires a matching visible qualifying membership when one exists. Thus the earlier ordinary-surgery missing-claim finding does not imply all contextual treatment is unavailable: the quest bandage route is a distinct path that supplies that pair.",
+      "conditions": "The form and forwarding demonstrate source intent only. Successful treatment still depends on living characters, co-presence, exact visible current membership, permission or emergency, admission and other reducer preconditions. This narrow contrast does not show general procedures are available by the quest bandage form or that any runtime treatment succeeded.",
+      "future_repair_direction": "When reconciling the earlier ordinary-surgery case, carry the authoritative context/revision as appropriate without conflating the separate Bandage-only quest action, refusal, emergency, retry and stale-revision decisions.",
+      "relationships": [
+        "Prior /root/rig_identity medical report DELEGATE-WEB-MEDICAL-CONTEXT-CLAIM-95E remains frozen and exactly preserved under prior-current; central should narrow its scope, not erase it. 059 q1006 Q-L12-a2ef7026a3b720bc1401 and q1872 Q-L12-2d961f568d7521b86062 preserve separate unresolved permission/context questions. 059 q1885 Q-L12-c22df9b9151c6e8a2b78 sought the quest limb/context identity producer; no historical alias or closure asserted."
+      ]
+    },
+    {
+      "id": "ADLER-L11-MISSION-CANCEL-OUTCOME",
+      "classification": "existing 059 q187 first cut independently reconnected at current revision; no new unique claim",
+      "source": [
+        "crates/strategic-web/src/templates/mission.rs:82-95,160-169",
+        "crates/strategic-web/src/routes/missions.rs:195-242"
+      ],
+      "trace": "Pending mission renders a cancellation POST. After viewer and party checks, the current cancellation handler discards execute_or_request_party_action result and redirects, so its distinct action outcome is not retained there.",
+      "conditions": "This establishes source behavior, not that any specific cancellation failed or that a redirect explicitly reports success. Endpoint and user-facing outcome/retry policy must be reconciled.",
+      "future_repair_direction": "Preserve and handle executed, requested and error outcomes through the native response while retaining permission and party authority.",
+      "relationships": [
+        "059 queue /entries/187 ADLER-L11-MISSION-CANCEL-OUTCOME remains open-reconciliation. Prior /root/mhr_character current mission 1\u2013105,150\u2013180 and /root/hair_ops current 1\u201348 are separate original read attributions."
+      ]
+    },
+    {
+      "id": "QUEST-ADDRESS-PRICE-OUTCOME-OPEN-95E",
+      "classification": "bounded unresolved contracts, not established defect or security claim",
+      "source": [
+        "crates/strategic-web/src/templates/quest.rs:222-224,245-259,475-489,545-552,578-584",
+        "crates/strategic-web/src/routes/quests.rs:550-570,1072-1076",
+        "crates/strategic-web/src/templates/mission.rs:27-29,130-135,160-163,177-179",
+        "crates/adventuresim-core/src/mission.rs:17-35,57",
+        "crates/adventuresim-stdb-module/src/tactical.rs:693-700,868-875,911-925",
+        "crates/adventuresim-core/src/strategic_place.rs:17-35,43-58,109-117"
+      ],
+      "trace": "The mission page embeds mission_id in a Datastar expression and native path and addr in a native query; the typed MissionId constructor restricts validated values to bounded canonical lowercase ASCII and tactical request/claim paths call it. The canonical CaseSiteId constructor similarly disallows slash and query delimiters, narrowing concern for the case-site autoresolve path. Case-site presentation action_id may instead be a contract or battle ID for loot, whose full admission and route contract are not established by this read. The value display maps missing catalog/base_value to zero while weight displays a dash; interface help dash language specifically discusses weapon and armor measurement columns. The template compares victor to an enemies literal while core has a separate StrategicBattleVictor enum, but producer mapping and business semantics were not traced.",
+      "conditions": "No proof that all mission views originate in the checked producer paths, that published server addresses satisfy query-encoding assumptions, that missing base_value means unknown rather than zero, or that the victor producers use the existing enum in this presentation. HTML escaping is not itself evidence of correct JavaScript or URL component encoding. No browser, service or injection probe performed.",
+      "future_repair_direction": "Trace actual admission and framework-native encoders/consumers and catalog/victor owners before deciding type/escaping/error changes. Preserve intended path semantics and distinguish unknown from numeric zero only when native value policy establishes that meaning.",
+      "relationships": [
+        "059 READ-L11-390 and READ-L12-800/801 left native mission ID/address, quest price and victor producer contracts pending. 059 q1885 specifically records victor and corpse owner questions. Do not auto-alias to q187, q188 or q546."
+      ]
+    }
+  ],
+  "nonfindings": [
+    {
+      "text": "The separate quest Bandage handler does pass both contextual claim components; it does not make all ordinary surgery forms correct or prove treatment success.",
+      "source": [
+        "crates/strategic-web/src/templates/quest.rs:389-401",
+        "crates/strategic-web/src/routes/quests.rs:503-541"
+      ]
+    },
+    {
+      "text": "Under the inspected tactical admissions, MissionId excludes quotes, slashes and query markers; canonical CaseSiteId also excludes slash and query delimiters. The whole source graph and alternative inputs remain unproved; do not infer an injection exploit from raw interpolation alone.",
+      "source": [
+        "crates/adventuresim-core/src/mission.rs:17-35,57",
+        "crates/adventuresim-stdb-module/src/tactical.rs:693-700,868-875",
+        "crates/adventuresim-core/src/strategic_place.rs:17-35,43-58"
+      ]
+    },
+    {
+      "text": "The guarded treatment_limb_slug unwrap_or_default occurs only in an is_some branch in this template; no missing-limb default reaches this form under ordinary source control flow.",
+      "source": [
+        "crates/strategic-web/src/templates/quest.rs:389-397"
+      ]
+    },
+    {
+      "text": "The inspected normal battle-drop producer combines item IDs before inserting loot, so a multiple-loot-row staging scenario is not established by this producer. Separate party object rows are explicitly admitted.",
+      "source": [
+        "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs:481-512,1361-1396"
+      ]
+    },
+    {
+      "text": "The missing-price observation is not resolved by the help text alone: its dash sentence names weapon and armor measurement columns, and base_value meaning remains open.",
+      "source": [
+        "crates/strategic-web/src/templates/interface_help.rs:18-21",
+        "crates/strategic-web/src/templates/quest.rs:478-489,545-552"
+      ]
+    },
+    {
+      "text": "Mission status branches on MissionStatus, ready connection requires Some character_id, and pending state supplies a cancel form. None of those establish live readiness or successful enrollment.",
+      "source": [
+        "crates/strategic-web/src/templates/mission.rs:27-35,73-95,130-140",
+        "crates/strategic-web/src/spacetimedb/types.rs:408-415"
+      ]
+    },
+    {
+      "text": "Quantity and price are converted to u64 before multiplication in the loot/party display; multiplying two u32 values fits in u64.",
+      "source": [
+        "crates/strategic-web/src/templates/quest.rs:478-489,545-552"
+      ]
+    }
+  ],
+  "open_questions": [
+    "Which physical, nested, measured and condition-specific items count toward a party item target, and should staging across multiple UI rows share one item-level remaining deficit?",
+    "Do canonical address and action ID sources and URL/Datastar consumer contracts cover every actual admitted path and query?",
+    "Does absent catalog/base_value represent unknown, zero or another policy; what is the owner for autoresolve victor and corpse location values?",
+    "What user-visible outcome and retry semantics apply to cancellation, loot transfer and ordinary surgery, and what historical first-cut aliases are exact?",
+    "How does central reconciliation connect 059 q188/q629 pair parsing, q546 target acknowledgement, q1885 context/victor questions and the new aggregate finding without conflation?"
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "producer_propagation",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Party quantity target is carried as item_id and quantity but first-row projection loses the party-wide quantity; separately the quest Bandage path propagates paired contextual identity and revision."
+    },
+    {
+      "lens": "existing_type_owners",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "MissionId and CaseSiteId admission owners restrict relevant source values; observed semantic state and ID fields at web boundaries remain distinct from inferred global type ownership."
+    },
+    {
+      "lens": "admission_contracts",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Quest counterparty form structurally requires a claim pair; reducer validates the pair and membership. Target, loot availability and address producer admissions remain bounded questions."
+    },
+    {
+      "lens": "invariant_operations",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Party item quantities must be combined according to target policy, not guessed from first row; multiplication promoted to u64 has no u32-by-u32 overflow."
+    },
+    {
+      "lens": "aggregate_states",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "An inventory target relates item identity, aggregate held quantity and staged transfer; a contextual claim relates reference and membership revision. The two forms carry different valid shapes."
+    },
+    {
+      "lens": "type_ownership",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Use existing semantic target/ID/claim owners after tracing authoritative callers; current scope cannot assign a global repair owner or infer duplicate types."
+    },
+    {
+      "lens": "redundant_authority",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Projected data-current is a cached summary of party rows and must agree with its source and staging; this observation alone does not assign independent authoritative storage."
+    },
+    {
+      "lens": "behavior_preservation",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Preserve stable physical-object identity, target modes, guarded medical consent/emergency/staleness and intentional tactical/manual quest distinctions in any later change."
+    },
+    {
+      "lens": "enum_shapes",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "MissionStatus drives closed branches; quest victor string needs producer mapping, while treatment decision and procedure are not interchangeable."
+    },
+    {
+      "lens": "derivability",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "No supported manual-trait or derive defect is established from these presentation functions; deriving serializers must not bypass admission."
+    },
+    {
+      "lens": "type_granularity",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Case-site, mission, battle and contact IDs have different semantics; do not assume one generic string or identical target units for physical/measured objects."
+    },
+    {
+      "lens": "magic_strings",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Canonical/native route syntax and presentation text are boundary data; enemies business comparison and raw expression/query interpolation need actual owner/native contract review before replacement claims."
+    },
+    {
+      "lens": "magic_numbers",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Target quantities are item units and contextual revision is a different count; no generic bound or overflow defect follows from their representation. Existing display multiplication is widened safely."
+    }
+  ],
+  "limitations": [
+    "Each assigned body at 95e and 6533 was separately displayed in full after registration; supporting bodies only in exact listed current ranges.",
+    "All exact original source bytes are retained; no historical support body was personally displayed. Historical renderer support differs from current.",
+    "No product source edits, repairs, builds, tests, browser, service calls, runtime probes, generated fixtures or simulations.",
+    "No product response, stored data, affected player, exploit or exact alias has been observed.",
+    "Original final checkpoint3821 ledger/queue missing; 059 and 774 earlier originals and reconstructed selections remain explicitly labelled."
+  ]
+}

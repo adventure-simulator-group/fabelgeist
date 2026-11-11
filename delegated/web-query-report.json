@@ -1,0 +1,594 @@
+{
+  "schema": "726-delegated-web-query-report-v1",
+  "created_utc": "2026-11-11 20:19:23 UTC",
+  "status": "bounded source assessment; all thirteen repository-wide lenses incomplete; no implementation or product validation",
+  "baseline": {
+    "current_working_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "older_774_transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "checkpoint3821": "Original final ledger and queue unavailable; 059 and 774 are earlier records, never promoted."
+  },
+  "scope": "Original roles 2385\u20132388, with individually registered current support; source inspection only. Existing test and fixture bodies read as text, never run.",
+  "registrations": {
+    "registration.json": {
+      "sha256": "365b11c2a7a2b99aa8481801abe3f3d6e47c528e95e12df4cbee067835caa2cd"
+    },
+    "support-registration.json": {
+      "sha256": "6f8534fd10ff8f190df43f513e50d1b276a9d660e174df98ec4a1a3722d06a18"
+    },
+    "support-registration-2.json": {
+      "sha256": "d01ea45ec9849277b1109aed90dbf1f01c743a12867c43f9ae7dfd924e82c250"
+    },
+    "historical-support-6533-registration.json": {
+      "sha256": "638c6edfbb79b14777353f8e94860b8cdff9d79441d3097c557772c9d96f38cc"
+    }
+  },
+  "original_roles": [
+    {
+      "original_role": 2385,
+      "path": "crates/strategic-web/src/spacetimedb/client.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/src/spacetimedb/client.rs",
+      "historical_source": "sources/6533/crates/strategic-web/src/spacetimedb/client.rs",
+      "current_sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+      "historical_sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+      "git_blob": "c68589ff20851f657da1a519b5c77875a2f2c690",
+      "byte_identical": true,
+      "actual_personally_displayed_ranges_current": [
+        [
+          1,
+          273
+        ]
+      ],
+      "actual_personally_displayed_ranges_historical": [
+        [
+          1,
+          273
+        ]
+      ],
+      "reader": "current-session delegate /root/rig_identity",
+      "historical_registry_scope": "affected_unchanged_reached_contract"
+    },
+    {
+      "original_role": 2386,
+      "path": "crates/strategic-web/src/spacetimedb/client/sats.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/src/spacetimedb/client/sats.rs",
+      "historical_source": "sources/6533/crates/strategic-web/src/spacetimedb/client/sats.rs",
+      "current_sha256": "dbb97caa3f3bb18aa862aacce19d0d76f82f7760e82a389f9347698d24031906",
+      "historical_sha256": "dbb97caa3f3bb18aa862aacce19d0d76f82f7760e82a389f9347698d24031906",
+      "git_blob": "c392ba4f099848bf394030612668d3fcc4ff98c6",
+      "byte_identical": true,
+      "actual_personally_displayed_ranges_current": [
+        [
+          1,
+          540
+        ]
+      ],
+      "actual_personally_displayed_ranges_historical": [
+        [
+          1,
+          540
+        ]
+      ],
+      "reader": "current-session delegate /root/rig_identity",
+      "historical_registry_scope": "affected_unchanged_reached_contract"
+    },
+    {
+      "original_role": 2387,
+      "path": "crates/strategic-web/src/spacetimedb/mod.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/src/spacetimedb/mod.rs",
+      "historical_source": "sources/6533/crates/strategic-web/src/spacetimedb/mod.rs",
+      "current_sha256": "a020d51bfbce659a44fe8f52c25124b01e77eb9659ef473bf76a4029e28ae130",
+      "historical_sha256": "a020d51bfbce659a44fe8f52c25124b01e77eb9659ef473bf76a4029e28ae130",
+      "git_blob": "a762815c0a2e6ca45cb83d27c1810e952d01a97b",
+      "byte_identical": true,
+      "actual_personally_displayed_ranges_current": [
+        [
+          1,
+          136
+        ]
+      ],
+      "actual_personally_displayed_ranges_historical": [
+        [
+          1,
+          136
+        ]
+      ],
+      "reader": "current-session delegate /root/rig_identity",
+      "historical_registry_scope": "affected_unchanged_reached_contract"
+    },
+    {
+      "original_role": 2388,
+      "path": "crates/strategic-web/src/spacetimedb/queries.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/src/spacetimedb/queries.rs",
+      "historical_source": "sources/6533/crates/strategic-web/src/spacetimedb/queries.rs",
+      "current_sha256": "d0c3d034f86164b2ffc1acbe66095411629ed45e670ddb95938feea0c5c3e97e",
+      "historical_sha256": "d0c3d034f86164b2ffc1acbe66095411629ed45e670ddb95938feea0c5c3e97e",
+      "git_blob": "fb9a02a66bc6a11489e954686042770dd10f7de0",
+      "byte_identical": true,
+      "actual_personally_displayed_ranges_current": [
+        [
+          1,
+          466
+        ]
+      ],
+      "actual_personally_displayed_ranges_historical": [
+        [
+          1,
+          466
+        ]
+      ],
+      "reader": "current-session delegate /root/rig_identity",
+      "historical_registry_scope": "materially_reached_producer_contract"
+    }
+  ],
+  "support_source_reads": [
+    {
+      "path": "crates/strategic-web/src/spacetimedb/types.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+      "current_source": "support/crates/strategic-web/src/spacetimedb/types.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          110
+        ],
+        [
+          480,
+          620
+        ]
+      ],
+      "search_only_displayed_snippets": "Search displayed only matching lines 75,78,84,89,404,500-501,552-553,577-578,1941-1942.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/spacetimedb/types.rs",
+      "historical_sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting contract only; previous reviewer scopes separately attributed, no ordered role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-core/src/reducer_error.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "ec4f9bddc8b7d73ed40bcfbecb23d7b061016ee53bd6fea4a524d05e838691c7",
+      "current_source": "support/crates/adventuresim-core/src/reducer_error.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "search_only_displayed_snippets": "none beyond body ranges",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-core/src/reducer_error.rs",
+      "historical_sha256": "ec4f9bddc8b7d73ed40bcfbecb23d7b061016ee53bd6fea4a524d05e838691c7",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting contract only; previous reviewer scopes separately attributed, no ordered role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/main.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "43acd82de75c8823ed2a925e424704a87b8db7ee297b56d2f33f4e79fa9f97d9",
+      "current_source": "support/crates/strategic-web/src/main.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          55,
+          90
+        ]
+      ],
+      "search_only_displayed_snippets": "Search displayed only matches 72-73,75-76.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/main.rs",
+      "historical_sha256": "43acd82de75c8823ed2a925e424704a87b8db7ee297b56d2f33f4e79fa9f97d9",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting contract only; previous reviewer scopes separately attributed, no ordered role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/routes/dialogue.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "current_source": "support/crates/strategic-web/src/routes/dialogue.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1495,
+          1540
+        ]
+      ],
+      "search_only_displayed_snippets": "Search displayed only match 1517.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/routes/dialogue.rs",
+      "historical_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting contract only; previous reviewer scopes separately attributed, no ordered role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/routes/travel/topology.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "be157f960ba71a07776dd36262f524b633988e52be349f12327d9ba1e3e35732",
+      "current_source": "support/crates/strategic-web/src/routes/travel/topology.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          201
+        ]
+      ],
+      "search_only_displayed_snippets": "Search displayed test source match 195.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/routes/travel/topology.rs",
+      "historical_sha256": "be157f960ba71a07776dd36262f524b633988e52be349f12327d9ba1e3e35732",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting contract only; previous reviewer scopes separately attributed, no ordered role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/routes/data.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "2cba5629aedb862b8c04b750219bef16c9eba8b47116c75b3e8cda4cf21791bb",
+      "current_source": "support/crates/strategic-web/src/routes/data.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          39,
+          92
+        ]
+      ],
+      "search_only_displayed_snippets": "Search displayed 6,59-60,77,79,82-86 and test source 216,242,251-254.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/routes/data.rs",
+      "historical_sha256": "2cba5629aedb862b8c04b750219bef16c9eba8b47116c75b3e8cda4cf21791bb",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting contract only; previous reviewer scopes separately attributed, no ordered role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/party/location_personal.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "ba5a8c93dc9d1b62072610c5b016d87ce2db0c85f953822d5730ad4e9651f1f9",
+      "current_source": "support/crates/strategic-web/src/routes/settlements/party/location_personal.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          60
+        ],
+        [
+          145,
+          185
+        ]
+      ],
+      "search_only_displayed_snippets": "Search displayed 28,97,167.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/routes/settlements/party/location_personal.rs",
+      "historical_sha256": "ba5a8c93dc9d1b62072610c5b016d87ce2db0c85f953822d5730ad4e9651f1f9",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting contract only; previous reviewer scopes separately attributed, no ordered role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/party/schedule_preview.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "18945e511b6667fe1d2fdcaf4b582917ec5539db933ed1e2f1c64da5db3d46ab",
+      "current_source": "support/crates/strategic-web/src/routes/settlements/party/schedule_preview.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          100,
+          175
+        ]
+      ],
+      "search_only_displayed_snippets": "Search displayed 125,156.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/routes/settlements/party/schedule_preview.rs",
+      "historical_sha256": "18945e511b6667fe1d2fdcaf4b582917ec5539db933ed1e2f1c64da5db3d46ab",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting contract only; previous reviewer scopes separately attributed, no ordered role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/projections.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102",
+      "current_source": "support/crates/adventuresim-stdb-module/src/investigation/projections.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          235,
+          270
+        ]
+      ],
+      "search_only_displayed_snippets": "Search displayed 3,251.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-stdb-module/src/investigation/projections.rs",
+      "historical_sha256": "4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting contract only; previous reviewer scopes separately attributed, no ordered role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/sites.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+      "current_source": "support/crates/adventuresim-stdb-module/src/investigation/sites.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          245
+        ]
+      ],
+      "search_only_displayed_snippets": "Search displayed 7-8,12,26,50,201.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-stdb-module/src/investigation/sites.rs",
+      "historical_sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting contract only; previous reviewer scopes separately attributed, no ordered role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/model.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "current_source": "support/crates/adventuresim-stdb-module/src/investigation/model.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          810,
+          885
+        ]
+      ],
+      "search_only_displayed_snippets": "First 45 displayed matching lines ranged 134-1383; snippets only beyond actual body ranges.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-stdb-module/src/investigation/model.rs",
+      "historical_sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting contract only; previous reviewer scopes separately attributed, no ordered role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/claims.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+      "current_source": "support/crates/adventuresim-stdb-module/src/investigation/claims.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1530,
+          1655
+        ]
+      ],
+      "search_only_displayed_snippets": "First 50 displayed matching lines included 9-1625; snippets only beyond actual body ranges.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-stdb-module/src/investigation/claims.rs",
+      "historical_sha256": "19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting contract only; previous reviewer scopes separately attributed, no ordered role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/actions.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "00ea04f41c3b01c494fc44e24a3bd5b3720d239de26a71f896d3841e2677fafd",
+      "current_source": "support/crates/adventuresim-stdb-module/src/investigation/actions.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          190,
+          260
+        ]
+      ],
+      "search_only_displayed_snippets": "Remaining first-50 matching lines included 229-903; snippets only beyond actual body ranges.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-stdb-module/src/investigation/actions.rs",
+      "historical_sha256": "00ea04f41c3b01c494fc44e24a3bd5b3720d239de26a71f896d3841e2677fafd",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting contract only; previous reviewer scopes separately attributed, no ordered role or other-lens credit."
+    }
+  ],
+  "recovered_history": {
+    "adler_059": "READ-L11-387: Adler personally read 2385 1-273 REG1256, 2386 1-540 REG1257, 2387 1-136 REG1258; 2388 only 1-45 REG1259, no historical claim to unread 46-466. Accepted unique delta0, current_reconciled false, no validation.",
+    "delegated_059": "Lens12 /root/lens12_frontier personally read 2385 full under PAR378 in READ-L12-795. For 2386, earlier connected receipt READ-CONNECTED-PAR-L12-796-NATIVE-ENVELOPE-SATS-TYPES-PARTIAL001 /rows/1 records a prospective 1-540 full read under PAR380; READ-L12-796 ordered reuse records fresh_personal_body_reads=[], new_rereads=0 and count-once proposed, not a second full read. READ-L12-797 personally read 2387 1-136 PAR382 and 2388 1-466 PAR383. Root personal rereads empty; accepted unique change0; current_source_reconciled false. Connected receipt also has /rows/0 original983 full and /rows/2 original2389 partial only; no blanket transfer.",
+    "locator_qualifications": "Original 2388 registry path uses Windows snapshot spelling; exact source_id resolves native Git path and qualification PAR383 is source-specific. PAR378 and PAR380 special Windows field qualifications for exact source identities also retained; no blanket path normalization or coverage credit.",
+    "older_774": "Camera owner coverage zero-based rows424/425 physical lines425/426 record 2385/2386 with null read_status; camera additional-sources row668 line669 gives 2385 complete and row664 line665 gives 2386 complete; row387 line388 2385 scoped185-222. Rig coverage row557 line558 records 2387 1-136, camera additional-sources row385 line386 records 2387 1-48. Rig RIG-PPS-038 line38 /fresh_current_source_reads/1,/2 records 2385/2386 full and /additional_actual_source_proofs/14 records 2388 only 1-45. Rig RIG-PPS-021 line21 /fresh_current_source_reads/6 records 2387 full and /additional_actual_source_proofs/0 records bounded 2385. Camera CAM-PPS-DIALOGUE-040 line40 and rig RIG-PPS-033 line33 have separate bounded 2385 proof.",
+    "continuation_774": "CONT-CAMERA-PP-008 continuation/camera/traces.jsonl physical line8 and RIG-CONT-PPS-WEB-REQUEST-RECONCILIATION-039 /source_dispositions/1,/2 explicitly reuse RIG-PPS-038 exact full-source proof, with independently verified hashes and joined recipients; neither is a new full-file personal read. Exact f82 continuation bytes are preserved as transport, without claiming local comparison.",
+    "historical_scope": "Original 2388 materially_reached_producer_contract remains limited to exact material ranges; own new full read does not retroactively expand historical coverage. All registry owner_fit_delta statuses remain incomplete_explicit_contract_comparison_required and producer accounted with findings; no later-lens acceptance.",
+    "previous_current": "Earlier /root/hair_ops reports and support registrations/source artifacts (strategic-web, web-data, web-equipment) and /root/mhr_character web-routes report/support retained exactly in prior-current/, with original personal scopes. Current delegate ranges are separately recorded.",
+    "reconstruction": "registry-selection-reconstructed.json selects unchanged rows from original-registry.json.gz, not original checkpoint3821 evidence. Full original 059 ledger/queue/manifest copied exactly; f82 is transport revision, not 6533 source or 3821."
+  },
+  "findings_and_connected_questions": [
+    {
+      "id": "DELEGATE-CASE-SITE-PIN-OWNER-CARDINALITY-95E",
+      "classification": "new current conditional source finding that advances earlier q1881; exact alias and repair owner remain central",
+      "title": "Site-only lookup rejects separately owned exact pins after a lead is shared",
+      "source": [
+        "crates/strategic-web/src/spacetimedb/queries.rs:106-117",
+        "crates/strategic-web/src/spacetimedb/client.rs:134-150",
+        "crates/strategic-web/src/routes/settlements/party/location_personal.rs:7-38,164-170",
+        "crates/strategic-web/src/routes/settlements/party/schedule_preview.rs:108-129,141-163",
+        "crates/adventuresim-stdb-module/src/investigation/sites.rs:7-86,103-118,201-215",
+        "crates/adventuresim-stdb-module/src/investigation/claims.rs:1543-1628",
+        "crates/adventuresim-stdb-module/src/investigation/model.rs:843-869"
+      ],
+      "trace": "Gateway pin projection scans qualifying exact uncorrected leads and keys the output by (owner_character_id, case_site_id). Sharing an investigation lead with a living co-located party recipient inserts another lead for that recipient with all source fields otherwise preserved and does not delete the sender lead. When both source and copied lead meet valid site, provenance, presentation and exact-coordinate predicates, two owner-specific pins for one site can coexist. The site-only query returns both under normal gateway SQL semantics; query_one rejects more than one and resolve_location maps that error to Unavailable. The schedule preview separately uses the existing site-and-owner query.",
+      "conditions": "Requires distinct owners, successful authorized lead sharing, an exact current uncorrected source lead, passing provenance/presentation checks and expected SQL response. A current database instance, HTTP request and player impact were not observed. A one-row site-only lookup also needs viewer-identity policy, but this evidence does not establish unauthorized disclosure.",
+      "future_repair_direction": "Carry the actual observer identity to each case-site pin lookup and reconcile callers with exact owner scope, missing versus unavailable, and current observation/time policy. Preserve intentional sharing and consent; verify endpoint and view contracts after audit/implementation are authorized.",
+      "relationships": [
+        "059 q1881 Q-L12-8efe3b20699c30a24bd0 explicitly left site-only versus owner-specific producer/visibility semantics pending. This current trace adds the actual share producer and duplicate-owner case; do not assume exact historical alias or credit a new historical finding.",
+        "059 q531 query-one cardinality remains a distinct structured-error first cut; central reconciliation decides the connected fix and count."
+      ]
+    },
+    {
+      "id": "ADLER-L11-STRATEGIC-DB-ERROR-OWNERSHIP",
+      "classification": "existing historical q195 and q531\u2013q538, independently reconnected at 95e; distinct first cuts preserved",
+      "source": [
+        "crates/strategic-web/src/spacetimedb/client.rs:21-39,107-150,155-189,192-219",
+        "crates/strategic-web/src/spacetimedb/client/sats.rs:57-62,68-129,131-178",
+        "crates/strategic-web/src/spacetimedb/types.rs:75-92,500-503,552-553,572,577-580,608-610",
+        "crates/strategic-web/src/routes/data.rs:55-89",
+        "crates/adventuresim-core/src/reducer_error.rs:1-9,65-72"
+      ],
+      "trace": "Non-success SQL and reducer replies discard the native HTTP status and map response.text errors to an empty body before Spacetime(String). Successful body read and JSON failures retain reqwest/serde native errors. query_one encodes multiple-row count in local prose; query_sats_into and query_one_sats_into format concrete projection errors behind Display into the same string variant. Actual PartyView and CaseBattleView conversions can return PlaceIdentityError, and the separate character case-site path explicitly formats that error. SATS malformed-wire reasons are local synthesized diagnostics, distinct from erased native transport/projection causes.",
+      "conditions": "No actual network call, malformed row, response failure or lost user information observed. Empty error text can be an actual body or a failed read. Each historical q531\u2013q538 remains its own first-cut record; opaque remote error text can remain at the foreign wire boundary.",
+      "future_repair_direction": "Design one coherent error aggregate that preserves operation/stage, native status, body-read cause and concrete row conversion causes through internal boundaries; model cardinality and SATS structural reasons with appropriate context, rendering public prose only at actual presentation ports. Preserve privacy and code-envelope behavior.",
+      "relationships": [
+        "059 /entries/195 and /entries/531\u2013538 remain open, not replaced by this report.",
+        "774 CAM-OWNER-F015 and RIG-PPS-021/038 concern typed conversion causes; prior /root/hair_ops web-data report independently traced generated private case-site error, retain separate provenance."
+      ]
+    },
+    {
+      "id": "DELEGATE-QUERY-ENVELOPE-CACHE-CONTRACT-95E",
+      "classification": "bounded historical question refined by a current consumer; conditional, not established defect",
+      "source": [
+        "crates/strategic-web/src/spacetimedb/types.rs:75-92",
+        "crates/strategic-web/src/spacetimedb/client/sats.rs:131-178",
+        "crates/strategic-web/src/spacetimedb/client.rs:107-150",
+        "crates/strategic-web/src/routes/travel/topology.rs:24-64,160-195"
+      ],
+      "trace": "QueryResponse is a Vec<QueryResult>. The decoder treats an empty vector as successful empty rows and examines only the first result. TravelEdgeCache commits any successful empty vector into its process-local OnceCell and retries only errors; its existing test source explicitly treats an empty response array as a successful empty cache.",
+      "conditions": "No SQL endpoint response or test was executed. Whether an empty array is a valid zero-result response, whether a one-statement endpoint may return additional results, and whether an empty road topology should stay cached are unresolved transport/data contracts. Do not call intentional test behavior a failure.",
+      "future_repair_direction": "Determine native SQL one-statement envelope and source-topology emptiness/revision policy; if unexpected shapes are not valid, reject them with typed context before successful cache initialization while preserving legitimate empty tables.",
+      "relationships": [
+        "Adler READ-L11-387 explicitly recorded empty response and first-only as pending native endpoint contract; this adds actual cache receiver and original test-source qualification, not a new historical finding."
+      ]
+    },
+    {
+      "id": "DELEGATE-REDUCER-CODE-TRANSPORT-PROVENANCE-95E",
+      "classification": "open source-level contract, not a proved classifier defect",
+      "source": [
+        "crates/strategic-web/src/spacetimedb/client.rs:21-38,192-219",
+        "crates/adventuresim-core/src/reducer_error.rs:1-9,65-72",
+        "crates/strategic-web/src/routes/dialogue.rs:1511-1521"
+      ],
+      "trace": "Any non-success reducer HTTP body is retained as Spacetime(String); reducer_code searches that text for a stable bracketed code, and dialogue maps one code to ContactUnavailable. The parser intentionally accepts a code inside a transport wrapper rather than matching human detail prose. Because status and provenance are discarded, deciding whether the marker came from a reducer envelope or other HTTP failure depends on the remote transport contract.",
+      "conditions": "No matching non-reducer HTTP response or incorrect user outcome was observed; do not infer an exploit, prose-branching violation or malformed protocol from substring search alone.",
+      "future_repair_direction": "Establish the actual foreign envelope and distinguish reducer rejection from transport failure while preserving machine code and safe display semantics.",
+      "relationships": [
+        "Adjacent to q195 and q536\u2013537; no automatic alias."
+      ]
+    }
+  ],
+  "nonfindings": [
+    {
+      "text": "query_one explicitly rejects more than one row and accepts zero or one; it does not silently choose the first row within a result. The multi-owner bug comes from an under-scoped query against an owner-keyed view.",
+      "source": [
+        "crates/strategic-web/src/spacetimedb/client.rs:141-150",
+        "crates/adventuresim-stdb-module/src/investigation/sites.rs:7-86"
+      ]
+    },
+    {
+      "text": "String query macros quote literals and double apostrophes; numeric IDs are formatted as u64 and table/key prefixes are static. The actual SQL dialect and all callers remain open; no injection conclusion follows from this alone.",
+      "source": [
+        "crates/strategic-web/src/spacetimedb/queries.rs:27-45,47-231"
+      ]
+    },
+    {
+      "text": "SATS generated rows check named top-level columns, row/product arity, sum shape/tag and byte hex before serde; immutable preconditions guard the named-element expects. No ordinary panic, runtime schema drift, or forged response is claimed.",
+      "source": [
+        "crates/strategic-web/src/spacetimedb/client/sats.rs:64-113,131-175,180-240"
+      ]
+    },
+    {
+      "text": "Byte-array hex and identity numeric hex use different native representations; capitalized sum and lowercased option names plus explicit SATS Option/unit variants are foreign boundary adapters, not automatically obsolete compatibility paths.",
+      "source": [
+        "crates/strategic-web/src/spacetimedb/client/sats.rs:15-26,39-55,68-79,114-128,192-209",
+        "crates/strategic-web/src/spacetimedb/mod.rs:39-101"
+      ]
+    },
+    {
+      "text": "Query metrics share non-reset atomic counters and measure request-send elapsed until headers; snapshots need not be an atomic pair or per-request trace. Existing current startup uses a zero delta against the same baseline; no measured latency or isolated attribution guarantee established.",
+      "source": [
+        "crates/strategic-web/src/spacetimedb/client.rs:44-63,96-105,107-123",
+        "crates/strategic-web/src/main.rs:69-77"
+      ]
+    },
+    {
+      "text": "Existing topology test source includes a local HTTP fixture and asserts [] successful empty cache; it was read but never run. No conclusion that [] is forbidden by the actual service contract.",
+      "source": [
+        "crates/strategic-web/src/routes/travel/topology.rs:154-201"
+      ]
+    }
+  ],
+  "open_questions": [
+    "Can a valid shared exact lead produce the two owner-specific gateway pins in the current runtime, and what observer should each location resolver use?",
+    "What is the exact SQL endpoint result-envelope contract for one SELECT, including empty result array and multiple result sets, and how should empty topology be cached?",
+    "Which request status, response-body read causes, local cardinality and projection errors must be retained through application consumers while keeping remote payload private?",
+    "Which transport envelopes can legitimately wrap reducer error codes, and can a non-reducer failure produce an identical machine marker?",
+    "Are native named products/columns guaranteed unique and valid schemas, and what targets/admission rules govern sum tag conversion and Identity U256 width?",
+    "Do q195/q531\u2013q538, q1881 and older owner claims overlap exact repair scope or only adjacent first-cuts? Central reconciliation remains open."
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "producer_propagation",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Typed case-site owner must travel from observer to the actual owner-scoped query; missing in the site-only route, with conditional shared-lead producer evidence."
+    },
+    {
+      "lens": "existing_type_owners",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "SqlQuery and generated SATS row owners exist; site and owner are distinct semantics, and exact CaseSiteId/observer identity placement requires caller-wide review."
+    },
+    {
+      "lens": "admission_contracts",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Decoder checks structural arity/tags and generated type admission; HTTP envelope cardinality, duplicate named columns and unknown nested schemas require foreign protocol proof."
+    },
+    {
+      "lens": "invariant_operations",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Query counter saturation and concurrent snapshots have explicit semantics; no measured atomicity or overflow failure claim."
+    },
+    {
+      "lens": "aggregate_states",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "A pin is keyed by owner plus site; projecting only site and requiring one row loses this relationship. Error status/body/cause and query result counts are distinct facts."
+    },
+    {
+      "lens": "type_ownership",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Historical camera owns aggregate error, rig has separate receiving/source scopes; this delegate does not transfer repair ownership."
+    },
+    {
+      "lens": "redundant_authority",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Owner-specific and site-only query helpers have different selectors; apparent duplication is not itself redundant authority, but site-only single-result use misses an ownership component."
+    },
+    {
+      "lens": "behavior_preservation",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Retain query decoding, generated row semantics, first-failed errors, valid empty datasets, retry, privacy and lead-sharing behavior during any future change."
+    },
+    {
+      "lens": "enum_shapes",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "SATS variant mapping is closed and typed before the native wire port; typed reducer codes are distinct from textual detail. Failure-stage result needs further error aggregate design."
+    },
+    {
+      "lens": "derivability",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "SQL helpers are generated by local fixed-prefix macros and typed foreign option/unit adapters; no manual trait or derive defect established."
+    },
+    {
+      "lens": "type_granularity",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Typed source identity, row projection, semantic case-site and owner scopes are distinct; no generic string replacement or public payload type assumed."
+    },
+    {
+      "lens": "magic_strings",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "SQL syntax and wire keys at the actual boundary are not semantic literals to replace mechanically. Reducer code parsing uses a designated machine marker, not descriptive prose."
+    },
+    {
+      "lens": "magic_numbers",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Timeout and slow-query threshold have units/meaning; tag/index casts and process counter wrap remain conditional on real native/target bounds, with no 32-bit case asserted."
+    }
+  ],
+  "limitations": [
+    "All 13 supporting current source blobs match 6533, but historical support bodies were not personally displayed.",
+    "All assigned bodies at each revision were separately personally displayed after prospective registration; historical Adler 2388 remains only 1-45.",
+    "No product source edits, repairs, builds, tests, browser, service calls, runtime probes, generated fixtures or simulations.",
+    "No product response, stored data, affected player, exploit or exact alias has been observed.",
+    "Final checkpoint3821 ledger/queue missing; separately preserved earlier originals and reconstructed selections remain labelled."
+  ]
+}

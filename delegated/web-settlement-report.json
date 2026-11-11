@@ -1,0 +1,518 @@
+{
+  "schema": "726-delegated-source-family-audit-v1",
+  "agent": "/root/mhr_character",
+  "scope": "Original 2374 camp.rs and 2382 service_quests.rs: independent full personal source displays at historical and current revisions, plus separately prospectively registered bounded support. Thirteen bounded perspectives do not constitute full-lens closure. Baseline, reconciliation, ledger and publication remain centrally owned.",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "roles": [
+    {
+      "original_role": 2374,
+      "path": "crates/strategic-web/src/routes/settlements/camp.rs",
+      "lines": 1246,
+      "sha256_both_revisions": "f74938c062c2117522bc053568946e0dbb495f3852a85b95bc29154de215b972",
+      "git_blob": "289b92ad39c34ef33bec683d35880ee1cd3f8df5",
+      "personal_scope": "Each revision independently displayed 1–1246 in five planned chunks."
+    },
+    {
+      "original_role": 2382,
+      "path": "crates/strategic-web/src/routes/settlements/service_quests.rs",
+      "lines": 725,
+      "sha256_both_revisions": "94a890ee2893205a08de7ba3635a88574f23aab5a628f88a0a08bfc5d74c55d5",
+      "git_blob": "38a158fc16ee5def5dab4e763f18bff77541a7b5",
+      "personal_scope": "Each revision independently displayed 1–725 in three planned chunks."
+    }
+  ],
+  "findings_and_reconciliations": [
+    {
+      "id": "WEB-SERVICE-MATCH-UNKNOWN",
+      "classification": "Existing q191 conditional capability availability issue",
+      "trace": "The service route ignores each capability refresh result and maps a failed capability query to an empty result; an empty or partial list reaches party_role_match, which emits definitive no-one/some/all match text. The HTML renderer displays that summary and styling. A stale existing row may also be used after a failed refresh.",
+      "conditions_and_limits": "One or more refresh or capability reads fails while material capability information exists or is stale. Actual query/reducer execution, freshness guarantees and membership completeness remain unverified.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/service_quests.rs",
+          "lines": [
+            [
+              297,
+              325
+            ],
+            [
+              345,
+              383
+            ],
+            [
+              499,
+              530
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/recruitment.rs",
+          "lines": [
+            [
+              37,
+              79
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/static/service-quests.js",
+          "lines": [
+            [
+              30,
+              50
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "q191 ADLER-L11-STRATEGIC-CAPABILITY-PROJECTION-ADMISSION is an existing error-versus-empty owner; original Adler READ-L11-384 assessed a separate scope and did not personally read the entire service_quests file.",
+      "future_repair_direction": "Carry unavailable/incomplete/stale capability state separately and derive a match only from sufficient fresh authorized data; retain role recommendation policy.",
+      "later_acceptance_criteria": "A failed refresh or incomplete read does not present a definite negative or positive match; complete verified projections continue to show accurate match labels."
+    },
+    {
+      "id": "WEB-APPRENTICESHIP-PRESENCE-GATE",
+      "classification": "Conditional source-backed availability mismatch, policy and alias reconciliation open",
+      "trace": "The apprenticeship route obtains a representative and queries the raw settlement_resident_presence table by ID. Its helper deems a row present if identity, settlement and location match, without checking schedule or context/health suppression, and then instructs the player to speak to the representative. The raw row contains those fields; authoritative presence functions evaluate a schedule with suppression at an observer-specific time.",
+      "conditions_and_limits": "An exact representative row is out of its presence window or suppressed. The local route still takes its present branch; whether direct fallback should be permitted in each such situation is an owner policy question. No live representative, UI or time state was probed.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/service_quests.rs",
+          "lines": [
+            [
+              46,
+              63
+            ],
+            [
+              76,
+              127
+            ],
+            [
+              128,
+              159
+            ],
+            [
+              571,
+              594
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/spacetimedb/queries.rs",
+          "lines": [
+            [
+              192,
+              199
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-stdb-module/src/settlement_population.rs",
+          "lines": [
+            [
+              214,
+              231
+            ],
+            [
+              485,
+              510
+            ],
+            [
+              514,
+              570
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Adjacent to q179 observer frontier and q181 NPC presence-clock admission. Those broader historical issues are not proven exact aliases; original 059 ordered service role read covered only 1–43 plus separate connected line 44.",
+      "future_repair_direction": "Use an observer-appropriate authoritative availability result or explicitly represent unavailable/unknown presence, preserving exact representative identity and intentional direct fallback policy.",
+      "later_acceptance_criteria": "Off-schedule or suppressed representatives are not labeled currently available; exact active representatives and intentionally supported fallback remain distinguishable without using a future or wrong-observer frontier."
+    },
+    {
+      "id": "WEB-RECRUITMENT-MULTIPLE-COMPANIES",
+      "classification": "Conditional cross-file rendering omission",
+      "trace": "The service route builds a vector of all eligible recruiting companies and assigns each the inn service. The client uses find on the matching service and renders one company, with no iteration over other matching companies.",
+      "conditions_and_limits": "Two or more eligible company offers for the same service are returned to the same page; ordering, offer producers and current population are not verified. The source establishes only this view’s selection behavior, not runtime incidence.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/service_quests.rs",
+          "lines": [
+            [
+              267,
+              296
+            ],
+            [
+              327,
+              398
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/static/service-quests.js",
+          "lines": [
+            [
+              3,
+              16
+            ],
+            [
+              17,
+              56
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "No exact historical alias found among selected 059 source references; complete global alias inventory remains a central task.",
+      "future_repair_direction": "Render each eligible company or define a deliberate selection/pagination policy without silently hiding other returned offers.",
+      "later_acceptance_criteria": "Two or more eligible offers remain individually discoverable, with correct roles, leader identity, matching and safe handling of an empty collection."
+    },
+    {
+      "id": "WEB-RECRUITMENT-SEPARATOR",
+      "classification": "Source-confirmed text encoding defect at a presentation adapter",
+      "trace": "Multiple requirement labels are joined with the literal characters “ Â· ” in service_quests, and the browser source assigns that string to the recruitment button title. A neighboring template uses the intended “ · ” delimiter.",
+      "conditions_and_limits": "At least two requirement labels are emitted for a rendered role; there is no browser or rendering execution.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/service_quests.rs",
+          "lines": [
+            [
+              345,
+              383
+            ],
+            [
+              468,
+              496
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/static/service-quests.js",
+          "lines": [
+            [
+              30,
+              38
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/recruitment.rs",
+          "lines": [
+            [
+              559,
+              587
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "No exact alias identified in the selected historical queue; treat as a newly assessed presentation facet pending central deduplication.",
+      "future_repair_direction": "Correct the literal at the owning presentation adapter and retain existing requirement content and ordering.",
+      "later_acceptance_criteria": "For multiple labels, the title contains the intended separator rather than the stray character; zero and single label behavior is preserved."
+    },
+    {
+      "id": "WEB-CAMP-ROAD-PRIORITY-UNKNOWN",
+      "classification": "Conditional availability-to-control-flow loss",
+      "trace": "On a road-challenge query error the camp route logs and substitutes an empty list, then uses that list to decide whether an active road challenge prevents direct demo redirection. The local predicate prioritizes a known active/open road challenge, and its unexecuted source check expresses that precedence.",
+      "conditions_and_limits": "A road query fails while an active/open road challenge and exactly one playable direct-demo challenge actually exist. No live data, retry or authorization path was executed.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/camp.rs",
+          "lines": [
+            [
+              211,
+              258
+            ],
+            [
+              507,
+              529
+            ],
+            [
+              658,
+              668
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Related to general unavailable-versus-empty source-read families, not asserted as the same defect as q191 or q179. No exact historical alias established.",
+      "future_repair_direction": "Keep road-challenge availability distinct from an authoritative empty list and apply an explicit safe priority policy when the read is unavailable.",
+      "later_acceptance_criteria": "An unavailable road read cannot cause the route to behave as if no active road challenge exists; known empty and known active states retain intended precedence."
+    },
+    {
+      "id": "WEB-CAMP-CLOCK-UNKNOWN",
+      "classification": "Conditional preview/control misclassification",
+      "trace": "The camp route collapses failed character-time queries to empty and defaults a missing maximum to StrategicMinute::ZERO. It uses that value in walking-window, suggested-rest and wake-time calculations, then renders those results as the rest menu and continue control. A partially missing member time can also lower the selected maximum.",
+      "conditions_and_limits": "A relevant time row is missing or a read fails while the true party frontier differs. Native reducer validation and actual time/frontier policy were not inspected or run; this is a presentation/control trace, not proof a mutation commits. ",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/camp.rs",
+          "lines": [
+            [
+              190,
+              205
+            ],
+            [
+              313,
+              345
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/strategic_time.rs",
+          "lines": [
+            [
+              171,
+              175
+            ],
+            [
+              189,
+              220
+            ],
+            [
+              223,
+              252
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/travel.rs",
+          "lines": [
+            [
+              827,
+              840
+            ],
+            [
+              880,
+              891
+            ],
+            [
+              952,
+              967
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Adjacent to q179 ADLER-L11-OBSERVER-FRONTIER-SNAPSHOT and q181 ADLER-L11-NPC-PRESENCE-CLOCK-ADMISSION, without asserting identity with either.",
+      "future_repair_direction": "Represent unavailable or incomplete party chronology separately and derive controls from an authoritative complete frontier; preserve asynchronous and observer-relative semantics.",
+      "later_acceptance_criteria": "Missing/incomplete time cannot yield a falsely authoritative wake or walking cue; complete valid times retain maximum/frontier behavior."
+    },
+    {
+      "id": "WEB-CAMP-FORECAST-OBSERVATION",
+      "classification": "Existing q510 has a newly traced conditional forecast effect",
+      "trace": "query_single discards native query errors into None. Camp treats missing character time as no expected morale-drinking demand and missing personality through the generic non-temperate branch. Expected demands reserve alcohol before the remaining amount is projected as emergency hydration and water days.",
+      "conditions_and_limits": "A character time or personality query fails or the record is absent, with relevant future rest evenings and qualifying available alcohol. The direction of numerical difference depends on actual personality, history and supplies; no actual backend row or preview was run.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/rest.rs",
+          "lines": [
+            [
+              378,
+              383
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/camp.rs",
+          "lines": [
+            [
+              1051,
+              1120
+            ],
+            [
+              1206,
+              1235
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/alcohol.rs",
+          "lines": [
+            [
+              270,
+              285
+            ],
+            [
+              322,
+              377
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/provisioning.rs",
+          "lines": [
+            [
+              41,
+              57
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Exact q510 SEGOVB-L12-QUERY-SINGLE-OBSERVATION-ERROR-DISCARD; q501–509 retain nine separate native query cause-erasure first cuts in the same forecast. Do not consolidate these sources into a single error origin.",
+      "future_repair_direction": "Preserve typed missing versus failed observations through forecast admission and choose an explicit unknown estimate policy instead of treating unavailable values as actual inputs.",
+      "later_acceptance_criteria": "Failed time/personality reads cannot silently create a definite alcohol/water forecast; genuinely absent records and verified temperance/history retain their intended behavior."
+    },
+    {
+      "id": "WEB-SERVICE-COLLECTION-UNKNOWN",
+      "classification": "Conditional multi-query availability issue",
+      "trace": "Settlement and contract queries default errors to empty, and several recruitment inputs independently default errors to empty. The endpoint returns normal JSON collections, while the client also maps non-success HTTP responses to empty collections and removes the existing recruitment section.",
+      "conditions_and_limits": "Any relevant collection query fails while valid offers or needed joins exist. No real failure or transport timing was induced; error handling for other product screens is not assessed.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/service_quests.rs",
+          "lines": [
+            [
+              204,
+              227
+            ],
+            [
+              267,
+              296
+            ],
+            [
+              327,
+              398
+            ],
+            [
+              399,
+              415
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/static/service-quests.js",
+          "lines": [
+            [
+              3,
+              16
+            ],
+            [
+              55,
+              58
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Connected by unavailable-versus-empty behavior to q191 but not established as an exact alias; all source-specific ownership and failure paths remain for central reconciliation.",
+      "future_repair_direction": "Expose unavailable/incomplete service data separately from authoritative zero offers, while preserving safe public error wording and earlier state policy.",
+      "later_acceptance_criteria": "A failed required query does not claim no offers; healthy empty and populated results and independent failures remain distinguishable."
+    }
+  ],
+  "nonfindings_and_open_questions": [
+    "Neither file changed bytes between 6533 and 95e; this establishes source identity only, not unchanged transitive dependencies or product behavior.",
+    "The apprenticeship route intentionally blocks direct membership when an exact representative is considered present, and permits fallback when none/mismatched; preserve that design while resolving whether scheduled absence or suppression permits fallback.",
+    "Identities embedded in direct demo contract/challenge parse character and ordinal, but redirection uses matching character and not the ordinal correlation. The authoritativeness of multiple same-character challenge records and intended relation to the active contract remain open, without a fabricated malformed-row claim.",
+    "The route uses the same can_accept boolean for recruitment joining and contract availability. Whether an active contract should constrain changing company requires actual reducer/owner policy and was not determined.",
+    "Camp hourly form widens/clamps to one day and admits HH:MM through StrategicMinuteOfDay. Nonfinite float decoding, backend walk limits and whether zero means intentional disabled travel require their actual boundary contracts; no runtime claim.",
+    "Capability list considers member IDs without an explicit alive filter in this handler. Whether an existing capability can belong to a dead party member and whether the label means living eligible candidates need actual producer and membership policy; no defect established.",
+    "Observed typed errors, consumer-side empty collection, stale query rows, and mutable action authorization are distinct boundaries. No full backend authorization or race-freedom conclusion follows.",
+    "In-file test source was read but not executed. No builds, tests, fixture execution, browsers, probes, simulations, product runs, or validations occurred."
+  ],
+  "lens_perspectives": [
+    {
+      "lens": 1,
+      "name": "producer propagation",
+      "assessment": "Campaign source/status and character capability propagate through raw HTTP/SATS fields to application decisions; registered support shows typed StrategicMinute and role matches at selected boundaries, with missing/failed values collapsed before presentation."
+    },
+    {
+      "lens": 2,
+      "name": "existing owners",
+      "assessment": "StrategicMinute and StrategicMinuteOfDay, role requirements and core representative identity exist; compare real location and clock authority rather than replacing IDs based only on representation. Historical q2452 closes only its 1–44 native DTO scope."
+    },
+    {
+      "lens": 3,
+      "name": "admission contracts",
+      "assessment": "HH:MM parses and from_hour_minute admits valid time; float walking hours are clamped before native reduction. Exact float and reducer admission beyond this local trace remain open."
+    },
+    {
+      "lens": 4,
+      "name": "invariant operations",
+      "assessment": "Camp chooses maximum observed member minute and uses saturating arithmetic; missing rows can make that maximum incomplete. Provision forecast depends on unavailable time/personality; no product execution occurred."
+    },
+    {
+      "lens": 5,
+      "name": "aggregate states",
+      "assessment": "Correct party clock requires membership and time observations together; correct representative presence requires identity, location, time and suppression at the right frontier. Receipt and offer collections need explicit incomplete state."
+    },
+    {
+      "lens": 6,
+      "name": "type ownership",
+      "assessment": "Canonical representative fields and scheduled presence have separate owners and purposes; do not substitute raw matching presence rows for observer-time availability or transfer 774 supplier role into repair ownership."
+    },
+    {
+      "lens": 7,
+      "name": "redundant authority",
+      "assessment": "Requirement labels and match logic independently enumerate requirement fields, creating a potential future drift if one changes; no mismatch is shown today. Forecast and UI are derived observations, not direct authority over reducer state."
+    },
+    {
+      "lens": 8,
+      "name": "behavior preservation",
+      "assessment": "Both route source bodies are identical at selected revisions; keep documented demo/road precedence, actor authorization, fallback and unknown-versus-empty semantics while resolving availability. Transitive behavior may differ."
+    },
+    {
+      "lens": 9,
+      "name": "enum shapes",
+      "assessment": "A closed known/unavailable/incomplete observation can distinguish capability, clock and challenge states; preserve separate apprenticeship fallback, route outcome and public text choices rather than forcing unrelated booleans into one enum."
+    },
+    {
+      "lens": 10,
+      "name": "derivability",
+      "assessment": "Service response and form structures derive the relevant serde traits; manually parsed direct-demo IDs enforce local syntax. No equivalent derive was proven to retain their exact parsing and error policy."
+    },
+    {
+      "lens": 11,
+      "name": "type granularity",
+      "assessment": "Character, party, resident, contract, challenge, route, service and location IDs have distinct authority, even where carried as text or integer. A structural presence row is not an observer-time availability proof."
+    },
+    {
+      "lens": 12,
+      "name": "raw strings",
+      "assessment": "Service match keys, demo identity, feedback and related internal data warrant scoped owner tracing, while SQL, HTML, JSON and URL text are native boundary formats. Preserve separate q501–510 error/source cuts and deliberate public wording."
+    },
+    {
+      "lens": 13,
+      "name": "raw primitives",
+      "assessment": "Hours, minutes, forecast calories, hydration, alcohol demand, quantity and precision have distinct units and policies. Native conversion and zero behavior need each owner’s constraints; no blanket numeric wrapper or input narrowing is assumed."
+    }
+  ],
+  "historical_provenance": {
+    "adler_059": "READ-L11-384 and REGISTRATION-ADLER-1243 record personal 6533 camp 935–1246 only; READ-L11-386 and REGISTRATION-ADLER-1252 record personal service_quests 1–43 only. No historical full-body credit is inferred.",
+    "lens12_059": "PROPOSAL-L12-787/READ-L12-787 with REGISTRATION-PAR-L12-358 attribute camp 935–1246 to /root/lens12_frontier; PROPOSAL-L12-793/READ-L12-793 with registration 374 attribute service_quests 1–43. CONNECTED-TEAM-007 separately attributes camp 1–40 and rest.rs 378–395 to the same delegate; CONNECTED-TEAM-008 separately attributes service_quests line 44. Root personal rereads are [] in connected/adoption evidence; not promoted to root full reads.",
+    "older_774": "RIG-PPS-038 original producer trace row 37 (zero-based) additional_actual_source_proofs indices 12 and 13 records camp 935–1246 and service_quests 1–43, respectively, at historical pr-working exact hashes. The original trace and distinct path-normalized export are archived with separate manifest hashes. Supplier source assignments do not transfer repair ownership.",
+    "recovery_limits": "Original 059 queue, registry and transport manifest are losslessly retained; selected records are derived navigation only. Historical statuses, scopes, authors and revisions are never promoted to checkpoint3821; original final queue remains missing."
+  },
+  "evidence_paths": [
+    "registration.json",
+    "read-receipt.json",
+    "support-registration.json",
+    "support-registration-02.json",
+    "support-symbol-locations.json",
+    "support-symbol-locations-02.json",
+    "support-read-receipt.json",
+    "git-proofs.json",
+    "historical-059-index.json",
+    "historical-queue-selected.json",
+    "historical-registry-selected.json",
+    "older-774-index.json",
+    "older-774-export-manifest.json",
+    "reference/",
+    "rules-evidence.json"
+  ],
+  "restriction": "Source inspection and evidence-only verification; no repairs, builds, tests, browser, runtime probes, simulations, shader execution, product execution or product validation."
+}
