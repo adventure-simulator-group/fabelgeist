@@ -1,0 +1,277 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1242,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/tactical.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/1242",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "lines": 1515,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1515
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-TACTICAL-ENTRY-IDENTITY.json",
+          "ranges": [
+            [
+              492,
+              545
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MISSION-ID-SERDE.json",
+          "ranges": [
+            [
+              245,
+              258
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MISSION-ROSTERS.json",
+          "ranges": [
+            [
+              934,
+              962
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1243,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/tactical/request.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/1243",
+      "sha256": "9d7e1ac4bf3e219258571dc74f93f8adef66cd55dcab6fc2d49edf0c60e4cb7d",
+      "lines": 133,
+      "new_personal_read_ranges": [
+        [
+          1,
+          133
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-MISSION-ROSTERS.json",
+          "ranges": [
+            [
+              90,
+              103
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "9d7e1ac4bf3e219258571dc74f93f8adef66cd55dcab6fc2d49edf0c60e4cb7d",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1244,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/activities.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/1244",
+      "sha256": "a47b028b15d0e416ae19b84b18f616bff39ea8f7a951526e32996cc70ed48915",
+      "lines": 445,
+      "new_personal_read_ranges": [
+        [
+          1,
+          445
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "a47b028b15d0e416ae19b84b18f616bff39ea8f7a951526e32996cc70ed48915",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1245,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/advancement.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/1245",
+      "sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+      "lines": 582,
+      "new_personal_read_ranges": [
+        [
+          1,
+          582
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-TRAVEL-FILTH-REMAINDER.json",
+          "ranges": [
+            [
+              190,
+              250
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1246,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/advancement/lifecycle.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1246",
+      "sha256": "a8f43539a28232bc47303c02e648761d55590e7f33d97fd66abbc703374965f5",
+      "lines": 11,
+      "new_personal_read_ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "a8f43539a28232bc47303c02e648761d55590e7f33d97fd66abbc703374965f5",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1247,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/camp_rest.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/1247",
+      "sha256": "0b7a5ed8ec44cf760ca6c39a180bf3290b7342aa430e790aa1a48a2a69f16f5a",
+      "lines": 378,
+      "new_personal_read_ranges": [
+        [
+          1,
+          378
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "0b7a5ed8ec44cf760ca6c39a180bf3290b7342aa430e790aa1a48a2a69f16f5a",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1248,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/clock.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/1248",
+      "sha256": "5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587",
+      "lines": 127,
+      "new_personal_read_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1249,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/mod.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/1249",
+      "sha256": "00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+      "lines": 107,
+      "new_personal_read_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    }
+  ],
+  "observations": [
+    "The frozen tactical request, native receipt and time fragments were personally read through actual EOF. Source-only tests and fixtures were read but never executed. Includes do not confer body coverage on included fragments.",
+    "Earlier Lens12 batch 308 used two individually qualified partial reads: 1–800 left the remainder of request_tactical_server and 801–1515 unread, then 801–1515 reached EOF. Its exact nested range-shape qualification is scoped only to original role 1242, one field; it is not a global parser rule or body credit.",
+    "Earlier independent Lens12 batches 309–314 read their exact roles. Batch 314 has two exact Windows locator qualifications for 1248 and 1249; these explicitly do not read the referenced earlier locator-proof body and do not themselves confer coverage. Direct receipts, partials, plans, registrations, states, verifications and the three qualifications are preserved with their original attribution and limits.",
+    "Historical 6533 working-state body evidence, predecessor bounded observations and selected 95e traces remain distinct; equal bytes do not close any independent lens or establish checkpoint 3821 authority."
+  ],
+  "remaining": "Continue role 1250; tactical endpoint and receipt consumers, party time/lifecycle policy, source families and exact aliases remain open."
+}

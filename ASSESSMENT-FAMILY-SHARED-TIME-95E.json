@@ -1,0 +1,897 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    7,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected shared party rest and family NPC personal-clock propagation at 95e; no product execution.",
+  "source_reasoning": "Pinned source inspection, conditional interval arithmetic and evidence-byte verification only. No product build, test, simulation, runtime, database or browser probe.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/clock.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "42c114ce4ad6a791efe54af557c0fb88c909df38",
+      "sha256": "5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587",
+      "bytes": 3763,
+      "lines": 127,
+      "ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/family-shared-time-sources/00.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support this bounded current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/camp_rest.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2f77dc4548feaff836aa0bd9a7096a98bf8a49db",
+      "sha256": "0b7a5ed8ec44cf760ca6c39a180bf3290b7342aa430e790aa1a48a2a69f16f5a",
+      "bytes": 14946,
+      "lines": 378,
+      "ranges": [
+        [
+          1,
+          378
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/family-shared-time-sources/01.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support this bounded current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/stationary.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b4516fd30bc450d22c9fecf52b9b06580d6984c8",
+      "sha256": "4b9f686e5eb3dc2600ce935086991c271678c71692415cfb58c056a74883caf2",
+      "bytes": 9593,
+      "lines": 263,
+      "ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/family-shared-time-sources/02.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support this bounded current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee806412841490aa876d39510c938ec0cec363",
+      "sha256": "00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+      "bytes": 4149,
+      "lines": 107,
+      "ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/family-shared-time-sources/03.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support this bounded current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/reproduction.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a88774f8e1b31e4a0820206684471d8154ee9d48",
+      "sha256": "52318f2d0b66c1d88adaa38059b677829f263cfe6f2033fc92c2c59f6671563c",
+      "bytes": 23628,
+      "lines": 690,
+      "ranges": [
+        [
+          390,
+          615
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/family-shared-time-sources/04.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support this bounded current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/marriage.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6181873c7c538b9efe2dfcd6fec548ec61ba5578",
+      "sha256": "707052669ad21da99362ea13fe18eefef9b2ee79c0cea3da8f4350da05068031",
+      "bytes": 16999,
+      "lines": 481,
+      "ranges": [
+        [
+          1,
+          150
+        ],
+        [
+          190,
+          280
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/family-shared-time-sources/05.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support this bounded current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/courtship.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b749ba524c9cb1644888d798b9403cba17f72ea2",
+      "sha256": "3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+      "bytes": 24389,
+      "lines": 685,
+      "ranges": [
+        [
+          1,
+          170
+        ],
+        [
+          570,
+          628
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/family-shared-time-sources/06.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support this bounded current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+      "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "bytes": 138251,
+      "lines": 3968,
+      "ranges": [
+        [
+          1220,
+          1305
+        ],
+        [
+          1880,
+          1908
+        ],
+        [
+          2180,
+          2206
+        ],
+        [
+          2545,
+          2595
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/family-shared-time-sources/07.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support this bounded current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3c66ffd7534b14a2f9dd6ae977b485b5dd951a09",
+      "sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
+      "bytes": 52793,
+      "lines": 1653,
+      "ranges": [
+        [
+          490,
+          535
+        ],
+        [
+          1260,
+          1355
+        ],
+        [
+          1380,
+          1555
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/family-shared-time-sources/08.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support this bounded current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "56c79313e6fdf736f5f00f2971e8537edc88433d",
+      "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+      "bytes": 120281,
+      "lines": 3250,
+      "ranges": [
+        [
+          3000,
+          3088
+        ],
+        [
+          3130,
+          3250
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/family-shared-time-sources/09.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support this bounded current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/party_readiness.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "40c6e218895a82ddffe77ad339ebaa1a0575ca88",
+      "sha256": "8b1c585d51e630d3195a7f27e41251c155466d7195ede4bac0810b2e39ad19b5",
+      "bytes": 6680,
+      "lines": 198,
+      "ranges": [
+        [
+          1,
+          28
+        ],
+        [
+          125,
+          145
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/family-shared-time-sources/10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support this bounded current trace."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/1024",
+      "qualification": "Earlier open equality-of-absent-party-IDs question; current selected producer evidence does not establish reachability."
+    },
+    {
+      "file": "ASSESSMENT-L01-PLANNED-EXPOSURE-95E.json",
+      "qualification": "Separate existing family callback and planned weather ownership scope; shared time source does not establish a duplicate or close it."
+    },
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1242-1249.json",
+      "qualification": "Eight independently recorded historical Lens1 reads and earlier Lens12 receipt/qualification bytes."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PARTIAL-L12-308-001.json",
+      "sha256": "b3f61104df3800acdf304de6c59d452c73ab09d27ae523c52564fd0b560a85e8",
+      "bytes": 4659,
+      "git_blob": "63cd2d3adb848d0b34d1c1ef6802afefa3b5d39a",
+      "preserved_bytes": "recovered/family-shared-time-059/b3f61104df3800acdf304de6c59d452c73ab09d27ae523c52564fd0b560a85e8.gz",
+      "published_sha256": "b3f61104df3800acdf304de6c59d452c73ab09d27ae523c52564fd0b560a85e8",
+      "published_bytes": 4659,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-308-002-EOF.json",
+      "sha256": "ee0de5b9e86940ea1ef48b8aa3ed86da90190646fe96e6024806685650f061a0",
+      "bytes": 5782,
+      "git_blob": "9da1ca5018e3321b17d6aa7aecd962a08a7a866b",
+      "preserved_bytes": "recovered/family-shared-time-059/ee0de5b9e86940ea1ef48b8aa3ed86da90190646fe96e6024806685650f061a0.gz",
+      "published_sha256": "ee0de5b9e86940ea1ef48b8aa3ed86da90190646fe96e6024806685650f061a0",
+      "published_bytes": 5782,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-308.json",
+      "sha256": "51ada415d0309421b89af417d2c3c2d82560ba48e433fa0b9adde4784f2e4af5",
+      "bytes": 709,
+      "git_blob": "866df66df370a860ef0edeb2ba60f3f7354632ae",
+      "preserved_bytes": "recovered/family-shared-time-059/51ada415d0309421b89af417d2c3c2d82560ba48e433fa0b9adde4784f2e4af5.gz",
+      "published_sha256": "51ada415d0309421b89af417d2c3c2d82560ba48e433fa0b9adde4784f2e4af5",
+      "published_bytes": 709,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-309.json",
+      "sha256": "bfc04b99b7697b559d8482fd3ad37e0008c68a6e636c6e2da27f4381f7488851",
+      "bytes": 715,
+      "git_blob": "2189866c4482dea020e876f249348f14bd5bfdb4",
+      "preserved_bytes": "recovered/family-shared-time-059/bfc04b99b7697b559d8482fd3ad37e0008c68a6e636c6e2da27f4381f7488851.gz",
+      "published_sha256": "bfc04b99b7697b559d8482fd3ad37e0008c68a6e636c6e2da27f4381f7488851",
+      "published_bytes": 715,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-310.json",
+      "sha256": "c6436d51f40672c9830a9e1d271746ed784bbbf43b51ccea744072621b5e09de",
+      "bytes": 714,
+      "git_blob": "981e359b9caa1723ba9e718473486d9c1b3f58d1",
+      "preserved_bytes": "recovered/family-shared-time-059/c6436d51f40672c9830a9e1d271746ed784bbbf43b51ccea744072621b5e09de.gz",
+      "published_sha256": "c6436d51f40672c9830a9e1d271746ed784bbbf43b51ccea744072621b5e09de",
+      "published_bytes": 714,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-311.json",
+      "sha256": "0963be74b9089835f6ce309b9cdea424cffc464fb31914e7ee91a48485344096",
+      "bytes": 715,
+      "git_blob": "8dc5b12045d35b8c127f719b51190255db285014",
+      "preserved_bytes": "recovered/family-shared-time-059/0963be74b9089835f6ce309b9cdea424cffc464fb31914e7ee91a48485344096.gz",
+      "published_sha256": "0963be74b9089835f6ce309b9cdea424cffc464fb31914e7ee91a48485344096",
+      "published_bytes": 715,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-312.json",
+      "sha256": "11247998b1fb26af73c1c7e9f3db7db0a0c903cc64e424326df43c56e812c245",
+      "bytes": 723,
+      "git_blob": "242ed8fdbefdc35adfe2f8ed1842cfe9b771ec04",
+      "preserved_bytes": "recovered/family-shared-time-059/11247998b1fb26af73c1c7e9f3db7db0a0c903cc64e424326df43c56e812c245.gz",
+      "published_sha256": "11247998b1fb26af73c1c7e9f3db7db0a0c903cc64e424326df43c56e812c245",
+      "published_bytes": 723,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-313.json",
+      "sha256": "d365543859b4ad6bcac27b1b10b11b7b5d81d81ea0e85f164c5c9e3d147e5367",
+      "bytes": 713,
+      "git_blob": "2edea755d49ae3193da6d8434395e6722da0d9cf",
+      "preserved_bytes": "recovered/family-shared-time-059/d365543859b4ad6bcac27b1b10b11b7b5d81d81ea0e85f164c5c9e3d147e5367.gz",
+      "published_sha256": "d365543859b4ad6bcac27b1b10b11b7b5d81d81ea0e85f164c5c9e3d147e5367",
+      "published_bytes": 713,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-314.json",
+      "sha256": "1056f48a8e4db6ee74f7f0a9aab5ddeac9cbb74c099b802fb99e460ff9098467",
+      "bytes": 1183,
+      "git_blob": "a47b7d62c6efffac7cd76bfe0d20be353fe7c84a",
+      "preserved_bytes": "recovered/family-shared-time-059/1056f48a8e4db6ee74f7f0a9aab5ddeac9cbb74c099b802fb99e460ff9098467.gz",
+      "published_sha256": "1056f48a8e4db6ee74f7f0a9aab5ddeac9cbb74c099b802fb99e460ff9098467",
+      "published_bytes": 1183,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/QUALIFICATION-L12-ORIGINAL1242-RANGE-SHAPE.json",
+      "sha256": "a31e41610c315fa8466936a53b4e657805c6e2bde1a62908d3c7e75a648d5e78",
+      "bytes": 1329,
+      "git_blob": "3d8fcfd1b0d5195aa6afb4e7c92d354d051ef4eb",
+      "preserved_bytes": "recovered/family-shared-time-059/a31e41610c315fa8466936a53b4e657805c6e2bde1a62908d3c7e75a648d5e78.gz",
+      "published_sha256": "a31e41610c315fa8466936a53b4e657805c6e2bde1a62908d3c7e75a648d5e78",
+      "published_bytes": 1329,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier exact source locator or range-shape qualification"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/QUALIFICATION-L12-ORIGINAL1248-LOCATOR.json",
+      "sha256": "4d1fbbd2818e834aabd0efb331b8a8ae17283ece29d8cc599b8dfe7d07b9f419",
+      "bytes": 1343,
+      "git_blob": "7597ceaf54edc4175443f2b45aca99d36da888b7",
+      "preserved_bytes": "recovered/family-shared-time-059/4d1fbbd2818e834aabd0efb331b8a8ae17283ece29d8cc599b8dfe7d07b9f419.gz",
+      "published_sha256": "4d1fbbd2818e834aabd0efb331b8a8ae17283ece29d8cc599b8dfe7d07b9f419",
+      "published_bytes": 1343,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier exact source locator or range-shape qualification"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/QUALIFICATION-L12-ORIGINAL1249-LOCATOR.json",
+      "sha256": "a836632e2d1e9829e9b340f782a71f056ed280e64e7f6114b2ca5d44fe3164af",
+      "bytes": 1337,
+      "git_blob": "3c1631710efc9d749dd194d21e5693e5f112c2c9",
+      "preserved_bytes": "recovered/family-shared-time-059/a836632e2d1e9829e9b340f782a71f056ed280e64e7f6114b2ca5d44fe3164af.gz",
+      "published_sha256": "a836632e2d1e9829e9b340f782a71f056ed280e64e7f6114b2ca5d44fe3164af",
+      "published_bytes": 1337,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier exact source locator or range-shape qualification"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-308.json",
+      "sha256": "8f68aa3b15dbc1c3c4d39cae47fd31666a3e5c65e8b172f626b8d33f5ddd0d29",
+      "bytes": 7021,
+      "git_blob": "86e9f4f081813a49d2bc9780c5a49b9a62fbaaed",
+      "preserved_bytes": "recovered/family-shared-time-059/8f68aa3b15dbc1c3c4d39cae47fd31666a3e5c65e8b172f626b8d33f5ddd0d29.gz",
+      "published_sha256": "8f68aa3b15dbc1c3c4d39cae47fd31666a3e5c65e8b172f626b8d33f5ddd0d29",
+      "published_bytes": 7021,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-309.json",
+      "sha256": "dcfcb564c1e29dbf529f08323fbfb293f5f64c65d5baf042fd3e3ed6321ef300",
+      "bytes": 5464,
+      "git_blob": "5b6db2298e6de07b809390a86d5118b75b55cbf2",
+      "preserved_bytes": "recovered/family-shared-time-059/dcfcb564c1e29dbf529f08323fbfb293f5f64c65d5baf042fd3e3ed6321ef300.gz",
+      "published_sha256": "dcfcb564c1e29dbf529f08323fbfb293f5f64c65d5baf042fd3e3ed6321ef300",
+      "published_bytes": 5464,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-310.json",
+      "sha256": "b5e555beafbceec0495ddef497030ebc3d0c588273882cbecadbc1e23c652e8f",
+      "bytes": 6509,
+      "git_blob": "c83c59a2dcb5c741095cb651ce435bb6c6fd2089",
+      "preserved_bytes": "recovered/family-shared-time-059/b5e555beafbceec0495ddef497030ebc3d0c588273882cbecadbc1e23c652e8f.gz",
+      "published_sha256": "b5e555beafbceec0495ddef497030ebc3d0c588273882cbecadbc1e23c652e8f",
+      "published_bytes": 6509,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-311.json",
+      "sha256": "aff0a736f4212fa7bf06d4f300fa1f8c6b8b1741174c5750aca4bfd382e637b1",
+      "bytes": 7573,
+      "git_blob": "4b1dfdfed1547f5a0113dc4bc49615ec03bee5fb",
+      "preserved_bytes": "recovered/family-shared-time-059/aff0a736f4212fa7bf06d4f300fa1f8c6b8b1741174c5750aca4bfd382e637b1.gz",
+      "published_sha256": "aff0a736f4212fa7bf06d4f300fa1f8c6b8b1741174c5750aca4bfd382e637b1",
+      "published_bytes": 7573,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-312.json",
+      "sha256": "a15b238f0bff164694a4110836a5211ce55b8b3e627bd2a35281e1b237831943",
+      "bytes": 3430,
+      "git_blob": "f9233f770485831d7519b85cdb50bca48995ac57",
+      "preserved_bytes": "recovered/family-shared-time-059/a15b238f0bff164694a4110836a5211ce55b8b3e627bd2a35281e1b237831943.gz",
+      "published_sha256": "a15b238f0bff164694a4110836a5211ce55b8b3e627bd2a35281e1b237831943",
+      "published_bytes": 3430,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-313.json",
+      "sha256": "9a7a9d64c73cc511dcb7852937c49d628c184f5158557b00ea57609b831f6259",
+      "bytes": 6998,
+      "git_blob": "addf32f6405f2ecef78d22da10728f48c592d985",
+      "preserved_bytes": "recovered/family-shared-time-059/9a7a9d64c73cc511dcb7852937c49d628c184f5158557b00ea57609b831f6259.gz",
+      "published_sha256": "9a7a9d64c73cc511dcb7852937c49d628c184f5158557b00ea57609b831f6259",
+      "published_bytes": 6998,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-314.json",
+      "sha256": "2a3791a29e0bdd7f58aada712b17680bba5e0422d353bbff4a175934a4a56691",
+      "bytes": 8949,
+      "git_blob": "2cd2cfa34b2f8ca837dc775de0fc66c56a7fda6e",
+      "preserved_bytes": "recovered/family-shared-time-059/2a3791a29e0bdd7f58aada712b17680bba5e0422d353bbff4a175934a4a56691.gz",
+      "published_sha256": "2a3791a29e0bdd7f58aada712b17680bba5e0422d353bbff4a175934a4a56691",
+      "published_bytes": 8949,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-149.json",
+      "sha256": "6801fae0c703cf6f851c559e352739219fb04a2068d8cd70c19c69d1c4d98a3b",
+      "bytes": 1171,
+      "git_blob": "fadaad27d74cb699ea64f9f30b6a8771c55e3851",
+      "preserved_bytes": "recovered/family-shared-time-059/6801fae0c703cf6f851c559e352739219fb04a2068d8cd70c19c69d1c4d98a3b.gz",
+      "published_sha256": "6801fae0c703cf6f851c559e352739219fb04a2068d8cd70c19c69d1c4d98a3b",
+      "published_bytes": 1171,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-150.json",
+      "sha256": "1951005de060306ec4383960d8c9cc2cb221230a3bd2514a79b753f2b8481b08",
+      "bytes": 1175,
+      "git_blob": "e9882c98286c9f95510c64beb6c486a5b914d087",
+      "preserved_bytes": "recovered/family-shared-time-059/1951005de060306ec4383960d8c9cc2cb221230a3bd2514a79b753f2b8481b08.gz",
+      "published_sha256": "1951005de060306ec4383960d8c9cc2cb221230a3bd2514a79b753f2b8481b08",
+      "published_bytes": 1175,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-151.json",
+      "sha256": "d7d7b90af59a10fba088c9754aff0097d542d6051fecf3fb32e20575fbc71031",
+      "bytes": 1454,
+      "git_blob": "4908becbb72be9f70a2b511cf4c60951ab07cbcd",
+      "preserved_bytes": "recovered/family-shared-time-059/d7d7b90af59a10fba088c9754aff0097d542d6051fecf3fb32e20575fbc71031.gz",
+      "published_sha256": "d7d7b90af59a10fba088c9754aff0097d542d6051fecf3fb32e20575fbc71031",
+      "published_bytes": 1454,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-152.json",
+      "sha256": "5e34e7c560793372220863b93c1979b279e33d0e4419cd460529734e0bfc6c21",
+      "bytes": 1447,
+      "git_blob": "7302a8d36f5f4631626f62c6043ae1368c9746b5",
+      "preserved_bytes": "recovered/family-shared-time-059/5e34e7c560793372220863b93c1979b279e33d0e4419cd460529734e0bfc6c21.gz",
+      "published_sha256": "5e34e7c560793372220863b93c1979b279e33d0e4419cd460529734e0bfc6c21",
+      "published_bytes": 1447,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-153.json",
+      "sha256": "8b3329fecd99b0550bc97bbcc559d821cafd55ae385d2351097572dcc038ad7e",
+      "bytes": 1140,
+      "git_blob": "f5ea27ed6a8824272a5f7ddd6409fbd2de026225",
+      "preserved_bytes": "recovered/family-shared-time-059/8b3329fecd99b0550bc97bbcc559d821cafd55ae385d2351097572dcc038ad7e.gz",
+      "published_sha256": "8b3329fecd99b0550bc97bbcc559d821cafd55ae385d2351097572dcc038ad7e",
+      "published_bytes": 1140,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-154.json",
+      "sha256": "1bec1d60fc2ea1fc639f75cdc8f107d44b74e13cadfd471c2725950107cdac36",
+      "bytes": 1438,
+      "git_blob": "cd2af983ce2c2ceaab90344c7a4b3097f4822161",
+      "preserved_bytes": "recovered/family-shared-time-059/1bec1d60fc2ea1fc639f75cdc8f107d44b74e13cadfd471c2725950107cdac36.gz",
+      "published_sha256": "1bec1d60fc2ea1fc639f75cdc8f107d44b74e13cadfd471c2725950107cdac36",
+      "published_bytes": 1438,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-155.json",
+      "sha256": "7c3689ff3154f19463c2ee230a01d148c62546776db4005521f0a8360644485c",
+      "bytes": 1432,
+      "git_blob": "0fa3625e2314da00cdc0fdd7f8936b96fa5ad21c",
+      "preserved_bytes": "recovered/family-shared-time-059/7c3689ff3154f19463c2ee230a01d148c62546776db4005521f0a8360644485c.gz",
+      "published_sha256": "7c3689ff3154f19463c2ee230a01d148c62546776db4005521f0a8360644485c",
+      "published_bytes": 1432,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-156.json",
+      "sha256": "aaf7d89a6c1d91761af2776102d638ee4d4e6d2be117db66e3730c5a49ed405d",
+      "bytes": 1428,
+      "git_blob": "17031fcebdfb91fc6679f31bfa7287fa8b4c306c",
+      "preserved_bytes": "recovered/family-shared-time-059/aaf7d89a6c1d91761af2776102d638ee4d4e6d2be117db66e3730c5a49ed405d.gz",
+      "published_sha256": "aaf7d89a6c1d91761af2776102d638ee4d4e6d2be117db66e3730c5a49ed405d",
+      "published_bytes": 1428,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-308.json",
+      "sha256": "a1581893e14b198d19899760878f02f0d2d271689c382d686caee926ae144b3d",
+      "bytes": 840,
+      "git_blob": "5d3a01ef32920e41b7e20334e1198089116912cb",
+      "preserved_bytes": "recovered/family-shared-time-059/a1581893e14b198d19899760878f02f0d2d271689c382d686caee926ae144b3d.gz",
+      "published_sha256": "a1581893e14b198d19899760878f02f0d2d271689c382d686caee926ae144b3d",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-309.json",
+      "sha256": "7e9082aabfd5660dfc45147ee524d0ef7f795e6675f7db8acb0c835a0b9568d2",
+      "bytes": 840,
+      "git_blob": "9eac3e22be50c71fe4dce8f2327f8253f99465b8",
+      "preserved_bytes": "recovered/family-shared-time-059/7e9082aabfd5660dfc45147ee524d0ef7f795e6675f7db8acb0c835a0b9568d2.gz",
+      "published_sha256": "7e9082aabfd5660dfc45147ee524d0ef7f795e6675f7db8acb0c835a0b9568d2",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-310.json",
+      "sha256": "85f33bec504a05027674fa9e70efa8286f6cc131b854cff5a306f39cab90158c",
+      "bytes": 840,
+      "git_blob": "81f53f784048f45ca831a06fdd489a0e74b602b7",
+      "preserved_bytes": "recovered/family-shared-time-059/85f33bec504a05027674fa9e70efa8286f6cc131b854cff5a306f39cab90158c.gz",
+      "published_sha256": "85f33bec504a05027674fa9e70efa8286f6cc131b854cff5a306f39cab90158c",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-311.json",
+      "sha256": "2683329dd3b2d857ca4aa1c3c4b9891b7d1c0a4dd245f9dd29f82d43939f15b0",
+      "bytes": 840,
+      "git_blob": "2f186610e0b0ae5e5280b7f037c5c1b84de82256",
+      "preserved_bytes": "recovered/family-shared-time-059/2683329dd3b2d857ca4aa1c3c4b9891b7d1c0a4dd245f9dd29f82d43939f15b0.gz",
+      "published_sha256": "2683329dd3b2d857ca4aa1c3c4b9891b7d1c0a4dd245f9dd29f82d43939f15b0",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-312.json",
+      "sha256": "baa48429e6da29565ea69d8e268c239c03ff4119b6320f69fc33834e26e58933",
+      "bytes": 840,
+      "git_blob": "a856520f195d93ea616b1c882d9b3f869c3e988b",
+      "preserved_bytes": "recovered/family-shared-time-059/baa48429e6da29565ea69d8e268c239c03ff4119b6320f69fc33834e26e58933.gz",
+      "published_sha256": "baa48429e6da29565ea69d8e268c239c03ff4119b6320f69fc33834e26e58933",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-313.json",
+      "sha256": "9d1e853d53ec4a7f27357340c7da78402d7da3368d78c5f884a8e166dcc9aa7a",
+      "bytes": 840,
+      "git_blob": "e786d6e27f27cf002a049a6e4b9c231a3d0c29aa",
+      "preserved_bytes": "recovered/family-shared-time-059/9d1e853d53ec4a7f27357340c7da78402d7da3368d78c5f884a8e166dcc9aa7a.gz",
+      "published_sha256": "9d1e853d53ec4a7f27357340c7da78402d7da3368d78c5f884a8e166dcc9aa7a",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-314.json",
+      "sha256": "4d3816d9c4f71d7b91a4448c6e860e561a5ee9d26326ab05b82bc777e1b37f66",
+      "bytes": 840,
+      "git_blob": "afac01cc7d09ffb973c4e692c963b43ff31a9f73",
+      "preserved_bytes": "recovered/family-shared-time-059/4d3816d9c4f71d7b91a4448c6e860e561a5ee9d26326ab05b82bc777e1b37f66.gz",
+      "published_sha256": "4d3816d9c4f71d7b91a4448c6e860e561a5ee9d26326ab05b82bc777e1b37f66",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-308.json",
+      "sha256": "8b5b1ffafe7f7f0045ceeb17a14f1b7790417e26acae7146f886b00065491233",
+      "bytes": 558,
+      "git_blob": "3824fb87b3eb8aed63b3b70d968ba0b27f9ab840",
+      "preserved_bytes": "recovered/family-shared-time-059/8b5b1ffafe7f7f0045ceeb17a14f1b7790417e26acae7146f886b00065491233.gz",
+      "published_sha256": "8b5b1ffafe7f7f0045ceeb17a14f1b7790417e26acae7146f886b00065491233",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-309.json",
+      "sha256": "0d1aa84cf1e7670bb0351d1f209dfad961172b321d8c3ba48c4b6f0430b74fd1",
+      "bytes": 558,
+      "git_blob": "2c637998d552a8e05c558f86fc000b14d6e6cdcd",
+      "preserved_bytes": "recovered/family-shared-time-059/0d1aa84cf1e7670bb0351d1f209dfad961172b321d8c3ba48c4b6f0430b74fd1.gz",
+      "published_sha256": "0d1aa84cf1e7670bb0351d1f209dfad961172b321d8c3ba48c4b6f0430b74fd1",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-310.json",
+      "sha256": "aceaca817f42c368e241712e21f18b6bc2c7bca33ec7cb091a138cf5adca786d",
+      "bytes": 558,
+      "git_blob": "6fb6b54f102ed9a4eabfe2a8eda95a4ecc2d157c",
+      "preserved_bytes": "recovered/family-shared-time-059/aceaca817f42c368e241712e21f18b6bc2c7bca33ec7cb091a138cf5adca786d.gz",
+      "published_sha256": "aceaca817f42c368e241712e21f18b6bc2c7bca33ec7cb091a138cf5adca786d",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-311.json",
+      "sha256": "9fd04de13029bdbf54b5f2013a9c7889a9aa5ffce9845a7eea5b2da0e5cf11e0",
+      "bytes": 558,
+      "git_blob": "f3416009cf2c5747af745a46a975958c49a9966e",
+      "preserved_bytes": "recovered/family-shared-time-059/9fd04de13029bdbf54b5f2013a9c7889a9aa5ffce9845a7eea5b2da0e5cf11e0.gz",
+      "published_sha256": "9fd04de13029bdbf54b5f2013a9c7889a9aa5ffce9845a7eea5b2da0e5cf11e0",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-312.json",
+      "sha256": "07d307646e58ddd107e623b361ce0e54ff453c30e0f97504b97ce37b8bc28480",
+      "bytes": 558,
+      "git_blob": "8aeec10c9b2de0b1ab38693cab671e492719aaae",
+      "preserved_bytes": "recovered/family-shared-time-059/07d307646e58ddd107e623b361ce0e54ff453c30e0f97504b97ce37b8bc28480.gz",
+      "published_sha256": "07d307646e58ddd107e623b361ce0e54ff453c30e0f97504b97ce37b8bc28480",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-313.json",
+      "sha256": "cc9b242be2ee7ca762eb12ef3f6f9654b1055564093b529d75153ff787e61970",
+      "bytes": 558,
+      "git_blob": "72f14283fee5f40fd553f6688389dbb22ec55638",
+      "preserved_bytes": "recovered/family-shared-time-059/cc9b242be2ee7ca762eb12ef3f6f9654b1055564093b529d75153ff787e61970.gz",
+      "published_sha256": "cc9b242be2ee7ca762eb12ef3f6f9654b1055564093b529d75153ff787e61970",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-314.json",
+      "sha256": "d1b7ebcc6242a324cd80f96c767e9dfb3ac3d7538378cf69410b95ed2d275cfd",
+      "bytes": 558,
+      "git_blob": "7ec0af68d2eb0134688aee4ae9f90f6821ed30b5",
+      "preserved_bytes": "recovered/family-shared-time-059/d1b7ebcc6242a324cd80f96c767e9dfb3ac3d7538378cf69410b95ed2d275cfd.gz",
+      "published_sha256": "d1b7ebcc6242a324cd80f96c767e9dfb3ac3d7538378cf69410b95ed2d275cfd",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial or locator limits; no checkpoint 3821 authority or other-lens/current transfer."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-PARTY-SHARED-FAMILY-CLOCK-MULTIADVANCE-001",
+      "lens": 7,
+      "severity": "unassigned; conditional source-derived repeated time advancement",
+      "classification": "New bounded current shared-interval authority question; no product execution or established player impact.",
+      "trace": "rest_at_camp selects living party members, computes a common injury/disease-clipped interval, and for each member commits that member clock and calls advance_married_family_by with the member elapsed. The helper runs for non-NPC-policy initiators with an active marriage, collects related NPC-policy characters from the marriage, household and the initiator’s directed kinship, excludes matching party IDs, and takes at most 32. For each selected living NPC it reads the current NPC clock and calls stationary advancement to that current clock plus elapsed. Its set deduplicates within one initiator call, not across the party loop. Stationary advancement stops recursive family propagation for an NPC-policy initiator.",
+      "conditional_example": "Assume two living, non-NPC-policy married parents have the same Some party ID and both take a successful nonterminal 60-minute camp rest; their living NPC-policy dependent remains partyless, appears in each parent’s selected related set within the 32-member cap, and both NPC stationary advances complete without clipping, birthday authority transfer, overflow or other changes. The first parent advances the dependent from T to T+60; the second reads that updated time and advances it to T+120, while each parent advances 60 minutes. Birth source constructs a partyless NPC-policy child and writes directed child kinship for both parents; wedding source creates the shared marriage; party merge supports joining same-location parties subject to its guards. The combined state and every callback are not proven reachable in a real world. This is source and symbolic interval reasoning only: no state, reducer or runtime was executed.",
+      "safeguards_and_limits": "Camp admission requires actor authority, living director, valid party location, shelter and injury/disease/narrative handling; family selection limits to living eligible NPCs and excludes same party. An NPC can be clipped, die, or transfer authority at a lifecycle boundary and the aggregate transaction can fail. Parents may have different personal clocks. Whether one related NPC should advance once per shared event or separately with each parent is an explicit timing-policy question; player impact, all family/party producers, all callers, actual rollback and aliases remain unverified.",
+      "connected_repair": "Determine one authoritative family interval or other explicit chronology policy for overlapping participant intervals. Coordinate per-party, independent-player, treatment and travel time and lifecycle boundaries so shared eligible relatives are not advanced twice for one accepted interval if policy requires one advancement; preserve independent subjective clocks, legitimate distinct intervals, clipping, NPC promotion, household/kinship and family selection limits.",
+      "later_acceptance": "After implementation and validation are separately authorized, compare one-parent and two-parent shared rest, independently elapsed non-overlapping intervals, partyless and same-party relatives, lifecycle split/promotion, clipping and failure behavior against the decided policy.",
+      "discovery": "partial; combined admitted state, chronology policy, all callers, transaction semantics and historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "Q-L12-56d0033dbad442f28d8f",
+      "lens": 12,
+      "severity": "unassigned; earlier conditional family-party membership question",
+      "classification": "Bounded 95e revisit of the same 059 absence-as-membership question; no new unique historical defect.",
+      "trace": "married_family_npc_ids excludes a related character when its optional party ID equals the initiator optional party ID; both None compare equal and therefore omit the relative. Birth creates an NPC-policy child with no solo party and the base character insert initializes party_id to None. The inspected ordinary player insertion creates a solo party, and successful selected remove/leave and disband paths create solo parties after temporarily clearing membership. Thus these selected paths do not establish a committed partyless married player. Other player producers, native transaction behavior, party teardown and actual intended family policy remain open.",
+      "connected_repair": "First establish whether a committed non-NPC married actor without a party is admitted and whether absence should exclude a relative; if required, distinguish actual shared Some party identity from two absent IDs while preserving same-party deduplication, all producer paths and family timing policy.",
+      "discovery": "partial; admitted partyless player, intent, all native producers, transaction semantics and aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Establish actual admitted relationship and party states, chronological policy, all family/time producers and consumers, transaction semantics, exact aliases and all thirteen independent lenses. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
