@@ -5996,8 +5996,34 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-GROUNDING-REPORT-OWNERS-95E.json"
+      },
+      {
+        "id": "REVIEW-UNGRADED-STAGE-SELF-REPORTED-PROVENANCE-001",
+        "lens": 1,
+        "additional_current_lenses": [
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional diagnostic artifact trust and content provenance",
+        "classification": "Selected stage loader matches scene and source identifiers but does not bind the ungraded vista samples to those identifiers; intended trust policy remains open.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1644",
+          "segovb/READ-L12-666.json",
+          "adler/READ-L11-307.json"
+        ],
+        "relationship_qualification": "Original059 question retained and partially assessed at95e; no exact historical alias, accepted incident or checkpoint3821 finding inferred.",
+        "discovery": "partial; source-only witness and selected consumer, actual artifact and global aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-TERRAIN-STAGE-PROVENANCE-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1244.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1247.json"
 }
