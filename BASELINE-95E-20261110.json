@@ -4828,8 +4828,34 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-PACK-RESPONSE-95E.json"
+      },
+      {
+        "id": "ADLER-L11-ATTACK-TRANSITION-ERROR-ADMISSION",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          8,
+          12,
+          13
+        ],
+        "severity": "unassigned; qualified reachability and error-policy question",
+        "classification": "Existing original059 Adler transition-error question reassessed at95e; its source record has no recorded revision, and its attack_start body independently matches6533. Supported buffered reachability remains conditional.",
+        "historical_related_records": [
+          "adler/READ-L11-213.json",
+          "segovb/READ-L12-454.json",
+          "segovb/READ-L12-576.json",
+          "segovb/READ-L12-577.json",
+          "baseline-059/queue.json#/entries/63"
+        ],
+        "relationship_qualification": "Adler213 records no source revision; its attack_start bytes match6533 by independent comparison. Segovb records6533. Prior authors, lenses, pending scope and zero historical count change remain; no checkpoint3821 claim.",
+        "discovery": "partial; concrete public-API numeric construction is conditional on hypothetical config and is not a demonstrated supported buffered producer",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-ACTION-STATE-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1011.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1015.json"
 }

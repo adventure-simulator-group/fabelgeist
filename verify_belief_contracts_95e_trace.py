@@ -83,5 +83,5 @@ assert q[2339]['current_reconciliation'].startswith('partial ') and q[2338]['cur
 p = load('CONTINUATION-PROGRESS-95E.json')
 assert p['queue_records_semantically_reconciled'] == 0 and p['new_current_ledger_candidates'] == len(baseline['newly_assessed_ledger']['entries'])
 obs = load(baseline['latest_main_recheck'])
-assert obs['observed_revision'] == rev and obs['method'] == 'GitHub connector fetch_commit with commit_sha main'
+assert obs['observed_revision'] == rev and obs['method'] in ('GitHub connector fetch_commit with commit_sha main', 'GitHub connector fetch branches/main API')
 print('verified selected belief sources, historical receipts and symbolic arithmetic; no product ran')

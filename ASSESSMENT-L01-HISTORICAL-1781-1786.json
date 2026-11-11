@@ -1,0 +1,266 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1781,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR working-state bytes match the6533 committed blob;95e separately compared as complete bytes and Git blob.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1781",
+      "sha256": "48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+      "lines": 2069,
+      "new_personal_read_ranges": [
+        [
+          1,
+          2069
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "ACTION-STATE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+        "sha256": "423abf723a262ebe836e619d7ae78e7307715eeb0a6df531a58967134d312e74",
+        "bytes": 71704,
+        "lines": 2067,
+        "git_blob": "ddbb471042ffdc77b0b8c7e16b1e184b1a98963e",
+        "preserved_bytes": "main-advance-95e/action-state-evidence/current-1781.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "current_personal_ranges": [
+          [
+            1,
+            2067
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [],
+        "qualification": "Historical and current bodies separately read through EOF. Source test bodies were inspected only; no product tests or execution.",
+        "exact_diff": {
+          "preserved_bytes": "main-advance-95e/action-state-evidence/old-current-1781.diff.gz",
+          "sha256": "daffa8cff5e4ca1b4918d863d5a2466039ee7321699eca60b4c4d9566c3a9f5a",
+          "bytes": 2850
+        }
+      },
+      "qualification": "Historical body read through EOF at this original role only; connected sources, policy, current independent lenses and execution remain open."
+    },
+    {
+      "original_index": 1782,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/action_timeline.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR working-state bytes match the6533 committed blob;95e separately compared as complete bytes and Git blob.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1782",
+      "sha256": "01140a5ec824cf8258598462f8d99cde62732bf1901ffaddcafcef6ee65e66a5",
+      "lines": 89,
+      "new_personal_read_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "ACTION-STATE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/animation/state/action_timeline.rs",
+        "sha256": "01140a5ec824cf8258598462f8d99cde62732bf1901ffaddcafcef6ee65e66a5",
+        "bytes": 3262,
+        "lines": 89,
+        "git_blob": "186e8554d29703a50a6048604c25c22e2f1c9b80",
+        "preserved_bytes": "main-advance-95e/action-state-evidence/current-1782.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            89
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            89
+          ]
+        ],
+        "qualification": "Historical and current bodies separately read through EOF. Source test bodies were inspected only; no product tests or execution."
+      },
+      "qualification": "Historical body read through EOF at this original role only; connected sources, policy, current independent lenses and execution remain open."
+    },
+    {
+      "original_index": 1783,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/downed_facing.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR working-state bytes match the6533 committed blob;95e separately compared as complete bytes and Git blob.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1783",
+      "sha256": "a9750618561952fe5915714dea2b3d942edf076b37f122e4c7518920255d7d63",
+      "lines": 353,
+      "new_personal_read_ranges": [
+        [
+          1,
+          353
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "ACTION-STATE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/animation/state/downed_facing.rs",
+        "sha256": "a9750618561952fe5915714dea2b3d942edf076b37f122e4c7518920255d7d63",
+        "bytes": 12405,
+        "lines": 353,
+        "git_blob": "1d23fe49ffc3ceb9d51504c5fce8e7ae3a2240c4",
+        "preserved_bytes": "main-advance-95e/action-state-evidence/current-1783.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            353
+          ]
+        ],
+        "qualification": "Historical body personally read through EOF; current bytes compared equal without separate current reread. Source test bodies were inspected only; no product tests or execution."
+      },
+      "qualification": "Historical body read through EOF at this original role only; connected sources, policy, current independent lenses and execution remain open."
+    },
+    {
+      "original_index": 1784,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/guard_footwork.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR working-state bytes match the6533 committed blob;95e separately compared as complete bytes and Git blob.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1784",
+      "sha256": "6ee51d617e6768c1552325294a976d780baa694c28386d909d913ef01475aea0",
+      "lines": 153,
+      "new_personal_read_ranges": [
+        [
+          1,
+          153
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "ACTION-STATE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/animation/state/guard_footwork.rs",
+        "sha256": "6ee51d617e6768c1552325294a976d780baa694c28386d909d913ef01475aea0",
+        "bytes": 5460,
+        "lines": 153,
+        "git_blob": "3c8620f71c0d3110b6c695d5edaf3b48c656b4f7",
+        "preserved_bytes": "main-advance-95e/action-state-evidence/current-1784.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            153
+          ]
+        ],
+        "qualification": "Historical body personally read through EOF; current bytes compared equal without separate current reread. Source test bodies were inspected only; no product tests or execution."
+      },
+      "qualification": "Historical body read through EOF at this original role only; connected sources, policy, current independent lenses and execution remain open."
+    },
+    {
+      "original_index": 1785,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/guard_geometry.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR working-state bytes match the6533 committed blob;95e separately compared as complete bytes and Git blob.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1785",
+      "sha256": "c0b137fbc417c7f671619a3cc9cc4b76cd30973682db603b40b27a6729ef5f2f",
+      "lines": 123,
+      "new_personal_read_ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "ACTION-STATE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/animation/state/guard_geometry.rs",
+        "sha256": "c0b137fbc417c7f671619a3cc9cc4b76cd30973682db603b40b27a6729ef5f2f",
+        "bytes": 4504,
+        "lines": 123,
+        "git_blob": "a0f2ea94038a4cc29b9e6cddce0f936c72126743",
+        "preserved_bytes": "main-advance-95e/action-state-evidence/current-1785.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            123
+          ]
+        ],
+        "qualification": "Historical body personally read through EOF; current bytes compared equal without separate current reread. Source test bodies were inspected only; no product tests or execution."
+      },
+      "qualification": "Historical body read through EOF at this original role only; connected sources, policy, current independent lenses and execution remain open."
+    },
+    {
+      "original_index": 1786,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR working-state bytes match the6533 committed blob;95e separately compared as complete bytes and Git blob.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1786",
+      "sha256": "bc8baae81a0a5a732df8dba8928b78d85c6b941c193ec50a31780d1a5b43f816",
+      "lines": 158,
+      "new_personal_read_ranges": [
+        [
+          1,
+          158
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "ACTION-STATE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs",
+        "sha256": "b927dd93f8476ed803e3d1fdc5af512987347a9aed81f4635727da7ff3544e49",
+        "bytes": 6392,
+        "lines": 160,
+        "git_blob": "a186b0c4f205e68ea8e1190e1774cc8eb943ed4a",
+        "preserved_bytes": "main-advance-95e/action-state-evidence/current-1786.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "current_personal_ranges": [
+          [
+            1,
+            160
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [],
+        "qualification": "Historical and current bodies separately read through EOF. Source test bodies were inspected only; no product tests or execution.",
+        "exact_diff": {
+          "preserved_bytes": "main-advance-95e/action-state-evidence/old-current-1786.diff.gz",
+          "sha256": "5d2b95b957134a0395c1d563b4e19bbea9009151d62f32bb2550593d4440f4d5",
+          "bytes": 2840
+        }
+      },
+      "qualification": "Historical body read through EOF at this original role only; connected sources, policy, current independent lenses and execution remain open."
+    }
+  ],
+  "observations": [
+    "Historical6533 state, timeline, downed-facing, guard-footwork, guard-geometry and posture-transition bodies personally read through EOF; current state and posture differ and were read separately. Current timeline was independently read; current downed and guard sources were byte-identical with no separate full reread claimed.",
+    "Segovb576–578, Segovb454 and Adler213 remain prior independently attributed reviews. Their unresolved dependencies and no-cross-lens qualifications remain. Source fixtures were read only."
+  ],
+  "remaining": "Continue original1787 and complete all13 independent lenses, current producers/consumers, aliases and queue. Final checkpoint3821 ledger and queue remain missing."
+}

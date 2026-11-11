@@ -106,5 +106,5 @@ assert sum(x['id'] == candidate['id'] and x['record'] == name for x in entries) 
 assert progress['new_current_ledger_candidates'] == len(entries) and candidate['discovery'].startswith('partial')
 assert candidate['repair'] == 'not started' and candidate['validation'] == 'not performed'
 observation = json.loads((root / baseline['latest_main_recheck']).read_text())
-assert observation['observed_revision'] == revision and observation['method'] in ('git ls-remote origin refs/heads/main', 'GitHub connector fetch_commit with commit_sha main')
+assert observation['observed_revision'] == revision and observation['method'] in ('git ls-remote origin refs/heads/main', 'GitHub connector fetch_commit with commit_sha main', 'GitHub connector fetch branches/main API')
 print('verified ten Git-bound sources, historical attribution and ideal waypoint arithmetic; no product ran')
