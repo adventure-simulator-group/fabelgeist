@@ -1,0 +1,884 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    8,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected coverage validator trust boundary, error-code path, policy rule sites and separately recovered older role-1289 locator evidence.",
+  "source_reasoning": "Pinned source inspection, evidence-byte comparison and logical predicate reasoning only; no report was constructed for or submitted to product code, and no build, test, simulation or runtime ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/quest_coverage.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "76c18972bcaf38ad42b082aa139476f747de7200",
+      "sha256": "3d43a767b929a84550f716de78fab88ac13f0dd845501e3f7b62dc1b6ede9dc5",
+      "bytes": 9425,
+      "lines": 260,
+      "ranges": [
+        [
+          1,
+          22
+        ],
+        [
+          24,
+          46
+        ],
+        [
+          73,
+          105
+        ],
+        [
+          106,
+          190
+        ],
+        [
+          192,
+          260
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/coverage-trust-evidence/00.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/report.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b04c0d1164ed4c81b863c05dc4a11959d422e29c",
+      "sha256": "73996e2153ad432112dc56113c74b29200ad3ab6dbb85e236343407ccbec39d7",
+      "bytes": 6140,
+      "lines": 172,
+      "ranges": [
+        [
+          1,
+          24
+        ],
+        [
+          108,
+          172
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/coverage-trust-evidence/01.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2448f1b939e36c8f9143f88066f6b1930bfdc0b6",
+      "sha256": "7e192ef20631845534afb5f4060d45c4253271682e203f89ae3c83dec1b5687e",
+      "bytes": 6849,
+      "lines": 171,
+      "ranges": [
+        [
+          71,
+          95
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/coverage-trust-evidence/02.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "643d744a82700c81d6f10c659269d9f345423fef",
+      "sha256": "e58eadc935d9bd93c40262b170bc85c9e2d26c0b42ee490e882e0dd96f65be55",
+      "bytes": 58364,
+      "lines": 1325,
+      "ranges": [
+        [
+          147,
+          166
+        ],
+        [
+          261,
+          270
+        ],
+        [
+          405,
+          425
+        ],
+        [
+          1070,
+          1081
+        ],
+        [
+          1100,
+          1121
+        ],
+        [
+          1215,
+          1225
+        ],
+        [
+          1290,
+          1324
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/coverage-trust-evidence/03.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/main.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3399b9e5660bad7baa119dc9ea8994cb7909e8f5",
+      "sha256": "9b6221a78408db588faf85ca8795c5004e6b3cf501828cd610d608205e1892f1",
+      "bytes": 19815,
+      "lines": 561,
+      "ranges": [
+        [
+          319,
+          345
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/coverage-trust-evidence/04.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/policy.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "aa009164ea64b32ab286e9bd39137b8bc85e4a15",
+      "sha256": "d056fbef7a8fa3486dd75f7f51b2cb3cc942a71163499480d0c52023c76930ba",
+      "bytes": 23763,
+      "lines": 598,
+      "ranges": [
+        [
+          1,
+          27
+        ],
+        [
+          324,
+          365
+        ],
+        [
+          384,
+          429
+        ],
+        [
+          564,
+          598
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/coverage-trust-evidence/05.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/profile.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "94c77ead5e0ec3fd7bfb76a9063ca7dc2125e03e",
+      "sha256": "765a5b37cbc4ffd63fff90bddf75a154a779a77bc8dbfd6d26d1bbf929c8fd9e",
+      "bytes": 28065,
+      "lines": 789,
+      "ranges": [
+        [
+          65,
+          83
+        ],
+        [
+          128,
+          148
+        ],
+        [
+          260,
+          285
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/coverage-trust-evidence/06.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/fabelgeist-determinism/src/stream.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c59d8a7720881fba266c80112e82880e4422e074",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "bytes": 5688,
+      "lines": 169,
+      "ranges": [
+        [
+          48,
+          60
+        ],
+        [
+          134,
+          137
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/coverage-trust-evidence/07.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/calendar.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3bb463487d89fa1040b72d7708f7e641d5e61cec",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "bytes": 25367,
+      "lines": 698,
+      "ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/coverage-trust-evidence/08.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-core/src/reducer_error.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "df6d1d3aa4f7deb535b1d91585289fe8af6016dd",
+      "sha256": "ec4f9bddc8b7d73ed40bcfbecb23d7b061016ee53bd6fea4a524d05e838691c7",
+      "bytes": 4018,
+      "lines": 100,
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/coverage-trust-evidence/09.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/actions.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d7a19ff713ecd625d5f9abe11524c2df61ac58d9",
+      "sha256": "00ea04f41c3b01c494fc44e24a3bd5b3720d239de26a71f896d3841e2677fafd",
+      "bytes": 72039,
+      "lines": 1861,
+      "ranges": [
+        [
+          287,
+          292
+        ],
+        [
+          336,
+          346
+        ],
+        [
+          395,
+          407
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/coverage-trust-evidence/10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/error.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "da476d3540a58657f16e4d5cfcf67be9f4bf852e",
+      "sha256": "d3c463510dc48c5dcaf3e13310352dfaede3f8be29c90146ebca5dd2bf289214",
+      "bytes": 14494,
+      "lines": 362,
+      "ranges": [
+        [
+          210,
+          253
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/coverage-trust-evidence/11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c7004fe2582f75c7c14c2f34cc22f1b479c9a058",
+      "sha256": "beeb9c30e9b583a3e744dcc7350e83c2c5ce40a2d65d5184cd48c0a463a93ea1",
+      "bytes": 18149,
+      "lines": 528,
+      "ranges": [
+        [
+          345,
+          389
+        ],
+        [
+          426,
+          455
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/coverage-trust-evidence/12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/run_error.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "834cbadb70e66345b5134bc9542ba7844e815f73",
+      "sha256": "5f8680ad8019206c22009e97209b468c4b8148340f16a0e939d5100f2fb53500",
+      "bytes": 834,
+      "lines": 28,
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/coverage-trust-evidence/13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/schema_types.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "921da2839c45c7d9006f2aba0c70ba7bdfbb046e",
+      "sha256": "1652605409faa40d7ba5189405b89e55e69d935fdc07478507e9639da63b6bff",
+      "bytes": 3976,
+      "lines": 101,
+      "ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/coverage-trust-evidence/14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b890bfd0f628b3aae3d417cb8d0a4070bf7b3117",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "bytes": 12051,
+      "lines": 192,
+      "ranges": [
+        [
+          115,
+          130
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/coverage-trust-evidence/15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d4136526ec44f3f21f998a60408e23f32e4f3eff",
+      "sha256": "48d31c75f2d06657271422a7fcd7b492ec6623da3e77a4db2beffaef3cdd9005",
+      "bytes": 11704,
+      "lines": 260,
+      "ranges": [
+        [
+          1,
+          260
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/coverage-trust-evidence/16.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Full module assembly source read; include paths alone do not confer body coverage."
+    }
+  ],
+  "external_report_illustration": {
+    "required_coverage_booleans": "true",
+    "checked_error_counters": "zero",
+    "quests_attempted": 2,
+    "direct_contracts_attempted": 1,
+    "generated_case_intakes": 1,
+    "fixture_identifier_strings": "empty",
+    "final_agents": "empty",
+    "qualification": "Source-level construction showing predicate limits only; normal CLI builds a nonempty roster, and no claim that arbitrary external reports are accepted by a real caller or must be trusted."
+  },
+  "error_boundary_observation": "Selected native investigation errors use typed ReducerErrorCode before coded_reducer_error formats the string envelope. The callback macro distinguishes rejection from dispatch error and timeout; CoreLoopError parses a rejected detail into an optional typed code while retaining detail. The selected replan policy matches typed codes. SDK callback/cache coherence, all native producers and arbitrary-text spoofability remain open.",
+  "older_774_recovery": {
+    "publication_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "publication_url": "https://github.com/adventure-simulator-group/fabelgeist/tree/f82adcabd9d89c4fa2dd7f99253a45297a0681ee/handoff/774",
+    "published_locator_sha256": "1221f858b25f889ab7918895b1f4a3329fb4cb0614b8664531ffd821e7202a31",
+    "pre_export_original_sha256": "fe7e2e81a37b125318a22c961f2d9bead728e93d3721e1e3a4142ff1f62defa1",
+    "qualification": "The 774 package manifest states machine-specific path normalization in exports and maps these different hashes. The normalized complete locator record is recovered exactly; the unnormalized original bytes are not recovered by the stated bounded search. A hash of the normalized export is not a verification of the unnormalized original. Its selected identity entry and the two separately preserved supplier receipt rows were inspected; the full 1.35 MB locator body was not personally read. The earlier reviewer explicitly did not read the locator proof, and that history remains unchanged.",
+    "older_zip_sha256": "02bb3c8b7b0d5fde4fb1ef2f6942ce70d0e642ad498d42388ef947bf1fd9b04d",
+    "older_zip_bytes": 119809110,
+    "older_zip_member_sha256": "1221f858b25f889ab7918895b1f4a3329fb4cb0614b8664531ffd821e7202a31",
+    "bounded_original_search": {
+      "scope": "Raw regular files between 800000 and 3000000 bytes in the user-extracted 726 collection and two older 774 evidence directories; excludes symlink traversal, .git and node_modules; compressed member search limited to the specifically identified 774 archive.",
+      "files": 1140,
+      "bytes": 2089370795,
+      "read_errors": 0,
+      "matches": 0,
+      "qualification": "Not an exhaustive search of every file size, archive, remote or older collection."
+    },
+    "selected_producer_receipts": [
+      "CAM-PPS-SIMULATION-OBSERVATION-047 at camera/traces.jsonl line 47 /additional_actual_source_proofs/54",
+      "RIG-PPS-036 at rig/traces.jsonl line 36 /additional_fresh_sources/19"
+    ],
+    "source_identity_qualification": "The older metadata classifies this source-context as outside its then-frozen scope, while the later original registry separately includes role 1289. Different historical scope states are not collapsed or promoted to checkpoint 3821.",
+    "git_object_proof": "recovered/older-774-git-objects/MANIFEST.json"
+  },
+  "historical_records": [
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1284-1289.json",
+      "qualification": "Six separately attributed personal historical reads."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1071",
+        "/entries/1074",
+        "/entries/1076",
+        "/entries/1077",
+        "/entries/1078",
+        "/entries/1084"
+      ],
+      "qualification": "Earlier broad questions remain separate and partial, not global aliases."
+    },
+    {
+      "file": "ASSESSMENT-INVESTIGATION-METHOD-RANK-95E.json",
+      "qualification": "Earlier disease-1093 partial-read and unconfirmed-adoption qualifications."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-338.json",
+      "sha256": "d385c8b3638aea454481354618e185bb99ed282436977326bc168917fa311ae8",
+      "bytes": 714,
+      "git_blob": "61b5536daad3383141ae47d2aa16dd8c46b9f404",
+      "preserved_bytes": "recovered/coverage-trust-059/d385c8b3638aea454481354618e185bb99ed282436977326bc168917fa311ae8.gz",
+      "published_sha256": "d385c8b3638aea454481354618e185bb99ed282436977326bc168917fa311ae8",
+      "published_bytes": 714,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, locator limits and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-339.json",
+      "sha256": "0acb2f8b8cafade02402ab38fbf0806cd38af5dc80fd6385934f88adf58aa216",
+      "bytes": 717,
+      "git_blob": "3d7dc95f0afec52c55e7e5f2aaf2c220cf0b0dd2",
+      "preserved_bytes": "recovered/coverage-trust-059/0acb2f8b8cafade02402ab38fbf0806cd38af5dc80fd6385934f88adf58aa216.gz",
+      "published_sha256": "0acb2f8b8cafade02402ab38fbf0806cd38af5dc80fd6385934f88adf58aa216",
+      "published_bytes": 717,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, locator limits and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-340.json",
+      "sha256": "4c66ad9938302db8978f9f2be348f5fd52f0bcae63a253d0bf96d2e6ce901dcd",
+      "bytes": 1694,
+      "git_blob": "4aedf4830e424732b009eb928176dccb2e6e64b5",
+      "preserved_bytes": "recovered/coverage-trust-059/4c66ad9938302db8978f9f2be348f5fd52f0bcae63a253d0bf96d2e6ce901dcd.gz",
+      "published_sha256": "4c66ad9938302db8978f9f2be348f5fd52f0bcae63a253d0bf96d2e6ce901dcd",
+      "published_bytes": 1694,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, locator limits and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-341.json",
+      "sha256": "246a08ad90e8a1c5c50c3709a98c7ce823c2a767d1d8aecdb39f23d71db455f8",
+      "bytes": 723,
+      "git_blob": "0aabc9fb18a5e0af7932f494877518770edc1312",
+      "preserved_bytes": "recovered/coverage-trust-059/246a08ad90e8a1c5c50c3709a98c7ce823c2a767d1d8aecdb39f23d71db455f8.gz",
+      "published_sha256": "246a08ad90e8a1c5c50c3709a98c7ce823c2a767d1d8aecdb39f23d71db455f8",
+      "published_bytes": 723,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, locator limits and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/QUALIFICATION-L12-ORIGINAL1289-LOCATOR.json",
+      "sha256": "279ebae448d5fd1334dc360c529f4d108ec38dd3b9aec51379535a7b47fcf5a1",
+      "bytes": 1435,
+      "git_blob": "362ed78dd08d784a826148d84e7cc830e88c97e3",
+      "preserved_bytes": "recovered/coverage-trust-059/279ebae448d5fd1334dc360c529f4d108ec38dd3b9aec51379535a7b47fcf5a1.gz",
+      "published_sha256": "279ebae448d5fd1334dc360c529f4d108ec38dd3b9aec51379535a7b47fcf5a1",
+      "published_bytes": 1435,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "historical exact Windows locator qualification, no read credit"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, locator limits and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-338.json",
+      "sha256": "d36fbe7ea21134ed60657d9838d0b6dbe8c58a51b26250d807f2fcc7da1c05ed",
+      "bytes": 5453,
+      "git_blob": "76f7316e65fec2ecd8b75ff389c48ca3ed533e7e",
+      "preserved_bytes": "recovered/coverage-trust-059/d36fbe7ea21134ed60657d9838d0b6dbe8c58a51b26250d807f2fcc7da1c05ed.gz",
+      "published_sha256": "d36fbe7ea21134ed60657d9838d0b6dbe8c58a51b26250d807f2fcc7da1c05ed",
+      "published_bytes": 5453,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, locator limits and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-339.json",
+      "sha256": "8cf32bd3c31b3044fbe1297b00104cb44141d5a13f9ffb38dcbea2966cae531d",
+      "bytes": 9166,
+      "git_blob": "73d175668c45a7914ff2b61e2caf85ab7e91f390",
+      "preserved_bytes": "recovered/coverage-trust-059/8cf32bd3c31b3044fbe1297b00104cb44141d5a13f9ffb38dcbea2966cae531d.gz",
+      "published_sha256": "8cf32bd3c31b3044fbe1297b00104cb44141d5a13f9ffb38dcbea2966cae531d",
+      "published_bytes": 9166,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, locator limits and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-340.json",
+      "sha256": "3c3f6635452299f718841b381eca262ef95a4e6ab9fa76b4f5352d02e657b91f",
+      "bytes": 14023,
+      "git_blob": "ea6639de7e4e409fdb29587f76d3d0c173b0cf28",
+      "preserved_bytes": "recovered/coverage-trust-059/3c3f6635452299f718841b381eca262ef95a4e6ab9fa76b4f5352d02e657b91f.gz",
+      "published_sha256": "3c3f6635452299f718841b381eca262ef95a4e6ab9fa76b4f5352d02e657b91f",
+      "published_bytes": 14023,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, locator limits and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-341.json",
+      "sha256": "356defae6cbe8fcdba23eeb85197edfcbc313119525e03e2c033e0f6645869be",
+      "bytes": 4680,
+      "git_blob": "6a0b088f7c29a3d82a499386d058091ca5e41f5a",
+      "preserved_bytes": "recovered/coverage-trust-059/356defae6cbe8fcdba23eeb85197edfcbc313119525e03e2c033e0f6645869be.gz",
+      "published_sha256": "356defae6cbe8fcdba23eeb85197edfcbc313119525e03e2c033e0f6645869be",
+      "published_bytes": 4680,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, locator limits and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-191.json",
+      "sha256": "9b3804f3d7c5ce7de68f234a07670965a926f884b554c2a60da9a3d7b2e3bdb9",
+      "bytes": 1143,
+      "git_blob": "16b2e24075f3524e95982148bd41b1404668371e",
+      "preserved_bytes": "recovered/coverage-trust-059/9b3804f3d7c5ce7de68f234a07670965a926f884b554c2a60da9a3d7b2e3bdb9.gz",
+      "published_sha256": "9b3804f3d7c5ce7de68f234a07670965a926f884b554c2a60da9a3d7b2e3bdb9",
+      "published_bytes": 1143,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier prospective registration"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, locator limits and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-192.json",
+      "sha256": "e47ee8a847e88c978cf84b12090aecb4f456e8a7154282a80cfa70c8b30571be",
+      "bytes": 1145,
+      "git_blob": "fcb96288ef98107fe911d7bee9dfec050b2d0d36",
+      "preserved_bytes": "recovered/coverage-trust-059/e47ee8a847e88c978cf84b12090aecb4f456e8a7154282a80cfa70c8b30571be.gz",
+      "published_sha256": "e47ee8a847e88c978cf84b12090aecb4f456e8a7154282a80cfa70c8b30571be",
+      "published_bytes": 1145,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier prospective registration"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, locator limits and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-193.json",
+      "sha256": "a5fd496aeb02bc9509c8196ed77b42e1b4c1fc8ee966ad0e823eaa96ccb01d99",
+      "bytes": 1169,
+      "git_blob": "acaddc2130048242ae71f22c105975639f7be38c",
+      "preserved_bytes": "recovered/coverage-trust-059/a5fd496aeb02bc9509c8196ed77b42e1b4c1fc8ee966ad0e823eaa96ccb01d99.gz",
+      "published_sha256": "a5fd496aeb02bc9509c8196ed77b42e1b4c1fc8ee966ad0e823eaa96ccb01d99",
+      "published_bytes": 1169,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier prospective registration"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, locator limits and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-194.json",
+      "sha256": "276552a266561ca4e2777111187314feca4b0cf97390729488821c05146248c0",
+      "bytes": 1153,
+      "git_blob": "d01b6bfe885914b2a43efa02bf1853d9228ee54e",
+      "preserved_bytes": "recovered/coverage-trust-059/276552a266561ca4e2777111187314feca4b0cf97390729488821c05146248c0.gz",
+      "published_sha256": "276552a266561ca4e2777111187314feca4b0cf97390729488821c05146248c0",
+      "published_bytes": 1153,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier prospective registration"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, locator limits and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-195.json",
+      "sha256": "402ef152cd20c187b54938a86b35c8ae92e2ef835133e6faf910d92b30c02763",
+      "bytes": 1157,
+      "git_blob": "503af11d61f87e372c217c202eec6c8ee1ff8a1b",
+      "preserved_bytes": "recovered/coverage-trust-059/402ef152cd20c187b54938a86b35c8ae92e2ef835133e6faf910d92b30c02763.gz",
+      "published_sha256": "402ef152cd20c187b54938a86b35c8ae92e2ef835133e6faf910d92b30c02763",
+      "published_bytes": 1157,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier prospective registration"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, locator limits and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-196.json",
+      "sha256": "d4309239c5a95495c1c824bbf805ff6c669aca6f2cdc55635cb11a3aa0e29694",
+      "bytes": 1433,
+      "git_blob": "9b2d83052d915a50e83869c2977a22f5a0886e3b",
+      "preserved_bytes": "recovered/coverage-trust-059/d4309239c5a95495c1c824bbf805ff6c669aca6f2cdc55635cb11a3aa0e29694.gz",
+      "published_sha256": "d4309239c5a95495c1c824bbf805ff6c669aca6f2cdc55635cb11a3aa0e29694",
+      "published_bytes": 1433,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier prospective registration"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, locator limits and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-338.json",
+      "sha256": "3659adf13e881af9c147c81a3b95d1160e57f875281c84c1db4e11c06bcb877a",
+      "bytes": 840,
+      "git_blob": "0b9ac762b6ad8fcb24083e8032e70479c442ac46",
+      "preserved_bytes": "recovered/coverage-trust-059/3659adf13e881af9c147c81a3b95d1160e57f875281c84c1db4e11c06bcb877a.gz",
+      "published_sha256": "3659adf13e881af9c147c81a3b95d1160e57f875281c84c1db4e11c06bcb877a",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, locator limits and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-339.json",
+      "sha256": "85efe73d73ac843910c673b41c9d13f50e82c740700746cc09c3fc5392002794",
+      "bytes": 840,
+      "git_blob": "14b2c80893a3b6ae69433ebdcf8a02261c8643a7",
+      "preserved_bytes": "recovered/coverage-trust-059/85efe73d73ac843910c673b41c9d13f50e82c740700746cc09c3fc5392002794.gz",
+      "published_sha256": "85efe73d73ac843910c673b41c9d13f50e82c740700746cc09c3fc5392002794",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, locator limits and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-340.json",
+      "sha256": "91eac3360818d3b65161bdc0891e2253dfec885a3919650b4b7d92d62e19a6af",
+      "bytes": 840,
+      "git_blob": "85b6a01a1a00e63b3f3b530cb7abdddbca46309e",
+      "preserved_bytes": "recovered/coverage-trust-059/91eac3360818d3b65161bdc0891e2253dfec885a3919650b4b7d92d62e19a6af.gz",
+      "published_sha256": "91eac3360818d3b65161bdc0891e2253dfec885a3919650b4b7d92d62e19a6af",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, locator limits and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-341.json",
+      "sha256": "d9196742808b3cff51227a5bcd2350515894aa83ab5f0600e5a3578c9d99b1a4",
+      "bytes": 840,
+      "git_blob": "f8af117a29f3a5cff461d9e2af0d14494f0d0f4d",
+      "preserved_bytes": "recovered/coverage-trust-059/d9196742808b3cff51227a5bcd2350515894aa83ab5f0600e5a3578c9d99b1a4.gz",
+      "published_sha256": "d9196742808b3cff51227a5bcd2350515894aa83ab5f0600e5a3578c9d99b1a4",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, locator limits and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-338.json",
+      "sha256": "cddf0cb33760e07d4efe0c693e1d27f4f12576eb5c7747f63e544ba8cd8d2d3d",
+      "bytes": 558,
+      "git_blob": "93d60aa9644ced9d77342bd1c101faa82d6a0299",
+      "preserved_bytes": "recovered/coverage-trust-059/cddf0cb33760e07d4efe0c693e1d27f4f12576eb5c7747f63e544ba8cd8d2d3d.gz",
+      "published_sha256": "cddf0cb33760e07d4efe0c693e1d27f4f12576eb5c7747f63e544ba8cd8d2d3d",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, locator limits and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-339.json",
+      "sha256": "d95104b540f16d1abc0487bb116e1c831686ea12195a466180e7b92b9c2eee95",
+      "bytes": 558,
+      "git_blob": "a391d48736c77d50a73ab0b6e09dbcfe05ef2967",
+      "preserved_bytes": "recovered/coverage-trust-059/d95104b540f16d1abc0487bb116e1c831686ea12195a466180e7b92b9c2eee95.gz",
+      "published_sha256": "d95104b540f16d1abc0487bb116e1c831686ea12195a466180e7b92b9c2eee95",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, locator limits and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-340.json",
+      "sha256": "cc9054928598f7eccb144fa506f826447b0702560dc4694afa6b4c759f6bef94",
+      "bytes": 558,
+      "git_blob": "6d250cf6000c9c583c2d13f3915cc8b69ffe6c51",
+      "preserved_bytes": "recovered/coverage-trust-059/cc9054928598f7eccb144fa506f826447b0702560dc4694afa6b4c759f6bef94.gz",
+      "published_sha256": "cc9054928598f7eccb144fa506f826447b0702560dc4694afa6b4c759f6bef94",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, locator limits and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-341.json",
+      "sha256": "1efd61ac569d73675fb746acd04ce0255d1c653d42262f620aa98430af25fcf5",
+      "bytes": 558,
+      "git_blob": "3bcb09da3922b3ec7f6fa6a2995b78cf43e35e63",
+      "preserved_bytes": "recovered/coverage-trust-059/1efd61ac569d73675fb746acd04ce0255d1c653d42262f620aa98430af25fcf5.gz",
+      "published_sha256": "1efd61ac569d73675fb746acd04ce0255d1c653d42262f620aa98430af25fcf5",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, locator limits and pending contracts remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    }
+  ],
+  "recovered_older_774_records": [
+    {
+      "path_in_774": "handoff/774/MANIFEST.json",
+      "older_publication_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "sha256": "859b03ced1605e07ec0c9be9c8f44ab5714df5f56425e0c53ff7fea48084041d",
+      "bytes": 5649524,
+      "git_blob": "6bf08a11184e7882710619796cf2ee055d965494",
+      "preserved_bytes": "recovered/older-774-locator/00.gz",
+      "original_pre_export_sha256": null,
+      "qualification": "Exact bytes of the 774 published package at its own revision; an exported hash differing from pre-export hash is not the original unnormalized record."
+    },
+    {
+      "path_in_774": "handoff/774/PUBLICATION.json",
+      "older_publication_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "sha256": "a99abf758ed6109896f9460574c7967ad41264840de8ec767438720c6f8cfc57",
+      "bytes": 728,
+      "git_blob": "1c146da3e89c8e0d78efe0e75e4691fd726cc27d",
+      "preserved_bytes": "recovered/older-774-locator/01.gz",
+      "original_pre_export_sha256": null,
+      "qualification": "Exact bytes of the 774 published package at its own revision; an exported hash differing from pre-export hash is not the original unnormalized record."
+    },
+    {
+      "path_in_774": "handoff/774/adler-original/PACKAGE-MANIFEST.json",
+      "older_publication_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "sha256": "66e307c23b193d4a32dee6d92ac4617c7514a377f74aac6c09ff88900d6ae9d5",
+      "bytes": 1010388,
+      "git_blob": "942282f1dbcd546cb754588c052e4e49f6a8e688",
+      "preserved_bytes": "recovered/older-774-locator/02.gz",
+      "original_pre_export_sha256": null,
+      "qualification": "Exact bytes of the 774 published package at its own revision; an exported hash differing from pre-export hash is not the original unnormalized record."
+    },
+    {
+      "path_in_774": "handoff/774/adler-original/EVIDENCE-MANIFEST.json",
+      "older_publication_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "sha256": "4bf00a466413c6e250658358dc526a2f09d445f17d65976d4ed15820242b3c33",
+      "bytes": 1811303,
+      "git_blob": "d6ab4c1f0c345a0370a6524d933745f9b15f34b2",
+      "preserved_bytes": "recovered/older-774-locator/03.gz",
+      "original_pre_export_sha256": null,
+      "qualification": "Exact bytes of the 774 published package at its own revision; an exported hash differing from pre-export hash is not the original unnormalized record."
+    },
+    {
+      "path_in_774": "handoff/774/adler-original/audit/continuation/rig/source-scope-reconciliation-044.json",
+      "older_publication_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "sha256": "1221f858b25f889ab7918895b1f4a3329fb4cb0614b8664531ffd821e7202a31",
+      "bytes": 1354778,
+      "git_blob": "058fdec5494af5743eaa04339a1254679bcaa850",
+      "preserved_bytes": "recovered/older-774-locator/04.gz",
+      "original_pre_export_sha256": "fe7e2e81a37b125318a22c961f2d9bead728e93d3721e1e3a4142ff1f62defa1",
+      "qualification": "Exact bytes of the 774 published package at its own revision; an exported hash differing from pre-export hash is not the original unnormalized record."
+    },
+    {
+      "path_in_774": "handoff/774/adler-original/audit/records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+      "older_publication_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "sha256": "f0e53b1f18b85876dd81c01dfeacfffaf3b1d60ca13eaa9b59f33d2de7f8d674",
+      "bytes": 1013571,
+      "git_blob": "0259949af97986803c8ef9ad4e62f39029fa8a9f",
+      "preserved_bytes": "recovered/older-774-locator/05.gz",
+      "original_pre_export_sha256": "f0e53b1f18b85876dd81c01dfeacfffaf3b1d60ca13eaa9b59f33d2de7f8d674",
+      "qualification": "Exact bytes of the 774 published package at its own revision; an exported hash differing from pre-export hash is not the original unnormalized record."
+    },
+    {
+      "path_in_774": "handoff/774/adler-original/audit/records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+      "older_publication_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "sha256": "7a3e5ac1e865c46d53a1055a1f793466f9f89353ed26ca668f5a3aa934db6253",
+      "bytes": 446159,
+      "git_blob": "0a1577d299952c63d027eecd61c734801810c278",
+      "preserved_bytes": "recovered/older-774-locator/06.gz",
+      "original_pre_export_sha256": "7a3e5ac1e865c46d53a1055a1f793466f9f89353ed26ca668f5a3aa934db6253",
+      "qualification": "Exact bytes of the 774 published package at its own revision; an exported hash differing from pre-export hash is not the original unnormalized record."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "Q-L12-c081203b84b4371dd524",
+      "lens": 12,
+      "severity": "unassigned; conditional external-report trust and provenance question",
+      "classification": "Current bounded revisit of the earlier 059 quest-coverage trust question; no new unique historical defect or executed validation.",
+      "trace": "validate_quest_coverage accepts a public CoreLoopReport and checks that quest_coverage is Some, required coverage booleans are true, error counters are zero, quests_attempted is at least two and equals direct_contracts_attempted plus generated_case_intakes, and that no listed final agent is dead, critical or stranded. It does not in that body check nonempty or complete final_agents, nonempty or distinct fixture identifiers, or derive those booleans from trace. By inspection, a separately constructed report with Some coverage whose required booleans are true, metrics quests_attempted=2/direct_contracts_attempted=1/generated_case_intakes=1 and zero checked error counters, empty fixture IDs and empty final_agents satisfies those predicates. This is a source-level conditional illustration, not a report submitted to the program or an observed validation pass. The selected actual CLI obtains its report directly from run_core_loop; that path validates population 2..=32 and builds final_agents by mapping every generated character ID and collecting a Result, so a missing final projection errors rather than silently shrinking this selected normal report. Whether callers may pass independently deserialized/untrusted reports, and whether attestation or only checking a trusted producer’s summary is the intended contract, remains open.",
+      "connected_repair": "First establish external report and native provenance trust policy. If arbitrary reports must be accepted, validate complete distinct roster, fixture identity and producer-backed evidence at the correct authority boundary rather than trusting self-asserted booleans; if the validator is internal to a trusted producer, document and enforce that boundary without inventing legacy compatibility. Preserve ordinary optional no-coverage mode and strict fixture behavior.",
+      "discovery": "partial; external callers, trust and schema policy, exact aliases, event-cap reachability and native provenance remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-SIM-SCHEDULE-GUARDED-EXPECTS-001",
+      "lens": 8,
+      "severity": "unassigned; explicit repository rule violation in selected production source",
+      "classification": "New bounded policy-source rule finding, related to but distinct from other guarded simulation expects.",
+      "trace": "reallocate_disabled_crime_to_labor uses two expect calls on checked additions, and activity_schedule_plan uses expect converting the strategic day length to u16; the pinned crates/AGENTS.md prohibits expect outside tests. The selected calendar defines 24*60 minutes, which fits u16. The selected generated_schedule assigns one preferred activity from a 240-plus-index range and at most one training role allocation; its sampler documents a bounded index. These ordinary producer constraints are relevant and no invalid schedule or reachable panic is established. Arbitrarily constructed AgentProfile admission and every caller remain separate questions.",
+      "connected_repair": "Express bounded generated schedule and day-width guarantees without prohibited expect, preserving quarter-hour rounding, crime-to-labor reallocation, subsistence choice and error behavior. Coordinate with other simulation rule findings but do not merge their distinct call sites or claim a runtime crash.",
+      "discovery": "partial; all profile producers, bounds, helper callers, source-wide rule inventory and exact aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "External report and producer trust, actual SDK behavior and all source producers, admission and rule inventory, exact aliases and all independent lenses remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

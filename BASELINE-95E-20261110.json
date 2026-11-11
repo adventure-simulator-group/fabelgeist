@@ -2575,7 +2575,10 @@
         "discovery": "partial; all topic/key producers, progress consumers, native policy and exact historical aliases remain open",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-EXPEDITION-DIALOGUE-RULES-95E.json"
+        "record": "ASSESSMENT-EXPEDITION-DIALOGUE-RULES-95E.json",
+        "related_current_traces": [
+          "ASSESSMENT-COVERAGE-TRUST-RECOVERED-LOCATOR-95E.json: LiveRunner retains the PublicDialogueAttemptKey map; all producers and exact aliases remain open."
+        ]
       },
       {
         "id": "SEGOVB-L12-SURRENDER-SOURCE-TEST-END-MARKER",
@@ -2688,8 +2691,39 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-SIM-JOURNEY-MASS-95E.json"
+      },
+      {
+        "id": "Q-L12-c081203b84b4371dd524",
+        "lens": 12,
+        "severity": "unassigned; conditional external-report trust and provenance question",
+        "classification": "Current bounded revisit of the earlier 059 quest-coverage trust question; no new unique historical defect or executed validation.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1078",
+          "baseline-059/queue.json#/entries/1084 (report trust subset)",
+          "segovb/READ-L12-340.json via ASSESSMENT-COVERAGE-TRUST-RECOVERED-LOCATOR-95E.json"
+        ],
+        "relationship_qualification": "Earlier records retain original revision and attribution. Broader pending questions, older normalized exports and distinct guarded call sites are not global aliases or checkpoint 3821 authority.",
+        "discovery": "partial; external callers, trust and schema policy, exact aliases, event-cap reachability and native provenance remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-COVERAGE-TRUST-RECOVERED-LOCATOR-95E.json"
+      },
+      {
+        "id": "REVIEW-SIM-SCHEDULE-GUARDED-EXPECTS-001",
+        "lens": 8,
+        "severity": "unassigned; explicit repository rule violation in selected production source",
+        "classification": "New bounded policy-source rule finding, related to but distinct from other guarded simulation expects.",
+        "historical_related_records": [
+          "crates/AGENTS.md:126–127 at 95e63628f9d70b8dd6e6fede64334696c6995009",
+          "REVIEW-SIMULATION-GROUPING-GUARDED-EXPECT-001 via ASSESSMENT-INVESTIGATION-METHOD-RANK-95E.json"
+        ],
+        "relationship_qualification": "Earlier records retain original revision and attribution. Broader pending questions, older normalized exports and distinct guarded call sites are not global aliases or checkpoint 3821 authority.",
+        "discovery": "partial; all profile producers, bounds, helper callers, source-wide rule inventory and exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-COVERAGE-TRUST-RECOVERED-LOCATOR-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0339.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0344.json"
 }
