@@ -1,0 +1,380 @@
+{
+  "schema": "726-exact-git-tree-path-membership-v1",
+  "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "shared_commit_and_tree_objects": "EQUIPMENT-HISTORICAL-GIT-PROOFS.json",
+  "additional_shared_tree_objects": [
+    "RUNTIME-FIT-HISTORICAL-GIT-PROOFS.json",
+    "MESH-RIG-HISTORICAL-GIT-PROOFS.json",
+    "SLOT-AUDIO-HISTORICAL-GIT-PROOFS.json",
+    "PLAYER-TRACE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-BOUNDARY-HISTORICAL-GIT-PROOFS.json",
+    "CITY-GPU-HISTORICAL-GIT-PROOFS.json",
+    "CITY-STREAMING-HISTORICAL-GIT-PROOFS.json",
+    "CLOUD-HISTORICAL-GIT-PROOFS.json",
+    "GRAPHICS-HISTORICAL-GIT-PROOFS.json",
+    "GENERATION-HISTORICAL-GIT-PROOFS.json",
+    "WORKER-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-HISTORICAL-GIT-PROOFS.json",
+    "GRASS-CHUNK-HISTORICAL-GIT-PROOFS.json",
+    "LITTER-HISTORICAL-GIT-PROOFS.json",
+    "PEBBLE-HISTORICAL-GIT-PROOFS.json",
+    "PLANT-HISTORICAL-GIT-PROOFS.json",
+    "INTERIOR-HISTORICAL-GIT-PROOFS.json",
+    "ROCK-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SHOOT-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SKELETON-HISTORICAL-GIT-PROOFS.json",
+    "TREE-CROWN-HISTORICAL-GIT-PROOFS.json",
+    "TREE-ASSET-HISTORICAL-GIT-PROOFS.json",
+    "TREE-STREAM-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SCENE-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-MAP-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-SURFACE-HISTORICAL-GIT-PROOFS.json",
+    "SKY-TIME-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-LANDFORM-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-CONTACT-HISTORICAL-GIT-PROOFS.json",
+    "VENUE-TERRAIN-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-SELECTED-LOD-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-CARD-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-SURFACE-HISTORICAL-GIT-PROOFS.json",
+    "OWNED-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-ORIGIN-QUALIFICATION-GIT-PROOFS.json",
+    "VISTA-ZERO-RING-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-SAMPLE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-GROUND-WIRE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-TRAFFIC-CONTEXT-HISTORICAL-GIT-PROOFS.json",
+    "ROAD-WEATHER-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-VIEW-RETENTION-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-ADAPTER-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-STATUS-CENSUS-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-CAMERA-LIFECYCLE-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-REPLACEMENT-HISTORICAL-GIT-PROOFS.json",
+    "CAPTURE-PERSISTENCE-HISTORICAL-GIT-PROOFS.json",
+    "LITTER-CLEARANCE-HISTORICAL-GIT-PROOFS.json",
+    "CATALOG-ROW-HISTORICAL-GIT-PROOFS.json",
+    "WEIGH-HOUSE-HISTORICAL-GIT-PROOFS.json",
+    "PLANT-LOD-ROOT-HISTORICAL-GIT-PROOFS.json",
+    "VIEW-SPEC-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-METRIC-HISTORICAL-GIT-PROOFS.json",
+    "SKY-CAPTURE-HISTORICAL-GIT-PROOFS.json",
+    "WHEEL-CURRENT-HISTORICAL-GIT-PROOFS.json",
+    "CALIBRATION-BOUND-HISTORICAL-GIT-PROOFS.json",
+    "ANIMATION-EVALUATION-HISTORICAL-GIT-PROOFS.json",
+    "LANDING-SETTLE-HISTORICAL-GIT-PROOFS.json",
+    "GAIT-PROFILE-HISTORICAL-GIT-PROOFS.json",
+    "PACK-RESPONSE-HISTORICAL-GIT-PROOFS.json",
+    "SEMANTIC-NAMES-HISTORICAL-GIT-PROOFS.json",
+    "ACTION-STATE-HISTORICAL-GIT-PROOFS.json",
+    "TURN-INTENT-HISTORICAL-GIT-PROOFS.json",
+    "HOME-IDENTITY-HISTORICAL-GIT-PROOFS.json",
+    "GATE-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+    "GARDEN-HISTORICAL-GIT-PROOFS.json",
+    "GROUNDING-HISTORICAL-GIT-PROOFS.json",
+    "FOUNDATION-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-CUTFACE-HISTORICAL-GIT-PROOFS.json",
+    "GEOGRAPHY-GRADE-HISTORICAL-GIT-PROOFS.json",
+    "SUPPORT-INTERVAL-HISTORICAL-GIT-PROOFS.json",
+    "SAMPLED-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-FIXTURES-HISTORICAL-GIT-PROOFS.json",
+    "MOVEMENT-REPORT-HISTORICAL-GIT-PROOFS.json",
+    "MARKET-GEOMETRY-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-CONFIG-HISTORICAL-GIT-PROOFS.json",
+    "LANDFORM-BOUNDS-HISTORICAL-GIT-PROOFS.json",
+    "INVENTORY-CACHE-HISTORICAL-GIT-PROOFS.json",
+    "MARCHING-ADMISSION-HISTORICAL-GIT-PROOFS.json",
+    "QUICKSTEP-FORCE-HISTORICAL-GIT-PROOFS.json",
+    "PRONE-EFFORT-HISTORICAL-GIT-PROOFS.json",
+    "CONDITION-REGIONAL-HISTORICAL-GIT-PROOFS.json",
+    "SHORT-ROUTE-HISTORICAL-GIT-PROOFS.json",
+    "GRADE-BOUNDED-HISTORICAL-GIT-PROOFS.json",
+    "URBAN-BUCKET-HISTORICAL-GIT-PROOFS.json",
+    "ROUNDED-POLYGON-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-CARDINALITY-HISTORICAL-GIT-PROOFS.json",
+    "SCENE-WEATHER-HISTORICAL-GIT-PROOFS.json",
+    "FURNITURE-VISTA-HISTORICAL-GIT-PROOFS.json",
+    "INTERIOR-INSTALL-HISTORICAL-GIT-PROOFS.json",
+    "GARDEN-CLEARANCE-HISTORICAL-GIT-PROOFS.json",
+    "RECIPE-ROAD-HISTORICAL-GIT-PROOFS.json",
+    "TRANSITION-VISTA-HISTORICAL-GIT-PROOFS.json",
+    "LANDFORM-OVERLAP-HISTORICAL-GIT-PROOFS.json",
+    "LANDFORM-CODEC-HISTORICAL-GIT-PROOFS.json",
+    "CLIENT-ENDPOINT-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-DIAGNOSTICS-HISTORICAL-GIT-PROOFS.json",
+    "GROUNDING-REPORT-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-STAGE-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-CONTACT-HISTORICAL-GIT-PROOFS.json",
+    "DISPATCHER-HISTORICAL-GIT-PROOFS.json",
+    "SCENE-MATERIALIZATION-HISTORICAL-GIT-PROOFS.json",
+    "GEOLOGY-ESTABLISHMENT-HISTORICAL-GIT-PROOFS.json",
+    "MELEE-REPORT-HISTORICAL-GIT-PROOFS.json",
+    "MELEE-AGGREGATION-HISTORICAL-GIT-PROOFS.json",
+    "BOT-BEHAVIOR-HISTORICAL-GIT-PROOFS.json",
+    "BOT-REACTION-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-BOUNDARY-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-AUTHORITY-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-CONSEQUENCE-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-IMPACT-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-INGRESS-HISTORICAL-GIT-PROOFS.json",
+    "MELEE-LIFECYCLE-HISTORICAL-GIT-PROOFS.json",
+    "GATE-HANDEDNESS-HISTORICAL-GIT-PROOFS.json",
+    "EQUIPMENT-TOPOLOGY-HISTORICAL-GIT-PROOFS.json",
+    "ITERATION-CLOCKS-HISTORICAL-GIT-PROOFS.json",
+    "MISSION-ENROLLMENT-HISTORICAL-GIT-PROOFS.json",
+    "RECONNECT-CONTINUITY-HISTORICAL-GIT-PROOFS.json",
+    "STARTUP-SUBSCRIPTION-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-ADMISSION-HISTORICAL-GIT-PROOFS.json",
+    "WEAPON-CONSTRUCTION-HISTORICAL-GIT-PROOFS.json",
+    "WEAPON-IDENTITY-HISTORICAL-GIT-PROOFS.json",
+    "WEAPON-FRAMES-HISTORICAL-GIT-PROOFS.json",
+    "WEAPON-ORNAMENT-HISTORICAL-GIT-PROOFS.json",
+    "SHIELD-FORGE-HISTORICAL-GIT-PROOFS.json",
+    "PLATE-DIMENSIONS-HISTORICAL-GIT-PROOFS.json",
+    "GUARD-BINDINGS-HISTORICAL-GIT-PROOFS.json",
+    "SHAFT-ADMISSION-HISTORICAL-GIT-PROOFS.json",
+    "MAP-IMPORT-HISTORICAL-GIT-PROOFS.json",
+    "ROAD-BASIS-HISTORICAL-GIT-PROOFS.json",
+    "BESTIARY-HISTORICAL-GIT-PROOFS.json",
+    "CALENDAR-ECONOMY-HISTORICAL-GIT-PROOFS.json",
+    "LANGUAGE-HISTORICAL-GIT-PROOFS.json",
+    "WORLD-SCHEMA-HISTORICAL-GIT-PROOFS.json",
+    "NAME-CATALOG-HISTORICAL-GIT-PROOFS.json"
+  ],
+  "root_tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+  "additional_tree_objects": {
+    "ed4ed53d0e84b5764c431a6dbed3dfc454db1ff8": {
+      "git_object": "ed4ed53d0e84b5764c431a6dbed3dfc454db1ff8",
+      "type": "tree",
+      "sha256": "1b8d0bfa4785c494717b3c106c7e1af0a2c27b4f99f75c6e47d041d5b0ee7f7f",
+      "bytes": 137,
+      "preserved_bytes": "main-advance-95e/armor-construction-evidence/git-objects/ed4ed53d0e84b5764c431a6dbed3dfc454db1ff8.tree.gz"
+    },
+    "16b1519b523bc3b44c11535802232883130f348e": {
+      "git_object": "16b1519b523bc3b44c11535802232883130f348e",
+      "type": "tree",
+      "sha256": "57e370db8c8734fa5fa40cf9a98d9e8199e3d4d904d5aec34957c7c64777f640",
+      "bytes": 242,
+      "preserved_bytes": "main-advance-95e/armor-construction-evidence/git-objects/16b1519b523bc3b44c11535802232883130f348e.tree.gz"
+    },
+    "0704fbf904209aaf30184decacad9e6c425ab597": {
+      "git_object": "0704fbf904209aaf30184decacad9e6c425ab597",
+      "type": "tree",
+      "sha256": "95c96df6b1dae0596fd04291f733e78a3a178850cb44ec14f1715ff9361b7e8d",
+      "bytes": 1876,
+      "preserved_bytes": "main-advance-95e/armor-construction-evidence/git-objects/0704fbf904209aaf30184decacad9e6c425ab597.tree.gz"
+    }
+  },
+  "paths": {
+    "crates/fabelgeist-animation/Cargo.toml": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "fabelgeist-animation",
+          "mode": "40000",
+          "child": "ed4ed53d0e84b5764c431a6dbed3dfc454db1ff8"
+        },
+        {
+          "tree": "ed4ed53d0e84b5764c431a6dbed3dfc454db1ff8",
+          "name": "Cargo.toml",
+          "mode": "100644",
+          "child": "1a658c6476e7758f84b6f8b8d92aac890b9df985"
+        }
+      ],
+      "git_blob": "1a658c6476e7758f84b6f8b8d92aac890b9df985",
+      "sha256": "c2091fc5e4e9c43dc0f1944ead0dfb0a2511a0ad8162fd3d0e7790974e33553f",
+      "bytes": 414,
+      "lines": 18
+    },
+    "crates/fabelgeist-armor/Cargo.toml": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "fabelgeist-armor",
+          "mode": "40000",
+          "child": "16b1519b523bc3b44c11535802232883130f348e"
+        },
+        {
+          "tree": "16b1519b523bc3b44c11535802232883130f348e",
+          "name": "Cargo.toml",
+          "mode": "100644",
+          "child": "286c9b2ab95efb5b08e1185001d97f58b8558cbc"
+        }
+      ],
+      "git_blob": "286c9b2ab95efb5b08e1185001d97f58b8558cbc",
+      "sha256": "c3269a597f4399ec46bb77e79211dbffec578862002f0565cdd74814572a7fd1",
+      "bytes": 914,
+      "lines": 26
+    },
+    "crates/fabelgeist-armor/src/construction.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "fabelgeist-armor",
+          "mode": "40000",
+          "child": "16b1519b523bc3b44c11535802232883130f348e"
+        },
+        {
+          "tree": "16b1519b523bc3b44c11535802232883130f348e",
+          "name": "src",
+          "mode": "40000",
+          "child": "0704fbf904209aaf30184decacad9e6c425ab597"
+        },
+        {
+          "tree": "0704fbf904209aaf30184decacad9e6c425ab597",
+          "name": "construction.rs",
+          "mode": "100644",
+          "child": "13c85082365adf44eabb0503a2de7127ccb9ff7b"
+        }
+      ],
+      "git_blob": "13c85082365adf44eabb0503a2de7127ccb9ff7b",
+      "sha256": "c589129c7386c136feaf7f63fc21ed925f81dd035642ea3dacdc92d054659854",
+      "bytes": 12746,
+      "lines": 374
+    },
+    "crates/fabelgeist-armor/src/design.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "fabelgeist-armor",
+          "mode": "40000",
+          "child": "16b1519b523bc3b44c11535802232883130f348e"
+        },
+        {
+          "tree": "16b1519b523bc3b44c11535802232883130f348e",
+          "name": "src",
+          "mode": "40000",
+          "child": "0704fbf904209aaf30184decacad9e6c425ab597"
+        },
+        {
+          "tree": "0704fbf904209aaf30184decacad9e6c425ab597",
+          "name": "design.rs",
+          "mode": "100644",
+          "child": "0635bb49e0f080be0ba93f75f357e0ad27537b38"
+        }
+      ],
+      "git_blob": "0635bb49e0f080be0ba93f75f357e0ad27537b38",
+      "sha256": "8e37cfc29b43f781bc5f265fc6f263c2625aa32cdffbc21e289268437d772ecb",
+      "bytes": 5702,
+      "lines": 171
+    },
+    "crates/fabelgeist-armor/src/engraving.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "fabelgeist-armor",
+          "mode": "40000",
+          "child": "16b1519b523bc3b44c11535802232883130f348e"
+        },
+        {
+          "tree": "16b1519b523bc3b44c11535802232883130f348e",
+          "name": "src",
+          "mode": "40000",
+          "child": "0704fbf904209aaf30184decacad9e6c425ab597"
+        },
+        {
+          "tree": "0704fbf904209aaf30184decacad9e6c425ab597",
+          "name": "engraving.rs",
+          "mode": "100644",
+          "child": "662a8d4e8f62d50ee7c7bbe74f36111bbeb0512a"
+        }
+      ],
+      "git_blob": "662a8d4e8f62d50ee7c7bbe74f36111bbeb0512a",
+      "sha256": "678b5940a6ed8ab768eee0cefbe366694b743df49a22e6cb75f8d5e55234a005",
+      "bytes": 8903,
+      "lines": 249
+    },
+    "crates/fabelgeist-armor/src/error.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "fabelgeist-armor",
+          "mode": "40000",
+          "child": "16b1519b523bc3b44c11535802232883130f348e"
+        },
+        {
+          "tree": "16b1519b523bc3b44c11535802232883130f348e",
+          "name": "src",
+          "mode": "40000",
+          "child": "0704fbf904209aaf30184decacad9e6c425ab597"
+        },
+        {
+          "tree": "0704fbf904209aaf30184decacad9e6c425ab597",
+          "name": "error.rs",
+          "mode": "100644",
+          "child": "4f83352df678db21eb40ee6558e3a3b40714f029"
+        }
+      ],
+      "git_blob": "4f83352df678db21eb40ee6558e3a3b40714f029",
+      "sha256": "1e14c8d0441364e441ccc57365bdddfe9c895a633be80ce0bdf91c0f45b95b1a",
+      "bytes": 1254,
+      "lines": 40
+    },
+    "crates/fabelgeist-armor/src/frame.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "fabelgeist-armor",
+          "mode": "40000",
+          "child": "16b1519b523bc3b44c11535802232883130f348e"
+        },
+        {
+          "tree": "16b1519b523bc3b44c11535802232883130f348e",
+          "name": "src",
+          "mode": "40000",
+          "child": "0704fbf904209aaf30184decacad9e6c425ab597"
+        },
+        {
+          "tree": "0704fbf904209aaf30184decacad9e6c425ab597",
+          "name": "frame.rs",
+          "mode": "100644",
+          "child": "8651730f84d1486b32d88d94f1c5db6b1a1b4a92"
+        }
+      ],
+      "git_blob": "8651730f84d1486b32d88d94f1c5db6b1a1b4a92",
+      "sha256": "3f26803970af96abe7f16ff9d245230a7718e93f657f8868d605623716356c5e",
+      "bytes": 1498,
+      "lines": 50
+    }
+  },
+  "qualification": "Raw6533 Git path chains bind original2172–2178;2175 differs from95e and is preserved as an independently read source revision."
+}

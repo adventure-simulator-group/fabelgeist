@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-1530.json`).
+2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-1534.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -275,6 +275,8 @@ module composition and evidence state without expanding current coverage.
 face admission, paving support and conditional small-face filtering.
 `ASSESSMENT-VISTA-SURFACE-FRAMES-95E.json` traces conditional owned
 surface origins and sampled-tree seam heights, preserving earlier attribution.
+`ASSESSMENT-ARMOR-CONSTRUCTION-95E.json` connects engraving,
+recorded morph names, plate holes and the changed design type.
 `ASSESSMENT-NAME-CATALOG-95E.json` connects catalog admission,
 name identity and sampling-error ownership.
 `ASSESSMENT-WORLD-SCHEMA-ADMISSION-95E.json` connects offline
