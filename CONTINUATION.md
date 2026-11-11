@@ -188,6 +188,8 @@ are at least 25 ml; no surgery or inventory operation was run.
 `ASSESSMENT-L07-CORPSE-FAMILY-95E.json` follows the earlier family-binding
 question through seeded kin and the outbreak exception. Ordinary player-visible
 reachability and qualifying-family policy remain open.
+`ASSESSMENT-L09-POINT-PREVENTION-95E.json` records the conditional covered-zero
+versus missing-history ambiguity and selected current-minute food/water paths.
 `ASSESSMENT-L05-RUNE-ROUTE-95E.json` traces an earlier no-repeat
 validation gap to the selected view and replay boundaries. The symbolic
 case is not an observed stored puzzle or executed validation.

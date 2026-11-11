@@ -1413,6 +1413,21 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L07-CORPSE-FAMILY-95E.json"
+      },
+      {
+        "id": "REVIEW-POINT-PREVENTION-COVERED-ZERO-001",
+        "lens": 9,
+        "severity": "unassigned; conditional current-source discrepancy and policy",
+        "classification": "conditional covered-zero versus uncovered history state collapsed into a numeric sentinel",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/323",
+          "CHECKPOINT-INCREMENT-348.json#/audit_gate_reconciliation/checkpoint304"
+        ],
+        "relationship_qualification": "Earlier 059 work and later historical summary already raised the covered-zero policy; this current source trace adds a symbolic fractional band and selected current-minute consumers without asserting a new historical unique defect.",
+        "discovery": "partial; native state reachability, prevention policy, full callers and alias inventory remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L09-POINT-PREVENTION-95E.json"
       }
     ]
   },

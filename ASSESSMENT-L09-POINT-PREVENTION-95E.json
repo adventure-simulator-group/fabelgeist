@@ -1,0 +1,321 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 9,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected history coverage state shape, point food/water consumers and symbolic fractional band; enum-shapes and connected-contract lenses remain incomplete.",
+  "source_reasoning": "Static source reading, exact-spelling tracked-source search and elementary arithmetic only; no product function, food, water, reducer, build, test or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/disease.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b3f5435464866afdfb3cb48e059be0251a65408d",
+      "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+      "bytes": 101966,
+      "lines": 2950,
+      "ranges": [
+        [
+          840,
+          979
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/point-prevention-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/disease.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ef1f37d455d1b8b7b7c14ddc8e13ba59960fe8f3",
+      "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "bytes": 125549,
+      "lines": 3842,
+      "ranges": [
+        [
+          385,
+          505
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/point-prevention-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/social.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1fe72b59d2f12138fc8062fe6905d67fa9f536b8",
+      "sha256": "a09342196732b00b8520e9a446aa9fdef60e8fd44a439032ebdadc21e6e8e4c5",
+      "bytes": 134286,
+      "lines": 3800,
+      "ranges": [
+        [
+          1749,
+          1810
+        ],
+        [
+          1891,
+          1964
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/point-prevention-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3c66ffd7534b14a2f9dd6ae977b485b5dd951a09",
+      "sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
+      "bytes": 52793,
+      "lines": 1653,
+      "ranges": [
+        [
+          490,
+          540
+        ],
+        [
+          690,
+          745
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/point-prevention-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/capability.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a647ad16d41bc56abe565e012b17a5ef918a6d66",
+      "sha256": "6e0a321cc3add825f92a96426d7bd4b3af413ad02381e547a2db66fdd8676d82",
+      "bytes": 19356,
+      "lines": 552,
+      "ranges": [
+        [
+          65,
+          100
+        ],
+        [
+          280,
+          330
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/point-prevention-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/skill.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "616d9d164bd04cb8a29b745e1a530540756f9fd7",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "bytes": 41590,
+      "lines": 1165,
+      "ranges": [
+        [
+          1,
+          40
+        ],
+        [
+          690,
+          730
+        ],
+        [
+          740,
+          795
+        ],
+        [
+          1090,
+          1165
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/point-prevention-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/capability.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3836a33875b93975f11f6dfdada4c53a768ce0ea",
+      "sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+      "bytes": 26410,
+      "lines": 694,
+      "ranges": [
+        [
+          70,
+          165
+        ],
+        [
+          200,
+          245
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/point-prevention-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/food/consumption.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "28a834828b3966fd7438565f3866c82ed869a5e3",
+      "sha256": "6774eac9e912e8d500d0d9912545c2051fcc102d969f024be6dd157b22dea910",
+      "bytes": 12553,
+      "lines": 369,
+      "ranges": [
+        [
+          1,
+          200
+        ],
+        [
+          300,
+          369
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/point-prevention-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/outbreak.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3d5f689b2969ef773068129ba65b69b02a062bc1",
+      "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "bytes": 80288,
+      "lines": 2111,
+      "ranges": [
+        [
+          190,
+          295
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/point-prevention-sources/08.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "search_evidence": {
+    "path": "main-advance-95e/point-prevention-callsite-search.txt",
+    "sha256": "7f75a7072e422b8e55adcfe877bf810edcc5af99488a3ae667ad2b8cf700c9e9",
+    "bytes": 714,
+    "query": "git grep two exact point-exposure function spellings at pinned revision under module source",
+    "qualification": "Tracked exact spellings only; indirect, external and differently spelled routes are not excluded."
+  },
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-241.json",
+      "sha256": "99b59e5fbf8b1fc256ff6f84cb2f7d81d3a755a2fbd9c166923840735289a286",
+      "bytes": 28009,
+      "git_blob": "14ebba704af2f67225dd734b852b728d1ab3e3df",
+      "preserved_bytes": "recovered/point-prevention-059/99b59e5fbf8b1fc256ff6f84cb2f7d81d3a755a2fbd9c166923840735289a286.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; retain the delegate attribution and distinct cumulative partial ranges. Not checkpoint 3821 authority."
+    }
+  ],
+  "recovered_historical_support": [
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-243.json",
+      "sha256": "4695633ae1ef7f816444e96628c193b6683cd5aeffe14e5ddaf8257fa22d984e",
+      "bytes": 21945,
+      "git_blob": "cf2a2526091a67d4bdfb4ec63800a1b8c01b8c23",
+      "preserved_bytes": "recovered/point-prevention-059/4695633ae1ef7f816444e96628c193b6683cd5aeffe14e5ddaf8257fa22d984e.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; retain the delegate attribution and distinct cumulative partial ranges. Not checkpoint 3821 authority."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VERIFY-PL13-243.json",
+      "sha256": "6a20e84b4fa2540ddf00fbb649764e57f110b3154133c627bd7a03334c1be27b",
+      "bytes": 1400,
+      "git_blob": "988c91268c87eb9d1e52ee198121853b50fe4f29",
+      "preserved_bytes": "recovered/point-prevention-059/6a20e84b4fa2540ddf00fbb649764e57f110b3154133c627bd7a03334c1be27b.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; retain the delegate attribution and distinct cumulative partial ranges. Not checkpoint 3821 authority."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-239-246-v4.json",
+      "sha256": "a6b705c0bc46f90581d3235cdd55efc1df8971e2b214c55f8fb4c82cb2614843",
+      "bytes": 194776,
+      "git_blob": "19f65f2fe6a3345dc19b1273f06a7841bbe9a3b8",
+      "preserved_bytes": "recovered/point-prevention-059/a6b705c0bc46f90581d3235cdd55efc1df8971e2b214c55f8fb4c82cb2614843.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; retain the delegate attribution and distinct cumulative partial ranges. Not checkpoint 3821 authority."
+    },
+    {
+      "original_path": "parallel-l13-20261029/REGISTRATION-PL13-243.json",
+      "sha256": "b1ac03fb940e2e165f5a19ef779901efa8833c6903b3744aaee2b23986bfdceb",
+      "bytes": 951,
+      "git_blob": "36b4dde3f71d40aa2f0addc8e30408dc8f22da96",
+      "preserved_bytes": "recovered/point-prevention-059/b1ac03fb940e2e165f5a19ef779901efa8833c6903b3744aaee2b23986bfdceb.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; retain the delegate attribution and distinct cumulative partial ranges. Not checkpoint 3821 authority."
+    },
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-243-PARTIAL-001.json",
+      "sha256": "8f9bf53a48475a25987f80b4cecbff5dd5c422092abb4fe6a862be203cfc0ed2",
+      "bytes": 2938,
+      "git_blob": "9e3fbc9feacadef51fbaddce5346060535309596",
+      "preserved_bytes": "recovered/point-prevention-059/8f9bf53a48475a25987f80b4cecbff5dd5c422092abb4fe6a862be203cfc0ed2.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; retain the delegate attribution and distinct cumulative partial ranges. Not checkpoint 3821 authority."
+    },
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-243-PARTIAL-002.json",
+      "sha256": "e32b395ffcad9a18273d60457af5c30a675952a2e224ea9956e4d706a2c9da47",
+      "bytes": 4368,
+      "git_blob": "a131d11e17fc1faf96df8e29f96c9ba77a28a7d6",
+      "preserved_bytes": "recovered/point-prevention-059/e32b395ffcad9a18273d60457af5c30a675952a2e224ea9956e4d706a2c9da47.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; retain the delegate attribution and distinct cumulative partial ranges. Not checkpoint 3821 authority."
+    },
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-243-PARTIAL-003.json",
+      "sha256": "305f113a1d5716478793af6c7f17df9425a6564221d3abf53bd943bf9f18f6f4",
+      "bytes": 5451,
+      "git_blob": "83c747eef63a19e024ded7c18baa8cd28d2644a9",
+      "preserved_bytes": "recovered/point-prevention-059/305f113a1d5716478793af6c7f17df9425a6564221d3abf53bd943bf9f18f6f4.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; retain the delegate attribution and distinct cumulative partial ranges. Not checkpoint 3821 authority."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/323",
+      "qualification": "PL13-243 identified the conditional ambiguity without a historical accepted unique finding."
+    },
+    {
+      "file": "CHECKPOINT-INCREMENT-348.json",
+      "pointer": "/audit_gate_reconciliation/checkpoint304",
+      "qualification": "Historical summary of later conditional source discovery; not a recovered final ledger, queue or independent current assessment."
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 912,
+      "source_id": "pr-working:crates/adventuresim-core/src/disease.rs",
+      "historical_sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-910-916.json",
+      "qualification": "Separately recorded full historical Lens 1 body; no independent-lens or checkpoint 3821 transfer."
+    },
+    {
+      "original_index": 996,
+      "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+      "historical_sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-995-1002.json",
+      "qualification": "Separately recorded full historical Lens 1 body; no independent-lens or checkpoint 3821 transfer."
+    },
+    {
+      "original_index": 1093,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease.rs",
+      "historical_sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1093-1097.json",
+      "qualification": "Separately recorded full historical Lens 1 body; no independent-lens or checkpoint 3821 transfer."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-POINT-PREVENTION-COVERED-ZERO-001",
+      "severity": "unassigned; conditional current-source discrepancy and policy",
+      "classification": "The history query collapses covered zero and missing coverage into the same numeric result, so the point path can use current capability when the documented pinned band is zero.",
+      "trace": "Presence spans retain two rounded physiology bands and their clock-bounded intervals. The historical aggregation filters to contributors covering the queried minute and returns a bare f32; all covered zero bands and an empty contributor set both produce zero. protected_point_exposure selects historical only when it is greater than zero; otherwise it evaluates current character physiology. Its comment says party members use pinned history whenever it covers the action minute. Native food consumption passes its current character minute through expose_food_water_dysentery to this point path; the selected water contribution path also obtains the consumer current minute before the same call.",
+      "conditional_example": "Assume a successful party presence span covers the action minute, both pinned bands are zero, the actor has 500 direct physiology hours, no correlated contributions, sufficient intelligence and full head health. The documented 10000-hour training curve yields 5*500/(500+5000)=5/11, about 0.4545; it rounds to pinned band zero. With a positive unit food-water dose and no unresolved dysentery, the history aggregate is zero but the point path uses the current 5/11. Source arithmetic gives approximately 0.95308 residual instead of 1.0 if covered zero were honored. This is a symbolic state, not an executed case; no actual player, row, dose or infection outcome is established.",
+      "constraints": "A missing history fallback to current capability may be intentional for solo action. The issue is the lost distinction when a span does cover the minute and its pinned result is zero, including non-backdated current-minute callers. Joining peers can create spans, but the simultaneous numerical state, source exposure, chronology and every producer/consumer remain unproven. Positive pinned bands and policy for rounding or gaps remain separate questions; no claim is made about infection probability or a real incident.",
+      "historical_attribution": "Checkpoint 059 PL13-243 identified the zero-versus-no-history ambiguity and left native caller, timing and policy open, with zero accepted unique findings. Original delegate role 1093 read 1–680 then fresh 681–1360, 1361–2040 and 2041–2950; all three distinct partial receipts are retained. A later historical checkpoint 304 summary separately reports conditional source discovery and unverified runtime, without providing the missing final 3821 ledger or queue bytes. The present example is newly reasoned at 95e, not a new historical adoption.",
+      "connected_repair": "After the audit gate, represent the query result as Uncovered or Covered { check }, or an equivalent existing owner, and decide the intended pinned-band versus solo fallback semantics. Preserve valid zero, bounded-span errors, current-minute action semantics, party aggregation, clock limits and the separate interval-prevention behavior. Reconcile all callers and aliases before selecting a repair.",
+      "later_acceptance": "After separately authorized implementation and validation, cover absent history, covered zero, covered positive bands, overlapping contributors, clock-clamped and split spans, current and backdated point actions, food and water consumers, and the interval path. No product validation is performed here.",
+      "discovery": "partial; native state reachability, prevention policy, full callers and alias inventory remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}
