@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+"""Verify preserved evidence, source selectors and explicit rule text only."""
+import gzip,hashlib,json,tarfile
+from pathlib import Path
+r=Path(__file__).resolve().parent;load=lambda p:json.loads((r/p).read_text());sha=lambda b:hashlib.sha256(b).hexdigest();blob=lambda b:hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest();a=load('ASSESSMENT-EXPEDITION-DIALOGUE-RULES-95E.json');h=load('ASSESSMENT-L01-HISTORICAL-1276-1280.json');assert a['source_revision']=='95e63628f9d70b8dd6e6fede64334696c6995009';source={}
+for x in a['current_sources']:
+ raw=gzip.decompress((r/x['preserved_bytes']).read_bytes());assert len(raw)==x['bytes'] and sha(raw)==x['sha256'] and blob(raw)==x['git_blob'] and len(raw.splitlines())==x['lines'];assert all(1<=lo<=hi<=x['lines'] for lo,hi in x['ranges']);source[x['path']]=raw
+base='crates/adventuresim-strategic-sim/src/live_core/';exp=source[base+'expedition.rs'];start=b'fn surrender_affordable_authority_arrest';wrong=b'fn return_idle_ready_party_from_case_site';end=b'pub(super) fn recover_or_evacuate_off_settlement';tail=exp.split(start,1)[1];assert wrong not in tail;selected=tail.split(wrong,1)[0];correct=tail.split(end,1)[0];e=a['source_selector_evidence'];assert len(selected)==e['selected_tail_bytes'] and sha(selected)==e['selected_tail_sha256'] and len(correct)==e['surrender_only_tail_bytes'] and sha(correct)==e['surrender_only_tail_sha256'];assert selected.count(b'self.call(result)?')==2 and correct.count(b'self.call(result)?')==1
+assert b'.split("fn return_idle_ready_party_from_case_site").next()' in source[base+'tests/recovery_and_cases.rs']
+generated=source[base+'generated_cases.rs'];discovery=source[base+'discovery_policy.rs'];assert b"topics: &'a [GeneratedDialogueTopic]" in generated and b'topic_id: topic.stable_id().to_owned()' in generated and b'topic_id: topic_id.clone()' in generated and b'.insert(attempt_key, public_before)' in generated;assert b'pub(super) topic_id: String' in discovery and b'pub(super) enum GeneratedDialogueTopic' in discovery
+fixture=source[base+'fixture_policy.rs'];boot=source[base+'bootstrap.rs'];rules=source['crates/AGENTS.md'];assert fixture.count(b'.expect(')==2 and boot.count(b'.expect(')==6 and boot.count(b'.unwrap(')==4 and b'Never use `unwrap` or `expect` outside tests.' in rules
+archive=tarfile.open(r/'recovered/original-registry-source-archive/objects.tar.gz','r:gz');roles=load('COVERAGE-L01-ROLES.json')['roles'];assert [x['original_index'] for x in h['historical_source_roles']]==list(range(1276,1281))
+for x in h['historical_source_roles']:
+ raw=archive.extractfile(x['sha256']).read();assert sha(raw)==x['sha256'] and len(raw.splitlines())==x['lines'] and x['new_personal_read_ranges']==[[1,x['lines']]];assert roles[x['original_index']]['historical_assessment']=='ASSESSMENT-L01-HISTORICAL-1276-1280.json'
+assert all(x['original_index'] != 1281 for x in h['historical_source_roles'])
+manifest=json.loads(gzip.decompress((r/'recovered/original-transport-manifest.json.gz').read_bytes()));lookup={x['path']:x for x in manifest['entries']};records={}
+for x in a['recovered_historical_records']:
+ m=lookup[x['original_path']];assert x['sha256']==m['sha256'] and x['bytes']==m['bytes'] and x['git_blob']==m['git_blob'];raw=gzip.decompress((r/x['preserved_bytes']).read_bytes());assert sha(raw)==x['published_sha256'] and len(raw)==x['published_bytes'];assert x['redacted_local_path_occurrences'] or (sha(raw)==x['sha256'] and blob(raw)==x['git_blob']);records[x['original_path']]=json.loads(raw)
+for n,span in [(1,[1,600]),(2,[601,1200]),(3,[1201,1800]),(4,[1801,2400])]:assert records[f'segovb/PARTIAL-L12-336-{n:03d}.json']['fresh_personal_body_reads']==[span]
+corrected=records['segovb/PARTIAL-L12-336-005-EOF-CORRECTED.json'];original=records['segovb/PARTIAL-L12-336-005-EOF.json'];assert corrected['fresh_personal_body_reads']==[[2401,2736]] and corrected['metadata_correction']['no_additional_read_credit'] is True and corrected['metadata_correction']['original_receipt_sha256']==lookup['segovb/PARTIAL-L12-336-005-EOF.json']['sha256'];assert original['fresh_personal_body_reads']==[[2401,2736]]
+q=load('RECONCILIATION-059.json')['entries']
+for i,ident in [(252,'SEGOVB-L12-DIALOGUE-TOPIC-PRIVATE-ATTEMPT-KEY-TEXT'),(253,'SEGOVB-L12-SURRENDER-SOURCE-TEST-END-MARKER')]:assert q[i]['contract_id']==ident and q[i]['current_reconciliation'].startswith('partial ')
+b=load('BASELINE-95E-20261110.json');assert all(sum(x['id']==c['id'] for x in b['newly_assessed_ledger']['entries'])==1 for c in a['candidates']);p=load('CONTINUATION-PROGRESS-95E.json');assert p['lenses_complete']==0 and p['new_current_ledger_candidates']==len(b['newly_assessed_ledger']['entries'])
+print('Verified five historical bodies, corrected and original partials, rule text and static selector; no product execution.')
