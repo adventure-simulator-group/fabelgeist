@@ -181,6 +181,9 @@ from 95e; the newer fraction operations are not covered by that read. Build
 and test source was inspected only.
 `ASSESSMENT-L01-HISTORICAL-1031-1040.json` preserves dialogue and plant
 generator source reads. Test source was inspected only.
+`ASSESSMENT-L05-RUNE-ROUTE-95E.json` traces an earlier no-repeat
+validation gap to the selected view and replay boundaries. The symbolic
+case is not an observed stored puzzle or executed validation.
 `ASSESSMENT-L07-LEAF-ROUGHNESS-95E.json` traces a previously noted
 unused roughness lane from forest-floor material to the separate texture
 input selected by the shader. Actual appearance and policy remain open.
@@ -194,6 +197,8 @@ inspected current equal-priority groups use disjoint fact values.
 and mesh source reads. Test source was inspected only.
 `ASSESSMENT-L01-HISTORICAL-1051-1060.json` preserves plant viewer,
 tree material shader and puzzle module source reads. No viewer or shader ran.
+`ASSESSMENT-L01-HISTORICAL-1061-1070.json` preserves puzzle and generated
+client binding source reads. No product code or binding generator ran.
 `ASSESSMENT-L05-SCHEDULE-AGGREGATE-95E.json` records a possible schedule
 aggregate strengthening. Both selected production callers supply matching
 organization minutes; no invalid native schedule was established.

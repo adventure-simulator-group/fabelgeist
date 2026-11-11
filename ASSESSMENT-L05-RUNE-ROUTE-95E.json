@@ -1,0 +1,236 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 5,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected rune route/spec aggregate, validation, generation, view and replay boundaries with separately attributed historical records. The aggregate lens remains incomplete.",
+  "source_reasoning": "Static source reading, source-derived symbolic example and historical evidence recovery only; no puzzle, validator, parser, reducer, build, test or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-puzzles/src/puzzles.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "44ba937b34d18e159a4606047c82e240c754004a",
+      "sha256": "e3eb46b050e02df31df84a6d18ded142d748383d0e9611c55bc720d086bbbfbe",
+      "bytes": 41726,
+      "lines": 1131,
+      "ranges": [
+        [
+          1,
+          1131
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rune-route-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-puzzles/src/choices/sigil.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0febe869901631fe6ddb2ef7fc99c6267d406bfd",
+      "sha256": "938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+      "bytes": 2350,
+      "lines": 83,
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rune-route-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3de0a089cd58fd01543c11356902225b66b2ad41",
+      "sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "bytes": 112976,
+      "lines": 2815,
+      "ranges": [
+        [
+          390,
+          430
+        ],
+        [
+          1380,
+          1430
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rune-route-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-puzzles/src/bin/puzzle-lab.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "86cdf549275d368718a3329c1317491649adc4da",
+      "sha256": "0187e3c50a2dd08060a18e1e68f8689213535c2a5e1658b1e322283e0da1503b",
+      "bytes": 20316,
+      "lines": 569,
+      "ranges": [
+        [
+          320,
+          350
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rune-route-sources/03.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "search_evidence": {
+    "path": "main-advance-95e/rune-route-search.txt",
+    "sha256": "3cab483b6a95747694ff9fce7811772e733e730b6bcc88408e76ebdc069d252c",
+    "bytes": 1164,
+    "query": "git grep -n -F allow_repeated_route_gates at the pinned revision under crates",
+    "qualification": "Exact tracked spelling only; aliases, indirect consumers and external callers remain open."
+  },
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L11-460.json",
+      "sha256": "04a8485a8c75aac4059a0bf4bd7cfcd8fb5f27c29d53e66d2ab87b35de7b256f",
+      "bytes": 6630,
+      "git_blob": "7ffca522a6accc23c29075635aed0670e3f8adfc",
+      "preserved_bytes": "recovered/rune-route-059/04a8485a8c75aac4059a0bf4bd7cfcd8fb5f27c29d53e66d2ab87b35de7b256f.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; retain original revision, partial ranges and reader attribution, with no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-229.json",
+      "sha256": "c89e99122df6d00601d61ee15b73adeb876be960263b13def8d8a9dab8e57c44",
+      "bytes": 13993,
+      "git_blob": "e7f6203a697339789c8d55ca0f06b67cfbe5aa14",
+      "preserved_bytes": "recovered/rune-route-059/c89e99122df6d00601d61ee15b73adeb876be960263b13def8d8a9dab8e57c44.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; retain original revision, partial ranges and reader attribution, with no checkpoint 3821 transfer."
+    }
+  ],
+  "recovered_historical_support": [
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-1754.json",
+      "sha256": "5c7afc14801385474b1484e54575607207296471435b2e76ee78c1751ff55bbc",
+      "bytes": 728,
+      "git_blob": "ba83d3eab625e7abdf5325df596ce2f77f19e6b9",
+      "preserved_bytes": "recovered/rune-route-059/5c7afc14801385474b1484e54575607207296471435b2e76ee78c1751ff55bbc.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; retain original revision, partial ranges and reader attribution, with no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-1755.json",
+      "sha256": "190b0c23585e88c91d6fa247ef62f4640750188ec8c6671174ef793dcd34b8a9",
+      "bytes": 733,
+      "git_blob": "415ecfd5543b373d41b86ed51ba247c734f6919b",
+      "preserved_bytes": "recovered/rune-route-059/190b0c23585e88c91d6fa247ef62f4640750188ec8c6671174ef793dcd34b8a9.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; retain original revision, partial ranges and reader attribution, with no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-1756.json",
+      "sha256": "3746a30168c296891d5455998b207152e3c54df96c6eb96f6bd04638ca32d0c1",
+      "bytes": 751,
+      "git_blob": "16f374b7c40ab94a0ff7cee623a5df1737e39ba3",
+      "preserved_bytes": "recovered/rune-route-059/3746a30168c296891d5455998b207152e3c54df96c6eb96f6bd04638ca32d0c1.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; retain original revision, partial ranges and reader attribution, with no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-231.json",
+      "sha256": "f8abfffb66918bc7060767f6676b8d2d8f5300842cca096838a74e2b6a2292d6",
+      "bytes": 8095,
+      "git_blob": "dca35d7c7f3fca326c042d0e61f2371e5b668f76",
+      "preserved_bytes": "recovered/rune-route-059/f8abfffb66918bc7060767f6676b8d2d8f5300842cca096838a74e2b6a2292d6.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; retain original revision, partial ranges and reader attribution, with no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VERIFY-PL13-231.json",
+      "sha256": "039d0fb343b866052704fb15ac486aae42b079ec4490d721f78b21a3c997b28b",
+      "bytes": 628,
+      "git_blob": "3329a92815764636056b73aadf887557adb45b99",
+      "preserved_bytes": "recovered/rune-route-059/039d0fb343b866052704fb15ac486aae42b079ec4490d721f78b21a3c997b28b.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; retain original revision, partial ranges and reader attribution, with no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-230-232.json",
+      "sha256": "3e8d3730a5dc871a92c714943abad40a15871e12f34648f05d5894f990eb4442",
+      "bytes": 12843,
+      "git_blob": "60de262c90850dbda416b96038bcdcf88ad9bc2b",
+      "preserved_bytes": "recovered/rune-route-059/3e8d3730a5dc871a92c714943abad40a15871e12f34648f05d5894f990eb4442.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; retain original revision, partial ranges and reader attribution, with no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/REGISTRATION-PL13-231.json",
+      "sha256": "5a05b8b9ca6c9afcfab02c33c35225a31ca0e21624ad15923c32d423501e1cea",
+      "bytes": 2465,
+      "git_blob": "a182624b42d267263694405655588fcf4cc3c9dd",
+      "preserved_bytes": "recovered/rune-route-059/5a05b8b9ca6c9afcfab02c33c35225a31ca0e21624ad15923c32d423501e1cea.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; retain original revision, partial ranges and reader attribution, with no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-231-PARTIAL-001.json",
+      "sha256": "0f8be43def9b3aeac07a028b3486d9d19187722f13683476b4299064a1362cc7",
+      "bytes": 1956,
+      "git_blob": "24c983fd5f965863651d277152b5626f75d6e33b",
+      "preserved_bytes": "recovered/rune-route-059/0f8be43def9b3aeac07a028b3486d9d19187722f13683476b4299064a1362cc7.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; retain original revision, partial ranges and reader attribution, with no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-231-PARTIAL-002.json",
+      "sha256": "affbdb4e183c941f235d4213f9629664a9d0e3f769712d68496d3010e0dc6870",
+      "bytes": 2005,
+      "git_blob": "61ba1402934aa96c07a039998d00554a846309a4",
+      "preserved_bytes": "recovered/rune-route-059/affbdb4e183c941f235d4213f9629664a9d0e3f769712d68496d3010e0dc6870.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; retain original revision, partial ranges and reader attribution, with no checkpoint 3821 transfer."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/discovery_receipts/65",
+      "qualification": "L11 batch 460 personally assessed physical-p16 puzzle lines 1–944 of 1131 and already identified the route-repeat flag question; zero accepted unique findings."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/313",
+      "qualification": "PL13-231 independently observed weaker validation and left native replay/projection pending; preserve partial-read attribution and zero accepted unique findings."
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 1063,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/puzzles.rs",
+      "historical_sha256": "e3eb46b050e02df31df84a6d18ded142d748383d0e9611c55bc720d086bbbfbe",
+      "role_status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1061-1070.json",
+      "qualification": "Separate registered source identity; byte equality does not transfer the personally read pr-working body to the physical-p16 role or to the historical readers."
+    },
+    {
+      "original_index": 2833,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/puzzles.rs",
+      "historical_sha256": "e3eb46b050e02df31df84a6d18ded142d748383d0e9611c55bc720d086bbbfbe",
+      "role_status": "bounded-current-trace-only",
+      "historical_assessment": null,
+      "qualification": "Separate registered source identity; byte equality does not transfer the personally read pr-working body to the physical-p16 role or to the historical readers."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-RUNE-ROUTE-ADMISSION-001",
+      "severity": "unassigned; source-established representable non-repeating-route policy violation, actual stored incidence unproved",
+      "classification": "Rune authority validation does not enforce the no-repeated-gates policy that generation obeys.",
+      "trace": "RuneTransformationSpec permits allow_repeated_route_gates=false when route_length does not exceed gate_count. Generation shuffles the distinct active gates and takes the requested length in that mode. The public serializable RuneTransformationPuzzle carries the spec and route separately. Its validate checks the spec, dimensions, known route gates, the computed solution and each gate’s example proof, but does not compare route uniqueness to the flag.",
+      "conditional_counterexample": "Symbolically choose rules version 4; gate_count=2, route_length=2, examples_per_gate=1, minimum_single_example_candidates=1, allow_repeated_operations=false and allow_repeated_route_gates=false. Give Ash the Crown–Hart exchange and Briar the Hart–Moon exchange, with respective examples Crown→Hart and Hart→Moon. Each example uniquely identifies its law among the five operations. With query Crown, route [Ash, Ash] and solution Crown, the two exchanges return Crown, both route gates are known, and all selected length and example checks are satisfied even though the route repeats. This is source reasoning, not an executed puzzle, validator, parser or test.",
+      "native_and_replay_scope": "The selected backend challenge view deserializes stored puzzle authority, calls validate and projects it without a replay comparison. The selected challenge submission reducer validates, regenerates from seed and spec, and rejects a replay mismatch; the selected puzzle-lab Replay command likewise validates then compares replay. A malformed stored example satisfying the other view guards could therefore pass the selected validate-only projection path, while the inspected submission path would reject its repeated route. No such stored record, client event or player-visible incident is established.",
+      "historical_attribution": "Checkpoint 059 L11 batch 460 already described the same repeat-flag gap for physical-p16 source, reading only lines 1–944 of the 1131-line puzzle source. The separate PL13-231 delegate also identified the gap and left native replay and projection pending, accepting zero unique findings. Its cumulative partials record 1–460 and 1–920; the final union assigns fresh 461–920 and 921–1131 to that reader. The exact adoption, partials and direct registration/verification support retain those distinctions; none is promoted to checkpoint 3821.",
+      "safeguards_and_limits": "Generation honors the flag, and the inspected submission and CLI replay guards compare regenerated authority. A data-repair, corruption or external input path that persists the symbolic case was not established. Repeated gates are legitimate when the flag is true; the separate allow_repeated_operations policy and duplicate-law questions remain independently open.",
+      "connected_repair": "Make the authoritative aggregate enforce its generation spec on every accepted construction and deserialization path, including route uniqueness when repetition is disabled, and reconcile validate-only projection with deterministic replay and persisted authority. Preserve valid repeated routes when enabled, distinct operation policy and existing revision/authorization checks; identify all writers before changing the boundary.",
+      "later_acceptance": "Only after separate authorization for implementation and product validation, cover the symbolic two-gate counterexample, valid repeated and non-repeated modes, generated replay, distinct-operation policy, gateway projection and submission revision/replay behavior.",
+      "discovery": "partial; persisted authority provenance, all constructors and readers, other rune invariants and historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}
