@@ -1,0 +1,933 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    6,
+    7,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected simulator travel provisioning, carried stack and native physical custody/food boundaries; source inspection only.",
+  "source_reasoning": "Pinned source inspection, catalog parsing and symbolic arithmetic only. Tests, reducers, compiler, simulation, database and product runtime were not executed.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/tests/travel.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8942117411494d865e3432bbe185c319ee088211",
+      "sha256": "326a11e035cf162c0e62df1b3c5e6dedeb0df33f7186237238c1a40e2441eeb4",
+      "bytes": 37116,
+      "lines": 957,
+      "ranges": [
+        [
+          1,
+          957
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/00.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/thermal_projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "70352ff68b8563b6c4db55252799949a7f458286",
+      "sha256": "b1ad1a9d5dee6a7f75cb4b9fa78ab15e596d4a30a536f7781bba38550bc3b3b4",
+      "bytes": 12059,
+      "lines": 343,
+      "ranges": [
+        [
+          1,
+          343
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/01.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/travel.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "444fae6cd3e5e14a83eab832d06fc0af03c6ac1f",
+      "sha256": "0eaf9c6a3df7a4747e94074b13f2712ff14106e8e8dc1570937a613eb64ae881",
+      "bytes": 70881,
+      "lines": 1587,
+      "ranges": [
+        [
+          1,
+          1587
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/02.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/survival.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "131df694f5c1d05161ba0205938704f61e18cc3a",
+      "sha256": "9b69053053efb67e000a8aeafdaf2b7a89678136f4459cf592a6e7e9f391e1ad",
+      "bytes": 115819,
+      "lines": 2550,
+      "ranges": [
+        [
+          1,
+          2550
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/03.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/departure_policy.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9f1815b1cb620ee633a9b360c38b9a6567985872",
+      "sha256": "1859c9e05a96c7365a50d26980e7a2dfbdf5040106f5aa5131b56b86005d9596",
+      "bytes": 7774,
+      "lines": 204,
+      "ranges": [
+        [
+          1,
+          10
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/04.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "643d744a82700c81d6f10c659269d9f345423fef",
+      "sha256": "e58eadc935d9bd93c40262b170bc85c9e2d26c0b42ee490e882e0dd96f65be55",
+      "bytes": 58364,
+      "lines": 1325,
+      "ranges": [
+        [
+          220,
+          235
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/05.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/item.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa",
+      "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "bytes": 34605,
+      "lines": 957,
+      "ranges": [
+        [
+          40,
+          58
+        ],
+        [
+          77,
+          92
+        ],
+        [
+          140,
+          173
+        ],
+        [
+          182,
+          190
+        ],
+        [
+          261,
+          279
+        ],
+        [
+          322,
+          404
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/06.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "358fb3e0656253372229a74997eaee186fdf9ecf",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "bytes": 7706,
+      "lines": 241,
+      "ranges": [
+        [
+          10,
+          11
+        ],
+        [
+          33,
+          47
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/07.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "80bf707f3d64af1fe32e630ff811e7b1fe790957",
+      "sha256": "572d3f806ee5f017d597ba5041922e8efc94056e40b22c69a2d9251cebe1c765",
+      "bytes": 50615,
+      "lines": 1430,
+      "ranges": [
+        [
+          34,
+          51
+        ],
+        [
+          86,
+          110
+        ],
+        [
+          124,
+          152
+        ],
+        [
+          314,
+          347
+        ],
+        [
+          1258,
+          1330
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/08.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_container/object_lookup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6392be9abac49ce8f6bfe66aa11bb9964c14b7ce",
+      "sha256": "d3fa07b94a49cbd1c54ba90e00a9e76cad9b757990279309e2abf171466ac28a",
+      "bytes": 1987,
+      "lines": 56,
+      "ranges": [
+        [
+          10,
+          55
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/09.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "aa78704d023b241beb26434ade1efa48be43adf5",
+      "sha256": "1f6a584fc834b98fd0a39dee168f5b8c461518b712f56906a9de26bd44fe192e",
+      "bytes": 1763,
+      "lines": 41,
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/capability.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3836a33875b93975f11f6dfdada4c53a768ce0ea",
+      "sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+      "bytes": 26410,
+      "lines": 694,
+      "ranges": [
+        [
+          366,
+          380
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5940310a9bf4b0b9cfb4b400f34ec2418f08c99b",
+      "sha256": "0366036a85f92aec26b1e205aa69edeb41afe565c118d2d5335e5cbb2ee4e983",
+      "bytes": 15554,
+      "lines": 445,
+      "ranges": [
+        [
+          362,
+          390
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "56c79313e6fdf736f5f00f2971e8537edc88433d",
+      "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+      "bytes": 120281,
+      "lines": 3250,
+      "ranges": [
+        [
+          481,
+          560
+        ],
+        [
+          2906,
+          2955
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-core/src/starting_character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "552ccde3ca27d125ef75b3609a3bd3bb76d5db83",
+      "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+      "bytes": 70536,
+      "lines": 1936,
+      "ranges": [
+        [
+          1212,
+          1231
+        ],
+        [
+          1254,
+          1270
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+      "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "bytes": 138251,
+      "lines": 3968,
+      "ranges": [
+        [
+          2542,
+          2565
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-core/src/food.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1b8f2794a247f5b894ee708ca699162f08c3d012",
+      "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "bytes": 30041,
+      "lines": 848,
+      "ranges": [
+        [
+          265,
+          271
+        ],
+        [
+          286,
+          292
+        ],
+        [
+          309,
+          311
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/16.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b52bdfb043c8018a2c24c8d3355d16aea1748215",
+      "sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+      "bytes": 18941,
+      "lines": 614,
+      "ranges": [
+        [
+          22,
+          40
+        ],
+        [
+          490,
+          496
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/17.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "content/items/catalog.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "047ffe1d42128b056f5c1b97106a7ed23d26263f",
+      "sha256": "2be8ff76fb41fc3e7872a3006e3f6201722bfd2c1ca372c4397db465a5772c50",
+      "bytes": 221503,
+      "lines": 9828,
+      "ranges": [
+        [
+          693,
+          707
+        ],
+        [
+          1543,
+          1570
+        ],
+        [
+          6258,
+          6292
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/18.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/catalog.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1b038461f411ea5c0cd39b2149bf724495835394",
+      "sha256": "0f579abd98b3de2924ebba3a1addc74b37c30c098af4667ae23b6fdaaef398e2",
+      "bytes": 3860,
+      "lines": 131,
+      "ranges": [
+        [
+          74,
+          87
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/19.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/catalog/gameplay.json",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "050bb9a29a383a8d252d0d9223076710a6d150b5",
+      "sha256": "96dcb74c27c773f57fe1eae324bf2dfa054191f4bff01a3c7a8fc2d208fdcc7c",
+      "bytes": 63906,
+      "lines": 2904,
+      "ranges": [
+        [
+          1,
+          1
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/20.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only the catalog_id keys were mechanically parsed to establish absence of arrow; this is not a personal full-body read or semantic audit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5c1f80f39e3233d3912f08168baf1dffae3429d0",
+      "sha256": "91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+      "bytes": 25553,
+      "lines": 656,
+      "ranges": [
+        [
+          81,
+          101
+        ],
+        [
+          329,
+          355
+        ],
+        [
+          494,
+          501
+        ],
+        [
+          508,
+          566
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/21.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/food/consumption.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "28a834828b3966fd7438565f3866c82ed869a5e3",
+      "sha256": "6774eac9e912e8d500d0d9912545c2051fcc102d969f024be6dd157b22dea910",
+      "bytes": 12553,
+      "lines": 369,
+      "ranges": [
+        [
+          198,
+          228
+        ],
+        [
+          309,
+          340
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/22.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9b3721a9f00be8183915424b975aba69c9eda0ac",
+      "sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "bytes": 18640,
+      "lines": 534,
+      "ranges": [
+        [
+          60,
+          93
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/23.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/condition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bdc470d795940aee28e60528b56120a9e09ba232",
+      "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "bytes": 92654,
+      "lines": 2627,
+      "ranges": [
+        [
+          622,
+          635
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/24.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "752847f13a84a9a9a3f561341a2f230636c7e374",
+      "sha256": "ff33eb4a42abbfa737b312019fdfc7c457688d66bd84fb81af2364ed30fa9cfe",
+      "bytes": 39483,
+      "lines": 1029,
+      "ranges": [
+        [
+          130,
+          191
+        ],
+        [
+          280,
+          294
+        ],
+        [
+          870,
+          905
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/25.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-core/src/equipment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "72e2ee49455fc5f6845a13dfefa1a74531afeb44",
+      "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "bytes": 39225,
+      "lines": 1182,
+      "ranges": [
+        [
+          519,
+          528
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/26.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    },
+    {
+      "path": "crates/adventuresim-core/src/provisioning.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b0ded54e12cc15597c59c2574939823b76a83834",
+      "sha256": "438b45a44c51026e751788a6ef9da9c40ee88ae53eac79a64ca0845d5170cd68",
+      "bytes": 4242,
+      "lines": 118,
+      "ranges": [
+        [
+          14,
+          69
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-custody-evidence/27.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges or explicitly named catalog entries support bounded reasoning; no product code or tests executed."
+    }
+  ],
+  "catalog_facts": {
+    "arrow": {
+      "mass_kg": 0.05,
+      "kind": "simple",
+      "authored_equipment_or_capabilities": false,
+      "hypothetical_quantity": 24,
+      "hypothetical_mass_kg": 1.2
+    },
+    "pan_capacity_ml": 2500,
+    "ration_exterior_ml": 813,
+    "ration_kcal": 2500,
+    "qualification": "Catalog evidence and arithmetic; no actual stock, nesting, accepted operation, departure or readiness crossing is asserted."
+  },
+  "safeguards": [
+    "The public source subscribes to inventory objects and containment; its current carried-load helper follows parent edges and rejects a fireplace root, cycle, missing object or duplicate match. The newly assessed problem is that a valid objectless fungible stack is currently grouped with the missing-object case.",
+    "The selected native current journey camp continuation checks for and rejects occupied fireplace stations before breaking that camp. Settlement fireplace placement is a separate source path and its full departure lifecycle is not established by the camp guard.",
+    "The travel test labels five resolved encounter choices against one identical post-state fixture; it does not execute five native encounter paths. Its travel_camps to continue_public_active_journey selector has both ordered markers in the reconstructed pinned source; substring assertions still do not prove all causal paths.",
+    "Thermal projection rejects truncated, zero-total or over-60-day itinerary forecasts, uses a deliberately zero weatherproofing input and carries state between its selected legs. Zero-duration stationary projection and sentinel representation retain their earlier open policy and valid-admission questions."
+  ],
+  "historical_records": [
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1295-1297.json",
+      "qualification": "Three new personal historical source reads and earlier independent full/partial receipts."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1086",
+        "/entries/1087",
+        "/entries/1089"
+      ],
+      "qualification": "Earlier broad travel, thermal and provisioning obligations remain partial and keep original attribution."
+    },
+    {
+      "file": "ASSESSMENT-L01-TRAVEL-WATER-FORECAST-95E.json",
+      "qualification": "Distinct earlier web and simulator post-refill water-capacity question; no automatic alias."
+    },
+    {
+      "file": "ASSESSMENT-SIM-JOURNEY-MASS-95E.json",
+      "qualification": "Distinct instance-mass authority question; no automatic alias."
+    },
+    {
+      "file": "ASSESSMENT-L01-STACK-MASS-95E.json",
+      "qualification": "Distinct tactical receiver stack aggregation; no automatic alias."
+    },
+    {
+      "file": "ASSESSMENT-SOURCE-ASSERTIONS-95E.json",
+      "qualification": "Exact concatenated source bytes and tree-bound segments; mechanically assembled bytes give no automatic body-read credit."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PARTIAL-L12-349-001.json",
+      "sha256": "2e779fcd29664a650323480b9d7152d53fc200727ebdf7561ea3276ba85af0aa",
+      "bytes": 5345,
+      "git_blob": "df164814e36e44cac72fd3b5b767c8398f29c292",
+      "preserved_bytes": "recovered/travel-custody-059/2e779fcd29664a650323480b9d7152d53fc200727ebdf7561ea3276ba85af0aa.gz",
+      "published_sha256": "2e779fcd29664a650323480b9d7152d53fc200727ebdf7561ea3276ba85af0aa",
+      "published_bytes": 5345,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individual qualified partial read"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual partial unread tails and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-349-002.json",
+      "sha256": "883e012cd14d868841c30ca26d6ca44658f5c73f25dd430d9435c67c729f6c11",
+      "bytes": 6115,
+      "git_blob": "170675b31e8df65e9b379e75c4471f0f46cd0e14",
+      "preserved_bytes": "recovered/travel-custody-059/883e012cd14d868841c30ca26d6ca44658f5c73f25dd430d9435c67c729f6c11.gz",
+      "published_sha256": "883e012cd14d868841c30ca26d6ca44658f5c73f25dd430d9435c67c729f6c11",
+      "published_bytes": 6115,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individual qualified partial read"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual partial unread tails and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-349-003-EOF.json",
+      "sha256": "1405e99c95ec3bf9c8240be90cf5651ac4e51e2b43c1623ee2b5b02dcbc60fd4",
+      "bytes": 5110,
+      "git_blob": "dd8a0375f844ea28660709a17b1a7976659172a3",
+      "preserved_bytes": "recovered/travel-custody-059/1405e99c95ec3bf9c8240be90cf5651ac4e51e2b43c1623ee2b5b02dcbc60fd4.gz",
+      "published_sha256": "1405e99c95ec3bf9c8240be90cf5651ac4e51e2b43c1623ee2b5b02dcbc60fd4",
+      "published_bytes": 5110,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individual qualified partial read"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual partial unread tails and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-347.json",
+      "sha256": "8727e8f4715a5689363f932a5a8491898ab6645a6cb8ea996401ecc1f5f305e4",
+      "bytes": 723,
+      "git_blob": "4ece643627517416fa12b9a92325b0cae66dd3f3",
+      "preserved_bytes": "recovered/travel-custody-059/8727e8f4715a5689363f932a5a8491898ab6645a6cb8ea996401ecc1f5f305e4.gz",
+      "published_sha256": "8727e8f4715a5689363f932a5a8491898ab6645a6cb8ea996401ecc1f5f305e4",
+      "published_bytes": 723,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual partial unread tails and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-348.json",
+      "sha256": "4e09e454fcb13b4bc39f49422c108b116c000818d3028f5d81d4ee91d674a425",
+      "bytes": 729,
+      "git_blob": "19a7a59cd731497dd0f2895f73df1fa7fc95d7d0",
+      "preserved_bytes": "recovered/travel-custody-059/4e09e454fcb13b4bc39f49422c108b116c000818d3028f5d81d4ee91d674a425.gz",
+      "published_sha256": "4e09e454fcb13b4bc39f49422c108b116c000818d3028f5d81d4ee91d674a425",
+      "published_bytes": 729,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual partial unread tails and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-349.json",
+      "sha256": "582c101198c610653b9f9a4750c9407a415fe5b6fa0d65be0ac34ba7db87c379",
+      "bytes": 719,
+      "git_blob": "942f18aa0c3326d9c43ae16e5480dd55e1d0b421",
+      "preserved_bytes": "recovered/travel-custody-059/582c101198c610653b9f9a4750c9407a415fe5b6fa0d65be0ac34ba7db87c379.gz",
+      "published_sha256": "582c101198c610653b9f9a4750c9407a415fe5b6fa0d65be0ac34ba7db87c379",
+      "published_bytes": 719,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual partial unread tails and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-347.json",
+      "sha256": "36fb1acce6d3b141b487a09c40cec65a5f0f9934f0acdd7376fd6fb11dd026db",
+      "bytes": 6298,
+      "git_blob": "d05455e42eb840abda97f569d3a63ead5d278613",
+      "preserved_bytes": "recovered/travel-custody-059/36fb1acce6d3b141b487a09c40cec65a5f0f9934f0acdd7376fd6fb11dd026db.gz",
+      "published_sha256": "36fb1acce6d3b141b487a09c40cec65a5f0f9934f0acdd7376fd6fb11dd026db",
+      "published_bytes": 6298,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual partial unread tails and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-348.json",
+      "sha256": "c4ddd2009fbd75ebef4f33d86c0c9ed7d4635061cd54209e074ec45776fe7214",
+      "bytes": 6409,
+      "git_blob": "56eb9e78aef779a02877539247d154469bc65550",
+      "preserved_bytes": "recovered/travel-custody-059/c4ddd2009fbd75ebef4f33d86c0c9ed7d4635061cd54209e074ec45776fe7214.gz",
+      "published_sha256": "c4ddd2009fbd75ebef4f33d86c0c9ed7d4635061cd54209e074ec45776fe7214",
+      "published_bytes": 6409,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual partial unread tails and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-349.json",
+      "sha256": "bfa376bdc5ab40911d72695d6d25be2780db9675b3dce415bcae2471208ecc21",
+      "bytes": 15182,
+      "git_blob": "15023db13d7e6745f2f2cb95fd871aa22f07a593",
+      "preserved_bytes": "recovered/travel-custody-059/bfa376bdc5ab40911d72695d6d25be2780db9675b3dce415bcae2471208ecc21.gz",
+      "published_sha256": "bfa376bdc5ab40911d72695d6d25be2780db9675b3dce415bcae2471208ecc21",
+      "published_bytes": 15182,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual partial unread tails and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-202.json",
+      "sha256": "6bf45ce946f399f3a0c46ba646f2c7704297046435bd7d29038ed500141b2091",
+      "bytes": 1188,
+      "git_blob": "58676eee0922291c00140ab79f8a94735c420c28",
+      "preserved_bytes": "recovered/travel-custody-059/6bf45ce946f399f3a0c46ba646f2c7704297046435bd7d29038ed500141b2091.gz",
+      "published_sha256": "6bf45ce946f399f3a0c46ba646f2c7704297046435bd7d29038ed500141b2091",
+      "published_bytes": 1188,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual partial unread tails and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-203.json",
+      "sha256": "0574d3c524237adc8ebd683dd9436fa08599ec457782f8f7a700aa0f86871409",
+      "bytes": 1181,
+      "git_blob": "5884313cbe6f12e17a44e89a2ab139e5cde2a14e",
+      "preserved_bytes": "recovered/travel-custody-059/0574d3c524237adc8ebd683dd9436fa08599ec457782f8f7a700aa0f86871409.gz",
+      "published_sha256": "0574d3c524237adc8ebd683dd9436fa08599ec457782f8f7a700aa0f86871409",
+      "published_bytes": 1181,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual partial unread tails and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-204.json",
+      "sha256": "31bb891b078444f0d4e22a034e50d438c2b683eefce91b43e832612708c97d67",
+      "bytes": 1188,
+      "git_blob": "eebed9b52499b8d6dc6ed7d0250f544662b64432",
+      "preserved_bytes": "recovered/travel-custody-059/31bb891b078444f0d4e22a034e50d438c2b683eefce91b43e832612708c97d67.gz",
+      "published_sha256": "31bb891b078444f0d4e22a034e50d438c2b683eefce91b43e832612708c97d67",
+      "published_bytes": 1188,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual partial unread tails and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-347.json",
+      "sha256": "4c51629b2fcf6e49fcecaa6c3bfba4d7a1f862570276ddf0a9e73a0c3f368780",
+      "bytes": 840,
+      "git_blob": "82938be77f1975ab291cacc581c5661a9b14d611",
+      "preserved_bytes": "recovered/travel-custody-059/4c51629b2fcf6e49fcecaa6c3bfba4d7a1f862570276ddf0a9e73a0c3f368780.gz",
+      "published_sha256": "4c51629b2fcf6e49fcecaa6c3bfba4d7a1f862570276ddf0a9e73a0c3f368780",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual partial unread tails and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-348.json",
+      "sha256": "57481d922e0a7b3da593cf08ff41c67614ef71538a1413bc9add0b790e4d1a3a",
+      "bytes": 840,
+      "git_blob": "5abde5cc091b53f60ae8b420855303c9c7bd341d",
+      "preserved_bytes": "recovered/travel-custody-059/57481d922e0a7b3da593cf08ff41c67614ef71538a1413bc9add0b790e4d1a3a.gz",
+      "published_sha256": "57481d922e0a7b3da593cf08ff41c67614ef71538a1413bc9add0b790e4d1a3a",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual partial unread tails and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-349.json",
+      "sha256": "eff1549e418166fe07d8df17d31f1a5ccf42f1653366e5806ac36f544f974702",
+      "bytes": 840,
+      "git_blob": "6263561c045a7f5bd95b6580a5c76152740c46d4",
+      "preserved_bytes": "recovered/travel-custody-059/eff1549e418166fe07d8df17d31f1a5ccf42f1653366e5806ac36f544f974702.gz",
+      "published_sha256": "eff1549e418166fe07d8df17d31f1a5ccf42f1653366e5806ac36f544f974702",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual partial unread tails and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-347.json",
+      "sha256": "8a416dfe35d4411b1b9fefd91d464b1fd69d50faccde4c770b94aba5fc86c584",
+      "bytes": 558,
+      "git_blob": "307fa063a00bd1ff2f5ed18468b35be52c11b44b",
+      "preserved_bytes": "recovered/travel-custody-059/8a416dfe35d4411b1b9fefd91d464b1fd69d50faccde4c770b94aba5fc86c584.gz",
+      "published_sha256": "8a416dfe35d4411b1b9fefd91d464b1fd69d50faccde4c770b94aba5fc86c584",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence-only verification"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual partial unread tails and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-348.json",
+      "sha256": "16d8aa4d9c4b7bbb658f3f2ece2732789c79eb22796dbfe69bad68abf00078e8",
+      "bytes": 558,
+      "git_blob": "d12b7714f8867be372e158f5122aecea408f7336",
+      "preserved_bytes": "recovered/travel-custody-059/16d8aa4d9c4b7bbb658f3f2ece2732789c79eb22796dbfe69bad68abf00078e8.gz",
+      "published_sha256": "16d8aa4d9c4b7bbb658f3f2ece2732789c79eb22796dbfe69bad68abf00078e8",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence-only verification"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual partial unread tails and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-349.json",
+      "sha256": "8bf7428a28e6923349df3005f2d345e1d5637513e3cd832056dc41c0dbcc67ad",
+      "bytes": 558,
+      "git_blob": "f213b9991e36fa9126fbefa6fe061954f3e67b29",
+      "preserved_bytes": "recovered/travel-custody-059/8bf7428a28e6923349df3005f2d345e1d5637513e3cd832056dc41c0dbcc67ad.gz",
+      "published_sha256": "8bf7428a28e6923349df3005f2d345e1d5637513e3cd832056dc41c0dbcc67ad",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence-only verification"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual partial unread tails and inherited disease qualification remain unchanged; no current or checkpoint 3821 transfer."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-SIM-OBJECTLESS-STACK-LOAD-001",
+      "lens": 7,
+      "severity": "unassigned; source-derived conditional carried-load underestimate",
+      "classification": "New bounded current simulator/native authority mismatch; distinct first failure from the existing parametric-instance mass difference and tactical stack aggregation.",
+      "trace": "Native inventory grants create stable physical objects only for defined nonfungible, measured, food or qualifying equipment/container rows; ordinary fungible stacks can have no InventoryObject. An ordinary arrow is a simple, non-food, non-measured 0.05 kg catalog item without those capabilities, and starting Witch Hunter and Forester kits specify arrow stacks; successful merchant purchases also use the same checked grant when no stack is merged. The simulator public_row_is_carried returns false when a row has zero matching physical objects, so its personal and party load estimates omit such objectless rows before the quantity/mass calculation. Native personal dry mass uses the fireplace-root filter, whose successful no-object result is false (therefore the row is included), and multiplies normal catalog mass by quantity. A 24-arrow personal stack therefore contributes 1.2 kg under these selected normal source assumptions to native personal dry mass but zero to the simulator estimate. Whether such a stack is visible to a particular run and whether any readiness boundary is crossed were not observed. The simulator can also omit ordinary shared stacks from its party aggregate; no matching native party-wide mass authority is asserted.",
+      "connected_repair": "Make the public carried classification distinguish a valid fungible stack without a physical object from a missing required or duplicate object identity; preserve fireplace/repair-root exclusion and fail-closed handling for malformed graphs. Use the authoritative carried load or a shared projection where possible, including all personal and party stacks, water, food and authenticated instance masses. Coordinate with the separately recorded instance-mass and tactical aggregation contracts without treating them as the same first failure.",
+      "later_acceptance": "After separate implementation and validation authorization, compare ordinary arrow and other valid fungible stacks against the strategic authority, with nonfungible, nested, fireplace-rooted, duplicate and missing-required-object controls and a supported readiness threshold case.",
+      "discovery": "partial; actual simulator setup and cache snapshots, all item grant variants, party-load policy, threshold reachability and historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-SIM-PROVISION-FIREPLACE-FOOD-001",
+      "lens": 7,
+      "severity": "unassigned; conditional food-custody forecast mismatch",
+      "classification": "New bounded current provisioning producer-to-native-consumer authority question; related to but distinct from the existing water post-refill forecast.",
+      "trace": "The simulator settlement-only provisioner gathers every public personal inventory row belonging to living members and every shared party row, then counts food lots by row ID without checking their physical root custody. A supported container placement removes only the root vessel inventory row and retains child object edges and child rows while relocating the root to a fireplace. A personal or shared food lot nested below that vessel remains identifiable by the child row in the provisioner, but native travel-food consumption explicitly filters fireplace-rooted rows from both party and personal candidates. The catalog gives a cooking pan 2,500 ml capacity and one travel ration 813 ml exterior volume and 2,500 kcal; the generic container insertion and fireplace placement source have custody, mutability, capacity and fixture guards. Therefore, conditional on a visible valid nested ration and suitable remaining guards, the forecast can count calories that native travel consumption excludes until retrieval. This is a source-derived discrepancy, not an observed departure, executed reducer or claim that the simulator itself creates the cooking state.",
+      "illustration": "For one living member, a hypothetical 1,440-minute plan plus the configured one-day surplus has a 12,000 kcal target. Four carried rations plus one fireplace-rooted ration total 12,500 kcal to the provisioner, while only 10,000 kcal remain in those carried rations; with zero body reserve and sufficient water, the first calculation buys zero rations and the latter would require one 2,500 kcal ration. A separate native current-journey-camp gate requires vessels to be cleared before breaking that camp; it does not by itself prove a settlement departure or the proposed state is reachable.",
+      "connected_repair": "Feed provisioning from the same carried-food custody authority used by native consumption, while preserving personal/shared ownership, measured food lots, nested carried containers, root exclusion, cache consistency and valid settlement/camp lifecycle. Reconcile the distinct water forecast and stack-load findings without adding duplicate stock authorities.",
+      "later_acceptance": "After separate implementation and validation authorization, cover food in a carried nested vessel, a placed settlement vessel and a cleared journey camp, for both custody scopes, along with ordinary and measured lots and a known forecast target.",
+      "discovery": "partial; complete departure and settlement custody lifecycle, admissible public snapshot/cache ordering, exact policy, actual shortfall and historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Actual supported fixture/custody lifecycle, SDK/cache ordering, simulated character and inventory setup, all native stock and threshold semantics, historical aliases and all independent lenses remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

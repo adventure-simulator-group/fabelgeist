@@ -1,0 +1,94 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1295,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/tests/travel.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1295",
+      "sha256": "326a11e035cf162c0e62df1b3c5e6dedeb0df33f7186237238c1a40e2441eeb4",
+      "lines": 957,
+      "new_personal_read_ranges": [
+        [
+          1,
+          957
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "326a11e035cf162c0e62df1b3c5e6dedeb0df33f7186237238c1a40e2441eeb4",
+        "byte_identical": true,
+        "qualification": "Byte identity only; no automatic current or independent-lens completion."
+      },
+      "qualification": "Full historical body personally read; test source was not executed. Connected scope, independent lenses, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1296,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/thermal_projection.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/1296",
+      "sha256": "b1ad1a9d5dee6a7f75cb4b9fa78ab15e596d4a30a536f7781bba38550bc3b3b4",
+      "lines": 343,
+      "new_personal_read_ranges": [
+        [
+          1,
+          343
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "b1ad1a9d5dee6a7f75cb4b9fa78ab15e596d4a30a536f7781bba38550bc3b3b4",
+        "byte_identical": true,
+        "qualification": "Byte identity only; no automatic current or independent-lens completion."
+      },
+      "qualification": "Full historical body personally read; test source was not executed. Connected scope, independent lenses, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1297,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/travel.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1297",
+      "sha256": "0eaf9c6a3df7a4747e94074b13f2712ff14106e8e8dc1570937a613eb64ae881",
+      "lines": 1587,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1587
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "0eaf9c6a3df7a4747e94074b13f2712ff14106e8e8dc1570937a613eb64ae881",
+        "byte_identical": true,
+        "qualification": "Byte identity only; no automatic current or independent-lens completion."
+      },
+      "qualification": "Full historical body personally read; test source was not executed. Connected scope, independent lenses, aliases and checkpoint 3821 remain open."
+    }
+  ],
+  "observations": [
+    "The historical travel test, thermal projector and travel producer bodies were personally read through actual EOF; test functions were read as text only and none executed.",
+    "Earlier independent Lens12 batches 347 and 348 each recorded a separate full body read; 349 used three individually qualified partials 1–600, 601–1200 and 1201–1587, with their own unread tails, then recorded EOF. All retain their original attribution, source revision, zero unique-count change and no current reconciliation.",
+    "The earlier thermal source assessment described conservative weatherproofing and stationary sentinels as unresolved contracts, not automatic defects. The exact concatenated source bytes were reconstructed separately without claiming a personal full read of all components.",
+    "No earlier record is promoted to checkpoint 3821, and the inherited disease-read qualification remains unchanged."
+  ],
+  "remaining": "Continue role 1298; all independent lenses, native/cache and connected obligations, exact aliases and missing final checkpoint records remain open."
+}

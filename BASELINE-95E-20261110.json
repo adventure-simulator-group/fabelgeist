@@ -1224,7 +1224,10 @@
         "discovery": "partial; policy, supported sequence, all recipients and historical aliases open",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-L01-TRAVEL-WATER-FORECAST-95E.json"
+        "record": "ASSESSMENT-L01-TRAVEL-WATER-FORECAST-95E.json",
+        "related_current_traces": [
+          "ASSESSMENT-SIM-TRAVEL-CUSTODY-95E.json: distinct carried-stack or fireplace-food boundary, not an automatic alias."
+        ]
       },
       {
         "id": "REVIEW-QUEST-MONSTER-WEIGHT-NARROWING-001",
@@ -2680,7 +2683,8 @@
         "validation": "not performed",
         "record": "ASSESSMENT-SIM-JOURNEY-MASS-95E.json",
         "related_current_traces": [
-          "ASSESSMENT-GENERATED-ROUTE-TIME-AUTHORITY-95E.json: full historical and selected current survival source assessed; instance-mass reachability remains conditional."
+          "ASSESSMENT-GENERATED-ROUTE-TIME-AUTHORITY-95E.json: full historical and selected current survival source assessed; instance-mass reachability remains conditional.",
+          "ASSESSMENT-SIM-TRAVEL-CUSTODY-95E.json: distinct carried-stack or fireplace-food boundary, not an automatic alias."
         ]
       },
       {
@@ -2794,8 +2798,42 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-GENERATED-ROUTE-TIME-AUTHORITY-95E.json"
+      },
+      {
+        "id": "REVIEW-SIM-OBJECTLESS-STACK-LOAD-001",
+        "lens": 7,
+        "severity": "unassigned; source-derived conditional carried-load underestimate",
+        "classification": "New bounded current simulator/native authority mismatch; distinct first failure from the existing parametric-instance mass difference and tactical stack aggregation.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1089 (earlier broad provisioning/custody question)",
+          "segovb/READ-L12-349.json via ASSESSMENT-SIM-TRAVEL-CUSTODY-95E.json",
+          "ASSESSMENT-SIM-JOURNEY-MASS-95E.json (distinct authenticated instance mass)",
+          "ASSESSMENT-L01-STACK-MASS-95E.json (distinct tactical receiver)"
+        ],
+        "relationship_qualification": "Earlier broad records retain original source revision, attribution, read limits and pending status. Shared custody or repair scope does not establish a global alias or checkpoint 3821 authority.",
+        "discovery": "partial; actual simulator setup and cache snapshots, all item grant variants, party-load policy, threshold reachability and historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-SIM-TRAVEL-CUSTODY-95E.json"
+      },
+      {
+        "id": "REVIEW-SIM-PROVISION-FIREPLACE-FOOD-001",
+        "lens": 7,
+        "severity": "unassigned; conditional food-custody forecast mismatch",
+        "classification": "New bounded current provisioning producer-to-native-consumer authority question; related to but distinct from the existing water post-refill forecast.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1089 (earlier broad provisioning/custody question)",
+          "segovb/READ-L12-349.json via ASSESSMENT-SIM-TRAVEL-CUSTODY-95E.json",
+          "ASSESSMENT-L01-TRAVEL-WATER-FORECAST-95E.json (distinct post-refill water forecast)",
+          "baseline-059/queue.json#/entries/2319 (separate fireplace lifecycle question)"
+        ],
+        "relationship_qualification": "Earlier broad records retain original source revision, attribution, read limits and pending status. Shared custody or repair scope does not establish a global alias or checkpoint 3821 authority.",
+        "discovery": "partial; complete departure and settlement custody lifecycle, admissible public snapshot/cache ordering, exact policy, actual shortfall and historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-SIM-TRAVEL-CUSTODY-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0358.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0402.json"
 }
