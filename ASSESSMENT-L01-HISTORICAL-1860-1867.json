@@ -1,0 +1,370 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1860,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Current body comparison is explicit per role; equality cannot transfer lens verdict or fill missing revision-as-recorded.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1860",
+      "sha256": "5d114988a64595879b04e6f151d2a184cdf8f893f2f2b17a9987a3faf933d4ab",
+      "lines": 826,
+      "new_personal_read_ranges": [
+        [
+          1,
+          826
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "COMBAT-CONFIG-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+        "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+        "bytes": 31826,
+        "lines": 779,
+        "git_blob": "4b64e4d89c6af0bf3bda86b5083fcc77108de4fe",
+        "preserved_bytes": "main-advance-95e/combat-config-evidence/current-1860.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "current_personal_ranges": [
+          [
+            1,
+            779
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [],
+        "qualification": "Role1860 current body independently read through its actual779-line EOF and differs from historical826-line source. Other current bodies match; separately read ranges include prior current defaults and AI assessments. Tests not executed."
+      },
+      "qualification": "Complete historical Lens1 body read at this identity; original Segovb and Adler evidence retains separate authorship and exact revision/ranges."
+    },
+    {
+      "original_index": 1861,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/ai_offense.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Current body comparison is explicit per role; equality cannot transfer lens verdict or fill missing revision-as-recorded.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1861",
+      "sha256": "ee4573d3b48808c80f0dcea6b98ccbb8b44ef4d1120c6c8b0889571c572b982c",
+      "lines": 37,
+      "new_personal_read_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "COMBAT-CONFIG-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/combat_config/ai_offense.rs",
+        "sha256": "ee4573d3b48808c80f0dcea6b98ccbb8b44ef4d1120c6c8b0889571c572b982c",
+        "bytes": 1409,
+        "lines": 37,
+        "git_blob": "fa87f04653f0c38606b14d12102d74df2a770f17",
+        "preserved_bytes": "main-advance-95e/combat-config-evidence/current-1861.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            37
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            37
+          ]
+        ],
+        "qualification": "Role1860 current body independently read through its actual779-line EOF and differs from historical826-line source. Other current bodies match; separately read ranges include prior current defaults and AI assessments. Tests not executed."
+      },
+      "qualification": "Complete historical Lens1 body read at this identity; original Segovb and Adler evidence retains separate authorship and exact revision/ranges."
+    },
+    {
+      "original_index": 1862,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Current body comparison is explicit per role; equality cannot transfer lens verdict or fill missing revision-as-recorded.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1862",
+      "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "lines": 26,
+      "new_personal_read_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "COMBAT-CONFIG-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-PROJECTION.json",
+          "ranges": [
+            [
+              1,
+              25
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-ADMISSION.json",
+          "ranges": [
+            [
+              1,
+              25
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+        "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+        "bytes": 935,
+        "lines": 26,
+        "git_blob": "70dd787c5f87370f4676d51434ec0825a81f65b9",
+        "preserved_bytes": "main-advance-95e/combat-config-evidence/current-1862.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            26
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            26
+          ]
+        ],
+        "qualification": "Role1860 current body independently read through its actual779-line EOF and differs from historical826-line source. Other current bodies match; separately read ranges include prior current defaults and AI assessments. Tests not executed."
+      },
+      "qualification": "Complete historical Lens1 body read at this identity; original Segovb and Adler evidence retains separate authorship and exact revision/ranges."
+    },
+    {
+      "original_index": 1863,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/incapacitation_forecast.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Current body comparison is explicit per role; equality cannot transfer lens verdict or fill missing revision-as-recorded.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1863",
+      "sha256": "649c01638b6d8607238b47f06392809a678d8d12bc88461a614b8dd3b0c57aba",
+      "lines": 19,
+      "new_personal_read_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "COMBAT-CONFIG-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/combat_config/incapacitation_forecast.rs",
+        "sha256": "649c01638b6d8607238b47f06392809a678d8d12bc88461a614b8dd3b0c57aba",
+        "bytes": 668,
+        "lines": 19,
+        "git_blob": "8c4aa9d0c21fb287aebbc436aa0d8bf17bc2e6f8",
+        "preserved_bytes": "main-advance-95e/combat-config-evidence/current-1863.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            19
+          ]
+        ],
+        "qualification": "Role1860 current body independently read through its actual779-line EOF and differs from historical826-line source. Other current bodies match; separately read ranges include prior current defaults and AI assessments. Tests not executed."
+      },
+      "qualification": "Complete historical Lens1 body read at this identity; original Segovb and Adler evidence retains separate authorship and exact revision/ranges."
+    },
+    {
+      "original_index": 1864,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/landing.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Current body comparison is explicit per role; equality cannot transfer lens verdict or fill missing revision-as-recorded.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1864",
+      "sha256": "d2e6f0bf1986b9465dec28c0b29c39db72b5470d50c0d8ce55332f6f8d1c0831",
+      "lines": 33,
+      "new_personal_read_ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "COMBAT-CONFIG-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/combat_config/landing.rs",
+        "sha256": "d2e6f0bf1986b9465dec28c0b29c39db72b5470d50c0d8ce55332f6f8d1c0831",
+        "bytes": 1218,
+        "lines": 33,
+        "git_blob": "4e864a8aeb3f26bac221de14ae07dbaabb4f97bf",
+        "preserved_bytes": "main-advance-95e/combat-config-evidence/current-1864.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            33
+          ]
+        ],
+        "qualification": "Role1860 current body independently read through its actual779-line EOF and differs from historical826-line source. Other current bodies match; separately read ranges include prior current defaults and AI assessments. Tests not executed."
+      },
+      "qualification": "Complete historical Lens1 body read at this identity; original Segovb and Adler evidence retains separate authorship and exact revision/ranges."
+    },
+    {
+      "original_index": 1865,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/maneuvers.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Current body comparison is explicit per role; equality cannot transfer lens verdict or fill missing revision-as-recorded.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1865",
+      "sha256": "619803fcb9f24448df76fd87b28028c86c520edd9b41dbc7b29033c8b432234f",
+      "lines": 19,
+      "new_personal_read_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "COMBAT-CONFIG-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/combat_config/maneuvers.rs",
+        "sha256": "619803fcb9f24448df76fd87b28028c86c520edd9b41dbc7b29033c8b432234f",
+        "bytes": 839,
+        "lines": 19,
+        "git_blob": "403b0ec967d1fcb55613c9bdb59c9ed3da5340ab",
+        "preserved_bytes": "main-advance-95e/combat-config-evidence/current-1865.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            19
+          ]
+        ],
+        "qualification": "Role1860 current body independently read through its actual779-line EOF and differs from historical826-line source. Other current bodies match; separately read ranges include prior current defaults and AI assessments. Tests not executed."
+      },
+      "qualification": "Complete historical Lens1 body read at this identity; original Segovb and Adler evidence retains separate authorship and exact revision/ranges."
+    },
+    {
+      "original_index": 1866,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Current body comparison is explicit per role; equality cannot transfer lens verdict or fill missing revision-as-recorded.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1866",
+      "sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+      "lines": 48,
+      "new_personal_read_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "COMBAT-CONFIG-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+        "sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+        "bytes": 2253,
+        "lines": 48,
+        "git_blob": "3554bcdff8a61da471c8dd0dc0a4be5439dd5228",
+        "preserved_bytes": "main-advance-95e/combat-config-evidence/current-1866.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            48
+          ]
+        ],
+        "qualification": "Role1860 current body independently read through its actual779-line EOF and differs from historical826-line source. Other current bodies match; separately read ranges include prior current defaults and AI assessments. Tests not executed."
+      },
+      "qualification": "Complete historical Lens1 body read at this identity; original Segovb and Adler evidence retains separate authorship and exact revision/ranges."
+    },
+    {
+      "original_index": 1867,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/pose_buffer.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Current body comparison is explicit per role; equality cannot transfer lens verdict or fill missing revision-as-recorded.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1867",
+      "sha256": "3cced457f7299b93a524ecf97ec487ea9ffe33d0c522293dbba1d80e6ee70b39",
+      "lines": 46,
+      "new_personal_read_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "COMBAT-CONFIG-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/combat_config/pose_buffer.rs",
+        "sha256": "3cced457f7299b93a524ecf97ec487ea9ffe33d0c522293dbba1d80e6ee70b39",
+        "bytes": 2138,
+        "lines": 46,
+        "git_blob": "9fbbfc135b598fdcf58aab78001cc46f152ae0ef",
+        "preserved_bytes": "main-advance-95e/combat-config-evidence/current-1867.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            46
+          ]
+        ],
+        "qualification": "Role1860 current body independently read through its actual779-line EOF and differs from historical826-line source. Other current bodies match; separately read ranges include prior current defaults and AI assessments. Tests not executed."
+      },
+      "qualification": "Complete historical Lens1 body read at this identity; original Segovb and Adler evidence retains separate authorship and exact revision/ranges."
+    }
+  ],
+  "observations": [
+    "Historical aggregate config and seven child bodies read through exact EOF; current aggregate config was independently read and has different bytes and779 lines.",
+    "Current split locomotion and state-transition owners and their added aggregate checks are separately inspected; do not assign them to the earlier source.",
+    "Original Segovb612/613 and Adler282/283 retain their separate recorded lenses; original Segovb698 explicitly attributes source2075 to a delegated historical reader and records no root reread."
+  ],
+  "qualification": "Personal Lens1 historical body reads; differing current aggregate read independently. Original059 records and delegated attribution are not checkpoint3821.",
+  "next_original_role": 1868
+}

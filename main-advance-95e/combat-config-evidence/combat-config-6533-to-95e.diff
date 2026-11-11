@@ -1,0 +1,145 @@
+diff --git a/crates/adventuresim-tactical-core/src/combat_config.rs b/crates/adventuresim-tactical-core/src/combat_config.rs
+index 5b8b9c62f..4b64e4d89 100644
+--- a/crates/adventuresim-tactical-core/src/combat_config.rs
++++ b/crates/adventuresim-tactical-core/src/combat_config.rs
+@@ -1,23 +1,25 @@
+ use crate::animation::{
+-    AngularMagnitudeDegrees, CycleDelta, KneeTargetAmplification, ResponseRate,
+-    ResponseShapingTime, SignedAngleDegrees, SignedAngularSpeedDegrees,
++    AngularMagnitudeDegrees, KneeTargetAmplification, ResponseRate, ResponseShapingTime,
++    SignedAngleDegrees, SignedAngularSpeedDegrees,
+ };
+ use crate::animation::{
+-    AngularSpeedRadians, AnimationElapsed, AnimationFrequency, AnimationSampleRate, HeightDistance,
+-    NonnegativeLength, PositiveAnimationDuration, SignedHalfTurns, UnitInterval,
++    AngularSpeedRadians, AnimationElapsed, AnimationFrequency, NonnegativeLength,
++    PositiveAnimationDuration, UnitInterval,
+ };
+ use adventuresim_building_generator::spatial_geometry::{PositiveLength, SignedLength};
+-use adventuresim_core::linear_speed::{NonnegativeSpeed, PositiveSpeed, SignedSpeed};
++use adventuresim_core::linear_speed::{NonnegativeSpeed, SignedSpeed};
+ use adventuresim_core::{
+     body::BodyPart,
+     combat::{AutoresolveParameters, CombatResolutionParameters},
+ };
+ use bevy::prelude::Resource;
+ pub use landing::AnimationLandingConfig;
++pub use locomotion::{AnimationGaitConfig, AnimationLocomotionConfig};
+ pub use maneuvers::ManeuverTimingConfig;
+ pub use playback::AnimationPlaybackConfig;
+ use serde::{Deserialize, Serialize};
+ use sha2::{Digest, Sha256};
++pub use state_transitions::AnimationStateTransitionConfig;
+ use thiserror::Error;
+ 
+ pub use ai_offense::AiOffenseConfig;
+@@ -25,9 +27,9 @@ pub use incapacitation_forecast::IncapacitationForecastConfig;
+ pub use ragdoll::{
+     MuscleRelease, RagdollCapsuleConfig, RagdollCapsulesConfig, RagdollConfig, RagdollMusclesConfig,
+ };
+-pub use runtime::{
+-    runtime_animation_config, runtime_combat_presentation_config, runtime_melee_authority_config,
+-};
++// `runtime` exists to own the process-lifetime snapshot and its caches; every
++// public item in it is part of this module's surface.
++pub use runtime::*;
+ 
+ pub use pose_buffer::PoseBufferConfig;
+ pub use procedural::{
+@@ -38,12 +40,14 @@ mod ai_offense;
+ mod defaults;
+ mod incapacitation_forecast;
+ mod landing;
++mod locomotion;
+ mod maneuvers;
+ mod playback;
+ mod pose_buffer;
+ mod procedural;
+ mod ragdoll;
+ mod runtime;
++mod state_transitions;
+ 
+ pub const TACTICAL_COMBAT_CONFIG_SCHEMA_VERSION: u16 = 9;
+ 
+@@ -76,29 +80,6 @@ pub struct TacticalAnimationConfig {
+     pub ragdoll: RagdollConfig,
+ }
+ 
+-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+-#[serde(deny_unknown_fields)]
+-pub struct AnimationLocomotionConfig {
+-    pub sample_hz: AnimationSampleRate,
+-    pub landing: AnimationLandingConfig,
+-    pub walk: AnimationGaitConfig,
+-    pub run: AnimationGaitConfig,
+-    pub raised_guard: AnimationGaitConfig,
+-    pub prone: AnimationGaitConfig,
+-    pub supine: AnimationGaitConfig,
+-    pub blend_speed: PositiveSpeed,
+-}
+-
+-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+-#[serde(deny_unknown_fields)]
+-pub struct AnimationGaitConfig {
+-    pub reference_speed_metres_per_second: PositiveSpeed,
+-    pub step_distance_metres: PositiveLength,
+-    pub support_phase_radius: CycleDelta,
+-    pub bounce_metres: HeightDistance,
+-    pub flight_apex_metres: HeightDistance,
+-}
+-
+ #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+ #[serde(deny_unknown_fields)]
+ pub struct GuardFootworkConfig {
+@@ -111,14 +92,6 @@ pub struct GuardFootworkConfig {
+     pub maximum_unsupported_contact_seconds: PositiveAnimationDuration,
+ }
+ 
+-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+-#[serde(deny_unknown_fields)]
+-pub struct AnimationStateTransitionConfig {
+-    pub dive_root_handoff_start_fraction: f32,
+-    pub downed_facing_sector_half_width: SignedHalfTurns,
+-    pub downed_facing_edge_stickiness: SignedHalfTurns,
+-}
+-
+ /// Additive rotational hit springs on the rendered skeleton. A hit kicks
+ /// the struck bone's spring and the reaction travels the bone chain as a
+ /// wave; nothing here touches gameplay or physics.
+@@ -653,31 +626,11 @@ impl TacticalCombatConfig {
+         }
+ 
+         let animation = self.animation;
+-        let locomotion = animation.locomotion;
+-        let gait_values = [
+-            locomotion.walk,
+-            locomotion.run,
+-            locomotion.raised_guard,
+-            locomotion.prone,
+-            locomotion.supine,
+-        ];
+-        if gait_values.into_iter().any(|gait| {
+-            ![
+-                gait.step_distance_metres.metres(),
+-                gait.support_phase_radius.cycles(),
+-                gait.bounce_metres.metres(),
+-                gait.flight_apex_metres.metres(),
+-            ]
+-            .into_iter()
+-            .all(finite_nonnegative)
+-                || gait.step_distance_metres.metres() == 0.0
+-                || !(0.0..0.5).contains(&gait.support_phase_radius.cycles())
+-        }) {
+-            return Err(TacticalCombatConfigError::Validation(
+-                "invalid animation locomotion tuning",
+-            ));
+-        }
+-        locomotion.landing.validate()?;
++        let initial_locomotion_speed = animation
++            .playback
++            .initial_locomotion_speed_metres_per_second;
++        animation.locomotion.validate(initial_locomotion_speed)?;
++        animation.state_transitions.validate()?;
+         let guard = animation.guard_footwork;
+         if ![
+             guard.default_half_width_metres,

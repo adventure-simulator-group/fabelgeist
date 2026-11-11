@@ -5270,8 +5270,33 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-MARKET-GEOMETRY-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-TACTICAL-STARTUP-ERROR-OWNERSHIP",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          7,
+          8,
+          13
+        ],
+        "severity": "unassigned; error ownership and diagnosability",
+        "classification": "Startup input errors should retain their typed cause and input context until the final presentation boundary.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/278",
+          "baseline-059/queue.json#/entries/1547",
+          "baseline-059/queue.json#/entries/1549",
+          "segovb/READ-L12-698.json",
+          "parallel-l12-20261029/PROPOSAL-L12-698.json"
+        ],
+        "relationship_qualification": "Current source reassessment of original059 delegated proposal, preserving its original reader and no historical unique count or checkpoint3821 claim; exact aliases remain open.",
+        "discovery": "partial; exact current source conversion and final caller established, typed diagnosis policy and global aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-COMBAT-CONFIG-ERROR-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1111.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1115.json"
 }
