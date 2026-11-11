@@ -210,6 +210,8 @@ completed historical read and the attachment-capacity source. Both differ
 from 95e; no current semantic coverage is transferred.
 `ASSESSMENT-L01-HISTORICAL-1076-1078.json` preserves capability and
 combat projection source reads. No combat model or source test ran.
+`ASSESSMENT-L01-HISTORICAL-1081-1085.json` preserves name, origin and
+weapon-carry source reads. The historical carry source differs from 95e.
 `ASSESSMENT-L05-SCHEDULE-AGGREGATE-95E.json` records a possible schedule
 aggregate strengthening. Both selected production callers supply matching
 organization minutes; no invalid native schedule was established.
