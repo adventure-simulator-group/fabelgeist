@@ -1,0 +1,807 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original roles1965–1970, landform overlap direction, patch and resistance safeguards.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1965-1970.json",
+  "git_membership_evidence": "LANDFORM-OVERLAP-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8a54b1049b5593d0d06440ec8bda5f08f28c4ef8",
+      "sha256": "2661ce950659807c47c0de4fdc769ba1ba79825c47ba2985fcec32d7e4f38390",
+      "bytes": 20452,
+      "lines": 553,
+      "ranges": [
+        [
+          97,
+          115
+        ],
+        [
+          199,
+          212
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landform-overlap-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No terrain, decoder, worker, geometry, native library or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene/admission.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6fa3f51f1e19db0e2af765358447300b6ffbe537",
+      "sha256": "c77986f9f9ff85cd6b4359792d8c28838b437942db2e61c92dc4104856e849cb",
+      "bytes": 3032,
+      "lines": 98,
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landform-overlap-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No terrain, decoder, worker, geometry, native library or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene/queries.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a7fbe35525bc0e222e93cbedfac379560fbf4f0c",
+      "sha256": "feacac20255eb9787f14ee21a2b7955e72d5be7b618755698965657402efc08c",
+      "bytes": 6550,
+      "lines": 170,
+      "ranges": [
+        [
+          61,
+          68
+        ],
+        [
+          86,
+          88
+        ],
+        [
+          106,
+          166
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landform-overlap-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No terrain, decoder, worker, geometry, native library or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface_hit.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2067206fd8709ca623644904d5c95ce14d59ca34",
+      "sha256": "27d50aec52ef52b5d464e0e14d56fd1099e965784ab7db2198744ec9de96e558",
+      "bytes": 1228,
+      "lines": 37,
+      "ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landform-overlap-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No terrain, decoder, worker, geometry, native library or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_fault.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "41d26a90972c22aa4978b1331821890d443664aa",
+      "sha256": "085f2292af89c720e0646faf910738d1adeca305f58bafc09e4caa9404870c05",
+      "bytes": 1148,
+      "lines": 36,
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landform-overlap-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No terrain, decoder, worker, geometry, native library or product ran."
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "50e1c31321297a19b2c3b240c4a540bfbd0c7153",
+      "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "bytes": 5142,
+      "lines": 142,
+      "ranges": [
+        [
+          40,
+          68
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landform-overlap-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No terrain, decoder, worker, geometry, native library or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/marching_tetrahedra.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "718f4610336a2fa3861e0eb4aeed31d944acb6f6",
+      "sha256": "f9f54199093c3a25bf9295b11ebeedceb88fe03c44be92ffcfed2c6bf990f335",
+      "bytes": 9387,
+      "lines": 278,
+      "ranges": [
+        [
+          210,
+          265
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landform-overlap-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No terrain, decoder, worker, geometry, native library or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/erosional_terrain.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6b3a37034bfaf67d010826f9972277a9e4b97547",
+      "sha256": "c95efbf7c798d1e7570da38a0082bd99661cc4958f1dcb6818126dc30faf2d88",
+      "bytes": 15538,
+      "lines": 395,
+      "ranges": [
+        [
+          31,
+          52
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landform-overlap-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No terrain, decoder, worker, geometry, native library or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server-dispatcher/src/scene_input.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d2935bd735cfa600328abf870a8a4fdcccbdfcce",
+      "sha256": "03e1948b1e2d2492d4f2062ef4aebb1e6dc293f6e228bede4d15710785306b57",
+      "bytes": 40769,
+      "lines": 978,
+      "ranges": [
+        [
+          204,
+          281
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landform-overlap-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No terrain, decoder, worker, geometry, native library or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server-dispatcher/src/scene_input/geological_landforms.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2553e4b76bc2d418dae94b03fced4b08ccb9954d",
+      "sha256": "7068eadeb46eb4e50b00a5f3a45e0e200e43c38afe3bfafd8d84709bbd79ae5a",
+      "bytes": 20214,
+      "lines": 534,
+      "ranges": [
+        [
+          45,
+          112
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/landform-overlap-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No terrain, decoder, worker, geometry, native library or product ran."
+    }
+  ],
+  "native_source": {
+    "archive_manifest": "native-evidence/glam-0.32.1/MANIFEST.json",
+    "archive": "native-evidence/glam-0.32.1/glam-0.32.1.crate",
+    "member": "glam-0.32.1/src/f32/vec2.rs",
+    "member_sha256": "8ee0ec795ff706b0ee737e06378aac90b04d970b7f5c9f997f11c3123f5aedf6",
+    "new_personal_ranges": [
+      [
+        187,
+        189
+      ],
+      [
+        463,
+        465
+      ],
+      [
+        482,
+        484
+      ],
+      [
+        530,
+        590
+      ]
+    ],
+    "qualification": "Pinned current Cargo.lock has bevy_math0.19.1 depending on glam0.32.1 and archive checksum is verified by existing native-evidence verifier. Selected source arithmetic was read; no feature resolution or normalization executed."
+  },
+  "prior_current_evidence": [
+    "ASSESSMENT-TRANSITION-RECTANGULAR-VISTA-95E.json",
+    "ASSESSMENT-LANDFORM-BOUNDS-95E.json",
+    "ASSESSMENT-SAMPLED-SUPPORT-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Landform admission and overlap",
+      "trace": "from_quantized uses PlanDirection::from_vector for the transition collar, then validates original encoded tangent magnitude in0.98..=1.02 and dimension constraints. validate computes its overlap AABB from the original unnormalized encoded vector, while collar cuts_out and field geometry use the normalized vector. scene_fault::validate delegates and retains the typed Terrain error before scene generation.",
+      "remaining": "The independent source-only conditional witness assumes ordinary axis normalization and bounded noise. A supported mapped producer of the encoded0.99 axis, an actual scene, backend normalization and policy have not been established."
+    },
+    {
+      "contract": "Selected producer counterevidence",
+      "trace": "nearest_fault_scarp derives a vector from a mapped trace, divides by its length, then rounds each normalized component to permyriad. The inspected geological candidate computes a normalized gradient, takes its orthogonal tangent and rounds it. These selected source paths do not show a producer for the chosen[9900,0] example.",
+      "remaining": "All callers, quantization edge cases, exact mapped data, feature resolution and player impact remain open; do not claim a user incident or universal non-reachability."
+    },
+    {
+      "contract": "Patch and resistance admission",
+      "trace": "PatchWire delegates to from_mesh_buffers, which rejects empty geometry, non-multiple-of-three indices, mismatched normal counts, invalid indices and nonfinite components. Selected marching build_surface accumulates oriented triples and invokes that constructor. ScarpResistanceGrid checks neighbor x/z against side before looking up a target mask; transfer_to returns before computing its target index when no resistance is supplied.",
+      "remaining": "Internal pub(super) fields, code outside the bounded search, zero or nonunit normals, native Collider/Mesh admission, capacity and error policy remain separate. Tests and extraction were not run."
+    },
+    {
+      "contract": "Support and vertical capacity",
+      "trace": "height_at_extended_edge clamps to terrain bounds and delegates to required_height_at; selected sampled support computes a normal before producing its elevation. Standalone SceneTerrain admission requires finite heights but does not impose the scene-document height range. Vertical grid count casts a computed float to usize then adds1 before the cap.",
+      "remaining": "No feasible input has been proved to pass every support, erosion and earlier condition and cause vertical overflow. Do not convert the arithmetic suspicion into an observed failure or duplicate the already recorded late-side-bound findings."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-LANDFORM-OVERLAP-DIRECTION-001",
+      "first_contract": "Overlap admission and the retained collar geometry need the same direction representation when deciding whether a landform intersects the playable terrain.",
+      "symbolic_source_witness": {
+        "terrain": "Assume a valid flat sampled SceneTerrain with2 by9 vertices, spacing2m: half extents(1,8).",
+        "recipe": "Assume a valid surface and FaultScarp quantized recipe origin_cm=[1095,0], tangent_permyriad=[9900,0], relief_cm=600, half_length_cm=1000, half_width_cm=800, collar_cm=200 and valid LOD. Encoded tangent length0.99 is inside0.98..1.02 and the listed dimension bounds hold.",
+        "validation": "Using ideal decimal arithmetic for the encoded overlap expression, the x bound is1+0.99*10=10.9; origin10.95 exceeds it and validate returns OutsidePlayable, subject to represented f32 operations. The margin0.05m is far above local rounding scale but no native arithmetic was executed.",
+        "geometry": "Condition on PlanDirection::from_vector normalizing the axis to(1,0), and on the collar noise lying within its intended bounded range. At x=1, along=1-10.95=-9.95, so |along|/10=0.995<1. Select z equal to the collar wander there (at most approximately1.25m in magnitude), within the terrain z half extent8; the transverse local coordinate is0 and the collar interior intersects the playable rectangle.",
+        "limits": "This proves an idealized representation mismatch under the stated numerical assumptions, not a completed native execution, accepted source document, mapped-producer case or visible/gameplay impact."
+      },
+      "normal_path_counterevidence": "The selected mapped fault and geological candidate producers normalize before rounding. Their code does not show that the chosen[9900,0] axis is emitted.",
+      "effect_and_policy": "An otherwise intersecting collar can be classified OutsidePlayable by the unnormalized extent if the conditional assumptions hold. Confirm policy, represented operations, complete admission and supported producers before assigning severity.",
+      "repair_direction": "Choose one canonical admitted direction for the overlap and collar calculations while preserving quantized wire representation and the intended geometric tolerance. Audit recommendation only.",
+      "related_historical": [
+        "baseline-059/queue.json#/entries/1552",
+        "baseline-059/queue.json#/entries/1608",
+        "baseline-059/queue.json#/entries/1610",
+        "segovb/READ-L12-657.json",
+        "adler/READ-L11-301.json",
+        "ROOT-PPS-VOLUMETRIC-COLLAR-027"
+      ],
+      "related_current": [
+        "REVIEW-FAULT-SIDE-GUARD-LATE-001",
+        "REVIEW-EROSION-SIDE-GUARD-LATE-001"
+      ],
+      "alias_qualification": "The prior root trace already identified two direction/admission paths but did not establish this particular overlap case; side-guard findings concern work before a different bound. Exact alias and historical counts remain open, with no3821 claim.",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-234.json",
+      "sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136",
+      "bytes": 14490,
+      "git_blob": "bc0f773eeb8695793e91db5321f4a69482370794",
+      "preserved_bytes": "recovered/landform-overlap-059/422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136.gz",
+      "published_sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136",
+      "published_bytes": 14490,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-267.json",
+      "sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e",
+      "bytes": 22626,
+      "git_blob": "b0b7fae53ef99de5954a3fa93d47a3da655bfd19",
+      "preserved_bytes": "recovered/landform-overlap-059/e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e.gz",
+      "published_sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e",
+      "published_bytes": 22626,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-273.json",
+      "sha256": "ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b",
+      "bytes": 12123,
+      "git_blob": "bdd561888e4bca8bdaf6956ed56cada4863d6b71",
+      "preserved_bytes": "recovered/landform-overlap-059/ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b.gz",
+      "published_sha256": "ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b",
+      "published_bytes": 12123,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-279.json",
+      "sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7",
+      "bytes": 9700,
+      "git_blob": "30bff15c9967db3e6f6f3c7727bef93f7ce5c919",
+      "preserved_bytes": "recovered/landform-overlap-059/d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7.gz",
+      "published_sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7",
+      "published_bytes": 9700,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "bytes": 15035,
+      "git_blob": "45ee5dcfa447994407de51ae6b68f85de63c1ac4",
+      "preserved_bytes": "recovered/landform-overlap-059/bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3.gz",
+      "published_sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "published_bytes": 15035,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-286.json",
+      "sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de",
+      "bytes": 12115,
+      "git_blob": "f0857f21383fa7232908947c1df1dd955d94cf4a",
+      "preserved_bytes": "recovered/landform-overlap-059/58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de.gz",
+      "published_sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de",
+      "published_bytes": 12115,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-289.json",
+      "sha256": "28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0",
+      "bytes": 13932,
+      "git_blob": "492f7a3770c7692e16bb1d1a6c1004a0817290db",
+      "preserved_bytes": "recovered/landform-overlap-059/28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0.gz",
+      "published_sha256": "28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0",
+      "published_bytes": 13932,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-290.json",
+      "sha256": "16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a",
+      "bytes": 12417,
+      "git_blob": "36c15abc3fc414b93ef16c17a4a8076ad21c0fef",
+      "preserved_bytes": "recovered/landform-overlap-059/16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a.gz",
+      "published_sha256": "16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a",
+      "published_bytes": 12417,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-292.json",
+      "sha256": "5c26ba04d65cdc40be9513f91a368a207f0a7048a48a5698e894774bbbc514c4",
+      "bytes": 9488,
+      "git_blob": "6ba539810f50cddd901d8215cc076a30e8583ab0",
+      "preserved_bytes": "recovered/landform-overlap-059/5c26ba04d65cdc40be9513f91a368a207f0a7048a48a5698e894774bbbc514c4.gz",
+      "published_sha256": "5c26ba04d65cdc40be9513f91a368a207f0a7048a48a5698e894774bbbc514c4",
+      "published_bytes": 9488,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-299.json",
+      "sha256": "c5ca5e4e387af5f2c8b5a645b9e236e4b22f705abf5cc17b773a230296202ae6",
+      "bytes": 10759,
+      "git_blob": "8a875adb77b5a5923245dfda1d75a20bc9818e92",
+      "preserved_bytes": "recovered/landform-overlap-059/c5ca5e4e387af5f2c8b5a645b9e236e4b22f705abf5cc17b773a230296202ae6.gz",
+      "published_sha256": "c5ca5e4e387af5f2c8b5a645b9e236e4b22f705abf5cc17b773a230296202ae6",
+      "published_bytes": 10759,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-300.json",
+      "sha256": "9efdb0883fd8786563aebae54818efc1d897809b682a2a09ff860c53df98582d",
+      "bytes": 11459,
+      "git_blob": "a24ab095462a169485e442e22aced45eaaae7526",
+      "preserved_bytes": "recovered/landform-overlap-059/9efdb0883fd8786563aebae54818efc1d897809b682a2a09ff860c53df98582d.gz",
+      "published_sha256": "9efdb0883fd8786563aebae54818efc1d897809b682a2a09ff860c53df98582d",
+      "published_bytes": 11459,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-301.json",
+      "sha256": "6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e",
+      "bytes": 12478,
+      "git_blob": "8a66f0a027598f95f575b11171cb359c9314a6aa",
+      "preserved_bytes": "recovered/landform-overlap-059/6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e.gz",
+      "published_sha256": "6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e",
+      "published_bytes": 12478,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-808.json",
+      "sha256": "91a8c4947e459086692f3bd1f50734dd2c9a2b890ba0d1b3b68f50526bb9ca8c",
+      "bytes": 721,
+      "git_blob": "f3bf0e319fa7d935ba4d74c379f0d31ac88bfb5a",
+      "preserved_bytes": "recovered/landform-overlap-059/91a8c4947e459086692f3bd1f50734dd2c9a2b890ba0d1b3b68f50526bb9ca8c.gz",
+      "published_sha256": "91a8c4947e459086692f3bd1f50734dd2c9a2b890ba0d1b3b68f50526bb9ca8c",
+      "published_bytes": 721,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-809.json",
+      "sha256": "c16b2a9197ba6d097f370702065be1473459ababa18b00fb283f179ebc0b15e7",
+      "bytes": 726,
+      "git_blob": "daa541f844e18695020b64ba5e7ce88d872a337c",
+      "preserved_bytes": "recovered/landform-overlap-059/c16b2a9197ba6d097f370702065be1473459ababa18b00fb283f179ebc0b15e7.gz",
+      "published_sha256": "c16b2a9197ba6d097f370702065be1473459ababa18b00fb283f179ebc0b15e7",
+      "published_bytes": 726,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-810.json",
+      "sha256": "9595e1b8fb501c8947279063e2a71ec2532d6f3bf9e4c4ea304b32b923916cb4",
+      "bytes": 726,
+      "git_blob": "ab82b91a73d1ef49d0bf6e4159b29deb44954935",
+      "preserved_bytes": "recovered/landform-overlap-059/9595e1b8fb501c8947279063e2a71ec2532d6f3bf9e4c4ea304b32b923916cb4.gz",
+      "published_sha256": "9595e1b8fb501c8947279063e2a71ec2532d6f3bf9e4c4ea304b32b923916cb4",
+      "published_bytes": 726,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-811.json",
+      "sha256": "dc0677361377d0b5e288816b564b6c7b2c08a14231c3f1f9b38badfbbd6a1b9e",
+      "bytes": 726,
+      "git_blob": "98c57af57a9e01a37500592f1d777df02c3f5f00",
+      "preserved_bytes": "recovered/landform-overlap-059/dc0677361377d0b5e288816b564b6c7b2c08a14231c3f1f9b38badfbbd6a1b9e.gz",
+      "published_sha256": "dc0677361377d0b5e288816b564b6c7b2c08a14231c3f1f9b38badfbbd6a1b9e",
+      "published_bytes": 726,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-812.json",
+      "sha256": "57b2b71f8929a1a9efc6e1c37c233f2c7ca00191fee8bfc6430b64454646f945",
+      "bytes": 732,
+      "git_blob": "68ee24afa822a4d2eca1da8bb37ea4d286784505",
+      "preserved_bytes": "recovered/landform-overlap-059/57b2b71f8929a1a9efc6e1c37c233f2c7ca00191fee8bfc6430b64454646f945.gz",
+      "published_sha256": "57b2b71f8929a1a9efc6e1c37c233f2c7ca00191fee8bfc6430b64454646f945",
+      "published_bytes": 732,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-813.json",
+      "sha256": "65eaaeb6a8341d1feb01411f125f20049ac191a5d45e7c49f471c66a29ddfbf8",
+      "bytes": 728,
+      "git_blob": "9dac2c2c2b7c54520939497c468a7ae05fd449d5",
+      "preserved_bytes": "recovered/landform-overlap-059/65eaaeb6a8341d1feb01411f125f20049ac191a5d45e7c49f471c66a29ddfbf8.gz",
+      "published_sha256": "65eaaeb6a8341d1feb01411f125f20049ac191a5d45e7c49f471c66a29ddfbf8",
+      "published_bytes": 728,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-301.json",
+      "sha256": "e7a3ff9b99884c79044ca93edf978a9f761566cf9eb6741d371fb01faa48958a",
+      "bytes": 668,
+      "git_blob": "4a8492be8eee8d668910e33626bba4e67f9c3cca",
+      "preserved_bytes": "recovered/landform-overlap-059/e7a3ff9b99884c79044ca93edf978a9f761566cf9eb6741d371fb01faa48958a.gz",
+      "published_sha256": "e7a3ff9b99884c79044ca93edf978a9f761566cf9eb6741d371fb01faa48958a",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-301.json",
+      "sha256": "ffd056a5734894c093b3f2e42be487e1ade2e7870df809fa782fa67cce943789",
+      "bytes": 50041,
+      "git_blob": "7c794ded36288c66dbcec2834d2d3cd815c4141c",
+      "preserved_bytes": "recovered/landform-overlap-059/ffd056a5734894c093b3f2e42be487e1ade2e7870df809fa782fa67cce943789.gz",
+      "published_sha256": "ffd056a5734894c093b3f2e42be487e1ade2e7870df809fa782fa67cce943789",
+      "published_bytes": 50041,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-656.json",
+      "sha256": "0ce3ef09f10042b40a875667435b33231acf42782ee5fd19c905a5c51409cecf",
+      "bytes": 1209,
+      "git_blob": "1601add095643330d94e4ab3bbb315787fa12c8a",
+      "preserved_bytes": "recovered/landform-overlap-059/0ce3ef09f10042b40a875667435b33231acf42782ee5fd19c905a5c51409cecf.gz",
+      "published_sha256": "0ce3ef09f10042b40a875667435b33231acf42782ee5fd19c905a5c51409cecf",
+      "published_bytes": 1209,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 prospective plan"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-657.json",
+      "sha256": "32fe4e78c879999226becec2b652c52659a789c892bca8942c4a82df08102e49",
+      "bytes": 2205,
+      "git_blob": "1818ee854459cc79411fe882362d0b6105886799",
+      "preserved_bytes": "recovered/landform-overlap-059/32fe4e78c879999226becec2b652c52659a789c892bca8942c4a82df08102e49.gz",
+      "published_sha256": "32fe4e78c879999226becec2b652c52659a789c892bca8942c4a82df08102e49",
+      "published_bytes": 2205,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 prospective plan"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-656.json",
+      "sha256": "88337c9b22e127b45d26438a4bc4d6d1315e73ce08e82ec466f2cb2c7e06ac11",
+      "bytes": 4800,
+      "git_blob": "9ede3aa5a712abea2d111120c25a1f0957fc1003",
+      "preserved_bytes": "recovered/landform-overlap-059/88337c9b22e127b45d26438a4bc4d6d1315e73ce08e82ec466f2cb2c7e06ac11.gz",
+      "published_sha256": "88337c9b22e127b45d26438a4bc4d6d1315e73ce08e82ec466f2cb2c7e06ac11",
+      "published_bytes": 4800,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-657.json",
+      "sha256": "383f716074f8b681fc1dbf488d745d70f026c73b40abb8f3c98896b3f5072f89",
+      "bytes": 10490,
+      "git_blob": "1663fcaa16e813b0162638a2ce30c7b4838a7f36",
+      "preserved_bytes": "recovered/landform-overlap-059/383f716074f8b681fc1dbf488d745d70f026c73b40abb8f3c98896b3f5072f89.gz",
+      "published_sha256": "383f716074f8b681fc1dbf488d745d70f026c73b40abb8f3c98896b3f5072f89",
+      "published_bytes": 10490,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-872.json",
+      "sha256": "e965acc5c18a7d5430cbabf31aa4204aeb98b19744df0aa40b99ae12d3924271",
+      "bytes": 1181,
+      "git_blob": "653a8261efb601693f9a1941aabbde3319b5800a",
+      "preserved_bytes": "recovered/landform-overlap-059/e965acc5c18a7d5430cbabf31aa4204aeb98b19744df0aa40b99ae12d3924271.gz",
+      "published_sha256": "e965acc5c18a7d5430cbabf31aa4204aeb98b19744df0aa40b99ae12d3924271",
+      "published_bytes": 1181,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-873.json",
+      "sha256": "c208f377f0fbaefc76c9245d72f9d2551cd7cad0f6059f6015aced46e45d8d58",
+      "bytes": 1191,
+      "git_blob": "02ffc17e2e8d8b888e9f505359b88d9e52072423",
+      "preserved_bytes": "recovered/landform-overlap-059/c208f377f0fbaefc76c9245d72f9d2551cd7cad0f6059f6015aced46e45d8d58.gz",
+      "published_sha256": "c208f377f0fbaefc76c9245d72f9d2551cd7cad0f6059f6015aced46e45d8d58",
+      "published_bytes": 1191,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-874.json",
+      "sha256": "5a8177e8efda0dc385ade2784ff067cab627682639d6749fe1ec5439b3cde9e6",
+      "bytes": 1184,
+      "git_blob": "6be5b9c9e9048fce998877c064443ef402930dda",
+      "preserved_bytes": "recovered/landform-overlap-059/5a8177e8efda0dc385ade2784ff067cab627682639d6749fe1ec5439b3cde9e6.gz",
+      "published_sha256": "5a8177e8efda0dc385ade2784ff067cab627682639d6749fe1ec5439b3cde9e6",
+      "published_bytes": 1184,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-875.json",
+      "sha256": "4d942b5da967e9abba6c127397bcec45cfd28f12dc8ff666fb4ec177418a6a24",
+      "bytes": 1188,
+      "git_blob": "5f9328488767a9c86e924e60e06d0200bde2f0e9",
+      "preserved_bytes": "recovered/landform-overlap-059/4d942b5da967e9abba6c127397bcec45cfd28f12dc8ff666fb4ec177418a6a24.gz",
+      "published_sha256": "4d942b5da967e9abba6c127397bcec45cfd28f12dc8ff666fb4ec177418a6a24",
+      "published_bytes": 1188,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-876.json",
+      "sha256": "537bcf02b2aeb58d9f42044cec89c0a7d7ffb8247ad1d18f77e4241a5baa14f1",
+      "bytes": 1196,
+      "git_blob": "e36b97c3354cc4ec36ce0da986f5ad7cc50a1631",
+      "preserved_bytes": "recovered/landform-overlap-059/537bcf02b2aeb58d9f42044cec89c0a7d7ffb8247ad1d18f77e4241a5baa14f1.gz",
+      "published_sha256": "537bcf02b2aeb58d9f42044cec89c0a7d7ffb8247ad1d18f77e4241a5baa14f1",
+      "published_bytes": 1196,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-877.json",
+      "sha256": "761235dd88fc86a6348db77bb7520a8981769d858566d8ab0569c15ad40e6ba9",
+      "bytes": 1188,
+      "git_blob": "2438e84603368adc8fd89b276e4c8b70116cafcf",
+      "preserved_bytes": "recovered/landform-overlap-059/761235dd88fc86a6348db77bb7520a8981769d858566d8ab0569c15ad40e6ba9.gz",
+      "published_sha256": "761235dd88fc86a6348db77bb7520a8981769d858566d8ab0569c15ad40e6ba9",
+      "published_bytes": 1188,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-656.json",
+      "sha256": "706e4b26e44e2557f7a40ffc60fdaf01852cdfa35ca01585ced6c1e5efaadfca",
+      "bytes": 840,
+      "git_blob": "f441664ba464faba58e3a6929d17cef76161f70f",
+      "preserved_bytes": "recovered/landform-overlap-059/706e4b26e44e2557f7a40ffc60fdaf01852cdfa35ca01585ced6c1e5efaadfca.gz",
+      "published_sha256": "706e4b26e44e2557f7a40ffc60fdaf01852cdfa35ca01585ced6c1e5efaadfca",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-657.json",
+      "sha256": "b8a350af8092898282994e61a7e8b614c09c987a96c56b38f2c12be27272a16f",
+      "bytes": 840,
+      "git_blob": "da359d8f630224a5a4d18cd18c3c4a85512ccb41",
+      "preserved_bytes": "recovered/landform-overlap-059/b8a350af8092898282994e61a7e8b614c09c987a96c56b38f2c12be27272a16f.gz",
+      "published_sha256": "b8a350af8092898282994e61a7e8b614c09c987a96c56b38f2c12be27272a16f",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-656.json",
+      "sha256": "2880c1e3d1628571b7abf3f7d15d940fecace858d6a96129ff6060a715aeb014",
+      "bytes": 558,
+      "git_blob": "afcf5362809a5257d1491bb28c64bf3d3c5ecbd7",
+      "preserved_bytes": "recovered/landform-overlap-059/2880c1e3d1628571b7abf3f7d15d940fecace858d6a96129ff6060a715aeb014.gz",
+      "published_sha256": "2880c1e3d1628571b7abf3f7d15d940fecace858d6a96129ff6060a715aeb014",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-657.json",
+      "sha256": "8cc28e3795512627e84a62a1cbf8d3e83171c121a9b6fbd693095c20b756349f",
+      "bytes": 558,
+      "git_blob": "5e2bfc16f5ab47a835af825e80ab58e232c6925e",
+      "preserved_bytes": "recovered/landform-overlap-059/8cc28e3795512627e84a62a1cbf8d3e83171c121a9b6fbd693095c20b756349f.gz",
+      "published_sha256": "8cc28e3795512627e84a62a1cbf8d3e83171c121a9b6fbd693095c20b756349f",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    }
+  ],
+  "older_root_receipt": {
+    "record": "ASSESSMENT-CONDITION-REGIONAL-95E.json",
+    "git_membership_evidence": "OLDER-REGIONAL-QUALIFICATION-GIT-PROOFS.json",
+    "receipt_id": "ROOT-PPS-VOLUMETRIC-COLLAR-027",
+    "qualification": "Earlier774 producer trace explicitly noted normalization/admission distinctions; retain original attribution and no3821 promotion."
+  },
+  "historical_attribution_qualification": "Segovb656/657, Adler301 and earlier root producer retain their own original authors, ranges, revisions and pending contracts; no independent lens verdict or historical finding count is transferred.",
+  "remaining": "Continue original1971 and all13 lenses, supported direction producers, numerical normalization, native overlap, vertical capacity, patch admission and exact aliases. Original3821 final ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

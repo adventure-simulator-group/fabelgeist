@@ -5800,8 +5800,41 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-TRANSITION-RECTANGULAR-VISTA-95E.json"
+      },
+      {
+        "id": "REVIEW-LANDFORM-OVERLAP-DIRECTION-001",
+        "lens": 1,
+        "additional_current_lenses": [
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional alternate quantized direction and overlap policy",
+        "classification": "Landform overlap validation uses encoded tangent while retained collar normalizes it; a conditional source example has intersecting geometry but an OutsidePlayable bound rejection.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1552",
+          "baseline-059/queue.json#/entries/1608",
+          "baseline-059/queue.json#/entries/1610",
+          "segovb/READ-L12-657.json",
+          "adler/READ-L11-301.json",
+          "ROOT-PPS-VOLUMETRIC-COLLAR-027"
+        ],
+        "related_current": [
+          "REVIEW-FAULT-SIDE-GUARD-LATE-001",
+          "REVIEW-EROSION-SIDE-GUARD-LATE-001"
+        ],
+        "relationship_qualification": "The prior root trace already identified two direction/admission paths but did not establish this particular overlap case; side-guard findings concern work before a different bound. Exact alias and historical counts remain open, with no3821 claim.",
+        "discovery": "partial; ideal symbolic axis example and selected producer counterevidence, native normalization and actual supported input remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-LANDFORM-OVERLAP-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1225.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1229.json"
 }
