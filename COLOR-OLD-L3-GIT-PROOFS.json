@@ -1,0 +1,142 @@
+{
+  "schema": "726-exact-git-tree-path-membership-v1",
+  "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "root_tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+  "commit": {
+    "sha256": "1c7c102cb3239b6429e14439280284d96df7cb7a445e80c0c48fba604b45b9d4",
+    "bytes": 3233,
+    "preserved_bytes": "main-advance-95e/color-evidence/e275-commit.gz"
+  },
+  "tree_objects": {
+    "7737c903f98397669c12da05475f759aa7fcfe73": {
+      "git_object": "7737c903f98397669c12da05475f759aa7fcfe73",
+      "type": "tree",
+      "sha256": "c0c0d74a3796e4ceed48d8f35fbd0cd85fa2cdbbc6cadaa97a5faae10a137813",
+      "bytes": 1635,
+      "preserved_bytes": "main-advance-95e/color-evidence/e275-git-objects/7737c903f98397669c12da05475f759aa7fcfe73.tree.gz"
+    },
+    "aa5546dfa40d26f0e800e424e7977c40ba94394e": {
+      "git_object": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+      "type": "tree",
+      "sha256": "38af935e0c3ccfb8099d60e13873103592672150e011e6287ff7b4c9a8bfc1db",
+      "bytes": 2434,
+      "preserved_bytes": "main-advance-95e/color-evidence/e275-git-objects/aa5546dfa40d26f0e800e424e7977c40ba94394e.tree.gz"
+    },
+    "4082e1e5340e5888407e6655a04bb31310734d9b": {
+      "git_object": "4082e1e5340e5888407e6655a04bb31310734d9b",
+      "type": "tree",
+      "sha256": "15e9cd3be52bff87520a74b8e44f043eeb21da96da434bea0e852f66cfe70102",
+      "bytes": 68,
+      "preserved_bytes": "main-advance-95e/color-evidence/e275-git-objects/4082e1e5340e5888407e6655a04bb31310734d9b.tree.gz"
+    },
+    "ae3758a0bc1f1c01515bdf7c5d572314d8e027ef": {
+      "git_object": "ae3758a0bc1f1c01515bdf7c5d572314d8e027ef",
+      "type": "tree",
+      "sha256": "682cfecbdf791c759782a29c33d408fde1557acef9329fc8b0b4ed3e0b386ce1",
+      "bytes": 291,
+      "preserved_bytes": "main-advance-95e/color-evidence/e275-git-objects/ae3758a0bc1f1c01515bdf7c5d572314d8e027ef.tree.gz"
+    }
+  },
+  "paths": {
+    "crates/fabelgeist-color/src/conversion.rs": {
+      "chain": [
+        {
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+          "name": "crates",
+          "mode": "40000",
+          "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "name": "fabelgeist-color",
+          "mode": "40000",
+          "child": "4082e1e5340e5888407e6655a04bb31310734d9b"
+        },
+        {
+          "tree": "4082e1e5340e5888407e6655a04bb31310734d9b",
+          "name": "src",
+          "mode": "40000",
+          "child": "ae3758a0bc1f1c01515bdf7c5d572314d8e027ef"
+        },
+        {
+          "tree": "ae3758a0bc1f1c01515bdf7c5d572314d8e027ef",
+          "name": "conversion.rs",
+          "mode": "100644",
+          "child": "a9070dbe57ae33e317aaf6d834d8992dcae99d51"
+        }
+      ],
+      "git_blob": "a9070dbe57ae33e317aaf6d834d8992dcae99d51",
+      "sha256": "1c16766feee62bbb80b38bdcc46c18cd7c732d6f2d796a4c26e228cb4eff6f1e",
+      "bytes": 15695,
+      "lines": 472,
+      "qualification": "Exact e275 and95e bytes match; prior Lens3 scope remains e275 and is not newly credited to95e or3821."
+    },
+    "crates/fabelgeist-color/src/yuv.rs": {
+      "chain": [
+        {
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+          "name": "crates",
+          "mode": "40000",
+          "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "name": "fabelgeist-color",
+          "mode": "40000",
+          "child": "4082e1e5340e5888407e6655a04bb31310734d9b"
+        },
+        {
+          "tree": "4082e1e5340e5888407e6655a04bb31310734d9b",
+          "name": "src",
+          "mode": "40000",
+          "child": "ae3758a0bc1f1c01515bdf7c5d572314d8e027ef"
+        },
+        {
+          "tree": "ae3758a0bc1f1c01515bdf7c5d572314d8e027ef",
+          "name": "yuv.rs",
+          "mode": "100644",
+          "child": "d06f2f1e10563d73a31ca7091d9a32ea7e56a85e"
+        }
+      ],
+      "git_blob": "d06f2f1e10563d73a31ca7091d9a32ea7e56a85e",
+      "sha256": "c1035317fc3e31dda1c8c4547d8a0866cc4b46d13d508024cedaf0b7cdd355f2",
+      "bytes": 17006,
+      "lines": 503,
+      "qualification": "Exact e275 and95e bytes match; prior Lens3 scope remains e275 and is not newly credited to95e or3821."
+    },
+    "crates/fabelgeist-color/src/pixel.rs": {
+      "chain": [
+        {
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+          "name": "crates",
+          "mode": "40000",
+          "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "name": "fabelgeist-color",
+          "mode": "40000",
+          "child": "4082e1e5340e5888407e6655a04bb31310734d9b"
+        },
+        {
+          "tree": "4082e1e5340e5888407e6655a04bb31310734d9b",
+          "name": "src",
+          "mode": "40000",
+          "child": "ae3758a0bc1f1c01515bdf7c5d572314d8e027ef"
+        },
+        {
+          "tree": "ae3758a0bc1f1c01515bdf7c5d572314d8e027ef",
+          "name": "pixel.rs",
+          "mode": "100644",
+          "child": "06eb3b7b7974ecb3d157a9fe8e296c2cb071c51b"
+        }
+      ],
+      "git_blob": "06eb3b7b7974ecb3d157a9fe8e296c2cb071c51b",
+      "sha256": "9b7d1004ee1879e113be545a891967a8f30d6ced8086fba84ee7f279997d333b",
+      "bytes": 15940,
+      "lines": 540,
+      "qualification": "Exact e275 and95e bytes match; prior Lens3 scope remains e275 and is not newly credited to95e or3821."
+    }
+  },
+  "qualification": "Original Lens3 e275 receipts remain separately attributed; matched current bytes do not grant other-lens or checkpoint3821 coverage. Earlier e275 current-scope rows record qualified reuse with zero fresh personal rereads; original frozen read attribution remains separately preserved."
+}
