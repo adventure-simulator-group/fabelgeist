@@ -1,0 +1,370 @@
+{
+  "schema": "726-delegated-bounded-physical-p16-source-audit-v1",
+  "author": "/root/hair_ops",
+  "recorded_utc": "2026-11-11T21:53:38.019206+00:00",
+  "scope": {
+    "original_roles": [
+      2486,
+      2487
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_snapshot": "physical-p16: recorded dirty working tree based on a120390947c89b703dc74c4255a13c035d054c50",
+    "snapshot_qualification": "The 059 snapshot registry records head/base a120, 159 changed variants, dirty status, and patch SHA256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7. Exact P16 source object hashes, 774 recovered catalog and f82 hash-named archive identify these two role bodies; f82 is archive transport, not the product snapshot commit. Both role bodies happen to be independently byte-identical to a120, 039 archived-source origin, 6533 and current 95e; this is path-specific evidence, not proof the dirty snapshot is clean or a whole-delta reconstruction.",
+    "patch_recovery_limit": "The original patch bytes were not recovered in this packet; patch SHA/status remain recorded historical assertions, not verification of its contents. Central agent reports a bounded search of 7,156 .patch/.diff files no larger than 100MB under specified older ae46 and provided 28ba target collections found no matching hash; that search does not prove absence elsewhere.",
+    "personal_reads": "After prospective registration, separately displayed P16 and current 95e role 2486 1–140 and role 2487 1–490. Test code was source text only. a120, 039 and 6533 copies were archived/identity checked but not separately displayed; read receipts retain exact chunks and support scopes.",
+    "constraint": "No viewer, product, runtime probe, simulated fixture, build, test, implementation, repair or product validation."
+  },
+  "historical_reviewers": [
+    {
+      "record": "reference/older-selection.json, 774 native supplier coverage rows 188/530 for body and 189/531 for target",
+      "author": "Original 774 native supplier",
+      "identity": "pr-working roles 1357 and 1358, equal hash to the P16 objects",
+      "ranges": {
+        "body": [
+          [
+            1,
+            490
+          ]
+        ],
+        "target": [
+          [
+            1,
+            140
+          ]
+        ]
+      },
+      "qualification": "Underlying rows explicitly state full production/existing fixture source read under their lens; closure rows 530/531 preserve that same source read and disposition, not extra rereads. Original registry summary read_status is null. Do not transfer PR source or lens credit to P16."
+    },
+    {
+      "record": "historical/adler/READ-L11-186.json and REGISTRATION-ADLER-172/173",
+      "author": "Original Adler L11 reviewer",
+      "identity": "pr-working roles 1357 and 1358 at separately preserved source hashes",
+      "ranges": {
+        "body": [
+          [
+            1,
+            170
+          ],
+          [
+            171,
+            340
+          ],
+          [
+            341,
+            490
+          ]
+        ],
+        "target": [
+          [
+            1,
+            140
+          ]
+        ]
+      },
+      "qualification": "Original body-frame finding q39; original source and authorship remain intact despite equal P16/current bytes."
+    },
+    {
+      "record": "historical/segovb/READ-L11-413.json and REGISTRATION-SEGOVB-1387/1388",
+      "author": "Original 059 Segovb L11 reviewer",
+      "identity": "physical-p16 roles 2486 and 2487",
+      "ranges": {
+        "target": [
+          [
+            84,
+            140
+          ]
+        ],
+        "body": [
+          [
+            195,
+            217
+          ]
+        ]
+      },
+      "qualification": "Only original materially reached windows; historical unchanged despite this later full read."
+    },
+    {
+      "record": "historical/segovb/READ-L12-843.json and underlying PROPOSAL-L12-843, registrations and Windows path qualifications",
+      "author": "/root/lens12_frontier, adopted by historical root; not root personal read",
+      "identity": "physical-p16 archive objects",
+      "ranges": {
+        "target": [
+          [
+            84,
+            140
+          ]
+        ],
+        "body": [
+          [
+            195,
+            217
+          ]
+        ]
+      },
+      "qualification": "Separate exact P16 scopes; archived f82 hash object transport is not product head. Preserve 1–83 target and 1–194/218–490 body as unread for that reviewer."
+    },
+    {
+      "record": "reference/prior-ASSESSMENT-L01-HISTORICAL-1356-1362.json",
+      "author": "Prior central reviewer as stated in that assessment",
+      "identity": "Original historical pr-working source roles 1357 and 1358, 6533 recorded working state with controlling hashes",
+      "ranges": {
+        "body": [
+          [
+            1,
+            490
+          ]
+        ],
+        "target": [
+          [
+            1,
+            140
+          ]
+        ]
+      },
+      "qualification": "Prior reviewer full source text read; current counterpart equality/selected ranges are not expanded into a new reviewer or independent-lens credit."
+    }
+  ],
+  "connections": [
+    {
+      "id": "ADLER-L11-BODY-OBSERVATION-FRAME",
+      "classification": "Original 059 q39, current central assessment existing finding, independently corroborated at same 95e/P16 source bytes; no duplicate.",
+      "trace": [
+        {
+          "file": "source/2487-current.rs",
+          "ranges": [
+            [
+              17,
+              36
+            ],
+            [
+              49,
+              65
+            ],
+            [
+              93,
+              97
+            ]
+          ],
+          "claim": "Current world velocity/acceleration are rotated into current body basis; retained earlier observation.velocity and smoothed local acceleration are reused without a stored basis."
+        },
+        {
+          "file": "source/2486-current.rs",
+          "ranges": [
+            [
+              29,
+              55
+            ]
+          ],
+          "claim": "Deceleration scale tests a dot product of previous velocity and current filtered acceleration, and compares current/previous planar speeds."
+        },
+        {
+          "file": "support/00-crates__adventuresim-tactical-client__src__animation__procedural__sample_state.rs",
+          "ranges": [
+            [
+              34,
+              50
+            ]
+          ],
+          "claim": "Stored BodyObservation holds tick and local velocity only; no world velocity or prior orientation accompanies it."
+        }
+      ],
+      "condition_and_consequence": "For an otherwise eligible response episode with turning between observations and relevant nonzero vectors, previous and current body-local components can refer to different bases, changing the braking classification/scale. Eligibility excludes reset cases such as discontinuity, action, posture transition, airborne and raised guard. Actual supported turn rates, timing and observed visual effects remain unproved; response is presentation only. Smoothed acceleration frame semantics is a connected policy question, not a second automatic defect.",
+      "future_direction": "Preserve or reconstruct the spatial frame so compared observations share a basis; decide intended response-filter frame separately, retaining validated numeric guards and by-value state commit. Central owns the ledger and remediation.",
+      "history": "Original adler/READ-L11-186; baseline q39; ASSESSMENT-BODY-FRAME-HEIGHT-95E; no 3821 promotion."
+    },
+    {
+      "id": "REVIEW-BODY-REFERENCE-ACCELERATION-RATIO-001",
+      "classification": "Previously recorded 95e conditional representability question in ASSESSMENT-PACK-RESPONSE-95E, separately corroborated; distinct from q39 and no duplicate.",
+      "trace": [
+        {
+          "file": "support/measurement.rs",
+          "ranges": [
+            [
+              96,
+              107
+            ]
+          ],
+          "claim": "Scalar nonnegative admission rejects nonfinite and negative."
+        },
+        {
+          "file": "support/reference-acceleration.rs",
+          "ranges": [
+            [
+              45,
+              58
+            ]
+          ],
+          "claim": "ReferenceAcceleration rejects zero then divides by retained positive f32, without additional representability bound."
+        },
+        {
+          "file": "source/2486-current.rs",
+          "ranges": [
+            [
+              106,
+              135
+            ]
+          ],
+          "claim": "Finite local acceleration component is divided by configured reference before body angle construction and clamping."
+        },
+        {
+          "file": "support/01-crates__adventuresim-tactical-client__src__animation__procedural__body_values.rs",
+          "ranges": [
+            [
+              43,
+              57
+            ]
+          ],
+          "claim": "Nonfinite multiplied angle is rejected before clamp."
+        },
+        {
+          "file": "source/2487-current.rs",
+          "ranges": [
+            [
+              139,
+              156
+            ]
+          ],
+          "claim": "On error the owner response is not updated from the copied candidate."
+        }
+      ],
+      "condition_and_consequence": "Sufficiently small positive finite reference with suitable nonzero finite acceleration can overflow the ratio or product and reject the presentation update. Shipped YAML sets forward 12 and lateral 10 m/s²; no extreme config was parsed, installed or exercised and supported tuning domain remains a policy question.",
+      "future_direction": "Decide the supported configuration/operation range and any bounded or explicitly rejected computation while preserving normal positive settings.",
+      "history": "Earlier central current assessment owns identity and its symbolic source reasoning; related 059 q1452 is unresolved quantity/context, not an automatic alias."
+    }
+  ],
+  "nonfindings_and_qualified_traces": [
+    {
+      "topic": "Reference cap and reset",
+      "sources": "support/03 procedural config 53–64; source/2486-current.rs 19–26; body_values 182–193",
+      "observation": "Validated config rejects a maximum response at/below the radian reporting margin before target subtraction. Thus the older speculative zero/tiny cap is not established on this validated installation path. Other independent config ingress paths and hot-reload sequencing are outside scope."
+    },
+    {
+      "topic": "Fixed clock provenance",
+      "sources": "source/2487-current.rs 17–26; support/extra-0 capture.rs 363–395, 437–446; support/extra-1 subject_motion.rs 35–52; support/extra-4 projection.rs 144–164",
+      "observation": "On the inspected successful capture path, the same sequence.simulation_tick sets the fixed step and enters the skeleton projection, which stores input.tick in locomotion_sample_tick. This addresses one earlier provenance question, not all producers, scheduling/early returns, clock policy or observed execution."
+    },
+    {
+      "topic": "Stable pelvis and stored response",
+      "sources": "source/2487-current.rs 139–192, 218–275",
+      "observation": "Successful state candidates are committed after checked advance; pelvis uses authored bind reference and compensates thigh inheritance. Native quaternion validity, complete rig ownership and animation visual quality are unassessed."
+    },
+    {
+      "topic": "Authored modes",
+      "sources": "source/2486-current.rs 95–135; support/reference-acceleration.rs 61–93",
+      "observation": "Speed-fraction normalization and attack/release branch are expressed policies, not automatic defects from primitive shape; no replacement behavior inferred."
+    }
+  ],
+  "open_questions": [
+    "Which actual supported turn and sample-timing routes reach the mismatched observation basis, and should acceleration smoothing follow a world-fixed vector or intentionally lag in body response space?",
+    "What reference acceleration domain is supported in authored/hot-reloaded configuration, and how should representability failures be owned?",
+    "Do all capture and noncapture fixed-clock producers bind source and presentation tick identities as the successful inspected capture route does?",
+    "What do native quaternion/rig transforms and scheduling guarantee for legal authored skeletons and rejected candidate publication?",
+    "Can the original P16 complete patch be recovered and independently verified against its recorded SHA? This packet has only the two role objects and recorded dirty metadata, not the full delta."
+  ],
+  "historical_queue": [
+    {
+      "zero_based_index": 39,
+      "contract_id": "ADLER-L11-BODY-OBSERVATION-FRAME",
+      "status": "open-reconciliation",
+      "qualification": "Original recovered 059 status, not checkpoint3821 or body-read credit."
+    },
+    {
+      "zero_based_index": 1152,
+      "contract_id": "Q-L12-2b3c5abf1e432223a1c2",
+      "status": "open-evidence-or-disposition",
+      "qualification": "Original recovered 059 status, not checkpoint3821 or body-read credit."
+    },
+    {
+      "zero_based_index": 1153,
+      "contract_id": "Q-L12-aa54c6c27c21db88d3a8",
+      "status": "open-evidence-or-disposition",
+      "qualification": "Original recovered 059 status, not checkpoint3821 or body-read credit."
+    },
+    {
+      "zero_based_index": 1154,
+      "contract_id": "Q-L12-f6f49764320c55b4570a",
+      "status": "open-evidence-or-disposition",
+      "qualification": "Original recovered 059 status, not checkpoint3821 or body-read credit."
+    },
+    {
+      "zero_based_index": 1155,
+      "contract_id": "Q-L12-557d95021ea723d43040",
+      "status": "open-evidence-or-disposition",
+      "qualification": "Original recovered 059 status, not checkpoint3821 or body-read credit."
+    },
+    {
+      "zero_based_index": 1452,
+      "contract_id": "Q-L12-33d996bc3f4b27cdf996",
+      "status": "open-evidence-or-disposition",
+      "qualification": "Original recovered 059 status, not checkpoint3821 or body-read credit."
+    }
+  ],
+  "lenses": [
+    {
+      "number": 1,
+      "name": "producer-propagation",
+      "assessment": "Typed config → current target → checked candidate → body/pelvis presentation, and current fixed-clock capture path → skeleton tick traced only in registered windows."
+    },
+    {
+      "number": 2,
+      "name": "existing-type-owners",
+      "assessment": "Velocity, acceleration, angular magnitude, response rates and sample ticks have explicit bespoke owners; BodyLocalVelocity alone does not carry the orientation that gives its frame."
+    },
+    {
+      "number": 3,
+      "name": "admission-contracts",
+      "assessment": "Config validates response margin/gap; typed values check finite and nonnegative inputs. Positive reference can still lack sufficient operation-level range; supported application tuning needs decision."
+    },
+    {
+      "number": 4,
+      "name": "invariant-operations",
+      "assessment": "Ratio before finite angle clamp and cross-frame dot product reconnect two distinct existing issues. Spring checks intermediate values and velocity norm before cap."
+    },
+    {
+      "number": 5,
+      "name": "aggregate-states",
+      "assessment": "Observation tick, velocity and frame basis, and current filtered acceleration must be related at comparison; guard/reset state and candidate commit delimit supported cases."
+    },
+    {
+      "number": 6,
+      "name": "type-ownership",
+      "assessment": "Observation/response owner governs frame identity; config owns tuning and native animation operations consume it. No product or foreign type rewrite proposed."
+    },
+    {
+      "number": 7,
+      "name": "redundant-authority",
+      "assessment": "Stored target, response and angular velocity represent different dynamics rather than automatic duplicate truth. Frame rotation is missing from retained observation; do not conflate with clock identities."
+    },
+    {
+      "number": 8,
+      "name": "behavior-preservation",
+      "assessment": "Two P16 source bodies are exactly identical to 95e/a120/6533/039, established by bytes, but snapshot histories and scopes differ; no behavior, validation or whole-snapshot equivalence established."
+    },
+    {
+      "number": 9,
+      "name": "enum-shapes",
+      "assessment": "First observation, discontinuity and reset branches express distinct legitimate modes; no unsupported enum conversion established."
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "assessment": "No source-backed safe derive substitution established for these checked response APIs. Wider trait owners remain outside scope."
+    },
+    {
+      "number": 11,
+      "name": "type-granularity",
+      "assessment": "Typed local velocity versus acceleration and angular quantities preserve units but do not distinguish changing body bases; maintain physical vs presentation and source vs fixed clock identities."
+    },
+    {
+      "number": 12,
+      "name": "magic-strings",
+      "assessment": "Native diagnostic error strings and config field names are output/serialization boundaries; no business error-string classifier was established."
+    },
+    {
+      "number": 13,
+      "name": "magic-numbers",
+      "assessment": "Typed reference acceleration, rate, seconds, radians and sample span carry separate units. Report margin is a named validated numeric allowance; no raw-primitive finding inferred by syntax alone."
+    }
+  ],
+  "status": "Bounded P16 and current source evidence with exact reviewer/recovery qualifications. Complete project audit, shared ledger, repair and product validation remain central and unfinished."
+}

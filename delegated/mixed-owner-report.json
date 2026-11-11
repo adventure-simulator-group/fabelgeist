@@ -1,0 +1,481 @@
+{
+  "schema": "726-delegate-source-audit-v1",
+  "agent": "/root/mhr_character",
+  "generated_utc": "2026-11-11T21:46:35.839932+00:00",
+  "scope": {
+    "roles": [
+      2475,
+      2479,
+      2480
+    ],
+    "authoritative_current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_rig_quality": "cbbbca08c89a8768926799371f54cf6057312e5e",
+    "historical_pr_working": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "qualification": "Rig-quality snapshot is clean; recorded pr-working snapshot has four unrelated dirty paths and assigned building paths match their 6533 Git blobs and recovered source hashes. Prior historical authorship is never current read credit."
+  },
+  "identity_evidence": [
+    "registration.json",
+    "git-proofs.json",
+    "older-continuation-index.json"
+  ],
+  "personal_read_receipt": "read-receipt.json",
+  "support_receipt": "support-read-receipt.json",
+  "historical_provenance": [
+    {
+      "record": "059 READ-L11-410 and REGISTRATION-SEGOVB-1374",
+      "author": "segovb lens 11",
+      "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "range": "quality 1–1001",
+      "qualification": "Earlier personal full config inspection; current agent personal quality read is partial."
+    },
+    {
+      "record": "059 L12-838 proposal/receipt, partial receipt and REGISTRATION-PAR-L12-486",
+      "author": "/root/lens12_frontier lens 12",
+      "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "ranges": "partial 1–555; later fresh 556–1001",
+      "qualification": "Older personal combined full body with prior no-credit partial; no read transfer."
+    },
+    {
+      "record": "059 READ-L11-411 and REGISTRATION-SEGOVB-1378/1379",
+      "author": "segovb lens 11",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "ranges": "storey 1–137; timber 1–45 and 139–158 only",
+      "qualification": "Historical material scope is not broadened by this agent full body read."
+    },
+    {
+      "record": "059 L12-840 proposal/receipt and REGISTRATION-PAR-L12-492/493",
+      "author": "/root/lens12_frontier lens 12",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "ranges": "storey 1–137; timber 1–45 and 139–158 only",
+      "qualification": "Earlier declared exact scope remains limited, no old credit inferred outside it."
+    },
+    {
+      "record": "059 parallel-l11 READ-194/195 and PLAN-212/213, q2941/q3280",
+      "author": "parallel lens11_reconcile",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "ranges": "quality 1–240 fresh in 194; 241–1028 fresh in 195; first portion reused, not newly reread",
+      "qualification": "Earlier e275 exact body hash matches 95e; original revision/author and adoption pending preserved."
+    },
+    {
+      "record": "774 ROOT-OWNER-METADATA-001 row26, SEGOVB-INITIAL04-CONTRACT-595",
+      "author": "root supplier and segovb operations summary",
+      "revision": "rig-quality cbbb for owner metadata; pr-working 6533 for 595",
+      "qualification": "Older source summary personally assessed full storey/timber; original root coverage and normalized export remain separate."
+    }
+  ],
+  "findings_and_reconciliations": [
+    {
+      "id": "TIMBER-MEMBER-MATERIAL-AUDIT-CONFLICT",
+      "classification": "Conditional source-backed contract candidate; supported mixed-material producer and global alias remain open.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/timber.rs",
+          "archive": "source/current-2480.source",
+          "lines": [
+            [
+              138,
+              156
+            ],
+            [
+              293,
+              309
+            ]
+          ]
+        },
+        {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "path": "crates/adventuresim-building-generator/src/model/timber.rs",
+          "archive": "source/pr-working-2480.source",
+          "lines": [
+            [
+              138,
+              156
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/timber.rs",
+          "archive": "source/support-7.rs",
+          "lines": [
+            [
+              1,
+              20
+            ],
+            [
+              340,
+              345
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/timber.rs",
+          "archive": "source/support-6.rs",
+          "lines": [
+            [
+              501,
+              518
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/timber.rs",
+          "archive": "source/support-8.rs",
+          "lines": [
+            [
+              18,
+              27
+            ],
+            [
+              212,
+              220
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/core.rs",
+          "archive": "source/support-9.rs",
+          "lines": [
+            [
+              153,
+              168
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/core.rs",
+          "archive": "source/support-10.rs",
+          "lines": [
+            [
+              7,
+              8
+            ],
+            [
+              49,
+              50
+            ]
+          ]
+        },
+        {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "path": "crates/adventuresim-building-generator/src/audit/timber.rs",
+          "archive": "source/support-11.rs",
+          "lines": [
+            [
+              1,
+              20
+            ],
+            [
+              501,
+              518
+            ]
+          ]
+        }
+      ],
+      "trace": "TimberFrameMember explicitly says its material is member-local because later repairs or upper-storey additions may legitimately differ from the primary frame. The joint auditor instead requires each participating member material to equal frame.material; otherwise it adds invalid_timber_joint_contact even when the other joint checks would pass. The public audit path invokes that timber audit. The same historical 6533 audit source was independently displayed at the relevant gate, while the current builder initializes generated members uniformly from its frame material.",
+      "conditions": "Only material differences for an actually connected participating member invoke this particular rejection. The available source does not establish a supported mutation/repair workflow that creates a mixed-material plan, whether uniformity is an intentional narrower audit policy for generated plans, or a runtime rejection. Other geometric/contact/material conditions still apply independently.",
+      "direction": "Decide whether the building audit is intended to support the documented member-local repairs and additions. If so, validate member material under the actual structural policy rather than assuming equality to frame default; retain independent participant, phase, contact, geometry and load checks. No implementation or product validation performed.",
+      "relationships": [
+        "059 Q-L11-14f35463a67b27a70751 left timber role/phase/material/node relations open; 774 SEGOVB-INITIAL04-CONTRACT-595 preserved graph/coherence obligations without deciding this exact gate. No automatic old alias or finding count.",
+        "Original timber role 2480 was historically material-scoped to lines 1–45 and 139–158 for the 059 lens 11/12 readers; this agent separately displayed the full 310-line 6533/95e bodies."
+      ]
+    },
+    {
+      "id": "TIMBER-PARTICIPANT-ADMISSION-OPEN",
+      "classification": "Conditional admission and compatibility-policy question, not a proven bypass.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/timber.rs",
+          "archive": "source/current-2480.source",
+          "lines": [
+            [
+              159,
+              186
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/timber.rs",
+          "archive": "source/support-4.rs",
+          "lines": [
+            [
+              70,
+              85
+            ],
+            [
+              499,
+              518
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/timber.rs",
+          "archive": "source/support-3.rs",
+          "lines": [
+            [
+              429,
+              454
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/timber.rs",
+          "archive": "source/support-6.rs",
+          "lines": [
+            [
+              501,
+              517
+            ]
+          ]
+        }
+      ],
+      "trace": "TimberFrameJoint derives Deserialize with a default-empty participant vector; the builder initially constructs an empty vector and subsequently populates it from member endpoints. The bounded audit compares participant count, membership, axes and reaction directions with member-derived expectations and includes this result in the joint issue. Deserialization alone can therefore admit missing participant evidence, but the displayed audit checks it for a nonempty expected cohort.",
+      "conditions": "It remains unknown whether missing-field deserialization is an intended supported authored input, a legacy fallback prohibited by project rules, or an unreachable representation; whether validation always follows that boundary and what other graph checks require are open. No complete plan acceptance or serialization execution claimed.",
+      "direction": "Trace actual deserialize users and intended data contract, and either require an explicit field or an explicit construction phase if missing participants are not legitimate, without mistaking intermediate builder state for finished output.",
+      "relationships": [
+        "Related to q578 and 774 595 graph integrity, but a separate missing-field admission question; no exact finding alias assumed."
+      ]
+    },
+    {
+      "id": "STOREY-ORDINAL-AND-QUALITY-POLICY-COMPARISON",
+      "classification": "Source comparison and nonfindings, not product validation.",
+      "source_refs": [
+        {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "path": "crates/adventuresim-building-generator/src/model/storey_index.rs",
+          "archive": "source/pr-working-2479.source",
+          "lines": [
+            [
+              8,
+              47
+            ],
+            [
+              50,
+              60
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/storey_index.rs",
+          "archive": "source/current-2479.source",
+          "lines": [
+            [
+              8,
+              47
+            ],
+            [
+              50,
+              60
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/interior/navigation/portals.rs",
+          "archive": "source/support-5.rs",
+          "lines": [
+            [
+              351,
+              360
+            ]
+          ]
+        },
+        {
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "rust-quality.toml",
+          "archive": "source/rig-quality-2475.source",
+          "lines": [
+            [
+              1,
+              8
+            ],
+            [
+              193,
+              212
+            ],
+            [
+              950,
+              1001
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "rust-quality.toml",
+          "archive": "source/current-2475.source",
+          "lines": [
+            [
+              1,
+              14
+            ],
+            [
+              199,
+              217
+            ],
+            [
+              1015,
+              1028
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-rust-quality/src/config.rs",
+          "archive": "source/support-0.rs",
+          "lines": [
+            [
+              5,
+              40
+            ],
+            [
+              99,
+              134
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-rust-quality/src/scan.rs",
+          "archive": "source/support-1.rs",
+          "lines": [
+            [
+              61,
+              74
+            ],
+            [
+              100,
+              109
+            ],
+            [
+              140,
+              147
+            ],
+            [
+              183,
+              193
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-rust-quality/src/analyze.rs",
+          "archive": "source/support-2.rs",
+          "lines": [
+            [
+              76,
+              84
+            ],
+            [
+              129,
+              155
+            ]
+          ]
+        }
+      ],
+      "trace": "StoreyIndex accepts native usize and checks u16 capacity at serialization; from_elevation rounds first, rejects nonfinite, negative rounded ordinals and values above u16, then casts. A small negative elevation rounding to signed zero is consistent with the documented rounded-station policy; a valid index still is not proof of membership in a specific building. The two building model blobs match 6533 and 95e exactly, with distinct personal displays. In rust-quality, compared old/current windows show added, removed and moved scope records and the unchanged top-level numeric limits; the checker interprets scope kinds and checks stale path/item references. Whole-file TOML parsing generated navigation counts without granting full body read.",
+      "conditions": "The rig-quality file body was personally displayed only at 1–225, 600–700 and 950–EOF for each revision; 226–599 and 701–949 remain unread. The parsed current/old MHR scope list is derived machine navigation, not an executed lint or independent proof about the named source files. Scope justifications and full current policy remain open.",
+      "direction": "Resolve each proposed quality scope against its actual source and checker boundary, preserving native external-format roles; maintain station rounding, finite errors and packed representation separately from building-membership proof.",
+      "relationships": [
+        "059 READ-L11-410 records a prior full cbbb quality read by segovb; L12-838 uses /root/lens12_frontier prior 1–555 plus fresh 556–1001, not this agent’s read.",
+        "059 q2941 and q3280 reflect separately attributed earlier e275 quality reads whose source hash matches current 95e; older revision and scopes remain theirs.",
+        "774 SEGOVB-INITIAL04-CONTRACT-595 already describes the deliberate rounded-zero policy and separately requires actual building membership."
+      ]
+    }
+  ],
+  "nonfindings": [
+    "from_elevation rounds before testing below-ground; signed zero after rounding is the documented station policy, not a proven bug.",
+    "A representable StoreyIndex does not automatically certify membership of a particular plan, but this alone does not prove misuse.",
+    "The current timber builder initializes member material uniformly; no ordinary generated mixed-material failure has been demonstrated.",
+    "Existing typed timber roles, IDs and scopes are not proof or disproof of entire aggregate graph validity."
+  ],
+  "open_questions": [
+    "Are later-repair and upper-storey mixed materials actually supported inputs to audit_plan, and should its joint material rule use per-member authority rather than frame default?",
+    "Is default-empty participant deserialization intentionally supported, prohibited legacy compatibility, or only an unused boundary, and does every consumer enforce full graph evidence?",
+    "What producer establishes building-specific membership for a StoreyIndex, especially newly constructed usize values and negative elevations near zero?",
+    "Are all affected quality scopes justified by their exact pinned current sources, and what remaining unread scopes or exceptions apply?",
+    "Do native readers, schedulers, event or renderer consumers require additional geometry and identity invariants?"
+  ],
+  "thirteen_lens_perspectives": [
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "Storey wire capacity and elevation conversion are explicit, while timber participant defaults and graph/material admission need actual caller policy.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Individual member IDs, nodes, endpoints and material do not alone guarantee joint graph coherence; a joint auditor currently compares each material to assembly default.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "Preserve documented rounded station semantics, separate native and wire ordinal ranges, current quality policy scopes and independent structural checks while investigating potential mixed materials.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "Transparent typed IDs and derived serde serve distinct identities; blindly deriving StoreyIndex wire serialization would lose checked narrowing semantics.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "Timber member role, phase and material and explicitly empty or populated participant state represent distinct concepts; no blanket enum replacement follows.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "StoreyIndex is a canonical ordinal but membership is a separate building-specific contract; timber role/material/IDs already have named owners.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "Checked float-to-ordinal conversion rejects overflow; round-to-zero of small negatives is intentional under the stated station policy, not necessarily below-ground failure.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "Quality limits and timber dimensions encode distinct policy/physical units; acceptance thresholds and scanner scope exemptions must be examined at their owning source.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "Quality config paths/items/reasons and audit issue codes are policy/native diagnostic representations; scope names are not product validation, and no string-dispatch finding is established here.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Initial timber builder assigns frame material to members while audit requires equality; actual later repair/addition producers and final building consumer must be traced.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "Member-local material and frame default have a source-documented role distinction; uniform joint audit potentially overrides member-local authority under mixed-material conditions.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Wire ordinal capacity, native vector index, structural identity, material and geographic direction have different semantic boundaries; no primitive-based universal merge.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "Central reconciliation must decide the member-local structural policy and checker exception owner; historical supplier or matched object identity is not repair ownership.",
+      "whole_lens_completion": false
+    }
+  ],
+  "limitations": [
+    "No lint, product, tests, builds, probes, simulations, fixtures or repairs.",
+    "Quality source files personally displayed only in recorded windows; TOML parse and diff range discovery are metadata, not full personal read.",
+    "Historical original scopes/authors/dirty variants remain separate from newly assessed 95e and checkpoint3821.",
+    "Central agent owns ledger, role credit, exact aliases and checkpoint publication."
+  ]
+}

@@ -1,0 +1,385 @@
+{
+  "schema": "726-delegate-p16-shutters-mesh-report-v1",
+  "author": "/root/rig_identity",
+  "written_utc": "2026-11-11 22:27:34 UTC",
+  "scope": "Original roles 2515\u20132516, independent old/current full body displays, separately registered bounded supports, and thirteen scoped perspectives; not whole-lens completion.",
+  "baseline_and_recovery": {
+    "pinned_current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "p16_recorded_dirty_base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "p16_status_records": 159,
+    "p16_original_patch_sha256": "fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7",
+    "patch_bytes": "unrecovered",
+    "transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee is evidence transport only, not P16 commit",
+    "identity": "Both individual P16 objects match 95e, 6533, and a120 at same paths; no inference about entire dirty snapshot",
+    "proofs": "registration.json, personal-read-receipt.json, git-proofs.json and raw Git objects"
+  },
+  "historical_attribution": [
+    {
+      "source": "774 rig owner-reached producer followup",
+      "source_identity": "dirty P16 recovered objects transported by f82",
+      "author": "rig supplier as recorded; individual agent name not specified in qualification",
+      "roles": "REGISTER-042 shutters 1\u201379, fixture lines80\u2013115 excluded; REGISTER-032 recipe_mesh40\u201387, metric_cuboid1\u201339 excluded. TRACE-004 explicitly describes exact native receivers and associated F004. Separate subsequent TRACE010/F009 corrects an overbroad waiver only for unchanged glazing forwarding. No unrelated lens, current or extra role credit."
+    },
+    {
+      "source": "059 segovb READ-L11-416",
+      "source_identity": "6533 PR-working historical full read, exact equal objects; no fresh P16 body reads",
+      "author": "Adler historical same-lens reviewer, root adoption",
+      "roles": "REG-1418 shutters adopts Adler READ-L11-223 role1587 full1\u2013115; REG-1419 mesh adopts Adler READ-L11-231 role1614 full1\u201387. Both fresh_personal_body_reads empty; original historical source remains 6533."
+    },
+    {
+      "source": "059 segovb READ-L12-854 / PROPOSAL-L12-854",
+      "source_identity": "dirty P16 recovered objects; f82 only transport",
+      "author": "/root/lens12_frontier historical prospective bounded read; root adoption",
+      "roles": "PAR-L12-534 shutters1\u201379, no 80\u2013115; PAR-L12-535 recipe_mesh40\u201387, no1\u201339. Distinct from earlier L11 full bodies and this delegate current read."
+    },
+    {
+      "source": "059 TEAM-018 locked native tangent receipt",
+      "source_identity": "dirty P16 Cargo.lock and checksum-matched bevy_mesh 0.19.1 / bevy_mikktspace 1.0.0 .crate archives",
+      "author": "/root/lens12_frontier historical personal registered ranges, root adoption",
+      "roles": "Retained receipt, registrations 546\u2013557, exact source files and independently checksum-verified archives. Rejected degenerate UV -> returned Err -> expect panic at those versions and rejected missing attributes on the fresh path; other assertions, index bounds, quality, feature activation and current-native status remain open. No personal dependency body credit claimed."
+    },
+    {
+      "source": "Earlier current finish/LOD packet and interior assessment",
+      "source_identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "author": "/root/rig_identity finish/LOD; separate earlier current publication assessment retains only its own recorded author/ranges",
+      "roles": "Prior packet fully preserved with manifest and receipts; current lighting assessment and archived support retained separately. Exact same code bytes do not transfer older read credit."
+    }
+  ],
+  "findings_and_questions": [
+    {
+      "id": "P16-SHUTTER-OPENING-ORIGIN-MATCH",
+      "classification": "conditional current source-backed geometry/identity contract question; central adjudicates any new repair unit",
+      "first_contract": "InteriorField::from_plan computes a room opening contribution and opening_light searches all retained opening assemblies for the first TimberShutter whose frame origin lies within 0.01 m of the unprojected source WallSegment centre and whose sill matches. If the corresponding retained shutter frame lies beyond that tolerance and no other shutter at that centre/sill matches, the function returns no opaque ID: the contribution uses the transmitting-window baseline and no ShutterLight entry is created to follow that shutter.",
+      "evidence_and_condition": "The storey wall producer retains span.centre plus a tangent opening offset as its assembly origin; the span computes endpoints with exterior upper-storey projection and may shift its centre along the wall at returns. These terms can move the assembly origin away from the original WallSegment centre. The observed generator closure policy selects a TimberShutter for qualifying FachwerkCottage opening IDs, but the ordinary inspected Cottage program is one storey with zero projection; other inspected projected default archetypes do not establish shutter selection. No supported generated plan combining a sufficient shift with an eligible shutter has been proved, and another matching candidate could change the outcome. No product, fixture or visual behavior was executed.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/interior_lighting/field.rs",
+          "ranges": [
+            [
+              48,
+              70
+            ],
+            [
+              85,
+              107
+            ],
+            [
+              121,
+              140
+            ],
+            [
+              157,
+              205
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/layout.rs",
+          "ranges": [
+            [
+              10,
+              27
+            ],
+            [
+              39,
+              63
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/wall_assemblies.rs",
+          "ranges": [
+            [
+              10,
+              31
+            ],
+            [
+              56,
+              70
+            ],
+            [
+              238,
+              250
+            ],
+            [
+              1088,
+              1103
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/wall_spans.rs",
+          "ranges": [
+            [
+              15,
+              58
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/window_closures.rs",
+          "ranges": [
+            [
+              11,
+              25
+            ],
+            [
+              66,
+              75
+            ],
+            [
+              98,
+              106
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/building_program/residential.rs",
+          "ranges": [
+            [
+              91,
+              118
+            ]
+          ]
+        }
+      ],
+      "future_direction": "Trace actual admitted program variants and generated identity correspondence, including corner-bond shifts and exterior projection, then use an explicit authoritative opening-to-assembly association or a geometry-aware policy that retains legitimate shifted apertures and rejects ambiguous/missing mappings. Preserve separate baseline glass transmission and opaque shutter semantics.",
+      "relationships": [
+        "The prior ASSESSMENT-INTERIOR-LIGHTING-95E and 059 L12-CLOSURE-SCENE-WINDOW-NATIVE-PROJECTION-LIGHTING retain broader projection/lighting obligations; this bounded field matching mechanism is related, not an automatic duplicate or historic finding.",
+        "Related to P16-WINDOW-OPENING-FRAME-AGGREGATE and closure reference source ownership; this issue is the field producer match, not necessarily the same first failed contract."
+      ]
+    },
+    {
+      "id": "P16-SHUTTER-SCENE-OPENING-SELECTION",
+      "classification": "previously recorded conditional query uniqueness question; no duplicate count",
+      "first_contract": "The update scans all SceneWindow entities with matching SceneBuildingId and selects the first pair with the shutter OpeningAssemblyId. The shown server compiles one SceneWindow for each returned WindowSpec and preserves building/opening IDs; these shown functions alone do not prove uniqueness across all producers, entity lifetimes and scene boundaries.",
+      "condition": "Two simultaneous matching ID pairs or an incoherent field/window ownership relation must occur and choose different meaningful apertures; otherwise the first match is consistent. No normal duplicate, overlapping scene, query order or observed lighting incident has been established.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/interior_lighting/shutters.rs",
+          "ranges": [
+            [
+              15,
+              29
+            ],
+            [
+              52,
+              74
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+          "ranges": [
+            [
+              15,
+              33
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/windows.rs",
+          "ranges": [
+            [
+              66,
+              112
+            ]
+          ]
+        }
+      ],
+      "future_direction": "Prove actual scene/building/opening namespace and entity lifetime, and make ambiguity explicit at the owning boundary if multiple matching leaves are supported. Preserve intended missing-window-as-closed behavior.",
+      "relationships": [
+        "059 Adler READ-L11-223 and segovb READ-L11-416 explicitly withheld a first-leaf or cross-scene defect; the earlier current ASSESSMENT-INTERIOR-LIGHTING-95E narrows the normal compiler to one selected closure per opening. No unique duplicate is counted."
+      ]
+    },
+    {
+      "id": "P16-SHUTTER-ZERO-DIRECTION-POLICY",
+      "classification": "conditional native transform and aperture policy question",
+      "first_contract": "The field update normalizes the world-transformed local X direction with normalize_or_zero, then computes 1 - abs(dot) and clamps. If an admitted singular or zero-X transform produces the zero vector, this equation treats the aperture as 1.0 against any finite checked static direction; absence of a SceneWindow instead maps to 0.0.",
+      "condition": "A zero-direction GlobalTransform must be possible at this scheduled system for an otherwise valid SceneWindow. The shown server initializes a closed leaf with an admitted native rotation and Transform::from_translation(...).with_rotation(...), so this source does not show such a normal path. Exact pinned normalize_or_zero implementation, transform mutation/replication/parenting, and what a degenerate pose should mean are not independently proven. No runtime inference.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/interior_lighting/shutters.rs",
+          "ranges": [
+            [
+              22,
+              26
+            ],
+            [
+              60,
+              74
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+          "ranges": [
+            [
+              18,
+              32
+            ],
+            [
+              55,
+              64
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/windows.rs",
+          "ranges": [
+            [
+              86,
+              96
+            ],
+            [
+              103,
+              126
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/interior_lighting/mod.rs",
+          "ranges": [
+            [
+              150,
+              160
+            ]
+          ]
+        }
+      ],
+      "future_direction": "Trace exact admitted transform, native vector method and scene propagation guarantees; decide whether a singular direction needs a recoverable/no-update/fail-closed state before changing visible daylight behavior.",
+      "relationships": [
+        "Connected to 059 READ-L12-854 transform authority and finite native assumptions, not a proved alias with generic frame admission or a separate demonstrated incident."
+      ]
+    },
+    {
+      "id": "CURRENT-LOD-MESH-INDEX-NATIVE-BOUNDARY-RELATION",
+      "classification": "prior current observation independently corroborated; no additional unique count",
+      "first_contract": "LodMesh keeps public/serde vertices and indices independently. recipe_mesh maps all three vertex attributes from the same vertex iterator but clones independent indices unchanged and invokes tangent generation for selected materials. The earlier LodMesh producer trace additionally records unchecked usize-to-u32 base conversion and offset arithmetic.",
+      "condition": "An accepted malformed decoded/mutated mesh, oversized producer, index or native algorithm failure must actually reach this receiver; this review did not establish any. No runtime panic, GPU behavior, feature activation, finite tangent quality or global native guarantee is claimed.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/lod.rs",
+          "ranges": [
+            [
+              95,
+              107
+            ],
+            [
+              118,
+              157
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/recipe_mesh.rs",
+          "ranges": [
+            [
+              40,
+              86
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+          "ranges": [
+            [
+              49,
+              68
+            ]
+          ]
+        }
+      ],
+      "future_direction": "Establish supported producer and accepted aggregate capacity, index membership and numerical/native tangent policy with source and later designated verification; retain existing same-vertex attribute correspondence and distinguish altered computations from native packing.",
+      "relationships": [
+        "Same previously reported CURRENT-LOD-MESH-INDEX-NATIVE-BOUNDARY-RELATION in the preserved /root/rig_identity finish/LOD packet; 059 Q-L12-63ce82a40701fd194206 and L12-CLOSURE-BEVY-TANGENT-INDEX-AGGREGATE remain open. No duplicate accepted count.",
+        "Historical 059 TEAM-018 exact P16 Bevy/Mikk source rejected the narrow degenerate UV -> returned Err -> expect panic story; this is a historical pinned dependency result, not proof all native panics or current behavior impossible."
+      ]
+    }
+  ],
+  "nonfindings": [
+    "Attribute position/normal/UV vectors all derive from the same LodVertex iterator, so this local construction supplies equal attribute lengths, though indices are independent.",
+    "Field contribution indices and base/current samples originate in the same construction loop and sample vector; alone this does not prove a later sample-index defect.",
+    "Shutter update deliberately maps missing aperture to closed and only sets changed after a tolerance-exceeding difference; these are policy statements, not inherently defects.",
+    "The old locked-native receipt rejects only the claimed returned-error path for UV degeneracy; it does not certify all native behavior or transfer to current.",
+    "Tests and examples displayed as text only; none was executed."
+  ],
+  "lenses": [
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "Shutter source contains no raw domain-string API. recipe_mesh native attribute constants and expect messages are native format/diagnostic material, not evidence of status classification by prose."
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "Aperture tolerance, closure angle and projection matching encode independent policies. The 0.01 m source-origin tolerance is not an identity; native vertex indices and cache float-bit keys have different roles."
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "OpeningAssemblyId and SceneBuildingId are retained for shutters; the untyped openness float and `(usize, LightSample)` contribution pairs are retained between producer and consumer. Decide local owner from actual bounds and tolerances, not by blanket wrapping."
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "SceneWindow keeps checked SpatialDirection and LeafDimensions into native transform and rendering boundary. Retain their checked values and frames while recognizing a newly computed openness ratio and native position/normal/UV arrays."
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Aperture opening identity, room-cell contribution index, positive/negative light lobes, and scene building identity are distinct concepts. A single opening ID does not automatically prove global identity across scenes."
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "Each updated sample begins from base and accumulates each stored contribution once, then caps RGB; inputs and indices depend on the producer. Origin geometry comparison, transform normalization, bounded ratio, and tangent generation require separate numeric policies."
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "LodMesh indices reference a separately stored vertex list. A ShutterLight contribution index must remain in bounds of samples/base_samples; this construction copies samples as base and derives indices in the same loop, while later mutation and accepted plan bounds remain unproved."
+    },
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "Public LodMesh serde does not encode index-to-vertex coherence. SceneWindow leaf serde admits finite/normalized leaves individually, but independent GlobalTransform and multi-entity ID relationships remain external contracts."
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "WindowLeafKind, WindowBarPresence, material role and missing-closure errors retain distinct modes. No assertion that shutters and glass share identical transmission or that missing window must be open."
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "Opening source wall, retained assembly frame, shutter contribution ID and replicated entity independently represent related geometry; matching by approximate origin and sill requires an explicit authority/relationship. Base and current sample arrays serve different update roles."
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "Individual P16 source objects equal pinned 95e bytes, not entire dirty snapshot state. Preserve glass transmission, opaque baseline policy, thresholded change flag, room ID in positive.w, native attribute order and material-specific tangent generation."
+    },
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Scene window IDs and checked directions survive to native transform openness; computed ratio is new numerical state. 774 TRACE-004 treats actual mesh packing and dot/normalization as native boundaries while historical F009 separately concerns unchanged checked glazing dimensions through Builder."
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "LodMesh and LodVertex derive serde; SceneWindow uses custom admission to retain contextual geometry errors. Nothing inspected justifies replacing custom admission or asserting independent raw containers prove coherent aggregate validity."
+    }
+  ],
+  "open_questions": [
+    "Can an accepted generated or externally admitted FachwerkCottage/other timber shutter have a resolved origin displaced by more than 0.01 m from its source wall centre, and can another candidate match the same centre/sill?",
+    "What are all supported scene, parent transform, window entity lifetime and building/opening identity domains?",
+    "Are native source-frame directions and propagated global transforms guaranteed finite and nondegenerate? What outcome should a zero or invalid direction produce?",
+    "Are all accepted LodMesh indices in range, representable and grouped correctly for the current native tangent implementation, and which feature/dependency versions are actually pinned?",
+    "What exact room-field construction/update invariants ensure indices remain valid after cloning and any subsequent mutations?"
+  ],
+  "limits": "Source and evidence inspection only. No repair, implementation, builds, tests, product, UI, native dependency execution, simulations, fixtures, runtime probes or product validation."
+}

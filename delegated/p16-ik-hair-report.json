@@ -1,0 +1,432 @@
+{
+  "schema": "726-delegated-bounded-physical-p16-ik-audit-v1",
+  "author": "/root/hair_ops",
+  "recorded_utc": "2026-11-11T22:02:03.240492+00:00",
+  "scope": {
+    "original_role": 2490,
+    "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_snapshot": "physical-p16 dirty working state based at a120390947c89b703dc74c4255a13c035d054c50",
+    "identity": "Exact P16 source SHA256 b1645110395d62b1dab020f6328f9b3d3fde6cd3f64b88101d6c66d5e7d8b0e6 matches 059 registry, 774 recovered object/catalog and f82 evidence archive object; f82 is archive transport, not a product snapshot. The P16 role equals a120, 039 and 6533 path bytes, while 95e has SHA256 1316d55883c31826dcf78b1c36f80116faf40dee3aa3cf8a4bc82646030d19e3. Exactly lines 111 and 2969 differ in this file.",
+    "dirty_patch": "059 records dirty status and patch SHA256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7. Full patch bytes were not recovered; the hash/status are historical assertions, not verified patch content. Central reported a bounded 7,156-file .patch/.diff search under older ae46 and provided 28ba collections with no hash match; absence elsewhere is unproved. The single path equality does not establish a clean P16 snapshot.",
+    "own_personal_read": "After registration P16 displayed 1–370 and 2935–2973; unread 371–2934. 95e displayed 1–370, 1540–1620, 2480–2550 and 2935–2973; unread 371–1539, 1621–2479, 2551–2934. Clean base, 039 and 6533 copies archived/compared only; separately referenced tests.rs not read. Exact chunk windows and support scopes are in receipts.",
+    "constraint": "No product/viewer execution, builds, tests, probes, simulation, fixtures, implementation, repair or product validation."
+  },
+  "historical_reviewers": [
+    {
+      "record": "reference/older-selection.json, 774 native supplier coverage rows 212 and 554",
+      "author": "Original 774 native supplier",
+      "identity": "pr-working role 1370, same P16 source hash",
+      "scope": [
+        [
+          1,
+          2973
+        ]
+      ],
+      "qualification": "Underlying source records full main coordinator read in bounded chunks; separate tests.rs remained unread. Later closure row preserves that same read, not a second full reread or P16-lens credit."
+    },
+    {
+      "record": "historical/adler/READ-L11-190.json and REGISTRATION-ADLER-186.json",
+      "author": "Original Adler Lens11 reviewer",
+      "identity": "pr-working role 1370 at frozen hash",
+      "scope": [
+        [
+          1,
+          2973
+        ]
+      ],
+      "qualification": "Full original source in specified fresh windows, separate tests module not read; original revision/author not transferred to this P16 role."
+    },
+    {
+      "record": "historical/segovb/READ-L12-384.json and REGISTRATION-SEGOVB-L12-277.json",
+      "author": "Original Segovb Lens12 reviewer",
+      "identity": "pr-working role 1370 at frozen hash",
+      "scope": [
+        [
+          1,
+          2973
+        ]
+      ],
+      "qualification": "Full parent source, child/native/core/current remain separate; no personal or P16 transfer."
+    },
+    {
+      "record": "historical/segovb/READ-L11-413.json and REGISTRATION-SEGOVB-1391.json",
+      "author": "Original 059 Segovb Lens11 reviewer",
+      "identity": "physical-p16 role 2490",
+      "scope": [
+        [
+          285,
+          315
+        ]
+      ],
+      "qualification": "Original materially reached role range only."
+    },
+    {
+      "record": "historical/segovb/READ-L11-471.json and REGISTRATION-SEGOVB-1788.json",
+      "author": "Original 059 Segovb Lens11 reviewer",
+      "identity": "physical-p16 overlay",
+      "scope": [
+        [
+          2968,
+          2973
+        ]
+      ],
+      "qualification": "Fresh overlay access to ik_tuning and module declaration; prior 774 producer-followup registration was bookkeeping only, not body credit."
+    },
+    {
+      "record": "historical/segovb/READ-L12-844.json, PROPOSAL-L12-844, REGISTRATION-PAR-L12-505 and Windows qualification",
+      "author": "/root/lens12_frontier, historical root adoption not root personal reread",
+      "identity": "physical-p16 ordered role",
+      "scope": [
+        [
+          285,
+          315
+        ],
+        [
+          2968,
+          2973
+        ]
+      ],
+      "qualification": "Exact dirty-object range; no 2973-line read inferred for this role from archived bytes."
+    },
+    {
+      "record": "historical/segovb/READ-L12-CONNECTED-TEAM-016.json and underlying connected receipt and registrations 508/509",
+      "author": "/root/lens12_frontier, historical root adoption not root personal reread",
+      "identity": "physical-p16 connected support",
+      "scope": [
+        [
+          105,
+          124
+        ],
+        [
+          125,
+          284
+        ],
+        [
+          316,
+          355
+        ]
+      ],
+      "qualification": "Additional partial signature/context is separate from ordered range; zero extra original role credit."
+    },
+    {
+      "record": "historical/segovb/READ-L12-391.json and REGISTRATION-SEGOVB-L12-289.json; historical/adler/READ-L11-194.json and REGISTRATION-ADLER-198.json",
+      "author": "Original Segovb Lens12 and Adler Lens11 reviewers respectively",
+      "identity": "pr-working target_speed.rs role 1382, SHA256 6fd2a1c9a3a33667760a393c13375e52b1d5405bc665617b8ec84f44a9430663; identical current support bytes",
+      "scope": [
+        [
+          1,
+          58
+        ]
+      ],
+      "qualification": "L12 explicitly noted that signed configured steps can fail NonnegativeSpeed admission while config support/policy and current caller remained open; L11 independently recorded checked budgets. Preserve those observations and original author."
+    },
+    {
+      "record": "reference/prior-ASSESSMENT-L01-HISTORICAL-1370-1374.json and ASSESSMENT-L01-HISTORICAL-1375-1383.json",
+      "author": "Prior central reviewer per original assessments",
+      "identity": "6533 registered roles 1370 and 1382",
+      "scope": {
+        "1370": [
+          [
+            1,
+            2973
+          ]
+        ],
+        "1382": [
+          [
+            1,
+            58
+          ]
+        ]
+      },
+      "qualification": "Prior personal historical body reads and separately qualified current comparisons, not my full P16/current system coverage."
+    }
+  ],
+  "connections": [
+    {
+      "id": "REVIEW-IK-FOOT-TARGET-SPEED-ADMISSION-95E",
+      "classification": "Provisional newly connected 95e conditional source contract; original 059 q1177 and Segovb L12 391 already identified signed-step-to-speed failure as an open policy. Not a new historical discovery or automatic global unique count; central must reconcile.",
+      "first_failed_contract": "Every accepted configured step/frequency relationship used to prepare the global IK foot-target speeds should yield a finite nonnegative speed, or be rejected at the owning configuration boundary before publication.",
+      "trace": [
+        {
+          "file": "support/05-crates__adventuresim-tactical-core__src__combat_config.rs",
+          "ranges": [
+            [
+              121,
+              148
+            ],
+            [
+              672,
+              697
+            ]
+          ],
+          "claim": "Four step fields are SignedLength; validated IK block checks frequency and other invariants but contains no checks for those four fields or their products."
+        },
+        {
+          "file": "support/admission-0-crates__fabelgeist-geometry__src__measurement.rs",
+          "ranges": [
+            [
+              11,
+              21
+            ],
+            [
+              35,
+              45
+            ],
+            [
+              77,
+              80
+            ]
+          ],
+          "claim": "SignedLength construction/deserialization admits finite negative or positive metres."
+        },
+        {
+          "file": "support/admission-2-crates__adventuresim-tactical-core__src__animation__sample_rate.rs",
+          "ranges": [
+            [
+              18,
+              42
+            ]
+          ],
+          "claim": "AnimationFrequency admits finite positive hertz."
+        },
+        {
+          "file": "support/09-crates__adventuresim-tactical-client__src__animation__procedural__ik__target_speed.rs",
+          "ranges": [
+            [
+              15,
+              28
+            ]
+          ],
+          "claim": "All four configured steps are multiplied by frequency and admitted as NonnegativeSpeed before the bundle returns."
+        },
+        {
+          "file": "support/admission-1-crates__adventuresim-core__src__linear_speed.rs",
+          "ranges": [
+            [
+              40,
+              50
+            ]
+          ],
+          "claim": "Speed admission rejects negative and nonfinite results but accepts zero."
+        },
+        {
+          "file": "source/2490-current.rs",
+          "ranges": [
+            [
+              105,
+              127
+            ]
+          ],
+          "claim": "A failure in configured target speeds logs and returns from the system before the owner/rig loop."
+        },
+        {
+          "file": "support/06-crates__adventuresim-tactical-core__src__combat_config__runtime.rs",
+          "ranges": [
+            [
+              11,
+              20
+            ],
+            [
+              59,
+              80
+            ]
+          ],
+          "claim": "Runtime snapshot installation validates and dedicated accessor projects inverse-kinematics config."
+        }
+      ],
+      "conditions_and_limits": "An otherwise valid candidate with a finite negative nonzero step and a suitable positive frequency can reach a negative product; sufficiently large finite positive step/frequency can overflow. The shipped values are positive and continuity frequency is 64 Hz (support/08 YAML 275–296). No extreme configuration was parsed, installed or run, no player or visual failure observed, and supported negative/extreme tuning policy remains unresolved. The error rejects the whole IK system before any rig is iterated, rather than corrupting an already-published target. Product execution, native renderer, actual feature scheduling and other configuration ingress paths were not assessed.",
+      "future_repair_direction": "If such inputs are unsupported, validate the semantic step sign and representable step×frequency relationship at the existing configuration owner; otherwise define an intentional bounded/rejection policy. Preserve valid zero, shipped positive settings, and actual authored behavior. Central owns canonical alias, ledger and implementation.",
+      "historical_relationship": "059 q1177 and original Segovb L12 391 already recorded negative-step possibility and left actual allowed tuning/current follower scope open; Adler L11 194 recorded checked conversion. New work connects those original observations to 95e admission and global caller, without transferring earlier authorship."
+    },
+    {
+      "id": "CULL-VISIBILITY-IK-RESUMPTION-QUESTION",
+      "classification": "Current behavioral comparison and unresolved lifecycle/policy question, not an asserted defect.",
+      "trace": [
+        {
+          "file": "source/2490-current.rs",
+          "ranges": [
+            [
+              105,
+              125
+            ]
+          ],
+          "claim": "95e excludes PoseCulled rigs; P16 query has no such exclusion."
+        },
+        {
+          "file": "support/00-crates__adventuresim-tactical-client__src__animation__pose_buffer__pose_cull.rs",
+          "ranges": [
+            [
+              1,
+              37
+            ]
+          ],
+          "claim": "Cull marker is inserted/removed as rig visibility freezes/resumes."
+        },
+        {
+          "file": "support/01-crates__adventuresim-tactical-client__src__animation__pose_buffer.rs",
+          "ranges": [
+            [
+              460,
+              485
+            ],
+            [
+              596,
+              603
+            ]
+          ],
+          "claim": "Pose update returns for culled rig and pose-buffer apply skips frozen visibility."
+        },
+        {
+          "file": "support/observation.rs",
+          "ranges": [
+            [
+              104,
+              124
+            ],
+            [
+              126,
+              176
+            ]
+          ],
+          "claim": "Separately scheduled propagated observation query is not filtered by PoseCulled and can update endpoint/owner-frame memory when terrain, owner, state, rig and finite observations are available."
+        },
+        {
+          "file": "support/02-crates__adventuresim-tactical-client__src__animation__presentation__plugin.rs",
+          "ranges": [
+            [
+              38,
+              63
+            ],
+            [
+              70,
+              94
+            ],
+            [
+              105,
+              114
+            ]
+          ],
+          "claim": "Source declares chained update and later post-update IK/propagation observer ordering; engine deferred-command timing is not independently verified."
+        }
+      ],
+      "conditions_and_limits": "No blanket claim that all IK state or owner_frame freezes during culling: the independent observer can update it. Its early exits and finite/availability guards, the uninspected coordinator remainder, current scheduling, visibility transitions, last-visible contact policy, and actual user-visible consequences remain open. No culling, reentry or animation was executed.",
+      "history": "Prior ASSESSMENT-L01-HISTORICAL-1370-1374 recorded the query change and explicitly left lifecycle open; baseline q804/q807 preserve culling as a supported mode. ASSESSMENT-POSE-LEG-BOUNDS-95E is a separate previously recorded conditional zero-leg solver case, not this lifecycle question."
+    }
+  ],
+  "nonfindings": [
+    "The current dedicated IK accessor reads the same animation.inverse_kinematics field from the shared runtime config and maintains its own version-keyed cache (support/06 11–20,24–80). This source comparison does not prove concurrent hot-reload behavior, feature selection or full runtime equivalence.",
+    "Terrain blend retains UnitInterval, applies a configured nonnegative ResponseRate and elapsed budget, then readmits the result; a zero rate is permitted by its owner and may intentionally hold state. No defect inferred merely from zero, booleanized desired blend, or native warning text.",
+    "Repeated fixed tick gate skips IK when the registered evaluation clock reports no new sample; different clock/source lifecycle and scheduler integration require separate evidence.",
+    "The propagated observation owner can update frame and endpoints for an offscreen rig if its prerequisites hold; do not assert no observation or automatically promote its endpoints to evidence of rendered visual quality.",
+    "Earlier conditional zero-length leg solve and missing yaw observation records concern distinct owners/first failures; this packet does not establish either and does not transfer prior reviewer credit."
+  ],
+  "open_questions": [
+    "Are finite negative or extreme positive step values supported by the authored/received tactical config, and which boundary should own a nonnegative representable step×frequency?",
+    "Do any real configuration producers or hot-reload paths deliver those values, and how should global IK unavailability be presented?",
+    "How do deferred cull commands and the independent post-propagation observer interact across all modes, missing terrain/rig/global transforms and visibility transitions?",
+    "Does the fixed-clock repeat/owner-motion guard preserve intended plant and settle continuity after long offscreen intervals?",
+    "What do all unread coordinator ranges, native solver, child modules, rigs and renderer guarantee?",
+    "Can the original complete P16 patch be recovered and verified? This packet preserves only the registry assertion and exact role object."
+  ],
+  "historical_queue": [
+    {
+      "zero_based_index": 42,
+      "contract_id": "ADLER-L11-KNEE-YAW-MISSING-OBSERVATION-ZERO",
+      "status": "open-reconciliation",
+      "qualification": "Recovered 059 historical status, not checkpoint3821 or new personal source credit."
+    },
+    {
+      "zero_based_index": 804,
+      "contract_id": "Q-L1-a2e2ce82885278d08a7b",
+      "status": "open-evidence-or-disposition",
+      "qualification": "Recovered 059 historical status, not checkpoint3821 or new personal source credit."
+    },
+    {
+      "zero_based_index": 807,
+      "contract_id": "Q-L1-3af6acb387bfc751c7df",
+      "status": "open-evidence-or-disposition",
+      "qualification": "Recovered 059 historical status, not checkpoint3821 or new personal source credit."
+    },
+    {
+      "zero_based_index": 1165,
+      "contract_id": "Q-L12-97cbc9c61c3f4e5edbab",
+      "status": "open-evidence-or-disposition",
+      "qualification": "Recovered 059 historical status, not checkpoint3821 or new personal source credit."
+    },
+    {
+      "zero_based_index": 1177,
+      "contract_id": "Q-L12-d1a66d7adfc25f474dda",
+      "status": "open-evidence-or-disposition",
+      "qualification": "Recovered 059 historical status, not checkpoint3821 or new personal source credit."
+    }
+  ],
+  "lenses": [
+    {
+      "number": 1,
+      "name": "producer-propagation",
+      "assessment": "Typed configuration → step/frequency → speed bundle → pre-rig error; pose visibility → IK exclusion and independent observer traced in registered windows. Full renderer and other owners open."
+    },
+    {
+      "number": 2,
+      "name": "existing-type-owners",
+      "assessment": "SignedLength legitimately admits negative offsets; NonnegativeSpeed and AnimationFrequency represent different units/constraints, and their composition needs its own owner contract."
+    },
+    {
+      "number": 3,
+      "name": "admission-contracts",
+      "assessment": "Config validation accepts fields under their type contracts but does not explicitly verify the four step/frequency output relationships. Candidate remains conditional on otherwise valid config and supported policy."
+    },
+    {
+      "number": 4,
+      "name": "invariant-operations",
+      "assessment": "Negative or overflowed step×frequency can fail speed admission before all-rig work. Blend update readmits UnitInterval; no unsupported behavior inferred."
+    },
+    {
+      "number": 5,
+      "name": "aggregate-states",
+      "assessment": "Four independent step/frequency fields are assembled eagerly into one speed bundle. Retained frame/observation and cull modes depend on visibility and separate observer guards."
+    },
+    {
+      "number": 6,
+      "name": "type-ownership",
+      "assessment": "IK authored configuration and checked native target-speed projection own the relationship; unrelated signed geometry owners need not be globally narrowed."
+    },
+    {
+      "number": 7,
+      "name": "redundant-authority",
+      "assessment": "Dedicated IK cache and animation config cache use shared versioned source; separate names alone do not prove conflicting authority. Concurrent publication behavior remains open."
+    },
+    {
+      "number": 8,
+      "name": "behavior-preservation",
+      "assessment": "Exact source diff changes query filter and configuration accessor only. Historical dirty P16 and current 95e are distinct, and no full lifecycle or visual equivalence is asserted."
+    },
+    {
+      "number": 9,
+      "name": "enum-shapes",
+      "assessment": "Enabled, optional terrain, fixed-tick repeat, posture, locomotion ownership and cull are distinct source modes; zero blend response is not automatically invalid."
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "assessment": "No safe manual trait/serialization substitution established in actual windows; native modules and unread coordinator remain outside scope."
+    },
+    {
+      "number": 11,
+      "name": "type-granularity",
+      "assessment": "Step length, frequency, derived speed, render sample time, source tick, foot support, local/world frames and configuration state are separate quantities; their relationships matter beyond finite scalar admission."
+    },
+    {
+      "number": 12,
+      "name": "magic-strings",
+      "assessment": "Diagnostic warn/error and instrumentation labels are final text boundaries, not established string-dispatch business state."
+    },
+    {
+      "number": 13,
+      "name": "magic-numbers",
+      "assessment": "The typed rate/time and step×frequency have explicit units. Shipped constants are authored YAML and do not by themselves prove invalid range or require arbitrary clamping."
+    }
+  ],
+  "status": "Bounded delegated review only; explicit unread role ranges, unresolved policy and earlier evidence remain. Central ledger/publication remain separate; repairs and product validation not started."
+}

@@ -1,0 +1,481 @@
+{
+  "schema": "726-partial-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2434,
+      "source_id": "pr-working:rust-quality-baseline.toml",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2434",
+      "sha256": "059d0c2bc687c8d7bd314cfa50fb863ac83959cc3483e74aee993980f47e3efe",
+      "lines": 12847,
+      "new_personal_read_ranges": [
+        [
+          1,
+          100
+        ],
+        [
+          525,
+          544
+        ],
+        [
+          565,
+          580
+        ],
+        [
+          830,
+          860
+        ],
+        [
+          2280,
+          2300
+        ],
+        [
+          2388,
+          2400
+        ],
+        [
+          3258,
+          3293
+        ],
+        [
+          3308,
+          3338
+        ],
+        [
+          7011,
+          7045
+        ],
+        [
+          8643,
+          8658
+        ],
+        [
+          9496,
+          9544
+        ],
+        [
+          10027,
+          10055
+        ],
+        [
+          12773,
+          12847
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          100
+        ],
+        [
+          525,
+          544
+        ],
+        [
+          565,
+          580
+        ],
+        [
+          830,
+          860
+        ],
+        [
+          2280,
+          2300
+        ],
+        [
+          2388,
+          2400
+        ],
+        [
+          3258,
+          3293
+        ],
+        [
+          3308,
+          3338
+        ],
+        [
+          7011,
+          7045
+        ],
+        [
+          8643,
+          8658
+        ],
+        [
+          9496,
+          9544
+        ],
+        [
+          10027,
+          10055
+        ],
+        [
+          12773,
+          12847
+        ]
+      ],
+      "new_personal_read_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "new_personal_read_attribution": "/root/rig_identity",
+      "delegate_report": "delegated/quality-rules-report.json",
+      "evidence_archive": "delegated/quality-rules-evidence.tar.gz",
+      "receipt_member": "personal-read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 25,
+          "read_ranges": [
+            [
+              1,
+              12847
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "rust-quality-baseline.toml",
+        "status": "present",
+        "sha256": "8e83b77456e90d3ad376eda65cc6fc23ddf8123acf15b2bbea103191db52fb38",
+        "git_blob": "c0db7a6f165eeb9f0ab8c89cfc26ea2d427a3f81",
+        "bytes": 331132,
+        "lines": 12812,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            100
+          ],
+          [
+            525,
+            544
+          ],
+          [
+            820,
+            850
+          ],
+          [
+            3230,
+            3265
+          ],
+          [
+            3280,
+            3310
+          ],
+          [
+            6983,
+            7017
+          ],
+          [
+            9461,
+            9509
+          ],
+          [
+            9992,
+            10020
+          ],
+          [
+            12738,
+            12812
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            100
+          ],
+          [
+            525,
+            544
+          ],
+          [
+            820,
+            850
+          ],
+          [
+            3230,
+            3265
+          ],
+          [
+            3280,
+            3310
+          ],
+          [
+            6983,
+            7017
+          ],
+          [
+            9461,
+            9509
+          ],
+          [
+            9992,
+            10020
+          ],
+          [
+            12738,
+            12812
+          ]
+        ],
+        "unread_ranges": [
+          [
+            101,
+            524
+          ],
+          [
+            545,
+            819
+          ],
+          [
+            851,
+            3229
+          ],
+          [
+            3266,
+            3279
+          ],
+          [
+            3311,
+            6982
+          ],
+          [
+            7018,
+            9460
+          ],
+          [
+            9510,
+            9991
+          ],
+          [
+            10021,
+            12737
+          ]
+        ],
+        "byte_identical_to_historical": false,
+        "git_path_proof": "MAIN-ADVANCE-95E.json",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report.",
+        "unread_lines": 12406
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit. Whole-file structural TOML inventories are not personal reading.",
+      "historical_unread_ranges": [
+        [
+          101,
+          524
+        ],
+        [
+          545,
+          564
+        ],
+        [
+          581,
+          829
+        ],
+        [
+          861,
+          2279
+        ],
+        [
+          2301,
+          2387
+        ],
+        [
+          2401,
+          3257
+        ],
+        [
+          3294,
+          3307
+        ],
+        [
+          3339,
+          7010
+        ],
+        [
+          7046,
+          8642
+        ],
+        [
+          8659,
+          9495
+        ],
+        [
+          9545,
+          10026
+        ],
+        [
+          10056,
+          12772
+        ]
+      ],
+      "historical_unread_lines": 12375,
+      "historical_member": "sources/6533/rust-quality-baseline.toml",
+      "current_member": "sources/95e6/rust-quality-baseline.toml"
+    },
+    {
+      "original_index": 2452,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2452",
+      "sha256": "afd630bf1aa3b39007ee568f0428f37e30d43c9b43bd12fc7cd114fca1486c34",
+      "lines": 1184,
+      "new_personal_read_ranges": [
+        [
+          1,
+          409
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          200
+        ],
+        [
+          201,
+          300
+        ],
+        [
+          301,
+          400
+        ],
+        [
+          401,
+          409
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/mhr_character",
+      "delegate_report": "delegated/p17-metrics-report.json",
+      "evidence_archive": "delegated/p17-metrics-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 289,
+          "read_ranges": [
+            [
+              1,
+              1184
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 628,
+          "read_ranges": [
+            [
+              1,
+              1184
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+        "status": "present",
+        "sha256": "aa04ddf1b466365d8e27a43076eab1904f9d1d4abfd1715e2af1578f5d4e5636",
+        "git_blob": "b7f556d2ad2e5461e428a24423d6947b1e9726a9",
+        "bytes": 80901,
+        "lines": 2050,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            100
+          ],
+          [
+            101,
+            200
+          ],
+          [
+            201,
+            300
+          ],
+          [
+            301,
+            400
+          ],
+          [
+            401,
+            500
+          ],
+          [
+            501,
+            600
+          ],
+          [
+            601,
+            700
+          ],
+          [
+            701,
+            800
+          ],
+          [
+            801,
+            900
+          ],
+          [
+            901,
+            1000
+          ],
+          [
+            1001,
+            1100
+          ],
+          [
+            1101,
+            1200
+          ],
+          [
+            1201,
+            1283
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            1283
+          ]
+        ],
+        "unread_ranges": [
+          [
+            1284,
+            2050
+          ]
+        ],
+        "byte_identical_to_historical": false,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report.",
+        "unread_lines": 767
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit. Registration and helper were reconstructed after the temporary collision, and were verified against the unchanged frozen manifest; uninterrupted custody is not claimed.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so.",
+      "historical_unread_ranges": [
+        [
+          410,
+          1184
+        ]
+      ],
+      "historical_unread_lines": 775,
+      "historical_member": "source/report-p17-2452.rs",
+      "current_member": "source/current-2452.rs",
+      "incident": "EVIDENCE-INCIDENT-20261111-P17-METRICS.json"
+    }
+  ],
+  "qualification": "Only the recorded displayed ranges count. Whole-file source archives and structural parsing do not close these roles. P17 temporary packet restoration remains qualified.",
+  "evidence": "DELEGATED-EVIDENCE-CHECKPOINT-9.json"
+}

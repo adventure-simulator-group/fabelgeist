@@ -1,0 +1,543 @@
+{
+  "schema": "726-p17-supported-slip-source-audit-v1",
+  "created_utc": "2026-11-11 21:33:08 UTC",
+  "reviewer": "current-session delegate /root/rig_identity",
+  "scope": "One original report-p17 role 2460, all thirteen perspectives bounded to that role; separate connected support ranges only. This is not a complete lens or repository audit, implementation, product test or validation.",
+  "original_roles": [
+    {
+      "role": 2460,
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+      "historical_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "historical_source": "sources/90a4/crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+      "historical_sha256": "7d5cfea52b585b38756a012a33525c2fd8cdde71e1a82a238b6a2a015a0538d7",
+      "historical_git_blob": "b08bbc1358a42afb7389c7369df082c4f3816734",
+      "historical_personal_reads": [
+        [
+          1,
+          47
+        ]
+      ],
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_source": "sources/95e6/crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+      "current_sha256": "6bfdf963fc4f4564695be1a4a716194532e1afdb9afbbc602cf13373eb463352",
+      "current_git_blob": "0e5757691b97d9dd1b5ff88a7831e6c213451460",
+      "current_personal_reads": [
+        [
+          1,
+          55
+        ]
+      ],
+      "current_status": "present and different from 90a",
+      "git_comparison": "p17-90a-to-current.patch"
+    }
+  ],
+  "registrations": {
+    "old-registration.json": "e9a2f0d3d3444023e2e6dd4d02123cd3dbe8f8089b832b23fe07600653ab6833",
+    "current-registration.json": "91b29bee62f06720411928269ebfaa8b151d37793aac035e67415a81c7ee7889",
+    "support-registration.json": "c3edeb7ecb07ca24430ac0793c92f7c60a5886716b770357cb672c38a85441ff",
+    "support2-registration.json": "6417793575eae1bdb61965394a39dbeaa5f424c9baa99129c0ff4021aafe69bc",
+    "support3-registration.json": "fbb12e3b670ab98e6e5ac7055df96a5d641e07c182f32096c0394c3f780fcc8b",
+    "rules-registration.json": "4195445b1e40c72df21f860d7e0d4d561dadbe3feb33332f0caac1930d53eac3"
+  },
+  "personal_receipt": "personal-read-receipt.json",
+  "git_proofs": "git-proofs.json",
+  "original_attribution": "original-attribution.json",
+  "related_059": "related-059-receipts.json",
+  "recovery_qualifications": [
+    "Original 059 manifest-verified records and 774 f82 transport are preserved as exact historical evidence with their own revision, readers and scopes; no recovered or reconstructed item is promoted to unrecoverable checkpoint3821.",
+    "Registry-selection-reconstructed.json is a new selection from an exact recovered full original registry, not an original checkpoint artifact. Original registry, queue, ledger and transport manifest are retained as exact decompressed bytes in gzip containers.",
+    "Prior-facing packet was independently registered and read by this delegate as support. The old 90a and current 95e assigned-role read in this packet is newly registered; no prior reviewer credit or counts transfer.",
+    "Raw commit/tree proofs establish old and current path membership, and show this source blob equal at 6533, e275 and 95e. Equality for a single blob neither establishes a whole pr-working dirty tree nor transfers earlier reads.",
+    "Only displayed ranges and search snippets count as personal source reading; full preserved objects are for recovery and verification. Earlier 059 scope and 774 coverage records are not evidence of product runtime results."
+  ],
+  "historical_provenance": [
+    {
+      "identity": "059 segovb READ-L11-407 / REGISTRATION-SEGOVB-1355",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope": "Personal full role 2460 lines 1–47; accepted unique delta 0; current reconciliation open.",
+      "evidence": "historical-059/segovb/READ-L11-407.json"
+    },
+    {
+      "identity": "059 /root/lens12_frontier READ-L12-830 / REGISTRATION-PAR-L12-473",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope": "Delegate personal full role 2460 lines 1–47; root personal rereads empty; unique delta 0.",
+      "evidence": "historical-059/parallel-l12-20261029/PROPOSAL-L12-830.json"
+    },
+    {
+      "identity": "774 NATIVE-OWNER-REPORT-METRICS-005",
+      "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee transport of old source evidence",
+      "scope": "coverage.jsonl zero-based records 297 and 636 each cover old 90a role 1–47; repeated dispositions are not two independent reviewer reads or full-lens validation.",
+      "evidence": "historical-774/audit-existing-type-owners/native/coverage.jsonl"
+    },
+    {
+      "identity": "059 Segovb READ-L12-415 / REGISTRATION-SEGOVB-L12-343",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e pr-working",
+      "scope": "Personal current-role 1436 body 1–55. Source blob equals 95e; retained turn exclusion, missing foot skip, checked distance and open support-source/quaternion questions. Pr-working was separate dirty working state; equality is file-specific.",
+      "evidence": "historical-059/segovb/READ-L12-415.json"
+    },
+    {
+      "identity": "059 root Segovb READ-ROOT-L1-CURRENT-068 / REGISTRATION-ROOT-L1-CURRENT-068",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "scope": "Personal current body 1–55, equal to 95e, preserving finite-length and producer-source questions; 069 records admitted IK/cadence distinction.",
+      "evidence": "historical-059/root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-068.json"
+    },
+    {
+      "identity": "Prior /root/rig_identity P17-SLIP-INVALID-BODY-TURN",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "scope": "Previously registered both 90a 1–47 and 95e 1–55 as supporting reads, not this ordered-role credit; retained with original manifest and hashes.",
+      "evidence": "prior-facing/REPORT.json"
+    }
+  ],
+  "findings_and_qualified_questions": [
+    {
+      "id": "P17-SLIP-INVALID-BODY-TURN",
+      "status": "previously assessed conditional first failure; exact same finding, zero additional unique delta",
+      "first_failed_contract": "A nonfinite derived body-turn angle can suppress every eligible slip calculation and leave local scalar zero instead of reporting the failed calculation.",
+      "evidence": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+          "range": [
+            6,
+            14
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+          "range": [
+            30,
+            54
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+          "range": [
+            6,
+            14
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+          "range": [
+            101,
+            107
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+          "range": [
+            99,
+            109
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "range": [
+            714,
+            715
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "range": [
+            291,
+            297
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            192,
+            195
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "range": [
+            456,
+            466
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "range": [
+            653,
+            656
+          ]
+        }
+      ],
+      "condition_and_limits": "If the derived angle is NaN, its <= 0.5 comparison is false for each foot and the return remains zero; +infinity also fails that comparison. Old 90a checked the derived angle before choosing applicability. The code shown does not establish reachability of invalid subject rotation, the native quaternion result for all invalid inputs, absence of another error, or overall report acceptance. The current finite-transform check shown covers bone fields, not the subject body rotation. A quality category consumes the resulting maximum but independent drift and acceptance gates remain.",
+      "future_connected_repair_direction": "At the calculation boundary check the native derived angle using a suitable existing checked angular owner, propagate a typed failure, and distinguish no applicable plant from a genuinely measured zero; preserve established >0.5 degree exclusion, inactive/no-support cases, and current checked displacement behavior.",
+      "future_acceptance_criterion": "A deliberately invalid derived turn cannot be reported as a zero supported-foot measurement; valid low-turn measured zero, supported displacement and deliberate high-turn/inactive exclusion retain their meaning. Input reachability, native behavior and full-path validation must be resolved only in a later authorized phase.",
+      "relationships": "Exact same first failure and remedy as prior-facing P17-SLIP-INVALID-BODY-TURN; do not count twice. It is related to but not automatically the same as P17-CONTINUITY-NONFINITE-DERIVED-ROTATION or 774 NATIVE-OWNER-REPORT-METRICS-005."
+    },
+    {
+      "id": "P17-SLIP-MISSING-OBSERVATION",
+      "status": "source-local behavior difference; overall false acceptance not established; alias review pending",
+      "first_failed_contract": "A qualifying foot whose two samples are not both present is skipped while scalar zero or the other foot’s maximum is returned, rather than representing unavailable evidence.",
+      "evidence": [
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+          "range": [
+            34,
+            46
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+          "range": [
+            34,
+            54
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/continuity.rs",
+          "range": [
+            35,
+            60
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+          "range": [
+            160,
+            175
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/biomechanics_validation.rs",
+          "range": [
+            29,
+            37
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            136,
+            150
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            192,
+            195
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            257,
+            258
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "range": [
+            158,
+            165
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+          "range": [
+            102,
+            110
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+          "range": [
+            6,
+            23
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "range": [
+            20,
+            24
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "range": [
+            653,
+            656
+          ]
+        }
+      ],
+      "condition_and_limits": "Given an eligible foot missing at either endpoint, old 90a directly returns Unavailable(MissingBone), whereas current helper silently omits it and may report zero or the measured other foot. Old continuity independently checked every required report bone before calling the helper. Current completeness independently requires both required feet in every planned frame; therefore this comparison establishes a local data/metric distinction, not a reachable passing final report. The current quality score uses the scalar for foot dragging, but other drift and validation gates may still fail. No active plant, support below threshold, and turns above the cutoff were deliberate old NotApplicable cases, not automatically missing evidence.",
+      "future_connected_repair_direction": "Carry applicability and measurement availability through per-pair aggregation and the scenario result, preserve checked NonnegativeLength until the actual presentation/serialization boundary, and make the applicable report consumer reject absent required observations while allowing deliberate NotApplicable states. Coordinate this with continuity window and other observation changes rather than create separate incompatible result models.",
+      "future_acceptance_criterion": "An eligible missing foot cannot masquerade as measured zero or a complete two-foot maximum, genuine measured zero stays valid, and intentional inactive/turn exclusions remain exempt; retain independent completeness and all existing thresholds. No product execution has established reachability or validated a repair.",
+      "relationships": "Related to P17-CONTINUITY-WINDOW-NO-WITNESS and broader observation-gap work but distinct immediate conditions; root must decide whether one connected repair subsumes it. 059 queue Q-L1-8634be2f29d31f348778 and 774 NATIVE-OWNER-REPORT-METRICS-005 contain related owner/measurement questions, not proven exact aliases."
+    },
+    {
+      "id": "P17-SLIP-THRESHOLD-OWNER",
+      "status": "bounded policy-owner migration gap; exact ledger alias pending",
+      "first_failed_contract": "Two local bare scalars encode which support confidence and body-turn magnitude qualify a physical slip observation without named typed ownership at this operation.",
+      "evidence": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+          "range": [
+            15,
+            40
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+          "range": [
+            30,
+            37
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+          "range": [
+            8,
+            13
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+          "range": [
+            80,
+            86
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/AGENTS.md",
+          "range": [
+            21,
+            35
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/AGENTS.md",
+          "range": [
+            69,
+            79
+          ]
+        }
+      ],
+      "condition_and_limits": "Current helper compares UnitInterval fractions with 0.9 and a computed degree magnitude with 0.5. The original comment explicitly treats turns over the cutoff differently, so both encode review policy rather than generic dimensions. A current checked angle owner exists and 90a used its equivalent for the actual angle. This inspection does not prove a repository-wide policy owner is absent or that these exact numbers are wrong; zero initialization for a numerical maximum is a distinct operation.",
+      "future_connected_repair_direction": "Identify the existing review-policy owner or define appropriately named and unit/role-aware support and turn policy at its legitimate owner; preserve thresholds, endpoints and the intentional turning exemption. Coordinate angle admission with P17-SLIP-INVALID-BODY-TURN.",
+      "future_acceptance_criterion": "The 0.9 inclusive support and 0.5 degree inclusive turn boundaries have explicit owner, units, and unchanged semantics; consumers do not duplicate conflicting thresholds. Broader owner search and any policy approval remain future work.",
+      "relationships": "Potential overlap with 059 Q-L1-8634be2f29d31f348778 and general raw-number ledger is not an established alias; central reconciles ownership and exact connected change."
+    },
+    {
+      "id": "P17-SLIP-SUPPORT-SOURCE-AUTHORITY",
+      "status": "open question; no defect or exact alias asserted",
+      "first_failed_contract": "Determine which current support observation is authoritative for world-foot displacement and whether the selected frame field reflects final propagated contact.",
+      "evidence": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+          "range": [
+            86,
+            115
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "range": [
+            638,
+            656
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "range": [
+            727,
+            739
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/raised_footwork.rs",
+          "range": [
+            17,
+            28
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/raised_footwork.rs",
+          "range": [
+            179,
+            181
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs",
+          "range": [
+            85,
+            117
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs",
+          "range": [
+            294,
+            309
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/state.rs",
+          "range": [
+            443,
+            462
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "range": [
+            217,
+            230
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "range": [
+            245,
+            252
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            1010,
+            1029
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            1063,
+            1081
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+          "range": [
+            15,
+            39
+          ]
+        }
+      ],
+      "condition_and_limits": "Capture first admits cadence or required IK diagnostics, then selects initialized raised-footwork weights when present for FrameSample, storing optional IK weights separately. Slip reads the selected fields; some procedural toe/contact checks instead require IK diagnostics, and inactive IK can intentionally use cadence. These fields may describe distinct semantic facts; the displayed code does not prove a disagreement or which one is final propagated physical support.",
+      "future_connected_repair_direction": "Trace actual producer update/propagation ordering and ownership in P19, compare output consumers and policy, and choose a coherent source only if a concrete mismatch is shown. Keep semantic authored loading and solver contact distinct where appropriate.",
+      "future_acceptance_criterion": "Document which support is intended for the slip observation, distinguish valid inactive cadence from missing required IK, and verify any asserted final contact with its actual authoritative producer in a later authorized validation phase.",
+      "relationships": "059 Q-L1-0db31d057651d6fda8d7, Q-L1-8634be2f29d31f348778 and L1-P19-RAISED-SUPPORT-OBSERVATION-DISPATCH are related unresolved contexts; equality or a shared remedy is not yet proven."
+    }
+  ],
+  "nonfindings_and_preserved_contracts": [
+    "The current eligible displacement checks nonfinite distance before retaining a NonnegativeLength; no claim that every numeric operation is generally finite.",
+    "The original and current code deliberately exclude turn >0.5 degrees, non-plant frames, and support below 0.9; no blanket requirement to fail an inactive or intentional turning case follows from the missing-observation issue.",
+    "Current report completeness separately requires the planned identity and all 17 REPORT_BONES including both feet; this blocks a simple inference from a local missing foot to a completed passing report.",
+    "Raised-footwork semantic support, IK diagnostics, cadence, world-foot displacement and planted-drift metrics can represent different facts; sharing numeric units or fields alone does not prove duplicates.",
+    "The assigned file contains no string-valued API or string literal: its module documentation and comment are explanatory prose, not runtime semantic identity. It contains no handwritten trait/serialization implementation; no derive replacement is indicated.",
+    "The assigned role body is fully displayed in both revisions, but surrounding producer chains, all native transform policies and output paths are bounded supports, not complete coverage."
+  ],
+  "open_questions": [
+    "Can any admitted actual body rotation yield a nonfinite derived turn in the native quaternion implementation, and can another earlier gate reject it first?",
+    "Which final propagated per-foot support source is authoritative for this world-space slip observation, and when do raised-stepper, solver and cadence semantics intentionally differ?",
+    "Can admitted selected plans or phase-filtered frames leave no evaluated adjacent pair? Prior P17-CONTINUITY-WINDOW-NO-WITNESS applies; this packet does not establish runtime reachability or count another copy.",
+    "What policy and owner define the stable-body turn cutoff and support eligibility threshold across all consumers? Preserve numerical values pending owner decisions.",
+    "Do broader missing-observation repairs share a single observation model and end-to-end native consumer, or are different authorities intentionally independent? Central reconciliation required."
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "producer-propagation",
+      "assessment": "Trace native quaternion and selected support from capture into frame fields and the helper, checked length into raw scenario scalar and gate. Native quaternion input reachability and full output boundary remain open; do not credit a complete producer graph."
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "NonnegativeLength already admits the computed displacement, UnitInterval owns stored support, and current AngularMagnitudeDegrees is a candidate checked angle owner consistent with old use. Compare intended computed-angle semantics before reuse; do not invent a stricter bound."
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Old helper admitted derived body angle, while current compares it raw before admission; nonfinite hypothetical is documented. Current distance is explicitly checked. All framework entry routes and native quaternion invariants are not enumerated."
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "XZ vector distance and angle_between are native operations; eligible distance nonfinite becomes Overflow, but nonfinite turn can bypass the comparison. Check input guarantees, derived result and observable failure separately."
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Eligibility combines scenario, two frames, support and both foot observations. Missing one eligible endpoint cannot be inferred from independent valid fractions; plan completeness is a separate gate. Preserve intentional no-plant state."
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "The current checked angle and length owners are in core; selected support versus optional IK may represent independent authorities. No duplicate type or globally correct physical owner is proven."
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "Raised stepper, IK diagnostics and cadence can feed related support fields; consumers differ. Their updates, end propagation and meaning remain open, so no duplicate-state defect follows solely from their coexistence."
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "90a NotApplicable, Unavailable and Measured became one scalar: compare eligible missing samples, invalid derived turn and deliberate inactive/turning modes. Distinguish local difference from whole-report validation."
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "Historical Observation explicitly distinguished applicable measurement, unavailable evidence and deliberate non-applicability. Current numeric value loses that relation; any future shape must preserve independent scenario and foot facts without inventing policy."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "No handwritten trait or serialization implementation in either assigned function body. Existing angular owner derives are evidence of current semantics, not a proposal to weaken validation or derive new serialization."
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "A checked numeric magnitude cannot by itself represent measurement applicability or provenance. World-space slip, separate planted drift and root-relative continuity have distinct roles even where the numeric unit matches."
+    },
+    {
+      "lens": "magic-strings",
+      "assessment": "Full old/current assigned bodies contain no string-valued runtime API or literal; module comment and explanatory comments are prose. Supporting bodies are outside this ordered-role inventory."
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "0.9 is inclusive per-foot support confidence, 0.5 is an inclusive body-turn degree policy, and 0.0 initializes a max reduction; recommend named typed policy for the first two without changing values. Threshold owner search is incomplete."
+    }
+  ],
+  "status": "Source inspection and evidence restoration only; discovery remains bounded/incomplete elsewhere. No product edits, implementation, builds, tests, viewer, browser, runtime probes, simulations, fixtures or product validation."
+}

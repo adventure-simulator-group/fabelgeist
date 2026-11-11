@@ -1,0 +1,568 @@
+{
+  "schema": "726-p16-finish-lod-bounded-audit-v1",
+  "created_utc": "2026-11-11 22:16:58 UTC",
+  "delegate": "/root/rig_identity",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_snapshot": "physical-p16 recorded dirty working state, a120390947c89b703dc74c4255a13c035d054c50 recorded base; f82 recovered-object transport only",
+  "historical_patch_qualification": "Original registry records 159 status lines and patch SHA fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7. Patch bytes are unrecovered here; no reconstruction of the complete dirty snapshot is claimed.",
+  "source_identities": [
+    {
+      "role": 2502,
+      "path": "crates/adventuresim-building-generator/src/furniture/finish.rs",
+      "sha256": "dac29dae17db4b4f9d76d11d1b0abef36af636b365631f550a9fa90a4f81f072",
+      "git_blob": "2c8d4565e37f8fc5d0e1f4d786dc69a3829bed6e",
+      "actual_eof": 193,
+      "original_material_ranges": [
+        [
+          1,
+          29
+        ],
+        [
+          54,
+          88
+        ]
+      ],
+      "p16_current_a120_6533_file_bytes_equal": true
+    },
+    {
+      "role": 2503,
+      "path": "crates/adventuresim-building-generator/src/lod.rs",
+      "sha256": "a67de5a3238c34c5d18edae89ddc2c51c4fe1dd562189103a6549bb34a88cfac",
+      "git_blob": "f92c9303722f2d8a9ae94639d9f860c405701e05",
+      "actual_eof": 666,
+      "original_material_ranges": [
+        [
+          95,
+          137
+        ]
+      ],
+      "p16_current_a120_6533_file_bytes_equal": true
+    }
+  ],
+  "identity_qualification": "Exact P16 source bytes match f82 SHA-addressed archive object and independently match individual a120, 6533 and 95e file objects. Neither a120 nor f82 is the dirty snapshot commit, and no whole-tree cleanliness follows. Source equality does not transfer historical or current personal-read attribution.",
+  "findings": [
+    {
+      "id": "CURRENT-GLAZING-CHECKED-SIZE-ERASURE-RELATION",
+      "status": "independent current source confirmation of existing 774 finding; not additional unique defect",
+      "observation": "compile_window_leaf receives checked CuboidDimensions, extracts size.metres(), forwards the same vector unchanged for LeadedGlass through Builder::cuboid/member and re-admits CuboidDimensions before CuboidCorners::from_pose. Native UV/mesh calculations occur after this earlier same-owner loss.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows/leaf.rs",
+          "ranges": [
+            [
+              16,
+              25
+            ],
+            [
+              51,
+              58
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+          "ranges": [
+            [
+              46,
+              55
+            ],
+            [
+              74,
+              89
+            ]
+          ]
+        }
+      ],
+      "historical_relation": "RIG-OWNER-REACHED-PRODUCER-F009 and TRACE010 specifically supersede TRACE004 only for unchanged glazing size. Original P16 builder and leaf registry objects match the independently read current sources; preserve exact original author/scope. No inference that derived shutter/came dimensions are unchanged.",
+      "future_direction": "Reconcile canonical checked dimensions through common Builder whole-function callers before native arithmetic, preserving zero-valid cuboids, changed-value admissions, FP order and typed errors. No implementation in this audit."
+    },
+    {
+      "id": "CURRENT-WEAR-REGION-FRAME-OWNER-RELATION",
+      "status": "current source assessment related to existing 059 owner question; no automatic new unique count",
+      "observation": "WearFace stores a normal plus a documented local unit-square region as raw [f32;4]; worn_face interprets first two components as low and the last two as high, derives geometry, and normalizes ring cross products. face carries centre, size, rotation and normal in a positional tuple. Inspected authored boards and chair crests provide concrete ordered regions; no general boundary here proves rectangle ordering, unit range, or nondegenerate numerical geometry for every caller.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/finish.rs",
+          "ranges": [
+            [
+              19,
+              24
+            ],
+            [
+              30,
+              49
+            ],
+            [
+              54,
+              81
+            ],
+            [
+              89,
+              96
+            ],
+            [
+              119,
+              145
+            ],
+            [
+              166,
+              181
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/domestic/seating.rs",
+          "ranges": [
+            [
+              41,
+              46
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+          "ranges": [
+            [
+              74,
+              89
+            ],
+            [
+              101,
+              124
+            ]
+          ]
+        }
+      ],
+      "historical_relation": "059 READ-L11-415 reuses root 6533 successor-066 full finish read and records owner/frame/region concern; Q-L11-f7fb84487345e4be039d remains open. Original P16 role excludes 30–53 and 89–193: this assignment read them only as separately registered support.",
+      "future_direction": "Compare canonical bounded interval/rectangle and local frame owners against actual authored callers and native ports; preserve valid signed zero/region/winding/UV and deliberate wear/no-wear modes. Do not claim malformed geometry actually occurs."
+    },
+    {
+      "id": "CURRENT-LOD-MESH-INDEX-NATIVE-BOUNDARY-RELATION",
+      "status": "current source evidence for existing 059 contract; no unique duplicate or witnessed failure",
+      "observation": "LodMesh exposes and deserializes vertices and U32 indices independently. push_quad/push_triangle cast existing vertex count to u32 then form base offsets without a visible representability check. Current recipe_mesh copies vertices and index words directly into the Bevy mesh and calls generate_tangents().expect for applicable materials.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/lod.rs",
+          "ranges": [
+            [
+              95,
+              107
+            ],
+            [
+              118,
+              158
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/recipe_mesh.rs",
+          "ranges": [
+            [
+              40,
+              85
+            ]
+          ]
+        }
+      ],
+      "historical_relation": "059 READ-L11-415 reuses root successor-094 6533 full read; READ-L12-851 gives /root/lens12_frontier fresh P16 94–160; queue Q-L12-63ce82a40701fd194206 and L12-CLOSURE-BEVY-TANGENT-INDEX-AGGREGATE retain native aggregate/capacity questions. Related prior 95e assessments have their own personal reader and ranges; no transfer.",
+      "qualification": "No supported oversized mesh, malformed deserialized batch, tangent failure, or renderer behavior has been witnessed. Whether reachable callers and native validation constrain the domain is unresolved; offset/index arithmetic and decoded consistency are related but distinct failure contracts.",
+      "future_direction": "Prove accepted vertex/index capacity, correlated lengths and native recipient constraints, then use owning checked aggregate/typed failure where needed. Avoid treating every native vertex scalar as a separate bespoke type."
+    }
+  ],
+  "open_questions": [
+    {
+      "question": "Are all materialized WearFace regions ordered in [0,1] and all worn rings nondegenerate across actual authored callers, and what is the native behavior if not?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/finish.rs",
+          "ranges": [
+            [
+              19,
+              24
+            ],
+            [
+              89,
+              145
+            ],
+            [
+              166,
+              181
+            ]
+          ]
+        }
+      ],
+      "qualification": "Two inspected named paths use explicit valid literal regions; other callers remain uninspected. `.normalize()` behavior is not asserted from runtime."
+    },
+    {
+      "question": "Does the boards helper have any supported caller whose depth is zero or less than the 0.003 m reveal? For zero, the computed pitch is 0/0 but the loop has zero iterations; for strictly positive depth below reveal and a single board the computed depth is negative and the checked Builder rejects it.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/finish.rs",
+          "ranges": [
+            [
+              26,
+              32
+            ],
+            [
+              45,
+              51
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+          "ranges": [
+            [
+              74,
+              99
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/domestic.rs",
+          "ranges": [
+            [
+              14,
+              24
+            ],
+            [
+              58,
+              60
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/spec.rs",
+          "ranges": [
+            [
+              53,
+              61
+            ]
+          ]
+        }
+      ],
+      "qualification": "Inspected table and seating catalog depths are at least 0.4 m and do not establish either case; other callers and failure policy remain open. Mathematical source analysis only, no simulated fixture."
+    },
+    {
+      "question": "Is painting intentionally limited to selected structural members? boards chooses InteriorTimber unless replaced, while Builder::timber and handled_timber select Painted in the painted state; existing source assertion asks only that some painted material exists and names authored surfaces.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/finish.rs",
+          "ranges": [
+            [
+              30,
+              49
+            ],
+            [
+              166,
+              181
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+          "ranges": [
+            [
+              162,
+              173
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/finish_tests.rs",
+          "ranges": [
+            [
+              23,
+              25
+            ],
+            [
+              57,
+              70
+            ]
+          ]
+        }
+      ],
+      "qualification": "No product/UI outcome or requirement that every board be painted is established; this is a policy question, not a claimed defect."
+    },
+    {
+      "question": "What are current accepted native limits for mesh vertex counts, decoded indices, degeneracy and tangent generation?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/lod.rs",
+          "ranges": [
+            [
+              95,
+              107
+            ],
+            [
+              118,
+              158
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/recipe_mesh.rs",
+          "ranges": [
+            [
+              40,
+              85
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "Does a tiny TimberShutter width lead to a checked negative board size on a supported operable route, and is the rejection intended?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows/leaf.rs",
+          "ranges": [
+            [
+              16,
+              40
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+          "ranges": [
+            [
+              74,
+              99
+            ]
+          ]
+        }
+      ],
+      "historical_relation": "059 Q-L12-03a885cbf03ba414fc2c already preserves the tiny-shutter conditional question; no duplicate or supported-input outcome assumed."
+    }
+  ],
+  "nonfindings": [
+    {
+      "claim": "The original shutter path necessarily reaches worn_face",
+      "reason": "The 774 registered producer role explicitly follows Builder::member to finish::face with wear=None, hence goes to push_quad; its registration excluded worn_face and push_triangle as unrelated for that role. This assignment read them separately, without expanding historical producer credit.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/finish.rs",
+          "ranges": [
+            [
+              54,
+              87
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+          "ranges": [
+            [
+              101,
+              124
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "The local wear-normal equality is automatically invalid floating-point comparison",
+      "reason": "The inspected Builder constructs the local normals from fixed signed axis vectors and compares wear.normal before rotating; the inspected boards and chair callers use Vec3::Y. Other callers and frame policy remain separately open.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+          "ranges": [
+            [
+              101,
+              110
+            ],
+            [
+              118,
+              124
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/finish.rs",
+          "ranges": [
+            [
+              40,
+              43
+            ],
+            [
+              54,
+              85
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/domestic/seating.rs",
+          "ranges": [
+            [
+              41,
+              45
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "Degenerate cuboid dimensions are inherently invalid",
+      "reason": "The checked CuboidDimensions contract deliberately permits point and line solids, and compile_window_leaf explicitly permits fixed glazing degenerate dimensions; downstream numerical/native requirements still need their own proof.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows/leaf.rs",
+          "ranges": [
+            [
+              16,
+              21
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-geometry/src/cuboid.rs",
+          "ranges": [
+            [
+              9,
+              17
+            ],
+            [
+              19,
+              55
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "All literal small-board input scenarios reach actual furniture recipes",
+      "reason": "The inspected FurnitureKey interior specification chooses fixed nonzero sizes, and dining table and seating pass their positive catalog depth into boards. The generic helper and other callers are not thereby proven safe.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/spec.rs",
+          "ranges": [
+            [
+              53,
+              61
+            ],
+            [
+              107,
+              121
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/domestic/tables.rs",
+          "ranges": [
+            [
+              6,
+              7
+            ],
+            [
+              23,
+              28
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/domestic/seating.rs",
+          "ranges": [
+            [
+              3,
+              11
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "FurnitureWoodSurface has typed enum variants and snake_case wire representation; tuple-free mesh material is typed. No internal string status classification in assigned roles."
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "Finish names handling depression, board pitch and reveal; array coordinates define a specific patch and topology. Cross-type numeric expectations and native index bounds require their own owner/policy rather than a blanket ban on authored coordinates."
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "Existing FurnitureLocal/Position/CuboidDimensions and typed FurnitureWoodSurface have distinct authority; 059 region/frame owner and 774 checked glazing dimension loss remain related but separate."
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "Builder already receives and reconstructs CuboidDimensions; unchanged glass forwarding exhibits F009. Changed board/came geometry and render-only arrays require separately reasoned new-value admission and native boundaries."
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "WearFace region [low_x,low_y,high_x,high_y] has distinct ordered bounded-patch semantics; frame components have local-space meaning. Actual owning rectangle/frame choice stays unresolved, and zero-valid cuboid semantics must remain distinct."
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "Board count/pitch/reveal, ring normalization, casts and index-offset arithmetic depend on admissible inputs. Current inspected catalog conditions narrow some cases; no unsupported runtime outcome is asserted."
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Wear region endpoint order and mesh index/vertex references are relations that independently valid scalar fields do not enforce. Tangent consumers and decoded/public mesh admission remain historical open contracts."
+    },
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "FurnitureKey try_from rejects unsupported treatment states; Builder checks position, dimensions and rotation before corners. LodMesh public fields and serde do not visibly establish index validity in the displayed range."
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "FurnitureWoodState/FurnitureWoodSurface and CollisionPolicy use typed states; Option<WearFace> represents an explicit unworn path. Painted versus unpainted boards remains a semantic policy question, not assumed obsolete mode."
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "LodVertex stores supplied normal while geometry is independently crossed to orient triangle indices; validity of that relationship requires source/numeric policy, not automatic deletion or a universal matching-normal assertion."
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "P16 object and 95e assigned source bytes are equal, but 059/774/current read scopes remain separately attributed. Preserve literal regions, geometric winding, UV phase, zero extent, material branches and error ordering."
+    },
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Existing 774 F009 proves unchanged checked glazing size stripped and re-admitted prior to actual native operations; TRACE010 corrects a limited TRACE004 waiver. Independently observed identical current source path, no duplicate finding."
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "LodMesh and vertices use derives for serde; no supported derive-only repair established. Typed FurnitureKey has custom conversion/admission, so derive changes require preserving its restrictions and wire behavior."
+    }
+  ],
+  "historical_attribution": {
+    "774": "RIG-OWNER-REACHED-PRODUCER-REGISTER-028/QUALIFICATION-028 P16 finish1–29,54–88; REGISTER031 requested94–160 but QUALIFICATION031 credited95–137; displayed triangle139–158 excluded for wear=None role. TRACE004/F009/TRACE010 qualifications retained, no other-lens credit.",
+    "059": "READ-L11-415 REG1405/1406 reused prior root personal 6533 finish1–193 successor066 and lod1–666 successor094 with no fresh P16 personal body read. READ-L12-850 PAR520 fresh /root/lens12_frontier finish1–29,54–88; READ-L12-851 PAR521 fresh lod94–160, with extra range separate from original material role; root rereads empty.",
+    "prior_current": "Captured furniture-safeguards and belfry-shell assessment documents and compressed source bytes. Current 95e lod90–160 and 1–440 were reportedly personally read by the assessment recorder; identity not specified in those records. Other historical 6533 L01 reports remain separate; no credit transferred to this delegate."
+  },
+  "limits": [
+    "Personal reads cover both 193-line finish bodies; P16 original role is 1–29 and54–88, all other finish lines are separately registered support. Both lod bodies personally displayed only 94–160: lines1–93 and161–666 remain unread in this assignment, even though exact full bytes are archived.",
+    "Thirteen perspectives are limited to assigned ranges and explicitly recorded connected support, not whole-lens or repository completion.",
+    "Source-only mathematical reasoning and evidence verification; no product, geometry, rendering, viewer, fixture, simulation, build, test, runtime probe, repair or product source edit."
+  ]
+}

@@ -1,0 +1,525 @@
+{
+  "schema": "726-roof-assemblies-cutting-audit-v1",
+  "created_utc": "2026-11-11 22:09:20 UTC",
+  "delegate": "/root/rig_identity",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "source_identities": [
+    {
+      "role": 2494,
+      "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+      "sha256": "be333fcb0e9e981f14bcbccb3decbda82d7ad87fd758d1f3dbc75b311ca345cd",
+      "git_blob": "0869d96b4c8f3365d78965a8b80d7511b45ff19b",
+      "lines": 277,
+      "byte_equal_current_to_original": true
+    },
+    {
+      "role": 2495,
+      "path": "crates/adventuresim-building-generator/src/generator/roof_cutting.rs",
+      "sha256": "e2ef028f462708ee81a496944390463c7cdbbab84163bebed8bc335690bb84db",
+      "git_blob": "7477089fdae98cc72d4cfb56303c8a64273df39c",
+      "lines": 484,
+      "byte_equal_current_to_original": true
+    }
+  ],
+  "qualification": "Original pr-working recorded HEAD was 6533 with four unrelated dirty files; individual file equality establishes neither a clean whole tree nor historical evidence as checkpoint3821.",
+  "findings": [
+    {
+      "id": "CANDIDATE-ROOF-CUT-END-CLEARANCE-NEGATIVE-EXTENT",
+      "status": "new conditional source-level arithmetic finding; supported reachability and correct policy unresolved",
+      "condition": "A cut passes the overlap and first end-keep condition, prior position admission succeeds, and old_max - cut_max is strictly between 0.05 and 0.08 metres, with representable arithmetic not rounded onto the endpoints. The symmetric branch has cut_min - old_min in the same interval.",
+      "observation": "The branch accepts a remaining span over 0.05 m but moves the retained start 0.08 m from the cut boundary. The computed retained length `to - from` is negative, and the checked CuboidDimensions constructor rejects the X extent; the error is returned as CollisionError. The analogous end has the same mismatch. The centre is changed before size admission, but the inspected owned-plan route consumes self and returns an error, so no retained partially mutated plan is established.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_cutting.rs",
+          "ranges": [
+            [
+              323,
+              329
+            ],
+            [
+              342,
+              381
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-geometry/src/cuboid.rs",
+          "ranges": [
+            [
+              19,
+              55
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/architectural_envelope.rs",
+          "ranges": [
+            [
+              4,
+              9
+            ],
+            [
+              45,
+              67
+            ]
+          ]
+        }
+      ],
+      "historical_relation": "Related to READ-L11-414 conditional roof cut mutation and policy discussion but no exact 5–8 cm arithmetic case found in the inspected 059 contract. Do not automatically alias or count until central ledger reconciliation.",
+      "future_direction": "Determine whether this geometry is a supported cut and whether a too-short remnant should be removed, rejected explicitly, or handled as a different topology; align branch gate with required clearance while preserving error and owned-plan behavior. No change authorized."
+    },
+    {
+      "id": "CANDIDATE-ROOF-SPLIT-EAVE-SERIAL-BIT-OVERLAP",
+      "status": "new conditional identity-domain observation; supported cardinality and collision impact unresolved",
+      "condition": "Two split-eave operations on the same parent reach serials that differ only in bit 7 (with identical other bits and slot), and their generated identities coexist in the relevant native lookup scope.",
+      "observation": "IDs OR fixed 0x0E00 with serial << 2, so fixed bit 9 masks serial bit 7 (similarly bits 10–11 mask serial bits 8–9). For equal parent and slot those differing serials encode the same ID. The implementation obtains serial from parent edge count after removing the old edge.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_cutting.rs",
+          "ranges": [
+            [
+              10,
+              16
+            ],
+            [
+              32,
+              42
+            ],
+            [
+              61,
+              78
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_dormers.rs",
+          "ranges": [
+            [
+              284,
+              301
+            ]
+          ]
+        }
+      ],
+      "historical_relation": "Related conceptually to 059 L12-CLOSURE-ROOF-SPLIT-EAVE-CHILD-ID-DOMAIN, but that contract concerns a different 0x6800 child-ID packing operation. No automatic alias or duplicate count.",
+      "future_direction": "Establish admissible number of split operations and actual uniqueness/lookup scope, then assign disjoint serial bits or use the canonical ID allocator if the reachable domain requires it."
+    },
+    {
+      "id": "ROOF-DORMER-PARENT-SOURCE-CONDITION",
+      "status": "new current source evidence for existing 059 conditional contract, not a separate defect",
+      "observation": "For church_program None and no Gable demonstrator, CourtyardCastle with a Rectangle footprint falls through derive_roofs to an empty vector but produces two dormers. With no earlier failure, roof_dormers::append is called before tower roof assembly and indexes assemblies[0]. Generic footprint_cells itself accepts rectangular dimensions in its checked range.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_derivation.rs",
+          "ranges": [
+            [
+              1,
+              15
+            ],
+            [
+              28,
+              39
+            ],
+            [
+              94,
+              103
+            ],
+            [
+              191,
+              205
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+          "ranges": [
+            [
+              12,
+              37
+            ],
+            [
+              127,
+              130
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_dormers.rs",
+          "ranges": [
+            [
+              5,
+              23
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/layout.rs",
+          "ranges": [
+            [
+              2,
+              15
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/occupied_storeys.rs",
+          "ranges": [
+            [
+              9,
+              38
+            ]
+          ]
+        }
+      ],
+      "qualification": "Program validation, allocation and specialist/geometry stages may reject or fail first; no actual supported program or runtime panic was established. This refines L12-CLOSURE-ROOF-DORMER-PARENT-ADMISSION and must not be counted as a new unique issue.",
+      "future_direction": "Trace the accepted BuildingProgram/footprint combinations and earlier error boundaries, then explicitly establish parent admission or return the owning typed error if this shape is admitted."
+    },
+    {
+      "id": "ROOF-CUT-GLOBAL-SOLID-RETENTION-RELATION",
+      "status": "current confirmation of 059 conditional question; impact unresolved",
+      "observation": "The loop selects only roof owner and roof edge/gutter solids, but the subsequent retain applies x > 0.001 to every solid in the entire ResolvedGeometry collection, regardless of owner or role. CuboidDimensions admits nonnegative including zero; existence of unrelated admitted thin solids at this call and interface cleanup have not been proved.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_cutting.rs",
+          "ranges": [
+            [
+              310,
+              329
+            ],
+            [
+              394,
+              409
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-geometry/src/cuboid.rs",
+          "ranges": [
+            [
+              9,
+              17
+            ],
+            [
+              40,
+              55
+            ]
+          ]
+        }
+      ],
+      "historical_relation": "059 READ-L11-414 conditional roof-cut geometry mutation and linked-interface scope; preserve original question and attribution. No unqualified data-loss claim.",
+      "future_direction": "Trace actual other-owner producers and native publication; if thin solids are legitimate, scope removal to intended targets and reconcile dependent support interfaces."
+    }
+  ],
+  "nonfindings": [
+    {
+      "claim": "A successfully resolved square tower roof necessarily has no face before child.faces[0]",
+      "reason": "Square-tower resolve_one_roof is called with source_piece_index None, so church apse specialization cannot apply; every roof kind factory returns a nonempty polygon vector, and on a successful resolve each polygon pushes a face. This establishes a nonempty face in this call, not finite, nondegenerate or valid plane geometry.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+          "ranges": [
+            [
+              146,
+              160
+            ],
+            [
+              216,
+              218
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/church_apse.rs",
+          "ranges": [
+            [
+              15,
+              25
+            ],
+            [
+              45,
+              68
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+          "ranges": [
+            [
+              56,
+              269
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+          "ranges": [
+            [
+              21,
+              25
+            ],
+            [
+              332,
+              338
+            ],
+            [
+              391,
+              402
+            ]
+          ]
+        }
+      ],
+      "historical_relation": "059 READ-L12-847 previously left actual ApseRoof and child producer qualification open; this narrows that exact source question without claiming unrelated indexing or validation."
+    },
+    {
+      "claim": "Square tower self-parent exists on ordinary generator route",
+      "reason": "A direct helper input with no earlier roof could make assemblies[0] the first square-tower roof, but the inspected generator makes square towers only for church_program Some and then derives five basilica primary roofs. Further callers must establish their own preconditions.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+          "ranges": [
+            [
+              13,
+              37
+            ],
+            [
+              146,
+              176
+            ],
+            [
+              248,
+              259
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/tower_derivation.rs",
+          "ranges": [
+            [
+              194,
+              218
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_derivation.rs",
+          "ranges": [
+            [
+              1,
+              3
+            ],
+            [
+              209,
+              265
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "Short polygon directly triggers roof_plane index panic on normal producer path",
+      "reason": "Prior roles 2492–2493 source and READ-L11-414 show checked bounds cardinality precedes roof_plane. This does not prove plane nondegeneracy or every public-model path.",
+      "prior_evidence": "prior-roof-packet/REPORT.json nonfindings; own earlier full current roles, not this assignment scope."
+    },
+    {
+      "claim": "Fallible cutting necessarily exposes partial accepted plan",
+      "reason": "Owned resolve_architectural_envelope consumes self and propagates the error before returning success; original 059 L12-CLOSURE-ROOF-OWNED-PLAN-ERROR-RETENTION rejects that generic suspicion for this route. Other lifecycles remain outside scope.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/architectural_envelope.rs",
+          "ranges": [
+            [
+              4,
+              9
+            ],
+            [
+              45,
+              67
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "prior_id": "NATIVE-ROOF-PPS-F001",
+      "kind": "connected producer-retention chain; historical 774 native finding, not new duplicate",
+      "details": "Current cutting projects retained raw parent/child polygons, computes new height points and stores them as cutout/edge payloads. These are changed coordinates, distinct from the original discarded successful position admission. 774 TRACE-003/004 explicitly relate these bodies to F001 and RAW-SOURCE-002; determine canonical architectural point and kernel boundary centrally.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_cutting.rs",
+          "ranges": [
+            [
+              115,
+              165
+            ],
+            [
+              197,
+              205
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+          "ranges": [
+            [
+              208,
+              230
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "prior_id": "CANDIDATE-ROOF-HALF-HIP-COLLAPSED-RIDGE",
+      "kind": "related but distinct historical/current conditional observation from prior same-delegate packet",
+      "details": "Current assembly finalizes and calls refit_roof_edge_treatments after attachments. Its body was not read in this assignment, so survival or removal of the previously observed zero ridge / intermediate treatment remains unknown; do not treat this source as proof of acceptance or repair.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+          "ranges": [
+            [
+              262,
+              275
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "prior_id": "CANDIDATE-ROOF-LOCAL-TOLERANCE-DIMENSION-POLICY",
+      "kind": "potential connected numerical policy, not automatic alias",
+      "details": "Cut helpers add an explicitly floored squared-length denominator and several geometric, fractional and dimensional thresholds. Whether they share a single owner or need separate unit/error budgets remains open.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_cutting.rs",
+          "ranges": [
+            [
+              20,
+              30
+            ],
+            [
+              89,
+              105
+            ],
+            [
+              418,
+              452
+            ],
+            [
+              473,
+              479
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/AGENTS.md",
+          "ranges": [
+            [
+              143,
+              153
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "Does any admitted CourtyardCastle rectangular footprint pass the earlier room/specialist/geometry stages, and which boundary owns the no-parent dormer error?",
+    "Can supported actual cut bounds leave 5–8 cm of roof treatment after earlier checks, and is rejection or discarding the remnant the intended contract?",
+    "How many split-eave serials can be emitted for one parent and can masked serial bits collide in the consumer identity scope?",
+    "Can unrelated retained solids have permitted X extent at or below 1 mm, and what happens to their support interfaces on global retain?",
+    "Do the final roof refit and native validation remove or reject the prior half-hip degenerate ridge?",
+    "Are all parent and child planes, polygons and native coordinate computations admissible and coherent at height division and cutout storage?"
+  ],
+  "lenses": [
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "No raw string business dispatch occurs in assigned bodies. Structured error types and typed enum roles are retained."
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "Repeated 0.05/0.08 end clearances have mismatched gates; numerical clipping thresholds and ID bit masks require named, unit-aware owner and actual policy. No replacement numbers proposed."
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "RoofAssemblyId/GeometryOwnerId/ResolvedItemId and canonical Architectural position/dimensions remain distinct. Shared position/polygon owner and identity encoding acceptance require cross-graph reconciliation."
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "Changed solid centres and dimensions are readmitted with Position/CuboidDimensions; cutouts and edge points remain raw changed coordinates and require separately justified native kernel versus retained owner boundary."
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Cuboid permits zero while edge-treatment existence imposes stronger local topology; neither should force all cuboids to be strictly positive. Cut intersection and no-remnant are distinct cases."
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "An end gap >0.05 but <0.08 produces a negative new extent before checked admission; typed errors propagate. Plane divisions and numerical tolerance depend on producer constraints and retained semantic ownership."
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Parent/child, cutout/edge/flashing/void/support and ID relations must remain coherent. Parentless dormer and masked serial questions have explicit conditions; supported graph reachability remains unresolved."
+    },
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "Dimensions readmission rejects negative extent; bounds receive checked constructors. Model graph assumptions about parent presence, valid plane divisor and ID capacity are not established by field-level checks."
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "RoofEdgeKind and RoofChildKind encode closed roles; optional tower roof and architecture branches can be legitimate. No automatic variant refactor or legacy claim from Option alone."
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "Parent/child references and cut/edge/solid links encode relational authority; assess reciprocity and lifetime instead of assuming all copies are redundant. Exact child lookup assumes unique IDs."
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "Both 6533 bodies are byte-identical to current 95e. Future work must preserve typed errors, source ordering, supported topology and owned-plan transactional behavior; no code changes or product checks."
+    },
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "774 native TRACE-003/004 connect to NATIVE-ROOF-PPS-F001: retained raw points cross clipping and changed-coordinate cutout production. Preserve earlier authorship and use one connected owner decision, not duplicate finding counts."
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "No relevant handwritten trait or serialization implementation in the assigned helpers; do not infer derive safety from source hashes or model names."
+    }
+  ],
+  "historical_attribution": {
+    "774": "historical-774/.../native/root-roof-producer-followup/coverage.jsonl SOURCE-003 and SOURCE-004, TRACE-003 and TRACE-004; native supplier personal full 6533 reads, root reconciliation separately in producer-followup-acceptance-028.",
+    "059": "READ-L11-414 REG1396/1397 fresh bounded roles; READ-L12-847/848 PAR512/513 /root/lens12_frontier full fresh readings with empty root rereads. Historical 059 queue/source/adoption records retained verbatim.",
+    "previous_current": "Complete earlier /root/rig_identity packet retained under prior-roof-packet with original manifest; prior support scopes differ from new full role displays. Do not transfer prior attribution or automatically infer aliases."
+  },
+  "limits": [
+    "All four assigned old/current source bodies personally displayed; exact support read and unread subranges in personal-read-receipt.json.",
+    "Thirteen views apply only to assigned bodies and registered support; no whole-lens or repository completion claim.",
+    "Source/evidence inspection and mathematical reasoning only. No product or geometry execution, fixtures, simulations, builds, tests, probes, repairs or edits."
+  ]
+}

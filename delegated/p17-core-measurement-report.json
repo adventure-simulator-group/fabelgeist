@@ -1,0 +1,418 @@
+{
+  "schema": "726-p17-core-measurement-source-audit-v1",
+  "created_utc": "2026-11-11 21:39:13 UTC",
+  "reviewer": "current-session delegate /root/rig_identity",
+  "scope": "Original report-p17 roles 2465–2467; all thirteen perspectives bounded to these three old/current bodies and explicitly registered supporting ranges. Not a complete lens or repository review.",
+  "original_roles": [
+    {
+      "role": 2465,
+      "path": "crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+      "historical_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "historical_source": "sources/90a4/crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+      "historical_sha256": "95852ba679486fb361ff90d203788f00fd951c87d215420de1e4931d6911226c",
+      "historical_git_blob": "1adc5112b91dca6ad19a5fcb8c2db348e9f7aa27",
+      "historical_personal_reads": [
+        [
+          1,
+          155
+        ]
+      ],
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_source": "sources/95e6/crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+      "current_sha256": "62a3215d6f52174d7351776d55c5f7f07adf340abada8e8aff653d674f389095",
+      "current_git_blob": "39f840b52dcdbf0d4224cdfe87906e784f1de832",
+      "current_personal_reads": [
+        [
+          1,
+          135
+        ]
+      ],
+      "current_status": "present; bytes differ from 90a"
+    },
+    {
+      "role": 2466,
+      "path": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+      "historical_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "historical_source": "sources/90a4/crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+      "historical_sha256": "ab520d3fbb8ff15b6554a7ae16e036426dea29b02082af86a99ce8de78c02fe7",
+      "historical_git_blob": "254a2445bcbc343c0fa4628e711b2c3051b06990",
+      "historical_personal_reads": [
+        [
+          1,
+          148
+        ]
+      ],
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_source": "sources/95e6/crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+      "current_sha256": "60c9a6b987e30fcff66d01e8afadaaf41ffde91b9d1285c46bd88ec6a1678a39",
+      "current_git_blob": "358e87fe07305e77249296a95bbb8cf7cbeba4c3",
+      "current_personal_reads": [
+        [
+          1,
+          138
+        ]
+      ],
+      "current_status": "present; bytes differ from 90a"
+    },
+    {
+      "role": 2467,
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "historical_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "historical_source": "sources/90a4/crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "historical_sha256": "cd6f17bf2bc0925f53292c3a04e552698ba572ae7127aa3ce31430296ca420a4",
+      "historical_git_blob": "813fb120c29794978da108c7e8e5a1beabf6d739",
+      "historical_personal_reads": [
+        [
+          1,
+          110
+        ]
+      ],
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_source": "sources/95e6/crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "current_sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+      "current_git_blob": "a6af10e5436c223765c54b58458beb7daa755097",
+      "current_personal_reads": [
+        [
+          1,
+          107
+        ]
+      ],
+      "current_status": "present; bytes differ from 90a"
+    }
+  ],
+  "registrations": {
+    "old-registration.json": "2c31d1bcc10f7f7d540db53505f6f20d1de4842e76041ca1c2b05f0667c40eea",
+    "current-registration.json": "243c6a0db896cbfda67a8b95ab970925fcf4493594c981f64c09a410d215d8fc",
+    "support-registration.json": "47a30d4e3aa99b5aa805fea2fef99ce41a944b497c4e9a33865af1dab6e2e2b7",
+    "rules-registration.json": "ebcf95473455515597d25921c1d76be1ffddb8a893188d095497239e970fa06e",
+    "archive-6533-registration.json": "057da4fdacb9c49a979e607b7d8943588222192e5e74fad2fa24b015d74a7464"
+  },
+  "personal_receipt": "personal-read-receipt.json",
+  "git_proofs": "git-proofs.json",
+  "source_diff": "p17-90a-to-current.patch",
+  "original_attribution": "original-attribution.json",
+  "related_evidence": "related-evidence.json",
+  "recovery_qualifications": [
+    "Original 059 transport records and 774 f82 transport are exact historical evidence with distinct revisions, reviewers and scopes. Neither reconstructed registry rows nor historical summaries become original checkpoint3821.",
+    "registry-selection-reconstructed.json is a new selection from recovered original registry; archived gzip contents preserve the original full uncompressed registry, queue, ledger and transport manifest.",
+    "The prior supported-slip packet contains this delegate’s earlier, bounded source support reads. Its original manifest/receipts are separately retained. This assignment prospectively registered full old/current assigned-role bodies; no earlier ordered-role or other reviewer credit is inferred.",
+    "Raw commit/tree proof establishes all three 90a and 95e paths and e275 equality to 95e. At 6533 Git, angle and height match 95e, while measurement is 100 lines with different SHA; each matches its pr-working role hash. Single-file equality does not prove a clean whole pr-working tree or transfer authorship.",
+    "Historical 774 native coverage duplicate rows express dispositions, not independent reviewer reads or later operation-lens clearance. Full archived bodies never substitute for personal source display."
+  ],
+  "historical_provenance": [
+    {
+      "identity": "059 Segovb READ-L11-408 / REG1360–1362",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope": "Fresh personal old roles 2465 1–155, 2466 1–148, 2467 1–110; delta0; current unreconciled.",
+      "evidence": "historical-059/segovb/READ-L11-408.json"
+    },
+    {
+      "identity": "059 /root/lens12_frontier READ-L12-833 / PAR476–478",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope": "Delegate fresh personal full old role ranges respectively 1–155,1–148,1–110; root personal rereads empty; no other-lens or unique credit.",
+      "evidence": "historical-059/parallel-l12-20261029/PROPOSAL-L12-833.json"
+    },
+    {
+      "identity": "774 NATIVE-OWNER-BOUNCY-001",
+      "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee transport",
+      "scope": "Native coverage zero-based rows 299/638, 300/639, 301/640 respectively preserve full 90a roles; repeated rows are not separate personal reads. Owner-fit disposition expressly leaves operation lens and findings pending.",
+      "evidence": "historical-774/audit-existing-type-owners/native/coverage.jsonl"
+    },
+    {
+      "identity": "059 Segovb READ-L12-566,570,571",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e pr-working",
+      "scope": "Separate personal full roles1752 1–135,1764 1–138,1768 1–100. Same role source identities as Git 6533; height/angle match 95e, measurement differs. Snapshot contains separate working changes and no whole-tree cleanliness follows.",
+      "evidence": "historical-059/segovb/READ-L12-570.json"
+    },
+    {
+      "identity": "059 Root Segovb READ-ROOT-L1-CURRENT-085,056,027",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "scope": "Separate independent personal full angle 1–135, height 1–138, measurement 1–107; blobs equal 95e, no transfer of read credit.",
+      "evidence": "historical-059/root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-056.json"
+    },
+    {
+      "identity": "059 Adler READ-L11-259,282,283",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e pr-working",
+      "scope": "Original positive profile-role finding and subsequent positive configured-owner qualification. Profile serde/consumer/current and runtime reachability remained open; no observed configured-zero failure.",
+      "evidence": "historical-059/adler/READ-L11-259.json"
+    },
+    {
+      "identity": "Prior /root/rig_identity supported-slip packet",
+      "revision": "90a and 95e",
+      "scope": "Angle and length sources read as explicitly bounded support in prior-slip/personal-read-receipt.json; distinct from new assigned-role reads.",
+      "evidence": "prior-slip/personal-read-receipt.json"
+    }
+  ],
+  "findings_and_qualified_questions": [
+    {
+      "id": "P17-HEIGHT-ADVANCE-TARGET-ROUNDING",
+      "status": "newly assessed representable API counterexample; actual caller reachability and desired rounding policy unresolved",
+      "first_failed_contract": "If advance_towards is intended never to cross a positive target when the delta is large enough, intermediate binary32 cancellation can produce a value below that target.",
+      "evidence": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+          "range": [
+            44,
+            50
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+          "range": [
+            67,
+            81
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+          "range": [
+            22,
+            37
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+          "range": [
+            55,
+            60
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+          "range": [
+            77,
+            91
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+          "range": [
+            138,
+            160
+          ]
+        }
+      ],
+      "mathematical_witness": "For valid finite nonnegative self=1 metre, target=2^-30 metres, and maximum_delta=1 metre, exact binary32 round-to-nearest gives round_f32(2^-30 − 1) = −1 because the difference is much less than half the spacing below 1. The clamp retains −1; adding it to 1 yields 0, which is accepted by from_arithmetic and lies below the positive target. Each operand is an exactly representable f32. This is mathematical source reasoning, not product execution or a fixture.",
+      "condition_and_limits": "The same arithmetic appears at both 90a and 95e. The shown current landing caller advances upward only when below its positive target, and otherwise decreases toward ZERO; it does not demonstrate this positive-target decreasing witness. The public helper admits the representable values, but an actual runtime path, externally intended bounds and whether a no-crossing contract is required are not established. No visible or product failure is claimed.",
+      "future_connected_repair_direction": "If the owning API promises no overshoot, handle reaching/crossing the positive target without cancellation while preserving valid zero, checked overflow, rounding/error semantics and the current landing behavior; decide the contract with the height owner before implementation.",
+      "future_acceptance_criterion": "For every admitted self, target, and delta covered by the selected policy, a successful advance remains between self and target and reaches target when the delta covers the distance; preserve explicit finite/nonnegative admission and do not raise tolerances. Product validation is deferred.",
+      "relationships": "Related to, but not established as an alias of, the recovered height/report observation and landing recoverability records. Distinct operation and first failure from the existing positive profile admission and tiny-divisor overflow findings; central decides ledger identity."
+    },
+    {
+      "id": "ADLER-L11-LOCOMOTION-PROFILE-ADMISSION",
+      "status": "existing 059 finding; current connected reassessment, zero new unique count",
+      "first_failed_contract": "A retained landing profile widens an admitted positive recovery duration to zero-permitting elapsed and passes that wider role into recovery arithmetic.",
+      "evidence": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/combat_config/landing.rs",
+          "range": [
+            8,
+            15
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+          "range": [
+            51,
+            58
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+          "range": [
+            49,
+            56
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+          "range": [
+            234,
+            244
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+          "range": [
+            110,
+            120
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/elapsed.rs",
+          "range": [
+            9,
+            12
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/elapsed.rs",
+          "range": [
+            24,
+            43
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+          "range": [
+            169,
+            194
+          ]
+        }
+      ],
+      "condition_and_limits": "Configuration explicitly uses PositiveAnimationDuration and factory projects .elapsed() into the public serde LandingProfile. HeightSpeed::recovery accepts zero-permitting AnimationElapsed and rejects a nonfinite quotient. Normal configured projection cannot supply zero through that positive leaf; no ordinary zero recovery or observed product error is established. Direct arbitrary profile deserialization/admission or callers need separate source proof and policy.",
+      "future_connected_repair_direction": "Carry existing PositiveAnimationDuration through any recovery-specific profile and operation if that profile contract requires a positive divisor, preserving zero for independent observation elapsed and maintaining the checked quotient.",
+      "future_acceptance_criterion": "A zero recovery divisor cannot be accepted through a role that promises positivity; real zero observed elapsed remains supported; source producers, profile, API and consumers are addressed as one connected change.",
+      "relationships": "Exactly existing original 059 ADLER-L11-LOCOMOTION-PROFILE-ADMISSION, queue /entries/97 and associated Q-L1-a11146c45429bef91a6c / Q-L12-6ec9f2ce9513c34f9b2b; central ASSESSMENT-GAIT-PROFILE-95E is a current reassessment, not a new original finding. Adler 259/282/283 and Segovb571 remain independently attributed."
+    },
+    {
+      "id": "REVIEW-LANDING-RECOVERY-RATE-OVERFLOW-001",
+      "status": "existing current conditional representability question; zero new unique count",
+      "first_failed_contract": "A positive finite recovery divisor alone does not guarantee a finite f32 recovery rate for every admitted compression.",
+      "evidence": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/combat_config/landing.rs",
+          "range": [
+            8,
+            15
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/combat_config/landing.rs",
+          "range": [
+            24,
+            31
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+          "range": [
+            51,
+            58
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+          "range": [
+            44,
+            50
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+          "range": [
+            110,
+            120
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+          "range": [
+            180,
+            194
+          ]
+        }
+      ],
+      "condition_and_limits": "For representable positive compression 2^-5 metres and duration 2^-140 seconds, the exact quotient 2^135 exceeds finite binary32 range; the helper returns typed Overflow rather than retaining an invalid speed. The displayed config leaf admits positive values and its local validator orders min/max; no complete extreme configuration, landing event or rejected frame was observed. The example is not the committed setting; admission on the complete configuration path and required support for extremes remain policy questions.",
+      "future_connected_repair_direction": "Evaluate the aggregate configured compression/duration relationship at its owning boundary and decide how to retain finite recovery without weakening individual quantities, positive duration or overflow handling. Preserve actual configured/wire behavior as determined by owner policy.",
+      "future_acceptance_criterion": "Every supported configuration has representable recovery or is rejected with an appropriate typed cause before a consuming update is partially published; out-of-policy extremes and the outcome order remain explicit.",
+      "relationships": "Same conditional source-first failure as central ASSESSMENT-LANDING-SETTLE-95E / REVIEW-LANDING-RECOVERY-RATE-OVERFLOW-001; no new duplicate. Different from the zero-permitting profile role and from target-rounding; do not infer exact alias."
+    }
+  ],
+  "behavior_comparison": [
+    "90a angle and height provided min/max over already checked scalars; these methods are absent at 95e. No backwards compatibility requirement or observable current call break is inferred.",
+    "SignedAngleDegrees rejects nonfinite in both, but labels it BodyAngle at 90a and SignedAngle at 95e; this is a typed error-identity change, not automatically a defect. Signed degree angle remains finite, signed and unwrapped; speed roles differ by sign and units.",
+    "95e NonnegativeLength adds checked_lerp using Bevy FloatExt and UnitInterval; this is not present in 90a. The result is re-admitted, but exact native kernel details, all callers and precision policy are not fully traced.",
+    "Zero length, zero speed, zero amplitude, zero count sample span, signed zero and half underflow-to-zero are permitted by named source contracts. PositiveAnimationDuration rejects zero; do not narrow the shared elapsed type."
+  ],
+  "nonfindings": [
+    "Each private scalar’s direct construction and serde TryFrom in the assigned files route through finite/sign checks; no unchecked deserialization construction is demonstrated.",
+    "from_arithmetic checks nonfinite computed length/height and maps it to typed Overflow; HeightSpeed::recovery similarly detects nonfinite quotient. Rejection is not silent acceptance.",
+    "AngularMagnitudeDegrees and unsigned speed constructors reuse checked_nonnegative; signed angle and signed speed intentionally permit negative values and no angle normalization is imposed.",
+    "PositiveAnimationDuration::sample_span with zero intervals validly returns zero AnimationElapsed; this does not make the positive receiver invalid. Half may legitimately round a subnormal to zero.",
+    "The phase-wave constants 0.5, 2 and π denote a periodic arithmetic transformation in the displayed kernel; support and elapsed are typed inputs. No invented policy threshold or global phase wrapping is required.",
+    "serde strings f32 and custom Debug text are codec/diagnostic metadata, not runtime identity dispatch. Manual TryFrom methods invoke checked admission and are not a mechanical derive candidate."
+  ],
+  "open_questions": [
+    "Does the public advance_towards contract require no overshoot for all admitted magnitudes, and can any supported producer actually provide a decreasing positive target?",
+    "Which admissible extreme landing configurations and recovery-rate bounds are supported; where should aggregate representability be decided without globally narrowing elapsed?",
+    "Do any callers independently deserialize or construct LandingProfile and rely on positive recovery? The displayed configured factory alone cannot produce zero.",
+    "What exact rounding/order and endpoint guarantees does the pinned Bevy FloatExt lerp provide for the checked_lerp consumers? Its implementation and all consuming domains were not inspected.",
+    "Are typed error quantity differences for signed angle intentional for all external consumers? No error wire or presentation contract was traced."
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "producer-propagation",
+      "assessment": "Trace configured positive recovery to widened profile to recovery helper and checked rate; retain distinct native inputs, typed state and output. Full configuration loading and every external profile producer remain untraced."
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "PositiveAnimationDuration is available for a true positive divisor, NonnegativeLength/Speed back separate height roles, UnitInterval owns fractions. Preserve sign and degree/radian roles instead of replacing all scalars by a universal angle."
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Private constructors and serde TryFrom use same checked finite/sign admission; const zero and default zero are valid where declared. Imported types are sampled at their own definitions; no claim on all reflection and framework admissions."
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Checked multiplication, flight wave, duration multiplication, ratio, subtraction and target update are inspected. Positive inputs can overflow the ratio and typed errors propagate; target rounding conditional witness is separate and has no demonstrated production path."
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "A duration’s positivity and a finite nonnegative height independently do not ensure their quotient is representable; source config ordering does not by itself settle range policy. Scope does not prove invalid complete configuration reachability."
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "Core owns angular, length and positive duration leaves; tactical animation adds distinct height treatment roles. No equivalent duplicate or wrong shared owner is proven by common representation."
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "Profile holds a projection of configured duration; the issue is lost positive role through that handoff, not proof of competing mutable authorities. Config snapshot and all update lifecycles are beyond this support scope."
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Compare each full old/current body: current removes old extrema methods, adds length interpolation and changes signed-angle error quantity. Same height advance and recovery math persists. Unsupported compatibility paths are not requested."
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "Assigned files expose checked value wrappers and error enums from an owner; no semantic Boolean plus payload or state variant occurs in those bodies requiring a new enum. Related landing profile remains a separate record."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "TryFrom implementations provide named checked admission and quantity-specific failure; derive_more/serde support checked scalar representation. No equivalent safe automatic derive is established for these conversions."
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Distinguish signed unwrapped angles from nonnegative angle magnitudes, degree/sec from radians/sec, generic nonnegative length from height amplitude and observed elapsed from positive recovery duration. No unsupported global bounds."
+    },
+    {
+      "lens": "magic-strings",
+      "assessment": "Every assigned file’s strings are serde type tokens and diagnostic/Debug metadata or documentation, with no business-string dispatch or identity state. External consumers and other files are outside this ordered-role inventory."
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Review zero/default constants, 0.5 half-step, 2 multiplier, π and half interpolation as identity/periodic numeric operations. Unit-bearing thresholds are not invented; positive duration and phase/weight operands retain admitted types."
+    }
+  ],
+  "status": "Bounded source/evidence audit only, with open policies and untraced support; not a complete lens clearance. No source edits, implementation, product builds, tests, viewer, browser, runtime probes, simulations, fixtures or product validation."
+}

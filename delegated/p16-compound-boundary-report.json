@@ -1,0 +1,439 @@
+{
+  "schema": "726-delegate-p16-compound-boundary-report-v1",
+  "author": "/root/rig_identity",
+  "written_utc": "2026-11-11 22:33:20 UTC",
+  "scope": "Original P16 roles 2522\u20132523; separately registered current and historical source bodies and bounded support; thirteen perspectives only, no whole-lens credit.",
+  "baseline_and_recovery": {
+    "pinned_current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "p16_recorded_dirty_base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "p16_status_records": 159,
+    "p16_original_patch_sha256": "fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7",
+    "patch_bytes": "unrecovered",
+    "transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee is archive transport, not a P16 source commit",
+    "identity": "Both individual P16 objects match the same paths at 95e, 6533 and a120, without claiming entire dirty snapshot equality.",
+    "proofs": "registration.json, personal-read-receipt.json, git-proofs.json, raw Git objects and hash-linked published registry"
+  },
+  "historical_attribution": [
+    {
+      "source": "774 rig producer followup",
+      "source_identity": "P16 dirty objects transported by f82",
+      "author": "rig supplier as recorded; individual agent not specified by qualifications",
+      "roles": "REGISTER-023 requested compound37\u201368; qualified only37\u201349 and58\u201367, opposite50\u201355 excluded. REGISTER-013 boundary1\u2013124,181\u2013266; 125\u2013180 excluded. TRACE-001 recognizes new typed CityGate calculated leaves; TRACE-002 uses actual datum receivers. No owner/other-lens/global acceptance transferred."
+    },
+    {
+      "source": "774 rig producer-reached owner81",
+      "source_identity": "P16 dirty compound recovered object",
+      "author": "rig supplier as recorded",
+      "roles": "RIG-OWNER81-REGISTER-010 separately fresh compound16\u201320 only, owner-fit scope; DEFINITION-004 distinguishes property/opening/building identities and explicitly does not prove reserved-bit injectivity or membership."
+    },
+    {
+      "source": "059 READ-L11-417 and READ-L11-472",
+      "source_identity": "historical P16 dirty recovered objects",
+      "author": "Segovb historical fresh personal read; later overlay record reused proof",
+      "roles": "REG-1426 compound37\u201349/58\u201367 and REG-1428 extra1\u201336/50\u201357/68\u201393 together full compound body; REG-1427 boundary1\u2013124/181\u2013266, 125\u2013180 excluded. READ-L11-472 overlay40 reuses 16\u201320 with no fresh personal read."
+    },
+    {
+      "source": "059 READ-L12-857 / PROPOSAL-L12-857",
+      "source_identity": "historical P16 dirty recovered objects; f82 only transport",
+      "author": "/root/lens12_frontier fresh bounded personal read, root adoption with zero root personal rereads",
+      "roles": "PAR-L12-541 compound16\u201320/37\u201368, a separately registered wider scope including opposite; PAR-L12-542 boundary1\u2013124/181\u2013266, excluding125\u2013180. Related queue entries preserve these exact roles and unresolved current/owner questions."
+    },
+    {
+      "source": "Prior 95e gate and support assessments and delegates",
+      "source_identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "author": "Published assessments retain their own attribution and read ranges; /root/mhr_character authored prior door and collision packets",
+      "roles": "Hash-linked current gate handedness/support assessments and exact selected prior reports/receipts preserved; do not transfer historical/current personal reads or count the same finding again."
+    }
+  ],
+  "findings_and_questions": [
+    {
+      "id": "P16-CITY-GATE-OPENING-ID-DOMAIN",
+      "classification": "current corroboration and bounded receiver refinement of existing 059 question; no automatic duplicate count",
+      "first_contract": "CityGate::door ORs the CityPropertyId bits into the fixed 0xc300000000000000 opening tag and owns_opening recognizes any opening with those tag bits. Property IDs 1 and (1 | 1<<56) are distinct u64 values but yield the same tagged opening word because bit 56 is already set in the tag. An ordinary SceneDoor with an opening ID satisfying the mask follows the gate presentation branch: it does not receive the PresentedBuildingClosureMesh or building LOD visibility components used by the shown sync system.",
+      "condition_and_limits": "The public property wrapper and SceneDoor decoder do not themselves prove reserved-bit constraints or namespace membership, but a supported admitted high-bit property pair or an ordinary tagged opening reaching this receiver was not established. The independently traced normal CitySite generated roster takes at most 16,384 lots and assigns IDs 1..=16,384, and property compilation copies lot.id; this shown generator path avoids that property-bit collision. Actual external/other producers, ordinary opening ID bounds, scene admission, and visible impact remain unproved. No runtime, fixture, or product validation.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+          "ranges": [
+            [
+              17,
+              19
+            ],
+            [
+              58,
+              67
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compound/boundary.rs",
+          "ranges": [
+            [
+              10,
+              10
+            ],
+            [
+              211,
+              225
+            ],
+            [
+              238,
+              240
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout.rs",
+          "ranges": [
+            [
+              70,
+              76
+            ],
+            [
+              106,
+              113
+            ],
+            [
+              168,
+              182
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/residences/roster.rs",
+          "ranges": [
+            [
+              9,
+              21
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/property.rs",
+          "ranges": [
+            [
+              30,
+              38
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+          "ranges": [
+            [
+              160,
+              178
+            ],
+            [
+              179,
+              201
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/doors.rs",
+          "ranges": [
+            [
+              28,
+              58
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/building_closures.rs",
+          "ranges": [
+            [
+              5,
+              19
+            ],
+            [
+              31,
+              49
+            ]
+          ]
+        }
+      ],
+      "future_direction": "Trace every admitted property and ordinary opening producer and keyed consumer; establish a disjoint/injective identity contract or contextual tagged identity at the proper boundary if their domains require it. Preserve small generated IDs and gate-specific visibility semantics.",
+      "relationships": [
+        "Exact historical 059 L12-CLOSURE-CITY-GATE-OPENING-ID-DOMAIN raised this first operation and reserved-bit question; the current roster and actual presentation receiver narrow it without rewriting historic scope or claiming closure.",
+        "Related to P16-COLLISION-BAR-SOURCE-IDENTITY and the roof child packed-ID domain only as namespace patterns; no alias or shared accepted duplicate is assumed."
+      ]
+    },
+    {
+      "id": "P16-CITY-GATE-FIXED-VERSUS-LEAF-ADMISSION",
+      "classification": "conditional public aggregate admission question from distinct current entry points",
+      "first_contract": "CityGate has public raw width and height. For a finite gate with width 0, positive height and finite admitted orientation/centre, fixed_members can construct the two positive-width gate posts without checking that opening width is positive; CityGate::door separately passes width to LeafDimensions and returns ZeroExtent. Thus the fixed-member operation alone does not establish that the same descriptor can produce an operable leaf.",
+      "condition_and_limits": "A caller must provide a zero-width or otherwise invalid public/decoded gate to a consumer of fixed members without validating the separate door. The shown ordinary property producer supplies a 1.6 m width, and the packing clearance shown calls gate.door after fixed members. Terrain projection invokes fixed_members independently, but no successful accepted malformed compound/foundation or wrong rendered geometry is established. Zero-valid generic cuboid extents are a distinct intentional contract.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+          "ranges": [
+            [
+              58,
+              67
+            ],
+            [
+              69,
+              74
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compound/boundary.rs",
+          "ranges": [
+            [
+              125,
+              135
+            ],
+            [
+              151,
+              176
+            ],
+            [
+              181,
+              208
+            ],
+            [
+              215,
+              265
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+          "ranges": [
+            [
+              8,
+              16
+            ],
+            [
+              91,
+              104
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/property.rs",
+          "ranges": [
+            [
+              9,
+              12
+            ],
+            [
+              164,
+              198
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/property/clearance.rs",
+          "ranges": [
+            [
+              8,
+              23
+            ],
+            [
+              39,
+              43
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/projection.rs",
+          "ranges": [
+            [
+              4,
+              15
+            ],
+            [
+              33,
+              55
+            ]
+          ]
+        }
+      ],
+      "future_direction": "Determine the accepted boundary for the whole CityGate and whether fixed geometry is intentionally valid without an operable leaf. If a complete gate requires a positive aperture, admit or validate that contract at the actual shared boundary while preserving contextual errors and generic zero-extent cuboids.",
+      "relationships": [
+        "Connected to 059 gate/door/aggregate owner and support questions, but not the same demonstrated operation as reserved-bit encoding, right-hinge placement, or terrain datum dispatch. Central adjudicates any count."
+      ]
+    },
+    {
+      "id": "P16-BOUNDARY-PACKING-TERRAIN-DATUM",
+      "classification": "bounded nonfinding and remaining consumer review for historical frame question",
+      "first_contract": "CityBoundaryMember::packing_cuboid explicitly interprets wall and gate-relative heights at a common zero datum. The current property clearance uses this representation for packing and sweep. In the independently displayed terrain projection, member_levels matches the pose: post head uses gate elevation, wall/cap head uses local soil, and support cells preserve element identity.",
+      "condition_and_limits": "These are two specific inspected callers and their source contracts, not proof for all conversions, terrain geometry, invalid numeric input, renderers or physics. No product execution or actual projected surface.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compound/boundary.rs",
+          "ranges": [
+            [
+              38,
+              73
+            ],
+            [
+              81,
+              115
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/property/clearance.rs",
+          "ranges": [
+            [
+              8,
+              43
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/projection.rs",
+          "ranges": [
+            [
+              40,
+              55
+            ],
+            [
+              115,
+              130
+            ],
+            [
+              238,
+              270
+            ]
+          ]
+        }
+      ],
+      "future_direction": "Retain the documented zero-datum packing context and distinct GateRelative/GroundRelative terrain dispatch; inspect unassessed consumers before closing the full cross-frame contract.",
+      "relationships": [
+        "059 L12-CLOSURE-BOUNDARY-FRAME-PACKING-TERRAIN and 774 RIG-OWNER81-DEFINITION-002 already distinguish the zero-datum mode from a general frame alias. This is partial current caller evidence, not whole-queue closure."
+      ]
+    },
+    {
+      "id": "REVIEW-GATE-RIGHT-HINGE-INTERACTION-OFFSET-001",
+      "classification": "prior current finding with assigned producer independently corroborated; no duplicate count",
+      "first_contract": "For the right hinge, the assigned CityGate producer offsets hinge from the leaf closed centre by plus half width, while the shown server spawn adds another plus half width to derive doorway centre. That differs from the left-hinge case and is the producer/consumer link already analyzed by the previous current review.",
+      "condition_and_limits": "The published prior review supplies the symbolic interaction consequence and its actor/scene qualifications; this delegate read only the cited producer and server spawn ranges, not an actor behavior, physics result or product runtime.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+          "ranges": [
+            [
+              37,
+              49
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compound/boundary.rs",
+          "ranges": [
+            [
+              225,
+              247
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/doors.rs",
+          "ranges": [
+            [
+              142,
+              162
+            ]
+          ]
+        }
+      ],
+      "future_direction": "Keep the prior accepted source evidence and validate actual placement, actor accessibility, both handednesses and native consumers in the later authorized implementation phase.",
+      "relationships": [
+        "Hash-linked ASSESSMENT-GATE-HANDEDNESS-95E.json and its original personal/source qualifications remain authoritative earlier current evidence; this is not a new unique finding."
+      ]
+    }
+  ],
+  "nonfindings": [
+    "The shown ordinary CitySite roster bounds newly selected lot IDs to1\u201316,384 before property compilation; this is not an admission proof for all public CityPropertyId construction.",
+    "The shown terrain caller dispatches wall/cap versus post datums explicitly, while the shown packing caller uses the declared zero datum; this is not a whole-family clearance.",
+    "The standard shown property producer constructs a 1.6 m gate; zero-width behavior is a conditional public boundary question, not an asserted generated case.",
+    "Current CityGate always constructs a signed quarter-turn for either PropertySide; prior zero-angle DoorSpec concern is not shown reachable from that normal producer."
+  ],
+  "lenses": [
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "Boundary errors carry BoundarySupportElement and GeometryError, while serde tags map typed enums; no domain decision based on diagnostic prose was found in assigned bodies."
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "Gate dimensions, tag mask, wall-cap and spacing constants are named. Domain mask is a semantic namespace contract, distinct from physical metres, fixed mathematical quarter-turn and sampling tolerances."
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "CityPropertyId, OpeningAssemblyId, SceneBuildingId and ResolvedItemId remain distinct roles. Existing PlanDirection/Position/LeafDimensions and explicit GroundRelative/GateRelative payloads already own admitted output semantics."
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "Public CityGate retains centre and dimensions as raw values until creating typed positions/dimensions; correct checked owners and admission policy must be chosen at an actual supported boundary rather than presumed from common float width."
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "PropertySide owns signed local handedness and BoundarySupportElement retains wall/cap/post identity. Domain tags, property IDs and presentation leaf classifications remain distinct; named physical constraints should not collapse the separate frame datums."
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "Door creation computes a hinge, signed quarter turn and leaf dimensions with contextual errors; fixed_members calculates wall midpoint/distance and post positions, accepting zero-width gate before leaf admission. Geometry overflow and valid range remain qualified."
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "CityCompound associates front/rear IDs, plot, court, access and boundary without visible whole-record validation in the type itself. BoundaryOwnerBinding and terrain projection perform some owner/member checks, not a complete accepted-graph proof."
+    },
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "Public serde CityGate and CityBoundary fields allow independent values before operation. LeafDimensions rejects zero/negative/nonfinite; fixed posts validate their own finite positions and cuboid extents. Admission boundaries may intentionally differ and need caller proof."
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "PropertySide and CityBoundaryPose represent distinct roles with appropriate associated centre frame. Local `cap` selection uses a temporary bool to build the owning enum, not automatically a persistent semantic boolean defect."
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "Gate raw descriptor and projected DoorSpec are independently represented at different derivation stages; property/front/rear references and support binding/digest require producer/consumer consistency rather than assuming duplication by common value."
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "P16 and current individual objects match, but the whole dirty patch is missing. Preserve zero-datum packing, soil/gate terrain dispatch, left/right signed sweep, typed error element/source and ordinary 1.6 m gate behavior."
+    },
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "CityGate::door calculates new positions/directions and admits checked leaves; 774 TRACE-001 explicitly recognized these as new computations, not already checked values lost. Typed CityPropertyId is encoded to a distinct opening authority whose domain remains unresolved."
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "Serde derives for public raw descriptors are not proof of aggregate admission. BoundaryGeometryError retains typed source and element; no derive substitution is supported without preserving context and actual modes."
+    }
+  ],
+  "open_questions": [
+    "Which external, authored, deserialized and generated property/opening producers are accepted, and do their ID bit ranges remain disjoint at all receivers?",
+    "Should every valid CityBoundary include a positive gate aperture, or can a post-only boundary be an intentional separate mode? Which exact consumer owns that distinction?",
+    "Do all packing, support, projection, serialization, rendering and collision callers preserve the correct frame and owner relationship?",
+    "Does the prior symbolic right-hinge interaction case occur for a supported actor and scene? No runtime inference or product probe.",
+    "What are exact aliases and repair dependencies relative to existing 059 gate-ID, frame, angle and source-owner contracts?"
+  ],
+  "limits": "Source inspection, mathematical reasoning and evidence-only verification. No implementation, repair, product execution, builds, tests, fixtures, physics, UI or runtime probes."
+}

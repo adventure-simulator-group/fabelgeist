@@ -1,0 +1,549 @@
+{
+  "schema": "726-delegate-source-audit-v1",
+  "agent": "/root/mhr_character",
+  "generated_utc": "2026-11-11T21:31:59.484043+00:00",
+  "scope": {
+    "original_roles": [
+      2461,
+      2462
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "frozen_P17_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+    "P17_registry_snapshot_pointer": "/snapshots/2",
+    "assigned_both_revisions_fully_displayed": true,
+    "qualification": "Each P17/current body independently prospectively registered and personally displayed, including tests source text only. Current Git source bytes match recorded historical base hashes but old revisions/authors are preserved."
+  },
+  "identity_evidence": [
+    "registration.json",
+    "git-proofs.json",
+    "older-continuation-index.json",
+    "native-package-proof.json"
+  ],
+  "personal_read_receipt": "read-receipt.json",
+  "support_receipt": "support-read-receipt.json",
+  "native_read_receipt": "native-read-receipt.json",
+  "historical_provenance": [
+    {
+      "record": "segovb/READ-L11-408 and REGISTRATION-SEGOVB-1356/1357",
+      "author": "segovb lens 11",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "ranges": "mod 1–244; model 1–390",
+      "qualification": "Earlier original complete reads including source test text, no execution."
+    },
+    {
+      "record": "READ-CONNECTED-PAR-L12-826-REPORT-NATIVE-OWNERS rows 2/3, REGISTRATION-PAR-L12-465/466, READ-L12-CONNECTED-TEAM-014, PROPOSAL-L12-831 and READ-L12-831",
+      "author": "/root/lens12_frontier fresh connected reads; segovb root adoption",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "ranges": "mod 1–244; model 1–390",
+      "qualification": "Later ordered role application reused out-of-order reads; its fresh_personal_body_reads=[] and root_personal_rereads=[] are preserved; no second fresh read or attribution transfer."
+    },
+    {
+      "record": "774 native owner coverage rows 282/621 and 283/622, NATIVE-OWNER-REPORT-MODEL-003 and NATIVE-OWNER-REPORT-GATES-004",
+      "author": "native historical supplier",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "ranges": "mod 1–244; model 1–390",
+      "qualification": "Original and separately path-normalized export retained; source assignment is not repair ownership."
+    },
+    {
+      "record": "774 SEGOVB-INITIAL04-CONTRACT-588/589",
+      "author": "segovb",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "qualification": "Historical summary of explicit availability, metric/frame cohort, save authority and open dependencies; no native/product execution."
+    },
+    {
+      "record": "059 READ-L11-535 and its 2147–2149 registrations and READ-L11-535-NATIVE-001",
+      "author": "segovb",
+      "revision": "7a9d92ad7357779e9280146c521bd8588b86fcdb for recorded current-main, locked Bevy 0.19.1 for native",
+      "qualification": "Original current-main source object hash matching 95e is retained as 7a9 attribution; native 125–265 historical scope not reassigned."
+    },
+    {
+      "record": "059 root READ-ROOT-L1-CURRENT-065 and registration",
+      "author": "root Segovb lens 1",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "qualification": "Historical locked native 100–220 scope retained; no future checkpoint credit."
+    }
+  ],
+  "findings_and_reconciliations": [
+    {
+      "id": "SEGOVB-L11-CAPTURE-RUN-ARTIFACT-CERTIFICATION",
+      "classification": "Independent pinned-current corroboration of existing 059 source-level finding; no new unique count.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+          "archive": "source/support-9.rs",
+          "lines": [
+            [
+              70,
+              78
+            ],
+            [
+              89,
+              115
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer_main.rs",
+          "archive": "source/support-10.rs",
+          "lines": [
+            [
+              23,
+              31
+            ],
+            [
+              112,
+              121
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+          "archive": "source/current-2461.rs",
+          "lines": [
+            [
+              23,
+              37
+            ],
+            [
+              39,
+              49
+            ],
+            [
+              89,
+              99
+            ],
+            [
+              102,
+              123
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "archive": "source/current-2462.rs",
+          "lines": [
+            [
+              12,
+              39
+            ],
+            [
+              183,
+              190
+            ],
+            [
+              241,
+              242
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "archive": "source/support-0.rs",
+          "lines": [
+            [
+              620,
+              623
+            ],
+            [
+              754,
+              772
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "archive": "source/support-3.rs",
+          "lines": [
+            [
+              20,
+              24
+            ],
+            [
+              538,
+              541
+            ],
+            [
+              595,
+              599
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "Cargo.lock",
+          "archive": "source/support-8.rs",
+          "lines": [
+            [
+              2563,
+              2567
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+          "archive": "source/report-p17-2461.rs",
+          "lines": [
+            [
+              33,
+              47
+            ],
+            [
+              112,
+              133
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "archive": "source/support-1.rs",
+          "lines": [
+            [
+              623,
+              626
+            ],
+            [
+              685,
+              698
+            ]
+          ]
+        }
+      ],
+      "native_refs": [
+        {
+          "archive": "source/native-screenshot.rs",
+          "lines": [
+            [
+              133,
+              148
+            ],
+            [
+              189,
+              194
+            ]
+          ],
+          "sha256": "f49e4ca4f0929fc51a5c55fc002294c6009ae7a4c1c07dc6ef6c8ff737df0c5b",
+          "proof": "native-package-proof.json; exact crates.io archive SHA matches 95e Cargo.lock"
+        }
+      ],
+      "trace": "Current CLI has a reusable default output directory; startup creates it and removes only four report files, leaving PNGs. Each screenshot callback chooses the planned view/path, calls the native save observer then advances without a persisted outcome; Bevy 0.19.1 returns a unit observer and only logs conversion, format and native save errors. The report checks each planned screenshot path exists and is nonempty, then includes all_artifacts_written in the acceptance conjunction. P17 has the same relevant callback/invalidation/metadata shape, while the original 059 record described historical current-main 7a9 source and a separate root L1 read used e275; neither is claimed to be 95e.",
+      "conditions": "If a prior nonempty same-name PNG remains and the new screenshot callback fails before replacing it, e.g. the native image conversion fails before disk write, the per-artifact metadata check can still see the old file. A completed capture, an actual conversion failure or a whole report passing every independent gate is not observed. Native disk writing inside the callback is synchronous; no asynchronous disk race is claimed. Other report trace/manifest/HTML errors can still fail explicitly.",
+      "direction": "A future owning capture authority should retain a per-run result or other proven fresh-write receipt for each requested view before completion; preserve underlying image/format/I/O cause, legitimate output reuse and unrelated files. Exact alias to CONT08 and other viewer families needs central review.",
+      "relationships": [
+        "059 q206 retains this current-main finding and source/revision qualifications; 774 SEGOVB-INITIAL04-CONTRACT-589 independently recorded the P17 artifact authority question and native source behavior.",
+        "059 q12 CONT08-CAPTURE-SAVE-OUTCOME-ERASURE is related but exact alias is unresolved; no automatic consolidation.",
+        "059 q867 separately attributes prior native helper reading to root Segovb at e275; this packet independently verifies pinned 95e lock and exact cached crate/source."
+      ]
+    },
+    {
+      "id": "SEGOVB-L12-CAPTURE-VIEW-KEY-INTERNAL-STRING-PROPAGATION",
+      "classification": "Previously retained 059 P17 finding; independent same-shaped current source evidence, no additional unique finding or automatic alias.",
+      "source_refs": [
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "archive": "source/report-p17-2462.rs",
+          "lines": [
+            [
+              14,
+              40
+            ],
+            [
+              222,
+              225
+            ],
+            [
+              276,
+              280
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+          "archive": "source/report-p17-2461.rs",
+          "lines": [
+            [
+              123,
+              132
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+          "archive": "source/support-2.rs",
+          "lines": [
+            [
+              122,
+              128
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "archive": "source/current-2462.rs",
+          "lines": [
+            [
+              12,
+              38
+            ],
+            [
+              183,
+              186
+            ],
+            [
+              238,
+              242
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+          "archive": "source/current-2461.rs",
+          "lines": [
+            [
+              113,
+              122
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "archive": "source/support-0.rs",
+          "lines": [
+            [
+              751,
+              757
+            ]
+          ]
+        }
+      ],
+      "trace": "CaptureView owns three view variants, but both P17 and current capture convert view to an owned slug when retaining FrameSample.screenshots and the report regenerates the slug for semantic lookup before native filesystem access. P17 source receipt was an out-of-order fresh personal read by /root/lens12_frontier under its own registrations; the later ordered 831 row reuses that exact earlier evidence and reports no fresh reread.",
+      "conditions": "No slug collision, malformed user path, image-save failure or runtime behavior is needed or inferred for the retained private-key propagation concern; exact JSON/HTML adapter consequences and all consumers still require central ownership/alias review.",
+      "direction": "If the canonical owner decision is accepted, preserve CaptureView identity through private screenshot state and lookup; project native slug/filename at the filesystem or serialized boundary. Do not equate this type propagation with screenshot persistence merely because both touch view maps.",
+      "relationships": [
+        "059 q545 and TEAM-014 retain exact original authorship and trace. Current 95e independent bounded evidence is new; 774 owner records remain P17 only.",
+        "Related artifact freshness finding has a different first contract and requires no automatic alias."
+      ]
+    },
+    {
+      "id": "REPORT-OBSERVATION-AND-COMPLETENESS-CONTEXT",
+      "classification": "Comparison and independently verified limitation, not a blanket new false-pass finding.",
+      "source_refs": [
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+          "archive": "source/report-p17-2461.rs",
+          "lines": [
+            [
+              112,
+              133
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+          "archive": "source/current-2461.rs",
+          "lines": [
+            [
+              102,
+              123
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "archive": "source/report-p17-2462.rs",
+          "lines": [
+            [
+              126,
+              164
+            ],
+            [
+              222,
+              246
+            ],
+            [
+              283,
+              299
+            ],
+            [
+              329,
+              335
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "archive": "source/current-2462.rs",
+          "lines": [
+            [
+              124,
+              152
+            ],
+            [
+              183,
+              209
+            ],
+            [
+              245,
+              260
+            ],
+            [
+              291,
+              297
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+          "archive": "source/support-4.rs",
+          "lines": [
+            [
+              45,
+              50
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+          "archive": "source/support-6.rs",
+          "lines": [
+            [
+              160,
+              175
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "archive": "source/support-3.rs",
+          "lines": [
+            [
+              20,
+              24
+            ],
+            [
+              595,
+              599
+            ],
+            [
+              632,
+              683
+            ]
+          ]
+        }
+      ],
+      "trace": "P17 stores explicit Observation with Measured/Unavailable/NotApplicable for many metrics; only NotApplicable exempts the when_applicable helper, while Unavailable fails it. Current retains raw scalar metrics and optional raw clearance. Both plan completeness checks compare cardinality, scenario/frame IDs and required bone presence, and both finite bone checks cover bone positions and quaternion components only. Neither check alone establishes terrain clearance, root/body arrays, unit quaternion, frame chronology, global trace validity or producer completeness. Current quality percentage is calculated from a defect subset and completeness separately from acceptance_passed.",
+      "conditions": "Other metric, capture, plan, validation and output gates may validate or reject these values; selected scenario semantics, producer reachability and valid zero versus unavailable need independent source tracing. No unsupported raw value or complete passing report is asserted.",
+      "direction": "For every required observation, resolve its producer, units/frame, applicability, numeric admission and exact consumer policy; preserve separate plan, finite, artifact, validation and quality contracts. Do not replace all geometry arrays, scores or native serializer strings solely by their types.",
+      "relationships": [
+        "/root/hair_ops REVIEW-CAPTURE-TERRAIN-OBSERVATION-ZERO-95E and /root/mhr_character CAPTURE-GROUND-CLEARANCE-ADMISSION-95E cover different absent vs nonfinite ground cases; prior packets retained separately, not merged.",
+        "059 q1216/q1231/q1235/q1236 and 774 SEGOVB-INITIAL04-CONTRACT-588/589 record related historical pending evidence and typed states; no automatic closure."
+      ]
+    }
+  ],
+  "nonfindings": [
+    "Filesystem/trace/HTML write failures have explicit panic or error exit paths; the screenshot persistence finding is not a claim that every I/O failure is silently successful.",
+    "Report plan cardinality plus exact scenario/frame identities and required bones narrow a blanket missing-bone suspicion; they do not certify other observations.",
+    "P17 optional observation and native event strings represent explicit status and leaf serialization; neither is automatically a compatibility shim.",
+    "A quality percentage and acceptance_passed represent different facts; high score alone is not a claim that the acceptance conjunction succeeded."
+  ],
+  "open_questions": [
+    "Can a real supported capture produce image conversion failure or other pre-replacement error while the same output directory contains a previous same-name image, and how should error causes reach the report?",
+    "What is the exact relationship of q206 to CONT08 and other screenshot families, and which owner should retain per-run proof?",
+    "What are all private screenshot map consumers and the intended native JSON/HTML representation if CaptureView remains typed internally?",
+    "What enforces nonempty planned cohorts, sample chronology, valid body/root frames, unit quaternions, and separate global trace coverage before report acceptance?",
+    "How do quality, height/landing and terrain observation policies distinguish absent, invalid, zero and nonapplicable in each selected scenario?"
+  ],
+  "thirteen_lens_perspectives": [
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "Required IK weights have an explicit pair-or-error API in both revisions; raw root/scene, quaternion and clearance admission require producer-specific analysis.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Capture completeness compares the requested frame cohort and required bone presence; artifact freshness, finite geometry, frame order and observation availability are additional independent relationships.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "P17 observation distinctions and current native output format differ; preserve legitimate NotApplicable, explicit error/exit and independent gates without assuming historical source is the installed solution.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "P17 custom scalar serialization preserves units; do not mechanically derive or replace serialization that would change JSON representation or unchecked construction.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "CaptureView owns three alternatives; independent quality defect flags and separate measured/unavailable/not-applicable are not one mutually exclusive outcome.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "CaptureView already owns retained view identity in q545; SignedLength and typed observations in P17 are historical candidates, requiring exact current boundary/consumer review.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "Signed geometry and finite derivations require source-specific checks; existing bounded weighted-score math and independent acceptance are not automatically an overflow or redundancy defect.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "The quality score denominator is a documented aggregate bound and separate semantics from measured metric thresholds; no replacement of independent acceptance oracles follows.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "Historical q545 identifies typed view lost before private lookup; wire labels, native filenames, diagnostic strings and serialization labels are different boundaries.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Current request path → screenshot callback → unit native save → retained names → artifact metadata → acceptance is traced; actual capture, failure and full report outcomes remain unobserved.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "A filesystem existence/length observation cannot independently certify that this run wrote the requested image; preserve this first contract separate from view-key propagation.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Elapsed time, scene/body positions, clearance, quaternion, root distance, screenshot view and status have different units, frames and existence conditions.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "Capture persistence owns acknowledgment, CaptureView owns view identity, native filesystem owns pathname and format, and report acceptance owns conjunction; exact repair and aliases remain central.",
+      "whole_lens_completion": false
+    }
+  ],
+  "limitations": [
+    "Source inspection and evidence integrity only; no repairs, builds, tests, viewer, screenshots, runtime probes, simulations or product validation.",
+    "Historical original receipts, summaries and registered native reads retain their revision and authors; no checkpoint3821 reconstruction or read transfer.",
+    "Central agent owns exact alias decisions, ordered coverage, connected ledger and publication.",
+    "First prospectively registered Cargo.lock range 2730–2750 showed bevy_sprite_render, not the target bevy_render stanza; after a metadata-only location search a new registration and personal display covered 2563–2571. Both actual reads remain in the support receipt."
+  ]
+}

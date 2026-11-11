@@ -1,0 +1,853 @@
+{
+  "schema": "726-delegate-source-assessment-v1",
+  "created_utc": "2026-11-11T22:37:56.477031+00:00",
+  "author": "/root/hair_ops",
+  "scope": {
+    "original_roles": [
+      2528,
+      2529
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "qualification": "Thirteen perspectives bounded to actually displayed assigned and support bodies; no whole-lens, product, checkpoint3821 or repair credit."
+  },
+  "source_identity": {
+    "p16_base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "archive_transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "patch_sha256_recorded": "fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7",
+    "qualification": "Recorded dirty 159-path P16 snapshot; full patch remains unrecovered. Both individual role objects equal 0393, a120, 6533 and 95e, not evidence the whole snapshot is clean. P16 and current bodies were separately personally displayed; 0393/a120/6533 copies hash/Git verified but not separately displayed. Earlier same-agent 95e identity1\u201340 support read remains separately attributed."
+  },
+  "observations": [
+    {
+      "id": "SERVER-SCENE-VISTA-DIGEST-EXPECT-RULE",
+      "kind": "source-rule mismatch in separately registered support; central owns count and alias",
+      "first_contract": "The production vista_bundle uses input.digest().expect(\"loaded scene input was validated\") while crates/AGENTS.md prohibits expect outside tests. The same scene-setup module installs the building and boundary observers that reach the assigned door spawner.",
+      "condition": "Text establishes the rule mismatch. Input invalidation, a failed digest, a panic, a runtime incident and its scheduling or startup impact are not established. The support source is not an assigned ordered role.",
+      "direction": "At the later authorized repair stage select the appropriate typed error or explicit handling at this setup boundary while preserving intentional startup policy; determine whether already recorded centrally before assigning a new count.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/scene_setup.rs",
+          "lines": [
+            [
+              5,
+              21
+            ]
+          ]
+        }
+      ],
+      "rule_reference": {
+        "path": "reference/rule-crates__AGENTS.md",
+        "lines": [
+          [
+            126,
+            127
+          ]
+        ]
+      }
+    },
+    {
+      "id": "SERVER-DOOR-EXEMPTION-LIFETIME-REINSPECTION",
+      "kind": "existing central observation reinspection, not new finding or alias",
+      "first_contract": "DoorGrabber grants the door Entity in both the character exclusion filter and DoorPassageExemptions, while the fixed-update system visits extant entities with DoorController and removes the current door from both sets on the revoke branch. The core collision hook consults the exemption set and Player addition installs an initial default.",
+      "condition": "If a door ceases matching the query while a character and its old sets remain, this particular loop cannot revisit that missing key. Actual door deletion or controller removal while the actor survives, external reset/cleanup, Bevy Entity generations, unbounded retention and any wrong collision are unproved. Character despawn is a different case, not proof of live-actor cleanup.",
+      "direction": "Establish real scene and character lifetime and the canonical exemption/filter cleanup owner before deciding any future change. Preserve per-character intentional collision exemptions and motor state.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/doors.rs",
+          "lines": [
+            [
+              25,
+              33
+            ],
+            [
+              65,
+              115
+            ],
+            [
+              117,
+              151
+            ],
+            [
+              152,
+              246
+            ],
+            [
+              275,
+              312
+            ],
+            [
+              323,
+              388
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/doors.rs",
+          "lines": [
+            [
+              9,
+              28
+            ],
+            [
+              46,
+              84
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+          "lines": [
+            [
+              1984,
+              1990
+            ],
+            [
+              2006,
+              2027
+            ]
+          ]
+        }
+      ],
+      "history": "Already explicitly recorded in prior ASSESSMENT-GATE-HANDEDNESS-95E \u201cIndependent values and expiry\u201d; prior source ranges/attribution stay in that assessment. 059 q1741 has a thematically related pending cleanup note but explicitly lacks exact source locators, so no automatic identity alias."
+    },
+    {
+      "id": "SERVER-GATE-HANDEDNESS-REINSPECTION",
+      "kind": "existing central finding/symptom family, no new count",
+      "first_contract": "For a CityGate hinge on the positive tangent side the gate source positions hinge = centre + tangent * width/2, while server spawn_door computes doorway = hinge + tangent * width/2 regardless of side; the server diagnostic computes the leaf hinge as closed position minus local half-width. Normal building door compilation puts hinge on the negative tangent side.",
+      "condition": "This is the same source relation already assessed in ASSESSMENT-GATE-HANDEDNESS-95E; interpretation assumes the recorded gate-side geometry, axis mapping and finite source values. No actual generated scene, actor, collision, motor behavior, diagnostic execution or product incidence shown. The diagnostic is a related symptom, not an independently counted physics failure.",
+      "direction": "Reconcile the existing gate-handedness owner across gate/leaf/interaction/diagnostic, preserving intentional inward swing and independent facade identity; no proposed repair is implemented.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/doors.rs",
+          "lines": [
+            [
+              25,
+              33
+            ],
+            [
+              65,
+              115
+            ],
+            [
+              117,
+              151
+            ],
+            [
+              152,
+              246
+            ],
+            [
+              275,
+              312
+            ],
+            [
+              323,
+              388
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compound/boundary.rs",
+          "lines": [
+            [
+              211,
+              225
+            ],
+            [
+              226,
+              257
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/doors.rs",
+          "lines": [
+            [
+              9,
+              28
+            ],
+            [
+              46,
+              84
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/doors.rs",
+          "lines": [
+            [
+              19,
+              34
+            ],
+            [
+              119,
+              160
+            ],
+            [
+              163,
+              200
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/boundaries.rs",
+          "lines": [
+            [
+              4,
+              29
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+          "lines": [
+            [
+              70,
+              102
+            ],
+            [
+              116,
+              151
+            ],
+            [
+              154,
+              208
+            ],
+            [
+              254,
+              263
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SERVER-DOOR-PAIR-AND-FALLIBILITY",
+      "kind": "narrowed prior q2243 plus existing native error question",
+      "first_contract": "The server collects all architectural-to-scene door poses before beginning the door-spawn loop. Each spawn reads its unmutated leaf and native_rotation from one SceneDoorPose, checks the computed doorway centre, then queues leaf, joint and controller. The containing building observer spawns door and window openings before final collider insertion.",
+      "condition": "No independent mutation of the paired leaf was found in this server consumer. Earlier loop iterations can be queued before a later spawn_door error, and windows or collider creation may fail later, but a supported failing plan, native deferred-command outcome, cleanup or partial visible scene has not been established. Prior central Bevy observer source error analysis is separate native evidence and cannot be generalized to all other callers.",
+      "direction": "Preserve paired native pose and typed cause/context; relate q2243 and prior observer error outcome without treating them as identical failures.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/doors.rs",
+          "lines": [
+            [
+              25,
+              33
+            ],
+            [
+              65,
+              115
+            ],
+            [
+              117,
+              151
+            ],
+            [
+              152,
+              246
+            ],
+            [
+              275,
+              312
+            ],
+            [
+              323,
+              388
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+          "lines": [
+            [
+              70,
+              102
+            ],
+            [
+              116,
+              151
+            ],
+            [
+              154,
+              208
+            ],
+            [
+              254,
+              263
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/openings.rs",
+          "lines": [
+            [
+              22,
+              27
+            ],
+            [
+              30,
+              72
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCENE-BUILDING-IDENTITY-OWNER",
+      "kind": "related historical typed identity and visual-seed traces",
+      "first_contract": "SceneBuildingId is a transparent public u64 newtype with From and Display, distinct from OpeningAssemblyId. SceneDoor carries both separately; aggregate placement validators reject zero and duplicate identities within each checked placement slice. Server passage exemption keys are native door Entity values, a distinct lifetime identity.",
+      "condition": "The public wrapper alone does not prove nonzero or uniqueness for all construction, aggregate validators are local slices, and no unsupported domain alias, unbounded cross-list collision or native replay behavior is asserted.",
+      "direction": "Trace source admissions and owned identities through replicated scene descriptors and visual seed conversion while retaining the intentionally separate entity, building, opening and property domains.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_input/buildings/identity.rs",
+          "lines": [
+            [
+              1,
+              40
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+          "lines": [
+            [
+              151,
+              202
+            ],
+            [
+              229,
+              269
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/doors.rs",
+          "lines": [
+            [
+              25,
+              33
+            ],
+            [
+              65,
+              115
+            ],
+            [
+              117,
+              151
+            ],
+            [
+              152,
+              246
+            ],
+            [
+              275,
+              312
+            ],
+            [
+              323,
+              388
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/doors.rs",
+          "lines": [
+            [
+              9,
+              28
+            ],
+            [
+              46,
+              84
+            ]
+          ]
+        }
+      ],
+      "history": "774 rig producer F004 and earlier /root/hair_ops facade packet link building identity to a visual seed boundary; /root/mhr_character prior door report relates gate opening domain. Preserve each author and avoid auto-alias."
+    }
+  ],
+  "open_questions": [
+    {
+      "question": "Can a door or its DoorController disappear while an actor survives with active exemption/filter entries, and which owner removes them?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/doors.rs",
+          "lines": [
+            [
+              25,
+              33
+            ],
+            [
+              65,
+              115
+            ],
+            [
+              117,
+              151
+            ],
+            [
+              152,
+              246
+            ],
+            [
+              275,
+              312
+            ],
+            [
+              323,
+              388
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/doors.rs",
+          "lines": [
+            [
+              9,
+              28
+            ],
+            [
+              46,
+              84
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+          "lines": [
+            [
+              1984,
+              1990
+            ],
+            [
+              2006,
+              2027
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "Does an actual gate/property or ordinary opening producer admit values that collide in the tagged gate domain?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_input/buildings/identity.rs",
+          "lines": [
+            [
+              1,
+              40
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compound/boundary.rs",
+          "lines": [
+            [
+              211,
+              225
+            ],
+            [
+              226,
+              257
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+          "lines": [
+            [
+              151,
+              202
+            ],
+            [
+              229,
+              269
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/boundaries.rs",
+          "lines": [
+            [
+              4,
+              29
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "Can an admitted plan reach per-leaf or later-window/collider failure after a prior command prefix, and what are the native observer/error/cleanup guarantees?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/doors.rs",
+          "lines": [
+            [
+              25,
+              33
+            ],
+            [
+              65,
+              115
+            ],
+            [
+              117,
+              151
+            ],
+            [
+              152,
+              246
+            ],
+            [
+              275,
+              312
+            ],
+            [
+              323,
+              388
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/openings.rs",
+          "lines": [
+            [
+              22,
+              27
+            ],
+            [
+              30,
+              72
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+          "lines": [
+            [
+              70,
+              102
+            ],
+            [
+              116,
+              151
+            ],
+            [
+              154,
+              208
+            ],
+            [
+              254,
+              263
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "What actor, scene and physics lifecycle guarantees that every DoorController.joint remains queryable while its door remains active?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/doors.rs",
+          "lines": [
+            [
+              25,
+              33
+            ],
+            [
+              65,
+              115
+            ],
+            [
+              117,
+              151
+            ],
+            [
+              152,
+              246
+            ],
+            [
+              275,
+              312
+            ],
+            [
+              323,
+              388
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "What explicit error or handling should own a failed scene digest during vista setup, given the crate rule?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/scene_setup.rs",
+          "lines": [
+            [
+              5,
+              21
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings": [
+    {
+      "topic": "Door proximity alone grants authority to pass",
+      "reason": "The passage decision only retains or revokes an existing exemption; grant on the inspected server path occurs after the interior grab predicate and player/door queries. Other possible callers of public grant remain outside scope.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/doors.rs",
+          "lines": [
+            [
+              25,
+              33
+            ],
+            [
+              65,
+              115
+            ],
+            [
+              117,
+              151
+            ],
+            [
+              152,
+              246
+            ],
+            [
+              275,
+              312
+            ],
+            [
+              323,
+              388
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/doors.rs",
+          "lines": [
+            [
+              9,
+              28
+            ],
+            [
+              46,
+              84
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "Server consumer mutates a leaf copy then mismatches its original native pose",
+      "reason": "The server extracts the leaf and rotation from the same pose without modifying the leaf before queuing geometry and joint. Other consumers remain unproved.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/doors.rs",
+          "lines": [
+            [
+              25,
+              33
+            ],
+            [
+              65,
+              115
+            ],
+            [
+              117,
+              151
+            ],
+            [
+              152,
+              246
+            ],
+            [
+              275,
+              312
+            ],
+            [
+              323,
+              388
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+          "lines": [
+            [
+              70,
+              102
+            ],
+            [
+              116,
+              151
+            ],
+            [
+              154,
+              208
+            ],
+            [
+              254,
+              263
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "Any queued door prefix necessarily survives a failure",
+      "reason": "Only source ordering is established; native observer error policy and supported failure reachability require separate evidence.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/doors.rs",
+          "lines": [
+            [
+              25,
+              33
+            ],
+            [
+              65,
+              115
+            ],
+            [
+              117,
+              151
+            ],
+            [
+              152,
+              246
+            ],
+            [
+              275,
+              312
+            ],
+            [
+              323,
+              388
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/openings.rs",
+          "lines": [
+            [
+              22,
+              27
+            ],
+            [
+              30,
+              72
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "producer-propagation",
+      "assessment": "Building/opening typed IDs and paired pose flow from geometry to replicated SceneDoor; native entity-key exemptions and raw scalar motor values remain distinct consumers."
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "SceneBuildingId, OpeningAssemblyId, SceneDoorPose, scene-frame positions, directions and Entity all have distinct semantic owners; direct u64 access at logging or seed boundaries needs an explicit purpose."
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Public SceneBuildingId admits any u64; per-slice validators reject zero/duplicates locally. Do not promote that to a global or cross-namespace guarantee."
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Typed pose conversion is fallible before each native leaf, signed angle drives limits/motor and passage predicates operate in scene directions. Native physics and finite state contracts remain outside the read."
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Leaf, hinge joint, motor, paired geometry, two exemption sets and scene/building identity have coupled state and lifecycle. Missing joint is silently skipped but reachability is unproved."
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "Building/property/opening IDs and Bevy entity keys represent different owners; visual seed reuse retains separate earlier producer/owner findings."
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "DoorController and SceneDoor receive related geometry from one creation path; paired pose is not independently mutated here. Exemptions and controller collision filter intentionally share a per-door policy but cleanup owner remains open."
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Exact P16 and 95e role bytes match; whole dirty P16 snapshot and product do not. Preserve inward swing, symmetric intentional grab policy, motor limits and transient tactical authority."
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "PassageDecision explicitly encodes None/Retain/Revoke and motor selection derives from retained permission; no unsupported bool conversion remedy."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "SceneBuildingId derives its ordinary traits and serde while Display forwards the numeric word at presentation; no necessary handmade trait removal established."
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Position<Scene>, SpatialDirection<Scene>, angle/physics scalars and actor/door entities carry different frames and lifetimes. The handwritten native motor boundary does not alone warrant a new wrapper."
+    },
+    {
+      "lens": "magic-strings",
+      "assessment": "Door names and debug text are native diagnostics, not observed private string dispatch; digest expect text is a rule issue rather than a string protocol."
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Physical motor, speed and release thresholds encode separate interaction/solver policies; gate bit tag is an existing distinct identity-domain question. No blanket replacement without consumer evidence."
+    }
+  ],
+  "historical_attribution": {
+    "rig_774": "RIG-OWNER-REACHED-PRODUCER-REGISTER-048 covers identity P16 1\u201340. Server REGISTER-007 covers 1\u201336,66\u2013246; REGISTER-016 covers 49\u201365,314\u2013389; REGISTER-043 covers 248\u2013313. Distinct registered material ranges/roles retained, tests390+ excluded, producer acceptance and owner fit pending.",
+    "segovb_774": "SEGOVB-INITIAL04-CONTRACT-605 independently personally read identity P161\u201340; CONTRACT-606 independently personally read server P161\u2013672 under operations lens. CONT07-CONTRACT-583 separately reports identity1\u201340 and server1\u201336,49\u2013246,248\u2013389 in redundant-authority lens.",
+    "lens12_059": "/root/lens12_frontier PROPOSAL-L12-858 and root adoption READ-L12-858 credit identity P16 1\u201340; server1\u201336,49\u2013246,248\u2013389 only, with 37\u201348,247,390\u2013672 unread. Root adoption is not root personal reread.",
+    "lens11_059": "Segovb READ-L11-418 credits prior Adler PR6533 READ-L11-292 identity1\u201340 and READ-L11-319 server1\u2013672, while its own fresh_personal_body_reads are empty; no P16 personal read by Segovb inferred from equality.",
+    "current_lens1_prior": "Prior publication role1916 records historical1\u201340 and current_personal_ranges empty, while its qualification also says listed ranges independently reread at 95e; preserve this internal discrepancy rather than resolving it. Role2046 records historical1\u2013672 and current content via identical historical ranges, current_personal_ranges empty. Neither assessment names an individual reviewer field; no author inferred.",
+    "qualification": "Earlier source/evidence revisions, authors and partial scopes remain separate; no earlier historical state, current summary or reconstructed queue excerpt is promoted to checkpoint3821."
+  },
+  "limitations": [
+    "No product, viewer, server, builds, tests, runtime probes, simulations, repairs or publication/source edits.",
+    "This is a bounded source trace; central controls baseline, ledger, alias decisions and checkpoint publication.",
+    "Source test bodies were displayed as text, not executed. Native Bevy and Avian behavior are not independently revalidated."
+  ]
+}

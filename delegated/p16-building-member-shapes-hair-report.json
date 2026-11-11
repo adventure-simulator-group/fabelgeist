@@ -1,0 +1,411 @@
+{
+  "schema": "726-bounded-p16-building-member-shapes-v1",
+  "created_utc": "2026-11-11T22:16:08.414787+00:00",
+  "delegate": "/root/hair_ops",
+  "authoritative_current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "source_identity": {
+    "original_indices": [
+      2504,
+      2505
+    ],
+    "registration": "registration.json",
+    "membership_proof": "git-proofs.json",
+    "identity": "Original roles are physical-p16 dirty snapshot records; exact registered recovered objects match f82 archive objects. Both happen independently to be byte-identical to catalog origin 039329518e264f19206cf5b0b98d177433f40c17, recorded clean base a120390947c89b703dc74c4255a13c035d054c50, pr-working 6533e444fa37552927070cc8d8190907fd3b413e and pinned 95e.",
+    "critical_qualification": "Catalog 0393 is provenance for per-file bytes, not the dirty snapshot HEAD. Registry records a120 base and 159 dirty paths, plus patch SHA-256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7; complete patch bytes not recovered. Object equality does not reconstruct that patch or reclassify snapshot. f82 is archive transport, not source revision. No historical evidence is checkpoint3821.",
+    "personal_reads": "read-receipt.json records full P16 displays and separately displayed limited 95e windows, both after registration; 0393/a120/6533 bodies were archived and checked but not personally displayed. Includes one historical test module as source only, not executed. support-read-receipt.json records separately registered support windows and unread complements."
+  },
+  "connected_observations": [
+    {
+      "id": "CURRENT-MEMBER-UV-FRAME-AND-PROPAGATION-RELATION",
+      "status": "Independent bounded 95e source support for 774 rig supplier RIG-OWNER81-F002; no new unique finding and no authorship transfer. 059 queue index 1935 Q-L12-63ce82a40701fd194206 remains broader open evidence.",
+      "observation": "The inspected furniture builder checks native centre, dimensions and quaternion before deriving checked corners, then passes native values to finish::face and member_uvs. The helper chooses its grain basis from member-local size and local normal, inverse-transforms positions relative to centre, then adds a position-dependent phase. LodMesh stores generated UVs and rotates the normal for the output face. The independent detail cuboid path likewise uses local face normals and transformed positions. RigidRotation admission rejects nonfinite values and quaternions failing its is_normalized predicate rather than normalizing; the checked rotation retains the represented native value.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+          "lines": [
+            [
+              74,
+              103
+            ],
+            [
+              110,
+              126
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/finish.rs",
+          "lines": [
+            [
+              54,
+              86
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/member_uv.rs",
+          "lines": [
+            [
+              6,
+              43
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/detail/cuboids.rs",
+          "lines": [
+            [
+              21,
+              26
+            ],
+            [
+              120,
+              151
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+          "lines": [
+            [
+              84,
+              101
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/lod.rs",
+          "lines": [
+            [
+              95,
+              137
+            ]
+          ]
+        }
+      ],
+      "qualification": "This supports consistent frame treatment for these inspected callers, not whole renderer validation. Native computed UV results, finite extremes, source-part vs finished frame, wear-region ownership, and all other callers still need their specific admission/recipient contracts. Original rig supplier F002 has separate source attribution and no automatic current verdict.",
+      "future_direction": "Trace canonical checked geometry and intentional local/world boundary through the actual owning API; name a face frame or ordered wear region only where source contracts justify it. Preserve ties, native inverse/dot/cross order, phase, winding and existing malformed-input semantics."
+    },
+    {
+      "id": "CURRENT-RESOLVED-SOLID-ENVELOPE-SHAPE-RELATION",
+      "status": "Current bounded source confirms prior 059 root successor-096 / source role648 and 774 SEGOVB-INITIAL04-CONTRACT-602 distinctions; no new unique defect or automatic Q009 alias.",
+      "observation": "ResolvedSolid::new copies a checked collision cuboid envelope into stored typed fields alongside shape, role and support IDs. Deserialization sends raw envelope values through CollisionCuboid::from_metres, but passes separately decoded shape and support IDs unchanged into Self::new. Public shape payloads have raw dimensions/signs/angles and public fields can vary independently; envelope admission alone does not establish whole-shape or support-graph coherence.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+          "lines": [
+            [
+              250,
+              320
+            ],
+            [
+              344,
+              391
+            ],
+            [
+              393,
+              428
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/collision.rs",
+          "lines": [
+            [
+              31,
+              78
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/wall_assemblies.rs",
+          "lines": [
+            [
+              359,
+              393
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+          "lines": [
+            [
+              11,
+              39
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/resolved_geometry_helpers.rs",
+          "lines": [
+            [
+              190,
+              227
+            ]
+          ]
+        }
+      ],
+      "qualification": "The observed wall producer chooses only -1/+1 side and signed exterior depth; an inspected opening helper branches on side < 0 versus other values. Public construction/decoding allows wider i8 values in the model, but no supported external invalid document, complete final acceptance, viewer behavior or operational failure is established. The audit checks some extent/owner/ID/support properties and is not shown to cover every shape invariant.",
+      "future_direction": "Trace supported constructors, serialization formats, authored shape invariants, owner and recipient validation before deciding the checked aggregate boundary. Preserve purpose-specific zero-capable extents, identity/error provenance and deliberate difference between shape and its bounding cuboid."
+    }
+  ],
+  "open_questions": [
+    {
+      "question": "Do accepted member inputs and native consumers guarantee finite UVs and representable mesh indices after arithmetic, including extreme finite centre/size and rotations?",
+      "evidence": "member_uv::phase uses a centre dot and length, and derived UVs go to LodMesh whose vertices and u32 indices are raw. RIG supplier F002 and SEGOVB-INITIAL04-CONTRACT-601 retain distinct propagation and conditional finite-UV work; q1935 requires renderer/serde/mesh-capacity trace. Source reasoning only; native math implementation and supported extreme producers not checked here.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/member_uv.rs",
+          "lines": [
+            [
+              16,
+              43
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/lod.rs",
+          "lines": [
+            [
+              95,
+              137
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/detail.rs",
+          "lines": [
+            [
+              18,
+              23
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "What public input or parent admission owns the shape-specific sign, radius, angle, dimensions and support/cuboid relationships for decoded or mutated resolved objects?",
+      "evidence": "Current shape and envelope fields are independently representable. A wall producer emits \u00b11, and a consumer makes a sign branch, but a current supported arbitrary source or complete audit policy has not been established. Earlier historical Q009 identifiers require exact namespace reconciliation before relating to named issue aliases.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+          "lines": [
+            [
+              250,
+              320
+            ],
+            [
+              344,
+              356
+            ],
+            [
+              393,
+              428
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/wall_assemblies.rs",
+          "lines": [
+            [
+              365,
+              393
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/resolved_geometry_helpers.rs",
+          "lines": [
+            [
+              190,
+              227
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "Can surface and void shape payloads disagree with checked bounds or owner membership on supported admission paths?",
+      "evidence": "Both structs derive Deserialize and store bounds, shape and identities separately; only selected current helpers and solid audit windows were inspected. No complete surface/void producer or consumer policy claimed.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+          "lines": [
+            [
+              199,
+              230
+            ],
+            [
+              430,
+              447
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings": [
+    {
+      "topic": "Rotated member normal is automatically in the wrong frame",
+      "reason": "The inspected builder supplies local axis normals with rotated corner positions; finish applies rotation when emitting normals, while member_uvs inverse-transforms positions. detail cuboid follows the same local-axis convention. Other routes remain outside this proof.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+          "lines": [
+            [
+              101,
+              126
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/finish.rs",
+          "lines": [
+            [
+              54,
+              86
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/member_uv.rs",
+          "lines": [
+            [
+              23,
+              37
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/detail/cuboids.rs",
+          "lines": [
+            [
+              120,
+              151
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "ResolvedSolid duplicate stored cuboid",
+      "reason": "new projects envelope fields into the solid and cuboid_envelope reconstructs them; the fields shown do not retain two independent envelope objects. Shape versus envelope remains a separate relationship.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+          "lines": [
+            [
+              344,
+              391
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "RigidRotation secretly normalizes an admitted scaled quaternion",
+      "reason": "The inspected owner rejects nonfinite or non-normalized input and retains the admitted value; no change in input rotation is inferred.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+          "lines": [
+            [
+              84,
+              101
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "producer-propagation",
+      "assessment": "The Builder checked corner path and native member face/UV seam relate to existing RIG-OWNER81-F002; ResolvedSolid directly preserves checked cuboid leaves while shape/support contracts remain distinct."
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "Position, CuboidDimensions, RigidRotation, Radians, CollisionCuboid and specific IDs already exist; maintain truthful local versus architectural frames and reuse exact admitted leaves where appropriate."
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Quaternion and cuboid envelope have checked adapters. Resolved shape payload, graph membership, raw public mesh attributes and extreme derived values require separately traced supported inputs; no whole-plan guarantee assumed."
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "UV local projection and position phase compute raw float results; mesh pushes cast vertex length to u32. Real finite/work/index limits are unresolved and prior SEGOVB-INITIAL04-CONTRACT-601 is related without extra count."
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Envelope, shape, role, owner, identity and support graph carry coupled meaning. Local leaf validity does not alone prove that relation. Actual producer and recipient policy must govern rather than assuming arbitrary raw construction is a supported product."
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "Distinct GeometryOwnerId, ResolvedItemId, wall/opening and structural IDs have separate semantics. Existing checked geometry owners and source-part frame should not be conflated with a final grounded furniture frame."
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "Same field set projects to and from cuboid envelope; shape is a different geometric representation, not automatically redundant. Historical CONT07-CONTRACT-580 expressly records this distinction."
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "P16 and current objects match exactly, but overall snapshots and generation behavior are not equated. Future changes must preserve valid zero-sized cuboid representation, exact rotation and UV/winding and typed source errors."
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "Named SolidRole and ResolvedSolidShape express closed choices. The associated i8 side/depth signs and raw payloads require usage/admission analysis; a producer emits \u00b11 but no universal invalid-state remedy is inferred."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "Identity newtypes use derives; OpeningAssemblyId Display formats its integer. ResolvedSolid custom Deserialize routes through the checked adapter; no derive equivalence or serializer-wire behavior is assumed."
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Cuboid envelope, noncuboid authored shape, mesh UV and physical identity have different purposes. UV phase is unbounded texture space, not a UnitInterval; zero cuboid dimensions are not automatically forbidden by the owner."
+    },
+    {
+      "lens": "magic-strings",
+      "assessment": "No production string API occurs in member UV. Serde snake_case tagged variants are external format identities and Display renders an ordinal; treat format behavior as contract, not an internal magic string replacement."
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Axes/signs, face topology, phase coefficients, UV scale and u32 capacity have different semantics. Fixed 2-metre UV unit and axis basis are explicit geometry policy; evaluate derived arithmetic and ownership before treating all native scalars alike."
+    }
+  ],
+  "historical_attribution": {
+    "774_rig": "Original rig supplier register030 and qualification030 cover member_uv 1\u201344 only. Rig register033 requested 1\u201325,344\u2013356,393\u2013428 but qualified 6\u201325,344\u2013356,393\u2013428; register035 requested 358\u2013391 but qualified 358\u2013380, with 381\u2013390 displayed support only. Owner81 register007 separately covers 3\u20134 and 27\u201330. Exact f82-transport original files are in historical/adler-original; RIG-OWNER81-F002 retains rig supplier authority and original limits.",
+    "774_others": "SEGOVB-INITIAL04-CONTRACT-601/602 records separate complete personal P16 body reads at this exact object SHA, including 2504 test source and all 2505, no execution; native NATIVE-INITIAL05-GROUP-268 read P16 2504 only 1\u201344 and distinct PR role645 1\u201368; CONT07 reviewer contracts579/580 preserve their bounded scopes and no additional findings.",
+    "059": "READ-L11-415 reused same-lens root source from audit11 successor096 PR roles645/648 and explicitly records no fresh personal P16 reads. READ-L12-851 root adoption attributes /root/lens12_frontier fresh P16 2504 1\u201344 and 2505 1\u201330,344\u2013356,358\u2013391,393\u2013428; other ranges unread. The different revisions/variant roles are not merged. 059 q1935 remains open, and bare Q007/Q008/Q009/Q011 identifiers cannot be blindly mapped between namespaces.",
+    "prior_publication": "ASSESSMENT-L01-HISTORICAL-639-645 and 646-650 are copied at the recorded publication commit; they describe earlier full PR historical role reads, not current or P16 personal coverage. Their original reviewer and revision remain unchanged.",
+    "qualification": "No old reviewer evidence or reconstructed record is promoted to missing checkpoint3821. Exact original supplier, coverage, source qualifications and prior artifacts are preserved in historical-manifest.json."
+  },
+  "limitations": [
+    "Only specified roles and recorded support windows covered; all thirteen perspectives are partial, with no whole-lens, whole-graph or renderer proof.",
+    "No product or geometry execution, build, test, simulation, runtime probe, repair or source/publication edit. Existing tests viewed only as historical source.",
+    "P16 full dirty patch remains unrecovered; root owns baseline, alias disposition, connected ledger and publication."
+  ]
+}

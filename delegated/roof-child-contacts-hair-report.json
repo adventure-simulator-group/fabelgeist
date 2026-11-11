@@ -1,0 +1,781 @@
+{
+  "schema": "726-delegate-source-assessment-v1",
+  "created_utc": "2026-11-11T22:44:55.218426+00:00",
+  "author": "/root/hair_ops",
+  "scope": {
+    "original_roles": [
+      2536,
+      2537
+    ],
+    "historical_snapshot": "pr-working",
+    "historical_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "qualification": "Thirteen perspectives bounded to personally displayed role and support ranges, not whole-lens completion or checkpoint3821 credit."
+  },
+  "source_identity": {
+    "qualification": "Recorded pr-working snapshot is 6533 HEAD plus four separately recorded unrelated staged/unstaged/untracked paths; source inventory records per-file origins, not a clean whole snapshot. Each selected 059 registry/catalog object matches f82 transport, 6533 and 95e. Historical 6533 and current 95e bodies were separately personally displayed. Recovered f82 copies were verified, not separately displayed. Earlier /root/hair_ops 95e roof_contacts1\u2013106 support remains separately attributed."
+  },
+  "findings": [
+    {
+      "id": "CANDIDATE-ROOF-ABUTMENT-CENTRELINE-HOST",
+      "status": "new conditional source-policy observation; supported reachability and unique identity pending central reconciliation",
+      "first_contract": "abutment_host says eligible contact lies at the exterior masonry face, never the wall centreline. For finite nonnegative wall thickness t, its actual test |signed_normal \u2212 t/2| \u2264 t/2 + 0.18 admits signed_normal = 0 and all interior-side signed distances down to \u22120.18 m, if source, along-wall and vertical filters also pass. The nearest eligible host is then selected by arcade priority and distance.",
+      "downstream": "The inspected caller samples roof edge stations, calls abutment_host, then creates weathering and records host/support on accepted stations. It removes those samples, solids, interfaces and newly added bonds if an edge does not have every station hosted.",
+      "condition": "A supported roof edge or cut fragment must actually put a relevant station at such a centreline/interior point, pass all other filters and be selected over competing walls; the edge must survive later cleanup. None of those conditions, physical wrong contact, generation output, validator result or runtime effect has been demonstrated. The margin may be an intentional tolerance; resolve actual wall-contact policy before implementation.",
+      "future_direction": "Clarify whether signed exterior-side admission or a distinct tolerance should govern host selection; establish real accepted geometry and expected corner/cut policies before choosing a correction. Preserve deterministic host priority, legitimate tolerance and opening-cut rejection.",
+      "historical_relation": "059 Segovb READ-L11-419 and /root/lens12_frontier PROPOSAL-L12-860 read host ranking and retained solid approximation/tolerance policy as open; this is a new mathematical implication of that exact code, not an automatic unique count. Earlier same-agent 95e support read is separate and did not document this centreline implication.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_contacts.rs",
+          "lines": [
+            [
+              1,
+              106
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+          "lines": [
+            [
+              1,
+              179
+            ],
+            [
+              180,
+              247
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CANDIDATE-ROOF-YAW-BOUNDS-CONTACT-PROXY",
+      "status": "current source refinement of prior open contact approximation policy; distinct effect and alias require central review",
+      "first_contract": "RoofContacts::touching decides an owner contact solely from greater-than-0.025-metre overlap of yaw-only axis-aligned bounds; those bounds ignore crossfall and longfall. The actual apron construction passes crossfall \u22120.10 radians and size Y=0.045, Z=0.34 into a checked CollisionCuboid, and ResolvedSolid retains those angles. Its full represented vertical extent is 0.045 cos(0.10) + 0.34 sin(0.10), whereas yaw_bounds uses 0.045. Axis-aligned bounds can also overlap without establishing an oriented-solid intersection.",
+      "downstream": "Returned owners become candidate JunctionBonds. Incomplete edge handling removes the bonds, and the separately inspected audit checks retained bonds through an alternative tower criterion or owner-pair geometry/area/gap metrics. Those later source checks have not been executed or shown to approve or repair a particular bond.",
+      "condition": "A supported station must produce a wall/roof owner set that differs materially from the intended exact physical contact and its edge must survive subsequent reconciliation; actual retained false or missing bond, later validator result, physical effect and output are unproved. This is a source and mathematical proxy observation, not a computed fixture or geometry run.",
+      "future_direction": "Determine intended contact authority and actual owner/edge acceptance; if physical contact is required, select a coherent fully oriented and appropriately tolerant narrow-phase policy rather than treating a broad envelope as proof. Preserve intended corner multi-owner junctions and checked errors.",
+      "historical_relation": "059 READ-L11-419 explicitly leaves solid approximation and validator policy open. 774 NATIVE-ROOF-PPS-TRACE-012 already records yaw_bounds and typed owner set under the producer-propagation lens, relating it to NATIVE-ROOF-PPS-F001/RAW-SOURCE-002; original attribution retained. This conditional geometry question is not automatically the same identity or an additional accepted unique defect.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_contacts.rs",
+          "lines": [
+            [
+              1,
+              106
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+          "lines": [
+            [
+              1,
+              179
+            ],
+            [
+              180,
+              247
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/geometry_index.rs",
+          "lines": [
+            [
+              13,
+              45
+            ],
+            [
+              47,
+              71
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/collision.rs",
+          "lines": [
+            [
+              31,
+              40
+            ],
+            [
+              54,
+              97
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+          "lines": [
+            [
+              1,
+              14
+            ],
+            [
+              350,
+              389
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+          "lines": [
+            [
+              344,
+              386
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/bonding_metrics.rs",
+          "lines": [
+            [
+              42,
+              120
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ROOF-CHILD-ID-PRODUCER-RELATION",
+      "status": "bounded current evidence for 059 q2257, not a new finding",
+      "first_contract": "The inspected primary roof loop assigns RoofAssemblyId(index+1), and attached-child creation passes that child assembly into append. Four fixed slots use low bits 0\u20133 and the face ID derives from 0xA tag | child.id<<16 | 0x4200 | slot. For child IDs below 2^45 this local child/slot expression is injective within that range; larger input bits can overlap fixed tag bits or be shifted out.",
+      "condition": "Actual supported roof-count bound, other ResolvedItemId namespaces, recipient uniqueness domains and downstream acceptance remain unproved. The roof audit checks enclosure IDs through its local item-ID set, but this source read alone does not establish all consumers or admission paths.",
+      "future_direction": "Establish the actual producer bound and global identity-owner contract, then reconcile the precise q2257 identity rather than equating it with the unrelated abutment-station and split-eave packing observations.",
+      "historical_relation": "059 L12-CLOSURE-ROOF-CHILD-ENCLOSURE-ID-DOMAIN remains open-source-reconciliation. Its source evidence is /root/lens12_frontier 6533 child1\u201342, not an adopted current result.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_child_enclosure.rs",
+          "lines": [
+            [
+              1,
+              78
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+          "lines": [
+            [
+              1,
+              110
+            ],
+            [
+              127,
+              180
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/layout.rs",
+          "lines": [
+            [
+              65,
+              75
+            ],
+            [
+              89,
+              95
+            ],
+            [
+              202,
+              210
+            ],
+            [
+              270,
+              290
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+          "lines": [
+            [
+              1,
+              14
+            ],
+            [
+              350,
+              389
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+          "lines": [
+            [
+              971,
+              989
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ROOF-CHILD-HEIGHT-AND-RETAINED-POINTS",
+      "status": "connected historical producer propagation and parent-surface policy; no new count",
+      "first_contract": "After rectangle overlap and higher-base checks, the caller uses a clone of the first parent, derives four child corners and samples parent roof face heights for each endpoint. Missing sampled height falls back to parent recipe base; the record constructor retains the resulting raw polygon and support references. A later front-wall bond is emitted only when its looked-up parent owner exists.",
+      "condition": "Rectangle overlap is not a proof that every child corner is covered by a parent face, but no supported recipe is shown to produce a missing corner or an incorrect enclosure, and the intended meaning of the base fallback is unresolved. Four stored vertices do not by themselves prove a valid finite/nondegenerate polygon; no specific malformed supported input or later rendering failure shown.",
+      "future_direction": "Trace admitted roof recipes, parent support and enclosure geometry consumers; decide an explicit absent-parent-surface policy and preserve any intended outside-perimeter mode. Carry the accepted position owner across the retained record as needed without requiring extra wrappers in numerical kernels.",
+      "historical_relation": "774 native NATIVE-ROOF-PPS-TRACE-007 and -012 attribute exact source read to the native supplier and connect raw polygon retention to NATIVE-ROOF-PPS-F001/RAW-SOURCE-002; /root/rig_identity separately assessed related retained roof points. 059 Segovb READ-L11-419 expressly left parent-base policy open. Do not auto-alias different arithmetic or earlier reviewers.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_child_enclosure.rs",
+          "lines": [
+            [
+              1,
+              78
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+          "lines": [
+            [
+              1,
+              110
+            ],
+            [
+              127,
+              180
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+          "lines": [
+            [
+              405,
+              446
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/roof_enclosure.rs",
+          "lines": [
+            [
+              7,
+              26
+            ],
+            [
+              29,
+              48
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_child_fronts.rs",
+          "lines": [
+            [
+              1,
+              79
+            ],
+            [
+              80,
+              150
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/layout.rs",
+          "lines": [
+            [
+              65,
+              75
+            ],
+            [
+              89,
+              95
+            ],
+            [
+              202,
+              210
+            ],
+            [
+              270,
+              290
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    {
+      "question": "Can a supported retained roof edge reach a selected host at its wall centreline or inside face within the signed-normal margin, and is this tolerance intended?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_contacts.rs",
+          "lines": [
+            [
+              1,
+              106
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+          "lines": [
+            [
+              1,
+              179
+            ],
+            [
+              180,
+              247
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "Can a supported rotated or crossfall roof weathering/host configuration make yaw-only AABB contact assign a materially wrong owner after complete-edge and audit checks?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_contacts.rs",
+          "lines": [
+            [
+              1,
+              106
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+          "lines": [
+            [
+              1,
+              179
+            ],
+            [
+              180,
+              247
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/geometry_index.rs",
+          "lines": [
+            [
+              13,
+              45
+            ],
+            [
+              47,
+              71
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/collision.rs",
+          "lines": [
+            [
+              31,
+              40
+            ],
+            [
+              54,
+              97
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+          "lines": [
+            [
+              1,
+              14
+            ],
+            [
+              350,
+              389
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+          "lines": [
+            [
+              344,
+              386
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/bonding_metrics.rs",
+          "lines": [
+            [
+              42,
+              120
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "What actual maximum roof assembly count, ID provenance and retained namespace prevent local tag overlap or cross-family enclosure ID collisions?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_child_enclosure.rs",
+          "lines": [
+            [
+              1,
+              78
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+          "lines": [
+            [
+              1,
+              110
+            ],
+            [
+              127,
+              180
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/layout.rs",
+          "lines": [
+            [
+              65,
+              75
+            ],
+            [
+              89,
+              95
+            ],
+            [
+              202,
+              210
+            ],
+            [
+              270,
+              290
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+          "lines": [
+            [
+              1,
+              14
+            ],
+            [
+              350,
+              389
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+          "lines": [
+            [
+              971,
+              989
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "When an attached child rectangle overlaps but extends beyond parent faces, must each corner find a sampled parent height, or is parent-base fill an intended topology?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_child_enclosure.rs",
+          "lines": [
+            [
+              1,
+              78
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+          "lines": [
+            [
+              1,
+              110
+            ],
+            [
+              127,
+              180
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+          "lines": [
+            [
+              405,
+              446
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "Can a front-wall source legitimately have a child whose parent owner lookup fails, and who owns missing bond or support disposition?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_child_enclosure.rs",
+          "lines": [
+            [
+              1,
+              78
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_child_fronts.rs",
+          "lines": [
+            [
+              1,
+              79
+            ],
+            [
+              80,
+              150
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings": [
+    {
+      "topic": "The child append always indexes a polygon shorter than three points",
+      "reason": "This actual append supplies four vertices per face; it does not establish nondegenerate geometry, all other creation paths, or safety of externally mutated/deserialized faces.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_child_enclosure.rs",
+          "lines": [
+            [
+              1,
+              78
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/roof_enclosure.rs",
+          "lines": [
+            [
+              7,
+              26
+            ],
+            [
+              29,
+              48
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/layout.rs",
+          "lines": [
+            [
+              65,
+              75
+            ],
+            [
+              89,
+              95
+            ],
+            [
+              202,
+              210
+            ],
+            [
+              270,
+              290
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "Every cached wall-owner bounds map is an independent competing authority",
+      "reason": "It is a derived owner-keyed snapshot constructed once in the inspected resolver; wall mutation or replacement during its use has not been established.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_contacts.rs",
+          "lines": [
+            [
+              1,
+              106
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+          "lines": [
+            [
+              1,
+              179
+            ],
+            [
+              180,
+              247
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "Every candidate contact bond is guaranteed to survive or pass source audit",
+      "reason": "Incomplete edges truncate emitted bonds; separate audit source checks retained junctions. Neither program behavior nor validator outcome has been executed.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+          "lines": [
+            [
+              1,
+              179
+            ],
+            [
+              180,
+              247
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+          "lines": [
+            [
+              344,
+              386
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/bonding_metrics.rs",
+          "lines": [
+            [
+              42,
+              120
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "producer-propagation",
+      "assessment": "Parent roof samples and raw child corners enter retained enclosure polygons; native historical F001/RAW-SOURCE-002 already records this producer-to-retained-owner gap."
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "RoofAssemblyId, ResolvedItemId, GeometryOwnerId and SpatialBounds have distinct purposes; retain intentional native geometry calculations while tracing checked point ownership."
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Actual child ID producer is sequential, local slots fixed; public wrappers and raw recipe values do not establish global roof-count, namespace, containment or finite-polygon policy."
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Height sampling, packed shifts, signed wall offsets and yaw-only bounds each have distinct numerical contracts. Axis-aligned contact and centreline implications are conditional source observations."
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Child parent link, four faces, support nodes, wall bond, contact samples and junction bonds form coupled state; fallback and incomplete-edge cleanup have separate policies."
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "Geometry owner, roof graph identity, wall source and native material roles are not interchangeable; common packed-id remedy does not establish alias."
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "The owner bounds map is derived from an input snapshot; no competing wall authority or mutation during its lifetime is shown. Owner pair checks remain separate from exact geometry."
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Selected original and current bodies are byte-identical; whole historical snapshot and product behavior are not. Preserve host priority, weather edge rejection, deterministic IDs and inward graph support."
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "Tower versus wall abutment and WallSourceId variants select distinct host policies. No semantic boolean replacement established."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "Assigned functions do not contain manual serialization or trait boilerplate whose replacement would safely simplify this contract."
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Plan coordinates, scene heights, oriented solids, yaw bounds, owner IDs and physical contact represent different information; raw numeric kernel boundaries and retained state need distinct decisions."
+    },
+    {
+      "lens": "magic-strings",
+      "assessment": "Assigned source has no internal string-dispatch protocol. Existing human comments/diagnostics are not authority keys."
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "0.025 overlap, 0.18 wall clearance, area and angle tolerances carry different units and semantics. Evaluate actual calculation/error budgets, not blanket replacements."
+    }
+  ],
+  "historical_attribution": {
+    "native_774": "Native supplier NATIVE-ROOF-SCOPE-001 / PPS-SOURCE-007 / TRACE-007 covers historical child1\u201342; tail43\u201378 excluded. SCOPE-006 / PPS-SOURCE-012 / TRACE-012 covers contacts1\u2013106. Scope registrations and later body receipts are separate, retained exactly. Native NATIVE-INITIAL05-GROUP-007/008 separately read those scoped ranges.",
+    "other_774": "CONT07-CONTRACT-585 separately read child1\u201342 and contacts1\u2013106 under redundant-authority lens; SEGOVB-INITIAL04-CONTRACT-607 separately personally read full child1\u201378 and contacts1\u2013106 under operations lens. Original attribution and semantics retained.",
+    "059": "Segovb READ-L11-419 independently read child1\u201342 and contacts1\u2013106 at historical 6533. /root/lens12_frontier PROPOSAL-L12-860 and root-adopted READ-L12-860 independently read same historical scopes; no reader or other-lens credit transfer. q2257 stays open.",
+    "prior_current": "Earlier /root/hair_ops roof-abutment packet included current contacts1\u2013106 as support; fresh assigned reads here are separate. /root/rig_identity roof geometry and assembly/cutting packets remain hash-linked with their own reviewer, ranges and findings.",
+    "qualification": "Historical 059/774 records and reconstructed queue row retain original snapshot and authors; no attribution to checkpoint3821."
+  },
+  "limitations": [
+    "No geometry/product execution, builds, tests, runtime probes, simulations, implementation, repairs or source/publication edits.",
+    "No supported candidate witness, physical contact result, native rendering, validator pass or final plan publication proved.",
+    "Central coordination owns baseline, ledger identity, aliases and checkpoint publication."
+  ]
+}

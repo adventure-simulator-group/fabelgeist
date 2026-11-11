@@ -1,0 +1,441 @@
+{
+  "schema": "726-delegate-source-assessment-v1",
+  "author": "/root/mhr_character",
+  "written_utc": "2026-11-11T22:26:25.739883+00:00",
+  "scope": {
+    "original_roles": [
+      2513,
+      2514
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "not_claimed": "No whole-lens completion, ordered-role disposition, checkpoint3821 attribution, ledger acceptance or product validation."
+  },
+  "baseline_and_recovery": {
+    "recorded_clean_base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "recorded_dirty_patch_sha256": "fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7",
+    "patch_status": "Unrecovered; parent bounded search of 7156 patch/diff files <=100MB under older ae46 and supplied 28ba collections found no hash match, not a global absence claim.",
+    "per_path": "Both archived dirty-P16 objects match clean a120 path and current 95e bytes individually, with Git commit/tree/blob proofs. This does not equate whole dirty snapshot with clean base or make f82 a source revision.",
+    "source_recovery": "Usual continuation-segovb/source-objects path lacked these object names; no body was displayed during that failed file open. Exact registry-matching bytes were recovered without overwriting original evidence from parallel-l12 source-852-20261030, registered before display and separately proven in f82.",
+    "bodies": [
+      {
+        "role": 2513,
+        "kind": "physical-p16",
+        "path": "crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+        "archive": "source/physical-p16-2513.source",
+        "sha256": "39104be92a09f4e09bc38db7353d77a82f5fe5457067c9c6c08da3d88a46e41f",
+        "git_blob_sha1": "fe3b8cc7534f1724ff63d276277a87b56adf9ae8"
+      },
+      {
+        "role": 2513,
+        "kind": "current",
+        "path": "crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+        "archive": "source/current-2513.source",
+        "sha256": "39104be92a09f4e09bc38db7353d77a82f5fe5457067c9c6c08da3d88a46e41f",
+        "git_blob_sha1": "fe3b8cc7534f1724ff63d276277a87b56adf9ae8"
+      },
+      {
+        "role": 2514,
+        "kind": "physical-p16",
+        "path": "crates/adventuresim-tactical-client/src/presentation/doors.rs",
+        "archive": "source/physical-p16-2514.source",
+        "sha256": "8630bc42b038441854accd960c9a849477567598d424f8c4e01a259414666f0e",
+        "git_blob_sha1": "720b93ef9ac84d38de2dea88b6fac6d24c6d4415"
+      },
+      {
+        "role": 2514,
+        "kind": "current",
+        "path": "crates/adventuresim-tactical-client/src/presentation/doors.rs",
+        "archive": "source/current-2514.source",
+        "sha256": "8630bc42b038441854accd960c9a849477567598d424f8c4e01a259414666f0e",
+        "git_blob_sha1": "720b93ef9ac84d38de2dea88b6fac6d24c6d4415"
+      }
+    ]
+  },
+  "personal_scope": {
+    "assigned": "Fresh prospectively registered full P16/current bodies personally displayed in bounded windows. Test text only; no execution.",
+    "support": "Ten support files prospectively registered, nine actually displayed in bounded source windows; support05 was scanned for navigation and showed no match, no body read. Exact display/read complements retained.",
+    "prior_packet": "Complete prior window-leaf-spec packet, including its archived earlier door-builder packet and pre-registration discovery disclosure, is independently manifest-verified and archived, with original authorship/read scopes preserved."
+  },
+  "historical_attribution": {
+    "registry": "Role2513 rig REGISTER-012 qualification 1–74 with historical tests75–148 excluded; role2514 rig REGISTER-040 qualification 1–61. Embedded registry records retained, standalone old registration/qualification files not located; no producer acceptance inferred.",
+    "lens11": "059 segovb READ-L11-416 adopted same-lens older adler READ-L11-216 original role1525 fresh full1–148 and READ-L11-217 original role1531 fresh full1–61, each under their original pr-working 6533e444fa37552927070cc8d8190907fd3b413e source revision and adler attribution. The segovb roles2513/2514 have fresh_personal_body_reads empty; no personal proof transfer to this agent.",
+    "lens12": "059 /root/lens12_frontier personally displayed P16 role2513 1–74 and role2514 1–61 after PAR registrations532/533; root adopted READ-L12-853 with no own rereads. Test tail excluded in the historical role.",
+    "older774": "RIG-OWNER-REACHED-PRODUCER-F004 retained verbatim with rig attribution and source targets; historical and normalized export files separately checked."
+  },
+  "findings_and_questions": [
+    {
+      "id": "P16-CLOSURE-CACHE-RETENTION",
+      "kind": "conditional lifecycle question",
+      "first_contract": "ClosureMeshes retains separate HashMaps for doors, glass and shutters keyed by the exact bits of admitted dimensions and stores mesh handles or material-part handles. A cache miss inserts an entry and the full inspected cache body has no eviction. The inspected clear_demo_scene/clear_scene_entities source replaces other caches and despawns scene leaves but does not clear or replace ClosureMeshes. If their called reset functions and other uninspected mechanisms do not replace the resource, distinct dimension tuples can accumulate across those cleanup calls.",
+      "condition": "A long-lived application must load many distinct dimensions while keeping the resource; another uninspected teardown or resource replacement may bound lifetime. Native asset-reference strength, memory usage and actual lifecycle frequency were not established, so this is not a measured leak.",
+      "future_direction": "Determine app/scene ownership and expected reuse, measure only in a later authorized validation stage, and decide whether explicit resource lifetime or bounded retention is required while retaining intended same-size instancing.",
+      "historical_relations": [
+        "059 Q-L12-f238115d43d2e895f929 leaves cache/material/asset lifecycle open; no automatic alias or unique count decision.",
+        "059 adler READ-L11-216 separately assessed exact-bit keys as representation-specific and intended same-size mesh sharing, which is compatible with this lifecycle question."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+          "lines": [
+            [
+              9,
+              16
+            ],
+            [
+              18,
+              21
+            ],
+            [
+              33,
+              72
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/doors.rs",
+          "lines": [
+            [
+              17,
+              25
+            ],
+            [
+              28,
+              45
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/demo_lifecycle.rs",
+          "lines": [
+            [
+              1,
+              24
+            ],
+            [
+              28,
+              70
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/windows.rs",
+          "lines": [
+            [
+              20,
+              29
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-CLOSURE-RECIPE-TANGENT-EXPECT-RULE",
+      "kind": "observed production rule mismatch; runtime failure not established",
+      "first_contract": "The assigned window cache passes each batch to recipe_mesh. In production source, recipe_mesh invokes generate_tangents().expect, and metric_cuboid has another expect. crates/AGENTS.md line 126 explicitly says never use unwrap or expect outside tests. Thus the code is inconsistent with the current repository rule irrespective of whether any actual input produces Err.",
+      "condition": "No demonstrated returned tangent error or panic for a reachable mesh. Prior 059 L12-CLOSURE-BEVY-DEGENERATE-UV-RETURNED-ERROR explicitly rejected the proposed degenerate-UV-to-returned-error inference, and fresh mesh format/CPU-state questions were separately bounded. Native callbacks, feature activation, attribute lengths, index and finite tangent contracts remain open.",
+      "future_direction": "Central reconciliation should determine the correct infallible/fallible API and structured propagation/handling in the owning renderer without inventing an unsupported degenerate-UV runtime defect. Preserve actual native behavior and prior findings.",
+      "historical_relations": [
+        "059 Q-L12-3cb18f41744872c3c239 required this recipe_mesh body; Q-L12-afadde59af18e9dc23ef and L12-CLOSURE-BEVY-TANGENT-INDEX-AGGREGATE preserve connected questions. No automatic alias or accepted unique count.",
+        "Governing rule copied verbatim in reference/crates/AGENTS.md:126."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+          "lines": [
+            [
+              49,
+              72
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/recipe_mesh.rs",
+          "lines": [
+            [
+              5,
+              37
+            ],
+            [
+              40,
+              86
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-CITY-GATE-OPENING-NAMESPACE",
+      "kind": "prior conditional identity question",
+      "first_contract": "CityGate builds an opening ID by OR-ing a public property ID with a fixed mask and recognizes an opening by testing the same mask. The door presentation observer skips the building-specific closure visibility marker for any opening satisfying the predicate. SceneDoor accepts a u64 opening ID at serde admission; no reserved-bit check is shown there. An ordinary opening with those mask bits would take the gate branch.",
+      "condition": "The actual property/opening ID producers and their reserved-bit guarantees were not traced; no claim that ordinary generated IDs collide with the tag or that a live door is wrongly presented. SceneDoor is an immutable ECS component and its actual server producer supplies its typed opening at spawn.",
+      "future_direction": "Establish authoritative namespace and injectivity/reserved-bit policy for CityPropertyId and OpeningAssemblyId, including externally admitted values, before choosing a representation or validation boundary. Preserve intentional gate visibility behavior.",
+      "historical_relations": [
+        "Same open 059 L12-CLOSURE-CITY-GATE-OPENING-ID-DOMAIN, not a new unique issue. 059 Q-L11-6d98f10c778580c12120 also retains property/opening producer questions."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/doors.rs",
+          "lines": [
+            [
+              28,
+              61
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compound/boundary.rs",
+          "lines": [
+            [
+              10,
+              10
+            ],
+            [
+              211,
+              225
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+          "lines": [
+            [
+              160,
+              178
+            ],
+            [
+              179,
+              202
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/doors.rs",
+          "lines": [
+            [
+              164,
+              178
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-WINDOW-EXISTING-LEAF-CONDITIONS",
+      "kind": "previously assessed candidate and question, no duplicate count",
+      "first_contract": "A cache miss calls compile_window_leaf with the positive typed operable size, and its construction error propagates before the client window observer inserts presentation components. The leaf source derives unbounded width/height counts and a 0.002m board subtraction. Earlier independently registered producer/Builder reads established the oversized-work candidate and conditionally failing tiny shutter.",
+      "condition": "An oversized or tiny accepted shutter/window must reach the relevant call; ordinary generation, native execution and error retry are not established. The closure cache does not itself determine supported physical dimensions.",
+      "future_direction": "Reconcile the existing source-owner work-budget and minimum-size policy, keeping cache/resource lifetime separate from geometry production and preserving the zero-valid fixed-glazing mode.",
+      "historical_relations": [
+        "Same /root/mhr_character P16-WINDOW-LEAF-UNBOUNDED-WORK and P16-TINY-SHUTTER-COMPILATION; complete earlier window packet is separately archived with its original discovery attribution and pre-registration grep qualification.",
+        "059 Q-L12-03a885cbf03ba414fc2c preserved tiny shutter producer/error policy; no duplicate unique count."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+          "lines": [
+            [
+              49,
+              72
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/windows.rs",
+          "lines": [
+            [
+              20,
+              36
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows/leaf.rs",
+          "lines": [
+            [
+              11,
+              40
+            ],
+            [
+              60,
+              83
+            ],
+            [
+              106,
+              106
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+          "lines": [
+            [
+              8,
+              23
+            ],
+            [
+              91,
+              104
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-DOOR-SOURCE-AND-IDENTITY-PROPAGATION",
+      "kind": "historical carried producer finding",
+      "first_contract": "The server retains the typed leaf size and opening ID in SceneDoor; the presentation observer passes the typed size to the cache but extracts building_id.0 for the material helper, while keeping the typed IDs on the visibility marker.",
+      "condition": "Numeric conversion may be needed only at a deliberate deterministic/native boundary; the entire material helper and seed derivation were not personally inspected here.",
+      "future_direction": "Carry earlier 774 whole-function producer evidence and preserve exact seeded material behavior before deciding where identity representation legitimately changes.",
+      "historical_relations": [
+        "Original 774 RIG-OWNER-REACHED-PRODUCER-F004 covers this exact SceneBuildingId extraction and connected material/reviewer owners. Keep its original rig attribution and status; zero new unique count.",
+        "Related earlier door closure selection candidate remains separately scoped to BuildingPlan membership and has not been merged."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/doors.rs",
+          "lines": [
+            [
+              28,
+              43
+            ],
+            [
+              54,
+              58
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/doors.rs",
+          "lines": [
+            [
+              142,
+              178
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+          "lines": [
+            [
+              160,
+              178
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+          "lines": [
+            [
+              40,
+              46
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-CLOSURE-PRESENTATION-NONFINDINGS",
+      "kind": "qualified source observations",
+      "first_contract": "The cache separates doors, glass and shutters, keys sizes by the bits of checked dimensions, stores mesh handles rather than entity transforms, and the server SceneDoor is declared immutable. The client gate path intentionally omits the building-specific visibility marker; non-gates have that marker and the sync system consults the owning building’s facade opening set.",
+      "condition": "These observations neither prove native asset eviction nor every possible replacement/deserialization lifecycle; the included tests and samples are source text only.",
+      "future_direction": "Retain distinct leaf kinds, transforms, owner identities, gate handling and source errors when later changes are considered.",
+      "historical_relations": [
+        "059 adler READ-L11-216/217 retain their original source-only evidence and explicitly left building closure sync unread; this fresh registered current support adds that body only for this agent. Q-L12-25cd80d1e02944fb47e1 records no current duplicated-authority desync witness."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+          "lines": [
+            [
+              9,
+              16
+            ],
+            [
+              33,
+              72
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/doors.rs",
+          "lines": [
+            [
+              28,
+              61
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/building_closures.rs",
+          "lines": [
+            [
+              5,
+              52
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+          "lines": [
+            [
+              160,
+              178
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings": [
+    "No proven live leak, duplicated unique mesh-count candidate, gate namespace collision, or tangent returned-error/panic incident.",
+    "SceneDoor is declared immutable; neither arbitrary in-place size mutation nor stale cache behavior has been shown.",
+    "Cache partitioning by leaf kind and geometry-handle reuse alone do not show shared transforms, incorrect materials or tactical authority mutation.",
+    "Tests and historical fixture source are not runtime validation."
+  ],
+  "perspectives": {
+    "producer-propagation": "Typed size reaches cache, but building identity is extracted into material helper as historical F004; changed representation at a native key is separately assessed.",
+    "existing-type-owners": "LeafDimensions, SceneBuildingId and OpeningAssemblyId preserve distinct size and identity roles to registered boundaries.",
+    "admission": "Typed positive size is checked at SceneDoor decoding; actual finite work and reserved-bit namespace policies remain independent.",
+    "invariant-operations": "Derived window counts and tiny board size remain previously recorded conditional producer contracts; no new duplicate.",
+    "aggregate-states": "Building/opening references and tagged gate identity need actual producer guarantees, while cache kind partition is explicit.",
+    "type-ownership": "Semantic building/opening IDs belong to their owners; native bitwise dimension key does not itself prove owner misplacement.",
+    "redundant-authority": "SceneDoor immutable metadata and dynamic server controller share spawn origins; no current desync witness.",
+    "behavior-preservation": "Both assigned objects match current path bytes individually. Preserve intentional geometry instancing, kind partitions, gate visibility, source errors and typed identity.",
+    "enum-shapes": "WindowLeafKind/ClosureMeshError are explicit modes and error reasons, not generic booleans or string selectors.",
+    "derivability": "SceneDoor manual decode admits checked leaves with source-aware error; no equivalent blanket derive demonstrated.",
+    "type-granularity": "Native dimension bits are an exact cache key after admission; LeafDimensions positive role differs from fixed window CuboidDimensions.",
+    "magic-strings": "Diagnostic errors and engine asset labels are not shown as string-driven business dispatch.",
+    "magic-numbers": "Gate mask is an identity-domain contract, pane pitch is geometry/work policy, and material/visibility enum distinctions need independent owner reasoning."
+  },
+  "open_questions": [
+    "What application and scene reset paths bound ClosureMeshes entries and native asset lifetimes?",
+    "Are reserved gate bits excluded for all ordinary opening and property producers, including external decoded data?",
+    "What native tangent and mesh-index invariants are guaranteed and what is the compatible non-expect failure handling policy?",
+    "Which producers can reach tiny and oversized leaf inputs, and how does an observer error affect retry or later presentation?",
+    "Central review decides unique counts, connected repair identities and all cross-lens closure."
+  ],
+  "constraints": "Static source/evidence inspection and mathematical reasoning only. No source/publication edits, repairs, product builds, tests, UI, simulations or runtime probes."
+}

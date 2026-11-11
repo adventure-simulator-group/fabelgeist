@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-2206.json`).
+2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-2247.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -300,8 +300,22 @@ records their centrally reconciled source scopes and ledger relationships.
 `DELEGATED-EVIDENCE-CHECKPOINT-8.json` preserves nine additional delegated
 source-review bundles. `ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json`
 records central source dispositions and connected ledger relationships.
+`DELEGATED-EVIDENCE-CHECKPOINT-11.json` preserves nine compact delegated
+evidence packets, pending central reconciliation and role credit; their
+previously published evidence references are separately hash-verified.
+`DELEGATED-CHECKPOINT-11-QUALIFICATION.json` records the 059 content matches.
+`DELEGATED-EVIDENCE-CHECKPOINT-10.json` preserves 27 additional complete
+delegated evidence packets pending central reconciliation and role credit.
+`DELEGATED-CHECKPOINT-10-QUALIFICATION.json` identifies original 059 records
+whose public copies contain local-path redactions and records their hashes.
 `DELEGATED-EVIDENCE-CHECKPOINT-9.json` preserves fifteen additional delegated
-source-review bundles, pending central reconciliation and role credit.
+source-review bundles. `ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json`
+records their centrally reconciled source scopes and connected ledger.
+`ASSESSMENT-DELEGATED-PARTIAL-9.json` preserves the two incomplete file reads.
+`CENTRAL-P17-PATH-PROOFS.json` indexes P17 and 95e Git path proofs; a missing
+path does not establish removed functionality or personal reading.
+`QUALIFICATION-1914-1919-CURRENT-READS.json` corrects ambiguous earlier current
+read wording while retaining the original record and its stated ranges.
 `EVIDENCE-INCIDENT-20261111-P17-METRICS.json` records an accidental
 temporary packet overwrite, hash-matched reconstruction and full inventory
 verification; the original extraction was not written. P17 metrics and the

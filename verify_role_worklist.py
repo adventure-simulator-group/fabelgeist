@@ -64,7 +64,7 @@ for i, (role, original) in enumerate(zip(roles, registry)):
             raise ValueError('role identity mismatch: ' + str(i))
     if role['historical_object_available'] != (i in object_shas):
         raise ValueError('object-availability mismatch')
-    if role['status'] not in ('unassessed', 'bounded-current-trace-only', 'lock-metadata-partial', 'assessed-nonapplicable', 'full-historical-body-trace-open', 'deleted-base-trace-open'):
+    if role['status'] not in ('unassessed', 'bounded-current-trace-only', 'lock-metadata-partial', 'source-metadata-partial', 'assessed-nonapplicable', 'full-historical-body-trace-open', 'deleted-base-trace-open'):
         raise ValueError('invalid role status')
     if role['status'] not in ('unassessed', 'deleted-base-trace-open'):
         if i not in object_shas or object_shas[i] != role['historical_sha256']:
@@ -159,6 +159,63 @@ for role in roles:
                     raise ValueError('partial lock unread accounting mismatch')
         elif role['assessment'] != 'LOCKFILE-DELTA.json':
             raise ValueError('unexpected lock assessment')
+    elif status == 'source-metadata-partial':
+        doc = json.loads((root / role['assessment']).read_text())
+        rows = [x for x in doc['historical_source_roles']
+                if x['original_index'] == role['original_index']]
+        if len(rows) != 1:
+            raise ValueError('partial source role count mismatch')
+        item = rows[0]
+        if (item['source_id'] != role['source_id']
+                or item['sha256'] != role['historical_sha256']
+                or item['lines'] != len(objects[role['historical_sha256']].splitlines())):
+            raise ValueError('partial source historical identity mismatch')
+        cp = json.loads((root / doc['evidence']).read_text())
+        bundle = next(x for x in cp['bundles'] if x['archive'] == item['evidence_archive'])
+        raw_archive = (root / bundle['archive']).read_bytes()
+        if hashlib.sha256(raw_archive).hexdigest() != bundle['archive_sha256']:
+            raise ValueError('partial source bundle mismatch')
+        with tarfile.open(root / bundle['archive'], 'r:gz') as partial_archive:
+            historical = partial_archive.extractfile(item['historical_member']).read()
+            current = partial_archive.extractfile(item['current_member']).read()
+            receipt = json.load(partial_archive.extractfile(item['receipt_member']))
+        cc = item['current_comparison']
+        current_inventory = json.loads((root / 'MAIN-ADVANCE-95E.json').read_text())['trees']['current']['path']
+        current_paths = {}
+        for line in (root / current_inventory).read_text().splitlines():
+            head, path = line.split('\t', 1)
+            current_paths[path] = head.split()[2]
+        if (historical != objects[role['historical_sha256']]
+                or hashlib.sha256(current).hexdigest() != cc['sha256']
+                or git_blob(current) != cc['git_blob']
+                or cc['git_blob'] != current_paths[role['source_id'].split(':', 1)[1]]
+                or len(current.splitlines()) != cc['lines']):
+            raise ValueError('partial source current identity mismatch')
+        for lines, personal, unread, expected in (
+                (item['lines'], item['new_personal_read_ranges'], item['historical_unread_ranges'], item['historical_unread_lines']),
+                (cc['lines'], cc['personal_ranges'], cc['unread_ranges'], cc['unread_lines'])):
+            cursor = 1
+            for lo, hi in sorted(personal + unread):
+                if lo != cursor or hi < lo:
+                    raise ValueError('partial source range gap or overlap')
+                cursor = hi + 1
+            if (cursor != lines + 1 or sum(hi - lo + 1 for lo, hi in unread) != expected
+                    or expected == 0):
+                raise ValueError('partial source unread accounting mismatch')
+        if role['original_index'] == 2434:
+            rr = next(x for x in receipt['original_roles'] if x['original_role'] == 2434)
+            if (rr['historical_ranges'] != item['new_personal_read_ranges']
+                    or rr['current_ranges'] != cc['personal_ranges']):
+                raise ValueError('quality source actual receipt mismatch')
+        elif role['original_index'] == 2452:
+            rr = [x for x in receipt['reads'] if x['role'] == 2452]
+            if (len(rr) != 2 or any(x['full_body_displayed'] for x in rr)
+                    or next(x for x in rr if x['revision'] == item['snapshot_head'])['actual_display_union'] != item['new_personal_read_ranges']
+                    or next(x for x in rr if x['revision'] == cc['source_revision'])['actual_display_union'] != cc['personal_ranges']
+                    or item['incident'] != 'EVIDENCE-INCIDENT-20261111-P17-METRICS.json'):
+                raise ValueError('P17 metrics source actual receipt mismatch')
+        else:
+            raise ValueError('unexpected partial source role')
     elif status == 'full-historical-body-trace-open':
         name = role['historical_assessment']
         if Path(name).name != name:

@@ -1,0 +1,554 @@
+{
+  "schema": "726-rig-quality-model-source-audit-v1",
+  "created_utc": "2026-11-11 21:46:45 UTC",
+  "reviewer": "current-session delegate /root/rig_identity",
+  "scope": "Rig-quality roles 2473–2474, all thirteen perspectives limited to these full original bodies, current model body and registered connected support; not a repository-wide lens review.",
+  "original_roles": [
+    {
+      "role": 2473,
+      "path": "crates/fabelgeist-mhr/src/model.rs",
+      "historical_revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "historical_source": "sources/cbbb/crates/fabelgeist-mhr/src/model.rs",
+      "historical_sha256": "aee06aeea1137885801fdc4d8c1b8aa5f36f967670dc935a2a121840c3149eb0",
+      "historical_git_blob": "401c9e5e0b26f9d515801c9f780f1b2275637c09",
+      "historical_personal_reads": [
+        [
+          1,
+          612
+        ]
+      ],
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_source": "sources/95e6/crates/fabelgeist-mhr/src/model.rs",
+      "current_sha256": "519fa046f1efe05c4cf36c5780ae989d72643ea47ed72f8dcf203d10e00ddd60",
+      "current_git_blob": "e4a813d30bd167d41a19986a5218ecce14b8bae9",
+      "current_personal_reads": [
+        [
+          1,
+          474
+        ]
+      ],
+      "current_status": "present; bytes differ from cbbb"
+    },
+    {
+      "role": 2474,
+      "path": "crates/fabelgeist-mhr/src/model/tensor_upload.rs",
+      "historical_revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "historical_source": "sources/cbbb/crates/fabelgeist-mhr/src/model/tensor_upload.rs",
+      "historical_sha256": "ff780fc23efc1039a47cd2e6f873ce231b4f6ee113349bc093e3acdd37a23cb1",
+      "historical_git_blob": "164455ddd2bff79fb6893767c7b96772ace9955a",
+      "historical_personal_reads": [
+        [
+          1,
+          33
+        ]
+      ],
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_source": null,
+      "current_sha256": null,
+      "current_git_blob": null,
+      "current_personal_reads": [],
+      "current_status": "path absent, raw-tree proof retained; analogous operation now in separately registered model/rig.rs"
+    }
+  ],
+  "registrations": {
+    "old-registration.json": "a10a4a827b98d4b3d482a1b6d28da8e6b16e14607b38de856b3777370679c3a8",
+    "current-registration.json": "93fa10aa2b85620485f34c042b17e09f3594597d2526df06bd07dfd874403bba",
+    "support-registration.json": "ed7ce18494c11cc8df6290f7eee6ea2226363890b1bab6fdd879a8233e876372",
+    "support2-registration.json": "89cf1e0543d9901242166b06bdb858f9432bd4d08473e6c5f16c8a5dfa94efd4",
+    "support3-registration.json": "57ee6048dbb0ff45ff0d9345a3bb44ef1eea35ff91dc5f71ebde0a6cdd58a655"
+  },
+  "personal_receipt": "personal-read-receipt.json",
+  "git_proofs": "git-proofs.json",
+  "source_diff": "cbbb-to-current.patch",
+  "snapshot_verification": "snapshot-verification.json",
+  "original_attribution": "original-attribution.json",
+  "related_evidence": "related-evidence.json",
+  "recovery_qualifications": [
+    "The recovered original registry records cbbb parent 6533, clean status at capture and eight changed variants. Independently reconstructed binary Git patch exactly matches recorded SHA 6dcc1f6784b41bc1e76fd55bdd2f0c0b5083a5eb8ec18bcebd9519bdf4e869cf. This is historical recorded cleanliness, not a fresh worktree status or product validation.",
+    "Full preserved original 059 registry/queue/ledger/transport manifest are compressed exact bytes; selected rows are reconstructed records and historical 774 f82 is transport. None becomes original checkpoint3821.",
+    "Older 774 rig owner coverage rows29–30 report full original roles, with a 119–220 reread after original truncation; its producer sources rows180–181 retain source-read-trace-incomplete and model read proved by prior pr-working full body plus overlay, not a separate complete fresh model read. Dispositions are lens-local, not later-lens clearance.",
+    "Prior /root/mhr_character role2321 personally read 6533 model1–626 and 95e model1–474; exact prior report, receipts, source and manifest remain separately attributed. This assignment registered and displayed current model1–474 independently, not an attribution transfer.",
+    "Raw Git paths prove the helper absent at 6533 and 95e; current model/rig.rs is separately registered and read. The full historical rig-quality patch is archived for recovery/hash verification and not credited as reading all unrelated changed paths."
+  ],
+  "historical_provenance": [
+    {
+      "identity": "059 Segovb READ-L11-410 / REG1372–1373",
+      "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "scope": "Fresh personal 2473 1–612 and 2474 1–33; accepted unique delta0; current unreconciled.",
+      "evidence": "historical-059/segovb/READ-L11-410.json"
+    },
+    {
+      "identity": "059 /root/lens12_frontier READ-L12-837 / PAR484–485",
+      "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "scope": "Delegate fresh personal full model1–612 and helper1–33; root personal rereads empty and no other-lens credit.",
+      "evidence": "historical-059/parallel-l12-20261029/PROPOSAL-L12-837.json"
+    },
+    {
+      "identity": "774 rig existing type owners and producer propagation",
+      "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee transport of cbbb source",
+      "scope": "Owner coverage29–30 and original producer rows180–181 preserve the distinctions above; RIG-OWNER-MHR-004/RIG-OWNER-LOD-006 and MHR-FK-01/MHR-OVERLAY-01 remain historical owner/producer traces, not current verification.",
+      "evidence": "historical-774/audit-producer-propagation/rig/sources.json"
+    },
+    {
+      "identity": "059 Adler READ-L11-372 / REG1181,1185",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e pr-working",
+      "scope": "Original reviewer personally read model1–626 and skel_state1–302; original shape-lifetime and loader findings preserve their actual roles and attribution.",
+      "evidence": "historical-059/adler/READ-L11-372.json"
+    },
+    {
+      "identity": "059 /root/lens12_frontier READ-L12-766 / PAR284 and READ-L12-768 / PAR288",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e pr-working",
+      "scope": "Separate personal model1–626 and prefix producer1–302; cycle, membership, URI and UTF-8 findings retain own first contracts. Root adoption is not a new root personal read.",
+      "evidence": "historical-059/segovb/READ-L12-768.json"
+    },
+    {
+      "identity": "Prior /root/mhr_character model and character packets",
+      "revision": "6533 and 95e as recorded",
+      "scope": "Prior model current1–474 and historical1–626 personally read; prior model and character findings/receipts and manifest preserved; no duplicate count or author transfer.",
+      "evidence": "prior-mhr-model/read-receipt.json"
+    }
+  ],
+  "findings_and_qualified_questions": [
+    {
+      "id": "ADLER-L11-MHR-MODEL-SHAPE-LIFETIME",
+      "status": "existing 059 finding and prior current assessment; zero new unique delta",
+      "first_failed_contract": "Published host model metadata can change independently of tensors uploaded from the earlier host state.",
+      "evidence": [
+        {
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "range": [
+            63,
+            82
+          ]
+        },
+        {
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "range": [
+            320,
+            327
+          ]
+        },
+        {
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "range": [
+            368,
+            387
+          ]
+        },
+        {
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "range": [
+            391,
+            396
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "range": [
+            66,
+            85
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "range": [
+            246,
+            252
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/character.rs",
+          "range": [
+            31,
+            55
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model/upload.rs",
+          "range": [
+            75,
+            84
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model/upload.rs",
+          "range": [
+            99,
+            121
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "range": [
+            396,
+            408
+          ]
+        }
+      ],
+      "condition_and_limits": "Both revisions expose public character while caching face indices and geometry/tensor inputs. Current Mesh exposes faces publicly, and model normal logic obtains current face count separately from cached face corners. A same-count edit may leave different host and tensor topology; a count change can produce a reshape mismatch. This is a representable API/lifetime path, not a demonstrated mutation, backend panic, model execution or user misuse. Mutable parameter-transform impact requires its separate public operation proof.",
+      "future_connected_repair_direction": "Make the coupled model metadata read-only or admit changes through one coherent atomic rebuild of every dependent cached tensor and count; preserve legitimate host lookup and graph behavior.",
+      "future_acceptance_criterion": "Every published model operation observes topology, dimensions and cached tensor contents from the same admitted model revision; any supported update refreshes them together or rejects before publication.",
+      "relationships": "Exact existing 059 q170 and prior /root/mhr_character model-retained-host-snapshot-shape, no new duplicate. Related skeleton column/lifetime issues need distinct first-failure reconciliation."
+    },
+    {
+      "id": "SEGOVB-L12-CONNECTED-MHR-FK-CYCLE-ADMISSION",
+      "status": "existing 059 conditional public parent-table contract; zero new unique delta",
+      "first_failed_contract": "A cyclic parent table makes the prefix builder follow a parent chain without a terminating root.",
+      "evidence": [
+        {
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "crates/fabelgeist-mhr/src/skel_state.rs",
+          "range": [
+            123,
+            157
+          ]
+        },
+        {
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "range": [
+            278,
+            281
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/skel_state.rs",
+          "range": [
+            123,
+            157
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model/rig.rs",
+          "range": [
+            8,
+            15
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/character/skeleton.rs",
+          "range": [
+            7,
+            15
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-rig/src/table.rs",
+          "range": [
+            8,
+            14
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-rig/src/table.rs",
+          "range": [
+            70,
+            72
+          ]
+        }
+      ],
+      "condition_and_limits": "A representable one-element public parent table containing its own ordinal has a nonterminating source loop; source reasoning only, no table built or operation executed. The ordinary FBX builder pushes each parent before visiting its child; that observation is not a proof that an arbitrary parsed graph contains no cycle, and externally mutable columns remain distinct from a cyclic input graph. The 6533, cbbb and 95e prefix source blob is identical.",
+      "future_connected_repair_direction": "Validate membership and acyclic parent topology at the owning skeleton boundary and preserve checked traversal where parents remain independently mutable; coordinate but do not conflate FBX graph-cycle admission.",
+      "future_acceptance_criterion": "Every accepted skeleton has bounded parent traversal; cyclic parent data is rejected with its identity rather than entering upload. Preserve valid roots, earlier-parent order and full joint alignment.",
+      "relationships": "Same 059 q433 and prior /root/mhr_character character-public-skeleton-aggregate cycle subcase; do not count again or assume the separately reported native parsed-FBX cycle is an exact alias."
+    },
+    {
+      "id": "SEGOVB-L12-CONNECTED-MHR-FK-PARENT-MEMBERSHIP-ADMISSION",
+      "status": "existing 059 conditional public parent-table contract; zero new unique delta",
+      "first_failed_contract": "The public prefix builder follows an ordinal without first proving that it belongs to the parent table.",
+      "evidence": [
+        {
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "crates/fabelgeist-mhr/src/skel_state.rs",
+          "range": [
+            123,
+            134
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/skel_state.rs",
+          "range": [
+            123,
+            134
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-rig/src/lib.rs",
+          "range": [
+            50,
+            52
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-rig/src/table.rs",
+          "range": [
+            48,
+            50
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-rig/src/table.rs",
+          "range": [
+            94,
+            100
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model/rig.rs",
+          "range": [
+            8,
+            15
+          ]
+        }
+      ],
+      "condition_and_limits": "A one-element table containing ordinal 1 reaches an indexed access beyond that table on the next loop iteration. No object, fixture or backend was run. A producer-built valid hierarchy or checked caller may exclude the case; no loaded real asset is shown invalid. This first failure differs from a cyclic but in-range table.",
+      "future_connected_repair_direction": "Prove and preserve table membership together with the acyclic aggregate before traversal, or explicitly reject a foreign ordinal using an owning typed error; do not infer rig-instance identity merely from a matching count.",
+      "future_acceptance_criterion": "A missing parent is rejected at admission/traversal with source context before native indexed access; valid root and child order remain unchanged.",
+      "relationships": "Same original 059 q434 and related prior character-public-skeleton-aggregate; independent cycle q433 remains separate unless central finds one coherent repair with both obligations."
+    },
+    {
+      "id": "model-tiny-triangle-normal",
+      "status": "previous /root/mhr_character current finding; cbbb equivalent source, zero new unique delta",
+      "first_failed_contract": "A nonzero tiny accumulated normal can be divided by a fixed floor and remain non-unit despite the output documentation.",
+      "evidence": [
+        {
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "range": [
+            49,
+            58
+          ]
+        },
+        {
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "range": [
+            537,
+            590
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "range": [
+            52,
+            61
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "range": [
+            396,
+            452
+          ]
+        }
+      ],
+      "condition_and_limits": "For one nondegenerate right triangle with f32 centimetre edge lengths 2^-30 and nonzero sum, symbolic cross magnitude is 2^-60 and squared norm 2^-120; division by the 1e-12 floor yields a magnitude around 8.67e-7 rather than 1. The same code and documented unit-normal claim appear at cbbb and 95e. No geometry, backend arithmetic, asset or model was executed; no valid real asset of this size or backend behavior is established. Truly unreferenced/degenerate zero normals are intentionally separate.",
+      "future_connected_repair_direction": "Confirm scale and numerical contract and, if unit output is required, use a justified scale-aware normalization for nonzero accumulated normals while preserving intentional zero on no direction.",
+      "future_acceptance_criterion": "For supported nonzero geometry the output meets its documented normal contract across its stated numeric range; unreferenced or degenerate vertices retain deliberate zero.",
+      "relationships": "Exact prior /root/mhr_character model-tiny-triangle-normal at 95e; this packet adds cbbb source context only, not a new duplicate."
+    },
+    {
+      "id": "ADLER-L11-MHR-LOAD-ERROR-OWNERSHIP",
+      "status": "existing 059 umbrella and separate original URI/UTF8 cause records, zero new unique delta",
+      "first_failed_contract": "The URI loader formats typed underlying failures into prose rather than retaining each original error as structured cause.",
+      "evidence": [
+        {
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "range": [
+            120,
+            142
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "range": [
+            123,
+            145
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "range": [
+            158,
+            176
+          ]
+        }
+      ],
+      "condition_and_limits": "If both direct and nested reads fail, current and cbbb format both failures in a combined anyhow message; UTF8 failure is similarly formatted. The local filesystem loader uses with_context. No IO or decoder was executed and all downstream consumers are not traced. Direct and nested layouts are intentional supported lookup options, not inferred legacy shims.",
+      "future_connected_repair_direction": "Preserve both attempted asset locations and their original native errors and retain decoding cause until the presentation boundary, without changing location-selection policy.",
+      "future_acceptance_criterion": "Actual loader failures expose stable typed cause(s) and asset context while successful direct and nested reads keep their current meaning.",
+      "relationships": "Existing 059 q173 and distinct q421 asset fallback causes / q422 UTF8 cause; prior /root/mhr_character model-loader-error-cause current assessment. Do not merge the two concrete original first failures merely because one loader is involved."
+    },
+    {
+      "id": "RIG-QUALITY-MHR-WEIGHT-CUTOFF",
+      "status": "bounded numerical policy question; defect and exact alias not asserted",
+      "first_failed_contract": "Decide whether dropping a small positive normalized influence without renormalizing remaining uploaded weights satisfies the intended deformation error budget.",
+      "evidence": [
+        {
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "range": [
+            299,
+            318
+          ]
+        },
+        {
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "range": [
+            593,
+            610
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/character/skin.rs",
+          "range": [
+            110,
+            120
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/character/skin.rs",
+          "range": [
+            125,
+            143
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model/upload.rs",
+          "range": [
+            126,
+            145
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "range": [
+            455,
+            472
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/AGENTS.md",
+          "range": [
+            21,
+            30
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/AGENTS.md",
+          "range": [
+            143,
+            152
+          ]
+        }
+      ],
+      "condition_and_limits": "Both revisions retain only weights strictly greater than 1e-5 and sum their deformed contributions without a displayed second normalization. The current parser can retain two positive normalized weights 1−2^-18 and 2^-18, each exactly representable; the latter is below the cutoff. If the two joint transforms are identical, symbolic weighted sum is scaled by 1−2^-18 instead of 1. No asset, GPU tensor, runtime output or real-world impact is observed. Whether this deliberate pruning and its error budget are acceptable is not established; cbbb comment says drop zero while current upload correctly states the threshold.",
+      "future_connected_repair_direction": "Determine the intended threshold owner and tolerance, quantify error across supported geometry and transforms, and if the contract requires partition of unity retain/renormalize appropriately while preserving valid zero and existing influence-selection semantics.",
+      "future_acceptance_criterion": "Chosen pruning has a documented numerical budget or retains the required normalized sum for all admitted rows; no broad weight narrowing is assumed without owner policy.",
+      "relationships": "Related to 059 q167 finite normalization, q175 shared reduction and prior /root/mhr_character character-nonfinite-skin-weight; this finite small-weight case has a different trigger and is not an established exact alias."
+    }
+  ],
+  "nonfindings_and_preserved_contracts": [
+    "The actual prefix builder pushes source and target in the same branch; each generated level therefore has equal-length vectors before the old helper or current model/rig.rs uses the source length for both TensorData shapes. Do not invent a reachable mismatch from an arbitrarily constructed public PrefixMultiplicationLevel when the displayed upload caller accepts only its own producer output.",
+    "Both old and current upload use checked i32 conversion for each typed rig ordinal before Burn indices; no unchecked wide ordinal conversion is demonstrated on this path.",
+    "The parent walk assumes admitted acyclic in-range topology; typed ordinals alone do not establish membership or a rig identity. Cycle and missing parent are separate concrete first failures.",
+    "The URI asset directory and nested assets alternatives and optional pose correctives are deliberate supported modes; do not call them compatibility fallbacks or require corrective archives when disabled.",
+    "The shape check and resulting current fallible corrective forward are visible but no backend behavior, real FBX asset or valid GPU computation was executed.",
+    "Zero normal for an unreferenced or degenerate vertex is explicitly intentional and is not the same as the positive tiny-normal question."
+  ],
+  "open_questions": [
+    "What finite-weight pruning/error budget is intended, and are retained weights expected to be renormalized at upload?",
+    "Are mutable host model fields a supported extension point, and what mutations must rebuild or invalidate cached tensors atomically?",
+    "Which upstream FBX skeleton admission paths prove cycle-freedom and membership before the producer; how should direct public helper calls be handled?",
+    "Which typed error ownership do direct/nested URI reads and UTF8 decoding need while retaining both useful attempt contexts?",
+    "What scale and precision domain is guaranteed for posed mesh normals, including backend rounding and degenerate faces?",
+    "What additional changed or uninspected owner/source families must be reconciled before any whole-lens clearance?"
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "producer-propagation",
+      "assessment": "Trace parent table -> prefix source/target -> checked signed words -> cached FK tensors -> select/assign; and normalized FBX row -> sparse cutoff -> skin sum. All parsers and renderer consumers remain outside bounded support."
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "RigJointOrdinal and typed rig tables survive until native i32 conversion; native tensor dimensions require primitive forms. Exact table membership/rig identity is separate from ordinal type and no duplicate owner is assumed."
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Explicit LOD and tensor-column/row checks exist; parent graph membership/acyclicity remain existing conditional issues and paired generated entries have equal lengths. No complete native tensor or source asset admission claim."
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Source checks conversions and performs prefix traversal, tensor reductions, skin weight filtering and normalization floor; normal precision and discarded finite weights require explicit policy. No backend product execution."
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Mhr public host character and cached tensor state can diverge, and skeleton columns/parents must agree. The generated source/target vectors are paired on the displayed route; no independently supplied mismatch is assumed."
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "Prefix typed ordinals belong to shared rig and encode at Burn boundary; NpyDimension, mesh count and rig count have distinct units/owners. Do not conflate equal numeric dimensions or infer a unique rig from equal counts."
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "Live host topology and cached tensors can act as competing model snapshots. Pointer-level FK source and target carry distinct temporal roles and are not duplicative merely because vectors have equal lengths."
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "cbbb helper moved into current model/rig.rs with the same paired generation and checked i32 conversion; model construction moved into model/upload.rs and other typed APIs changed. Similar code does not certify backend outcomes or every unrelated delta."
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "Optional correctives represent a real supported loaded/not-loaded mode; local apply_correctives is a named operation predicate. Separately typed archive pair improves identity, but no forced state change is asserted."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "No handwritten trait implementation is present in the assigned model/helper bodies. Framework TensorData and fallible numerical conversions are not mechanical derive replacements."
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Keep vertex count, joint count, ordinal, parameter dimension, asset location and native tensor word distinct. Existing level source/target vector names encode distinct direction; full rig-instance identity remains a separate contract."
+    },
+    {
+      "lens": "magic-strings",
+      "assessment": "Asset filenames, supported location routing and diagnostic formatting are native I/O boundaries; underlying cause erasure is an existing distinct finding. No string business identity is inferred from error prose without consumer proof."
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "45/72 are documented MHR shape cardinalities; 7 denotes joint channels; 1e-5 retained-weight filter and 1e-12 normal length floor carry numerical policy requiring ownership/error-budget review. Deliberate zero normal is preserved."
+    }
+  ],
+  "status": "Bounded source-only review with unresolved policy and untraced families; no complete lens clearance. No product/source edits, implementation, model execution, GPU, build, tests, runtime probes, fixtures or product validation."
+}

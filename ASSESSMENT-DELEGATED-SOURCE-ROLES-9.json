@@ -1,0 +1,2367 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2354,
+      "source_id": "pr-working:crates/strategic-web/AGENTS.md",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2354",
+      "sha256": "4ebb7231eb7131504bdc30dc8105b0fdb2538d387f983876b2330319dd4432b0",
+      "lines": 39,
+      "new_personal_read_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          39
+        ]
+      ],
+      "new_personal_read_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "new_personal_read_attribution": "/root/rig_identity",
+      "delegate_report": "delegated/quality-rules-report.json",
+      "evidence_archive": "delegated/quality-rules-evidence.tar.gz",
+      "receipt_member": "personal-read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 375,
+          "read_ranges": [
+            [
+              1,
+              39
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-038",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              39
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        },
+        {
+          "record": "continuation/camera/traces.jsonl",
+          "receipt": "CONT-CAMERA-PP-008",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              39
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        },
+        {
+          "record": "continuation/rig/web-request-reconciliation-039.json",
+          "receipt": "RIG-CONT-PPS-WEB-REQUEST-RECONCILIATION-039",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              39
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/strategic-web/AGENTS.md",
+        "status": "present",
+        "sha256": "4ebb7231eb7131504bdc30dc8105b0fdb2538d387f983876b2330319dd4432b0",
+        "git_blob": "ec2bb5a23913cc293692f21cf3e8b48576aae1f4",
+        "bytes": 2362,
+        "lines": 39,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            39
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            39
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": true,
+        "git_path_proof": "MAIN-ADVANCE-95E.json",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit."
+    },
+    {
+      "original_index": 2431,
+      "source_id": "pr-working:crates/strategic-web/tests/startup-deadline.cjs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2431",
+      "sha256": "adf96c3faaada273cd2b0d0f73fd1c5eb7bf75aa6a9dea92ca9e40f70cbc9c74",
+      "lines": 9,
+      "new_personal_read_ranges": [
+        [
+          1,
+          9
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          9
+        ]
+      ],
+      "new_personal_read_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "new_personal_read_attribution": "/root/mhr_character",
+      "delegate_report": "delegated/scene-tests-report.json",
+      "evidence_archive": "delegated/scene-tests-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 551,
+          "read_ranges": [
+            [
+              1,
+              9
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/strategic-web/tests/startup-deadline.cjs",
+        "status": "present",
+        "sha256": "adf96c3faaada273cd2b0d0f73fd1c5eb7bf75aa6a9dea92ca9e40f70cbc9c74",
+        "git_blob": "56fc2525e374b37128763555a3d1aa7d427314bd",
+        "bytes": 402,
+        "lines": 9,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            9
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            9
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": true,
+        "git_path_proof": "MAIN-ADVANCE-95E.json",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit."
+    },
+    {
+      "original_index": 2432,
+      "source_id": "pr-working:crates/strategic-web/tests/startup-fixtures.cjs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2432",
+      "sha256": "3fe66637ca232035be76155934eb77978356cc9f82a33c4654f85d2e9d54b948",
+      "lines": 85,
+      "new_personal_read_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          85
+        ]
+      ],
+      "new_personal_read_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "new_personal_read_attribution": "/root/mhr_character",
+      "delegate_report": "delegated/scene-tests-report.json",
+      "evidence_archive": "delegated/scene-tests-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 552,
+          "read_ranges": [
+            [
+              1,
+              85
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/strategic-web/tests/startup-fixtures.cjs",
+        "status": "present",
+        "sha256": "3fe66637ca232035be76155934eb77978356cc9f82a33c4654f85d2e9d54b948",
+        "git_blob": "74ea6a7da99f294205d1b5aa818407401118654c",
+        "bytes": 4881,
+        "lines": 85,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            85
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            85
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": true,
+        "git_path_proof": "MAIN-ADVANCE-95E.json",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit."
+    },
+    {
+      "original_index": 2433,
+      "source_id": "pr-working:crates/strategic-web/tests/strategic-scene.browser.cjs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2433",
+      "sha256": "d81e56d4369d714a8cb955a4da905fcda52f0596641fc14329768b4fd5f74c91",
+      "lines": 551,
+      "new_personal_read_ranges": [
+        [
+          1,
+          551
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          450
+        ],
+        [
+          451,
+          551
+        ]
+      ],
+      "new_personal_read_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "new_personal_read_attribution": "/root/mhr_character",
+      "delegate_report": "delegated/scene-tests-report.json",
+      "evidence_archive": "delegated/scene-tests-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 553,
+          "read_ranges": [
+            [
+              1,
+              551
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/strategic-web/tests/strategic-scene.browser.cjs",
+        "status": "present",
+        "sha256": "25b40b88b7bf24fd81bfceb46882f1a01ec02daf9b072a0aea8236ab3a284c5b",
+        "git_blob": "0275c6d5272648767f06e3cf48fbe68e72401d35",
+        "bytes": 39609,
+        "lines": 551,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            150
+          ],
+          [
+            151,
+            300
+          ],
+          [
+            301,
+            450
+          ],
+          [
+            451,
+            551
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            551
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": false,
+        "git_path_proof": "MAIN-ADVANCE-95E.json",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit."
+    },
+    {
+      "original_index": 2435,
+      "source_id": "pr-working:vendor/bevy_ahoy/src/lib.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/2435",
+      "sha256": "a0b15625d3086b64fd425b8bccae4f18370ae8f1f64b2633b9b3736523cc580d",
+      "lines": 552,
+      "new_personal_read_ranges": [
+        [
+          1,
+          552
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          140
+        ],
+        [
+          141,
+          280
+        ],
+        [
+          281,
+          420
+        ],
+        [
+          421,
+          552
+        ]
+      ],
+      "new_personal_read_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "new_personal_read_attribution": "/root/hair_ops",
+      "delegate_report": "delegated/ahoy-report.json",
+      "evidence_archive": "delegated/ahoy-evidence.tar.gz",
+      "receipt_member": "report.json",
+      "original_supplier_scopes": [],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+          "receipt": "CAM-PPS-SERVER-PROJECTION-EQUIPMENT-055",
+          "read_ranges_as_recorded": [
+            [
+              282,
+              331
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+          "receipt": "NATIVE-PS-SERVER-PLAYER-PROJECTION-026",
+          "read_ranges_as_recorded": [
+            [
+              282,
+              331
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "vendor/bevy_ahoy/src/lib.rs",
+        "status": "present",
+        "sha256": "a0b15625d3086b64fd425b8bccae4f18370ae8f1f64b2633b9b3736523cc580d",
+        "git_blob": "ef2d177d0c6cf66efb1144ce1f4e41790a956317",
+        "bytes": 19707,
+        "lines": 552,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            140
+          ],
+          [
+            141,
+            280
+          ],
+          [
+            281,
+            420
+          ],
+          [
+            421,
+            552
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            552
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": true,
+        "git_path_proof": "MAIN-ADVANCE-95E.json",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "Historical and current bytes are identical, but the delegate personally displayed only the 95e copy. No separate 6533 read is claimed."
+    },
+    {
+      "original_index": 2436,
+      "source_id": "report-p17:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2436",
+      "sha256": "10ec37a1c4a64e581565d0eb9c297d396a34c1c9134a8d210de29cecb77e88ee",
+      "lines": 147,
+      "new_personal_read_ranges": [
+        [
+          1,
+          147
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          120
+        ],
+        [
+          121,
+          147
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/mhr_character",
+      "delegate_report": "delegated/p17-orientation-report.json",
+      "evidence_archive": "delegated/p17-orientation-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 57,
+          "read_ranges": [
+            [
+              1,
+              147
+            ]
+          ]
+        },
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 28,
+          "read_ranges": [
+            [
+              1,
+              147
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+          "row": 111,
+          "read_ranges": [
+            [
+              1,
+              147
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+          "receipt": "ROOT-PPS-GEOMETRY-OWNERS-004",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              147
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+        "status": "present",
+        "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+        "git_blob": "50e1c31321297a19b2c3b240c4a540bfbd0c7153",
+        "bytes": 5142,
+        "lines": 142,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            120
+          ],
+          [
+            121,
+            142
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            142
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": false,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so."
+    },
+    {
+      "original_index": 2437,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2437",
+      "sha256": "36a72e8b7ec69bfee0e9bf67a633ca079e4b157230b4628f885c9a19a4160e2b",
+      "lines": 492,
+      "new_personal_read_ranges": [
+        [
+          1,
+          492
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          120
+        ],
+        [
+          121,
+          240
+        ],
+        [
+          241,
+          360
+        ],
+        [
+          361,
+          480
+        ],
+        [
+          481,
+          492
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/mhr_character",
+      "delegate_report": "delegated/p17-orientation-report.json",
+      "evidence_archive": "delegated/p17-orientation-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 298,
+          "read_ranges": [
+            [
+              1,
+              492
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 637,
+          "read_ranges": [
+            [
+              1,
+              492
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+          "receipt": "NATIVE-PS-MOTION-008",
+          "read_ranges_as_recorded": [
+            [
+              165,
+              239
+            ],
+            [
+              350,
+              394
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+        "status": "present",
+        "sha256": "14cc7dac87568e296696a1720be8620adc2c31b3451388d7e099e569d6608108",
+        "git_blob": "9107cba3a3d24cb85558aa3c11067df21b1c7ac2",
+        "bytes": 16263,
+        "lines": 471,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            120
+          ],
+          [
+            121,
+            240
+          ],
+          [
+            241,
+            360
+          ],
+          [
+            361,
+            471
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            471
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": false,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so."
+    },
+    {
+      "original_index": 2438,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2438",
+      "sha256": "eb2b6cb3cb56cc6209f7a15a8b3dd72bf75cee67562c2b59cf0300223cac0c4d",
+      "lines": 947,
+      "new_personal_read_ranges": [
+        [
+          1,
+          947
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          160
+        ],
+        [
+          161,
+          320
+        ],
+        [
+          321,
+          480
+        ],
+        [
+          481,
+          640
+        ],
+        [
+          641,
+          800
+        ],
+        [
+          801,
+          947
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/hair_ops",
+      "delegate_report": "delegated/viewer-capture-report.json",
+      "evidence_archive": "delegated/viewer-capture-evidence.tar.gz",
+      "receipt_member": "report.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 258,
+          "read_ranges": [
+            [
+              1,
+              947
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 597,
+          "read_ranges": [
+            [
+              1,
+              947
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+        "status": "present",
+        "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+        "git_blob": "8bdd33b05699f49ceb18ff2aa5c6adb8678f778e",
+        "bytes": 40632,
+        "lines": 1021,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            160
+          ],
+          [
+            161,
+            320
+          ],
+          [
+            321,
+            480
+          ],
+          [
+            481,
+            640
+          ],
+          [
+            641,
+            800
+          ],
+          [
+            801,
+            960
+          ],
+          [
+            961,
+            1021
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            1021
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": false,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so."
+    },
+    {
+      "original_index": 2439,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2439",
+      "sha256": "6ea36de3b468aa2874ddb8b81039b2a85c7f77cc6beca0d15c2f957985cb4106",
+      "lines": 195,
+      "new_personal_read_ranges": [
+        [
+          1,
+          195
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          195
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/hair_ops",
+      "delegate_report": "delegated/viewer-capture-report.json",
+      "evidence_archive": "delegated/viewer-capture-evidence.tar.gz",
+      "receipt_member": "report.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 259,
+          "read_ranges": [
+            [
+              1,
+              195
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 598,
+          "read_ranges": [
+            [
+              1,
+              195
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+        "status": "present",
+        "sha256": "be3851ecaa6b17fc8df5be03a931a840d86dde66294c07bb268dfe7aaa9cae4b",
+        "git_blob": "f5441b61e85ae828d429e8cc3ab4dfa961dfaf5c",
+        "bytes": 5765,
+        "lines": 168,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            168
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            168
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": false,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so."
+    },
+    {
+      "original_index": 2440,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2440",
+      "sha256": "442ea977df5466ad973589f48a61e9166674c05f541f174dd0e54bb7e319b47e",
+      "lines": 59,
+      "new_personal_read_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          59
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/rig_identity",
+      "delegate_report": "delegated/report-p17-report.json",
+      "evidence_archive": "delegated/report-p17-evidence.tar.gz",
+      "receipt_member": "personal-read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 260,
+          "read_ranges": [
+            [
+              1,
+              59
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 599,
+          "read_ranges": [
+            [
+              1,
+              59
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs",
+        "status": "present",
+        "sha256": "974eb0a6fc0c028f246576cd03e2ba83b772d47befe3a2593663c1d38339dd68",
+        "git_blob": "8ad94ae223b371f7988bd6fadc583f9eab4819c5",
+        "bytes": 2091,
+        "lines": 59,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            59
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            59
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": false,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so."
+    },
+    {
+      "original_index": 2441,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2441",
+      "sha256": "a4cd3203c13ad00470f001d622f3c1097fcb28954a8c1e93766a53ddfa472441",
+      "lines": 263,
+      "new_personal_read_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          135
+        ],
+        [
+          136,
+          263
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/rig_identity",
+      "delegate_report": "delegated/report-p17-report.json",
+      "evidence_archive": "delegated/report-p17-evidence.tar.gz",
+      "receipt_member": "personal-read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 261,
+          "read_ranges": [
+            [
+              1,
+              263
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 600,
+          "read_ranges": [
+            [
+              1,
+              263
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+          "receipt": "NATIVE-PS-MOTION-008",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              115
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+        "status": "present",
+        "sha256": "6255135aec06f6ce010b7bb960723b059db57684bf009fa48ad2fe9a8e754d23",
+        "git_blob": "e2b590c68fed0574cdb31aba96c00972513575cd",
+        "bytes": 8881,
+        "lines": 214,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            115
+          ],
+          [
+            116,
+            214
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            214
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": false,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so."
+    },
+    {
+      "original_index": 2442,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2442",
+      "sha256": "9b77b6040fcf91aa02261a284189f50a43a59f05ba0e8e4d719966b21a0685bd",
+      "lines": 140,
+      "new_personal_read_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          140
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/mhr_character",
+      "delegate_report": "delegated/p17-capture-report.json",
+      "evidence_archive": "delegated/p17-capture-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 262,
+          "read_ranges": [
+            [
+              1,
+              140
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 601,
+          "read_ranges": [
+            [
+              1,
+              140
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+        "status": "present",
+        "sha256": "40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+        "git_blob": "76e3742eed3bc4f72287a13ccc2d79391d8c2a94",
+        "bytes": 5327,
+        "lines": 136,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            100
+          ],
+          [
+            101,
+            136
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            136
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": false,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so."
+    },
+    {
+      "original_index": 2443,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2443",
+      "sha256": "c3cbd6ab4893272cb488013c9d3837632ed6c9c44b105af9e6d36b705fdb194b",
+      "lines": 132,
+      "new_personal_read_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          132
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/mhr_character",
+      "delegate_report": "delegated/p17-capture-report.json",
+      "evidence_archive": "delegated/p17-capture-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 263,
+          "read_ranges": [
+            [
+              1,
+              132
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 602,
+          "read_ranges": [
+            [
+              1,
+              132
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+          "receipt": "NATIVE-PS-MOTION-008",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              58
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+        "status": "absent",
+        "sha256": null,
+        "git_blob": null,
+        "bytes": null,
+        "lines": null,
+        "actual_personal_display_chunks": [],
+        "personal_ranges": [],
+        "unread_ranges": [],
+        "byte_identical_to_historical": null,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so."
+    },
+    {
+      "original_index": 2444,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2444",
+      "sha256": "de154a56960ffb19516e463e4fdd5bed4d85b09923ed552f3773729ac8ad56e7",
+      "lines": 179,
+      "new_personal_read_ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          179
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/hair_ops",
+      "delegate_report": "delegated/viewer-limits-report.json",
+      "evidence_archive": "delegated/viewer-limits-evidence.tar.gz",
+      "receipt_member": "report.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 274,
+          "read_ranges": [
+            [
+              1,
+              179
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 613,
+          "read_ranges": [
+            [
+              1,
+              179
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+        "status": "present",
+        "sha256": "40cfb0af104c5b99efdf25346bf83168023b20c4305655f392ef49dcca1ab584",
+        "git_blob": "a3488f26f42625e1f5eb465f3042d561b6d9f0b1",
+        "bytes": 6843,
+        "lines": 179,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            179
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            179
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": false,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so."
+    },
+    {
+      "original_index": 2445,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2445",
+      "sha256": "cd50789f7bb51a70cba222126924e2bd09537e91732baaeaa87a5a5b764bf5a3",
+      "lines": 288,
+      "new_personal_read_ranges": [
+        [
+          1,
+          288
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          144
+        ],
+        [
+          145,
+          288
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/hair_ops",
+      "delegate_report": "delegated/viewer-limits-report.json",
+      "evidence_archive": "delegated/viewer-limits-evidence.tar.gz",
+      "receipt_member": "report.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 275,
+          "read_ranges": [
+            [
+              1,
+              288
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 614,
+          "read_ranges": [
+            [
+              1,
+              288
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+        "status": "present",
+        "sha256": "df0755d84bee3dcbea4124ffdf5f53bb89e513796b87e1577bdfafbdf7fd17f0",
+        "git_blob": "298af9648be8903bf3e2d57554d0caca4376c583",
+        "bytes": 9342,
+        "lines": 220,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            110
+          ],
+          [
+            111,
+            220
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            220
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": false,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so."
+    },
+    {
+      "original_index": 2446,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/biomechanics_validation.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2446",
+      "sha256": "9211b4536a6ae6cf42e37da786ff675287b5d917b2231ba82415e9ed4e84109a",
+      "lines": 64,
+      "new_personal_read_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          64
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/mhr_character",
+      "delegate_report": "delegated/p17-biomechanics-report.json",
+      "evidence_archive": "delegated/p17-biomechanics-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 276,
+          "read_ranges": [
+            [
+              1,
+              64
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 615,
+          "read_ranges": [
+            [
+              1,
+              64
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/biomechanics_validation.rs",
+        "status": "absent",
+        "sha256": null,
+        "git_blob": null,
+        "bytes": null,
+        "lines": null,
+        "actual_personal_display_chunks": [],
+        "personal_ranges": [],
+        "unread_ranges": [],
+        "byte_identical_to_historical": null,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so."
+    },
+    {
+      "original_index": 2447,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/body_response_validation.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2447",
+      "sha256": "bd29a229e56b7d1e2bf3637893267470180968b4d88e10c970ab9067d78c2439",
+      "lines": 103,
+      "new_personal_read_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          103
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/mhr_character",
+      "delegate_report": "delegated/p17-biomechanics-report.json",
+      "evidence_archive": "delegated/p17-biomechanics-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 277,
+          "read_ranges": [
+            [
+              1,
+              103
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 616,
+          "read_ranges": [
+            [
+              1,
+              103
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/body_response_validation.rs",
+        "status": "present",
+        "sha256": "b3292ab6c13201b261d597d9aa15c5e07143c7503fd78ecb229aab8c7bb967ca",
+        "git_blob": "c84ff5c18d0b5e0559285f78822f34dfe5be1060",
+        "bytes": 5278,
+        "lines": 133,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            100
+          ],
+          [
+            101,
+            133
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            133
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": false,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so."
+    },
+    {
+      "original_index": 2448,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/continuity_validation.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2448",
+      "sha256": "2d2788cbd744673baa618011298af0a711c24b8063a8fe651eb4c15922cd68d0",
+      "lines": 27,
+      "new_personal_read_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          27
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/rig_identity",
+      "delegate_report": "delegated/p17-continuity-report.json",
+      "evidence_archive": "delegated/p17-continuity-evidence.tar.gz",
+      "receipt_member": "personal-read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 278,
+          "read_ranges": [
+            [
+              1,
+              27
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 617,
+          "read_ranges": [
+            [
+              1,
+              27
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/continuity_validation.rs",
+        "status": "absent",
+        "sha256": null,
+        "git_blob": null,
+        "bytes": null,
+        "lines": null,
+        "actual_personal_display_chunks": [],
+        "personal_ranges": [],
+        "unread_ranges": [],
+        "byte_identical_to_historical": null,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so."
+    },
+    {
+      "original_index": 2449,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/height_validation.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2449",
+      "sha256": "a40eb11dc1cb1c214bdd2fc118536d9e879075175c3688f4650f680c43bec3d3",
+      "lines": 35,
+      "new_personal_read_ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          35
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/rig_identity",
+      "delegate_report": "delegated/p17-continuity-report.json",
+      "evidence_archive": "delegated/p17-continuity-evidence.tar.gz",
+      "receipt_member": "personal-read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 279,
+          "read_ranges": [
+            [
+              1,
+              35
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 618,
+          "read_ranges": [
+            [
+              1,
+              35
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/height_validation.rs",
+        "status": "absent",
+        "sha256": null,
+        "git_blob": null,
+        "bytes": null,
+        "lines": null,
+        "actual_personal_display_chunks": [],
+        "personal_ranges": [],
+        "unread_ranges": [],
+        "byte_identical_to_historical": null,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so."
+    },
+    {
+      "original_index": 2450,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2450",
+      "sha256": "ad225bb5b1a00479327871963669e407028cc5e4550fe10134be12a2030bacf1",
+      "lines": 142,
+      "new_personal_read_ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          50
+        ],
+        [
+          51,
+          100
+        ],
+        [
+          101,
+          142
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/hair_ops",
+      "delegate_report": "delegated/p17-landing-report.json",
+      "evidence_archive": "delegated/p17-landing-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 280,
+          "read_ranges": [
+            [
+              1,
+              142
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 619,
+          "read_ranges": [
+            [
+              1,
+              142
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs",
+        "status": "present",
+        "sha256": "48cf5febbcb02887e500a960eb52ab06b5abfc9f55e4bdbf236319f5d89da684",
+        "git_blob": "f8bf9081d52e4821df3ecc68cc8bfbcb17340939",
+        "bytes": 7343,
+        "lines": 99,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            50
+          ],
+          [
+            51,
+            99
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            99
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": false,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so."
+    },
+    {
+      "original_index": 2451,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/landing_validation.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2451",
+      "sha256": "f68a28a4d7d79923b5d9b1d5bec979b4518498f9d3d25a91f89911b2916a95cb",
+      "lines": 30,
+      "new_personal_read_ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          30
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/hair_ops",
+      "delegate_report": "delegated/p17-landing-report.json",
+      "evidence_archive": "delegated/p17-landing-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 281,
+          "read_ranges": [
+            [
+              1,
+              30
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 620,
+          "read_ranges": [
+            [
+              1,
+              30
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/landing_validation.rs",
+        "status": "absent",
+        "sha256": null,
+        "git_blob": null,
+        "bytes": null,
+        "lines": null,
+        "actual_personal_display_chunks": [],
+        "personal_ranges": [],
+        "unread_ranges": [],
+        "byte_identical_to_historical": null,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so."
+    },
+    {
+      "original_index": 2453,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/clearance.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2453",
+      "sha256": "ef24a6569ba92503d98ad956984ab627e7c5fc41f7429713cbac258a178e57dd",
+      "lines": 182,
+      "new_personal_read_ranges": [
+        [
+          1,
+          182
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          182
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/mhr_character",
+      "delegate_report": "delegated/p17-metrics-report.json",
+      "evidence_archive": "delegated/p17-metrics-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 290,
+          "read_ranges": [
+            [
+              1,
+              182
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 629,
+          "read_ranges": [
+            [
+              1,
+              182
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/clearance.rs",
+        "status": "absent",
+        "sha256": null,
+        "git_blob": null,
+        "bytes": null,
+        "lines": null,
+        "actual_personal_display_chunks": [],
+        "personal_ranges": [],
+        "unread_ranges": [],
+        "byte_identical_to_historical": null,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so."
+    },
+    {
+      "original_index": 2454,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/continuity.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2454",
+      "sha256": "d231794853b7f8d0c526e543e50e13d15499341746d4d50187f88d2022c5ced3",
+      "lines": 186,
+      "new_personal_read_ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          186
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/rig_identity",
+      "delegate_report": "delegated/p17-metric-facing-report.json",
+      "evidence_archive": "delegated/p17-metric-facing-evidence.tar.gz",
+      "receipt_member": "personal-read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 291,
+          "read_ranges": [
+            [
+              1,
+              186
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 630,
+          "read_ranges": [
+            [
+              1,
+              186
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/continuity.rs",
+        "status": "absent",
+        "sha256": null,
+        "git_blob": null,
+        "bytes": null,
+        "lines": null,
+        "actual_personal_display_chunks": [],
+        "personal_ranges": [],
+        "unread_ranges": [],
+        "byte_identical_to_historical": null,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so."
+    },
+    {
+      "original_index": 2455,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/facing.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2455",
+      "sha256": "3c351540f1c379a250a87469a2cc86c4bb2c525b5fc2dbf084ace8e4b1057671",
+      "lines": 146,
+      "new_personal_read_ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          80
+        ],
+        [
+          81,
+          146
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/rig_identity",
+      "delegate_report": "delegated/p17-metric-facing-report.json",
+      "evidence_archive": "delegated/p17-metric-facing-evidence.tar.gz",
+      "receipt_member": "personal-read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 292,
+          "read_ranges": [
+            [
+              1,
+              146
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 631,
+          "read_ranges": [
+            [
+              1,
+              146
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/facing.rs",
+        "status": "absent",
+        "sha256": null,
+        "git_blob": null,
+        "bytes": null,
+        "lines": null,
+        "actual_personal_display_chunks": [],
+        "personal_ranges": [],
+        "unread_ranges": [],
+        "byte_identical_to_historical": null,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so."
+    },
+    {
+      "original_index": 2456,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/guard_liveness.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2456",
+      "sha256": "4e99ffb41426fe317a4a92c09f49f3533cc6c9a8ced6517f4650408aa0a9d45f",
+      "lines": 108,
+      "new_personal_read_ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          108
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/mhr_character",
+      "delegate_report": "delegated/p17-height-report.json",
+      "evidence_archive": "delegated/p17-height-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 293,
+          "read_ranges": [
+            [
+              1,
+              108
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 632,
+          "read_ranges": [
+            [
+              1,
+              108
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/guard_liveness.rs",
+        "status": "absent",
+        "sha256": null,
+        "git_blob": null,
+        "bytes": null,
+        "lines": null,
+        "actual_personal_display_chunks": [],
+        "personal_ranges": [],
+        "unread_ranges": [],
+        "byte_identical_to_historical": null,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so."
+    },
+    {
+      "original_index": 2457,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2457",
+      "sha256": "e334517ee92a0081ddfa169ebb5f261d0720373b72c261ebe363b57f9a013576",
+      "lines": 254,
+      "new_personal_read_ranges": [
+        [
+          1,
+          254
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          200
+        ],
+        [
+          201,
+          254
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/mhr_character",
+      "delegate_report": "delegated/p17-height-report.json",
+      "evidence_archive": "delegated/p17-height-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 294,
+          "read_ranges": [
+            [
+              1,
+              254
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 633,
+          "read_ranges": [
+            [
+              1,
+              254
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs",
+        "status": "absent",
+        "sha256": null,
+        "git_blob": null,
+        "bytes": null,
+        "lines": null,
+        "actual_personal_display_chunks": [],
+        "personal_ranges": [],
+        "unread_ranges": [],
+        "byte_identical_to_historical": null,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so."
+    },
+    {
+      "original_index": 2458,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height_peaks.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2458",
+      "sha256": "7e8a84b7f3e6b3704d9d6af35807453511541907e3fc780f8c85928cf273e610",
+      "lines": 65,
+      "new_personal_read_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          65
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/hair_ops",
+      "delegate_report": "delegated/p17-peaks-pose-hair-ops-report.json",
+      "evidence_archive": "delegated/p17-peaks-pose-hair-ops-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 295,
+          "read_ranges": [
+            [
+              1,
+              65
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 634,
+          "read_ranges": [
+            [
+              1,
+              65
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height_peaks.rs",
+        "status": "present",
+        "sha256": "629837c2166162e41ef076b43d5c7f4e41714ad0da7c193423ff758e251a0cac",
+        "git_blob": "0210c2538a10cb8ba97d21dec3cdf8cd5da2f5fa",
+        "bytes": 2002,
+        "lines": 50,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            50
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            50
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": false,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so."
+    },
+    {
+      "original_index": 2459,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/pose.rs",
+      "snapshot": "report-p17",
+      "snapshot_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2459",
+      "sha256": "3d5ddade1188ded7f01cd60e2cabe4ccd4fc9e3be625640ad75976ed4016e270",
+      "lines": 188,
+      "new_personal_read_ranges": [
+        [
+          1,
+          188
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          65
+        ],
+        [
+          66,
+          125
+        ],
+        [
+          126,
+          188
+        ]
+      ],
+      "new_personal_read_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "new_personal_read_attribution": "/root/hair_ops",
+      "delegate_report": "delegated/p17-peaks-pose-hair-ops-report.json",
+      "evidence_archive": "delegated/p17-peaks-pose-hair-ops-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "original_supplier_scopes": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 296,
+          "read_ranges": [
+            [
+              1,
+              188
+            ]
+          ]
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+          "row": 635,
+          "read_ranges": [
+            [
+              1,
+              188
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/pose.rs",
+        "status": "absent",
+        "sha256": null,
+        "git_blob": null,
+        "bytes": null,
+        "lines": null,
+        "actual_personal_display_chunks": [],
+        "personal_ranges": [],
+        "unread_ranges": [],
+        "byte_identical_to_historical": null,
+        "git_path_proof": "delegated/central-p17-path-proofs.tar.gz",
+        "qualification": "Path absence is not evidence that functionality was removed; separately registered relocated support remains in the delegate report."
+      },
+      "qualification": "Named delegate and actual revision only. Archived bodies and structural parsing do not create reads, independent lens closure, queue reconciliation or checkpoint3821 credit.",
+      "historical_read_qualification": "The original clean report-p17 snapshot head is 90a; no 6533 read or checkpoint3821 attribution follows from this role. 6533 bodies, where archived, are not separately displayed unless the report states so."
+    }
+  ],
+  "qualification": "28 named delegated complete historical-object body displays, including ahoy current-only display of identical bytes. P17 source belongs to 90a, not 6533 or checkpoint3821. Previously archived, searched or structurally parsed bytes confer no personal read. Independent lens work remains open.",
+  "evidence": "DELEGATED-EVIDENCE-CHECKPOINT-9.json"
+}

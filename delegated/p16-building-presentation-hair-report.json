@@ -1,0 +1,524 @@
+{
+  "schema": "726-bounded-p16-building-presentation-v1",
+  "created_utc": "2026-11-11T22:21:09.210485+00:00",
+  "delegate": "/root/hair_ops",
+  "authoritative_current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "source_identity": {
+    "original_indices": [
+      2511,
+      2512
+    ],
+    "registration": "registration.json",
+    "membership_proof": "git-proofs.json",
+    "identity": "Original roles are physical-p16 dirty snapshot records at exact recovered source hashes. Role2511 matches 0393 catalog origin, clean a120, 6533 and 95e byte-for-byte. Role2512 matches 0393/a120/6533 but differs at 95e only in existing test-module setup and test names; see exact diff and hunks.",
+    "qualification": "Recorded P16 snapshot has 159 dirty paths based at a120390947c89b703dc74c4255a13c035d054c50 and recorded patch SHA-256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7; the full patch bytes remain unrecovered. 0393 is catalog per-object origin; f82 is archive transport, not P16 source HEAD. Per-file equality does not make P16 clean or restore its whole patch.",
+    "personal_reads": "read-receipt.json records full P16 role2511 and bounded 95e 1\u201359, P16 role2512 registered bounded windows and full separately displayed 95e body. Other historical paths and unread complements confer no personal read. Existing tests and diff inspected as source only; no execution."
+  },
+  "connected_observations": [
+    {
+      "id": "CURRENT-VISUAL-SEED-OWNER-RELATION",
+      "status": "Exact current source continuation of 774 rig supplier RIG-OWNER-REACHED-PRODUCER-F004 and RIG-OWNER81-F004; no new unique finding or automatic alias.",
+      "observation": "Door/window observers pass SceneBuildingId.0 to TacticalBuildingMaterials::for_building(u64); its helper passes the word into Seed through the named StreamId and index-based appearance selection. Furniture presentation also uses the same helper with its own instance ID, so a building-only helper would not express every actual caller. Seed and StreamId retain deterministic word, purpose and context framing in the inspected owner.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/doors.rs",
+          "lines": [
+            [
+              28,
+              58
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/windows.rs",
+          "lines": [
+            [
+              20,
+              46
+            ],
+            [
+              55,
+              73
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs",
+          "lines": [
+            [
+              1,
+              2
+            ],
+            [
+              27,
+              84
+            ],
+            [
+              219,
+              225
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/furniture.rs",
+          "lines": [
+            [
+              53,
+              86
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-determinism/src/seed.rs",
+          "lines": [
+            [
+              23,
+              46
+            ],
+            [
+              49,
+              82
+            ],
+            [
+              170,
+              173
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_input/buildings/identity.rs",
+          "lines": [
+            [
+              4,
+              5
+            ],
+            [
+              24,
+              32
+            ]
+          ]
+        }
+      ],
+      "qualification": "Prior rig producer F004 asks to carry source identity through helpers, while rig owner F004 states the shared visual API should own Seed after deliberate conversion because furniture and building identities differ. This evidence supports that distinction without deciding an automatic alias, claiming duplicate appearance IDs, or asserting a runtime visual fault.",
+      "future_direction": "At a future connected repair gate, retain each original semantic identity until the explicit conversion to a shared deterministic Seed, then carry that owner through the sampler; preserve exact bits, stream name, context, bucket thresholds, draw count, tables and visuals. Reconcile the earlier producer and owner records centrally."
+    },
+    {
+      "id": "CURRENT-FACADE-CLOSURE-PROJECTION-TRACE",
+      "status": "Narrowed source connection for 059 q585 Q-L11-65c1ca69792ec528b64f, not a new finding or full lifecycle closure.",
+      "observation": "Exact facade predicate selects eligible programs; the plan derives facade opening IDs from retained host walls and dynamic closure solids. Compiled building levels retain that set and the building add observer installs FacadeOpenings. Door and window observers attach the building/opening pair and initial Lod0 range; the Update sync finds a building by its typed ID, looks up its opening, and updates range only on membership changes. The inspected placement validator rejects zero or duplicate IDs within the one tactical placement slice.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/lod/closures.rs",
+          "lines": [
+            [
+              6,
+              37
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/buildings.rs",
+          "lines": [
+            [
+              143,
+              190
+            ],
+            [
+              290,
+              295
+            ],
+            [
+              364,
+              385
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/building_closures.rs",
+          "lines": [
+            [
+              5,
+              59
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/doors.rs",
+          "lines": [
+            [
+              15,
+              25
+            ],
+            [
+              28,
+              58
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/windows.rs",
+          "lines": [
+            [
+              20,
+              46
+            ],
+            [
+              55,
+              73
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+          "lines": [
+            [
+              151,
+              168
+            ],
+            [
+              229,
+              248
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/demo_lifecycle.rs",
+          "lines": [
+            [
+              19,
+              70
+            ]
+          ]
+        }
+      ],
+      "qualification": "This is not proof of all ECS entity sources, cross-slice uniqueness, scheduling/deferred observer ordering, asset publication or native VisibilityRange behavior. A missing building causes sync to continue with its previous value; scene cleanup removes SceneBuilding, SceneDoor and SceneWindow in the inspected path, but other removals and linked-child lifetime are not established. No stale leaf, flicker, actual scene, or renderer run claimed.",
+      "future_direction": "Trace all entity spawn/removal and identity-lifetime relations and the documented/native range scheduling before deciding whether the cached boolean needs stronger invalidation or an explicit missing-owner state. Preserve leaf transform and intended continuous detail-to-facade behavior."
+    },
+    {
+      "id": "CURRENT-CITY-MATERIAL-RELATION",
+      "status": "Related to original ADLER-L11-CITY-SURFACE-MATERIAL-CONTRACT and earlier publication ASSESSMENT-CITY-GPU-READINESS-MATERIAL-95E; no separate new finding.",
+      "observation": "Current full materials source binds albedo and normal maps, shares ARM as metallic-roughness and occlusion maps, sets scalar roughness/metallic to 1, and computes diagonal physical UV scale. Its actual palette routes timber-infill to the appearance infill material. Earlier central assessment separately traces the city adapter and native Bevy source; that prior source inspection is preserved with its original scopes, not claimed as a personal read here.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs",
+          "lines": [
+            [
+              147,
+              182
+            ],
+            [
+              228,
+              244
+            ],
+            [
+              343,
+              365
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/buildings/materials/palette.rs",
+          "lines": [
+            [
+              10,
+              18
+            ]
+          ]
+        }
+      ],
+      "qualification": "Whether distant approximation intentionally omits maps and how a selected render pipeline behaves remain open. No shader, image, renderer, generated texture or product was run and no observed visual difference is asserted. Standard window glass explicitly uses a nominal scalar thickness; that is not an implicit texture-channel conversion.",
+      "future_direction": "Reconcile the original material contract and central trace, then decide the intended native/distant fidelity boundary using actual selected feature paths; preserve named texture channels, physical tile scale and deliberate nominal glass semantics."
+    }
+  ],
+  "open_questions": [
+    {
+      "question": "Does every supported creation, replacement, despawn and deferred-command path keep each leaf matched to exactly one active SceneBuilding and facade set at the time sync runs?",
+      "evidence": "The inspected building observer populates a set and scene cleanup removes major scene types, and placement-slice admission checks IDs. The sync missing-owner branch has no update, but uninspected lifecycle/scheduling paths leave reachability unresolved.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/building_closures.rs",
+          "lines": [
+            [
+              31,
+              52
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/buildings.rs",
+          "lines": [
+            [
+              143,
+              190
+            ],
+            [
+              290,
+              295
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/doors.rs",
+          "lines": [
+            [
+              17,
+              24
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/demo_lifecycle.rs",
+          "lines": [
+            [
+              19,
+              70
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+          "lines": [
+            [
+              229,
+              248
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "What distinct appearance and sampling owner should serve both building and furniture source identities while retaining stable streams and material decisions?",
+      "evidence": "Both native typed source IDs are reduced to words before a shared helper, which later constructs Seed and uses a named stream; rig producer/owner records give differing scope advice that needs connected reconciliation.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/doors.rs",
+          "lines": [
+            [
+              35,
+              43
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/furniture.rs",
+          "lines": [
+            [
+              78,
+              86
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs",
+          "lines": [
+            [
+              70,
+              84
+            ],
+            [
+              219,
+              225
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-determinism/src/seed.rs",
+          "lines": [
+            [
+              23,
+              46
+            ],
+            [
+              49,
+              82
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "Is ARM map omission in the distant city adapter deliberate quality policy or a lost material contract for all affected recipes?",
+      "evidence": "The selected source binds ARM maps and scalar factors; earlier central current assessment includes the adapter, native Bevy source and limited shader source as historical/current prior evidence. Pipeline selection, assets and runtime appearance remain unobserved.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs",
+          "lines": [
+            [
+              343,
+              365
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/buildings/materials/palette.rs",
+          "lines": [
+            [
+              10,
+              18
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings": [
+    {
+      "topic": "Unrelated buildings with matching opening IDs necessarily select the same facade membership",
+      "reason": "The sync first selects the SceneBuilding matching the leaf building ID, then tests its typed opening ID in that building\u2019s set. This does not prove arbitrary duplicate building entities are impossible.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/building_closures.rs",
+          "lines": [
+            [
+              31,
+              43
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+          "lines": [
+            [
+              229,
+              248
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "Source tests prove the current palette distribution or texture content",
+      "reason": "Tests were displayed as source only. Current test-module changes reserve procedural handles rather than call the earlier generator setup; no test, generator or renderer ran.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs",
+          "lines": [
+            [
+              440,
+              480
+            ],
+            [
+              500,
+              555
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "Ordinary appearance index is already out of range",
+      "reason": "In the inspected current source enum declaration and ALL table have matching eight-item order; setup builds the vector from that order, and the helper selects those variants. This is a bounded positive observation, not a future-proof invariant or RNG-distribution proof.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs",
+          "lines": [
+            [
+              27,
+              84
+            ],
+            [
+              228,
+              239
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "producer-propagation",
+      "assessment": "SceneBuildingId and furniture identity become raw u64 at a shared visual-seed helper. Relate exact current seam to rig producer F004 and owner F004, which distinguish identity from shared Seed; preserve framing."
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "SceneBuildingId, OpeningAssemblyId, Seed, StreamId and BuildingAppearance own distinct purposes. Convert source identity deliberately at the visual seed boundary; do not force furniture IDs into a building identity."
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "The inspected tactical placement-slice validator rejects zero/duplicate IDs, but not every possible ECS construction or delayed publication. StreamId constructor rejects an empty purpose; complete RNG and external rendering validation not inspected."
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Appearance table is constructed in enum order and current bins cover the match. Native range updates depend on cached membership changes; no arithmetic or scheduling failure claimed without supported route."
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Building/opening IDs, facade set, bool, range and scene entity lifecycle must agree. Same-ID/opening lookup and scene cleanup are partial evidence; other spawn/removal/order remain open q585."
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "A shared deterministic visual sampling function can use Seed while original building and furniture identity remain separate; old rig owner versus producer wording needs central reconciliation rather than a building-only abstraction."
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "The facade bool caches derived set membership and triggers range changes; that is not a second gameplay authority by itself. A stale cache needs a supported lifecycle or external range writer proof."
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Role2511 is byte-identical; role2512 diff changes test-only setup and test names. This does not prove behavior, generated texture content or a passing test; future migration must preserve stream framing, palette and LOD contracts."
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "Appearance and LOD levels are named enums; facade bool is a local cached predicate for range updates. No enum coercion finding without an invalid neighboring payload or lifecycle witness."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "Source uses derives on components/enums and no handwritten serialization in assigned bodies; no independent derivability finding. The native VisibilityRange adapter remains an external interface."
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Scene-building identity, opening identity and deterministic Seed are different roles; color palette, PBR maps, scalar factors and visual LOD stages cannot be collapsed just because values share primitive types."
+    },
+    {
+      "lens": "magic-strings",
+      "assessment": "The static visual.building.appearance literal is the named StreamId purpose and existing contract; preserve its framing rather than replace it as incidental UI text. Test names are source-only diagnostics."
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Distribution thresholds, authored palette bytes, tile scale, LOD ranges and native channel factors have distinct policy meaning. Preserve current values and units while tracing owner/consumer; do not classify constants alone as defects."
+    }
+  ],
+  "historical_attribution": {
+    "774_rig": "Supplier rig producer registers044 (2511 1\u201352), 045 requested 60\u201384 and 219\u2013223 but qualified 70\u201384 and 219\u2013223, 046 qualified 224\u2013225, and 051 qualified 1\u20132; retained original registration and qualification files show those limits. RIG-OWNER-REACHED-PRODUCER-F004 and RIG-OWNER81-F004 remain supplier evidence with their own purpose/ownership wording. Rig owner comparison013 carries 2511 1\u201352 only; comparison014 material scopes are exact qualified ranges.",
+    "774_other": "SEGOVB-INITIAL04-CONTRACT-603 personally read P16 role2511 1\u2013150 and 2512 1\u2013568, including source fixtures but no execution; CONT07-CONTRACT-580 has bounded 2511 1\u201352 and 2512 1\u20132,60\u201384,219\u2013225, separately attributed. Neither is checkpoint3821.",
+    "059": "READ-L11-416 records fresh P16 role2511 1\u201352 and separate 53\u201359, and explicitly reuses Adler READ-L11-215 PR role1521 1\u2013568 for P16 role2512 with no fresh P16 personal read. READ-L11-571 e275 role2511 53\u201359 is inherited attestation and zero fresh reviewer/root reads, not current 95e coverage. READ-L12-853 attributes independent P16 role2511 1\u201352 and role2512 1\u20132,60\u201384,219\u2013225 to /root/lens12_frontier. Original q585 remains open.",
+    "prior_current": "Earlier ASSESSMENT-CITY-GPU-READINESS-MATERIAL-95E is copied at its publication commit with exact listed compressed supporting source bytes and pinned native archive. Its author/scopes are not transferred to this agent; native Bevy and shader evidence were not personally displayed here.",
+    "qualification": "Historical transport, reconstructed selection and prior current-source evidence retain exact revision and author; no recovered record is checkpoint3821."
+  },
+  "limitations": [
+    "All thirteen perspectives are bounded to stated own source windows and do not assert whole-lens completion.",
+    "No product, render, shader, texture generator, test, build, UI, viewer, runtime probe, simulation, repair or publication/source edit.",
+    "No claim to have recovered the complete dirty P16 patch, a supported lifecycle failure, sampled distribution or rendered material outcome. Central owns alias disposition, ledger and publication."
+  ]
+}

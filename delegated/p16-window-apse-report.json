@@ -1,0 +1,494 @@
+{
+  "schema": "726-delegate-p16-window-apse-report-v1",
+  "author": "/root/rig_identity",
+  "written_utc": "2026-11-11 22:39:48 UTC",
+  "scope": "Original role2530 dirty P16 server windows and role2533 pr-working/clean6533 church apse, independently displayed with current counterparts and bounded supports; thirteen perspectives only, no whole-lens completion.",
+  "baseline_and_recovery": {
+    "pinned_current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "p16_recorded_dirty_base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "p16_status_records": 159,
+    "p16_original_patch_sha256": "fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7",
+    "p16_patch_bytes": "unrecovered",
+    "p16_transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee archive only, not product revision",
+    "pr_working": "2533 exact file matches clean 6533 commit; original pr-working snapshot records four other modified paths and is not globally clean",
+    "identity": "2530 individual P16 object equals 95e, 6533 and a120; 2533 historical 6533 exact file equals 95e and its f82 transported object; no whole-snapshot equivalence",
+    "proofs": "registration.json, personal-read-receipt.json, git-proofs.json and raw Git objects"
+  },
+  "historical_attribution": [
+    {
+      "source": "774 rig owner-reached producer",
+      "source_identity": "P16 dirty server windows object transported by f82",
+      "author": "rig supplier as recorded",
+      "roles": "REGISTER-008 lines1\u2013130 and REGISTER-015 lines131\u2013150; fixtures151\u2013294 excluded. F002 static checked geometry to grab helper and F003 checked hinge/angle controller retention distinct. No owner/other-lens/global acceptance transferred."
+    },
+    {
+      "source": "774 native roof producer followup",
+      "source_identity": "clean 6533 pr-working exact apse file, f82 evidence transport only",
+      "author": "native supplier as recorded",
+      "roles": "NATIVE-ROOF-SCOPE-004 and TRACE-010 full1\u201375; prior F001 begins at roof_polygon_bounds, not ApseRoof source arithmetic. RAW-SOURCE-002 is separately classified inventory; no duplicate count."
+    },
+    {
+      "source": "059 READ-L11-418 and READ-L11-419",
+      "source_identity": "2530 adoption of historical PR-working 6533 full body and 2533 fresh 6533 body",
+      "author": "Adler READ-L11-325 personally read 2530 earlier source1\u2013294, Segovb adoption has no fresh body read; Segovb separately freshly read 2533 full1\u201375",
+      "roles": "REG-1435 same-lens prior original2078; REG-1439 original2533 full. Exact matching source bytes do not transfer read attribution or current-main review."
+    },
+    {
+      "source": "059 READ-L12-859 and READ-L12-860",
+      "source_identity": "2530 dirty P16 recovered object; 2533 clean6533 Git file",
+      "author": "/root/lens12_frontier fresh bounded reads, root adoption and zero root personal rereads",
+      "roles": "PAR-L12-561 server1\u2013150 excludes fixtures151\u2013294; PAR-L12-564 apse1\u201375. Preserve separate transport qualification."
+    },
+    {
+      "source": "Prior current reports and publication assessments",
+      "source_identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "author": "/root/rig_identity walls/windows, shutters, roof; /root/mhr_character window leaf/spec; published assessments retain their own author/ranges",
+      "roles": "Exact selected prior reports, manifests and personal receipts are copied; larger prior packets and published assessments remain hash-linked, not rewritten or promoted."
+    }
+  ],
+  "findings_and_questions": [
+    {
+      "id": "P16-WINDOW-TOGGLE-THREE-D-REACH",
+      "classification": "source-backed conditional authoritative interaction-boundary finding; unique count and priority centrally reconciled",
+      "first_contract": "The ordinary client selects windows within 2 m in 3D and checks terrain visibility, but the authoritative ToggleWindow action takes a mapped window entity and calls a predicate based only on tangent/outward dot products, without repeating either client range or line-of-sight check in the displayed action path. Generated SceneWindow directions are lifted from the plan with y=0. A symbolic actor offset (0, 100, -1) from an axis-aligned window with tangent X and outward Z yields depth -1 and lateral 0, satisfying the source predicate despite the vertical distance.",
+      "condition_and_limits": "A controlled player with an empty authoritative hand, admissible sequence/current revision and a mapped target entity must send the separately selected window to the server. Whether a different-floor or remote entity is replicated/mappable in the relevant session and actual action delivery were not established. The ordinary client selector uses the animated transform position for its 3D bound and terrain ray; the server uses the stored opening centre, so its eventual authoritative reach policy must account for this intentional distinction. No client manipulation, request, scene, runtime, product or test was executed.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/windows.rs",
+          "ranges": [
+            [
+              30,
+              62
+            ],
+            [
+              86,
+              120
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/doors.rs",
+          "ranges": [
+            [
+              9,
+              14
+            ],
+            [
+              16,
+              44
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+          "ranges": [
+            [
+              69,
+              74
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-netcode/src/message.rs",
+          "ranges": [
+            [
+              114,
+              127
+            ],
+            [
+              148,
+              155
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/equipment.rs",
+          "ranges": [
+            [
+              56,
+              78
+            ],
+            [
+              96,
+              120
+            ],
+            [
+              130,
+              162
+            ],
+            [
+              175,
+              175
+            ],
+            [
+              233,
+              244
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/equipment.rs",
+          "ranges": [
+            [
+              67,
+              67
+            ],
+            [
+              257,
+              271
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/equipment/grab_world.rs",
+          "ranges": [
+            [
+              33,
+              42
+            ],
+            [
+              64,
+              99
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/targeting.rs",
+          "ranges": [
+            [
+              3,
+              25
+            ]
+          ]
+        }
+      ],
+      "future_direction": "Determine the authoritative target/reach and obstruction contract at the server boundary, re-evaluate current authoritative actor/window pose and permitted interaction volume while preserving legitimate windows, stale-state/ownership checks, and the deliberate inside-side semantics. Decide separately whether terrain visibility is an authoritative requirement.",
+      "relationships": [
+        "The shared helper also serves door grabs, but this review establishes the assigned window action path only; do not automatically merge a door finding.",
+        "774 RIG-OWNER-REACHED-PRODUCER-F002 concerns checked geometry peeled into raw helper signatures, a distinct producer contract. 059 Q-L12-345257969fc5633e9188 retains selected environment/owner proof; neither is an automatic alias."
+      ]
+    },
+    {
+      "id": "P16-WINDOW-PARTIAL-SPAWN-ON-POSE-ERROR",
+      "classification": "previously recorded source condition with current corroboration; no duplicate count",
+      "first_contract": "compile_operable_windows completes its result before the loop, but datum.window is fallible for each element after earlier spawn_window calls have queued commands. A later conversion error can therefore occur after an earlier command was queued; the final applied state depends on caller/error handler and deferred command policy.",
+      "condition_and_limits": "A supported plan must produce at least two windows with a later pose conversion failure, and the actual observer/error-handler behavior must allow queued commands to be applied for a partial result. The prior published Bevy handler source distinguishes default panic from nonpanicking handler configurations. No accepted malformed plan, failure, commands, rollback or product effect has been observed.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/windows.rs",
+          "ranges": [
+            [
+              66,
+              83
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows.rs",
+          "ranges": [
+            [
+              103,
+              158
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_coordinates/window.rs",
+          "ranges": [
+            [
+              25,
+              58
+            ]
+          ]
+        }
+      ],
+      "future_direction": "Trace supported numeric conversion failures and actual error handling, then enforce or document the intended scene assembly atomicity without losing source-specific errors and existing spawn order.",
+      "relationships": [
+        "059 Adler READ-L11-325 and Segovb READ-L11-418, plus /root/lens12_frontier READ-L12-859, already recorded this exact potential prefix. Hash-linked prior ASSESSMENT-GATE-HANDEDNESS-95E distinguishes error handler modes. No new count."
+      ]
+    },
+    {
+      "id": "P16-WINDOW-CONTROLLER-CHECKED-RETAINED-STATE",
+      "classification": "historical producer finding, current source corroboration; no duplicate count",
+      "first_contract": "SceneWindowPose retains admitted position and angle but spawn_window projects hinge and open angle to Vec3/f32 in WindowController, which retains them until animate_windows. The target, current angle and motion delta are newly calculated control state rather than an unchanged checked leaf.",
+      "condition_and_limits": "This is a producer/type propagation concern, not a demonstrated invalid transform, desynchronization, runtime incident or evidence that numerical kernel extraction is unnecessary. The actual compiled window producer derives its hinge/yaw and datum together; a general public WindowSpec has independently admitted fields, but private spawn_window is reached here via compile_operable_windows.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/windows.rs",
+          "ranges": [
+            [
+              10,
+              17
+            ],
+            [
+              86,
+              129
+            ],
+            [
+              131,
+              148
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_coordinates/window.rs",
+          "ranges": [
+            [
+              11,
+              23
+            ],
+            [
+              25,
+              50
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows.rs",
+          "ranges": [
+            [
+              161,
+              205
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows/spec.rs",
+          "ranges": [
+            [
+              31,
+              45
+            ],
+            [
+              94,
+              107
+            ]
+          ]
+        }
+      ],
+      "future_direction": "Retain canonical scene hinge and admitted angle to the native transform calculation if the first-party operation contract requires it; preserve quaternion product, signed swing, target ordering, fixed-tick behavior and actor reach semantics.",
+      "relationships": [
+        "Exact original 774 RIG-OWNER-REACHED-PRODUCER-F003; F002 is the separate static grab-helper checked-value path. The peer P16-WINDOWSPEC-AGGREGATE and own P16-WINDOW-OPENING-FRAME-AGGREGATE remain connected without transfer of prior read credit or assumed alias."
+      ]
+    },
+    {
+      "id": "PR-CHURCH-APSE-ORDINAL-FACET-CONTRACT",
+      "classification": "source-backed bounded authored-mode and aggregate question; supported alternate case unproved",
+      "first_contract": "ApseRoof::from_source selects the special radial polygon from the fifth roof recipe only when there are exactly five ChurchApse walls; it sorts the walls by facet but does not independently require unique 0..4 facet ordinals, connected chord endpoints, or that the selected recipe has the apse role. The false branch deliberately calls the ordinary roof polygon producer.",
+      "normal_source_scope": "The independently displayed basilica producer supplies a fifth Pavilion recipe and the church assembly constructs five consecutive facets 0..4; architectural envelope resolves church before the roofs. This supports the shown authored path and does not show a supported reorder or malformed facet collection reaching the private helper.",
+      "condition_and_limits": "A different supported producer must change the positional recipe/association or facet graph before this helper to make count/ordinal insufficient; no such producer, accepted malformed plan, physical effect, rendering or runtime validation is established. `set_roof_pitch` shown acts later on a retained graph, not proof of a reorder-before-resolution path.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/church_apse.rs",
+          "ranges": [
+            [
+              9,
+              67
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_derivation.rs",
+          "ranges": [
+            [
+              1,
+              3
+            ],
+            [
+              209,
+              265
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/church_assembly.rs",
+          "ranges": [
+            [
+              1093,
+              1110
+            ],
+            [
+              1162,
+              1186
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/architectural_envelope.rs",
+          "ranges": [
+            [
+              15,
+              27
+            ],
+            [
+              45,
+              57
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+          "ranges": [
+            [
+              1,
+              36
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+          "ranges": [
+            [
+              1,
+              26
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_editing.rs",
+          "ranges": [
+            [
+              5,
+              18
+            ],
+            [
+              61,
+              77
+            ]
+          ]
+        }
+      ],
+      "future_direction": "Trace all supported authoring and regeneration paths before replacing the frozen authored ordering with a semantic source relation or stricter graph validation. Preserve intentional ordinary roof modes, five-facet geometry, radial eave floor and original numerical order.",
+      "relationships": [
+        "059 READ-L12-860 explicitly recorded source index 4/five facets as frozen authored mode and excluded unsupported empty-index panic; 059 Q-L11-f71914e5b260bf5e5f13 and Q-L11-68cc0247efce64e1329f retain broader roof/source/plane contracts.",
+        "Own P16-APSE-WALL-FRAME-NAN-PREDICATE is a separate conditional wall-audit predicate, not proof that malformed facets reach this private roof helper."
+      ]
+    },
+    {
+      "id": "NATIVE-ROOF-PPS-F001-APSE-SOURCE-RELATION",
+      "classification": "older carried producer finding and current bounded source relation; no duplicate count",
+      "first_contract": "ApseRoof produces new raw polygon vertices from source wall data and the generated roof recipe. The prior native review traced later bounds admission and retention of the unchanged polygon as raw data; its first producer loss is the bounds helper, not the new computations in ApseRoof itself.",
+      "condition_and_limits": "This source review independently displayed the apse producer and beginning of the resolver but does not claim to have read or verified every downstream bounds/plane/recipient body in this packet. Pinned source and historic reviewer scopes remain distinct.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/church_apse.rs",
+          "ranges": [
+            [
+              23,
+              67
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+          "ranges": [
+            [
+              21,
+              26
+            ],
+            [
+              332,
+              340
+            ]
+          ]
+        }
+      ],
+      "future_direction": "Reconcile original checked-point retention with downstream roof graph owner and actual native geometry ports, preserving source polygon ordering, normal scaling, numeric/error policy and the authored apse mode.",
+      "relationships": [
+        "Original 774 native NATIVE-ROOF-PPS-TRACE-010 and NATIVE-ROOF-PPS-F001, with NATIVE-ROOF-PPS-RAW-SOURCE-002 as separate source-strengthening inventory, are retained verbatim; earlier /root/rig_identity physical roof report independently covers related current helpers. No new count."
+      ]
+    }
+  ],
+  "nonfindings": [
+    "Apse first-element and outline indexing occur only after the count-five gate, so an empty-array panic is not supported by that path.",
+    "The normal displayed urban basilica path creates the fifth roof recipe and exactly five sequential apse wall facets; arbitrary alternative ordering was not demonstrated.",
+    "The client itself applies a 3D 2 m selector and a terrain ray; the source finding concerns the separately authoritative server action check, not normal client selection bypass.",
+    "Existing tests and examples were read as text only, never executed."
+  ],
+  "lenses": [
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "Debug and ECS Name are presentation diagnostics; window uses typed SceneBuildingId/OpeningAssemblyId and apse uses typed WallSourceId. The apparent string does not classify application behavior."
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "Window angular rate is named; the apse uses explicit index 4, five facets and 0.75 m eave floor tied to the authored basilica. The producer and consumers need their positional/physical contract rather than arbitrary wrapper extraction."
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "Window pose retains Scene frame positions and directions before controller projects them into raw native state; raw RoofPiece and WallLocalFrame source geometry become new polygon points. Existing checked owners are role/frame specific."
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "Canonical Position, PlanDirection, Radians and LeafDimensions exist and are carried through SceneWindowPose. Reuse them for retained same-value state only where they describe the actual authority; native actor positions and newly calculated polygon points remain separate admission cases."
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Roof source ordinal selects an authored role, not a universal numeric role. Typed window/opening/scene identifiers and axes encode distinct meanings; 3D reach and inside-side depth are related but separate interaction requirements."
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "The controller advances/clamps signed angular state then uses quaternion rotation about hinge; 3D grab excludes height from dot products. Apse computes chord ends, normalized radial offset and tangent-based apex under input-specific geometric assumptions."
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Window closed centre/hinge/tangent/yaw must agree for a no-jump reconstruction; individually admitted fields alone do not prove that relationship, while the shown generator derives them together. Five apse wall facets and their roof ordinal are a multi-record relationship."
+    },
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "WindowSpec wire checks leaves individually and SceneWindowPose admits converted values with source identity; authoritative action gates actor, sequence, state and empty hand, but shown grab predicate does not establish client 3D reach. Apse private helper depends on its producer scope."
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "Window open is a controller-local toggle over fixed kinematic movement; typed leaf/bar presence and ChurchApse facet tag retain meaningful modes. Ordinary fallback roof construction is a real alternate branch, not assumed legacy behavior."
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "WindowController hinge/open angle duplicate projections of the paired admitted pose and SceneWindow stores other geometry separately; 774 F003 tracks retention. Apse walls and roof-piece ordinal cooperate as one authored graph rather than automatically interchangeable sources."
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "P16 and current server file match individually; apse clean 6533 file matches current while its historical pr-working snapshot had unrelated dirty paths. Preserve valid inward swing, float/quaternion operation order, exact eave/normal/fallback policies and errors."
+    },
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "774 F002/F003 cover static grab-helper and controller retained checked-value losses respectively. 774 native F001 begins at later polygon bounds admission, not new apse arithmetic. No prior source proof becomes this reader\u2019s original-lens credit."
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "WindowSpec custom serde admits individually checked fields with contextual errors; SceneWindow follows the same contextual pattern. Derive replacements cannot be inferred from individual attribute similarities or helper usage."
+    }
+  ],
+  "open_questions": [
+    "Can a client session map a remote/other-floor window entity, and what authoritative distance, inside-side and terrain occlusion policy applies to a mapped action?",
+    "Are all actor and window positions compared in the same scene frame and how should open-leaf target position relate to its closed opening centre?",
+    "Can any supported upstream plan produce a late pose conversion error after earlier window commands; what actual deferred/error-handler policy governs it?",
+    "Can any supported generation/edit/regeneration pipeline change apse recipe order or facet set before private resolution, and are complete roof graphs/planes subsequently validated?",
+    "How do original F002, F003 and F001 repair units interact with broader window, door and roof ownership without conflating their first contracts?"
+  ],
+  "limits": "Source inspection, mathematical reasoning and evidence-only verification. No product execution, repairs, builds, tests, fixture or simulation execution, UI or runtime probes."
+}

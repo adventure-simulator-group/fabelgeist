@@ -1,0 +1,115 @@
+{
+  "schema": "726-prior-current-read-qualification-correction-v1",
+  "original_assessment": "ASSESSMENT-L01-HISTORICAL-1914-1919.json",
+  "original_assessment_sha256": "f812100a7f250d1a4875490d075776b954f4d5258e2bd4035568810c45f96a00",
+  "finding": "The prior assessment correctly records a complete historical-body display and per-file byte equality. Its repeated prose could be read as claiming a separate current display for all six roles, even where current_personal_ranges is empty. Interpret separate 95e personal display only as the specific recorded current_personal_ranges, and make no independent 95e display claim for roles 1916–1919 from that record. Equal archived bytes establish content identity, not separate display or inferred attribution.",
+  "scope": "This correction qualifies the earlier central record without overwriting it, reassigning historical authorship, adding 3821 evidence, or changing any lens or queue completion status. Later delegates may have separate independently registered read receipts; these do not rewrite the earlier record.",
+  "roles": [
+    {
+      "original_index": 1914,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input.rs",
+      "current_personal_ranges_as_previously_recorded": [
+        [
+          150,
+          174
+        ],
+        [
+          252,
+          306
+        ],
+        [
+          313,
+          358
+        ],
+        [
+          361,
+          391
+        ],
+        [
+          427,
+          467
+        ]
+      ],
+      "historical_content_ranges_as_previously_recorded": [
+        [
+          1,
+          1026
+        ]
+      ],
+      "prior_qualification_verbatim": "Complete equal historical body was personally read; listed ranges independently re-read at95e. Fixtures and tests remain unexecuted.",
+      "author_attribution": "The previous assessment does not explicitly name the personal reader; no reader is inferred."
+    },
+    {
+      "original_index": 1915,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "current_personal_ranges_as_previously_recorded": [
+        [
+          27,
+          85
+        ]
+      ],
+      "historical_content_ranges_as_previously_recorded": [
+        [
+          1,
+          438
+        ]
+      ],
+      "prior_qualification_verbatim": "Complete equal historical body was personally read; listed ranges independently re-read at95e. Fixtures and tests remain unexecuted.",
+      "author_attribution": "The previous assessment does not explicitly name the personal reader; no reader is inferred."
+    },
+    {
+      "original_index": 1916,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/identity.rs",
+      "current_personal_ranges_as_previously_recorded": [],
+      "historical_content_ranges_as_previously_recorded": [
+        [
+          1,
+          40
+        ]
+      ],
+      "prior_qualification_verbatim": "Complete equal historical body was personally read; listed ranges independently re-read at95e. Fixtures and tests remain unexecuted.",
+      "author_attribution": "The previous assessment does not explicitly name the personal reader; no reader is inferred."
+    },
+    {
+      "original_index": 1917,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/placement.rs",
+      "current_personal_ranges_as_previously_recorded": [],
+      "historical_content_ranges_as_previously_recorded": [
+        [
+          1,
+          188
+        ]
+      ],
+      "prior_qualification_verbatim": "Complete equal historical body was personally read; listed ranges independently re-read at95e. Fixtures and tests remain unexecuted.",
+      "author_attribution": "The previous assessment does not explicitly name the personal reader; no reader is inferred."
+    },
+    {
+      "original_index": 1918,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/reservations.rs",
+      "current_personal_ranges_as_previously_recorded": [],
+      "historical_content_ranges_as_previously_recorded": [
+        [
+          1,
+          48
+        ]
+      ],
+      "prior_qualification_verbatim": "Complete equal historical body was personally read; listed ranges independently re-read at95e. Fixtures and tests remain unexecuted.",
+      "author_attribution": "The previous assessment does not explicitly name the personal reader; no reader is inferred."
+    },
+    {
+      "original_index": 1919,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/descriptor.rs",
+      "current_personal_ranges_as_previously_recorded": [],
+      "historical_content_ranges_as_previously_recorded": [
+        [
+          1,
+          103
+        ]
+      ],
+      "prior_qualification_verbatim": "Complete equal historical body was personally read; listed ranges independently re-read at95e. Fixtures and tests remain unexecuted.",
+      "author_attribution": "The previous assessment does not explicitly name the personal reader; no reader is inferred."
+    }
+  ],
+  "repair": "not started",
+  "product_validation": "not performed"
+}

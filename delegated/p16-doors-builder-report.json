@@ -1,0 +1,492 @@
+{
+  "schema": "726-delegate-source-assessment-v1",
+  "author": "/root/mhr_character",
+  "written_utc": "2026-11-11T22:16:48.656141+00:00",
+  "scope": {
+    "original_roles": [
+      2500,
+      2501
+    ],
+    "historical_snapshot": "physical-p16 dirty snapshot; recovered individual objects only",
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "not_claimed": "No full-lens or checkpoint3821 completion, no publication/ledger ownership, no product validation."
+  },
+  "baseline_and_recovery": {
+    "recorded_base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "f82_transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "recorded_dirty_patch_sha256": "fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7",
+    "patch_status": "Patch bytes not recovered. Parent bounded scan of 7,156 patch/diff files <=100 MB under older ae46 and supplied 28ba collections found no matching hash; this is not global absence.",
+    "object_comparison": "Each recovered role object is separately SHA-verified and byte-equal to its a120 base path and pinned 95e path; raw commit/tree/blob evidence proves those individual memberships and f82 archive transport. This does not identify the whole dirty snapshot with a120 or make f82 its source revision.",
+    "bodies": [
+      {
+        "role": 2500,
+        "kind": "physical-p16",
+        "path": "crates/adventuresim-building-generator/src/doors.rs",
+        "archive": "source/physical-p16-2500.source",
+        "sha256": "117277d2c1a3694f567606dcd0e8207f647755a386fdabfca098aa8597a6e1b7",
+        "git_blob_sha1": "935e163f5ec9531e902575c1bcbb277c9fe3558d"
+      },
+      {
+        "role": 2500,
+        "kind": "current",
+        "path": "crates/adventuresim-building-generator/src/doors.rs",
+        "archive": "source/current-2500.source",
+        "sha256": "117277d2c1a3694f567606dcd0e8207f647755a386fdabfca098aa8597a6e1b7",
+        "git_blob_sha1": "935e163f5ec9531e902575c1bcbb277c9fe3558d"
+      },
+      {
+        "role": 2501,
+        "kind": "physical-p16",
+        "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+        "archive": "source/physical-p16-2501.source",
+        "sha256": "502686dec923c61c5544f2249c9ba10f0a1ec2fac5db68afbb55a5426698570d",
+        "git_blob_sha1": "967d6da1353c8c1c4bf40362bc1b3167c6d1a6f8"
+      },
+      {
+        "role": 2501,
+        "kind": "current",
+        "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+        "archive": "source/current-2501.source",
+        "sha256": "502686dec923c61c5544f2249c9ba10f0a1ec2fac5db68afbb55a5426698570d",
+        "git_blob_sha1": "967d6da1353c8c1c4bf40362bc1b3167c6d1a6f8"
+      }
+    ]
+  },
+  "personal_scope": {
+    "assigned": "Fresh registered full personal displays of each recovered dirty P16 object and each independently sourced pinned-current assigned body, including test source text only; no test was run.",
+    "support": "Exact actual display windows and their unread complements are in support-read-receipt.json; support source archives are not ordered-role credit.",
+    "deviation": "An exploratory Git grep displayed declaration/constant and other incidental match lines before support-registration-03. Reconstructed output and admission are recorded in discovery-navigation.json; only subsequent registered personal windows are credited."
+  },
+  "historical_attribution": {
+    "original_registry": "roles2500 and 2501 keep rig producer owner, original material ranges and separately nested registrations/qualifications in historical-registry-selected.json. Original standalone registration/qualification files were not located, and embedded rows do not imply reviewer acceptance.",
+    "lens11": "059 segovb/READ-L11-415.json adopts same-lens prior pr-working body evidence; root personally read exact 6533 frozen roles 551 full 1–295 and 560 full 1–305 as recorded in successor-059 and successor-062, with P16 bridge by hash. Batch415 expressly reports no fresh P16 personal reads. Historical proof/revision/attribution are preserved, not transferred to this agent.",
+    "lens12": "059 /root/lens12_frontier personally displayed P16 2500 ranges 1–75,120–224 under registration518 and 2501 ranges 1–56,74–161,176–217 under registration519, adopted by root READ-L12-850 without claiming its own reread. Separately registered 524 complement for 2501 ranges 57–73,162–175,218–305 was personally displayed by the same agent and adopted in connected TEAM017 without new role credit; disjoint union is not one new full reread.",
+    "older774": "Verbatim F001 and F009 with historical source, ranges and rig attribution retained separately; original and normalized coverage/receiver records checked against older export manifest.",
+    "prior_collision": "A verified complete prior p16-collision packet is frozen in prior-packets; its separate author /root/mhr_character, read scopes and source revision remain as originally recorded. No source credit transferred."
+  },
+  "findings_and_questions": [
+    {
+      "id": "P16-DOOR-CLOSURE-SELECTION-CONTRACT",
+      "kind": "conditional aggregate-reference finding",
+      "first_contract": "The door compiler builds an ID-keyed map, selects the first resolvable closure reference, and reports MissingClosure only when none resolve. It neither rejects duplicate solid IDs nor verifies that the selected solid has the expected owner or role. The public serializable plan, opening, and solid fields admit separately valid references and solids; absent or misdirected members can therefore select another existing solid if such a plan reaches the compiler. The returned source, centre and dimensions then come from that solid. The server source consumes the returned pose and sizes, without a claimed runtime incident.",
+      "condition": "A malformed or independently modified plan must reach this public compiler, or the valid multi-layer producer contract must permit a first resolvable non-door leaf. No inspected source proves that ordinary generated plans violate their reference invariants, and missing earlier entries may be intended optional layers.",
+      "future_direction": "Establish closure-layer ordering, membership, uniqueness and ownership policy with the actual generator and all plan-admission boundaries. If this contract requires a specific leaf, retain or validate the exact typed relationship before interpreting geometry; preserve source-specific errors and intentional optional layers.",
+      "relationships": [
+        "Related to /root/mhr_character prior P16-COLLISION-SELECTED-IDENTITY-LOSS: static compiler filters missing references, whereas this compiler finds the first existing closure. Different outputs and possible policies; central adjudication owns any alias.",
+        "059 Q-L12-5cc02ecd5125d414e1f4 and Q-L11-bd78dd3a8b1d3d580761 preserve connected plan/collision whole-graph acceptance questions; they do not establish this candidate or current revision."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/doors.rs",
+          "lines": [
+            [
+              120,
+              149
+            ],
+            [
+              151,
+              160
+            ],
+            [
+              163,
+              199
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/plan.rs",
+          "lines": [
+            [
+              4,
+              5
+            ],
+            [
+              17,
+              20
+            ],
+            [
+              29,
+              29
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/walls.rs",
+          "lines": [
+            [
+              311,
+              329
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+          "lines": [
+            [
+              344,
+              355
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/doors.rs",
+          "lines": [
+            [
+              125,
+              139
+            ],
+            [
+              142,
+              230
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-WINDOW-LEAF-UNBOUNDED-WORK",
+      "kind": "conditional derived producer work-bound finding",
+      "first_contract": "The public window leaf function accepts checked CuboidDimensions and turns width or height divided by 0.19 into usize board/came counts, then iterates those counts without a budget. CuboidDimensions accepts any finite nonnegative component, and its SignedLength leaf is finite-only. A finite component near f32::MAX is admissible; division can become infinity and a Rust float-to-integer cast saturates to usize::MAX, leaving a correspondingly enormous loop. The loop does not inspect the builder’s latched error; into_meshes returns that error only after the producer completes the loops. Work, allocation failure or termination could occur first. This is mathematical source analysis, not a runtime observation.",
+      "condition": "A caller supplies an extremely large admitted dimension to compile_window_leaf; ordinary authored/generated dimensions and operational threat reachability were not established. Cast limits depend on target usize width; no exact measured work/time or guarantee of complete loop is claimed.",
+      "future_direction": "Decide who bounds dimensions or per-leaf geometry work, preserve the established zero-dimension and leaf-kind behavior, check derived count/work before iteration, and propagate a typed error without leaving excessive work behind. Do not weaken the general finite nonnegative CuboidDimensions owner if other consumers need its range.",
+      "relationships": [
+        "059 Q-L12-3cb18f41744872c3c239 left this exact producer/native caller untraced; Q-L12-f238115d43d2e895f929 tracks connected closure consumer. Neither record is current source validation.",
+        "Older 774 RIG-OWNER-REACHED-PRODUCER-F009 is a separate unchanged-value forwarding concern on the same path and does not by itself establish the count/work contract; central decides whether repair units connect."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows/leaf.rs",
+          "lines": [
+            [
+              11,
+              40
+            ],
+            [
+              52,
+              83
+            ],
+            [
+              106,
+              106
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-geometry/src/cuboid.rs",
+          "lines": [
+            [
+              9,
+              54
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-geometry/src/measurement.rs",
+          "lines": [
+            [
+              11,
+              21
+            ],
+            [
+              35,
+              45
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+          "lines": [
+            [
+              25,
+              31
+            ],
+            [
+              46,
+              55
+            ],
+            [
+              74,
+              99
+            ],
+            [
+              152,
+              160
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-DOORSPEC-CROSS-FIELD-POLICY",
+      "kind": "open aggregate admission question",
+      "first_contract": "Public DoorSpec fields and deserialization individually admit positions, leaf dimensions, normalized directions and angles, with no checked aggregate relationship among hinge, centre, yaw, size, tangent, outward or swing sign. The compile path derives its hinge and swing from the selected solid and directions; tactical server source consumes pose, hinge, size and angle.",
+      "condition": "A separately constructed or deserialized DoorSpec with inconsistent but individually admitted fields reaches a consumer that relies on their relation; policy, external trust boundary and every constructor were not exhaustively traced. Zero-angle general admission is not by itself proof of a defect.",
+      "future_direction": "Determine which producer owns relational validity and whether all intended alternate door frames and signed rotations should share it; retain typed error identity if a boundary is added.",
+      "relationships": [
+        "059 successor-059 and Lens 12 batch850 explicitly retained this as an aggregate question, not an accepted defect; new reads connect the current server source only within its recorded windows."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/doors.rs",
+          "lines": [
+            [
+              19,
+              34
+            ],
+            [
+              36,
+              72
+            ],
+            [
+              163,
+              199
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/doors.rs",
+          "lines": [
+            [
+              142,
+              230
+            ],
+            [
+              350,
+              370
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+          "lines": [
+            [
+              1,
+              110
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-OLDER-PRODUCER-REUSE",
+      "kind": "historical finding corroboration, no new unique count",
+      "first_contract": "The unchanged typed solid centre is unpacked and re-admitted at the door compiler. The checked window body dimensions are unpacked to Vec3 across the Builder cuboid/member API and re-admitted into CuboidDimensions, prior to typed corner construction.",
+      "condition": "The window body case covers the unchanged dimensions path, not altered shutter or metal member sizes; same source bytes do not transfer earlier review credit.",
+      "future_direction": "Consider the original 774 whole-function owner fit and exact floating-point, error, source-identity and collision-policy preservation requirements; no repair or execution was done.",
+      "relationships": [
+        "Original 774 RIG-OWNER-REACHED-PRODUCER-F001 and F009 are verbatim in older-774/continuation and preserve rig attribution. Their original status is carried producer evidence, not checkpoint3821 work or automatically accepted current repairs."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/doors.rs",
+          "lines": [
+            [
+              163,
+              167
+            ],
+            [
+              182,
+              190
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+          "lines": [
+            [
+              344,
+              350
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows/leaf.rs",
+          "lines": [
+            [
+              16,
+              26
+            ],
+            [
+              51,
+              57
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+          "lines": [
+            [
+              46,
+              55
+            ],
+            [
+              74,
+              89
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-GATE-SWEEP-ZERO-SCOPE",
+      "kind": "bounded nonfinding and historical open question",
+      "first_contract": "gate_sweep computes the number of samples by ceil(abs(angle)/step), divides by that count, iterates 0..steps and returns true after the loop. A zero angle implies no loop iterations, so this alone does not establish a closed-pose overlap check. The traced clearance producer calls CityGate::door, which uses hinge sign times a fixed π/2 angle.",
+      "condition": "A different caller feeding a zero-angle DoorSpec to the sweep has not been established; neither does this prove all positive-angle geometry/sampling conditions or other consumers.",
+      "future_direction": "Preserve historical Q-L12-a43cb797f3b4bad3cfea and Q-L12-38f36a0615075b52560c pending the actual full sweep and admission policy across all callers; avoid asserting a zero-angle defect in the ordinary traced CityGate path.",
+      "relationships": [
+        "Bounded current refinement of 059 gate-angle questions, not a whole-family closure or historical finding rewrite."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/property/gate_sweep.rs",
+          "lines": [
+            [
+              7,
+              43
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/property/clearance.rs",
+          "lines": [
+            [
+              1,
+              55
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compound/boundary.rs",
+          "lines": [
+            [
+              10,
+              18
+            ],
+            [
+              215,
+              257
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+          "lines": [
+            [
+              36,
+              48
+            ],
+            [
+              58,
+              67
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-BUILDER-ERROR-FINALIZATION",
+      "kind": "bounded nonfinding and residual review",
+      "first_contract": "Builder records the first construction error and both consuming finish and into_meshes return that error before returning their products. The fact that member builds some mesh state before a later collision admission error does not establish a failed recipe escaping these APIs.",
+      "condition": "This does not prove all internal mutable borrows, mesh vertex/normal/UV arithmetic, native renderer behavior, or support aggregate invariants.",
+      "future_direction": "Retain the first-error and consumed-output semantics when reconciling the connected window work budget and later source changes. Independently inspect unassessed mesh/native contracts before treating finite vertices and UV attributes as guaranteed.",
+      "relationships": [
+        "059 connected TEAM017 separately adopted /root/lens12_frontier’s 524 complementary range and reached the same bounded nonfinding; Q-L12-63ce82a40701fd194206 retains native mesh/attribute policy."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+          "lines": [
+            [
+              7,
+              17
+            ],
+            [
+              25,
+              31
+            ],
+            [
+              91,
+              99
+            ],
+            [
+              118,
+              160
+            ],
+            [
+              176,
+              206
+            ],
+            [
+              242,
+              245
+            ],
+            [
+              289,
+              300
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/lod.rs",
+          "lines": [
+            [
+              95,
+              157
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings": [
+    "No new unique count for F001 or F009.",
+    "No demonstration normal CityGate supplies zero angular sweep or actual normal building dimensions reach extreme leaf counts.",
+    "No evidence from mesh state before a latched error alone that either consuming finalization API returns a failed recipe.",
+    "No general defect inferred from only a sign, zero-valid geometric extent, optional layer, test-source assertion, or diagnostic string."
+  ],
+  "perspectives": {
+    "producer-propagation": "Existing typed centre and unchanged glazing body size re-admitted; already 774 F001/F009. Derived dimensions and frame/pose operations remain distinct.",
+    "existing-type-owners": "Position, CuboidDimensions, SignedLength, LeafDimensions, Radians, directions and IDs have materially different units, frame and zero policies.",
+    "admission": "Individual leaf constructors check finite/positive/normalized rules, while publicly assembled graph and DoorSpec correlations remain an unresolved boundary.",
+    "invariant-operations": "The first-resolvable lookup does not validate role or ownership; derived count may saturate and iteration is not work-bounded.",
+    "aggregate-states": "Opening closure IDs and retained solid membership/owner/role and pose cross-fields need actual common-owner contract, not blanket field validity.",
+    "type-ownership": "OpeningAssemblyId and ResolvedItemId remain separate identities; GeometryOwnerId is carried by solids and openings but not checked at the door join.",
+    "redundant-authority": "BuildingPlan’s public opening references and resolved solids are independently stored and can disagree absent an enclosing invariant.",
+    "behavior-preservation": "Each assigned archived object equals current bytes individually. Preserve intended door selection/layer ordering, zero-valid dimensions, exact error and first-error behavior in any later work.",
+    "enum-shapes": "OpeningUse, ClosureState, ClosureKind and CollisionPolicy name existing modes; optional or decorative work does not by itself show a malformed enum.",
+    "derivability": "DoorSpec manual Deserialize retains field-specific checked geometry and source-aware failure; no safe blanket derive replacement has been established.",
+    "type-granularity": "Frame-specific Position, normalized direction and unit-specific length/angle contracts are not interchangeable; generic dimension admission is not necessarily the correct place for a rendering work budget.",
+    "magic-strings": "Inspected door error text/serde handling acts as diagnostics, not established string-driven dispatch.",
+    "magic-numbers": "0.19 metre pane pitch controls derived work, requiring count/budget semantics, while fixed geometry/hinge tolerances need owner context rather than replacement by names alone."
+  },
+  "open_questions": [
+    "Can ordinary or external plan producers supply duplicate IDs, missing closure references, a valid non-door first closure, or an owner mismatch, and what are intended layer semantics?",
+    "Which API boundary owns maximum window-leaf work or authored physical dimension limits, and do any actual producers have a prior bound?",
+    "Which constructors and consumers require DoorSpec relational validity and closed-pose sweep behavior?",
+    "What are actual native renderer index, finite UV/normal, memory, asset and error policies beyond the individually registered source windows?",
+    "All central connected-owner aliases, severity and repair order require independent reconciliation; no current lens or audit closure is implied."
+  ],
+  "constraints": "Evidence-only static source and mathematical reasoning. No repairs, builds, tests, fixture generation, UI, simulation, shaders or runtime probes."
+}

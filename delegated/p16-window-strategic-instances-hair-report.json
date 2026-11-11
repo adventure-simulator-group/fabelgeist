@@ -1,0 +1,591 @@
+{
+  "schema": "726-bounded-p16-window-strategic-instances-v1",
+  "created_utc": "2026-11-11T22:27:48.009562+00:00",
+  "delegate": "/root/hair_ops",
+  "authoritative_current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "source_identity": {
+    "original_indices": [
+      2517,
+      2518
+    ],
+    "registration": "registration.json",
+    "membership_proof": "git-proofs.json",
+    "identity": "Both physical-p16 registry and recovered archive objects independently match the catalog origin 039329518e264f19206cf5b0b98d177433f40c17, clean a120390947c89b703dc74c4255a13c035d054c50 base, historical pr-working 6533e444fa37552927070cc8d8190907fd3b413e and pinned 95e per-file objects.",
+    "qualification": "P16 is the recorded dirty 159-path snapshot based on a120, with recorded patch SHA-256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7; whole patch bytes remain unrecovered. Catalog 0393 identifies recovered bytes, not P16 HEAD. f82 is archive transport only; individual matches do not make the snapshot clean. No historical evidence is checkpoint3821.",
+    "personal_reads": "Both P16 and current full source bodies were personally displayed separately after registration; 0393/a120/6533 archive bodies were verified but not separately displayed. Prior same-agent 95e support read of windows 1\u201377 remains separately recorded in the copied previous packet and was not converted into new role credit. Supports are separately registered with windows and unread complements."
+  },
+  "connected_observations": [
+    {
+      "id": "CURRENT-WINDOW-PRIMARY-BATCH-POSITIVE-TRACE",
+      "status": "New bounded source analysis narrows existing 059 q2251 L12-CLOSURE-WINDOW-OBSERVER-RESOURCE-LIFECYCLE; not a new unique finding or full closure.",
+      "observation": "The observer calls ClosureMeshes::window and searches for the leaf-kind primary before queuing its presented marker or children. On a vacant cache entry, compile_window_leaf returns before the iterator calls meshes.add or the entry is inserted; a returned compile error therefore precedes those native asset additions in this function. Positive finite LeafDimensions feed the compiler. LeadedGlass attempts a Glass cuboid; TimberShutter computes a board count and attempts InteriorTimber cuboids. Builder retains a construction error until into_meshes. On normal successful compilation, and assuming a nonzero board count, Glass produces Glass and the six local shutter normals include non-endgrain InteriorTimber faces because grain_axis returns a cardinal axis. The exact private cache method only inserts that compiled batch collection.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/windows.rs",
+          "lines": [
+            [
+              20,
+              46
+            ],
+            [
+              55,
+              73
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+          "lines": [
+            [
+              18,
+              72
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+          "lines": [
+            [
+              8,
+              23
+            ],
+            [
+              91,
+              105
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows.rs",
+          "lines": [
+            [
+              22,
+              34
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows/leaf.rs",
+          "lines": [
+            [
+              16,
+              59
+            ],
+            [
+              98,
+              106
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+          "lines": [
+            [
+              25,
+              55
+            ],
+            [
+              74,
+              127
+            ],
+            [
+              155,
+              159
+            ],
+            [
+              176,
+              187
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/finish.rs",
+          "lines": [
+            [
+              54,
+              85
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/member_uv.rs",
+          "lines": [
+            [
+              6,
+              14
+            ]
+          ]
+        }
+      ],
+      "qualification": "The positive source reasoning applies to successful, normally completing compilation from an admitted positive leaf, nonzero board count and an unmodified cache produced by this method. It does not cover native asset deletion, panic/allocation failure, externally modified resources, renderer behavior, arbitrary alternate producers, or all Bevy error/observer lifecycle semantics. No test or runtime pass is asserted; q2251 remains open for its broader asset-lifetime/atomicity policy.",
+      "future_direction": "Use this producer/consumer evidence to decide the exact missing-primary and resource lifecycle policy; preserve typed causes, existing batching, material identities and independent leaf transforms. Do not implement or collapse cache/asset concerns into unrelated scene publication."
+    },
+    {
+      "id": "CURRENT-STRATEGIC-QUEUED-LEAF-PREFIX-RELATION",
+      "status": "Exact current source connection already recorded by earlier ASSESSMENT-STRATEGIC-ADAPTER-DIAGNOSTICS-95E observation 1 and 059 Adler READ-L11-243/Segovb READ-L12-536; no new defect or automatic alias.",
+      "observation": "spawn_building queues the building entity after checked transform/datum, then queues door and window children as it iterates fallible compilations and conversions. SceneBuilding and PreparedBuildingGeometry are inserted only after both loops. The inspected world::retain_scene pops a pending building, calls that function and records a returned error in retained scene.error; its same-location guard returns on subsequent calls while error persists.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/strategic_scene/instances.rs",
+          "lines": [
+            [
+              6,
+              80
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/strategic_scene/world.rs",
+          "lines": [
+            [
+              51,
+              80
+            ],
+            [
+              91,
+              119
+            ],
+            [
+              122,
+              161
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/strategic_scene/mod.rs",
+          "lines": [
+            [
+              50,
+              58
+            ],
+            [
+              63,
+              84
+            ]
+          ]
+        }
+      ],
+      "qualification": "A particular admitted generated plan reaching an error, final Bevy command application, asset/child cleanup, visible partial entity, retry or native error outcome are not established. Earlier gate observer native error evidence concerns a distinct observer path and must not automatically determine ordinary strategic system command semantics. No runtime or synthetic fixture ran.",
+      "future_direction": "Continue the existing producer-to-error/commands/cleanup/status contract; establish supported failure and intended transaction or explicit partial-state policy before choosing a repair. Preserve prepared geometry reuse, original typed causes, and separate root and leaf transforms."
+    },
+    {
+      "id": "CURRENT-WINDOW-IDENTITY-AND-FACADE-RELATION",
+      "status": "Related current source trace to previous /root/hair_ops P16 roles2511\u20132512 and rig RIG-OWNER-REACHED-PRODUCER-F004/RIG-OWNER81-F004; no new unique count.",
+      "observation": "Both primary and child window batches carry the same SceneBuildingId/OpeningAssemblyId through PresentedBuildingClosureMesh. SceneWindow uses immutable structural component fields with typed positive dimensions and scene-frame directions. Strategic instance code takes the same converted leaf identity, centre and rotation for the descriptor/transform; facade sync first matches the building ID then the opening ID. The material helper receives the raw identity word, and earlier rig owner evidence explains the shared building/furniture Seed boundary.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/windows.rs",
+          "lines": [
+            [
+              20,
+              73
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/strategic_scene/instances.rs",
+          "lines": [
+            [
+              44,
+              60
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+          "lines": [
+            [
+              15,
+              33
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_coordinates/window.rs",
+          "lines": [
+            [
+              11,
+              58
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/building_closures.rs",
+          "lines": [
+            [
+              5,
+              52
+            ]
+          ]
+        }
+      ],
+      "qualification": "The exact facade set producer, placement-slice uniqueness and full earlier current trace are preserved in the previous packet; no reuse of its personal read as this packet\u2019s new role credit. All alternate spawn/update/removal paths, exact replicated identity admission and native visibility scheduling remain open. No tactical state is asserted persisted by this presentation source.",
+      "future_direction": "Maintain typed scene/opening identities until deliberate visual-seed conversion and keep all material batches aligned to the same leaf. Resolve q585 lifecycle separately from asset errors and strategic command publication."
+    }
+  ],
+  "open_questions": [
+    {
+      "question": "Does any supported current input reach a cache returning successful batches without its kind\u2019s primary material, or can another owner remove/mutate cached native assets before the observer consumes them?",
+      "evidence": "The inspected positive-leaf compiler and Builder control flow narrow that route for unmodified cache entries; resource lifetimes, panic/native paths and external modifications remain outside scope.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/windows.rs",
+          "lines": [
+            [
+              28,
+              35
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+          "lines": [
+            [
+              49,
+              72
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows/leaf.rs",
+          "lines": [
+            [
+              20,
+              59
+            ],
+            [
+              98,
+              106
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+          "lines": [
+            [
+              25,
+              43
+            ],
+            [
+              74,
+              127
+            ],
+            [
+              155,
+              159
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "What supported error after a first queued leaf can reach the strategic system, and what happens to queued commands, status, scene root and retry/cleanup?",
+      "evidence": "The caller stores the error and same-location guard blocks later work; no accepted invalid generated plan or native command application was shown. Earlier central prior record remains canonical source finding context.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/strategic_scene/instances.rs",
+          "lines": [
+            [
+              14,
+              78
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/strategic_scene/world.rs",
+          "lines": [
+            [
+              72,
+              80
+            ],
+            [
+              105,
+              119
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "Can current SceneWindow dimensions/leaf kind change without removal and re-add, and if so who owns mesh regeneration and asset release?",
+      "evidence": "The component is immutable and observer listens for Add; this source view does not establish all replication or replacement APIs.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+          "lines": [
+            [
+              15,
+              33
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/windows.rs",
+          "lines": [
+            [
+              11,
+              29
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "What canonical parent/root frame and runtime transform propagation policy governs scene-leaf pose and parent hierarchy?",
+      "evidence": "One inspected strategic root is spawned with default Transform and both building and leaves attach to it; deeper transform and alternate caller paths remain unproved.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/strategic_scene/world.rs",
+          "lines": [
+            [
+              143,
+              150
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/strategic_scene/instances.rs",
+          "lines": [
+            [
+              12,
+              17
+            ],
+            [
+              44,
+              60
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_coordinates/window.rs",
+          "lines": [
+            [
+              25,
+              58
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings": [
+    {
+      "topic": "A successful exact leaf compile is missing its primary material by ordinary source construction",
+      "reason": "Glass explicitly calls a body cuboid with Glass material; a normally completing shutter with at least one successful board produces non-endgrain InteriorTimber faces. Builder turns any retained construction error into Err before cache asset insertion. This is a narrow source argument, not native validation, and does not close asset lifecycle.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows.rs",
+          "lines": [
+            [
+              22,
+              34
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows/leaf.rs",
+          "lines": [
+            [
+              20,
+              59
+            ],
+            [
+              98,
+              106
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+          "lines": [
+            [
+              25,
+              43
+            ],
+            [
+              74,
+              127
+            ],
+            [
+              155,
+              159
+            ],
+            [
+              176,
+              187
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/finish.rs",
+          "lines": [
+            [
+              54,
+              85
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/member_uv.rs",
+          "lines": [
+            [
+              6,
+              14
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+          "lines": [
+            [
+              49,
+              72
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "Window child hardware necessarily has an independent wrong transform",
+      "reason": "Nonprimary batches are children with identity local transform of the existing leaf entity, and carry the same building/opening capability. This does not establish runtime hierarchy/transform propagation across all consumers.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/windows.rs",
+          "lines": [
+            [
+              36,
+              73
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "Early window compilation error necessarily queues a partially presented window in the observer",
+      "reason": "The observer requires a returned batch and matching primary before its entity insert/children command. Earlier strategic spawn and native asset allocation are separate contracts.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/windows.rs",
+          "lines": [
+            [
+              20,
+              36
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+          "lines": [
+            [
+              49,
+              72
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "producer-propagation",
+      "assessment": "Door/window typed leaf geometry and scene identities reach descriptors; visual palette extracts raw u64 before shared seed boundary, already rig F004. Preserve previous owner versus producer qualifications."
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "SceneBuildingId, OpeningAssemblyId, LeafDimensions, WindowLeafKind, ClosureState, Seed and material types own distinct roles. Use existing typed geometry and errors through actual native boundaries; no universal wrapper prescription."
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "SceneWindow deserialization admits dimensions/position/directions separately, while relationship and lifecycle require owner proof. Positive leaf compiler success narrows primary-material question; work/asset limits remain."
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Derived board count, offsets, UV and mesh building require finite/capacity rules. No huge input or overflow run; successful-source material reasoning explicitly assumes normal completion and nonzero board count."
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Leaf kind, primary batch, child batches, visibility identity and scene hierarchy form coupled state. Strategic queued prefix and error status are connected but distinct from window cache resource lifecycle."
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "Scene-level IDs and native entities have different owners; shared appearance Seed also accepts furniture origin. No automatic cross-domain ID substitution or new duplicate count."
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "PreparedBuildingGeometry and SceneBuilding pair carry related source plan/descriptor, while cached meshes are shared but leaf transforms independent. Existing facade membership bool is derived, not automatic competing tactical authority."
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "P16 and 95e named objects are byte-identical, not proof of whole product equality. Future design must preserve successful batches, leaf kinds, errors, transform frames, exact seed and door/window authority."
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "WindowLeafKind controls primary material; ClosureState::Operable is explicit. OnAdd and result branches carry meaningful modes; no invalid enum payload proven."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "Assigned source has Bevy component/plugin and ordinary functions, no handwritten serde boilerplate requiring an independent derive change. Native errors and wire formats need distinct source proof."
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Leaf dimensions differ from general zero-capable cuboid dimensions, and scene/architectural positions and rotation representations have distinct frames. Do not broaden or narrow globally without actual consumers."
+    },
+    {
+      "lens": "magic-strings",
+      "assessment": "Assigned bodies do not encode business categories through raw strings; typed MissingPrimaryMaterial carries leaf kind. Names and errors in adjacent native systems are not proof of a private string protocol."
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Pane pitch, casing, face axes, vector offsets and counts have different physical or topology purposes. Preserve existing constants while evaluating bounded geometry and consumer capacities; no blanket numeric finding."
+    }
+  ],
+  "historical_attribution": {
+    "774_rig": "Rig supplier register041/qualification041 covers P16 windows1\u201377; register009/qualification009 covers P16 instances1\u201381, not 82\u201395. Related rig producer F004 retains source attribution and is not a new finding. Original f82-transport rig records are preserved.",
+    "774_other": "SEGOVB-INITIAL04-CONTRACT-604 personally read P16 windows1\u201377 and instances1\u201395; CONT07-CONTRACT-581 personally read windows1\u201377 and instances1\u201381. Each retains original lens and source-only qualifications.",
+    "059": "READ-L11-416 reused Adler PR READ-L11-241 role1677 1\u201377 and READ-L11-243 role1684 1\u201395, and expressly records no fresh personal P16 reads. Root-adopted READ-L12-854/855 credits /root/lens12_frontier fresh P16 windows1\u201377 and instances1\u201381 respectively, not tail82\u201395. READ-L12-533/536 record independent Segovb fresh PR reads windows1\u201377 and instances1\u201395. q2251 remains open.",
+    "prior_recovered_337": "Publication transcript-hash-matched root READ/QUALIFICATION documents 33714256b6313ce86fdfbb534c54d92d024d7726; root\u2019s fresh personal scope was closure helper53\u2013150 only, not windows/instances reread. Its statements reuse prior own-L12 records and explicitly preserve original author fields. These hash-matched recovered records are not checkpoint3821.",
+    "prior_current": "Previous /root/hair_ops role2511\u20132512 packet had windows 95e1\u201377 as support; original full packet/manifest copied unchanged. Earlier central ASSESSMENT-STRATEGIC-ADAPTER-DIAGNOSTICS-95E includes already assessed queued-prefix question; ASSESSMENT-GATE-HANDEDNESS concerns a separate server observer and cannot transfer native behavior to this system. Prior reports and source payloads retain their original reviewer attribution.",
+    "qualification": "Previous and newly read evidence remain independently attributed. No original dirty snapshot, later source summary or hash-matched reconstruction is promoted to checkpoint3821."
+  },
+  "limitations": [
+    "All thirteen perspectives are partial to displayed role and support source windows, with explicit unread complements and no whole-lens or product clearance.",
+    "No product, geometry generation, tests, builds, browser/viewer, simulation, runtime probes, render, repair or publication/source edits.",
+    "Complete P16 patch remains unrecovered; central owns baseline, alias decisions, repair ledger and checkpoint publication."
+  ]
+}

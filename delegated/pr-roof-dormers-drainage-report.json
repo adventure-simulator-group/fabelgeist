@@ -1,0 +1,368 @@
+{
+  "schema": "726-pr-roof-dormers-drainage-assessment-v1",
+  "created_utc": "2026-11-11T22:44:22.485751+00:00",
+  "author": "/root/rig_identity",
+  "authoritative_current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original roles 2538\u20132539 only; bounded support separately registered. Thirteen perspectives below are scoped to these assigned bodies and named support, not whole-lens closure.",
+  "source_identity": {
+    "historical": "059 pr-working recorded per-file objects; per-file equal to 6533e444fa37552927070cc8d8190907fd3b413e and to 95e; f82adcabd9d89c4fa2dd7f99253a45297a0681ee transports the recovered bodies and older receipts, not a product revision.",
+    "snapshot": "The recorded pr-working snapshot is 6533 HEAD plus existing changes and contains four unrelated modified paths; neither the snapshot nor its unrecovered whole-state is asserted clean.",
+    "objects": [
+      {
+        "role": 2538,
+        "path": "crates/adventuresim-building-generator/src/generator/roof_dormers.rs",
+        "sha256": "6484f99b8bdfc8cd1fc1f9aae444f6a56feaee41546a24d97109c317bba4c5f1",
+        "git_blob": "ace9cdb2f2c3e1ab318918c326aafdf990f935d4",
+        "old_and_current_personal_read": [
+          [
+            1,
+            305
+          ]
+        ]
+      },
+      {
+        "role": 2539,
+        "path": "crates/adventuresim-building-generator/src/generator/roof_drainage.rs",
+        "sha256": "78f6495882663da6c57047c052bf85c818f6640300a5c9e3819a1958e3393f1f",
+        "git_blob": "c4d3c17f07a234308a86564032b8992619cf5f3e",
+        "old_and_current_personal_read": [
+          [
+            1,
+            265
+          ]
+        ]
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "ROOF-JUNCTION-GUTTER-COLLISION-CLEANUP-RELATION",
+      "status": "Current source continuation of existing 059 conditional L12-CLOSURE-ROOF-JUNCTION-GUTTER-ID-NAMESPACE; not an additional accepted unique defect",
+      "condition": "For one assembly, a successfully bound coincident primary edge has original left_edge_index e, a face f successfully produces a drainage network, and e = 8*f + s for s in 0..3, with the flashing surviving until drainage. For the removal consequence, s = 3 and execution reaches that network\u2019s outlet-consolidation cleanup. Supported generated topology and survival through all earlier fallible stages are not established.",
+      "observation": "The junction flashing and provisional gutter solid encode the same tag, assembly ID, 0x6000, and respectively e versus 8*f|s; the paired support-interface IDs also coincide. Binding occurs before drainage. For slot 3, the provisional downspout ID is in old_spouts; consolidation retains solids solely by ID, so that cleanup removes both provisional downspout and any colliding flashing and its same-ID interface. The local cleanup does not clear edge.flashing; later pipeline effects and final publication remain unproved. For slots 0\u20132, colliding solids can coexist until later processing; the inspected geometry audit flags duplicate retained solid IDs, conditional on both surviving there.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_edge_binding.rs",
+          "ranges": [
+            [
+              18,
+              46
+            ],
+            [
+              63,
+              88
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_drainage.rs",
+          "ranges": [
+            [
+              17,
+              32
+            ],
+            [
+              59,
+              66
+            ],
+            [
+              114,
+              138
+            ],
+            [
+              139,
+              174
+            ],
+            [
+              219,
+              244
+            ],
+            [
+              245,
+              261
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+          "ranges": [
+            [
+              262,
+              275
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+          "ranges": [
+            [
+              122,
+              130
+            ],
+            [
+              802,
+              809
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+          "ranges": [
+            [
+              23,
+              39
+            ]
+          ]
+        }
+      ],
+      "historical_relation": "059 /root/lens12_frontier PROPOSAL-L12-862 and the named queue contract already identify the common namespace and require finalization order and supported-index/consumer proof; this adds exact source-level ordering, collision equation, ID-only cleanup and duplicate-solid audit, retaining original attribution and open reachability. Do not count separately or equate with abutment/split-eave packed IDs merely because their remedies overlap.",
+      "future_direction": "Establish admissible coincident-edge/face index combinations, survival through finalization and intended global identity ownership. If reachable, allocate distinct identities and make cleanup operate on the intended typed roles; preserve the actual roof and error behavior. This is a future repair direction only."
+    },
+    {
+      "id": "ROOF-DORMER-PARENT-ADMISSION-CURRENT-RELATION",
+      "status": "Direct current confirmation of existing 059 conditional contract; no new unique defect",
+      "condition": "At least one dormer is passed when the primary assembly slice is empty; empty dormer input skips the index. The displayed current caller invokes append after resolving primary roofs and before tower roofs.",
+      "observation": "first() records an optional parent but the loop indexes assemblies[0] to construct each DormerLayout, before a typed missing-parent error. Caller constructs primary assemblies from supplied roof recipes; no parent proof appears in the displayed caller ranges.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_dormers.rs",
+          "ranges": [
+            [
+              5,
+              23
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+          "ranges": [
+            [
+              1,
+              37
+            ],
+            [
+              127,
+              131
+            ]
+          ]
+        }
+      ],
+      "historical_relation": "059 READ-L11-419 and L12-CLOSURE-ROOF-DORMER-PARENT-ADMISSION left actual admission open; /root/rig_identity earlier independently reviewed ROOF-DORMER-PARENT-SOURCE-CONDITION in prior roof-assemblies-cutting packet and identified a conditional CourtyardCastle Rectangle source route, with earlier acceptance/failure unresolved. That is hash-linked separately and not recredited to these two roles.",
+      "future_direction": "Determine supported program/roof/dormer relationships through earlier admission; make the parent contract explicit at the owner or return the owning error if empty parent is supported."
+    }
+  ],
+  "nonfindings": [
+    {
+      "claim": "The 059 support_nodes[0] concern demonstrates an empty support on the ordinary successful resolve_one_roof production branch.",
+      "reason": "At initial construction, ridge-axis recipes create two plate specs, hip/half-hip/pavilion create four, conical creates eight, and the apse specialization is gated by five apse walls; face records clone these support nodes. This narrows that concern at construction only; other callers and subsequent mutations were not fully traced.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+          "ranges": [
+            [
+              63,
+              102
+            ],
+            [
+              103,
+              117
+            ],
+            [
+              118,
+              174
+            ],
+            [
+              391,
+              401
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/church_apse.rs",
+          "ranges": [
+            [
+              15,
+              24
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "A child downspout to ground emitted by finalize_roof_drainage is necessarily the final child disposition.",
+      "reason": "Outlet consolidation runs after drainage and explicitly reselects child free-drip recipients and removes provisional spouts. We did not inspect all recipient search and final disposition branches, so no final behavior is inferred.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+          "ranges": [
+            [
+              262,
+              272
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+          "ranges": [
+            [
+              1,
+              4
+            ],
+            [
+              122,
+              150
+            ],
+            [
+              802,
+              809
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "Any error after intermediate geometry mutation proves an accepted partial plan.",
+      "reason": "Mutations precede fallible operations, but the caller error/publication contract has not been independently established in this packet; the earlier roof-assemblies report records its own narrower owned-plan route and attribution.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_dormers.rs",
+          "ranges": [
+            [
+              23,
+              35
+            ],
+            [
+              239,
+              277
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_drainage.rs",
+          "ranges": [
+            [
+              10,
+              15
+            ],
+            [
+              114,
+              127
+            ],
+            [
+              181,
+              194
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "An empty set of ray samples automatically constitutes a confirmed roof failure.",
+      "reason": "The local code explicitly falls back to high for route.inlet when samples.first() is absent; the intended admissibility and downstream audit are unproved.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_drainage.rs",
+          "ranges": [
+            [
+              44,
+              57
+            ],
+            [
+              211,
+              218
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "Can supported program topology, after earlier errors, actually generate a coincident primary junction e = 8*f+3 for a draining face in that same assembly; can the flashing and graph survive to the outlet cleanup and final audit?",
+    "Can admitted program/footprint combinations reach nonempty dormers without a primary roof after all earlier program and geometry stages?",
+    "Do roof-plane nonzero finite normal, coherent polygon/plane and dynamic support invariants remain guaranteed across all intervening operations and public-model entry points?",
+    "Is finalize_roof_drainage eligible to run twice on retained geometry? Initial cleanup removes roof-owned networks and gutter solids but not their support interfaces; lifecycle and validator determine whether a duplicate/stale-state contract exists.",
+    "Are catchment-to-route-to-void references globally unique and required? Missing catchment/route returns MissingRoofOutlet; a missing void silently skips local bounds rewrite.",
+    "What supported policy governs gabled/hipped naming, parent-height fallback, no matching eave/valley and empty sample sets?",
+    "How do the separate packed-ID owners, parent cut, 774 raw point propagation, geometry topology and outlet finalization connect without collapsing distinct first failed contracts?"
+  ],
+  "lenses": [
+    {
+      "lens": "magic-strings",
+      "assessment": "No domain string API in either body; closed enums and structured MissingRoofOutlet retain categories. No whole-system assertion."
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Names and owner/policy remain to be justified for 0.01/0.02/0.000004 ridge/edge tolerances, 2.20 transverse scale, gutter dimensions/fall/offsets and packed role constants; units and error budgets differ. Do not treat each literal as a separate defect."
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "RoofAssemblyId, GeometryOwnerId, ResolvedItemId, RoofKind and RoofEdgeKind are present; canonical global item-ID namespace remains open for separate junction/gutter collision."
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "Checked Architectural SpatialBounds and CollisionCuboid are used at retention boundaries, while roof points, normal, depth, pitch and drainage samples remain raw; compare existing canonical spatial owners before inventing replacements."
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Face, edge, catchment, route and network identities are distinct concepts even though encoded through one ResolvedItemId; separate scalar dimensional quantities from true native numerical kernel values."
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Ridge extension updates selected face point and matching edge endpoints; plane coherence, squared-distance tolerance and representable operations need producer/consumer proof. Drainage divides by normal.y and polygon length; do not infer valid or invalid geometry from syntax alone."
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Parent/child, plane/polygon, face/support and catchment/route/void/network relations require joint invariants. Creation establishes support nodes but broader graph lifecycle remains unproved."
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Parent optional metadata does not guard indexed parent use for nonempty dormers; exact program reachability remains open. MissingRoofOutlet is explicit for absent catchment/route, not absent referenced void."
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "Typed closed DormerKind, RoofChildKind, RoofEdgeKind and RoofPhase are present. Hipped maps to GabledDormer; verify intended receiving meaning before alleging an enum defect."
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "Plane/polygon and channel/route/catchment/void retain related geometry. On regeneration networks and gutter solids are cleared but support interfaces are not; repeated-call eligibility and consumer rules remain open."
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Any future work must preserve current seam depth fallback, child ordering, lexical channel direction, empty-sample fallback, MissingRoofOutlet and later outlet consolidation unless policy intentionally changes. No product behavior validated."
+    },
+    {
+      "lens": "producer-propagation",
+      "assessment": "Raw roof geometry and sampled point records reach retention and receivers; older native NATIVE-ROOF-PPS-F001 is specifically checked Position discarded at roof_polygon_bounds, not a blanket claim that every native calculation is defective."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "No meaningful handwritten trait or serialization boilerplate occurs in assigned bodies; support data structures derive Clone/Serialize/Deserialize. No change is proposed from this bounded view."
+    }
+  ],
+  "historical_attribution": {
+    "059_root": "segovb READ-L11-419, prospective registrations 1444/1445: Root Segovb fresh historical pr-working reads 1\u2013305 and 1\u2013265 in specified windows, source-only; unresolved conditional contracts, zero accepted count change, current reconciliation false.",
+    "059_delegated": "READ-L12-861 and 862 explicitly attribute fresh prospective full historical bodies to /root/lens12_frontier, 6533, registrations 569/570; root_personal_rereads empty. Do not transfer or promote this attribution to checkpoint 3821.",
+    "774_native": "Native NATIVE-ROOF-SCOPE-003/013 and -007 were registered with no immediate credit; subsequent NATIVE-ROOF-PPS-SOURCE-009 and -013 record native read ranges 1\u201377/78\u2013305 and 1\u2013265, with producer traces 009/013 and Root global manifest reconciliation still required. NATIVE-ROOF-PPS-F001 earliest producer is roof_polygon_bounds, not the current junction-ID condition.",
+    "prior_current": "Own earlier 95e roof-assemblies-cutting and roof-geometry reports and /root/hair_ops roof-abutments report retain their own original authors, prior source scopes and first-contract distinctions; copied selected records and hash-linked manifest do not transfer read credit."
+  },
+  "limitations": [
+    "No repairs, source/publication edits, builds, product tests, runtime probes, simulations, generated fixture, or product execution were performed.",
+    "Personal display receipt records assigned full bodies and separately scoped support only; other support lines remain unread even where complete bytes were archived for evidence.",
+    "Historical 059 and 774 original records, reconstructed selections, new current assessment and prior reviewer evidence are distinct; checkpoint 3821 is not represented by these historical receipts.",
+    "Central agent owns final baseline, further reachability/alias reconciliation, ledger disposition and publication."
+  ]
+}

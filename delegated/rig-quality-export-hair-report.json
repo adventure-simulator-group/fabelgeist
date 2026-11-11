@@ -1,0 +1,449 @@
+{
+  "schema": "726-delegated-bounded-source-audit-v1",
+  "author": "/root/hair_ops",
+  "recorded_utc": "2026-11-11T21:41:33.295366+00:00",
+  "scope": {
+    "original_roles": [
+      2470,
+      2471,
+      2472
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "rig_quality_revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+    "rig_quality_direct_parent": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "history_classification": "Separate clean rig-quality snapshot, based on 6533; not the current baseline and not checkpoint3821. The 059 snapshot registry records it as preserved complete delta not yet integrated. Independently verified cbbb raw commit parent, tree, exact source objects and frozen catalog/source copies.",
+    "membership": "All three paths present in cbbb, 6533, 95e; all three version objects differ for each role. Exact file bytes, digests and commit/tree membership are archived. Full comparisons archived, not personally displayed as complete diffs.",
+    "own_read_limits": "read-receipt.json is authoritative: cbbb export 1–889 of 1819 and 95e export 1–844 of 1780; test tails unread. cbbb/current shell and probe bodies fully displayed; all 6533 bodies unread. Supports limited to support-read-receipt.json, with no ordered-role credit. Archive, earlier receipt, and identical source are not additional display credit.",
+    "execution": "Source inspection and evidence-integrity checks only; no browser, renderer, probe, product, build, test, fixture, runtime, simulation, implementation, repair or validation."
+  },
+  "historical_reviewers": [
+    {
+      "evidence": "historical/segovb/READ-L11-409.json and READ-L11-410.json, original 059",
+      "reviewer": "Original Segovb receipt and its original attribution; do not conflate with /root/hair_ops.",
+      "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "ranges": {
+        "2470": [
+          [
+            1,
+            1819
+          ]
+        ],
+        "2471": [
+          [
+            1,
+            111
+          ]
+        ],
+        "2472": [
+          [
+            1,
+            231
+          ]
+        ]
+      },
+      "qualification": "Original full ranges are their own original role evidence; no 3821 promotion."
+    },
+    {
+      "evidence": "historical/segovb/READ-L12-835.json and READ-L12-836.json and corresponding registrations and proposal",
+      "reviewer": "/root/lens12_frontier, adopted by 059 root; adoption is not root personal reread.",
+      "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "ranges": {
+        "2470": {
+          "previous_partial": [
+            [
+              1,
+              555
+            ]
+          ],
+          "fresh": [
+            [
+              556,
+              1819
+            ]
+          ],
+          "combined": [
+            [
+              1,
+              1819
+            ]
+          ],
+          "full_reread_claimed": false
+        },
+        "2471": [
+          [
+            1,
+            111
+          ]
+        ],
+        "2472": [
+          [
+            1,
+            231
+          ]
+        ]
+      },
+      "qualification": "Previous partial and fresh remainder credited exactly once, no cross-lens transfer."
+    },
+    {
+      "evidence": "reference/older-774-selection.json: SEGOVB-INITIAL04-CONTRACT-592",
+      "reviewer": "Original 774 Segovb record",
+      "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "ranges": {
+        "2470": [
+          [
+            1,
+            1819
+          ]
+        ],
+        "2471": [
+          [
+            1,
+            111
+          ]
+        ],
+        "2472": [
+          [
+            1,
+            231
+          ]
+        ]
+      },
+      "qualification": "Full source text including tests; no tests executed; original whole-lens status incomplete."
+    },
+    {
+      "evidence": "reference/older-774-selection.json: supplier coverage zero-based rows 90, 89, 91 respectively",
+      "reviewer": "Original audit-existing-type-owners/rig supplier coverage",
+      "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "qualification": "2470 is explicitly current-lens shared identical lines plus complete distinct-line read, not a full reread; rows 2471/2472 state full current-lens reads. Preserve original source attribution and no 3821 promotion."
+    },
+    {
+      "evidence": "historical/segovb/READ-L13-COMPACT-UV-PRIMARY-001.json; discovery READ-PL13-102, supporting READ-PL13-098/099/100 and original registrations/adoptions",
+      "reviewer": "Delegated independent L13 exact full frozen body (as original receipt states); no root/current reread transfer.",
+      "revision": "pr-working 6533 for those recorded objects",
+      "qualification": "q460 historical canonical first failure. New 95e support is independent bounded corroboration, not new historical coverage."
+    },
+    {
+      "evidence": "historical/segovb/READ-L11-622.json and underlying parallel-l11-20261029/READ-086.json",
+      "reviewer": "Historical lens11_reconcile, independently reread the recorded actual bounded current contexts; root adoption is not root personal reread.",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "qualification": "Original receipt resolves exact e275 compact-UV candidate alias to q460 without unique-count increase; must not label that e275 work 95e or checkpoint3821."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-L13-COMPACT-SURFACE-UV-CORRESPONDENCE",
+      "classification": "Existing historical canonical q460; 95e source corroboration; related q637; not a newly counted independent finding.",
+      "source_trace": [
+        {
+          "file": "support/02-95e6-validation.rs",
+          "lines": [
+            [
+              51,
+              70
+            ],
+            [
+              99,
+              163
+            ]
+          ],
+          "finding": "Public shell admits surface UV with direct texcoords None when original UV extent is valid; a subset of faces may use only some original vertices."
+        },
+        {
+          "file": "source/2470-95e6.rs",
+          "lines": [
+            [
+              597,
+              610
+            ]
+          ],
+          "finding": "Exporter validates then compacts every shell."
+        },
+        {
+          "file": "support/00-95e6-compact.rs",
+          "lines": [
+            [
+              24,
+              61
+            ],
+            [
+              85,
+              98
+            ]
+          ],
+          "finding": "Compaction remaps positions, normals, skin, morphs and explicit texcoords, but retains original surface UV channel."
+        },
+        {
+          "file": "source/2471-95e6.rs",
+          "lines": [
+            [
+              18,
+              58
+            ]
+          ],
+          "finding": "Writer selects direct texcoords or surface UV fallback, and emits its unremapped length."
+        }
+      ],
+      "trigger_and_consequence": "Conditional on surface Some, direct texcoords None and used-vertex selection changing source vertex count/order: UV accessor no longer corresponds to the compacted position population. This is a source contract inference, not observed GLB/parser output.",
+      "producer_qualification": "Canonical armor producer character_morphs.rs 243–255 supplies direct Some(&armor.texcoords), and equipment_export.rs 82–90 may add surface; direct coordinates are remapped and win. Thus that inspected producer does not prove a surface-only witness. Clothing 216–237 has no surface/UV; garment/export.rs 13–18 and character_export/hair.rs 81–87 have no surface. Other public callers remain unassessed.",
+      "future_repair_direction": "Coordinate one effective UV channel with the exact vertex selection/remap and preserve supported optional surface/material modes; central owns remediation grouping.",
+      "historical_relationship": "059 queue entries 460 and 637 and original receipts; e275 READ-L11-622 explicitly aliases same first failure to q460. Preserve authors/revisions."
+    },
+    {
+      "id": "SEGOVB-04-EXPORTED-SOCKET-INPUT-CANDIDATE-001",
+      "classification": "Existing 774 source-backed candidate; bounded 95e source corroboration; do not add a duplicate count.",
+      "source_trace": [
+        {
+          "file": "source/2470-95e6.rs",
+          "lines": [
+            [
+              192,
+              205
+            ],
+            [
+              271,
+              353
+            ],
+            [
+              359,
+              474
+            ]
+          ],
+          "finding": "Public UV socket helper admits raw borrowed mesh/shell, checks UV domain and face count, then indexes mesh skin, shell normals/positions; bootstrap has analogous position index."
+        },
+        {
+          "file": "support/07-95e6-equipment_export.rs",
+          "lines": [
+            [
+              157,
+              164
+            ],
+            [
+              185,
+              242
+            ]
+          ],
+          "finding": "Garment caller computes sockets before invoking export_rigged_glb; the later serialization validation cannot by itself protect the earlier helper."
+        },
+        {
+          "file": "support/04-95e6-rigged.rs",
+          "lines": [
+            [
+              1,
+              61
+            ]
+          ],
+          "finding": "Public borrowed arrays may be independently supplied."
+        }
+      ],
+      "trigger_and_consequence": "Conditioned on a structurally malformed public mesh/shell/skin and an eligible selected UV face, indexing can fail before the Result returns a structured error. 774 provides a source-reasoned malformed input, not a produced asset or executed witness. The regular garment producer structural guarantees were not established.",
+      "future_repair_direction": "Admit a coherent mesh/shell/UV/skin view or reject mismatches before each public indexed socket path; preserve actual placement and error semantics.",
+      "historical_relationship": "Exact original 774 SEGOVB-INITIAL04-CONTRACT-592 attributed to Segovb, cbbb; q165 ADLER-L11-MHR-TOPOLOGY-ADMISSION and RIG-ADMISSION03-F011 may share an upstream owner but are not automatically identical first failures."
+    },
+    {
+      "id": "SEGOVB-04-GLTF-COLOR-LINEARIZATION-CANDIDATE-001",
+      "classification": "Existing distinct 774 material-output candidate; bounded 95e arithmetic corroboration; not new count or alias to body normals.",
+      "source_trace": [
+        {
+          "file": "support/02-95e6-validation.rs",
+          "lines": [
+            [
+              144,
+              156
+            ]
+          ],
+          "finding": "Shell color/PBR inputs are tested for finiteness."
+        },
+        {
+          "file": "source/2470-95e6.rs",
+          "lines": [
+            [
+              576,
+              584
+            ]
+          ],
+          "finding": "Finite large f32 input may overflow the powf(2.4) transfer result."
+        },
+        {
+          "file": "source/2471-95e6.rs",
+          "lines": [
+            [
+              61,
+              67
+            ]
+          ],
+          "finding": "Writer sends derived linear color to material JSON."
+        }
+      ],
+      "trigger_and_consequence": "For sufficiently large finite input the computed material channel can become nonfinite. Historical 774 separately records exact then-inspected serde_json behavior mapping nonfinite to null; current native serde internals, actual GLB output, accepted color authoring range, and ordinary producer reachability were not assessed here.",
+      "future_repair_direction": "Select actual glTF material-factor and source HDR/color policies and reject nonfinite derived output at the appropriate native boundary without globally clipping valid HDR contexts.",
+      "historical_relationship": "Original Segovb 774 SEGOVB-INITIAL04-CONTRACT-592; arithmetic/format failure distinct from body normal and socket admission."
+    },
+    {
+      "id": "REVIEW-GLB-BODY-NORMAL-NONFINITE-001",
+      "classification": "Already assessed centrally at 95e, separately retained; no duplicate new finding.",
+      "source_trace": [
+        {
+          "file": "support/02-95e6-validation.rs",
+          "lines": [
+            [
+              13,
+              49
+            ],
+            [
+              144,
+              156
+            ]
+          ],
+          "finding": "Body arrays have extent/parent/index/weight checks while shell positions and normals receive explicit finite checks; body normal component finiteness is not checked in that body."
+        },
+        {
+          "file": "source/2470-95e6.rs",
+          "lines": [
+            [
+              613,
+              619
+            ],
+            [
+              731,
+              740
+            ]
+          ],
+          "finding": "Body normals are written as float bytes and referenced by a glTF normal accessor."
+        }
+      ],
+      "qualification": "Preserve the existing central assessment author and exact original ranges/source copies (reference/prior-current-selection.json), not this agent as discoverer. Different first failure from derived color and UV correspondence. No native glTF execution."
+    }
+  ],
+  "nonfindings_and_limits": [
+    {
+      "topic": "Probe scope",
+      "source": "source/2472-95e6.rs 120–145",
+      "observation": "Source checks nonempty geometry, finite positions/normals, in-range indices, and any complete triangle with area above threshold. At least one triangle can pass; this does not establish every triangle, remainder cardinality, winding, normal cardinality, clearance, visual quality, or whole catalog quality. Whether the intended diagnostic contract requires those properties remains open. No assertion of a defect merely because broader guarantees are absent.",
+      "history": "Original 059 READ-L11-410 and 774 SEGOVB-INITIAL04-CONTRACT-592 / CONT07-CONTRACT-572 retain probe limitations; 774 records its own catalog population, not exhaustive catalog proof."
+    },
+    {
+      "topic": "Individual skin-weight admission",
+      "source": "support/02-95e6-validation.rs 13–49 and support/05-95e6-skinning.rs 1–35",
+      "observation": "Validation checks finite aggregate sums within tolerance; individual-weight and native reduction owner policies remain unresolved. The called strongest_four body was not read here.",
+      "history": "059 q572 Q-L11-e31c308c19ce6c3f591d; do not infer that a zero-row check resolves shared public API admission."
+    },
+    {
+      "topic": "Native and historical identity",
+      "observation": "All three assigned sources are present and distinct at cbbb, 6533 and 95e; source differences alone do not prove a behavior regression. The source-only example is not a probe run and cannot validate visuals or GPU outcomes."
+    }
+  ],
+  "open_questions": [
+    "Which supported public producers can actually supply surface-only UVs while compaction changes vertices, and how should independent direct-UV and surface material policies compose?",
+    "Which producer-level mesh, shell, skin and UV invariants already hold before socket calculation, including generated garment edge cases and canonical chart ownership?",
+    "Which finite color/HDR inputs are supported at the glTF material factor, and what current serializer and consumer policies apply?",
+    "What is the intended contract of diagnostic geometry checks versus full deformation and visual-quality acceptance?",
+    "What individual skin-weight/native-reduction semantics and UV-domain ownership are authoritative?",
+    "The 6533 bodies and exporter test tails are unread by this agent; other callers, native parsers, runtime, rendering and product outcomes remain outside this bounded assessment."
+  ],
+  "historical_queue": [
+    {
+      "zero_based_index": 165,
+      "contract_id": "ADLER-L11-MHR-TOPOLOGY-ADMISSION",
+      "status": "open-reconciliation",
+      "qualification": "Recovered 059 record, original identity/status; not a 3821 record or personal read credit."
+    },
+    {
+      "zero_based_index": 460,
+      "contract_id": "SEGOVB-L13-COMPACT-SURFACE-UV-CORRESPONDENCE",
+      "status": "open-reconciliation",
+      "qualification": "Recovered 059 record, original identity/status; not a 3821 record or personal read credit."
+    },
+    {
+      "zero_based_index": 572,
+      "contract_id": "Q-L11-e31c308c19ce6c3f591d",
+      "status": "open-evidence-or-disposition",
+      "qualification": "Recovered 059 record, original identity/status; not a 3821 record or personal read credit."
+    },
+    {
+      "zero_based_index": 637,
+      "contract_id": "Q-L11-2db61fd95b1d48c9a8d2",
+      "status": "open-evidence-or-disposition",
+      "qualification": "Recovered 059 record, original identity/status; not a 3821 record or personal read credit."
+    },
+    {
+      "zero_based_index": 1919,
+      "contract_id": "Q-L12-061880ab84522c0a38f8",
+      "status": "open-evidence-or-disposition",
+      "qualification": "Recovered 059 record, original identity/status; not a 3821 record or personal read credit."
+    },
+    {
+      "zero_based_index": 1920,
+      "contract_id": "Q-L12-dbade442cb664f05c51d",
+      "status": "open-evidence-or-disposition",
+      "qualification": "Recovered 059 record, original identity/status; not a 3821 record or personal read credit."
+    }
+  ],
+  "lenses": [
+    {
+      "number": 1,
+      "name": "producer-propagation",
+      "bounded_assessment": "95e validate → compact → rigged → shell writer traces q460; armor direct UV and garment/socket producer traces are bounded. Other producers and native parsers remain open."
+    },
+    {
+      "number": 2,
+      "name": "existing-type-owners",
+      "bounded_assessment": "RiggedMesh, RiggedShell, typed joint/UV layout already express roles, but their public independent arrays do not alone establish correlated geometry; no blanket wrapper proposal."
+    },
+    {
+      "number": 3,
+      "name": "admission-contracts",
+      "bounded_assessment": "Public socket path can index before export validation; optional UV and finite input channels have qualified admissions, see historical socket and UV candidates. Actual all-producer guarantees remain open."
+    },
+    {
+      "number": 4,
+      "name": "invariant-operations",
+      "bounded_assessment": "Compaction requires synchronized vertex channels; finite input color transfer may overflow. Distinct original 774 candidate identities are preserved."
+    },
+    {
+      "number": 5,
+      "name": "aggregate-states",
+      "bounded_assessment": "Parallel geometry, skin, UV, index and morph populations require correlated extents/meaning. Shell/body and socket helpers rely on different admission points; do not assert a malformed ordinary generated asset."
+    },
+    {
+      "number": 6,
+      "name": "type-ownership",
+      "bounded_assessment": "Effective UV/compaction and public mesh/shell admission are candidate owners; canonical chart, material color and native format boundaries need wider producer support."
+    },
+    {
+      "number": 7,
+      "name": "redundant-authority",
+      "bounded_assessment": "Direct texcoords and surface UV can coexist; writer selects one by explicit precedence and compaction retains the other. Same q460 first failure; optional material modes may be intentional."
+    },
+    {
+      "number": 8,
+      "name": "behavior-preservation",
+      "bounded_assessment": "Three revision objects differ for every assigned role. Read current and cbbb production scope; 6533 bodies and test tails unread. No runtime, fixture, visual or behavioral equivalence assertion."
+    },
+    {
+      "number": 9,
+      "name": "enum-shapes",
+      "bounded_assessment": "Optional shell surface, direct UV, skin and texture states express separate supported modes. Their coupling requires contract evidence; no automatic flag-to-enum defect."
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "bounded_assessment": "No independently substantiated derive substitution in displayed production scope; bespoke/native traits outside bounded sources are unassessed. No claim of lens-wide clearance."
+    },
+    {
+      "number": 11,
+      "name": "type-granularity",
+      "bounded_assessment": "Coordinate frames, UV chart identity, vertex indices and weights carry different semantics; skin and socket open contracts should be distinguished rather than merged by numeric representation."
+    },
+    {
+      "number": 12,
+      "name": "magic-strings",
+      "bounded_assessment": "glTF keys and diagnostic descriptions are native output boundaries; UV domain is compared for an actual input admission and needs catalog owner context before a closed-string claim. Probe diagnostic strings do not imply product execution."
+    },
+    {
+      "number": 13,
+      "name": "magic-numbers",
+      "bounded_assessment": "Color-transfer constants, thresholds, indices and linearly transformed coordinates have distinct units/policies. The nonfinite derived color is specific; no global clamping or prohibition of native protocol literals."
+    }
+  ],
+  "status": "Bounded delegated source audit with exact unread ranges and unresolved producer/native policies; not whole-lens completion, product validation, implementation, or a checkpoint3821 reconstruction."
+}

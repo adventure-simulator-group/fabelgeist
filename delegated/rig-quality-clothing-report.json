@@ -1,0 +1,448 @@
+{
+  "schema": "726-delegate-source-audit-v1",
+  "agent": "/root/mhr_character",
+  "generated_utc": "2026-11-11T21:38:26.318425+00:00",
+  "scope": {
+    "original_roles": [
+      2468,
+      2469
+    ],
+    "authoritative_current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_rig_quality": "cbbbca08c89a8768926799371f54cf6057312e5e",
+    "rig_quality_base": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "snapshot_pointer": "/snapshots/1",
+    "all_four_assigned_revision_bodies_fully_displayed": true,
+    "qualification": "Full historical and current source bytes and separately registered fitting/consumer support. Both current source hashes differ from the recorded cbbb base blobs; no snapshot equivalence inferred."
+  },
+  "identity_evidence": [
+    "registration.json",
+    "registration-correction.json",
+    "git-proofs.json",
+    "older-continuation-index.json"
+  ],
+  "personal_read_receipt": "read-receipt.json",
+  "support_receipt": "support-read-receipt.json",
+  "historical_provenance": [
+    {
+      "record": "059 READ-L11-409 and REGISTRATION-SEGOVB-1363/1364",
+      "author": "segovb lens 11",
+      "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "ranges": "clothing.rs 1–708; validation.rs 1–62",
+      "qualification": "Historical personal full bodies and source-only fixture text."
+    },
+    {
+      "record": "059 PROPOSAL-L12-834, READ-L12-834 and REGISTRATION-PAR-L12-479/480",
+      "author": "/root/lens12_frontier lens 12",
+      "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "ranges": "clothing.rs 1–708; validation.rs 1–62",
+      "qualification": "Earlier separately registered full personal bodies; no transferred or new ordered credit."
+    },
+    {
+      "record": "774 rig owner coverage rows 76 and 77; producer sources RIG-CLOTHING-OVERLAY-01",
+      "author": "rig historical supplier",
+      "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "qualification": "Historical owner/source responsibility; original and path-normalized export copies preserved separately."
+    },
+    {
+      "record": "774 SEGOVB-INITIAL04-CONTRACT-591 and RIG-ADMISSION03-F011 row 10",
+      "author": "segovb operations summary and original rig admission reviewer",
+      "revision": "591 at cbbb; F011 original pr-working snapshot head 6533e444fa37552927070cc8d8190907fd3b413e",
+      "qualification": "Old summary explicitly preserves latent public-shell refit issue and unsupported producer qualifications; no historical fix or runtime validation inferred."
+    },
+    {
+      "record": "059 q175, q573, q2323",
+      "author": "original authors in retained queue",
+      "revision": "per record: original pr-working or historical e275 source as recorded",
+      "qualification": "Reconstructed navigation to related influence, fit and body pairing, not established exact aliases."
+    }
+  ],
+  "findings_and_reconciliations": [
+    {
+      "id": "RIG-ADMISSION03-F011",
+      "classification": "Independent corroboration at rig-quality and current of existing 774 canonical public-shell topology finding; no new unique count.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-character-creator/src/clothing.rs",
+          "archive": "source/current-2468.rs",
+          "lines": [
+            [
+              45,
+              51
+            ],
+            [
+              359,
+              370
+            ],
+            [
+              412,
+              425
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-character-creator/src/clothing/validation.rs",
+          "archive": "source/current-2469.rs",
+          "lines": [
+            [
+              8,
+              27
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-character-creator/src/clothing/fitting.rs",
+          "archive": "source/support-0.rs",
+          "lines": [
+            [
+              3,
+              28
+            ],
+            [
+              32,
+              48
+            ]
+          ]
+        },
+        {
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "crates/adventuresim-character-creator/src/clothing.rs",
+          "archive": "source/rig-quality-2468.rs",
+          "lines": [
+            [
+              45,
+              51
+            ],
+            [
+              368,
+              380
+            ],
+            [
+              421,
+              434
+            ]
+          ]
+        },
+        {
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "crates/adventuresim-character-creator/src/clothing/validation.rs",
+          "archive": "source/rig-quality-2469.rs",
+          "lines": [
+            [
+              42,
+              61
+            ]
+          ]
+        },
+        {
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "crates/adventuresim-character-creator/src/clothing/fitting.rs",
+          "archive": "source/support-1.rs",
+          "lines": [
+            [
+              3,
+              28
+            ],
+            [
+              32,
+              48
+            ]
+          ]
+        }
+      ],
+      "trace": "ClothingShell exposes mutable public faces and positions. Its public refit checks position/normal row counts, but calls fitted_surface with self.faces before validated_placeholder_faces checks index bounds. relax_concavities builds adjacency by indexing vertex slots; a public shell whose face refers beyond an otherwise matching three-row body reaches indexing before the intended OutOfRangeFace result. The same source chain is present at cbbb and 95e; generated shells first check input faces and final positions, which does not seal a subsequently mutated public shell.",
+      "conditions": "Requires a constructed or later mutated public shell with a bad face and a refit call with matching row counts; no supported private generated caller, actual panic, executed fixture or runtime impact was demonstrated. An intact generator result remains within its own earlier index proof.",
+      "direction": "A future repair should establish checked shell topology/position correspondence before any indexed fitting kernel and preserve the existing correspondence error ordering, placeholder policy and supported source topology; exact owner is central.",
+      "relationships": [
+        "774 RIG-ADMISSION03-F011 (rig/admission03/findings.jsonl zero-based row10) is the prior canonical pr-working 6533 record; SEGOVB-INITIAL04-CONTRACT-591 explicitly reconnected cbbb source and noted no fresh count.",
+        "Current trace is independently displayed; matching fitting.rs bytes at cbbb/95e do not transfer source read attribution or turn 6533 into current history."
+      ]
+    },
+    {
+      "id": "RIG-CLOTHING-INPUT-AND-NORMAL-POLICY",
+      "classification": "Unresolved producer and final mesh policy; not a new unconditional finding.",
+      "source_refs": [
+        {
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "crates/adventuresim-character-creator/src/clothing.rs",
+          "archive": "source/rig-quality-2468.rs",
+          "lines": [
+            [
+              109,
+              127
+            ],
+            [
+              151,
+              175
+            ],
+            [
+              305,
+              329
+            ],
+            [
+              421,
+              450
+            ]
+          ]
+        },
+        {
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "crates/adventuresim-character-creator/src/clothing/validation.rs",
+          "archive": "source/rig-quality-2469.rs",
+          "lines": [
+            [
+              8,
+              36
+            ],
+            [
+              39,
+              61
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-character-creator/src/clothing.rs",
+          "archive": "source/current-2468.rs",
+          "lines": [
+            [
+              109,
+              134
+            ],
+            [
+              157,
+              181
+            ],
+            [
+              304,
+              320
+            ],
+            [
+              412,
+              441
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-character-creator/src/clothing/validation.rs",
+          "archive": "source/current-2469.rs",
+          "lines": [
+            [
+              5,
+              27
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-character-creator/src/clothing/fitting.rs",
+          "archive": "source/support-0.rs",
+          "lines": [
+            [
+              32,
+              48
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-character-creator/src/runtime_equipment/clothing.rs",
+          "archive": "source/support-2.rs",
+          "lines": [
+            [
+              19,
+              36
+            ],
+            [
+              43,
+              59
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-character-creator/src/outfit.rs",
+          "archive": "source/support-3.rs",
+          "lines": [
+            [
+              24,
+              41
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+          "archive": "source/support-4.rs",
+          "lines": [
+            [
+              121,
+              151
+            ]
+          ]
+        }
+      ],
+      "trace": "Both revisions establish aligned vertex/joint array lengths and face slots before generator selection, then check all fitted positions finite and output face bounds. The fit normal kernel normalizes computed face contributions but falls back to the supplied normal when unavailable. These checks do not separately prove every normal is unit-length, every skin weight is finite/nonnegative or that equal-length public inputs originate from the same body. The bounded current private paths supply generated/model values or a shared RuntimeBody, but these excerpts do not establish all upstream admission or renderer/export policies.",
+      "conditions": "Whether a supported producer can supply a non-unit or invalid fallback normal, incompatible equal-cardinality body, or unacceptable weights and whether the final consumer requires stricter admission remain unresolved. Nonfinite resulting positions are rejected; source equality of counts is not semantic correspondence. No visual, model, render, malformed native asset or unsupported scale has been observed.",
+      "direction": "Trace canonical body identity, skin weights and normal producer/consumer invariants; admit data at the owning boundary with frame-appropriate guarantees and preserve intentional placeholder topology, signed offsets and specific errors.",
+      "relationships": [
+        "059 q573 remains open fitted-surface and producer policy. q175 concerns a separate skin influence reduction; q2323 historical private creator pairing narrows ordinary cached-body concerns without proving arbitrary public cross-model correspondence.",
+        "774 SEGOVB-INITIAL04-CONTRACT-591 already preserved fallback normals, equal-count body identity and unsupported huge coordinate qualifications; no automatically inferred alias.",
+        "Prior /root/rig_identity packet is retained separately and its personal rig-selection reads are not transferred."
+      ]
+    },
+    {
+      "id": "RIG-QUALITY-CURRENT-STRUCTURAL-COMPARISON",
+      "classification": "Source comparison and nonfinding; no inferred product validation.",
+      "source_refs": [
+        {
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "crates/adventuresim-character-creator/src/clothing.rs",
+          "archive": "source/rig-quality-2468.rs",
+          "lines": [
+            [
+              109,
+              127
+            ],
+            [
+              219,
+              247
+            ]
+          ]
+        },
+        {
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "crates/adventuresim-character-creator/src/clothing/validation.rs",
+          "archive": "source/rig-quality-2469.rs",
+          "lines": [
+            [
+              8,
+              36
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-character-creator/src/clothing.rs",
+          "archive": "source/current-2468.rs",
+          "lines": [
+            [
+              109,
+              134
+            ],
+            [
+              225,
+              239
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-character-creator/src/clothing/validation.rs",
+          "archive": "source/current-2469.rs",
+          "lines": [
+            [
+              30,
+              58
+            ]
+          ]
+        }
+      ],
+      "trace": "At cbbb, validation::validate_body_inputs encapsulates the shared row counts, joint counts and face checks; at 95e, the equivalent source checks are inline at generator entry. cbbb expands selected faces in the parent; 95e moves the corresponding loop into private validation::expand_selected_faces. The compared local checks, loop growth and fixed-point break are structurally aligned; no complete behavior equivalence or compiled result is asserted.",
+      "conditions": "Both current files differ by hash from the recorded cbbb base snapshot and are assessed as their own Git objects. No renderer or test executed. The scoped loop call supplies its face-aligned selected vector from its own construction; public mismatch should not be invented from the helper signature alone.",
+      "direction": "Keep the named invariants and error ordering explicit if future changes move owner boundaries, and establish evidence for relevant general body and topology support separately.",
+      "relationships": [
+        "Historical 059 and 774 reviews remain at cbbb or explicitly marked pr-working 6533; no record is promoted into checkpoint3821 or used as fresh current credit."
+      ]
+    }
+  ],
+  "nonfindings": [
+    "The generator itself checks body length and input face indices before selection and checks final fitted positions and selected output face bounds.",
+    "A refit issue needs malformed externally constructed or mutated public topology; no failure is inferred for an untouched generator output.",
+    "Placeholder faces intentionally preserve topology without enforcing triangle area, winding or continuous clearance; source tests were read but not run.",
+    "Negative signed offsets, open-ended chain projection and normal fallback are separate policies; no global positive or unit-interval restriction is inferred."
+  ],
+  "open_questions": [
+    "Can any actual supported producer supply invalid normal, weights or mismatched body/skin data despite equal dimensions, and where do renderer or export consumers own these conditions?",
+    "Are public shell fields intended as an admitted domain object or raw authoring data, and what is the correct fallible boundary before refit?",
+    "Do all supported fitting inputs remain in a physical range where micrometre-quantized i64 weld keys do not saturate or alias distinct vertices?",
+    "How should source normal validity and final clearance be established after relaxation and welding while preserving placeholder semantics and intended body topology?",
+    "Which earlier P09/P12/P14 and current private body pairing records share an exact failed contract, and which remain independent?"
+  ],
+  "thirteen_lens_perspectives": [
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "Generator checks shared counts and face slots, but publicly mutable shell can bypass topology before refit, as canonical F011. Weight, normal and body provenance need separate owners.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Skin rows, joint tables, source body vertices, faces and normals are related inputs; equal counts alone do not prove same body identity.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "Current moves validation/expansion across modules while preserving local source conditions; placeholder topology and signed offset modes remain explicit policies, not compatibility shims.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "No demonstrated boilerplate simplification; derived operations and visibility should preserve source-specific invariants and exact errors.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "SurfaceAnchor and EquipmentChannel represent distinct choices; occludes_body is independent policy unless an actual exclusive state contract is established.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "PackedRigSkin and RigJointTable already own slot membership; SignedLength represents signed offset. Native XYZ frame and row correspondence need exact owner, not arbitrary wrapper.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "Refit indexes unsealed faces before fallible validation; numerical kernels recheck fitted positions but finite/unit normal and large-coordinate key behavior remain bounded questions.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "Offsets and thresholds encode catalog/channel/fitting policies and differ in units; no rule justifies conflating clearance oracle, expansion count or waist support threshold.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "ClothingPieceName retains garment identity for typed errors; presentation strings and native asset paths are not by themselves semantic dispatch.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Trace current runtime/outfit/export bounded calls through generated body arrays and output shell; complete source admission, export/renderer and body pairing remain open.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "No evidence that catalog placement channel and independent normal offset are interchangeable; current fallback normals and positions require their own contract.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Rest-frame positions/normals, signed length, joint slots, span bounds, mesh face and material parameters have different units and identity semantics.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "Canonical public shell topology and body/skin source authority remain cross-family choices. Native slot kernels, output fields and historical supplier assignment do not confer repair ownership.",
+      "whole_lens_completion": false
+    }
+  ],
+  "limitations": [
+    "Source inspection and evidence integrity only; no rendering, tests, products, builds, simulations, fixtures, runtime probes or repairs.",
+    "The prospective registration purpose prose accidentally says P17; its hash-linked correction preserves actual rig-quality snapshot and original registration without rewriting history.",
+    "Original sources, authors and revision qualifications remain separate, with no checkpoint3821 reconstruction or credit transfer.",
+    "Central owns global aliases, ordered source roles, connected ledger and publication."
+  ]
+}

@@ -1,0 +1,1242 @@
+{
+  "schema": "726-delegated-source-family-audit-v1",
+  "agent": "/root/hair_ops",
+  "generated_utc": "2026-11-11T21:32:12.054939+00:00",
+  "scope": "Original report-p17 roles 2463\u20132464 against exact 90a and current 95e plus bounded support. All thirteen lenses only partially assessed.",
+  "pinned_current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "pr_working_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "report_p17_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+  "snapshot_proof": {
+    "registry": {
+      "path": "reference/registry.json.gz",
+      "bytes": 1205722,
+      "sha256": "a90f280f820e17643933b87aee4587c0ba47f8feec35bd9db61611653bc14063"
+    },
+    "snapshot_pointer": "/snapshots/2",
+    "role_pointers": [
+      "/files/2463",
+      "/files/2464"
+    ],
+    "git_membership": {
+      "path": "git-proofs.json",
+      "bytes": 34857,
+      "sha256": "c6e9107cb87c4a123fdb7158a39d5b00f0c9edb64742f1599f6eac52eb50f8e9"
+    },
+    "git_nonmembership": {
+      "path": "git-absence-proofs.json",
+      "bytes": 2922,
+      "sha256": "eb40e715fddc0581ef077c938e89c751f1116172a8f4a69472cb5dd612992ee9"
+    },
+    "older_774_selection": {
+      "path": "reference/older-774-selection.json",
+      "bytes": 3977,
+      "sha256": "6c1a8896a8f2e0d9d19e9732f2aadd4cdfe8340c32fe55bf301f77b5e5c332f9"
+    },
+    "qualification": "Registry snapshot 90a, source catalog and two recovered exact older source archives independently agree with raw Git membership. Nothing promoted to missing checkpoint3821."
+  },
+  "registration": {
+    "path": "registration.json",
+    "bytes": 4769,
+    "sha256": "015eb3cce36dd8a1187d685ee2a6f2d4f92370cff67abd108265c311aba56e45"
+  },
+  "role_read_receipt": {
+    "path": "read-receipt.json",
+    "bytes": 2351,
+    "sha256": "bcdae3eff67b18264cdda579be04d9a51154838a99947c1c52763b82c3eedd67"
+  },
+  "roles": [
+    {
+      "original_index": 2463,
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+      "versions": [
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "present": true,
+          "local_path": "source/2463-90a4.rs",
+          "bytes": 7081,
+          "lines": [
+            1,
+            203
+          ],
+          "sha256": "b1dc9323bda01dd3f71ebf003ffe6190ac56ea73ea489ddf3a3f40498c51eab5",
+          "git_blob": "80a61983bae09960930521d3c2986245bdf0df77",
+          "frozen_catalog_object": "<LOCAL_PATH_0>",
+          "archive_local_present": true,
+          "handoff_archive_present": true,
+          "archive_local": "<LOCAL_PATH_1>",
+          "handoff_archive": "<LOCAL_PATH_2>"
+        },
+        {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "present": false,
+          "absence_proof": "exact Git tree lookup excludes the file",
+          "tree_exact_lookup": []
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "present": false,
+          "absence_proof": "exact Git tree lookup excludes the file",
+          "tree_exact_lookup": []
+        }
+      ],
+      "actual_personal_display": {
+        "original_index": 2463,
+        "p17_actual_display_ranges": [
+          [
+            1,
+            70
+          ],
+          [
+            71,
+            140
+          ],
+          [
+            141,
+            203
+          ]
+        ],
+        "current_actual_display_ranges": [],
+        "pr_working_actual_display_ranges": [],
+        "p17_unread_ranges": [],
+        "current_unread_ranges": "path absent at 95e",
+        "qualification": "Exact path absent at 6533 and 95e; source presence preserved only in 90a."
+      },
+      "pr_working_personal_display_ranges": []
+    },
+    {
+      "original_index": 2464,
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "versions": [
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "present": true,
+          "local_path": "source/2464-90a4.rs",
+          "bytes": 29345,
+          "lines": [
+            1,
+            618
+          ],
+          "sha256": "fc63aaa5df83ab829486d1421eda4b014bf7be462cc7451b0b2c28d19c862e99",
+          "git_blob": "29a5f757efdb6063a318953172ce520b009f6bb0",
+          "frozen_catalog_object": "<LOCAL_PATH_3>",
+          "archive_local_present": true,
+          "handoff_archive_present": true,
+          "archive_local": "<LOCAL_PATH_4>",
+          "handoff_archive": "<LOCAL_PATH_5>"
+        },
+        {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "present": true,
+          "local_path": "source/2464-6533.rs",
+          "bytes": 37278,
+          "lines": [
+            1,
+            792
+          ],
+          "sha256": "927e13d910b8e3b7dc6a9cc58ef2e936172b4ec9188948ffd5d1a524d4b89185",
+          "git_blob": "5723da1a36ca843bb38d402262ef0499ad6f8ea0"
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "present": true,
+          "local_path": "source/2464-95e6.rs",
+          "bytes": 37278,
+          "lines": [
+            1,
+            792
+          ],
+          "sha256": "927e13d910b8e3b7dc6a9cc58ef2e936172b4ec9188948ffd5d1a524d4b89185",
+          "git_blob": "5723da1a36ca843bb38d402262ef0499ad6f8ea0"
+        }
+      ],
+      "actual_personal_display": {
+        "original_index": 2464,
+        "p17_actual_display_ranges": [
+          [
+            1,
+            70
+          ],
+          [
+            71,
+            140
+          ],
+          [
+            141,
+            210
+          ],
+          [
+            211,
+            280
+          ],
+          [
+            281,
+            350
+          ],
+          [
+            351,
+            420
+          ],
+          [
+            421,
+            490
+          ],
+          [
+            491,
+            560
+          ],
+          [
+            561,
+            618
+          ]
+        ],
+        "current_actual_display_ranges": [
+          [
+            1,
+            70
+          ],
+          [
+            71,
+            140
+          ],
+          [
+            141,
+            210
+          ],
+          [
+            211,
+            280
+          ],
+          [
+            281,
+            350
+          ],
+          [
+            351,
+            420
+          ],
+          [
+            421,
+            490
+          ],
+          [
+            491,
+            560
+          ],
+          [
+            561,
+            630
+          ],
+          [
+            631,
+            700
+          ],
+          [
+            701,
+            770
+          ],
+          [
+            771,
+            792
+          ]
+        ],
+        "pr_working_actual_display_ranges": [],
+        "p17_unread_ranges": [],
+        "current_unread_ranges": [],
+        "qualification": "Fresh complete 90a and 95e displays, test source text only; 6533 is byte-identical to 95e but not separately displayed."
+      },
+      "pr_working_personal_display_ranges": [],
+      "p17_to_current_diff": {
+        "path": "2464-p17-to-current.diff",
+        "bytes": 25014,
+        "sha256": "f57f00ce2890855dc6f2f2ea03c48f5178232d50369c0d24a8ef31bec4791aab"
+      }
+    }
+  ],
+  "support_registration": {
+    "path": "support-registration.json",
+    "bytes": 6851,
+    "sha256": "2e843612331f3d11d3a7a686013fb1cf55ca6a930f4a948f4b835b2ddaeb5320"
+  },
+  "support_read_receipt": {
+    "path": "support-read-receipt.json",
+    "bytes": 6409,
+    "sha256": "874c2cedb96a8fc9d22df5d9025912ac57610e96cff7ec22961df0a90a19710b"
+  },
+  "support": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "archive": "support/00-95e6-metrics.rs",
+      "sha256": "aa04ddf1b466365d8e27a43076eab1904f9d1d4abfd1715e2af1578f5d4e5636",
+      "eof": 2050,
+      "actual_body_display_ranges": [
+        [
+          655,
+          692
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "archive": "support/01-90a4-metrics.rs",
+      "sha256": "afd630bf1aa3b39007ee568f0428f37e30d43c9b43bd12fc7cd114fca1486c34",
+      "eof": 1184,
+      "actual_body_display_ranges": []
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "archive": "support/02-90a4-height.rs",
+      "sha256": "e334517ee92a0081ddfa169ebb5f261d0720373b72c261ebe363b57f9a013576",
+      "eof": 254,
+      "actual_body_display_ranges": [
+        [
+          85,
+          110
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/height_validation.rs",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "archive": "support/03-90a4-height_validation.rs",
+      "sha256": "a40eb11dc1cb1c214bdd2fc118536d9e879075175c3688f4650f680c43bec3d3",
+      "eof": 35,
+      "actual_body_display_ranges": [
+        [
+          1,
+          35
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/biomechanics_validation.rs",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "archive": "support/04-90a4-biomechanics_validation.rs",
+      "sha256": "9211b4536a6ae6cf42e37da786ff675287b5d917b2231ba82415e9ed4e84109a",
+      "eof": 64,
+      "actual_body_display_ranges": [
+        [
+          1,
+          64
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "archive": "support/05-95e6-mod.rs",
+      "sha256": "46e0169bf601414d1b5ab885a9fa69b0c32436dd3fb1269d28e06e18b5cde1bc",
+      "eof": 234,
+      "actual_body_display_ranges": [
+        [
+          35,
+          123
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "archive": "support/06-90a4-mod.rs",
+      "sha256": "896ecc0389806812fad940c671d539b4c767e5a2e38d8a5865403c65b5377579",
+      "eof": 244,
+      "actual_body_display_ranges": [
+        [
+          45,
+          125
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "archive": "support/07-95e6-model.rs",
+      "sha256": "71dab9d14d4296c98d6828de5f19e3998f8b3716a32f4bb28d665196edb9c376",
+      "eof": 352,
+      "actual_body_display_ranges": [
+        [
+          45,
+          70
+        ],
+        [
+          280,
+          298
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "archive": "support/08-90a4-model.rs",
+      "sha256": "b25c00d6c145fc8ff6ba17b58925569f5377ec0ff736dd1ff61b53d6199d2a68",
+      "eof": 390,
+      "actual_body_display_ranges": [
+        [
+          47,
+          72
+        ],
+        [
+          320,
+          340
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "archive": "support/09-95e6-capture.rs",
+      "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "eof": 1021,
+      "actual_body_display_ranges": [
+        [
+          527,
+          590
+        ],
+        [
+          675,
+          695
+        ],
+        [
+          760,
+          805
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "archive": "support/10-90a4-sample.rs",
+      "sha256": "c3cbd6ab4893272cb488013c9d3837632ed6c9c44b105af9e6d36b705fdb194b",
+      "eof": 132,
+      "actual_body_display_ranges": [
+        [
+          8,
+          18
+        ],
+        [
+          55,
+          70
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "archive": "support/11-95e6-html.rs",
+      "sha256": "48cf5febbcb02887e500a960eb52ab06b5abfc9f55e4bdbf236319f5d89da684",
+      "eof": 99,
+      "actual_body_display_ranges": [
+        [
+          1,
+          25
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/landing_validation.rs",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "archive": "support/12-90a4-landing_validation.rs",
+      "sha256": "f68a28a4d7d79923b5d9b1d5bec979b4518498f9d3d25a91f89911b2916a95cb",
+      "eof": 30,
+      "actual_body_display_ranges": [
+        [
+          1,
+          30
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "archive": "support/13-95e6-acceptance_limits.rs",
+      "sha256": "df0755d84bee3dcbea4124ffdf5f53bb89e513796b87e1577bdfafbdf7fd17f0",
+      "eof": 220,
+      "actual_body_display_ranges": []
+    }
+  ],
+  "navigation_receipt": {
+    "path": "support-navigation.txt",
+    "bytes": 3373,
+    "sha256": "ce3ee3d3d726344fa06dabd1857771ac6475fc64fbf17d26495056a8864ebb67"
+  },
+  "historical_manifest": {
+    "path": "historical-manifest.json",
+    "bytes": 3108,
+    "sha256": "e2d014ff286edb88ed5be790669b7bb89fc10f469e7e7f6b92de6ad910de954c"
+  },
+  "reference_archives": {
+    "path": "reference/manifest.json",
+    "bytes": 2364,
+    "sha256": "9c921690b2edfa8d13f9edb37d3264159fbd86cd6ba4b017243ff450e2ee2505"
+  },
+  "older_774_selection": {
+    "path": "reference/older-774-selection.json",
+    "bytes": 3977,
+    "sha256": "6c1a8896a8f2e0d9d19e9732f2aadd4cdfe8340c32fe55bf301f77b5e5c332f9"
+  },
+  "prior_current_selection": {
+    "path": "reference/prior-current-selection.json",
+    "bytes": 17287,
+    "sha256": "711708ed60e4ee4a76c925c0db7bd56f54ed18ec1b7ed413d34365d9bc5c8191"
+  },
+  "prior_packets": [
+    {
+      "author": "/root/hair_ops with original nested authors preserved",
+      "archive": {
+        "path": "prior-packets/p17-peaks-pose.tar.gz",
+        "bytes": 40144288,
+        "sha256": "c2068890dec79c5f594a9d4de713fd29f1c1b32b3728a0f7669bfff45eaa5b14"
+      },
+      "original_manifest_sha256": "6c13254612ef35b46c345cddd862dd3fe75e47bef64c9ce274cf9f11224026ab",
+      "qualification": "Prior packet and nested /root/rig_identity and /root/mhr_character evidence preserved with personal windows, no transfer of authorship."
+    },
+    {
+      "author": "/root/hair_ops with /root/mhr_character original nested finding",
+      "archive": {
+        "path": "prior-packets/p17-landing.tar.gz",
+        "bytes": 19412011,
+        "sha256": "d8ae3c7c60183faf95bc1d6b349f5af6ecd9bff633083cc86044dbba6b2df790"
+      },
+      "original_manifest_sha256": "7e765cedd61c438fad2b21eaac1d8bba3531eb13e878d9ee84a307dd7149c294",
+      "qualification": "Earlier own support reading and prior author remain distinct from this fresh role read."
+    }
+  ],
+  "prior_own_support_reads": [
+    {
+      "packet": "prior-packets/p17-landing.tar.gz",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "ranges": [
+        [
+          175,
+          200
+        ]
+      ],
+      "qualification": "Earlier support only, not original-role coverage."
+    },
+    {
+      "packet": "prior-packets/p17-landing.tar.gz",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "ranges": [
+        [
+          232,
+          285
+        ],
+        [
+          600,
+          620
+        ]
+      ],
+      "qualification": "Earlier support only."
+    },
+    {
+      "packet": "prior-packets/p17-peaks-pose.tar.gz",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "ranges": [
+        [
+          1,
+          35
+        ],
+        [
+          115,
+          148
+        ],
+        [
+          435,
+          485
+        ]
+      ],
+      "qualification": "Earlier support only; separate prospective full current display recorded in this packet."
+    }
+  ],
+  "historical_review_attribution": [
+    {
+      "record": "segovb/READ-L11-408.json",
+      "author": "Original segovb reviewer as recorded",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "ranges": {
+        "2463": [
+          [
+            1,
+            203
+          ]
+        ],
+        "2464": [
+          [
+            1,
+            618
+          ]
+        ]
+      },
+      "registrations": [
+        "segovb/REGISTRATION-SEGOVB-1358.json",
+        "segovb/REGISTRATION-SEGOVB-1359.json"
+      ],
+      "qualification": "Original P17 lens11 work, not current or checkpoint3821."
+    },
+    {
+      "record": "segovb/READ-L12-832.json",
+      "author": "/root/lens12_frontier original personal reads, adopted by original root without root reread",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "ranges": {
+        "2463": [
+          [
+            1,
+            203
+          ]
+        ],
+        "2464": [
+          [
+            1,
+            618
+          ]
+        ]
+      },
+      "registrations": [
+        "parallel-l12-20261029/REGISTRATION-PAR-L12-474.json",
+        "parallel-l12-20261029/REGISTRATION-PAR-L12-475.json"
+      ],
+      "qualification": "2463 was earlier future personal read reused at ordered frontier, with no new reread; exact READ-FUTURE receipt retained. 2464 was separately fresh. No root personal reread or extra population credit."
+    },
+    {
+      "record": "SEGOVB-INITIAL04-CONTRACT-588",
+      "author": "Original 774 Segovb lens04",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "range_2463": [
+        [
+          1,
+          203
+        ]
+      ],
+      "qualification": "Historical checked units and explicit availability, not a current-source adjudication."
+    },
+    {
+      "record": "SEGOVB-INITIAL04-CONTRACT-589",
+      "author": "Original 774 Segovb lens04",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "range_2464": [
+        [
+          1,
+          618
+        ]
+      ],
+      "qualification": "Historical whole-report predicate and unavailable incomplete quality, with separate screenshot save finding; no current behavior inferred solely from old record."
+    },
+    {
+      "record": "CONT07-CONTRACT-570",
+      "author": "Original 774 continuation lens07",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "ranges": {
+        "2463": [
+          [
+            1,
+            203
+          ]
+        ],
+        "2464": [
+          [
+            1,
+            618
+          ]
+        ]
+      },
+      "qualification": "Historical one validation conjunction, different quality and acceptance policies, and exact older scopes retained."
+    },
+    {
+      "record": "774 native existing-type-owners coverage.jsonl",
+      "author": "Original native supplier",
+      "revision": "report-p17 90a",
+      "zero_based_rows": {
+        "2463": [
+          284,
+          623
+        ],
+        "2464": [
+          285,
+          624
+        ]
+      },
+      "qualification": "Repeated supplier inventory rows are not new independent personal reads."
+    }
+  ],
+  "historical_queue": [
+    {
+      "index": 12,
+      "id": "CONT08-CAPTURE-SAVE-OUTCOME-ERASURE",
+      "status_as_recovered": "open-reconciliation",
+      "unresolved_question_as_recovered": "Reconcile inherited finding scope and first failed contract.",
+      "qualification": "Related original scope, preserve status and attribution; not an automatic current alias or checkpoint3821 state."
+    },
+    {
+      "index": 565,
+      "id": "Q-L11-d6842eb24a1ea3ec418f",
+      "status_as_recovered": "open-evidence-or-disposition",
+      "unresolved_question_as_recovered": "Actual metric producers for ranges/continuity/sway/knee/ground and all P17/P18/P19 exact aliases/current reconciliation remain necessary.",
+      "qualification": "Related original scope, preserve status and attribution; not an automatic current alias or checkpoint3821 state."
+    },
+    {
+      "index": 876,
+      "id": "Q-L1-8634be2f29d31f348778",
+      "status_as_recovered": "open-evidence-or-disposition",
+      "unresolved_question_as_recovered": "Current fullproductionmetrics1..1283 nowqualified own067prefix+fresh068tail; tests1284..2050 notread. Childheightpeaks50/supportslip55 full. Actualphysicalperfootmeasurement/P19, missingmeasurement/nativefinite policy/stencil/exactalias scope remains connected.",
+      "qualification": "Related original scope, preserve status and attribution; not an automatic current alias or checkpoint3821 state."
+    },
+    {
+      "index": 1168,
+      "id": "Q-L12-5ecf41588eb799e2d087",
+      "status_as_recovered": "open-evidence-or-disposition",
+      "unresolved_question_as_recovered": {
+        "source_original_index": 1373,
+        "status": "Full frozen L12 original; conditional missing yaw telemetry/current consumers open",
+        "contracts": [
+          "Actual valid Ok(None)/Err leg observation -> defaultZERO132 -> retained yaw155/156 -> all diagnostic/report consumers/native/current acceptance before false-certification finding.",
+          "Distinct exact first failure/alias assessment from knee-pole fallback; no common-remedy alias."
+        ]
+      },
+      "qualification": "Related original scope, preserve status and attribution; not an automatic current alias or checkpoint3821 state."
+    }
+  ],
+  "findings_and_reconciliations": [
+    {
+      "id": "REPORT-INCOMPLETE-QUALITY-ZERO-POLICY-95E",
+      "author": "/root/hair_ops",
+      "classification": "New bounded source-established policy question; not counted as independently confirmed defect or full-report false pass.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "ranges": [
+            [
+              632,
+              683
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "ranges": [
+            [
+              58,
+              64
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+          "ranges": [
+            [
+              39,
+              98
+            ],
+            [
+              102,
+              120
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs",
+          "ranges": [
+            [
+              16,
+              24
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "ranges": [
+            [
+              457,
+              510
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+          "ranges": [
+            [
+              45,
+              50
+            ],
+            [
+              160,
+              175
+            ]
+          ]
+        }
+      ],
+      "trace": "Current quality score derives weighted category points independently, but assigns bare 0.0 whenever planned-frame or artifact completeness is false. Writer serializes the manifest and HTML summary before producing failed exit; HTML labels the zero as quality percent while also displaying acceptance failed. If a capture is incomplete while points are fewer than 31, the displayed 0% does not equal the complete-capture formula 100*(1\u2212points/31). P17 instead uses Unavailable(IncompleteCapture), retains independent points and acceptance.",
+      "conditions": "Requires a completed-capture object with incomplete selected frames or missing/empty named artifact, successful manifest/HTML writes, and fewer than maximum defect points for the described discrepancy. Actual supported incomplete capture and category values have not been produced. Current 95e test source explicitly expects zero for incomplete capture, so conservative zero may be intentional; no false successful acceptance, viewer/browser, or runtime behavior is claimed.",
+      "future_repair_direction": "Decide whether the quality percentage represents a measured defect rubric or an intentional conservative incomplete penalty. If measurement is required, preserve unavailable reason through manifest and presentation while retaining explicit failed acceptance, weighted categories and intended incomplete-capture handling. No implementation in this audit.",
+      "historical_relationship": "774 SEGOVB-INITIAL04-CONTRACT-588/589 and CONT07-CONTRACT-570 documented P17 availability and score/acceptance separation, not the 95e representation. 059 READ-L12-832 independently observed P17 unavailable and stale test-name wording. CONT08-CAPTURE-SAVE-OUTCOME-ERASURE concerns whether each screenshot write succeeded for this capture; it is a different failure from interpreting a known incomplete score. Earlier ASSESSMENT-REPORT-EVENT-ORDERING-95E concerns complete-score/high-quality versus unweighted acceptance, also not an exact alias."
+    },
+    {
+      "id": "CAPTURE-LANDING-MISSING-HEIGHT-AS-ZERO-95E",
+      "authored_by": "/root/mhr_character",
+      "classification": "Existing conditional current finding, independently connected to fresh full validation role; do not duplicate or transfer original authorship.",
+      "prior_finding_as_recorded": {
+        "id": "CAPTURE-LANDING-MISSING-HEIGHT-AS-ZERO-95E",
+        "classification": "Newly assessed current source finding conditional on capture component absence and required landing semantics; central owns exact alias and ledger disposition.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+            "archive": "source/support-0.source",
+            "lines": [
+              [
+                527,
+                575
+              ],
+              [
+                577,
+                591
+              ],
+              [
+                657,
+                668
+              ],
+              [
+                684,
+                691
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+            "archive": "source/support-2.source",
+            "lines": [
+              [
+                183,
+                204
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+            "archive": "source/support-4.source",
+            "lines": [
+              [
+                242,
+                275
+              ]
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+            "archive": "source/report-p17-2443.rs",
+            "lines": [
+              [
+                59,
+                66
+              ]
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+            "archive": "source/support-3.source",
+            "lines": [
+              [
+                222,
+                241
+              ]
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/landing_validation.rs",
+            "archive": "source/support-11.source",
+            "lines": [
+              [
+                11,
+                29
+              ]
+            ]
+          }
+        ],
+        "trace": "The current capture query admits an optional LocomotionHeightState and substitutes HeightDistance::ZERO when it is absent. The landing gate obtains the maximum from all saved values and regards its final compression <=0.005 as settled. If earlier measured landing compression provides the required 0.04\u20130.08 peak while final height state is absent, that absent last observation is represented as zero and can satisfy the final settled predicate. In P17 the sample preserves absent compression and landing_response_valid rejects any landing frame missing that observation.",
+        "conditions": "Requires the component to be absent at a selected landing frame, an otherwise present eligible subject/playback/route, at least one other measured frame satisfying the peak and knee gate, correct landing-sequence increment, and all other conditions for the landing predicate. Viewer lifecycle may maintain the component throughout; no actual absent component, passing report, live play or executed scenario is claimed. Other gates may reject independently.",
+        "future_repair_direction": "Determine when height observation is required and carry missing versus measured-zero through capture and landing validation, preserving deliberate absent/nonapplicable modes and existing acceptance thresholds. Do not fabricate measured values or weaken acceptance.",
+        "relationships": [
+          "059 READ-L11-404 and READ-L12-823 documented P17 optional height fields but did not adjudicate this current inline landing chain. 774 SEGOVB-INITIAL04-CONTRACT-586 records that the P17 landing gate requires all compression observations; no retroactive claim of an old current-95e finding. q842/q845 and q1157 concern separate height/config/landing producer questions, not automatic aliases."
+        ]
+      },
+      "fresh_connection": "Current capture.rs 527\u2013590,684\u2013691 substitutes zero for absent height; assigned 95e validation.rs 246\u2013275 considers final <=0.005 alongside peak/event/knee checks. P17 assigned validation.rs 187\u2013191 invokes registered P17 landing_validation.rs 11\u201329, which rejects missing selected-frame compression. Actual final component absence after a prior peak and overall acceptance remain unestablished."
+    },
+    {
+      "id": "REVIEW-REPORT-KNEE-AXIS-OBSERVATION-95E",
+      "authored_by": "/root/hair_ops",
+      "classification": "Prior candidate independently connected to 95e validation, no new count.",
+      "prior_finding_as_recorded": {
+        "id": "REVIEW-REPORT-KNEE-AXIS-OBSERVATION-95E",
+        "author": "/root/hair_ops",
+        "classification": "New source-established conditional candidate, central must resolve alias/priority/connected ledger. No demonstrated actual degenerate capture or whole-report pass.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+            "ranges": [
+              [
+                119,
+                135
+              ],
+              [
+                240,
+                246
+              ],
+              [
+                275,
+                279
+              ],
+              [
+                450,
+                510
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+            "ranges": [
+              [
+                20,
+                24
+              ],
+              [
+                435,
+                479
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+            "ranges": [
+              [
+                102,
+                110
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+            "ranges": [
+              [
+                291,
+                297
+              ]
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/pose.rs",
+            "ranges": [
+              [
+                116,
+                142
+              ]
+            ]
+          }
+        ],
+        "trace": "Current metric loops each applicable frame and leg; a hip-to-foot direction that cannot normalize returns f32::INFINITY, then minimum reduction selects any finite observation. When some other included limb/frame has a valid nonnegative hemisphere dot, the undefined axis contributes no failing value and the scenario minimum can satisfy the >=0 hemisphere predicate. P17 counterpart returns Observation::Unavailable(DegenerateLegAxis) immediately. Current completeness requires report bone keys, and finite check requires finite components; neither check itself requires distinct hip/foot positions or nondegenerate axes.",
+        "conditions": "Requires a selected nonexempt scenario whose procedural leg gate applies, a selected frame with degenerate body-local hip-to-foot direction, at least one finite qualifying dot across remaining samples, and all other applicable predicates to hold for the larger biomechanics gate. Finite bone presence is not proof that such geometry is producible; rig topology, captured local transforms, other gates, and actual report acceptance remain unverified. No runtime, viewer, simulated fixture, observed invalid frame or full pass.",
+        "future_repair_direction": "Trace whether supported procedural rig geometry can become degenerate and decide required per-leg/per-frame evidence. For required measurements preserve or propagate undefined versus measured dots into aggregate validation; keep intentional nonapplicable no-IK scenarios and independent thresholds. No repairs authorized in this task.",
+        "relationships": [
+          "059 READ-L11-407 noted P17 availability, q565 and q876 retain knee/metric source-producer policy, and 774 SEGOVB-INITIAL04-CONTRACT-588 documented P17 explicit degeneracy without current-95e adjudication. No exact alias assumed.",
+          "ADLER-L11-KNEE-YAW-MISSING-OBSERVATION-ZERO concerns optional yaw telemetry substituted with zero, not the geometry-axis normalization/minimum fold. /root/mhr_character METRIC-OPTIONAL-COVERAGE-OPEN-95E is a broader open observation; central decides any identity overlap."
+        ]
+      },
+      "fresh_connection": "Current validation.rs 422\u2013479 makes knee hemisphere >=0 one condition in selected procedural biomechanics; P17 registered biomechanics_validation.rs 45\u201355 requires a measured dot and assigned Observation::measured excludes unavailable. Supported degenerate geometry and full acceptance remain open."
+    },
+    {
+      "id": "P17-HEIGHT-DOUBLE-WARMUP",
+      "authored_by": "/root/rig_identity",
+      "classification": "Previously recorded conditional warmup finding connected to assigned phase gate; no duplicate or transferred reading.",
+      "prior_finding_as_recorded": {
+        "id": "P17-HEIGHT-DOUBLE-WARMUP",
+        "status": "source-established conditional coverage gap; occurrence and exact canonical alias unresolved",
+        "first_failed_contract": "A phase-height gate should evaluate every complete post-calibration review cycle that its stated policy requires, but phase-height inputs for terrain-classified scenarios are filtered through the first-wrap warmup twice.",
+        "evidence": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/review_scenarios/authored_policy.rs",
+            "range": [
+              5,
+              14
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/review_scenarios/authored_policy.rs",
+            "range": [
+              41,
+              48
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/review_scenarios/metadata.rs",
+            "range": [
+              18,
+              32
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/review_scenarios.rs",
+            "range": [
+              150,
+              174
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+            "range": [
+              75,
+              80
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+            "range": [
+              65,
+              79
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+            "range": [
+              119,
+              130
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+            "range": [
+              195,
+              198
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+            "range": [
+              218,
+              228
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+            "range": [
+              708,
+              709
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+            "range": [
+              737,
+              758
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+            "range": [
+              785,
+              795
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+            "range": [
+              1272,
+              1281
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+            "range": [
+              165,
+              173
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+            "range": [
+              126,
+              144
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+            "range": [
+              90,
+              107
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+            "range": [
+              398,
+              407
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs",
+            "range": [
+              121,
+              124
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs",
+            "range": [
+              170,
+              173
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs",
+            "range": [
+              217,
+              231
+            ]
+          }
+        ],
+        "reasoning": "FlatGridWalk20 and FlatGridRun55 carry FlatGrid, classify as Terrain and request a three-cycle selected plan. scenario_metrics removes the first observed wrap for all terrain metrics, then passes that already-filtered slice to phase range, contact-to-passing gain and visual peaks, each of which removes through the next wrap again. If at least two wraps occur in captured phase, the first post-calibration interval is absent from those three measurements. This contradicts the adjacent peak-loop comment that every complete post-warmup cycle is independently gated. The old P17 source has the same nested warmup calls for terrain-classified data.",
+        "qualification": "A full plan does not prove particular runtime phase wraps or values. The finding is conditional on an observed second wrap and a complete affected cycle; no viewer, scenario, fixture or whole-report acceptance was run. Other continuity and independent gates still inspect their own inputs. Exact intended calibration versus review-cycle policy requires an owner decision.",
+        "future_repair_direction": "Choose and retain a single explicit calibration boundary for applicable height measurements and their review-cycle coverage; ensure any required complete post-calibration cycle contributes without inventing data or altering legitimate trailing partial-cycle exclusions.",
+        "historical_relationship": "059 Q-L11-d6842eb24a1ea3ec418f and Q-L1-8634be2f29d31f348778 retain metric producer, warmup and measurement questions; 774 NATIVE-OWNER-REPORT-GATES-004 covers P17 observation and applicability. These are related contexts, not established exact aliases. 059 root e275 067/068 reviewed current metrics 1\u2013430 and 431\u20131283 respectively; separate attribution remains intact."
+      },
+      "fresh_connection": "Current assigned validation.rs 126\u2013143 consumes range, gain and peak output; registered 90a height_validation.rs 5\u201334 requires measured range/gain/peaks. Whether the excluded post-calibration cycle should be required and actual observed wraps remain open."
+    },
+    {
+      "id": "ADLER-L11-KNEE-YAW-MISSING-OBSERVATION-ZERO",
+      "classification": "Earlier 059/current yaw observation relationship, not an alias of degenerate knee-axis or landing-height cases.",
+      "prior_connection_as_recorded": {
+        "id": "ADLER-L11-KNEE-YAW-MISSING-OBSERVATION-ZERO",
+        "classification": "Previously recorded 059/current missing yaw telemetry finding, current support connection only; not a duplicate of knee-axis candidate.",
+        "trace": "P17 pose.rs 144\u2013160 returns unavailable if either optional leg yaw diagnostic is absent. Current metrics.rs 513\u2013523 folds bare values from zero and validation.rs 480\u2013481 checks <=22.6 where procedural gates apply; prior ASSESSMENT-REPORT-METRIC-SUPPORT-95E records producer/source conditions.",
+        "qualification": "No actual missing yaw observation, full report or runtime outcome established here."
+      },
+      "fresh_connection": "Current assigned validation.rs 480\u2013481 checks numeric yaw threshold; P17 biomechanics_validation.rs 55 requires a measured value when applicable. Actual required missing telemetry remains conditional."
+    }
+  ],
+  "nonfindings": [
+    "P17 empty landing set is accepted by its per-scenario helper, while capture plan completeness is a separate requirement; an intentionally unselected scenario is not automatically a missing required capture.",
+    "Current hard-stop helper returns None only when no hard-stop frames exist, and Some(infinity) if no stopped frame; its is_none_or gate exempts an absent unselected scenario. A one-frame selected transition could produce a zero fold, but supported plan coverage and intended policy remain open.",
+    "Full acceptance requires artifact, frame completeness, finite captured bone components, biomechanics, continuity, event, jitter and other conjunctions. A single low-quality observation or omitted metric does not establish a globally passing report.",
+    "P17 current-independent observation access requires Unavailable to fail when_applicable and only NotApplicable to pass. Its KneeHemisphereDot allows finite normalized-vector rounding beyond \u00b11 by design.",
+    "P17 test source name says zero for incomplete but its assertion checks Unavailable; earlier READ-L12-832 already recorded that source-only wording observation. Neither test was run.",
+    "All current and P17 test text was inspected as source only; no builds, tests, product, viewer, browser, probes, fixtures, simulation or repairs were executed."
+  ],
+  "open_questions": [
+    "Should incomplete but otherwise low-defect captures display an explicitly unavailable quality percentage, or is conservative zero the intended product contract?",
+    "Can any supported selected capture produce missing artifacts, an incomplete frame cohort or partial missing metric observation while reaching report writing, and what other gates would reject it?",
+    "Which 95e optional metric paths require every frame/limb observation, and can supported producers create absent landing height, degenerate limb axes or missing IK yaw?",
+    "Are hard-stop selected plans guaranteed to contain enough adjacent frames after the stop, and should a one-sample fold be unavailable?",
+    "What are the actual terrain-phase wrap coverage and intended calibration boundary for phase-height measurements?",
+    "How should existing report save acknowledgment, metric availability and acceptance identities be connected without collapsing their separate first failures?"
+  ],
+  "thirteen_lens_perspectives": [
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "P17 Observation requires a real measurement for measured() and fails Unavailable for when_applicable; current raw scalar may encode a sentinel. Incomplete quality 0.0 is source-established but intended UI semantics are an owner question.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "A quality percentage, defect categories and full acceptance are different observations. Capture completion and nonempty artifacts gate availability at P17 and force zero at 95e; each individual acceptance gate remains independently required.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "P17 report Observation module is absent at both 6533 and 95e, while validation.rs is different from P17 and byte-identical across 6533/95e. Compare actual 90a and 95e source only; no chronological regression or product behavior claimed.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "KneeHemisphereDot performs finite-only native admission, Observation encodes applicability and QualityPercent serializes a checked fraction as percent. No evidence supports deriving away those invariants or changing legitimate native output.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "P17 NotApplicable, Unavailable(reason) and Measured preserve distinct evidence; independent quality category booleans are independent defects rather than necessarily one exclusive enum.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "P17 UnitInterval and QualityPercent own normalized fraction and presentation conversion, HeightSample owns phase and signed height, while BoneRole and AnimationEventSpan own identity and wrapping sequences. Runtime numeric kernels remain native where appropriate.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "P17 quality weights max at 31 and UnitInterval admits normalized fraction; KneeHemisphereDot rejects nonfinite values without overconstraining finite native rounding. Current explicit zero for incomplete is a policy representation, not numeric overflow evidence.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "Thresholds, score weights 16/8/4/2/1 and 31 normalizer encode separate acceptance/rubric policies. P17/current display 31 agrees with maximum weight; chosen biomechanical bounds and alternate fixed64 playback remain independently open.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "Typed scenario and BoneRole determine logic; semantic route path strings and static diagnostics are native output. Actual HTML label encoding and all programmatic producer grammar remain prior q1230, not a new unescaped-source claim.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Current capture height Option becomes zero into FrameSample and landing gate; report writer carries validation and percentage to JSON/HTML before failing exit. Prior authors and separate first failures remain intact.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "Both acceptance result and exit derive from validation_passed, so quality fraction versus acceptance boolean are deliberately distinct policy quantities. Hardcoded score maximum and denominator align in observed bodies but remain separate expressions.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Measured zero, missing, and not applicable are distinct semantic states when a report requires measurement; nonempty file metadata, complete capture and semantic image quality are separate evidence levels.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "Capture owns recording observations and current artifact provenance; report metrics own availability; validation owns applicability and predicates; HTML owns display. Central retains reconciliation, alias decisions and repair-ledger publication.",
+      "whole_lens_completion": false
+    }
+  ],
+  "limitations": [
+    "Earlier 059 and 774 records retain original snapshot/reviewer/range and remain separate from newly assessed current work; no checkpoint3821 advancement.",
+    "Full 90a observation, full 90a validation and full 95e validation were personally displayed; 6533 validation byte equality was verified but no separate 6533 display occurred.",
+    "Imported or retained evidence confers no additional body credit, and central owns baseline, reconciliation, ledger and checkpoint publication."
+  ]
+}

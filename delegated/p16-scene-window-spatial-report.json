@@ -1,0 +1,446 @@
+{
+  "schema": "726-delegate-source-assessment-v1",
+  "author": "/root/mhr_character",
+  "written_utc": "2026-11-11T22:37:31.364025+00:00",
+  "scope": {
+    "original_roles": [
+      2526,
+      2527
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "not_claimed": "No whole-lens completion, ordered-role or checkpoint3821 credit, ledger alias or product validation."
+  },
+  "baseline_and_recovery": {
+    "recorded_clean_base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "f82_transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "recorded_dirty_patch_sha256": "fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7",
+    "patch_status": "Unrecovered; parent bounded scan of 7,156 patch/diff files <=100MB under older ae46 and supplied 28ba collections found no match, not global absence.",
+    "per_path": "Each recovered dirty P16 object separately equals its a120 path and is proven in f82 transport. Role2527 also equals current 95e; role2526 has a different current object. Neither individual equality makes dirty P16 identical to the clean base or f82 its source revision.",
+    "spatial_diff": "spatial-p16-to-current.diff: GateDatum tuple member made private; new/elevation methods added and from_metres maps through new. Exact old/current registered sources both fully displayed.",
+    "diff_sha256": "27201923efa3e80545a9102e3fcd5b33c6f29e60b92f935efb6985228c8eb817",
+    "bodies": [
+      {
+        "role": 2526,
+        "kind": "physical-p16",
+        "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+        "archive": "source/physical-p16-2526.source",
+        "sha256": "12d9a293dfa9ba0ecf15b2410b1301587ca902296fd26db8ffd25601ca07626d",
+        "git_blob_sha1": "2231c07973762bb34cfa292332ec9cadafa03a42"
+      },
+      {
+        "role": 2526,
+        "kind": "current",
+        "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+        "archive": "source/current-2526.source",
+        "sha256": "aab7cbd205fd372d7542412ed9898345ccc87e83c548b9988a46424d4b88c2af",
+        "git_blob_sha1": "123ae6d6c21a6f42ed510109e85cc63bf93d4ab3"
+      },
+      {
+        "role": 2527,
+        "kind": "physical-p16",
+        "path": "crates/adventuresim-tactical-core/src/scene_coordinates/window.rs",
+        "archive": "source/physical-p16-2527.source",
+        "sha256": "9e148e80284c8a960dc0fe0495783563bae67ec6bbf07abbdf6f82ff8edf5601",
+        "git_blob_sha1": "b1d784c5db2742f603eb914bfedcbd2e2c3c3930"
+      },
+      {
+        "role": 2527,
+        "kind": "current",
+        "path": "crates/adventuresim-tactical-core/src/scene_coordinates/window.rs",
+        "archive": "source/current-2527.source",
+        "sha256": "9e148e80284c8a960dc0fe0495783563bae67ec6bbf07abbdf6f82ff8edf5601",
+        "git_blob_sha1": "b1d784c5db2742f603eb914bfedcbd2e2c3c3930"
+      }
+    ]
+  },
+  "personal_scope": {
+    "assigned": "Fresh prospective registrations and full independent old/current personal displays in bounded chunks, including test source only; none executed.",
+    "support": "Eleven separately registered bounded current sources; actual displayed windows and unread complements recorded. No support confers ordered-role credit.",
+    "prior_evidence": "Exact earlier reports/manifests and relevant discovery qualification copied and hash-linked to separately preserved full prior packets; full archives not embedded to conserve disk."
+  },
+  "historical_attribution": {
+    "registry": "Role2526 rig REGISTER-021/025 original material 37–48,70–102,116–168,172–218,246–256; role2527 rig REGISTER-022 original material1–61. Original embedded qualifications are preserved; standalone old rig files were not located.",
+    "lens11": "059 segovb READ-L11-418 records two fresh disjoint P16 role2526 reads: 1431 at 37–48,70–102,116–168,172–218,246–256 and 1438 at 1–36,49–69,103–115,169–171,219–245,257–262; their union covers262 without inventing another full reread. Role2527 adopts older adler READ-L11-291 pr-working 6533e444fa37552927070cc8d8190907fd3b413e full1–136, no fresh P16 body read.",
+    "lens12": "059 /root/lens12_frontier personally read P16 role2526 1–48,68–102,116–218,246–258 after PAR545, and P16 role2527 1–61 after PAR558. Root separately adopted READ-L12-857/858 with no root reread; all gaps and old test exclusion remain distinct.",
+    "older774": "Original rig F003/F002 and normalized/original 774 records kept with original author and status, not automatically transferred."
+  },
+  "findings_and_questions": [
+    {
+      "id": "P16-WINDOW-CONVERSION-PARTIAL-COMMANDS",
+      "kind": "conditional source-order question linked to prior 059",
+      "first_contract": "The building openings composition queues door work before calling spawn_building_windows. Window compilation returns its whole vector, but the subsequent loop converts one window at a time and queues each successful spawn before converting the next. The observer inserts its parent collider only after opening spawning succeeds. A late fallible window conversion or later caller failure can thus occur after earlier commands have been queued, with no compensating cleanup in the inspected bodies.",
+      "condition": "A late conversion/collider failure must be reachable after earlier queued work, and Bevy’s actual deferred command/error application and any external cleanup must permit it. Individually finite coordinates can overflow in the datum subtraction and be rejected, but normal generator/scene bounds were not established. No leaked entity or runtime execution is claimed.",
+      "future_direction": "Determine the product owner’s all-or-nothing or partial-recovery contract and actual command application semantics. If atomicity is required, plan fallible conversions and parent/child ownership before queueing while preserving typed first causes and intentional failure diagnostics.",
+      "relationships": [
+        "059 Q-L12-0ac6b5205d33d354e784 already leaves native queued intents and failed observer/door partial publication open; current window ordering and caller source sharpen it, not an automatic new unique count.",
+        "Different from prior P16-WINDOW-LEAF-UNBOUNDED-WORK and tiny shutter render errors; central reconciliation determines shared lifecycle ownership."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_coordinates/window.rs",
+          "lines": [
+            [
+              25,
+              59
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+          "lines": [
+            [
+              73,
+              102
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/windows.rs",
+          "lines": [
+            [
+              66,
+              83
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/doors.rs",
+          "lines": [
+            [
+              125,
+              138
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/openings.rs",
+          "lines": [
+            [
+              30,
+              72
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-SCENE-LEAF-AGGREGATE-CONTRACT",
+      "kind": "prior aggregate question, not a unique finding",
+      "first_contract": "Window and door conversions admit the rotated quaternion and separately convert position, hinge, directions and yaw while preserving typed size, relative open angle, identity and optional bar mode. Public individually checked WindowSpec and DoorSpec fields do not themselves establish that hinge, centre, direction, yaw and swing form a coherent aggregate. The inspected server consumers use the converted hinge and native rotation.",
+      "condition": "An independently constructed or decoded incoherent leaf must reach a consumer relying on these relationships. Normal generator invariants, every native frame boundary and allowed alternative hinges remain unproven; independent fields alone do not prove a gameplay defect.",
+      "future_direction": "Establish the actual upstream invariant owner and frame-specific swing contract before imposing validation; preserve changed-frame operations and typed error/identity behavior.",
+      "relationships": [
+        "Related to previous /root/mhr_character P16-DOORSPEC-CROSS-FIELD-POLICY and P16-WINDOWSPEC-AGGREGATE, and to 059 L12-CLOSURE-SCENE-WINDOW-NATIVE-PROJECTION-LIGHTING; no automatic alias or duplicated count."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_coordinates/window.rs",
+          "lines": [
+            [
+              11,
+              59
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+          "lines": [
+            [
+              116,
+              151
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows/spec.rs",
+          "lines": [
+            [
+              18,
+              45
+            ],
+            [
+              75,
+              118
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/doors.rs",
+          "lines": [
+            [
+              19,
+              72
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/windows.rs",
+          "lines": [
+            [
+              86,
+              128
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/doors.rs",
+          "lines": [
+            [
+              142,
+              178
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-GATE-DATUM-REVISION-AND-PRODUCERS",
+      "kind": "revision difference and qualified authority question",
+      "first_contract": "P16 exposed GateDatum’s SupportElevation tuple member publicly. Current 95e makes it private and adds new/elevation methods; from_metres delegates to new. The current distant-boundary producer passes an already typed support elevation directly to new, while the server boundary observer reconstructs a datum from the entity transform Y. The inspected generated server spawn initializes that transform Y from boundary elevation.",
+      "condition": "Whether a later update can make these two sources disagree, or whether they intentionally serve different scenes, was not traced. A private-field API change is not by itself a behavior defect, stale state proof or compatibility requirement.",
+      "future_direction": "Keep the checked support elevation owner and actual authoritative scene handoff distinct; trace mutation/lifetime policy before accepting a duplicated-source finding.",
+      "relationships": [
+        "059 Q-L12-c0b87495151f633b7051 leaves actual GateDatum/property/renderer contracts pending. Original P16 record cannot be promoted to current changed source."
+      ],
+      "source_refs": [
+        {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+          "lines": [
+            [
+              154,
+              168
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+          "lines": [
+            [
+              154,
+              175
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "lines": [
+            [
+              73,
+              85
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/boundaries.rs",
+          "lines": [
+            [
+              4,
+              20
+            ],
+            [
+              32,
+              44
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/projection.rs",
+          "lines": [
+            [
+              90,
+              106
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-PAIRED-POSE-REUSE",
+      "kind": "bounded nonfinding and historical producer link",
+      "first_contract": "SceneDoorPose and SceneWindowPose privately retain the converted typed leaf with its native quaternion; accessor returns a leaf copy. The inspected server consumers and review viewer obtain leaf and native rotation from the same pose without mutating the copy before use. The native product preserves the original order rather than reconstructing a quaternion from the summed yaw.",
+      "condition": "This does not prove every other caller respects the pairing or that arbitrary initially inconsistent public leaf fields become valid. Existing tests read as source were not executed.",
+      "future_direction": "Preserve paired conversion, native multiplication order, and checked frame transitions when reconciling consumers.",
+      "relationships": [
+        "059 L12-CLOSURE-SCENE-DOOR-PAIRED-POSE-AUTHORITY asks whether another consumer mutates a copy, and L12-CLOSURE-SCENE-WINDOW-NATIVE-PROJECTION-LIGHTING leaves other consumers open.",
+        "774 rig F003 separately identifies checked hinge/open angle converted into retained raw controllers/reviewer fields, not a defect in the private pairing itself."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+          "lines": [
+            [
+              116,
+              151
+            ],
+            [
+              210,
+              225
+            ],
+            [
+              254,
+              263
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_coordinates/window.rs",
+          "lines": [
+            [
+              11,
+              59
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/windows.rs",
+          "lines": [
+            [
+              86,
+              128
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/doors.rs",
+          "lines": [
+            [
+              142,
+              155
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/openings.rs",
+          "lines": [
+            [
+              112,
+              141
+            ],
+            [
+              163,
+              212
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-COORDINATE-ARITHMETIC-ADMISSION",
+      "kind": "qualified nonfinding and open numerical limits",
+      "first_contract": "CollisionCentreDatum validates orientation, then converts point/direction/quaternion outputs through frame-specific checked owners and maps window/door errors to the original opening and source. PlanDirection and RigidRotation enforce normalized native values rather than silently normalizing them; Radians enforces finite values.",
+      "condition": "Finite input values alone do not prove finite output after subtraction/addition or that rounded native rotations satisfy every checked tolerance. The actual Bevy numeric implementation, generated bounds and extreme input policies remain open; no blanket valid-input failure or render incident is established.",
+      "future_direction": "Maintain first-cause identities, frame and operation ordering, and define any required supported numerical domain at the owner rather than silently altering arithmetic.",
+      "relationships": [
+        "Historical 059 READ-L12-857/858 personally covered limited P16 conversion scopes only; this is an independent current read and not whole-family validation."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+          "lines": [
+            [
+              73,
+              115
+            ],
+            [
+              116,
+              151
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_coordinates/window.rs",
+          "lines": [
+            [
+              25,
+              59
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+          "lines": [
+            [
+              10,
+              28
+            ],
+            [
+              40,
+              64
+            ],
+            [
+              84,
+              97
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+          "lines": [
+            [
+              27,
+              56
+            ],
+            [
+              71,
+              76
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings": [
+    "Current GateDatum encapsulation does not by itself show changed mathematical behavior or a compatibility requirement.",
+    "Private native leaf/rotation pairing is a bounded source property; no actual consumer desynchronization was found in inspected windows.",
+    "Fallible numerical re-admission and contextual errors do not by themselves establish a bad generated geometry incident.",
+    "Test source and previous reviewer results do not constitute runtime validation."
+  ],
+  "perspectives": {
+    "producer-propagation": "F003 retains historical controller/reviewer hinge/angle issue while current conversions preserve typed size, identities and paired pose.",
+    "existing-type-owners": "SupportElevation, typed frame Positions, PlanDirection, Radians and RigidRotation own distinct admission roles.",
+    "admission": "Orientation and post-operation point/direction/quaternion leaves are checked, but cross-field and external producer domains need owner analysis.",
+    "invariant-operations": "Finite arithmetic can overflow and is fallibly readmitted; multi-window loop interleaves conversion and command queueing.",
+    "aggregate-states": "Individually valid hinge, centre, direction and yaw do not alone prove a coherent original leaf or all-or-nothing entity batch.",
+    "type-ownership": "Scene, GateRelative and Architectural frames remain distinct; typed errors retain opening/source IDs.",
+    "redundant-authority": "Typed support and entity transform-derived Y are different producer paths; no actual divergence established.",
+    "behavior-preservation": "Role2526 changed only GateDatum encapsulation/accessors; role2527 bytes match. Preserve floating point operation order and exact quaternion product.",
+    "enum-shapes": "Frame marker types and semantic leaf kinds are distinct; no unsupported sum-type simplification demonstrated.",
+    "derivability": "Manual checked conversion and source-aware error wrapping are meaningful; no equivalent blanket derive shown.",
+    "type-granularity": "Native quaternion and yaw have related but different roles, and SceneDoorPose/SceneWindowPose pair them privately.",
+    "magic-strings": "Inspected diagnostic source text is not shown as identity or business dispatch.",
+    "magic-numbers": "Original operation order and typed unit scales matter; no new bare numerical constant finding in the bounded bodies."
+  },
+  "open_questions": [
+    "What is Bevy’s actual deferred-command/error policy and does any reachable late conversion or collider error leave queued children without a completed parent?",
+    "Are typed support elevation and later server transform Y guaranteed to stay coherent throughout entity lifetime?",
+    "Which consumers and admissions enforce hinge/direction/yaw relations, and can native numerical tolerance reject reachable generator values?",
+    "Do any actual consumers mutate a copied leaf then use the original native quaternion as if still paired?",
+    "Central coordinator owns severity, historical aliases and connected repair planning."
+  ],
+  "constraints": "Source/evidence inspection and mathematical reasoning only. No repairs, builds, tests, product execution, UI, simulations or runtime probes."
+}

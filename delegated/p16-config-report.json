@@ -1,0 +1,403 @@
+{
+  "schema": "726-bounded-delegate-report-v1",
+  "author": "/root/mhr_character",
+  "written_utc": "2026-11-11T21:54:06.217605+00:00",
+  "scope": "Original roles 2483–2485 physical-p16 tactical combat procedural, ragdoll and playback configs. Full personal display of both registered extracted P16 bodies and individually matched current 95e bodies; current supports are separately registered and only specified windows displayed. These perspectives are bounded observations, not thirteen complete lenses or ordered-role/ledger acceptance.",
+  "baseline_and_recovery": {
+    "historical_snapshot": "physical-p16 unfinished dirty delta",
+    "recorded_base_head": "a120390947c89b703dc74c4255a13c035d054c50",
+    "dirty_changed_variants": 159,
+    "recorded_patch_sha256": "fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7",
+    "patch_qualification": "Registry records patch SHA and status. Exact patch bytes not recovered or independently verified in this packet. Central reports a bounded search of 7,156 patch/diff files <=100 MB across older ae46 and user-provided 28ba targets yielded no matching SHA; this is not a global absence claim.",
+    "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "transport_qualification": "f82 archive paths are proof of preserved object transport, not a P16 product HEAD.",
+    "per_path_proof": "For each role, extracted 059 content-addressed object matches the original registry SHA256, exact archived f82 object bytes, Git base a120 path bytes, and pinned current 95e path bytes. Full source equality is limited to each of these three paths. Raw Git commit/tree membership proofs and original exact bytes are bundled.",
+    "dirty_context": "The registry records parent crates/adventuresim-tactical-core/src/combat_config.rs as modified and does not list the three role paths as dirty. Never identify the entire P16 snapshot or other consumers with clean a120, nor infer whole-tree equality from these individual matches.",
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "current_change": "Assigned three source bodies identical to P16 per exact SHA256/bytes. Parent combat_config current source differs in SHA from separately recorded P16 parent; no complete old/current parent diff assessed."
+  },
+  "personal_display": {
+    "assigned": "read-receipt.json",
+    "supports": "support-read-receipt.json",
+    "git_proofs": "git-proofs.json",
+    "historical_registration": "registration.json",
+    "supports_registration": [
+      "support-registration.json",
+      "support-registration-02.json",
+      "support-registration-03.json",
+      "support-registration-04.json"
+    ],
+    "unread_scope": "Exact support-file unread complements are recorded in support-read-receipt; complete loaders, scheduling details, native physics states, causal performance and all other source families remain open."
+  },
+  "historical_attribution": [
+    {
+      "id": "059-L11-413",
+      "records": [
+        "historical-059/segovb/READ-L11-413.json",
+        "historical-059/segovb/REGISTRATION-SEGOVB-1384.json",
+        "historical-059/segovb/REGISTRATION-SEGOVB-1385.json",
+        "historical-059/segovb/REGISTRATION-SEGOVB-1386.json"
+      ],
+      "detail": "Segovb fresh physical-P16 reads role2483 lines1–60, 2484 lines1–50, 2485 lines1–25. See separately qualified same-lens reuse below; do not recast fresh bounded ranges as full prior reads."
+    },
+    {
+      "id": "059-L11-413-reuse",
+      "records": [
+        "historical-059/segovb/REUSE-L11-413-001.json",
+        "historical-059/adler/READ-L11-283.json",
+        "historical-059/adler/REGISTRATION-ADLER-709.json",
+        "historical-059/adler/REGISTRATION-ADLER-710.json",
+        "historical-059/adler/REGISTRATION-ADLER-707.json"
+      ],
+      "detail": "Same-lens exact-hash/path bridge attributed pr-working full 66/112/48 source reads to Adler, and described separate role namespaces. The earlier 039329/6533 bridge remains a historical assertion with its own qualification; present per-file Git proof is independent, not a transferred lens verdict."
+    },
+    {
+      "id": "059-L12-842",
+      "records": [
+        "historical-059/segovb/READ-L12-842.json",
+        "historical-059/parallel-l12-20261029/PROPOSAL-L12-842.json",
+        "historical-059/parallel-l12-20261029/ADOPTION-MANIFEST-PAR-L12-842-844.json"
+      ],
+      "detail": "Prior subagent /root/lens12_frontier fresh exact physical-P16 ranges 2483:1–60, 2484:1–59 and 81–112, 2485:1–25. Physical 2484:60–80 excluded. Root adoption and old Windows/archive qualification remain historical; no cross-lens or current transfer."
+    },
+    {
+      "id": "059-L12-connected",
+      "records": [
+        "historical-059/segovb/READ-L12-CONNECTED-TEAM-016.json",
+        "historical-059/parallel-l12-20261029/READ-CONNECTED-PAR-L12-842-P16-CONFIG-VALIDATORS-ERROR-OWNER-PARTIAL.json",
+        "historical-059/parallel-l12-20261029/REGISTRATION-PAR-L12-501.json",
+        "historical-059/parallel-l12-20261029/REGISTRATION-PAR-L12-502.json",
+        "historical-059/parallel-l12-20261029/REGISTRATION-PAR-L12-503.json"
+      ],
+      "detail": "Same subagent separately registered and read procedural 61–66 and playback 26–48 plus dirty P16 parent 414–446 and 680–780; root adoption states validator reason/caller/native policy still conditional; no ragdoll capsule60–80, ordered-role increment or later current resolution inferred."
+    },
+    {
+      "id": "774-camera-owner81",
+      "records": [
+        "historical-registry-selected.json",
+        "older-774/continuation/owner-range-extensions.jsonl",
+        "older-774/continuation/camera/owner81/findings.jsonl",
+        "older-774/continuation/camera/owner-definition-producer-fixedpoint/findings.jsonl"
+      ],
+      "detail": "CONT-CAMERA-OWNER81-REGISTRATION-004 is an embedded prospective registration at 2026-10-22 for ragdoll51–59 and81–112, excluding60–80; standalone registration source and muscle-owner-supplement-002 not located. Camera QUALIFICATION-005 and OWNERDEF-PP-QUALIFICATION-001 record zero-valid rise/limp with max1e-3, native envelope/codec and no demonstrated checked-owner loss within five scoped producer paths, no broad lens clearance. Preserve this prior behavior-policy qualification when considering the magic-number question."
+    },
+    {
+      "id": "774-native",
+      "records": [
+        "older-774/original/final-acceptance-20261021/wave-01/audit-existing-type-owners/native/coverage.jsonl",
+        "older-774/original/final-acceptance-20261021/wave-01/audit-existing-type-owners/native/receiver-closure.json"
+      ],
+      "detail": "Earlier native owner review lists pr-working drive lines1–237 and muscles lines1–275, exact SHA matching current support bytes, with NATIVE-OWNER-RAGDOLL-001 and explicit policy dependencies. These are that historical reviewer’s reads, not new current personal coverage or automatically resolved source-family aliases."
+    },
+    {
+      "id": "059-queue",
+      "records": [
+        "historical-queue-selected.json",
+        "reference/059-queue-original-bytes.json.gz"
+      ],
+      "detail": "Queue index579 Q-L11-cae61dc3f95d79a80ef2 retains actual muscle envelope/split/kick/seed dynamics and P16/P17/P18 alias questions, cosmetic not strategic persistence. Indices816–818 preserve P04 typed leaves, zero responses, phase limits above one and aggregate/mutation policy still open; 845–846 preserve height and broad scheduling/capture/alias gaps. Identifiers are connected, not proved aliases to current candidates."
+    }
+  ],
+  "findings_and_questions": [
+    {
+      "id": "P16-CONFIG-RAGDOLL-STEP-RETENTION",
+      "classification": "conditional current policy/cross-lens finding",
+      "sources": [
+        "current ragdoll.rs:19–32",
+        "current ragdoll/drive.rs:114–165",
+        "current presentation/plugin.rs:38–68",
+        "current combat.yaml:320–346"
+      ],
+      "trigger_and_effect": "On each qualifying positive terrain penetration, the client scales x/z velocity by terrain_horizontal_velocity_retention; system is in Update. For the same starting velocity and a fixed retention fraction, N qualifying passes yield fraction^N before other effects. Different qualifying pass counts can therefore change retained velocity over the same elapsed time. Muscles/damping are scheduled separately in FixedUpdate. This follows from source and arithmetic, not a runtime experiment; Update counts and collision sequence are not assumed equal or independently measured.",
+      "policy_condition": "The config describes retention per frame, so frame-rate dependence may be intentional. Confirm whether the desired visual grounding policy is frame-dependent or elapsed-time based and how to handle missing/ambiguous terrain; do not label a gameplay strategic/tactical authority issue.",
+      "future_direction": "If time-invariant damping is the intended contract, specify a per-time or fixed-step typed policy and convert it at the actual contact boundary while preserving authored response intentionally. Otherwise document the per-qualifying-contact schedule and its implications; central decides ledger and alias.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+          "lines": [
+            [
+              19,
+              32
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/ragdoll/drive.rs",
+          "lines": [
+            [
+              114,
+              165
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+          "lines": [
+            [
+              38,
+              68
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "content/tactical/combat.yaml",
+          "lines": [
+            [
+              320,
+              346
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-CONFIG-MUSCLE-ENVELOPE-POLICY",
+      "classification": "qualified magic-number / behavior policy candidate; prior law expressly preserved",
+      "sources": [
+        "current ragdoll.rs:35–58",
+        "current core/elapsed.rs:9–35,100–104",
+        "current animation/response_parameters.rs:34–37,177–195,206–210",
+        "current ragdoll/muscles.rs:18–36,56–65,88–100,141–150",
+        "current combat.yaml:331–340"
+      ],
+      "trigger_and_effect": "Rise and limp duration are finite nonnegative elapsed values; for either value below 0.001 seconds the respective denominator is 0.001, including zero. Consumer additionally skips all muscle kicks if computed gain <=0.0001, and skips angular kick/brake when squared magnitude <=1e-8. These cutoffs can suppress nonzero admitted values. The authored defaults displayed are 0.5 and 1.0 seconds and tone 1.0; no claim a default reaches the small-duration condition or that a runtime effect was observed.",
+      "policy_condition": "774 camera OWNERDEF-PP-QUALIFICATION-001 expressly records and preserves the max1e-3 law and finds no checked-owner loss in its scoped producer analysis. This packet does not supersede that behavior decision or assume zero means an immediate transition. Threshold purpose, units and desired effects are not documented by these displayed sources.",
+      "future_direction": "Reconcile numeric cutoffs with current authored-tuning and domain ownership policy; name/own any justified tolerance or authored decision, and preserve explicit zero/tiny-duration behavior unless a design decision changes it. Evaluate the exact tolerance for squared angular speed independently; no repair performed.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+          "lines": [
+            [
+              35,
+              58
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/elapsed.rs",
+          "lines": [
+            [
+              9,
+              35
+            ],
+            [
+              100,
+              104
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+          "lines": [
+            [
+              34,
+              37
+            ],
+            [
+              177,
+              195
+            ],
+            [
+              206,
+              210
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/ragdoll/muscles.rs",
+          "lines": [
+            [
+              18,
+              36
+            ],
+            [
+              56,
+              65
+            ],
+            [
+              88,
+              100
+            ],
+            [
+              141,
+              150
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "content/tactical/combat.yaml",
+          "lines": [
+            [
+              331,
+              340
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-CONFIG-PHASE-DEADBAND-SNAP",
+      "classification": "aggregate policy open question",
+      "sources": [
+        "current playback.rs:18–25,33–46",
+        "current animation/phase_response.rs:8–16,29–36,47–52",
+        "current presentation.rs:70–75,82–96,127–169",
+        "current combat.yaml:200–207"
+      ],
+      "trigger_and_effect": "The two finite nonnegative phase limits are separately admitted; playback validation does not order them. On a changed source with initially zero phase_error_remaining and deadband >= snap error, errors above snap take the snap branch; those at or below snap are also within the deadband and contribute no measured drift. Thus that configuration has no initial nonzero measured-drift correction region for this path.",
+      "policy_condition": "This may intentionally select a snap-or-ignore policy. Zero correction, zero rate and limits above one are expressly retained valid in 059 Q-L1-960b32dd9b4be22c9112. Prior accumulator/state and different scheduling can alter subsequent behavior; no invalid configuration or product failure is asserted.",
+      "future_direction": "Confirm whether a nonempty blending interval is required or snap-or-ignore is an admitted mode; if required, express the aggregate as a checked policy at the actual configuration boundary rather than globally tightening individually valid leaf types.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+          "lines": [
+            [
+              18,
+              25
+            ],
+            [
+              33,
+              46
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/phase_response.rs",
+          "lines": [
+            [
+              8,
+              16
+            ],
+            [
+              29,
+              36
+            ],
+            [
+              47,
+              52
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/presentation.rs",
+          "lines": [
+            [
+              70,
+              75
+            ],
+            [
+              82,
+              96
+            ],
+            [
+              127,
+              169
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "content/tactical/combat.yaml",
+          "lines": [
+            [
+              200,
+              207
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-CONFIG-GROUPED-ERROR",
+      "classification": "inherited connected question, not independently established failure",
+      "sources": [
+        "current procedural.rs:53–64",
+        "current playback.rs:33–46",
+        "current combat_config.rs:395–408,649–651"
+      ],
+      "trigger_and_effect": "The procedural validator combines zero sample gap and too-small maximum angle into one Validation string; playback combines zero gap and two speed-order violations into another. Parent propagates errors. Which structured distinction callers require is not established here.",
+      "policy_condition": "059 lens12 connected evidence already flags predicate-to-reason/native caller policy and alias as open; current strings are error diagnostics, not proof of program branching or a lost error contract.",
+      "future_direction": "Trace actual caller/error reporting before proposing a typed failure taxonomy; avoid changing payload solely because prose exists.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+          "lines": [
+            [
+              53,
+              64
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+          "lines": [
+            [
+              33,
+              46
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+          "lines": [
+            [
+              395,
+              408
+            ],
+            [
+              649,
+              651
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings_and_qualifications": [
+    "MuscleRelease explicitly represents Never versus After(positive duration) and translates only at the Option<f32> serde boundary (ragdoll.rs:82–106); treating None as invalid or zero tone as missing would alter policy.",
+    "ResponseRate accepts zero, implements both exponential and bounded step laws (response_parameters.rs:14–17,61–83); the different operations are not duplicate authority by themselves. No stronger rate bound or PhaseErrorLimit <=1 is supported.",
+    "Playback validator enforces nonzero source gap and deactivation <= initial <= activation (playback.rs:33–46); public fields and direct deserialize mean additional aggregate-admission paths require independent tracing, not presumed validation.",
+    "Procedural maximum_frame_seconds is zero-permitting; body_response.rs:20–26 and :218–228 show a zero elapsed no-advance path in the non-fixed-clock case. This is a valid supported choice under prior L11 record, not an automatic invalid config.",
+    "Embedded default loader uses one compiled YAML document and validates it before exposing canonical default (defaults.rs:1–26); displayed authored values alone do not prove every runtime consumer receives that snapshot.",
+    "No product, simulation, builds, tests, fixture generation, runtime probes or browser usage performed; existing test source was displayed only."
+  ],
+  "thirteen_lens_perspectives": {
+    "producer-propagation": "Current typed fields reach displayed ragdoll and body-response kernels; whole loader and every recipient remain open. Historical producer no-loss verdict is scoped.",
+    "existing-type-owners": "Reuse AnimationElapsed, MuscleTone, ResponseRate, PositiveAnimationDuration and UnitInterval semantics; scalar kernel cutoffs need policy ownership, not automatic duplicate wrappers.",
+    "admission": "Serde leaf constructors reject negative/nonfinite elapsed and limit values; composite validators require explicit invocation and public mutation boundary remains to trace.",
+    "invariant-operations": "Ragdoll envelope denominator floors and gain/kick/brake cutoffs alter admissible tiny values; linear and exponential response math have distinct semantics.",
+    "aggregate-states": "Playback explicitly orders three speeds, but deadband versus snap region is unvalidated and policy-open; no assertion all unordered settings are invalid.",
+    "type-ownership": "Muscle release mode owns its optional payload and nonzero age; response, elapsed and speed have distinct existing owners.",
+    "redundant-authority": "Canonical config default derives from one embedded YAML; no proof of all runtime snapshot consumers or competing authorities from this scope.",
+    "behavior-preservation": "All three role bodies exactly match P16 archive and current 95e; dirty parent and historical receiver context cannot be assumed equal. Preserve historically named 1ms floor until policy is decided.",
+    "enum-shapes": "Never/After expresses optional release state explicitly and avoids an ambiguous primitive sentinel.",
+    "derivability": "Most traits are derived, while MuscleRelease manual Option conversion preserves external wire semantics and positivity. No supported equivalent derive proposed.",
+    "type-granularity": "Positive release age and zero-permitting elapsed intervals represent different policies; response rates and unit fractions are not interchangeable.",
+    "magic-strings": "Only grouped static validation reasons observed; source does not show branching on prose. 059 caller/error-policy question remains open.",
+    "magic-numbers": "Consumer 0.001-second floors and 0.0001 gain / 1e-8 squared angular-speed gates are concrete decision points. Review against YAML tuning rule and preserved prior law; no unbounded global literal census."
+  },
+  "open_questions": [
+    "Is terrain velocity loss intended per qualifying Update contact or per physical time, and what actual scheduling/contact behavior is required?",
+    "What are the intended tiny/zero rise and limp policies and precision rationale for muscle and brake dead zones, considering 774 behavior preservation?",
+    "Must the playback policy guarantee deadband < snap, or is snap-or-ignore explicitly allowed?",
+    "What paths construct, deserialize, mutate and retain public configs without running aggregate validation, and how do real callers consume errors?",
+    "What is the complete matching producer/recipient/camera chain for dirty P16 rather than a120 base, and how do P16/P17/current identities relate?",
+    "Can the original P16 patch bytes and standalone owner81 registration/supplement be recovered from another source?"
+  ],
+  "constraints": "Source inspection and evidence restoration/verification only. No implementation, product validation, builds, tests, runtime probes, simulations, fixture generation, shader execution or repair."
+}

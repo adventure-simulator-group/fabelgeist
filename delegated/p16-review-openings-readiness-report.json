@@ -1,0 +1,448 @@
+{
+  "schema": "726-delegate-source-assessment-v1",
+  "author": "/root/mhr_character",
+  "written_utc": "2026-11-11T22:32:10.208516+00:00",
+  "scope": {
+    "original_roles": [
+      2519,
+      2520
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "not_claimed": "No complete lens, ordered-role credit, checkpoint3821 attribution, final ledger alias or product validation."
+  },
+  "baseline_and_recovery": {
+    "recorded_clean_base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "f82_transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "recorded_patch_sha256": "fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7",
+    "patch_status": "Unrecovered. Parent bounded scan of 7,156 patch/diff files <=100MB under older ae46 and supplied 28ba collections found no match; not global absence.",
+    "per_path": "Each separately recovered dirty P16 object equals its clean a120 base path and current 95e path bytes, proven by raw Git path objects and f82 transport proof. This is not whole-snapshot equality and f82 is not the source revision.",
+    "bodies": [
+      {
+        "role": 2519,
+        "kind": "physical-p16",
+        "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/openings.rs",
+        "archive": "source/physical-p16-2519.source",
+        "sha256": "14199ccf21d392bf19b46f9cfe2acb7675b248c2034bb65d04f9ace610aacc03",
+        "git_blob_sha1": "67501a9930753b8e42d0f04dd31919afd2d560f2"
+      },
+      {
+        "role": 2519,
+        "kind": "current",
+        "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/openings.rs",
+        "archive": "source/current-2519.source",
+        "sha256": "14199ccf21d392bf19b46f9cfe2acb7675b248c2034bb65d04f9ace610aacc03",
+        "git_blob_sha1": "67501a9930753b8e42d0f04dd31919afd2d560f2"
+      },
+      {
+        "role": 2520,
+        "kind": "physical-p16",
+        "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+        "archive": "source/physical-p16-2520.source",
+        "sha256": "da0f087a671bf4958225ba9cd45f834cff0b0d651c9ab03c1ebcc9242a01b1e0",
+        "git_blob_sha1": "2bbc9561cfdb5a9676a000b4c8f8537f2eb14470"
+      },
+      {
+        "role": 2520,
+        "kind": "current",
+        "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+        "archive": "source/current-2520.source",
+        "sha256": "da0f087a671bf4958225ba9cd45f834cff0b0d651c9ab03c1ebcc9242a01b1e0",
+        "git_blob_sha1": "2bbc9561cfdb5a9676a000b4c8f8537f2eb14470"
+      }
+    ]
+  },
+  "personal_scope": {
+    "assigned": "Fresh independent prospective registrations followed by personally displayed complete P16 and current assigned bodies in bounded windows. Source text only.",
+    "support": "Eight independently prospectively registered current support bodies with exact windows and unread complements in support-read-receipt.json; no support grants ordered-role credit.",
+    "prior_evidence": "Exact prior reports and manifests copied with hashes, not full prior archives to conserve disk. Earlier packets are independently hash-linked in prior-references.json; their original attribution and discovery qualification remain intact."
+  },
+  "historical_attribution": {
+    "registry": "Role2519 rig registered producer scope additions 011/017 and union material1–217; role2520 rig REGISTER-054 original material66–83,104–107,113–156,169–221; original nested qualifications retained verbatim. Standalone old rig registration and qualification files not located; embedded registry rows do not imply acceptance.",
+    "lens11": "059 segovb READ-L11-417 reports a fresh personal P16 role2519 read1–217 after registration1423; for role2520 it adopts older adler READ-L11-247 pr-working 6533e444fa37552927070cc8d8190907fd3b413e full source1–301 after registration536, with no fresh personal P16 body read. Distinct author and scope remain separate.",
+    "lens12": "059 /root/lens12_frontier personally read P16 role2519 full1–217 after PAR538 and role2520 fresh52–251 after PAR539. Root separately adopted READ-L12-855/856 with no root reread; earlier readiness excluded1–51 and252–301 even though newly inspected here.",
+    "older774": "Rig F003/F004 and original/normalized rig records are preserved independently with their original status and attribution."
+  },
+  "findings_and_questions": [
+    {
+      "id": "P16-REVIEW-WINDOW-CHILD-ASSET-READINESS",
+      "kind": "conditional source-contract candidate",
+      "first_contract": "Operable window leaf compilation emits non-primary Iron parts and, for leaded glass with cames, LeadAlloy parts. The production window observer spawns each non-primary batch as a child of the SceneWindow. Review Observation::check tests GPU assets for root windows, but its child-parts loop checks only parts with sign ancestry or a boundary parent. Those window child mesh/image IDs are not checked by that loop; capture_views is gated by the resulting building_review::ready. A distinct child asset could therefore still be pending when this check returns ready.",
+      "condition": "The child must exist or be expected and its distinct required asset must still be unprepared while all separately checked requirements pass. Other capture settling/readbacks and native renderer scheduling may incidentally make it ready; no incomplete screenshot or runtime occurrence was observed.",
+      "future_direction": "Identify every production batch required for a review view and include its actual mesh/material/image readiness and missing-child representation in the owning capture gate, while preserving legitimate optional parts and native IDs.",
+      "relationships": [
+        "059 Q-L12-f238115d43d2e895f929 and Q-L12-c0b87495151f633b7051 keep window observer, native asset and review readiness connections open. READ-L11-247 accurately described checks for root windows and sign/boundary parts, not an exhaustive child readiness guarantee.",
+        "Prior /root/mhr_character p16-window-leaf-spec packet first connected leaf batching and observer, but did not establish this new readiness comparison; its author, prior scopes and grep qualification remain separate. Central owns unique count and alias decision."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows/leaf.rs",
+          "lines": [
+            [
+              60,
+              84
+            ],
+            [
+              86,
+              104
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+          "lines": [
+            [
+              49,
+              71
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/windows.rs",
+          "lines": [
+            [
+              20,
+              35
+            ],
+            [
+              55,
+              73
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+          "lines": [
+            [
+              51,
+              83
+            ],
+            [
+              93,
+              103
+            ],
+            [
+              112,
+              166
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/gpu_readiness.rs",
+          "lines": [
+            [
+              14,
+              20
+            ],
+            [
+              32,
+              39
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+          "lines": [
+            [
+              959,
+              965
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-REVIEW-REPEATED-PENDING-DEADLINE",
+      "kind": "conditional timing question",
+      "first_contract": "observe sets pending_since only at the first non-ready observation and clears it during Configure; an intervening ready observation does not reset the timestamp. If readiness later drops again within the same non-Configure view, the 120-second comparison uses the original pending timestamp, not the start of the later pending period. The registered capture source returns to Configure between view completions.",
+      "condition": "A ready-to-pending fluctuation must occur within one view after enough elapsed time; normal GPU residency stability, capture timing and scheduling were not established. The code does impose a bounded wait; this is not an indefinite wait claim.",
+      "future_direction": "Decide whether the timeout represents total per-view elapsed waiting or one continuous pending episode, and encode that policy with typed stage/context; preserve explicit Configure reset and terminal diagnostics.",
+      "relationships": [
+        "059 Q-L11-ae1080e6522145b1f863 preserves readiness/GPU/garden terminal versus pending questions; no claim that earlier record resolved this timing policy."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+          "lines": [
+            [
+              12,
+              12
+            ],
+            [
+              32,
+              49
+            ],
+            [
+              252,
+              285
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+          "lines": [
+            [
+              96,
+              108
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+          "lines": [
+            [
+              3055,
+              3070
+            ],
+            [
+              3148,
+              3162
+            ],
+            [
+              3238,
+              3259
+            ],
+            [
+              3370,
+              3386
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-REVIEW-EXPECT-AND-EVIDENCE-WRITES",
+      "kind": "observed repository rule mismatch, no runtime incident",
+      "first_contract": "The non-test readiness source uses expect on the material lookup and unwrap/expect for JSON serialization and file output; the separately inspected GPU readiness source uses expect on mutex locks. crates/AGENTS.md:126 explicitly forbids unwrap or expect outside tests. In Observation::check the same material was checked earlier before the lookup, so the source alone does not prove that material expect can fail. Serialization, I/O, lock poisoning and terminal error handling remain distinct boundaries.",
+      "condition": "The rule mismatch is textual. No JSON, file, lock, GPU, or product operation was executed, and no claim of an observed failure or forced panic is made.",
+      "future_direction": "Preserve the viewer’s intended success/failure protocol while replacing prohibited operations with typed propagation or explicit handling if central owner reconciliation accepts the issue.",
+      "relationships": [
+        "Related to prior /root/mhr_character p16-closure-door-presentation rule mismatch in recipe_mesh; separate call sites and owners, no automatic deduplication.",
+        "059 Q-L11-abc338ddc33fac1266cc retains capture/output acknowledgement and filesystem outcome questions; do not equate a written readiness file with successful image capture."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+          "lines": [
+            [
+              142,
+              155
+            ],
+            [
+              189,
+              199
+            ],
+            [
+              287,
+              300
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/gpu_readiness.rs",
+          "lines": [
+            [
+              32,
+              39
+            ],
+            [
+              42,
+              49
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-REVIEW-OUTPUT-READY-QUALIFICATION",
+      "kind": "evidence semantics question",
+      "first_contract": "observe inserts state.view into recorded and writes building-presentation.json when the readiness check passes; it is ordered before capture_views. The JSON property captured_views_ready comes from this readiness set. Screenshot completion and final capture recording happen in separately controlled readback callbacks.",
+      "condition": "The record demonstrates what the reviewed source attempts to assert before capture, not that any screenshot was saved, complete, or visually correct. Whether downstream consumers interpret the property as completed-capture evidence is untraced.",
+      "future_direction": "Keep readiness observations, actual capture completion and filesystem acknowledgements distinct in the later central evidence ledger and any future owner contract.",
+      "relationships": [
+        "059 Q-L11-abc338ddc33fac1266cc and Q-L11-ae1080e6522145b1f863 remain separate capture/readiness/terminal obligations."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+          "lines": [
+            [
+              14,
+              28
+            ],
+            [
+              252,
+              267
+            ],
+            [
+              287,
+              300
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+          "lines": [
+            [
+              959,
+              965
+            ],
+            [
+              3238,
+              3259
+            ],
+            [
+              3370,
+              3390
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-REVIEW-OLDER-TYPED-PRODUCER-REUSE",
+      "kind": "historical carried findings, zero new unique count",
+      "first_contract": "ReviewLeafPose stores a scene leaf’s checked hinge and angle as Vec3/f32 before applying the local transform; readiness converts SceneBuildingId to u64 for the rendered-building map and palette helper. These are current observations on the same material producer paths described in 774.",
+      "condition": "Quaternion/position computation at the actual geometry kernel and deterministic seed derivation can be legitimate native boundaries; all helper/caller ownership and equivalent behavior remain to reconcile.",
+      "future_direction": "Carry exact historical whole-function producer targets and preservation requirements into central ledger without transferring older review credit or widening same-owner reuse to derived geometry.",
+      "relationships": [
+        "RIG-OWNER-REACHED-PRODUCER-F003 and F004 in independently hashed older 774 records, attributed to rig; previous window/door packets preserve same families, not new counts."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/openings.rs",
+          "lines": [
+            [
+              112,
+              141
+            ],
+            [
+              163,
+              189
+            ],
+            [
+              191,
+              217
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+          "lines": [
+            [
+              169,
+              182
+            ],
+            [
+              189,
+              195
+            ],
+            [
+              214,
+              220
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-OPENING-INDEX-AND-SELECTOR",
+      "kind": "open local policy question",
+      "first_contract": "select_pose indexes state.views[state.view] and then fixture.views[camera] without local bounds checks; frame selects the first qualifying opening for each target and reports an absence if none. State/camera validity, exit scheduling and source selection semantics are not wholly established by this body.",
+      "condition": "A bad state/view or camera index must reach the system, or an intended target must be absent. Nearby capture code has a separate guard and view-length assertion, but full system scheduling/fixture validation were not inspected. No actual panic, stale view or missing target is asserted.",
+      "future_direction": "Trace capture/view producers, schedule and fixture admissibility before deciding a typed index or contextual error boundary; preserve intentional selection and optional profiles.",
+      "relationships": [
+        "059 Q-L12-81a7cf16f467242541d6 left OpeningTarget frame and capturestate/camera-index policy open; no new unique count."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/openings.rs",
+          "lines": [
+            [
+              38,
+              101
+            ],
+            [
+              144,
+              160
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+          "lines": [
+            [
+              73,
+              81
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+          "lines": [
+            [
+              108,
+              130
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+          "lines": [
+            [
+              2735,
+              2743
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings": [
+    "No observed missing screenshot, stale resource, or product failure from static source inspection.",
+    "Ready material expect is preceded by material existence checking in this same check; no fabricated missing-material panic.",
+    "Existing finite timeout is not an indefinite wait, and Configure is intentionally allowed before capture readiness.",
+    "Source-only tests and historical reviewer summaries are not runtime validation."
+  ],
+  "perspectives": {
+    "producer-propagation": "F003 checked scene hinge/angle and F004 building identity forwarding remain separately attributed; native geometry calculation and seed conversion require boundary analysis.",
+    "existing-type-owners": "SceneBuildingId, OpeningAssemblyId, frame-specific Position and PlanDirection own different roles; BTreeMap<u64> retention is an earlier owner question.",
+    "admission": "Capture view/camera indices are used without local checks; producer constraints and scheduling remain unproven.",
+    "invariant-operations": "First pending timestamp spans any intermediate ready observation within one view; intended time policy is unresolved.",
+    "aggregate-states": "Asset readiness of root window cannot alone establish readiness of separate child mesh/image assets, and counts cannot guarantee child ownership.",
+    "type-ownership": "GPU mesh and texture IDs remain native typed assets, while application building identity extraction matches F004.",
+    "redundant-authority": "Readiness set and capture/readback completion are different states with separate owners; do not infer one from the other.",
+    "behavior-preservation": "Per-role P16/current bytes match; future fixes must preserve optional windows, production material partitions, Configure and per-view state.",
+    "enum-shapes": "OpeningTarget and OpeningPose model intentional selection/pose states; absent fixture modes need actual product policy.",
+    "derivability": "No manual serde simplification or trait change is justified by this bounded source inspection.",
+    "type-granularity": "Review readiness, GPU residency, exposure settling and screenshot completion serve distinct temporal contracts.",
+    "magic-strings": "Fixture target absence strings are diagnostics; no string-driven dispatch defect shown.",
+    "magic-numbers": "120 seconds is an explicit named viewer deadline, but the interval it measures remains an open semantic question."
+  },
+  "open_questions": [
+    "Can any window child mesh or texture remain unprepared when root readiness and capture gate pass, and must every child be mandatory?",
+    "Should the deadline measure continuous not-ready time or cumulative time within a capture view?",
+    "What verifies state.view and fixture camera index across final readback and exit scheduling?",
+    "What are intended serialization, output and GPU lock failure protocols and native asset status semantics?",
+    "How do downstream consumers interpret captured_views_ready relative to actually completed screenshots?"
+  ],
+  "constraints": "Source/evidence inspection and mathematical reasoning only. No repairs, builds, tests, viewer execution, probes or product validation."
+}

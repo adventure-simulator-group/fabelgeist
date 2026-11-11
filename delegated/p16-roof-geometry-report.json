@@ -1,0 +1,541 @@
+{
+  "schema": "726-bounded-physical-roof-audit-v1",
+  "created_utc": "2026-11-11 22:02:35 UTC",
+  "delegate": "/root/rig_identity",
+  "authoritative_current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_identities": [
+    {
+      "role": 2491,
+      "identity": "physical-p16 dirty snapshot, SHA 7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+      "recorded_base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "archive_transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "archive_transport_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+      "archive_git_blob": "322478b752dda42a0e4564274c9700d9d00f0e12",
+      "qualification": "f82 contains preserved SHA-addressed source bytes, not a source commit. P16 is explicitly a recorded dirty 159-path working snapshot. Its particular file matches the a120 base file; this does not make the snapshot clean or a120 the dirty commit."
+    },
+    {
+      "roles": [
+        2492,
+        2493
+      ],
+      "identity": "pr-working recorded HEAD 6533e444fa37552927070cc8d8190907fd3b413e",
+      "qualification": "Independently proved each file object against registry exact SHA and byte count. PR working snapshot had four unrelated modified files; no whole-tree cleanliness inference."
+    }
+  ],
+  "current_comparison": [
+    {
+      "role": 2491,
+      "current_sha256": "1fe1e6483da91ee1bd681df6ff788ec97d680ac453c450069a30111c66dc40ed",
+      "historical_sha256": "7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+      "result": "Source 1–80 exactly identical; full difference is formatting of Serialize::serialize signature (historical81–84/current81–87). No semantic behavior change asserted from byte comparison alone.",
+      "difference_artifact": "p16-current-cuboid.diff"
+    },
+    {
+      "role": 2492,
+      "sha256": "91328984a11b2f161fe96001c235234a6d0ff01037d253cecac5a2dabf59e20e",
+      "result": "Exact identical source object at 6533 and 95e."
+    },
+    {
+      "role": 2493,
+      "sha256": "28e7fdd050516198f0b523e4cc1e05f5485f1797fa94776c17e749acd33edc22",
+      "result": "Exact identical source object at 6533 and 95e."
+    }
+  ],
+  "findings": [
+    {
+      "id": "CURRENT-ROOF-CHECKED-POSITION-RETAINED-RAW-RELATION",
+      "status": "direct current observation, exact historical relationship; not a proposed additional unique defect",
+      "historical_alias_candidate": "774 NATIVE-ROOF-PPS-F001 names ROOT-PP-001 as dedup support; central decides canonical ledger identity",
+      "condition": "Every successful roof polygon bound check in this path",
+      "observation": "roof_polygon_bounds validates each point as Position<Architectural> and discards the returned point, producing only bounds; resolve_one_roof retains original Vec3 polygon and derives raw edges. Retained public RoofFace::polygon is independently mutable from its plane. Both source files are byte-identical to the original 6533 finding.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+          "lines": [
+            [
+              14,
+              32
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+          "lines": [
+            [
+              332,
+              401
+            ],
+            [
+              403,
+              426
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/layout.rs",
+          "lines": [
+            [
+              168,
+              187
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/AGENTS.md",
+          "lines": [
+            [
+              31,
+              57
+            ]
+          ]
+        }
+      ],
+      "future_direction": "Reconcile with the established canonical architectural position/polygon/plane owner and carry checked values across application retention where the contract requires, while keeping genuine native numerical operations and serialization boundaries explicit. Preserve scaled plane, floating-point order, accepted/rejected inputs and topology; no implementation is authorized here.",
+      "qualification": "This is evidence of an unfinished producer propagation contract, not proof that every raw Vec3 in a numerical kernel is a defect or that any runtime behavior was validated."
+    },
+    {
+      "id": "CANDIDATE-ROOF-HALF-HIP-COLLAPSED-RIDGE",
+      "status": "new conditional source-level finding; supported generation reachability and final publication unresolved",
+      "condition": "For non-apse HalfHip/Z, hz <= 0.45*hx (or HalfHip/X, hx <= 0.45*hz), with distinct surrounding vertices and normal control flow reaching edge construction. hx/hz include eaves; these are mathematical conditions, not a run or fixture.",
+      "observation": "Clamping ridge_half to zero makes the two consecutive ridge vertices equal in each long-side polygon. The edge builder retains the resulting zero-length edge and may merge the matching edge of the opposite face as a shared ridge; the edge-treatment branch floors its geometric plan length to 0.05 m when constructing its intermediate solid. No claim is made that this intermediate solid survives later treatment.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+          "lines": [
+            [
+              121,
+              162
+            ],
+            [
+              165,
+              188
+            ],
+            [
+              271,
+              273
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+          "lines": [
+            [
+              403,
+              433
+            ],
+            [
+              495,
+              520
+            ],
+            [
+              529,
+              549
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+          "lines": [
+            [
+              1130,
+              1135
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/civilian_roofs.rs",
+          "lines": [
+            [
+              3,
+              37
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/core.rs",
+          "lines": [
+            [
+              198,
+              204
+            ],
+            [
+              261,
+              286
+            ],
+            [
+              301,
+              310
+            ]
+          ]
+        }
+      ],
+      "qualification": "Civilian HallHouse and RenaissanceTownHall choose HalfHip with fixed Z/X axes; observed curated dimensions 9x13 and 14x10 do not force this collapse. BuildingProgram fields are public, but the inspected source does not establish a supported footprint reaching the condition past all generation gates. audit/roofs flags surviving edges <=0.02 m; generate_document invokes audit whereas generate calls generate_unchecked. Do not assert accepted output, public impact, absence of later cleanup, or runtime evidence.",
+      "future_direction": "Trace admitted footprint/aspect-ratio and full generated-plan lifecycle; if this configuration is supported, make degenerate ridge topology explicit and avoid emitting a zero edge or fabricated treatment while preserving desired half-hip form. If rejected by a contractual bound, record that bound."
+    },
+    {
+      "id": "CANDIDATE-ROOF-LOCAL-TOLERANCE-DIMENSION-POLICY",
+      "status": "source-level rule observation; defect impact and canonical owner unresolved",
+      "observation": "Roof kernels repeat inline thresholds while applying the same 0.0001 value both to x/z coordinate comparisons and to oriented 2-D cross-product side comparisons. These quantities have different dimensional meaning; the fixed side threshold also corresponds to a distance margin that depends on edge length. Other inline squared-distance and cross-product tolerances have no named calculation owner in these assigned bodies.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+          "lines": [
+            [
+              271,
+              273
+            ],
+            [
+              275,
+              305
+            ],
+            [
+              328,
+              351
+            ],
+            [
+              363,
+              391
+            ],
+            [
+              405,
+              413
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/AGENTS.md",
+          "lines": [
+            [
+              72,
+              79
+            ],
+            [
+              143,
+              153
+            ]
+          ]
+        }
+      ],
+      "qualification": "The project rules require owned, unit-aware and conditioned tolerances; review actual calculation error budgets and all recipients before selecting a policy. There is no asserted witnessed player-visible failure, no claim that thresholds must share one constant, and no automatic alias with broader geometry findings.",
+      "future_direction": "Have the owning numerical kernels state separate distance, squared-distance and oriented-area tolerances with the intended scale/error budget and preserve deliberate clipping behavior. Assess historical and other geometry work for semantic identity before ledger deduplication."
+    }
+  ],
+  "nonfindings": [
+    {
+      "claim": "Canonical roof_plane indexing panic from short generated polygons",
+      "reason": "resolve_one_roof invokes roof_polygon_bounds, which rejects len<3, before roof_plane indexes the first three vertices; other call paths are not covered.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+          "lines": [
+            [
+              1,
+              22
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+          "lines": [
+            [
+              332,
+              338
+            ],
+            [
+              391,
+              396
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "Missing host_nodes necessarily panics at roof post",
+      "reason": "Post branch first requires finite host_top, whose empty-host fold yields negative infinity; this is a bounded local observation, not a proof of all support-node accesses.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+          "lines": [
+            [
+              27,
+              62
+            ],
+            [
+              251,
+              262
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "Zero cuboid extent automatically invalid",
+      "reason": "CuboidDimensions explicitly permits points and lines; from_metres rejects nonfinite components and from_axis_lengths rejects negatives, using admitted SignedLength. Deserialization routes back through the checked constructor.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-geometry/src/cuboid.rs",
+          "lines": [
+            [
+              9,
+              55
+            ],
+            [
+              95,
+              125
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-geometry/src/measurement.rs",
+          "lines": [
+            [
+              11,
+              21
+            ],
+            [
+              35,
+              45
+            ],
+            [
+              77,
+              80
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "Partial geometry mutations necessarily leak a failed plan",
+      "reason": "Current owned architectural-envelope method consumes self and propagates errors before returning a successful plan; historical 059 L12 owned-plan source view rejects this generic suspicion for that route. Other lifecycles were not inspected.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/architectural_envelope.rs",
+          "lines": [
+            [
+              4,
+              9
+            ],
+            [
+              45,
+              67
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    {
+      "question": "Do admitted producer shapes guarantee nondegenerate projected faces and nonzero plane.normal.y before plane-height/underside division, including arithmetic overflow, apse shape and publicly constructible or decoded RoofFace?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+          "lines": [
+            [
+              1,
+              32
+            ],
+            [
+              401,
+              455
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+          "lines": [
+            [
+              332,
+              401
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/layout.rs",
+          "lines": [
+            [
+              168,
+              199
+            ]
+          ]
+        }
+      ],
+      "historical_relation": "059 READ-L11-414 explicitly leaves plane admissibility conditional; no accepted invalid plan or NaN established."
+    },
+    {
+      "question": "Do all supported generation entry points constrain HalfHip aspect ratios before the collapsed-ridge case, and can later refit or audits remove/reject the edge before each publication path?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/civilian_roofs.rs",
+          "lines": [
+            [
+              3,
+              37
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_derivation.rs",
+          "lines": [
+            [
+              1,
+              14
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/core.rs",
+          "lines": [
+            [
+              198,
+              204
+            ],
+            [
+              261,
+              286
+            ],
+            [
+              301,
+              310
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "What checked semantic owner and explicit native boundary should govern retained RoofFace polygon, coupled plane/constant, face topology, pitch and thickness, without conflating distinct roles or changing arithmetic order?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/layout.rs",
+          "lines": [
+            [
+              168,
+              199
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+          "lines": [
+            [
+              1,
+              32
+            ]
+          ]
+        }
+      ],
+      "historical_relation": "774 NATIVE-ROOF-PPS-F001 and RAW-SOURCE-002 distinguish discarded admitted point from general raw-source strengthening; ownership remains for central reconciliation."
+    },
+    {
+      "question": "Which serde formats consume tuple-struct identity Vec3, and can boilerplate change while preserving exact wire behavior and malformed-input admission?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-geometry/src/cuboid.rs",
+          "lines": [
+            [
+              81,
+              125
+            ]
+          ]
+        }
+      ],
+      "historical_relation": "059 L11 records serialization as separate 81–123 old support and no compatibility judgment. Current line numbering differs by three."
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "Cuboid serde tuple name Vec3 is an external-format identity, not an internal status discriminator; no roof business string dispatch observed in the assigned bodies. Derive/wire equivalence is open."
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "Roof geometry embeds mixed-dimension tolerances and resolution includes roof thickness, edge-size and structure thresholds. Rule-owned units and error budgets need review; see CANDIDATE-ROOF-LOCAL-TOLERANCE-DIMENSION-POLICY. Pure axes and indexing alone are not findings."
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "CuboidDimensions owns checked nonnegative extents over SignedLength; do not merge with positive length or signed offsets. Canonical architectural point, coupled roof plane and topology ownership remains connected to 774 F001/RAW-SOURCE-002."
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "Position<Architectural> is already admitted then discarded before retained raw polygon. CuboidDimensions is already used when cuts mutate a solid size; semantic numerical kernels require genuine native boundary, not indiscriminate wrappers."
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Cuboid intentionally includes zero/point/line shapes; roof face must separately own stronger topology and nonvertical-plane requirements if consumers require them. Do not make zero universally invalid."
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "Plane normal derivation and height division are not guarded for degenerate/vertical data by bounds alone; finite polygon positions do not by themselves prove finite sums, normals or area. Producer reachability and later audits remain open."
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "RoofFace stores polygon, plane, pitch, thickness and support identifiers independently. Their mutual validity and collapsed half-hip ridge topology cannot be guaranteed by independent leaf checks alone; exact input and recipient policy pending."
+    },
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "Cuboid constructor checks finiteness and nonnegative axes; serde re-enters it. Roof bounds check cardinality and finite positions but do not establish plane/topology guarantees; public RoofPiece/RoofFace construction and decoding require separate boundary tracing."
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "RoofKind/RidgeAxis and typed RoofEdgeKind express actual closed distinctions. shed_high_side is coupled to kind, but do not declare a defect from Option alone: assess actual producer and owning plan validators."
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "RoofFace retains polygon and a computed plane; later consumers use both. A divergence contract is a relationship question, not proof that one field is a needless duplicate or that deliberate cached authority is invalid."
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "No repairs were made. Historical roof bytes match 95e; cuboid full diff changes only signature line wrapping. Preserve zero extents, precise evaluation order, typed errors, scaled plane and format identity in any future proposal."
+    },
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Original native NATIVE-ROOF-PPS-F001 identified checked Architectural point discarded before raw retained polygon; exact current bodies independently confirm the same local chain. Preserve original authorship and reconcile ROOT-PP-001 centrally."
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "CuboidDimensions manual serialization chooses tuple-struct name Vec3 and checked custom deserialization. A derive is not assumed equivalent across serializers or malformed input; no cosmetic boilerplate finding without format proof."
+    }
+  ],
+  "historical_records": {
+    "774": "historical-774/.../rig/owner-reached-producer-followup/additional-sources.jsonl and source-qualifications.jsonl row3; native/root-roof-producer-followup/read-plan.json, coverage.jsonl, traces.jsonl and findings.jsonl; root/producer-followup-acceptance-028.json. The original native supplier and root narrative acceptance apply to 6533 only.",
+    "059": "historical-059/segovb/READ-L11-413.json and READ-L11-414.json, relevant REG1392/1393/1394/1395/1400; READ-L12-844/845/846 and PAR506/510/511; prior READ-PARTIAL-PAR-L12-846-ORIGINAL2493-001.json. Fresh scopes and excluded ranges in personal-read-receipt.json.",
+    "related_queue_contracts": [
+      "L12-CLOSURE-ROOF-OWNED-PLAN-ERROR-RETENTION",
+      "L12-CLOSURE-CATALOG-PHYSICAL-SERDE-NATIVE-F32",
+      "L12-CLOSURE-ROOF-DORMER-PARENT-ADMISSION"
+    ],
+    "qualification": "Reconstructed registry-selection file is not an original record. No prior finding, historical scoped proof, or unchanged bytes is promoted into checkpoint3821."
+  },
+  "limitations": [
+    "Assigned historic and current exact bodies personally displayed; receipt explicitly distinguishes assigned original scope from 81–123 and 35–55 separately registered support. Only recorded support subranges were personally read; search snippets do not constitute contiguous body coverage.",
+    "All thirteen assessments are bounded to assigned roles and listed support and do not claim whole-lens or whole-repository completion.",
+    "No product execution, physics, rendering, viewer, build, test, fixture, simulation, probe, source edit or repair.",
+    "Final graph validation, supported extreme inputs, policy and cross-lens ledger aliases remain central work."
+  ]
+}

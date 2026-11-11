@@ -1,0 +1,562 @@
+{
+  "schema": "726-delegate-source-assessment-v1",
+  "author": "/root/mhr_character",
+  "written_utc": "2026-11-11T22:19:51.283616+00:00",
+  "scope": {
+    "original_roles": [
+      2508,
+      2509
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_snapshot": "physical-p16 dirty object identity; f82 is transport only",
+    "not_claimed": "No complete lens, ordered role disposition, checkpoint3821 attribution, ledger acceptance or product validation."
+  },
+  "baseline_and_recovery": {
+    "recorded_clean_base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "recorded_patch_sha256": "fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7",
+    "patch_status": "Not recovered. Parent bounded search of 7,156 patch/diff files <=100MB under older ae46 and 28ba collections found no hash match; not a global absence claim.",
+    "per_path": "Both independently recovered dirty-P16 object bytes equal their clean a120 paths and current 95e paths, each separately proven by raw Git commit/tree/blob objects. This per-object equality does not establish whole dirty snapshot equality or attribute P16 source to f82.",
+    "bodies": [
+      {
+        "role": 2508,
+        "kind": "physical-p16",
+        "path": "crates/adventuresim-building-generator/src/windows/leaf.rs",
+        "archive": "source/physical-p16-2508.source",
+        "sha256": "bea74075651588d26b629c3b43996d0c9fe8d76c47577b585af2b8e159488ffd",
+        "git_blob_sha1": "fbd0a731c7ab0b7ab946c9788f6f37f780909840"
+      },
+      {
+        "role": 2508,
+        "kind": "current",
+        "path": "crates/adventuresim-building-generator/src/windows/leaf.rs",
+        "archive": "source/current-2508.source",
+        "sha256": "bea74075651588d26b629c3b43996d0c9fe8d76c47577b585af2b8e159488ffd",
+        "git_blob_sha1": "fbd0a731c7ab0b7ab946c9788f6f37f780909840"
+      },
+      {
+        "role": 2509,
+        "kind": "physical-p16",
+        "path": "crates/adventuresim-building-generator/src/windows/spec.rs",
+        "archive": "source/physical-p16-2509.source",
+        "sha256": "eb5e21dfb8d7915e6e7a3f3c39ee3ee3e9f0a91b5c3604972180918ca488234b",
+        "git_blob_sha1": "daecacfa217edca4e35db652cdb0a97cfd850258"
+      },
+      {
+        "role": 2509,
+        "kind": "current",
+        "path": "crates/adventuresim-building-generator/src/windows/spec.rs",
+        "archive": "source/current-2509.source",
+        "sha256": "eb5e21dfb8d7915e6e7a3f3c39ee3ee3e9f0a91b5c3604972180918ca488234b",
+        "git_blob_sha1": "daecacfa217edca4e35db652cdb0a97cfd850258"
+      }
+    ]
+  },
+  "personal_scope": {
+    "assigned": "Full assigned P16/current bodies personally displayed in bounded windows after registration. Test/doctest sources read only; not executed.",
+    "support": "Twelve current bounded support bodies registered before display. Receipts specify every personally displayed range and unread complement; no source credit is transferred from prior packets.",
+    "prior_packet": "Prior doors-builder packet, its previous support reads and pre-registration discovery grep are independently archived and remain separately attributed."
+  },
+  "historical_attribution": {
+    "original_registry": "Roles 2508/2509 belong to rig producer followup; registry material ranges 2508 1–108 and 2509 1–46,56–118, prospective registrations REGISTER-024/020 and nested original qualifications retained verbatim. Standalone old registration files not located; embedded records do not imply acceptance.",
+    "lens11": "059 batch415 is qualified same-lens inherited proof adoption with no fresh P16 body reads. Its prior successor-103 records root’s full pr-working source reads 678 1–150 and 679 1–147, with exact hash bridge from the recovered 6533 snapshot; different role namespace and author retained.",
+    "lens12": "059 /root/lens12_frontier personally displayed 2508 1–108 under registration527 and 2509 1–46,56–118 under registration528, then root adopted proposal852 with root_personal_rereads empty. Excluded tests and bar-record lines do not become historical reads.",
+    "older774": "Rig F002/F003/F009, and original/normalized rig coverage and receiver exports, are preserved separately with original scopes and attribution."
+  },
+  "findings_and_questions": [
+    {
+      "id": "P16-WINDOW-LEAF-UNBOUNDED-WORK",
+      "kind": "same previously discovered conditional candidate, zero new unique count",
+      "first_contract": "compile_window_leaf derives board/came counts from each admitted width or height divided by 0.19, casts to usize and iterates without a work budget. CuboidDimensions and LeafDimensions permit arbitrarily large finite positive values; float division can overflow to infinity and Rust float-to-integer cast saturates to usize::MAX. The loop does not stop on the Builder’s latched first error. Both the operable cache and fixed-detail source call this function, but ordinary producer bounds were not assessed. Memory exhaustion or other limits can terminate first; no runtime occurrence or exact duration is claimed.",
+      "condition": "An oversized accepted extent reaches either consumer or the public function. The target usize width affects count. No claim that ordinary generated buildings reach the extreme or that every input is problematic.",
+      "future_direction": "Determine caller/author admission and an explicit per-leaf work budget, then preserve fixed zero-valid cuboids, positive operable leaves, first-error semantics and deterministic geometry behavior.",
+      "historical_relations": [
+        "First identified by /root/mhr_character in prior p16-doors-builder report as P16-WINDOW-LEAF-UNBOUNDED-WORK; the complete prior packet is separately archived and this is not a duplicate count.",
+        "Its own discovery grep for dimension/UV declarations was run before support registration and documented in that prior report; those lines granted no registered credit, and the relevant old supporting sources were subsequently registered and displayed. This packet has independently registered and personally displayed its own scopes.",
+        "059 successor-103 had already noted the ceil-to-usize count and left size producers unresolved, without a large-API failure claim. Q-L12-3cb18f41744872c3c239 and Q-L12-f238115d43d2e895f929 retain producer/consumer/native questions."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows/leaf.rs",
+          "lines": [
+            [
+              11,
+              29
+            ],
+            [
+              60,
+              83
+            ],
+            [
+              106,
+              106
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+          "lines": [
+            [
+              8,
+              23
+            ],
+            [
+              91,
+              104
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-geometry/src/cuboid.rs",
+          "lines": [
+            [
+              9,
+              54
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-geometry/src/measurement.rs",
+          "lines": [
+            [
+              35,
+              45
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+          "lines": [
+            [
+              25,
+              31
+            ],
+            [
+              74,
+              99
+            ],
+            [
+              152,
+              159
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+          "lines": [
+            [
+              49,
+              71
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/detail/solids.rs",
+          "lines": [
+            [
+              121,
+              150
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-TINY-SHUTTER-COMPILATION",
+      "kind": "bounded historical question refined, no new unique count",
+      "first_contract": "A positive, finite width below 0.002 m is admissible for LeafDimensions. For a timber shutter it gives one board, whose computed width subtracts 0.002 m; CuboidDimensions rejects that negative extent, Builder retains the first error, and compile_window_leaf returns it. The operable ClosureMeshes cache propagates that error, and the SceneWindow Add observer returns before inserting presentation components. This is a mathematical source inference, not a runtime observation.",
+      "condition": "A TimberShutter of such a width must reach this path; normal authored/generated bounds and whether this fallible API should accept or reject every positive extent have not been established. Callback error handling, retry and terminal visibility have not been traced.",
+      "future_direction": "Determine supported minimum shutter geometry and its owner; either admit that constraint at the correct boundary or define fallible presentation semantics without weakening geometry roles for fixed/degenerate glazing.",
+      "historical_relations": [
+        "059 Q-L12-03a885cbf03ba414fc2c expressly held tiny shutter width, producer and native error policy open. /root/lens12_frontier recorded the same negative derived board condition in READ-L12-852; this current source trace refines that existing question, not a newly accepted finding."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows/spec.rs",
+          "lines": [
+            [
+              33,
+              44
+            ],
+            [
+              94,
+              115
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows/leaf.rs",
+          "lines": [
+            [
+              11,
+              11
+            ],
+            [
+              20,
+              40
+            ],
+            [
+              106,
+              106
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+          "lines": [
+            [
+              8,
+              23
+            ],
+            [
+              91,
+              104
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-geometry/src/cuboid.rs",
+          "lines": [
+            [
+              20,
+              54
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+          "lines": [
+            [
+              25,
+              31
+            ],
+            [
+              74,
+              99
+            ],
+            [
+              152,
+              159
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+          "lines": [
+            [
+              49,
+              71
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/windows.rs",
+          "lines": [
+            [
+              20,
+              36
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-WINDOW-CLOSURE-IDENTITY-CONTRACT",
+      "kind": "related conditional plan-reference question",
+      "first_contract": "compile_operable_windows indexes public resolved solids in a BTreeMap keyed by ID, selecting the first referenced existing solid with LeadedGlazing or OpeningClosure role. Duplicate IDs are last-wins; missing or wrong-role references are skipped, while owner equality is not checked. If a bad reference or duplicate resolves to an unrelated same-role solid, the compiled window takes its leaf type, source and geometry. The sibling door compiler has a different predicate and source result.",
+      "condition": "This requires a malformed or independently modified plan reaching the compiler, or an allowed producer relation selecting an unrelated same-role solid. The expected meaning and ordering of multiple closure layers and whole-graph validity remain open.",
+      "future_direction": "Establish reference uniqueness, owner, role, layer ordering and error semantics at the plan owner and exact consumer before deciding common repair boundaries. Preserve the intended selectable roles and optional layers.",
+      "historical_relations": [
+        "Related to prior packet P16-DOOR-CLOSURE-SELECTION-CONTRACT and prior P16-COLLISION-SELECTED-IDENTITY-LOSS, not an automatic alias or new unique count. The window-specific role filter makes its join contract different.",
+        "059 Q-L11-bd78dd3a8b1d3d580761 and Q-L12-5cc02ecd5125d414e1f4 leave whole-plan acceptance and connected collision relationships open."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows.rs",
+          "lines": [
+            [
+              103,
+              158
+            ],
+            [
+              161,
+              206
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/plan.rs",
+          "lines": [
+            [
+              4,
+              5
+            ],
+            [
+              17,
+              20
+            ],
+            [
+              29,
+              29
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+          "lines": [
+            [
+              344,
+              355
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/walls.rs",
+          "lines": [
+            [
+              311,
+              329
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/windows.rs",
+          "lines": [
+            [
+              66,
+              81
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-WINDOWSPEC-AGGREGATE",
+      "kind": "open admission question",
+      "first_contract": "WindowSpec has independently checked public positions, positive leaf dimensions, normalized tangent/outward, angles and bar-presence. Deserialize reconstructs each leaf and maps a geometry cause to an opening/source-associated serde diagnostic, but does not check their aggregate pose, hinge, swing or source relationship. Its source producer derives inward swing using tangent/outward and its server consumer retains and uses those fields.",
+      "condition": "A separately constructed or decoded incoherent WindowSpec must reach a consumer that assumes these relations; not all constructors, trust boundaries, physical frames or consumer policy are covered. Intentional independent bar presence and frame differences cannot be declared invalid by shape alone.",
+      "future_direction": "Identify the correct owner for any cross-field/frame relationship and validate only its intended domain; retain the distinct checked leaf and diagnostic boundaries.",
+      "historical_relations": [
+        "059 successor-103 and READ-L12-852 explicitly retained aggregate pose questions; this current consumer source adds bounded evidence without historical credit transfer."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows/spec.rs",
+          "lines": [
+            [
+              11,
+              20
+            ],
+            [
+              31,
+              45
+            ],
+            [
+              75,
+              118
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows.rs",
+          "lines": [
+            [
+              161,
+              206
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/windows.rs",
+          "lines": [
+            [
+              86,
+              128
+            ],
+            [
+              131,
+              148
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-OLDER-RIG-FORWARDING",
+      "kind": "historical carried findings, zero new unique count",
+      "first_contract": "The unchanged typed CuboidDimensions is unpacked at leaf compilation and reconstructed across the Builder API before corner creation; the server source also extracts checked hinge and angle into raw controller fields before animation.",
+      "condition": "Different scaled or newly computed member dimensions need not share the exact same retention rule; the native physics/kernel extraction boundary and owner fit remain open.",
+      "future_direction": "Carry the original rig whole-function producer acceptance criteria and source identities into central reconciliation; preserve calculated coordinates and physical behavior.",
+      "historical_relations": [
+        "Original 774 rig F009 covers the unchanged glazing size; F003 covers server window controller hinge/angle; F002 separately covers Scene grab-predicate typed value extraction. Verbatim old findings retain original authors and statuses. No new acceptance or implementation is inferred."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows/leaf.rs",
+          "lines": [
+            [
+              20,
+              26
+            ],
+            [
+              51,
+              57
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+          "lines": [
+            [
+              46,
+              55
+            ],
+            [
+              74,
+              89
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/windows.rs",
+          "lines": [
+            [
+              86,
+              96
+            ],
+            [
+              121,
+              128
+            ],
+            [
+              131,
+              147
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-WINDOW-POSITIVE-AND-DECODER-NONFINDING",
+      "kind": "qualified nonfinding",
+      "first_contract": "Positive operable LeafDimensions and nonnegative CuboidDimensions used by fixed detail serve different contracts; fixed bars remain an explicit independent presence enum. Both WindowSpec and WindowBarSpec perform checked per-field wire admission and attach source/opening context to serde error formatting.",
+      "condition": "These facts do not prove relational pose consistency, native mesh indices and UVs, rendering, dynamic physics or general decoding round trips.",
+      "future_direction": "Avoid forcing nonzero fixed glazing or replacing contextual manual admission with a derive without equivalent source/error behavior.",
+      "historical_relations": [
+        "059 READ-L12-852 preserves these distinctions and explicitly excludes spec 47–55/119–147 from that reviewer’s old read; those current/P16 ranges are fresh reads here only."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/windows/spec.rs",
+          "lines": [
+            [
+              11,
+              20
+            ],
+            [
+              33,
+              54
+            ],
+            [
+              59,
+              73
+            ],
+            [
+              75,
+              147
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+          "lines": [
+            [
+              8,
+              23
+            ],
+            [
+              91,
+              104
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-geometry/src/cuboid.rs",
+          "lines": [
+            [
+              9,
+              54
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/detail/solids.rs",
+          "lines": [
+            [
+              121,
+              150
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings": [
+    "No new unique count for prior unbounded count candidate or recovered rig F002/F003/F009.",
+    "No demonstration that normal generation creates an oversized or sub-0.002m shutter; source contract only.",
+    "Positive and zero-valid geometry types and explicit bar-presence modes are intentional distinctions, not automatic defects.",
+    "Do not infer observer retry, terminal visibility, graphics/physics behavior, or test passage from inspected source."
+  ],
+  "perspectives": {
+    "producer-propagation": "Typed body size and Scene hinge/angle extraction align with separately attributed F009/F003, with computed transformations kept distinct.",
+    "existing-type-owners": "LeafDimensions positive versus CuboidDimensions nonnegative and typed frame/ID owners express distinct semantics.",
+    "admission": "Leaf and bar wire admissions check individual fields with contextual errors; generator and aggregate consumer policy require separate analysis.",
+    "invariant-operations": "Unbounded derived count and tiny shutter subtraction can exceed a consumer’s operational or geometric domain for conditionally admitted inputs.",
+    "aggregate-states": "Referenced solid uniqueness and owner/role, pose axes/hinge and inward swing relations need common owner contracts beyond individually checked leaves.",
+    "type-ownership": "OpeningAssemblyId, ResolvedItemId and GeometryOwnerId represent distinct relationships; no identity substitution inferred.",
+    "redundant-authority": "Public opening references and resolved solid collection can disagree; actual generation/admission invariants remain open.",
+    "behavior-preservation": "Both role objects separately match current 95e; preserve bar ordering, fixed-versus-operable modes, first errors and geometry behavior in later work.",
+    "enum-shapes": "WindowLeafKind, WindowBarPresence and ClosureState encode meaningful independent modes; no unsupported collapse implied.",
+    "derivability": "Manual serde performs checked field admission and associates opening/source context, so an unrestricted derive may alter error or contract behavior.",
+    "type-granularity": "Frame-specific positions/directions and positive/nonnegative sizes reflect distinct domains; resource limits can belong to a bounded consumer rather than the reusable geometric leaf.",
+    "magic-strings": "Window error text is boundary diagnostics, not demonstrated string-based internal dispatch.",
+    "magic-numbers": "0.19m pane pitch determines derived counts, 0.002m board gap matters at tiny widths, and finite fixed array sizes have separate semantics."
+  },
+  "open_questions": [
+    "What dimensions can normal plan generators, authored data, or replicated SceneWindow actually produce, and who owns supported minimum and maximum work?",
+    "How are Add observer errors reported or retried, and what native mesh, material and visibility policies apply?",
+    "Which owner validates solid uniqueness, closure membership, matching geometry owner and intended layer order?",
+    "Which constructors and consumers require cross-field window pose relationships, and do frame conversions preserve them?",
+    "Other native geometry, rendering, collision and all connected aliases remain for central reconciliation."
+  ],
+  "constraints": "Only source/evidence inspection and mathematical reasoning; no source edits, repairs, builds, tests, UI, product execution, simulations or probes."
+}
