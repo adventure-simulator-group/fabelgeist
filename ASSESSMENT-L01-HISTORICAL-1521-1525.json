@@ -1,0 +1,189 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1521,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; original body equals the 6533 committed-tree blob. Current comparison is separately recorded; identity never transfers reviewer or other-lens credit.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1521",
+      "sha256": "b40a4b3063040003cdd4e0cfee6573ce1e51f131dde1d14cf4dbf25c13295916",
+      "lines": 568,
+      "new_personal_read_ranges": [
+        [
+          1,
+          568
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "CITY-STREAMING-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs",
+        "sha256": "dee85a97ee6fbd0f32b236035185625b5d4a2569202fa0214d5f753109a5ef9e",
+        "bytes": 20903,
+        "lines": 556,
+        "git_blob": "4cea3ce4c3de0c0b1579f7bdc5ce81e2d2bbaec5",
+        "preserved_bytes": "main-advance-95e/city-streaming-evidence/current-1521.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "qualification": "Only stated current-source traces are credited. Historical review, other source roles and other lenses remain distinct.",
+        "diff": {
+          "preserved_bytes": "main-advance-95e/city-streaming-evidence/role-1521.diff.gz",
+          "sha256": "6115a23d7839824eb9fff8ccf2fba2836e77fe0392288b6b98a222de9b0bc1ec",
+          "bytes": 3052,
+          "qualification": "Exact textual diff; source production prefix before cfg(test) is byte-identical. Only test fixture setup/names changed; no test executed."
+        }
+      },
+      "qualification": "Full original body personally read through actual EOF; all test and fixture source read as text only. Earlier reviewer, revision and source-role qualifications remain distinct. No generation, rendering, browser, test or product runtime ran."
+    },
+    {
+      "original_index": 1522,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/prepared.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; original body equals the 6533 committed-tree blob. Current comparison is separately recorded; identity never transfers reviewer or other-lens credit.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/1522",
+      "sha256": "93f6d71ef4483adfa946c8c19da9692b9843eb84629a32210c1652a3978b3e4d",
+      "lines": 54,
+      "new_personal_read_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "CITY-STREAMING-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/presentation/buildings/prepared.rs",
+        "sha256": "93f6d71ef4483adfa946c8c19da9692b9843eb84629a32210c1652a3978b3e4d",
+        "bytes": 1826,
+        "lines": 54,
+        "git_blob": "389d98ca6eaa860789ed6aed7202d02839d1748b",
+        "preserved_bytes": "main-advance-95e/city-streaming-evidence/current-1522.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Only stated current-source traces are credited. Historical review, other source roles and other lenses remain distinct."
+      },
+      "qualification": "Full original body personally read through actual EOF; all test and fixture source read as text only. Earlier reviewer, revision and source-role qualifications remain distinct. No generation, rendering, browser, test or product runtime ran."
+    },
+    {
+      "original_index": 1523,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/signs.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; original body equals the 6533 committed-tree blob. Current comparison is separately recorded; identity never transfers reviewer or other-lens credit.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/1523",
+      "sha256": "57739c962cf2f6d39add14a9e57aac70c6d418dc2a57972bd12080a7135dc4b3",
+      "lines": 155,
+      "new_personal_read_ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "CITY-STREAMING-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/presentation/buildings/signs.rs",
+        "sha256": "57739c962cf2f6d39add14a9e57aac70c6d418dc2a57972bd12080a7135dc4b3",
+        "bytes": 5114,
+        "lines": 155,
+        "git_blob": "c65e75f4eab041b39d7257aea2df0f5884570ccc",
+        "preserved_bytes": "main-advance-95e/city-streaming-evidence/current-1523.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Only stated current-source traces are credited. Historical review, other source roles and other lenses remain distinct."
+      },
+      "qualification": "Full original body personally read through actual EOF; all test and fixture source read as text only. Earlier reviewer, revision and source-role qualifications remain distinct. No generation, rendering, browser, test or product runtime ran."
+    },
+    {
+      "original_index": 1524,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/streaming.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; original body equals the 6533 committed-tree blob. Current comparison is separately recorded; identity never transfers reviewer or other-lens credit.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/1524",
+      "sha256": "b8091bd1fe336c7162f6fcc4729bdd1e16cadf288fafe8ad4092029e2ea1fcc4",
+      "lines": 272,
+      "new_personal_read_ranges": [
+        [
+          1,
+          272
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "CITY-STREAMING-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/presentation/buildings/streaming.rs",
+        "sha256": "b8091bd1fe336c7162f6fcc4729bdd1e16cadf288fafe8ad4092029e2ea1fcc4",
+        "bytes": 9404,
+        "lines": 272,
+        "git_blob": "9aaf45ca388bbd233c1251e26f8e108cc847dbf2",
+        "preserved_bytes": "main-advance-95e/city-streaming-evidence/current-1524.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Only stated current-source traces are credited. Historical review, other source roles and other lenses remain distinct."
+      },
+      "qualification": "Full original body personally read through actual EOF; all test and fixture source read as text only. Earlier reviewer, revision and source-role qualifications remain distinct. No generation, rendering, browser, test or product runtime ran."
+    },
+    {
+      "original_index": 1525,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; original body equals the 6533 committed-tree blob. Current comparison is separately recorded; identity never transfers reviewer or other-lens credit.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1525",
+      "sha256": "39104be92a09f4e09bc38db7353d77a82f5fe5457067c9c6c08da3d88a46e41f",
+      "lines": 148,
+      "new_personal_read_ranges": [
+        [
+          1,
+          148
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "CITY-STREAMING-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+        "sha256": "39104be92a09f4e09bc38db7353d77a82f5fe5457067c9c6c08da3d88a46e41f",
+        "bytes": 5126,
+        "lines": 148,
+        "git_blob": "fe3b8cc7534f1724ff63d276277a87b56adf9ae8",
+        "preserved_bytes": "main-advance-95e/city-streaming-evidence/current-1525.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Only stated current-source traces are credited. Historical review, other source roles and other lenses remain distinct."
+      },
+      "qualification": "Full original body personally read through actual EOF; all test and fixture source read as text only. Earlier reviewer, revision and source-role qualifications remain distinct. No generation, rendering, browser, test or product runtime ran."
+    }
+  ],
+  "observations": [
+    "Five original building materials, prepared geometry, signs, streaming and closure-mesh bodies personally read through actual EOF; all equal the 6533 committed blob. Four equal current 95e bytes; role1521 differs only in recorded test-source fixture setup and test names, and the exact diff is retained. Original pr-working still means PR head plus recorded working state.",
+    "Earlier adler Lens11 batches215 and216 reviewed roles1520–1529; segovb Lens12 batches464–466 independently reviewed roles1521–1526. Their original attribution, full scopes, zero accepted unique change and no current reconciliation are retained. This checkpoint personally reads only original roles1521–1525; role1526 and other bodies in those receipts receive no new historical-body or lens credit.",
+    "The earlier segovb role1522 registration preserved a Windows-style original locator, original inherited range1–50, and separately recorded a fresh full 1–54 read. No inherited scope was expanded or retroactively credited. Earlier art-demo Lens12 batch423 independently read role1449 through line343 with its original registration and verification; this is distinct from the present bounded current-source art-demo trace.",
+    "All fixture assertions are source text only. No product, texture, scene, renderer, test or runtime was executed."
+  ],
+  "remaining": "Continue historical body 1526. All supporting source roles, aliases, original populations and thirteen independent lenses remain open."
+}

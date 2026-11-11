@@ -3500,8 +3500,40 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-CITY-GPU-READINESS-MATERIAL-95E.json"
+      },
+      {
+        "id": "ADLER-L11-CITY-STREAMING-FAILURE-OWNERSHIP",
+        "lens": 11,
+        "severity": "unassigned; conditional failure/readiness contract question",
+        "classification": "Existing 059 Lens11 finding re-assessed at 95e through preparation and actual status consumers; no new accepted historical unique finding.",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-CITY-STREAMING-FAILURE-OWNERSHIP",
+          "baseline-059/queue.json#/entries/1299"
+        ],
+        "relationship_qualification": "The first is the same original 059 finding; the second is a newly assessed conditional current source question. Neither changes historical unique counts or transfers checkpoint3821 status. Alias, policy and reachability remain open.",
+        "discovery": "partial; source erasure and consumer branches confirmed, reachability, policy and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-CITY-STREAMING-READINESS-95E.json"
+      },
+      {
+        "id": "REVIEW-STRATEGIC-CITY-FAILURE-READINESS-001",
+        "lens": 8,
+        "severity": "unassigned; conditional failure/readiness contract question",
+        "classification": "Newly assessed 95e source-derived conditional question; not an observed incident, established product defect or recovered checkpoint 3821 finding.",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-CITY-STREAMING-FAILURE-OWNERSHIP",
+          "baseline-059/queue.json#/entries/1299",
+          "ASSESSMENT-ART-DEMO-RESIDENCY-95E.json",
+          "ASSESSMENT-CITY-BOUNDARY-PUBLICATION-95E.json"
+        ],
+        "relationship_qualification": "The first is the same original 059 finding; the second is a newly assessed conditional current source question. Neither changes historical unique counts or transfers checkpoint3821 status. Alias, policy and reachability remain open.",
+        "discovery": "partial conditional source argument; reachability, degraded policy, downstream publication and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-CITY-STREAMING-READINESS-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0626.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0630.json"
 }

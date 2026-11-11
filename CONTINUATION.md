@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-0626.json`).
+2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-0630.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -269,6 +269,10 @@ action, provenance and route sources without expanding current coverage.
 capability, claim and geometry sources without expanding current coverage.
 `ASSESSMENT-L01-HISTORICAL-1126-1127.json` records historical investigation
 module composition and evidence state without expanding current coverage.
+`ASSESSMENT-CITY-STREAMING-READINESS-95E.json` separates the retained
+city error, external reporting and internal snapshot-readiness question.
+`ASSESSMENT-L01-HISTORICAL-1521-1525.json` records five original bodies
+and the exact historical/current material-test source difference.
 `ASSESSMENT-CITY-GPU-READINESS-MATERIAL-95E.json` reconnects earlier
 GPU readiness and material questions to current source and pinned Bevy code.
 `ASSESSMENT-L01-HISTORICAL-1511-1520.json` preserves ten original reads
