@@ -1,0 +1,781 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    5,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Five further historical bodies and current native-source qualification of scenario metadata and selection admission.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1401-1405.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer_main.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e416dc7b646d0c1652361a08ac6f2bfb74eed9b8",
+      "sha256": "aa3d28a6c951d8fe7246dcd68b52baf41afebe9ccfdf5eb84dbf5cbe17c40932",
+      "bytes": 4516,
+      "lines": 132,
+      "ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-admission-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test bodies were read as text only; no test, CLI, capture, build or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a3488f26f42625e1f5eb465f3042d561b6d9f0b1",
+      "sha256": "40cfb0af104c5b99efdf25346bf83168023b20c4305655f392ef49dcca1ab584",
+      "bytes": 6843,
+      "lines": 179,
+      "ranges": [
+        [
+          77,
+          109
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-admission-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test bodies were read as text only; no test, CLI, capture, build or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8bdd33b05699f49ceb18ff2aa5c6adb8678f778e",
+      "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "bytes": 40632,
+      "lines": 1021,
+      "ranges": [
+        [
+          68,
+          131
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-admission-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test bodies were read as text only; no test, CLI, capture, build or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "de410818c1c18988147532374e4261306b2efbf9",
+      "sha256": "256fd3e5455eea95b629cf6ee1f856cb2149bb522d91b81d8bd9820c801161e6",
+      "bytes": 52949,
+      "lines": 1409,
+      "ranges": [
+        [
+          1,
+          80
+        ],
+        [
+          428,
+          615
+        ],
+        [
+          1100,
+          1158
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-admission-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test bodies were read as text only; no test, CLI, capture, build or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/scenarios/plan_families.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "01e1fa2aa3b41bc2e50e87f344e55a6cf68befbb",
+      "sha256": "8e07b8a223fec8cbfa46b35aedc1732f3ff056c3000abf8db68f322517119d66",
+      "bytes": 6278,
+      "lines": 190,
+      "ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-admission-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test bodies were read as text only; no test, CLI, capture, build or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/scenarios/terrain_policy.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "dcd08ae262513c722aa3077c12dc370123cd0e6f",
+      "sha256": "ef089759439d79d013473eda445c12a1f4ee725f5aee47be890a3983a8a492a2",
+      "bytes": 1293,
+      "lines": 40,
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-admission-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test bodies were read as text only; no test, CLI, capture, build or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5723da1a36ca843bb38d402262ef0499ad6f8ea0",
+      "sha256": "927e13d910b8e3b7dc6a9cc58ef2e936172b4ec9188948ffd5d1a524d4b89185",
+      "bytes": 37278,
+      "lines": 792,
+      "ranges": [
+        [
+          110,
+          125
+        ],
+        [
+          425,
+          439
+        ],
+        [
+          494,
+          511
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-admission-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test bodies were read as text only; no test, CLI, capture, build or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b7f556d2ad2e5461e428a24423d6947b1e9726a9",
+      "sha256": "aa04ddf1b466365d8e27a43076eab1904f9d1d4abfd1715e2af1578f5d4e5636",
+      "bytes": 80901,
+      "lines": 2050,
+      "ranges": [
+        [
+          34,
+          73
+        ],
+        [
+          1063,
+          1077
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-admission-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test bodies were read as text only; no test, CLI, capture, build or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "298af9648be8903bf3e2d57554d0caca4376c583",
+      "sha256": "df0755d84bee3dcbea4124ffdf5f53bb89e513796b87e1577bdfafbdf7fd17f0",
+      "bytes": 9342,
+      "lines": 220,
+      "ranges": [
+        [
+          87,
+          138
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-admission-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test bodies were read as text only; no test, CLI, capture, build or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/Cargo.toml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9d1b3f8f93b7c063b54f06812ba7375b17b0ae9b",
+      "sha256": "cd98942e0a1d2eef08c56cc153dab06df2e25976a93d63bd6c2e09fcb0dcde15",
+      "bytes": 4922,
+      "lines": 162,
+      "ranges": [
+        [
+          20,
+          33
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-admission-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test bodies were read as text only; no test, CLI, capture, build or runtime probe ran."
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          303,
+          348
+        ],
+        [
+          10165,
+          10171
+        ],
+        [
+          10196,
+          10205
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-admission-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. Test bodies were read as text only; no test, CLI, capture, build or runtime probe ran."
+    }
+  ],
+  "existing_finding_connections": [
+    {
+      "id": "ADLER-L11-CAPTURE-SCENARIO-ADMISSION-PANIC",
+      "relationship": "Same earlier 059 Lens11 finding, with separate 7a9d independent continuation preserved. Newly traced current source does not add a duplicate candidate or promote earlier state to checkpoint 3821.",
+      "trace": "The native CLI declares --scenario as Option<String> with no closed value enum and forwards it into CaptureOptions. After earlier configuration work succeeds, run maps the supplied label through ScenarioMetadata::from_label and passes it to CaptureSequence::new. That metadata owner intentionally accepts both authored identities and other open labels; it is not itself a selected-plan membership check. The constructor handles several authored identities specially and otherwise builds capture_plan and filters its finite frames by label equality. If plan construction succeeds and no frame matches, assert! fires inside a constructor declared to return AnimationValueResult, before run can handle its Err as AppExit::Error. The inspection publication and native app setup in run occur later.",
+      "scope_and_limits": "The published full CLI, constructor, current capture-plan and selected family source support the chain. Actual CLI parsing, an invalid invocation, panic/exit text, native startup and artifact behavior were not executed. Earlier config, fixed-clock or plan errors can occur first; the typed cause and complete output cleanup policy remain open. The current finite plan has authored scenario constructors, while other open-label APIs and producers remain separate obligations.",
+      "connected_repair": "Make unsupported selection a result-bearing capture-plan admission failure with an owned descriptive cause and existing error exit, preserving valid authored special cases and numerical construction errors. Decide artifact and output invalidation behavior at the capture owner; do not add a legacy fallback or alter the intentional open metadata grammar without a separate contract.",
+      "later_acceptance": "After separate implementation and product-validation authorization, cover unsupported and supported CLI/programmatic selections, numerical plan failures, exit and output behavior.",
+      "discovery": "partial current CLI and selection path; all aliases and output policy open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "existing_contract_connections": [
+    {
+      "id": "RELATED-SCENARIO-POLICY-OWNER-QUESTIONS",
+      "relationship": "Bounded type ownership and behavior-preservation analysis, not a new counted defect.",
+      "trace": "ScenarioMetadata retains the original label, optional parsed ScenarioId, classified features, terrain mode, execution and report policy. Recognized identities use authored explicit feature tables; unrecognized labels use a separate case-sensitive prefix/substring/suffix grammar. Its equality and serialization use the retained exact label. The pinned Strum derive source constructs exact matching arms by default and uses explicit serialize overrides in preference to generated names; IntoStaticStr chooses the same preferred override for the single-override variants inspected. For example the explicit terrain-turn-90 spelling is an authored label, not evidence of a compatibility alias.",
+      "terrain_example": "The two authored lateral raised-tap-stop cases carry RaisedTapStop and therefore retain RaisedGuard classification while selecting RaisedStop terrain behavior. The per-frame terrain owner enables the mode; selected source test assertions also describe this intended distinction, but tests were read only. Startup selection is an independent method and can use a different initial mode. FullRagdoll has an explicit posture and is separately excluded from several generic report gates; a generic repeating classification alone is not proof it must satisfy the ordinary locomotion biomechanics gate.",
+      "limits": "Do not infer a defect solely from substring matches on arbitrary labels or infer an actual selectable capture from open-label metadata. A selected unknown label must match a generated finite plan or takes the separately identified assertion path. Global uniqueness of all generated names, every external metadata consumer, asset schedules, complete report policy and all authored feature expectations remain open. Native macro source was inspected, not compiled or expanded.",
+      "discovery": "partial owner/policy trace",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "native_evidence": [
+    {
+      "manifest": "native-evidence/strum-0.27.2/MANIFEST.json",
+      "members": [
+        "strum-0.27.2/src/lib.rs"
+      ],
+      "qualification": "Cargo.lock pin and derive reexport source; no feature resolution or macro execution."
+    },
+    {
+      "manifest": "native-evidence/strum_macros-0.27.2/MANIFEST.json",
+      "members": [
+        "strum_macros-0.27.2/src/macros/strings/from_string.rs",
+        "strum_macros-0.27.2/src/macros/strings/as_ref_str.rs",
+        "strum_macros-0.27.2/src/helpers/variant_props.rs",
+        "strum_macros-0.27.2/src/helpers/type_props.rs",
+        "strum_macros-0.27.2/src/helpers/case_style.rs"
+      ],
+      "qualification": "Exact matching and preferred serialization source for inspected annotations; no expansion or exhaustive catalogue uniqueness claim."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/46",
+        "/entries/1196 through /entries/1200"
+      ],
+      "qualification": "Earlier Lens11 finding and Lens12 questions remain open and separately attributed."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointers": [
+        "/discovery_findings_and_dependencies/ADLER-L11-CAPTURE-SCENARIO-ADMISSION-PANIC"
+      ],
+      "qualification": "Original and later 7a9d source evidence retain their own attributions."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-202.json",
+      "sha256": "63324c59ddaeb19782a2601cef6e7b19df50498e267cf6794658a5db3fb42bdd",
+      "bytes": 17483,
+      "git_blob": "cf9aa40211f824c640a4e6930d0a36214d00d367",
+      "preserved_bytes": "recovered/scenario-admission-059/63324c59ddaeb19782a2601cef6e7b19df50498e267cf6794658a5db3fb42bdd.gz",
+      "published_sha256": "63324c59ddaeb19782a2601cef6e7b19df50498e267cf6794658a5db3fb42bdd",
+      "published_bytes": 17483,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scenario finding receipt or verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-204.json",
+      "sha256": "0120db149cb71611b30ec917fb25120a1d036c192176cec395490e461d611872",
+      "bytes": 15389,
+      "git_blob": "19b680b66695c20ed100715dd0df134b73c5eaa3",
+      "preserved_bytes": "recovered/scenario-admission-059/0120db149cb71611b30ec917fb25120a1d036c192176cec395490e461d611872.gz",
+      "published_sha256": "0120db149cb71611b30ec917fb25120a1d036c192176cec395490e461d611872",
+      "published_bytes": 15389,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scenario finding receipt or verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-202.json",
+      "sha256": "c13464036e535c430728c20a11a79367dbf16d66303e5211ee857bb7ee7c9ada",
+      "bytes": 701,
+      "git_blob": "9a089d5d89042e83ef81064fe8d22fd5438047ef",
+      "preserved_bytes": "recovered/scenario-admission-059/c13464036e535c430728c20a11a79367dbf16d66303e5211ee857bb7ee7c9ada.gz",
+      "published_sha256": "c13464036e535c430728c20a11a79367dbf16d66303e5211ee857bb7ee7c9ada",
+      "published_bytes": 701,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scenario finding receipt or verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-204.json",
+      "sha256": "1210e2b79dc4bc27bd4e80e30296d9b92932239027a2c81449f68da022f750dc",
+      "bytes": 690,
+      "git_blob": "f70332a842d75a8208b5369388da7f49a576c8f5",
+      "preserved_bytes": "recovered/scenario-admission-059/1210e2b79dc4bc27bd4e80e30296d9b92932239027a2c81449f68da022f750dc.gz",
+      "published_sha256": "1210e2b79dc4bc27bd4e80e30296d9b92932239027a2c81449f68da022f750dc",
+      "published_bytes": 690,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scenario finding receipt or verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-202.json",
+      "sha256": "7ae8991389e900766b747deacd8bd5fdca5e72794aea72b293cb248e93c3e148",
+      "bytes": 36515,
+      "git_blob": "1bd7034a08752b86ab0e412e6d756e18a02719b2",
+      "preserved_bytes": "recovered/scenario-admission-059/7ae8991389e900766b747deacd8bd5fdca5e72794aea72b293cb248e93c3e148.gz",
+      "published_sha256": "7ae8991389e900766b747deacd8bd5fdca5e72794aea72b293cb248e93c3e148",
+      "published_bytes": 36515,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scenario finding receipt or verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-204.json",
+      "sha256": "8c2654e05965f814de4e04f41debae45d1d59b1875ad861734d6529b8483e586",
+      "bytes": 39128,
+      "git_blob": "5a6e55890294dd936de13ce286542f9eec7d06b6",
+      "preserved_bytes": "recovered/scenario-admission-059/8c2654e05965f814de4e04f41debae45d1d59b1875ad861734d6529b8483e586.gz",
+      "published_sha256": "8c2654e05965f814de4e04f41debae45d1d59b1875ad861734d6529b8483e586",
+      "published_bytes": 39128,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scenario finding receipt or verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-400.json",
+      "sha256": "32e95054d018d7cafc85f5e6fcd9559e5652795d729a5a52e2613041db2b870b",
+      "bytes": 1746,
+      "git_blob": "ec071e41689b39df33a4b64db02b9b8113a5acd9",
+      "preserved_bytes": "recovered/scenario-admission-059/32e95054d018d7cafc85f5e6fcd9559e5652795d729a5a52e2613041db2b870b.gz",
+      "published_sha256": "32e95054d018d7cafc85f5e6fcd9559e5652795d729a5a52e2613041db2b870b",
+      "published_bytes": 1746,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-401.json",
+      "sha256": "0212d9a2e233be05423b037e83fac06683de600625bc55b1e9704b958f13e724",
+      "bytes": 1739,
+      "git_blob": "e098efd18d8a2e6c4afc314f3bb4afd6c0e2e66d",
+      "preserved_bytes": "recovered/scenario-admission-059/0212d9a2e233be05423b037e83fac06683de600625bc55b1e9704b958f13e724.gz",
+      "published_sha256": "0212d9a2e233be05423b037e83fac06683de600625bc55b1e9704b958f13e724",
+      "published_bytes": 1739,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L11-535.json",
+      "sha256": "715c157ae13b72512f7f38cbd36d08b6491c243b4a11087350b05214dc4bb40e",
+      "bytes": 24180,
+      "git_blob": "e29abf4a3a335095d64d5cb9bbc3e8e648afb92c",
+      "preserved_bytes": "recovered/scenario-admission-059/715c157ae13b72512f7f38cbd36d08b6491c243b4a11087350b05214dc4bb40e.gz",
+      "published_sha256": "715c157ae13b72512f7f38cbd36d08b6491c243b4a11087350b05214dc4bb40e",
+      "published_bytes": 24180,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scenario finding receipt or verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-400.json",
+      "sha256": "e5c4cb33359625cacac161821b2677d71b0d4bb47095a9c0b49a657f7a1e129a",
+      "bytes": 11617,
+      "git_blob": "7e17bc64013dbaf53fd2dbe74470b5249ceeaed8",
+      "preserved_bytes": "recovered/scenario-admission-059/e5c4cb33359625cacac161821b2677d71b0d4bb47095a9c0b49a657f7a1e129a.gz",
+      "published_sha256": "e5c4cb33359625cacac161821b2677d71b0d4bb47095a9c0b49a657f7a1e129a",
+      "published_bytes": 11617,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-401.json",
+      "sha256": "24c4488c735a1af25a7b66128cdc7ba495a85479d2a346e1f67a3489da4a9d1c",
+      "bytes": 12968,
+      "git_blob": "80e0b6a897fc44a3412b071d3e5bf005b069ec11",
+      "preserved_bytes": "recovered/scenario-admission-059/24c4488c735a1af25a7b66128cdc7ba495a85479d2a346e1f67a3489da4a9d1c.gz",
+      "published_sha256": "24c4488c735a1af25a7b66128cdc7ba495a85479d2a346e1f67a3489da4a9d1c",
+      "published_bytes": 12968,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-405.json",
+      "sha256": "080b33ef49b1c4aef3b565996009376d7750ee1692fa8cbac170da59482b9dee",
+      "bytes": 8135,
+      "git_blob": "079747dc5eb5a24444c113085049364441a281bc",
+      "preserved_bytes": "recovered/scenario-admission-059/080b33ef49b1c4aef3b565996009376d7750ee1692fa8cbac170da59482b9dee.gz",
+      "published_sha256": "080b33ef49b1c4aef3b565996009376d7750ee1692fa8cbac170da59482b9dee",
+      "published_bytes": 8135,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scenario finding receipt or verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-411.json",
+      "sha256": "e05b319c96750b2f17752aa7868efb60c79a51c6e27c8a49ceec8874ce3261c5",
+      "bytes": 13272,
+      "git_blob": "3898de564decf982133172a57c32bc2a67671ac0",
+      "preserved_bytes": "recovered/scenario-admission-059/e05b319c96750b2f17752aa7868efb60c79a51c6e27c8a49ceec8874ce3261c5.gz",
+      "published_sha256": "e05b319c96750b2f17752aa7868efb60c79a51c6e27c8a49ceec8874ce3261c5",
+      "published_bytes": 13272,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scenario finding receipt or verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-422.json",
+      "sha256": "02482fd6ae4ea9850e416e8e733b040fcda2aaa3d98f7c701b1e5b3601f3e2a7",
+      "bytes": 9633,
+      "git_blob": "525c60e6bf860df0305b2447ed92e449fcc86909",
+      "preserved_bytes": "recovered/scenario-admission-059/02482fd6ae4ea9850e416e8e733b040fcda2aaa3d98f7c701b1e5b3601f3e2a7.gz",
+      "published_sha256": "02482fd6ae4ea9850e416e8e733b040fcda2aaa3d98f7c701b1e5b3601f3e2a7",
+      "published_bytes": 9633,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scenario finding receipt or verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-308.json",
+      "sha256": "1fd5d4c58d57c46759664f606b1472e0de6c076b13b2299534f9380c348a6c36",
+      "bytes": 1236,
+      "git_blob": "ed09c42a10d873d3de6d3ba69d4cfd25a4e41002",
+      "preserved_bytes": "recovered/scenario-admission-059/1fd5d4c58d57c46759664f606b1472e0de6c076b13b2299534f9380c348a6c36.gz",
+      "published_sha256": "1fd5d4c58d57c46759664f606b1472e0de6c076b13b2299534f9380c348a6c36",
+      "published_bytes": 1236,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-309.json",
+      "sha256": "d080f8e0907eb304004420afd959bf729d7eec8de756fcc5f6e4ba0f1fbb1bf8",
+      "bytes": 1254,
+      "git_blob": "6d7849ecca9b424259636607052274d9bf208f91",
+      "preserved_bytes": "recovered/scenario-admission-059/d080f8e0907eb304004420afd959bf729d7eec8de756fcc5f6e4ba0f1fbb1bf8.gz",
+      "published_sha256": "d080f8e0907eb304004420afd959bf729d7eec8de756fcc5f6e4ba0f1fbb1bf8",
+      "published_bytes": 1254,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-310.json",
+      "sha256": "d3d6cc6a36d52458a398ea8abe271d79c4c34ef6b120b4b0f1ba0e7243525290",
+      "bytes": 1268,
+      "git_blob": "007c4df769ca8975093584fcd3ba276990cc736a",
+      "preserved_bytes": "recovered/scenario-admission-059/d3d6cc6a36d52458a398ea8abe271d79c4c34ef6b120b4b0f1ba0e7243525290.gz",
+      "published_sha256": "d3d6cc6a36d52458a398ea8abe271d79c4c34ef6b120b4b0f1ba0e7243525290",
+      "published_bytes": 1268,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-311.json",
+      "sha256": "bf0bd085e8fd5a5af626276456bc7884a5f5b900b2ecae1a5c0148aee39822ad",
+      "bytes": 1261,
+      "git_blob": "f59d358ca8e67a2e3b59b6d3629289adbfe35814",
+      "preserved_bytes": "recovered/scenario-admission-059/bf0bd085e8fd5a5af626276456bc7884a5f5b900b2ecae1a5c0148aee39822ad.gz",
+      "published_sha256": "bf0bd085e8fd5a5af626276456bc7884a5f5b900b2ecae1a5c0148aee39822ad",
+      "published_bytes": 1261,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-312.json",
+      "sha256": "695f360662610bdc6c10f260dff1a3c2224ffb2d89c79716f2b7d005b774dd16",
+      "bytes": 1249,
+      "git_blob": "31d5b9f035d52c6a4413d69f1e76f0042151a255",
+      "preserved_bytes": "recovered/scenario-admission-059/695f360662610bdc6c10f260dff1a3c2224ffb2d89c79716f2b7d005b774dd16.gz",
+      "published_sha256": "695f360662610bdc6c10f260dff1a3c2224ffb2d89c79716f2b7d005b774dd16",
+      "published_bytes": 1249,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-313.json",
+      "sha256": "5a87c2c0cf8573e25f60fcf0c2f7ffb8db6aefaa25f1b422480bc31de3dffc2a",
+      "bytes": 1221,
+      "git_blob": "9084a58d27e55fd4d375e448a69cd8f81c13bef4",
+      "preserved_bytes": "recovered/scenario-admission-059/5a87c2c0cf8573e25f60fcf0c2f7ffb8db6aefaa25f1b422480bc31de3dffc2a.gz",
+      "published_sha256": "5a87c2c0cf8573e25f60fcf0c2f7ffb8db6aefaa25f1b422480bc31de3dffc2a",
+      "published_bytes": 1221,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L11-535.json",
+      "sha256": "9abb4c7512d907c7a8763a7db5945f5a50a62f862c3622dd28efaf2ab2f49f4e",
+      "bytes": 1550,
+      "git_blob": "e23ba0b2080bc98ef6512ea5827a7515882cb8a0",
+      "preserved_bytes": "recovered/scenario-admission-059/9abb4c7512d907c7a8763a7db5945f5a50a62f862c3622dd28efaf2ab2f49f4e.gz",
+      "published_sha256": "9abb4c7512d907c7a8763a7db5945f5a50a62f862c3622dd28efaf2ab2f49f4e",
+      "published_bytes": 1550,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scenario finding receipt or verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-400.json",
+      "sha256": "39e1ab9b6fdabeae765d890baf309d64eea4bdaf6b9f7021029c213ca912cf45",
+      "bytes": 840,
+      "git_blob": "890b313a40535467ae99af2f74c7799b349ef794",
+      "preserved_bytes": "recovered/scenario-admission-059/39e1ab9b6fdabeae765d890baf309d64eea4bdaf6b9f7021029c213ca912cf45.gz",
+      "published_sha256": "39e1ab9b6fdabeae765d890baf309d64eea4bdaf6b9f7021029c213ca912cf45",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-401.json",
+      "sha256": "b70ad3dc9aff72598c2031e84ffc253d488558453c225cdaff23476cb796f770",
+      "bytes": 840,
+      "git_blob": "9975eaf7bb104fadea7212e3b0a72d4eaa9ab0e5",
+      "preserved_bytes": "recovered/scenario-admission-059/b70ad3dc9aff72598c2031e84ffc253d488558453c225cdaff23476cb796f770.gz",
+      "published_sha256": "b70ad3dc9aff72598c2031e84ffc253d488558453c225cdaff23476cb796f770",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-405.json",
+      "sha256": "383344f89f313e97f7b90cbdf8fedef4f0eb5071d0ee8362ff6d1267af88c98f",
+      "bytes": 840,
+      "git_blob": "68dbe748619f56ffb2e51eee1c7488c35458da9d",
+      "preserved_bytes": "recovered/scenario-admission-059/383344f89f313e97f7b90cbdf8fedef4f0eb5071d0ee8362ff6d1267af88c98f.gz",
+      "published_sha256": "383344f89f313e97f7b90cbdf8fedef4f0eb5071d0ee8362ff6d1267af88c98f",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scenario finding receipt or verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-411.json",
+      "sha256": "5ff242ed0ffd6fdf8a044d357c9cc261f273300f1c3712e982dd45627ef12ff0",
+      "bytes": 840,
+      "git_blob": "1df8cdd7cc89f896c5f1f866a48ccfb6466cf791",
+      "preserved_bytes": "recovered/scenario-admission-059/5ff242ed0ffd6fdf8a044d357c9cc261f273300f1c3712e982dd45627ef12ff0.gz",
+      "published_sha256": "5ff242ed0ffd6fdf8a044d357c9cc261f273300f1c3712e982dd45627ef12ff0",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scenario finding receipt or verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-422.json",
+      "sha256": "75997919a6df39a70fa69d59da4615ee8db70cdd7c31c7255a6fad09540f26cb",
+      "bytes": 840,
+      "git_blob": "1b9874281b81f9861889a8e7444676ca6ce97c0c",
+      "preserved_bytes": "recovered/scenario-admission-059/75997919a6df39a70fa69d59da4615ee8db70cdd7c31c7255a6fad09540f26cb.gz",
+      "published_sha256": "75997919a6df39a70fa69d59da4615ee8db70cdd7c31c7255a6fad09540f26cb",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scenario finding receipt or verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L11-535.json",
+      "sha256": "b63fc58aa648d9510dd4380321dbf546087aa298f9c4b63be2414d4ba764b603",
+      "bytes": 451,
+      "git_blob": "15c235824d6985540b4477a7b6b183168fc00724",
+      "preserved_bytes": "recovered/scenario-admission-059/b63fc58aa648d9510dd4380321dbf546087aa298f9c4b63be2414d4ba764b603.gz",
+      "published_sha256": "b63fc58aa648d9510dd4380321dbf546087aa298f9c4b63be2414d4ba764b603",
+      "published_bytes": 451,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scenario finding receipt or verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-400.json",
+      "sha256": "75f93310f8f490d0f4ddd8a0ee3c2c04537ed713d5322dcebcd45cbe6b0c3c01",
+      "bytes": 558,
+      "git_blob": "fdd3dedf5eeb4db0360fe934a2330c8f9e7f8007",
+      "preserved_bytes": "recovered/scenario-admission-059/75f93310f8f490d0f4ddd8a0ee3c2c04537ed713d5322dcebcd45cbe6b0c3c01.gz",
+      "published_sha256": "75f93310f8f490d0f4ddd8a0ee3c2c04537ed713d5322dcebcd45cbe6b0c3c01",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-401.json",
+      "sha256": "44e163fd79407f24288d16bc2bb51fbced78a314cf249810367f11f49c169396",
+      "bytes": 558,
+      "git_blob": "2d3cb753613d413bf6504f6b52498265cb624cad",
+      "preserved_bytes": "recovered/scenario-admission-059/44e163fd79407f24288d16bc2bb51fbced78a314cf249810367f11f49c169396.gz",
+      "published_sha256": "44e163fd79407f24288d16bc2bb51fbced78a314cf249810367f11f49c169396",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-405.json",
+      "sha256": "4851f95967b0346b7a8091d136db36f30139a20a822fb79647e9abe208a0d710",
+      "bytes": 558,
+      "git_blob": "25908c55ee80f7f915dc669ad68104fec5c7704e",
+      "preserved_bytes": "recovered/scenario-admission-059/4851f95967b0346b7a8091d136db36f30139a20a822fb79647e9abe208a0d710.gz",
+      "published_sha256": "4851f95967b0346b7a8091d136db36f30139a20a822fb79647e9abe208a0d710",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scenario finding receipt or verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-411.json",
+      "sha256": "8a8219eaefc84e197abf69127c1943acf2e8367dba2462bf9671ad59965c3efb",
+      "bytes": 558,
+      "git_blob": "1b32f141eb63bac8daa45c32664204b4171b3488",
+      "preserved_bytes": "recovered/scenario-admission-059/8a8219eaefc84e197abf69127c1943acf2e8367dba2462bf9671ad59965c3efb.gz",
+      "published_sha256": "8a8219eaefc84e197abf69127c1943acf2e8367dba2462bf9671ad59965c3efb",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scenario finding receipt or verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-422.json",
+      "sha256": "6d4baf6cc624e9c7919c9c24748e1387b2455b38196f190e69e2c68526d8e711",
+      "bytes": 558,
+      "git_blob": "5135fb51ce525a5081e93ec4a82a62c84299f6b1",
+      "preserved_bytes": "recovered/scenario-admission-059/6d4baf6cc624e9c7919c9c24748e1387b2455b38196f190e69e2c68526d8e711.gz",
+      "published_sha256": "6d4baf6cc624e9c7919c9c24748e1387b2455b38196f190e69e2c68526d8e711",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scenario finding receipt or verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    }
+  ],
+  "remaining": "Complete plan/label policy, native consumers, output and aliases plus thirteen independent lenses remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
