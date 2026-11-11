@@ -1,0 +1,619 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2289 hair GPU module and selected CPU aggregate, bounds, context and pinned native signature evidence.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2289.json",
+  "git_membership_evidence": "HAIR-GPU-MODULE-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/buffers.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "45e9cee3aab008fed716a8f228af89829b93d775",
+      "sha256": "56b07c022d332c7f08791949cbbed967de3b94a2e6a442511b387dd625facfc7",
+      "bytes": 2535,
+      "lines": 80,
+      "ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-gpu-module-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only selected current support ranges credited; full bytes preserved without future-role credit."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/surface.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "61b7f7a61600ed97835e4f23d76a78362068058f",
+      "sha256": "117cfab53d13fbb84de5149685248b1c6a0b6d5578fb8ffdb522d08af10ccd60",
+      "bytes": 9837,
+      "lines": 283,
+      "ranges": [
+        [
+          15,
+          63
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-gpu-module-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only selected current support ranges credited; full bytes preserved without future-role credit."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/strands.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "73594775643839d9ee3755ac9b84b8e6f5c71b1e",
+      "sha256": "5a3bb021b299493d92f25c9aca9d2fc24fd46c9f0fa66c97aa5845996f6f6f29",
+      "bytes": 14821,
+      "lines": 448,
+      "ranges": [
+        [
+          25,
+          129
+        ],
+        [
+          150,
+          163
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-gpu-module-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only selected current support ranges credited; full bytes preserved without future-role credit."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e6ad81ce71830631eef96a4818fedc5922956878",
+      "sha256": "4c4942bcc61f37168061524da5455ca10cfd712e6611f8128f2cf45cf1c58fb9",
+      "bytes": 19834,
+      "lines": 597,
+      "ranges": [
+        [
+          83,
+          94
+        ],
+        [
+          112,
+          145
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-gpu-module-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only selected current support ranges credited; full bytes preserved without future-role credit."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9716f938f35b1f40c552344ada1d9b73adfc1ad5",
+      "sha256": "14ac95339951ceb8b50cc3ab9452c251bbbce6122ebd7206a3961c406ff74858",
+      "bytes": 13112,
+      "lines": 323,
+      "ranges": [
+        [
+          20,
+          34
+        ],
+        [
+          92,
+          120
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-gpu-module-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only selected current support ranges credited; full bytes preserved without future-role credit."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7d3ea629daf9df09dd78005e4fa3c0e8090241fe",
+      "sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+      "bytes": 924,
+      "lines": 27,
+      "ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-gpu-module-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only selected current support ranges credited; full bytes preserved without future-role credit."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/guides.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2f06899e48f2d3c2530105867d522d7f89f72904",
+      "sha256": "ff313e8605d4893263109f7c930fcc81eb6c71aae6a7cffdbcafd10a44137aea",
+      "bytes": 11693,
+      "lines": 357,
+      "ranges": [
+        [
+          35,
+          57
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-gpu-module-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only selected current support ranges credited; full bytes preserved without future-role credit."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f2d57a25a6d4cd258a207b2f7896f6c9e8231c59",
+      "sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "bytes": 1801,
+      "lines": 47,
+      "ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-gpu-module-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only selected current support ranges credited; full bytes preserved without future-role credit."
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          11521,
+          11524
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-gpu-module-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only selected current support ranges credited; full bytes preserved without future-role credit."
+    }
+  ],
+  "native_reference_sources": [
+    {
+      "manifest": "native-evidence/wgpu-29.0.4/MANIFEST.json",
+      "archive": "native-evidence/wgpu-29.0.4/wgpu-29.0.4.crate",
+      "archive_sha256": "76e8840e1ba2881d4cbb18d2147627a56af426ff064c0401eb0c8410c6325d07",
+      "member": "wgpu-29.0.4/src/api/device.rs",
+      "member_sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "member_bytes": 32771,
+      "personally_inspected_ranges": [
+        [
+          90,
+          96
+        ]
+      ],
+      "qualification": "Previously published pinned wgpu archive reused; native signature only, no polling."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-HAIR-GPU-GROW-95E.json",
+    "ASSESSMENT-HAIR-GUIDES-95E.json",
+    "ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Readback aggregate",
+      "trace": "GpuGroom and GpuGuides expose independent count, points, positions and attributes. Both read paths call read_strands, which reads vectors and then indexes positions[s*points+j] and attributes[s] without checking both lengths; Strands::with_capacity also asserts points>=2.",
+      "remaining": "Original Adler q160 and delegate753 already identified this conditional aggregate. Actual malformed producers, successful buffer readback, native extents and exact aliases remain open; no readback or panic ran."
+    },
+    {
+      "contract": "Word readback and construction errors",
+      "trace": "read_words copies one requested word per input and returns an error if the read vector is too short, then returns exactly words.len values. Thus read_word[0] and the earlier guide count indexes are not short solely after a successful read_words with the corresponding input list. Hair headless_context maps the native adapter error and uses the HairGpuError Device conversion for request_device.",
+      "remaining": "Delegate753 already recorded the successful-length invariant. Native copy bounds and device failures are separate; the headless adapter/device path must not be conflated with wildcard cause erasure in WgpuContext.open. No copy, request or error was executed."
+    },
+    {
+      "contract": "Head mesh public aggregate",
+      "trace": "set_head_mesh sizes neighbors from Surface.positions then indexes neighbors[a] for each distinct pair of triangle indices. Surface.new reads its initial indices, but positions, normals and triangles are public and can be changed independently later.",
+      "remaining": "A mutated triangle referring outside positions can reach an unchecked neighbor index; this is conditional on a malformed or mutated Surface and no actual caller or panic is shown. The prior delegate753 explicitly raised the same admission question."
+    },
+    {
+      "contract": "Empty bounds through upload",
+      "trace": "upload accepts Strands and uploads empty vectors as four default elements. Strands.bounds and the upload root-bounds loop initialize to positive/negative infinity and do not replace them when there are no points or strands. GpuLods.lods_against can use groom.bounds as the source of its grid.",
+      "remaining": "This is conditional on empty input and successful native buffer setup; valid empty-groom and downstream grid policy remain unresolved. Delegate753 already noted the empty root bounds. No upload, grid or GPU was run."
+    },
+    {
+      "contract": "Headless validation and finish",
+      "trace": "hair headless_context creates a device then wraps it through WgpuContext.from_parts, which selects Uncaptured validation observation. That differs from the native WgpuContext.open owned-device selection; the earlier reviewer already noted it. GpuGroomer.finish ignores the Result of device.poll, whose pinned wgpu signature returns PollStatus or PollError.",
+      "remaining": "Whether headless-owned contexts should capture scopes and whether finish must report errors are policy questions; no native validation, polling or failure was observed. The finish operation is distinct from WgpuContext.submitted_work_done."
+    },
+    {
+      "contract": "Counts and source-only tests",
+      "trace": "upload casts Strands.len and points from usize to u32 independently of uploaded vector lengths. The source contains GPU tests with explicit absent-device skip branches.",
+      "remaining": "Large counts require enough host memory and successful prior operations; an ordinary truncation is not claimed. All test code was only read: no pass, skip, device or runtime validation is inferred."
+    }
+  ],
+  "reconnected_historical_findings": [
+    {
+      "id": "ADLER-L11-HAIR-READBACK-SHAPE-ADMISSION",
+      "queue": 160,
+      "qualification": "Original readback shape finding traced at selected current source; broader native extents and aliases remain open."
+    }
+  ],
+  "new_current_candidates": [
+    {
+      "id": "REVIEW-HAIR-HEAD-MESH-INDEX-95E",
+      "qualification": "Conditional current policy or source question, with earlier reviewer753 attribution preserved where applicable."
+    },
+    {
+      "id": "REVIEW-HAIR-EMPTY-GROOM-BOUNDS-95E",
+      "qualification": "Conditional current policy or source question, with earlier reviewer753 attribution preserved where applicable."
+    },
+    {
+      "id": "REVIEW-HAIR-HEADLESS-OBSERVATION-95E",
+      "qualification": "Conditional current policy or source question, with earlier reviewer753 attribution preserved where applicable."
+    },
+    {
+      "id": "REVIEW-HAIR-FINISH-POLL-95E",
+      "qualification": "Conditional current policy or source question, with earlier reviewer753 attribution preserved where applicable."
+    },
+    {
+      "id": "REVIEW-HAIR-UPLOAD-COUNT-95E",
+      "qualification": "Conditional current policy or source question, with earlier reviewer753 attribution preserved where applicable."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-354.json",
+      "sha256": "f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2",
+      "bytes": 12620,
+      "git_blob": "bec980cdd0cb93891828d4b5a7a690c936ae6b37",
+      "preserved_bytes": "recovered/hair-gpu-module-059/f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2.gz",
+      "published_sha256": "f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2",
+      "published_bytes": 12620,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-355.json",
+      "sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "bytes": 15195,
+      "git_blob": "3bf9dd51f997220de36ab9528a052022572cb545",
+      "preserved_bytes": "recovered/hair-gpu-module-059/05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207.gz",
+      "published_sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "published_bytes": 15195,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-356.json",
+      "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "bytes": 24598,
+      "git_blob": "15a9edc19d117a4470ab7e4837f4c3e753517b00",
+      "preserved_bytes": "recovered/hair-gpu-module-059/f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c.gz",
+      "published_sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "published_bytes": 24598,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-357.json",
+      "sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "bytes": 8858,
+      "git_blob": "b94f820a6f2779d892638a70cec91d691ea25e25",
+      "preserved_bytes": "recovered/hair-gpu-module-059/6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6.gz",
+      "published_sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "published_bytes": 8858,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-358.json",
+      "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d",
+      "bytes": 14390,
+      "git_blob": "b0548779064b890ccda7b7f09995c3d954394767",
+      "preserved_bytes": "recovered/hair-gpu-module-059/044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d.gz",
+      "published_sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d",
+      "published_bytes": 14390,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-359.json",
+      "sha256": "510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f",
+      "bytes": 5718,
+      "git_blob": "534c71620b715e73261570e4933aed838ffde588",
+      "preserved_bytes": "recovered/hair-gpu-module-059/510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f.gz",
+      "published_sha256": "510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f",
+      "published_bytes": 5718,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-360.json",
+      "sha256": "6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9",
+      "bytes": 10355,
+      "git_blob": "dcbb2f5ad255bfc9555a54bd65200f84331b3302",
+      "preserved_bytes": "recovered/hair-gpu-module-059/6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9.gz",
+      "published_sha256": "6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9",
+      "published_bytes": 10355,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-361.json",
+      "sha256": "a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31",
+      "bytes": 14000,
+      "git_blob": "744f0ca5c64ce4a66244ce8881b1975b4a58a4d5",
+      "preserved_bytes": "recovered/hair-gpu-module-059/a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31.gz",
+      "published_sha256": "a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31",
+      "published_bytes": 14000,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-362.json",
+      "sha256": "eac4ba1b74b56e05ab2e57a8722b895d135f64232c40bf11f008aadb264a1b6c",
+      "bytes": 5840,
+      "git_blob": "1b262e91e7425b0aca6dd8b573570702374af696",
+      "preserved_bytes": "recovered/hair-gpu-module-059/eac4ba1b74b56e05ab2e57a8722b895d135f64232c40bf11f008aadb264a1b6c.gz",
+      "published_sha256": "eac4ba1b74b56e05ab2e57a8722b895d135f64232c40bf11f008aadb264a1b6c",
+      "published_bytes": 5840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-363.json",
+      "sha256": "655ae24929bef717417d071eb4bd754ce35be0eba987589cefd11e693dfe2e2e",
+      "bytes": 17910,
+      "git_blob": "f2e0003dcbc1d7a451a6c51df2dfc89fbf3c22ef",
+      "preserved_bytes": "recovered/hair-gpu-module-059/655ae24929bef717417d071eb4bd754ce35be0eba987589cefd11e693dfe2e2e.gz",
+      "published_sha256": "655ae24929bef717417d071eb4bd754ce35be0eba987589cefd11e693dfe2e2e",
+      "published_bytes": 17910,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original059 queue159 linked historical evidence",
+        "Original059 queue159 linked historical evidence",
+        "Original059 queue159 linked historical evidence",
+        "Original059 queue159 linked historical evidence",
+        "Original059 queue159 linked historical evidence",
+        "Original059 queue159 linked historical evidence",
+        "Original059 queue159 linked historical evidence",
+        "Original059 queue159 linked historical evidence",
+        "Original059 queue159 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-364.json",
+      "sha256": "8b39f65b50bb03918f855fe7aa29c444817b1e3ce47a9900e1a135b5222b2c86",
+      "bytes": 10812,
+      "git_blob": "404f67ba8ba50a9362cb5324a4c268a374d6d52d",
+      "preserved_bytes": "recovered/hair-gpu-module-059/8b39f65b50bb03918f855fe7aa29c444817b1e3ce47a9900e1a135b5222b2c86.gz",
+      "published_sha256": "8b39f65b50bb03918f855fe7aa29c444817b1e3ce47a9900e1a135b5222b2c86",
+      "published_bytes": 10812,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-365.json",
+      "sha256": "1290ed4828cfb712f340ab43721dfb1adb581bcb91426418e72004248fdb7864",
+      "bytes": 7835,
+      "git_blob": "57a2729dd95be00d6d34525cd548ee9f307a08f5",
+      "preserved_bytes": "recovered/hair-gpu-module-059/1290ed4828cfb712f340ab43721dfb1adb581bcb91426418e72004248fdb7864.gz",
+      "published_sha256": "1290ed4828cfb712f340ab43721dfb1adb581bcb91426418e72004248fdb7864",
+      "published_bytes": 7835,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state",
+        "Original059 queue160 linked historical evidence",
+        "Original059 queue160 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1148.json",
+      "sha256": "499e51566bf53ff316287a716f6f20e538ea0b36e8e54417a4d771d6a8cc282b",
+      "bytes": 785,
+      "git_blob": "fe9aee23a0a8cc6e1b2f7a0b5a2a9c9b0e057870",
+      "preserved_bytes": "recovered/hair-gpu-module-059/499e51566bf53ff316287a716f6f20e538ea0b36e8e54417a4d771d6a8cc282b.gz",
+      "published_sha256": "499e51566bf53ff316287a716f6f20e538ea0b36e8e54417a4d771d6a8cc282b",
+      "published_bytes": 785,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1149.json",
+      "sha256": "7d2c46ea2d0048011bb845dfbc40a029dbc68a22882220333bc14b6fdf799c71",
+      "bytes": 781,
+      "git_blob": "03c37f6587e4de997e1c1dd1d4cb6d535e865431",
+      "preserved_bytes": "recovered/hair-gpu-module-059/7d2c46ea2d0048011bb845dfbc40a029dbc68a22882220333bc14b6fdf799c71.gz",
+      "published_sha256": "7d2c46ea2d0048011bb845dfbc40a029dbc68a22882220333bc14b6fdf799c71",
+      "published_bytes": 781,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-365.json",
+      "sha256": "7e823ecad8add3292c03a88ca050a3ba811d371ead5f2eedc72b8e9a6c76bc7d",
+      "bytes": 624,
+      "git_blob": "907a5e05fb707733c907942ca88ab0c509b73361",
+      "preserved_bytes": "recovered/hair-gpu-module-059/7e823ecad8add3292c03a88ca050a3ba811d371ead5f2eedc72b8e9a6c76bc7d.gz",
+      "published_sha256": "7e823ecad8add3292c03a88ca050a3ba811d371ead5f2eedc72b8e9a6c76bc7d",
+      "published_bytes": 624,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-365.json",
+      "sha256": "3328e0ff40d6de5a5bdadbc629feb59c15a99884a78a3e7afc4a20172b59184c",
+      "bytes": 33336,
+      "git_blob": "1337dd7d2dfe3f0e3a3abcae45ce730611702554",
+      "preserved_bytes": "recovered/hair-gpu-module-059/3328e0ff40d6de5a5bdadbc629feb59c15a99884a78a3e7afc4a20172b59184c.gz",
+      "published_sha256": "3328e0ff40d6de5a5bdadbc629feb59c15a99884a78a3e7afc4a20172b59184c",
+      "published_bytes": 33336,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-753.json",
+      "sha256": "6f1d6cde389f4b436a19010cb1608505483e412c922dd37217996903d8a1db89",
+      "bytes": 5986,
+      "git_blob": "35dc4f5380645ebe3b7e72a7f1a4da07022e8f4d",
+      "preserved_bytes": "recovered/hair-gpu-module-059/6f1d6cde389f4b436a19010cb1608505483e412c922dd37217996903d8a1db89.gz",
+      "published_sha256": "6f1d6cde389f4b436a19010cb1608505483e412c922dd37217996903d8a1db89",
+      "published_bytes": 5986,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-250.json",
+      "sha256": "59d41012be7487d03a440678b11a1ba7e15cf5c2d7df188cfb507e835f0057de",
+      "bytes": 851,
+      "git_blob": "4bca798a5f8d61df55363126e49edfa886c10373",
+      "preserved_bytes": "recovered/hair-gpu-module-059/59d41012be7487d03a440678b11a1ba7e15cf5c2d7df188cfb507e835f0057de.gz",
+      "published_sha256": "59d41012be7487d03a440678b11a1ba7e15cf5c2d7df188cfb507e835f0057de",
+      "published_bytes": 851,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-753.json",
+      "sha256": "66ba66150f73013416ce119aca532ac0ee668ea2d204818560e540961a3d2b5d",
+      "bytes": 6197,
+      "git_blob": "a15c3a1cc8cd572281df75664217e0327df6afba",
+      "preserved_bytes": "recovered/hair-gpu-module-059/66ba66150f73013416ce119aca532ac0ee668ea2d204818560e540961a3d2b5d.gz",
+      "published_sha256": "66ba66150f73013416ce119aca532ac0ee668ea2d204818560e540961a3d2b5d",
+      "published_bytes": 6197,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-760.json",
+      "sha256": "29235f0d29bc1fd2806aa7537aad409f156e01dbaaaf0815e9315f456f3e860d",
+      "bytes": 5646,
+      "git_blob": "31eabc248939ee6efb05a83fef0e21d6795fbec9",
+      "preserved_bytes": "recovered/hair-gpu-module-059/29235f0d29bc1fd2806aa7537aad409f156e01dbaaaf0815e9315f456f3e860d.gz",
+      "published_sha256": "29235f0d29bc1fd2806aa7537aad409f156e01dbaaaf0815e9315f456f3e860d",
+      "published_bytes": 5646,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue379 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-753.json",
+      "sha256": "c410078d43659e6762c181912f7393afcbd14eb882b7532265de7b46929c52f2",
+      "bytes": 1255,
+      "git_blob": "a8a1faa1c33766fca390f205a311fcc85510230e",
+      "preserved_bytes": "recovered/hair-gpu-module-059/c410078d43659e6762c181912f7393afcbd14eb882b7532265de7b46929c52f2.gz",
+      "published_sha256": "c410078d43659e6762c181912f7393afcbd14eb882b7532265de7b46929c52f2",
+      "published_bytes": 1255,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-753.json",
+      "sha256": "2cb7e7fca198a312890259f3059a0efad6670e008fd61639268647e9fbbd843c",
+      "bytes": 667,
+      "git_blob": "f9a9f5648fd2d00d895177ce293cc9cb6e3b0a54",
+      "preserved_bytes": "recovered/hair-gpu-module-059/2cb7e7fca198a312890259f3059a0efad6670e008fd61639268647e9fbbd843c.gz",
+      "published_sha256": "2cb7e7fca198a312890259f3059a0efad6670e008fd61639268647e9fbbd843c",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "Supplier placeholder and proof, producer, Adler365 and delegate753 retain original revision and distinct attribution. Root historical adoption had no personal reread.",
+  "remaining": "Continue original2290 and all thirteen lenses, trace actual input producers, native extents and missing exact alias inventory. Original3821 queue and ledger remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

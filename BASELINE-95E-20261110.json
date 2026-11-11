@@ -12600,7 +12600,10 @@
         "future_acceptance": "After audit and authorization, cover supported inputs and this specific boundary under the selected contract.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
+        "record": "ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-HAIR-GPU-MODULE-95E.json"
+        ]
       },
       {
         "id": "SEGOVB-L12-GPU-SHADER-LANGUAGE-STRING-DISPATCH",
@@ -13179,7 +13182,8 @@
         "validation": "not performed",
         "record": "ASSESSMENT-HAIR-GPU-GROW-95E.json",
         "further_current_evidence": [
-          "ASSESSMENT-HAIR-GUIDES-95E.json"
+          "ASSESSMENT-HAIR-GUIDES-95E.json",
+          "ASSESSMENT-HAIR-GPU-MODULE-95E.json"
         ]
       },
       {
@@ -13232,7 +13236,10 @@
         "future_acceptance": "After audit and authorization, cover coherent and inconsistent arrays through supported guide input modes.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-HAIR-GUIDES-95E.json"
+        "record": "ASSESSMENT-HAIR-GUIDES-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-HAIR-GPU-MODULE-95E.json"
+        ]
       },
       {
         "id": "REVIEW-HAIR-GUIDE-MAX-PATH-95E",
@@ -13345,8 +13352,175 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-HAIR-GUIDES-95E.json"
+      },
+      {
+        "id": "ADLER-L11-HAIR-READBACK-SHAPE-ADMISSION",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          12,
+          13
+        ],
+        "severity": "unassigned; historical readback shape contract",
+        "classification": "GPU strand count and points per strand must stay coherent with both native readback buffers before indexing them.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/160",
+          "adler/READ-L11-365.json via ASSESSMENT-HAIR-GPU-MODULE-95E.json",
+          "segovb/READ-L12-753.json via ASSESSMENT-HAIR-GPU-MODULE-95E.json"
+        ],
+        "relationship_qualification": "Original Adler readback aggregate retained; original delegate also documented the distinct successful read_words cardinality guarantee.",
+        "discovery": "partial; selected public metadata and current readback indexing traced; actual producers, native sizes and aliases open",
+        "connected_repair_direction": "Admit the count/point and buffer extent relationship before indexing or constructing strands, retaining structured native failures.",
+        "future_acceptance": "After audit and authorization, cover supported shapes and distinct short position/attribute readbacks.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HAIR-GPU-MODULE-95E.json"
+      },
+      {
+        "id": "REVIEW-HAIR-HEAD-MESH-INDEX-95E",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          8,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "A mutated Surface can supply triangle indices outside its positions to set_head_mesh, which indexes a neighbors vector sized from positions.",
+        "historical_related_records": [
+          "segovb/READ-L12-753.json via ASSESSMENT-HAIR-GPU-MODULE-95E.json",
+          "adler/READ-L11-365.json via ASSESSMENT-HAIR-GPU-MODULE-95E.json",
+          "baseline-059/queue.json#/entries/1838"
+        ],
+        "relationship_qualification": "Delegate753 already raised this conditional public-input admission question; normal Surface.new initial indices and actual producer mutations remain open.",
+        "discovery": "partial; current source and original reviewer scope traced; supported inputs and exact aliases remain open",
+        "connected_repair_direction": "Admit coherent vertex, normal and triangle data at the head mesh boundary.",
+        "future_acceptance": "After audit and authorization, cover the supported boundary and its distinct error or empty cases.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HAIR-GPU-MODULE-95E.json"
+      },
+      {
+        "id": "REVIEW-HAIR-EMPTY-GROOM-BOUNDS-95E",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          8,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "An empty uploaded groom retains infinite empty point and root bounds that can be forwarded to level-of-detail grid construction.",
+        "historical_related_records": [
+          "segovb/READ-L12-753.json via ASSESSMENT-HAIR-GPU-MODULE-95E.json",
+          "adler/READ-L11-365.json via ASSESSMENT-HAIR-GPU-MODULE-95E.json",
+          "baseline-059/queue.json#/entries/1838"
+        ],
+        "relationship_qualification": "Delegate753 already raised empty root bounds; supported empty mode and prior native operation success remain open.",
+        "discovery": "partial; current source and original reviewer scope traced; supported inputs and exact aliases remain open",
+        "connected_repair_direction": "Choose an explicit empty-groom representation or reject it before finite-bounds consumers.",
+        "future_acceptance": "After audit and authorization, cover the supported boundary and its distinct error or empty cases.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HAIR-GPU-MODULE-95E.json"
+      },
+      {
+        "id": "REVIEW-HAIR-HEADLESS-OBSERVATION-95E",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          8,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "The hair headless constructor owns its device but wraps it through from_parts, selecting uncaptured native validation.",
+        "historical_related_records": [
+          "segovb/READ-L12-753.json via ASSESSMENT-HAIR-GPU-MODULE-95E.json",
+          "adler/READ-L11-365.json via ASSESSMENT-HAIR-GPU-MODULE-95E.json",
+          "baseline-059/queue.json#/entries/1838"
+        ],
+        "relationship_qualification": "Delegate753 noted the same policy choice; no failing shader or device has been observed.",
+        "discovery": "partial; current source and original reviewer scope traced; supported inputs and exact aliases remain open",
+        "connected_repair_direction": "Define which validation observation belongs to the owned headless path without changing borrowed-device behavior.",
+        "future_acceptance": "After audit and authorization, cover the supported boundary and its distinct error or empty cases.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HAIR-GPU-MODULE-95E.json"
+      },
+      {
+        "id": "REVIEW-HAIR-FINISH-POLL-95E",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          8,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "GpuGroomer.finish discards the native poll Result and returns no completion outcome.",
+        "historical_related_records": [
+          "segovb/READ-L12-753.json via ASSESSMENT-HAIR-GPU-MODULE-95E.json",
+          "adler/READ-L11-365.json via ASSESSMENT-HAIR-GPU-MODULE-95E.json",
+          "baseline-059/queue.json#/entries/1838"
+        ],
+        "relationship_qualification": "Distinct operation from WgpuContext.submitted_work_done; whether callers need failure ownership remains open.",
+        "discovery": "partial; current source and original reviewer scope traced; supported inputs and exact aliases remain open",
+        "connected_repair_direction": "Define and propagate the required completion outcome where the boundary promises it.",
+        "future_acceptance": "After audit and authorization, cover the supported boundary and its distinct error or empty cases.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HAIR-GPU-MODULE-95E.json"
+      },
+      {
+        "id": "REVIEW-HAIR-UPLOAD-COUNT-95E",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          2,
+          3,
+          5,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Hair GPU upload casts host strand and point counts from usize to u32 separately from its buffer lengths.",
+        "historical_related_records": [
+          "segovb/READ-L12-753.json via ASSESSMENT-HAIR-GPU-MODULE-95E.json",
+          "adler/READ-L11-365.json via ASSESSMENT-HAIR-GPU-MODULE-95E.json",
+          "baseline-059/queue.json#/entries/1838"
+        ],
+        "relationship_qualification": "Requires very large host inputs and successful earlier allocations; this is a separate operation from grow count conversion.",
+        "discovery": "partial; current source and original reviewer scope traced; supported inputs and exact aliases remain open",
+        "connected_repair_direction": "Admit representable counts and coherent native buffer extents before the upload boundary.",
+        "future_acceptance": "After audit and authorization, cover the supported boundary and its distinct error or empty cases.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HAIR-GPU-MODULE-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1816.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1821.json"
 }
