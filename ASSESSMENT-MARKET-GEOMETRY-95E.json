@@ -1,0 +1,1096 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original roles1857–1859 and the existing zero-market source admission and bounded urban consumer.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1857-1859.json",
+  "git_membership_evidence": "MARKET-GEOMETRY-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ce5e205c98dc45232f19e7762729c8a9a59ebac4",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "bytes": 39530,
+      "lines": 1026,
+      "ranges": [
+        [
+          145,
+          164
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/market-geometry-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current ranges inspected; complete bytes preserved. No scene, geometry query, renderer or product function was executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/descriptor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2c4201a9ec21590b4961ca955b3f4370d5841a7e",
+      "sha256": "2b30929bb687f5865c0fa515cb96763b1b03d4a97522dbc015b02d7cb4558336",
+      "bytes": 4372,
+      "lines": 103,
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/market-geometry-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current ranges inspected; complete bytes preserved. No scene, geometry query, renderer or product function was executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7a8109a7fbc6969b4d2ed502091b48a48ea78bd4",
+      "sha256": "3d97a798029ddc9f195aa209105f64070c55fb0172ef87a515e67fe945c735c9",
+      "bytes": 2908,
+      "lines": 64,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/market-geometry-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current ranges inspected; complete bytes preserved. No scene, geometry query, renderer or product function was executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/urban.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "770e2e6b38cbd651caef72242c2c1f98182a6d28",
+      "sha256": "0636460b78d2af66faa57a8483f4a89a9b99c84cd19c3f7f90615635734fe95b",
+      "bytes": 830,
+      "lines": 20,
+      "ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/market-geometry-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current ranges inspected; complete bytes preserved. No scene, geometry query, renderer or product function was executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4907d3df4cce5cd8a4ca2211cfdd26b0b0316f86",
+      "sha256": "d5aacb8a24fecfd5dadee9361c1b6c3d32bd19171bfc0bc984cd8b2efb183c8f",
+      "bytes": 11449,
+      "lines": 338,
+      "ranges": [
+        [
+          57,
+          70
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/market-geometry-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current ranges inspected; complete bytes preserved. No scene, geometry query, renderer or product function was executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/graph.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "12332b87e929ea88d529e644167209e548caaa54",
+      "sha256": "612c7f5325e68b395850ff1dd1273fa6234a3305698337b2e9a606154230e72e",
+      "bytes": 10994,
+      "lines": 315,
+      "ranges": [
+        [
+          130,
+          195
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/market-geometry-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current ranges inspected; complete bytes preserved. No scene, geometry query, renderer or product function was executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/gardens/geometry.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "34738ebd79527921c085ea3d17364d94db64e79c",
+      "sha256": "6714471caf51d59b35d1f74bc741f96616aa5eded3fd07658d13516b2aeab93d",
+      "bytes": 10297,
+      "lines": 270,
+      "ranges": [
+        [
+          1,
+          20
+        ],
+        [
+          125,
+          220
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/market-geometry-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current ranges inspected; complete bytes preserved. No scene, geometry query, renderer or product function was executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/gardens.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0fca7a3994b3f5ba17c9662c48a6bdc13a7c2f07",
+      "sha256": "fa15867bf5cfac10143e8925f7002bb07b5515ad3511498d2b5cf7bc6af1dc43",
+      "bytes": 8046,
+      "lines": 227,
+      "ranges": [
+        [
+          61,
+          125
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/market-geometry-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current ranges inspected; complete bytes preserved. No scene, geometry query, renderer or product function was executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/property.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ad894a6f76bdab9bb22efc9324cd481f3a115853",
+      "sha256": "ae34cb221f0a7fec0c9c65d49e88822262a16c26c965566e735cc95b510741de",
+      "bytes": 7123,
+      "lines": 203,
+      "ranges": [
+        [
+          83,
+          105
+        ],
+        [
+          128,
+          162
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/market-geometry-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current ranges inspected; complete bytes preserved. No scene, geometry query, renderer or product function was executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/property/routes.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f2cbdcb6ba78057be5084e9acf3dbd249349d100",
+      "sha256": "38ee1851b9232df8465f179e7a8d48fed0884d17abad0ca967ce7b9b5f4467b3",
+      "bytes": 2198,
+      "lines": 65,
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/market-geometry-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current ranges inspected; complete bytes preserved. No scene, geometry query, renderer or product function was executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene/ground/urban.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ee1709147b314cc96e3c1016fa6c4cce0a97faca",
+      "sha256": "f126fe289f242ec3ba4166575dca79fcbc5be9c21e74c7f0fe63988d97907aff",
+      "bytes": 13680,
+      "lines": 378,
+      "ranges": [
+        [
+          1,
+          177
+        ],
+        [
+          180,
+          227
+        ],
+        [
+          246,
+          280
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/market-geometry-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current ranges inspected; complete bytes preserved. No scene, geometry query, renderer or product function was executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene/ground.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5b519a2c494eb2918f19c3b6237d13ad5e91fdf8",
+      "sha256": "54559503a139270a829c73a46cb1ba81b69ada99dc3827350e16b575c4139d8a",
+      "bytes": 5729,
+      "lines": 182,
+      "ranges": [
+        [
+          1,
+          25
+        ],
+        [
+          61,
+          95
+        ],
+        [
+          120,
+          136
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/market-geometry-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current ranges inspected; complete bytes preserved. No scene, geometry query, renderer or product function was executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_ground.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bf3976188319490bb5216801ceab4ae105cb9958",
+      "sha256": "326752c9f0ad95c8f898c8ad0d106eae2395e3a89ec135922c6fd7da8d860622",
+      "bytes": 3420,
+      "lines": 88,
+      "ranges": [
+        [
+          30,
+          78
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/market-geometry-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current ranges inspected; complete bytes preserved. No scene, geometry query, renderer or product function was executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/generation/geographic.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6bba9b6f8d48e49b21a90f2213558e71a0894bbc",
+      "sha256": "b0a7c91fd0c9c09870ebcacd16ae968638ba3381e66e7d44b9ee6c7e6235236c",
+      "bytes": 3790,
+      "lines": 96,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/market-geometry-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current ranges inspected; complete bytes preserved. No scene, geometry query, renderer or product function was executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "76183b03fb13e09dd65710d069792cab55e02cc3",
+      "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+      "bytes": 16151,
+      "lines": 438,
+      "ranges": [
+        [
+          27,
+          76
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/market-geometry-evidence/support-14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current ranges inspected; complete bytes preserved. No scene, geometry query, renderer or product function was executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/furniture/candidates/market.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "09e42693d3a36e26a55beb02360cef662b9d6132",
+      "sha256": "dd69ac02f15fd9ea319e4936ca043f3d44bb7c3c17ee086a3bddefa939c70236",
+      "bytes": 7601,
+      "lines": 208,
+      "ranges": [
+        [
+          1,
+          134
+        ],
+        [
+          145,
+          208
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/market-geometry-evidence/support-15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current ranges inspected; complete bytes preserved. No scene, geometry query, renderer or product function was executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/furniture/reservations.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2825bb8fc6fd75a218dbabf89aa8b8bda1525da2",
+      "sha256": "b361b5c1876380f15da1ee02bbcf6e5ae2d8c383edea537249f181fed5144026",
+      "bytes": 10939,
+      "lines": 288,
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/market-geometry-evidence/support-16.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current ranges inspected; complete bytes preserved. No scene, geometry query, renderer or product function was executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/furniture/placement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7ae67c059b31a55b801c569a787311ab2e528562",
+      "sha256": "f226a17d7921f5b1daa506cdfc8c4b0eac80e8bb72f3bde9d77a6b7f9753207f",
+      "bytes": 6142,
+      "lines": 180,
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/market-geometry-evidence/support-17.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current ranges inspected; complete bytes preserved. No scene, geometry query, renderer or product function was executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/furniture/footprint.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "284f12466c3961853425546574dfe49d6c413e0e",
+      "sha256": "2d944f76903a993e6124e546880e4e4b294c89ab1967f5f89b23e9413919ac11",
+      "bytes": 4060,
+      "lines": 122,
+      "ranges": [
+        [
+          1,
+          92
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/market-geometry-evidence/support-18.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current ranges inspected; complete bytes preserved. No scene, geometry query, renderer or product function was executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/streets/mesh.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f609a21df0d7c3ca339cb41b5afd428a58cb28c0",
+      "sha256": "001e9ddd72769e824937e8765c48d3c42f9bf67f348ff62f258129019cd61f26",
+      "bytes": 12681,
+      "lines": 331,
+      "ranges": [
+        [
+          1,
+          125
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/market-geometry-evidence/support-19.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current ranges inspected; complete bytes preserved. No scene, geometry query, renderer or product function was executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic/paths.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "60a7493f132391d69b3df95d6f66ab8f9685bcc7",
+      "sha256": "325f130f750218a5c1d23de280add6f1f8e101a349427bc68e47f306d4a0bfc8",
+      "bytes": 13044,
+      "lines": 325,
+      "ranges": [
+        [
+          1,
+          114
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/market-geometry-evidence/support-20.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current ranges inspected; complete bytes preserved. No scene, geometry query, renderer or product function was executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1ecba967fcdc4fabbca2f64e89f1de529d3c1c25",
+      "sha256": "6565abca3f4e2a7a36922f6819ebdf547bc12143170be1d6ba5ced75aa7d10ed",
+      "bytes": 42588,
+      "lines": 1188,
+      "ranges": [
+        [
+          292,
+          320
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/market-geometry-evidence/support-21.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only specified current ranges inspected; complete bytes preserved. No scene, geometry query, renderer or product function was executed."
+    }
+  ],
+  "native_source_evidence": {
+    "archive": "native-evidence/glam-0.32.1/glam-0.32.1.crate",
+    "archive_sha256": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+    "member": "glam-0.32.1/src/f32/vec2.rs",
+    "sha256": "8ee0ec795ff706b0ee737e06378aac90b04d970b7f5c9f997f11c3123f5aedf6",
+    "bytes": 50951,
+    "ranges": [
+      [
+        545,
+        555
+      ],
+      [
+        1045,
+        1050
+      ]
+    ],
+    "qualification": "Exact already preserved locked glam archive; determinant source and optional zero-vector normalization only. Active backend/features are not resolved; no native function ran."
+  },
+  "prior_current_evidence": [
+    "ASSESSMENT-GROUND-RASTER-ADMISSION-95E.json",
+    "ASSESSMENT-MOVEMENT-REPORT-95E.json",
+    "ASSESSMENT-SAMPLED-SUPPORT-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Original market finding",
+      "trace": "For a source-only hypothetical Market with four (0,0) finite corners and Fieldstone surface, is_valid checks only finite corners. convex_quad_contains sees four zero-length edges, so each perpendicular determinant is zero and it returns true for a distinct finite point such as (1,1). The current urban source validator invokes this is_valid check. A separately constructed hypothetical UrbanGroundLookup indexes the zero-size market into bucket (0,0); (1,1) is also in that 32-metre bucket, so the shown lookup would suppress grass there and its surface query would select bare Road. SceneGround.ground_at first requires the point within its grid. The market, lookup, scene, query and scalar operations were not constructed or executed.",
+      "remaining": "Current reassessment of the original059 Adler finding, with original attribution and later qualifications preserved. Direct leaf contains yields true for arbitrary finite points, but urban lookup consults only indexed buckets: the ground-consumer example is local to bucket (0,0), not a whole-map result. Scene input load validates other source and grounding contracts; a fully admitted scene containing this market and any actual producer or gameplay outcome have not been established. The ordinary graph obtains market corners from a block, not this invented input. A furniture market frame begins with the first edge and may skip zero-vector orientation under the stated native sqrt assumptions; do not infer placed market stalls from the direct containment result. Yard finite/area admission versus convex ordering is a distinct open question."
+    },
+    {
+      "contract": "Garden and compound direct containment",
+      "trace": "Garden geometry checks whether any street contains the first route start; normal garden compilation and compound street connection also use the direct predicate without this urban-ground bucket. A degenerate Market predicate may satisfy that individual test for a distant finite point.",
+      "remaining": "Do not infer a complete passing garden, compound, loaded scene or generated city from one condition; all other geometry, ownership and connection checks still apply."
+    },
+    {
+      "contract": "Furniture and presentation",
+      "trace": "Furniture candidate acceptance tests market containment, but the market-frame producer first derives orientation from edge 0–1. Pinned glam try_normalize rejects a zero vector if its length reciprocal is nonfinite under an available ordinary sqrt backend; backend dispatch not resolved. Furniture route reservations and rendering have separate paths.",
+      "remaining": "No generated stall, collider, report, renderer, native target feature or runtime behavior was observed."
+    },
+    {
+      "contract": "Lunge and attack key",
+      "trace": "Attack-key zero is intentionally valid, absence uses Option. MeleeLungeArrival distinguishes no movement, successful arrival and inability to arrive; unassisted contact keeps its own timing.",
+      "remaining": "Trace actual producers, runtime config snapshot, server/client consumers and nonfinite distance admission separately; no categorical finding is inferred from legitimate modes."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "ADLER-L11-CITY-PATCH-GEOMETRY-ADMISSION",
+      "lens": 11,
+      "additional_current_lenses": [
+        1,
+        3,
+        4,
+        5,
+        7,
+        8,
+        12,
+        13
+      ],
+      "severity": "unassigned; conditional malformed urban descriptor admission",
+      "first_contract": "A bounded market patch should not claim points outside its geometry through an accepted degenerate polygon.",
+      "trace": "For a source-only hypothetical Market with four (0,0) finite corners and Fieldstone surface, is_valid checks only finite corners. convex_quad_contains sees four zero-length edges, so each perpendicular determinant is zero and it returns true for a distinct finite point such as (1,1). The current urban source validator invokes this is_valid check. A separately constructed hypothetical UrbanGroundLookup indexes the zero-size market into bucket (0,0); (1,1) is also in that 32-metre bucket, so the shown lookup would suppress grass there and its surface query would select bare Road. SceneGround.ground_at first requires the point within its grid. The market, lookup, scene, query and scalar operations were not constructed or executed.",
+      "safeguards_and_limits": "Current reassessment of the original059 Adler finding, with original attribution and later qualifications preserved. Direct leaf contains yields true for arbitrary finite points, but urban lookup consults only indexed buckets: the ground-consumer example is local to bucket (0,0), not a whole-map result. Scene input load validates other source and grounding contracts; a fully admitted scene containing this market and any actual producer or gameplay outcome have not been established. The ordinary graph obtains market corners from a block, not this invented input. A furniture market frame begins with the first edge and may skip zero-vector orientation under the stated native sqrt assumptions; do not infer placed market stalls from the direct containment result. Yard finite/area admission versus convex ordering is a distinct open question.",
+      "connected_repair_dependencies": [
+        "Decide the existing street/yard polygon owner and validate nondegenerate, ordered convex bounded geometry at the relevant public and scene admission boundaries without changing valid corridor, market and yard semantics.",
+        "Trace the graph producer, direct predicates, urban bucket lookup, grass, terrain and furniture consumers; preserve bucket and separate zero-edge qualifications.",
+        "Resolve exact aliases and supported producer/scene reachability; define later acceptance examples for ordinary convex polygons, boundaries and degenerate or reordered inputs without performing validation now."
+      ],
+      "historical_related_candidates": [
+        "baseline-059/queue.json#/entries/105",
+        "baseline-059/queue.json#/entries/1545",
+        "baseline-059/queue.json#/entries/1589",
+        "baseline-059/queue.json#/entries/1606",
+        "adler/READ-L11-282.json",
+        "adler/READ-L11-290.json",
+        "adler/READ-L11-294.json",
+        "adler/READ-L11-297.json",
+        "adler/READ-L11-299.json",
+        "segovb/READ-L12-611.json",
+        "segovb/READ-L12-653.json"
+      ],
+      "accepted_historical_unique_count_change": 0,
+      "discovery": "partial; source-only zero-quad and bucket-limited material consumer established, whole scene, producer and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-294.json",
+      "sha256": "06411713eb5707bc635ae63d828c6fc8201daf18ae8c2e11190d6cbac9b9be30",
+      "bytes": 12596,
+      "git_blob": "dffd00fcc6d5b0105a477b0a926df0ddf08dcbe9",
+      "preserved_bytes": "recovered/market-geometry-059/06411713eb5707bc635ae63d828c6fc8201daf18ae8c2e11190d6cbac9b9be30.gz",
+      "published_sha256": "06411713eb5707bc635ae63d828c6fc8201daf18ae8c2e11190d6cbac9b9be30",
+      "published_bytes": 12596,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-297.json",
+      "sha256": "6c4f62e52946e14edc7ebeb67ff618cc01dc9a4e1cfcfaa9605d12c7a521c203",
+      "bytes": 12122,
+      "git_blob": "c01cb886745ed876e6caf0a782209a6ff12e519b",
+      "preserved_bytes": "recovered/market-geometry-059/6c4f62e52946e14edc7ebeb67ff618cc01dc9a4e1cfcfaa9605d12c7a521c203.gz",
+      "published_sha256": "6c4f62e52946e14edc7ebeb67ff618cc01dc9a4e1cfcfaa9605d12c7a521c203",
+      "published_bytes": 12122,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-766.json",
+      "sha256": "2ded3e3fe6fb8d8e2771563cf08233d1aab87ad4423e14c9cfbcc0f8b34fc4c3",
+      "bytes": 696,
+      "git_blob": "06c3c6e3ca36417537eda1e173ee95c70ce63cdc",
+      "preserved_bytes": "recovered/market-geometry-059/2ded3e3fe6fb8d8e2771563cf08233d1aab87ad4423e14c9cfbcc0f8b34fc4c3.gz",
+      "published_sha256": "2ded3e3fe6fb8d8e2771563cf08233d1aab87ad4423e14c9cfbcc0f8b34fc4c3",
+      "published_bytes": 696,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, later frontier only"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-767.json",
+      "sha256": "9a85e5aece4c69ae93b8d0167e265f9934914996778a1d6483ae3de023ffe1f4",
+      "bytes": 707,
+      "git_blob": "9d1df02ad1345b37e73d497a5c5678c50340d387",
+      "preserved_bytes": "recovered/market-geometry-059/9a85e5aece4c69ae93b8d0167e265f9934914996778a1d6483ae3de023ffe1f4.gz",
+      "published_sha256": "9a85e5aece4c69ae93b8d0167e265f9934914996778a1d6483ae3de023ffe1f4",
+      "published_bytes": 707,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, later frontier only"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-768.json",
+      "sha256": "c13bdde2d005e3e8191a353a7c34acb2a9ac03f24cbf8fc4f7d3423954f68e28",
+      "bytes": 718,
+      "git_blob": "3112d247dd3edf5196f192f21616c90d06f4e5ce",
+      "preserved_bytes": "recovered/market-geometry-059/c13bdde2d005e3e8191a353a7c34acb2a9ac03f24cbf8fc4f7d3423954f68e28.gz",
+      "published_sha256": "c13bdde2d005e3e8191a353a7c34acb2a9ac03f24cbf8fc4f7d3423954f68e28",
+      "published_bytes": 718,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, later frontier only"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-769.json",
+      "sha256": "ad46ce987b6cea5c9b50894d1132cad5fba23a5e51f9fbd72bae749103232546",
+      "bytes": 715,
+      "git_blob": "c415e788ab623669c4d93589cf57610218d75267",
+      "preserved_bytes": "recovered/market-geometry-059/ad46ce987b6cea5c9b50894d1132cad5fba23a5e51f9fbd72bae749103232546.gz",
+      "published_sha256": "ad46ce987b6cea5c9b50894d1132cad5fba23a5e51f9fbd72bae749103232546",
+      "published_bytes": 715,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, later frontier only"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-770.json",
+      "sha256": "2e800b5f653f3ca48a2ada926ab10d15acd740550581d6d9366469979ae4e4d2",
+      "bytes": 714,
+      "git_blob": "40b362176025a40d0abcd6b168a78a43446eb566",
+      "preserved_bytes": "recovered/market-geometry-059/2e800b5f653f3ca48a2ada926ab10d15acd740550581d6d9366469979ae4e4d2.gz",
+      "published_sha256": "2e800b5f653f3ca48a2ada926ab10d15acd740550581d6d9366469979ae4e4d2",
+      "published_bytes": 714,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, later frontier only"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-771.json",
+      "sha256": "93a6a4447c480ff9cea0b19379d612a82469b9b177b69e63361011c6c306bd24",
+      "bytes": 705,
+      "git_blob": "5c5bb9274826e118fa2a0e4f4a3eb6eae75bb620",
+      "preserved_bytes": "recovered/market-geometry-059/93a6a4447c480ff9cea0b19379d612a82469b9b177b69e63361011c6c306bd24.gz",
+      "published_sha256": "93a6a4447c480ff9cea0b19379d612a82469b9b177b69e63361011c6c306bd24",
+      "published_bytes": 705,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, later frontier only"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-787.json",
+      "sha256": "506dc570f996a673ad6f077e490a4497bca1d2d9629199e712222a3e29e67012",
+      "bytes": 790,
+      "git_blob": "c97162041dbfa214b59fe941583cceb2881a6701",
+      "preserved_bytes": "recovered/market-geometry-059/506dc570f996a673ad6f077e490a4497bca1d2d9629199e712222a3e29e67012.gz",
+      "published_sha256": "506dc570f996a673ad6f077e490a4497bca1d2d9629199e712222a3e29e67012",
+      "published_bytes": 790,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original scoped future reinspection registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-788.json",
+      "sha256": "c260d73d985639dd9539ae93720d57610d03f3c227c0a81409b0cd98155b11e7",
+      "bytes": 704,
+      "git_blob": "3d2c8f67e00e8ca0bdf57df8c2becc5fac33560a",
+      "preserved_bytes": "recovered/market-geometry-059/c260d73d985639dd9539ae93720d57610d03f3c227c0a81409b0cd98155b11e7.gz",
+      "published_sha256": "c260d73d985639dd9539ae93720d57610d03f3c227c0a81409b0cd98155b11e7",
+      "published_bytes": 704,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, later frontier only"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-789.json",
+      "sha256": "ee615d63114c92976e4feaedd3d8fc3adfb42349f4e48f3e3ab4157f76b4ef45",
+      "bytes": 708,
+      "git_blob": "cb512d727979ee21b21993ce093b4c5bb5720ac6",
+      "preserved_bytes": "recovered/market-geometry-059/ee615d63114c92976e4feaedd3d8fc3adfb42349f4e48f3e3ab4157f76b4ef45.gz",
+      "published_sha256": "ee615d63114c92976e4feaedd3d8fc3adfb42349f4e48f3e3ab4157f76b4ef45",
+      "published_bytes": 708,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, later frontier only"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-790.json",
+      "sha256": "cf8b2dd21021f8058fa5e43b49b918222e85f04a14a5a4bd2432982754912c3f",
+      "bytes": 708,
+      "git_blob": "cb4644aaad002a9b7e4631df67a258ac23e2670f",
+      "preserved_bytes": "recovered/market-geometry-059/cf8b2dd21021f8058fa5e43b49b918222e85f04a14a5a4bd2432982754912c3f.gz",
+      "published_sha256": "cf8b2dd21021f8058fa5e43b49b918222e85f04a14a5a4bd2432982754912c3f",
+      "published_bytes": 708,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, later frontier only"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-791.json",
+      "sha256": "776bb99713b5012b3f168ca643d083cd585f05fb458b30478b3b35d624634d4a",
+      "bytes": 709,
+      "git_blob": "3a823639ed1e66085875a927805df15b3986c79a",
+      "preserved_bytes": "recovered/market-geometry-059/776bb99713b5012b3f168ca643d083cd585f05fb458b30478b3b35d624634d4a.gz",
+      "published_sha256": "776bb99713b5012b3f168ca643d083cd585f05fb458b30478b3b35d624634d4a",
+      "published_bytes": 709,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, later frontier only"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-294.json",
+      "sha256": "5806176874056bb896628d18204acaa6a92b84ee4c2d26ced8752826d4c52fb3",
+      "bytes": 668,
+      "git_blob": "5cb3af7b131a87d084ac344ff86fa7972b4aee7e",
+      "preserved_bytes": "recovered/market-geometry-059/5806176874056bb896628d18204acaa6a92b84ee4c2d26ced8752826d4c52fb3.gz",
+      "published_sha256": "5806176874056bb896628d18204acaa6a92b84ee4c2d26ced8752826d4c52fb3",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-297.json",
+      "sha256": "1f7efdc8f947e018f56f775fb5e066c882e8ee7ab3c3070965d6a5c53395d406",
+      "bytes": 646,
+      "git_blob": "488d1ee8f590248317ea285ec68a76c6d2c00968",
+      "preserved_bytes": "recovered/market-geometry-059/1f7efdc8f947e018f56f775fb5e066c882e8ee7ab3c3070965d6a5c53395d406.gz",
+      "published_sha256": "1f7efdc8f947e018f56f775fb5e066c882e8ee7ab3c3070965d6a5c53395d406",
+      "published_bytes": 646,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-294.json",
+      "sha256": "838d9fa182c5fb537d71d49933884b1d1f16294c4b9116a56acdda9e62b85676",
+      "bytes": 38290,
+      "git_blob": "39383621e11802281941a60add706c92f61a3b1d",
+      "preserved_bytes": "recovered/market-geometry-059/838d9fa182c5fb537d71d49933884b1d1f16294c4b9116a56acdda9e62b85676.gz",
+      "published_sha256": "838d9fa182c5fb537d71d49933884b1d1f16294c4b9116a56acdda9e62b85676",
+      "published_bytes": 38290,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 verification"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-297.json",
+      "sha256": "b512cab86281bdef415f76374060f51ab6ea3391a7cd15a595472cfa50526b3f",
+      "bytes": 32853,
+      "git_blob": "b4615794c2d10510de6c05a1396e2d1d208ccb71",
+      "preserved_bytes": "recovered/market-geometry-059/b512cab86281bdef415f76374060f51ab6ea3391a7cd15a595472cfa50526b3f.gz",
+      "published_sha256": "b512cab86281bdef415f76374060f51ab6ea3391a7cd15a595472cfa50526b3f",
+      "published_bytes": 32853,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 verification"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-611.json",
+      "sha256": "72826e789882805a16c7bbf1b37520de35db21cb862e16248bb3af7d77eca6b5",
+      "bytes": 1678,
+      "git_blob": "bc18c937c0b862f3fbcfad5d6ec7d8d97239410f",
+      "preserved_bytes": "recovered/market-geometry-059/72826e789882805a16c7bbf1b37520de35db21cb862e16248bb3af7d77eca6b5.gz",
+      "published_sha256": "72826e789882805a16c7bbf1b37520de35db21cb862e16248bb3af7d77eca6b5",
+      "published_bytes": 1678,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 plan"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-645.json",
+      "sha256": "4c12ae2d36e1fb2a699d4b6406b3a5ebe50f104c44204728e1bb60491e6fedcc",
+      "bytes": 1729,
+      "git_blob": "e0bc4cb71f827970eb7eb4281cb80ab43cd4ef39",
+      "preserved_bytes": "recovered/market-geometry-059/4c12ae2d36e1fb2a699d4b6406b3a5ebe50f104c44204728e1bb60491e6fedcc.gz",
+      "published_sha256": "4c12ae2d36e1fb2a699d4b6406b3a5ebe50f104c44204728e1bb60491e6fedcc",
+      "published_bytes": 1729,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 plan"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-653.json",
+      "sha256": "f3a4b09d7629fdd635de3dc20c0f698698e15a1ea57165e762fcd57eea56c9e6",
+      "bytes": 1204,
+      "git_blob": "8e379f1d40c0cc5fd94f4e446b59f241474f49c9",
+      "preserved_bytes": "recovered/market-geometry-059/f3a4b09d7629fdd635de3dc20c0f698698e15a1ea57165e762fcd57eea56c9e6.gz",
+      "published_sha256": "f3a4b09d7629fdd635de3dc20c0f698698e15a1ea57165e762fcd57eea56c9e6",
+      "published_bytes": 1204,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 plan"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-611.json",
+      "sha256": "0c531547df7dcd024deafe1ad5031ea5c99be347c7330add9b0c27531d99f605",
+      "bytes": 5698,
+      "git_blob": "c58a89bc6c04d4ba1f965945284edd9b9071133f",
+      "preserved_bytes": "recovered/market-geometry-059/0c531547df7dcd024deafe1ad5031ea5c99be347c7330add9b0c27531d99f605.gz",
+      "published_sha256": "0c531547df7dcd024deafe1ad5031ea5c99be347c7330add9b0c27531d99f605",
+      "published_bytes": 5698,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb Lens12 receipt, later batches retain their own frontier"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-645.json",
+      "sha256": "36c706b6e5db104384fac801191daadc1cb50c6c4c91b602c78eace3dff7da98",
+      "bytes": 8603,
+      "git_blob": "8c103d13ecd5056814715082c52a212f55ce3bdb",
+      "preserved_bytes": "recovered/market-geometry-059/36c706b6e5db104384fac801191daadc1cb50c6c4c91b602c78eace3dff7da98.gz",
+      "published_sha256": "36c706b6e5db104384fac801191daadc1cb50c6c4c91b602c78eace3dff7da98",
+      "published_bytes": 8603,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb Lens12 receipt, later batches retain their own frontier"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-653.json",
+      "sha256": "3a3d9bdaf08774f4d7479283507f33c83f527f8f75348658428501a966cc58ea",
+      "bytes": 4554,
+      "git_blob": "7fb5721b63a2566a0946ff38c2bf180b3c783fb5",
+      "preserved_bytes": "recovered/market-geometry-059/3a3d9bdaf08774f4d7479283507f33c83f527f8f75348658428501a966cc58ea.gz",
+      "published_sha256": "3a3d9bdaf08774f4d7479283507f33c83f527f8f75348658428501a966cc58ea",
+      "published_bytes": 4554,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb Lens12 receipt, later batches retain their own frontier"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-764.json",
+      "sha256": "3d5977734784868b77319be282295cd08280c44542f8e509d9e097cef19ba3cb",
+      "bytes": 1217,
+      "git_blob": "e1ec3711f7601f9caca48fb0f22fc0dca8a878b6",
+      "preserved_bytes": "recovered/market-geometry-059/3d5977734784868b77319be282295cd08280c44542f8e509d9e097cef19ba3cb.gz",
+      "published_sha256": "3d5977734784868b77319be282295cd08280c44542f8e509d9e097cef19ba3cb",
+      "published_bytes": 1217,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-765.json",
+      "sha256": "f4a7209f0dfbcf5fcc2b945b2a07b459851cbcd70951b297c60a13df45113068",
+      "bytes": 1189,
+      "git_blob": "bebd4de748415767bb9312c61b817982df45f86c",
+      "preserved_bytes": "recovered/market-geometry-059/f4a7209f0dfbcf5fcc2b945b2a07b459851cbcd70951b297c60a13df45113068.gz",
+      "published_sha256": "f4a7209f0dfbcf5fcc2b945b2a07b459851cbcd70951b297c60a13df45113068",
+      "published_bytes": 1189,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-766.json",
+      "sha256": "11e2a24a52c9214c0e5b384c7c9d7a2602e3f0f9d2e2641ad5b9b36a299d43d4",
+      "bytes": 1209,
+      "git_blob": "07f3bb9cec6d0e9a620f21f6470d5230e693d644",
+      "preserved_bytes": "recovered/market-geometry-059/11e2a24a52c9214c0e5b384c7c9d7a2602e3f0f9d2e2641ad5b9b36a299d43d4.gz",
+      "published_sha256": "11e2a24a52c9214c0e5b384c7c9d7a2602e3f0f9d2e2641ad5b9b36a299d43d4",
+      "published_bytes": 1209,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-843.json",
+      "sha256": "0e5852f8612162b0ddc152af4754fb555d5daad8f14a0c59e35f1b6c98e5d56b",
+      "bytes": 1230,
+      "git_blob": "0e811e08a6d2f15874e1bb84f6fc2d34e05a99bf",
+      "preserved_bytes": "recovered/market-geometry-059/0e5852f8612162b0ddc152af4754fb555d5daad8f14a0c59e35f1b6c98e5d56b.gz",
+      "published_sha256": "0e5852f8612162b0ddc152af4754fb555d5daad8f14a0c59e35f1b6c98e5d56b",
+      "published_bytes": 1230,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-844.json",
+      "sha256": "2c6d2634e3d4dca3291afb2b36f909cec63830703ed1fd6c552ff84ca32b83ed",
+      "bytes": 1216,
+      "git_blob": "8b6ac70484961b91808907e742a3ae551e3b26ff",
+      "preserved_bytes": "recovered/market-geometry-059/2c6d2634e3d4dca3291afb2b36f909cec63830703ed1fd6c552ff84ca32b83ed.gz",
+      "published_sha256": "2c6d2634e3d4dca3291afb2b36f909cec63830703ed1fd6c552ff84ca32b83ed",
+      "published_bytes": 1216,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-845.json",
+      "sha256": "ce98ea3821d298681b35d72a0a954573fd32287fb163f25f82dd47bddda18ff5",
+      "bytes": 1226,
+      "git_blob": "c38c072f0f943287a0d91b81a55403d82ccc7e48",
+      "preserved_bytes": "recovered/market-geometry-059/ce98ea3821d298681b35d72a0a954573fd32287fb163f25f82dd47bddda18ff5.gz",
+      "published_sha256": "ce98ea3821d298681b35d72a0a954573fd32287fb163f25f82dd47bddda18ff5",
+      "published_bytes": 1226,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-866.json",
+      "sha256": "c22a2b42bcbb079773dddcc0d8d28dcc3d2fce54dc3d978a35cf375e30075795",
+      "bytes": 1171,
+      "git_blob": "da5d33362e5e6df00e2437b67d0840df3b0d2659",
+      "preserved_bytes": "recovered/market-geometry-059/c22a2b42bcbb079773dddcc0d8d28dcc3d2fce54dc3d978a35cf375e30075795.gz",
+      "published_sha256": "c22a2b42bcbb079773dddcc0d8d28dcc3d2fce54dc3d978a35cf375e30075795",
+      "published_bytes": 1171,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-867.json",
+      "sha256": "164671fe4e6cd574f6453955c27a86042bb7b14a534dba3d690d026b7ec31342",
+      "bytes": 1181,
+      "git_blob": "6e5d8e8e99549ffe81eb7577abe2ad569550b6d8",
+      "preserved_bytes": "recovered/market-geometry-059/164671fe4e6cd574f6453955c27a86042bb7b14a534dba3d690d026b7ec31342.gz",
+      "published_sha256": "164671fe4e6cd574f6453955c27a86042bb7b14a534dba3d690d026b7ec31342",
+      "published_bytes": 1181,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-611.json",
+      "sha256": "7de586d55a823b2a715fd5e0565979bc4799309b2d122d55c39dca22f7cddab7",
+      "bytes": 840,
+      "git_blob": "f581e073c6f82297ba8c208f8a543d65767fb9eb",
+      "preserved_bytes": "recovered/market-geometry-059/7de586d55a823b2a715fd5e0565979bc4799309b2d122d55c39dca22f7cddab7.gz",
+      "published_sha256": "7de586d55a823b2a715fd5e0565979bc4799309b2d122d55c39dca22f7cddab7",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-645.json",
+      "sha256": "62fba561f1827c7329afa03a1b09dedfd73c34fe8489c72483f004b6f6d89bf0",
+      "bytes": 840,
+      "git_blob": "54da5bcfe08b596c9c2490b2938693a98019c16d",
+      "preserved_bytes": "recovered/market-geometry-059/62fba561f1827c7329afa03a1b09dedfd73c34fe8489c72483f004b6f6d89bf0.gz",
+      "published_sha256": "62fba561f1827c7329afa03a1b09dedfd73c34fe8489c72483f004b6f6d89bf0",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-653.json",
+      "sha256": "cb9b7f7f8c60e9b935c5b8829301ada181dc6f736a966235b221d2f190eb1742",
+      "bytes": 840,
+      "git_blob": "b9bfa2ae1d91ebcb704be741f2878ffd3889f361",
+      "preserved_bytes": "recovered/market-geometry-059/cb9b7f7f8c60e9b935c5b8829301ada181dc6f736a966235b221d2f190eb1742.gz",
+      "published_sha256": "cb9b7f7f8c60e9b935c5b8829301ada181dc6f736a966235b221d2f190eb1742",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-611.json",
+      "sha256": "e451ce0ed15d1bb34960d423bc4aebdd80b4963ae7a7991d6961c1fe0db27ad4",
+      "bytes": 558,
+      "git_blob": "6858a28baf2f1811da92c8a9fb5507eaac80db1f",
+      "preserved_bytes": "recovered/market-geometry-059/e451ce0ed15d1bb34960d423bc4aebdd80b4963ae7a7991d6961c1fe0db27ad4.gz",
+      "published_sha256": "e451ce0ed15d1bb34960d423bc4aebdd80b4963ae7a7991d6961c1fe0db27ad4",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-645.json",
+      "sha256": "31d3be8a1ea07d336f3fbf1a2c37a1ae783c684a32d0c319464c31b99eb79911",
+      "bytes": 558,
+      "git_blob": "b92fe0cebb8f0c1b75fbce14d87b6de9f597323e",
+      "preserved_bytes": "recovered/market-geometry-059/31d3be8a1ea07d336f3fbf1a2c37a1ae783c684a32d0c319464c31b99eb79911.gz",
+      "published_sha256": "31d3be8a1ea07d336f3fbf1a2c37a1ae783c684a32d0c319464c31b99eb79911",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-653.json",
+      "sha256": "5f7db8cac4c6b77dc6aa081657d1446012f8a69d4e33b1202b5b84f4349d4627",
+      "bytes": 558,
+      "git_blob": "07bc2883882a6211a1ab9025a5ae81e09652794e",
+      "preserved_bytes": "recovered/market-geometry-059/5f7db8cac4c6b77dc6aa081657d1446012f8a69d4e33b1202b5b84f4349d4627.gz",
+      "published_sha256": "5f7db8cac4c6b77dc6aa081657d1446012f8a69d4e33b1202b5b84f4349d4627",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    }
+  ],
+  "prior_preserved_independent_receipts": {
+    "adler/READ-L11-282.json": "ASSESSMENT-MOVEMENT-REPORT-95E.json",
+    "adler/READ-L11-290.json": "ASSESSMENT-GROUND-RASTER-ADMISSION-95E.json",
+    "adler/READ-L11-299.json": "ASSESSMENT-GROUND-RASTER-ADMISSION-95E.json",
+    "qualification": "Prior direct059 receipts retain original independent authorship, revision-as-recorded and exact ranges. Receipt 290/299 historical source credits are not new ordered reads."
+  },
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointers": [
+        "/discovery_findings_and_dependencies/ADLER-L11-CITY-PATCH-GEOMETRY-ADMISSION"
+      ],
+      "qualification": "Original finding and its source qualifications remain intact."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/105",
+        "/entries/1545",
+        "/entries/1546",
+        "/entries/1589",
+        "/entries/1606"
+      ],
+      "qualification": "Original059 findings and pending obligations, not checkpoint3821; no assumed alias."
+    }
+  ],
+  "historical_attribution_qualification": "Segovb611 fresh original roles1857–1859; later Segovb645/653 and Adler294/297 retain original own frontier, scoped reinspection and failed-path/no-read qualifications, not new ordered Lens1 credits. Adler282/290/299 are independently preserved prior. Missing row-level source revision is not filled by source equality or evidence branch head; no earlier record is checkpoint3821.",
+  "remaining": "Continue original1860 and all13 lenses, complete scene/producer and native backend proof, gate angle, yard polygon and exact aliases. Original3821 final ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
