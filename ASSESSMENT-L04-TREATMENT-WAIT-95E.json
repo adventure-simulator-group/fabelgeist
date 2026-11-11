@@ -1,0 +1,421 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 4,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected wound and splint state changes during manual treatment wait at 95e; no product execution.",
+  "source_reasoning": "Pinned source inspection, source-derived symbolic arithmetic and evidence-byte verification only. Source tests and guarded fixtures were read without execution; no product build, test, simulation, runtime, database or browser probe.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/surgery.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "833a18f053639bb556b66cddfb3b9af6fd5c34a6",
+      "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+      "bytes": 50861,
+      "lines": 1435,
+      "ranges": [
+        [
+          1,
+          1435
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/treatment-wait-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/surgery.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "03609a93b2c43af5ab206347aa9ae11ce221a723",
+      "sha256": "c0b73f812166b3333b5611325539f8c850030c5db3ef7ff4b69b11c1bf9e34fd",
+      "bytes": 10092,
+      "lines": 294,
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/treatment-wait-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/advancement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "18d0599882b25ff510b375a5e05c747b2f8125da",
+      "sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+      "bytes": 20026,
+      "lines": 582,
+      "ranges": [
+        [
+          501,
+          565
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/treatment-wait-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "965aec5634dad55bab94097ddccbf54049135848",
+      "sha256": "f63df87344c6f358a0bcaa63481d349415e8e5481acb42031232d17cf20db125",
+      "bytes": 23560,
+      "lines": 651,
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/treatment-wait-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f28669757f5039d1344cf14f0912f4aec5152ff7",
+      "sha256": "8b5882561331877cca6e022666a6fc03c813375df88bcdda95752cddd3cd1a1e",
+      "bytes": 3682,
+      "lines": 98,
+      "ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/treatment-wait-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/world_actor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5ab4eab5c647aa4a85852ccb5e88038431f535da",
+      "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "bytes": 51100,
+      "lines": 1353,
+      "ranges": [
+        [
+          816,
+          930
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/treatment-wait-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/disease.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b3f5435464866afdfb3cb48e059be0251a65408d",
+      "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+      "bytes": 101966,
+      "lines": 2950,
+      "ranges": [
+        [
+          2304,
+          2320
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/treatment-wait-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/calendar.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3bb463487d89fa1040b72d7708f7e641d5e61cec",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "bytes": 25367,
+      "lines": 698,
+      "ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/treatment-wait-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/templates/settlement/character_health.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bdd234c5bf0f14f42ff8cce2aaad1750cc04b193",
+      "sha256": "e2d0f9c9b380042b6620943eeb712aacad78d4b258feeff578329ce8891bdb24",
+      "bytes": 105027,
+      "lines": 2165,
+      "ranges": [
+        [
+          230,
+          280
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/treatment-wait-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_action.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "83d7a923670bad6bce129e3880c7b364f26af9ee",
+      "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "bytes": 40262,
+      "lines": 1209,
+      "ranges": [
+        [
+          20,
+          66
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/treatment-wait-sources/09.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/1006",
+      "qualification": "Earlier open surgery post-wait validity and related owner questions; only two current conditional cases assessed."
+    },
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1238-1241.json",
+      "qualification": "Four historical Lens1 reads and earlier independently attributed Lens12 receipts."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PARTIAL-L12-306-001.json",
+      "sha256": "5e8aac944e43cd32f4b401ee8f8f6fad1885952e569c90ca6f71e4169e6c2169",
+      "bytes": 4712,
+      "git_blob": "87795d305894d474b2e2757c3cdc6afbe5e38508",
+      "preserved_bytes": "recovered/treatment-wait-059/5e8aac944e43cd32f4b401ee8f8f6fad1885952e569c90ca6f71e4169e6c2169.gz",
+      "published_sha256": "5e8aac944e43cd32f4b401ee8f8f6fad1885952e569c90ca6f71e4169e6c2169",
+      "published_bytes": 4712,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, role, attribution and partial-read limits; no 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-306-002-EOF.json",
+      "sha256": "aaedfe9624315cb66dd700c4efe8b6b2182aea7b70fcec725933e6dcb602f189",
+      "bytes": 5088,
+      "git_blob": "765732eba7d0e23f865261683585d2bf05f169cf",
+      "preserved_bytes": "recovered/treatment-wait-059/aaedfe9624315cb66dd700c4efe8b6b2182aea7b70fcec725933e6dcb602f189.gz",
+      "published_sha256": "aaedfe9624315cb66dd700c4efe8b6b2182aea7b70fcec725933e6dcb602f189",
+      "published_bytes": 5088,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, role, attribution and partial-read limits; no 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-306.json",
+      "sha256": "cd74126a1e53b1f0542b117b3631b2d7efbb2dc12423ab58a48f3891d8355204",
+      "bytes": 708,
+      "git_blob": "5145830bed2c04dd9e277a09cd5697d689e19d24",
+      "preserved_bytes": "recovered/treatment-wait-059/cd74126a1e53b1f0542b117b3631b2d7efbb2dc12423ab58a48f3891d8355204.gz",
+      "published_sha256": "cd74126a1e53b1f0542b117b3631b2d7efbb2dc12423ab58a48f3891d8355204",
+      "published_bytes": 708,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, role, attribution and partial-read limits; no 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-307.json",
+      "sha256": "423666c709978caa2b2c59cbd591841bafce302c286e8f50638f959d909ab486",
+      "bytes": 1699,
+      "git_blob": "83080213a041c781b180ce1ece1326596ca216c0",
+      "preserved_bytes": "recovered/treatment-wait-059/423666c709978caa2b2c59cbd591841bafce302c286e8f50638f959d909ab486.gz",
+      "published_sha256": "423666c709978caa2b2c59cbd591841bafce302c286e8f50638f959d909ab486",
+      "published_bytes": 1699,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, role, attribution and partial-read limits; no 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-306.json",
+      "sha256": "a7d1702fca5e3a429596a9a93966fa59b7b0732f819d6bd4b9b112b427b5cf93",
+      "bytes": 6165,
+      "git_blob": "2980e465841fd581a519a110e6dae9bde24019ba",
+      "preserved_bytes": "recovered/treatment-wait-059/a7d1702fca5e3a429596a9a93966fa59b7b0732f819d6bd4b9b112b427b5cf93.gz",
+      "published_sha256": "a7d1702fca5e3a429596a9a93966fa59b7b0732f819d6bd4b9b112b427b5cf93",
+      "published_bytes": 6165,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, role, attribution and partial-read limits; no 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-307.json",
+      "sha256": "01aff2c22ad312edd4ae1f575c8538a38912e623c3d64ca750affd54be727316",
+      "bytes": 8926,
+      "git_blob": "18dc124bca9990ce453c5a3e5283291b49adfa5c",
+      "preserved_bytes": "recovered/treatment-wait-059/01aff2c22ad312edd4ae1f575c8538a38912e623c3d64ca750affd54be727316.gz",
+      "published_sha256": "01aff2c22ad312edd4ae1f575c8538a38912e623c3d64ca750affd54be727316",
+      "published_bytes": 8926,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, role, attribution and partial-read limits; no 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-145.json",
+      "sha256": "30fb318507a00310bc44cf1a366aab75d394fd6f7ef9b29b211a9b9b343b18da",
+      "bytes": 1136,
+      "git_blob": "c08c7685c3a889e05caa3bf224fa269bf7d312b1",
+      "preserved_bytes": "recovered/treatment-wait-059/30fb318507a00310bc44cf1a366aab75d394fd6f7ef9b29b211a9b9b343b18da.gz",
+      "published_sha256": "30fb318507a00310bc44cf1a366aab75d394fd6f7ef9b29b211a9b9b343b18da",
+      "published_bytes": 1136,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, role, attribution and partial-read limits; no 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-146.json",
+      "sha256": "e8b4dbb145564f6b1223daed57a6536e1b92121033a14ecdd1ae4ef4c1d12fd2",
+      "bytes": 1145,
+      "git_blob": "917281857891c2554b6754107f6c79d53b69c983",
+      "preserved_bytes": "recovered/treatment-wait-059/e8b4dbb145564f6b1223daed57a6536e1b92121033a14ecdd1ae4ef4c1d12fd2.gz",
+      "published_sha256": "e8b4dbb145564f6b1223daed57a6536e1b92121033a14ecdd1ae4ef4c1d12fd2",
+      "published_bytes": 1145,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, role, attribution and partial-read limits; no 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-147.json",
+      "sha256": "51f395b7c9ca4072ff6775a424dcf940afea855ad3c7202be155e5600023fde4",
+      "bytes": 1127,
+      "git_blob": "40b146c7a28d18ac468cc336b3721c1a9dff6e6d",
+      "preserved_bytes": "recovered/treatment-wait-059/51f395b7c9ca4072ff6775a424dcf940afea855ad3c7202be155e5600023fde4.gz",
+      "published_sha256": "51f395b7c9ca4072ff6775a424dcf940afea855ad3c7202be155e5600023fde4",
+      "published_bytes": 1127,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, role, attribution and partial-read limits; no 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-148.json",
+      "sha256": "afd1a49076419b5e6218b10d3a3a1a5a3e96e26e8cecc11e2a939f365181702e",
+      "bytes": 1165,
+      "git_blob": "89078e9a5e8fb566b47e1c2e1b6ba480ff4b74ba",
+      "preserved_bytes": "recovered/treatment-wait-059/afd1a49076419b5e6218b10d3a3a1a5a3e96e26e8cecc11e2a939f365181702e.gz",
+      "published_sha256": "afd1a49076419b5e6218b10d3a3a1a5a3e96e26e8cecc11e2a939f365181702e",
+      "published_bytes": 1165,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, role, attribution and partial-read limits; no 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-306.json",
+      "sha256": "c1b75b17c1f5375f48bb19b6c1d147927e21e38e8290bc4cc78d2c9f4c1ce0de",
+      "bytes": 840,
+      "git_blob": "e399cb445f1039b68044d3dc156513e5d8a0ccb9",
+      "preserved_bytes": "recovered/treatment-wait-059/c1b75b17c1f5375f48bb19b6c1d147927e21e38e8290bc4cc78d2c9f4c1ce0de.gz",
+      "published_sha256": "c1b75b17c1f5375f48bb19b6c1d147927e21e38e8290bc4cc78d2c9f4c1ce0de",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, role, attribution and partial-read limits; no 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-307.json",
+      "sha256": "3a12fe1051b6f5a914d3fa79711f5a5431c4c83c160d3430150dbfec9272e4d3",
+      "bytes": 840,
+      "git_blob": "bddf28e674c00c1831f4ff862bfdc8035c0bd247",
+      "preserved_bytes": "recovered/treatment-wait-059/3a12fe1051b6f5a914d3fa79711f5a5431c4c83c160d3430150dbfec9272e4d3.gz",
+      "published_sha256": "3a12fe1051b6f5a914d3fa79711f5a5431c4c83c160d3430150dbfec9272e4d3",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, role, attribution and partial-read limits; no 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-306.json",
+      "sha256": "b55ccb6fd02dfc33af613dce1efd8d252bcff4d1d6a55db70f28a7e564cef0d7",
+      "bytes": 558,
+      "git_blob": "3784a7df9542f3833b98daa33b70df95b0205c8c",
+      "preserved_bytes": "recovered/treatment-wait-059/b55ccb6fd02dfc33af613dce1efd8d252bcff4d1d6a55db70f28a7e564cef0d7.gz",
+      "published_sha256": "b55ccb6fd02dfc33af613dce1efd8d252bcff4d1d6a55db70f28a7e564cef0d7",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, role, attribution and partial-read limits; no 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-307.json",
+      "sha256": "dcec4fff51aa0406171a767f4aa839a2eaf1ca12f45783d46e6dcc179394b5fc",
+      "bytes": 558,
+      "git_blob": "e702d5aa7844c682cb7165f341111a40cef250c9",
+      "preserved_bytes": "recovered/treatment-wait-059/dcec4fff51aa0406171a767f4aa839a2eaf1ca12f45783d46e6dcc179394b5fc.gz",
+      "published_sha256": "dcec4fff51aa0406171a767f4aa839a2eaf1ca12f45783d46e6dcc179394b5fc",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, role, attribution and partial-read limits; no 3821 authority or other-lens/current transfer."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-TREATMENT-STITCH-POSTWAIT-001",
+      "lens": 4,
+      "severity": "unassigned; source-derived conditional post-wait procedure-state mismatch",
+      "classification": "New bounded 95e operation trace addressing an earlier open post-wait validity question; intended in-progress treatment semantics and historical aliases remain open.",
+      "trace": "treat_limb admits Stitch only when the initial limb has positive cut damage and is not stitched, with sufficient skill and a reusable kit. It advances actor/patient waiting time, then rechecks co-location and contextual permission and reloads the injury, but does not repeat the wound-specific Stitch precondition. The wait settles injuries with restorative minutes; a bandaged cut can heal to zero. The later Stitch branch sets stitched and stitch_quality and writes a completed receipt even for the reloaded zero-cut injury; record_committed_cut returns without a cut event at zero severity. The current health template offers Stitch only while its projected cut is positive, but no page or game state was observed.",
+      "symbolic_case": "Assume a living self-treating patient without a contextual claim, without a contextual claim, no retained projectile, an initially bandaged/unstitched cut of 0.0001, effective Surgery skill 2, a reusable kit, physiology check 0 and a complete nonterminal wait. Stitch duration is 50 minutes. The source healing rate for the bandaged cut is at least 0.02 per day in this example, so 50/1440 × 0.02 is about 0.000694, exceeding the assumed cut. Self-treatment permission remains allowed under its selected recheck. The source sequence can therefore reach the later Stitch branch with zero cut. This is arithmetic over assumed state, not an admitted gameplay witness or executed treatment.",
+      "connected_repair": "Determine whether treatment begins at admission or commits only after the wait, then make wound eligibility and resource/receipt outcomes coherent with that intended timing. Preserve elapsed time, patient consent/revalidation, no-wound behavior, infection handling and atomicity; avoid erasing the legitimate medical action merely to satisfy a new check.",
+      "discovery": "partial; valid tiny-wound producers, in-progress-treatment policy, all procedures, permissions, aliases and transaction outcomes remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-TREATMENT-SPLINT-POSTWAIT-001",
+      "lens": 4,
+      "severity": "unassigned; source-derived conditional post-wait stale splint state",
+      "classification": "New bounded 95e operation trace related to the same earlier open post-wait question; distinct from the zero-cut Stitch outcome.",
+      "trace": "treat_limb initially admits RemoveSplint if the limb has an applied splint. During a complete restorative wait, settle_injuries can heal the last fracture damage to zero and call return_splint, which clears the wound’s splint owner and row reference and returns the item. The post-wait treatment reloads that wound but does not recheck splint applicability; its RemoveSplint branch calls return_splint again and receives the missing-owner error. Whether a supported patient can reach the stated state, the intended treatment policy and native rollback of this error remain open. No actual treatment, persisted return, rollback or user impact was observed.",
+      "symbolic_case": "Assume a living self-treating patient without a contextual claim, with a valid applied splint, no retained projectile, fracture severity 0.0001 and sufficient backing bruise, effective Surgery skill 0, physiology check 0, and a complete nonterminal wait. RemoveSplint lasts 45 minutes; at 0.01 natural plus 0.0125 fracture healing per day, 45/1440 × 0.0225 is about 0.000703, exceeding the assumed fracture. The auto-return clears the two references before the later removal branch. This is source-derived arithmetic only.",
+      "connected_repair": "Define the intended outcome when healing completes while removal is underway; coordinate the automatic return, explicit treatment, receipt and error/rollback ownership so the splint moves exactly once. Preserve valid manual removal, incomplete healing, owner and inventory identity, consent and time progression.",
+      "discovery": "partial; supported tiny-fracture state, splint ownership, in-progress policy, native transactions and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Establish supported injury states and time/consent policy; inspect all procedure and patient producers, exact native Result semantics, physical custody, aliases and independent lenses. Final 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

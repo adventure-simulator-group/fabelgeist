@@ -2343,8 +2343,38 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-TRAVEL-ADMISSION-SOURCE-ASSERTIONS-95E.json"
+      },
+      {
+        "id": "REVIEW-TREATMENT-STITCH-POSTWAIT-001",
+        "lens": 4,
+        "severity": "unassigned; source-derived conditional post-wait procedure-state mismatch",
+        "classification": "New bounded 95e operation trace addressing an earlier open post-wait validity question; intended in-progress treatment semantics and historical aliases remain open.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1006",
+          "segovb/READ-L12-306.json via ASSESSMENT-L04-TREATMENT-WAIT-95E.json"
+        ],
+        "relationship_qualification": "Earlier Lens12 post-wait question remains original and broad; these current conditional cases are distinct and no unique historical count or global alias is asserted.",
+        "discovery": "partial; valid tiny-wound producers, in-progress-treatment policy, all procedures, permissions, aliases and transaction outcomes remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L04-TREATMENT-WAIT-95E.json"
+      },
+      {
+        "id": "REVIEW-TREATMENT-SPLINT-POSTWAIT-001",
+        "lens": 4,
+        "severity": "unassigned; source-derived conditional post-wait stale splint state",
+        "classification": "New bounded 95e operation trace related to the same earlier open post-wait question; distinct from the zero-cut Stitch outcome.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1006",
+          "segovb/READ-L12-306.json via ASSESSMENT-L04-TREATMENT-WAIT-95E.json"
+        ],
+        "relationship_qualification": "Earlier Lens12 post-wait question remains original and broad; these current conditional cases are distinct and no unique historical count or global alias is asserted.",
+        "discovery": "partial; supported tiny-fracture state, splint ownership, in-progress policy, native transactions and global aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L04-TREATMENT-WAIT-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0304.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0307.json"
 }

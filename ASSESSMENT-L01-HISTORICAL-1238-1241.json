@@ -1,0 +1,120 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1238,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1238",
+      "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+      "lines": 1435,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1435
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1239,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery/authority_tests.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1239",
+      "sha256": "0ba103e0548c14b69422b361ea4bb8d34f22f9dfbda4909b19409e1545324b3f",
+      "lines": 117,
+      "new_personal_read_ranges": [
+        [
+          1,
+          117
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "0ba103e0548c14b69422b361ea4bb8d34f22f9dfbda4909b19409e1545324b3f",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1240,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery/entropy.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/1240",
+      "sha256": "f685dee9225286b7d1e39515f8c426ab2e04cb37b064c170298794a470e1e7c7",
+      "lines": 28,
+      "new_personal_read_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "f685dee9225286b7d1e39515f8c426ab2e04cb37b064c170298794a470e1e7c7",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1241,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery/projectile_authority_tests.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/1241",
+      "sha256": "c8ea9d3119f03244e607275388d82626801d0a346e2ebd829162822e13313ed4",
+      "lines": 59,
+      "new_personal_read_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "c8ea9d3119f03244e607275388d82626801d0a346e2ebd829162822e13313ed4",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    }
+  ],
+  "observations": [
+    "The frozen surgery body, guarded treatment fixture, projectile-depth entropy adapter and guarded projectile fixture were personally read through actual EOF. Source-only tests and fixtures were read but never executed.",
+    "Earlier Lens12 batch 306 used two separately qualified partial reads; the first covered 1–800 and left the infection-control tail unread, while the second covered 801–1435 and closed that historical body. Batch 307 independently read the three small related bodies. Their receipts, partials, plans, registrations, states and verifications retain original attribution, accepted unique-count zero, no current reconciliation and no other-lens transfer.",
+    "Selected current time/treatment examples are separate conditional observations. Equal frozen/current bytes do not complete any independent lens or establish checkpoint 3821 authority."
+  ],
+  "remaining": "Continue role 1242; treatment permissions, injury producers, native transactions, source families and aliases remain open."
+}
