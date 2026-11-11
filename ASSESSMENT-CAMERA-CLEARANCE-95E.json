@@ -1,0 +1,775 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Four historical camera bodies, current source connections to two prior findings, fixture source delta, native direction admission and staged history safeguards.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1461-1464.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/camera/rig.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d63e4c8ad266ffd064e5a6ef95cc83e80a8b2cec",
+      "sha256": "1ec50b293b57a16a3f213a4e26d2a6a6f3d69500f61d3f586939745bc2978d01",
+      "bytes": 3128,
+      "lines": 97,
+      "ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/camera-clearance-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; full source bytes retained. No product execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/camera/rig_history.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d5dec33761ebcd8244c4730ca4ec92fefbb53d87",
+      "sha256": "6b8831f4120039b41df17cb9365f3d4e37f1db57259aa4e5573e0fd8c9f8e4ff",
+      "bytes": 3643,
+      "lines": 105,
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/camera-clearance-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; full source bytes retained. No product execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/camera/rig/observation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "38c9d27b5c7e87598570d9a58166493c8e2aad00",
+      "sha256": "a0a88df02f4d557950c09e55645900e75731a2817d9d422b636fe3126f062ef1",
+      "bytes": 6507,
+      "lines": 170,
+      "ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/camera-clearance-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; full source bytes retained. No product execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/camera/smoothing.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f09495195e69012bc7efcebdde7cac6e193735b2",
+      "sha256": "6f9948b9cd1412b7351a88e92a460780579e7d89ad0a9ae6bbfb4dd99102842a",
+      "bytes": 9153,
+      "lines": 269,
+      "ranges": [
+        [
+          1,
+          192
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/camera-clearance-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; full source bytes retained. No product execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/camera/values.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fb32936596539cefe32daad2e01579c27db71e1a",
+      "sha256": "a2f64c5b11f5551f2c7baae14dcb819408c25c075a3594694b06cf7ab40f1eaa",
+      "bytes": 3192,
+      "lines": 107,
+      "ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/camera-clearance-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; full source bytes retained. No product execution."
+    },
+    {
+      "path": "crates/fabelgeist-geometry/src/measurement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1ca89018e525af6b5643767d87d80297ea0bb3b6",
+      "sha256": "72ee58eb8ae01af4b7f17ef81f007dfa63c7dc818a1ed71ce5bbba0707236e70",
+      "bytes": 3508,
+      "lines": 104,
+      "ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/camera-clearance-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; full source bytes retained. No product execution."
+    },
+    {
+      "path": "rust-toolchain.toml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "18d1c14844d398c027c2e2cc740acca5bda2ec75",
+      "sha256": "0ede9efa984ca1bbaacf8ad3231e6e9ee1efd4000986bc913a2178c7ceb5be8a",
+      "bytes": 150,
+      "lines": 5,
+      "ranges": [
+        [
+          1,
+          5
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/camera-clearance-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; full source bytes retained. No product execution."
+    }
+  ],
+  "native_connected_sources": [
+    {
+      "archive": "native-evidence/bevy_math-0.19.1/bevy_math-0.19.1.crate",
+      "archive_sha256": "98ead494dcfaa9b4594eed7f09a27d868b7cc7fc9ebd655c5643322778f4a8a2",
+      "archive_bytes": 202224,
+      "member": "bevy_math-0.19.1/src/direction.rs",
+      "member_sha256": "0aef18fddadf5d5361c4c11f0b9d5561637a7cee6dabde16dfd2816dcf2e521c",
+      "member_bytes": 50858,
+      "ranges": [
+        [
+          10,
+          51
+        ],
+        [
+          554,
+          600
+        ]
+      ],
+      "qualification": "Exact selected source from the already published pinned registry archive; only cited ranges inspected. No feature-resolution, build, physics or execution is claimed."
+    },
+    {
+      "archive": "native-evidence/glam-0.32.1/glam-0.32.1.crate",
+      "archive_sha256": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+      "archive_bytes": 830817,
+      "member": "glam-0.32.1/src/f32/vec3.rs",
+      "member_sha256": "28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c",
+      "member_bytes": 59605,
+      "ranges": [
+        [
+          545,
+          573
+        ]
+      ],
+      "qualification": "Exact selected source from the already published pinned registry archive; only cited ranges inspected. No feature-resolution, build, physics or execution is claimed."
+    },
+    {
+      "preserved_bytes": "native-evidence/rust-nightly-2026-07-13/library/core/src/num/f32.rs",
+      "sha256": "41d78dcc60e2f57fd8613ed4d62e6538cf2c6765ad5f57373f92ffc46ca2a026",
+      "bytes": 82209,
+      "ranges": [
+        [
+          1550,
+          1585
+        ]
+      ],
+      "qualification": "Previously recovered installed rust-src for the repository-pinned nightly date; source inspected only, no compiler executed or feature selection proved."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "ADLER-L11-CAMERA-PROFILE-INVARIANTS",
+      "lens": 5,
+      "severity": "unassigned; conditional custom profile boundary",
+      "classification": "Prior 059 finding independently reconnected to 95e source; no new historical finding or additional proven unique issue.",
+      "trace": "CameraProfile and CloseCameraProfile publicly retain finite SignedLength values, while SignedLength::from_metres allows negative values. In the current rig, advance_profile checks blend and blended individual lengths but not nonnegative boom roles or an ordered close interval. A new history copies profile.distance to boom.distance, and sweet_spot_target uses that distance to compute allowed screen extents before calling f32::clamp. The actual plugin initializes CameraRigConfig with authored defaults; a repository search of the inspected client found default construction and reads, not a demonstrated ordinary producer of a negative override.",
+      "symbolic_case": "For a separately supplied lower profile with distance −1 metre, a positive perspective half-field tangent/aspect, the default positive screen window and lowered blend, the derived allowed_x is negative. The requested clamp minimum −allowed_x is positive and maximum allowed_x is negative. The preserved repository-pinned rust-src clamp implementation asserts min <= max. This is a conditional source arithmetic case, not a loaded config, compiler run, observed panic or shipped-default failure. Equal close endpoints are a separate related policy question; defaults 1.8 and 0.65 are ordered and unequal.",
+      "first_failed_contract": "A camera profile must admit its physical-distance roles and ordered framing relations before downstream math assumes them.",
+      "canonical_owner": "CameraProfile/CameraRigConfig physical roles and the close-framing range; signed offsets remain distinct.",
+      "connected_repair": "Decide admissible physical lengths and equal/reversed close-range policy, use suitable existing owners or checked aggregate admission, preserve intentional signed focus/shoulder/muzzle offsets and explicitly handle any supported zero boom.",
+      "later_acceptance": "Only after separate implementation and product-validation authorization, exercise supported defaults, invalid and boundary custom profiles, zero-distance recovery and unchanged intentional signed offsets.",
+      "discovery": "partial; actual nondefault producers, policy, all consumers and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "ADLER-L11-CAMERA-SEGMENT-ADMISSION",
+      "lens": 3,
+      "severity": "unassigned; conditional derived query segment boundary",
+      "classification": "Prior 059 finding independently reconnected to 95e and pinned native direction source; no new historical finding or additional proven unique issue.",
+      "trace": "CameraVolume::sweep subtracts finite admitted endpoint and origin vectors and maps every Dir3::new failure to a fraction-one/no-hit result before issuing a shape cast. Aim and soft-occlusion paths separately compute a derived distance and use fallback directions when Dir3 fails. Bevy Dir3 computes vector length and rejects zero, nonfinite and NaN lengths; pinned glam Vec3 length uses sqrt(dot(self,self)). A checked endpoint alone therefore does not establish an admitted nonzero finite query segment.",
+      "symbolic_case": "For an ideal represented finite nonzero displacement approximately (1e−30, 0, 0), its squared magnitude is approximately 1e−60, far below the smallest positive f32 subnormal; ordinary f32 multiplication rounds that square to zero. The native source then computes length zero, so Dir3 rejects it and the sweep source takes its fraction-one/no-hit branch without a shape cast. This is a conditional arithmetic and control-flow argument; it is not a physics run, proof that a normal gameplay frame produces that segment, or proof of a visible false clearance.",
+      "safeguards": "The final recovery candidate is swept again and converted to a checked Position before BoomRecovery is committed. The outer rig prepares a cloned pose history and only commits it and camera translation after complete observation preparation succeeds. The independently advanced profile blend is intentionally committed earlier and is not included in that staged-pose guarantee.",
+      "first_failed_contract": "A camera spatial query should receive a checked finite segment with an explicit zero/near-zero policy, rather than silently treating all rejected directions as clear.",
+      "canonical_owner": "Camera query segment construction and explicit no-motion policy, with native spatial casts as consumers.",
+      "connected_repair": "Admit a direction, length and translated origin as one coherent segment; distinguish intended exact zero from rejected nonzero or nonfinite arithmetic, preserve the staged pose/final sweep and keep the separate aim and soft-occlusion semantics explicit.",
+      "later_acceptance": "Only after separate implementation and product-validation authorization, compare zero, tiny, ordinary and extreme finite segments in aim, sweep and soft-occlusion paths while preserving normal camera placement and history behavior.",
+      "discovery": "partial; real scene bounds, actual producer reachability, physics query contract and exact aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "existing_contract_connections": [
+    {
+      "ids": [
+        "Q-L12-4e15c92d03d93f53a324",
+        "Q-L12-25d2b53e0fda083916dd",
+        "ADLER-L11-CAMERA-PROFILE-INVARIANTS"
+      ],
+      "trace": "CameraProfile and CloseCameraProfile publicly retain finite SignedLength values, while SignedLength::from_metres allows negative values. In the current rig, advance_profile checks blend and blended individual lengths but not nonnegative boom roles or an ordered close interval. A new history copies profile.distance to boom.distance, and sweet_spot_target uses that distance to compute allowed screen extents before calling f32::clamp. The actual plugin initializes CameraRigConfig with authored defaults; a repository search of the inspected client found default construction and reads, not a demonstrated ordinary producer of a negative override. For a separately supplied lower profile with distance −1 metre, a positive perspective half-field tangent/aspect, the default positive screen window and lowered blend, the derived allowed_x is negative. The requested clamp minimum −allowed_x is positive and maximum allowed_x is negative. The preserved repository-pinned rust-src clamp implementation asserts min <= max. This is a conditional source arithmetic case, not a loaded config, compiler run, observed panic or shipped-default failure. Equal close endpoints are a separate related policy question; defaults 1.8 and 0.65 are ordered and unequal.",
+      "remaining": "partial; actual nondefault producers, policy, all consumers and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "ids": [
+        "Q-L12-ea0ebdd33e04f0e16ddf",
+        "Q-L12-4e15c92d03d93f53a324",
+        "ADLER-L11-CAMERA-SEGMENT-ADMISSION"
+      ],
+      "trace": "CameraVolume::sweep subtracts finite admitted endpoint and origin vectors and maps every Dir3::new failure to a fraction-one/no-hit result before issuing a shape cast. Aim and soft-occlusion paths separately compute a derived distance and use fallback directions when Dir3 fails. Bevy Dir3 computes vector length and rejects zero, nonfinite and NaN lengths; pinned glam Vec3 length uses sqrt(dot(self,self)). A checked endpoint alone therefore does not establish an admitted nonzero finite query segment. For an ideal represented finite nonzero displacement approximately (1e−30, 0, 0), its squared magnitude is approximately 1e−60, far below the smallest positive f32 subnormal; ordinary f32 multiplication rounds that square to zero. The native source then computes length zero, so Dir3 rejects it and the sweep source takes its fraction-one/no-hit branch without a shape cast. This is a conditional arithmetic and control-flow argument; it is not a physics run, proof that a normal gameplay frame produces that segment, or proof of a visible false clearance.",
+      "safeguards": "The final recovery candidate is swept again and converted to a checked Position before BoomRecovery is committed. The outer rig prepares a cloned pose history and only commits it and camera translation after complete observation preparation succeeds. The independently advanced profile blend is intentionally committed earlier and is not included in that staged-pose guarantee.",
+      "remaining": "partial; real scene bounds, actual producer reachability, physics query contract and exact aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "ids": [
+        "Q-L12-5f37983ddf2b23f1081b",
+        "ADLER-L11-CAMERA-FIXTURE-ASSERT-RESULT"
+      ],
+      "trace": "The historical fixture contains a .unwrap() on its assert! expression; the 95e fixture removes that appended operation while preserving the preceding contact-query unwrap and the same asserted predicate/message. The exact original and current bytes and unified diff are retained. The earlier anomaly and its original unresolved macro/compile qualification remain historical; the source difference is not a compilation or physical test pass.",
+      "remaining": "Macro resolution, current compilation, fixture execution and physical acceptance were not checked; no current implementation or repair is credited.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "ids": [
+        "Q-L12-ea0ebdd33e04f0e16ddf",
+        "REVIEW-L1-CAMERA-QUERY-POPULATION-HISTORY-POLICY"
+      ],
+      "trace": "update_camera_aim clears the retained observation before its loop and again per matching camera. Multiple candidates can therefore make the last processed camera determine or clear the final observation, while the normal presentation setup separately spawns one marked gameplay camera. The exact query uses CharacterControllerCameraOf, not the marker alone.",
+      "remaining": "Supported camera/controller cardinality and all producers need independent evidence; normal singleton setup does not prove every query state, and no multiple-camera event is claimed.",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointers": [
+        "/discovery_findings_and_dependencies/ADLER-L11-CAMERA-PROFILE-INVARIANTS",
+        "/discovery_findings_and_dependencies/ADLER-L11-CAMERA-SEGMENT-ADMISSION",
+        "/discovery_findings_and_dependencies/ADLER-L11-CAMERA-FIXTURE-ASSERT-RESULT"
+      ],
+      "qualification": "Earlier findings retain original reviewer, revision, source anomaly, dependencies, validation limits and zero accepted unique count change."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/53 through /entries/55",
+        "/entries/1260 through /entries/1263",
+        "/entries/2343 through /entries/2351"
+      ],
+      "qualification": "Earlier source questions and named scoped proposals retain original attribution and unresolved scope."
+    },
+    {
+      "file": "ASSESSMENT-L1-CAMERA.json",
+      "pointers": [
+        "/"
+      ],
+      "qualification": "Earlier c100 bounded source observations and historical proposals remain separately attributed; they are not automatically credited to 95e."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-207.json",
+      "sha256": "9c5f8bd91940e9101d6095a51b3533405565670a5772c63aec2d0e35916d34d4",
+      "bytes": 16256,
+      "git_blob": "c628e7a10185dd561a6d347c3b3dc360a6f81a87",
+      "preserved_bytes": "recovered/camera-clearance-059/9c5f8bd91940e9101d6095a51b3533405565670a5772c63aec2d0e35916d34d4.gz",
+      "published_sha256": "9c5f8bd91940e9101d6095a51b3533405565670a5772c63aec2d0e35916d34d4",
+      "published_bytes": 16256,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-276.json",
+      "sha256": "50fa2a4caeac9a19ba1ecd12c8ff425bb812181ac41a2cf1e8c067e9d67fae6e",
+      "bytes": 833,
+      "git_blob": "18454193b9e05718e7ef3ff4affaf60ca1646687",
+      "preserved_bytes": "recovered/camera-clearance-059/50fa2a4caeac9a19ba1ecd12c8ff425bb812181ac41a2cf1e8c067e9d67fae6e.gz",
+      "published_sha256": "50fa2a4caeac9a19ba1ecd12c8ff425bb812181ac41a2cf1e8c067e9d67fae6e",
+      "published_bytes": 833,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original or connected registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-277.json",
+      "sha256": "c3691f8b5d8acd35cf1d63ebea3d6d1389fccf5549c98fdac68a963f7a6b07c9",
+      "bytes": 836,
+      "git_blob": "fea82389b51de4180112fe6a82495b6eb5e4ae53",
+      "preserved_bytes": "recovered/camera-clearance-059/c3691f8b5d8acd35cf1d63ebea3d6d1389fccf5549c98fdac68a963f7a6b07c9.gz",
+      "published_sha256": "c3691f8b5d8acd35cf1d63ebea3d6d1389fccf5549c98fdac68a963f7a6b07c9",
+      "published_bytes": 836,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original or connected registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-278.json",
+      "sha256": "375bc449682542ab58fc883a40ef9586a1eb5f3e373e057a922006682fe02a81",
+      "bytes": 851,
+      "git_blob": "f7010770f56293830885075d4403e9c76eb232c3",
+      "preserved_bytes": "recovered/camera-clearance-059/375bc449682542ab58fc883a40ef9586a1eb5f3e373e057a922006682fe02a81.gz",
+      "published_sha256": "375bc449682542ab58fc883a40ef9586a1eb5f3e373e057a922006682fe02a81",
+      "published_bytes": 851,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original or connected registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-279.json",
+      "sha256": "f91f1f766d9159b8d1d1ef0cb11ef9085f1fa3f801aaccccf5b94969d71110c8",
+      "bytes": 849,
+      "git_blob": "b20aea138bc6016d91273c5ba3ba25c6f1919489",
+      "preserved_bytes": "recovered/camera-clearance-059/f91f1f766d9159b8d1d1ef0cb11ef9085f1fa3f801aaccccf5b94969d71110c8.gz",
+      "published_sha256": "f91f1f766d9159b8d1d1ef0cb11ef9085f1fa3f801aaccccf5b94969d71110c8",
+      "published_bytes": 849,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original or connected registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-280.json",
+      "sha256": "aeb6437281fde0fd0c5049381c0f291aa21b930fe0e54383e76245085cffa483",
+      "bytes": 840,
+      "git_blob": "6846bc6b989e50c2c2b8b526583757c71398ed6a",
+      "preserved_bytes": "recovered/camera-clearance-059/aeb6437281fde0fd0c5049381c0f291aa21b930fe0e54383e76245085cffa483.gz",
+      "published_sha256": "aeb6437281fde0fd0c5049381c0f291aa21b930fe0e54383e76245085cffa483",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original or connected registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-281.json",
+      "sha256": "f305cf60c68a7e4e3ff956aa30eed7b1689aa0e9684ae2287595505090a9a85a",
+      "bytes": 836,
+      "git_blob": "43f24bc467d4d1b47ac27018a3d1d4345478562b",
+      "preserved_bytes": "recovered/camera-clearance-059/f305cf60c68a7e4e3ff956aa30eed7b1689aa0e9684ae2287595505090a9a85a.gz",
+      "published_sha256": "f305cf60c68a7e4e3ff956aa30eed7b1689aa0e9684ae2287595505090a9a85a",
+      "published_bytes": 836,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original or connected registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-282.json",
+      "sha256": "8d8ed9ab9ae43e36396b732b3b62100e6275026d1df4ef3314973cfdc6724bbe",
+      "bytes": 849,
+      "git_blob": "f617ba4f6559d442173b77e0885e212471d059d7",
+      "preserved_bytes": "recovered/camera-clearance-059/8d8ed9ab9ae43e36396b732b3b62100e6275026d1df4ef3314973cfdc6724bbe.gz",
+      "published_sha256": "8d8ed9ab9ae43e36396b732b3b62100e6275026d1df4ef3314973cfdc6724bbe",
+      "published_bytes": 849,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original or connected registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-283.json",
+      "sha256": "85f92d9fd56ed59e9fa1806dc20513568fb844efc7b3237f65e2780ead6d4db0",
+      "bytes": 845,
+      "git_blob": "6c6b22389962fc85f464a6518569b855df1df809",
+      "preserved_bytes": "recovered/camera-clearance-059/85f92d9fd56ed59e9fa1806dc20513568fb844efc7b3237f65e2780ead6d4db0.gz",
+      "published_sha256": "85f92d9fd56ed59e9fa1806dc20513568fb844efc7b3237f65e2780ead6d4db0",
+      "published_bytes": 845,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original or connected registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-284.json",
+      "sha256": "30d78171416d40ace514a7d91164d23964d72484fae4537f16cfd4f45cdf2c3e",
+      "bytes": 718,
+      "git_blob": "c20eb627dcc1bf3ffccf14bebb8540a47c3da693",
+      "preserved_bytes": "recovered/camera-clearance-059/30d78171416d40ace514a7d91164d23964d72484fae4537f16cfd4f45cdf2c3e.gz",
+      "published_sha256": "30d78171416d40ace514a7d91164d23964d72484fae4537f16cfd4f45cdf2c3e",
+      "published_bytes": 718,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original or connected registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-285.json",
+      "sha256": "cce3b386883a65c70c00d871b622481f8a52b2a4f23c55b036f8d5eb666de272",
+      "bytes": 715,
+      "git_blob": "6c68db9eeb5fe1bf1411d59a42f238456d81c8f6",
+      "preserved_bytes": "recovered/camera-clearance-059/cce3b386883a65c70c00d871b622481f8a52b2a4f23c55b036f8d5eb666de272.gz",
+      "published_sha256": "cce3b386883a65c70c00d871b622481f8a52b2a4f23c55b036f8d5eb666de272",
+      "published_bytes": 715,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original or connected registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-207.json",
+      "sha256": "685ca8ae637e2ef8444125808b07f16625b6279a834b5187f1d914aa2bbd213a",
+      "bytes": 712,
+      "git_blob": "affa82374c8e9e6e49fe4e4061a3b4b2f5173af7",
+      "preserved_bytes": "recovered/camera-clearance-059/685ca8ae637e2ef8444125808b07f16625b6279a834b5187f1d914aa2bbd213a.gz",
+      "published_sha256": "685ca8ae637e2ef8444125808b07f16625b6279a834b5187f1d914aa2bbd213a",
+      "published_bytes": 712,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-207.json",
+      "sha256": "0656b54f8d4bbfd9d594e33d665fbd7deb830f362e4c888033cebb716211c66c",
+      "bytes": 48597,
+      "git_blob": "7fcd5ab086a08ca70f955fd206b31566ca973aa7",
+      "preserved_bytes": "recovered/camera-clearance-059/0656b54f8d4bbfd9d594e33d665fbd7deb830f362e4c888033cebb716211c66c.gz",
+      "published_sha256": "0656b54f8d4bbfd9d594e33d665fbd7deb830f362e4c888033cebb716211c66c",
+      "published_bytes": 48597,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 evidence verification and explicit null producer-range qualification"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-430.json",
+      "sha256": "0f746d7801e97e3b2b543ac3305db5b0612979aa504a1550c4fc6900d517b37c",
+      "bytes": 1681,
+      "git_blob": "7a2a6cf151a90ffafe9ea3c6416997b4d23c500b",
+      "preserved_bytes": "recovered/camera-clearance-059/0f746d7801e97e3b2b543ac3305db5b0612979aa504a1550c4fc6900d517b37c.gz",
+      "published_sha256": "0f746d7801e97e3b2b543ac3305db5b0612979aa504a1550c4fc6900d517b37c",
+      "published_bytes": 1681,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-431.json",
+      "sha256": "3e29f9457cd38a5aff14ef556b2e96a9b49331e57083f016b3185251cc8767f1",
+      "bytes": 719,
+      "git_blob": "2ce37bacb8a8952ccd6970e5b54a71ea8a4708ef",
+      "preserved_bytes": "recovered/camera-clearance-059/3e29f9457cd38a5aff14ef556b2e96a9b49331e57083f016b3185251cc8767f1.gz",
+      "published_sha256": "3e29f9457cd38a5aff14ef556b2e96a9b49331e57083f016b3185251cc8767f1",
+      "published_bytes": 719,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-432.json",
+      "sha256": "48cd4ea377ee8983e3721eb74db7470829d8a37d1c6ca0ff1afef148e9080fcc",
+      "bytes": 1208,
+      "git_blob": "530a601c98e56d1c273fb42d45300b34eccfab9c",
+      "preserved_bytes": "recovered/camera-clearance-059/48cd4ea377ee8983e3721eb74db7470829d8a37d1c6ca0ff1afef148e9080fcc.gz",
+      "published_sha256": "48cd4ea377ee8983e3721eb74db7470829d8a37d1c6ca0ff1afef148e9080fcc",
+      "published_bytes": 1208,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-430.json",
+      "sha256": "911a079798bf78885fd19a6a1ebc225ccd4b6b6ef283e43a9ce234282c87feb0",
+      "bytes": 11209,
+      "git_blob": "5a7bbcf35a5be285ae244f9a1b48aa241cc5e520",
+      "preserved_bytes": "recovered/camera-clearance-059/911a079798bf78885fd19a6a1ebc225ccd4b6b6ef283e43a9ce234282c87feb0.gz",
+      "published_sha256": "911a079798bf78885fd19a6a1ebc225ccd4b6b6ef283e43a9ce234282c87feb0",
+      "published_bytes": 11209,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-431.json",
+      "sha256": "0625b37c58c9a8c19d07835e3598fe324fbd4f6d975d5f16f8c77d1a46e261c3",
+      "bytes": 5557,
+      "git_blob": "80e33d28011fcea637f03d65239e3a3a72d585b5",
+      "preserved_bytes": "recovered/camera-clearance-059/0625b37c58c9a8c19d07835e3598fe324fbd4f6d975d5f16f8c77d1a46e261c3.gz",
+      "published_sha256": "0625b37c58c9a8c19d07835e3598fe324fbd4f6d975d5f16f8c77d1a46e261c3",
+      "published_bytes": 5557,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-432.json",
+      "sha256": "45cb50a98c1f19f9c9b010dad494e0a760d012dd5d2318f08be51f4f399dc429",
+      "bytes": 8619,
+      "git_blob": "3e8f73da66e9a763b98486fbb82180db6081a2b1",
+      "preserved_bytes": "recovered/camera-clearance-059/45cb50a98c1f19f9c9b010dad494e0a760d012dd5d2318f08be51f4f399dc429.gz",
+      "published_sha256": "45cb50a98c1f19f9c9b010dad494e0a760d012dd5d2318f08be51f4f399dc429",
+      "published_bytes": 8619,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-366.json",
+      "sha256": "adb39e7c644c5f4167c6d38168edcf3332e9032b799e6236e97a16e35e5e1657",
+      "bytes": 1211,
+      "git_blob": "c66fcb2fd9f8f9d38f150309cc6ae88b1e69147b",
+      "preserved_bytes": "recovered/camera-clearance-059/adb39e7c644c5f4167c6d38168edcf3332e9032b799e6236e97a16e35e5e1657.gz",
+      "published_sha256": "adb39e7c644c5f4167c6d38168edcf3332e9032b799e6236e97a16e35e5e1657",
+      "published_bytes": 1211,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-367.json",
+      "sha256": "7b48f2ea9ee55b3752332750bee664420d2a80a52f21330895e7c0c611353015",
+      "bytes": 1173,
+      "git_blob": "27466fff08de15b5ed7c48a244da289db4b0a12f",
+      "preserved_bytes": "recovered/camera-clearance-059/7b48f2ea9ee55b3752332750bee664420d2a80a52f21330895e7c0c611353015.gz",
+      "published_sha256": "7b48f2ea9ee55b3752332750bee664420d2a80a52f21330895e7c0c611353015",
+      "published_bytes": 1173,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-368.json",
+      "sha256": "6bfd7a519f30df341466b4eda17c5cf241d7d5d9e6a286a62a2fcba767fe7024",
+      "bytes": 1179,
+      "git_blob": "c4826d54112f3e7562cf356773c47071c0aed5c8",
+      "preserved_bytes": "recovered/camera-clearance-059/6bfd7a519f30df341466b4eda17c5cf241d7d5d9e6a286a62a2fcba767fe7024.gz",
+      "published_sha256": "6bfd7a519f30df341466b4eda17c5cf241d7d5d9e6a286a62a2fcba767fe7024",
+      "published_bytes": 1179,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-369.json",
+      "sha256": "8853fa95e1e0a313995db1e236f962cefd43d2601affdcb68f0beee071cbe205",
+      "bytes": 1175,
+      "git_blob": "a2f365387111a5df14d3f4456e6c2b56c7837fb3",
+      "preserved_bytes": "recovered/camera-clearance-059/8853fa95e1e0a313995db1e236f962cefd43d2601affdcb68f0beee071cbe205.gz",
+      "published_sha256": "8853fa95e1e0a313995db1e236f962cefd43d2601affdcb68f0beee071cbe205",
+      "published_bytes": 1175,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-370.json",
+      "sha256": "fabf1a5b250ae152b6cae796e9ccc02a44f7f4df353b20747299625d53317d88",
+      "bytes": 1224,
+      "git_blob": "7eff765dc2ebdab79dd9100bc8945f99fadda3a4",
+      "preserved_bytes": "recovered/camera-clearance-059/fabf1a5b250ae152b6cae796e9ccc02a44f7f4df353b20747299625d53317d88.gz",
+      "published_sha256": "fabf1a5b250ae152b6cae796e9ccc02a44f7f4df353b20747299625d53317d88",
+      "published_bytes": 1224,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-371.json",
+      "sha256": "badcc4d0c1b50bdfb3a6e8873cab9ecf9b6906c8c52d30b9eb71c4768a03df97",
+      "bytes": 1206,
+      "git_blob": "935a33b9f2550eab6f46b1428b9ec4d96fd4af11",
+      "preserved_bytes": "recovered/camera-clearance-059/badcc4d0c1b50bdfb3a6e8873cab9ecf9b6906c8c52d30b9eb71c4768a03df97.gz",
+      "published_sha256": "badcc4d0c1b50bdfb3a6e8873cab9ecf9b6906c8c52d30b9eb71c4768a03df97",
+      "published_bytes": 1206,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-430.json",
+      "sha256": "fcbbc6a852ac6ee9997fde6257b01ffa4e9461ec1aad00cd5168bb66e9d864f9",
+      "bytes": 840,
+      "git_blob": "64c0a81332d35a37f93d93997f38e20608816b9d",
+      "preserved_bytes": "recovered/camera-clearance-059/fcbbc6a852ac6ee9997fde6257b01ffa4e9461ec1aad00cd5168bb66e9d864f9.gz",
+      "published_sha256": "fcbbc6a852ac6ee9997fde6257b01ffa4e9461ec1aad00cd5168bb66e9d864f9",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-431.json",
+      "sha256": "679e8a2e4f9034e7e9ad888f988f1759c209e12bdd96d774a9fa58217aab6c08",
+      "bytes": 840,
+      "git_blob": "608e3f586d51c3d45c8e4489ca302564d58ea407",
+      "preserved_bytes": "recovered/camera-clearance-059/679e8a2e4f9034e7e9ad888f988f1759c209e12bdd96d774a9fa58217aab6c08.gz",
+      "published_sha256": "679e8a2e4f9034e7e9ad888f988f1759c209e12bdd96d774a9fa58217aab6c08",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-432.json",
+      "sha256": "7c7a0caccc6590c8f0ef596a086a28efb5589952a24235f738d341db12560a98",
+      "bytes": 840,
+      "git_blob": "c114f8c94449fbeb67de4dcf4584fb7acce90a01",
+      "preserved_bytes": "recovered/camera-clearance-059/7c7a0caccc6590c8f0ef596a086a28efb5589952a24235f738d341db12560a98.gz",
+      "published_sha256": "7c7a0caccc6590c8f0ef596a086a28efb5589952a24235f738d341db12560a98",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-430.json",
+      "sha256": "ecfd5175220e0abb451d24e93cd142a83a9865e776ebfac0743a76132c90dae7",
+      "bytes": 558,
+      "git_blob": "2b794333af77dfbde8f8144d7c50bd147cfad358",
+      "preserved_bytes": "recovered/camera-clearance-059/ecfd5175220e0abb451d24e93cd142a83a9865e776ebfac0743a76132c90dae7.gz",
+      "published_sha256": "ecfd5175220e0abb451d24e93cd142a83a9865e776ebfac0743a76132c90dae7",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-431.json",
+      "sha256": "097be1fc0add25afe998f87fd03bfdd1182120d0347b9df6f33f835824d6464c",
+      "bytes": 558,
+      "git_blob": "8aa3787380483ac8975f717502f6aa4c0ebabdc7",
+      "preserved_bytes": "recovered/camera-clearance-059/097be1fc0add25afe998f87fd03bfdd1182120d0347b9df6f33f835824d6464c.gz",
+      "published_sha256": "097be1fc0add25afe998f87fd03bfdd1182120d0347b9df6f33f835824d6464c",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-432.json",
+      "sha256": "cd56f4a86fe91e2285c0ce14401a8f32b29d96be8383a3759d749d7601263f2d",
+      "bytes": 558,
+      "git_blob": "cb1196e32c4b847f1837106a66e450026f650a95",
+      "preserved_bytes": "recovered/camera-clearance-059/cd56f4a86fe91e2285c0ce14401a8f32b29d96be8383a3759d749d7601263f2d.gz",
+      "published_sha256": "cd56f4a86fe91e2285c0ce14401a8f32b29d96be8383a3759d749d7601263f2d",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, source ranges and null-range qualification retained; no checkpoint 3821 transfer."
+    }
+  ],
+  "historical_null_range_qualification": [
+    {
+      "original_index": 1463,
+      "field": "producer_source_proof",
+      "original_record": {
+        "shard": "camera",
+        "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+        "ranges": null,
+        "source_read_status": null,
+        "trace_refs": []
+      },
+      "qualification": "No recorded range; no extra range/fixture verdict credit. Full independently scoped owner source read preserved."
+    }
+  ],
+  "remaining": "Actual custom profile production, scene bounds, native physics and camera outcomes, complete source populations, exact aliases and thirteen independent lenses remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
