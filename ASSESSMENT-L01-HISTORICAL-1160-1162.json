@@ -1,0 +1,103 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1160,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/marriage.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1160",
+      "sha256": "707052669ad21da99362ea13fe18eefef9b2ee79c0cea3da8f4350da05068031",
+      "lines": 481,
+      "new_personal_read_ranges": [
+        [
+          1,
+          481
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "707052669ad21da99362ea13fe18eefef9b2ee79c0cea3da8f4350da05068031",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1161,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/mod.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1161",
+      "sha256": "3a963760e8bdf9dbe54464488f72d3dd2c976d3a2da5705a5cb30dec2f9265b1",
+      "lines": 217,
+      "new_personal_read_ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "3a963760e8bdf9dbe54464488f72d3dd2c976d3a2da5705a5cb30dec2f9265b1",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1162,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/model.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1162",
+      "sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "lines": 496,
+      "new_personal_read_ranges": [
+        [
+          1,
+          496
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "bounded-current-trace-only",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open.",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-CONCEPTION-STATE.json",
+          "ranges": [
+            [
+              380,
+              415
+            ]
+          ]
+        }
+      ],
+      "prior_current_qualification": "Only cited current ranges were inspected. Equal bytes do not close historical identity, connected scope or any lens."
+    }
+  ],
+  "observations": [
+    "Role 1160 contains canonical-world wedding settlement, residence and dowry effects, terminal transitions and a separate global helper.",
+    "Role 1161 assembles relationship fragments and the bounded combined wedding/birth queue. Its wedding catch-all failure path was independently assessed earlier; the selected current frontier trace does not subsume that failure.",
+    "Role 1162 contains native typed relationship states and personal/canonical temporal scope. The earlier bounded current conception-state observation is retained verbatim with its original qualification.",
+    "Historical source tests were read, not run. Equality to 95e does not confer current or other-lens coverage, nor reconstruct checkpoint 3821."
+  ],
+  "remaining": "Continue original role 1163; marriage, scheduler, residence, chronology, typed state and all independent lenses remain open."
+}

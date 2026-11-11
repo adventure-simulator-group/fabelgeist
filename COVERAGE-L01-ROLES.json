@@ -9,14 +9,14 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 1634,
+    "unassessed": 1632,
     "lock-metadata-partial": 3,
-    "bounded-current-trace-only": 107,
+    "bounded-current-trace-only": 106,
     "assessed-nonapplicable": 3,
-    "full-historical-body-trace-open": 1101,
+    "full-historical-body-trace-open": 1104,
     "deleted-base-trace-open": 5
   },
-  "first_unfinished": "Lock roles 39, 497 and 680 remain metadata-partial; frozen bodies 1152–1159 have now been read. Continue at role 1160; independent lenses remain open.",
+  "first_unfinished": "Lock roles 39, 497 and 680 remain metadata-partial; frozen bodies 1160–1162 have now been read. Continue at role 1163; independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -16083,7 +16083,9 @@
       "historical_sha256": "707052669ad21da99362ea13fe18eefef9b2ee79c0cea3da8f4350da05068031",
       "registry_pointer": "/files/1160",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1160-1162.json"
     },
     {
       "original_index": 1161,
@@ -16093,7 +16095,9 @@
       "historical_sha256": "3a963760e8bdf9dbe54464488f72d3dd2c976d3a2da5705a5cb30dec2f9265b1",
       "registry_pointer": "/files/1161",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1160-1162.json"
     },
     {
       "original_index": 1162,
@@ -16103,7 +16107,7 @@
       "historical_sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
       "registry_pointer": "/files/1162",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/adventuresim-stdb-module/src/relationship/model.rs",
       "current_git_blob": "fbc7ccadd3baf43cb922f63def0a87f7f3e8fbf8",
       "current_observations": [
@@ -16117,7 +16121,9 @@
           ]
         }
       ],
-      "qualification": "Only cited current ranges were inspected. Equal bytes do not close historical identity, connected scope or any lens."
+      "qualification": "Only cited current ranges were inspected. Equal bytes do not close historical identity, connected scope or any lens.",
+      "historical_qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1160-1162.json"
     },
     {
       "original_index": 1163,
