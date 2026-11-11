@@ -1,0 +1,389 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Three original room/sightline/manifest roles and bounded current WeighHouse furniture budget and room assignment.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1717-1719.json",
+  "git_membership_evidence": "WEIGH-HOUSE-HISTORICAL-GIT-PROOFS.json",
+  "current_parent_assessment": "ASSESSMENT-L01-HISTORICAL-1713-1716.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-building-generator/src/interior/budgets.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "efbf23f4adec285a9b3e19e8ff32bbb312244ca1",
+      "sha256": "a767c9aff3ec12709517bf615d1f46bfc97bfbc85b1b8a4b7c4da138a263ce13",
+      "bytes": 7482,
+      "lines": 191,
+      "ranges": [
+        [
+          30,
+          110
+        ],
+        [
+          145,
+          190
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/weigh-house-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/settlement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "45e4e3a57d292eb04f13e8806413abaf8147a51e",
+      "sha256": "5a26d13567d00297e0bec89a8425945e633f346b1593eba9d4733ece32476ffc",
+      "bytes": 10806,
+      "lines": 257,
+      "ranges": [
+        [
+          135,
+          170
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/weigh-house-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/interior/tests.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e8270e122035931c9eb465cd39af0e6cedb317b8",
+      "sha256": "7d7d344ce8fac8cfff3cec83f97468042e49ebd33408a536e39a13b8f0c8a2cf",
+      "bytes": 13830,
+      "lines": 393,
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/weigh-house-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-WEIGH-HOUSE-SIGNATURE-OMISSION-001",
+      "lens": 8,
+      "severity": "unassigned; source-observed absence of a named-subject requirement",
+      "classification": "New95e room-signature question connected to earlier Segovb551 sightline and Segovb549 parent mapping scopes; not a new historical finding.",
+      "canonical_owner": "Furnished-room review subject policy joining the selected room and its intended named visual subjects.",
+      "first_failed_contract_or_question": "The view labelled weighing and line reckoning selects CountingRoom, but no CountingRoom furniture is marked signature; the sightline selector therefore imposes no named-subject visibility requirement for this view. Whether the label promises those subjects is a policy question.",
+      "trace": [
+        "The furnished-room view arrays associate WeighHouse with the slug weigh-house and label Weighing and line reckoning, and setup_rooms maps index13 to RoomSelection::Role(RoomKind::CountingRoom). The selector chooses a CountingRoom with at least one furnishing and builds subjects only from its placements; stair signature subjects are added only for UpperKeep.",
+        "signature_kind handles named room roles such as Shop, CommonRoom, Ward, Workshop, Nave and Storage, but its default branch returns false for Role(CountingRoom), regardless of furniture kind. Thus every furniture subject in that selected room has signature=false and sightlines::choose computes needs_signature=false; its conditional signature gate does not require a balance or reckoning table to be visible. The selector still scores and frames visible subjects, and may in fact include those tables.",
+        "The current room budget lists ReckoningTable and, for WeighHouse, BalanceTable plus Cupboard; placement depends on generated layout and constraints. A source test names BalanceTable as expected somewhere in a representative WeighHouse, but it was only read and neither establishes this selected room nor was executed. The manifest gates generic captured content and scene conditions; this source trace does not establish an actual capture or gate result."
+      ],
+      "counterevidence": "A no-signature ensemble mode is explicit and may be the intended policy. Actual generated fixture, placement success, camera selection, subject visibility, screenshot and user-visible effect were not observed. The label does not itself prove that both named kinds must always appear. Other room modes must not be forced to require a signature without their own contracts.",
+      "prior_attribution": "Earlier Segovb551 correctly described no-signature ensemble mode and left upstream policy open; Segovb549 identified the parent positional room mapping. The current CountingRoom-specific connection is later analysis and does not change historical counts.",
+      "connected_repair_dependencies": [
+        "Clarify whether the named weighing and reckoning plate requires one or both furniture kinds to be represented and what to do when a requested subject is absent.",
+        "Trace actual admitted WeighHouse layout, selected room, path/sightline and renderer before deciding the extent of the repair.",
+        "If required, associate the room review row with typed subject criteria and preserve explicitly intended no-signature ensemble modes elsewhere."
+      ],
+      "later_acceptance": [
+        "The view’s documented subject policy is enforced or the label is corrected; absence and obstructed views remain explicit rather than being silently certified as the named proof."
+      ],
+      "discovery": "partial; CountingRoom always has no signature in the inspected path, but actual fixture, intended visual contract, image and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Room selection and door blockers",
+      "trace": "Selected semantic rooms require at least one placement; subjects and blockers share the same enumerated placement identity. Closed-door solids are included in sightline blockers; the older and newer source tests choose different example rays.",
+      "remaining": "No generated plan, ray query, scheduler or source test was run. Native collision/projection and ID uniqueness remain open."
+    },
+    {
+      "contract": "Manifest timing and persistence",
+      "trace": "Manifest finalization checks retained capture/scalar and scene criteria; the separately recorded native save outcome question remains partial. The current manifest differs from6533 only in two test helper paths.",
+      "remaining": "The earlier future-role identity-only qualification remains intact; actual output, native save and other gate outcomes remain unobserved."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "ASSESSMENT-SCENE-CAPTURE-PERSISTENCE-95E.json",
+      "qualification": "Prior role1719 identity proof and bounded current read; no historical full credit then."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/257"
+      ],
+      "qualification": "Original capture persistence question remains separate and partial."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PARTIAL-L12-552-001.json",
+      "sha256": "f38aa012748dc6eeacfc520bc776a9ff7daa80dd9ad79a4ea20f9cd285b4c6ad",
+      "bytes": 6109,
+      "git_blob": "4a9e94bb8b405fbe10b0b62d42be299dca56c6d8",
+      "preserved_bytes": "recovered/weigh-house-059/f38aa012748dc6eeacfc520bc776a9ff7daa80dd9ad79a4ea20f9cd285b4c6ad.gz",
+      "published_sha256": "f38aa012748dc6eeacfc520bc776a9ff7daa80dd9ad79a4ea20f9cd285b4c6ad",
+      "published_bytes": 6109,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier reviewer partial or EOF qualification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-552-002-EOF.json",
+      "sha256": "788f7741c5609daa7a20e5cba57374612a50d5fbdb1ae0c1b8099d454d909941",
+      "bytes": 4704,
+      "git_blob": "41b57346dd91be93f2f13ffdc1913f444986cfa9",
+      "preserved_bytes": "recovered/weigh-house-059/788f7741c5609daa7a20e5cba57374612a50d5fbdb1ae0c1b8099d454d909941.gz",
+      "published_sha256": "788f7741c5609daa7a20e5cba57374612a50d5fbdb1ae0c1b8099d454d909941",
+      "published_bytes": 4704,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier reviewer partial or EOF qualification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-551.json",
+      "sha256": "6834f664c3e373aae5fcb181bcdd666ae231eab9cd9f75a49e54803557afec39",
+      "bytes": 1292,
+      "git_blob": "a32092858970529ddbbee48e3120122684b2c519",
+      "preserved_bytes": "recovered/weigh-house-059/6834f664c3e373aae5fcb181bcdd666ae231eab9cd9f75a49e54803557afec39.gz",
+      "published_sha256": "6834f664c3e373aae5fcb181bcdd666ae231eab9cd9f75a49e54803557afec39",
+      "published_bytes": 1292,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-552.json",
+      "sha256": "0c31e06abc5ba16ff415abe7f33e9c9590a1e5db75dc1054fd87e9abcfb4b917",
+      "bytes": 733,
+      "git_blob": "40911495c955835632105297cfa5082d08ab5d49",
+      "preserved_bytes": "recovered/weigh-house-059/0c31e06abc5ba16ff415abe7f33e9c9590a1e5db75dc1054fd87e9abcfb4b917.gz",
+      "published_sha256": "0c31e06abc5ba16ff415abe7f33e9c9590a1e5db75dc1054fd87e9abcfb4b917",
+      "published_bytes": 733,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-543.json",
+      "sha256": "42b41aaff4e286f1bee20a290f1837069b4c843713feddfaa782119b2ece45bb",
+      "bytes": 42071,
+      "git_blob": "316fadcf065d57e6c78673c8a66d2d3b819feda9",
+      "preserved_bytes": "recovered/weigh-house-059/42b41aaff4e286f1bee20a290f1837069b4c843713feddfaa782119b2ece45bb.gz",
+      "published_sha256": "42b41aaff4e286f1bee20a290f1837069b4c843713feddfaa782119b2ece45bb",
+      "published_bytes": 42071,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier same-lens receipt, no new credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-545.json",
+      "sha256": "3e54c62e68348d6318be889d56a0dc3669fe65f94bdb345e797d67b3940435fb",
+      "bytes": 11383,
+      "git_blob": "cd9e9d497da224c266982a87899d935be1c8f56a",
+      "preserved_bytes": "recovered/weigh-house-059/3e54c62e68348d6318be889d56a0dc3669fe65f94bdb345e797d67b3940435fb.gz",
+      "published_sha256": "3e54c62e68348d6318be889d56a0dc3669fe65f94bdb345e797d67b3940435fb",
+      "published_bytes": 11383,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier same-lens receipt, no new credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-551.json",
+      "sha256": "ca484ca0b2b0fc838d8454952cd8e30789f869145f40d3e8d5a6f5c97061ce21",
+      "bytes": 9188,
+      "git_blob": "297f9855375eaece05303d9a4fc67a1a3dbe2757",
+      "preserved_bytes": "recovered/weigh-house-059/ca484ca0b2b0fc838d8454952cd8e30789f869145f40d3e8d5a6f5c97061ce21.gz",
+      "published_sha256": "ca484ca0b2b0fc838d8454952cd8e30789f869145f40d3e8d5a6f5c97061ce21",
+      "published_bytes": 9188,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-552.json",
+      "sha256": "9720b361d43eaf8d924346713f71807196e38f065c9592a1fdd3df33ec31a1bf",
+      "bytes": 11625,
+      "git_blob": "2ca232f78cdf0f8ce30f4c06d7320de773b00056",
+      "preserved_bytes": "recovered/weigh-house-059/9720b361d43eaf8d924346713f71807196e38f065c9592a1fdd3df33ec31a1bf.gz",
+      "published_sha256": "9720b361d43eaf8d924346713f71807196e38f065c9592a1fdd3df33ec31a1bf",
+      "published_bytes": 11625,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-606.json",
+      "sha256": "639d55b7e5918087a2663bf7bb27df4c25ae90175a27829f053649b32f497dae",
+      "bytes": 1247,
+      "git_blob": "d151d4a11f21ba678fbcf7989f7138b8e2c00bac",
+      "preserved_bytes": "recovered/weigh-house-059/639d55b7e5918087a2663bf7bb27df4c25ae90175a27829f053649b32f497dae.gz",
+      "published_sha256": "639d55b7e5918087a2663bf7bb27df4c25ae90175a27829f053649b32f497dae",
+      "published_bytes": 1247,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-611.json",
+      "sha256": "4ca4ee5082fb7378887548e527ba72411bb1f585dc4310d1765eab2ff40d00d0",
+      "bytes": 1281,
+      "git_blob": "dcf219b4d5cff4600a33fdbc535f7e21c75fc632",
+      "preserved_bytes": "recovered/weigh-house-059/4ca4ee5082fb7378887548e527ba72411bb1f585dc4310d1765eab2ff40d00d0.gz",
+      "published_sha256": "4ca4ee5082fb7378887548e527ba72411bb1f585dc4310d1765eab2ff40d00d0",
+      "published_bytes": 1281,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-624.json",
+      "sha256": "2131ad3252062a130aa24b4d6dab3bdee3f64c470a383922b67d365246f1b480",
+      "bytes": 1269,
+      "git_blob": "32470bc71b09ea24d80e5e5e1ab97c7aac93397b",
+      "preserved_bytes": "recovered/weigh-house-059/2131ad3252062a130aa24b4d6dab3bdee3f64c470a383922b67d365246f1b480.gz",
+      "published_sha256": "2131ad3252062a130aa24b4d6dab3bdee3f64c470a383922b67d365246f1b480",
+      "published_bytes": 1269,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-625.json",
+      "sha256": "4448677ff0ffd5604f515ee1f86c9adf944feaeafdb5f206903127ff390b2c14",
+      "bytes": 1291,
+      "git_blob": "18dcc7d594494d2c480a9e08b184e808954639a6",
+      "preserved_bytes": "recovered/weigh-house-059/4448677ff0ffd5604f515ee1f86c9adf944feaeafdb5f206903127ff390b2c14.gz",
+      "published_sha256": "4448677ff0ffd5604f515ee1f86c9adf944feaeafdb5f206903127ff390b2c14",
+      "published_bytes": 1291,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-626.json",
+      "sha256": "4a2aa8bf023605c544eb3feaaed00aa46a07e411e41ad366576fdc8da6262c3e",
+      "bytes": 1238,
+      "git_blob": "30ad04ad686a3d2c9f69afe1e11f1163281902df",
+      "preserved_bytes": "recovered/weigh-house-059/4a2aa8bf023605c544eb3feaaed00aa46a07e411e41ad366576fdc8da6262c3e.gz",
+      "published_sha256": "4a2aa8bf023605c544eb3feaaed00aa46a07e411e41ad366576fdc8da6262c3e",
+      "published_bytes": 1238,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-551.json",
+      "sha256": "b23b2bbf1b2dc1dfc50491cb244fafba2d5d09e46dc1e57b49bd468d8b5e3298",
+      "bytes": 840,
+      "git_blob": "91513759e15ea2fe55713c1b8a15115d73df4377",
+      "preserved_bytes": "recovered/weigh-house-059/b23b2bbf1b2dc1dfc50491cb244fafba2d5d09e46dc1e57b49bd468d8b5e3298.gz",
+      "published_sha256": "b23b2bbf1b2dc1dfc50491cb244fafba2d5d09e46dc1e57b49bd468d8b5e3298",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-552.json",
+      "sha256": "d57a1deb2c1152e432fec901f23d73fa7dcdcf9e29eed70b794120c4d55f5a69",
+      "bytes": 840,
+      "git_blob": "619d7913ee07b55129ea1d3c0d430aa328508898",
+      "preserved_bytes": "recovered/weigh-house-059/d57a1deb2c1152e432fec901f23d73fa7dcdcf9e29eed70b794120c4d55f5a69.gz",
+      "published_sha256": "d57a1deb2c1152e432fec901f23d73fa7dcdcf9e29eed70b794120c4d55f5a69",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-551.json",
+      "sha256": "9439c88075fd5be7d6d0fad0d05c4e9a0c876931fdc2fd79f30775ef94ee6795",
+      "bytes": 558,
+      "git_blob": "063d0197163f596c6aba73a40ee87bf6a4e4f414",
+      "preserved_bytes": "recovered/weigh-house-059/9439c88075fd5be7d6d0fad0d05c4e9a0c876931fdc2fd79f30775ef94ee6795.gz",
+      "published_sha256": "9439c88075fd5be7d6d0fad0d05c4e9a0c876931fdc2fd79f30775ef94ee6795",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-552.json",
+      "sha256": "d02a383d97bb425ec49c00c9ca0a6af886c486ace4eaaa8e84511bd64de6922a",
+      "bytes": 558,
+      "git_blob": "758a7ef574f768a54fa3c03559182157032b1817",
+      "preserved_bytes": "recovered/weigh-house-059/d02a383d97bb425ec49c00c9ca0a6af886c486ace4eaaa8e84511bd64de6922a.gz",
+      "published_sha256": "d02a383d97bb425ec49c00c9ca0a6af886c486ace4eaaa8e84511bd64de6922a",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    }
+  ],
+  "remaining": "Continue original1720; resolve WeighHouse subject policy and admitted fixture, all13 lenses and semantic queue. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
