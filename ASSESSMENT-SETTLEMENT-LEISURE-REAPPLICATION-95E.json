@@ -1,0 +1,617 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 4,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected settlement rest and leisure condition operation at 95e; no product execution.",
+  "source_reasoning": "Pinned source inspection, source-derived symbolic arithmetic and evidence-byte verification only. Source tests were read without execution; no product build, test, simulation, runtime, database or browser probe.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "965aec5634dad55bab94097ddccbf54049135848",
+      "sha256": "f63df87344c6f358a0bcaa63481d349415e8e5481acb42031232d17cf20db125",
+      "bytes": 23560,
+      "lines": 651,
+      "ranges": [
+        [
+          1,
+          651
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/settlement-leisure-sources/00.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support this bounded current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/activities.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f2fca0af6de52b6f7fe9d145a1791cdd687a1b41",
+      "sha256": "a47b028b15d0e416ae19b84b18f616bff39ea8f7a951526e32996cc70ed48915",
+      "bytes": 16424,
+      "lines": 445,
+      "ranges": [
+        [
+          1,
+          182
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/settlement-leisure-sources/01.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support this bounded current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/schedule.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "495977b502b62adaa7a68a5c6ccf4d7aa7689a7d",
+      "sha256": "08c054563be5757fc2da0ce95af4c995e5a8f8d1acf549bc5dbc65f2c3443077",
+      "bytes": 27540,
+      "lines": 741,
+      "ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/settlement-leisure-sources/02.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support this bounded current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/stationary.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b4516fd30bc450d22c9fecf52b9b06580d6984c8",
+      "sha256": "4b9f686e5eb3dc2600ce935086991c271678c71692415cfb58c056a74883caf2",
+      "bytes": 9593,
+      "lines": 263,
+      "ranges": [
+        [
+          190,
+          263
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/settlement-leisure-sources/03.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support this bounded current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f28669757f5039d1344cf14f0912f4aec5152ff7",
+      "sha256": "8b5882561331877cca6e022666a6fc03c813375df88bcdda95752cddd3cd1a1e",
+      "bytes": 3682,
+      "lines": 98,
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/settlement-leisure-sources/04.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support this bounded current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/condition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bdc470d795940aee28e60528b56120a9e09ba232",
+      "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "bytes": 92654,
+      "lines": 2627,
+      "ranges": [
+        [
+          495,
+          547
+        ],
+        [
+          1998,
+          2110
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/settlement-leisure-sources/05.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support this bounded current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/residence.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "226209e879e08a5e427736402b7e0edd9f618d3f",
+      "sha256": "df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+      "bytes": 49683,
+      "lines": 1455,
+      "ranges": [
+        [
+          943,
+          1039
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/settlement-leisure-sources/06.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support this bounded current trace."
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_schedule.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "00912abaa99cd109ae11c652fa04099875ea1047",
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "bytes": 48824,
+      "lines": 1363,
+      "ranges": [
+        [
+          1,
+          31
+        ],
+        [
+          135,
+          238
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/settlement-leisure-sources/07.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support this bounded current trace."
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f7978724b74a070ff2f5f2c00324276d753a5015",
+      "sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+      "bytes": 12334,
+      "lines": 364,
+      "ranges": [
+        [
+          1,
+          250
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/settlement-leisure-sources/08.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support this bounded current trace."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/957",
+      "qualification": "Broad earlier unresolved leisure/native lifecycle scope; no exact alias asserted."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/962",
+      "qualification": "Broad earlier leisure/morale/source-selector scope; no exact alias asserted."
+    },
+    {
+      "file": "ASSESSMENT-L12-RESIDENCE-LEISURE-95E.json",
+      "qualification": "Separate residence spouse-source classifier issue; same helper does not establish same defect."
+    },
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1250-1256.json",
+      "qualification": "Seven independently recorded historical Lens1 reads and earlier Lens12 receipts."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-315.json",
+      "sha256": "6e233ed02d5b0e4d4cdac89b265a2f93d62fab08ca590d3611142ac6a9ba8433",
+      "bytes": 707,
+      "git_blob": "f97b97519bdeb6c074178edef5831e2523053982",
+      "preserved_bytes": "recovered/settlement-leisure-059/6e233ed02d5b0e4d4cdac89b265a2f93d62fab08ca590d3611142ac6a9ba8433.gz",
+      "published_sha256": "6e233ed02d5b0e4d4cdac89b265a2f93d62fab08ca590d3611142ac6a9ba8433",
+      "published_bytes": 707,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-316.json",
+      "sha256": "0c231926e91bb790826a6cdbb7bbf398babb9a1e490c38150c5eb5c8a64e3cc9",
+      "bytes": 712,
+      "git_blob": "82ac69d7901a1812fd78b1f1ebb8fae38e57e3c3",
+      "preserved_bytes": "recovered/settlement-leisure-059/0c231926e91bb790826a6cdbb7bbf398babb9a1e490c38150c5eb5c8a64e3cc9.gz",
+      "published_sha256": "0c231926e91bb790826a6cdbb7bbf398babb9a1e490c38150c5eb5c8a64e3cc9",
+      "published_bytes": 712,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-317.json",
+      "sha256": "888013b7b117a2b1a747463fb856f74e8627fd74dd1c98e350fc0bb22fc9eb91",
+      "bytes": 719,
+      "git_blob": "bc27fa5e8445cc7ccca429e5dc3a82474b8d00c9",
+      "preserved_bytes": "recovered/settlement-leisure-059/888013b7b117a2b1a747463fb856f74e8627fd74dd1c98e350fc0bb22fc9eb91.gz",
+      "published_sha256": "888013b7b117a2b1a747463fb856f74e8627fd74dd1c98e350fc0bb22fc9eb91",
+      "published_bytes": 719,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-318.json",
+      "sha256": "8d42a15c5645b50a3aabfb1098aee7f0b78f4d3fa2086fc0c8a1178e6fe87079",
+      "bytes": 714,
+      "git_blob": "95b55f02604623d99684393c455472e420ffe5d4",
+      "preserved_bytes": "recovered/settlement-leisure-059/8d42a15c5645b50a3aabfb1098aee7f0b78f4d3fa2086fc0c8a1178e6fe87079.gz",
+      "published_sha256": "8d42a15c5645b50a3aabfb1098aee7f0b78f4d3fa2086fc0c8a1178e6fe87079",
+      "published_bytes": 714,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-319.json",
+      "sha256": "e25b43ee228d28936e9b9da8db379ba2563b66da02e5e08f44fa38a36f88dc9b",
+      "bytes": 1710,
+      "git_blob": "e4d81a7db69afc424e075549d20d7703835e63f1",
+      "preserved_bytes": "recovered/settlement-leisure-059/e25b43ee228d28936e9b9da8db379ba2563b66da02e5e08f44fa38a36f88dc9b.gz",
+      "published_sha256": "e25b43ee228d28936e9b9da8db379ba2563b66da02e5e08f44fa38a36f88dc9b",
+      "published_bytes": 1710,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-315.json",
+      "sha256": "ca049bfe8e1342e1cf86a805ace7e7c03bc7b71c8e4b530b8eaff1ea8dcd9b89",
+      "bytes": 4556,
+      "git_blob": "ec90e7b4da029b96676141d722ac1b2cca9dde9e",
+      "preserved_bytes": "recovered/settlement-leisure-059/ca049bfe8e1342e1cf86a805ace7e7c03bc7b71c8e4b530b8eaff1ea8dcd9b89.gz",
+      "published_sha256": "ca049bfe8e1342e1cf86a805ace7e7c03bc7b71c8e4b530b8eaff1ea8dcd9b89",
+      "published_bytes": 4556,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-316.json",
+      "sha256": "d3134417bfedabf29358bd1d87960acb4000e7d505a03633ac3b712224dac276",
+      "bytes": 8692,
+      "git_blob": "b4a9db71d3dc5d6022018c7f768c98c72439cb10",
+      "preserved_bytes": "recovered/settlement-leisure-059/d3134417bfedabf29358bd1d87960acb4000e7d505a03633ac3b712224dac276.gz",
+      "published_sha256": "d3134417bfedabf29358bd1d87960acb4000e7d505a03633ac3b712224dac276",
+      "published_bytes": 8692,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-317.json",
+      "sha256": "a50e1c1a56819bac0ec0130fac8bcc8c54eae741e8b6ce09d974ca37cb5ff9fe",
+      "bytes": 7864,
+      "git_blob": "f78906d3f7c22140a129a506b368d1a390f1b9d4",
+      "preserved_bytes": "recovered/settlement-leisure-059/a50e1c1a56819bac0ec0130fac8bcc8c54eae741e8b6ce09d974ca37cb5ff9fe.gz",
+      "published_sha256": "a50e1c1a56819bac0ec0130fac8bcc8c54eae741e8b6ce09d974ca37cb5ff9fe",
+      "published_bytes": 7864,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-318.json",
+      "sha256": "70895c267905475a04fc18318fe57ee56ad5df044a6ef53b96b01c325382f423",
+      "bytes": 6530,
+      "git_blob": "2167abb1fc0d626308581e097cacd4d26c12f083",
+      "preserved_bytes": "recovered/settlement-leisure-059/70895c267905475a04fc18318fe57ee56ad5df044a6ef53b96b01c325382f423.gz",
+      "published_sha256": "70895c267905475a04fc18318fe57ee56ad5df044a6ef53b96b01c325382f423",
+      "published_bytes": 6530,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-319.json",
+      "sha256": "ff5f49e516686a9b6a8a5d8b3b44fe5c25b952b4f2bc5653080107db8ba50c52",
+      "bytes": 11311,
+      "git_blob": "4a56849cdb9222cd0e65ca223c79eaeaed98087b",
+      "preserved_bytes": "recovered/settlement-leisure-059/ff5f49e516686a9b6a8a5d8b3b44fe5c25b952b4f2bc5653080107db8ba50c52.gz",
+      "published_sha256": "ff5f49e516686a9b6a8a5d8b3b44fe5c25b952b4f2bc5653080107db8ba50c52",
+      "published_bytes": 11311,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-157.json",
+      "sha256": "92e8e0d9116967953a92720d4d32b5cdeba3d795dea60ca39f20826511c4b02c",
+      "bytes": 1126,
+      "git_blob": "e49250171c4ce70ee2d27c961c179865cbb4d3e1",
+      "preserved_bytes": "recovered/settlement-leisure-059/92e8e0d9116967953a92720d4d32b5cdeba3d795dea60ca39f20826511c4b02c.gz",
+      "published_sha256": "92e8e0d9116967953a92720d4d32b5cdeba3d795dea60ca39f20826511c4b02c",
+      "published_bytes": 1126,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-158.json",
+      "sha256": "b65d4ad0f33d9254e5b79723d2c51c8a71d83f90491e2f7b941d939df395d4de",
+      "bytes": 1148,
+      "git_blob": "773a58b9607c9dab738947c3012a24037c4f01c0",
+      "preserved_bytes": "recovered/settlement-leisure-059/b65d4ad0f33d9254e5b79723d2c51c8a71d83f90491e2f7b941d939df395d4de.gz",
+      "published_sha256": "b65d4ad0f33d9254e5b79723d2c51c8a71d83f90491e2f7b941d939df395d4de",
+      "published_bytes": 1148,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-159.json",
+      "sha256": "bfa017e79a5f351faeb496bcbc9270289d773dd4dc2c98eca110b4926b5470dd",
+      "bytes": 1447,
+      "git_blob": "88be058538db1689c241ae09ba97346dc01b4420",
+      "preserved_bytes": "recovered/settlement-leisure-059/bfa017e79a5f351faeb496bcbc9270289d773dd4dc2c98eca110b4926b5470dd.gz",
+      "published_sha256": "bfa017e79a5f351faeb496bcbc9270289d773dd4dc2c98eca110b4926b5470dd",
+      "published_bytes": 1447,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-160.json",
+      "sha256": "876efd2318f78f9457ed5937d836401f0bd56b7eab4a58328ed5535658ad2b77",
+      "bytes": 1409,
+      "git_blob": "070f5906cd7974b1fe88a4b67c155bdb4f797796",
+      "preserved_bytes": "recovered/settlement-leisure-059/876efd2318f78f9457ed5937d836401f0bd56b7eab4a58328ed5535658ad2b77.gz",
+      "published_sha256": "876efd2318f78f9457ed5937d836401f0bd56b7eab4a58328ed5535658ad2b77",
+      "published_bytes": 1409,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-161.json",
+      "sha256": "70c765efe12a67d7cf2ba36b1adde8254c07528d4b0b51551b07c7c6e873e5ff",
+      "bytes": 1182,
+      "git_blob": "ce9edaecd2272223dd6d407a1c8bd56d1a150d11",
+      "preserved_bytes": "recovered/settlement-leisure-059/70c765efe12a67d7cf2ba36b1adde8254c07528d4b0b51551b07c7c6e873e5ff.gz",
+      "published_sha256": "70c765efe12a67d7cf2ba36b1adde8254c07528d4b0b51551b07c7c6e873e5ff",
+      "published_bytes": 1182,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-162.json",
+      "sha256": "06318209bbccda56e75bdd96e1f67cfa9860c0abbc42232d659dcb2a71235a2c",
+      "bytes": 1148,
+      "git_blob": "e0d184ad526f7a99f04931cdca720abe6504c562",
+      "preserved_bytes": "recovered/settlement-leisure-059/06318209bbccda56e75bdd96e1f67cfa9860c0abbc42232d659dcb2a71235a2c.gz",
+      "published_sha256": "06318209bbccda56e75bdd96e1f67cfa9860c0abbc42232d659dcb2a71235a2c",
+      "published_bytes": 1148,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-163.json",
+      "sha256": "833e6b8dfb7f8b94f6491b8fa3e1c022c146eac34f55fdc83627a85a05d805fa",
+      "bytes": 1182,
+      "git_blob": "a1bf61620bbba17bfb56336b3c7e4e2209446dab",
+      "preserved_bytes": "recovered/settlement-leisure-059/833e6b8dfb7f8b94f6491b8fa3e1c022c146eac34f55fdc83627a85a05d805fa.gz",
+      "published_sha256": "833e6b8dfb7f8b94f6491b8fa3e1c022c146eac34f55fdc83627a85a05d805fa",
+      "published_bytes": 1182,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-315.json",
+      "sha256": "116f8b9c6d5328a98878684bc11d8d7bf99f9abe9f8721a44caf48dc75c10765",
+      "bytes": 840,
+      "git_blob": "7ee1f859884840e02867c4631954453fd2f68d23",
+      "preserved_bytes": "recovered/settlement-leisure-059/116f8b9c6d5328a98878684bc11d8d7bf99f9abe9f8721a44caf48dc75c10765.gz",
+      "published_sha256": "116f8b9c6d5328a98878684bc11d8d7bf99f9abe9f8721a44caf48dc75c10765",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-316.json",
+      "sha256": "3372f3f81d9cbb7a9ababd5b34710349c0abebc78390b82e065f5fb7c0497464",
+      "bytes": 840,
+      "git_blob": "d9dd2a5b22038f03f882039624da29967f38fb96",
+      "preserved_bytes": "recovered/settlement-leisure-059/3372f3f81d9cbb7a9ababd5b34710349c0abebc78390b82e065f5fb7c0497464.gz",
+      "published_sha256": "3372f3f81d9cbb7a9ababd5b34710349c0abebc78390b82e065f5fb7c0497464",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-317.json",
+      "sha256": "75bbcb9bbe3ee6f572f35161750dc7c087c0af64ed5ca6b5a254c9df29a89d7a",
+      "bytes": 840,
+      "git_blob": "01378e64785129e337099ae8de34becfee7c82f9",
+      "preserved_bytes": "recovered/settlement-leisure-059/75bbcb9bbe3ee6f572f35161750dc7c087c0af64ed5ca6b5a254c9df29a89d7a.gz",
+      "published_sha256": "75bbcb9bbe3ee6f572f35161750dc7c087c0af64ed5ca6b5a254c9df29a89d7a",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-318.json",
+      "sha256": "086f25f90f6742151352ca35b3a02be876fb156a710dabdd22c83565379e1078",
+      "bytes": 840,
+      "git_blob": "b1c6f276a38b8597be6a911c09a78e0dd122ad22",
+      "preserved_bytes": "recovered/settlement-leisure-059/086f25f90f6742151352ca35b3a02be876fb156a710dabdd22c83565379e1078.gz",
+      "published_sha256": "086f25f90f6742151352ca35b3a02be876fb156a710dabdd22c83565379e1078",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-319.json",
+      "sha256": "1b5edb99d55879ed499e14689362f61adef15dc5344d0123b73ca66660c2d9ed",
+      "bytes": 840,
+      "git_blob": "f6a6c46547c921c16b498c14bb111a3899277715",
+      "preserved_bytes": "recovered/settlement-leisure-059/1b5edb99d55879ed499e14689362f61adef15dc5344d0123b73ca66660c2d9ed.gz",
+      "published_sha256": "1b5edb99d55879ed499e14689362f61adef15dc5344d0123b73ca66660c2d9ed",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-315.json",
+      "sha256": "1db7946511125b516a98fd94a11cd892aca534f30614dc9502d72e6ec5669658",
+      "bytes": 558,
+      "git_blob": "df773154806ae48d007df2058ec227bf5f98f353",
+      "preserved_bytes": "recovered/settlement-leisure-059/1db7946511125b516a98fd94a11cd892aca534f30614dc9502d72e6ec5669658.gz",
+      "published_sha256": "1db7946511125b516a98fd94a11cd892aca534f30614dc9502d72e6ec5669658",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-316.json",
+      "sha256": "f02d7f19e80cba1945fbf972e4cc4acbe98a9613addfa35dacc5baeb98e8b44f",
+      "bytes": 558,
+      "git_blob": "034a6e49809d842aae08ce9567d4f1c8c84e9037",
+      "preserved_bytes": "recovered/settlement-leisure-059/f02d7f19e80cba1945fbf972e4cc4acbe98a9613addfa35dacc5baeb98e8b44f.gz",
+      "published_sha256": "f02d7f19e80cba1945fbf972e4cc4acbe98a9613addfa35dacc5baeb98e8b44f",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-317.json",
+      "sha256": "ed819f9c838fcb918862e42d65c7ee7a385be3fa4d1b3030e9db52b8128cf8a8",
+      "bytes": 558,
+      "git_blob": "eb7e67b84b6eb170ed5e6139e87c24ab8365b8c0",
+      "preserved_bytes": "recovered/settlement-leisure-059/ed819f9c838fcb918862e42d65c7ee7a385be3fa4d1b3030e9db52b8128cf8a8.gz",
+      "published_sha256": "ed819f9c838fcb918862e42d65c7ee7a385be3fa4d1b3030e9db52b8128cf8a8",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-318.json",
+      "sha256": "5364ab8523ab7c0065aea6429697900fc5b5e4bb855e25f08c4c2e7995089c1c",
+      "bytes": 558,
+      "git_blob": "0b8d06a5c566fa3df96df935fbfac3c0ba246731",
+      "preserved_bytes": "recovered/settlement-leisure-059/5364ab8523ab7c0065aea6429697900fc5b5e4bb855e25f08c4c2e7995089c1c.gz",
+      "published_sha256": "5364ab8523ab7c0065aea6429697900fc5b5e4bb855e25f08c4c2e7995089c1c",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-319.json",
+      "sha256": "afc9c1a646966738fdaca6c6c8ec670e542ef22d6f78e2ed681464821b884daf",
+      "bytes": 558,
+      "git_blob": "5700a51eab2b2b4dd49188ab2ffe326f64c72a84",
+      "preserved_bytes": "recovered/settlement-leisure-059/afc9c1a646966738fdaca6c6c8ec670e542ef22d6f78e2ed681464821b884daf.gz",
+      "published_sha256": "afc9c1a646966738fdaca6c6c8ec670e542ef22d6f78e2ed681464821b884daf",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, revision, attribution and source limitations; no checkpoint 3821 authority or other-lens/current transfer."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-SETTLEMENT-REST-LEISURE-REAPPLICATION-001",
+      "lens": 4,
+      "severity": "unassigned; source-derived duplicate operation on a shared fatigue and morale interval",
+      "classification": "New bounded 95e operation trace; no product execution or demonstrated player impact.",
+      "trace": "For settlement downtime, rest_for_minutes obtains a location-effective saved schedule, clips and writes the actual elapsed personal time, then directly applies settlement leisure with that schedule, elapsed and interval end. If the character survives and elapsed is positive, it sets training_elapsed equal to elapsed and calls apply_activity_outcomes with the same schedule and interval end. That wrapper enables apply_leisure; its inner body calls apply_settlement_leisure_condition again when the character still resolves to a settlement and prior activity work succeeds. This condition computes the core leisure outcome from the current fatigue, writes its fatigue delta and upserts the stable leisure morale event; a second call therefore uses the already updated state for the same interval. The later spouse-leisure/conception callback occurs only in the activity-outcomes call, so the two condition calls do not establish duplicate spouse conception. Residence leisure is also invoked by the condition helper, but its separate bounded-source and stacking behavior needs independent analysis.",
+      "symbolic_fatigue_case": "Assume an admitted, living, stable character at a valid settlement using a validated schedule of 1,440 reading minutes and no other allocation, starting fatigue 0, with a successful nonterminal 60-minute rest and no intervening fatigue mutation or error. The saved-schedule reducer admits this quarter-hour whole-day allocation; the location transformation keeps reading unchanged. The core formula gives baseline fatigue 600 × 60/1440 = 25 and zero leisure recovery per call. The first call writes 25 and the second writes 50, although one application for the one-hour interval yields 25. This arithmetic is an assumed source state, not an executed reducer or observed gameplay result.",
+      "symbolic_morale_case": "Assume a zero-allocation schedule, zero starting fatigue, no existing leisure morale, the same successful 60-minute interval, no intervening state change, and no cap. Each condition call earns approximately 4 × (1 − exp(−1800/200)) / 24 = 0.166646; the upsert retains the first contribution at the same end minute and adds the second, approximately 0.333292. This is symbolic source-formula reasoning only; rounding, residence bonuses, other events and actual gameplay are not asserted.",
+      "safeguards_and_limits": "Settlement/rest-service, living-character and actor checks, duration, payment, indoor exposure, clipped elapsed time and illness/injury/lifecycle behavior remain in force. A terminal interval returns before the second call; no second condition application follows when elapsed is zero or location resolution returns no origin settlement. Fallible intermediate work, native rollback, accepted state reachability, actual gameplay and all calling paths remain unverified. Existing leisure upsert is capped at 4 and can mask excess.",
+      "connected_repair": "Choose a single owner for settlement interval fatigue and base leisure morale while preserving the early terminal-safe ordering, actual clipped elapsed, location and service semantics, all activity outcomes, spouse/conception callback, residence-leisure stacking and the single visible combat-fatigue reservoir. Audit stationary, camp, immediate-activity, sponsorship and private downtime paths before sharing any helper; do not simply remove the callback that owns spouse conception.",
+      "later_acceptance": "After implementation and product validation are separately authorized, compare one-hour and partitioned nonterminal settlement rests for valid all-reading, zero-allocation and mixed labor schedules, carried fatigue, morale caps, residence/spouse bonuses, clipped death and error paths; verify one interval contribution and preserve other time modes.",
+      "discovery": "partial; native transactions, actual supported world state, all callers, residence stacking and exact historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Establish actual supported interval states and rollback, all callers, terminal policies, residence/spouse stacking and historical aliases; complete all independent lenses. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

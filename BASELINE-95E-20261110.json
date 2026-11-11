@@ -2403,8 +2403,25 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-FAMILY-SHARED-TIME-95E.json"
+      },
+      {
+        "id": "REVIEW-SETTLEMENT-REST-LEISURE-REAPPLICATION-001",
+        "lens": 4,
+        "severity": "unassigned; source-derived duplicate operation on a shared fatigue and morale interval",
+        "classification": "New bounded 95e operation trace; no product execution or demonstrated player impact.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/957",
+          "baseline-059/queue.json#/entries/962",
+          "ASSESSMENT-L12-RESIDENCE-LEISURE-95E.json",
+          "segovb/READ-L12-317.json via ASSESSMENT-SETTLEMENT-LEISURE-REAPPLICATION-95E.json"
+        ],
+        "relationship_qualification": "Broad earlier leisure and residence questions retain their original scope and revision; no exact global alias or unique historical count change is asserted.",
+        "discovery": "partial; native transactions, actual supported world state, all callers, residence stacking and exact historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-SETTLEMENT-LEISURE-REAPPLICATION-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0312.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0315.json"
 }
