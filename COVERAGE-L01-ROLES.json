@@ -9,14 +9,14 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 1227,
+    "unassessed": 1225,
     "lock-metadata-partial": 3,
-    "bounded-current-trace-only": 71,
+    "bounded-current-trace-only": 70,
     "assessed-nonapplicable": 3,
-    "full-historical-body-trace-open": 1543,
+    "full-historical-body-trace-open": 1546,
     "deleted-base-trace-open": 6
   },
-  "first_unfinished": "Lock roles 39, 497 and 680 remain metadata-partial; original roles1600–1602 have now been read. Continue at historical body1603; independent lenses remain open.",
+  "first_unfinished": "Lock roles 39, 497 and 680 remain metadata-partial; original roles1603–1605 have now been read. Continue at historical body1606; independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -22075,7 +22075,9 @@
       "historical_sha256": "ee16efd8a79ab3116e35ecd6f0e7ac5eb6a5e48c573e33e84eba57b4c5634913",
       "registry_pointer": "/files/1603",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1603-1605.json",
+      "qualification": "Complete original body personally read through actual EOF; tests and fixture source were not run."
     },
     {
       "original_index": 1604,
@@ -22085,7 +22087,9 @@
       "historical_sha256": "792c336a1d9612c83b4ae0f385c94a35175009ae202f71d4e3231d10179f899a",
       "registry_pointer": "/files/1604",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1603-1605.json",
+      "qualification": "Complete original body personally read through actual EOF; tests and fixture source were not run."
     },
     {
       "original_index": 1605,
@@ -22095,7 +22099,7 @@
       "historical_sha256": "9e94d087fccffc1d1ed76815d33256a0d9c53b941cf11929db12be7d6419b4bd",
       "registry_pointer": "/files/1605",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/lod.rs",
       "current_git_blob": "1a36ee24ed36e8ff61d1c94142e8c87d39c81e63",
       "current_observations": [
@@ -22109,7 +22113,8 @@
           ]
         }
       ],
-      "qualification": "Only cited current ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+      "qualification": "Complete original body personally read through actual EOF; tests and fixture source were not run.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1603-1605.json"
     },
     {
       "original_index": 1606,

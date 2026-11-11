@@ -3954,8 +3954,54 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-TREE-CROWN-SELECTION-95E.json"
+      },
+      {
+        "id": "ADLER-L11-PREPARED-TREE-ASSET-ADMISSION",
+        "lens": 11,
+        "severity": "unassigned; source-only admission or coverage question",
+        "classification": "Recovered059 prepared-asset admission finding newly assessed against95e source; original attribution retained.",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-PREPARED-TREE-ASSET-ADMISSION",
+          "baseline-059/queue.json#/entries/81"
+        ],
+        "relationship_qualification": "Original059 finding newly assessed at95e with old acceptance and reviewer retained.",
+        "discovery": "partial; decoded-record version path is established conditionally, actual asset, native requirements and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-TREE-ASSET-LOD-95E.json"
+      },
+      {
+        "id": "ADLER-L11-TREE-LOD-ADMISSION",
+        "lens": 11,
+        "severity": "unassigned; source-only admission or coverage question",
+        "classification": "Recovered059 tree LOD admission finding newly assessed against95e source; original attribution retained.",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-TREE-LOD-ADMISSION",
+          "baseline-059/queue.json#/entries/82"
+        ],
+        "relationship_qualification": "Original059 finding newly assessed at95e with old acceptance and reviewer retained.",
+        "discovery": "partial; raw retained representation and conditional unsupported-value consequences, bounded shown writers and other aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-TREE-ASSET-LOD-95E.json"
+      },
+      {
+        "id": "ADLER-L11-FOCUSED-TREE-VARIANT-ORACLE-AUTHORITY",
+        "lens": 11,
+        "severity": "unassigned; source-only admission or coverage question",
+        "classification": "Recovered059 focused-tree variant oracle finding newly assessed against95e source; original Adler attribution and acceptance retained.",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-FOCUSED-TREE-VARIANT-ORACLE-AUTHORITY",
+          "baseline-059/queue.json#/entries/85",
+          "baseline-059/queue.json#/entries/1336"
+        ],
+        "relationship_qualification": "Same recovered059 finding newly assessed at95e; original reviewer and acceptance are retained with no historical unique-count or checkpoint3821 transfer.",
+        "discovery": "partial; historical raw-bit authority mismatch addressed in current test source; explicit old focused identity, changed input, other consumers and exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-TREE-ASSET-LOD-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0728.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0731.json"
 }
