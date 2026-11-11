@@ -1,0 +1,501 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Four historical urban, landform and venue roles, bounded current place-to-building producer/consumer and terrain presentation lifecycle, plus selected pinned replication source.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1632-1635.json",
+  "git_membership_evidence": "VENUE-TERRAIN-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/terrain.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "69aa8ca73751a5ed1485dc014afd8a680bab8a0b",
+      "sha256": "cc8671f457c73c8717f8d7cee40982b05ed06a5c1b0155ad5159a4f9a479afb7",
+      "bytes": 57862,
+      "lines": 1506,
+      "ranges": [
+        [
+          66,
+          171
+        ],
+        [
+          705,
+          727
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/venue-terrain-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes preserved. Static catalogue parsing locates entries only; no feature resolution, browser, product or future original role credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2f2d500d8c8334accb9fea5059aa5bcc897d4a56",
+      "sha256": "ed476924038076fa25da5298c9bfb408b27eccc8210e5bbf01ddaa3c7cd6248d",
+      "bytes": 16427,
+      "lines": 411,
+      "ranges": [
+        [
+          290,
+          324
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/venue-terrain-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes preserved. Static catalogue parsing locates entries only; no feature resolution, browser, product or future original role credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/scene_readiness.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0569fcdda31b4c4806ed4f7b9ba15375ee6c3dc8",
+      "sha256": "c313fd5f62712709fed8845ca3e2d0dbe36c3a79adf250ad29e47a34f9177b2c",
+      "bytes": 2070,
+      "lines": 56,
+      "ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/venue-terrain-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes preserved. Static catalogue parsing locates entries only; no feature resolution, browser, product or future original role credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/replication.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8a61e133ac0e6d5caa491738795d94e3431b68a2",
+      "sha256": "44cf2776eaa433b9291858b34b3996df4fc9dde3def2980ebe83788b5f36fb3e",
+      "bytes": 10254,
+      "lines": 242,
+      "ranges": [
+        [
+          59,
+          65
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/venue-terrain-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes preserved. Static catalogue parsing locates entries only; no feature resolution, browser, product or future original role credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/terrain_collision.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2fa4044303d8f1b9d4b4034f696215ecdee43c4d",
+      "sha256": "faee49ad384b0820c1a89f3956a9a356ba1df53ce2f8bcc29047e8c99c2c3ce5",
+      "bytes": 2569,
+      "lines": 75,
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/venue-terrain-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes preserved. Static catalogue parsing locates entries only; no feature resolution, browser, product or future original role credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/generation/venue.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "01144b048b4dc05bc9dbbf130f614e282b808838",
+      "sha256": "5e4b722af6525a9d5d8be612acd50c57eedaeb97c3886fb264a0e73796cf5c0a",
+      "bytes": 5517,
+      "lines": 164,
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/venue-terrain-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes preserved. Static catalogue parsing locates entries only; no feature resolution, browser, product or future original role credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/generation/scene.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "42b481358e265e409ee39c550b2d53f0a2c634ac",
+      "sha256": "2881b50dfcd55e6d008b3852ea37e34b90130da2739fc846e6b9e8d0f2282d49",
+      "bytes": 2645,
+      "lines": 69,
+      "ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/venue-terrain-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes preserved. Static catalogue parsing locates entries only; no feature resolution, browser, product or future original role credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/strategic_scene_assets.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "60fdec3016df8a9998eee803ac2872224b2b0043",
+      "sha256": "0c9d0aabc0f31d29f92b8cc5884247ea436077a3c41c3ba434dbe5f24059f9f2",
+      "bytes": 1499,
+      "lines": 37,
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/venue-terrain-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes preserved. Static catalogue parsing locates entries only; no feature resolution, browser, product or future original role credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/protocol.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2fb8113a7e0c5b4d8db3419e0ed86098f3227273",
+      "sha256": "9270aa713a8d01fcde27fa616751c3f9df87b8abe76227ff86f66d288b6d67de",
+      "bytes": 2085,
+      "lines": 65,
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/venue-terrain-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes preserved. Static catalogue parsing locates entries only; no feature resolution, browser, product or future original role credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/buildings.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "270b0787af3e99d72ce4b0409808b14306f14a8a",
+      "sha256": "eed4c2d99ec4ad18e67456e133d4ea14ae54d5bb6645beaa5dd3b707f842a3be",
+      "bytes": 9842,
+      "lines": 252,
+      "ranges": [
+        [
+          1,
+          180
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/venue-terrain-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes preserved. Static catalogue parsing locates entries only; no feature resolution, browser, product or future original role credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/street.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "490c5649b911bb214290f6df387b83401cc183c6",
+      "sha256": "05e1262eceecd704375cc6d33a557bb5ad265eafb44ecf6697a08a74dc439197",
+      "bytes": 12738,
+      "lines": 314,
+      "ranges": [
+        [
+          1,
+          130
+        ],
+        [
+          184,
+          209
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/venue-terrain-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes preserved. Static catalogue parsing locates entries only; no feature resolution, browser, product or future original role credit inferred."
+    },
+    {
+      "path": "crates/strategic-web/static/strategic-scene.js",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cf9ab76117504facf687efe34a19b897b1248b21",
+      "sha256": "7db5964db4e3c0c4a152ba1b501a57068a4553a440427152382042f74988be20",
+      "bytes": 19166,
+      "lines": 371,
+      "ranges": [
+        [
+          1,
+          24
+        ],
+        [
+          122,
+          134
+        ],
+        [
+          181,
+          184
+        ],
+        [
+          241,
+          300
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/venue-terrain-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes preserved. Static catalogue parsing locates entries only; no feature resolution, browser, product or future original role credit inferred."
+    },
+    {
+      "path": "crates/strategic-web/src/templates/layout.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b718ec3ba00b62a0fc56e8f06461bbe961ebac6e",
+      "sha256": "12217c0b3cb6252e47ebb993e6eb101372f0d68746b25fa2d8aa93df99cf0d90",
+      "bytes": 46371,
+      "lines": 1123,
+      "ranges": [
+        [
+          225,
+          295
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/venue-terrain-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes preserved. Static catalogue parsing locates entries only; no feature resolution, browser, product or future original role credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-core/src/organization.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5effbe40ad10f9f71153c63747ab71509af58da9",
+      "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "bytes": 45348,
+      "lines": 1251,
+      "ranges": [
+        [
+          420,
+          438
+        ],
+        [
+          487,
+          506
+        ],
+        [
+          565,
+          602
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/venue-terrain-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes preserved. Static catalogue parsing locates entries only; no feature resolution, browser, product or future original role credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/establishments.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5aebf927757b5c4ac97fceac3e3074820fdfdffb",
+      "sha256": "9033f4633d599fd7c5a2d4802c4942993bca3a804ed98f9e88b3e4ea1cdbfbc1",
+      "bytes": 2855,
+      "lines": 68,
+      "ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/venue-terrain-evidence/support-14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes preserved. Static catalogue parsing locates entries only; no feature resolution, browser, product or future original role credit inferred."
+    },
+    {
+      "path": "crates/strategic-web/src/routes/scene_preparation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c8bc36d04dda8cf7398c3493a28dcec96732fc05",
+      "sha256": "2026085b97d3c1ec02293a284c90bef4592dcc203e9e621207da39309adee8ec",
+      "bytes": 3703,
+      "lines": 106,
+      "ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/venue-terrain-evidence/support-15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes preserved. Static catalogue parsing locates entries only; no feature resolution, browser, product or future original role credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server-dispatcher/src/scene_input/establishments.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "52b238047f37230c8ed9758aad138cb6d2a0b694",
+      "sha256": "b7ca5ef8c7f9a34070cc1ad19fe19a3cdc9915fd5d10cd6c2d2ee3b51ce519a1",
+      "bytes": 1710,
+      "lines": 42,
+      "ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/venue-terrain-evidence/support-16.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes preserved. Static catalogue parsing locates entries only; no feature resolution, browser, product or future original role credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/furniture.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cdb2472c77b2a3b83ca85460dfd712007184e87c",
+      "sha256": "a6e05f5d76dc07ebb642f6ff405725f46b5aa8a429666231e0b09e9c768abf2d",
+      "bytes": 4861,
+      "lines": 145,
+      "ranges": [
+        [
+          100,
+          132
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/venue-terrain-evidence/support-17.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes preserved. Static catalogue parsing locates entries only; no feature resolution, browser, product or future original role credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/settlement_buildings/catalog.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c866f8191c5e51eaac05d89b4714bf8a0e94b2c9",
+      "sha256": "fbd65b70161e4778fc7e28c86a67ab7e31f8ac1175bcd52a2f6b3c6874ff37c9",
+      "bytes": 19943,
+      "lines": 652,
+      "ranges": [
+        [
+          18,
+          65
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/venue-terrain-evidence/support-18.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes preserved. Static catalogue parsing locates entries only; no feature resolution, browser, product or future original role credit inferred."
+    },
+    {
+      "path": "content/organizations/catalog.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "490e536a7ef3ed6b19e920d481ff139bd1059bf7",
+      "sha256": "1457f8e23a2ceffdf62cfef0e8f3070ac12bcd0e96ad2fb863f54f6f2339e2b2",
+      "bytes": 105361,
+      "lines": 2250,
+      "ranges": [
+        [
+          735,
+          770
+        ],
+        [
+          863,
+          899
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/venue-terrain-evidence/support-19.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes preserved. Static catalogue parsing locates entries only; no feature resolution, browser, product or future original role credit inferred."
+    }
+  ],
+  "native_source_evidence": {
+    "manifest": "native-evidence/bevy-replicon-0.41.1-archive/MANIFEST.json",
+    "members": [
+      {
+        "member": "bevy_replicon-0.41.1/src/server/replication_messages/updates.rs",
+        "sha256": "afe259824ead5c90005fe57b44ba386c58a46d51b9364c5bf6e2f7985ac017ad",
+        "bytes": 13890,
+        "personally_inspected_ranges": [
+          [
+            1,
+            100
+          ]
+        ]
+      },
+      {
+        "member": "bevy_replicon-0.41.1/src/server/replication_messages/mutations.rs",
+        "sha256": "7cea0f9926a9f5290d1d7673b5ae7f0ec3b0acfe223760dd0e37551528379ea7",
+        "bytes": 19005,
+        "personally_inspected_ranges": [
+          [
+            125,
+            155
+          ]
+        ]
+      }
+    ],
+    "qualification": "Archive SHA-256 matches95e Cargo.lock; only cited member ranges personally inspected. Native source comments and code are not feature-resolution, transport schedule or runtime proof."
+  },
+  "scoped_source_search": {
+    "query": "git grep -n -E PendingTerrainPresentation|TerrainLandformRecipe at95e under crates/adventuresim-tactical-client/src",
+    "preserved_bytes": "main-advance-95e/venue-terrain-evidence/landform-marker-search.txt.gz",
+    "sha256": "cd9d55ab3d9b539e6047b1eb97fde7180f5810b6508243eaa01730ea67ed4d05",
+    "bytes": 6369,
+    "qualification": "Textual matches only; no whole-program dataflow, dynamic registration, schedule or execution guarantee."
+  },
+  "observations": [
+    {
+      "contract": "Late landform presentation lifecycle",
+      "trace": "PendingScenes requires SceneId, SceneTerrain and SceneEnvironment while recipe and prepared patch are optional. The inspected presentation plugin registers added-scene, added-environment and added-ground observers; those mark terrain pending. Spawn builds the optional fault patch; an existing base/detail takes refresh, which updates material and detail mesh but does not invoke the fault spawn. The readiness count regards an existing SceneTerrain with no pending marker as terrain presented. A later recipe without an associated refresh/respawn would therefore require a separately owned reconciliation path.",
+      "counterevidence": "The normal server spawn source inserts environment, optional recipe and prepared patch before terrain, in one command construction. The pinned bevy_replicon0.41.1 source says entity updates with insertions, removals or newly visible entities are kept atomic and mutation packet splits occur only per entity. This narrows speculation that ordinary transport splits same-tick entity components; client scheduling, timing across genuinely different ticks, local producers, dump restoration and runtime behavior were not verified. No late component arrival, missing patch or visible hole is claimed.",
+      "remaining": "Inspect actual transport/application scheduling, registration feature selection and legitimate post-publication component changes before accepting a reachable incident. The existing landform cause-discard finding is separate and stays partial."
+    },
+    {
+      "contract": "Urban topology and selected source tests",
+      "trace": "GroundCoverage chooses canonical topology for owned property surfaces or an urban Vista digest, otherwise sampled topology; the update switches mesh when topology or Vista revision changes, toggles base cutout and detail visibility. The owned test source checks natural cutouts and foundation bearing triangles, but its changed reservation setup and assertions were read only.",
+      "remaining": "Native asset readiness, terrain mutation, all Vista/owned producers and actual mesh/render behavior remain open."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-VENUE-PLACE-BUILDING-IDENTITY-001",
+      "lens": 8,
+      "classification": "New95e source-derived venue identity and duplicate relocation policy question; no executed scene or restored checkpoint3821 finding.",
+      "canonical_owner": "The explicit mapping from each strategic place identity to its physical SceneBuildingId and the street relocation owner.",
+      "first_failed_contract": "A place ID is not passed to select_building: after an operator match fails, independent places with the same kind select the first building of that use, allowing multiple place IDs to map to one physical building.",
+      "trace": "Both the worker VenueRequest and live SelectedBuildings filter people by place ID, then pass only their character IDs and PlaceKind to select_building. If neither place has a person matching an establishment operator, two distinct Guild places both select the same first primary Guildhall, or the same first distant Guildhall if no primary exists. The selected map retains both distinct PlaceId keys with the same building ID. Street::arrange iterates the places, mutates the same generated building once per occurrence and stores BuildingRelocation in a map keyed only by that building ID, overwriting the previous before/after pair. Interior furniture is moved afterward using the surviving before transform; if it was authored against the original transform, the first move changed that transform, and furniture exists, this is not the original-to-final transform. These consequences follow conditionally from source structure, not an executed layout.",
+      "producer_evidence": "The inspected template emits standalone organization chapters with distinct chapter location IDs and data-service-id organization. Browser placeList maps unrecognized service ID organization to Guild. The pinned authored catalogue contains physicians-college and surgeons-guild chapters at viabundus-0, with physician and surgeon service IDs; the inspected service-availability match returns false for those unlisted services, so the template standalone predicate selects their chapter locations for an economy profile. No actual catalog build, DOM, roster response, generated guildhall, missing operator match, transformed furniture or resulting view was observed.",
+      "safeguards": "Establishment validation rejects duplicate building, business and operator IDs, and normal profile binding associates each placed business with its operator; these checks do not themselves prove a place-to-establishment operator match. An operator match can select a distinct building. Co-location may be deliberate, and the product has not established the required semantics for standalone chapter visuals. No browser, network, scene, venue, placement or fixture was run.",
+      "dependencies": [
+        "Determine whether each standalone chapter must represent a distinct physical building, may intentionally co-locate, or is a navigation-only visual approximation.",
+        "Trace current scene layout and chapter placement, actual roster and operator identity, venue request and live selection across all supported organizations and sites.",
+        "If duplicate selected IDs are supported, make street relocation preserve a single original-to-final transform for furniture and explicit shared-place semantics; reconcile any aliases against historical questions."
+      ],
+      "acceptance_requirements": [
+        "Place-to-building mapping preserves the intended chapter identity and explicit co-location policy across both worker preparation and live presentation.",
+        "Any permitted repeated building selection preserves furniture and placement transforms relative to the final physical owner."
+      ],
+      "discovery": "partial; conditional duplicate selection and relocation source traced, actual producer inputs and place semantics open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "existing_finding_connections": [
+    {
+      "id": "ADLER-L11-LANDFORM-PREPARATION-CAUSE-DISCARD",
+      "record": "ASSESSMENT-TERRAIN-LANDFORM-95E.json",
+      "relationship": "Distinct error-to-absence cause discard; late component timing is a separate unproven lifecycle question."
+    },
+    {
+      "record": "ASSESSMENT-TERRAIN-CONTACT-ENCODING-95E.json",
+      "relationship": "Related terrain contact consumers, distinct image representation questions."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1354",
+        "/entries/1355",
+        "/entries/1356",
+        "/entries/1357",
+        "/entries/86",
+        "/entries/1348"
+      ],
+      "qualification": "Recovered059 questions remain partial; no checkpoint3821 transfer."
+    },
+    {
+      "file": "ASSESSMENT-TERRAIN-LANDFORM-95E.json",
+      "qualification": "Preserves exact earlier Adler Lens11 READ234 and Segovb Lens12 READ517 with their registrations, verifications and states."
+    },
+    {
+      "file": "ASSESSMENT-TERRAIN-CONTACT-ENCODING-95E.json",
+      "qualification": "Preserves exact earlier Segovb Lens12 READ516 with registration, plan, verification and state; future role1632 had no own ordered-frontier credit in that earlier checkpoint."
+    }
+  ],
+  "remaining": "Trace actual scene/city and roster mapping, all chapter policies, terrain transport scheduling and lifecycle, original1636 onward, all13 lenses and aliases. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
